@@ -66,7 +66,8 @@
 //
 // # Conversion from a Go Duration
 //
-// The durationpb.New function can be used to construct a Duration message
+// The durationpb.New 
+tion can be used to construct a Duration message
 // from a standard Go time.Duration value:
 //
 //	dur := durationpb.New(d)
@@ -158,17 +159,19 @@ type Duration struct {
 	Nanos int32 `protobuf:"varint,2,opt,name=nanos,proto3" json:"nanos,omitempty"`
 }
 
-// New constructs a new Duration from the provided time.Duration.
-func New(d time.Duration) *Duration {
+ew constructs a new Duration from the provided time.Duration.
+
+ New(d time.Duration) *Duration {
 	nanos := d.Nanoseconds()
 	secs := nanos / 1e9
 	nanos -= secs * 1e9
 	return &Duration{Seconds: int64(secs), Nanos: int32(nanos)}
 }
 
-// AsDuration converts x to a time.Duration,
+sDuration converts x to a time.Duration,
 // returning the closest duration value in the event of overflow.
-func (x *Duration) AsDuration() time.Duration {
+
+ (x *Duration) AsDuration() time.Duration {
 	secs := x.GetSeconds()
 	nanos := x.GetNanos()
 	d := time.Duration(secs) * time.Second
@@ -189,15 +192,17 @@ func (x *Duration) AsDuration() time.Duration {
 
 // IsValid reports whether the duration is valid.
 // It is equivalent to CheckValid == nil.
-func (x *Duration) IsValid() bool {
+
+ (x *Duration) IsValid() bool {
 	return x.check() == 0
 }
 
-// CheckValid returns an error if the duration is invalid.
+heckValid returns an error if the duration is invalid.
 // In particular, it checks whether the value is within the range of
 // -10000 years to +10000 years inclusive.
 // An error is reported for a nil Duration.
-func (x *Duration) CheckValid() error {
+
+ (x *Duration) CheckValid() error {
 	switch x.check() {
 	case invalidNil:
 		return protoimpl.X.NewError("invalid nil Duration")
@@ -218,12 +223,13 @@ const (
 	_ = iota
 	invalidNil
 	invalidUnderflow
-	invalidOverflow
+alidOverflow
 	invalidNanosRange
 	invalidNanosSign
 )
 
-func (x *Duration) check() uint {
+
+ (x *Duration) check() uint {
 	const absDuration = 315576000000 // 10000yr * 365.25day/yr * 24hr/day * 60min/hr * 60sec/min
 	secs := x.GetSeconds()
 	nanos := x.GetNanos()
@@ -237,52 +243,59 @@ func (x *Duration) check() uint {
 	case nanos <= -1e9 || nanos >= +1e9:
 		return invalidNanosRange
 	case (secs > 0 && nanos < 0) || (secs < 0 && nanos > 0):
-		return invalidNanosSign
+turn invalidNanosSign
 	default:
 		return 0
 	}
 }
 
-func (x *Duration) Reset() {
+
+ (x *Duration) Reset() {
 	*x = Duration{}
-	if protoimpl.UnsafeEnabled {
+protoimpl.UnsafeEnabled {
 		mi := &file_google_protobuf_duration_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
-	}
+
 }
 
-func (x *Duration) String() string {
+
+ (x *Duration) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Duration) ProtoMessage() {}
 
-func (x *Duration) ProtoReflect() protoreflect.Message {
+ (*Duration) ProtoMessage() {}
+
+
+ (x *Duration) ProtoReflect() protoreflect.Message {
 	mi := &file_google_protobuf_duration_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
 			ms.StoreMessageInfo(mi)
 		}
-		return ms
+turn ms
 	}
 	return mi.MessageOf(x)
 }
 
 // Deprecated: Use Duration.ProtoReflect.Descriptor instead.
-func (*Duration) Descriptor() ([]byte, []int) {
+
+uration) Descriptor() ([]byte, []int) {
 	return file_google_protobuf_duration_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Duration) GetSeconds() int64 {
+
+ (x *Duration) GetSeconds() int64 {
 	if x != nil {
 		return x.Seconds
 	}
 	return 0
 }
 
-func (x *Duration) GetNanos() int32 {
+
+ (x *Duration) GetNanos() int32 {
 	if x != nil {
 		return x.Nanos
 	}
@@ -302,8 +315,8 @@ var file_google_protobuf_duration_proto_rawDesc = []byte{
 	0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x62, 0x75, 0x66, 0x42, 0x0d, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x50,
 	0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x31, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x67,
-	0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2e, 0x6f, 0x72, 0x67, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
-	0x75, 0x66, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2f, 0x6b, 0x6e, 0x6f, 0x77, 0x6e, 0x2f, 0x64,
+f, 0x6c, 0x61, 0x6e, 0x67, 0x2e, 0x6f, 0x72, 0x67, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
+	0x75, 0x66, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2x6b, 0x6e, 0x6f, 0x77, 0x6e, 0x2f, 0x64,
 	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x70, 0x62, 0xf8, 0x01, 0x01, 0xa2, 0x02, 0x03, 0x47,
 	0x50, 0x42, 0xaa, 0x02, 0x1e, 0x47, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x74,
 	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x57, 0x65, 0x6c, 0x6c, 0x4b, 0x6e, 0x6f, 0x77, 0x6e, 0x54, 0x79,
@@ -315,12 +328,14 @@ var (
 	file_google_protobuf_duration_proto_rawDescData = file_google_protobuf_duration_proto_rawDesc
 )
 
-func file_google_protobuf_duration_proto_rawDescGZIP() []byte {
-	file_google_protobuf_duration_proto_rawDescOnce.Do(func() {
+
+ file_google_protobuf_duration_proto_rawDescGZIP() []byte {
+	file_google_protobuf_duration_proto_rawDescOnce.Do(
+() {
 		file_google_protobuf_duration_proto_rawDescData = protoimpl.X.CompressGZIP(file_google_protobuf_duration_proto_rawDescData)
 	})
-	return file_google_protobuf_duration_proto_rawDescData
-}
+urn file_google_protobuf_duration_proto_rawDescData
+
 
 var file_google_protobuf_duration_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_google_protobuf_duration_proto_goTypes = []interface{}{
@@ -334,13 +349,16 @@ var file_google_protobuf_duration_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_google_protobuf_duration_proto_init() }
-func file_google_protobuf_duration_proto_init() {
+
+ init() { file_google_protobuf_duration_proto_init() }
+
+ file_google_protobuf_duration_proto_init() {
 	if File_google_protobuf_duration_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_google_protobuf_duration_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_google_protobuf_duration_proto_msgTypes[0].Exporter = 
+(v interface{}, i int) interface{} {
 			switch v := v.(*Duration); i {
 			case 0:
 				return &v.state

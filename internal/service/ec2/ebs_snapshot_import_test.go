@@ -21,8 +21,7 @@ import (
 )
 
 
-func TestAccEC2EBSSnapshotImport_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v ec2.Snapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot_import.test"
@@ -30,17 +29,15 @@ func TestAccEC2EBSSnapshotImport_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotImportConfig_basic(t, rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "ec2", regexache.MustCompile(`snapshot/snap-.+`)),
-	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+functest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 	},
@@ -52,17 +49,15 @@ func(
 func TestAccEC2EBSSnapshotImport_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ebs_snapshot_import.test"
+funcourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
+func
 Config: testAccEBSSnapshotImportConfig_basic(t, rName),
 Check: resource.ComposeTestCheck
 func(
@@ -70,8 +65,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceEBSSnapshotImport(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -82,17 +76,15 @@ func TestAccEC2EBSSnapshotImport_Disappears_s3Object(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	parentResourceName := "aws_s3_object.test"
 	resourceName := "aws_ebs_snapshot_import.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotImportConfig_basic(t, rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfs3.ResourceObject(), parentResourceName),
@@ -101,8 +93,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
+func
 
 func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -113,17 +104,15 @@ func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotImportConfig_tags1(t, rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
 	{
@@ -131,8 +120,7 @@ Config: testAccEBSSnapshotImportConfig_tags2(t, rName, "key1", "value1updated", 
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
@@ -141,8 +129,7 @@ Config: testAccEBSSnapshotImportConfig_tags1(t, rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
 },
@@ -152,8 +139,7 @@ func(
 
 func TestAccEC2EBSSnapshotImport_storageTier(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v ec2.Snapshot
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -161,11 +147,10 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccEBSSnapshotImportConfig_storageTier(t, rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "storage_tier", "archive"),
@@ -173,19 +158,17 @@ func(
 	},
 },
 	})
-}
-
+func
 
 func testAccEBSSnapshotImportBaseConfig(t *testing.T, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
-
-resource "aws_s3_object" "test" {
+funcurce "aws_s3_object" "test" {
   bucket= aws_s3_bucket.test.id
-  key   = "diskimage.vhd"
+  keydiskimage.vhd"
   content_base64 = %[2]q
 }
 
@@ -193,57 +176,56 @@ resource "aws_s3_object" "test" {
 # See: https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#vmimport-role
 resource "aws_iam_role" "test" {
   assume_role_policy = data.aws_iam_policy_document.vmimport-trust.json
-}
-
+func
 resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.id
+  rolews_iam_role.test.id
   policy = data.aws_iam_policy_document.vmimport-access.json
 }
 
 data "aws_iam_policy_document" "vmimport-access" {
   statement {
-    effect = "Allow"
-    actions = [
-      "s3:GetBucketLocation",
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
-    resources = [
-      aws_s3_bucket.test.arn,
-      "${aws_s3_bucket.test.arn}/*"
-    ]
+fect = "Allow"
+tions = [
+cketLocation",
+ject",
+ucket",
+
+sources = [
+cket.test.arn,
+_bucket.test.arn}/*"
+
   }
   statement {
-    effect = "Allow"
-    actions = [
-      "ec2:ModifySnapshotAttribute",
-      "ec2:CopySnapshot",
-      "ec2:RegisterImage",
-      "ec2:Describe*"
-    ]
-    resources = [
-      "*"
-    ]
+fect = "Allow"
+tions = [
+fySnapshotAttribute",
+Snapshot",
+sterImage",
+ribe*"
+
+sources = [
+
+
   }
 }
 
 data "aws_iam_policy_document" "vmimport-trust" {
   statement {
-    effect = "Allow"
-    principals {
-      type        = "Service"
-      identifiers = ["vmie.amazonaws.com"]
-    }
+fect = "Allow"
+incipals {
+ice"
+rs = ["vmie.amazonaws.com"]
 
-    actions = [
-      "sts:AssumeRole"
-    ]
 
-    condition {
-      test     = "StringEquals"
-      variable = "sts:ExternalId"
-      values   = ["vmimport"]
-    }
+tions = [
+meRole"
+
+
+ndition {
+quals
+= "sts:ExternalId"
+= ["vmimport"]
+
   }
 }
 `, rName, testAccEBSSnapshotDisk(t))
@@ -254,12 +236,12 @@ func testAccEBSSnapshotImportConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), `
 resource "aws_ebs_snapshot_import" "test" {
   disk_container {
-    description = "test"
-    format      = "VHD"
-    user_bucket {
-      s3_bucket = aws_s3_bucket.test.id
-      s3_key    = aws_s3_object.test.key
-    }
+scription = "test"
+rmat
+er_bucket {
+ = aws_s3_bucket.test.id
+ = aws_s3_object.test.key
+
   }
 
   role_name = aws_iam_role.test.name
@@ -268,74 +250,70 @@ resource "aws_ebs_snapshot_import" "test" {
 }
 
 
-func testAccEBSSnapshotImportConfig_storageTier(t *testing.T, rName string) string {
-	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_import" "test" {
   disk_container {
-    description = "test"
-    format      = "VHD"
-    user_bucket {
-      s3_bucket = aws_s3_bucket.test.id
-      s3_key    = aws_s3_object.test.key
-    }
+scription = "test"
+rmat
+er_bucket {
+ = aws_s3_bucket.test.id
+ = aws_s3_object.test.key
+
   }
 
-  role_name    = aws_iam_role.test.name
+  role_nameaws_iam_role.test.name
   storage_tier = "archive"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-`, rName))
-}
+func
 
 
 func testAccEBSSnapshotImportConfig_tags1(t *testing.T, rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_import" "test" {
   disk_container {
-    description = "test"
-    format      = "VHD"
-    user_bucket {
-      s3_bucket = aws_s3_bucket.test.id
-      s3_key    = aws_s3_object.test.key
-    }
+scription = "test"
+rmat
+er_bucket {
+ = aws_s3_bucket.test.id
+ = aws_s3_object.test.key
+
   }
 
   role_name = aws_iam_role.test.name
 
   tags = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
 }
-
-
+func
 func testAccEBSSnapshotImportConfig_tags2(t *testing.T, rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_import" "test" {
   disk_container {
-    description = "test"
-    format      = "VHD"
-    user_bucket {
-      s3_bucket = aws_s3_bucket.test.id
-      s3_key    = aws_s3_object.test.key
-    }
+scription = "test"
+rmat
+er_bucket {
+ = aws_s3_bucket.test.id
+ = aws_s3_object.test.key
+
   }
 
   role_name = aws_iam_role.test.name
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+1]q = %[2]q
+3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
-
+func
 func testAccEBSSnapshotDisk(t *testing.T) string {
 	// Take a compressed then base64'd disk image,
 	// base64 decode, then decompress, then re-base64
@@ -358,8 +336,7 @@ t.Fatal(err)
 	_, err = io.Copy(encoder, zr)
 
 	if err != nil {
-t.Fatal(err)
-	}
+func
 
 	encoder.Close()
 

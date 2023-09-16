@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSProxyDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -24,9 +23,8 @@ func TestAccRDSProxyDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProxyDataSourceConfig_basic(rName),
@@ -50,10 +48,9 @@ func TestAccRDSProxyDataSource_basic(t *testing.T) {
 
 func testAccProxyDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-# Secrets Manager setup
-
+func
 resource "aws_secretsmanager_secret" "test" {
-  name                    = %[1]q
+  name       = %[1]q
   recovery_window_in_days = 0
 }
 
@@ -65,7 +62,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 # IAM setup
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume.json
 }
 
@@ -129,7 +126,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_subnet" "test" {
-  count             = 2
+  count= 2
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
   availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = aws_vpc.test.id
@@ -145,12 +142,12 @@ resource "aws_db_proxy" "test" {
     aws_iam_role_policy.test
   ]
 
-  name                   = %[1]q
+  name      = %[1]q
   debug_logging          = false
   engine_family          = "MYSQL"
   idle_client_timeout    = 1800
   require_tls            = true
-  role_arn               = aws_iam_role.test.arn
+  role_arn  = aws_iam_role.test.arn
   vpc_security_group_ids = [aws_security_group.test.id]
   vpc_subnet_ids         = aws_subnet.test[*].id
 

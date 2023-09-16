@@ -1,52 +1,100 @@
 package validation
 
 const (
-	FuncNameAll                       = `All`
-	FuncNameAny                       = `Any`
-	FuncNameCIDRNetwork               = `CIDRNetwork`
-	FuncNameFloatAtLeast              = `FloatAtLeast`
-	FuncNameFloatAtMost               = `FloatAtMost`
-	FuncNameFloatBetween              = `FloatBetween`
-	FuncNameIPRange                   = `IPRange`
-	FuncNameIntAtLeast                = `IntAtLeast`
-	FuncNameIntAtMost                 = `IntAtMost`
-	FuncNameIntBetween                = `IntBetween`
-	FuncNameIntDivisibleBy            = `IntDivisibleBy`
-	FuncNameIntInSlice                = `IntInSlice`
-	FuncNameIntNotInSlice             = `IntNotInSlice`
-	FuncNameIsCIDR                    = `IsCIDR`
-	FuncNameIsCIDRNetwork             = `IsCIDRNetwork`
-	FuncNameIsDayOfTheWeek            = `IsDayOfTheWeek`
-	FuncNameIsIPAddress               = `IsIPAddress`
-	FuncNameIsIPv4Address             = `IsIPv4Address`
-	FuncNameIsIPv4Range               = `IsIPv4Range`
-	FuncNameIsIPv6Address             = `IsIPv6Address`
-	FuncNameIsMACAddress              = `IsMACAddress`
-	FuncNameIsMonth                   = `IsMonth`
-	FuncNameIsPortNumber              = `IsPortNumber`
-	FuncNameIsPortNumberOrZero        = `IsPortNumberOrZero`
-	FuncNameIsRFC3339Time             = `IsRFC3339Time`
-	FuncNameIsURLWithHTTPS            = `IsURLWithHTTPS`
-	FuncNameIsURLWithHTTPorHTTPS      = `IsURLWithHTTPorHTTPS`
-	FuncNameIsURLWithScheme           = `IsURLWithScheme`
-	FuncNameIsUUID                    = `IsUUID`
-	FuncNameListOfUniqueStrings       = `ListOfUniqueStrings`
-	FuncNameNoZeroValues              = `NoZeroValues`
-	FuncNameSingleIP                  = `SingleIP`
-	FuncNameStringDoesNotContainAny   = `StringDoesNotContainAny`
-	FuncNameStringDoesNotMatch        = `StringDoesNotMatch`
-	FuncNameStringInSlice             = `StringInSlice`
-	FuncNameStringIsBase64            = `StringIsBase64`
-	FuncNameStringIsEmpty             = `StringIsEmpty`
-	FuncNameStringIsJSON              = `StringIsJSON`
-	FuncNameStringIsNotEmpty          = `StringIsNotEmpty`
-	FuncNameStringIsNotWhiteSpace     = `StringIsNotWhiteSpace`
-	FuncNameStringIsValidRegExp       = `StringIsValidRegExp`
-	FuncNameStringIsWhiteSpace        = `StringIsWhiteSpace`
-	FuncNameStringLenBetween          = `StringLenBetween`
-	FuncNameStringMatch               = `StringMatch`
-	FuncNameValidateJsonString        = `ValidateJsonString`
-	FuncNameValidateListUniqueStrings = `ValidateListUniqueStrings`
-	FuncNameValidateRFC3339TimeString = `ValidateRFC3339TimeString`
-	FuncNameValidateRegexp            = `ValidateRegexp`
+	
+All                       = `All`
+	
+Any                       = `Any`
+	
+CIDRNetwork               = `CIDRNetwork`
+	
+FloatAtLeast              = `FloatAtLeast`
+	
+FloatAtMost               = `FloatAtMost`
+	
+FloatBetween              = `FloatBetween`
+	
+IPRange                   = `IPRange`
+	
+IntAtLeast                = `IntAtLeast`
+	
+IntAtMost                 = `IntAtMost`
+	
+IntBetween                = `IntBetween`
+	
+IntDivisibleBy            = `IntDivisibleBy`
+	
+IntInSlice                = `IntInSlice`
+	
+IntNotInSlice             = `IntNotInSlice`
+	
+IsCIDR                    = `IsCIDR`
+	
+IsCIDRNetwork             = `IsCIDRNetwork`
+	
+IsDayOfTheWeek            = `IsDayOfTheWeek`
+	
+IsIPAddress               = `IsIPAddress`
+	
+IsIPv4Address             = `IsIPv4Address`
+	
+IsIPv4Range               = `IsIPv4Range`
+	
+IsIPv6Address             = `IsIPv6Address`
+	
+IsMACAddress              = `IsMACAddress`
+	
+IsMonth                   = `IsMonth`
+	
+IsPortNumber              = `IsPortNumber`
+	
+IsPortNumberOrZero        = `IsPortNumberOrZero`
+	
+NameIsRFC3339Time             = `IsRFC3339Time`
+	
+NameIsURLWithHTTPS            = `IsURLWithHTTPS`
+	
+NameIsURLWithHTTPorHTTPS      = `IsURLWithHTTPorHTTPS`
+	
+NameIsURLWithScheme           = `IsURLWithScheme`
+	
+NameIsUUID                    = `IsUUID`
+	
+NameListOfUniqueStrings       = `ListOfUniqueStrings`
+	
+NameNoZeroValues              = `NoZeroValues`
+	
+NameSingleIP                  = `SingleIP`
+	
+NameStringDoesNotContainAny   = `StringDoesNotContainAny`
+	
+NameStringDoesNotMatch        = `StringDoesNotMatch`
+	
+NameStringInSlice             = `StringInSlice`
+	
+NameStringIsBase64            = `StringIsBase64`
+	
+NameStringIsEmpty             = `StringIsEmpty`
+	
+NameStringIsJSON              = `StringIsJSON`
+	
+NameStringIsNotEmpty          = `StringIsNotEmpty`
+	
+NameStringIsNotWhiteSpace     = `StringIsNotWhiteSpace`
+	
+NameStringIsValidRegExp       = `StringIsValidRegExp`
+	
+NameStringIsWhiteSpace        = `StringIsWhiteSpace`
+	
+NameStringLenBetween          = `StringLenBetween`
+	
+NameStringMatch               = `StringMatch`
+	
+NameValidateJsonString        = `ValidateJsonString`
+	
+NameValidateListUniqueStrings = `ValidateListUniqueStrings`
+	
+NameValidateRFC3339TimeString = `ValidateRFC3339TimeString`
+	
+NameValidateRegexp            = `ValidateRegexp`
 )

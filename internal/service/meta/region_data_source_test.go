@@ -87,8 +87,8 @@ func TestAccMetaRegionDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -108,8 +108,8 @@ func TestAccMetaRegionDataSource_endpoint(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -129,8 +129,8 @@ func TestAccMetaRegionDataSource_endpointAndName(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -150,8 +150,8 @@ func TestAccMetaRegionDataSource_name(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

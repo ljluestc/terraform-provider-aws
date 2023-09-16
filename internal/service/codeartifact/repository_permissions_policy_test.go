@@ -26,10 +26,10 @@ func testAccRepositoryPermissionsPolicy_basic(t *testing.T) {
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryPermissionsPolicyConfig_basic(rName),
@@ -67,10 +67,10 @@ func testAccRepositoryPermissionsPolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryPermissionsPolicyConfig_order(rName),
@@ -96,10 +96,10 @@ func testAccRepositoryPermissionsPolicy_owner(t *testing.T) {
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryPermissionsPolicyConfig_owner(rName),
@@ -126,10 +126,10 @@ func testAccRepositoryPermissionsPolicy_disappears(t *testing.T) {
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryPermissionsPolicyConfig_basic(rName),
@@ -149,10 +149,10 @@ func testAccRepositoryPermissionsPolicy_Disappears_domain(t *testing.T) {
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryPermissionsPolicyConfig_basic(rName),
@@ -234,7 +234,7 @@ func testAccCheckRepositoryPermissionsDestroy(ctx context.Context) resource.Test
 func testAccRepositoryPermissionsPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -271,7 +271,7 @@ EOF
 func testAccRepositoryPermissionsPolicyConfig_owner(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -309,7 +309,7 @@ EOF
 func testAccRepositoryPermissionsPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -349,7 +349,7 @@ EOF
 func testAccRepositoryPermissionsPolicyConfig_order(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -385,7 +385,7 @@ resource "aws_codeartifact_repository_permissions_policy" "test" {
 func testAccRepositoryPermissionsPolicyConfig_newOrder(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

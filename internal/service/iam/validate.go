@@ -14,10 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-var validRolePolicyName = validResourceName(rolePolicyNameMaxLen)
-
-func validResourceName(max int) schema.SchemaValidateFunc {
-	return validation.All(
+var validRolePolicyName = validResourceName(rolePolicyNameMaxLen)funcurn validation.All(
 		validation.StringLenBetween(1, max),
 		validation.StringMatch(regexache.MustCompile(`^[\w+=,.@-]*$`), "must match [\\w+=,.@-]"),
 	)

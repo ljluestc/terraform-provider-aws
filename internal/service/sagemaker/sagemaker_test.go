@@ -11,13 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func init() {
-	acctest.RegisterServiceErrorCheckFunc(sagemaker.EndpointsID, testAccErrorCheckSkip)
+functest.RegisterServiceErrorCheckFunc(sagemaker.EndpointsID, testAccErrorCheckSkip)
 }
 
 func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
-	return acctest.ErrorCheckSkipMessagesContaining(t,
-		"is not supported in region",
+funcs not supported in region",
 		"is not supported for the chosen region",
 	)
 }
@@ -27,80 +25,78 @@ func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 // SageMaker Workteam tests must also be serialized
 func TestAccSageMaker_serial(t *testing.T) {
 	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+functCases := map[string]map[string]func(t *testing.T){
 		"App": {
-			"basic":                 testAccApp_basic,
-			"disappears":            testAccApp_disappears,
-			"tags":                  testAccApp_tags,
-			"resourceSpec":          testAccApp_resourceSpec,
+			"basic":sic,
+			"disappears":pp_disappears,functags":ags,
+			"resourceSpec":_resourceSpec,
 			"resourceSpecLifecycle": testAccApp_resourceSpecLifecycle,
-			"space":                 testAccApp_space,
+			"space":ace,
 		},
 		"Domain": {
-			"basic":                                    testAccDomain_basic,
-			"disappears":                               testAccDomain_tags,
-			"tags":                                     testAccDomain_disappears,
-			"tensorboardAppSettings":                   testAccDomain_tensorboardAppSettings,
-			"tensorboardAppSettingsWithImage":          testAccDomain_tensorboardAppSettingsWithImage,
-			"kernelGatewayAppSettings":                 testAccDomain_kernelGatewayAppSettings,
-			"kernelGatewayAppSettings_customImage":     testAccDomain_kernelGatewayAppSettings_customImage,
+			"basic":
+			"disappears":
+			"tags":
+			"tensorboardAppSettings":in_tensorboardAppSettings,
+			"tensorboardAppSettingsWithImage":ain_tensorboardAppSettingsWithImage,
+			"kernelGatewayAppSettings":_kernelGatewayAppSettings,
+			"kernelGatewayAppSettings_customImage":ccDomain_kernelGatewayAppSettings_customImage,
 			"kernelGatewayAppSettings_lifecycleConfig": testAccDomain_kernelGatewayAppSettings_lifecycleConfig,
 			"kernelGatewayAppSettings_defaultResourceAndCustomImage": testAccDomain_kernelGatewayAppSettings_defaultResourceSpecAndCustomImage,
-			"jupyterServerAppSettings":                               testAccDomain_jupyterServerAppSettings,
-			"kms":                                                    testAccDomain_kms,
-			"securityGroup":                                          testAccDomain_securityGroup,
-			"sharingSettings":                                        testAccDomain_sharingSettings,
-			"defaultUserSettingsUpdated":                             testAccDomain_defaultUserSettingsUpdated,
-			"canvas":                                                 testAccDomain_canvasAppSettings,
-			"modelRegisterSettings":                                  testAccDomain_modelRegisterSettings,
-			"workspaceSettings":                                      testAccDomain_workspaceSettings,
-			"domainSettings":                                         testAccDomain_domainSettings,
-			"rSessionAppSettings":                                    testAccDomain_rSessionAppSettings,
-			"rStudioServerProAppSettings":                            testAccDomain_rStudioServerProAppSettings,
-			"spaceSettingsKernelGatewayAppSettings":                  testAccDomain_spaceSettingsKernelGatewayAppSettings,
-			"code":                                                   testAccDomain_jupyterServerAppSettings_code,
+			"jupyterServerAppSettings":pSettings,
+			"kms":
+			"securityGroup":
+			"sharingSettings":
+			"defaultUserSettingsUpdated":UserSettingsUpdated,
+			"canvas":
+			"modelRegisterSettings":rSettings,
+			"workspaceSettings":
+			"domainSettings":
+			"rSessionAppSettings":
+			"rStudioServerProAppSettings":erverProAppSettings,
+			"spaceSettingsKernelGatewayAppSettings":n_spaceSettingsKernelGatewayAppSettings,
+			"code":
 		},
 		"FlowDefinition": {
-			"basic":                          testAccFlowDefinition_basic,
-			"disappears":                     testAccFlowDefinition_disappears,
-			"tags":                           testAccFlowDefinition_tags,
+			"basic":sic,
+			"disappears":on_disappears,
+			"tags":ags,
 			"HumanLoopConfigPublicWorkforce": testAccFlowDefinition_humanLoopConfig_publicWorkforce,
-			"HumanLoopRequestSource":         testAccFlowDefinition_humanLoopRequestSource,
+			"HumanLoopRequestSource":estAccFlowDefinition_humanLoopRequestSource,
 		},
 		"Space": {
-			"basic":                    testAccSpace_basic,
-			"disappears":               testAccSpace_tags,
-			"tags":                     testAccSpace_disappears,
+			"basic":
+			"disappears":gs,
+			"tags":ears,
 			"kernelGatewayAppSettings": testAccSpace_kernelGatewayAppSettings,
 			"kernelGatewayAppSettings_lifecycleConfig": testAccSpace_kernelGatewayAppSettings_lifecycleconfig,
-			"kernelGatewayAppSettings_imageConfig":     testAccSpace_kernelGatewayAppSettings_imageconfig,
-			"jupyterServerAppSettings":                 testAccSpace_jupyterServerAppSettings,
+			"kernelGatewayAppSettings_imageConfig":ccSpace_kernelGatewayAppSettings_imageconfig,
+			"jupyterServerAppSettings":jupyterServerAppSettings,
 		},
 		"UserProfile": {
-			"basic":                           testAccUserProfile_basic,
-			"disappears":                      testAccUserProfile_tags,
-			"tags":                            testAccUserProfile_disappears,
-			"tensorboardAppSettings":          testAccUserProfile_tensorboardAppSettings,
+			"basic":c,
+			"disappears":_tags,
+			"tags":appears,
+			"tensorboardAppSettings":rProfile_tensorboardAppSettings,
 			"tensorboardAppSettingsWithImage": testAccUserProfile_tensorboardAppSettingsWithImage,
-			"kernelGatewayAppSettings":        testAccUserProfile_kernelGatewayAppSettings,
+			"kernelGatewayAppSettings":stAccUserProfile_kernelGatewayAppSettings,
 			"kernelGatewayAppSettings_lifecycleConfig": testAccUserProfile_kernelGatewayAppSettings_lifecycleconfig,
-			"kernelGatewayAppSettings_imageConfig":     testAccUserProfile_kernelGatewayAppSettings_imageconfig,
-			"jupyterServerAppSettings":                 testAccUserProfile_jupyterServerAppSettings,
+			"kernelGatewayAppSettings_imageConfig":ccUserProfile_kernelGatewayAppSettings_imageconfig,
+			"jupyterServerAppSettings":ofile_jupyterServerAppSettings,
 		},
 		"Workforce": {
-			"disappears":     testAccWorkforce_disappears,
+			"disappears":ccWorkforce_disappears,
 			"CognitoConfig":  testAccWorkforce_cognitoConfig,
-			"OidcConfig":     testAccWorkforce_oidcConfig,
+			"OidcConfig":ccWorkforce_oidcConfig,
 			"SourceIpConfig": testAccWorkforce_sourceIPConfig,
-			"VPC":            testAccWorkforce_vpc,
+			"VPC":orkforce_vpc,
 		},
 		"Workteam": {
-			"disappears":         testAccWorkteam_disappears,
-			"tags":               testAccWorkteam_tags,
-			"CognitoConfig":      testAccWorkteam_cognitoConfig,
+			"disappears":estAccWorkteam_disappears,
+			"tags":_tags,
+			"CognitoConfig":AccWorkteam_cognitoConfig,
 			"NotificationConfig": testAccWorkteam_notificationConfig,
-			"OidcConfig":         testAccWorkteam_oidcConfig,
+			"OidcConfig":estAccWorkteam_oidcConfig,
 		},
 		"Servicecatalog": {
 			"basic": testAccServicecatalogPortfolioStatus_basic,

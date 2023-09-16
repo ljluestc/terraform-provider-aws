@@ -25,6 +25,7 @@ import (
 )
 
 // @SDKResource("aws_cloudformation_stack_set_instance")
+
 func ResourceStackSetInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceStackSetInstanceCreate,
@@ -184,6 +185,7 @@ var (
 	accountIDRegexp = regexache.MustCompile(`^\d{12}$`)
 )
 
+
 func resourceStackSetInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -231,7 +233,8 @@ func resourceStackSetInstanceCreate(ctx context.Context, d *schema.ResourceData,
 	}
 
 	_, err := tfresource.RetryWhen(ctx, propagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			input.OperationId = aws.String(id.UniqueId())
 
 			output, err := conn.CreateStackInstancesWithContext(ctx, input)
@@ -248,7 +251,8 @@ func resourceStackSetInstanceCreate(ctx context.Context, d *schema.ResourceData,
 			}
 			return operation, nil
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			if err == nil {
 				return false, nil
 			}
@@ -293,6 +297,7 @@ func resourceStackSetInstanceCreate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourceStackSetInstanceRead(ctx, d, meta)...)
 }
+
 
 func resourceStackSetInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -353,6 +358,7 @@ func resourceStackSetInstanceRead(ctx context.Context, d *schema.ResourceData, m
 	return diags
 }
 
+
 func resourceStackSetInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -405,6 +411,7 @@ func resourceStackSetInstanceUpdate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceStackSetInstanceRead(ctx, d, meta)...)
 }
 
+
 func resourceStackSetInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -453,6 +460,7 @@ func resourceStackSetInstanceDelete(ctx context.Context, d *schema.ResourceData,
 	return diags
 }
 
+
 func resourceStackSetInstanceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	switch parts := strings.Split(d.Id(), stackSetInstanceResourceIDSeparator); len(parts) {
 	case 3:
@@ -468,12 +476,14 @@ func resourceStackSetInstanceImport(ctx context.Context, d *schema.ResourceData,
 
 const stackSetInstanceResourceIDSeparator = ","
 
+
 func StackSetInstanceCreateResourceID(stackSetName, accountID, region string) string {
 	parts := []string{stackSetName, accountID, region}
 	id := strings.Join(parts, stackSetInstanceResourceIDSeparator)
 
 	return id
 }
+
 
 func StackSetInstanceParseResourceID(id string) (string, string, string, error) {
 	parts := strings.Split(id, stackSetInstanceResourceIDSeparator)
@@ -484,6 +494,7 @@ func StackSetInstanceParseResourceID(id string) (string, string, string, error) 
 
 	return "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected STACKSETNAME%[2]sACCOUNTID%[2]sREGION", id, stackSetInstanceResourceIDSeparator)
 }
+
 
 func expandDeploymentTargets(tfList []interface{}) *cloudformation.DeploymentTargets {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -506,6 +517,7 @@ func expandDeploymentTargets(tfList []interface{}) *cloudformation.DeploymentTar
 // flattenDeployment targets converts a list of organizational units (typically
 // parsed from the resource ID) into the Terraform representation of the
 // deployment_targets attribute.
+
 func flattenDeploymentTargetsFromSlice(orgIDs []string) []interface{} {
 	tfList := []interface{}{}
 	for _, ou := range orgIDs {
@@ -519,6 +531,7 @@ func flattenDeploymentTargetsFromSlice(orgIDs []string) []interface{} {
 	return []interface{}{m}
 }
 
+
 func flattenStackInstanceSummaries(apiObject []*cloudformation.StackInstanceSummary) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -527,9 +540,9 @@ func flattenStackInstanceSummaries(apiObject []*cloudformation.StackInstanceSumm
 	tfList := []interface{}{}
 	for _, obj := range apiObject {
 		m := map[string]interface{}{
-			"account_id":             obj.Account,
+			"account_id":obj.Account,
 			"organizational_unit_id": obj.OrganizationalUnitId,
-			"stack_id":               obj.StackId,
+			"stack_id":  obj.StackId,
 		}
 		tfList = append(tfList, m)
 	}

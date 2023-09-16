@@ -11,7 +11,8 @@ package descopts
 
 import pref "google.golang.org/protobuf/reflect/protoreflect"
 
-// These variables are set by the init function in descriptor.pb.go via logic
+// These variables are set by the init 
+tion in descriptor.pb.go via logic
 // in internal/filetype. In other words, so long as the descriptor proto package
 // is linked in, these variables will be populated.
 //

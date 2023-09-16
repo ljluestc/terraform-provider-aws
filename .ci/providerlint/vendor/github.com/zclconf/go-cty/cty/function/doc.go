@@ -1,6 +1,13 @@
-// Package function builds on the functionality of cty by modeling functions
+// Package 
+ builds on the 
+ality of cty by modeling 
+s
 // that operate on cty Values.
 //
-// Functions are, at their core, Go anonymous functions. However, this package
-// wraps around them utility functions for parameter type checking, etc.
-package function
+// 
+s are, at their core, Go anonymous 
+s. However, this package
+// wraps around them utility 
+s for parameter type checking, etc.
+package 
+

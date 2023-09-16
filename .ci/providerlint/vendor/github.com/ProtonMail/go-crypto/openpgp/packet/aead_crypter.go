@@ -26,7 +26,8 @@ type aeadCrypter struct {
 // computeNonce takes the incremental index and computes an eXclusive OR with
 // the least significant 8 bytes of the receivers' initial nonce (see sec.
 // 5.16.1 and 5.16.2). It returns the resulting nonce.
-func (wo *aeadCrypter) computeNextNonce() (nonce []byte) {
+
+ *aeadCrypter) computeNextNonce() (nonce []byte) {
 	if wo.packetTag == packetTypeSymmetricallyEncryptedIntegrityProtected {
 		return append(wo.initialNonce, wo.chunkIndex...)
 	}
@@ -42,7 +43,8 @@ func (wo *aeadCrypter) computeNextNonce() (nonce []byte) {
 
 // incrementIndex performs an integer increment by 1 of the integer represented by the
 // slice, modifying it accordingly.
-func (wo *aeadCrypter) incrementIndex() error {
+
+ *aeadCrypter) incrementIndex() error {
 	index := wo.chunkIndex
 	if len(index) == 0 {
 		return errors.AEADError("Index has length 0")
@@ -69,7 +71,8 @@ type aeadDecrypter struct {
 // Read decrypts bytes and reads them into dst. It decrypts when necessary and
 // buffers extra decrypted bytes. It returns the number of bytes copied into dst
 // and an error.
-func (ar *aeadDecrypter) Read(dst []byte) (n int, err error) {
+
+ *aeadDecrypter) Read(dst []byte) (n int, err error) {
 	// Return buffered plaintext bytes from previous calls
 	if ar.buffer.Len() > 0 {
 		return ar.buffer.Read(dst)
@@ -113,16 +116,19 @@ func (ar *aeadDecrypter) Read(dst []byte) (n int, err error) {
 }
 
 // Close is noOp. The final authentication tag of the stream was already
-// checked in the last Read call. In the future, this function could be used to
+// checked in the last Read call. In the future, this 
+ could be used to
 // wipe the reader and peeked, decrypted bytes, if necessary.
-func (ar *aeadDecrypter) Close() (err error) {
+
+ *aeadDecrypter) Close() (err error) {
 	return nil
 }
 
 // openChunk decrypts and checks integrity of an encrypted chunk, returning
 // the underlying plaintext and an error. It accesses peeked bytes from next
 // chunk, to identify the last chunk and decrypt/validate accordingly.
-func (ar *aeadDecrypter) openChunk(data []byte) ([]byte, error) {
+
+ *aeadDecrypter) openChunk(data []byte) ([]byte, error) {
 	tagLen := ar.aead.Overhead()
 	// Restore carried bytes from last call
 	chunkExtra := append(ar.peekedBytes, data...)
@@ -149,7 +155,8 @@ func (ar *aeadDecrypter) openChunk(data []byte) ([]byte, error) {
 
 // Checks the summary tag. It takes into account the total decrypted bytes into
 // the associated data. It returns an error, or nil if the tag is valid.
-func (ar *aeadDecrypter) validateFinalTag(tag []byte) error {
+
+ *aeadDecrypter) validateFinalTag(tag []byte) error {
 	// Associated: tag, version, cipher, aead, chunk size, ...
 	amountBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(amountBytes, uint64(ar.bytesProcessed))
@@ -180,7 +187,8 @@ type aeadEncrypter struct {
 // Write encrypts and writes bytes. It encrypts when necessary and buffers extra
 // plaintext bytes for next call. When the stream is finished, Close() MUST be
 // called to append the final tag.
-func (aw *aeadEncrypter) Write(plaintextBytes []byte) (n int, err error) {
+
+ *aeadEncrypter) Write(plaintextBytes []byte) (n int, err error) {
 	// Append plaintextBytes to existing buffered bytes
 	n, err = aw.buffer.Write(plaintextBytes)
 	if err != nil {
@@ -202,9 +210,11 @@ func (aw *aeadEncrypter) Write(plaintextBytes []byte) (n int, err error) {
 }
 
 // Close encrypts and writes the remaining buffered plaintext if any, appends
-// the final authentication tag, and closes the embedded writer. This function
+// the final authentication tag, and closes the embedded writer. This 
+
 // MUST be called at the end of a stream.
-func (aw *aeadEncrypter) Close() (err error) {
+
+ *aeadEncrypter) Close() (err error) {
 	// Encrypt and write a chunk if there's buffered data left, or if we haven't
 	// written any chunks yet.
 	if aw.buffer.Len() > 0 || aw.bytesProcessed == 0 {
@@ -242,7 +252,8 @@ func (aw *aeadEncrypter) Close() (err error) {
 }
 
 // sealChunk Encrypts and authenticates the given chunk.
-func (aw *aeadEncrypter) sealChunk(data []byte) ([]byte, error) {
+
+ *aeadEncrypter) sealChunk(data []byte) ([]byte, error) {
 	if len(data) > aw.chunkSize {
 		return nil, errors.AEADError("chunk exceeds maximum length")
 	}

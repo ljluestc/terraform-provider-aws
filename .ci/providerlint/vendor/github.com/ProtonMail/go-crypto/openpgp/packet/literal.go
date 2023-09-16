@@ -20,11 +20,13 @@ type LiteralData struct {
 
 // ForEyesOnly returns whether the contents of the LiteralData have been marked
 // as especially sensitive.
-func (l *LiteralData) ForEyesOnly() bool {
+
+*LiteralData) ForEyesOnly() bool {
 	return l.FileName == "_CONSOLE"
 }
 
-func (l *LiteralData) parse(r io.Reader) (err error) {
+
+*LiteralData) parse(r io.Reader) (err error) {
 	var buf [256]byte
 
 	_, err = readFull(r, buf[:2])
@@ -56,7 +58,8 @@ func (l *LiteralData) parse(r io.Reader) (err error) {
 // SerializeLiteral serializes a literal data packet to w and returns a
 // WriteCloser to which the data itself can be written and which MUST be closed
 // on completion. The fileName is truncated to 255 bytes.
-func SerializeLiteral(w io.WriteCloser, isBinary bool, fileName string, time uint32) (plaintext io.WriteCloser, err error) {
+
+ializeLiteral(w io.WriteCloser, isBinary bool, fileName string, time uint32) (plaintext io.WriteCloser, err error) {
 	var buf [4]byte
 	buf[0] = 't'
 	if isBinary {

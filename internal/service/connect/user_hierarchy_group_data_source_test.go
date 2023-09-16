@@ -14,8 +14,7 @@ import (
 )
 
 
-func testAccUserHierarchyGroupDataSource_hierarchyGroupID(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -26,16 +25,14 @@ func testAccUserHierarchyGroupDataSource_hierarchyGroupID(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyGroupDataSourceConfig_groupID(rName, rName2, rName3),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.#", resourceName, "hierarchy_path.#"),
+funcource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.#", resourceName, "hierarchy_path.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.arn", resourceName2, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.id", resourceName2, "hierarchy_group_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.name", resourceName2, "name"),
@@ -57,8 +54,7 @@ func(
 func testAccUserHierarchyGroupDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+funcme3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_user_hierarchy_group.test"
 	resourceName2 := "aws_connect_user_hierarchy_group.parent"
 	datasourceName := "data.aws_connect_user_hierarchy_group.test"
@@ -69,16 +65,14 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccUserHierarchyGroupDataSourceConfig_name(rName, rName2, rName3),
+funcig: testAccUserHierarchyGroupDataSourceConfig_name(rName, rName2, rName3),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.#", resourceName, "hierarchy_path.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.arn", resourceName2, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.id", resourceName2, "hierarchy_group_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.name", resourceName2, "name"),
+funcource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_one.0.name", resourceName2, "name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_two.0.arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_two.0.id", resourceName, "hierarchy_group_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.0.level_two.0.name", resourceName, "name"),
@@ -100,8 +94,7 @@ resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
   instance_alias  = %[1]q
-  outbound_calls_enabled   = true
-}
+func
 
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
@@ -162,8 +155,7 @@ testAccUserHierarchyGroupBaseDataSourceConfig(rName, rName2, rName3),
 data "aws_connect_user_hierarchy_group" "test" {
   instance_id        = aws_connect_instance.test.id
   hierarchy_group_id = aws_connect_user_hierarchy_group.test.hierarchy_group_id
-}
-`)
+func
 }
 
 
@@ -175,5 +167,4 @@ data "aws_connect_user_hierarchy_group" "test" {
   instance_id = aws_connect_instance.test.id
   name        = aws_connect_user_hierarchy_group.test.name
 }
-`)
-}
+func

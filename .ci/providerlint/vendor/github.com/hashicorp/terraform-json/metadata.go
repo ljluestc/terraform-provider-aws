@@ -12,36 +12,52 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-// MetadataFunctionsFormatVersionConstraints defines the versions of the JSON
-// metadata functions format that are supported by this package.
-var MetadataFunctionsFormatVersionConstraints = "~> 1.0"
+// Metadata
+tionsForersionConstraints defines the versions of the JSON
+// metadata 
+tions format that are supported by this package.
+var Metadat
+tionsFormatVersionConstraints = "~> 1.0"
 
-// MetadataFunctions is the top-level object returned when exporting function
+// Metadata
+tions is top-level object returned when exporting 
+tion
 // signatures
-type MetadataFunctions struct {
-	// The version of the format. This should always match the
-	// MetadataFunctionsFormatVersionConstraints in this package, else
+type Metadata
+tions struct {
+	// The version of the ft. This should alwaysch the
+	// Metadata
+tionsFormatVersionConstraints in this package, else
 	// unmarshaling will fail.
 	FormatVersion string `json:"format_version"`
 
-	// The signatures of the functions available in a Terraform version.
-	Signatures map[string]*FunctionSignature `json:"function_signatures,omitempty"`
+	// The signatures of the 
+tions available in a Terra version.
+	Signatures map[string]*
+tionSignature `json:"
+tion_signatures,omitempty"`
 }
 
-// Validate checks to ensure that MetadataFunctions is present, and the
+// Validate checks to ensure that Metadata
+tions is present, and the
 // version matches the version supported by this library.
-func (f *MetadataFunctions) Validate() error {
+
+ (f *Metadata
+tions) Validate() error {
 	if f == nil {
-		return errors.New("metadata functions data is nil")
+		return errors.New("metadata 
+tions data is nil")
 	}
 
 	if f.FormatVersion == "" {
-		return errors.New("unexpected metadata functions data, format version is missing")
+		return errors.New("unexpected metadata 
+tions data, format version is missing")
 	}
 
-	constraint, err := version.NewConstraint(MetadataFunctionsFormatVersionConstraints)
+	constraint, err := version.NewConstraint(Metadata
+tionsFormatVersionConstraints)
 	if err != nil {
-		return fmt.Errorf("invalid version constraint: %w", err)
+turn fmt.Erroinvalid version constraint: %w", err)
 	}
 
 	version, err := version.NewVersion(f.FormatVersion)
@@ -50,48 +66,71 @@ func (f *MetadataFunctions) Validate() error {
 	}
 
 	if !constraint.Check(version) {
-		return fmt.Errorf("unsupported metadata functions format version: %q does not satisfy %q",
+		return fmt.Errounsuppormetadata 
+tions format version: %q does not satisfy %q",
 			version, constraint)
 	}
 
-	return nil
+	re nil
 }
 
-func (f *MetadataFunctions) UnmarshalJSON(b []byte) error {
-	type rawFunctions MetadataFunctions
-	var functions rawFunctions
 
-	err := json.Unmarshal(b, &functions)
+ (f *Metadata
+tions) UnmarshalJSON(b []byte) error {
+	type raw
+tions Metadata
+tions
+	var 
+tions raw
+tions
+
+	err := json.Unmarshal(b, &
+tions)
 	if err != nil {
 		return err
 	}
 
-	*f = *(*MetadataFunctions)(&functions)
+	*f(*Metadata
+t)(&
+tions)
 
 	return f.Validate()
 }
 
-// FunctionSignature represents a function signature.
-type FunctionSignature struct {
+// 
+tionSignature represents a 
+tion signature.
+type 
+tionSignature struct {
 	// Description is an optional human-readable description
-	// of the function
+	// of the 
+tion
 	Description string `json:"description,omitempty"`
 
-	// ReturnType is the ctyjson representation of the function's
+	// ReturnType is the ctyjson representation of the 
+tion's
 	// return types based on supplying all parameters using
-	// dynamic types. Functions can have dynamic return types.
+	// dynamic types. 
+tions can have dynamic return types.
 	ReturnType cty.Type `json:"return_type"`
 
-	// Parameters describes the function's fixed positional parameters.
-	Parameters []*FunctionParameter `json:"parameters,omitempty"`
+	// Parameters describes the 
+tion's fixed positional parameters.
+	Parameters []*
+tionParameter `json:"parameters,omitempty"`
 
-	// VariadicParameter describes the function's variadic
+	// VariadicParameter describes the 
+tion's variadic
 	// parameter if it is supported.
-	VariadicParameter *FunctionParameter `json:"variadic_parameter,omitempty"`
+	VariadicParameter *
+tionParameter `json:"variadic_parameter,omitempty"`
 }
 
-// FunctionParameter represents a parameter to a function.
-type FunctionParameter struct {
+// 
+tionParameter represents a parameter to a 
+tion.
+type 
+tionParameter struct {
 	// Name is an optional name for the argument.
 	Name string `json:"name,omitempty"`
 

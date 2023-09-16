@@ -4,7 +4,8 @@ package hclsyntax
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -123,7 +124,8 @@ var _TokenType_map = map[TokenType]string{
 	128169: _TokenType_name[655:667],
 }
 
-func (i TokenType) String() string {
+
+ (i TokenType) String() string {
 	if str, ok := _TokenType_map[i]; ok {
 		return str
 	}

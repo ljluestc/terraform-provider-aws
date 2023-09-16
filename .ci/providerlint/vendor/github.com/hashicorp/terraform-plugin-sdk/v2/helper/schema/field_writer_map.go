@@ -22,7 +22,8 @@ type MapFieldWriter struct {
 }
 
 // Map returns the underlying map that is being written to.
-func (w *MapFieldWriter) Map() map[string]string {
+
+ (w *MapFieldWriter) Map() map[string]string {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 	if w.result == nil {
@@ -32,7 +33,8 @@ func (w *MapFieldWriter) Map() map[string]string {
 	return w.result
 }
 
-func (w *MapFieldWriter) unsafeWriteField(addr string, value string) {
+
+ (w *MapFieldWriter) unsafeWriteField(addr string, value string) {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 	if w.result == nil {
@@ -44,18 +46,20 @@ func (w *MapFieldWriter) unsafeWriteField(addr string, value string) {
 
 // clearTree clears a field and any sub-fields of the given address out of the
 // map. This should be used to reset some kind of complex structures (namely
-// sets) before writing to make sure that any conflicting data is removed (for
+ets) before writing to make sure that any conflicting data is removed (for
 // example, if the set was previously written to the writer's layer).
-func (w *MapFieldWriter) clearTree(addr []string) {
+
+ (w *MapFieldWriter) clearTree(addr []string) {
 	prefix := strings.Join(addr, ".") + "."
 	for k := range w.result {
 		if strings.HasPrefix(k, prefix) {
 			delete(w.result, k)
 		}
-	}
+
 }
 
-func (w *MapFieldWriter) WriteField(addr []string, value interface{}) error {
+
+ (w *MapFieldWriter) WriteField(addr []string, value interface{}) error {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 	if w.result == nil {
@@ -92,7 +96,8 @@ func (w *MapFieldWriter) WriteField(addr []string, value interface{}) error {
 	return w.set(addr, value)
 }
 
-func (w *MapFieldWriter) set(addr []string, value interface{}) error {
+
+ (w *MapFieldWriter) set(addr []string, value interface{}) error {
 	schemaList := addrToSchema(addr, w.Schema)
 	if len(schemaList) == 0 {
 		return fmt.Errorf("Invalid address to set: %#v", addr)
@@ -110,16 +115,18 @@ func (w *MapFieldWriter) set(addr []string, value interface{}) error {
 		return w.setSet(addr, value, schema)
 	case typeObject:
 		return w.setObject(addr, value)
-	default:
+ault:
 		panic(fmt.Sprintf("Unknown type: %#v", schema.Type))
 	}
 }
 
-func (w *MapFieldWriter) setList(
+
+ (w *MapFieldWriter) setList(
 	addr []string,
 	v interface{}) error {
 	k := strings.Join(addr, ".")
-	setElement := func(idx string, value interface{}) error {
+	setElement := 
+(idx string, value interface{}) error {
 		addrCopy := make([]string, len(addr), len(addr)+1)
 		copy(addrCopy, addr)
 		return w.set(append(addrCopy, idx), value)
@@ -153,14 +160,15 @@ func (w *MapFieldWriter) setList(
 			_ = setElement(is, nil) // best effort; error returned below
 		}
 
-		return err
+turn err
 	}
 
 	w.result[k+".#"] = strconv.FormatInt(int64(len(vs)), 10)
 	return nil
 }
 
-func (w *MapFieldWriter) setMap(
+
+ (w *MapFieldWriter) setMap(
 	addr []string,
 	value interface{}) error {
 	k := strings.Join(addr, ".")
@@ -198,7 +206,7 @@ func (w *MapFieldWriter) setMap(
 		if err := w.set(append(addrCopy, subKey), v); err != nil {
 			return err
 		}
-	}
+
 
 	// Set the count
 	w.result[k+".%"] = strconv.Itoa(len(vs))
@@ -206,7 +214,8 @@ func (w *MapFieldWriter) setMap(
 	return nil
 }
 
-func (w *MapFieldWriter) setObject(
+
+ (w *MapFieldWriter) setObject(
 	addr []string,
 	value interface{}) error {
 	// Set the entire object. First decode into a proper structure
@@ -228,7 +237,7 @@ func (w *MapFieldWriter) setObject(
 	}
 	if err != nil {
 		for k1 := range v {
-			_ = w.set(append(addrCopy, k1), nil) // best effort; error returned below
+ = w.set(append(addrCopy, k1), nil) // best effort; error returned below
 		}
 
 		return err
@@ -237,7 +246,8 @@ func (w *MapFieldWriter) setObject(
 	return nil
 }
 
-func (w *MapFieldWriter) setPrimitive(
+
+ (w *MapFieldWriter) setPrimitive(
 	addr []string,
 	v interface{},
 	schema *Schema) error {
@@ -272,7 +282,7 @@ func (w *MapFieldWriter) setPrimitive(
 		var n float64
 		if err := mapstructure.Decode(v, &n); err != nil {
 			return fmt.Errorf("%s: %s", k, err)
-		}
+
 		set = strconv.FormatFloat(n, 'G', -1, 64)
 	default:
 		return fmt.Errorf("Unknown type: %#v", schema.Type)
@@ -282,7 +292,8 @@ func (w *MapFieldWriter) setPrimitive(
 	return nil
 }
 
-func (w *MapFieldWriter) setSet(
+
+ (w *MapFieldWriter) setSet(
 	addr []string,
 	value interface{},
 	schema *Schema) error {
@@ -303,7 +314,7 @@ func (w *MapFieldWriter) setSet(
 		tempSchema := *schema
 		tempSchema.Type = TypeList
 		tempSchemaMap := map[string]*Schema{tempAddr[0]: &tempSchema}
-		tempW := &MapFieldWriter{Schema: tempSchemaMap}
+		tempW := &MapdWriter{Schema: tempSchemaMap}
 
 		// Set the entire list, this lets us get sane values out of it
 		if err := tempW.WriteField(tempAddr, value); err != nil {
@@ -314,7 +325,8 @@ func (w *MapFieldWriter) setSet(
 		// hashing them into the set. The reason we go over the list and
 		// not the `value` directly is because this forces all types
 		// to become []interface{} (generic) instead of []string, which
-		// most hash functions are expecting.
+		// most hash 
+tions are expecting.
 		s := schema.ZeroValue().(*Set)
 		tempR := &MapFieldReader{
 			Map:    BasicMapReader(tempW.Map()),

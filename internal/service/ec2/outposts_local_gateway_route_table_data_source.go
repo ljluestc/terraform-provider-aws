@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_local_gateway_route_table")
 
-func DataSourceLocalGatewayRouteTable() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewayRouteTableRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,25 +28,25 @@ func DataSourceLocalGatewayRouteTable() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"local_gateway_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"local_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -60,8 +59,7 @@ func DataSourceLocalGatewayRouteTable() *schema.Resource {
 }
 
 func dataSourceLocalGatewayRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	req := &ec2.DescribeLocalGatewayRouteTablesInput{}
@@ -73,8 +71,8 @@ func dataSourceLocalGatewayRouteTableRead(ctx context.Context, d *schema.Resourc
 	req.Filters = BuildAttributeFilterList(
 		map[string]string{
 			"local-gateway-id": d.Get("local_gateway_id").(string),
-			"outpost-arn":      d.Get("outpost_arn").(string),
-			"state":   d.Get("state").(string),
+			"outpost-arn":tpost_arn").(string),
+			"state":et("state").(string),
 		},
 	)
 

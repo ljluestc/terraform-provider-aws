@@ -123,9 +123,9 @@ func resourceHostedPublicVirtualInterfaceCreate(ctx context.Context, d *schema.R
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewPublicVirtualInterfaceAllocation: &directconnect.NewPublicVirtualInterfaceAllocation{
 			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:                  aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:                 aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
 		},
 		OwnerAccount: aws.String(d.Get("owner_account_id").(string)),
 	}

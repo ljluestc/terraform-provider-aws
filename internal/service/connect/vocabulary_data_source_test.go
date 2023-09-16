@@ -14,6 +14,8 @@ import (
 )
 
 
+
+
 func testAccVocabularyDataSource_vocabularyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -26,6 +28,8 @@ t.Skip("skipping long-running test in short mode")
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -33,6 +37,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyDataSourceConfig_id(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
@@ -50,6 +56,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccVocabularyDataSource_name(t *testing.T) {
@@ -64,6 +72,8 @@ t.Skip("skipping long-running test in short mode")
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -71,6 +81,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyDataSourceConfig_name(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
@@ -88,6 +100,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccVocabularyBaseDataSourceConfig(rName, rName2 string) string {
@@ -113,6 +127,8 @@ resource "aws_connect_vocabulary" "test" {
 }
 
 
+
+
 func testAccVocabularyDataSourceConfig_id(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccVocabularyBaseDataSourceConfig(rName, rName2),
@@ -123,6 +139,8 @@ data "aws_connect_vocabulary" "test" {
 }
 `)
 }
+
+
 
 
 func testAccVocabularyDataSourceConfig_name(rName, rName2 string) string {

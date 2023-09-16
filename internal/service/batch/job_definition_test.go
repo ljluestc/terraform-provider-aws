@@ -29,10 +29,10 @@ func TestAccBatchJobDefinition_basic(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_name(rName),
@@ -79,10 +79,10 @@ func TestAccBatchJobDefinition_disappears(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_name(rName),
@@ -103,10 +103,10 @@ func TestAccBatchJobDefinition_PlatformCapabilities_ec2(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_capabilitiesEC2(rName),
@@ -153,10 +153,10 @@ func TestAccBatchJobDefinition_PlatformCapabilitiesFargate_containerPropertiesDe
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(rName),
@@ -197,10 +197,10 @@ func TestAccBatchJobDefinition_PlatformCapabilities_fargate(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_capabilitiesFargate(rName),
@@ -263,7 +263,7 @@ func TestAccBatchJobDefinition_ContainerProperties_advanced(t *testing.T) {
 				{ContainerPath: aws.String("/tmp"), ReadOnly: aws.Bool(false), SourceVolume: aws.String("tmp")},
 			},
 			ResourceRequirements: []*batch.ResourceRequirement{},
-			Secrets:              []*batch.Secret{},
+			Secrets: []*batch.Secret{},
 			Ulimits: []*batch.Ulimit{
 				{HardLimit: aws.Int64(1024), Name: aws.String("nofile"), SoftLimit: aws.Int64(1024)},
 			},
@@ -280,10 +280,10 @@ func TestAccBatchJobDefinition_ContainerProperties_advanced(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
@@ -308,10 +308,10 @@ func TestAccBatchJobDefinition_updateForcesNewResource(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
@@ -343,10 +343,10 @@ func TestAccBatchJobDefinition_tags(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_tags1(rName, "key1", "value1"),
@@ -389,10 +389,10 @@ func TestAccBatchJobDefinition_propagateTags(t *testing.T) {
 	resourceName := "aws_batch_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_propagateTags(rName),
@@ -437,9 +437,9 @@ func TestAccBatchJobDefinition_ContainerProperties_EmptyField(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDefinitionDestroy(ctx),
+		CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobDefinitionConfig_containerProperties_emptyField(rName),
@@ -609,8 +609,8 @@ CONTAINER_PROPERTIES
 func testAccJobDefinitionConfig_containerPropertiesAdvancedUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_batch_job_definition" "test" {
-  name                 = %[1]q
-  type                 = "container"
+  name    = %[1]q
+  type    = "container"
   container_properties = <<CONTAINER_PROPERTIES
 {
     "command": ["ls", "-la"],
@@ -689,7 +689,7 @@ func testAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(r
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
@@ -736,7 +736,7 @@ func testAccJobDefinitionConfig_capabilitiesFargate(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 

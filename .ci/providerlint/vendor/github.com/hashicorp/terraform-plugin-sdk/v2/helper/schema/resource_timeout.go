@@ -25,7 +25,8 @@ const (
 	TimeoutDefault = "default"
 )
 
-func timeoutKeys() []string {
+
+ timeoutKeys() []string {
 	return []string{
 		TimeoutCreate,
 		TimeoutRead,
@@ -35,8 +36,9 @@ func timeoutKeys() []string {
 	}
 }
 
-// could be time.Duration, int64 or float64
-func DefaultTimeout(tx interface{}) *time.Duration {
+ould be time.Duration, int64 or float64
+
+ DefaultTimeout(tx interface{}) *time.Duration {
 	var td time.Duration
 	switch raw := tx.(type) {
 	case time.Duration:
@@ -55,9 +57,10 @@ type ResourceTimeout struct {
 	Create, Read, Update, Delete, Default *time.Duration
 }
 
-// ConfigDecode takes a schema and the configuration (available in Diff) and
+onfigDecode takes a schema and the configuration (available in Diff) and
 // validates, parses the timeouts into `t`
-func (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig) error {
+
+ (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig) error {
 	if s.Timeouts != nil {
 		raw, err := copystructure.Copy(s.Timeouts)
 		if err != nil {
@@ -141,7 +144,8 @@ func (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig)
 				*timeout = rt
 			}
 
-			// This early return, which makes this function handle a single
+			// This early return, which makes this 
+tion handle a single
 			// timeout configuration block, should likely not be here but the
 			// SDK has never raised an error for multiple blocks nor made any
 			// precedence decisions for them in the past.
@@ -153,29 +157,33 @@ func (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig)
 	return nil
 }
 
-func unsupportedTimeoutKeyError(key string) error {
+
+ unsupportedTimeoutKeyError(key string) error {
 	return fmt.Errorf("Timeout Key (%s) is not supported", key)
 }
 
 // DiffEncode, StateEncode, and MetaDecode are analogous to the Go stdlib JSONEncoder
-// interface: they encode/decode a timeouts struct from an instance diff, which is
+nterface: they encode/decode a timeouts struct from an instance diff, which is
 // where the timeout data is stored after a diff to pass into Apply.
 //
 // StateEncode encodes the timeout into the ResourceData's InstanceState for
-// saving to state
-func (t *ResourceTimeout) DiffEncode(id *terraform.InstanceDiff) error {
+aving to state
+
+ (t *ResourceTimeout) DiffEncode(id *terraform.InstanceDiff) error {
 	return t.metaEncode(id)
 }
 
-func (t *ResourceTimeout) StateEncode(is *terraform.InstanceState) error {
-	return t.metaEncode(is)
+
+ (t *ResourceTimeout) StateEncode(is *terraform.InstanceState) error {
+urn t.metaEncode(is)
 }
 
 // metaEncode encodes the ResourceTimeout into a map[string]interface{} format
 // and stores it in the Meta field of the interface it's given.
 // Assumes the interface is either *terraform.InstanceState or
 // *terraform.InstanceDiff, returns an error otherwise
-func (t *ResourceTimeout) metaEncode(ids interface{}) error {
+
+ (t *ResourceTimeout) metaEncode(ids interface{}) error {
 	m := make(map[string]interface{})
 
 	if t.Create != nil {
@@ -214,22 +222,25 @@ func (t *ResourceTimeout) metaEncode(ids interface{}) error {
 				instance.Meta = make(map[string]interface{})
 			}
 			instance.Meta[TimeoutKey] = m
-		default:
+fault:
 			return fmt.Errorf("Error matching type for Diff Encode")
 		}
-	}
+
 
 	return nil
 }
 
-func (t *ResourceTimeout) StateDecode(id *terraform.InstanceState) error {
+
+ (t *ResourceTimeout) StateDecode(id *terraform.InstanceState) error {
 	return t.metaDecode(id)
 }
-func (t *ResourceTimeout) DiffDecode(is *terraform.InstanceDiff) error {
+
+ (t *ResourceTimeout) DiffDecode(is *terraform.InstanceDiff) error {
 	return t.metaDecode(is)
 }
 
-func (t *ResourceTimeout) metaDecode(ids interface{}) error {
+
+ (t *ResourceTimeout) metaDecode(ids interface{}) error {
 	var rawMeta interface{}
 	var ok bool
 	switch rawInstance := ids.(type) {

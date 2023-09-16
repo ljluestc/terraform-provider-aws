@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketWebsiteConfiguration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
 
@@ -48,11 +45,8 @@ func TestAccS3BucketWebsiteConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketWebsiteConfiguration_disappears(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -71,12 +65,9 @@ func TestAccS3BucketWebsiteConfiguration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_update(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_update(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_website_configuration.test"
+	funcourceName := "aws_s3_bucket_website_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -108,13 +99,10 @@ func TestAccS3BucketWebsiteConfiguration_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_Redirect(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_Redirect(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_website_configuration.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -137,14 +125,11 @@ func TestAccS3BucketWebsiteConfiguration_Redirect(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRule_ConditionAndRedirect(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRule_ConditionAndRedirect(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -209,15 +194,12 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRule_ConditionAndRedirect(t *tes
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRule_MultipleRules(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRule_MultipleRules(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
@@ -255,16 +237,13 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRule_MultipleRules(t *testing.T)
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRule_RedirectOnly(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRule_RedirectOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -288,17 +267,14 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRule_RedirectOnly(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirect(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirect(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -316,9 +292,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirect(t *te
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirectWithEmptyString(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirectWithEmptyString(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
@@ -326,8 +300,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirectWithEm
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
+	funceckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketWebsiteConfigurationConfig_routingRulesConditionAndRedirect(rName, ""),
@@ -344,9 +317,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRules_ConditionAndRedirectWithEm
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRules_updateConditionAndRedirect(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRules_updateConditionAndRedirect(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
@@ -355,8 +326,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRules_updateConditionAndRedirect
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
+	funceps: []resource.TestStep{
 			{
 				Config: testAccBucketWebsiteConfigurationConfig_routingRulesConditionAndRedirect(rName, "documents/"),
 				Check: resource.ComposeTestCheckFunc(
@@ -375,9 +345,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRules_updateConditionAndRedirect
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_RoutingRuleToRoutingRules(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_RoutingRuleToRoutingRules(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_website_configuration.test"
@@ -387,8 +355,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRuleToRoutingRules(t *testing.T)
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketWebsiteConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+	func
 				Config: testAccBucketWebsiteConfigurationConfig_routingRuleOptionalRedirection(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketWebsiteConfigurationExists(ctx, resourceName),
@@ -406,9 +373,7 @@ func TestAccS3BucketWebsiteConfiguration_RoutingRuleToRoutingRules(t *testing.T)
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentNoChange(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentNoChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
@@ -419,8 +384,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentNoChang
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+	func
 				Config: testAccBucketConfig_website(bucketName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketExists(ctx, bucketResourceName),
@@ -438,9 +402,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentNoChang
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentWithChange(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentWithChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
@@ -452,8 +414,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentWithCha
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccBucketConfig_website(bucketName),
+	funcConfig: testAccBucketConfig_website(bucketName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketExists(ctx, bucketResourceName),
 					resource.TestCheckResourceAttr(bucketResourceName, "website.#", "1"),
@@ -470,9 +431,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithIndexDocumentWithCha
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleNoChange(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleNoChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
@@ -485,8 +444,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleNoChange(
 		CheckDestroy:             testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccBucketConfig_websiteAndRoutingRules(bucketName),
-				Check: resource.ComposeTestCheckFunc(
+	funcCheck: resource.ComposeTestCheckFunc(
 					testAccCheckBucketExists(ctx, bucketResourceName),
 					resource.TestCheckResourceAttr(bucketResourceName, "website.#", "1"),
 					resource.TestCheckResourceAttrSet(bucketResourceName, "website.0.routing_rules"),
@@ -501,9 +459,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleNoChange(
 			},
 		},
 	})
-}
-
-func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleWithChange(t *testing.T) {
+}func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleWithChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
@@ -517,8 +473,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleWithChang
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_websiteAndRoutingRules(bucketName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBucketExists(ctx, bucketResourceName),
+	func	testAccCheckBucketExists(ctx, bucketResourceName),
 					resource.TestCheckResourceAttr(bucketResourceName, "website.#", "1"),
 					resource.TestCheckResourceAttrSet(bucketResourceName, "website.0.routing_rules"),
 				),
@@ -535,9 +490,7 @@ func TestAccS3BucketWebsiteConfiguration_migrate_websiteWithRoutingRuleWithChang
 			},
 		},
 	})
-}
-
-func testAccCheckBucketWebsiteConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketWebsiteConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
@@ -552,8 +505,7 @@ func testAccCheckBucketWebsiteConfigurationDestroy(ctx context.Context) resource
 			}
 
 			input := &s3.GetBucketWebsiteInput{
-				Bucket: aws.String(bucket),
-			}
+	func
 
 			if expectedBucketOwner != "" {
 				input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
@@ -576,9 +528,7 @@ func testAccCheckBucketWebsiteConfigurationDestroy(ctx context.Context) resource
 
 		return nil
 	}
-}
-
-func testAccCheckBucketWebsiteConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckBucketWebsiteConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
@@ -594,8 +544,7 @@ func testAccCheckBucketWebsiteConfigurationExists(ctx context.Context, resourceN
 		bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
+	func
 		input := &s3.GetBucketWebsiteInput{
 			Bucket: aws.String(bucket),
 		}
@@ -616,9 +565,7 @@ func testAccCheckBucketWebsiteConfigurationExists(ctx context.Context, resourceN
 
 		return nil
 	}
-}
-
-func testAccBucketWebsiteConfigurationConfig_basic(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -631,14 +578,11 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_update(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
+}func
 resource "aws_s3_bucket_website_configuration" "test" {
   bucket = aws_s3_bucket.test.id
 
@@ -651,10 +595,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_redirect(rName string) string {
-	return fmt.Sprintf(`
+}funcurn fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
@@ -666,16 +607,13 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRuleOptionalRedirection(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_routingRuleOptionalRedirection(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 
-resource "aws_s3_bucket_website_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+rfunccket = aws_s3_bucket.test.id
 
   index_document {
     suffix = "index.html"
@@ -688,16 +626,13 @@ resource "aws_s3_bucket_website_configuration" "test" {
   routing_rule {
     condition {
       key_prefix_equals = "docs/"
-    }
-    redirect {
+ funcredirect {
       replace_key_prefix_with = "documents/"
     }
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectErrors(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectErrors(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		fmt.Sprintf(`
@@ -718,17 +653,14 @@ resource "aws_s3_bucket_website_configuration" "test" {
 
   routing_rule {
     condition {
-      http_error_code_returned_equals = "404"
-    }
+ func}
     redirect {
       replace_key_prefix_with = "report-404"
     }
   }
 }
 `, rName))
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectToPage(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectToPage(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -750,14 +682,11 @@ resource "aws_s3_bucket_website_configuration" "test" {
       key_prefix_equals = "images/"
     }
     redirect {
-      replace_key_with = "errorpage.html"
-    }
+ func}
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectOnly(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_routingRuleRedirectOnly(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -780,11 +709,8 @@ resource "aws_s3_bucket_website_configuration" "test" {
       replace_key_with = "errorpage.html"
     }
   }
-}
-`, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRuleMultipleRules(rName string) string {
+}funcName)
+}func testAccBucketWebsiteConfigurationConfig_routingRuleMultipleRules(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -808,8 +734,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
     redirect {
       replace_key_with = "errorpage.html"
     }
-  }
-
+ func
   routing_rule {
     condition {
       key_prefix_equals = "docs/"
@@ -820,9 +745,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_routingRulesConditionAndRedirect(bucketName, replaceKeyPrefixWith string) string {
+}func testAccBucketWebsiteConfigurationConfig_routingRulesConditionAndRedirect(bucketName, replaceKeyPrefixWith string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -847,15 +770,12 @@ resource "aws_s3_bucket_website_configuration" "test" {
     },
     "Redirect": {
       "ReplaceKeyPrefixWith": %[2]q
-    }
-  }
+ func
 ]
 EOF
 }
 `, bucketName, replaceKeyPrefixWith)
-}
-
-func testAccBucketWebsiteConfigurationConfig_migrateIndexDocumentNoChange(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_migrateIndexDocumentNoChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -869,9 +789,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_migrateIndexDocumentChange(rName string) string {
+}func testAccBucketWebsiteConfigurationConfig_migrateIndexDocumentChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -883,11 +801,8 @@ resource "aws_s3_bucket_website_configuration" "test" {
   index_document {
     suffix = "other.html"
   }
-}
-`, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_migrateRoutingRuleNoChange(rName string) string {
+}funcName)
+}func testAccBucketWebsiteConfigurationConfig_migrateRoutingRuleNoChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -900,8 +815,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
     suffix = "index.html"
   }
 
-  error_document {
-    key = "error.html"
+ funckey = "error.html"
   }
 
   routing_rule {
@@ -914,11 +828,8 @@ resource "aws_s3_bucket_website_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketWebsiteConfigurationConfig_migrateRoutingRuleChange(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_s3_bucket" "test" {
+}func testAccBucketWebsiteConfigurationConfig_migrateRoutingRuleChange(rName string) string {
+	funcurce "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 
@@ -942,3 +853,4 @@ resource "aws_s3_bucket_website_configuration" "test" {
 }
 `, rName)
 }
+func

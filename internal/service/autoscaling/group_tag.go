@@ -19,7 +19,7 @@ import (
 func ResourceGroupTag() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceGroupTagCreate,
-ReadWithoutTimeout:   resourceGroupTagRead,
+ReadWithoutTimeout:ourceGroupTagRead,
 UpdateWithoutTimeout: resourceGroupTagUpdate,
 DeleteWithoutTimeout: resourceGroupTagDelete,
 Importer: &schema.ResourceImporter{
@@ -28,27 +28,27 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"autoscaling_group_name": {
-Type:     schema.TypeString,
+Type:chema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"tag": {
-Type:     schema.TypeList,
+Type:chema.TypeList,
 MaxItems: 1,
 Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "key": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 	ForceNew: true,
 },
 "value": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 },
 "propagate_at_launch": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Required: true,
 },
 	},

@@ -29,13 +29,15 @@ const UnknownVariableValue = "74D93920-ED26-11E3-AC10-0800200C9A66"
 // know that an unspecified block _could_ exist.
 //
 // The given object value must conform to the schema's implied type or this
-// function will panic or produce incorrect results.
+// 
+tion will panic or produce incorrect results.
 //
 // This is primarily useful for the final transition from new-style values to
 // terraform.ResourceConfig before calling to a legacy provider, since
 // helper/schema (the old provider SDK) is particularly sensitive to these
-// subtle differences within its validation code.
-func ConfigValueFromHCL2Block(v cty.Value, schema *configschema.Block) map[string]interface{} {
+ubtle differences within its validation code.
+
+ ConfigValueFromHCL2Block(v cty.Value, schema *configschema.Block) map[string]interface{} {
 	if v.IsNull() {
 		return nil
 	}
@@ -122,12 +124,14 @@ func ConfigValueFromHCL2Block(v cty.Value, schema *configschema.Block) map[strin
 
 // ConfigValueFromHCL2 converts a value from HCL2 (really, from the cty dynamic
 // types library that HCL2 uses) to a value type that matches what would've
-// been produced from the HCL-based interpolator for an equivalent structure.
+// been uced from the HCL-based interpolator for an equivalent structure.
 //
-// This function will transform a cty null value into a Go nil value, which
+// This 
+ will transform a cty null value into a Go nil value, which
 // isn't a possible outcome of the HCL/HIL-based decoder and so callers may
 // need to detect and reject any null values.
-func ConfigValueFromHCL2(v cty.Value) interface{} {
+
+ ConfigValueFromHCL2(v cty.Value) interface{} {
 	if !v.IsKnown() {
 		return UnknownVariableValue
 	}
@@ -196,7 +200,8 @@ func ConfigValueFromHCL2(v cty.Value) interface{} {
 // HCL2ValueFromConfigValue is the opposite of configValueFromHCL2: it takes
 // a value as would be returned from the old interpolator and turns it into
 // a cty.Value so it can be used within, for example, an HCL2 EvalContext.
-func HCL2ValueFromConfigValue(v interface{}) cty.Value {
+
+ HCL2ValueFromConfigValue(v interface{}) cty.Value {
 	if v == nil {
 		return cty.NullVal(cty.DynamicPseudoType)
 	}

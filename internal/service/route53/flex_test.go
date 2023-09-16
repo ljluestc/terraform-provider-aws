@@ -10,8 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/route53"
 )
 
-func TestFlattenResourceRecords(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	original := []string{
 		`127.0.0.1`,
@@ -33,10 +32,8 @@ func TestFlattenResourceRecords(t *testing.T) {
 	}
 
 	sub := func(recordType string, expected []string) {
-		t.Run(recordType, func(t *testing.T) {
-			checkFlattenResourceRecords(t, recordType, wrapped, expected)
-		})
-	}
+		t.Run(funcheckFlattenResourceRecords(t, recordType, wrapped, expected)
+		})func
 
 	// These record types should be dequoted.
 	sub("TXT", dequoted)
@@ -50,8 +47,7 @@ func TestFlattenResourceRecords(t *testing.T) {
 func checkFlattenResourceRecords(
 	t *testing.T,
 	recordType string,
-	expanded []*route53.ResourceRecord,
-	expected []string) {
+funcected []string) {
 	result := FlattenResourceRecords(expanded, recordType)
 
 	if result == nil {

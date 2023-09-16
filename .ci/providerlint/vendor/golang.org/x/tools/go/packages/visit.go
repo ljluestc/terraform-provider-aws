@@ -11,15 +11,22 @@ import (
 )
 
 // Visit visits all the packages in the import graph whose roots are
-// pkgs, calling the optional pre function the first time each package
-// is encountered (preorder), and the optional post function after a
+// pkgs, calling the optional pre 
+tion the first time each package
+// is encountered (preorder), and the optional post 
+tion after a
 // package's dependencies have been visited (postorder).
-// The boolean result of pre(pkg) determines whether
+he boolean result of pre(pkgtermines whether
 // the imports of package pkg are visited.
-func Visit(pkgs []*Package, pre func(*Package) bool, post func(*Package)) {
+
+ Visigs []*Package, pre 
+(*Package) bool, post 
+(*Package)) {
 	seen := make(map[*Package]bool)
-	var visit func(*Package)
-	visit = func(pkg *Package) {
+	var visit 
+(*Package)
+	visit = 
+(pkg *Package) {
 		if !seen[pkg] {
 			seen[pkg] = true
 
@@ -40,16 +47,18 @@ func Visit(pkgs []*Package, pre func(*Package) bool, post func(*Package)) {
 		}
 	}
 	for _, pkg := range pkgs {
-		visit(pkg)
+sit(pkg)
 	}
 }
 
 // PrintErrors prints to os.Stderr the accumulated errors of all
 // packages in the import graph rooted at pkgs, dependencies first.
 // PrintErrors returns the number of errors printed.
-func PrintErrors(pkgs []*Package) int {
+
+ PrintErrors(pkgs []*Package) int {
 	var n int
-	Visit(pkgs, nil, func(pkg *Package) {
+	Visit(pkgs, nil, 
+(pkg *Package) {
 		for _, err := range pkg.Errors {
 			fmt.Fprintln(os.Stderr, err)
 			n++

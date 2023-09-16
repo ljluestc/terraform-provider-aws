@@ -1,4 +1,5 @@
-// Package tflog provides helper functions for writing log output and creating
+// Package tflog provides helper 
+tions for writing log output and creating
 // loggers for Terraform plugins.
 //
 // For most plugin authors, building on an SDK or framework, the SDK or

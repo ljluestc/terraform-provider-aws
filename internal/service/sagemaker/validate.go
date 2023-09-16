@@ -10,8 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
 )
 
-func validEnvironment(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(map[string]interface{})
+funcue := v.(map[string]interface{})
 	for envK, envV := range value {
 		if !regexache.MustCompile(`^[0-9A-Za-z_]+$`).MatchString(envK) {
 			errors = append(errors, fmt.Errorf(
@@ -35,8 +34,7 @@ func validEnvironment(v interface{}, k string) (ws []string, errors []error) {
 }
 
 func validImage(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`[\S]+`).MatchString(value) {
+func!regexache.MustCompile(`[\S]+`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"no whitespace allowed in %q: %q",
 			k, value))
@@ -50,8 +48,7 @@ func validImage(v interface{}, k string) (ws []string, errors []error) {
 
 func validModelDataURL(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
-	if !regexache.MustCompile(`^(https|s3)://([^/]+)/?(.*)$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
+funcrors = append(errors, fmt.Errorf(
 			"%q must be a valid path: %q",
 			k, value))
 	}
@@ -69,8 +66,7 @@ func validModelDataURL(v interface{}, k string) (ws []string, errors []error) {
 func validName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only alphanumeric characters and hyphens allowed in %q: %q",
+funconly alphanumeric characters and hyphens allowed in %q: %q",
 			k, value))
 	}
 	if len(value) > 63 {
@@ -88,8 +84,7 @@ func validPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
-			"only alphanumeric characters and hyphens allowed in %q: %q",
-			k, value))
+func, value))
 	}
 	maxLength := 63 - id.UniqueIDSuffixLength
 	if len(value) > maxLength {

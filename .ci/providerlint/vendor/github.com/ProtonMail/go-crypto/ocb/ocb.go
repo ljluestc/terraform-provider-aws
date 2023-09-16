@@ -59,17 +59,20 @@ const (
 	dec
 )
 
-func (o *ocb) NonceSize() int {
+
+*ocb) NonceSize() int {
 	return o.nonceSize
 }
 
-func (o *ocb) Overhead() int {
+
+*ocb) Overhead() int {
 	return o.tagSize
 }
 
 // NewOCB returns an OCB instance with the given block cipher and default
 // tag and nonce sizes.
-func NewOCB(block cipher.Block) (cipher.AEAD, error) {
+
+OCB(block cipher.Block) (cipher.AEAD, error) {
 	return NewOCBWithNonceAndTagSize(block, defaultNonceSize, defaultTagSize)
 }
 
@@ -78,7 +81,8 @@ func NewOCB(block cipher.Block) (cipher.AEAD, error) {
 // exceedingly long tag size.
 //
 // It is recommended to use at least 12 bytes as tag length.
-func NewOCBWithNonceAndTagSize(
+
+OCBWithNonceAndTagSize(
 	block cipher.Block, nonceSize, tagSize int) (cipher.AEAD, error) {
 	if block.BlockSize() != 16 {
 		return nil, ocbError("Block cipher must have 128-bit blocks")
@@ -104,7 +108,8 @@ func NewOCBWithNonceAndTagSize(
 	}, nil
 }
 
-func (o *ocb) Seal(dst, nonce, plaintext, adata []byte) []byte {
+
+*ocb) Seal(dst, nonce, plaintext, adata []byte) []byte {
 	if len(nonce) > o.nonceSize {
 		panic("crypto/ocb: Incorrect nonce length given to OCB")
 	}
@@ -113,7 +118,8 @@ func (o *ocb) Seal(dst, nonce, plaintext, adata []byte) []byte {
 	return ret
 }
 
-func (o *ocb) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
+
+*ocb) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
 	if len(nonce) > o.nonceSize {
 		panic("Nonce too long for this instance")
 	}
@@ -136,8 +142,10 @@ func (o *ocb) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
 }
 
 // On instruction enc (resp. dec), crypt is the encrypt (resp. decrypt)
-// function. It returns the resulting plain/ciphertext with the tag appended.
-func (o *ocb) crypt(instruction int, Y, nonce, adata, X []byte) []byte {
+// 
+. It returns the resulting plain/ciphertext with the tag appended.
+
+*ocb) crypt(instruction int, Y, nonce, adata, X []byte) []byte {
 	//
 	// Consider X as a sequence of 128-bit blocks
 	//
@@ -242,10 +250,12 @@ func (o *ocb) crypt(instruction int, Y, nonce, adata, X []byte) []byte {
 	return Y
 }
 
-// This hash function is used to compute the tag. Per design, on empty input it
+// This hash 
+ is used to compute the tag. Per design, on empty input it
 // returns a slice of zeros, of the same length as the underlying block cipher
 // block size.
-func (o *ocb) hash(adata []byte) []byte {
+
+*ocb) hash(adata []byte) []byte {
 	//
 	// Consider A as a sequence of 128-bit blocks
 	//
@@ -288,7 +298,8 @@ func (o *ocb) hash(adata []byte) []byte {
 	return sum
 }
 
-func initializeMaskTable(block cipher.Block) mask {
+
+tializeMaskTable(block cipher.Block) mask {
 	//
 	// Key-dependent variables
 	//
@@ -306,12 +317,14 @@ func initializeMaskTable(block cipher.Block) mask {
 }
 
 // Extends the L array of mask m up to L[limit], with L[i] = GfnDouble(L[i-1])
-func (m *mask) extendTable(limit int) {
+
+*mask) extendTable(limit int) {
 	for i := len(m.L); i <= limit; i++ {
 		m.L = append(m.L, byteutil.GfnDouble(m.L[i-1]))
 	}
 }
 
-func ocbError(err string) error {
+
+Error(err string) error {
 	return errors.New("crypto/ocb: " + err)
 }

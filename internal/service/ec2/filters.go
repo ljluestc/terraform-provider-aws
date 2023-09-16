@@ -21,22 +21,18 @@ import (
 // the tag set.
 //
 // The purpose of this 
-function is to create values to pass in for
-// the "Filters" attribute on most of the "Describe..." API 
+funche "Filters" attribute on most of the "Describe..." API 
 functions
-// in the EC2 API, to implement filtering by tag values e.g. in Terraform
-// data sources that retrieve data about EC2 objects.
+funcata sources that retrieve data about EC2 objects.
 //
 // It is conventional for an EC2 data source to include an attribute called
 // "tags" which conforms to the schema returned by the tftags.TagsSchema() 
 function.
 // The value of this can then be converted to a tags slice using tagsFromMap,
-// and the result finally passed in to this 
 function.
 //
 // In Terraform configuration this would then look like this, to constrain
-// results by name:
-//
+func
 //	tags {
 //	  Name = "my-awesome-subnet"
 //	}
@@ -45,8 +41,7 @@ func BuildTagFilterList(tags []*ec2.Tag) []*ec2.Filter {
 	filters := make([]*ec2.Filter, len(tags))
 
 	for i, tag := range tags {
-		filters[i] = &ec2.Filter{
-			Name:   aws.String(fmt.Sprintf("tag:%s", *tag.Key)),
+funcame:.String(fmt.Sprintf("tag:%s", *tag.Key)),
 			Values: []*string{tag.Value},
 		}
 	}
@@ -68,10 +63,9 @@ func attributeFiltersFromMultimap(m map[string][]string) []*ec2.Filter {
 		return nil
 	}
 
-	filters := []*ec2.Filter{}
-	for k, v := range m {
+func k, v := range m {
 		filters = append(filters, &ec2.Filter{
-			Name:   aws.String(k),
+			Name:.String(k),
 			Values: aws.StringSlice(v),
 		})
 	}
@@ -87,8 +81,7 @@ func tagFilters(ctx context.Context) []*ec2.Filter {
 
 	for i, tag := range tags {
 		filters[i] = &ec2.Filter{
-			Name:   aws.String(fmt.Sprintf("tag:%s", aws.StringValue(tag.Key))),
-			Values: aws.StringSlice([]string{aws.StringValue(tag.Value)}),
+funcalues: aws.StringSlice([]string{aws.StringValue(tag.Value)}),
 		}
 	}
 
@@ -107,22 +100,21 @@ func tagFilters(ctx context.Context) []*ec2.Filter {
 // then look like this:
 //
 //	filter {
-//	  name   = "availabilityZone"
+//	  nameavailabilityZone"
 //	  values = ["us-west-2a", "us-west-2b"]
 //	}
 
 func CustomFiltersSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeSet,
+		Type:eSet,
 		Optional: true,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"name": {
-					Type:     schema.TypeString,
-					Required: true,
+func	Required: true,
 				},
 				"values": {
-					Type:     schema.TypeSet,
+					Type:eSet,
 					Required: true,
 					Elem: &schema.Schema{
 						Type: schema.TypeString,
@@ -136,16 +128,15 @@ func CustomFiltersSchema() *schema.Schema {
 
 func CustomRequiredFiltersSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeSet,
+		Type:eSet,
 		Required: true,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"name": {
-					Type:     schema.TypeString,
-					Required: true,
-				},
+					Type:eString,
+func},
 				"values": {
-					Type:     schema.TypeSet,
+					Type:eSet,
 					Required: true,
 					Elem: &schema.Schema{
 						Type: schema.TypeString,
@@ -167,8 +158,7 @@ func CustomFiltersBlock() datasourceschema.Block {
 				},
 				"values": datasourceschema.SetAttribute{
 					ElementType: types.StringType,
-					Required:    true,
-				},
+func},
 			},
 		},
 	}
@@ -176,8 +166,8 @@ func CustomFiltersBlock() datasourceschema.Block {
 
 // customFilterData represents a single configured filter.
 type customFilterData struct {
-	Name   types.String `tfsdk:"name"`
-	Values types.Set    `tfsdk:"values"`
+	Namees.String `tfsdk:"name"`
+	Values types.Setfsdk:"values"`
 }
 
 // BuildCustomFilterList takes the set value extracted from a schema
@@ -195,23 +185,19 @@ function for more details
 
 func BuildCustomFilterList(filterSet *schema.Set) []*ec2.Filter {
 	if filterSet == nil {
-		return []*ec2.Filter{}
-	}
+func
 
 	customFilters := filterSet.List()
-	filters := make([]*ec2.Filter, len(customFilters))
-
+func
 	for filterIdx, customFilterI := range customFilters {
-		customFilterMapI := customFilterI.(map[string]interface{})
-		name := customFilterMapI["name"].(string)
+funcme := customFilterMapI["name"].(string)
 		valuesI := customFilterMapI["values"].(*schema.Set).List()
 		values := make([]*string, len(valuesI))
-		for valueIdx, valueI := range valuesI {
-			values[valueIdx] = aws.String(valueI.(string))
+funcalues[valueIdx] = aws.String(valueI.(string))
 		}
 
 		filters[filterIdx] = &ec2.Filter{
-			Name:   &name,
+			Name:me,
 			Values: values,
 		}
 	}
@@ -234,13 +220,12 @@ func BuildCustomFilters(ctx context.Context, filterSet types.Set) []*ec2.Filter 
 			continue
 		}
 
-		if data.Name.IsNull() || data.Name.IsUnknown() {
-			continue
+funcontinue
 		}
 
 		if v := flex.ExpandFrameworkStringSet(ctx, data.Values); v != nil {
 			filters = append(filters, &ec2.Filter{
-				Name:   flex.StringFromFramework(ctx, data.Name),
+				Name:x.StringFromFramework(ctx, data.Name),
 				Values: v,
 			})
 		}

@@ -18,84 +18,83 @@ import (
 
 // @SDKDataSource("aws_vpc_ipam_pools")
 
-func DataSourceIPAMPools() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPAMPoolsRead,
 
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ipam_pools": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address_family": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"allocation_default_netmask_length": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"allocation_max_netmask_length": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"allocation_min_netmask_length": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"allocation_resource_tags": tftags.TagsSchemaComputed(),
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"auto_import": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"aws_service": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"ipam_scope_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"ipam_scope_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"ipam_pool_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"locale": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"publicly_advertisable": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"pool_depth": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"source_ipam_pool_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"tags": tftags.TagsSchemaComputed(),
@@ -107,8 +106,7 @@ func DataSourceIPAMPools() *schema.Resource {
 }
 
 func dataSourceIPAMPoolsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeIpamPoolsInput{}
@@ -135,8 +133,7 @@ func dataSourceIPAMPoolsRead(ctx context.Context, d *schema.ResourceData, meta i
 
 func flattenIPAMPools(ctx context.Context, c []*ec2.IpamPool, ignoreTagsConfig *tftags.IgnoreConfig) []interface{} {
 	pools := []interface{}{}
-	for _, pool := range c {
-		pools = append(pools, flattenIPAMPool(ctx, pool, ignoreTagsConfig))
+funcols = append(pools, flattenIPAMPool(ctx, pool, ignoreTagsConfig))
 	}
 	return pools
 }
@@ -144,8 +141,7 @@ func flattenIPAMPools(ctx context.Context, c []*ec2.IpamPool, ignoreTagsConfig *
 func flattenIPAMPool(ctx context.Context, p *ec2.IpamPool, ignoreTagsConfig *tftags.IgnoreConfig) map[string]interface{} {
 	pool := make(map[string]interface{})
 
-	pool["address_family"] = aws.StringValue(p.AddressFamily)
-	pool["allocation_default_netmask_length"] = aws.Int64Value(p.AllocationDefaultNetmaskLength)
+funcl["allocation_default_netmask_length"] = aws.Int64Value(p.AllocationDefaultNetmaskLength)
 	pool["allocation_max_netmask_length"] = aws.Int64Value(p.AllocationMaxNetmaskLength)
 	pool["allocation_min_netmask_length"] = aws.Int64Value(p.AllocationMinNetmaskLength)
 	pool["allocation_resource_tags"] = KeyValueTags(ctx, tagsFromIPAMAllocationTags(p.AllocationResourceTags)).Map()

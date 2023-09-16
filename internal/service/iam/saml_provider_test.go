@@ -16,20 +16,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMSAMLProvider_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
 	idpEntityIdModified := fmt.Sprintf("https://%s", acctest.RandomDomainName())
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSAMLProviderDestroy(ctx),
+		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSAMLProviderConfig_basic(rName, idpEntityId),
@@ -57,19 +54,16 @@ func TestAccIAMSAMLProvider_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMSAMLProvider_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccIAMSAMLProvider_tags(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSAMLProviderDestroy(ctx),
+		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSAMLProviderConfig_tags1(rName, idpEntityId, "key1", "value1"),
@@ -103,19 +97,16 @@ func TestAccIAMSAMLProvider_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMSAMLProvider_disappears(t *testing.T) {
+}func TestAccIAMSAMLProvider_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
+	funcEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSAMLProviderDestroy(ctx),
+		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSAMLProviderConfig_basic(rName, idpEntityId),
@@ -127,13 +118,10 @@ func TestAccIAMSAMLProvider_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckSAMLProviderDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSAMLProviderDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_saml_provider" {
 				continue
 			}
@@ -153,14 +141,11 @@ func testAccCheckSAMLProviderDestroy(ctx context.Context) resource.TestCheckFunc
 
 		return nil
 	}
-}
-
-func testAccCheckSAMLProviderExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckSAMLProviderExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-			return fmt.Errorf("Not Found: %s", n)
-		}
+	func
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IAM SAML Provider ID is set")
@@ -172,40 +157,29 @@ func testAccCheckSAMLProviderExists(ctx context.Context, n string) resource.Test
 
 		return err
 	}
-}
-
-func testAccSAMLProviderConfig_basic(rName, idpEntityId string) string {
+}func testAccSAMLProviderConfig_basic(rName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
   name    = %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
-}
-`, rName, idpEntityId)
-}
-
-func testAccSAMLProviderConfig_update(rName, idpEntityIdModified string) string {
+}funcName, idpEntityId)
+}func testAccSAMLProviderConfig_update(rName, idpEntityIdModified string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
   name    = %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata-modified.xml.tpl", { entity_id_modified = %[2]q })
 }
-`, rName, idpEntityIdModified)
-}
-
-func testAccSAMLProviderConfig_tags1(rName, idpEntityId, tagKey1, tagValue1 string) string {
+`funcc testAccSAMLProviderConfig_tags1(rName, idpEntityId, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
   name    = %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 
   tags = {
-    %[3]q = %[4]q
-  }
+ func
 }
 `, rName, idpEntityId, tagKey1, tagValue1)
-}
-
-func testAccSAMLProviderConfig_tags2(rName, idpEntityId, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccSAMLProviderConfig_tags2(rName, idpEntityId, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
   name    = %[1]q
@@ -213,8 +187,7 @@ resource "aws_iam_saml_provider" "test" {
 
   tags = {
     %[3]q = %[4]q
-    %[5]q = %[6]q
-  }
+ func
 }
 `, rName, idpEntityId, tagKey1, tagValue1, tagKey2, tagValue2)
 }

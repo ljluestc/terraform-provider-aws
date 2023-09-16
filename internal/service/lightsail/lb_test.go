@@ -32,19 +32,19 @@ func TestAccLightsailLoadBalancer_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"lb": {
-			"basic":             testAccLoadBalancer_basic,
+			"basic":lancer_basic,
 			"disappears":        testAccLoadBalancer_disappears,
-			"name":              testAccLoadBalancer_name,
+			"name":alancer_name,
 			"health_check_path": testAccLoadBalancer_healthCheckPath,
-			"tags":              testAccLoadBalancer_tags,
+			"tags":alancer_tags,
 		},
 		"lb_attachment": {
 			"basic":      testAccLoadBalancerAttachment_basic,
 			"disappears": testAccLoadBalancerAttachment_disappears,
 		},
 		"lb_certificate": {
-			"basic":                     testAccLoadBalancerCertificate_basic,
-			"disappears":                testAccLoadBalancerCertificate_disappears,
+			"basic":ccLoadBalancerCertificate_basic,
+			"disappears":dBalancerCertificate_disappears,
 			"domain_validation_records": testAccLoadBalancerCertificate_domainValidationRecords,
 			"subject_alternative_names": testAccLoadBalancerCertificate_subjectAlternativeNames,
 		},
@@ -75,9 +75,9 @@ func testAccLoadBalancer_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerConfig_basic(rName),
@@ -111,9 +111,9 @@ func testAccLoadBalancer_name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccLoadBalancerConfig_basic(lightsailNameWithSpaces),
@@ -154,9 +154,9 @@ func testAccLoadBalancer_healthCheckPath(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerConfig_healthCheckPath(rName, "/"),
@@ -192,9 +192,9 @@ func testAccLoadBalancer_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerConfig_tags1(rName, "key1", "value1"),
@@ -285,9 +285,9 @@ func testAccLoadBalancer_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerConfig_basic(rName),
@@ -330,7 +330,7 @@ func testAccCheckLoadBalancerDestroy(ctx context.Context) resource.TestCheckFunc
 func testAccLoadBalancerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
 }
@@ -340,7 +340,7 @@ resource "aws_lightsail_lb" "test" {
 func testAccLoadBalancerConfig_healthCheckPath(rName string, rPath string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = %[2]q
   instance_port     = "80"
 }
@@ -350,7 +350,7 @@ resource "aws_lightsail_lb" "test" {
 func testAccLoadBalancerConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
   tags = {
@@ -363,7 +363,7 @@ resource "aws_lightsail_lb" "test" {
 func testAccLoadBalancerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
   tags = {

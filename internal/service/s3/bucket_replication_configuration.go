@@ -21,8 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_replication_configuration")
-func ResourceBucketReplicationConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_replication_configuration")func ResourceBucketReplicationConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketReplicationConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketReplicationConfigurationRead,
@@ -306,10 +305,7 @@ func ResourceBucketReplicationConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketReplicationConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
@@ -358,11 +354,8 @@ func resourceBucketReplicationConfigurationCreate(ctx context.Context, d *schema
 	}
 
 	return append(diags, resourceBucketReplicationConfigurationRead(ctx, d, meta)...)
-}
-
-func resourceBucketReplicationConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketReplicationConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	output, err := FindBucketReplicationConfigurationByID(ctx, conn, d.Id())
 
@@ -385,12 +378,9 @@ func resourceBucketReplicationConfigurationRead(ctx context.Context, d *schema.R
 	}
 
 	return diags
-}
-
-func resourceBucketReplicationConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketReplicationConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	rc := &s3.ReplicationConfiguration{
 		Role:  aws.String(d.Get("role").(string)),
 		Rules: ExpandReplicationRules(ctx, d.Get("rule").([]interface{})),
@@ -425,13 +415,10 @@ func resourceBucketReplicationConfigurationUpdate(ctx context.Context, d *schema
 	}
 
 	return append(diags, resourceBucketReplicationConfigurationRead(ctx, d, meta)...)
-}
-
-func resourceBucketReplicationConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketReplicationConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	input := &s3.DeleteBucketReplicationInput{
+funcut := &s3.DeleteBucketReplicationInput{
 		Bucket: aws.String(d.Id()),
 	}
 
@@ -446,14 +433,11 @@ func resourceBucketReplicationConfigurationDelete(ctx context.Context, d *schema
 	}
 
 	return diags
-}
-
-func FindBucketReplicationConfigurationByID(ctx context.Context, conn *s3.S3, id string) (*s3.GetBucketReplicationOutput, error) {
+}func FindBucketReplicationConfigurationByID(ctx context.Context, conn *s3.S3, id string) (*s3.GetBucketReplicationOutput, error) {
 	in := &s3.GetBucketReplicationInput{
 		Bucket: aws.String(id),
 	}
-
-	out, err := conn.GetBucketReplicationWithContext(ctx, in)
+func, err := conn.GetBucketReplicationWithContext(ctx, in)
 
 	if tfawserr.ErrCodeEquals(err, ErrCodeReplicationConfigurationNotFound, s3.ErrCodeNoSuchBucket) {
 		return nil, &retry.NotFoundError{

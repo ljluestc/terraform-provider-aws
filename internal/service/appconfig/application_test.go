@@ -26,10 +26,10 @@ func TestAccAppConfigApplication_basic(t *testing.T) {
 	resourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_name(rName),
@@ -55,10 +55,10 @@ func TestAccAppConfigApplication_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_name(rName),
@@ -79,10 +79,10 @@ func TestAccAppConfigApplication_updateName(t *testing.T) {
 	resourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_name(rName),
@@ -113,10 +113,10 @@ func TestAccAppConfigApplication_updateDescription(t *testing.T) {
 	resourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_description(rName, rName),
@@ -159,10 +159,10 @@ func TestAccAppConfigApplication_tags(t *testing.T) {
 	resourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_tags1(rName, "key1", "value1"),

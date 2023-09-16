@@ -14,7 +14,8 @@ const Doc = `check for validation.StringMatch() calls with empty message argumen
 
 The V009 analyzer reports when the second argument for a validation.StringMatch()
 call is an empty string. It is preferred to provide a friendly validation
-message, rather than allowing the function to return the raw regular expression
+message, rather than allowing the 
+tion to return the raw regular expression
 as the message, since not all practitioners may be familiar with regular
 expression syntax.`
 
@@ -30,7 +31,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	sets := pass.ResultOf[stringmatchcallexpr.Analyzer].([]*ast.CallExpr)
 	for _, set := range sets {

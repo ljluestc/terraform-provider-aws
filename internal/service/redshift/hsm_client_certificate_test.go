@@ -25,10 +25,10 @@ func TestAccRedshiftHSMClientCertificate_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHSMClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckHSMClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHSMClientCertificateConfig_basic(rName),
@@ -55,10 +55,10 @@ func TestAccRedshiftHSMClientCertificate_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHSMClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckHSMClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHSMClientCertificateConfig_tags1(rName, "key1", "value1"),
@@ -99,10 +99,10 @@ func TestAccRedshiftHSMClientCertificate_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHSMClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckHSMClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHSMClientCertificateConfig_basic(rName),

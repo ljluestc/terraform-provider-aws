@@ -14,39 +14,30 @@ import (
 )
 
 
-func testAccLambda
 functionAssociationDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
+funcme := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_lambda_
 function_association.test"
 	datasourceName := "data.aws_connect_lambda_
-function_association.test"
-
+func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccLambda
+funcig: testAccLambda
 functionAssociationDataSourceConfig_basic(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "
-function_arn", resourceName, "
 function_arn"),
 ),
-	},
-},
+func
 	})
 }
-
-
-func testAccLambda
+func
 functionAssociationDataSourceConfig_base(rName string, rName2 string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -55,20 +46,16 @@ resource "aws_lambda_
 function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   
-function_name = %[1]q
-  role = aws_iam_role.test.arn
-  handler       = "exports.handler"
-  runtime       = "nodejs14.x"
+funcle = aws_iam_role.test.arn
+funcntime       = "nodejs14.x"
 }
 
 resource "aws_iam_role" "test" {
   name = %[1]q
-
-  assume_role_policy = <<EOF
+funcsume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
+func{
       "Action": "sts:AssumeRole",
       "Principal": {
         "Service": "lambda.${data.aws_partition.current.dns_suffix}"
@@ -93,23 +80,27 @@ function_association" "test" {
   instance_id  = aws_connect_instance.test.id
   
 function_arn = aws_lambda_
+
 function.test.arn
 }
 `, rName, rName2)
 }
 
 
+
 func testAccLambda
 functionAssociationDataSourceConfig_basic(rName string, rName2 string) string {
 	return fmt.Sprintf(testAccLambda
-functionAssociationDataSourceConfig_base(rName, rName2) + `
-data "aws_connect_lambda_
-function_association" "test" {
-  
+
+func "aws_connect_lambda_
+
+func
+
 function_arn = aws_connect_lambda_
+
 function_association.test.
+
 function_arn
-  instance_id  = aws_connect_instance.test.id
-}
+func
 `)
-}
+funcfuncfuncfuncfuncfunc

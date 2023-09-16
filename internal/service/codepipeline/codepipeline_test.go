@@ -34,9 +34,9 @@ func TestAccCodePipeline_basic(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_basic(name),
@@ -140,9 +140,9 @@ func TestAccCodePipeline_disappears(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_basic(name),
@@ -168,9 +168,9 @@ func TestAccCodePipeline_emptyStageArtifacts(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_emptyStageArtifacts(name),
@@ -211,9 +211,9 @@ func TestAccCodePipeline_deployWithServiceRole(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_deployServiceRole(name),
@@ -245,9 +245,9 @@ func TestAccCodePipeline_tags(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_tags(name, "tag1value", "tag2value"),
@@ -304,9 +304,9 @@ func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
 			testAccPreCheckSupported(ctx, t, acctest.AlternateRegion())
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_multiregion(name),
@@ -346,9 +346,9 @@ func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 			testAccPreCheckSupported(ctx, t, acctest.AlternateRegion())
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_multiregion(name),
@@ -402,9 +402,9 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 			testAccPreCheckSupported(ctx, t, acctest.AlternateRegion())
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_basic(name),
@@ -466,9 +466,9 @@ func TestAccCodePipeline_withNamespace(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_namespace(name),
@@ -500,9 +500,9 @@ func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_gitHubv1SourceAction(name, githubToken),
@@ -576,9 +576,9 @@ func TestAccCodePipeline_ecr(t *testing.T) {
 			testAccPreCheckSupported(ctx, t)
 			acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, codepipeline.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, codepipeline.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCodePipelineConfig_ecr(name),
@@ -832,7 +832,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -896,7 +896,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -954,7 +954,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -973,7 +973,7 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name             = "Build"
+      name= "Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
@@ -1070,7 +1070,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -1089,7 +1089,7 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name             = "Build"
+      name= "Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
@@ -1155,7 +1155,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -1240,7 +1240,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -1334,7 +1334,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -1440,7 +1440,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
@@ -1508,7 +1508,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "ThirdParty"
       provider         = "GitHub"
@@ -1567,7 +1567,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "ThirdParty"
       provider         = "GitHub"
@@ -1626,7 +1626,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "ECR"

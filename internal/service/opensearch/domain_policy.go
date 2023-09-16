@@ -39,7 +39,7 @@ func ResourceDomainPolicy() *schema.Resource {
 				Required: true,
 			},
 			"access_policies": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Required:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,

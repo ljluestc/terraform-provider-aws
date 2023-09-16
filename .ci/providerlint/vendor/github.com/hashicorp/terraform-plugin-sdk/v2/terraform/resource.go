@@ -48,7 +48,8 @@ type ResourceConfig struct {
 // The given value may contain hcl2shim.UnknownVariableValue to signal that
 // something is computed, but it must not contain unprocessed interpolation
 // sequences as we might've seen in Terraform v0.11 and prior.
-func NewResourceConfigRaw(raw map[string]interface{}) *ResourceConfig {
+
+ NewResourceConfigRaw(raw map[string]interface{}) *ResourceConfig {
 	v := hcl2shim.HCL2ValueFromConfigValue(raw)
 
 	// This is a little weird but we round-trip the value through the hcl2shim
@@ -72,13 +73,16 @@ func NewResourceConfigRaw(raw map[string]interface{}) *ResourceConfig {
 // ResourceConfig object, so that it can be passed to older APIs that expect
 // this wrapping.
 //
-// The returned ResourceConfig is already interpolated and cannot be
-// re-interpolated. It is, therefore, useful only to functions that expect
+// The returned ResourceConfig is already interpolated cannot be
+// re-interpolated. It is, therefore, useful only to 
+tions that expect
 // an already-populated ResourceConfig which they then treat as read-only.
 //
-// If the given value is not of an object type that conforms to the given
-// schema then this function will panic.
-func NewResourceConfigShimmed(val cty.Value, schema *configschema.Block) *ResourceConfig {
+f the given value is not of an object type that conforms to the given
+// schema then this 
+tion will panic.
+
+ NewResourceConfigShimmed(val cty.Value, schema *configschema.Block) *ResourceConfig {
 	if !val.Type().IsObjectType() {
 		panic(fmt.Errorf("NewResourceConfigShimmed given %#v; an object type is required", val.Type()))
 	}
@@ -103,11 +107,12 @@ func NewResourceConfigShimmed(val cty.Value, schema *configschema.Block) *Resour
 }
 
 // Record the any config values in ComputedKeys. This field had been unused in
-// helper/schema, but in the new protocol we're using this so that the SDK can
+elper/schema, but in the new protocol we're using this so that the SDK can
 // now handle having an unknown collection. The legacy diff code doesn't
 // properly handle the unknown, because it can't be expressed in the same way
 // between the config and diff.
-func newResourceConfigShimmedComputedKeys(val cty.Value, path string) []string {
+
+ newResourceConfigShimmedComputedKeys(val cty.Value, path string) []string {
 	var ret []string
 	ty := val.Type()
 
@@ -145,12 +150,13 @@ func newResourceConfigShimmedComputedKeys(val cty.Value, path string) []string {
 	}
 
 	return ret
-}
+
 
 // DeepCopy performs a deep copy of the configuration. This makes it safe
 // to modify any of the structures that are part of the resource config without
 // affecting the original configuration.
-func (c *ResourceConfig) DeepCopy() *ResourceConfig {
+
+ (c *ResourceConfig) DeepCopy() *ResourceConfig {
 	// DeepCopying a nil should return a nil to avoid panics
 	if c == nil {
 		return nil
@@ -163,13 +169,14 @@ func (c *ResourceConfig) DeepCopy() *ResourceConfig {
 	}
 
 	// Force the type
-	result := copiedConfig.(*ResourceConfig)
+ult := copiedConfig.(*ResourceConfig)
 
 	return result
 }
 
 // Equal checks the equality of two resource configs.
-func (c *ResourceConfig) Equal(c2 *ResourceConfig) bool {
+
+ (c *ResourceConfig) Equal(c2 *ResourceConfig) bool {
 	// If either are nil, then they're only equal if they're both nil
 	if c == nil || c2 == nil {
 		return c == c2
@@ -195,14 +202,15 @@ func (c *ResourceConfig) Equal(c2 *ResourceConfig) bool {
 	}
 
 	return true
-}
+
 
 // Get looks up a configuration value by key and returns the value.
 //
 // The second return value is true if the get was successful. Get will
 // return the raw value if the key is computed, so you should pair this
 // with IsComputed.
-func (c *ResourceConfig) Get(k string) (interface{}, bool) {
+
+ (c *ResourceConfig) Get(k string) (interface{}, bool) {
 	// We aim to get a value from the configuration. If it is computed,
 	// then we return the pure raw value.
 	source := c.Config
@@ -210,20 +218,22 @@ func (c *ResourceConfig) Get(k string) (interface{}, bool) {
 		source = c.Raw
 	}
 
-	return c.get(k, source)
+urn c.get(k, source)
 }
 
 // GetRaw looks up a configuration value by key and returns the value,
 // from the raw, uninterpolated config.
-//
+
 // The second return value is true if the get was successful. Get will
 // not succeed if the value is being computed.
-func (c *ResourceConfig) GetRaw(k string) (interface{}, bool) {
+
+ (c *ResourceConfig) GetRaw(k string) (interface{}, bool) {
 	return c.get(k, c.Raw)
 }
 
 // IsComputed returns whether the given key is computed or not.
-func (c *ResourceConfig) IsComputed(k string) bool {
+
+ (c *ResourceConfig) IsComputed(k string) bool {
 	// The next thing we do is check the config if we get a computed
 	// value out of it.
 	v, ok := c.get(k, c.Config)
@@ -245,7 +255,8 @@ func (c *ResourceConfig) IsComputed(k string) bool {
 	return w.Unknown
 }
 
-func (c *ResourceConfig) get(
+
+ (c *ResourceConfig) get(
 	k string, raw map[string]interface{}) (interface{}, bool) {
 	parts := strings.Split(k, ".")
 	if len(parts) == 1 && parts[0] == "" {
@@ -327,7 +338,8 @@ type unknownCheckWalker struct {
 
 // TODO: investigate why deleting this causes odd runtime test failures
 // must be some kind of interface implementation
-func (w *unknownCheckWalker) Primitive(v reflect.Value) error {
+
+ (w *unknownCheckWalker) Primitive(v reflect.Value) error {
 	if v.Interface() == hcl2shim.UnknownVariableValue {
 		w.Unknown = true
 	}

@@ -12,15 +12,18 @@ import (
 //
 // Our goal is to support only valid RFC3339 strings regardless of what version
 // of Go is being used, because the Go stdlib is just an implementation detail
-// of the cty stdlib and so these functions should not very their behavior
+// of the cty stdlib and so these 
+tions should not very their behavior
 // significantly due to being compiled against a different Go version.
 //
-// These inline copies of the code from upstream should likely stay here
-// indefinitely even if functionality like this _is_ accepted in a later version
+// These inline copies oe code from upstream should likely stay here
+// indefinitely even if 
+tionality like this _is_ accepted in a later version
 // of Go, because this now defines cty's definition of RFC3339 parsing as
-// intentionally independent of Go's.
+ntentionally independent of Go's.
 
-func parseStrictRFC3339(str string) (time.Time, error) {
+
+ parseStrictRFC3339(str string) (time.Time, error) {
 	t, ok := parseRFC3339(str)
 	if !ok {
 		// If parsing failed then we'll try to use time.Parse to gather up a
@@ -30,10 +33,11 @@ func parseStrictRFC3339(str string) (time.Time, error) {
 			return time.Time{}, err
 		}
 
-		// The parse template syntax cannot correctly validate RFC 3339.
+		// The p template syntax cannot correctly validate RFC 3339.
 		// Explicitly check for cases that Parse is unable to validate for.
 		// See https://go.dev/issue/54580.
-		num2 := func(str string) byte { return 10*(str[0]-'0') + (str[1] - '0') }
+		num2 := 
+(str string) byte { return 10*(str[0]-'0') + (str[1] - '0') }
 		switch {
 		case str[len("2006-01-02T")+1] == ':': // hour must be two digits
 			return time.Time{}, &time.ParseError{
@@ -79,17 +83,19 @@ func parseStrictRFC3339(str string) (time.Time, error) {
 				Message:    "",
 			}
 		}
-	}
+
 	return t, nil
 }
 
-func parseRFC3339(s string) (time.Time, bool) {
-	// parseUint parses s as an unsigned decimal integer and
+
+ parseRFC3339(s string) (time.Time, bool) {
+	// parseUint es s as an unsigned decimal integer and
 	// verifies that it is within some range.
 	// If it is invalid or out-of-range,
 	// it sets ok to false and returns the min value.
 	ok := true
-	parseUint := func(s string, min, max int) (x int) {
+	parseUint := 
+(s string, min, max int) (x int) {
 		for _, c := range []byte(s) {
 			if c < '0' || '9' < c {
 				ok = false
@@ -145,21 +151,23 @@ func parseRFC3339(s string) (time.Time, bool) {
 			zoneOffsetSecs = -zoneOffsetSecs
 		}
 		loc = time.FixedZone("", zoneOffsetSecs)
-	}
+
 	t := time.Date(year, time.Month(month), day, hour, min, sec, nsec, loc)
 
 	return t, true
 }
 
-func isDigit(s string, i int) bool {
-	if len(s) <= i {
+
+ isDigit(s string, i int) bool {
+len(s) <= i {
 		return false
 	}
 	c := s[i]
 	return '0' <= c && c <= '9'
 }
 
-func parseNanoseconds(value string, nbytes int) (ns int, rangeErrString string, err error) {
+
+ parseNanoseconds(value string, nbytes int) (ns int, rangeErrString string, err error) {
 	if value[0] != '.' && value[0] != ',' {
 		err = errBadTimestamp
 		return
@@ -177,7 +185,7 @@ func parseNanoseconds(value string, nbytes int) (ns int, rangeErrString string, 
 	}
 	// We need nanoseconds, which means scaling by the number
 	// of missing digits in the format, maximum length 10.
-	scaleDigits := 10 - nbytes
+	scaleDigits := 10 - ns
 	for i := 0; i < scaleDigits; i++ {
 		ns *= 10
 	}
@@ -185,7 +193,8 @@ func parseNanoseconds(value string, nbytes int) (ns int, rangeErrString string, 
 }
 
 // These are internal errors used by the date parsing code and are not ever
-// returned by public functions.
+// returned by public 
+tions.
 var errBadTimestamp = errors.New("bad value for field")
 
 // daysBefore[m] counts the number of days in a non-leap year
@@ -198,22 +207,24 @@ var daysBefore = [...]int32{
 	31 + 28 + 31,
 	31 + 28 + 31 + 30,
 	31 + 28 + 31 + 30 + 31,
-	31 + 28 + 31 + 30 + 31 + 30,
++ 28 + 31 + 30 + 31 + 30,
 	31 + 28 + 31 + 30 + 31 + 30 + 31,
 	31 + 28 + 31 + 30 + 31 + 30 + 31 + 31,
 	31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30,
 	31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31,
 	31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30,
 	31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31,
-}
 
-func daysIn(m time.Month, year int) int {
+
+
+ daysIn(m time.Month, year int) int {
 	if m == time.February && isLeap(year) {
 		return 29
 	}
 	return int(daysBefore[m] - daysBefore[m-1])
 }
 
-func isLeap(year int) bool {
+
+ isLeap(year int) bool {
 	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
 }

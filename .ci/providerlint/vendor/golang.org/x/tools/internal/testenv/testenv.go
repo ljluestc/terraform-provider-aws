@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package testenv contains helper functions for skipping tests
+// Package testenv contains helper 
+tions for skipping tests
 // based on which tools are present in the environment.
 package testenv
 
@@ -25,8 +26,9 @@ import (
 )
 
 // packageMainIsDevel reports whether the module containing package main
-// is a development version (if module information is available).
-func packageMainIsDevel() bool {
+s a development version (if module information is available).
+
+ packageMainIsDevel() bool {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		// Most test binaries currently lack build info, but this should become more
@@ -43,9 +45,10 @@ func packageMainIsDevel() bool {
 var checkGoGoroot struct {
 	once sync.Once
 	err  error
-}
 
-func hasTool(tool string) error {
+
+
+ hasTool(tool string) error {
 	if tool == "cgo" {
 		enabled, err := cgoEnabled(false)
 		if err != nil {
@@ -77,7 +80,8 @@ func hasTool(tool string) error {
 		}
 
 	case "go":
-		checkGoGoroot.once.Do(func() {
+		checkGoGoroot.once.Do(
+() {
 			// Ensure that the 'go' command found by exec.LookPath is from the correct
 			// GOROOT. Otherwise, 'some/path/go test ./...' will test against some
 			// version of the 'go' binary other than 'some/path/go', which is almost
@@ -128,7 +132,8 @@ func hasTool(tool string) error {
 	return nil
 }
 
-func cgoEnabled(bypassEnvironment bool) (bool, error) {
+
+ cgoEnabled(bypassEnvironment bool) (bool, error) {
 	cmd := exec.Command("go", "env", "CGO_ENABLED")
 	if bypassEnvironment {
 		cmd.Env = append(append([]string(nil), os.Environ()...), "CGO_ENABLED=")
@@ -136,12 +141,13 @@ func cgoEnabled(bypassEnvironment bool) (bool, error) {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		return false, err
-	}
+
 	enabled := strings.TrimSpace(string(out))
 	return enabled == "1", nil
 }
 
-func allowMissingTool(tool string) bool {
+
+ allowMissingTool(tool string) bool {
 	if runtime.GOOS == "android" {
 		// Android builds generally run tests on a separate machine from the build,
 		// so don't expect any external tools to be available.
@@ -176,13 +182,14 @@ func allowMissingTool(tool string) bool {
 	// If a developer is actively working on this test, we expect them to have all
 	// of its dependencies installed. However, if it's just a dependency of some
 	// other module (for example, being run via 'go test all'), we should be more
-	// tolerant of unusual environments.
+tolerant of unusual environments.
 	return !packageMainIsDevel()
 }
 
 // NeedsTool skips t if the named tool is not present in the path.
 // As a special case, "cgo" means "go" is present and can compile cgo programs.
-func NeedsTool(t testing.TB, tool string) {
+
+ NeedsTool(t testing.TB, tool string) {
 	err := hasTool(tool)
 	if err == nil {
 		return
@@ -191,14 +198,15 @@ func NeedsTool(t testing.TB, tool string) {
 	t.Helper()
 	if allowMissingTool(tool) {
 		t.Skipf("skipping because %s tool not available: %v", tool, err)
-	} else {
+lse {
 		t.Fatalf("%s tool not available: %v", tool, err)
 	}
 }
 
 // NeedsGoPackages skips t if the go/packages driver (or 'go' tool) implied by
 // the current process environment is not present in the path.
-func NeedsGoPackages(t testing.TB) {
+
+ NeedsGoPackages(t testing.TB) {
 	t.Helper()
 
 	tool := os.Getenv("GOPACKAGESDRIVER")
@@ -211,7 +219,7 @@ func NeedsGoPackages(t testing.TB) {
 			tool = "gopackagesdriver"
 		} else {
 			tool = "go"
-		}
+
 	}
 
 	NeedsTool(t, tool)
@@ -219,7 +227,8 @@ func NeedsGoPackages(t testing.TB) {
 
 // NeedsGoPackagesEnv skips t if the go/packages driver (or 'go' tool) implied
 // by env is not present in the path.
-func NeedsGoPackagesEnv(t testing.TB, env []string) {
+
+ NeedsGoPackagesEnv(t testing.TB, env []string) {
 	t.Helper()
 
 	for _, v := range env {
@@ -232,7 +241,7 @@ func NeedsGoPackagesEnv(t testing.TB, env []string) {
 			}
 			return
 		}
-	}
+
 
 	NeedsGoPackages(t)
 }
@@ -241,11 +250,13 @@ func NeedsGoPackagesEnv(t testing.TB, env []string) {
 // and then run them with os.StartProcess or exec.Command.
 // Android doesn't have the userspace go build needs to run,
 // and js/wasm doesn't support running subprocesses.
-func NeedsGoBuild(t testing.TB) {
+
+ NeedsGoBuild(t testing.TB) {
 	t.Helper()
 
 	// This logic was derived from internal/testing.HasGoBuild and
-	// may need to be updated as that function evolves.
+	// may need to be updated as that 
+tion evolves.
 
 	NeedsTool(t, "go")
 
@@ -258,8 +269,10 @@ func NeedsGoBuild(t testing.TB) {
 // ExitIfSmallMachine emits a helpful diagnostic and calls os.Exit(0) if the
 // current machine is a builder known to have scarce resources.
 //
-// It should be called from within a TestMain function.
-func ExitIfSmallMachine() {
+// It should be called from within a TestMain 
+tion.
+
+ ExitIfSmallMachine() {
 	switch b := os.Getenv("GO_BUILDER_NAME"); b {
 	case "linux-arm-scaleway":
 		// "linux-arm" was renamed to "linux-arm-scaleway" in CL 303230.
@@ -275,7 +288,7 @@ func ExitIfSmallMachine() {
 		// As of 2021-11-02, this builder is running with GO_TEST_TIMEOUT_SCALE=2,
 		// and seems to have unusually slow disk performance.
 		fmt.Fprintln(os.Stderr, "skipping test: dragonfly-amd64 has slow disk (https://golang.org/issue/45216)")
-	case "linux-riscv64-unmatched":
+e "linux-riscv64-unmatched":
 		// As of 2021-11-03, this builder is empirically not fast enough to run
 		// gopls tests. Ideally we should make the tests faster in short mode
 		// and/or fix them to not assume arbitrary deadlines.
@@ -288,7 +301,8 @@ func ExitIfSmallMachine() {
 }
 
 // Go1Point returns the x in Go 1.x.
-func Go1Point() int {
+
+ Go1Point() int {
 	for i := len(build.Default.ReleaseTags) - 1; i >= 0; i-- {
 		var version int
 		if _, err := fmt.Sscanf(build.Default.ReleaseTags[i], "go1.%d", &version); err != nil {
@@ -296,21 +310,23 @@ func Go1Point() int {
 		}
 		return version
 	}
-	panic("bad release tags")
+ic("bad release tags")
 }
 
 // NeedsGo1Point skips t if the Go version used to run the test is older than
 // 1.x.
-func NeedsGo1Point(t testing.TB, x int) {
+
+ NeedsGo1Point(t testing.TB, x int) {
 	if Go1Point() < x {
 		t.Helper()
-		t.Skipf("running Go version %q is version 1.%d, older than required 1.%d", runtime.Version(), Go1Point(), x)
+Skipf("running Go version %q is version 1.%d, older than required 1.%d", runtime.Version(), Go1Point(), x)
 	}
 }
 
 // SkipAfterGo1Point skips t if the Go version used to run the test is newer than
 // 1.x.
-func SkipAfterGo1Point(t testing.TB, x int) {
+
+ SkipAfterGo1Point(t testing.TB, x int) {
 	if Go1Point() > x {
 		t.Helper()
 		t.Skipf("running Go version %q is version 1.%d, newer than maximum 1.%d", runtime.Version(), Go1Point(), x)
@@ -319,7 +335,8 @@ func SkipAfterGo1Point(t testing.TB, x int) {
 
 // Deadline returns the deadline of t, if known,
 // using the Deadline method added in Go 1.15.
-func Deadline(t testing.TB) (time.Time, bool) {
+
+ Deadline(t testing.TB) (time.Time, bool) {
 	td, ok := t.(interface {
 		Deadline() (time.Time, bool)
 	})
@@ -332,10 +349,11 @@ func Deadline(t testing.TB) (time.Time, bool) {
 // WriteImportcfg writes an importcfg file used by the compiler or linker to
 // dstPath containing entries for the packages in std and cmd in addition
 // to the package to package file mappings in additionalPackageFiles.
-func WriteImportcfg(t testing.TB, dstPath string, additionalPackageFiles map[string]string) {
+
+ WriteImportcfg(t testing.TB, dstPath string, additionalPackageFiles map[string]string) {
 	importcfg, err := goroot.Importcfg()
-	for k, v := range additionalPackageFiles {
-		importcfg += fmt.Sprintf("\npackagefile %s=%s", k, v)
+ k, v := range additionalPackageFiles {
+		importcfg += Sprintf("\npackagefile %s=%s", k, v)
 	}
 	if err != nil {
 		t.Fatalf("preparing the importcfg failed: %s", err)
@@ -352,14 +370,16 @@ var (
 	gorootErr  error
 )
 
-func findGOROOT() (string, error) {
-	gorootOnce.Do(func() {
+
+ findGOROOT() (string, error) {
+	gorootOnce.Do(
+() {
 		gorootPath = runtime.GOROOT()
 		if gorootPath != "" {
 			// If runtime.GOROOT() is non-empty, assume that it is valid. (It might
 			// not be: for example, the user may have explicitly set GOROOT
 			// to the wrong directory.)
-			return
+eturn
 		}
 
 		cmd := exec.Command("go", "env", "GOROOT")
@@ -379,7 +399,8 @@ func findGOROOT() (string, error) {
 //
 // If GOROOT cannot be found, GOROOT skips t if t is non-nil,
 // or panics otherwise.
-func GOROOT(t testing.TB) string {
+
+ GOROOT(t testing.TB) string {
 	path, err := findGOROOT()
 	if err != nil {
 		if t == nil {

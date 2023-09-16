@@ -48,7 +48,8 @@ type Diagnostic struct {
 // how Terraform handles the Diagnostics.
 type DiagnosticSeverity int32
 
-func (d DiagnosticSeverity) String() string {
+
+DiagnosticSeverity) String() string {
 	switch d {
 	case 0:
 		return "INVALID"

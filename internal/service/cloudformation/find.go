@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func FindChangeSetByStackIDAndChangeSetName(ctx context.Context, conn *cloudformation.CloudFormation, stackID, changeSetName string) (*cloudformation.DescribeChangeSetOutput, error) {
 	input := &cloudformation.DescribeChangeSetInput{
 		ChangeSetName: aws.String(changeSetName),
@@ -39,6 +40,7 @@ func FindChangeSetByStackIDAndChangeSetName(ctx context.Context, conn *cloudform
 	return output, nil
 }
 
+
 func FindStackInstanceSummariesByOrgIDs(ctx context.Context, conn *cloudformation.CloudFormation, stackSetName, region, callAs string, orgIDs []string) ([]*cloudformation.StackInstanceSummary, error) {
 	input := &cloudformation.ListStackInstancesInput{
 		StackInstanceRegion: aws.String(region),
@@ -51,7 +53,8 @@ func FindStackInstanceSummariesByOrgIDs(ctx context.Context, conn *cloudformatio
 
 	var result []*cloudformation.StackInstanceSummary
 
-	err := conn.ListStackInstancesPagesWithContext(ctx, input, func(page *cloudformation.ListStackInstancesOutput, lastPage bool) bool {
+	err := conn.ListStackInstancesPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStackInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -85,6 +88,7 @@ func FindStackInstanceSummariesByOrgIDs(ctx context.Context, conn *cloudformatio
 	return result, nil
 }
 
+
 func FindStackInstanceByName(ctx context.Context, conn *cloudformation.CloudFormation, stackSetName, accountID, region, callAs string) (*cloudformation.StackInstance, error) {
 	input := &cloudformation.DescribeStackInstanceInput{
 		StackInstanceAccount: aws.String(accountID),
@@ -116,6 +120,7 @@ func FindStackInstanceByName(ctx context.Context, conn *cloudformation.CloudForm
 	return output.StackInstance, nil
 }
 
+
 func FindStackSetByName(ctx context.Context, conn *cloudformation.CloudFormation, name, callAs string) (*cloudformation.StackSet, error) {
 	input := &cloudformation.DescribeStackSetInput{
 		StackSetName: aws.String(name),
@@ -144,6 +149,7 @@ func FindStackSetByName(ctx context.Context, conn *cloudformation.CloudFormation
 
 	return output.StackSet, nil
 }
+
 
 func FindStackSetOperationByStackSetNameAndOperationID(ctx context.Context, conn *cloudformation.CloudFormation, stackSetName, operationID, callAs string) (*cloudformation.StackSetOperation, error) {
 	input := &cloudformation.DescribeStackSetOperationInput{
@@ -175,6 +181,7 @@ func FindStackSetOperationByStackSetNameAndOperationID(ctx context.Context, conn
 	return output.StackSetOperation, nil
 }
 
+
 func FindTypeByARN(ctx context.Context, conn *cloudformation.CloudFormation, arn string) (*cloudformation.DescribeTypeOutput, error) {
 	input := &cloudformation.DescribeTypeInput{
 		Arn: aws.String(arn),
@@ -182,6 +189,7 @@ func FindTypeByARN(ctx context.Context, conn *cloudformation.CloudFormation, arn
 
 	return FindType(ctx, conn, input)
 }
+
 
 func FindTypeByName(ctx context.Context, conn *cloudformation.CloudFormation, name string) (*cloudformation.DescribeTypeOutput, error) {
 	input := &cloudformation.DescribeTypeInput{
@@ -191,6 +199,7 @@ func FindTypeByName(ctx context.Context, conn *cloudformation.CloudFormation, na
 
 	return FindType(ctx, conn, input)
 }
+
 
 func FindType(ctx context.Context, conn *cloudformation.CloudFormation, input *cloudformation.DescribeTypeInput) (*cloudformation.DescribeTypeOutput, error) {
 	output, err := conn.DescribeTypeWithContext(ctx, input)
@@ -219,6 +228,7 @@ func FindType(ctx context.Context, conn *cloudformation.CloudFormation, input *c
 
 	return output, nil
 }
+
 
 func FindTypeRegistrationByToken(ctx context.Context, conn *cloudformation.CloudFormation, registrationToken string) (*cloudformation.DescribeTypeRegistrationOutput, error) {
 	input := &cloudformation.DescribeTypeRegistrationInput{

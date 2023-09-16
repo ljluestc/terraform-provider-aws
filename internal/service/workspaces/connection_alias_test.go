@@ -35,9 +35,9 @@ func TestAccWorkSpacesConnectionAlias_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(workspaces.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAliasDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAliasConfig_basic(rName),
@@ -70,9 +70,9 @@ func TestAccWorkSpacesConnectionAlias_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(workspaces.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAliasDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAliasConfig_basic(rName),
@@ -99,9 +99,9 @@ func TestAccWorkSpacesConnectionAlias_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(workspaces.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAliasDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAliasConfig_tags1(rName, "key1", "value1"),

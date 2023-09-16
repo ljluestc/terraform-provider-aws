@@ -28,10 +28,10 @@ func testAccIPGroup_basic(t *testing.T) {
 	resourceName := "aws_workspaces_ip_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPGroupDestroy(ctx),
+		CheckDestroy:testAccCheckIPGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPGroupConfig_a(ipGroupName, ipGroupDescription),
@@ -73,10 +73,10 @@ func testAccIPGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPGroupDestroy(ctx),
+		CheckDestroy:testAccCheckIPGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPGroupConfig_tags1(rName, "key1", "value1"),
@@ -120,10 +120,10 @@ func testAccIPGroup_disappears(t *testing.T) {
 	resourceName := "aws_workspaces_ip_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPGroupDestroy(ctx),
+		CheckDestroy:testAccCheckIPGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPGroupConfig_a(ipGroupName, ipGroupDescription),
@@ -154,9 +154,9 @@ func testAccIPGroup_MultipleDirectories(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPGroupDestroy(ctx),
+		CheckDestroy:testAccCheckIPGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPGroupConfig_multipleDirectories(ipGroupName, domain),

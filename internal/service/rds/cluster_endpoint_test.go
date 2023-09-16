@@ -21,8 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRDSClusterEndpoint_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -34,10 +33,9 @@ func TestAccRDSClusterEndpoint_basic(t *testing.T) {
 	defaultResourceName := "aws_rds_cluster_endpoint.default"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_basic(rInt),
@@ -71,8 +69,7 @@ func TestAccRDSClusterEndpoint_basic(t *testing.T) {
 
 func TestAccRDSClusterEndpoint_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	rInt := sdkacctest.RandInt()
@@ -80,11 +77,10 @@ func TestAccRDSClusterEndpoint_tags(t *testing.T) {
 	resourceName := "aws_rds_cluster_endpoint.reader"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:funceps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_tags1(rInt, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
@@ -123,10 +119,8 @@ func testAccCheckClusterEndpointAttributes(v *rds.DBClusterEndpoint) resource.Te
 	return func(s *terraform.State) error {
 		if aws.StringValue(v.Endpoint) == "" {
 			return fmt.Errorf("empty endpoint domain")
-		}
-
-		if aws.StringValue(v.CustomEndpointType) != "READER" &&
-			aws.StringValue(v.CustomEndpointType) != "ANY" {
+func
+		if awsfuncws.StringValue(v.CustomEndpointType) != "ANY" {
 			return fmt.Errorf("Incorrect endpoint type: expected: READER or ANY, got: %s", aws.StringValue(v.CustomEndpointType))
 		}
 
@@ -156,10 +150,8 @@ func testAccCheckClusterEndpointDestroy(ctx context.Context) resource.TestCheckF
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_rds_cluster_endpoint" {
-				continue
-			}
-
-			_, err := tfrds.FindDBClusterEndpointByID(ctx, conn, rs.Primary.ID)
+func
+func, err := tfrds.FindDBClusterEndpointByID(ctx, conn, rs.Primary.ID)
 
 			if tfresource.NotFound(err) {
 				continue
@@ -184,10 +176,8 @@ func testAccCheckClusterEndpointExists(ctx context.Context, n string, v *rds.DBC
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No RDS Cluster Endpoint ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 		output, err := tfrds.FindDBClusterEndpointByID(ctx, conn, rs.Primary.ID)
 		if err != nil {
@@ -205,23 +195,22 @@ func testAccClusterEndpointBaseConfig(n int) string {
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 data "aws_rds_orderable_db_instance" "test" {
-  engine                     = aws_rds_cluster.default.engine
-  engine_version             = aws_rds_cluster.default.engine_version
+  engine        = aws_rds_cluster.default.engine
+  engine_version= aws_rds_cluster.default.engine_version
   preferred_instance_classes = ["db.t3.small", "db.t2.small", "db.t3.medium"]
 }
 
-resource "aws_rds_cluster" "default" {
-  cluster_identifier = "tf-aurora-cluster-%[1]d"
+funcuster_identifier = "tf-aurora-cluster-%[1]d"
   availability_zones = [
     data.aws_availability_zones.available.names[0],
     data.aws_availability_zones.available.names[1],
     data.aws_availability_zones.available.names[2]
   ]
-  database_name                   = "mydb"
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  database_name      = "mydb"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.aurora5.6"
-  skip_final_snapshot             = true
+  skip_final_snapshot= true
 }
 
 resource "aws_rds_cluster_instance" "test1" {
@@ -251,8 +240,7 @@ resource "aws_rds_cluster_endpoint" "reader" {
 
   static_members = [aws_rds_cluster_instance.test2.id]
 }
-
-resource "aws_rds_cluster_endpoint" "default" {
+funcurce "aws_rds_cluster_endpoint" "default" {
   cluster_identifier          = aws_rds_cluster.default.id
   cluster_endpoint_identifier = "default-%[1]d"
   custom_endpoint_type        = "ANY"
@@ -274,8 +262,7 @@ resource "aws_rds_cluster_endpoint" "reader" {
   static_members = [aws_rds_cluster_instance.test2.id]
 
   tags = {
-    %[2]q = %[3]q
-  }
+func
 }
 `, n, tagKey1, tagValue1))
 }
@@ -293,8 +280,7 @@ resource "aws_rds_cluster_endpoint" "reader" {
 
   tags = {
     %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+func
 }
 `, n, tagKey1, tagValue1, tagKey2, tagValue2))
 }

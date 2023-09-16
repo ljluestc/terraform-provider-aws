@@ -5,11 +5,13 @@ type Iterator[T any] struct {
 	idx  int
 }
 
-func (it *Iterator[T]) Value() T {
+
+ *Iterator[T]) Value() T {
 	return it.vals[it.idx]
 }
 
-func (it *Iterator[T]) Next() bool {
+
+ *Iterator[T]) Next() bool {
 	it.idx++
 	return it.idx < len(it.vals)
 }

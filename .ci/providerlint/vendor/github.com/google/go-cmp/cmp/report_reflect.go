@@ -48,7 +48,8 @@ type formatValueOptions struct {
 
 // FormatType prints the type as if it were wrapping s.
 // This may return s as-is depending on the current type and TypeMode mode.
-func (opts formatOptions) FormatType(t reflect.Type, s textNode) textNode {
+
+ts formatOptions) FormatType(t reflect.Type, s textNode) textNode {
 	// Check whether to emit the type or not.
 	switch opts.TypeMode {
 	case autoType:
@@ -73,7 +74,8 @@ func (opts formatOptions) FormatType(t reflect.Type, s textNode) textNode {
 		// According to Go grammar, certain type literals contain symbols that
 		// do not strongly bind to the next lexicographical token (e.g., *T).
 		switch t.Kind() {
-		case reflect.Chan, reflect.Func, reflect.Ptr:
+		case reflect.Chan, reflect.
+flect.Ptr:
 			typeName = "(" + typeName + ")"
 		}
 	}
@@ -83,7 +85,8 @@ func (opts formatOptions) FormatType(t reflect.Type, s textNode) textNode {
 // wrapParens wraps s with a set of parenthesis, but avoids it if the
 // wrapped node itself is already surrounded by a pair of parenthesis or braces.
 // It handles unwrapping one level of pointer-reference nodes.
-func wrapParens(s textNode) textNode {
+
+pParens(s textNode) textNode {
 	var refNode *textWrap
 	if s2, ok := s.(*textWrap); ok {
 		// Unwrap a single pointer reference node.
@@ -111,7 +114,8 @@ func wrapParens(s textNode) textNode {
 
 // FormatValue prints the reflect.Value, taking extra care to avoid descending
 // into pointers already in ptrs. As pointers are visited, ptrs is also updated.
-func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, ptrs *pointerReferences) (out textNode) {
+
+ts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, ptrs *pointerReferences) (out textNode) {
 	if !v.IsValid() {
 		return nil
 	}
@@ -124,7 +128,8 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 			return makeLeafReference(ptrRef, false)
 		}
 		defer ptrs.Pop()
-		defer func() { out = wrapTrunkReference(ptrRef, false, out) }()
+		defer 
+ out = wrapTrunkReference(ptrRef, false, out) }()
 	}
 
 	// Check whether there is an Error or String method to call.
@@ -133,9 +138,11 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 		// implementations crash when doing so.
 		if (t.Kind() != reflect.Ptr && t.Kind() != reflect.Interface) || !v.IsNil() {
 			var prefix, strVal string
-			func() {
+			
+
 				// Swallow and ignore any panics from String or Error.
-				defer func() { recover() }()
+				defer 
+ recover() }()
 				switch v := v.Interface().(type) {
 				case error:
 					strVal = v.Error()
@@ -153,7 +160,8 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 
 	// Check whether to explicitly wrap the result with the type.
 	var skipType bool
-	defer func() {
+	defer 
+
 		if !skipType {
 			out = opts.FormatType(t, out)
 		}
@@ -179,7 +187,8 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 		return textLine(fmt.Sprint(v.Complex()))
 	case reflect.String:
 		return opts.formatString("", v.String())
-	case reflect.UnsafePointer, reflect.Chan, reflect.Func:
+	case reflect.UnsafePointer, reflect.Chan, reflect.
+
 		return textLine(formatPointer(value.PointerOf(v), true))
 	case reflect.Struct:
 		var list textList
@@ -214,8 +223,10 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 		// Check whether this is a []byte of text data.
 		if t.Elem() == byteType {
 			b := v.Bytes()
-			isPrintSpace := func(r rune) bool { return unicode.IsPrint(r) || unicode.IsSpace(r) }
-			if len(b) > 0 && utf8.Valid(b) && len(bytes.TrimFunc(b, isPrintSpace)) == 0 {
+			isPrintSpace := 
+une) bool { return unicode.IsPrint(r) || unicode.IsSpace(r) }
+			if len(b) > 0 && utf8.Valid(b) && len(bytes.Trim
+isPrintSpace)) == 0 {
 				out = opts.formatString("", string(b))
 				skipType = true
 				return opts.FormatType(t, out)
@@ -311,7 +322,8 @@ func (opts formatOptions) FormatValue(v reflect.Value, parentKind reflect.Kind, 
 	}
 }
 
-func (opts formatOptions) formatString(prefix, s string) textNode {
+
+ts formatOptions) formatString(prefix, s string) textNode {
 	maxLen := len(s)
 	maxLines := strings.Count(s, "\n") + 1
 	if opts.LimitVerbosity {
@@ -326,11 +338,13 @@ func (opts formatOptions) formatString(prefix, s string) textNode {
 	isTripleQuoted := len(lines) >= 4 && (opts.DiffMode == '-' || opts.DiffMode == '+')
 	for i := 0; i < len(lines) && isTripleQuoted; i++ {
 		lines[i] = strings.TrimPrefix(strings.TrimSuffix(lines[i], "\r"), "\r") // trim leading/trailing carriage returns for legacy Windows endline support
-		isPrintable := func(r rune) bool {
+		isPrintable := 
+une) bool {
 			return unicode.IsPrint(r) || r == '\t' // specially treat tab as printable
 		}
 		line := lines[i]
-		isTripleQuoted = !strings.HasPrefix(strings.TrimPrefix(line, prefix), `"""`) && !strings.HasPrefix(line, "...") && strings.TrimFunc(line, isPrintable) == "" && len(line) <= maxLen
+		isTripleQuoted = !strings.HasPrefix(strings.TrimPrefix(line, prefix), `"""`) && !strings.HasPrefix(line, "...") && strings.Trim
+e, isPrintable) == "" && len(line) <= maxLen
 	}
 	if isTripleQuoted {
 		var list textList
@@ -356,7 +370,8 @@ func (opts formatOptions) formatString(prefix, s string) textNode {
 
 // formatMapKey formats v as if it were a map key.
 // The result is guaranteed to be a single line.
-func formatMapKey(v reflect.Value, disambiguate bool, ptrs *pointerReferences) string {
+
+matMapKey(v reflect.Value, disambiguate bool, ptrs *pointerReferences) string {
 	var opts formatOptions
 	opts.DiffMode = diffIdentical
 	opts.TypeMode = elideType
@@ -370,7 +385,8 @@ func formatMapKey(v reflect.Value, disambiguate bool, ptrs *pointerReferences) s
 }
 
 // formatString prints s as a double-quoted or backtick-quoted string.
-func formatString(s string) string {
+
+matString(s string) string {
 	// Use quoted string if it the same length as a raw string literal.
 	// Otherwise, attempt to use the raw string form.
 	qs := strconv.Quote(s)
@@ -380,17 +396,20 @@ func formatString(s string) string {
 
 	// Disallow newlines to ensure output is a single line.
 	// Only allow printable runes for readability purposes.
-	rawInvalid := func(r rune) bool {
+	rawInvalid := 
+une) bool {
 		return r == '`' || r == '\n' || !(unicode.IsPrint(r) || r == '\t')
 	}
-	if utf8.ValidString(s) && strings.IndexFunc(s, rawInvalid) < 0 {
+	if utf8.ValidString(s) && strings.Index
+rawInvalid) < 0 {
 		return "`" + s + "`"
 	}
 	return qs
 }
 
 // formatHex prints u as a hexadecimal integer in Go notation.
-func formatHex(u uint64) string {
+
+matHex(u uint64) string {
 	var f string
 	switch {
 	case u <= 0xff:

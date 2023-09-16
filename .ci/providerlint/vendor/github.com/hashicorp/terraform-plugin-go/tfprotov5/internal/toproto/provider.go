@@ -7,11 +7,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func GetMetadata_Request(in *tfprotov5.GetMetadataRequest) (*tfplugin5.GetMetadata_Request, error) {
+
+Metadata_Request(in *tfprotov5.GetMetadataRequest) (*tfplugin5.GetMetadata_Request, error) {
 	return &tfplugin5.GetMetadata_Request{}, nil
 }
 
-func GetMetadata_Response(in *tfprotov5.GetMetadataResponse) (*tfplugin5.GetMetadata_Response, error) {
+
+Metadata_Response(in *tfprotov5.GetMetadataResponse) (*tfplugin5.GetMetadata_Response, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -41,11 +43,13 @@ func GetMetadata_Response(in *tfprotov5.GetMetadataResponse) (*tfplugin5.GetMeta
 	return resp, nil
 }
 
-func GetProviderSchema_Request(in *tfprotov5.GetProviderSchemaRequest) (*tfplugin5.GetProviderSchema_Request, error) {
+
+ProviderSchema_Request(in *tfprotov5.GetProviderSchemaRequest) (*tfplugin5.GetProviderSchema_Request, error) {
 	return &tfplugin5.GetProviderSchema_Request{}, nil
 }
 
-func GetProviderSchema_Response(in *tfprotov5.GetProviderSchemaResponse) (*tfplugin5.GetProviderSchema_Response, error) {
+
+ProviderSchema_Response(in *tfprotov5.GetProviderSchemaResponse) (*tfplugin5.GetProviderSchema_Response, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -98,7 +102,8 @@ func GetProviderSchema_Response(in *tfprotov5.GetProviderSchemaResponse) (*tfplu
 	return &resp, nil
 }
 
-func PrepareProviderConfig_Request(in *tfprotov5.PrepareProviderConfigRequest) (*tfplugin5.PrepareProviderConfig_Request, error) {
+
+pareProviderConfig_Request(in *tfprotov5.PrepareProviderConfigRequest) (*tfplugin5.PrepareProviderConfig_Request, error) {
 	resp := &tfplugin5.PrepareProviderConfig_Request{}
 	if in.Config != nil {
 		resp.Config = DynamicValue(in.Config)
@@ -106,7 +111,8 @@ func PrepareProviderConfig_Request(in *tfprotov5.PrepareProviderConfigRequest) (
 	return resp, nil
 }
 
-func PrepareProviderConfig_Response(in *tfprotov5.PrepareProviderConfigResponse) (*tfplugin5.PrepareProviderConfig_Response, error) {
+
+pareProviderConfig_Response(in *tfprotov5.PrepareProviderConfigResponse) (*tfplugin5.PrepareProviderConfig_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -120,7 +126,8 @@ func PrepareProviderConfig_Response(in *tfprotov5.PrepareProviderConfigResponse)
 	return resp, nil
 }
 
-func Configure_Request(in *tfprotov5.ConfigureProviderRequest) (*tfplugin5.Configure_Request, error) {
+
+figure_Request(in *tfprotov5.ConfigureProviderRequest) (*tfplugin5.Configure_Request, error) {
 	resp := &tfplugin5.Configure_Request{
 		TerraformVersion: in.TerraformVersion,
 	}
@@ -130,7 +137,8 @@ func Configure_Request(in *tfprotov5.ConfigureProviderRequest) (*tfplugin5.Confi
 	return resp, nil
 }
 
-func Configure_Response(in *tfprotov5.ConfigureProviderResponse) (*tfplugin5.Configure_Response, error) {
+
+figure_Response(in *tfprotov5.ConfigureProviderResponse) (*tfplugin5.Configure_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -140,18 +148,22 @@ func Configure_Response(in *tfprotov5.ConfigureProviderResponse) (*tfplugin5.Con
 	}, nil
 }
 
-func Stop_Request(in *tfprotov5.StopProviderRequest) (*tfplugin5.Stop_Request, error) {
+
+p_Request(in *tfprotov5.StopProviderRequest) (*tfplugin5.Stop_Request, error) {
 	return &tfplugin5.Stop_Request{}, nil
 }
 
-func Stop_Response(in *tfprotov5.StopProviderResponse) (*tfplugin5.Stop_Response, error) {
+
+p_Response(in *tfprotov5.StopProviderResponse) (*tfplugin5.Stop_Response, error) {
 	return &tfplugin5.Stop_Response{
 		Error: in.Error,
 	}, nil
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

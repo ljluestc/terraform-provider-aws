@@ -25,10 +25,10 @@ func TestAccRedshiftDataStatement_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStatementConfig_basic(rName),
@@ -42,7 +42,7 @@ func TestAccRedshiftDataStatement_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"database", "db_user"},
 			},
@@ -57,10 +57,10 @@ func TestAccRedshiftDataStatement_workgroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStatementConfig_workgroup(rName),
@@ -74,7 +74,7 @@ func TestAccRedshiftDataStatement_workgroup(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"database", "db_user"},
 			},
@@ -106,22 +106,22 @@ func testAccCheckStatementExists(ctx context.Context, n string, v *redshiftdata.
 func testAccStatementConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 
 resource "aws_redshiftdata_statement" "test" {
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
   database           = aws_redshift_cluster.test.database_name
   db_user            = aws_redshift_cluster.test.master_username
-  sql                = "CREATE GROUP group_name;"
+  sql   = "CREATE GROUP group_name;"
 }
 `, rName))
 }

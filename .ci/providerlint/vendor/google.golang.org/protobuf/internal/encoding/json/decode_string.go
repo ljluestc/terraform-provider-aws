@@ -13,7 +13,8 @@ import (
 	"google.golang.org/protobuf/internal/strs"
 )
 
-func (d *Decoder) parseString(in []byte) (string, int, error) {
+
+ (d *Decoder) parseString(in []byte) (string, int, error) {
 	in0 := in
 	if len(in) == 0 {
 		return "", 0, ErrUnexpectedEOF
@@ -87,5 +88,6 @@ func (d *Decoder) parseString(in []byte) (string, int, error) {
 }
 
 // indexNeedEscapeInBytes returns the index of the character that needs
-// escaping. If no characters need escaping, this returns the input length.
-func indexNeedEscapeInBytes(b []byte) int { return indexNeedEscapeInString(strs.UnsafeString(b)) }
+scaping. If no characters need escaping, this returns the input length.
+
+ indexNeedEscapeInBytes(b []byte) int { return indexNeedEscapeInString(strs.UnsafeString(b)) }

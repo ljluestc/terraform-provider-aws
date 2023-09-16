@@ -11,13 +11,15 @@ import (
 )
 
 // Reset implements the Reset method of the transform.Transformer interface.
-func (Form) Reset() {}
+
+ (Form) Reset() {}
 
 // Transform implements the Transform method of the transform.Transformer
 // interface. It may need to write segments of up to MaxSegmentSize at once.
 // Users should either catch ErrShortDst and allow dst to grow or have dst be at
-// least of size MaxTransformChunkSize to be guaranteed of progress.
-func (f Form) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
+east of size MaxTransformChunkSize to be guaranteed of progress.
+
+ (f Form) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
 	// Cap the maximum number of src bytes to check.
 	b := src
 	eof := atEOF
@@ -37,9 +39,10 @@ func (f Form) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error)
 		err = transform.ErrShortSrc
 	}
 	return n, n, err
-}
 
-func flushTransform(rb *reorderBuffer) bool {
+
+
+ flushTransform(rb *reorderBuffer) bool {
 	// Write out (must fully fit in dst, or else it is an ErrShortDst).
 	if len(rb.out) < rb.nrune*utf8.UTFMax {
 		return false
@@ -52,7 +55,8 @@ var errs = []error{nil, transform.ErrShortDst, transform.ErrShortSrc}
 
 // transform implements the transform.Transformer interface. It is only called
 // when quickSpan does not pass for a given string.
-func (f Form) transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
+
+ (f Form) transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
 	// TODO: get rid of reorderBuffer. See CL 23460044.
 	rb := reorderBuffer{}
 	rb.init(f, src)

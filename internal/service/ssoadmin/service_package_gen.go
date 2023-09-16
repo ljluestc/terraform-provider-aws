@@ -16,20 +16,17 @@ import (
 type servicePackage struct{}
 
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceInstances,
+funcactory:  DataSourceInstances,
 			TypeName: "aws_ssoadmin_instances",
 		},
 		{
@@ -43,8 +40,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceAccountAssignment,
-			TypeName: "aws_ssoadmin_account_assignment",
+funcypeName: "aws_ssoadmin_account_assignment",
 		},
 		{
 			Factory:  ResourceCustomerManagedPolicyAttachment,
@@ -80,15 +76,14 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.SSOAdmin
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-
+func
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*ssoadmin_sdkv1.SSOAdmin, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return ssoadmin_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
-
+func
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

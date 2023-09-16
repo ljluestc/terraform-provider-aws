@@ -9,7 +9,8 @@ type Notation struct {
 	IsHumanReadable bool
 }
 
-func (notation *Notation) getData() []byte {
+
+tation *Notation) getData() []byte {
 	nameData := []byte(notation.Name)
 	nameLen := len(nameData)
 	valueLen := len(notation.Value)

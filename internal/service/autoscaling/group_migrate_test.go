@@ -18,7 +18,7 @@ func TestGroupStateUpgradeV0(t *testing.T) {
 	testCases := []struct {
 		testName string
 		rawState map[string]interface{}
-		want     map[string]interface{}
+		wantap[string]interface{}
 	}{
 		{
 			testName: "empty state",
@@ -30,30 +30,30 @@ func TestGroupStateUpgradeV0(t *testing.T) {
 		{
 			testName: "non-empty state",
 			rawState: map[string]interface{}{
-				"capacity_rebalance":        "true",
+				"capacity_rebalance":e",
 				"health_check_grace_period": "600",
-				"max_instance_lifetime":     "3600",
+				"max_instance_lifetime":3600",
 			},
 			want: map[string]interface{}{
-				"capacity_rebalance":      "true",
-				"health_check_grace_period":        "600",
+				"capacity_rebalance":,
+				"health_check_grace_period":",
 				"ignore_failed_scaling_activities": "false",
-				"max_instance_lifetime":   "3600",
+				"max_instance_lifetime":00",
 			},
 		},
 		{
 			testName: "ignore_failed_scaling_activities set",
 			rawState: map[string]interface{}{
-				"capacity_rebalance":      "false",
-				"health_check_grace_period":        "400",
+				"capacity_rebalance":",
+				"health_check_grace_period":",
 				"ignore_failed_scaling_activities": "true",
-				"max_instance_lifetime":   "36000",
+				"max_instance_lifetime":000",
 			},
 			want: map[string]interface{}{
-				"capacity_rebalance":      "false",
-				"health_check_grace_period":        "400",
+				"capacity_rebalance":",
+				"health_check_grace_period":",
 				"ignore_failed_scaling_activities": "true",
-				"max_instance_lifetime":   "36000",
+				"max_instance_lifetime":000",
 			},
 		},
 	}

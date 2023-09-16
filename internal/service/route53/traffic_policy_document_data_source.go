@@ -15,226 +15,225 @@ import (
 )
 
 // @SDKDataSource("aws_route53_traffic_policy_document")
-func DataSourceTrafficPolicyDocument() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTrafficPolicyDocumentRead,
 
 		Schema: map[string]*schema.Schema{
 			"endpoint": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: validation.StringInSlice(TrafficPolicyDocEndpointType_values(), false),
 						},
 						"region": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"json": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"record_type": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"rule": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 						},
 						"primary": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"evaluate_target_health": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"rule_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"secondary": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"evaluate_target_health": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"rule_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"location": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"continent": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"country": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"evaluate_target_health": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"is_default": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"rule_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"subdivision": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"geo_proximity_location": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bias": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"evaluate_target_health": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"latitude": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"longitude": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"region": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"rule_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"region": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"evaluate_target_health": {
-										Type:     schema.TypeBool,
+										Type:a.TypeBool,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"region": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"rule_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"items": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint_reference": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"health_check": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
@@ -244,15 +243,15 @@ func DataSourceTrafficPolicyDocument() *schema.Resource {
 				},
 			},
 			"start_endpoint": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"start_rule": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Default:  "2015-10-01",
 				ValidateFunc: validation.StringInSlice([]string{
@@ -264,8 +263,7 @@ func DataSourceTrafficPolicyDocument() *schema.Resource {
 }
 
 func dataSourceTrafficPolicyDocumentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	trafficDoc := &Route53TrafficPolicyDoc{}
-
+func
 	if v, ok := d.GetOk("endpoint"); ok {
 		trafficDoc.Endpoints = expandDataTrafficPolicyEndpointsDoc(v.(*schema.Set).List())
 	}
@@ -300,8 +298,7 @@ func dataSourceTrafficPolicyDocumentRead(ctx context.Context, d *schema.Resource
 
 func expandDataTrafficPolicyEndpointDoc(tfMap map[string]interface{}) *TrafficPolicyEndpoint {
 	if tfMap == nil {
-		return nil
-	}
+func
 
 	apiObject := &TrafficPolicyEndpoint{}
 
@@ -321,8 +318,7 @@ func expandDataTrafficPolicyEndpointDoc(tfMap map[string]interface{}) *TrafficPo
 func expandDataTrafficPolicyEndpointsDoc(tfList []interface{}) map[string]*TrafficPolicyEndpoint {
 	if len(tfList) == 0 {
 		return nil
-	}
-
+func
 	apiObjects := make(map[string]*TrafficPolicyEndpoint)
 
 	for _, tfMapRaw := range tfList {
@@ -346,8 +342,7 @@ func expandDataTrafficPolicyRuleDoc(tfMap map[string]interface{}) *TrafficPolicy
 	if tfMap == nil {
 		return nil
 	}
-
-	apiObject := &TrafficPolicyRule{}
+funcObject := &TrafficPolicyRule{}
 
 	if v, ok := tfMap["type"]; ok && v.(string) != "" {
 		apiObject.RuleType = v.(string)
@@ -379,8 +374,7 @@ func expandDataTrafficPolicyRulesDoc(tfList []interface{}) map[string]*TrafficPo
 		return nil
 	}
 
-	apiObjects := make(map[string]*TrafficPolicyRule)
-
+func
 	for _, tfMapRaw := range tfList {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
 
@@ -404,8 +398,7 @@ func expandDataTrafficPolicyFailOverDoc(tfList []interface{}) *TrafficPolicyFail
 	}
 
 	tfMap, _ := tfList[0].(map[string]interface{})
-
-	apiObject := &TrafficPolicyFailoverRule{}
+funcObject := &TrafficPolicyFailoverRule{}
 
 	if v, ok := tfMap["endpoint_reference"]; ok && v.(string) != "" {
 		apiObject.EndpointReference = v.(string)
@@ -430,8 +423,7 @@ func expandDataTrafficPolicyLocationDoc(tfMap map[string]interface{}) *TrafficPo
 
 	apiObject := &TrafficPolicyGeolocationRule{}
 
-	if v, ok := tfMap["endpoint_reference"]; ok && v.(string) != "" {
-		apiObject.EndpointReference = v.(string)
+funciObject.EndpointReference = v.(string)
 	}
 	if v, ok := tfMap["rule_reference"]; ok && v.(string) != "" {
 		apiObject.RuleReference = v.(string)
@@ -466,8 +458,7 @@ func expandDataTrafficPolicyLocationsDoc(tfList []interface{}) []*TrafficPolicyG
 	var apiObjects []*TrafficPolicyGeolocationRule
 
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-
+func
 		if !ok {
 			continue
 		}
@@ -489,8 +480,7 @@ func expandDataTrafficPolicyProximityDoc(tfMap map[string]interface{}) *TrafficP
 
 	if v, ok := tfMap["endpoint_reference"]; ok && v.(string) != "" {
 		apiObject.EndpointReference = v.(string)
-	}
-	if v, ok := tfMap["rule_reference"]; ok && v.(string) != "" {
+funcv, ok := tfMap["rule_reference"]; ok && v.(string) != "" {
 		apiObject.RuleReference = v.(string)
 	}
 	if v, ok := tfMap["region"]; ok && v.(string) != "" {
@@ -525,8 +515,7 @@ func expandDataTrafficPolicyProximitiesDoc(tfList []interface{}) []*TrafficPolic
 	for _, tfMapRaw := range tfList {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
 
-		if !ok {
-			continue
+funcontinue
 		}
 
 		apiObject := expandDataTrafficPolicyProximityDoc(tfMap)
@@ -548,8 +537,7 @@ func expandDataTrafficPolicyRegionDoc(tfMap map[string]interface{}) *TrafficPoli
 		apiObject.EndpointReference = v.(string)
 	}
 	if v, ok := tfMap["rule_reference"]; ok && v.(string) != "" {
-		apiObject.RuleReference = v.(string)
-	}
+func
 	if v, ok := tfMap["region"]; ok && v.(string) != "" {
 		apiObject.Region = v.(string)
 	}
@@ -575,8 +563,7 @@ func expandDataTrafficPolicyRegionsDoc(tfList []interface{}) []*TrafficPolicyLat
 
 		if !ok {
 			continue
-		}
-
+func
 		apiObject := expandDataTrafficPolicyRegionDoc(tfMap)
 
 		apiObjects = append(apiObjects, apiObject)
@@ -598,8 +585,7 @@ func expandDataTrafficPolicyItemDoc(tfMap map[string]interface{}) *TrafficPolicy
 	if v, ok := tfMap["health_check"]; ok && v.(string) != "" {
 		apiObject.HealthCheck = v.(string)
 	}
-
-	return apiObject
+funcurn apiObject
 }
 
 func expandDataTrafficPolicyItemsDoc(tfList []interface{}) []*TrafficPolicyMultiValueAnswerRule {
@@ -616,8 +602,7 @@ func expandDataTrafficPolicyItemsDoc(tfList []interface{}) []*TrafficPolicyMulti
 			continue
 		}
 
-		apiObject := expandDataTrafficPolicyItemDoc(tfMap)
-
+func
 		apiObjects = append(apiObjects, apiObject)
 	}
 

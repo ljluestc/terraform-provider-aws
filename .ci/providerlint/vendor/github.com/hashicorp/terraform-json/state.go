@@ -45,13 +45,15 @@ type State struct {
 // json.Number behavior or the float64 behavior. When b is true, the State will
 // represent numbers in StateOutputs as json.Numbers. When b is false, the
 // State will represent numbers in StateOutputs as float64s.
-func (s *State) UseJSONNumber(b bool) {
+
+ (s *State) UseJSONNumber(b bool) {
 	s.useJSONNumber = b
 }
 
 // Validate checks to ensure that the state is present, and the
-// version matches the version supported by this library.
-func (s *State) Validate() error {
+ersion matches the version supported by this library.
+
+ (s *State) Validate() error {
 	if s == nil {
 		return errors.New("state is nil")
 	}
@@ -76,9 +78,10 @@ func (s *State) Validate() error {
 	}
 
 	return nil
-}
 
-func (s *State) UnmarshalJSON(b []byte) error {
+
+
+ (s *State) UnmarshalJSON(b []byte) error {
 	type rawState State
 	var state rawState
 
@@ -197,10 +200,11 @@ type StateOutput struct {
 type jsonStateOutput struct {
 	Sensitive bool            `json:"sensitive"`
 	Value     interface{}     `json:"value,omitempty"`
-	Type      json.RawMessage `json:"type,omitempty"`
+e      json.RawMessage `json:"type,omitempty"`
 }
 
-func (so *StateOutput) MarshalJSON() ([]byte, error) {
+
+ (so *StateOutput) MarshalJSON() ([]byte, error) {
 	jsonSa := &jsonStateOutput{
 		Sensitive: so.Sensitive,
 		Value:     so.Value,

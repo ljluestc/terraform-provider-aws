@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_vpcs")
 
-func DataSourceVPCs() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,9 +28,9 @@ func DataSourceVPCs() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
@@ -39,8 +38,7 @@ func DataSourceVPCs() *schema.Resource {
 }
 
 func dataSourceVPCsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeVpcsInput{}
 

@@ -29,9 +29,9 @@ func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckEndpointAuthorizationDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAuthorizationConfig_basic(rName),
@@ -46,7 +46,7 @@ func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"force_delete"},
 			},
@@ -65,9 +65,9 @@ func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckEndpointAuthorizationDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAuthorizationConfig_vpcs(rName),
@@ -79,7 +79,7 @@ func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"force_delete"},
 			},
@@ -114,9 +114,9 @@ func TestAccRedshiftEndpointAuthorization_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckEndpointAuthorizationDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAuthorizationConfig_basic(rName),
@@ -141,9 +141,9 @@ func TestAccRedshiftEndpointAuthorization_disappears_cluster(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckEndpointAuthorizationDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAuthorizationConfig_basic(rName),
@@ -218,17 +218,17 @@ resource "aws_redshift_subnet_group" "test" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                   = %[1]q
-  availability_zone                    = data.aws_availability_zones.available.names[0]
-  database_name                        = "mydb"
-  master_username                      = "foo_test"
-  master_password                      = "Mustbe8characters"
-  node_type                            = "ra3.xlplus"
+  cluster_identifier      = %[1]q
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  database_name           = "mydb"
+  master_username         = "foo_test"
+  master_password         = "Mustbe8characters"
+  node_type  = "ra3.xlplus"
   automated_snapshot_retention_period  = 1
-  allow_version_upgrade                = false
-  skip_final_snapshot                  = true
+  allow_version_upgrade   = false
+  skip_final_snapshot     = true
   availability_zone_relocation_enabled = true
-  publicly_accessible                  = false
+  publicly_accessible     = false
 }
 
 data "aws_caller_identity" "test" {

@@ -37,25 +37,25 @@ func ResourceVPCLink() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Required: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Required: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -70,10 +70,10 @@ func resourceVPCLinkCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	input := &apigatewayv2.CreateVpcLinkInput{
-		Name:             aws.String(d.Get("name").(string)),
+		Name:ing(d.Get("name").(string)),
 		SecurityGroupIds: flex.ExpandStringSet(d.Get("security_group_ids").(*schema.Set)),
-		SubnetIds:        flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:             getTagsIn(ctx),
+		SubnetIds:ex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:In(ctx),
 	}
 
 	log.Printf("[DEBUG] Creating API Gateway v2 VPC Link: %s", input)
@@ -133,7 +133,7 @@ func resourceVPCLinkUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	if d.HasChange("name") {
 		req := &apigatewayv2.UpdateVpcLinkInput{
 			VpcLinkId: aws.String(d.Id()),
-			Name:      aws.String(d.Get("name").(string)),
+			Name:String(d.Get("name").(string)),
 		}
 
 		log.Printf("[DEBUG] Updating API Gateway v2 VPC Link: %s", req)

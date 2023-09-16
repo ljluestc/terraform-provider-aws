@@ -68,7 +68,7 @@ func resourceSnapshotCopyGrantCreate(ctx context.Context, d *schema.ResourceData
 	name := d.Get("snapshot_copy_grant_name").(string)
 	input := &redshift.CreateSnapshotCopyGrantInput{
 		SnapshotCopyGrantName: aws.String(name),
-		Tags:                  getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("kms_key_id"); ok {

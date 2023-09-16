@@ -7,12 +7,14 @@ import "fmt"
 
 // FromErr will convert an error into a Diagnostics. This returns Diagnostics
 // as the most common use case in Go will be handling a single error
-// returned from a function.
+// returned from a 
+tion.
 //
 //	if err != nil {
 //	  return diag.FromErr(err)
-//	}
-func FromErr(err error) Diagnostics {
+
+
+ FromErr(err error) Diagnostics {
 	if err == nil {
 		return nil
 	}
@@ -30,9 +32,10 @@ func FromErr(err error) Diagnostics {
 // do not occur in multiples as warnings may.
 //
 //	if unexpectedCondition {
-//	  return diag.Errorf("unexpected: %s", someValue)
+ return diag.Errorf("unexpected: %s", someValue)
 //	}
-func Errorf(format string, a ...interface{}) Diagnostics {
+
+ Errorf(format string, a ...interface{}) Diagnostics {
 	return Diagnostics{
 		Diagnostic{
 			Severity: Error,

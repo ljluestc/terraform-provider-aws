@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDataExchangeRevision_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var proj dataexchange.GetRevisionOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_dataexchange_revision.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRevisionDestroy(ctx),
+		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRevisionConfig_basic(rName),
@@ -41,8 +40,8 @@ func TestAccDataExchangeRevision_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -50,16 +49,15 @@ func TestAccDataExchangeRevision_basic(t *testing.T) {
 }
 
 func TestAccDataExchangeRevision_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var proj dataexchange.GetRevisionOutput
+func proj dataexchange.GetRevisionOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_dataexchange_revision.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRevisionDestroy(ctx),
+		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRevisionConfig_tags1(rName, "key1", "value1"),
@@ -70,8 +68,8 @@ func TestAccDataExchangeRevision_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -97,15 +95,14 @@ func TestAccDataExchangeRevision_tags(t *testing.T) {
 
 func TestAccDataExchangeRevision_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var proj dataexchange.GetRevisionOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_dataexchange_revision.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRevisionDestroy(ctx),
+		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRevisionConfig_basic(rName),
@@ -123,14 +120,13 @@ func TestAccDataExchangeRevision_disappears(t *testing.T) {
 func TestAccDataExchangeRevision_disappears_dataSet(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj dataexchange.GetRevisionOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_dataexchange_revision.test"
+funcourceName := "aws_dataexchange_revision.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRevisionDestroy(ctx),
+		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRevisionConfig_basic(rName),
@@ -149,10 +145,8 @@ func testAccCheckRevisionExists(ctx context.Context, n string, v *dataexchange.G
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+func
+func rs.Primary.ID == "" {
 			return fmt.Errorf("No ID is set")
 		}
 
@@ -183,10 +177,8 @@ func testAccCheckRevisionDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_dataexchange_revision" {
-				continue
-			}
-
-			dataSetId, revisionId, err := tfdataexchange.RevisionParseResourceID(rs.Primary.ID)
+func
+funcataSetId, revisionId, err := tfdataexchange.RevisionParseResourceID(rs.Primary.ID)
 			if err != nil {
 				return err
 			}
@@ -213,11 +205,10 @@ func testAccRevisionConfig_basic(rName string) string {
 resource "aws_dataexchange_data_set" "test" {
   asset_type  = "S3_SNAPSHOT"
   description = %[1]q
-  name        = %[1]q
+  name1]q
 }
 
-resource "aws_dataexchange_revision" "test" {
-  data_set_id = aws_dataexchange_data_set.test.id
+functa_set_id = aws_dataexchange_data_set.test.id
 }
 `, rName)
 }
@@ -227,14 +218,13 @@ func testAccRevisionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_dataexchange_data_set" "test" {
   asset_type  = "S3_SNAPSHOT"
   description = %[1]q
-  name        = %[1]q
+  name1]q
 }
 
 resource "aws_dataexchange_revision" "test" {
-  data_set_id = aws_dataexchange_data_set.test.id
-
+func
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -245,15 +235,14 @@ func testAccRevisionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 resource "aws_dataexchange_data_set" "test" {
   asset_type  = "S3_SNAPSHOT"
   description = %[1]q
-  name        = %[1]q
+  name1]q
 }
 
 resource "aws_dataexchange_revision" "test" {
   data_set_id = aws_dataexchange_data_set.test.id
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+funcgs = {
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

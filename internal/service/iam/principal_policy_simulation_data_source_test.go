@@ -12,15 +12,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMPrincipalPolicySimulationDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -78,11 +75,8 @@ func TestAccIAMPrincipalPolicySimulationDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccPrincipalPolicySimulationDataSourceConfig_main(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_user" "test" {
+}func testAccPrincipalPolicySimulationDataSourceConfig_main(rName string) string {
+	funcurce "aws_iam_user" "test" {
   name = %[1]q
 }
 

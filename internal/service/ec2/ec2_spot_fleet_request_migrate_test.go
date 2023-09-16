@@ -10,14 +10,13 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestSpotFleetRequestMigrateState(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
 		ID  string
-		Attributes   map[string]string
-		Expected     string
+		Attributes[string]string
+		Expected
 		Metainterface{}
 	}{
 		"v0_1": {

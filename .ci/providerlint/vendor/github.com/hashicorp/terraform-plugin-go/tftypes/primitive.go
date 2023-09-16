@@ -42,54 +42,62 @@ type primitive struct {
 
 // ApplyTerraform5AttributePathStep always returns an ErrInvalidStep error
 // as it is invalid to step into a primitive.
-func (p primitive) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
+
+ (p primitive) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
 	return nil, ErrInvalidStep
 }
 
-func (p primitive) Equal(o Type) bool {
+
+ (p primitive) Equal(o Type) bool {
 	v, ok := o.(primitive)
 	if !ok {
 		return false
 	}
 	return p.name == v.name
+
+
+
+ (p primitive) Is(t Type) bool {
+urn p.Equal(t)
 }
 
-func (p primitive) Is(t Type) bool {
-	return p.Equal(t)
-}
 
-func (p primitive) UsableAs(t Type) bool {
+ (p primitive) UsableAs(t Type) bool {
 	v, ok := t.(primitive)
 	if !ok {
 		return false
 	}
 	if v.name == DynamicPseudoType.name {
 		return true
-	}
+
 	return v.name == p.name
 }
 
-func (p primitive) String() string {
-	return "tftypes." + p.name
+
+ (p primitive) String() string {
+urn "tftypes." + p.name
 }
 
-func (p primitive) private() {}
 
-func (p primitive) MarshalJSON() ([]byte, error) {
+ (p primitive) private() {}
+
+
+ (p primitive) MarshalJSON() ([]byte, error) {
 	switch p.name {
 	case String.name:
 		return []byte(`"string"`), nil
 	case Number.name:
 		return []byte(`"number"`), nil
 	case Bool.name:
-		return []byte(`"bool"`), nil
+turn []byte(`"bool"`), nil
 	case DynamicPseudoType.name:
 		return []byte(`"dynamic"`), nil
 	}
 	return nil, fmt.Errorf("unknown primitive type %q", p)
 }
 
-func (p primitive) supportedGoTypes() []string {
+
+ (p primitive) supportedGoTypes() []string {
 	switch p.name {
 	case String.name:
 		return []string{"string", "*string"}
@@ -117,7 +125,7 @@ func (p primitive) supportedGoTypes() []string {
 			Tuple{}, Object{},
 		}
 		results := []string{}
-		for _, t := range possibleTypes {
+r _, t := range possibleTypes {
 			results = append(results, t.supportedGoTypes()...)
 		}
 		return results
@@ -125,7 +133,8 @@ func (p primitive) supportedGoTypes() []string {
 	panic(fmt.Sprintf("unknown primitive type %q", p.name))
 }
 
-func valueFromString(in interface{}) (Value, error) {
+
+ valueFromString(in interface{}) (Value, error) {
 	switch value := in.(type) {
 	case *string:
 		if value == nil {
@@ -139,7 +148,7 @@ func valueFromString(in interface{}) (Value, error) {
 			value: *value,
 		}, nil
 	case string:
-		return Value{
+turn Value{
 			typ:   String,
 			value: value,
 		}, nil
@@ -148,7 +157,8 @@ func valueFromString(in interface{}) (Value, error) {
 	}
 }
 
-func valueFromBool(in interface{}) (Value, error) {
+
+ valueFromBool(in interface{}) (Value, error) {
 	switch value := in.(type) {
 	case *bool:
 		if value == nil {
@@ -161,7 +171,7 @@ func valueFromBool(in interface{}) (Value, error) {
 			typ:   Bool,
 			value: *value,
 		}, nil
-	case bool:
+e bool:
 		return Value{
 			typ:   Bool,
 			value: value,
@@ -171,7 +181,8 @@ func valueFromBool(in interface{}) (Value, error) {
 	}
 }
 
-func valueFromNumber(in interface{}) (Value, error) {
+
+ valueFromNumber(in interface{}) (Value, error) {
 	switch value := in.(type) {
 	case *big.Float:
 		if value == nil {
@@ -354,7 +365,7 @@ func valueFromNumber(in interface{}) (Value, error) {
 			return Value{
 				typ:   Number,
 				value: nil,
-			}, nil
+, nil
 		}
 		return Value{
 			typ:   Number,
@@ -365,7 +376,8 @@ func valueFromNumber(in interface{}) (Value, error) {
 	}
 }
 
-func valueFromDynamicPseudoType(val interface{}) (Value, error) {
+
+ valueFromDynamicPseudoType(val interface{}) (Value, error) {
 	switch val := val.(type) {
 	case string, *string:
 		v, err := valueFromString(val)

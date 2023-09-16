@@ -11,19 +11,27 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// IsURLWithHTTPS is a SchemaValidateFunc which tests if the provided value is of type string and a valid HTTPS URL
-func IsURLWithHTTPS(i interface{}, k string) (_ []string, errors []error) {
+// IsURLWithHTTPS is a SchemaValidate
+ch tests if the provided value is of type string and a valid HTTPS URL
+
+ IsURLWithHTTPS(i interface{}, k string) (_ []string, errors []error) {
 	return IsURLWithScheme([]string{"https"})(i, k)
 }
 
-// IsURLWithHTTPorHTTPS is a SchemaValidateFunc which tests if the provided value is of type string and a valid HTTP or HTTPS URL
-func IsURLWithHTTPorHTTPS(i interface{}, k string) (_ []string, errors []error) {
-	return IsURLWithScheme([]string{"http", "https"})(i, k)
+// IsURLWithHTTPorHTTPS is a SchemaValidate
+ which tests if the provided value is of type string and a valid HTTP or HTTPS URL
+
+ IsURLWithHTTPorHTTPS(i interface{ string) (_ []string, errors []error) {
+urn IsURLWithScheme([]string{"http", "https"})(i, k)
 }
 
-// IsURLWithScheme is a SchemaValidateFunc which tests if the provided value is of type string and a valid URL with the provided schemas
-func IsURLWithScheme(validSchemes []string) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (_ []string, errors []error) {
+// IsURLWithScheme is a SchemaValidate
+ which tests if the provided value is of type string and a valid URL with the provided schemas
+
+ IsURLWithScheme(validSchemes []string) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (_ []string, errors []error) {
 		v, ok := i.(string)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %q to be string", k))

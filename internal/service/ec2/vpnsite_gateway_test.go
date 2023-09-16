@@ -23,16 +23,14 @@ import (
 // add sweeper to delete known test VPN Gateways
 
 
-func TestAccSiteVPNGateway_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v1, v2 ec2.VpnGateway
 	resourceName := "aws_vpn_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	testNotEqual := 
 func(*terraform.State) error {
-if len(v1.VpcAttachments) == 0 {
-	return fmt.Errorf("VPN Gateway A is not attached")
+funcurn fmt.Errorf("VPN Gateway A is not attached")
 }
 if len(v2.VpcAttachments) == 0 {
 	return fmt.Errorf("VPN Gateway B is not attached")
@@ -49,8 +47,7 @@ return nil
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+funckDestroy:stAccCheckVPNGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSiteVPNGatewayConfig_basic(rName),
@@ -58,12 +55,11 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v1),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpn-gateway/vgw-.+`)),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-),
+func
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -73,8 +69,7 @@ func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v2),
 	testNotEqual,
 ),
-	},
-},
+func
 	})
 }
 
@@ -84,27 +79,24 @@ func TestAccSiteVPNGateway_withAvailabilityZoneSetToState(t *testing.T) {
 	var v ec2.VpnGateway
 	resourceName := "aws_vpn_gateway.test"
 	azDataSourceName := "data.aws_availability_zones.available"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+CheckDestroy:stAccCheckVPNGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccSiteVPNGatewayConfig_az(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", azDataSourceName, "names.0"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+funcrtStateVerify:
 ImportStateVerifyIgnore: []string{"availability_zone"},
 	},
 },
@@ -120,26 +112,23 @@ func TestAccSiteVPNGateway_amazonSideASN(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+CheckDestroy:stAccCheckVPNGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSiteVPNGatewayConfig_asn(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(
+funcource.TestCheckResourceAttr(
 resourceName, "amazon_side_asn", "4294967294"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
-	},
-},
+func
 	})
 }
 
@@ -155,8 +144,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccSiteVPNGatewayConfig_basic(rName),
 Check: resource.ComposeTestCheck
@@ -164,8 +152,7 @@ func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGateway(), resourceName),
 ),
-ExpectNonEmptyPlan: true,
-	},
+func
 },
 	})
 }
@@ -173,8 +160,7 @@ ExpectNonEmptyPlan: true,
 
 func TestAccSiteVPNGateway_reattach(t *testing.T) {
 	ctx := acctest.Context(t)
-	var vpc1, vpc2 ec2.Vpc
-	var vgw1, vgw2 ec2.VpnGateway
+func vgw1, vgw2 ec2.VpnGateway
 	vpcResourceName1 := "aws_vpc.test1"
 	vpcResourceName2 := "aws_vpc.test2"
 	resourceName1 := "aws_vpn_gateway.test1"
@@ -185,7 +171,6 @@ func TestAccSiteVPNGateway_reattach(t *testing.T) {
 func := 
 func(vgw *ec2.VpnGateway, vpc *ec2.Vpc) 
 func(*terraform.State) error {
-return 
 func(*terraform.State) error {
 	if len(vgw.VpcAttachments) == 0 {
 return fmt.Errorf("VPN Gateway %q has no VPC attachments.", aws.StringValue(vgw.VpnGatewayId))
@@ -197,15 +182,11 @@ for _, v := range vgw.VpcAttachments {
 	if aws.StringValue(v.State) == ec2.AttachmentStatusAttached {
 count += 1
 	}
-}
-if count > 1 {
-	return fmt.Errorf(
-"VPN Gateway %q has an unexpected number of VPC attachments (more than 1): %#v",
-aws.StringValue(vgw.VpnGatewayId), vgw.VpcAttachments)
-}
+funcount > 1 {
+func Gateway %q has an unexpected number of VPC attachments (more than 1): %#v",
+func
 	}
-
-	if aws.StringValue(vgw.VpcAttachments[0].State) != ec2.AttachmentStatusAttached {
+funcaws.StringValue(vgw.VpcAttachments[0].State) != ec2.AttachmentStatusAttached {
 return fmt.Errorf("Expected VPN Gateway %q to be attached.", aws.StringValue(vgw.VpnGatewayId))
 	}
 
@@ -222,7 +203,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+CheckDestroy:stAccCheckVPNGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSiteVPNGatewayConfig_reattach(rName),
@@ -238,27 +219,23 @@ func(&vgw1, &vpc1),
 func(&vgw2, &vpc2),
 ),
 	},
-	{
-ResourceName:      resourceName1,
-ImportState:       true,
+funcurceName:ame1,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
-ResourceName:      resourceName2,
-ImportState:       true,
+ResourceName:ame2,
+ImportState:
 ImportStateVerify: true,
-	},
-	{
+func
 Config: testAccSiteVPNGatewayConfig_reattachChange(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
 	testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
-	testAttachment
 func(&vgw2, &vpc1),
 	testAttachment
-func(&vgw1, &vpc2),
-),
+func
 	},
 	{
 Config: testAccSiteVPNGatewayConfig_reattach(rName),
@@ -274,39 +251,32 @@ func(&vgw2, &vpc2),
 	},
 },
 	})
-}
-
+func
 
 func TestAccSiteVPNGateway_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v ec2.VpnGateway
-	resourceName := "aws_vpn_gateway.test"
+funcourceName := "aws_vpn_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPNGatewayDestroy(ctx),
+func
 Config: testAccSiteVPNGatewayConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+funcource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
 Config: testAccSiteVPNGatewayConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
@@ -315,8 +285,7 @@ func(
 ),
 	},
 	{
-Config: testAccSiteVPNGatewayConfig_tags1(rName, "key2", "value2"),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -324,8 +293,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func testAccCheckVPNGatewayDestroy(ctx context.Context) resource.TestCheck
@@ -339,8 +307,7 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	_, err := tfec2.FindVPNGatewayByID(ctx, conn, rs.Primary.ID)
-
+func
 	if tfresource.NotFound(err) {
 continue
 	}
@@ -350,8 +317,7 @@ return err
 	}
 
 	return fmt.Errorf("EC2 VPN Gateway %s still exists", rs.Primary.ID)
-}
-
+func
 return nil
 	}
 }
@@ -362,13 +328,10 @@ func {
 	return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
-if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
+funcurn fmt.Errorf("Not found: %s", n)
+func
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 VPN Gateway ID is set")
-}
+func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -391,16 +354,13 @@ resource "aws_vpc" "test1" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test1.id
-}
+funcurce "aws_vpn_gateway" "test" {
+func
 `, rName)
-}
-
+func
 
 func testAccSiteVPNGatewayConfig_changeVPC(rName string) string {
 	return fmt.Sprintf(`
@@ -408,7 +368,7 @@ resource "aws_vpc" "test1" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -416,7 +376,7 @@ resource "aws_vpc" "test2" {
   cidr_block = "10.2.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -425,15 +385,14 @@ resource "aws_vpn_gateway" "test" {
 }
 `, rName)
 }
-
-
+func
 func testAccSiteVPNGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -441,10 +400,9 @@ resource "aws_vpn_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
-}
-`, rName, tagKey1, tagValue1)
+funcName, tagKey1, tagValue1)
 }
 
 
@@ -454,7 +412,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -462,13 +420,12 @@ resource "aws_vpn_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 
 func testAccSiteVPNGatewayConfig_reattach(rName string) string {
 	return fmt.Sprintf(`
@@ -476,7 +433,7 @@ resource "aws_vpc" "test1" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -484,15 +441,14 @@ resource "aws_vpc" "test2" {
   cidr_block = "10.2.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpn_gateway" "test1" {
   vpc_id = aws_vpc.test1.id
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
@@ -500,7 +456,7 @@ resource "aws_vpn_gateway" "test2" {
   vpc_id = aws_vpc.test2.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -513,15 +469,14 @@ resource "aws_vpc" "test1" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_vpc" "test2" {
   cidr_block = "10.2.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -529,7 +484,7 @@ resource "aws_vpn_gateway" "test1" {
   vpc_id = aws_vpc.test2.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -537,7 +492,7 @@ resource "aws_vpn_gateway" "test2" {
   vpc_id = aws_vpc.test1.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -550,16 +505,15 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_vpn_gateway" "test" {
-  vpc_id   = aws_vpc.test.id
+  vpc_idws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -572,7 +526,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -581,8 +535,9 @@ resource "aws_vpn_gateway" "test" {
   amazon_side_asn = 4294967294
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
 }
+funcfunc

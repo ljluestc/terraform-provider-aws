@@ -4,7 +4,8 @@ package tfdiags
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -17,7 +18,8 @@ const (
 	_Severity_name_1 = "Warning"
 )
 
-func (i Severity) String() string {
+
+ (i Severity) String() string {
 	switch {
 	case i == 69:
 		return _Severity_name_0

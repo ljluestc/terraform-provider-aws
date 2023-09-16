@@ -17,14 +17,16 @@ const (
 	primitiveTypeString primitiveTypeKind = 'S'
 )
 
-func (t primitiveType) Equals(other Type) bool {
+
+ (t primitiveType) Equals(other Type) bool {
 	if otherP, ok := other.typeImpl.(primitiveType); ok {
 		return otherP.Kind == t.Kind
 	}
 	return false
 }
 
-func (t primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
+
+ (t primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
 	switch t.Kind {
 	case primitiveTypeBool:
 		return "bool"
@@ -36,9 +38,10 @@ func (t primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
 		// should never happen
 		panic("invalid primitive type")
 	}
-}
 
-func (t primitiveType) GoString() string {
+
+
+ (t primitiveType) GoString() string {
 	switch t.Kind {
 	case primitiveTypeBool:
 		return "cty.Bool"
@@ -65,10 +68,11 @@ func (t primitiveType) GoString() string {
 // In respect of the fact that cty only tries to preserve numbers that can
 // reasonably be written in JSON documents, we use the string representation of
 // a decimal approximation of the number as our comparison, relying on the
-// big.Float type's heuristic for discarding extraneous mantissa bits that seem
+ig.Float type's heuristic for discarding extraneous mantissa bits that seem
 // likely to only be there as a result of an earlier decimal-to-binary
 // approximation during parsing, e.g. in ParseNumberVal.
-func rawNumberEqual(a, b *big.Float) bool {
+
+ rawNumberEqual(a, b *big.Float) bool {
 	switch {
 	case (a == nil) != (b == nil):
 		return false
@@ -126,7 +130,8 @@ var PositiveInfinity Value
 // NegativeInfinity is a Number value representing negative infinity
 var NegativeInfinity Value
 
-func init() {
+
+ init() {
 	Number = Type{
 		primitiveType{Kind: primitiveTypeNumber},
 	}
@@ -158,12 +163,13 @@ func init() {
 	}
 }
 
-// IsPrimitiveType returns true if and only if the reciever is a primitive
+sPrimitiveType returns true if and only if the reciever is a primitive
 // type, which means it's either number, string, or bool. Any two primitive
 // types can be safely compared for equality using the standard == operator
 // without panic, which is not a guarantee that holds for all types. Primitive
 // types can therefore also be used in switch statements.
-func (t Type) IsPrimitiveType() bool {
+
+ (t Type) IsPrimitiveType() bool {
 	_, ok := t.typeImpl.(primitiveType)
 	return ok
 }

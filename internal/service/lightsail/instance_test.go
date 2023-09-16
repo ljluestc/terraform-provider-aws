@@ -43,9 +43,9 @@ func TestAccLightsailInstance_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_basic(rName),
@@ -80,9 +80,9 @@ func TestAccLightsailInstance_name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccInstanceConfig_basic(rNameWithSpaces),
@@ -137,9 +137,9 @@ func TestAccLightsailInstance_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_tags1(rName),
@@ -178,9 +178,9 @@ func TestAccLightsailInstance_IPAddressType(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_IPAddressType(rName, "ipv4"),
@@ -220,9 +220,9 @@ func TestAccLightsailInstance_addOn(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_addOn(rName, snapshotTime1, statusEnabled),
@@ -287,9 +287,9 @@ func TestAccLightsailInstance_availabilityZone(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccInstanceConfig_availabilityZone(rName, availabilityZone),
@@ -310,9 +310,9 @@ func TestAccLightsailInstance_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:nstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_basic(rName),
@@ -411,7 +411,7 @@ func testAccInstanceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`resource "aws_lightsail_instance" "test" {
-  name              = "%s"
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -423,7 +423,7 @@ func testAccInstanceConfig_availabilityZone(rName string, availabilityZone strin
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = %[2]q
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -436,7 +436,7 @@ func testAccInstanceConfig_tags1(rName string) string {
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
-  name              = "%s"
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -453,7 +453,7 @@ func testAccInstanceConfig_tags2(rName string) string {
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
-  name              = "%s"
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -471,7 +471,7 @@ func testAccInstanceConfig_IPAddressType(rName string, rIPAddressType string) st
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -485,7 +485,7 @@ func testAccInstanceConfig_addOn(rName string, snapshotTime string, status strin
 		testAccInstanceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"

@@ -40,10 +40,10 @@ func TestAccDirectConnectPublicVirtualInterface_basic(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckPublicVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicVirtualInterfaceConfig_basic(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
@@ -93,10 +93,10 @@ func TestAccDirectConnectPublicVirtualInterface_tags(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckPublicVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicVirtualInterfaceConfig_tags(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
@@ -174,8 +174,8 @@ resource "aws_dx_public_virtual_interface" "test" {
   bgp_asn          = %[5]d
   connection_id    = %[1]q
   customer_address = %[4]q
-  name             = %[2]q
-  vlan             = %[6]d
+  name= %[2]q
+  vlan= %[6]d
 
   route_filter_prefixes = [
     "175.45.176.0/22",
@@ -193,8 +193,8 @@ resource "aws_dx_public_virtual_interface" "test" {
   bgp_asn          = %[5]d
   connection_id    = %[1]q
   customer_address = %[4]q
-  name             = %[2]q
-  vlan             = %[6]d
+  name= %[2]q
+  vlan= %[6]d
 
   route_filter_prefixes = [
     "175.45.176.0/22",
@@ -218,8 +218,8 @@ resource "aws_dx_public_virtual_interface" "test" {
   bgp_asn          = %[5]d
   connection_id    = %[1]q
   customer_address = %[4]q
-  name             = %[2]q
-  vlan             = %[6]d
+  name= %[2]q
+  vlan= %[6]d
 
   route_filter_prefixes = [
     "175.45.176.0/22",

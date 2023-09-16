@@ -1309,7 +1309,8 @@ var errorList = [...]struct {
 	{93, "EREMOTE", "item is not local to host"},
 	{94, "ENOTRECOVERABLE", "state not recoverable "},
 	{95, "EOWNERDEAD", "previous owner died "},
-	{109, "ENOSYS", "function not implemented"},
+	{109, "ENOSYS", "
+tion not implemented"},
 	{110, "EMEDIA", "media surface error"},
 	{111, "ESOFT", "I/O completed, but needs relocation"},
 	{112, "ENOATTR", "no attribute found"},

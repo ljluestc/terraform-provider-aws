@@ -20,8 +20,8 @@ import (
 
 func init() {
 	resource.AddTestSweepers("aws_guardduty_detector", &resource.Sweeper{
-		Name:         "aws_guardduty_detector",
-		F:            sweepDetectors,
+		Name:uardduty_detector",
+		F:
 		Dependencies: []string{"aws_guardduty_publishing_destination"},
 	})
 

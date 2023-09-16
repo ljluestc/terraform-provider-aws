@@ -16,7 +16,8 @@ var elseKeyword = Keyword([]byte{'e', 'l', 's', 'e'})
 var endifKeyword = Keyword([]byte{'e', 'n', 'd', 'i', 'f'})
 var endforKeyword = Keyword([]byte{'e', 'n', 'd', 'f', 'o', 'r'})
 
-func (kw Keyword) TokenMatches(token Token) bool {
+
+ (kw Keyword) TokenMatches(token Token) bool {
 	if token.Type != TokenIdent {
 		return false
 	}

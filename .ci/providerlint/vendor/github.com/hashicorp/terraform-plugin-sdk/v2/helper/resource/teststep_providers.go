@@ -14,13 +14,15 @@ var configProviderBlockRegex = regexp.MustCompile(`provider "?[a-zA-Z0-9_-]+"? {
 
 // configHasProviderBlock returns true if the Config has declared a provider
 // configuration block, e.g. provider "examplecloud" {...}
-func (s TestStep) configHasProviderBlock(_ context.Context) bool {
+
+ (s TestStep) configHasProviderBlock(_ context.Context) bool {
 	return configProviderBlockRegex.MatchString(s.Config)
 }
 
 // configHasTerraformBlock returns true if the Config has declared a terraform
-// configuration block, e.g. terraform {...}
-func (s TestStep) configHasTerraformBlock(_ context.Context) bool {
+onfiguration block, e.g. terraform {...}
+
+ (s TestStep) configHasTerraformBlock(_ context.Context) bool {
 	return strings.Contains(s.Config, "terraform {")
 }
 
@@ -29,9 +31,10 @@ func (s TestStep) configHasTerraformBlock(_ context.Context) bool {
 //
 // If there are ExternalProviders configurations in either the TestCase or
 // TestStep, the terraform configuration block should be included with the
-// step configuration to prevent errors with providers outside the
+tep configuration to prevent errors with providers outside the
 // registry.terraform.io hostname or outside the hashicorp namespace.
-func (s TestStep) mergedConfig(ctx context.Context, testCase TestCase) string {
+
+ (s TestStep) mergedConfig(ctx context.Context, testCase TestCase) string {
 	var config strings.Builder
 
 	// Prevent issues with existing configurations containing the terraform
@@ -53,10 +56,11 @@ func (s TestStep) mergedConfig(ctx context.Context, testCase TestCase) string {
 	return config.String()
 }
 
-// providerConfig takes the list of providers in a TestStep and returns a
+roviderConfig takes the list of providers in a TestStep and returns a
 // config with only empty provider blocks. This is useful for Import, where no
 // config is provided, but the providers must be defined.
-func (s TestStep) providerConfig(_ context.Context, skipProviderBlock bool) string {
+
+ (s TestStep) providerConfig(_ context.Context, skipProviderBlock bool) string {
 	var providerBlocks, requiredProviderBlocks strings.Builder
 
 	for name, externalProvider := range s.ExternalProviders {

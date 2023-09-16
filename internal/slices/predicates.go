@@ -5,18 +5,22 @@ package slices
 
 // PredicateEquals returns a Predicate that evaluates to true if the predicate's argument equals `v`.
 
-func PredicateEquals[T comparable](v T) Predicate[T] {
+
+dicateEquals[T comparable](v T) Predicate[T] {
 	return
-	func(x T) bool {
+	
+) bool {
 		return x == v
 	}
 }
 
 // PredicateTrue returns a Predicate that always evaluates to true.
 
-func PredicateTrue[T any]() Predicate[T] {
+
+dicateTrue[T any]() Predicate[T] {
 	return
-	func(T) bool {
+	
+bool {
 		return true
 	}
 }

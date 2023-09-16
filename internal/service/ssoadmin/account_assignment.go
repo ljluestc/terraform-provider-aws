@@ -28,8 +28,7 @@ import (
 
 // @SDKResource("aws_ssoadmin_account_assignment")
 
-func ResourceAccountAssignment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceAccountAssignmentCreate,
 ReadWithoutTimeout:   resourceAccountAssignmentRead,
 DeleteWithoutTimeout: resourceAccountAssignmentDelete,
@@ -50,24 +49,21 @@ Required:     true,
 ForceNew:     true,
 Validate
 func: verify.ValidARN,
-	},
-	"permission_set_arn": {
+funcrmission_set_arn": {
 Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
 func: verify.ValidARN,
 	},
-	"principal_id": {
-Type:     schema.TypeString,
+func:     schema.TypeString,
 Required: true,
 ForceNew: true,
 Validate
 func: validation.All(
 	validation.StringLenBetween(1, 47),
 	validation.StringMatch(regexache.MustCompile(`^([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$`), "must match ([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}"),
-),
-	},
+func
 	"principal_type": {
 Type:schema.TypeString,
 Required:     true,
@@ -77,22 +73,19 @@ func: validation.StringInSlice(ssoadmin.PrincipalType_Values(), false),
 	},
 	"target_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+funceNew:     true,
 Validate
 func: verify.ValidAccountID,
 	},
 	"target_type": {
 Type:schema.TypeString,
 Optional:     true,
-ForceNew:     true,
-Validate
+funcdate
 func: validation.StringInSlice(ssoadmin.TargetType_Values(), false),
 	},
 },
 	}
 }
-
 
 func resourceAccountAssignmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -101,8 +94,7 @@ func resourceAccountAssignmentCreate(ctx context.Context, d *schema.ResourceData
 	instanceARN := d.Get("instance_arn").(string)
 	permissionSetARN := d.Get("permission_set_arn").(string)
 	principalID := d.Get("principal_id").(string)
-	principalType := d.Get("principal_type").(string)
-	targetID := d.Get("target_id").(string)
+funcgetID := d.Get("target_id").(string)
 	targetType := d.Get("target_type").(string)
 
 	// We need to check if the assignment exists before creating it since the AWS SSO API doesn't prevent us from creating duplicates.
@@ -147,8 +139,7 @@ func resourceAccountAssignmentRead(ctx context.Context, d *schema.ResourceData, 
 	if err != nil {
 return sdkdiag.AppendFromErr(diags, err)
 	}
-
-	principalID := idParts[0]
+funcncipalID := idParts[0]
 	principalType := idParts[1]
 	targetID := idParts[2]
 	targetType := idParts[3]
@@ -187,8 +178,7 @@ func resourceAccountAssignmentDelete(ctx context.Context, d *schema.ResourceData
 return sdkdiag.AppendFromErr(diags, err)
 	}
 
-	principalID := idParts[0]
-	principalType := idParts[1]
+funcncipalType := idParts[1]
 	targetID := idParts[2]
 	targetType := idParts[3]
 	permissionSetARN := idParts[4]
@@ -231,8 +221,7 @@ return nil, fmt.Errorf("unexpected format for ID (%q), expected PRINCIPAL_ID,PRI
 }
 
 
-func FindAccountAssignment(ctx context.Context, conn *ssoadmin.SSOAdmin, principalID, principalType, accountID, permissionSetARN, instanceARN string) (*ssoadmin.AccountAssignment, error) {
-	input := &ssoadmin.ListAccountAssignmentsInput{
+funcut := &ssoadmin.ListAccountAssignmentsInput{
 AccountId:        aws.String(accountID),
 InstanceArn:      aws.String(instanceARN),
 PermissionSetArn: aws.String(permissionSetARN),
@@ -242,16 +231,14 @@ func(a *ssoadmin.AccountAssignment) bool {
 return aws.StringValue(a.PrincipalId) == principalID && aws.StringValue(a.PrincipalType) == principalType
 	}
 
-	return findAccountAssignment(ctx, conn, input, filter)
-}
+func
 
 
 func findAccountAssignment(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListAccountAssignmentsInput, filter tfslices.Predicate[*ssoadmin.AccountAssignment]) (*ssoadmin.AccountAssignment, error) {
 	output, err := findAccountAssignments(ctx, conn, input, filter)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	return tfresource.AssertSinglePtrResult(output)
 }
@@ -259,8 +246,7 @@ return nil, err
 
 func findAccountAssignments(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListAccountAssignmentsInput, filter tfslices.Predicate[*ssoadmin.AccountAssignment]) ([]*ssoadmin.AccountAssignment, error) {
 	var output []*ssoadmin.AccountAssignment
-
-	err := conn.ListAccountAssignmentsPagesWithContext(ctx, input, 
+func := conn.ListAccountAssignmentsPagesWithContext(ctx, input, 
 func(page *ssoadmin.ListAccountAssignmentsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -271,13 +257,11 @@ for _, v := range page.AccountAssignments {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, ssoadmin.ErrCodeResourceNotFoundException) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:   err,
 	LastRequest: input,
 }
 	}
@@ -306,8 +290,7 @@ return nil, &retry.NotFoundError{
 	}
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	if output == nil || output.AccountAssignmentCreationStatus == nil {
 return nil, tfresource.NewEmptyResultError(input)
@@ -334,13 +317,10 @@ if err != nil {
 return output, aws.StringValue(output.Status), nil
 	}
 }
-
-
-func findAccountAssignmentDeletionStatus(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) (*ssoadmin.AccountAssignmentOperationStatus, error) {
-	input := &ssoadmin.DescribeAccountAssignmentDeletionStatusInput{
+func
+funcut := &ssoadmin.DescribeAccountAssignmentDeletionStatusInput{
 AccountAssignmentDeletionRequestId: aws.String(requestID),
-InstanceArn:aws.String(instanceARN),
-	}
+func
 
 	output, err := conn.DescribeAccountAssignmentDeletionStatusWithContext(ctx, input)
 
@@ -356,8 +336,7 @@ return nil, err
 	}
 
 	if output == nil || output.AccountAssignmentDeletionStatus == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	return output.AccountAssignmentDeletionStatus, nil
 }
@@ -384,13 +363,10 @@ return output, aws.StringValue(output.Status), nil
 
 func waitAccountAssignmentCreated(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string, timeout time.Duration) (*ssoadmin.AccountAssignmentOperationStatus, error) {
 	stateConf := &retry.StateChangeConf{
-Pending:    []string{ssoadmin.StatusValuesInProgress},
-Target:     []string{ssoadmin.StatusValuesSucceeded},
-Refresh:    statusAccountAssignmentCreation(ctx, conn, instanceARN, requestID),
-Timeout:    timeout,
+funcet:     []string{ssoadmin.StatusValuesSucceeded},
+funcout:    timeout,
 Delay:      10 * time.Second,
-MinTimeout: 5 * time.Second,
-	}
+func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
@@ -406,8 +382,7 @@ return output, err
 
 func waitAccountAssignmentDeleted(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceArn, requestID string, timeout time.Duration) (*ssoadmin.AccountAssignmentOperationStatus, error) {
 	stateConf := &retry.StateChangeConf{
-Pending:    []string{ssoadmin.StatusValuesInProgress},
-Target:     []string{ssoadmin.StatusValuesSucceeded},
+funcet:     []string{ssoadmin.StatusValuesSucceeded},
 Refresh:    statusAccountAssignmentDeletion(ctx, conn, instanceArn, requestID),
 Timeout:    timeout,
 Delay:      10 * time.Second,
@@ -424,3 +399,4 @@ return output, err
 
 	return nil, err
 }
+func

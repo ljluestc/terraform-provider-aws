@@ -29,10 +29,10 @@ func TestAccWAFV2RuleGroup_basic(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleGroupName),
@@ -67,10 +67,10 @@ func TestAccWAFV2RuleGroup_nameGenerated(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_nameGenerated(),
@@ -96,10 +96,10 @@ func TestAccWAFV2RuleGroup_namePrefix(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_namePrefix("tf-acc-test-prefix-"),
@@ -126,10 +126,10 @@ func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleGroupName),
@@ -164,15 +164,15 @@ func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.0.sampled_requests_enabled", "false"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                              "rule-1",
-						"priority":                          "1",
-						"action.#":                          "1",
-						"action.0.allow.#":                  "0",
-						"action.0.block.#":                  "0",
-						"action.0.count.#":                  "1",
-						"action.0.captcha.#":                "0",
-						"action.0.challenge.#":              "0",
-						"statement.#":                       "1",
+						"name":    "rule-1",
+						"priority":"1",
+						"action.#":"1",
+						"action.0.allow.#":     "0",
+						"action.0.block.#":     "0",
+						"action.0.count.#":     "1",
+						"action.0.captcha.#":   "0",
+						"action.0.challenge.#": "0",
+						"statement.#":          "1",
 						"statement.0.geo_match_statement.#": "1",
 						"statement.0.geo_match_statement.0.country_codes.#": "2",
 					}),
@@ -196,10 +196,10 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 	ruleName2 := fmt.Sprintf("%s-2", ruleGroupName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basicUpdate(ruleGroupName),
@@ -217,19 +217,19 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.0.sampled_requests_enabled", "false"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                 "rule-1",
-						"priority":             "1",
-						"action.#":             "1",
+						"name":    "rule-1",
+						"priority":"1",
+						"action.#":"1",
 						"action.0.allow.#":     "0",
 						"action.0.block.#":     "0",
 						"action.0.count.#":     "1",
 						"action.0.captcha.#":   "0",
 						"action.0.challenge.#": "0",
 						"visibility_config.0.cloudwatch_metrics_enabled": "false",
-						"visibility_config.0.metric_name":                "friendly-rule-metric-name",
+						"visibility_config.0.metric_name":   "friendly-rule-metric-name",
 						"visibility_config.0.sampled_requests_enabled":   "false",
-						"statement.#":                                       "1",
-						"statement.0.geo_match_statement.#":                 "1",
+						"statement.#":"1",
+						"statement.0.geo_match_statement.#":    "1",
 						"statement.0.geo_match_statement.0.country_codes.#": "2",
 					}),
 				),
@@ -251,9 +251,9 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.0.sampled_requests_enabled", "false"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                 "rule-1",
-						"priority":             "1",
-						"action.#":             "1",
+						"name":    "rule-1",
+						"priority":"1",
+						"action.#":"1",
 						"action.0.allow.#":     "0",
 						"action.0.block.#":     "0",
 						"action.0.count.#":     "1",
@@ -261,16 +261,16 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"action.0.challenge.#": "0",
 						"visibility_config.#":  "1",
 						"visibility_config.0.cloudwatch_metrics_enabled": "false",
-						"visibility_config.0.metric_name":                "rule-1",
+						"visibility_config.0.metric_name":   "rule-1",
 						"visibility_config.0.sampled_requests_enabled":   "false",
-						"statement.#":                                       "1",
-						"statement.0.geo_match_statement.#":                 "1",
+						"statement.#":"1",
+						"statement.0.geo_match_statement.#":    "1",
 						"statement.0.geo_match_statement.0.country_codes.#": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                 ruleName2,
-						"priority":             "2",
-						"action.#":             "1",
+						"name":    ruleName2,
+						"priority":"2",
+						"action.#":"1",
 						"action.0.allow.#":     "0",
 						"action.0.block.#":     "1",
 						"action.0.count.#":     "0",
@@ -278,14 +278,14 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"action.0.challenge.#": "0",
 						"visibility_config.#":  "1",
 						"visibility_config.0.cloudwatch_metrics_enabled": "false",
-						"visibility_config.0.metric_name":                ruleName2,
+						"visibility_config.0.metric_name":   ruleName2,
 						"visibility_config.0.sampled_requests_enabled":   "false",
 						"statement.#": "1",
-						"statement.0.size_constraint_statement.#":                                 "1",
-						"statement.0.size_constraint_statement.0.comparison_operator":             "LT",
-						"statement.0.size_constraint_statement.0.field_to_match.#":                "1",
+						"statement.0.size_constraint_statement.#":       "1",
+						"statement.0.size_constraint_statement.0.comparison_operator":"LT",
+						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
-						"statement.0.size_constraint_statement.0.size":                            "50",
+						"statement.0.size_constraint_statement.0.size":  "50",
 						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.size_constraint_statement.0.text_transformation.*", map[string]string{
@@ -315,9 +315,9 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.0.sampled_requests_enabled", "false"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                 "rule-1",
-						"priority":             "5",
-						"action.#":             "1",
+						"name":    "rule-1",
+						"priority":"5",
+						"action.#":"1",
 						"action.0.allow.#":     "0",
 						"action.0.block.#":     "0",
 						"action.0.count.#":     "1",
@@ -325,16 +325,16 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"action.0.challenge.#": "0",
 						"visibility_config.#":  "1",
 						"visibility_config.0.cloudwatch_metrics_enabled": "false",
-						"visibility_config.0.metric_name":                "rule-1",
+						"visibility_config.0.metric_name":   "rule-1",
 						"visibility_config.0.sampled_requests_enabled":   "false",
-						"statement.#":                                       "1",
-						"statement.0.geo_match_statement.#":                 "1",
+						"statement.#":"1",
+						"statement.0.geo_match_statement.#":    "1",
 						"statement.0.geo_match_statement.0.country_codes.#": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"name":                 "updated",
-						"priority":             "10",
-						"action.#":             "1",
+						"name":    "updated",
+						"priority":"10",
+						"action.#":"1",
 						"action.0.allow.#":     "0",
 						"action.0.block.#":     "1",
 						"action.0.count.#":     "0",
@@ -342,14 +342,14 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"action.0.challenge.#": "0",
 						"visibility_config.#":  "1",
 						"visibility_config.0.cloudwatch_metrics_enabled": "false",
-						"visibility_config.0.metric_name":                "updated",
+						"visibility_config.0.metric_name":   "updated",
 						"visibility_config.0.sampled_requests_enabled":   "false",
 						"statement.#": "1",
-						"statement.0.size_constraint_statement.#":                                 "1",
-						"statement.0.size_constraint_statement.0.comparison_operator":             "LT",
-						"statement.0.size_constraint_statement.0.field_to_match.#":                "1",
+						"statement.0.size_constraint_statement.#":       "1",
+						"statement.0.size_constraint_statement.0.comparison_operator":"LT",
+						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
-						"statement.0.size_constraint_statement.0.size":                            "50",
+						"statement.0.size_constraint_statement.0.size":  "50",
 						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.size_constraint_statement.0.text_transformation.*", map[string]string{
@@ -379,10 +379,10 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_byteMatchStatement(ruleGroupName),
@@ -391,7 +391,7 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                        "1",
+						"statement.#":           "1",
 						"statement.0.byte_match_statement.#": "1",
 						"statement.0.byte_match_statement.0.positional_constraint": "CONTAINS",
 						"statement.0.byte_match_statement.0.search_string":         "word",
@@ -414,7 +414,7 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                        "1",
+						"statement.#":           "1",
 						"statement.0.byte_match_statement.#": "1",
 						"statement.0.byte_match_statement.0.positional_constraint": "EXACTLY",
 						"statement.0.byte_match_statement.0.search_string":         "sentence",
@@ -443,10 +443,10 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_byteMatchStatementFieldToMatchAllQueryArguments(ruleGroupName),
@@ -455,19 +455,19 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
 				),
 			},
@@ -478,19 +478,19 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
 				),
 			},
@@ -501,24 +501,24 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":                        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                                       "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":                                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_scope":                        "ALL",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.oversize_handling":                  "NO_MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.#":                    "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.oversize_handling":     "NO_MATCH",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.0.included_cookies.0": "test",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.0.included_cookies.1": "cookie_test",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":                                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                                     "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":                               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":                              "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":                      "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":                                   "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
 					}),
 				),
 			},
@@ -529,14 +529,14 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                                                      "1",
-						"statement.0.byte_match_statement.#":                                                               "1",
-						"statement.0.byte_match_statement.0.field_to_match.#":                                              "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                                  "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_scope":                      "VALUE",
+						"statement.#":        "1",
+						"statement.0.byte_match_statement.#":           "1",
+						"statement.0.byte_match_statement.0.field_to_match.#":       "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_scope":         "VALUE",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.invalid_fallback_behavior":        "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.oversize_handling":                "CONTINUE",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.#":                  "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.oversize_handling":   "CONTINUE",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.0.included_paths.#": "2",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.0.included_paths.0": "/dogs/0/name",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.0.included_paths.1": "/dogs/1/name",
@@ -550,25 +550,25 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":                        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                                       "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":                                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":                                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":                  "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":                        "ALL",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#":              "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                                     "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":                               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":                              "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":                      "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":                                   "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
 					}),
 				),
 			},
@@ -579,27 +579,27 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":                        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                                       "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":                                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":                                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":                  "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":                        "ALL",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "2",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.0": "session",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.1": "session-id",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                                     "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":                               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":                              "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":                      "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":                                   "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
 					}),
 				),
 			},
@@ -610,27 +610,27 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":                        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                                       "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":                                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":                                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":                  "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":                        "ALL",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":                    "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "2",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.0": "session",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.1": "session-id",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                                     "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":                               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":                              "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":                      "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":                                   "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
 					}),
 				),
 			},
@@ -645,19 +645,19 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
 				),
 			},
@@ -668,19 +668,19 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
 				),
 			},
@@ -691,20 +691,20 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.0.name":    "a-forty-character-long-header-name-40-40",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
 				),
 			},
@@ -715,20 +715,20 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                       "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":                    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                     "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":              "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":       "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":       "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":        "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":      "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.0.name": "a-max-30-characters-long-name-",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":                   "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":      "0",
 					}),
 				),
 			},
@@ -739,19 +739,19 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.byte_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":                  "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":               "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":             "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":                "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#":     "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":              "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "1",
 					}),
 				),
 			},
@@ -773,10 +773,10 @@ func TestAccWAFV2RuleGroup_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleGroupName),
@@ -821,10 +821,10 @@ func TestAccWAFV2RuleGroup_changeCapacityForceNew(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleGroupName),
@@ -869,10 +869,10 @@ func TestAccWAFV2RuleGroup_changeMetricNameForceNew(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleGroupName),
@@ -917,10 +917,10 @@ func TestAccWAFV2RuleGroup_disappears(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_minimal(ruleGroupName),
@@ -941,10 +941,10 @@ func TestAccWAFV2RuleGroup_RuleLabels(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_labels(ruleGroupName),
@@ -987,10 +987,10 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_geoMatchStatement(ruleGroupName),
@@ -999,8 +999,8 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                             "1",
-						"statement.0.geo_match_statement.#":                       "1",
+						"statement.#":      "1",
+						"statement.0.geo_match_statement.#":          "1",
 						"statement.0.geo_match_statement.0.country_codes.#":       "2",
 						"statement.0.geo_match_statement.0.country_codes.0":       "US",
 						"statement.0.geo_match_statement.0.country_codes.1":       "NL",
@@ -1015,8 +1015,8 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                             "1",
-						"statement.0.geo_match_statement.#":                       "1",
+						"statement.#":      "1",
+						"statement.0.geo_match_statement.#":          "1",
 						"statement.0.geo_match_statement.0.country_codes.#":       "3",
 						"statement.0.geo_match_statement.0.country_codes.0":       "ZM",
 						"statement.0.geo_match_statement.0.country_codes.1":       "EE",
@@ -1042,10 +1042,10 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_geoMatchStatementForwardedIP(ruleGroupName, "MATCH", "X-Forwarded-For"),
@@ -1054,12 +1054,12 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                               "1",
-						"statement.0.geo_match_statement.#":                                         "1",
-						"statement.0.geo_match_statement.0.country_codes.#":                         "2",
-						"statement.0.geo_match_statement.0.country_codes.0":                         "US",
-						"statement.0.geo_match_statement.0.country_codes.1":                         "NL",
-						"statement.0.geo_match_statement.0.forwarded_ip_config.#":                   "1",
+						"statement.#":           "1",
+						"statement.0.geo_match_statement.#":  "1",
+						"statement.0.geo_match_statement.0.country_codes.#":            "2",
+						"statement.0.geo_match_statement.0.country_codes.0":            "US",
+						"statement.0.geo_match_statement.0.country_codes.1":            "NL",
+						"statement.0.geo_match_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.header_name":       "X-Forwarded-For",
 					}),
@@ -1072,12 +1072,12 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                               "1",
-						"statement.0.geo_match_statement.#":                                         "1",
-						"statement.0.geo_match_statement.0.country_codes.#":                         "2",
-						"statement.0.geo_match_statement.0.country_codes.0":                         "US",
-						"statement.0.geo_match_statement.0.country_codes.1":                         "NL",
-						"statement.0.geo_match_statement.0.forwarded_ip_config.#":                   "1",
+						"statement.#":           "1",
+						"statement.0.geo_match_statement.#":  "1",
+						"statement.0.geo_match_statement.0.country_codes.#":            "2",
+						"statement.0.geo_match_statement.0.country_codes.0":            "US",
+						"statement.0.geo_match_statement.0.country_codes.1":            "NL",
+						"statement.0.geo_match_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.header_name":       "Updated",
 					}),
@@ -1100,10 +1100,10 @@ func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_labelMatchStatement(ruleGroupName, "LABEL", "Hashicorp:Test:Label1"),
@@ -1112,7 +1112,7 @@ func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                               "1",
+						"statement.#":     "1",
 						"statement.0.label_match_statement.#":       "1",
 						"statement.0.label_match_statement.0.scope": "LABEL",
 						"statement.0.label_match_statement.0.key":   "Hashicorp:Test:Label1",
@@ -1126,7 +1126,7 @@ func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                               "1",
+						"statement.#":     "1",
 						"statement.0.label_match_statement.#":       "1",
 						"statement.0.label_match_statement.0.scope": "NAMESPACE",
 						"statement.0.label_match_statement.0.key":   "awswaf:managed:aws:bot-control:",
@@ -1150,10 +1150,10 @@ func TestAccWAFV2RuleGroup_ipSetReferenceStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_ipsetReferenceStatement(ruleGroupName),
@@ -1163,7 +1163,7 @@ func TestAccWAFV2RuleGroup_ipSetReferenceStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.ip_set_reference_statement.#":                              "1",
+						"statement.0.ip_set_reference_statement.#":    "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#": "0",
 					}),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]*regexp.Regexp{
@@ -1188,10 +1188,10 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_ipsetReferenceStatementIPSetForwardedIP(ruleGroupName, "MATCH", "X-Forwarded-For", "FIRST"),
@@ -1207,7 +1207,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.arn": regexache.MustCompile(`regional/ipset/.+$`),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":                   "1",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "X-Forwarded-For",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "FIRST",
@@ -1228,7 +1228,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.arn": regexache.MustCompile(`regional/ipset/.+$`),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":                   "1",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "X-Forwarded-For",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "LAST",
@@ -1249,7 +1249,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.arn": regexache.MustCompile(`regional/ipset/.+$`),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":                   "1",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "Updated",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "ANY",
@@ -1264,7 +1264,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.ip_set_reference_statement.#":                              "1",
+						"statement.0.ip_set_reference_statement.#":    "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#": "0",
 					}),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]*regexp.Regexp{
@@ -1289,10 +1289,10 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_logicalStatementAnd(ruleGroupName),
@@ -1301,8 +1301,8 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                             "1",
-						"statement.0.and_statement.#":             "1",
+						"statement.#":   "1",
+						"statement.0.and_statement.#":"1",
 						"statement.0.and_statement.0.statement.#": "2",
 						"statement.0.and_statement.0.statement.0.geo_match_statement.#": "1",
 						"statement.0.and_statement.0.statement.1.geo_match_statement.#": "1",
@@ -1316,10 +1316,10 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                         "1",
-						"statement.0.not_statement.#":                                         "1",
-						"statement.0.not_statement.0.statement.#":                             "1",
-						"statement.0.not_statement.0.statement.0.and_statement.#":             "1",
+						"statement.#":     "1",
+						"statement.0.not_statement.#":  "1",
+						"statement.0.not_statement.0.statement.#":   "1",
+						"statement.0.not_statement.0.statement.0.and_statement.#":"1",
 						"statement.0.not_statement.0.statement.0.and_statement.0.statement.#": "2",
 						"statement.0.not_statement.0.statement.0.and_statement.0.statement.0.geo_match_statement.#": "1",
 						"statement.0.not_statement.0.statement.0.and_statement.0.statement.1.geo_match_statement.#": "1",
@@ -1333,14 +1333,14 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                        "1",
-						"statement.0.or_statement.#":                                         "1",
-						"statement.0.or_statement.0.statement.#":                             "2",
-						"statement.0.or_statement.0.statement.0.not_statement.#":             "1",
+						"statement.#":    "1",
+						"statement.0.or_statement.#":  "1",
+						"statement.0.or_statement.0.statement.#":   "2",
+						"statement.0.or_statement.0.statement.0.not_statement.#":"1",
 						"statement.0.or_statement.0.statement.0.not_statement.0.statement.#": "1",
 						"statement.0.or_statement.0.statement.0.not_statement.0.statement.0.geo_match_statement.#": "1",
-						"statement.0.or_statement.0.statement.1.and_statement.#":                                   "1",
-						"statement.0.or_statement.0.statement.1.and_statement.0.statement.#":                       "2",
+						"statement.0.or_statement.0.statement.1.and_statement.#":         "1",
+						"statement.0.or_statement.0.statement.1.and_statement.0.statement.#":          "2",
 						"statement.0.or_statement.0.statement.1.and_statement.0.statement.0.geo_match_statement.#": "1",
 						"statement.0.or_statement.0.statement.1.and_statement.0.statement.1.geo_match_statement.#": "1",
 					}),
@@ -1363,10 +1363,10 @@ func TestAccWAFV2RuleGroup_minimal(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_minimal(ruleGroupName),
@@ -1395,10 +1395,10 @@ func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_regexMatchStatement(ruleGroupName),
@@ -1407,8 +1407,8 @@ func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                               "1",
-						"statement.0.regex_match_statement.#":                       "1",
+						"statement.#":        "1",
+						"statement.0.regex_match_statement.#":          "1",
 						"statement.0.regex_match_statement.0.regex_string":          "[a-z]([a-z0-9_-]*[a-z0-9])?",
 						"statement.0.regex_match_statement.0.field_to_match.#":      "1",
 						"statement.0.regex_match_statement.0.text_transformation.#": "1",
@@ -1432,10 +1432,10 @@ func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_regexPatternSetReferenceStatement(ruleGroupName),
@@ -1445,7 +1445,7 @@ func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.regex_pattern_set_reference_statement.#":                       "1",
+						"statement.0.regex_pattern_set_reference_statement.#":          "1",
 						"statement.0.regex_pattern_set_reference_statement.0.field_to_match.#":      "1",
 						"statement.0.regex_pattern_set_reference_statement.0.text_transformation.#": "1",
 					}),
@@ -1471,10 +1471,10 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_actionAllow(ruleGroupName),
@@ -1491,10 +1491,10 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 						"action.#":         "1",
 						"action.0.allow.#": "1",
 						"action.0.allow.0.custom_request_handling.#": "0",
-						"action.0.block.#":                           "0",
-						"action.0.count.#":                           "0",
-						"action.0.captcha.#":                         "0",
-						"action.0.challenge.#":                       "0",
+						"action.0.block.#": "0",
+						"action.0.count.#": "0",
+						"action.0.captcha.#":            "0",
+						"action.0.challenge.#":          "0",
 					}),
 				),
 			},
@@ -1510,13 +1510,13 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":                           "1",
-						"action.0.allow.#":                   "0",
-						"action.0.block.#":                   "1",
+						"action.#": "1",
+						"action.0.allow.#":      "0",
+						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "0",
-						"action.0.count.#":                   "0",
-						"action.0.captcha.#":                 "0",
-						"action.0.challenge.#":               "0",
+						"action.0.count.#":      "0",
+						"action.0.captcha.#":    "0",
+						"action.0.challenge.#":  "0",
 					}),
 				),
 			},
@@ -1537,8 +1537,8 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 						"action.0.block.#": "0",
 						"action.0.count.#": "1",
 						"action.0.count.0.custom_request_handling.#": "0",
-						"action.0.captcha.#":                         "0",
-						"action.0.challenge.#":                       "0",
+						"action.0.captcha.#":            "0",
+						"action.0.challenge.#":          "0",
 					}),
 				),
 			},
@@ -1559,10 +1559,10 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_actionAllowCustomRequestHandling(ruleGroupName),
@@ -1578,7 +1578,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"action.#":         "1",
 						"action.0.allow.#": "1",
-						"action.0.allow.0.custom_request_handling.#":                       "1",
+						"action.0.allow.0.custom_request_handling.#":          "1",
 						"action.0.allow.0.custom_request_handling.0.insert_header.#":       "2",
 						"action.0.allow.0.custom_request_handling.0.insert_header.0.name":  "x-hdr1",
 						"action.0.allow.0.custom_request_handling.0.insert_header.0.value": "test-val1",
@@ -1607,7 +1607,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 						"action.0.allow.#": "0",
 						"action.0.block.#": "0",
 						"action.0.count.#": "1",
-						"action.0.count.0.custom_request_handling.#":                       "1",
+						"action.0.count.0.custom_request_handling.#":          "1",
 						"action.0.count.0.custom_request_handling.0.insert_header.#":       "2",
 						"action.0.count.0.custom_request_handling.0.insert_header.0.name":  "x-hdr1",
 						"action.0.count.0.custom_request_handling.0.insert_header.0.value": "test-val1",
@@ -1635,10 +1635,10 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_actionBlockCustomResponse(ruleGroupName),
@@ -1652,9 +1652,9 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":                           "1",
-						"action.0.allow.#":                   "0",
-						"action.0.block.#":                   "1",
+						"action.#": "1",
+						"action.0.allow.#":      "0",
+						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
 						"action.0.block.0.custom_response.0.response_code":           "429",
 						"action.0.block.0.custom_response.0.response_header.#":       "2",
@@ -1690,9 +1690,9 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 					}),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":                           "1",
-						"action.0.allow.#":                   "0",
-						"action.0.block.#":                   "1",
+						"action.#": "1",
+						"action.0.allow.#":      "0",
+						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
 						"action.0.block.0.custom_response.0.response_code":            "429",
 						"action.0.block.0.custom_response.0.custom_response_body_key": "test_body_1",
@@ -1725,9 +1725,9 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 					}),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":                           "1",
-						"action.0.allow.#":                   "0",
-						"action.0.block.#":                   "1",
+						"action.#": "1",
+						"action.0.allow.#":      "0",
+						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
 						"action.0.block.0.custom_response.0.response_code":            "429",
 						"action.0.block.0.custom_response.0.custom_response_body_key": "test_body_2",
@@ -1754,10 +1754,10 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_sizeConstraintStatement(ruleGroupName),
@@ -1767,9 +1767,9 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.size_constraint_statement.#":                           "1",
+						"statement.0.size_constraint_statement.#": "1",
 						"statement.0.size_constraint_statement.0.comparison_operator":       "GT",
-						"statement.0.size_constraint_statement.0.size":                      "100",
+						"statement.0.size_constraint_statement.0.size":         "100",
 						"statement.0.size_constraint_statement.0.field_to_match.#":          "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.method.#": "1",
 						"statement.0.size_constraint_statement.0.text_transformation.#":     "1",
@@ -1784,10 +1784,10 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.size_constraint_statement.#":                                 "1",
-						"statement.0.size_constraint_statement.0.comparison_operator":             "LT",
-						"statement.0.size_constraint_statement.0.size":                            "50",
-						"statement.0.size_constraint_statement.0.field_to_match.#":                "1",
+						"statement.0.size_constraint_statement.#":       "1",
+						"statement.0.size_constraint_statement.0.comparison_operator":"LT",
+						"statement.0.size_constraint_statement.0.size":  "50",
+						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
 						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
 					}),
@@ -1810,10 +1810,10 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_sqliMatchStatement(ruleGroupName),
@@ -1822,11 +1822,11 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                         "1",
-						"statement.0.sqli_match_statement.#":                  "1",
+						"statement.#":  "1",
+						"statement.0.sqli_match_statement.#":     "1",
 						"statement.0.sqli_match_statement.0.field_to_match.#": "1",
 						"statement.0.sqli_match_statement.0.field_to_match.0.all_query_arguments.#": "1",
-						"statement.0.sqli_match_statement.0.text_transformation.#":                  "2",
+						"statement.0.sqli_match_statement.0.text_transformation.#":     "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.sqli_match_statement.0.text_transformation.*", map[string]string{
 						"priority": "5",
@@ -1845,8 +1845,8 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                "1",
-						"statement.0.sqli_match_statement.#":                         "1",
+						"statement.#":         "1",
+						"statement.0.sqli_match_statement.#":            "1",
 						"statement.0.sqli_match_statement.0.field_to_match.#":        "1",
 						"statement.0.sqli_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.sqli_match_statement.0.text_transformation.#":   "3",
@@ -1882,10 +1882,10 @@ func TestAccWAFV2RuleGroup_tags(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_tags1(ruleGroupName, "key1", "value1"),
@@ -1929,10 +1929,10 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_xssMatchStatement(ruleGroupName),
@@ -1941,8 +1941,8 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                               "1",
-						"statement.0.xss_match_statement.#":                         "1",
+						"statement.#":        "1",
+						"statement.0.xss_match_statement.#":            "1",
 						"statement.0.xss_match_statement.0.field_to_match.#":        "1",
 						"statement.0.xss_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.xss_match_statement.0.text_transformation.#":   "1",
@@ -1960,8 +1960,8 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                               "1",
-						"statement.0.xss_match_statement.#":                         "1",
+						"statement.#":        "1",
+						"statement.0.xss_match_statement.#":            "1",
 						"statement.0.xss_match_statement.0.field_to_match.#":        "1",
 						"statement.0.xss_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.xss_match_statement.0.text_transformation.#":   "1",
@@ -1989,10 +1989,10 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_rateBasedStatement(ruleGroupName),
@@ -2004,7 +2004,7 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 						"statement.#": "1",
 						"statement.0.rate_based_statement.0.aggregate_key_type":     "IP",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.#":  "0",
-						"statement.0.rate_based_statement.0.limit":                  "50000",
+						"statement.0.rate_based_statement.0.limit":     "50000",
 						"statement.0.rate_based_statement.0.scope_down_statement.#": "0",
 					}),
 				),
@@ -2016,14 +2016,14 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                        "1",
+						"statement.#":           "1",
 						"statement.0.rate_based_statement.#": "1",
-						"statement.0.rate_based_statement.0.aggregate_key_type":                      "FORWARDED_IP",
-						"statement.0.rate_based_statement.0.forwarded_ip_config.#":                   "1",
+						"statement.0.rate_based_statement.0.aggregate_key_type":         "FORWARDED_IP",
+						"statement.0.rate_based_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.header_name":       "X-Forwarded-For",
-						"statement.0.rate_based_statement.0.limit":                                   "50000",
-						"statement.0.rate_based_statement.0.scope_down_statement.#":                  "0",
+						"statement.0.rate_based_statement.0.limit":         "50000",
+						"statement.0.rate_based_statement.0.scope_down_statement.#":     "0",
 					}),
 				),
 			},
@@ -2034,14 +2034,14 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                        "1",
+						"statement.#":           "1",
 						"statement.0.rate_based_statement.#": "1",
-						"statement.0.rate_based_statement.0.aggregate_key_type":                      "FORWARDED_IP",
-						"statement.0.rate_based_statement.0.forwarded_ip_config.#":                   "1",
+						"statement.0.rate_based_statement.0.aggregate_key_type":         "FORWARDED_IP",
+						"statement.0.rate_based_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.header_name":       "Updated",
-						"statement.0.rate_based_statement.0.limit":                                   "50000",
-						"statement.0.rate_based_statement.0.scope_down_statement.#":                  "0",
+						"statement.0.rate_based_statement.0.limit":         "50000",
+						"statement.0.rate_based_statement.0.scope_down_statement.#":     "0",
 					}),
 				),
 			},
@@ -2052,13 +2052,13 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                        "1",
+						"statement.#":           "1",
 						"statement.0.rate_based_statement.#": "1",
-						"statement.0.rate_based_statement.0.aggregate_key_type":                                           "IP",
-						"statement.0.rate_based_statement.0.forwarded_ip_config.#":                                        "0",
-						"statement.0.rate_based_statement.0.limit":                                                        "10000",
-						"statement.0.rate_based_statement.0.scope_down_statement.#":                                       "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.geo_match_statement.#":                 "1",
+						"statement.0.rate_based_statement.0.aggregate_key_type":    "IP",
+						"statement.0.rate_based_statement.0.forwarded_ip_config.#": "0",
+						"statement.0.rate_based_statement.0.limit":    "10000",
+						"statement.0.rate_based_statement.0.scope_down_statement.#":"1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.geo_match_statement.#":    "1",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.geo_match_statement.0.country_codes.#": "2",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.geo_match_statement.0.country_codes.0": "US",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.geo_match_statement.0.country_codes.1": "NL",
@@ -2082,10 +2082,10 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_multipleNestedRateBasedStatements(ruleGroupName),
@@ -2095,17 +2095,17 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                                                                      "1",
-						"statement.0.rate_based_statement.#":                                                                               "1",
-						"statement.0.rate_based_statement.0.limit":                                                                         "300",
-						"statement.0.rate_based_statement.0.aggregate_key_type":                                                            "IP",
-						"statement.0.rate_based_statement.0.scope_down_statement.#":                                                        "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.#":                                        "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.#":                            "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.#":             "1",
+						"statement.#":           "1",
+						"statement.0.rate_based_statement.#": "1",
+						"statement.0.rate_based_statement.0.limit":        "300",
+						"statement.0.rate_based_statement.0.aggregate_key_type":        "IP",
+						"statement.0.rate_based_statement.0.scope_down_statement.#":    "1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.#": "1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.#":  "1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.#":"1",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.#": "3",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.0.regex_pattern_set_reference_statement.#": "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":                 "1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":    "1",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":            "1",
 					}),
 				),
@@ -2127,10 +2127,10 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 	resourceName := "aws_wafv2_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_multipleNestedOperatorStatements(ruleGroupName),
@@ -2140,18 +2140,18 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":                                                                                    "1",
-						"statement.0.and_statement.#":                                                                    "1",
-						"statement.0.and_statement.0.statement.#":                                                        "2",
-						"statement.0.and_statement.0.statement.0.not_statement.#":                                        "1",
-						"statement.0.and_statement.0.statement.0.not_statement.0.statement.#":                            "1",
-						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.#":             "1",
+						"statement.#":      "1",
+						"statement.0.and_statement.#":   "1",
+						"statement.0.and_statement.0.statement.#":    "2",
+						"statement.0.and_statement.0.statement.0.not_statement.#": "1",
+						"statement.0.and_statement.0.statement.0.not_statement.0.statement.#":  "1",
+						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.#":"1",
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.#": "3",
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.0.regex_pattern_set_reference_statement.#": "1",
-						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":                 "1",
+						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":    "1",
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":            "1",
-						"statement.0.and_statement.0.statement.1.geo_match_statement.#":                                                                          "1",
-						"statement.0.and_statement.0.statement.1.geo_match_statement.0.country_codes.0":                                                          "NL",
+						"statement.0.and_statement.0.statement.1.geo_match_statement.#":         "1",
+						"statement.0.and_statement.0.statement.1.geo_match_statement.0.country_codes.0":      "NL",
 					}),
 				),
 			},
@@ -2251,7 +2251,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2268,7 +2268,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2284,7 +2284,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2315,14 +2315,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2353,7 +2353,7 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = %[2]q
+      metric_name   = %[2]q
       sampled_requests_enabled   = false
     }
   }
@@ -2369,7 +2369,7 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size                = 50
+        size   = 50
 
         field_to_match {
           query_string {}
@@ -2389,14 +2389,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = %[4]q
+      metric_name   = %[4]q
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2413,7 +2413,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2430,7 +2430,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "updated-friendly-metric-name"
+    metric_name   = "updated-friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2446,7 +2446,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2476,14 +2476,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2525,14 +2525,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2562,14 +2562,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2612,14 +2612,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2660,13 +2660,13 @@ resource "aws_wafv2_rule_group" "test" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2696,14 +2696,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2745,14 +2745,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2797,14 +2797,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2844,14 +2844,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2891,14 +2891,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2938,14 +2938,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -2974,11 +2974,11 @@ resource "aws_wafv2_rule_group" "test" {
 
         field_to_match {
           json_body {
-            match_scope               = "VALUE"
+            match_scope  = "VALUE"
             invalid_fallback_behavior = "MATCH"
             oversize_handling         = "CONTINUE"
             match_pattern {
-              included_paths = ["/dogs/0/name", "/dogs/1/name"]
+ included_paths = ["/dogs/0/name", "/dogs/1/name"]
             }
           }
         }
@@ -2992,14 +2992,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3030,7 +3030,7 @@ resource "aws_wafv2_rule_group" "test" {
           headers {
             match_scope = "ALL"
             match_pattern {
-              all {}
+ all {}
             }
           }
         }
@@ -3044,14 +3044,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3082,7 +3082,7 @@ resource "aws_wafv2_rule_group" "test" {
           headers {
             match_scope = "ALL"
             match_pattern {
-              all {}
+ all {}
             }
             oversize_handling = "MATCH"
           }
@@ -3097,14 +3097,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3135,7 +3135,7 @@ resource "aws_wafv2_rule_group" "test" {
           headers {
             match_scope = "ALL"
             match_pattern {
-              included_headers = ["session", "session-id"]
+ included_headers = ["session", "session-id"]
             }
             oversize_handling = "MATCH"
           }
@@ -3150,14 +3150,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3188,7 +3188,7 @@ resource "aws_wafv2_rule_group" "test" {
           headers {
             match_scope = "ALL"
             match_pattern {
-              excluded_headers = ["session", "session-id"]
+ excluded_headers = ["session", "session-id"]
             }
             oversize_handling = "MATCH"
           }
@@ -3203,14 +3203,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3250,14 +3250,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3297,14 +3297,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3334,7 +3334,7 @@ resource "aws_wafv2_rule_group" "test" {
         field_to_match {
           cookies {
             match_pattern {
-              included_cookies = ["test", "cookie_test"]
+ included_cookies = ["test", "cookie_test"]
             }
             match_scope       = "ALL"
             oversize_handling = "NO_MATCH"
@@ -3350,14 +3350,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3399,14 +3399,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3448,14 +3448,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3495,14 +3495,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3512,8 +3512,8 @@ resource "aws_wafv2_rule_group" "test" {
 func testAccRuleGroupConfig_ipsetReferenceStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
-  name               = "ip-set-%[1]s"
-  scope              = "REGIONAL"
+  name  = "ip-set-%[1]s"
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses          = ["1.1.1.1/32", "2.2.2.2/32"]
 }
@@ -3539,14 +3539,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3556,8 +3556,8 @@ resource "aws_wafv2_rule_group" "test" {
 func testAccRuleGroupConfig_ipsetReferenceStatementIPSetForwardedIP(rName, fallbackBehavior, headerName, position string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
-  name               = "ip-set-%[1]s"
-  scope              = "REGIONAL"
+  name  = "ip-set-%[1]s"
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses          = ["1.1.1.1/32", "2.2.2.2/32"]
 }
@@ -3588,14 +3588,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3625,14 +3625,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3666,14 +3666,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3703,14 +3703,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3737,13 +3737,13 @@ resource "aws_wafv2_rule_group" "test" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3775,13 +3775,13 @@ resource "aws_wafv2_rule_group" "test" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3807,13 +3807,13 @@ resource "aws_wafv2_rule_group" "test" {
     }
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3853,14 +3853,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3887,15 +3887,15 @@ resource "aws_wafv2_rule_group" "test" {
         statement {
           and_statement {
             statement {
-              geo_match_statement {
-                country_codes = ["US"]
-              }
+ geo_match_statement {
+   country_codes = ["US"]
+ }
             }
 
             statement {
-              geo_match_statement {
-                country_codes = ["NL"]
-              }
+ geo_match_statement {
+   country_codes = ["NL"]
+ }
             }
           }
         }
@@ -3904,14 +3904,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -3938,9 +3938,9 @@ resource "aws_wafv2_rule_group" "test" {
         statement {
           not_statement {
             statement {
-              geo_match_statement {
-                country_codes = ["DE"]
-              }
+ geo_match_statement {
+   country_codes = ["DE"]
+ }
             }
           }
         }
@@ -3948,15 +3948,15 @@ resource "aws_wafv2_rule_group" "test" {
         statement {
           and_statement {
             statement {
-              geo_match_statement {
-                country_codes = ["US"]
-              }
+ geo_match_statement {
+   country_codes = ["US"]
+ }
             }
 
             statement {
-              geo_match_statement {
-                country_codes = ["NL"]
-              }
+ geo_match_statement {
+   country_codes = ["NL"]
+ }
             }
           }
         }
@@ -3965,14 +3965,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4011,14 +4011,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4066,14 +4066,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4098,7 +4098,7 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       size_constraint_statement {
         comparison_operator = "GT"
-        size                = 100
+        size   = 100
 
         field_to_match {
           method {}
@@ -4113,14 +4113,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4145,7 +4145,7 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size                = 50
+        size   = 50
 
         field_to_match {
           query_string {}
@@ -4165,14 +4165,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4214,14 +4214,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4268,14 +4268,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4312,14 +4312,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4356,14 +4356,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4393,14 +4393,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4435,14 +4435,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4466,7 +4466,7 @@ resource "aws_wafv2_rule_group" "test" {
 
     statement {
       rate_based_statement {
-        limit              = 10000
+        limit = 10000
         aggregate_key_type = "IP"
 
         scope_down_statement {
@@ -4479,14 +4479,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "friendly-rule-metric-name"
+      metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -4503,7 +4503,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 
@@ -4524,7 +4524,7 @@ resource "aws_wafv2_rule_group" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 
@@ -4548,8 +4548,8 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 
 resource "aws_wafv2_ip_set" "test" {
-  name               = %[1]q
-  scope              = "REGIONAL"
+  name  = %[1]q
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
 }
@@ -4570,49 +4570,49 @@ resource "aws_wafv2_rule_group" "test" {
 
     statement {
       rate_based_statement {
-        limit              = 300
+        limit = 300
         aggregate_key_type = "IP"
 
         scope_down_statement {
           not_statement {
             statement {
-              or_statement {
-                statement {
-                  regex_pattern_set_reference_statement {
-                    arn = aws_wafv2_regex_pattern_set.test.arn
+ or_statement {
+   statement {
+     regex_pattern_set_reference_statement {
+       arn = aws_wafv2_regex_pattern_set.test.arn
 
-                    field_to_match {
-                      uri_path {}
-                    }
+       field_to_match {
+         uri_path {}
+       }
 
-                    text_transformation {
-                      type     = "LOWERCASE"
-                      priority = 1
-                    }
-                  }
-                }
+       text_transformation {
+         type     = "LOWERCASE"
+         priority = 1
+       }
+     }
+   }
 
-                statement {
-                  regex_match_statement {
-                    regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
+   statement {
+     regex_match_statement {
+       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
 
-                    field_to_match {
-                      uri_path {}
-                    }
+       field_to_match {
+         uri_path {}
+       }
 
-                    text_transformation {
-                      type     = "LOWERCASE"
-                      priority = 1
-                    }
-                  }
-                }
+       text_transformation {
+         type     = "LOWERCASE"
+         priority = 1
+       }
+     }
+   }
 
-                statement {
-                  ip_set_reference_statement {
-                    arn = aws_wafv2_ip_set.test.arn
-                  }
-                }
-              }
+   statement {
+     ip_set_reference_statement {
+       arn = aws_wafv2_ip_set.test.arn
+     }
+   }
+ }
             }
           }
         }
@@ -4621,14 +4621,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "rule"
+      metric_name   = "rule"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "waf"
+    metric_name   = "waf"
     sampled_requests_enabled   = false
   }
 }
@@ -4647,8 +4647,8 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 
 resource "aws_wafv2_ip_set" "test" {
-  name               = %[1]q
-  scope              = "REGIONAL"
+  name  = %[1]q
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
 }
@@ -4672,43 +4672,43 @@ resource "aws_wafv2_rule_group" "test" {
         statement {
           not_statement {
             statement {
-              or_statement {
-                statement {
-                  regex_pattern_set_reference_statement {
-                    arn = aws_wafv2_regex_pattern_set.test.arn
+ or_statement {
+   statement {
+     regex_pattern_set_reference_statement {
+       arn = aws_wafv2_regex_pattern_set.test.arn
 
-                    field_to_match {
-                      uri_path {}
-                    }
+       field_to_match {
+         uri_path {}
+       }
 
-                    text_transformation {
-                      type     = "LOWERCASE"
-                      priority = 1
-                    }
-                  }
-                }
+       text_transformation {
+         type     = "LOWERCASE"
+         priority = 1
+       }
+     }
+   }
 
-                statement {
-                  regex_match_statement {
-                    regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
+   statement {
+     regex_match_statement {
+       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
 
-                    field_to_match {
-                      uri_path {}
-                    }
+       field_to_match {
+         uri_path {}
+       }
 
-                    text_transformation {
-                      type     = "LOWERCASE"
-                      priority = 1
-                    }
-                  }
-                }
+       text_transformation {
+         type     = "LOWERCASE"
+         priority = 1
+       }
+     }
+   }
 
-                statement {
-                  ip_set_reference_statement {
-                    arn = aws_wafv2_ip_set.test.arn
-                  }
-                }
-              }
+   statement {
+     ip_set_reference_statement {
+       arn = aws_wafv2_ip_set.test.arn
+     }
+   }
+ }
             }
           }
         }
@@ -4723,14 +4723,14 @@ resource "aws_wafv2_rule_group" "test" {
 
     visibility_config {
       cloudwatch_metrics_enabled = false
-      metric_name                = "rule"
+      metric_name   = "rule"
       sampled_requests_enabled   = false
     }
   }
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "waf"
+    metric_name   = "waf"
     sampled_requests_enabled   = false
   }
 }

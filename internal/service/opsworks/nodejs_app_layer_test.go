@@ -26,7 +26,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNodejsAppLayerDestroy(ctx),
+CheckDestroy:stAccCheckNodejsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNodejsAppLayerConfig_basic(rName),

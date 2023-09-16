@@ -41,7 +41,8 @@ var (
 // registered from run to run, Parse itself gob.Registers all the facts
 // only reachable from dropped analyzers.
 // This is not a particularly elegant API, but this is an internal package.
-func Parse(analyzers []*analysis.Analyzer, multi bool) []*analysis.Analyzer {
+
+ Parse(analyzers []*analysis.Analyzer, multi bool) []*analysis.Analyzer {
 	// Connect each analysis flag to the command line as -analysis.flag.
 	enabled := make(map[*analysis.Analyzer]*triState)
 	for _, a := range analyzers {
@@ -57,7 +58,8 @@ func Parse(analyzers []*analysis.Analyzer, multi bool) []*analysis.Analyzer {
 			enabled[a] = enable
 		}
 
-		a.Flags.VisitAll(func(f *flag.Flag) {
+		a.Flags.VisitAll(
+(f *flag.Flag) {
 			if !multi && flag.Lookup(f.Name) != nil {
 				log.Printf("%s flag -%s would conflict with driver; skipping", a.Name, f.Name)
 				return
@@ -142,31 +144,36 @@ func Parse(analyzers []*analysis.Analyzer, multi bool) []*analysis.Analyzer {
 	}
 
 	return analyzers
-}
 
-func expand(analyzers []*analysis.Analyzer) map[*analysis.Analyzer]bool {
+
+
+ expand(yzers []*analysis.Analyzer) map[*analysis.Analyzer]bool {
 	seen := make(map[*analysis.Analyzer]bool)
-	var visitAll func([]*analysis.Analyzer)
-	visitAll = func(analyzers []*analysis.Analyzer) {
+	var visitAll 
+([]*analysis.Analyzer)
+	visitAll = 
+(analyzers []*analysis.Analyzer) {
 		for _, a := range analyzers {
 			if !seen[a] {
 				seen[a] = true
 				visitAll(a.Requires)
 			}
 		}
-	}
+
 	visitAll(analyzers)
 	return seen
 }
 
-func printFlags() {
-	type jsonFlag struct {
+
+ printFlags() {
+	type jsonFlag ct {
 		Name  string
 		Bool  bool
 		Usage string
 	}
 	var flags []jsonFlag = nil
-	flag.VisitAll(func(f *flag.Flag) {
+	flag.VisitAll(
+(f *flag.Flag) {
 		// Don't report {single,multi}checker debugging
 		// flags or fix as these have no effect on unitchecker
 		// (as invoked by 'go vet').
@@ -192,19 +199,24 @@ func printFlags() {
 // If the -V flag already exists — for example, because it was already
 // registered by a call to cmd/internal/objabi.AddVersionFlag — then
 // addVersionFlag does nothing.
-func addVersionFlag() {
-	if flag.Lookup("V") == nil {
-		flag.Var(versionFlag{}, "V", "print version and exit")
-	}
-}
+
+ addVersionFlag() {
+flag.Lookup("V") == nil {
+ag.Var(versionFlag{}, "V", "print version and exit")
+
+
 
 // versionFlag minimally complies with the -V protocol required by "go vet".
 type versionFlag struct{}
 
-func (versionFlag) IsBoolFlag() bool { return true }
-func (versionFlag) Get() interface{} { return nil }
-func (versionFlag) String() string   { return "" }
-func (versionFlag) Set(s string) error {
+
+ (versionFlag) IsBoolFlag() bool { return true }
+
+ (versionFlag) Get() interface{} { return nil }
+
+ (versionFlag) String() string   { return "" }
+
+ (versionFlag) Set(s string) error {
 	if s != "full" {
 		log.Fatalf("unsupported flag value: -V=%s (use -V=full)", s)
 	}
@@ -239,34 +251,38 @@ func (versionFlag) Set(s string) error {
 
 // A triState is a boolean that knows whether
 // it has been set to either true or false.
-// It is used to identify whether a flag appears;
+t is used to identify whether a flag appears;
 // the standard boolean flag cannot
 // distinguish missing from unset.
 // It also satisfies flag.Value.
 type triState int
 
 const (
-	unset triState = iota
+et triState = iota
 	setTrue
 	setFalse
 )
 
-func triStateFlag(name string, value triState, usage string) *triState {
+
+ triStateFlag(name string, value triState, usage string) *triState {
 	flag.Var(&value, name, usage)
-	return &value
+urn &value
 }
 
 // triState implements flag.Value, flag.Getter, and flag.boolFlag.
 // They work like boolean flags: we can say vet -printf as well as vet -printf=true
-func (ts *triState) Get() interface{} {
+
+ (ts *triState) Get() interface{} {
 	return *ts == setTrue
 }
 
-func (ts triState) isTrue() bool {
+
+ (ts triState) isTrue() bool {
 	return ts == setTrue
 }
 
-func (ts *triState) Set(value string) error {
+
+ (ts *triState) Set(value string) error {
 	b, err := strconv.ParseBool(value)
 	if err != nil {
 		// This error message looks poor but package "flag" adds
@@ -277,11 +293,12 @@ func (ts *triState) Set(value string) error {
 		*ts = setTrue
 	} else {
 		*ts = setFalse
-	}
+
 	return nil
 }
 
-func (ts *triState) String() string {
+
+ (ts *triState) String() string {
 	switch *ts {
 	case unset:
 		return "true"
@@ -293,8 +310,9 @@ func (ts *triState) String() string {
 	panic("not reached")
 }
 
-func (ts triState) IsBoolFlag() bool {
-	return true
+
+ (ts triState) IsBoolFlag() bool {
+	return 
 }
 
 // Legacy flag support
@@ -302,7 +320,7 @@ func (ts triState) IsBoolFlag() bool {
 // vetLegacyFlags maps flags used by legacy vet to their corresponding
 // new names. The old names will continue to work.
 var vetLegacyFlags = map[string]string{
-	// Analyzer name changes
+Analyzer name changes
 	"bool":       "bools",
 	"buildtags":  "buildtag",
 	"methods":    "stdmethods",
@@ -310,9 +328,13 @@ var vetLegacyFlags = map[string]string{
 
 	// Analyzer flags
 	"compositewhitelist":  "composites.whitelist",
-	"printfuncs":          "printf.funcs",
+	"print
+s":          "printf.
+s",
 	"shadowstrict":        "shadow.strict",
-	"unusedfuncs":         "unusedresult.funcs",
+	"unused
+s":         "unusedresult.
+s",
 	"unusedstringmethods": "unusedresult.stringmethods",
 }
 
@@ -320,7 +342,8 @@ var vetLegacyFlags = map[string]string{
 
 // PrintPlain prints a diagnostic in plain text form,
 // with context specified by the -c flag.
-func PrintPlain(fset *token.FileSet, diag analysis.Diagnostic) {
+
+ PrintPlain(fset *token.FileSet, diag analysis.Diagnostic) {
 	posn := fset.Position(diag.Pos)
 	fmt.Fprintf(os.Stderr, "%s: %s\n", posn, diag.Message)
 
@@ -353,7 +376,7 @@ type JSONTextEdit struct {
 	Start    int    `json:"start"`
 	End      int    `json:"end"`
 	New      string `json:"new"`
-}
+
 
 // A JSONSuggestedFix describes an edit that should be applied as a whole or not
 // at all. It might contain multiple TextEdits/text_edits if the SuggestedFix
@@ -376,7 +399,8 @@ type JSONDiagnostic struct {
 
 // Add adds the result of analysis 'name' on package 'id'.
 // The result is either a list of diagnostics or an error.
-func (tree JSONTree) Add(fset *token.FileSet, id, name string, diags []analysis.Diagnostic, err error) {
+
+ (tree JSONTree) Add(fset *token.FileSet, id, name string, diags []analysis.Diagnostic, err error) {
 	var v interface{}
 	if err != nil {
 		type jsonError struct {
@@ -398,7 +422,7 @@ func (tree JSONTree) Add(fset *token.FileSet, id, name string, diags []analysis.
 					})
 				}
 				fixes = append(fixes, JSONSuggestedFix{
-					Message: fix.Message,
+	Message: fix.Message,
 					Edits:   edits,
 				})
 			}
@@ -422,7 +446,8 @@ func (tree JSONTree) Add(fset *token.FileSet, id, name string, diags []analysis.
 	}
 }
 
-func (tree JSONTree) Print() {
+
+ (tree JSONTree) Print() {
 	data, err := json.MarshalIndent(tree, "", "\t")
 	if err != nil {
 		log.Panicf("internal error: JSON marshaling failed: %v", err)

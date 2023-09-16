@@ -9,6 +9,7 @@ package unitchecker
 
 import "go/importer"
 
-func init() {
+
+t() {
 	importerForCompiler = importer.ForCompiler
 }

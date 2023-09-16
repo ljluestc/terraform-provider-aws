@@ -43,37 +43,43 @@ type WorkingDir struct {
 	terraformExec string
 
 	// reattachInfo stores the gRPC socket info required for Terraform's
-	// plugin reattach functionality
+	// plugin reattach 
+tionality
 	reattachInfo tfexec.ReattachInfo
 }
 
 // Close deletes the directories and files created to represent the receiving
 // working directory. After this method is called, the working directory object
-// is invalid and may no longer be used.
-func (wd *WorkingDir) Close() error {
+s invalid and may no longer be used.
+
+ (wd *WorkingDir) Close() error {
 	return os.RemoveAll(wd.baseDir)
-}
 
-func (wd *WorkingDir) SetReattachInfo(ctx context.Context, reattachInfo tfexec.ReattachInfo) {
+
+
+ (wd *WorkingDir) SetReattachInfo(ctx context.Context, reattachInfo tfexec.ReattachInfo) {
 	logging.HelperResourceTrace(ctx, "Setting Terraform CLI reattach configuration", map[string]interface{}{"tf_reattach_config": reattachInfo})
-	wd.reattachInfo = reattachInfo
+reattachInfo = reattachInfo
 }
 
-func (wd *WorkingDir) UnsetReattachInfo() {
-	wd.reattachInfo = nil
+
+ (wd *WorkingDir) UnsetReattachInfo() {
+reattachInfo = nil
 }
 
 // GetHelper returns the Helper set on the WorkingDir.
-func (wd *WorkingDir) GetHelper() *Helper {
+
+ (wd *WorkingDir) GetHelper() *Helper {
 	return wd.h
 }
 
-// SetConfig sets a new configuration for the working directory.
+etConfig sets a new configuration for the working directory.
 //
 // This must be called at least once before any call to Init, Plan, Apply, or
 // Destroy to establish the configuration. Any previously-set configuration is
 // discarded and any saved plan is cleared.
-func (wd *WorkingDir) SetConfig(ctx context.Context, cfg string) error {
+
+ (wd *WorkingDir) SetConfig(ctx context.Context, cfg string) error {
 	logging.HelperResourceTrace(ctx, "Setting Terraform configuration", map[string]any{logging.KeyTestTerraformConfiguration: cfg})
 
 	outFilename := filepath.Join(wd.baseDir, ConfigFileName)
@@ -97,13 +103,14 @@ func (wd *WorkingDir) SetConfig(ctx context.Context, cfg string) error {
 		return err
 	}
 	return nil
-}
+
 
 // ClearState deletes any Terraform state present in the working directory.
 //
 // Any remote objects tracked by the state are not destroyed first, so this
 // will leave them dangling in the remote system.
-func (wd *WorkingDir) ClearState(ctx context.Context) error {
+
+ (wd *WorkingDir) ClearState(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Clearing Terraform state")
 
 	err := os.Remove(filepath.Join(wd.baseDir, "terraform.tfstate"))
@@ -123,7 +130,8 @@ func (wd *WorkingDir) ClearState(ctx context.Context) error {
 }
 
 // ClearPlan deletes any saved plan present in the working directory.
-func (wd *WorkingDir) ClearPlan(ctx context.Context) error {
+
+ (wd *WorkingDir) ClearPlan(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Clearing Terraform plan")
 
 	err := os.Remove(wd.planFilename())
@@ -146,7 +154,8 @@ var errWorkingDirSetConfigNotCalled = fmt.Errorf("must call SetConfig before Ini
 
 // Init runs "terraform init" for the given working directory, forcing Terraform
 // to use the current version of the plugin under test.
-func (wd *WorkingDir) Init(ctx context.Context) error {
+
+ (wd *WorkingDir) Init(ctx context.Context) error {
 	if wd.configFilename == "" {
 		return errWorkingDirSetConfigNotCalled
 	}
@@ -156,22 +165,24 @@ func (wd *WorkingDir) Init(ctx context.Context) error {
 
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI init command")
 
-	// -upgrade=true is required for per-TestStep provider version changes
+-upgrade=true is required for per-TestStep provider version changes
 	// e.g. TestTest_TestStep_ExternalProviders_DifferentVersions
 	err := wd.tf.Init(context.Background(), tfexec.Reattach(wd.reattachInfo), tfexec.Upgrade(true))
 
 	logging.HelperResourceTrace(ctx, "Called Terraform CLI init command")
 
-	return err
+urn err
 }
 
-func (wd *WorkingDir) planFilename() string {
+
+ (wd *WorkingDir) planFilename() string {
 	return filepath.Join(wd.baseDir, PlanFileName)
 }
 
 // CreatePlan runs "terraform plan" to create a saved plan file, which if successful
 // will then be used for the next call to Apply.
-func (wd *WorkingDir) CreatePlan(ctx context.Context) error {
+
+ (wd *WorkingDir) CreatePlan(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI plan command")
 
 	hasChanges, err := wd.tf.Plan(context.Background(), tfexec.Reattach(wd.reattachInfo), tfexec.Refresh(false), tfexec.Out(PlanFileName))
@@ -190,7 +201,7 @@ func (wd *WorkingDir) CreatePlan(ctx context.Context) error {
 
 	stdout, err := wd.SavedPlanRawStdout(ctx)
 
-	if err != nil {
+err != nil {
 		return fmt.Errorf("error retrieving formatted plan output: %w", err)
 	}
 
@@ -201,7 +212,8 @@ func (wd *WorkingDir) CreatePlan(ctx context.Context) error {
 
 // CreateDestroyPlan runs "terraform plan -destroy" to create a saved plan
 // file, which if successful will then be used for the next call to Apply.
-func (wd *WorkingDir) CreateDestroyPlan(ctx context.Context) error {
+
+ (wd *WorkingDir) CreateDestroyPlan(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI plan -destroy command")
 
 	hasChanges, err := wd.tf.Plan(context.Background(), tfexec.Reattach(wd.reattachInfo), tfexec.Refresh(false), tfexec.Out(PlanFileName), tfexec.Destroy(true))
@@ -221,7 +233,7 @@ func (wd *WorkingDir) CreateDestroyPlan(ctx context.Context) error {
 	stdout, err := wd.SavedPlanRawStdout(ctx)
 
 	if err != nil {
-		return fmt.Errorf("error retrieving formatted plan output: %w", err)
+turn fmt.Errorf("error retrieving formatted plan output: %w", err)
 	}
 
 	logging.HelperResourceTrace(ctx, "Created destroy plan with changes", map[string]any{logging.KeyTestTerraformPlan: stdout})
@@ -233,7 +245,8 @@ func (wd *WorkingDir) CreateDestroyPlan(ctx context.Context) error {
 // successfully and the saved plan has not been cleared in the meantime then
 // this will apply the saved plan. Otherwise, it will implicitly create a new
 // plan and apply it.
-func (wd *WorkingDir) Apply(ctx context.Context) error {
+
+ (wd *WorkingDir) Apply(ctx context.Context) error {
 	args := []tfexec.ApplyOption{tfexec.Reattach(wd.reattachInfo), tfexec.Refresh(false)}
 	if wd.HasSavedPlan() {
 		args = append(args, tfexec.DirOrPlan(PlanFileName))
@@ -252,20 +265,22 @@ func (wd *WorkingDir) Apply(ctx context.Context) error {
 // plan, and is primarily for cleaning up at the end of a test run.
 //
 // If destroy fails then remote objects might still exist, and continue to
-// exist after a particular test is concluded.
-func (wd *WorkingDir) Destroy(ctx context.Context) error {
+xist after a particular test is concluded.
+
+ (wd *WorkingDir) Destroy(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI destroy command")
 
 	err := wd.tf.Destroy(context.Background(), tfexec.Reattach(wd.reattachInfo), tfexec.Refresh(false))
 
 	logging.HelperResourceTrace(ctx, "Called Terraform CLI destroy command")
 
-	return err
+urn err
 }
 
 // HasSavedPlan returns true if there is a saved plan in the working directory. If
 // so, a subsequent call to Apply will apply that saved plan.
-func (wd *WorkingDir) HasSavedPlan() bool {
+
+ (wd *WorkingDir) HasSavedPlan() bool {
 	_, err := os.Stat(wd.planFilename())
 	return err == nil
 }
@@ -274,9 +289,10 @@ func (wd *WorkingDir) HasSavedPlan() bool {
 //
 // If no plan is saved or if the plan file cannot be read, SavedPlan returns
 // an error.
-func (wd *WorkingDir) SavedPlan(ctx context.Context) (*tfjson.Plan, error) {
+
+ (wd *WorkingDir) SavedPlan(ctx context.Context) (*tfjson.Plan, error) {
 	if !wd.HasSavedPlan() {
-		return nil, fmt.Errorf("there is no current saved plan")
+turn nil, fmt.Errorf("there is no current saved plan")
 	}
 
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI show command for JSON plan")
@@ -292,12 +308,13 @@ func (wd *WorkingDir) SavedPlan(ctx context.Context) (*tfjson.Plan, error) {
 //
 // If no plan is saved or if the plan file cannot be read, SavedPlanRawStdout returns
 // an error.
-func (wd *WorkingDir) SavedPlanRawStdout(ctx context.Context) (string, error) {
+
+ (wd *WorkingDir) SavedPlanRawStdout(ctx context.Context) (string, error) {
 	if !wd.HasSavedPlan() {
 		return "", fmt.Errorf("there is no current saved plan")
 	}
 
-	logging.HelperResourceTrace(ctx, "Calling Terraform CLI show command for stdout plan")
+ging.HelperResourceTrace(ctx, "Calling Terraform CLI show command for stdout plan")
 
 	stdout, err := wd.tf.ShowPlanFileRaw(context.Background(), wd.planFilename(), tfexec.Reattach(wd.reattachInfo))
 
@@ -308,13 +325,14 @@ func (wd *WorkingDir) SavedPlanRawStdout(ctx context.Context) (string, error) {
 	}
 
 	return stdout, nil
-}
+
 
 // State returns an object describing the current state.
 //
 
 // If the state cannot be read, State returns an error.
-func (wd *WorkingDir) State(ctx context.Context) (*tfjson.State, error) {
+
+ (wd *WorkingDir) State(ctx context.Context) (*tfjson.State, error) {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI show command for JSON state")
 
 	state, err := wd.tf.Show(context.Background(), tfexec.Reattach(wd.reattachInfo))
@@ -325,10 +343,11 @@ func (wd *WorkingDir) State(ctx context.Context) (*tfjson.State, error) {
 }
 
 // Import runs terraform import
-func (wd *WorkingDir) Import(ctx context.Context, resource, id string) error {
+
+ (wd *WorkingDir) Import(ctx context.Context, resource, id string) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI import command")
 
-	err := wd.tf.Import(context.Background(), resource, id, tfexec.Config(wd.baseDir), tfexec.Reattach(wd.reattachInfo))
+ := wd.tf.Import(context.Background(), resource, id, tfexec.Config(wd.baseDir), tfexec.Reattach(wd.reattachInfo))
 
 	logging.HelperResourceTrace(ctx, "Called Terraform CLI import command")
 
@@ -336,7 +355,8 @@ func (wd *WorkingDir) Import(ctx context.Context, resource, id string) error {
 }
 
 // Taint runs terraform taint
-func (wd *WorkingDir) Taint(ctx context.Context, address string) error {
+
+ (wd *WorkingDir) Taint(ctx context.Context, address string) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI taint command")
 
 	err := wd.tf.Taint(context.Background(), address)
@@ -347,7 +367,8 @@ func (wd *WorkingDir) Taint(ctx context.Context, address string) error {
 }
 
 // Refresh runs terraform refresh
-func (wd *WorkingDir) Refresh(ctx context.Context) error {
+
+ (wd *WorkingDir) Refresh(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI refresh command")
 
 	err := wd.tf.Refresh(context.Background(), tfexec.Reattach(wd.reattachInfo))
@@ -360,7 +381,8 @@ func (wd *WorkingDir) Refresh(ctx context.Context) error {
 // Schemas returns an object describing the provider schemas.
 //
 // If the schemas cannot be read, Schemas returns an error.
-func (wd *WorkingDir) Schemas(ctx context.Context) (*tfjson.ProviderSchemas, error) {
+
+ (wd *WorkingDir) Schemas(ctx context.Context) (*tfjson.ProviderSchemas, error) {
 	logging.HelperResourceTrace(ctx, "Calling Terraform CLI providers schema command")
 
 	providerSchemas, err := wd.tf.ProvidersSchema(context.Background())

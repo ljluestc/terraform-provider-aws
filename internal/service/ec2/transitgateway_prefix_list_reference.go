@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_prefix_list_reference")
 
-func ResourceTransitGatewayPrefixListReference() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceTransitGatewayPrefixListReferenceCreate,
-ReadWithoutTimeout:   resourceTransitGatewayPrefixListReferenceRead,
+ReadWithoutTimeout:ourceTransitGatewayPrefixListReferenceRead,
 UpdateWithoutTimeout: resourceTransitGatewayPrefixListReferenceUpdate,
 DeleteWithoutTimeout: resourceTransitGatewayPrefixListReferenceDelete,
 Importer: &schema.ResourceImporter{
@@ -34,42 +33,39 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"blackhole": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 	},
 	"prefix_list_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"prefix_list_owner_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"transit_gateway_attachment_id": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: validation.NoZeroValues,
-	},
-	"transit_gateway_route_table_id": {
+funcansit_gateway_route_table_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 Validate
 func: validation.NoZeroValues,
 	},
-},
-	}
+func
 }
 
 
 func resourceTransitGatewayPrefixListReferenceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	input := &ec2.CreateTransitGatewayPrefixListReferenceInput{}
+funcut := &ec2.CreateTransitGatewayPrefixListReferenceInput{}
 
 	if v, ok := d.GetOk("blackhole"); ok {
 input.Blackhole = aws.Bool(v.(bool))
@@ -108,8 +104,7 @@ func resourceTransitGatewayPrefixListReferenceRead(ctx context.Context, d *schem
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	transitGatewayRouteTableID, prefixListID, err := TransitGatewayPrefixListReferenceParseResourceID(d.Id())
-
+func
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Prefix List Reference (%s): %s", d.Id(), err)
 	}
@@ -145,8 +140,7 @@ func resourceTransitGatewayPrefixListReferenceUpdate(ctx context.Context, d *sch
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.ModifyTransitGatewayPrefixListReferenceInput{}
-
-	if v, ok := d.GetOk("blackhole"); ok {
+funcv, ok := d.GetOk("blackhole"); ok {
 input.Blackhole = aws.Bool(v.(bool))
 	}
 
@@ -182,8 +176,7 @@ func resourceTransitGatewayPrefixListReferenceDelete(ctx context.Context, d *sch
 
 	transitGatewayRouteTableID, prefixListID, err := TransitGatewayPrefixListReferenceParseResourceID(d.Id())
 
-	if err != nil {
-return sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Prefix List Reference (%s): %s", d.Id(), err)
+funcrn sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Prefix List Reference (%s): %s", d.Id(), err)
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway Prefix List Reference: %s", d.Id())
@@ -217,7 +210,6 @@ func TransitGatewayPrefixListReferenceCreateResourceID(transitGatewayRouteTableI
 	return id
 }
 
-
 func TransitGatewayPrefixListReferenceParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayPrefixListReferenceIDSeparator)
 
@@ -226,4 +218,4 @@ return parts[0], parts[1], nil
 	}
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected TRANSIT-GATEWAY-ROUTE-TABLE-ID%[2]sPREFIX-LIST-ID", id, transitGatewayPrefixListReferenceIDSeparator)
-}
+func

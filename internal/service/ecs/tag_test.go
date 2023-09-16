@@ -23,10 +23,10 @@ func TestAccECSTag_basic(t *testing.T) {
 	resourceName := "aws_ecs_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -51,10 +51,10 @@ func TestAccECSTag_disappears(t *testing.T) {
 	resourceName := "aws_ecs_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -75,10 +75,10 @@ func TestAccECSTag_ResourceARN_batchComputeEnvironment(t *testing.T) {
 	resourceName := "aws_ecs_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckBatch(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckBatch(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_resourceARNBatchComputeEnvironment(rName),
@@ -101,10 +101,10 @@ func TestAccECSTag_value(t *testing.T) {
 	resourceName := "aws_ecs_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -175,8 +175,8 @@ resource "aws_iam_role_policy_attachment" "test" {
 
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
-  service_role             = aws_iam_role.test.arn
-  type                     = "UNMANAGED"
+  service_role= aws_iam_role.test.arn
+  type        = "UNMANAGED"
 
   depends_on = [aws_iam_role_policy_attachment.test]
 }

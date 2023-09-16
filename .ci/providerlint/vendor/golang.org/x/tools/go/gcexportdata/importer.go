@@ -25,7 +25,8 @@ import (
 //
 // Deprecated: Use the higher-level API in golang.org/x/tools/go/packages,
 // which is more efficient.
-func NewImporter(fset *token.FileSet, imports map[string]*types.Package) types.ImporterFrom {
+
+ NewImporter(fset *token.FileSet, imports map[string]*types.Package) types.ImporterFrom {
 	return importer{fset, imports}
 }
 
@@ -34,11 +35,13 @@ type importer struct {
 	imports map[string]*types.Package
 }
 
-func (imp importer) Import(importPath string) (*types.Package, error) {
-	return imp.ImportFrom(importPath, "", 0)
-}
 
-func (imp importer) ImportFrom(importPath, srcDir string, mode types.ImportMode) (_ *types.Package, err error) {
+ (imp importer) Import(importPath string) (*types.Package, error) {
+	return imp.ImportFrom(importPath, "", 0)
+
+
+
+ (imp importer) ImportFrom(importPath, srcDir string, mode types.ImportMode) (_ *types.Package, err error) {
 	filename, path := Find(importPath, srcDir)
 	if filename == "" {
 		if importPath == "unsafe" {
@@ -55,10 +58,11 @@ func (imp importer) ImportFrom(importPath, srcDir string, mode types.ImportMode)
 
 	// open file
 	f, err := os.Open(filename)
-	if err != nil {
+	if errnil {
 		return nil, err
 	}
-	defer func() {
+	defer 
+() {
 		f.Close()
 		if err != nil {
 			// add file name to error

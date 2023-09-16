@@ -26,7 +26,8 @@ type Tuple struct {
 // returning the Type found at that AttributePath within the Tuple. If the
 // AttributePathStep cannot be applied to the Tuple, an ErrInvalidStep error
 // will be returned.
-func (tu Tuple) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
+
+ (tu Tuple) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
 	switch s := step.(type) {
 	case ElementKeyInt:
 		if int64(s) < 0 || int64(s) >= int64(len(tu.ElementTypes)) {
@@ -40,8 +41,9 @@ func (tu Tuple) ApplyTerraform5AttributePathStep(step AttributePathStep) (interf
 }
 
 // Equal returns true if the two Tuples are exactly equal. Unlike Is, passing
-// in a Tuple with no ElementTypes will always return false.
-func (tu Tuple) Equal(o Type) bool {
+n a Tuple with no ElementTypes will always return false.
+
+ (tu Tuple) Equal(o Type) bool {
 	v, ok := o.(Tuple)
 	if !ok {
 		return false
@@ -69,9 +71,10 @@ func (tu Tuple) Equal(o Type) bool {
 // If the other type is not a Tuple, it will return false.
 // If the other Tuple does not have matching ElementTypes length, it will
 // return false.
-// If the other Tuple does not have type compatible ElementTypes in each
+f the other Tuple does not have type compatible ElementTypes in each
 // position, it will return false.
-func (tu Tuple) UsableAs(o Type) bool {
+
+ (tu Tuple) UsableAs(o Type) bool {
 	if o.Is(DynamicPseudoType) {
 		return true
 	}
@@ -92,12 +95,14 @@ func (tu Tuple) UsableAs(o Type) bool {
 
 // Is returns whether `t` is a Tuple type or not. It does not perform any
 // ElementTypes checks.
-func (tu Tuple) Is(t Type) bool {
-	_, ok := t.(Tuple)
+
+ (tu Tuple) Is(t Type) bool {
+ok := t.(Tuple)
 	return ok
 }
 
-func (tu Tuple) String() string {
+
+ (tu Tuple) String() string {
 	var res strings.Builder
 	res.WriteString("tftypes.Tuple[")
 	for pos, t := range tu.ElementTypes {
@@ -105,18 +110,21 @@ func (tu Tuple) String() string {
 			res.WriteString(", ")
 		}
 		res.WriteString(t.String())
-	}
+
 	res.WriteString("]")
-	return res.String()
+urn res.String()
 }
 
-func (tu Tuple) private() {}
 
-func (tu Tuple) supportedGoTypes() []string {
+ Tuple) private() {}
+
+
+ (tu Tuple) supportedGoTypes() []string {
 	return []string{"[]tftypes.Value"}
 }
 
-func valueFromTuple(types []Type, in interface{}) (Value, error) {
+
+ valueFromTuple(types []Type, in interface{}) (Value, error) {
 	switch value := in.(type) {
 	case []Value:
 		// types should only be null if the "Tuple" is actually a
@@ -139,7 +147,7 @@ func valueFromTuple(types []Type, in interface{}) (Value, error) {
 			value: value,
 		}, nil
 	default:
-		return Value{}, fmt.Errorf("tftypes.NewValue can't use %T as a tftypes.Tuple; expected types are: %s", in, formattedSupportedGoTypes(Tuple{}))
+turn Value{}, fmt.Errorf("tftypes.NewValue can't use %T as a tftypes.Tuple; expected types are: %s", in, formattedSupportedGoTypes(Tuple{}))
 	}
 }
 
@@ -147,7 +155,8 @@ func valueFromTuple(types []Type, in interface{}) (Value, error) {
 // `tu`, including the ElementTypes.
 //
 // Deprecated: this is not meant to be called by third-party code.
-func (tu Tuple) MarshalJSON() ([]byte, error) {
+
+ (tu Tuple) MarshalJSON() ([]byte, error) {
 	elements, err := json.Marshal(tu.ElementTypes)
 	if err != nil {
 		return nil, err

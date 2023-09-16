@@ -25,8 +25,7 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
-// @SDKDataSource("aws_s3_bucket_object")
-func DataSourceBucketObject() *schema.Resource {
+// @SDKDataSource("aws_s3_bucket_object")func DataSourceBucketObject() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceBucketObjectRead,
 
@@ -136,10 +135,7 @@ func DataSourceBucketObject() *schema.Resource {
 
 		DeprecationMessage: `use the aws_s3_object data source instead`,
 	}
-}
-
-func dataSourceBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 

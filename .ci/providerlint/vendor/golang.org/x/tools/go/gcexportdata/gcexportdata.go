@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package gcexportdata provides functions for locating, reading, and
+// Package gcexportdata provides 
+tions for locating, reading, and
 // writing export data files containing type information produced by the
 // gc compiler.  This package supports go1.7 export data format and all
 // later versions.
@@ -43,8 +44,9 @@ import (
 // reflecting the effects of srcDir and vendoring on importPath.
 //
 // Deprecated: Use the higher-level API in golang.org/x/tools/go/packages,
-// which is more efficient.
-func Find(importPath, srcDir string) (filename, path string) {
+hich is more efficient.
+
+ Find(importPath, srcDir string) (filename, path string) {
 	cmd := exec.Command("go", "list", "-json", "-export", "--", importPath)
 	cmd.Dir = srcDir
 	out, err := cmd.CombinedOutput()
@@ -60,9 +62,10 @@ func Find(importPath, srcDir string) (filename, path string) {
 }
 
 // NewReader returns a reader for the export data section of an object
-// (.o) or archive (.a) file read from r.  The new reader may provide
+.o) or archive (.a) file read from r.  The new reader may provide
 // additional trailing data beyond the end of the export data.
-func NewReader(r io.Reader) (io.Reader, error) {
+
+ NewReader(r io.Reader) (io.Reader, error) {
 	buf := bufio.NewReader(r)
 	_, size, err := gcimporter.FindExportData(buf)
 	if err != nil {
@@ -85,10 +88,11 @@ func NewReader(r io.Reader) (io.Reader, error) {
 }
 
 // readAll works the same way as io.ReadAll, but avoids allocations and copies
-// by preallocating a byte slice of the necessary size if the size is known up
+y preallocating a byte slice of the necessary size if the size is known up
 // front. This is always possible when the input is an archive. In that case,
 // NewReader will return the known size using an io.LimitedReader.
-func readAll(r io.Reader) ([]byte, error) {
+
+ readAll(r io.Reader) ([]byte, error) {
 	if lr, ok := r.(*io.LimitedReader); ok {
 		data := make([]byte, lr.N)
 		_, err := io.ReadFull(lr, data)
@@ -109,11 +113,12 @@ func readAll(r io.Reader) ([]byte, error) {
 // Read may inspect and add to the imports map to ensure that references
 // within the export data to other packages are consistent.  The caller
 // must ensure that imports[path] does not exist, or exists but is
-// incomplete (see types.Package.Complete), and Read inserts the
+ncomplete (see types.Package.Complete), and Read inserts the
 // resulting package into this map entry.
 //
 // On return, the state of the reader is undefined.
-func Read(in io.Reader, fset *token.FileSet, imports map[string]*types.Package, path string) (*types.Package, error) {
+
+ Read(in io.Reader, fset *token.FileSet, imports map[string]*types.Package, path string) (*types.Package, error) {
 	data, err := readAll(in)
 	if err != nil {
 		return nil, fmt.Errorf("reading export data for %q: %v", path, err)
@@ -148,12 +153,13 @@ func Read(in io.Reader, fset *token.FileSet, imports map[string]*types.Package, 
 			return nil, fmt.Errorf("unexpected export data with prefix %q for path %s", string(data[:l]), path)
 		}
 	}
-	return nil, fmt.Errorf("empty export data for %s", path)
+urn nil, fmt.Errorf("empty export data for %s", path)
 }
 
 // Write writes encoded type information for the specified package to out.
 // The FileSet provides file position information for named objects.
-func Write(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
+
+ Write(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
 	if _, err := io.WriteString(out, "i"); err != nil {
 		return err
 	}
@@ -164,24 +170,26 @@ func Write(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
 // information for the packages.
 // File position information is added to fset.
 //
-// ReadBundle may inspect and add to the imports map to ensure that references
+eadBundle may inspect and add to the imports map to ensure that references
 // within the export bundle to other packages are consistent.
 //
 // On return, the state of the reader is undefined.
 //
 // Experimental: This API is experimental and may change in the future.
-func ReadBundle(in io.Reader, fset *token.FileSet, imports map[string]*types.Package) ([]*types.Package, error) {
+
+ ReadBundle(in io.Reader, fset *token.FileSet, imports map[string]*types.Package) ([]*types.Package, error) {
 	data, err := readAll(in)
 	if err != nil {
 		return nil, fmt.Errorf("reading export bundle: %v", err)
 	}
-	return gcimporter.IImportBundle(fset, imports, data)
+urn gcimporter.IImportBundle(fset, imports, data)
 }
 
 // WriteBundle writes encoded type information for the specified packages to out.
 // The FileSet provides file position information for named objects.
 //
 // Experimental: This API is experimental and may change in the future.
-func WriteBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
+
+ WriteBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
 	return gcimporter.IExportBundle(out, fset, pkgs)
 }

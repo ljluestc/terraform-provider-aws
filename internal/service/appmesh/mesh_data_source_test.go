@@ -20,8 +20,8 @@ func testAccMeshDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_appmesh_mesh.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -50,8 +50,8 @@ func testAccMeshDataSource_meshOwner(t *testing.T) {
 	dataSourceName := "data.aws_appmesh_mesh.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -80,8 +80,8 @@ func testAccMeshDataSource_specAndTagsSet(t *testing.T) {
 	dataSourceName := "data.aws_appmesh_mesh.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -115,7 +115,7 @@ func testAccMeshDataSource_shared(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		Steps: []resource.TestStep{
 			{
@@ -203,7 +203,7 @@ resource "aws_appmesh_mesh" "test" {
 }
 
 resource "aws_ram_resource_share" "test" {
-  name                      = %[1]q
+  name         = %[1]q
   allow_external_principals = false
 }
 

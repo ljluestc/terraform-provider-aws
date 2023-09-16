@@ -29,7 +29,7 @@ func TestAccCloud9EnvironmentMembership_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEnvironmentMemberDestroy(ctx),
+CheckDestroy:testAccCheckEnvironmentMemberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEnvironmentMembershipConfig_basic(rName, "read-only"),
@@ -69,7 +69,7 @@ func TestAccCloud9EnvironmentMembership_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEnvironmentMemberDestroy(ctx),
+CheckDestroy:testAccCheckEnvironmentMemberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEnvironmentMembershipConfig_basic(rName, "read-only"),
@@ -95,7 +95,7 @@ func TestAccCloud9EnvironmentMembership_disappears_env(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEnvironmentMemberDestroy(ctx),
+CheckDestroy:testAccCheckEnvironmentMemberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEnvironmentMembershipConfig_basic(rName, "read-only"),
@@ -210,7 +210,7 @@ resource "aws_internet_gateway" "test" {
 
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.test.id
+  gateway_id= aws_internet_gateway.test.id
   route_table_id         = aws_vpc.test.main_route_table_id
 }
 

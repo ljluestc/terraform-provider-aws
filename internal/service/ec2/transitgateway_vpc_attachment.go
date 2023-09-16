@@ -25,10 +25,9 @@ import (
 // @SDKResource("aws_ec2_transit_gateway_vpc_attachment", name="Transit Gateway VPC Attachment")
 // @Tags(identifierAttribute="id")
 
-func ResourceTransitGatewayVPCAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayVPCAttachmentCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayVPCAttachmentRead,
+		ReadWithoutTimeout:ourceTransitGatewayVPCAttachmentRead,
 		UpdateWithoutTimeout: resourceTransitGatewayVPCAttachmentUpdate,
 		DeleteWithoutTimeout: resourceTransitGatewayVPCAttachmentDelete,
 
@@ -41,62 +40,57 @@ func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"appliance_mode_support": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.ApplianceModeSupportValueDisable,
+				Optional:
+				Default:anceModeSupportValueDisable,
 				Validate
 func: validation.StringInSlice(ec2.ApplianceModeSupportValue_Values(), false),
-			},
-			"dns_support": {
+funcdns_support": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.DnsSupportValueEnable,
+				Optional:
+				Default:pportValueEnable,
 				Validate
 func: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
 			},
-			"ipv6_support": {
-				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.Ipv6SupportValueDisable,
+funcType:schema.TypeString,
+				Optional:
+				Default:upportValueDisable,
 				Validate
 func: validation.StringInSlice(ec2.Ipv6SupportValue_Values(), false),
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
-				Required: true,
+funcRequired: true,
 				MinItems: 1,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_default_route_table_association": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_default_route_table_propagation": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
 			},
 			"vpc_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+funcForceNew:
 				Validate
 func: validation.NoZeroValues,
 			},
 			"vpc_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
-			},
-		},
+func
 	}
 }
 
@@ -107,15 +101,14 @@ func resourceTransitGatewayVPCAttachmentCreate(ctx context.Context, d *schema.Re
 
 	transitGatewayID := d.Get("transit_gateway_id").(string)
 	input := &ec2.CreateTransitGatewayVpcAttachmentInput{
-		Options: &ec2.CreateTransitGatewayVpcAttachmentRequestOptions{
-			ApplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
+funcpplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
 			DnsSupport:  aws.String(d.Get("dns_support").(string)),
 			Ipv6Support: aws.String(d.Get("ipv6_support").(string)),
 		},
 		SubnetIds:flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		TransitGatewayId:  aws.String(transitGatewayID),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
-		VpcId:    aws.String(d.Get("vpc_id").(string)),
+		VpcId:s.String(d.Get("vpc_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway VPC Attachment: %s", input)
@@ -170,8 +163,7 @@ func resourceTransitGatewayVPCAttachmentRead(ctx context.Context, d *schema.Reso
 	transitGatewayVPCAttachment, err := FindTransitGatewayVPCAttachmentByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EC2 Transit Gateway VPC Attachment (%s) not found, removing from state", d.Id())
-		d.SetId("")
+funcSetId("")
 		return diags
 	}
 
@@ -240,8 +232,7 @@ func resourceTransitGatewayVPCAttachmentUpdate(ctx context.Context, d *schema.Re
 		input := &ec2.ModifyTransitGatewayVpcAttachmentInput{
 			Options: &ec2.ModifyTransitGatewayVpcAttachmentRequestOptions{
 				ApplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
-				DnsSupport:  aws.String(d.Get("dns_support").(string)),
-				Ipv6Support: aws.String(d.Get("ipv6_support").(string)),
+funcIpv6Support: aws.String(d.Get("ipv6_support").(string)),
 			},
 			TransitGatewayAttachmentId: aws.String(d.Id()),
 		}
@@ -301,8 +292,7 @@ func resourceTransitGatewayVPCAttachmentDelete(ctx context.Context, d *schema.Re
 		TransitGatewayAttachmentId: aws.String(d.Id()),
 	})
 
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
-		return diags
+functurn diags
 	}
 
 	if err != nil {

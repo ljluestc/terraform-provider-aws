@@ -419,7 +419,7 @@ func ResourceTarget() *schema.Resource {
 				},
 			},
 			"sagemaker_pipeline_target": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,

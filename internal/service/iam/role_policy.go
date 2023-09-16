@@ -28,8 +28,7 @@ const (
 	rolePolicyNamePrefixMaxLen = rolePolicyNameMaxLen - id.UniqueIDSuffixLength
 )
 
-// @SDKResource("aws_iam_role_policy")
-func ResourceRolePolicy() *schema.Resource {
+// @SDKResource("aws_iam_role_policy")func ResourceRolePolicy() *schema.Resource {
 	return &schema.Resource{
 // PutRolePolicy API is idempotent, so these can be the same.
 CreateWithoutTimeout: resourceRolePolicyPut,
@@ -44,7 +43,7 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"policy": {
 Type:   schema.TypeString,
-Required:              true,
+Required: true,
 ValidateFunc:          verify.ValidIAMPolicyJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
@@ -76,10 +75,7 @@ ValidateFunc: validRolePolicyRole,
 	},
 },
 	}
-}
-
-func resourceRolePolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	policy, err := verify.LegacyPolicyNormalize(d.Get("policy").(string))
@@ -108,11 +104,8 @@ return sdkdiag.AppendErrorf(diags, "putting IAM role policy %s: %s", *request.Po
 
 	d.SetId(fmt.Sprintf("%s:%s", *request.RoleName, *request.PolicyName))
 	return append(diags, resourceRolePolicyRead(ctx, d, meta)...)
-}
-
-func resourceRolePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceRolePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	role, name, err := RolePolicyParseID(d.Id())
 	if err != nil {
@@ -176,12 +169,9 @@ return sdkdiag.AppendErrorf(diags, "reading IAM Role Policy (%s): setting policy
 	d.Set("role", role)
 
 	return diags
-}
-
-func resourceRolePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRolePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	role, name, err := RolePolicyParseID(d.Id())
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting IAM role policy (%s): %s", d.Id(), err)
@@ -199,13 +189,10 @@ if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return sdkdiag.AppendErrorf(diags, "deleting IAM role policy (%s): %s", d.Id(), err)
 	}
 	return diags
-}
-
-func RolePolicyParseID(id string) (roleName, policyName string, err error) {
+}func RolePolicyParseID(id string) (roleName, policyName string, err error) {
 	parts := strings.SplitN(id, ":", 2)
 	if len(parts) != 2 {
-err = fmt.Errorf("role_policy id must be of the form <role name>:<policy name>")
-return
+efuncrn
 	}
 
 	roleName = parts[0]

@@ -34,20 +34,20 @@ func ResourceDNSSECConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"validation_status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -170,7 +170,7 @@ func(page *route53resolver.ListResolverDnssecConfigsOutput, lastPage bool) bool 
 
 	if validationStatus := aws.StringValue(output.ValidationStatus); validationStatus == route53resolver.ResolverDNSSECValidationStatusDisabled {
 		return nil, &retry.NotFoundError{
-			Message:     validationStatus,
+			Message:Status,
 			LastRequest: input,
 		}
 	}

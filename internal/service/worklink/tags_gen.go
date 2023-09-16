@@ -19,6 +19,7 @@ import (
 // listTags lists worklink service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func listTags(ctx context.Context, conn worklinkiface.WorkLinkAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &worklink.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
@@ -35,6 +36,7 @@ func listTags(ctx context.Context, conn worklinkiface.WorkLinkAPI, identifier st
 
 // ListTags lists worklink service tags and set them in Context.
 // It is called from outside this package.
+
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).WorkLinkConn(ctx), identifier)
 
@@ -52,17 +54,20 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // map[string]*string handling
 
 // Tags returns worklink service tags.
+
 func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
 }
 
 // KeyValueTags creates tftags.KeyValueTags from worklink service tags.
+
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
 }
 
 // getTagsIn returns worklink service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -74,6 +79,7 @@ func getTagsIn(ctx context.Context) map[string]*string {
 }
 
 // setTagsOut sets worklink service tags in Context.
+
 func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -83,6 +89,7 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 // updateTags updates worklink service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTags(ctx context.Context, conn worklinkiface.WorkLinkAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -124,6 +131,7 @@ func updateTags(ctx context.Context, conn worklinkiface.WorkLinkAPI, identifier 
 
 // UpdateTags updates worklink service tags.
 // It is called from outside this package.
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).WorkLinkConn(ctx), identifier, oldTags, newTags)
 }

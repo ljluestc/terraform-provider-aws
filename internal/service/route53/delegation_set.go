@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_route53_delegation_set")
-func ResourceDelegationSet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDelegationSetCreate,
-		ReadWithoutTimeout:   resourceDelegationSetRead,
+		ReadWithoutTimeout:ourceDelegationSetRead,
 		DeleteWithoutTimeout: resourceDelegationSetDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -32,19 +31,19 @@ func ResourceDelegationSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"reference_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
 
 			"name_servers": {
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:a.TypeList,
+				Elem:ma.Schema{Type: schema.TypeString},
 				Computed: true,
 			},
 		},
@@ -52,8 +51,7 @@ func ResourceDelegationSet() *schema.Resource {
 }
 
 func resourceDelegationSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	r53 := meta.(*conns.AWSClient).Route53Conn(ctx)
+func := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	callerRef := id.UniqueId()
 	if v, ok := d.GetOk("reference_name"); ok {
@@ -78,8 +76,7 @@ func resourceDelegationSetCreate(ctx context.Context, d *schema.ResourceData, me
 
 func resourceDelegationSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	r53 := meta.(*conns.AWSClient).Route53Conn(ctx)
-
+func
 	input := &route53.GetReusableDelegationSetInput{
 		Id: aws.String(CleanDelegationSetID(d.Id())),
 	}
@@ -97,7 +94,7 @@ func resourceDelegationSetRead(ctx context.Context, d *schema.ResourceData, meta
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "route53",
+		Service:ute53",
 		Resource:  fmt.Sprintf("delegationset/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -108,8 +105,7 @@ func resourceDelegationSetRead(ctx context.Context, d *schema.ResourceData, meta
 func resourceDelegationSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	r53 := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	input := &route53.DeleteReusableDelegationSetInput{
+funcut := &route53.DeleteReusableDelegationSetInput{
 		Id: aws.String(CleanDelegationSetID(d.Id())),
 	}
 	_, err := r53.DeleteReusableDelegationSetWithContext(ctx, input)
@@ -127,3 +123,4 @@ func resourceDelegationSetDelete(ctx context.Context, d *schema.ResourceData, me
 func CleanDelegationSetID(id string) string {
 	return strings.TrimPrefix(id, "/delegationset/")
 }
+func

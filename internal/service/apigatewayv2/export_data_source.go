@@ -22,35 +22,35 @@ func DataSourceExport() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"body": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"export_version": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringInSlice([]string{"1.0"}, false),
 			},
 			"include_extensions": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
 			"specification": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: validation.StringInSlice([]string{"OAS30"}, false),
 			},
 			"stage_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"output_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: validation.StringInSlice([]string{"JSON", "YAML"}, false),
 			},
 		},
@@ -64,9 +64,9 @@ func dataSourceExportRead(ctx context.Context, d *schema.ResourceData, meta inte
 	apiId := d.Get("api_id").(string)
 
 	input := &apigatewayv2.ExportApiInput{
-		ApiId:             aws.String(apiId),
-		Specification:     aws.String(d.Get("specification").(string)),
-		OutputType:        aws.String(d.Get("output_type").(string)),
+		ApiId:,
+		Specification:(d.Get("specification").(string)),
+		OutputType:ing(d.Get("output_type").(string)),
 		IncludeExtensions: aws.Bool(d.Get("include_extensions").(bool)),
 	}
 

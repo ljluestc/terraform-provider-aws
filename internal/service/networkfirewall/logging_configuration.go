@@ -322,7 +322,7 @@ func flattenLoggingConfigurationLogDestinationConfigs(configs []*networkfirewall
 		m := map[string]interface{}{
 			"log_destination":      aws.StringValueMap(config.LogDestination),
 			"log_destination_type": aws.StringValue(config.LogDestinationType),
-			"log_type":             aws.StringValue(config.LogType),
+			"log_type":aws.StringValue(config.LogType),
 		}
 		l = append(l, m)
 	}

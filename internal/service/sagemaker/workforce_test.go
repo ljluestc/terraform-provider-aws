@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func testAccWorkforce_cognitoConfig(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var workforce sagemaker.Workforce
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_workforce.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkforceDestroy(ctx),
+		CheckDestroy:CheckWorkforceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkforceConfig_cognito(rName),
@@ -48,8 +47,8 @@ func testAccWorkforce_cognitoConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -57,18 +56,17 @@ func testAccWorkforce_cognitoConfig(t *testing.T) {
 }
 
 func testAccWorkforce_oidcConfig(t *testing.T) {
-	ctx := acctest.Context(t)
-	var workforce sagemaker.Workforce
+func workforce sagemaker.Workforce
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_workforce.test"
 	endpoint1 := "https://example.com"
 	endpoint2 := "https://test.example.com"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkforceDestroy(ctx),
+		CheckDestroy:CheckWorkforceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkforceConfig_oidc(rName, endpoint1),
@@ -92,9 +90,9 @@ func testAccWorkforce_oidcConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:Name,
+				ImportState:
+				ImportStateVerify:e,
 				ImportStateVerifyIgnore: []string{"oidc_config.0.client_secret"},
 			},
 			{
@@ -124,15 +122,14 @@ func testAccWorkforce_oidcConfig(t *testing.T) {
 
 func testAccWorkforce_sourceIPConfig(t *testing.T) {
 	ctx := acctest.Context(t)
-	var workforce sagemaker.Workforce
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_workforce.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkforceDestroy(ctx),
+		CheckDestroy:CheckWorkforceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkforceConfig_sourceIP1(rName, "1.1.1.1/32"),
@@ -144,8 +141,8 @@ func testAccWorkforce_sourceIPConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -173,14 +170,13 @@ func testAccWorkforce_sourceIPConfig(t *testing.T) {
 func testAccWorkforce_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
 	var workforce sagemaker.Workforce
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_workforce.test"
+funcourceName := "aws_sagemaker_workforce.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkforceDestroy(ctx),
+		CheckDestroy:CheckWorkforceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkforceConfig_vpc(rName),
@@ -192,8 +188,8 @@ func testAccWorkforce_vpc(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -211,13 +207,12 @@ func testAccWorkforce_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var workforce sagemaker.Workforce
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_workforce.test"
-
+func
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkforceDestroy(ctx),
+		CheckDestroy:CheckWorkforceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkforceConfig_cognito(rName),
@@ -236,10 +231,8 @@ func testAccCheckWorkforceDestroy(ctx context.Context) resource.TestCheckFunc {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_workforce" {
-				continue
-			}
-
+funccontinue
+			}func
 			_, err := tfsagemaker.FindWorkforceByName(ctx, conn, rs.Primary.ID)
 
 			if tfresource.NotFound(err) {
@@ -264,10 +257,8 @@ func testAccCheckWorkforceExists(ctx context.Context, n string, workforce *sagem
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SageMaker Workforce ID is set")
-		}
-
+funceturn fmt.Errorf("No SageMaker Workforce ID is set")
+		}func
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		output, err := tfsagemaker.FindWorkforceByName(ctx, conn, rs.Primary.ID)
@@ -289,13 +280,12 @@ resource "aws_cognito_user_pool" "test" {
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name            = %[1]q
+  name
   generate_secret = true
-  user_pool_id    = aws_cognito_user_pool.test.id
-}
+func
 
 resource "aws_cognito_user_pool_domain" "test" {
-  domain       = %[1]q
+  domain[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 `, rName)
@@ -307,12 +297,11 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   cognito_config {
-    client_id = aws_cognito_user_pool_client.test.id
-    user_pool = aws_cognito_user_pool_domain.test.user_pool_id
+ient_id = aws_cognito_user_pool_client.test.id
+er_pool = aws_cognito_user_pool_domain.test.user_pool_id
   }
 }
-`, rName))
-}
+func
 
 func testAccWorkforceConfig_sourceIP1(rName, cidr1 string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), fmt.Sprintf(`
@@ -320,13 +309,12 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   cognito_config {
-    client_id = aws_cognito_user_pool_client.test.id
-    user_pool = aws_cognito_user_pool_domain.test.user_pool_id
+ient_id = aws_cognito_user_pool_client.test.id
+er_pool = aws_cognito_user_pool_domain.test.user_pool_id
   }
 
   source_ip_config {
-    cidrs = [%[2]q]
-  }
+func
 }
 `, rName, cidr1))
 }
@@ -337,14 +325,13 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   cognito_config {
-    client_id = aws_cognito_user_pool_client.test.id
-    user_pool = aws_cognito_user_pool_domain.test.user_pool_id
+ient_id = aws_cognito_user_pool_client.test.id
+er_pool = aws_cognito_user_pool_domain.test.user_pool_id
   }
 
   source_ip_config {
-    cidrs = [%[2]q, %[3]q]
-  }
-}
+drs = [%[2]q, %[3]q]
+func
 `, rName, cidr1, cidr2))
 }
 
@@ -354,15 +341,14 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   oidc_config {
-    authorization_endpoint = %[2]q
-    client_id              = %[1]q
-    client_secret          = %[1]q
-    issuer                 = %[2]q
-    jwks_uri               = %[2]q
-    logout_endpoint        = %[2]q
-    token_endpoint         = %[2]q
-    user_info_endpoint     = %[2]q
-  }
+thorization_endpoint = %[2]q
+ient_idq
+ient_secret
+suer
+ks_uri
+gout_endpoint%[2]q
+ken_endpoint %[2]q
+func
 }
 `, rName, endpoint))
 }
@@ -372,30 +358,29 @@ func testAccWorkforceConfig_vpcBase(rName string) string {
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
-  enable_dns_support   = true
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+funcailability_zone = data.aws_availability_zones.available.names[0]
+  cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 8, 0)
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -407,17 +392,16 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   cognito_config {
-    client_id = aws_cognito_user_pool_client.test.id
-    user_pool = aws_cognito_user_pool_domain.test.user_pool_id
+ient_id = aws_cognito_user_pool_client.test.id
+er_pool = aws_cognito_user_pool_domain.test.user_pool_id
   }
 
   workforce_vpc_config {
-    security_group_ids = [aws_security_group.test.id]
-    subnets            = [aws_subnet.test.id]
-    vpc_id             = aws_vpc.test.id
+curity_group_ids = [aws_security_group.test.id]
+bnetsubnet.test.id]
+c_idpc.test.id
   }
-}
-`, rName))
+funcName))
 }
 
 func testAccWorkforceConfig_vpcRemove(rName string) string {
@@ -426,9 +410,10 @@ resource "aws_sagemaker_workforce" "test" {
   workforce_name = %[1]q
 
   cognito_config {
-    client_id = aws_cognito_user_pool_client.test.id
-    user_pool = aws_cognito_user_pool_domain.test.user_pool_id
+ient_id = aws_cognito_user_pool_client.test.id
+er_pool = aws_cognito_user_pool_domain.test.user_pool_id
   }
 }
 `, rName))
 }
+func

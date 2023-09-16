@@ -182,7 +182,7 @@ func resourceEndpointAuthorizationDelete(ctx context.Context, d *schema.Resource
 	input := &redshift.RevokeEndpointAccessInput{
 		Account:           aws.String(account),
 		ClusterIdentifier: aws.String(clusterId),
-		Force:             aws.Bool(d.Get("force_delete").(bool)),
+		Force:aws.Bool(d.Get("force_delete").(bool)),
 	}
 
 	_, err = conn.RevokeEndpointAccessWithContext(ctx, input)

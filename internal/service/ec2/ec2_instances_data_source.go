@@ -20,8 +20,7 @@ import (
 
 // @SDKDataSource("aws_instances")
 
-func DataSourceInstances() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstancesRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,34 +30,33 @@ func DataSourceInstances() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"instance_tags": tftags.TagsSchemaComputed(),
 			"instance_state_names": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:schema.TypeString,
 					Validate
 func: validation.StringInSlice(ec2.InstanceStateName_Values(), false),
-				},
-			},
+func,
 			"ipv6_addresses": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"private_ips": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"public_ips": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -67,18 +65,17 @@ func: validation.StringInSlice(ec2.InstanceStateName_Values(), false),
 
 func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeInstancesInput{}
 
 	if v, ok := d.GetOk("instance_state_names"); ok && v.(*schema.Set).Len() > 0 {
 		input.Filters = append(input.Filters, &ec2.Filter{
-			Name:   aws.String("instance-state-name"),
+			Name:.String("instance-state-name"),
 			Values: flex.ExpandStringSet(v.(*schema.Set)),
 		})
 	} else {
 		input.Filters = append(input.Filters, &ec2.Filter{
-			Name:   aws.String("instance-state-name"),
+			Name:.String("instance-state-name"),
 			Values: aws.StringSlice([]string{ec2.InstanceStateNameRunning}),
 		})
 	}

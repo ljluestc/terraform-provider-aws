@@ -56,11 +56,11 @@ func FilterPermissions(input *lakeformation.ListPermissionsInput, tableType stri
 func FilterTablePermissions(principal *string, table *lakeformation.TableResource, allPermissions []*lakeformation.PrincipalResourcePermissions) []*lakeformation.PrincipalResourcePermissions {
 	// CREATE PERMS (in)     = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT, SELECT on Table, Name = (Table Name)
 	//      LIST PERMS (out) = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT         on Table, Name = (Table Name)
-	//      LIST PERMS (out) = SELECT                                             on TableWithColumns, Name = (Table Name), ColumnWildcard
+	//      LIST PERMS (out) = SELECT      on TableWithColumns, Name = (Table Name), ColumnWildcard
 
 	// CREATE PERMS (in)       = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT, SELECT on Table, TableWildcard
 	//        LIST PERMS (out) = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT         on Table, TableWildcard, Name = ALL_TABLES
-	//        LIST PERMS (out) = SELECT                                             on TableWithColumns, Name = ALL_TABLES, ColumnWildcard
+	//        LIST PERMS (out) = SELECT      on TableWithColumns, Name = ALL_TABLES, ColumnWildcard
 
 	var cleanPermissions []*lakeformation.PrincipalResourcePermissions
 
@@ -103,7 +103,7 @@ func FilterTablePermissions(principal *string, table *lakeformation.TableResourc
 func FilterTableWithColumnsPermissions(principal *string, twc *lakeformation.TableResource, columnNames []*string, excludedColumnNames []*string, columnWildcard bool, allPermissions []*lakeformation.PrincipalResourcePermissions) []*lakeformation.PrincipalResourcePermissions {
 	// CREATE PERMS (in)       = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT, SELECT on TableWithColumns, Name = (Table Name), ColumnWildcard
 	//        LIST PERMS (out) = ALL, ALTER, DELETE, DESCRIBE, DROP, INSERT         on Table, Name = (Table Name)
-	//        LIST PERMS (out) = SELECT                                             on TableWithColumns, Name = (Table Name), ColumnWildcard
+	//        LIST PERMS (out) = SELECT      on TableWithColumns, Name = (Table Name), ColumnWildcard
 
 	var cleanPermissions []*lakeformation.PrincipalResourcePermissions
 

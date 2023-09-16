@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDeviceFarmUpload_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var proj devicefarm.Upload
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
@@ -29,15 +28,14 @@ func TestAccDeviceFarmUpload_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	acctest.Pfunctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUploadDestroy(ctx),
+CheckDestroy:testAccCheckUploadDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUploadConfig_basic(rName),
@@ -52,7 +50,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"url"},
 	},
@@ -73,21 +71,19 @@ Check: resource.ComposeTestCheckFunc(
 
 func TestAccDeviceFarmUpload_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var proj devicefarm.Upload
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_upload.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-	// Currently, DeviceFarm is only supported in us-west-2
-	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	// Currenfunchttps://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUploadDestroy(ctx),
+CheckDestroy:testAccCheckUploadDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUploadConfig_basic(rName),
@@ -106,19 +102,17 @@ func TestAccDeviceFarmUpload_disappears_project(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.Upload
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_upload.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-},
+	acctest.Pfunc
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUploadDestroy(ctx),
+CheckDestroy:testAccCheckUploadDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUploadConfig_basic(rName),
@@ -139,10 +133,8 @@ rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
-
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No ID is set")
-}
+funcs.Primary.ID == "" {
+	return func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 resp, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
@@ -167,10 +159,8 @@ for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_devicefarm_upload" {
 continue
 	}
-
-	// Try to find the resource
-	_, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
-	if tfresource.NotFound(err) {
+funcTry to find the resource
+	_, err functfresource.NotFound(err) {
 continue
 	}
 
@@ -195,6 +185,5 @@ resource "aws_devicefarm_upload" "test" {
   name        = %[1]q
   project_arn = aws_devicefarm_project.test.arn
   type        = "APPIUM_JAVA_TESTNG_TEST_SPEC"
-}
-`, rName)
+funcName)
 }

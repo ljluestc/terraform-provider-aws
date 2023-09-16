@@ -25,10 +25,9 @@ import (
 // @SDKResource("aws_ec2_capacity_reservation", name="Capacity Reservation")
 // @Tags(identifierAttribute="id")
 
-func ResourceCapacityReservation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCapacityReservationCreate,
-		ReadWithoutTimeout:   resourceCapacityReservationRead,
+		ReadWithoutTimeout:ourceCapacityReservationRead,
 		UpdateWithoutTimeout: resourceCapacityReservationUpdate,
 		DeleteWithoutTimeout: resourceCapacityReservationDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,86 +38,80 @@ func ResourceCapacityReservation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"ebs_optimized": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				ForceNew: true,
 				Default:  false,
 			},
 			"end_date": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.IsRFC3339Time,
-			},
-			"end_date_type": {
+funcend_date_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.EndDateTypeUnlimited,
+				Optional:
+				Default:teTypeUnlimited,
 				Validate
 func: validation.StringInSlice(ec2.EndDateType_Values(), false),
 			},
-			"ephemeral_storage": {
-				Type:     schema.TypeBool,
+funcType:eBool,
 				Optional: true,
 				ForceNew: true,
 				Default:  false,
 			},
 			"instance_count": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Required: true,
 			},
 			"instance_match_criteria": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      ec2.InstanceMatchCriteriaOpen,
+				Optional:
+				ForceNew:
+				Default:nceMatchCriteriaOpen,
 				Validate
 func: validation.StringInSlice(ec2.InstanceMatchCriteria_Values(), false),
 			},
 			"instance_platform": {
-				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+funcRequired:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.CapacityReservationInstancePlatform_Values(), false),
 			},
 			"instance_type": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Type:eString,
+funcForceNew: true,
 			},
 			"outpost_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: verify.ValidARN,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
-			},
-			"placement_group_arn": {
+funcplacement_group_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"tenancy": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      ec2.CapacityReservationTenancyDefault,
+funcForceNew:
+				Default:ityReservationTenancyDefault,
 				Validate
 func: validation.StringInSlice(ec2.CapacityReservationTenancy_Values(), false),
 			},
@@ -127,16 +120,14 @@ func: validation.StringInSlice(ec2.CapacityReservationTenancy_Values(), false),
 }
 
 
-func resourceCapacityReservationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateCapacityReservationInput{
 		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
-		EndDateType:       aws.String(d.Get("end_date_type").(string)),
-		InstanceCount:     aws.Int64(int64(d.Get("instance_count").(int))),
-		InstancePlatform:  aws.String(d.Get("instance_platform").(string)),
-		InstanceType:      aws.String(d.Get("instance_type").(string)),
+		EndDateType:ng(d.Get("end_date_type").(string)),
+		InstanceCount:int64(d.Get("instance_count").(int))),
+funcstanceType:g(d.Get("instance_type").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeCapacityReservation),
 	}
 
@@ -196,8 +187,7 @@ func resourceCapacityReservationRead(ctx context.Context, d *schema.ResourceData
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Capacity Reservation %s not found, removing from state", d.Id())
 		d.SetId("")
-		return diags
-	}
+func
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Capacity Reservation (%s): %s", d.Id(), err)
@@ -238,8 +228,7 @@ func resourceCapacityReservationUpdate(ctx context.Context, d *schema.ResourceDa
 			EndDateType:  aws.String(d.Get("end_date_type").(string)),
 			InstanceCount:aws.Int64(int64(d.Get("instance_count").(int))),
 		}
-
-		if v, ok := d.GetOk("end_date"); ok {
+func v, ok := d.GetOk("end_date"); ok {
 			v, _ := time.Parse(time.RFC3339, v.(string))
 
 			input.EndDate = aws.Time(v)
@@ -272,8 +261,7 @@ func resourceCapacityReservationDelete(ctx context.Context, d *schema.ResourceDa
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidCapacityReservationIdNotFound) {
 		return diags
-	}
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Capacity Reservation (%s): %s", d.Id(), err)
 	}

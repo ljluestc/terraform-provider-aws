@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_model", name="Model")
 // @Tags(identifierAttribute="arn")
-func ResourceModel() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceModelCreate,
-		ReadWithoutTimeout:   resourceModelRead,
+		ReadWithoutTimeout:ourceModelRead,
 		UpdateWithoutTimeout: resourceModelUpdate,
 		DeleteWithoutTimeout: resourceModelDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,55 +38,55 @@ func ResourceModel() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"container": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"container_hostname": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validName,
 						},
 						"environment": {
-							Type:         schema.TypeMap,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeMap,
+							Optional:
+							ForceNew:
 							ValidateFunc: validEnvironment,
-							Elem:         &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 						"image": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validImage,
 						},
 						"image_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"repository_access_mode": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.StringInSlice(sagemaker.RepositoryAccessMode_Values(), false),
 									},
 									"repository_auth_config": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_credentials_provider_arn": {
-													Type:         schema.TypeString,
-													Required:     true,
-													ForceNew:     true,
+													Type:chema.TypeString,
+													Required:
+													ForceNew:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
@@ -97,40 +96,40 @@ func ResourceModel() *schema.Resource {
 							},
 						},
 						"mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      sagemaker.ContainerModeSingleModel,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
+							Default:maker.ContainerModeSingleModel,
 							ValidateFunc: validation.StringInSlice(sagemaker.ContainerMode_Values(), false),
 						},
 						"model_data_url": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validModelDataURL,
 						},
 						"model_package_name": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"enable_network_isolation": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"execution_role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"inference_execution_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
@@ -138,67 +137,67 @@ func ResourceModel() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"mode": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringInSlice(sagemaker.InferenceExecutionMode_Values(), false),
 						},
 					},
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ValidateFunc: validName,
 			},
 			"primary_container": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"container_hostname": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validName,
 						},
 						"environment": {
-							Type:         schema.TypeMap,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeMap,
+							Optional:
+							ForceNew:
 							ValidateFunc: validEnvironment,
-							Elem:         &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 						"image": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validImage,
 						},
 						"image_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"repository_access_mode": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.StringInSlice(sagemaker.RepositoryAccessMode_Values(), false),
 									},
 									"repository_auth_config": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_credentials_provider_arn": {
-													Type:         schema.TypeString,
-													Required:     true,
-													ForceNew:     true,
+													Type:chema.TypeString,
+													Required:
+													ForceNew:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
@@ -208,47 +207,47 @@ func ResourceModel() *schema.Resource {
 							},
 						},
 						"mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      sagemaker.ContainerModeSingleModel,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
+							Default:maker.ContainerModeSingleModel,
 							ValidateFunc: validation.StringInSlice(sagemaker.ContainerMode_Values(), false),
 						},
 						"model_data_url": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validModelDataURL,
 						},
 						"model_package_name": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"subnets": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Required: true,
 							MaxItems: 16,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Required: true,
 							MaxItems: 5,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 					},
 				},
@@ -260,8 +259,7 @@ func ResourceModel() *schema.Resource {
 }
 
 func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	var name string
 	if v, ok := d.GetOk("name"); ok {
@@ -272,7 +270,7 @@ func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	createOpts := &sagemaker.CreateModelInput{
 		ModelName: aws.String(name),
-		Tags:      getTagsIn(ctx),
+		Tags:agsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("primary_container"); ok {
@@ -302,8 +300,7 @@ func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	log.Printf("[DEBUG] SageMaker model create config: %#v", *createOpts)
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.CreateModelWithContext(ctx, createOpts)
-	}, "ValidationException")
-
+	}, "ValidationException")func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating SageMaker model: %s", err)
 	}
@@ -315,13 +312,12 @@ func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta inter
 func expandVPCConfigRequest(l []interface{}) *sagemaker.VpcConfig {
 	if len(l) == 0 {
 		return nil
-	}
-
+func
 	m := l[0].(map[string]interface{})
 
 	return &sagemaker.VpcConfig{
 		SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
-		Subnets:          flex.ExpandStringSet(m["subnets"].(*schema.Set)),
+		Subnets:dStringSet(m["subnets"].(*schema.Set)),
 	}
 }
 
@@ -329,8 +325,7 @@ func resourceModelRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	request := &sagemaker.DescribeModelInput{
-		ModelName: aws.String(d.Id()),
+funcdelName: aws.String(d.Id()),
 	}
 
 	model, err := conn.DescribeModelWithContext(ctx, request)
@@ -373,9 +368,8 @@ func flattenVPCConfigResponse(vpcConfig *sagemaker.VpcConfig) []map[string]inter
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{
-		"security_group_ids": flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
-		"subnets":            flex.FlattenStringSet(vpcConfig.Subnets),
+funcecurity_group_ids": flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
+		"subnets":ttenStringSet(vpcConfig.Subnets),
 	}
 
 	return []map[string]interface{}{m}
@@ -387,8 +381,7 @@ func resourceModelUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	// Tags only.
 
 	return append(diags, resourceModelRead(ctx, d, meta)...)
-}
-
+func
 func resourceModelDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
@@ -396,8 +389,7 @@ func resourceModelDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	deleteOpts := &sagemaker.DeleteModelInput{
 		ModelName: aws.String(d.Id()),
 	}
-	log.Printf("[INFO] Deleting SageMaker model: %s", d.Id())
-
+func
 	err := retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
 		_, err := conn.DeleteModelWithContext(ctx, deleteOpts)
 		if err == nil {
@@ -406,8 +398,7 @@ func resourceModelDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 		if tfawserr.ErrCodeEquals(err, "ResourceNotFound") {
 			return retry.RetryableError(err)
-		}
-		return retry.NonRetryableError(err)
+		}functurn retry.NonRetryableError(err)
 	})
 	if tfresource.TimedOut(err) {
 		_, err = conn.DeleteModelWithContext(ctx, deleteOpts)
@@ -427,8 +418,7 @@ func expandContainer(m map[string]interface{}) *sagemaker.ContainerDefinition {
 
 	if v, ok := m["mode"]; ok && v.(string) != "" {
 		container.Mode = aws.String(v.(string))
-	}
-
+func
 	if v, ok := m["container_hostname"]; ok && v.(string) != "" {
 		container.ContainerHostname = aws.String(v.(string))
 	}
@@ -459,8 +449,7 @@ func expandModelImageConfig(l []interface{}) *sagemaker.ImageConfig {
 	imageConfig := &sagemaker.ImageConfig{
 		RepositoryAccessMode: aws.String(m["repository_access_mode"].(string)),
 	}
-
-	if v, ok := m["repository_auth_config"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
+funcv, ok := m["repository_auth_config"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 		imageConfig.RepositoryAuthConfig = expandRepositoryAuthConfig(v[0].(map[string]interface{}))
 	}
 
@@ -478,8 +467,7 @@ func expandRepositoryAuthConfig(tfMap map[string]interface{}) *sagemaker.Reposit
 		apiObject.RepositoryCredentialsProviderArn = aws.String(v)
 	}
 
-	return apiObject
-}
+func
 
 func expandContainers(a []interface{}) []*sagemaker.ContainerDefinition {
 	containers := make([]*sagemaker.ContainerDefinition, 0, len(a))
@@ -493,8 +481,7 @@ func expandContainers(a []interface{}) []*sagemaker.ContainerDefinition {
 
 func flattenContainer(container *sagemaker.ContainerDefinition) []interface{} {
 	if container == nil {
-		return []interface{}{}
-	}
+func
 
 	cfg := make(map[string]interface{})
 
@@ -504,8 +491,7 @@ func flattenContainer(container *sagemaker.ContainerDefinition) []interface{} {
 
 	if container.Mode != nil {
 		cfg["mode"] = aws.StringValue(container.Mode)
-	}
-
+func
 	if container.ContainerHostname != nil {
 		cfg["container_hostname"] = aws.StringValue(container.ContainerHostname)
 	}
@@ -540,8 +526,7 @@ func flattenImageConfig(imageConfig *sagemaker.ImageConfig) []interface{} {
 	}
 
 	return []interface{}{cfg}
-}
-
+func
 func flattenRepositoryAuthConfig(apiObject *sagemaker.RepositoryAuthConfig) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -557,8 +542,7 @@ func flattenRepositoryAuthConfig(apiObject *sagemaker.RepositoryAuthConfig) map[
 }
 
 func flattenContainers(containers []*sagemaker.ContainerDefinition) []interface{} {
-	fContainers := make([]interface{}, 0, len(containers))
-	for _, container := range containers {
+func _, container := range containers {
 		fContainers = append(fContainers, flattenContainer(container)[0].(map[string]interface{}))
 	}
 	return fContainers
@@ -572,8 +556,7 @@ func expandModelInferenceExecutionConfig(l []interface{}) *sagemaker.InferenceEx
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.InferenceExecutionConfig{
-		Mode: aws.String(m["mode"].(string)),
-	}
+func
 
 	return config
 }
@@ -581,11 +564,11 @@ func expandModelInferenceExecutionConfig(l []interface{}) *sagemaker.InferenceEx
 func flattenModelInferenceExecutionConfig(config *sagemaker.InferenceExecutionConfig) []interface{} {
 	if config == nil {
 		return []interface{}{}
-	}
-
+func
 	cfg := make(map[string]interface{})
 
 	cfg["mode"] = aws.StringValue(config.Mode)
 
 	return []interface{}{cfg}
 }
+func

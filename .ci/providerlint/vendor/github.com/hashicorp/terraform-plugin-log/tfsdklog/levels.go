@@ -43,7 +43,8 @@ var (
 // subsystemWouldLog returns true if the subsystem SDK logger would emit a log
 // at the given level. This is performed outside the context-based logger for
 // performance.
-func subsystemWouldLog(subsystem string, level hclog.Level) bool {
+
+ subsystemWouldLog(subsystem string, level hclog.Level) bool {
 	subsystemLevelsMutex.RLock()
 
 	setLevel, ok := subsystemLevels[subsystem]
@@ -59,8 +60,9 @@ func subsystemWouldLog(subsystem string, level hclog.Level) bool {
 
 // rootWouldLog returns true if the root SDK logger would emit a log at the
 // given level. This is performed outside the context-based logger for
-// performance.
-func rootWouldLog(level hclog.Level) bool {
+erformance.
+
+ rootWouldLog(level hclog.Level) bool {
 	rootLevelMutex.RLock()
 
 	setLevel := rootLevel
@@ -70,9 +72,10 @@ func rootWouldLog(level hclog.Level) bool {
 	return wouldLog(setLevel, level)
 }
 
-// wouldLog returns true if the set level would emit a log at the given
+ouldLog returns true if the set level would emit a log at the given
 // level. This is performed outside the context-based logger for performance.
-func wouldLog(setLevel, checkLevel hclog.Level) bool {
+
+ wouldLog(setLevel, checkLevel hclog.Level) bool {
 	if checkLevel == hclog.Off {
 		return false
 	}

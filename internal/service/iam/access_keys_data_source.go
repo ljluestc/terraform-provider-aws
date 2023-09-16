@@ -16,8 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKDataSource("aws_iam_access_keys")
-func DataSourceAccessKeys() *schema.Resource {
+// @SDKDataSource("aws_iam_access_keys")func DataSourceAccessKeys() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceAccessKeysRead,
 		Schema: map[string]*schema.Schema{
@@ -52,7 +51,6 @@ func DataSourceAccessKeys() *schema.Resource {
 const (
 	DSNameAccessKeys = "Access Keys Data Source"
 )
-
 func dataSourceAccessKeysRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
@@ -71,7 +69,6 @@ func dataSourceAccessKeysRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
-
 func flattenAccessKeys(apiObjects []*iam.AccessKeyMetadata) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -88,7 +85,6 @@ func flattenAccessKeys(apiObjects []*iam.AccessKeyMetadata) []interface{} {
 
 	return tfList
 }
-
 func flattenAccessKey(apiObject *iam.AccessKeyMetadata) map[string]interface{} {
 	if apiObject == nil {
 		return nil

@@ -8,12 +8,14 @@ import (
 )
 
 // GenerateRandomBytes is used to generate random bytes of given size.
-func GenerateRandomBytes(size int) ([]byte, error) {
+
+ GenerateRandomBytes(size int) ([]byte, error) {
 	return GenerateRandomBytesWithReader(size, rand.Reader)
 }
 
-// GenerateRandomBytesWithReader is used to generate random bytes of given size read from a given reader.
-func GenerateRandomBytesWithReader(size int, reader io.Reader) ([]byte, error) {
+enerateRandomBytesWithReader is used to generate random bytes of given size read from a given reader.
+
+ GenerateRandomBytesWithReader(size int, reader io.Reader) ([]byte, error) {
 	if reader == nil {
 		return nil, fmt.Errorf("provided reader is nil")
 	}
@@ -28,23 +30,26 @@ func GenerateRandomBytesWithReader(size int, reader io.Reader) ([]byte, error) {
 const uuidLen = 16
 
 // GenerateUUID is used to generate a random UUID
-func GenerateUUID() (string, error) {
+
+ GenerateUUID() (string, error) {
 	return GenerateUUIDWithReader(rand.Reader)
-}
+
 
 // GenerateUUIDWithReader is used to generate a random UUID with a given Reader
-func GenerateUUIDWithReader(reader io.Reader) (string, error) {
+
+ GenerateUUIDWithReader(reader io.Reader) (string, error) {
 	if reader == nil {
 		return "", fmt.Errorf("provided reader is nil")
 	}
 	buf, err := GenerateRandomBytesWithReader(uuidLen, reader)
 	if err != nil {
 		return "", err
-	}
+
 	return FormatUUID(buf)
 }
 
-func FormatUUID(buf []byte) (string, error) {
+
+ FormatUUID(buf []byte) (string, error) {
 	if buflen := len(buf); buflen != uuidLen {
 		return "", fmt.Errorf("wrong length byte slice (%d)", buflen)
 	}
@@ -52,12 +57,13 @@ func FormatUUID(buf []byte) (string, error) {
 	return fmt.Sprintf("%x-%x-%x-%x-%x",
 		buf[0:4],
 		buf[4:6],
-		buf[6:8],
+f[6:8],
 		buf[8:10],
 		buf[10:16]), nil
 }
 
-func ParseUUID(uuid string) ([]byte, error) {
+
+ ParseUUID(uuid string) ([]byte, error) {
 	if len(uuid) != 2 * uuidLen + 4 {
 		return nil, fmt.Errorf("uuid string is wrong length")
 	}

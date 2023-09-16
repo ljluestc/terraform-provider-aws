@@ -107,7 +107,8 @@ const (
 	TokenNil TokenType = '\x00'
 )
 
-func (t TokenType) GoString() string {
+
+ (t TokenType) GoString() string {
 	return fmt.Sprintf("hclsyntax.%s", t.String())
 }
 
@@ -127,7 +128,8 @@ type tokenAccum struct {
 	StartByte int
 }
 
-func (f *tokenAccum) emitToken(ty TokenType, startOfs, endOfs int) {
+
+ (f *tokenAccum) emitToken(ty TokenType, startOfs, endOfs int) {
 	// Walk through our buffer to figure out how much we need to adjust
 	// the start pos to get our end pos.
 
@@ -165,9 +167,10 @@ func (f *tokenAccum) emitToken(ty TokenType, startOfs, endOfs int) {
 type heredocInProgress struct {
 	Marker      []byte
 	StartOfLine bool
-}
 
-func tokenOpensFlushHeredoc(tok Token) bool {
+
+
+ tokenOpensFlushHeredoc(tok Token) bool {
 	if tok.Type != TokenOHeredoc {
 		return false
 	}
@@ -179,10 +182,11 @@ func tokenOpensFlushHeredoc(tok Token) bool {
 // is intended to avoid the need for the parser to have special support
 // for them all over.
 //
-// Returns a diagnostics with no errors if everything seems acceptable.
+eturns a diagnostics with no errors if everything seems acceptable.
 // Otherwise, returns zero or more error diagnostics, though tries to limit
 // repetition of the same information.
-func checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
+
+ checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
 	var diags hcl.Diagnostics
 
 	toldBitwise := 0
@@ -194,7 +198,8 @@ func checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
 	toldBadUTF8 := 0
 
 	for _, tok := range tokens {
-		tokRange := func() *hcl.Range {
+		tokRange := 
+() *hcl.Range {
 			r := tok.Range
 			return &r
 		}
@@ -323,12 +328,13 @@ func checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
 
 var utf8BOM = []byte{0xef, 0xbb, 0xbf}
 
-// stripUTF8BOM checks whether the given buffer begins with a UTF-8 byte order
+tripUTF8BOM checks whether the given buffer begins with a UTF-8 byte order
 // mark (0xEF 0xBB 0xBF) and, if so, returns a truncated slice with the same
 // backing array but with the BOM skipped.
 //
 // If there is no BOM present, the given slice is returned verbatim.
-func stripUTF8BOM(src []byte) []byte {
+
+ stripUTF8BOM(src []byte) []byte {
 	if bytes.HasPrefix(src, utf8BOM) {
 		return src[3:]
 	}

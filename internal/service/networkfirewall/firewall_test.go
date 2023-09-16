@@ -29,10 +29,10 @@ func TestAccNetworkFirewallFirewall_basic(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_basic(rName),
@@ -78,10 +78,10 @@ func TestAccNetworkFirewallFirewall_dualstackSubnet(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_dualstackSubnet(rName),
@@ -124,10 +124,10 @@ func TestAccNetworkFirewallFirewall_description(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_basic(rName),
@@ -165,10 +165,10 @@ func TestAccNetworkFirewallFirewall_deleteProtection(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 
 			{
@@ -207,10 +207,10 @@ func TestAccNetworkFirewallFirewall_encryptionConfiguration(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_encryptionConfiguration(rName, "description 1"),
@@ -260,10 +260,10 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateSubnet(t *testing.T) {
 	updateSubnetResourceName := "aws_subnet.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 
 			{
@@ -306,10 +306,10 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateMultipleSubnets(t *test
 	updateSubnetResourceName := "aws_subnet.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_basic(rName),
@@ -363,10 +363,10 @@ func TestAccNetworkFirewallFirewall_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_networkfirewall_firewall.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_tags1(rName, "key1", "value1"),
@@ -408,10 +408,10 @@ func TestAccNetworkFirewallFirewall_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallDestroy(ctx),
+		CheckDestroy:testAccCheckFirewallDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallConfig_basic(rName),
@@ -502,9 +502,9 @@ resource "aws_networkfirewall_firewall_policy" "test" {
 func testAccFirewallConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -517,9 +517,9 @@ func testAccFirewallConfig_deleteProtection(rName string, deleteProtection bool)
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
   delete_protection   = %[1]t
-  name                = %[2]q
+  name   = %[2]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -531,9 +531,9 @@ resource "aws_networkfirewall_firewall" "test" {
 func testAccFirewallConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -549,9 +549,9 @@ resource "aws_networkfirewall_firewall" "test" {
 func testAccFirewallConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -568,10 +568,10 @@ resource "aws_networkfirewall_firewall" "test" {
 func testAccFirewallConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   description         = %[2]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -593,9 +593,9 @@ resource "aws_subnet" "example" {
 }
 
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.example.id
@@ -621,9 +621,9 @@ resource "aws_subnet" "example" {
 }
 
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test[0].id
@@ -641,9 +641,9 @@ func testAccFirewallConfig_encryptionConfiguration(rName, description string) st
 resource "aws_kms_key" "test" {}
 
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
   description         = %[2]q
 
   encryption_configuration {
@@ -670,9 +670,9 @@ resource "aws_networkfirewall_firewall_policy" "test" {
 }
 
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id       = aws_subnet.test[0].id

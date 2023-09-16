@@ -19,9 +19,8 @@ import (
 // listTags lists route53 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn route53iface.Route53API, identifier, resourceType string) (tftags.KeyValueTags, error) {
-	input := &route53.ListTagsForResourceInput{
-		ResourceId:   aws.String(identifier),
+funcut := &route53.ListTagsForResourceInput{
+		ResourceId:.String(identifier),
 		ResourceType: aws.String(resourceType),
 	}
 
@@ -37,8 +36,7 @@ func listTags(ctx context.Context, conn route53iface.Route53API, identifier, res
 // ListTags lists route53 service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier, resourceType string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).Route53Conn(ctx), identifier, resourceType)
-
+func
 	if err != nil {
 		return err
 	}
@@ -55,10 +53,9 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier, res
 // Tags returns route53 service tags.
 func Tags(tags tftags.KeyValueTags) []*route53.Tag {
 	result := make([]*route53.Tag, 0, len(tags))
-
-	for k, v := range tags.Map() {
+func k, v := range tags.Map() {
 		tag := &route53.Tag{
-			Key:   aws.String(k),
+			Key:.String(k),
 			Value: aws.String(v),
 		}
 
@@ -72,8 +69,7 @@ func Tags(tags tftags.KeyValueTags) []*route53.Tag {
 func KeyValueTags(ctx context.Context, tags []*route53.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
-	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+funcaws.StringValue(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -85,8 +81,7 @@ func getTagsIn(ctx context.Context) []*route53.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -97,16 +92,14 @@ func setTagsOut(ctx context.Context, tags []*route53.Tag) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// createTags creates route53 service tags for new resources.
+funcreateTags creates route53 service tags for new resources.
 func createTags(ctx context.Context, conn route53iface.Route53API, identifier, resourceType string, tags []*route53.Tag) error {
 	if len(tags) == 0 {
 		return nil
 	}
 
 	return updateTags(ctx, conn, identifier, resourceType, nil, KeyValueTags(ctx, tags))
-}
-
+func
 // updateTags updates route53 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
@@ -117,8 +110,7 @@ func updateTags(ctx context.Context, conn route53iface.Route53API, identifier, r
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
 	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.Route53)
-	updatedTags := oldTags.Updated(newTags)
+funcatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.Route53)
 
 	// Ensure we do not send empty requests.
@@ -127,7 +119,7 @@ func updateTags(ctx context.Context, conn route53iface.Route53API, identifier, r
 	}
 
 	input := &route53.ChangeTagsForResourceInput{
-		ResourceId:   aws.String(identifier),
+		ResourceId:.String(identifier),
 		ResourceType: aws.String(resourceType),
 	}
 
@@ -153,3 +145,4 @@ func updateTags(ctx context.Context, conn route53iface.Route53API, identifier, r
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier, resourceType string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).Route53Conn(ctx), identifier, resourceType, oldTags, newTags)
 }
+func

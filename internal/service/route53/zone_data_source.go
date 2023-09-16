@@ -19,63 +19,62 @@ import (
 )
 
 // @SDKDataSource("aws_route53_zone")
-func DataSourceZone() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceZoneRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"caller_reference": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"comment": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"linked_service_description": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"linked_service_principal": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"name_servers": {
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:a.TypeList,
+				Elem:ma.Schema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"primary_name_server": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"private_zone": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"resource_record_set_count": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -84,8 +83,7 @@ func DataSourceZone() *schema.Resource {
 }
 
 func dataSourceZoneRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	name, nameExists := d.GetOk("name")
@@ -214,7 +212,7 @@ func dataSourceZoneRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "route53",
+		Service:ute53",
 		Resource:  fmt.Sprintf("hostedzone/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -225,8 +223,7 @@ func dataSourceZoneRead(ctx context.Context, d *schema.ResourceData, meta interf
 // used to retrieve name servers
 func hostedZoneNameServers(ctx context.Context, conn *route53.Route53, id string, name string) ([]string, error) {
 	input := &route53.GetHostedZoneInput{
-		Id: aws.String(id),
-	}
+func
 
 	output, err := conn.GetHostedZoneWithContext(ctx, input)
 

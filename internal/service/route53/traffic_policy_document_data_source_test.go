@@ -16,12 +16,11 @@ import (
 	tfrouter53 "github.com/hashicorp/terraform-provider-aws/internal/service/route53"
 )
 
-func TestAccRoute53TrafficPolicyDocumentDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:est.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		ErrorCheck:eck(t, route53.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrafficPolicyDocumentDataSourceConfig_basic,
@@ -35,11 +34,10 @@ func TestAccRoute53TrafficPolicyDocumentDataSource_basic(t *testing.T) {
 }
 
 func TestAccRoute53TrafficPolicyDocumentDataSource_complete(t *testing.T) {
-	ctx := acctest.Context(t)
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:est.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		ErrorCheck:eck(t, route53.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrafficPolicyDocumentDataSourceConfig_complete,
@@ -54,10 +52,8 @@ func TestAccRoute53TrafficPolicyDocumentDataSource_complete(t *testing.T) {
 
 func testAccCheckTrafficPolicySameJSON(resourceName, jsonExpected string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}
+func !ok {
+			returfunc
 
 		var j, j2 tfrouter53.Route53TrafficPolicyDoc
 		if err := json.Unmarshal([]byte(rs.Primary.Attributes["json"]), &j); err != nil {
@@ -94,89 +90,88 @@ func testAccTrafficPolicyDocumentConfigCompleteExpectedJSON() string {
 	return fmt.Sprintf(`{
   "AWSPolicyFormatVersion":"2015-10-01",
   "RecordType":"A",
-  "StartRule":"geo_restriction",
-  "Endpoints":{
-    "east_coast_lb1":{
-      "Type":"elastic-load-balancer",
-      "Value":"elb-111111.%[1]s.elb.amazonaws.com"
-    },
-    "east_coast_lb2":{
-      "Type":"elastic-load-balancer",
-      "Value":"elb-222222.%[1]s.elb.amazonaws.com"
-    },
-    "west_coast_lb1":{
-      "Type":"elastic-load-balancer",
-      "Value":"elb-111111.%[2]s.elb.amazonaws.com"
-    },
-    "west_coast_lb2":{
-      "Type":"elastic-load-balancer",
-      "Value":"elb-222222.%[2]s.elb.amazonaws.com"
-    },
-    "denied_message":{
-      "Type":"s3-website",
-      "Region":"%[1]s",
-      "Value":"video.example.com"
-    }
+funcndpoints":{
+ast_coast_lb1":{
+e":"elastic-load-balancer",
+ue":"elb-111111.%[1]s.elb.amazonaws.com"
+
+ast_coast_lb2":{
+e":"elastic-load-balancer",
+ue":"elb-222222.%[1]s.elb.amazonaws.com"
+
+est_coast_lb1":{
+e":"elastic-load-balancer",
+ue":"elb-111111.%[2]s.elb.amazonaws.com"
+
+est_coast_lb2":{
+e":"elastic-load-balancer",
+ue":"elb-222222.%[2]s.elb.amazonaws.com"
+
+enied_message":{
+e":"s3-website",
+ion":"%[1]s",
+ue":"video.example.com"
+
   },
   "Rules":{
-    "geo_restriction":{
-      "RuleType":"geo",
-      "Locations":[
-        {
-          "EndpointReference":"denied_message",
-          "IsDefault":true
-        },
-        {
-          "RuleReference":"region_selector",
-          "Country":"US"
-        },
-        {
-          "RuleReference":"geoproximity_selector",
-          "Country":"UK"
-        }
-      ]
-    },
-    "geoproximity_selector": {
-      "RuleType": "geoproximity",
-      "GeoproximityLocations": [
-        {
-          "EndpointReference": "denied_message",
-          "Latitude": "51.50",
-          "Longitude": "-0.07"
-        }
-      ]
-    },
-    "region_selector":{
-      "RuleType":"latency",
-      "Regions":[
-        {
-          "Region":"%[1]s",
-          "RuleReference":"east_coast_region"
-        },
-        {
-          "Region":"%[2]s",
-          "RuleReference":"west_coast_region"
-        }
-      ]
-    },
-    "east_coast_region":{
-      "RuleType":"failover",
-      "Primary":{
-        "EndpointReference":"east_coast_lb1"
-      },
-      "Secondary":{
-        "EndpointReference":"east_coast_lb2"
-      }
-    },
-    "west_coast_region":{
-      "RuleType":"failover",
-      "Primary":{
-        "EndpointReference":"west_coast_lb1"
-      },
-      "Secondary":{
-        "EndpointReference":"west_coast_lb2"
-      }
-    }
+eo_restriction":{
+eType":"geo",
+ations":[
+
+eference":"denied_message",
+":true
+
+
+ence":"region_selector",
+"US"
+
+
+ence":"geoproximity_selector",
+"UK"
+
+
+
+eoproximity_selector": {
+eType": "geoproximity",
+proximityLocations": [
+
+eference": "denied_message",
+: "51.50",
+": "-0.07"
+
+
+
+egion_selector":{
+eType":"latency",
+ions":[
+
+%[1]s",
+ence":"east_coast_region"
+
+
+%[2]s",
+ence":"west_coast_region"
+
+
+
+ast_coast_region":{
+eType":"failover",
+mary":{
+ndpointReference":"east_coast_lb1"
+
+ondary":{
+ndpointReference":"east_coast_lb2"
+
+
+est_coast_region":{
+eType":"failover",
+mary":{
+ndpointReference":"west_coast_lb1"
+
+ondary":{
+ndpointReference":"west_coast_lb2"
+
+
   }
 }`, acctest.Region(), acctest.AlternateRegion())
 }
@@ -189,27 +184,27 @@ data "aws_route53_traffic_policy_document" "test" {
   start_rule  = "site_switch"
 
   endpoint {
-    id    = "my_elb"
-    type  = "elastic-load-balancer"
-    value = "elb-111111.${data.aws_region.current.name}.elb.amazonaws.com"
+ = _elb"
+pe  = "elastic-load-balancer"
+lue = "elb-111111.${data.aws_region.current.name}.elb.amazonaws.com"
   }
   endpoint {
-    id     = "site_down_banner"
-    type   = "s3-website"
-    region = data.aws_region.current.name
-    value  = "www.example.com"
+te_down_banner"
+pe= "website"
+gion = data.aws_region.current.name
+lue  = "www.example.com"
   }
 
   rule {
-    id   = "site_switch"
-    type = "failover"
+= "e_switch"
+pe = "failover"
 
-    primary {
-      endpoint_reference = "my_elb"
-    }
-    secondary {
-      endpoint_reference = "site_down_banner"
-    }
+imary {
+oint_reference = "my_elb"
+
+condary {
+oint_reference = "site_down_banner"
+
   }
 }
 `
@@ -220,132 +215,131 @@ data "aws_availability_zones" "available" {
 }
 
 data "aws_route53_traffic_policy_document" "test" {
-  version     = "2015-10-01"
+  version15-10-01"
   record_type = "A"
   start_rule  = "geo_restriction"
 
   endpoint {
-    id    = "east_coast_lb1"
-    type  = "elastic-load-balancer"
-    value = "elb-111111.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
+ = st_coast_lb1"
+pe  = "elastic-load-balancer"
+lue = "elb-111111.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
   }
   endpoint {
-    id    = "east_coast_lb2"
-    type  = "elastic-load-balancer"
-    value = "elb-222222.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
+ = st_coast_lb2"
+pe  = "elastic-load-balancer"
+lue = "elb-222222.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
   }
   endpoint {
-    id    = "west_coast_lb1"
-    type  = "elastic-load-balancer"
-    value = "elb-111111.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
+ = st_coast_lb1"
+pe  = "elastic-load-balancer"
+lue = "elb-111111.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
   }
   endpoint {
-    id    = "west_coast_lb2"
-    type  = "elastic-load-balancer"
-    value = "elb-222222.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
+ = st_coast_lb2"
+pe  = "elastic-load-balancer"
+lue = "elb-222222.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
   }
   endpoint {
-    id     = "denied_message"
-    type   = "s3-website"
-    region = data.aws_availability_zones.available.names[0]
-    value  = "video.example.com"
+nied_message"
+pe= "website"
+gion = data.aws_availability_zones.available.names[0]
+lue  = "video.example.com"
   }
 
   rule {
-    id   = "geo_restriction"
-    type = "geo"
+= "_restriction"
+pe = "geo"
 
-    location {
-      endpoint_reference = "denied_message"
-      is_default         = true
-    }
-    location {
-      rule_reference = "region_selector"
-      country        = "US"
-    }
-    location {
-      rule_reference = "geoproximity_selector"
-      country        = "UK"
-    }
+cation {
+oint_reference = "denied_message"
+efault
+
+cation {
+_reference = "region_selector"
+try
+
+cation {
+_reference = "geoproximity_selector"
+try
+
   }
 
   rule {
-    id   = "geoproximity_selector"
-    type = "geoproximity"
+= "proximity_selector"
+pe = "geoproximity"
 
-    geo_proximity_location {
-      longitude          = "-0.07"
-      latitude           = "51.50"
-      endpoint_reference = "denied_message"
-    }
+o_proximity_location {
+itude= "-0
+tude = "5
+oint_reference = "denied_message"
+
   }
 
   rule {
-    id   = "region_selector"
-    type = "latency"
+= "ion_selector"
+pe = "latency"
 
-    region {
-      region         = data.aws_availability_zones.available.names[0]
-      rule_reference = "east_coast_region"
-    }
-    region {
-      region         = data.aws_availability_zones.available.names[1]
-      rule_reference = "west_coast_region"
-    }
+gion {
+onaws_availability_zones.available.names[0]
+_reference = "east_coast_region"
+
+gion {
+onaws_availability_zones.available.names[1]
+_reference = "west_coast_region"
+
   }
 
   rule {
-    id   = "east_coast_region"
-    type = "failover"
+= "t_coast_region"
+pe = "failover"
 
-    primary {
-      endpoint_reference = "east_coast_lb1"
-    }
-    secondary {
-      endpoint_reference = "east_coast_lb2"
-    }
+imary {
+oint_reference = "east_coast_lb1"
+
+condary {
+oint_reference = "east_coast_lb2"
+
   }
 
   rule {
-    id   = "west_coast_region"
-    type = "failover"
+= "t_coast_region"
+pe = "failover"
 
-    primary {
-      endpoint_reference = "west_coast_lb1"
-    }
-    secondary {
-      endpoint_reference = "west_coast_lb2"
-    }
+imary {
+oint_reference = "west_coast_lb1"
+
+condary {
+oint_reference = "west_coast_lb2"
+
   }
 }
 `
 
 func testAccTrafficPolicyDocumentConfigExpectedJSON() string {
 	return fmt.Sprintf(`{
-   "AWSPolicyFormatVersion":"2015-10-01",
-   "RecordType":"A",
-   "StartRule":"site_switch",
-   "Endpoints":{
-      "my_elb":{
-         "Type":"elastic-load-balancer",
-         "Value":"elb-111111.%[1]s.elb.amazonaws.com"
-      },
-      "site_down_banner":{
-         "Type":"s3-website",
-         "Region":"%[1]s",
-         "Value":"www.example.com"
-      }
-   },
-   "Rules":{
-      "site_switch":{
-         "RuleType":"failover",
-         "Primary":{
-            "EndpointReference":"my_elb"
-         },
-         "Secondary":{
-            "EndpointReference":"site_down_banner"
-         }
-      }
-   }
+SPolicyFormatVersion":"2015-10-01",
+cordType":"A",
+artRule":"site_switch",
+func:{
+Type":"elastic-load-balancer",
+Value":"elb-111111.%[1]s.elb.amazonaws.com"
+
+e_down_banner":{
+Type":"s3-website",
+Region":"%[1]s",
+Value":"www.example.com"
+
+
+les":{
+e_switch":{
+RuleType":"failover",
+Primary":{
+tReference":"my_elb"
+,
+Secondary":{
+tReference":"site_down_banner"
+
+
+
 }`, acctest.Region())
 }

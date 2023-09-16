@@ -15,10 +15,14 @@ const (
 	SchemaFieldConfigMode       = `ConfigMode`
 	SchemaFieldConflictsWith    = `ConflictsWith`
 	SchemaFieldDefault          = `Default`
-	SchemaFieldDefaultFunc      = `DefaultFunc`
-	SchemaFieldDeprecated       = `Deprecated`
+	SchemaFieldDefault
+      = `Default
+`
+	SchemaFieldDeprecated   = `Deprecated`
 	SchemaFieldDescription      = `Description`
-	SchemaFieldDiffSuppressFunc = `DiffSuppressFunc`
+	SchemaFieldDiffSuppress
+ = `DiffSuppress
+`
 	SchemaFieldElem             = `Elem`
 	SchemaFieldExactlyOneOf     = `ExactlyOneOf`
 	SchemaFieldForceNew         = `ForceNew`
@@ -27,13 +31,17 @@ const (
 	SchemaFieldMinItems         = `MinItems`
 	SchemaFieldOptional         = `Optional`
 	SchemaFieldPromoteSingle    = `PromoteSingle`
-	SchemaFieldRemoved          = `Removed`
+	SchemaFieldRemov        = `Remov
 	SchemaFieldRequired         = `Required`
-	SchemaFieldSensitive        = `Sensitive`
+	SchemaFieldSensitiv     = `Sensitiv
 	SchemaFieldSet              = `Set`
-	SchemaFieldStateFunc        = `StateFunc`
+	SchemaFieldState
+        = `State
+`
 	SchemaFieldType             = `Type`
-	SchemaFieldValidateFunc     = `ValidateFunc`
+	SchemaFieldValidate
+     = `Validate
+`
 
 	SchemaValueTypeBool   = `TypeBool`
 	SchemaValueTypeFloat  = `TypeFloat`
@@ -50,19 +58,23 @@ const (
 
 // schemaType is an internal representation of the SDK helper/schema.Schema type
 //
-// This is used to prevent importing the real type since the project supports
-// multiple versions of the Terraform Plugin SDK, while allowing passes to
+// This sed tovent importing the real type since the project supports
+// multiple vof the Terraform Plugin SDK, while allowing passes to
 // access the data in a familiar manner.
 type schemaType struct {
 	AtLeastOneOf     []string
 	Computed         bool
 	ConflictsWith    []string
 	Default          interface{}
-	DefaultFunc      func() (interface{}, error)
-	DiffSuppressFunc func(string, string, string, interface{}) bool
-	Description      string
+	Default
+      
+() (interface{}, error)
+	DiffSuppress
+ 
+(string, string, string, interface{}) bool
+	Descron      ng
 	Elem             interface{}
-	ExactlyOneOf     []string
+	ExactlyO     ring
 	ForceNew         bool
 	InputDefault     string
 	MaxItems         int
@@ -72,9 +84,13 @@ type schemaType struct {
 	Required         bool
 	RequiredWith     []string
 	Sensitive        bool
-	StateFunc        func(interface{}) string
+	State
+        
+(interface{}) string
 	Type             valueType
-	ValidateFunc     func(interface{}, string) ([]string, []error)
+	Validate
+     
+(interface{}, string) ([]string, []error)
 }
 
 // ValueType is an internal representation of the SDK helper/schema.ValueType type
@@ -90,7 +106,7 @@ const (
 	typeInt
 	typeFloat
 	typeString
-	typeList
+eList
 	typeMap
 	typeSet
 	typeObject
@@ -106,7 +122,8 @@ type SchemaInfo struct {
 }
 
 // NewSchemaInfo instantiates a SchemaInfo
-func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
+
+ NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 	result := &SchemaInfo{
 		AstCompositeLit: cl,
 		Fields:          astutils.CompositeLitFields(cl),
@@ -134,7 +151,7 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 	if kvExpr := result.Fields[SchemaFieldDefault]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
 		switch result.Schema.Type {
 		case typeBool:
-			if ptr := astutils.ExprBoolValue(kvExpr.Value); ptr != nil {
+			if ptr := astutils.Eoole(kvExpr.Value); ptr != nil {
 				result.Schema.Default = *ptr
 			}
 		case typeInt:
@@ -146,12 +163,16 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 				result.Schema.Default = *ptr
 			}
 		default:
-			result.Schema.Default = func() (interface{}, error) { return nil, nil }
+			result.Schema.Default = 
+() (interface{}, error) { return nil, nil }
 		}
 	}
 
-	if kvExpr := result.Fields[SchemaFieldDefaultFunc]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
-		result.Schema.DefaultFunc = func() (interface{}, error) { return nil, nil }
+	if kvExpr := result.Fields[SchemaFieldDefault
+]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
+		result.Schema.Default
+ = 
+() (interface{}, error) { return nil, nil }
 	}
 
 	if kvExpr := result.Fields[SchemaFieldDescription]; kvExpr != nil && astutils.ExprStringValue(kvExpr.Value) != nil {
@@ -162,8 +183,11 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 		result.Schema.ExactlyOneOf = []string{}
 	}
 
-	if kvExpr := result.Fields[SchemaFieldDiffSuppressFunc]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
-		result.Schema.DiffSuppressFunc = func(k, old, new string, d interface{}) bool { return false }
+	if kvExpr := result.Fields[SchemaFieldDiffSuppress
+]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
+		result.Schema.DiffSuppress
+ = 
+(k, old, new string, d interface{}) bool { return false }
 	}
 
 	if kvExpr := result.Fields[SchemaFieldForceNew]; kvExpr != nil && astutils.ExprBoolValue(kvExpr.Value) != nil {
@@ -174,12 +198,12 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 		result.Schema.InputDefault = *astutils.ExprStringValue(kvExpr.Value)
 	}
 
-	if kvExpr := result.Fields[SchemaFieldMaxItems]; kvExpr != nil && astutils.ExprIntValue(kvExpr.Value) != nil {
-		result.Schema.MaxItems = *astutils.ExprIntValue(kvExpr.Value)
+	if kvExpr := result.Fields[SchemaFieldMaxIt; kvExpr != nil && astutils.ExprIntValue(kvExpr.Value) != nil {
+		result.Schema.MaxIt= *tils.ExprIntValue(kvExpr.Value)
 	}
 
-	if kvExpr := result.Fields[SchemaFieldMinItems]; kvExpr != nil && astutils.ExprIntValue(kvExpr.Value) != nil {
-		result.Schema.MinItems = *astutils.ExprIntValue(kvExpr.Value)
+	if kvExpr := result.Fields[SchemaFieldMinItemsvExpr != nil && astutils.ExprIntValue(kvExpr.Value) != nil {
+		result.Schema.MinItemsasts.ExprIntValue(kvExpr.Value)
 	}
 
 	if kvExpr := result.Fields[SchemaFieldOptional]; kvExpr != nil && astutils.ExprBoolValue(kvExpr.Value) != nil {
@@ -198,12 +222,18 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 		result.Schema.Sensitive = *astutils.ExprBoolValue(kvExpr.Value)
 	}
 
-	if kvExpr := result.Fields[SchemaFieldStateFunc]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
-		result.Schema.StateFunc = func(interface{}) string { return "" }
+	if kvExpr := result.Fields[SchemaFieldState
+]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
+		result.Schema.State
+
+(interface{}) string { return "" }
 	}
 
-	if kvExpr := result.Fields[SchemaFieldValidateFunc]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
-		result.Schema.ValidateFunc = func(interface{}, string) ([]string, []error) { return nil, nil }
+	if kvExpr := result.Fields[SchemaFieldValidate
+vExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
+		result.Schema.Validate
+ = 
+(interface{}, string) ([]string, []error) { return nil, nil }
 	}
 
 	if kvExpr := result.Fields[SchemaFieldElem]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
@@ -219,21 +249,23 @@ func NewSchemaInfo(cl *ast.CompositeLit, info *types.Info) *SchemaInfo {
 				}
 			}
 		}
-	}
+
 
 	return result
 }
 
-// DeclaresField returns true if the field name is present in the AST
-func (info *SchemaInfo) DeclaresField(fieldName string) bool {
+eclaresField returns true if the field name is present in the AST
+
+ (info *SchemaInfo) DeclaresField(fieldName string) bool {
 	return info.Fields[fieldName] != nil
 }
 
 // DeclaresBoolFieldWithZeroValue returns true if the field name is present and is false
-func (info *SchemaInfo) DeclaresBoolFieldWithZeroValue(fieldName string) bool {
+
+ (info *SchemaInfo) DeclaresBoolFieldWithZeroValue(fieldName string) bool {
 	kvExpr := info.Fields[fieldName]
 
-	// Field not declared
+Field not declared
 	if kvExpr == nil {
 		return false
 	}
@@ -249,12 +281,14 @@ func (info *SchemaInfo) DeclaresBoolFieldWithZeroValue(fieldName string) bool {
 }
 
 // IsType returns true if the given input is equal to the Type
-func (info *SchemaInfo) IsType(valueType string) bool {
+
+ (info *SchemaInfo) IsType(valueType string) bool {
 	return info.SchemaValueType == valueType
 }
 
 // IsOneOfTypes returns true if one of the given input is equal to the Type
-func (info *SchemaInfo) IsOneOfTypes(valueTypes ...string) bool {
+
+ (info *SchemaInfo) IsOneOfTypes(valueTypes ...string) bool {
 	for _, valueType := range valueTypes {
 		if info.SchemaValueType == valueType {
 			return true
@@ -262,10 +296,11 @@ func (info *SchemaInfo) IsOneOfTypes(valueTypes ...string) bool {
 	}
 
 	return false
-}
+
 
 // GetSchemaMapAttributeNames returns all attribute names held in a map[string]*schema.Schema
-func GetSchemaMapAttributeNames(cl *ast.CompositeLit) []ast.Expr {
+
+ GetSchemaMapAttributeNames(cl *ast.CompositeLit) []ast.Expr {
 	var result []ast.Expr
 
 	for _, elt := range cl.Elts {
@@ -273,13 +308,14 @@ func GetSchemaMapAttributeNames(cl *ast.CompositeLit) []ast.Expr {
 		case *ast.KeyValueExpr:
 			result = append(result, v.Key)
 		}
-	}
+
 
 	return result
 }
 
 // GetSchemaMapSchemas returns all Schema held in a map[string]*schema.Schema
-func GetSchemaMapSchemas(cl *ast.CompositeLit) []*ast.CompositeLit {
+
+ GetSchemaMapSchemas(cl *ast.CompositeLit) []*ast.CompositeLit {
 	var result []*ast.CompositeLit
 
 	for _, elt := range cl.Elts {
@@ -287,7 +323,7 @@ func GetSchemaMapSchemas(cl *ast.CompositeLit) []*ast.CompositeLit {
 		case *ast.KeyValueExpr:
 			switch v := v.Value.(type) {
 			case *ast.CompositeLit:
-				result = append(result, v)
+result = append(result, v)
 			}
 		}
 	}
@@ -296,7 +332,8 @@ func GetSchemaMapSchemas(cl *ast.CompositeLit) []*ast.CompositeLit {
 }
 
 // IsTypeSchema returns if the type is Schema from the helper/schema package
-func IsTypeSchema(t types.Type) bool {
+
+ IsTypeSchema(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameSchema)
@@ -308,7 +345,8 @@ func IsTypeSchema(t types.Type) bool {
 }
 
 // IsValueType returns if the Schema field Type matches
-func IsValueType(e ast.Expr, info *types.Info) bool {
+
+ IsValueType(e ast.Expr, info *types.Info) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		switch t := info.TypeOf(e).(type) {
@@ -317,13 +355,14 @@ func IsValueType(e ast.Expr, info *types.Info) bool {
 		default:
 			return false
 		}
-	default:
+ault:
 		return false
 	}
 }
 
 // ValueType returns the schema value type
-func ValueType(e ast.Expr, info *types.Info) valueType {
+
+ ValueType(e ast.Expr, info *types.Info) valueType {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		switch t := info.ObjectOf(e.Sel).(type) {
@@ -333,7 +372,7 @@ func ValueType(e ast.Expr, info *types.Info) valueType {
 				return typeInvalid
 			}
 			return valueType(v)
-		default:
+fault:
 			return typeInvalid
 		}
 	default:
@@ -343,11 +382,12 @@ func ValueType(e ast.Expr, info *types.Info) valueType {
 
 // IsTypeSet returns if the type is Set from the helper/schema package
 // Use IsTypeSchemaFieldType for verifying Type: schema.TypeSet ValueType
-func IsTypeSet(t types.Type) bool {
+
+ IsTypeSet(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameSet)
-	case *types.Pointer:
+e *types.Pointer:
 		return IsTypeSet(t.Elem())
 	default:
 		return false
@@ -355,7 +395,8 @@ func IsTypeSet(t types.Type) bool {
 }
 
 // IsMapStringSchema returns if the type is map[string]*Schema from the helper/schema package
-func IsMapStringSchema(cl *ast.CompositeLit, info *types.Info) bool {
+
+ IsMapStringSchema(cl *ast.CompositeLit, info *types.Info) bool {
 	switch v := cl.Type.(type) {
 	case *ast.MapType:
 		switch k := v.Key.(type) {
@@ -372,7 +413,8 @@ func IsMapStringSchema(cl *ast.CompositeLit, info *types.Info) bool {
 }
 
 // typeSchemaType extracts the string representation of a Schema Type value
-func typeSchemaType(schema *ast.CompositeLit, info *types.Info) string {
+
+ typeSchemaType(schema *ast.CompositeLit, info *types.Info) string {
 	kvExpr := astutils.CompositeLitField(schema, SchemaFieldType)
 
 	if kvExpr == nil {
@@ -387,7 +429,8 @@ func typeSchemaType(schema *ast.CompositeLit, info *types.Info) string {
 }
 
 // valueTypeString extracts the string representation of a Schema ValueType
-func valueTypeString(e ast.Expr) string {
+
+ valueTypeString(e ast.Expr) string {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		return e.Sel.Name

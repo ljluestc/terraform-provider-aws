@@ -20,10 +20,9 @@ import (
 )
 
 // @SDKResource("aws_route53_query_log")
-func ResourceQueryLog() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceQueryLogCreate,
-		ReadWithoutTimeout:   resourceQueryLogRead,
+		ReadWithoutTimeout:ourceQueryLogRead,
 		DeleteWithoutTimeout: resourceQueryLogDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -32,17 +31,17 @@ func ResourceQueryLog() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"cloudwatch_log_group_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -51,11 +50,10 @@ func ResourceQueryLog() *schema.Resource {
 }
 
 func resourceQueryLogCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
+func
 	input := &route53.CreateQueryLoggingConfigInput{
 		CloudWatchLogsLogGroupArn: aws.String(d.Get("cloudwatch_log_group_arn").(string)),
-		HostedZoneId:              aws.String(d.Get("zone_id").(string)),
+		HostedZoneId:ring(d.Get("zone_id").(string)),
 	}
 
 	output, err := conn.CreateQueryLoggingConfigWithContext(ctx, input)
@@ -71,8 +69,7 @@ func resourceQueryLogCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 func resourceQueryLogRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	output, err := FindQueryLoggingConfigByID(ctx, conn, d.Id())
+funcput, err := FindQueryLoggingConfigByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Route53 Query Logging Config %s not found, removing from state", d.Id())
@@ -86,7 +83,7 @@ func resourceQueryLogRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "route53",
+		Service:ute53",
 		Resource:  fmt.Sprintf("queryloggingconfig/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -99,8 +96,7 @@ func resourceQueryLogRead(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceQueryLogDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	log.Printf("[DEBUG] Deleting Route53 Query Logging Config: %s", d.Id())
-	_, err := conn.DeleteQueryLoggingConfigWithContext(ctx, &route53.DeleteQueryLoggingConfigInput{
+funcerr := conn.DeleteQueryLoggingConfigWithContext(ctx, &route53.DeleteQueryLoggingConfigInput{
 		Id: aws.String(d.Id()),
 	})
 

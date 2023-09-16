@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_sagemaker_image", name="Image")
 // @Tags(identifierAttribute="arn")
-func ResourceImage() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceImageCreate,
-		ReadWithoutTimeout:   resourceImageRead,
+		ReadWithoutTimeout:ourceImageRead,
 		UpdateWithoutTimeout: resourceImageUpdate,
 		DeleteWithoutTimeout: resourceImageDelete,
 		Importer: &schema.ResourceImporter{
@@ -36,12 +35,12 @@ func ResourceImage() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 
 			"image_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -50,22 +49,22 @@ func ResourceImage() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"display_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 512),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -74,14 +73,13 @@ func ResourceImage() *schema.Resource {
 }
 
 func resourceImageCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("image_name").(string)
 	input := &sagemaker.CreateImageInput{
 		ImageName: aws.String(name),
-		RoleArn:   aws.String(d.Get("role_arn").(string)),
-		Tags:      getTagsIn(ctx),
+		RoleArn:.String(d.Get("role_arn").(string)),
+		Tags:agsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("display_name"); ok {
@@ -110,8 +108,7 @@ func resourceImageCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 func resourceImageRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	image, err := FindImageByName(ctx, conn, d.Id())
 	if err != nil {
 		if tfawserr.ErrMessageContains(err, sagemaker.ErrCodeResourceNotFound, "does not exist") {
@@ -135,8 +132,7 @@ func resourceImageRead(ctx context.Context, d *schema.ResourceData, meta interfa
 func resourceImageUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-	needsUpdate := false
-
+func
 	input := &sagemaker.UpdateImageInput{
 		ImageName: aws.String(d.Id()),
 	}
@@ -182,8 +178,7 @@ func resourceImageDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteImageInput{
-		ImageName: aws.String(d.Id()),
+funcageName: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteImageWithContext(ctx, input); err != nil {

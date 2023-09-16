@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_policy_table_association")
 
-func ResourceTransitGatewayPolicyTableAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayPolicyTableAssociationCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayPolicyTableAssociationRead,
+		ReadWithoutTimeout:ourceTransitGatewayPolicyTableAssociationRead,
 		DeleteWithoutTimeout: resourceTransitGatewayPolicyTableAssociationDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -34,37 +33,34 @@ func ResourceTransitGatewayPolicyTableAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
-			},
-			"transit_gateway_policy_table_id": {
+functransit_gateway_policy_table_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
 			},
-		},
-	}
+func
 }
 
 
 func resourceTransitGatewayPolicyTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	// If the TGW attachment is already associated with a TGW route table, disassociate it to prevent errors like
+funcIf the TGW attachment is already associated with a TGW route table, disassociate it to prevent errors like
 	// "IncorrectState: Cannot have both PolicyTableAssociation and RouteTableAssociation on the same TransitGateway Attachment".
 	transitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
 	transitGatewayAttachment, err := FindTransitGatewayAttachmentByID(ctx, conn, transitGatewayAttachmentID)
@@ -118,8 +114,7 @@ func resourceTransitGatewayPolicyTableAssociationRead(ctx context.Context, d *sc
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	transitGatewayPolicyTableID, transitGatewayAttachmentID, err := TransitGatewayPolicyTableAssociationParseResourceID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Policy Table Association (%s): %s", d.Id(), err)
 	}
@@ -150,8 +145,7 @@ func resourceTransitGatewayPolicyTableAssociationDelete(ctx context.Context, d *
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	transitGatewayPolicyTableID, transitGatewayAttachmentID, err := TransitGatewayPolicyTableAssociationParseResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Policy Table Association (%s): %s", d.Id(), err)
 	}
 
@@ -185,8 +179,7 @@ func TransitGatewayPolicyTableAssociationCreateResourceID(transitGatewayPolicyTa
 
 	return id
 }
-
-
+func
 func TransitGatewayPolicyTableAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayPolicyTableAssociationIDSeparator)
 
@@ -194,5 +187,4 @@ func TransitGatewayPolicyTableAssociationParseResourceID(id string) (string, str
 		return parts[0], parts[1], nil
 	}
 
-	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected TRANSIT-GATEWAY-POLICY-TABLE-ID%[2]sTRANSIT-GATEWAY-ATTACHMENT-ID", id, transitGatewayPolicyTableAssociationIDSeparator)
-}
+func

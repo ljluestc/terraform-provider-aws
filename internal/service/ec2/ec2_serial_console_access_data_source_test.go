@@ -18,21 +18,18 @@ import (
 )
 
 
-func TestAccEC2SerialConsoleAccessDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccSerialConsoleAccessDataSourceConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSerialConsoleAccessDataSource(ctx, "data.aws_ec2_serial_console_access.current"),
-),
-	},
+func
 },
 	})
 }
@@ -41,13 +38,10 @@ func(
 func testAccCheckSerialConsoleAccessDataSource(ctx context.Context, n string) resource.TestCheck
 func {
 	return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-rs, ok := s.RootModule().Resources[n]
+func := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+funcok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
+func
 
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No ID is set")

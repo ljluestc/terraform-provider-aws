@@ -25,10 +25,10 @@ func TestAccCloudFrontFieldLevelEncryptionProfile_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
-		CheckDestroy:             testAccCheckFieldLevelEncryptionProfileDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:ieldLevelEncryptionProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFieldLevelEncryptionProfileConfig_basic(rName),
@@ -39,7 +39,7 @@ func TestAccCloudFrontFieldLevelEncryptionProfile_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encryption_entities.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "encryption_entities.0.items.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encryption_entities.0.items.*", map[string]string{
-						"provider_id":              rName,
+						"provider_id":
 						"field_patterns.#":         "1",
 						"field_patterns.0.items.#": "1",
 					}),
@@ -61,7 +61,7 @@ func TestAccCloudFrontFieldLevelEncryptionProfile_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encryption_entities.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "encryption_entities.0.items.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encryption_entities.0.items.*", map[string]string{
-						"provider_id":              rName,
+						"provider_id":
 						"field_patterns.#":         "1",
 						"field_patterns.0.items.#": "2",
 					}),
@@ -81,10 +81,10 @@ func TestAccCloudFrontFieldLevelEncryptionProfile_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
-		CheckDestroy:             testAccCheckFieldLevelEncryptionProfileDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:ieldLevelEncryptionProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFieldLevelEncryptionProfileConfig_basic(rName),

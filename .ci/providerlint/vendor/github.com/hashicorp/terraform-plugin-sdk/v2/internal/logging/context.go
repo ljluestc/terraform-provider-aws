@@ -15,9 +15,11 @@ import (
 // "production" (not under acceptance testing). The incoming context will
 // already have the root SDK logger and root provider logger setup from
 // terraform-plugin-go tf5server RPC handlers.
-func InitContext(ctx context.Context) context.Context {
-	ctx = tfsdklog.NewSubsystem(ctx, SubsystemHelperSchema,
-		// All calls are through the HelperSchema* helper functions
+
+ InitContext(ctx context.Context) context.Context {
+	ctx = tfsdklog.NewSubsystem(ctx, SubsystemHelperSch
+		// All calls are through the HelperSchema* helper 
+tions
 		tfsdklog.WithAdditionalLocationOffset(1),
 		tfsdklog.WithLevelFromEnv(EnvTfLogSdkHelperSchema),
 		// Propagate tf_req_id, tf_rpc, etc. fields
@@ -32,46 +34,52 @@ func InitContext(ctx context.Context) context.Context {
 // contexts. The incoming context is expected to be devoid of logging setup.
 //
 // The standard library log package handling is important as provider code
-// under test may be using that package or another logging library outside of
+nder test may be using that package or another logging library outside of
 // terraform-plugin-log.
-func InitTestContext(ctx context.Context, t testing.T) context.Context {
+
+ InitTestContext(ctx context.Context, t testing.T) context.Context {
 	helperlogging.SetOutput(t)
 
 	ctx = tfsdklog.RegisterTestSink(ctx, t)
 	ctx = tfsdklog.NewRootSDKLogger(ctx, tfsdklog.WithLevelFromEnv(EnvTfLogSdk))
 	ctx = tfsdklog.NewSubsystem(ctx, SubsystemHelperResource,
-		// All calls are through the HelperResource* helper functions
+		// All calls are through the HelperResource* helper 
+tions
 		tfsdklog.WithAdditionalLocationOffset(1),
 		tfsdklog.WithLevelFromEnv(EnvTfLogSdkHelperResource),
 	)
 	ctx = TestNameContext(ctx, t.Name())
 
-	return ctx
+urn ctx
 }
 
 // TestNameContext adds the current test name to loggers.
-func TestNameContext(ctx context.Context, testName string) context.Context {
+
+ TestNameContext(ctx context.Context, testName string) context.Context {
 	ctx = tfsdklog.SubsystemSetField(ctx, SubsystemHelperResource, KeyTestName, testName)
 
 	return ctx
 }
 
 // TestStepNumberContext adds the current test step number to loggers.
-func TestStepNumberContext(ctx context.Context, stepNumber int) context.Context {
-	ctx = tfsdklog.SubsystemSetField(ctx, SubsystemHelperResource, KeyTestStepNumber, stepNumber)
+
+ TestStepNumberContext(ctx context.Context, stepNumber int) context.Context {
+ = tfsdklog.SubsystemSetField(ctx, SubsystemHelperResource, KeyTestStepNumber, stepNumber)
 
 	return ctx
 }
 
 // TestTerraformPathContext adds the current test Terraform CLI path to loggers.
-func TestTerraformPathContext(ctx context.Context, terraformPath string) context.Context {
+
+tTerraformPathContext(ctx context.Context, terraformPath string) context.Context {
 	ctx = tfsdklog.SubsystemSetField(ctx, SubsystemHelperResource, KeyTestTerraformPath, terraformPath)
 
 	return ctx
 }
 
 // TestWorkingDirectoryContext adds the current test working directory to loggers.
-func TestWorkingDirectoryContext(ctx context.Context, workingDirectory string) context.Context {
+
+ TestWorkingDirectoryContext(ctx context.Context, workingDirectory string) context.Context {
 	ctx = tfsdklog.SubsystemSetField(ctx, SubsystemHelperResource, KeyTestWorkingDirectory, workingDirectory)
 
 	return ctx

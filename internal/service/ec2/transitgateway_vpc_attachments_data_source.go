@@ -16,8 +16,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_vpc_attachments")
 
-func DataSourceTransitGatewayVPCAttachments() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayVPCAttachmentsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -27,17 +26,16 @@ func DataSourceTransitGatewayVPCAttachments() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceTransitGatewayVPCAttachmentsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeTransitGatewayVpcAttachmentsInput{}
 
 	input.Filters = append(input.Filters, BuildCustomFilterList(

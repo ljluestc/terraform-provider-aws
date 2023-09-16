@@ -24,10 +24,10 @@ func TestAccDirectConnectConnectionAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAssociationConfig_basic(rName),
@@ -45,10 +45,10 @@ func TestAccDirectConnectConnectionAssociation_lagOnConnection(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAssociationConfig_lagOn(rName),
@@ -67,10 +67,10 @@ func TestAccDirectConnectConnectionAssociation_multiple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionAssociationConfig_multiple(rName),
@@ -141,9 +141,9 @@ resource "aws_dx_connection" "test" {
 }
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = local.location_code
+  location = local.location_code
   force_destroy         = true
 }
 
@@ -175,10 +175,10 @@ resource "aws_dx_connection" "test2" {
 }
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connection_id         = aws_dx_connection.test1.id
   connections_bandwidth = "1Gbps"
-  location              = local.location_code
+  location = local.location_code
 }
 
 resource "aws_dx_connection_association" "test" {
@@ -209,9 +209,9 @@ resource "aws_dx_connection" "test2" {
 }
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = local.location_code
+  location = local.location_code
   force_destroy         = true
 }
 

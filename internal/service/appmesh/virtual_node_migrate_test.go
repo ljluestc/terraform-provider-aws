@@ -33,19 +33,19 @@ func TestVirtualNodeMigrateState(t *testing.T) {
 		"v0_1-withBackendAndDns": {
 			StateVersion: 0,
 			Attributes: map[string]string{
-				"spec.0.backends.#":                             "1",
-				"spec.0.backends.1255689679":                    "servicea.simpleapp.local",
-				"spec.0.service_discovery.#":                    "1",
-				"spec.0.service_discovery.0.dns.#":              "1",
+				"spec.0.backends.#":   "1",
+				"spec.0.backends.1255689679":       "servicea.simpleapp.local",
+				"spec.0.service_discovery.#":       "1",
+				"spec.0.service_discovery.0.dns.#": "1",
 				"spec.0.service_discovery.0.dns.0.service_name": "serviceb.simpleapp.local",
 			},
 			Expected: map[string]string{
-				"spec.0.backend.#":                                        "1",
-				"spec.0.backend.0.virtual_service.#":                      "1",
+				"spec.0.backend.#": "1",
+				"spec.0.backend.0.virtual_service.#":         "1",
 				"spec.0.backend.0.virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
-				"spec.0.service_discovery.#":                              "1",
-				"spec.0.service_discovery.0.dns.#":                        "1",
-				"spec.0.service_discovery.0.dns.0.hostname":               "serviceb.simpleapp.local",
+				"spec.0.service_discovery.#":    "1",
+				"spec.0.service_discovery.0.dns.#":           "1",
+				"spec.0.service_discovery.0.dns.0.hostname":  "serviceb.simpleapp.local",
 			},
 		},
 	}

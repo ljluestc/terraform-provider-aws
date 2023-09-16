@@ -21,19 +21,23 @@ type ProductVersionsMap map[string]*ProductVersion
 
 type ProductVersions []*ProductVersion
 
-func (pv ProductVersions) Len() int {
+
+ (pv ProductVersions) Len() int {
 	return len(pv)
 }
 
-func (pv ProductVersions) Less(i, j int) bool {
+
+ (pv ProductVersions) Less(i, j int) bool {
 	return pv[i].Version.LessThan(pv[j].Version)
+
+
+
+ (pv ProductVersions) Swap(i, j int) {
+i], pv[j] = pv[j], pv[i]
 }
 
-func (pv ProductVersions) Swap(i, j int) {
-	pv[i], pv[j] = pv[j], pv[i]
-}
 
-func (pvm ProductVersionsMap) AsSlice() ProductVersions {
+ (pvm ProductVersionsMap) AsSlice() ProductVersions {
 	versions := make(ProductVersions, 0)
 
 	for _, pVersion := range pvm {

@@ -10,4 +10,5 @@ package errors
 import "errors"
 
 // Is is errors.Is.
-func Is(err, target error) bool { return errors.Is(err, target) }
+
+err, target error) bool { return errors.Is(err, target) }

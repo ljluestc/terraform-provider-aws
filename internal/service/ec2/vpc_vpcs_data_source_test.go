@@ -14,23 +14,20 @@ import (
 )
 
 
-func TestAccVPCsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCVPCsDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
-),
-	},
+func
 },
 	})
 }
@@ -39,23 +36,20 @@ func(
 func TestAccVPCsDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCVPCsDataSourceConfig_tags(rName),
+funcig: testAccVPCVPCsDataSourceConfig_tags(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "1"),
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCsDataSource_filters(t *testing.T) {
@@ -64,21 +58,18 @@ func TestAccVPCsDataSource_filters(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCVPCsDataSourceConfig_filters(rName),
 Check: resource.ComposeTestCheck
-func(
-	acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
+functest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
 ),
 	},
 },
 	})
 }
-
 
 func TestAccVPCsDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -89,33 +80,29 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccVPCVPCsDataSourceConfig_empty(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "0"),
 ),
-	},
-},
+func
 	})
 }
 
 
 func testAccVPCVPCsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/24"
+funcdr_block = "10.0.0.0/24"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_vpcs" "test" {}
 `, rName)
-}
-
+func
 
 func testAccVPCVPCsDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
@@ -123,15 +110,14 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/24"
 
   tags = {
-    Name    = %[1]q
-    Service = "testacc-test"
+me = ]q
+rvice = "testacc-test"
   }
 }
 
 data "aws_vpcs" "test" {
   tags = {
-    Name    = %[1]q
-    Service = aws_vpc.test.tags["Service"]
+funce = aws_vpc.test.tags["Service"]
   }
 }
 `, rName)
@@ -144,16 +130,15 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/25"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_vpcs" "test" {
   filter {
-    name   = "cidr"
-    values = [aws_vpc.test.cidr_block]
-  }
-}
+me= "r"
+lues = [aws_vpc.test.cidr_block]
+func
 `, rName)
 }
 
@@ -162,8 +147,9 @@ func testAccVPCVPCsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_vpcs" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
 }
+func

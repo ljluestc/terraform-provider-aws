@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf ec2.NetworkInterface
 	resourceName := "aws_network_interface_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,25 +22,23 @@ func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckENIDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckENIDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfaceAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckENIExists(ctx, "aws_network_interface.test", &conf),
-	resource.TestCheckResourceAttrSet(resourceName, "attachment_id"),
-	resource.TestCheckResourceAttr(resourceName, "device_index", "1"),
+funcource.TestCheckResourceAttr(resourceName, "device_index", "1"),
 	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 	resource.TestCheckResourceAttrSet(resourceName, "network_interface_id"),
 	resource.TestCheckResourceAttrSet(resourceName, "status"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -52,56 +49,55 @@ ImportStateVerify: true,
 func testAccVPCNetworkInterfaceAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
-acctest.ConfigAvailableAZsNoOptIn(),
+funcest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "172.16.10.0/24"
+  vpc_idws_vpc.test.id
+  cidr_block16.10.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-  name   = %[1]q
+  name[1]q
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
+om_port= 0
+_port
+otocol = p"
+dr_blocks = ["10.0.0.0/16"]
   }
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id       = aws_subnet.test.id
-  private_ips     = ["172.16.10.100"]
+  subnet_idbnet.test.id
+  private_ips.10.100"]
   security_groups = [aws_security_group.test.id]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_instance" "test" {
   ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_id     = aws_subnet.test.id
+  subnet_idet.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

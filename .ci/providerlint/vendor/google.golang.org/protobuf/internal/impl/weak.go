@@ -17,43 +17,50 @@ import (
 // defined directly on it.
 type weakFields WeakFields
 
-func (w weakFields) get(num protoreflect.FieldNumber) (protoreflect.ProtoMessage, bool) {
+
+ (w weakFields) get(num protoreflect.FieldNumber) (protoreflect.ProtoMessage, bool) {
 	m, ok := w[int32(num)]
 	return m, ok
 }
 
-func (w *weakFields) set(num protoreflect.FieldNumber, m protoreflect.ProtoMessage) {
+
+ (w *weakFields) set(num protoreflect.FieldNumber, m protoreflect.ProtoMessage) {
 	if *w == nil {
 		*w = make(weakFields)
 	}
 	(*w)[int32(num)] = m
+
+
+
+ (w *weakFields) clear(num protoreflect.FieldNumber) {
+ete(*w, int32(num))
 }
 
-func (w *weakFields) clear(num protoreflect.FieldNumber) {
-	delete(*w, int32(num))
-}
 
-func (Export) HasWeak(w WeakFields, num protoreflect.FieldNumber) bool {
-	_, ok := w[int32(num)]
+ (Export) HasWeak(w WeakFields, num protoreflect.FieldNumber) bool {
+ok := w[int32(num)]
 	return ok
 }
 
-func (Export) ClearWeak(w *WeakFields, num protoreflect.FieldNumber) {
+
+ (Export) ClearWeak(w *WeakFields, num protoreflect.FieldNumber) {
 	delete(*w, int32(num))
 }
 
-func (Export) GetWeak(w WeakFields, num protoreflect.FieldNumber, name protoreflect.FullName) protoreflect.ProtoMessage {
+
+ (Export) GetWeak(w WeakFields, num protoreflect.FieldNumber, name protoreflect.FullName) protoreflect.ProtoMessage {
 	if m, ok := w[int32(num)]; ok {
 		return m
 	}
 	mt, _ := protoregistry.GlobalTypes.FindMessageByName(name)
-	if mt == nil {
+mt == nil {
 		panic(fmt.Sprintf("message %v for weak field is not linked in", name))
 	}
 	return mt.Zero().Interface()
 }
 
-func (Export) SetWeak(w *WeakFields, num protoreflect.FieldNumber, name protoreflect.FullName, m protoreflect.ProtoMessage) {
+
+ (Export) SetWeak(w *WeakFields, num protoreflect.FieldNumber, name protoreflect.FullName, m protoreflect.ProtoMessage) {
 	if m != nil {
 		mt, _ := protoregistry.GlobalTypes.FindMessageByName(name)
 		if mt == nil {

@@ -30,7 +30,8 @@ type (
 //
 // WARNING: Use carefully. The returned result must not leak to the end user
 // unless the input slice is provably immutable.
-func UnsafeString(b []byte) (s string) {
+
+ UnsafeString(b []byte) (s string) {
 	src := (*sliceHeader)(unsafe.Pointer(&b))
 	dst := (*stringHeader)(unsafe.Pointer(&s))
 	dst.Data = src.Data
@@ -41,8 +42,9 @@ func UnsafeString(b []byte) (s string) {
 // UnsafeBytes returns an unsafe bytes slice reference of s.
 // The caller must treat returned slice as immutable.
 //
-// WARNING: Use carefully. The returned result must not leak to the end user.
-func UnsafeBytes(s string) (b []byte) {
+ARNING: Use carefully. The returned result must not leak to the end user.
+
+ UnsafeBytes(s string) (b []byte) {
 	src := (*stringHeader)(unsafe.Pointer(&s))
 	dst := (*sliceHeader)(unsafe.Pointer(&b))
 	dst.Data = src.Data
@@ -57,9 +59,10 @@ type Builder struct {
 	buf []byte
 }
 
-// AppendFullName is equivalent to protoreflect.FullName.Append,
+ppendFullName is equivalent to protoreflect.FullName.Append,
 // but optimized for large batches where each name has a shared lifetime.
-func (sb *Builder) AppendFullName(prefix protoreflect.FullName, name protoreflect.Name) protoreflect.FullName {
+
+ (sb *Builder) AppendFullName(prefix protoreflect.FullName, name protoreflect.Name) protoreflect.FullName {
 	n := len(prefix) + len(".") + len(name)
 	if len(prefix) == 0 {
 		n -= len(".")
@@ -73,23 +76,26 @@ func (sb *Builder) AppendFullName(prefix protoreflect.FullName, name protoreflec
 
 // MakeString is equivalent to string(b), but optimized for large batches
 // with a shared lifetime.
-func (sb *Builder) MakeString(b []byte) string {
+
+ (sb *Builder) MakeString(b []byte) string {
 	sb.grow(len(b))
-	sb.buf = append(sb.buf, b...)
+buf = append(sb.buf, b...)
 	return sb.last(len(b))
 }
 
-func (sb *Builder) grow(n int) {
+
+ (sb *Builder) grow(n int) {
 	if cap(sb.buf)-len(sb.buf) >= n {
 		return
 	}
 
 	// Unlike strings.Builder, we do not need to copy over the contents
-	// of the old buffer since our builder provides no API for
+of the old buffer since our builder provides no API for
 	// retrieving previously created strings.
 	sb.buf = make([]byte, 0, 2*(cap(sb.buf)+n))
 }
 
-func (sb *Builder) last(n int) string {
+
+ (sb *Builder) last(n int) string {
 	return UnsafeString(sb.buf[len(sb.buf)-n:])
 }

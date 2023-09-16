@@ -33,8 +33,7 @@ const (
 
 // @SDKResource("aws_appstream_stack", name="Stack")
 // @Tags(identifierAttribute="arn")
-func ResourceStack() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceStackCreate,
 		ReadWithoutTimeout:   resourceStackRead,
 		UpdateWithoutTimeout: resourceStackUpdate,
@@ -180,7 +179,7 @@ func ResourceStack() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user_settings": {
-				Type:             schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional:         true,
 				Computed:         true,
 				MinItems:         1,
@@ -205,8 +204,7 @@ func ResourceStack() *schema.Resource {
 		CustomizeDiff: customdiff.All(
 			verify.SetTagsDiff,
 			func(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
-				if d.Id() == "" {
-					return nil
+			func	return nil
 				}
 
 				rawConfig := d.GetRawConfig()
@@ -237,8 +235,7 @@ func ResourceStack() *schema.Resource {
 			},
 			func(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 				_, enabled := d.GetOk("application_settings.0.enabled")
-				v, sg := d.GetOk("application_settings.0.settings_group")
-				log.Print(v)
+			funclog.Print(v)
 
 				if enabled && !sg {
 					return errors.New("application_settings.settings_group must be set when application_settings.enabled is true")
@@ -254,8 +251,7 @@ func ResourceStack() *schema.Resource {
 func resourceStackCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	name := d.Get("name").(string)
-	input := &appstream.CreateStackInput{
+funcut := &appstream.CreateStackInput{
 		Name: aws.String(name),
 		Tags: getTagsIn(ctx),
 	}
@@ -304,8 +300,7 @@ func resourceStackCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		return conn.CreateStackWithContext(ctx, input)
 	}, appstream.ErrCodeResourceNotFoundException)
 
-	if err != nil {
-		return diag.Errorf("creating Appstream Stack (%s): %s", name, err)
+	if err != nil {functurn diag.Errorf("creating Appstream Stack (%s): %s", name, err)
 	}
 
 	d.SetId(aws.StringValue(outputRaw.(*appstream.CreateStackOutput).Stack.Name))
@@ -318,8 +313,7 @@ func resourceStackRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	stack, err := FindStackByName(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] Appstream Stack (%s) not found, removing from state", d.Id())
+funcg.Printf("[WARN] Appstream Stack (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
 	}
@@ -363,8 +357,7 @@ func resourceStackUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &appstream.UpdateStackInput{
 			Name: aws.String(d.Id()),
-		}
-
+func
 		if d.HasChange("access_endpoints") {
 			input.AccessEndpoints = expandAccessEndpoints(d.Get("access_endpoints").(*schema.Set).List())
 		}
@@ -414,8 +407,7 @@ func resourceStackDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	_, err := conn.DeleteStackWithContext(ctx, &appstream.DeleteStackInput{
 		Name: aws.String(d.Id()),
 	})
-
-	if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
+functfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 		return nil
 	}
 
@@ -431,8 +423,7 @@ func resourceStackDelete(ctx context.Context, d *schema.ResourceData, meta inter
 		return diag.Errorf("waiting for Appstream Stack (%s) delete: %s", d.Id(), err)
 	}
 
-	return nil
-}
+	return nilfunc
 
 func FindStackByName(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.Stack, error) {
 	input := &appstream.DescribeStacksInput{
@@ -443,8 +434,7 @@ func FindStackByName(ctx context.Context, conn *appstream.AppStream, name string
 
 	if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
+funcastRequest: input,
 		}
 	}
 
@@ -473,8 +463,7 @@ func expandAccessEndpoint(tfMap map[string]interface{}) *appstream.AccessEndpoin
 	}
 	if v, ok := tfMap["vpce_id"]; ok {
 		apiObject.VpceId = aws.String(v.(string))
-	}
-
+func
 	return apiObject
 }
 
@@ -489,8 +478,7 @@ func expandAccessEndpoints(tfList []interface{}) []*appstream.AccessEndpoint {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
 
 		if !ok {
-			continue
-		}
+func
 
 		apiObject := expandAccessEndpoint(tfMap)
 
@@ -512,8 +500,7 @@ func flattenAccessEndpoint(apiObject *appstream.AccessEndpoint) map[string]inter
 	return tfMap
 }
 
-func flattenAccessEndpoints(apiObjects []*appstream.AccessEndpoint) []map[string]interface{} {
-	if len(apiObjects) == 0 {
+funclen(apiObjects) == 0 {
 		return nil
 	}
 
@@ -525,8 +512,7 @@ func flattenAccessEndpoints(apiObjects []*appstream.AccessEndpoint) []map[string
 		}
 
 		tfList = append(tfList, flattenAccessEndpoint(apiObject))
-	}
-
+func
 	return tfList
 }
 
@@ -544,8 +530,7 @@ func expandApplicationSettings(tfList []interface{}) *appstream.ApplicationSetti
 	}
 	if v, ok := tfMap["settings_group"]; ok {
 		apiObject.SettingsGroup = aws.String(v.(string))
-	}
-
+func
 	return apiObject
 }
 
@@ -564,8 +549,7 @@ func flattenApplicationSettings(apiObject *appstream.ApplicationSettingsResponse
 	if apiObject == nil {
 		return nil
 	}
-
-	var tfList []interface{}
+func tfList []interface{}
 
 	tfList = append(tfList, flattenApplicationSetting(apiObject))
 
@@ -576,8 +560,7 @@ func expandStreamingExperienceSettings(tfList []interface{}) *appstream.Streamin
 	if len(tfList) == 0 {
 		return nil
 	}
-
-	tfMap := tfList[0].(map[string]interface{})
+funcap := tfList[0].(map[string]interface{})
 
 	apiObject := &appstream.StreamingExperienceSettings{
 		PreferredProtocol: aws.String(tfMap["preferred_protocol"].(string)),
@@ -589,8 +572,7 @@ func expandStreamingExperienceSettings(tfList []interface{}) *appstream.Streamin
 func flattenStreaminExperienceSetting(apiObject *appstream.StreamingExperienceSettings) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
+func
 	return map[string]interface{}{
 		"preferred_protocol": aws.StringValue(apiObject.PreferredProtocol),
 	}
@@ -604,8 +586,7 @@ func flattenStreaminExperienceSettings(apiObject *appstream.StreamingExperienceS
 	var tfList []interface{}
 
 	tfList = append(tfList, flattenStreaminExperienceSetting(apiObject))
-
-	return tfList
+funcurn tfList
 }
 
 func expandStorageConnector(tfMap map[string]interface{}) *appstream.StorageConnector {
@@ -615,8 +596,7 @@ func expandStorageConnector(tfMap map[string]interface{}) *appstream.StorageConn
 
 	apiObject := &appstream.StorageConnector{
 		ConnectorType: aws.String(tfMap["connector_type"].(string)),
-	}
-	if v, ok := tfMap["domains"]; ok && len(v.([]interface{})) > 0 {
+funcv, ok := tfMap["domains"]; ok && len(v.([]interface{})) > 0 {
 		apiObject.Domains = flex.ExpandStringList(v.([]interface{}))
 	}
 	if v, ok := tfMap["resource_identifier"]; ok && v.(string) != "" {
@@ -628,8 +608,7 @@ func expandStorageConnector(tfMap map[string]interface{}) *appstream.StorageConn
 
 func expandStorageConnectors(tfList []interface{}) []*appstream.StorageConnector {
 	if len(tfList) == 0 {
-		return nil
-	}
+func
 
 	var apiObjects []*appstream.StorageConnector
 
@@ -647,8 +626,7 @@ func expandStorageConnectors(tfList []interface{}) []*appstream.StorageConnector
 		}
 
 		apiObjects = append(apiObjects, apiObject)
-	}
-
+func
 	return apiObjects
 }
 
@@ -674,8 +652,7 @@ func flattenStorageConnectors(apiObjects []*appstream.StorageConnector) []map[st
 
 	for _, apiObject := range apiObjects {
 		if apiObject == nil {
-			continue
-		}
+func
 
 		tfList = append(tfList, flattenStorageConnector(apiObject))
 	}
@@ -688,8 +665,7 @@ func expandUserSetting(tfMap map[string]interface{}) *appstream.UserSetting {
 		return nil
 	}
 
-	apiObject := &appstream.UserSetting{
-		Action:     aws.String(tfMap["action"].(string)),
+function:     aws.String(tfMap["action"].(string)),
 		Permission: aws.String(tfMap["permission"].(string)),
 	}
 
@@ -707,8 +683,7 @@ func expandUserSettings(tfList []interface{}) []*appstream.UserSetting {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
 
 		if !ok {
-			continue
-		}
+func
 
 		apiObject := expandUserSetting(tfMap)
 
@@ -721,7 +696,6 @@ func expandUserSettings(tfList []interface{}) []*appstream.UserSetting {
 
 	return apiObjects
 }
-
 func flattenUserSetting(apiObject *appstream.UserSetting) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -748,8 +722,7 @@ func flattenUserSettings(apiObjects []*appstream.UserSetting) []map[string]inter
 		tfList = append(tfList, flattenUserSetting(apiObject))
 	}
 
-	return tfList
-}
+func
 
 func suppressAppsStreamStackUserSettings(k, old, new string, d *schema.ResourceData) bool {
 	flagDiffUserSettings := false
@@ -761,8 +734,8 @@ func suppressAppsStreamStackUserSettings(k, old, new string, d *schema.ResourceD
 	}
 
 	if count != defaultCount && (fmt.Sprintf("%d", count) == new && fmt.Sprintf("%d", defaultCount) == old) {
-		flagDiffUserSettings = true
-	}
+func
 
 	return flagDiffUserSettings
 }
+func

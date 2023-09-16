@@ -41,7 +41,8 @@ type Encoder struct {
 //
 // If indent is a non-empty string, it causes every entry for an Array or Object
 // to be preceded by the indent and trailed by a newline.
-func NewEncoder(buf []byte, indent string) (*Encoder, error) {
+
+ NewEncoder(buf []byte, indent string) (*Encoder, error) {
 	e := &Encoder{
 		out: buf,
 	}
@@ -54,42 +55,47 @@ func NewEncoder(buf []byte, indent string) (*Encoder, error) {
 	return e, nil
 }
 
-// Bytes returns the content of the written bytes.
-func (e *Encoder) Bytes() []byte {
+ytes returns the content of the written bytes.
+
+ (e *Encoder) Bytes() []byte {
 	return e.out
 }
 
 // WriteNull writes out the null value.
-func (e *Encoder) WriteNull() {
+
+ (e *Encoder) WriteNull() {
 	e.prepareNext(scalar)
 	e.out = append(e.out, "null"...)
-}
+
 
 // WriteBool writes out the given boolean value.
-func (e *Encoder) WriteBool(b bool) {
+
+ (e *Encoder) WriteBool(b bool) {
 	e.prepareNext(scalar)
 	if b {
 		e.out = append(e.out, "true"...)
 	} else {
 		e.out = append(e.out, "false"...)
 	}
-}
+
 
 // WriteString writes out the given string in JSON string value. Returns error
 // if input string contains invalid UTF-8.
-func (e *Encoder) WriteString(s string) error {
+
+ (e *Encoder) WriteString(s string) error {
 	e.prepareNext(scalar)
 	var err error
 	if e.out, err = appendString(e.out, s); err != nil {
 		return err
 	}
 	return nil
-}
+
 
 // Sentinel error used for indicating invalid UTF-8.
 var errInvalidUTF8 = errors.New("invalid UTF-8")
 
-func appendString(out []byte, in string) ([]byte, error) {
+
+ appendString(out []byte, in string) ([]byte, error) {
 	out = append(out, '"')
 	i := indexNeedEscapeInString(in)
 	in, out = in[i:], append(out, in[:i]...)
@@ -123,29 +129,32 @@ func appendString(out []byte, in string) ([]byte, error) {
 			in, out = in[n+i:], append(out, in[:n+i]...)
 		}
 	}
-	out = append(out, '"')
+ = append(out, '"')
 	return out, nil
 }
 
 // indexNeedEscapeInString returns the index of the character that needs
 // escaping. If no characters need escaping, this returns the input length.
-func indexNeedEscapeInString(s string) int {
+
+ indexNeedEscapeInString(s string) int {
 	for i, r := range s {
 		if r < ' ' || r == '\\' || r == '"' || r == utf8.RuneError {
-			return i
+eturn i
 		}
 	}
 	return len(s)
 }
 
-// WriteFloat writes out the given float and bitSize in JSON number value.
-func (e *Encoder) WriteFloat(n float64, bitSize int) {
+riteFloat writes out the given float and bitSize in JSON number value.
+
+ (e *Encoder) WriteFloat(n float64, bitSize int) {
 	e.prepareNext(scalar)
 	e.out = appendFloat(e.out, n, bitSize)
 }
 
 // appendFloat formats given float in bitSize, and appends to the given []byte.
-func appendFloat(out []byte, n float64, bitSize int) []byte {
+
+ appendFloat(out []byte, n float64, bitSize int) []byte {
 	switch {
 	case math.IsNaN(n):
 		return append(out, `"NaN"`...)
@@ -167,66 +176,75 @@ func appendFloat(out []byte, n float64, bitSize int) []byte {
 	out = strconv.AppendFloat(out, n, fmt, -1, bitSize)
 	if fmt == 'e' {
 		n := len(out)
-		if n >= 4 && out[n-4] == 'e' && out[n-3] == '-' && out[n-2] == '0' {
+ n >= 4 && out[n-4] == 'e' && out[n-3] == '-' && out[n-2] == '0' {
 			out[n-2] = out[n-1]
 			out = out[:n-1]
 		}
 	}
 	return out
-}
+
 
 // WriteInt writes out the given signed integer in JSON number value.
-func (e *Encoder) WriteInt(n int64) {
+
+ (e *Encoder) WriteInt(n int64) {
 	e.prepareNext(scalar)
-	e.out = strconv.AppendInt(e.out, n, 10)
+ut = strconv.AppendInt(e.out, n, 10)
 }
 
 // WriteUint writes out the given unsigned integer in JSON number value.
-func (e *Encoder) WriteUint(n uint64) {
-	e.prepareNext(scalar)
+
+ (e *Encoder) WriteUint(n uint64) {
+repareNext(scalar)
 	e.out = strconv.AppendUint(e.out, n, 10)
 }
 
 // StartObject writes out the '{' symbol.
-func (e *Encoder) StartObject() {
+
+ (e *Encoder) StartObject() {
 	e.prepareNext(objectOpen)
-	e.out = append(e.out, '{')
+ut = append(e.out, '{')
 }
 
 // EndObject writes out the '}' symbol.
-func (e *Encoder) EndObject() {
+
+ (e *Encoder) EndObject() {
 	e.prepareNext(objectClose)
 	e.out = append(e.out, '}')
 }
 
-// WriteName writes out the given string in JSON string value and the name
+riteName writes out the given string in JSON string value and the name
 // separator ':'. Returns error if input string contains invalid UTF-8, which
 // should not be likely as protobuf field names should be valid.
-func (e *Encoder) WriteName(s string) error {
+
+ (e *Encoder) WriteName(s string) error {
 	e.prepareNext(name)
-	var err error
+ err error
 	// Append to output regardless of error.
 	e.out, err = appendString(e.out, s)
 	e.out = append(e.out, ':')
 	return err
 }
 
-// StartArray writes out the '[' symbol.
-func (e *Encoder) StartArray() {
+tartArray writes out the '[' symbol.
+
+ (e *Encoder) StartArray() {
 	e.prepareNext(arrayOpen)
 	e.out = append(e.out, '[')
 }
 
 // EndArray writes out the ']' symbol.
-func (e *Encoder) EndArray() {
+
+ (e *Encoder) EndArray() {
 	e.prepareNext(arrayClose)
 	e.out = append(e.out, ']')
 }
 
 // prepareNext adds possible comma and indentation for the next value based
 // on last type and indent option. It also updates lastKind to next.
-func (e *Encoder) prepareNext(next kind) {
-	defer func() {
+
+ (e *Encoder) prepareNext(next kind) {
+	defer 
+() {
 		// Set lastKind to next.
 		e.lastKind = next
 	}()

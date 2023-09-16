@@ -26,17 +26,20 @@ import (
 const defaultIndent = "  "
 
 // Format formats the message as a multiline string.
-// This function is only intended for human consumption and ignores errors.
+// This 
+tion is only intended for human consumption and ignores errors.
 // Do not depend on the output being stable. It may change over time across
-// different versions of the program.
-func Format(m proto.Message) string {
+ifferent versions of the program.
+
+ Format(m proto.Message) string {
 	return MarshalOptions{Multiline: true}.Format(m)
 }
 
 // Marshal writes the given proto.Message in textproto format using default
-// options. Do not depend on the output being stable. It may change over time
+ptions. Do not depend on the output being stable. It may change over time
 // across different versions of the program.
-func Marshal(m proto.Message) ([]byte, error) {
+
+ Marshal(m proto.Message) ([]byte, error) {
 	return MarshalOptions{}.Marshal(m)
 }
 
@@ -83,10 +86,11 @@ type MarshalOptions struct {
 }
 
 // Format formats the message as a string.
-// This method is only intended for human consumption and ignores errors.
+his method is only intended for human consumption and ignores errors.
 // Do not depend on the output being stable. It may change over time across
 // different versions of the program.
-func (o MarshalOptions) Format(m proto.Message) string {
+
+ (o MarshalOptions) Format(m proto.Message) string {
 	if m == nil || !m.ProtoReflect().IsValid() {
 		return "<nil>" // invalid syntax, but okay since this is for debugging
 	}
@@ -100,20 +104,25 @@ func (o MarshalOptions) Format(m proto.Message) string {
 // Marshal writes the given proto.Message in textproto format using options in
 // MarshalOptions object. Do not depend on the output being stable. It may
 // change over time across different versions of the program.
-func (o MarshalOptions) Marshal(m proto.Message) ([]byte, error) {
-	return o.marshal(nil, m)
+
+ (o MarshalOptions) Marshal(m proto.Message) ([]byte, error) {
+urn o.marshal(nil, m)
 }
 
 // MarshalAppend appends the textproto format encoding of m to b,
 // returning the result.
-func (o MarshalOptions) MarshalAppend(b []byte, m proto.Message) ([]byte, error) {
-	return o.marshal(b, m)
+
+ (o MarshalOptions) MarshalAppend(b []byte, m proto.Message) ([]byte, error) {
+urn o.marshal(b, m)
 }
 
-// marshal is a centralized function that all marshal operations go through.
-// For profiling purposes, avoid changing the name of this function or
+// marshal is a centralized 
+tion that all marshal operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for marshal that do not go through this.
-func (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
+
+ (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
 	var delims = [2]byte{'{', '}'}
 
 	if o.Multiline && o.Indent == "" {
@@ -146,7 +155,7 @@ func (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
 	if o.AllowPartial {
 		return out, nil
 	}
-	return out, proto.CheckInitialized(m)
+urn out, proto.CheckInitialized(m)
 }
 
 type encoder struct {
@@ -155,7 +164,8 @@ type encoder struct {
 }
 
 // marshalMessage marshals the given protoreflect.Message.
-func (e encoder) marshalMessage(m protoreflect.Message, inclDelims bool) error {
+
+ (e encoder) marshalMessage(m protoreflect.Message, inclDelims bool) error {
 	messageDesc := m.Descriptor()
 	if !flags.ProtoLegacy && messageset.IsMessageSet(messageDesc) {
 		return errors.New("no support for proto1 MessageSets")
@@ -176,7 +186,8 @@ func (e encoder) marshalMessage(m protoreflect.Message, inclDelims bool) error {
 
 	// Marshal fields.
 	var err error
-	order.RangeFields(m, order.IndexNameFieldOrder, func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	order.RangeFields(m, order.IndexNameFieldOrder, 
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		if err = e.marshalField(fd.TextName(), v, fd); err != nil {
 			return false
 		}
@@ -184,7 +195,7 @@ func (e encoder) marshalMessage(m protoreflect.Message, inclDelims bool) error {
 	})
 	if err != nil {
 		return err
-	}
+
 
 	// Marshal unknown fields.
 	if e.opts.EmitUnknown {
@@ -195,9 +206,10 @@ func (e encoder) marshalMessage(m protoreflect.Message, inclDelims bool) error {
 }
 
 // marshalField marshals the given field with protoreflect.Value.
-func (e encoder) marshalField(name string, val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalField(name string, val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	switch {
-	case fd.IsList():
+e fd.IsList():
 		return e.marshalList(name, val.List(), fd)
 	case fd.IsMap():
 		return e.marshalMap(name, val.Map(), fd)
@@ -209,7 +221,8 @@ func (e encoder) marshalField(name string, val protoreflect.Value, fd protorefle
 
 // marshalSingular marshals the given non-repeated field value. This includes
 // all scalar types, enums, messages, and groups.
-func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	kind := fd.Kind()
 	switch kind {
 	case protoreflect.BoolKind:
@@ -248,7 +261,7 @@ func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDe
 			e.WriteLiteral(string(desc.Name()))
 		} else {
 			// Use numeric value if there is no enum description.
-			e.WriteInt(int64(num))
+.WriteInt(int64(num))
 		}
 
 	case protoreflect.MessageKind, protoreflect.GroupKind:
@@ -260,8 +273,9 @@ func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDe
 	return nil
 }
 
-// marshalList marshals the given protoreflect.List as multiple name-value fields.
-func (e encoder) marshalList(name string, list protoreflect.List, fd protoreflect.FieldDescriptor) error {
+arshalList marshals the given protoreflect.List as multiple name-value fields.
+
+ (e encoder) marshalList(name string, list preflect.List, fd protoreflect.FieldDescriptor) error {
 	size := list.Len()
 	for i := 0; i < size; i++ {
 		e.WriteName(name)
@@ -273,16 +287,18 @@ func (e encoder) marshalList(name string, list protoreflect.List, fd protoreflec
 }
 
 // marshalMap marshals the given protoreflect.Map as multiple name-value fields.
-func (e encoder) marshalMap(name string, mmap protoreflect.Map, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalMap(name string, mmap protoreflect.Map, fd protoreflect.FieldDescriptor) error {
 	var err error
-	order.RangeEntries(mmap, order.GenericKeyOrder, func(key protoreflect.MapKey, val protoreflect.Value) bool {
+	order.RangeEntries(mmap, order.GenericKeyOrder, 
+(key protoreflect.MapKey, val protoreflect.Value) bool {
 		e.WriteName(name)
 		e.StartMessage()
 		defer e.EndMessage()
 
 		e.WriteName(string(genid.MapEntry_Key_field_name))
-		err = e.marshalSingular(key.Value(), fd.MapKey())
-		if err != nil {
+		err = rshalSingular(key.Value(), fd.MapKey())
+ err != nil {
 			return false
 		}
 
@@ -297,8 +313,10 @@ func (e encoder) marshalMap(name string, mmap protoreflect.Map, fd protoreflect.
 }
 
 // marshalUnknown parses the given []byte and marshals fields out.
-// This function assumes proper encoding in the given []byte.
-func (e encoder) marshalUnknown(b []byte) {
+// This 
+tion assumes proper encoding in the given []byte.
+
+ (e encoder) marshalUnknown(b []byte) {
 	const dec = 10
 	const hex = 16
 	for len(b) > 0 {
@@ -321,7 +339,7 @@ func (e encoder) marshalUnknown(b []byte) {
 			e.WriteLiteral("0x" + strconv.FormatUint(v, hex))
 		case protowire.BytesType:
 			var v []byte
-			v, n = protowire.ConsumeBytes(b)
+, n = protowire.ConsumeBytes(b)
 			e.WriteString(string(v))
 		case protowire.StartGroupType:
 			e.StartMessage()
@@ -339,7 +357,8 @@ func (e encoder) marshalUnknown(b []byte) {
 
 // marshalAny marshals the given google.protobuf.Any message in expanded form.
 // It returns true if it was able to marshal, else false.
-func (e encoder) marshalAny(any protoreflect.Message) bool {
+
+ (e encoder) marshalAny(any protoreflect.Message) bool {
 	// Construct the embedded message.
 	fds := any.Descriptor().Fields()
 	fdType := fds.ByNumber(genid.Any_TypeUrl_field_number)

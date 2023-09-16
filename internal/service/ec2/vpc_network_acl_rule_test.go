@@ -22,8 +22,7 @@ import (
 )
 
 
-func TestAccVPCNetworkACLRule_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resource1Name := "aws_network_acl_rule.test1"
 	resource2Name := "aws_network_acl_rule.test2"
 	resource3Name := "aws_network_acl_rule.test3"
@@ -32,17 +31,15 @@ func TestAccVPCNetworkACLRule_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckNetworkACLRuleExists(ctx, resource1Name),
-	testAccCheckNetworkACLRuleExists(ctx, resource2Name),
-	testAccCheckNetworkACLRuleExists(ctx, resource3Name),
+functAccCheckNetworkACLRuleExists(ctx, resource3Name),
 
 	resource.TestCheckResourceAttr(resource1Name, "cidr_block", "0.0.0.0/0"),
 	resource.TestCheckResourceAttr(resource1Name, "egress", "false"),
@@ -73,25 +70,21 @@ func(
 ),
 	},
 	{
-ResourceName:      resource1Name,
-ImportState:       true,
+ResourceName:Name,
+ImportState:
 ImportStateId
 func: testAccNetworkACLRuleImportStateId
 func(resource1Name, "tcp"),
 ImportStateVerify: true,
-	},
-	{
-ResourceName:      resource2Name,
-ImportState:       true,
+func
+funcrtState:
 ImportStateId
 func: testAccNetworkACLRuleImportStateId
 func(resource2Name, "icmp"),
 ImportStateVerify: true,
 	},
 	{
-ResourceName:      resource3Name,
-ImportState:       true,
-ImportStateId
+funcrtState:
 func: testAccNetworkACLRuleImportStateId
 func(resource3Name, "icmp"),
 ImportStateVerify: true,
@@ -99,10 +92,8 @@ ImportStateVerify: true,
 },
 	})
 }
-
-
-func TestAccVPCNetworkACLRule_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
+func
+func := acctest.Context(t)
 	resourceName := "aws_network_acl_rule.test1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -110,16 +101,14 @@ func TestAccVPCNetworkACLRule_disappears(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+funckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckNetworkACLRuleExists(ctx, resourceName),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkACLRule(), resourceName),
-),
+func
 ExpectNonEmptyPlan: true,
 	},
 },
@@ -127,8 +116,7 @@ ExpectNonEmptyPlan: true,
 }
 
 
-func TestAccVPCNetworkACLRule_Disappears_networkACL(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_network_acl_rule.test1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -137,18 +125,16 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCNetworkACLRuleConfig_basic(rName),
+funcig: testAccVPCNetworkACLRuleConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckNetworkACLRuleExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkACL(), "aws_network_acl.test"),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -156,28 +142,25 @@ ExpectNonEmptyPlan: true,
 func TestAccVPCNetworkACLRule_Disappears_ingressEgressSameNumber(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_network_acl_rule.test1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_ingressEgressSameNumberMissing(rName),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckNetworkACLRuleExists(ctx, resourceName),
+functAccCheckNetworkACLRuleExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkACLRule(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
+func
 
 func TestAccVPCNetworkACLRule_ipv6(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -185,11 +168,10 @@ func TestAccVPCNetworkACLRule_ipv6(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_ipv6(rName),
@@ -197,25 +179,22 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckNetworkACLRuleExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "cidr_block", ""),
-	resource.TestCheckResourceAttr(resourceName, "egress", "false"),
-	resource.TestCheckResourceAttr(resourceName, "from_port", "22"),
+funcource.TestCheckResourceAttr(resourceName, "from_port", "22"),
 	resource.TestCheckResourceAttr(resourceName, "ipv6_cidr_block", "::/0"),
 	resource.TestCheckResourceAttr(resourceName, "protocol", "6"),
 	resource.TestCheckResourceAttr(resourceName, "rule_action", "allow"),
 	resource.TestCheckResourceAttr(resourceName, "rule_number", "150"),
 	resource.TestCheckResourceAttr(resourceName, "to_port", "22"),
 ),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+func
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccNetworkACLRuleImportStateId
 func(resourceName, "tcp"),
 ImportStateVerify: true,
 	},
-},
-	})
+func
 }
 
 
@@ -229,11 +208,9 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCNetworkACLRuleConfig_ipv6ICMP(rName),
-Check: resource.ComposeAggregateTestCheck
+funcig: testAccVPCNetworkACLRuleConfig_ipv6ICMP(rName),
 func(
 	testAccCheckNetworkACLRuleExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "cidr_block", ""),
@@ -242,15 +219,13 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "icmp_type", "-1"),
 	resource.TestCheckResourceAttr(resourceName, "ipv6_cidr_block", "::/0"),
 	resource.TestCheckResourceAttr(resourceName, "protocol", "58"),
-	resource.TestCheckResourceAttr(resourceName, "rule_action", "allow"),
-	resource.TestCheckResourceAttr(resourceName, "rule_number", "150"),
+funcource.TestCheckResourceAttr(resourceName, "rule_number", "150"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
-func: testAccNetworkACLRuleImportStateId
 func(resourceName, "58"),
 ImportStateVerify: true,
 	},
@@ -259,7 +234,6 @@ ImportStateVerify: true,
 }
 
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/6710
-
 func TestAccVPCNetworkACLRule_ipv6VPCAssignGeneratedIPv6CIDRBlockUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
@@ -272,14 +246,12 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_ipv6NotAssignGeneratedIPv6CIDRBlockUpdate(rName),
-Check: resource.ComposeTestCheck
 func(
-	acctest.CheckVPCExists(ctx, vpcResourceName, &v),
-	resource.TestCheckResourceAttr(vpcResourceName, "assign_generated_ipv6_cidr_block", "false"),
+funcource.TestCheckResourceAttr(vpcResourceName, "assign_generated_ipv6_cidr_block", "false"),
 	resource.TestCheckResourceAttr(vpcResourceName, "ipv6_cidr_block", ""),
 ),
 	},
@@ -288,18 +260,16 @@ Config: testAccVPCNetworkACLRuleConfig_ipv6AssignGeneratedIPv6CIDRBlockUpdate(rN
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckVPCExists(ctx, vpcResourceName, &v),
-	testAccCheckNetworkACLRuleExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(vpcResourceName, "assign_generated_ipv6_cidr_block", "true"),
+funcource.TestCheckResourceAttr(vpcResourceName, "assign_generated_ipv6_cidr_block", "true"),
 	resource.TestMatchResourceAttr(vpcResourceName, "ipv6_cidr_block", regexache.MustCompile(`/56$`)),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccNetworkACLRuleImportStateId
-func(resourceName, "tcp"),
-ImportStateVerify: true,
+funcrtStateVerify: true,
 	},
 },
 	})
@@ -307,8 +277,7 @@ ImportStateVerify: true,
 
 
 func TestAccVPCNetworkACLRule_allProtocol(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_network_acl_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -316,9 +285,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
+func
 Config: testAccVPCNetworkACLRuleConfig_allProtocol(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -329,36 +297,31 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "ipv6_cidr_block", ""),
 	resource.TestCheckResourceAttr(resourceName, "protocol", "-1"),
 	resource.TestCheckResourceAttr(resourceName, "rule_action", "allow"),
-	resource.TestCheckResourceAttr(resourceName, "rule_number", "150"),
-	resource.TestCheckResourceAttr(resourceName, "to_port", "22"),
-),
-	},
+funcource.TestCheckResourceAttr(resourceName, "to_port", "22"),
+func
 	{
-Config:   testAccVPCNetworkACLRuleConfig_allProtocolNoRealUpdate(rName),
+Config:tAccVPCNetworkACLRuleConfig_allProtocolNoRealUpdate(rName),
 PlanOnly: true,
 	},
 },
 	})
 }
-
-
+func
 func TestAccVPCNetworkACLRule_tcpProtocol(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_network_acl_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLRuleDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkACLRuleConfig_tcpProtocol(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	testAccCheckNetworkACLRuleExists(ctx, resourceName),
+functAccCheckNetworkACLRuleExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "cidr_block", "0.0.0.0/0"),
 	resource.TestCheckResourceAttr(resourceName, "egress", "true"),
 	resource.TestCheckResourceAttr(resourceName, "from_port", "22"),
@@ -370,7 +333,7 @@ func(
 ),
 	},
 	{
-Config:   testAccVPCNetworkACLRuleConfig_tcpProtocolNoRealUpdate(rName),
+Config:tAccVPCNetworkACLRuleConfig_tcpProtocolNoRealUpdate(rName),
 PlanOnly: true,
 	},
 },
@@ -379,16 +342,14 @@ PlanOnly: true,
 
 
 func testAccCheckNetworkACLRuleDestroy(ctx context.Context) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_network_acl_rule" {
 continue
-	}
-
+func
 	egress, err := strconv.ParseBool(rs.Primary.Attributes["egress"])
 
 	if err != nil {
@@ -396,8 +357,7 @@ return err
 	}
 
 	naclID := rs.Primary.Attributes["network_acl_id"]
-
-	ruleNumber, err := strconv.Atoi(rs.Primary.Attributes["rule_number"])
+funceNumber, err := strconv.Atoi(rs.Primary.Attributes["rule_number"])
 
 	if err != nil {
 return err
@@ -418,12 +378,9 @@ return err
 
 return nil
 	}
-}
-
-
+func
 func testAccCheckNetworkACLRuleExists(ctx context.Context, n string) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 rs, ok := s.RootModule().Resources[n]
@@ -462,48 +419,44 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
+func
+funcc_id = aws_vpc.test.id
 
-resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
 resource "aws_network_acl_rule" "test1" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 200
+  rule_number200
   egress= false
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  from_port
+  to_port
 }
 
 resource "aws_network_acl_rule" "test2" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 300
-  protocol       = "icmp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  icmp_type      = 0
-  icmp_code      = -1
+  rule_number300
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  icmp_type
+  icmp_code
 }
 
 resource "aws_network_acl_rule" "test3" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 400
-  protocol       = "icmp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  icmp_type      = -1
-  icmp_code      = -1
-}
+  rule_number400
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  icmp_type
+func
 `, rName)
 }
 
@@ -514,7 +467,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -522,19 +475,19 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_acl_rule" "test" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 150
+  rule_number150
   egress= false
-  protocol       = "all"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  from_port
+  to_port
 }
 `, rName)
 }
@@ -546,7 +499,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -554,19 +507,18 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_network_acl_rule" "test" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 150
+  rule_number150
   egress= true
-  protocol       = "tcp"
-  rule_action    = "deny"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"deny"
+  cidr_block/0"
+  from_port
+  to_port
 }
 `, rName)
 }
@@ -578,7 +530,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -586,19 +538,18 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_network_acl_rule" "test" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 150
+  rule_number150
   egress= false
-  protocol       = "-1"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  from_port
+  to_port
 }
 `, rName)
 }
@@ -610,7 +561,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -618,19 +569,18 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_network_acl_rule" "test" {
+funcurce "aws_network_acl_rule" "test" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 150
+  rule_number150
   egress= true
-  protocol       = "6"
-  rule_action    = "deny"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"deny"
+  cidr_block/0"
+  from_port
+  to_port
 }
 `, rName)
 }
@@ -642,7 +592,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -650,18 +600,17 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_network_acl_rule" "test" {
-  network_acl_id  = aws_network_acl.test.id
-  rule_number     = 150
+functwork_acl_id  = aws_network_acl.test.id
+  rule_number
   egress = false
-  protocol        = "tcp"
-  rule_action     = "allow"
+  protocol
+  rule_action
   ipv6_cidr_block = "::/0"
-  from_port       = 22
+  from_port
   to_port= 22
 }
 `, rName)
@@ -674,7 +623,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -682,30 +631,29 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_acl_rule" "test1" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number    = 100
+funcle_number100
   egress= false
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  from_port
+  to_port
 }
 
 resource "aws_network_acl_rule" "test2" {
   network_acl_id = aws_network_acl.test.id
-  rule_number    = 100
+  rule_number100
   egress= true
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 22
-  to_port        = 22
+  protocol
+  rule_action"allow"
+  cidr_block/0"
+  from_port
+  to_port
 }
 `, rName)
 }
@@ -717,26 +665,25 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_network_acl" "test" {
+funcurce "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_acl_rule" "test" {
-  icmp_code       = -1
-  icmp_type       = -1
+  icmp_code
+  icmp_type
   ipv6_cidr_block = "::/0"
   network_acl_id  = aws_network_acl.test.id
-  protocol        = 58
-  rule_action     = "allow"
-  rule_number     = 150
+  protocol
+  rule_action
+  rule_number
 }
 `, rName, rName)
 }
@@ -746,10 +693,10 @@ func testAccVPCNetworkACLRuleConfig_ipv6AssignGeneratedIPv6CIDRBlockUpdate(rName
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   assign_generated_ipv6_cidr_block = true
-  cidr_block        = "10.3.0.0/16"
+  cidr_block.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -757,17 +704,16 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_acl_rule" "test" {
-  from_port       = 22
+  from_port
   ipv6_cidr_block = aws_vpc.test.ipv6_cidr_block
-  network_acl_id  = aws_network_acl.test.id
-  protocol        = "tcp"
-  rule_action     = "allow"
-  rule_number     = 150
+funcotocol
+  rule_action
+  rule_number
   to_port= 22
 }
 `, rName)
@@ -778,10 +724,10 @@ func testAccVPCNetworkACLRuleConfig_ipv6NotAssignGeneratedIPv6CIDRBlockUpdate(rN
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   assign_generated_ipv6_cidr_block = false
-  cidr_block        = "10.3.0.0/16"
+  cidr_block.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -789,14 +735,13 @@ resource "aws_network_acl" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }`, rName)
 }
 
 
 func testAccNetworkACLRuleImportStateId
-func(resourceName, resourceProtocol string) resource.ImportStateId
 func {
 	return 
 func(s *terraform.State) (string, error) {
@@ -817,3 +762,4 @@ egress := rs.Primary.Attributes["egress"]
 return strings.Join([]string{naclID, ruleNumber, protocol, egress}, tfec2.NetworkACLRuleImportIDSeparator), nil
 	}
 }
+funcfuncfuncfuncfunc

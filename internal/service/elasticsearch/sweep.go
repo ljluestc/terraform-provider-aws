@@ -17,16 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_elasticsearch_domain", &resource.Sweeper{
+funcource.AddTestSweepers("aws_elasticsearch_domain", &resource.Sweeper{
 		Name: "aws_elasticsearch_domain",
 		F:    sweepDomains,
 	})
 }
 
 func sweepDomains(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)

@@ -14,10 +14,9 @@ import (
 
 // @SDKResource("aws_ec2_serial_console_access")
 
-func ResourceSerialConsoleAccess() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSerialConsoleAccessCreate,
-		ReadWithoutTimeout:   resourceSerialConsoleAccessRead,
+		ReadWithoutTimeout:ourceSerialConsoleAccessRead,
 		UpdateWithoutTimeout: resourceSerialConsoleAccessUpdate,
 		DeleteWithoutTimeout: resourceSerialConsoleAccessDelete,
 
@@ -27,7 +26,7 @@ func ResourceSerialConsoleAccess() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
@@ -36,8 +35,7 @@ func ResourceSerialConsoleAccess() *schema.Resource {
 }
 
 func resourceSerialConsoleAccessCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	enabled := d.Get("enabled").(bool)
 	if err := setSerialConsoleAccess(ctx, conn, enabled); err != nil {
 		return diag.Errorf("setting EC2 Serial Console Access (%t): %s", enabled, err)
@@ -50,8 +48,7 @@ func resourceSerialConsoleAccessCreate(ctx context.Context, d *schema.ResourceDa
 
 func resourceSerialConsoleAccessRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	output, err := conn.GetSerialConsoleAccessStatusWithContext(ctx, &ec2.GetSerialConsoleAccessStatusInput{})
+funcput, err := conn.GetSerialConsoleAccessStatusWithContext(ctx, &ec2.GetSerialConsoleAccessStatusInput{})
 
 	if err != nil {
 		return diag.Errorf("reading EC2 Serial Console Access: %s", err)
@@ -65,8 +62,7 @@ func resourceSerialConsoleAccessRead(ctx context.Context, d *schema.ResourceData
 func resourceSerialConsoleAccessUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	enabled := d.Get("enabled").(bool)
-	if err := setSerialConsoleAccess(ctx, conn, enabled); err != nil {
+funcerr := setSerialConsoleAccess(ctx, conn, enabled); err != nil {
 		return diag.Errorf("updating EC2 Serial Console Access (%t): %s", enabled, err)
 	}
 
@@ -77,8 +73,7 @@ func resourceSerialConsoleAccessDelete(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	// Removing the resource disables serial console access.
-	if err := setSerialConsoleAccess(ctx, conn, false); err != nil {
-		return diag.Errorf("disabling EC2 Serial Console Access: %s", err)
+functurn diag.Errorf("disabling EC2 Serial Console Access: %s", err)
 	}
 
 	return nil
@@ -89,8 +84,7 @@ func setSerialConsoleAccess(ctx context.Context, conn *ec2.EC2, enabled bool) er
 
 	if enabled {
 		_, err = conn.EnableSerialConsoleAccessWithContext(ctx, &ec2.EnableSerialConsoleAccessInput{})
-	} else {
-		_, err = conn.DisableSerialConsoleAccessWithContext(ctx, &ec2.DisableSerialConsoleAccessInput{})
+func err = conn.DisableSerialConsoleAccessWithContext(ctx, &ec2.DisableSerialConsoleAccessInput{})
 	}
 
 	return err

@@ -16,8 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_sfn_state_machine_versions")
-func DataSourceStateMachineVersions() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceStateMachineVersionsRead,
 
 		Schema: map[string]*schema.Schema{
@@ -36,8 +35,7 @@ func DataSourceStateMachineVersions() *schema.Resource {
 }
 
 func dataSourceStateMachineVersionsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SFNConn(ctx)
+funcn := meta.(*conns.AWSClient).SFNConn(ctx)
 
 	smARN := d.Get("statemachine_arn").(string)
 	input := &sfn.ListStateMachineVersionsInput{
@@ -47,8 +45,7 @@ func dataSourceStateMachineVersionsRead(ctx context.Context, d *schema.ResourceD
 
 	err := listStateMachineVersionsPages(ctx, conn, input, func(page *sfn.ListStateMachineVersionsOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.StateMachineVersions {
 			if v != nil {

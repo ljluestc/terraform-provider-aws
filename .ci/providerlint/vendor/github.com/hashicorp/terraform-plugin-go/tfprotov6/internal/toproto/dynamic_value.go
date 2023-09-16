@@ -8,14 +8,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
-func DynamicValue(in *tfprotov6.DynamicValue) *tfplugin6.DynamicValue {
+
+amicValue(in *tfprotov6.DynamicValue) *tfplugin6.DynamicValue {
 	return &tfplugin6.DynamicValue{
 		Msgpack: in.MsgPack,
 		Json:    in.JSON,
 	}
 }
 
-func CtyType(in tftypes.Type) ([]byte, error) {
+
+Type(in tftypes.Type) ([]byte, error) {
 	switch {
 	case in.Is(tftypes.String), in.Is(tftypes.Bool), in.Is(tftypes.Number),
 		in.Is(tftypes.List{}), in.Is(tftypes.Map{}),
@@ -27,7 +29,9 @@ func CtyType(in tftypes.Type) ([]byte, error) {
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

@@ -19,31 +19,28 @@ import (
 )
 
 
-func TestAccVPCEndpointConnectionNotification_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_vpc_endpoint_connection_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointConnectionNotificationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointConnectionNotificationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointConnectionNotificationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointConnectionNotificationExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "connection_events.#", "2"),
-	resource.TestCheckResourceAttr(resourceName, "notification_type", "Topic"),
+funcource.TestCheckResourceAttr(resourceName, "notification_type", "Topic"),
 	resource.TestCheckResourceAttr(resourceName, "state", "Enabled"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -52,8 +49,7 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointConnectionNotificationExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "connection_events.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "notification_type", "Topic"),
-	resource.TestCheckResourceAttr(resourceName, "state", "Enabled"),
+funcource.TestCheckResourceAttr(resourceName, "state", "Enabled"),
 ),
 	},
 },
@@ -65,13 +61,10 @@ func testAccCheckVPCEndpointConnectionNotificationDestroy(ctx context.Context) r
 func {
 	return 
 func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_vpc_endpoint_connection_notification" {
+func
+funcrs.Type != "aws_vpc_endpoint_connection_notification" {
 continue
-	}
-
+func
 	_, err := tfec2.FindVPCConnectionNotificationByID(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
@@ -97,13 +90,10 @@ func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
+func
+funcurn fmt.Errorf("No EC2 VPC Endpoint Connection Notification ID is set")
 }
-
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 VPC Endpoint Connection Notification ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+func := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 _, err := tfec2.FindVPCConnectionNotificationByID(ctx, conn, rs.Primary.ID)
 
@@ -122,8 +112,7 @@ resource "aws_lb" "nlb_test" {
   subnets = aws_subnet.test[*].id
 
   load_balancer_type= "network"
-  internal    = true
-  idle_timeout= 60
+funcle_timeout= 60
   enable_deletion_protection = false
 }
 
@@ -133,15 +122,15 @@ resource "aws_vpc_endpoint_service" "test" {
   acceptance_required = false
 
   network_load_balancer_arns = [
-    aws_lb.nlb_test.id,
+s_lb.nlb_test.id,
   ]
 
   allowed_principals = [
-    data.aws_caller_identity.current.arn
+ta.aws_caller_identity.current.arn
   ]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -152,14 +141,14 @@ resource "aws_sns_topic" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "vpce.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "SNS:Publish",
-      "Resource": "arn:${data.aws_partition.current.partition}:sns:*:*:%[1]s"
-    }
+
+ "Allow",
+l": {
+e": "vpce.${data.aws_partition.current.dns_suffix}"
+
+ "SNS:Publish",
+": "arn:${data.aws_partition.current.partition}:sns:*:*:%[1]s"
+
   ]
 }
 POLICY
@@ -171,7 +160,7 @@ POLICY
 func testAccVPCEndpointConnectionNotificationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointConnectionNotificationConfig_base(rName), `
 resource "aws_vpc_endpoint_connection_notification" "test" {
-  vpc_endpoint_service_id     = aws_vpc_endpoint_service.test.id
+  vpc_endpoint_service_idendpoint_service.test.id
   connection_notification_arn = aws_sns_topic.test.arn
   connection_events  = ["Accept", "Reject"]
 }
@@ -179,12 +168,12 @@ resource "aws_vpc_endpoint_connection_notification" "test" {
 }
 
 
-func testAccVPCEndpointConnectionNotificationConfig_modified(rName string) string {
-	return acctest.ConfigCompose(testAccVPCEndpointConnectionNotificationConfig_base(rName), `
+funcurn acctest.ConfigCompose(testAccVPCEndpointConnectionNotificationConfig_base(rName), `
 resource "aws_vpc_endpoint_connection_notification" "test" {
-  vpc_endpoint_service_id     = aws_vpc_endpoint_service.test.id
+  vpc_endpoint_service_idendpoint_service.test.id
   connection_notification_arn = aws_sns_topic.test.arn
   connection_events  = ["Accept"]
 }
 `)
 }
+func

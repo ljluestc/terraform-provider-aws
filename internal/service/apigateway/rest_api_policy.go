@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_rest_api_policy")
-func ResourceRestAPIPolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceRestAPIPolicyPut,
-		ReadWithoutTimeout:   resourceRestAPIPolicyRead,
+		ReadWithoutTimeout:ourceRestAPIPolicyRead,
 		UpdateWithoutTimeout: resourceRestAPIPolicyPut,
 		DeleteWithoutTimeout: resourceRestAPIPolicyDelete,
 		Importer: &schema.ResourceImporter{
@@ -33,20 +32,19 @@ func ResourceRestAPIPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Type:chema.TypeString,
+				Required: true,
+				ValidateFunc:on.StringIsJSON,
+				DiffSuppressFunc:.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
+					json, _ :=func	return json
 				},
 			},
 		},
@@ -55,8 +53,7 @@ func ResourceRestAPIPolicy() *schema.Resource {
 
 func resourceRestAPIPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	restApiId := d.Get("rest_api_id").(string)
 	log.Printf("[DEBUG] Setting API Gateway REST API Policy: %s", restApiId)
 
@@ -69,13 +66,13 @@ func resourceRestAPIPolicyPut(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	operations = append(operations, &apigateway.PatchOperation{
-		Op:    aws.String(apigateway.OpReplace),
+		Op:s.String(apigateway.OpReplace),
 		Path:  aws.String("/policy"),
 		Value: aws.String(policy),
 	})
 
 	res, err := conn.UpdateRestApiWithContext(ctx, &apigateway.UpdateRestApiInput{
-		RestApiId:       aws.String(restApiId),
+		RestApiId:tring(restApiId),
 		PatchOperations: operations,
 	})
 
@@ -93,8 +90,7 @@ func resourceRestAPIPolicyPut(ctx context.Context, d *schema.ResourceData, meta 
 func resourceRestAPIPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	log.Printf("[DEBUG] Reading API Gateway REST API Policy %s", d.Id())
+func.Printf("[DEBUG] Reading API Gateway REST API Policy %s", d.Id())
 
 	api, err := conn.GetRestApiWithContext(ctx, &apigateway.GetRestApiInput{
 		RestApiId: aws.String(d.Id()),
@@ -135,19 +131,18 @@ func resourceRestAPIPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	restApiId := d.Get("rest_api_id").(string)
-	log.Printf("[DEBUG] Deleting API Gateway REST API Policy: %s", restApiId)
+func.Printf("[DEBUG] Deleting API Gateway REST API Policy: %s", restApiId)
 
 	operations := make([]*apigateway.PatchOperation, 0)
 
 	operations = append(operations, &apigateway.PatchOperation{
-		Op:    aws.String(apigateway.OpReplace),
+		Op:s.String(apigateway.OpReplace),
 		Path:  aws.String("/policy"),
 		Value: aws.String(""),
 	})
 
 	_, err := conn.UpdateRestApiWithContext(ctx, &apigateway.UpdateRestApiInput{
-		RestApiId:       aws.String(restApiId),
+		RestApiId:tring(restApiId),
 		PatchOperations: operations,
 	})
 

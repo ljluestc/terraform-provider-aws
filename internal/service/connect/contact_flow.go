@@ -29,6 +29,8 @@ const contactFlowMutexKey = `aws_connect_contact_flow`
 // @SDKResource("aws_connect_contact_flow", name="Contact Flow")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourceContactFlow() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceContactFlowCreate,
@@ -53,12 +55,20 @@ func ResourceContactFlow() *schema.Resource {
 				Optional:true,
 				Computed:true,
 				Validate
+
+
 func:     validation.StringIsJSON,
 				ConflictsWith:    []string{"filename"},
 				DiffSuppress
+
+
 func: verify.SuppressEquivalentJSONDiffs,
 				State
+
+
 func: 
+
+
 func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
@@ -93,11 +103,15 @@ func(v interface{}) string {
 				ForceNew:     true,
 				Default:      connect.ContactFlowTypeContactFlow,
 				Validate
+
+
 func: validation.StringInSlice(connect.ContactFlowType_Values(), false),
 			},
 		},
 	}
 }
+
+
 
 
 func resourceContactFlowCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -149,6 +163,8 @@ func resourceContactFlowCreate(ctx context.Context, d *schema.ResourceData, meta
 }
 
 
+
+
 func resourceContactFlowRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -189,6 +205,8 @@ func resourceContactFlowRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
+
+
 
 
 func resourceContactFlowUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -248,6 +266,8 @@ func resourceContactFlowUpdate(ctx context.Context, d *schema.ResourceData, meta
 }
 
 
+
+
 func resourceContactFlowDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -274,6 +294,8 @@ func resourceContactFlowDelete(ctx context.Context, d *schema.ResourceData, meta
 }
 
 
+
+
 func ContactFlowParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -283,6 +305,8 @@ func ContactFlowParseID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
+
 
 
 func resourceContactFlowLoadFileContent(filename string) (string, error) {

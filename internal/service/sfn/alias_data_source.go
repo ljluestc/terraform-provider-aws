@@ -18,8 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_sfn_alias")
-func DataSourceAlias() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAliasRead,
 
 		Schema: map[string]*schema.Schema{
@@ -68,8 +67,7 @@ const (
 )
 
 func dataSourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SFNConn(ctx)
-	aliasArn := ""
+funcasArn := ""
 
 	in := &sfn.ListStateMachineAliasesInput{
 		StateMachineArn: aws.String(d.Get("statemachine_arn").(string)),

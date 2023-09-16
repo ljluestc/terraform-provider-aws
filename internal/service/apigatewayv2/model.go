@@ -35,22 +35,22 @@ func ResourceModel() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"content_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: validation.StringLenBetween(1, 256),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 128),
@@ -58,7 +58,7 @@ func ResourceModel() *schema.Resource {
 				),
 			},
 			"schema": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(0, 32768),
@@ -79,10 +79,10 @@ func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateModelInput{
-		ApiId:       aws.String(d.Get("api_id").(string)),
+		ApiId:ng(d.Get("api_id").(string)),
 		ContentType: aws.String(d.Get("content_type").(string)),
-		Name:        aws.String(d.Get("name").(string)),
-		Schema:      aws.String(d.Get("schema").(string)),
+		Name:ing(d.Get("name").(string)),
+		Schema:g(d.Get("schema").(string)),
 	}
 	if v, ok := d.GetOk("description"); ok {
 		req.Description = aws.String(v.(string))

@@ -8,7 +8,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func ServerCapabilities(in *tfprotov5.ServerCapabilities) *tfplugin5.ServerCapabilities {
+
+verCapabilities(in *tfprotov5.ServerCapabilities) *tfplugin5.ServerCapabilities {
 	if in == nil {
 		return nil
 	}

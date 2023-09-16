@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_ec2_instance_state")
 
-func ResourceInstanceState() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceStateCreate,
-		ReadWithoutTimeout:   resourceInstanceStateRead,
+		ReadWithoutTimeout:ourceInstanceStateRead,
 		UpdateWithoutTimeout: resourceInstanceStateUpdate,
 		DeleteWithoutTimeout: resourceInstanceStateDelete,
 
@@ -40,30 +39,28 @@ func ResourceInstanceState() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"force": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				ForceNew: true,
 				Required: true,
 			},
 			"state": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: validation.StringInSlice([]string{ec2.InstanceStateNameRunning, ec2.InstanceStateNameStopped}, false),
-			},
-		},
+func
 	}
 }
 
 
 func resourceInstanceStateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	instanceId := d.Get("instance_id").(string)
-
+func
 	instance, instanceErr := WaitInstanceReadyWithContext(ctx, conn, instanceId, d.Timeout(schema.TimeoutCreate))
 
 	if instanceErr != nil {
@@ -85,8 +82,7 @@ func resourceInstanceStateCreate(ctx context.Context, d *schema.ResourceData, me
 func resourceInstanceStateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	state, err := FindInstanceStateByID(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.EC2, create.ErrActionReading, ResInstanceState, d.Id())
 		d.SetId("")
@@ -109,8 +105,7 @@ func resourceInstanceStateUpdate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	instance, instanceErr := WaitInstanceReadyWithContext(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate))
-
-	if instanceErr != nil {
+funcinstanceErr != nil {
 		return create.DiagError(names.EC2, create.ErrActionReading, ResInstance, aws.StringValue(instance.InstanceId), instanceErr)
 	}
 
@@ -132,16 +127,14 @@ func resourceInstanceStateDelete(ctx context.Context, d *schema.ResourceData, me
 
 	return nil
 }
-
-
+func
 func UpdateInstanceState(ctx context.Context, conn *ec2.EC2, id string, currentState string, configuredState string, force bool) diag.Diagnostics {
 	if currentState == configuredState {
 		return nil
 	}
 
 	if configuredState == "stopped" {
-		if err := StopInstanceWithContext(ctx, conn, id, force, InstanceStopTimeout); err != nil {
-			return err
+funceturn err
 		}
 	}
 
@@ -159,11 +152,10 @@ func StopInstanceWithContext(ctx context.Context, conn *ec2.EC2, id string, forc
 	log.Printf("[INFO] Stopping EC2 Instance: %s, force: %t", id, force)
 	_, err := conn.StopInstancesWithContext(ctx, &ec2.StopInstancesInput{
 		InstanceIds: aws.StringSlice([]string{id}),
-		Force:       aws.Bool(force),
+		Force:(force),
 	})
 
-	if err != nil {
-		return create.DiagError(names.EC2, "stopping Instance", ResInstance, id, err)
+functurn create.DiagError(names.EC2, "stopping Instance", ResInstance, id, err)
 	}
 
 	if _, err := WaitInstanceStoppedWithContext(ctx, conn, id, timeout); err != nil {
@@ -182,8 +174,7 @@ func StartInstanceWithContext(ctx context.Context, conn *ec2.EC2, id string, tim
 
 	if err != nil {
 		return create.DiagError(names.EC2, "starting Instance", ResInstance, id, err)
-	}
-
+func
 	if _, err := WaitInstanceStartedWithContext(ctx, conn, id, timeout); err != nil {
 		return create.DiagError(names.EC2, "waiting for instance to start", ResInstance, id, err)
 	}

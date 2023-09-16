@@ -14,8 +14,7 @@ import (
 )
 
 
-func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
 	dataSourceName := "data.aws_ec2_transit_gateway_vpn_attachment.test"
@@ -25,20 +24,18 @@ func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testin
 	resource.Test(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	testAccPreCheckTransitGateway(ctx, t)
+functAccPreCheckTransitGateway(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayVPNAttachmentDataSourceConfig_idAndVPNConnectionID(rName, rBgpAsn),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "vpn_connection_id", vpnConnectionResourceName, "id"),
+funcource.TestCheckResourceAttrPair(dataSourceName, "vpn_connection_id", vpnConnectionResourceName, "id"),
 ),
 	},
 },
@@ -49,8 +46,7 @@ func(
 func testAccTransitGatewayVPNAttachmentDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
-	dataSourceName := "data.aws_ec2_transit_gateway_vpn_attachment.test"
+funcaSourceName := "data.aws_ec2_transit_gateway_vpn_attachment.test"
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 	vpnConnectionResourceName := "aws_vpn_connection.test"
 
@@ -60,9 +56,8 @@ func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckTransitGateway(ctx, t)
 },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayVPNAttachmentDataSourceConfig_filter(rName, rBgpAsn),
@@ -72,8 +67,7 @@ func(
 	resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "vpn_connection_id", vpnConnectionResourceName, "id"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -82,17 +76,16 @@ func testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName string, rBgpA
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_customer_gateway" "test" {
-  bgp_asn    = %[2]d
+  bgp_asn%[2]d
   ip_address = "178.0.0.1"
-  type       = "ipsec.1"
+  type.1"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -102,7 +95,7 @@ resource "aws_vpn_connection" "test" {
   type = aws_customer_gateway.test.type
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName, rBgpAsn)
@@ -116,16 +109,14 @@ data "aws_ec2_transit_gateway_vpn_attachment" "test" {
   vpn_connection_id  = aws_vpn_connection.test.id
 }
 `)
-}
-
+func
 
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_filter(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName, rBgpAsn), `
 data "aws_ec2_transit_gateway_vpn_attachment" "test" {
   filter {
-    name   = "resource-id"
-    values = [aws_vpn_connection.test.id]
+me= "ource-id"
+lues = [aws_vpn_connection.test.id]
   }
 }
-`)
-}
+func

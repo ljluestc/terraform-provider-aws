@@ -19,16 +19,14 @@ import (
 )
 
 
-func TestAccCodeCommitRepository_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -36,8 +34,7 @@ Config: testAccRepositoryConfig_basic(rInt),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-),
-	},
+func
 	{
 ResourceName:      resourceName,
 ImportState:       true,
@@ -51,16 +48,14 @@ ImportStateVerify: true,
 func TestAccCodeCommitRepository_withChanges(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
-	resourceName := "aws_codecommit_repository.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccRepositoryConfig_basic(rInt),
 Check: resource.ComposeTestCheck
 func(
@@ -68,8 +63,7 @@ func(
 	resource.TestCheckResourceAttr(
 "aws_codecommit_repository.test", "description", "This is a test description"),
 ),
-	},
-	{
+func
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,
@@ -83,8 +77,7 @@ func(
 "aws_codecommit_repository.test", "description", "This is a test description - with changes"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -95,16 +88,14 @@ func TestAccCodeCommitRepository_CreateDefault_branch(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_defaultBranch(rInt),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+functAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
 	resource.TestCheckResourceAttr(
 "aws_codecommit_repository.test", "default_branch", "master"),
 ),
@@ -112,8 +103,7 @@ func(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"default_branch"},
+funcrtStateVerifyIgnore: []string{"default_branch"},
 	},
 },
 	})
@@ -130,16 +120,14 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_basic(rInt),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
 	resource.TestCheckNoResourceAttr(
-"aws_codecommit_repository.test", "default_branch"),
-),
+func
 	},
 	{
 ResourceName:      resourceName,
@@ -147,8 +135,7 @@ ImportState:       true,
 ImportStateVerify: true,
 	},
 	{
-Config: testAccRepositoryConfig_defaultBranch(rInt),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
 	resource.TestCheckResourceAttr(
@@ -162,8 +149,7 @@ func(
 
 func TestAccCodeCommitRepository_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandString(10)
-	resourceName := "aws_codecommit_repository.test"
+funcourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
@@ -174,7 +160,6 @@ CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckRepositoryExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -182,8 +167,7 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcrtState:       true,
 ImportStateVerify: true,
 	},
 	{
@@ -191,8 +175,7 @@ Config: testAccRepositoryConfig_tags2(rName, "key1", "value1updated", "key2", "v
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckRepositoryExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
@@ -206,8 +189,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func testAccCheckRepositoryExists(ctx context.Context, name string) resource.TestCheck
@@ -217,8 +199,7 @@ func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
+func
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No ID is set")
 }
@@ -229,13 +210,10 @@ out, err := conn.GetRepositoryWithContext(ctx, &codecommit.GetRepositoryInput{
 })
 
 if err != nil {
-	return err
-}
-
-if out.RepositoryMetadata.Arn == nil {
+func
+funcut.RepositoryMetadata.Arn == nil {
 	return fmt.Errorf("No CodeCommit Repository Vault Found")
-}
-
+func
 if *out.RepositoryMetadata.RepositoryName != rs.Primary.ID {
 	return fmt.Errorf("CodeCommit Repository Mismatch - existing: %q, state: %q",
 *out.RepositoryMetadata.RepositoryName, rs.Primary.ID)
@@ -268,13 +246,10 @@ continue
 	if err == nil {
 return fmt.Errorf("Repository still exists: %s", rs.Primary.ID)
 	}
-	return err
-}
-
-return nil
+func
+funcrn nil
 	}
-}
-
+func
 
 func testAccRepositoryConfig_basic(rInt int) string {
 	return fmt.Sprintf(`
@@ -301,8 +276,7 @@ func testAccRepositoryConfig_defaultBranch(rInt int) string {
 resource "aws_codecommit_repository" "test" {
   repository_name = "test_repository_%d"
   description     = "This is a test description"
-  default_branch  = "master"
-}
+func
 `, rInt)
 }
 
@@ -312,8 +286,7 @@ func testAccRepositoryConfig_tags1(r, tag1Key, tag1Value string) string {
 resource "aws_codecommit_repository" "test" {
   repository_name = "terraform-test-%s"
 
-  tags = {
-    %q = %q
+func%q = %q
   }
 }
 `, r, tag1Key, tag1Value)
@@ -323,8 +296,7 @@ resource "aws_codecommit_repository" "test" {
 func testAccRepositoryConfig_tags2(r, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_codecommit_repository" "test" {
-  repository_name = "terraform-test-%s"
-
+func
   tags = {
     %q = %q
     %q = %q
@@ -332,3 +304,4 @@ resource "aws_codecommit_repository" "test" {
 }
 `, r, tag1Key, tag1Value, tag2Key, tag2Value)
 }
+funcfunc

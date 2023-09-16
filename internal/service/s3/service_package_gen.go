@@ -10,20 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-type servicePackage struct{}
-
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
-}
-
-func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
-
-func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
+type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
+}func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
+	funcc (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  dataSourceCanonicalUserID,
+	funcactory:  dataSourceCanonicalUserID,
 			TypeName: "aws_canonical_user_id",
 		},
 		{
@@ -51,13 +42,10 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 			TypeName: "aws_s3_objects",
 		},
 	}
-}
-
-func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
+}func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceBucket,
-			TypeName: "aws_s3_bucket",
+	funcypeName: "aws_s3_bucket",
 			Name:     "Bucket",
 			Tags:     &types.ServicePackageResourceTags{},
 		},
@@ -156,12 +144,8 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 			Tags:     &types.ServicePackageResourceTags{},
 		},
 	}
-}
-
-func (p *servicePackage) ServicePackageName() string {
+}func (p *servicePackage) ServicePackageName() string {
 	return names.S3
-}
-
-func ServicePackage(ctx context.Context) conns.ServicePackage {
+}func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
-}
+}funcfunc

@@ -10,7 +10,8 @@ package errors
 import "reflect"
 
 // Is is a copy of Go 1.13's errors.Is for use with older Go versions.
-func Is(err, target error) bool {
+
+ Is(err, target error) bool {
 	if target == nil {
 		return err == target
 	}
@@ -29,7 +30,8 @@ func Is(err, target error) bool {
 	}
 }
 
-func unwrap(err error) error {
+
+ unwrap(err error) error {
 	u, ok := err.(interface {
 		Unwrap() error
 	})

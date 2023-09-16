@@ -41,6 +41,8 @@ const (
 )
 
 // @SDKResource("aws_elasticache_global_replication_group")
+
+
 func ResourceGlobalReplicationGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGlobalReplicationGroupCreate,
@@ -48,7 +50,9 @@ func ResourceGlobalReplicationGroup() *schema.Resource {
 		UpdateWithoutTimeout: resourceGlobalReplicationGroupUpdate,
 		DeleteWithoutTimeout: resourceGlobalReplicationGroupDelete,
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta any) ([]*schema.ResourceData, error) {
+			StateContext: 
+
+func(ctx context.Context, d *schema.ResourceData, meta any) ([]*schema.ResourceData, error) {
 				re := regexache.MustCompile("^" + GlobalReplicationGroupRegionPrefixFormat)
 				d.Set("global_replication_group_id_suffix", re.ReplaceAllLiteralString(d.Id(), ""))
 
@@ -92,7 +96,9 @@ func ResourceGlobalReplicationGroup() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validRedisVersionString,
-				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+
+func(_, old, new string, _ *schema.ResourceData) bool {
 					if t, _ := regexp.MatchString(`[6-9]\.x`, new); t && old != "" {
 						oldVersion, err := gversion.NewVersion(old)
 						if err != nil {
@@ -133,7 +139,7 @@ func ResourceGlobalReplicationGroup() *schema.Resource {
 				ForceNew: true,
 			},
 			"global_replication_group_description": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				DiffSuppressFunc: descriptionDiffSuppress,
 				StateFunc:        descriptionStateFunc,
@@ -196,12 +202,16 @@ func ResourceGlobalReplicationGroup() *schema.Resource {
 	}
 }
 
+
+
 func descriptionDiffSuppress(_, old, new string, _ *schema.ResourceData) bool {
 	if (old == EmptyDescription && new == "") || (old == "" && new == EmptyDescription) {
 		return true
 	}
 	return false
 }
+
+
 
 func descriptionStateFunc(v any) string {
 	s := v.(string)
@@ -210,6 +220,8 @@ func descriptionStateFunc(v any) string {
 	}
 	return s
 }
+
+
 
 func customizeDiffGlobalReplicationGroupEngineVersionErrorOnDowngrade(_ context.Context, diff *schema.ResourceDiff, _ any) error {
 	if diff.Id() == "" || !diff.HasChange("engine_version") {
@@ -234,12 +246,16 @@ type changeDiffer interface {
 	HasChange(key string) bool
 }
 
+
+
 func customizeDiffGlobalReplicationGroupParamGroupNameRequiresMajorVersionUpgrade(_ context.Context, diff *schema.ResourceDiff, _ any) error {
 	return paramGroupNameRequiresMajorVersionUpgrade(diff)
 }
 
 // parameter_group_name can only be set when doing a major update,
 // but we also should allow it to stay set afterwards
+
+
 func paramGroupNameRequiresMajorVersionUpgrade(diff changeDiffer) error {
 	o, n := diff.GetChange("parameter_group_name")
 	if o.(string) == n.(string) {
@@ -270,6 +286,8 @@ func paramGroupNameRequiresMajorVersionUpgrade(diff changeDiffer) error {
 
 	return nil
 }
+
+
 
 func resourceGlobalReplicationGroupCreate(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -384,6 +402,8 @@ func resourceGlobalReplicationGroupCreate(ctx context.Context, d *schema.Resourc
 	return resourceGlobalReplicationGroupRead(ctx, d, meta)
 }
 
+
+
 func resourceGlobalReplicationGroupRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
@@ -428,7 +448,11 @@ func resourceGlobalReplicationGroupRead(ctx context.Context, d *schema.ResourceD
 	return nil
 }
 
-type globalReplicationGroupUpdater func(input *elasticache.ModifyGlobalReplicationGroupInput)
+type globalReplicationGroupUpdater 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput)
+
+
 
 func resourceGlobalReplicationGroupUpdate(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -505,36 +529,58 @@ func resourceGlobalReplicationGroupUpdate(ctx context.Context, d *schema.Resourc
 	return resourceGlobalReplicationGroupRead(ctx, d, meta)
 }
 
+
+
 func globalReplicationGroupDescriptionUpdater(description string) globalReplicationGroupUpdater {
-	return func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+	return 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 		input.GlobalReplicationGroupDescription = aws.String(description)
 	}
 }
 
+
+
 func globalReplicationGroupEngineVersionMinorUpdater(version string) globalReplicationGroupUpdater {
-	return func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+	return 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 		input.EngineVersion = aws.String(version)
 	}
 }
 
+
+
 func globalReplicationGroupEngineVersionMajorUpdater(version, paramGroupName string) globalReplicationGroupUpdater {
-	return func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+	return 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 		input.EngineVersion = aws.String(version)
 		input.CacheParameterGroupName = aws.String(paramGroupName)
 	}
 }
 
+
+
 func globalReplicationAutomaticFailoverUpdater(enabled bool) globalReplicationGroupUpdater {
-	return func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+	return 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 		input.AutomaticFailoverEnabled = aws.Bool(enabled)
 	}
 }
 
+
+
 func globalReplicationGroupNodeTypeUpdater(nodeType string) globalReplicationGroupUpdater {
-	return func(input *elasticache.ModifyGlobalReplicationGroupInput) {
+	return 
+
+func(input *elasticache.ModifyGlobalReplicationGroupInput) {
 		input.CacheNodeType = aws.String(nodeType)
 	}
 }
+
+
 
 func updateGlobalReplicationGroup(ctx context.Context, conn *elasticache.ElastiCache, id string, f globalReplicationGroupUpdater, timeout time.Duration) error {
 	input := &elasticache.ModifyGlobalReplicationGroupInput{
@@ -554,6 +600,8 @@ func updateGlobalReplicationGroup(ctx context.Context, conn *elasticache.ElastiC
 	return nil
 }
 
+
+
 func resourceGlobalReplicationGroupDelete(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
@@ -566,13 +614,17 @@ func resourceGlobalReplicationGroupDelete(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
+
+
 func deleteGlobalReplicationGroup(ctx context.Context, conn *elasticache.ElastiCache, id string, readyTimeout, deleteTimeout time.Duration) error {
 	input := &elasticache.DeleteGlobalReplicationGroupInput{
 		GlobalReplicationGroupId:      aws.String(id),
 		RetainPrimaryReplicationGroup: aws.Bool(true),
 	}
 
-	err := retry.RetryContext(ctx, readyTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, readyTimeout, 
+
+func() *retry.RetryError {
 		_, err := conn.DeleteGlobalReplicationGroupWithContext(ctx, input)
 		if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeGlobalReplicationGroupNotFoundFault) {
 			return retry.NonRetryableError(&retry.NotFoundError{
@@ -606,6 +658,8 @@ func deleteGlobalReplicationGroup(ctx context.Context, conn *elasticache.ElastiC
 	return nil
 }
 
+
+
 func flattenGlobalReplicationGroupAutomaticFailoverEnabled(members []*elasticache.GlobalReplicationGroupMember) bool {
 	if len(members) == 0 {
 		return false
@@ -614,6 +668,8 @@ func flattenGlobalReplicationGroupAutomaticFailoverEnabled(members []*elasticach
 	member := members[0]
 	return aws.StringValue(member.AutomaticFailover) == elasticache.AutomaticFailoverStatusEnabled
 }
+
+
 
 func flattenGlobalNodeGroups(nodeGroups []*elasticache.GlobalNodeGroup) []any {
 	if len(nodeGroups) == 0 {
@@ -633,6 +689,8 @@ func flattenGlobalNodeGroups(nodeGroups []*elasticache.GlobalNodeGroup) []any {
 	return l
 }
 
+
+
 func flattenGlobalNodeGroup(nodeGroup *elasticache.GlobalNodeGroup) map[string]any {
 	if nodeGroup == nil {
 		return nil
@@ -651,6 +709,8 @@ func flattenGlobalNodeGroup(nodeGroup *elasticache.GlobalNodeGroup) map[string]a
 	return m
 }
 
+
+
 func flattenGlobalReplicationGroupPrimaryGroupID(members []*elasticache.GlobalReplicationGroupMember) string {
 	for _, member := range members {
 		if aws.StringValue(member.Role) == GlobalReplicationGroupMemberRolePrimary {
@@ -659,6 +719,8 @@ func flattenGlobalReplicationGroupPrimaryGroupID(members []*elasticache.GlobalRe
 	}
 	return ""
 }
+
+
 
 func globalReplcationGroupNodeGroupIncrease(ctx context.Context, conn *elasticache.ElastiCache, id string, requested int) error {
 	input := &elasticache.IncreaseNodeGroupsInGlobalReplicationGroupInput{
@@ -670,8 +732,12 @@ func globalReplcationGroupNodeGroupIncrease(ctx context.Context, conn *elasticac
 	return err
 }
 
+
+
 func globalReplicationGroupNodeGroupDecrease(ctx context.Context, conn *elasticache.ElastiCache, id string, requested int, nodeGroupIDs []string) error {
-	slices.SortFunc(nodeGroupIDs, func(a, b string) int {
+	slices.SortFunc(nodeGroupIDs, 
+
+func(a, b string) int {
 		if globalReplicationGroupNodeNumber(a) < globalReplicationGroupNodeNumber(b) {
 			return -1
 		}
@@ -692,6 +758,8 @@ func globalReplicationGroupNodeGroupDecrease(ctx context.Context, conn *elastica
 	return err
 }
 
+
+
 func globalReplicationGroupNodeNumber(id string) int {
 	re := regexache.MustCompile(`^.+-0{0,3}(\d+)$`)
 	matches := re.FindStringSubmatch(id)
@@ -703,8 +771,12 @@ func globalReplicationGroupNodeNumber(id string) int {
 	return 0
 }
 
+
+
 func diffHasChange(key ...string) customdiff.ResourceConditionFunc {
-	return func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
+	return 
+
+func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 		return diff.HasChanges(key...)
 	}
 }

@@ -27,8 +27,10 @@ var (
 // http://lists.dragonflybsd.org/pipermail/users/2019-September/358280.html
 const _dragonflyABIChangeVersion = 500705
 
-func supportsABI(ver uint32) bool {
-	osreldateOnce.Do(func() { osreldate, _ = SysctlUint32("kern.osreldate") })
+
+ supportsABI(vint32) bool {
+	osreldateOnce.Do(
+() { osreldate, _ = SysctlUint32("kern.osreldate") })
 	return osreldate >= ver
 }
 
@@ -45,20 +47,23 @@ type SockaddrDatalink struct {
 	Rcf    uint16
 	Route  [16]uint16
 	raw    RawSockaddrDatalink
-}
 
-func anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
+
+
+ anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	return nil, EAFNOSUPPORT
-}
+
 
 // Translate "kern.hostname" to []_C_int{0,1,2,3}.
-func nametomib(name string) (mib []_C_int, err error) {
+
+ nametomib(name string) (mib []_C_int, err error) {
 	const siz = unsafe.Sizeof(mib[0])
 
 	// NOTE(rsc): It seems strange to set the buffer to have
 	// size CTL_MAXNAME+2 but use only CTL_MAXNAME
 	// as the size. I don't know why the +2 is here, but the
-	// kernel uses +2 for its own implementation of this function.
+	// kernel uses +2 for its own implementation of this 
+tion.
 	// I am scared that if we don't include the +2 here, the kernel
 	// will silently write 2 words farther than we specify
 	// and we'll get memory corruption.
@@ -74,34 +79,38 @@ func nametomib(name string) (mib []_C_int, err error) {
 	// Magic sysctl: "setting" 0.3 to a string name
 	// lets you read back the array of integers form.
 	if err = sysctl([]_C_int{0, 3}, p, &n, &bytes[0], uintptr(len(name))); err != nil {
-		return nil, err
+turn nil, err
 	}
 	return buf[0 : n/siz], nil
 }
 
-func direntIno(buf []byte) (uint64, bool) {
+
+ direntIno(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Fileno), unsafe.Sizeof(Dirent{}.Fileno))
 }
 
-func direntReclen(buf []byte) (uint64, bool) {
-	namlen, ok := direntNamlen(buf)
+
+ direntReclen(buf []byte) (uint64, bool) {
+len, ok := direntNamlen(buf)
 	if !ok {
 		return 0, false
 	}
 	return (16 + namlen + 1 + 7) &^ 7, true
 }
 
-func direntNamlen(buf []byte) (uint64, bool) {
+
+ direntNamlen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Namlen), unsafe.Sizeof(Dirent{}.Namlen))
 }
 
 //sysnb	pipe() (r int, w int, err error)
 
-func Pipe(p []int) (err error) {
+
+ Pipe(p []int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
 	}
-	r, w, err := pipe()
+w, err := pipe()
 	if err == nil {
 		p[0], p[1] = r, w
 	}
@@ -110,40 +119,44 @@ func Pipe(p []int) (err error) {
 
 //sysnb	pipe2(p *[2]_C_int, flags int) (r int, w int, err error)
 
-func Pipe2(p []int, flags int) (err error) {
+
+ Pipe2(p []int, flags int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
 	}
 	var pp [2]_C_int
 	// pipe2 on dragonfly takes an fds array as an argument, but still
-	// returns the file descriptors.
+returns the file descriptors.
 	r, w, err := pipe2(&pp, flags)
 	if err == nil {
 		p[0], p[1] = r, w
 	}
 	return err
-}
+
 
 //sys	extpread(fd int, p []byte, flags int, offset int64) (n int, err error)
 
-func pread(fd int, p []byte, offset int64) (n int, err error) {
+
+ pread(fd int, p []byte, offset int64) (n int, err error) {
 	return extpread(fd, p, 0, offset)
 }
 
 //sys	extpwrite(fd int, p []byte, flags int, offset int64) (n int, err error)
 
-func pwrite(fd int, p []byte, offset int64) (n int, err error) {
+
+ pwrite(fd int, p []byte, offset int64) (n int, err error) {
 	return extpwrite(fd, p, 0, offset)
 }
 
-func Accept4(fd, flags int) (nfd int, sa Sockaddr, err error) {
+
+ Accept4(fd, flags int) (nfd int, sa Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	var len _Socklen = SizeofSockaddrAny
 	nfd, err = accept4(fd, &rsa, &len, flags)
 	if err != nil {
 		return
 	}
-	if len > SizeofSockaddrAny {
+len > SizeofSockaddrAny {
 		panic("RawSockaddrAny too small")
 	}
 	sa, err = anyToSockaddr(fd, &rsa)
@@ -156,13 +169,14 @@ func Accept4(fd, flags int) (nfd int, sa Sockaddr, err error) {
 
 //sys	Getcwd(buf []byte) (n int, err error) = SYS___GETCWD
 
-func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
+
+ Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	var _p0 unsafe.Pointer
 	var bufsize uintptr
 	if len(buf) > 0 {
 		_p0 = unsafe.Pointer(&buf[0])
 		bufsize = unsafe.Sizeof(Statfs_t{}) * uintptr(len(buf))
-	}
+
 	r0, _, e1 := Syscall(SYS_GETFSSTAT, uintptr(_p0), bufsize, uintptr(flags))
 	n = int(r0)
 	if e1 != 0 {
@@ -176,7 +190,8 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 
 //sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS___SYSCTL
 
-func sysctlUname(mib []_C_int, old *byte, oldlen *uintptr) error {
+
+ sysctlUname(mib []_C_int, old *byte, oldlen *uintptr) error {
 	err := sysctl(mib, old, oldlen, nil, 0)
 	if err != nil {
 		// Utsname members on Dragonfly are only 32 bytes and
@@ -189,7 +204,8 @@ func sysctlUname(mib []_C_int, old *byte, oldlen *uintptr) error {
 	return err
 }
 
-func Uname(uname *Utsname) error {
+
+ Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
 	if err := sysctlUname(mib, &uname.Sysname[0], &n); err != nil {
@@ -223,7 +239,7 @@ func Uname(uname *Utsname) error {
 		if b == '\n' || b == '\t' {
 			if i == len(uname.Version)-1 {
 				uname.Version[i] = 0
-			} else {
+ else {
 				uname.Version[i] = ' '
 			}
 		}
@@ -239,7 +255,8 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
-func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+
+ Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
 	}

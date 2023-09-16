@@ -301,7 +301,7 @@ func validatePermissionStatementID(v interface{}, k string) (ws []string, es []e
 // See also: https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DescribeEventBus.html
 type PermissionPolicyDoc struct {
 	Version    string
-	ID         string                      `json:"Id,omitempty"`
+	ID         string         `json:"Id,omitempty"`
 	Statements []PermissionPolicyStatement `json:"Statement"`
 }
 
@@ -322,7 +322,7 @@ type PermissionPolicyStatement struct {
 	Effect    string
 	Action    string
 	Condition *PermissionPolicyStatementCondition `json:"Condition,omitempty"`
-	Principal interface{}                         // "*" or {"AWS": "arn:aws:iam::111111111111:root"}
+	Principal interface{}            // "*" or {"AWS": "arn:aws:iam::111111111111:root"}
 	Resource  string
 }
 

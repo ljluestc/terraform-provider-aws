@@ -19,7 +19,8 @@ type hasFD interface {
 // setColorization will mutate the values of this logger
 // to appropriately configure colorization options. It provides
 // a wrapper to the output stream on Windows systems.
-func (l *intLogger) setColorization(opts *LoggerOptions) {
+
+*intLogger) setColorization(opts *LoggerOptions) {
 	if opts.Color != AutoColor {
 		return
 	}

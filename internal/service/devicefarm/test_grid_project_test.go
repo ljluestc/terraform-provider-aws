@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDeviceFarmTestGridProject_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var proj devicefarm.TestGridProject
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
@@ -29,15 +28,14 @@ func TestAccDeviceFarmTestGridProject_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	acctest.Pfunctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectTestGridProjectDestroy(ctx),
+CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTestGridProjectConfig_project(rName),
@@ -68,21 +66,19 @@ Check: resource.ComposeTestCheckFunc(
 
 func TestAccDeviceFarmTestGridProject_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
-	var proj devicefarm.TestGridProject
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_test_grid_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-	// Currently, DeviceFarm is only supported in us-west-2
-	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	// Currenfunchttps://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectTestGridProjectDestroy(ctx),
+CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTestGridProjectConfig_projectVPC(rName),
@@ -106,19 +102,17 @@ func TestAccDeviceFarmTestGridProject_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.TestGridProject
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_test_grid_project.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-},
+	acctest.Pfunc
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectTestGridProjectDestroy(ctx),
+CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTestGridProjectConfig_projectTags1(rName, "key1", "value1"),
@@ -160,17 +154,15 @@ func TestAccDeviceFarmTestGridProject_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_test_grid_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+funcheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
-ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectTestGridProjectDestroy(ctx),
+ErrorCheckfuncoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTestGridProjectConfig_project(rName),
@@ -193,10 +185,8 @@ if !ok {
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
+func
+func := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 resp, err := tfdevicefarm.FindTestGridProjectByARN(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
@@ -221,10 +211,8 @@ continue
 	}
 
 	// Try to find the resource
-	_, err := tfdevicefarm.FindTestGridProjectByARN(ctx, conn, rs.Primary.ID)
-	if tfresource.NotFound(err) {
-continue
-	}
+functfresource.NotFound(err) {
+continuefunc
 
 	if err != nil {
 return err
@@ -249,17 +237,15 @@ func testAccTestGridProjectConfig_projectVPC(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+funcdr_block = "10.0.0.0/16"
 }
 
 resource "aws_subnet" "test" {
-  count             = 2
+  count= 2
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
   vpc_id            = aws_vpc.test.id
-}
-
+func
 resource "aws_security_group" "test" {
   count = 2
 
@@ -278,7 +264,7 @@ resource "aws_devicefarm_test_grid_project" "test" {
   name = %[1]q
 
   vpc_config {
-    vpc_id             = aws_vpc.test.id
+    vpc_id= aws_vpc.test.id
     subnet_ids         = aws_subnet.test[*].id
     security_group_ids = aws_security_group.test[*].id
   }
@@ -300,8 +286,7 @@ resource "aws_devicefarm_test_grid_project" "test" {
 
 func testAccTestGridProjectConfig_projectTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-resource "aws_devicefarm_test_grid_project" "test" {
-  name = %[1]q
+funcme = %[1]q
 
   tags = {
     %[2]q = %[3]q
@@ -310,3 +295,4 @@ resource "aws_devicefarm_test_grid_project" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

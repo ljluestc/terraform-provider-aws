@@ -7,13 +7,16 @@ import (
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidatefuncinfo"
+	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidate
+info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for custom SchemaValidateFunc that implement validation.StringInSlice() or validation.StringNotInSlice()
+const Doc = `check for custom SchemaValidate
+ that implement validation.StringInSlice() or vation.StringNotInSlice()
 
-The V013 analyzer reports when custom SchemaValidateFunc declarations can be
+The V013 analyzer reports when custom SchemaValidate
+ declarations can be
 replaced with validation.StringInSlice() or validation.StringNotInSlice().`
 
 const analyzerName = "V013"
@@ -23,39 +26,52 @@ var Analyzer = &analysis.Analyzer{
 	Doc:  Doc,
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		schemavalidatefuncinfo.Analyzer,
-	},
+		schemavalidate
+info.Analyzer,
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaValidateFuncs := pass.ResultOf[schemavalidatefuncinfo.Analyzer].([]*schema.SchemaValidateFuncInfo)
+	schemaValidate
+s := pass.ResultOf[schemavalidate
+info.Analyzer].([]*schema.SchemaVali
+Info)
 
-	for _, schemaValidateFunc := range schemaValidateFuncs {
-		if ignorer.ShouldIgnore(analyzerName, schemaValidateFunc.Node) {
+	for _, schemaValidate
+ := range schemaValidate
+s {
+		if ignorer.ShouldIgnore(analyzerName, schemaValidate
+.Node) {
 			continue
 		}
 
-		if !hasIfStringEquality(schemaValidateFunc.Body, pass.TypesInfo) {
+		if !hasIfStringEquality(schemaValidate
+.Body, pass.TypesInfo) {
 			continue
 		}
 
-		pass.Reportf(schemaValidateFunc.Pos, "%s: custom SchemaValidateFunc should be replaced with validation.StringInSlice() or validation.StringNotInSlice()", analyzerName)
+		pass.Reportf(schemaValidate
+.Pos, "%s: custom SchemaValidate
+ should be replaced with validation.StringInSlice() or validation.StringNotInSlice()", analyzerName)
 	}
 
 	return nil, nil
 }
 
-func hasIfStringEquality(node ast.Node, info *types.Info) bool {
+
+ hasIfStringEquality(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		switch n := n.(type) {
-		default:
+fault:
 			return true
 		case *ast.IfStmt:
-			if !hasStringEquality(n, info) {
+			if !hasStringEquy(n, info) {
 				return true
 			}
 
@@ -68,15 +84,17 @@ func hasIfStringEquality(node ast.Node, info *types.Info) bool {
 	return result
 }
 
-func hasStringEquality(node ast.Node, info *types.Info) bool {
+
+ hasStringEquality(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		binaryExpr, ok := n.(*ast.BinaryExpr)
 
 		if !ok {
 			return true
-		}
+
 
 		if !exprIsString(binaryExpr.X, info) || !exprIsString(binaryExpr.Y, info) {
 			return true
@@ -92,9 +110,10 @@ func hasStringEquality(node ast.Node, info *types.Info) bool {
 	})
 
 	return result
-}
 
-func exprIsString(e ast.Expr, info *types.Info) bool {
+
+
+ exprIsString(e ast.Expr, info *types.Info) bool {
 	switch e := e.(type) {
 	default:
 		return false
@@ -110,7 +129,8 @@ func exprIsString(e ast.Expr, info *types.Info) bool {
 	}
 }
 
-func tokenIsEquality(t token.Token) bool {
+
+ tokenIsEquality(t token.Token) bool {
 	validTokens := []token.Token{
 		token.EQL, // ==
 		token.NEQ, // !=

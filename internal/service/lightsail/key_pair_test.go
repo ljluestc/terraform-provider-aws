@@ -32,9 +32,9 @@ func TestAccLightsailKeyPair_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_basic(rName),
@@ -67,9 +67,9 @@ func TestAccLightsailKeyPair_publicKey(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_imported(rName, publicKey),
@@ -99,9 +99,9 @@ func TestAccLightsailKeyPair_encrypted(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_encrypted(rName, testKeyPairPubKey1),
@@ -127,9 +127,9 @@ func TestAccLightsailKeyPair_namePrefix(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_prefixed(),
@@ -156,9 +156,9 @@ func TestAccLightsailKeyPair_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_tags1(rName, "key1", "value1"),
@@ -201,9 +201,9 @@ func TestAccLightsailKeyPair_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
+		CheckDestroy:eyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_basic(rName),

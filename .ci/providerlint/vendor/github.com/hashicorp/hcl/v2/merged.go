@@ -15,7 +15,8 @@ import (
 // the same name across multiple files, a diagnostic will be produced from
 // the Content and PartialContent methods describing this error in a
 // user-friendly way.
-func MergeFiles(files []*File) Body {
+
+ MergeFiles(files []*File) Body {
 	var bodies []Body
 	for _, file := range files {
 		bodies = append(bodies, file.Body)
@@ -24,8 +25,9 @@ func MergeFiles(files []*File) Body {
 }
 
 // MergeBodies is like MergeFiles except it deals directly with bodies, rather
-// than with entire files.
-func MergeBodies(bodies []Body) Body {
+han with entire files.
+
+ MergeBodies(bodies []Body) Body {
 	if len(bodies) == 0 {
 		// Swap out for our singleton empty body, to reduce the number of
 		// empty slices we have hanging around.
@@ -69,9 +71,10 @@ func MergeBodies(bodies []Body) Body {
 
 var emptyBody = mergedBodies([]Body{})
 
-// EmptyBody returns a body with no content. This body can be used as a
+mptyBody returns a body with no content. This body can be used as a
 // placeholder when a body is required but no body content is available.
-func EmptyBody() Body {
+
+ EmptyBody() Body {
 	return emptyBody
 }
 
@@ -82,21 +85,24 @@ type mergedBodies []Body
 //
 // Although required attributes _are_ supported, they should be used sparingly
 // with merged bodies since in this case there is no contextual information
-// with which to return good diagnostics. Applications working with merged
+ith which to return good diagnostics. Applications working with merged
 // bodies may wish to mark all attributes as optional and then check for
 // required attributes afterwards, to produce better diagnostics.
-func (mb mergedBodies) Content(schema *BodySchema) (*BodyContent, Diagnostics) {
+
+ (mb mergedBodies) Content(schema *BodySchema) (*BodyContent, Diagnostics) {
 	// the returned body will always be empty in this case, because mergedContent
 	// will only ever call Content on the child bodies.
-	content, _, diags := mb.mergedContent(schema, false)
+tent, _, diags := mb.mergedContent(schema, false)
 	return content, diags
 }
 
-func (mb mergedBodies) PartialContent(schema *BodySchema) (*BodyContent, Body, Diagnostics) {
+
+ (mb mergedBodies) PartialContent(schema *BodySchema) (*BodyContent, Body, Diagnostics) {
 	return mb.mergedContent(schema, true)
 }
 
-func (mb mergedBodies) JustAttributes() (Attributes, Diagnostics) {
+
+ (mb mergedBodies) JustAttributes() (Attributes, Diagnostics) {
 	attrs := make(map[string]*Attribute)
 	var diags Diagnostics
 
@@ -124,25 +130,27 @@ func (mb mergedBodies) JustAttributes() (Attributes, Diagnostics) {
 
 				attrs[name] = attr
 			}
-		}
+
 	}
 
 	return attrs, diags
 }
 
-func (mb mergedBodies) MissingItemRange() Range {
+
+ (mb mergedBodies) MissingItemRange() Range {
 	if len(mb) == 0 {
 		// Nothing useful to return here, so we'll return some garbage.
 		return Range{
 			Filename: "<empty>",
-		}
+
 	}
 
 	// arbitrarily use the first body's missing item range
 	return mb[0].MissingItemRange()
 }
 
-func (mb mergedBodies) mergedContent(schema *BodySchema, partial bool) (*BodyContent, Body, Diagnostics) {
+
+ (mb mergedBodies) mergedContent(schema *BodySchema, partial bool) (*BodyContent, Body, Diagnostics) {
 	// We need to produce a new schema with none of the attributes marked as
 	// required, since _any one_ of our bodies can contribute an attribute value.
 	// We'll separately check that all required attributes are present at

@@ -9,6 +9,7 @@ import (
 	tfkendra "github.com/hashicorp/terraform-provider-aws/internal/service/kendra"
 )
 
+
 func TestExperienceParseResourceID(t *testing.T) {
 	t.Parallel()
 
@@ -58,7 +59,8 @@ func TestExperienceParseResourceID(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.TestName, func(t *testing.T) {
+		t.Run(testCase.TestName, 
+func(t *testing.T) {
 			t.Parallel()
 
 			gotId, gotIndexId, err := tfkendra.ExperienceParseResourceID(testCase.Input)
@@ -81,6 +83,7 @@ func TestExperienceParseResourceID(t *testing.T) {
 		})
 	}
 }
+
 
 func TestQuerySuggestionsBlockListParseID(t *testing.T) {
 	t.Parallel()
@@ -131,7 +134,8 @@ func TestQuerySuggestionsBlockListParseID(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.TestName, func(t *testing.T) {
+		t.Run(testCase.TestName, 
+func(t *testing.T) {
 			t.Parallel()
 
 			gotId, gotIndexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(testCase.Input)
@@ -154,6 +158,7 @@ func TestQuerySuggestionsBlockListParseID(t *testing.T) {
 		})
 	}
 }
+
 
 func TestThesaurusParseResourceID(t *testing.T) {
 	t.Parallel()
@@ -204,7 +209,8 @@ func TestThesaurusParseResourceID(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.TestName, func(t *testing.T) {
+		t.Run(testCase.TestName, 
+func(t *testing.T) {
 			t.Parallel()
 
 			gotId, gotIndexId, err := tfkendra.ThesaurusParseResourceID(testCase.Input)

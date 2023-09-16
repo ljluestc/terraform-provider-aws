@@ -21,8 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_group")
-func ResourceGroup() *schema.Resource {
+// @SDKResource("aws_iam_group")func ResourceGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGroupCreate,
 		ReadWithoutTimeout:   resourceGroupRead,
@@ -65,10 +64,7 @@ func ResourceGroup() *schema.Resource {
 			return nil
 		},
 	}
-}
-
-func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := d.Get("name").(string)
@@ -94,11 +90,8 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	return append(diags, resourceGroupRead(ctx, d, meta)...)
-}
-
-func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	group, err := FindGroupByName(ctx, conn, d.Id())
 
@@ -118,12 +111,9 @@ func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	d.Set("unique_id", group.GroupId)
 
 	return diags
-}
-
-func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	o, n := d.GetChange("name")
 	input := &iam.UpdateGroupInput{
 		GroupName:    aws.String(o.(string)),
@@ -140,13 +130,10 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	d.SetId(n.(string))
 
 	return append(diags, resourceGroupRead(ctx, d, meta)...)
-}
-
-func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	log.Printf("[DEBUG] Deleting IAM Group: %s", d.Id())
+func.Printf("[DEBUG] Deleting IAM Group: %s", d.Id())
 	_, err := conn.DeleteGroupWithContext(ctx, &iam.DeleteGroupInput{
 		GroupName: aws.String(d.Id()),
 	})
@@ -156,14 +143,11 @@ func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	return diags
-}
-
-func FindGroupByName(ctx context.Context, conn *iam.IAM, name string) (*iam.Group, error) {
+}func FindGroupByName(ctx context.Context, conn *iam.IAM, name string) (*iam.Group, error) {
 	input := &iam.GetGroupInput{
 		GroupName: aws.String(name),
 	}
-
-	output, err := conn.GetGroupWithContext(ctx, input)
+funcput, err := conn.GetGroupWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
@@ -181,15 +165,12 @@ func FindGroupByName(ctx context.Context, conn *iam.IAM, name string) (*iam.Grou
 	}
 
 	return output.Group, nil
-}
-
-func DeleteGroupPolicyAttachments(ctx context.Context, conn *iam.IAM, groupName string) error {
+}func DeleteGroupPolicyAttachments(ctx context.Context, conn *iam.IAM, groupName string) error {
 	var attachedPolicies []*iam.AttachedPolicy
 	input := &iam.ListAttachedGroupPoliciesInput{
 		GroupName: aws.String(groupName),
 	}
-
-	err := conn.ListAttachedGroupPoliciesPagesWithContext(ctx, input, func(page *iam.ListAttachedGroupPoliciesOutput, lastPage bool) bool {
+func := conn.ListAttachedGroupPoliciesPagesWithContext(ctx, input, func(page *iam.ListAttachedGroupPoliciesOutput, lastPage bool) bool {
 		attachedPolicies = append(attachedPolicies, page.AttachedPolicies...)
 
 		return !lastPage
@@ -221,16 +202,13 @@ func DeleteGroupPolicyAttachments(ctx context.Context, conn *iam.IAM, groupName 
 	}
 
 	return nil
-}
-
-func DeleteGroupPolicies(ctx context.Context, conn *iam.IAM, groupName string) error {
+}func DeleteGroupPolicies(ctx context.Context, conn *iam.IAM, groupName string) error {
 	var inlinePolicies []*string
 	input := &iam.ListGroupPoliciesInput{
 		GroupName: aws.String(groupName),
 	}
 
-	err := conn.ListGroupPoliciesPagesWithContext(ctx, input, func(page *iam.ListGroupPoliciesOutput, lastPage bool) bool {
-		inlinePolicies = append(inlinePolicies, page.PolicyNames...)
+	funclinePolicies = append(inlinePolicies, page.PolicyNames...)
 		return !lastPage
 	})
 

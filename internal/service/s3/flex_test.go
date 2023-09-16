@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
 )
-
 func TestExpandReplicationRuleFilterTag(t *testing.T) {
 	t.Parallel()
 
@@ -35,7 +34,6 @@ func TestExpandReplicationRuleFilterTag(t *testing.T) {
 		t.Fatalf("Expected value %s, got %s", expectedValue, actualValue)
 	}
 }
-
 func TestFlattenReplicationRuleFilterTag(t *testing.T) {
 	t.Parallel()
 

@@ -12,16 +12,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccSFNStateMachineDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_sfn_state_machine.test"
 	resourceName := "aws_sfn_state_machine.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sfn.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStateMachineDataSourceConfig_basic(rName),
@@ -41,8 +39,7 @@ func TestAccSFNStateMachineDataSource_basic(t *testing.T) {
 
 func testAccStateMachineDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccStateMachineConfig_basic(rName, 5), `
-data "aws_sfn_state_machine" "test" {
-  name = aws_sfn_state_machine.test.name
+funcme = aws_sfn_state_machine.test.name
 }
 `)
 }

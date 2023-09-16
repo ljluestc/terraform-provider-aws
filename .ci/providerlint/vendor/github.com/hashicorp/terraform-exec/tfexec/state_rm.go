@@ -29,36 +29,44 @@ type StateRmCmdOption interface {
 	configureStateRm(*stateRmConfig)
 }
 
-func (opt *BackupOption) configureStateRm(conf *stateRmConfig) {
+
+ (opt *BackupOption) configureStateRm(conf *stateRmConfig) {
 	conf.backup = opt.path
 }
 
-func (opt *BackupOutOption) configureStateRm(conf *stateRmConfig) {
+
+ (opt *BackupOutOption) configureStateRm(conf *stateRmConfig) {
 	conf.backupOut = opt.path
+
+
+
+ (opt *DryRunOption) configureStateRm(conf *stateRmConfig) {
+f.dryRun = opt.dryRun
 }
 
-func (opt *DryRunOption) configureStateRm(conf *stateRmConfig) {
-	conf.dryRun = opt.dryRun
-}
 
-func (opt *LockOption) configureStateRm(conf *stateRmConfig) {
+t *LockOption) configureStateRm(conf *stateRmConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureStateRm(conf *stateRmConfig) {
+
+ (opt *LockTimeoutOption) configureStateRm(conf *stateRmConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *StateOption) configureStateRm(conf *stateRmConfig) {
+
+ (opt *StateOption) configureStateRm(conf *stateRmConfig) {
 	conf.state = opt.path
 }
 
-func (opt *StateOutOption) configureStateRm(conf *stateRmConfig) {
+
+ (opt *StateOutOption) configureStateRm(conf *stateRmConfig) {
 	conf.stateOut = opt.path
 }
 
 // StateRm represents the terraform state rm subcommand.
-func (tf *Terraform) StateRm(ctx context.Context, address string, opts ...StateRmCmdOption) error {
+
+ *Terraform) StateRm(ctx context.Context, address string, opts ...StateRmCmdOption) error {
 	cmd, err := tf.stateRmCmd(ctx, address, opts...)
 	if err != nil {
 		return err
@@ -66,7 +74,8 @@ func (tf *Terraform) StateRm(ctx context.Context, address string, opts ...StateR
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) stateRmCmd(ctx context.Context, address string, opts ...StateRmCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) stateRmCmd(ctx context.Context, address string, opts ...StateRmCmdOption) (*exec.Cmd, error) {
 	c := defaultStateRmOptions
 
 	for _, o := range opts {

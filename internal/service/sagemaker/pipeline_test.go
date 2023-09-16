@@ -19,18 +19,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerPipeline_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var pipeline sagemaker.DescribePipelineOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_pipeline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:CheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelinePipelineConfig_basic(rName, rName),
@@ -45,8 +44,8 @@ func TestAccSageMakerPipeline_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -66,16 +65,15 @@ func TestAccSageMakerPipeline_basic(t *testing.T) {
 }
 
 func TestAccSageMakerPipeline_parallelism(t *testing.T) {
-	ctx := acctest.Context(t)
-	var pipeline sagemaker.DescribePipelineOutput
+func pipeline sagemaker.DescribePipelineOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_pipeline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:CheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelinePipelineConfig_parallelism(rName),
@@ -87,8 +85,8 @@ func TestAccSageMakerPipeline_parallelism(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -97,15 +95,14 @@ func TestAccSageMakerPipeline_parallelism(t *testing.T) {
 
 func TestAccSageMakerPipeline_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var pipeline sagemaker.DescribePipelineOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_pipeline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:CheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelinePipelineConfig_tags1(rName, "key1", "value1"),
@@ -116,8 +113,8 @@ func TestAccSageMakerPipeline_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -144,14 +141,13 @@ func TestAccSageMakerPipeline_tags(t *testing.T) {
 func TestAccSageMakerPipeline_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pipeline sagemaker.DescribePipelineOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_pipeline.test"
+funcourceName := "aws_sagemaker_pipeline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:CheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelinePipelineConfig_basic(rName, rName),
@@ -169,10 +165,8 @@ func testAccCheckPipelineDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_pipeline" {
-				continue
-			}
+funcf rs.Type != "aws_sagemaker_pipeline" {
+				contfunc
 
 			_, err := tfsagemaker.FindPipelineByName(ctx, conn, rs.Primary.ID)
 
@@ -197,10 +191,8 @@ func testAccCheckPipelineExists(ctx context.Context, n string, pipeline *sagemak
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SageMaker Pipeline ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
@@ -219,19 +211,18 @@ func testAccCheckPipelineExists(ctx context.Context, n string, pipeline *sagemak
 func testAccPipelinePipelineConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
-data "aws_iam_policy_document" "test" {
-  statement {
-    actions = ["sts:AssumeRole"]
+funcatement {
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.amazonaws.com"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.amazonaws.com"]
+
   }
 }
 `, rName)
@@ -240,19 +231,18 @@ data "aws_iam_policy_document" "test" {
 func testAccPipelinePipelineConfig_basic(rName, dispName string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name         = %[1]q
+  pipeline_name %[1]q
   pipeline_display_name = %[2]q
-  role_arn              = aws_iam_role.test.arn
+  role_arniam_role.test.arn
 
   pipeline_definition = jsonencode({
-    Version = "2020-12-01"
-    Steps = [{
-      Name = "Test"
-      Type = "Fail"
-      Arguments = {
-        ErrorMessage = "test"
-      }
-    }]
+rsion = "2020-12-01"
+funcTest"
+ = "Fail"
+ments = {
+rorMessage = "test"
+
+
   })
 }
 `, rName, dispName))
@@ -261,23 +251,22 @@ resource "aws_sagemaker_pipeline" "test" {
 func testAccPipelinePipelineConfig_parallelism(rName string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name         = %[1]q
+  pipeline_name %[1]q
   pipeline_display_name = %[1]q
-  role_arn              = aws_iam_role.test.arn
+  role_arniam_role.test.arn
 
   pipeline_definition = jsonencode({
-    Version = "2020-12-01"
-    Steps = [{
-      Name = "Test"
-      Type = "Fail"
-      Arguments = {
-        ErrorMessage = "test"
-      }
-    }]
+rsion = "2020-12-01"
+eps = [{
+funcFail"
+ments = {
+rorMessage = "test"
+
+
   })
 
   parallelism_configuration {
-    max_parallel_execution_steps = 1
+x_parallel_execution_steps = 1
   }
 }
 `, rName))
@@ -286,23 +275,22 @@ resource "aws_sagemaker_pipeline" "test" {
 func testAccPipelinePipelineConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name         = %[1]q
+  pipeline_name %[1]q
   pipeline_display_name = %[1]q
-  role_arn              = aws_iam_role.test.arn
+  role_arniam_role.test.arn
 
   pipeline_definition = jsonencode({
-    Version = "2020-12-01"
-    Steps = [{
-      Name = "Test"
-      Type = "Fail"
-      Arguments = {
-        ErrorMessage = "test"
-      }
-    }]
+rsion = "2020-12-01"
+eps = [{
+ = "Test"
+funcs = {
+rorMessage = "test"
+
+
   })
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -311,24 +299,23 @@ resource "aws_sagemaker_pipeline" "test" {
 func testAccPipelinePipelineConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name         = %[1]q
+  pipeline_name %[1]q
   pipeline_display_name = %[1]q
-  role_arn              = aws_iam_role.test.arn
+  role_arniam_role.test.arn
 
   pipeline_definition = jsonencode({
-    Version = "2020-12-01"
-    Steps = [{
-      Name = "Test"
-      Type = "Fail"
-      Arguments = {
-        ErrorMessage = "test"
-      }
-    }]
+rsion = "2020-12-01"
+eps = [{
+ = "Test"
+ = "Fail"
+funcessage = "test"
+
+
   })
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

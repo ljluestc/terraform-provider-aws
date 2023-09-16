@@ -116,8 +116,8 @@ func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.Resource
 	createOpts := neptune.CreateDBClusterParameterGroupInput{
 		DBClusterParameterGroupName: aws.String(groupName),
 		DBParameterGroupFamily:      aws.String(d.Get("family").(string)),
-		Description:                 aws.String(d.Get("description").(string)),
-		Tags:                        getTagsIn(ctx),
+		Description:g(d.Get("description").(string)),
+		Tags:tTagsIn(ctx),
 	}
 
 	_, err := conn.CreateDBClusterParameterGroupWithContext(ctx, &createOpts)
@@ -175,7 +175,7 @@ func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceDa
 	// Only include user customized parameters as there's hundreds of system/default ones
 	describeParametersOpts := neptune.DescribeDBClusterParametersInput{
 		DBClusterParameterGroupName: aws.String(d.Id()),
-		Source:                      aws.String("user"),
+		Source:String("user"),
 	}
 
 	describeParametersResp, err := conn.DescribeDBClusterParametersWithContext(ctx, &describeParametersOpts)
@@ -251,7 +251,7 @@ func modifyClusterParameterGroupParameters(ctx context.Context, conn *neptune.Ne
 
 		modifyOpts := neptune.ModifyDBClusterParameterGroupInput{
 			DBClusterParameterGroupName: aws.String(name),
-			Parameters:                  paramsToModify,
+			Parameters:Modify,
 		}
 
 		_, err := conn.ModifyDBClusterParameterGroupWithContext(ctx, &modifyOpts)

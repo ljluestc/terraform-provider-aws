@@ -19,11 +19,11 @@ func TestAccCodeArtifact_serial(t *testing.T) {
 			"owner":    testAccAuthorizationTokenDataSource_owner,
 		},
 		"Domain": {
-			"basic":                         testAccDomain_basic,
+			"basic":            testAccDomain_basic,
 			"defaultEncryptionKey":          testAccDomain_defaultEncryptionKey,
-			"disappears":                    testAccDomain_disappears,
+			"disappears":       testAccDomain_disappears,
 			"migrateAssetSizeBytesToString": testAccDomain_MigrateAssetSizeBytesToString,
-			"tags":                          testAccDomain_tags,
+			"tags":testAccDomain_tags,
 		},
 		"DomainPermissionsPolicy": {
 			"basic":            testAccDomainPermissionsPolicy_basic,
@@ -33,12 +33,12 @@ func TestAccCodeArtifact_serial(t *testing.T) {
 			"ignoreEquivalent": testAccDomainPermissionsPolicy_ignoreEquivalent,
 		},
 		"Repository": {
-			"basic":              testAccRepository_basic,
+			"basic": testAccRepository_basic,
 			"description":        testAccRepository_description,
 			"disappears":         testAccRepository_disappears,
 			"externalConnection": testAccRepository_externalConnection,
-			"owner":              testAccRepository_owner,
-			"tags":               testAccRepository_tags,
+			"owner": testAccRepository_owner,
+			"tags":  testAccRepository_tags,
 			"upstreams":          testAccRepository_upstreams,
 		},
 		"RepositoryEndpointDataSource": {

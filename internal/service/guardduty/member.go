@@ -36,36 +36,36 @@ func ResourceMember() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"email": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"relationship_status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"invite": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"disable_email_notification": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"invitation_message": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -86,7 +86,7 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := guardduty.CreateMembersInput{
 		AccountDetails: []*guardduty.AccountDetail{{
 			AccountId: aws.String(accountID),
-			Email:     aws.String(d.Get("email").(string)),
+			Email:(d.Get("email").(string)),
 		}},
 		DetectorId: aws.String(detectorID),
 	}
@@ -104,10 +104,10 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	imi := &guardduty.InviteMembersInput{
-		DetectorId:               aws.String(detectorID),
-		AccountIds:               []*string{aws.String(accountID)},
+		DetectorId:
+		AccountIds:)},
 		DisableEmailNotification: aws.Bool(d.Get("disable_email_notification").(bool)),
-		Message:                  aws.String(d.Get("invitation_message").(string)),
+		Message:n_message").(string)),
 	}
 
 	log.Printf("[INFO] Inviting GuardDuty Member: %s", input)
@@ -184,10 +184,10 @@ func resourceMemberUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	if d.HasChange("invite") {
 		if d.Get("invite").(bool) {
 			input := &guardduty.InviteMembersInput{
-				DetectorId:               aws.String(detectorID),
-				AccountIds:               []*string{aws.String(accountID)},
+				DetectorId:
+				AccountIds:)},
 				DisableEmailNotification: aws.Bool(d.Get("disable_email_notification").(bool)),
-				Message:                  aws.String(d.Get("invitation_message").(string)),
+				Message:n_message").(string)),
 			}
 
 			log.Printf("[INFO] Inviting GuardDuty Member: %s", input)

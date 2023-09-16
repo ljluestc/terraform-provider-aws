@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_ec2_host", name="Host")
 // @Tags(identifierAttribute="id")
 
-func ResourceHost() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceHostCreate,
-		ReadWithoutTimeout:   resourceHostRead,
+		ReadWithoutTimeout:ourceHostRead,
 		UpdateWithoutTimeout: resourceHostUpdate,
 		DeleteWithoutTimeout: resourceHostDelete,
 
@@ -42,55 +41,53 @@ func ResourceHost() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"asset_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				RequiredWith: []string{"outpost_arn"},
-				Computed:     true,
+				Computed:
 			},
 			"auto_placement": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.AutoPlacementOn,
+				Optional:
+				Default:lacementOn,
 				Validate
 func: validation.StringInSlice(ec2.AutoPlacement_Values(), false),
-			},
-			"availability_zone": {
-				Type:     schema.TypeString,
+funcavailability_zone": {
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"host_recovery": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.HostRecoveryOff,
+				Optional:
+				Default:ecoveryOff,
 				Validate
 func: validation.StringInSlice(ec2.HostRecovery_Values(), false),
 			},
-			"instance_family": {
-				Type:schema.TypeString,
-				Optional:     true,
+funcType:schema.TypeString,
+				Optional:
 				ExactlyOneOf: []string{"instance_family", "instance_type"},
 			},
 			"instance_type": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: []string{"instance_family", "instance_type"},
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -100,12 +97,11 @@ func: validation.StringInSlice(ec2.HostRecovery_Values(), false),
 func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	input := &ec2.AllocateHostsInput{
-		AutoPlacement:     aws.String(d.Get("auto_placement").(string)),
+funcut := &ec2.AllocateHostsInput{
+		AutoPlacement:(d.Get("auto_placement").(string)),
 		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
-		ClientToken:       aws.String(id.UniqueId()),
-		HostRecovery:      aws.String(d.Get("host_recovery").(string)),
+		ClientToken:ng(id.UniqueId()),
+		HostRecovery:g(d.Get("host_recovery").(string)),
 		Quantity: aws.Int64(1),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeDedicatedHost),
 	}
@@ -146,8 +142,7 @@ func resourceHostRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	host, err := FindHostByID(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Host %s not found, removing from state", d.Id())
 		d.SetId("")
@@ -160,8 +155,8 @@ func resourceHostRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(host.OwnerId),
 		Resource:  fmt.Sprintf("dedicated-host/%s", d.Id()),
 	}.String()
@@ -186,8 +181,7 @@ func resourceHostUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	if d.HasChangesExcept("tags", "tags_all") {
-		input := &ec2.ModifyHostsInput{
-			HostIds: aws.StringSlice([]string{d.Id()}),
+funcostIds: aws.StringSlice([]string{d.Id()}),
 		}
 
 		if d.HasChange("auto_placement") {
@@ -231,8 +225,7 @@ func resourceHostDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	log.Printf("[INFO] Deleting EC2 Host: %s", d.Id())
 	output, err := conn.ReleaseHostsWithContext(ctx, &ec2.ReleaseHostsInput{
-		HostIds: aws.StringSlice([]string{d.Id()}),
-	})
+func
 
 	if err == nil && output != nil {
 		err = UnsuccessfulItemsError(output.Unsuccessful)

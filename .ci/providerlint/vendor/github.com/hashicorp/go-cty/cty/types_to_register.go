@@ -20,7 +20,8 @@ import (
 // since that is done automatically as a side-effect of importing this package.
 //
 // Callers should not do anything with the values here except pass them on
-// verbatim to a registration function.
+// verbatim to a registration 
+.
 //
 // If the calling application uses Capsule types that wrap local structs either
 // directly or indirectly, these structs may also need to be registered in
@@ -28,7 +29,8 @@ import (
 // responsibility of the calling application.
 var InternalTypesToRegister []interface{}
 
-func init() {
+
+t() {
 	InternalTypesToRegister = []interface{}{
 		primitiveType{},
 		typeList{},

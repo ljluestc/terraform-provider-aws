@@ -50,9 +50,9 @@ func TestAccGameLiftBuild_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBuildDestroy(ctx),
+		CheckDestroy:testAccCheckBuildDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBuildConfig_basic(rName, bucketName, key, roleArn),
@@ -70,7 +70,7 @@ func TestAccGameLiftBuild_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"storage_location"},
 			},
@@ -121,9 +121,9 @@ func TestAccGameLiftBuild_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBuildDestroy(ctx),
+		CheckDestroy:testAccCheckBuildDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBuildConfig_basicTags1(rName, bucketName, key, roleArn, "key1", "value1"),
@@ -135,7 +135,7 @@ func TestAccGameLiftBuild_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"storage_location"},
 			},
@@ -189,9 +189,9 @@ func TestAccGameLiftBuild_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBuildDestroy(ctx),
+		CheckDestroy:testAccCheckBuildDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBuildConfig_basic(rName, bucketName, key, roleArn),
@@ -277,7 +277,7 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 func testAccBuildConfig_basic(buildName, bucketName, key, roleArn string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_build" "test" {
-  name             = "%s"
+  name= "%s"
   operating_system = "WINDOWS_2012"
 
   storage_location {
@@ -292,7 +292,7 @@ resource "aws_gamelift_build" "test" {
 func testAccBuildConfig_basicTags1(buildName, bucketName, key, roleArn, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_build" "test" {
-  name             = %[1]q
+  name= %[1]q
   operating_system = "WINDOWS_2012"
 
   storage_location {
@@ -311,7 +311,7 @@ resource "aws_gamelift_build" "test" {
 func testAccBuildConfig_basicTags2(buildName, bucketName, key, roleArn, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_build" "test" {
-  name             = %[1]q
+  name= %[1]q
   operating_system = "WINDOWS_2012"
 
   storage_location {

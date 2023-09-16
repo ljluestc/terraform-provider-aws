@@ -4,52 +4,52 @@
 package outposts_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/outposts"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/outposts"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 func TestAccOutpostsOutpostInstanceTypesDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_outposts_outpost_instance_types.test"
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_outposts_outpost_instance_types.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostInstanceTypesDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOutpostInstanceTypesAttributes(dataSourceName),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+{
+Config: testAccOutpostInstanceTypesDataSourceConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckOutpostInstanceTypesAttributes(dataSourceName),
+),
+},
+},
+})
 }
 
 func testAccCheckOutpostInstanceTypesAttributes(dataSourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[dataSourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", dataSourceName)
-		}
+return func(s *terraform.State) error {
+rs, ok := s.RootModule().Resources[dataSourceName]
+if !ok {
+return fmt.Errorf("Not found: %s", dataSourceName)
+}
 
-		if v := rs.Primary.Attributes["instance_types.#"]; v == "0" {
-			return fmt.Errorf("expected at least one instance_types result, got none")
-		}
+if v := rs.Primary.Attributes["instance_types.#"]; v == "0" {
+return fmt.Errorf("expected at least one instance_types result, got none")
+}
 
-		return nil
-	}
+return nil
+}
 }
 
 func testAccOutpostInstanceTypesDataSourceConfig_basic() string {
-	return `
+return `
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost_instance_types" "test" {

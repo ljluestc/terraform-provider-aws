@@ -29,7 +29,8 @@ type Downloader struct {
 	BaseURL          string
 }
 
-func (d *Downloader) DownloadAndUnpack(ctx context.Context, pv *ProductVersion, binDir string, licenseDir string) (zipFilePath string, err error) {
+
+ (d *Downloader) DownloadAndUnpack(ctx context.Context, pv *ProductVersion, binDir string, licenseDir string) (zipFilePath string, err error) {
 	if len(pv.Builds) == 0 {
 		return "", fmt.Errorf("no builds found for %s %s", pv.Name, pv.Version)
 	}
@@ -198,7 +199,8 @@ var zipMimeTypes = []string{
 	"application/zip",              // Unix
 }
 
-func contentTypeIsZip(contentType string) bool {
+
+ contentTypeIsZip(contentType string) bool {
 	for _, mt := range zipMimeTypes {
 		if mt == contentType {
 			return true
@@ -212,9 +214,10 @@ func contentTypeIsZip(contentType string) bool {
 var licenseFiles = []string{
 	"EULA.txt",
 	"TermsOfEvaluation.txt",
-}
 
-func isLicenseFile(filename string) bool {
+
+
+ isLicenseFile(filename string) bool {
 	for _, lf := range licenseFiles {
 		if lf == filename {
 			return true

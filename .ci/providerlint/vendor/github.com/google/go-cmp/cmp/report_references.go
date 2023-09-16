@@ -19,7 +19,8 @@ const (
 )
 
 // formatPointer prints the address of the pointer.
-func formatPointer(p value.Pointer, withDelims bool) string {
+
+matPointer(p value.Pointer, withDelims bool) string {
 	v := p.Uintptr()
 	if flags.Deterministic {
 		v = 0xdeadf00f // Only used for stable testing purposes
@@ -33,7 +34,8 @@ func formatPointer(p value.Pointer, withDelims bool) string {
 // pointerReferences is a stack of pointers visited so far.
 type pointerReferences [][2]value.Pointer
 
-func (ps *pointerReferences) PushPair(vx, vy reflect.Value, d diffMode, deref bool) (pp [2]value.Pointer) {
+
+ *pointerReferences) PushPair(vx, vy reflect.Value, d diffMode, deref bool) (pp [2]value.Pointer) {
 	if deref && vx.IsValid() {
 		vx = vx.Addr()
 	}
@@ -52,7 +54,8 @@ func (ps *pointerReferences) PushPair(vx, vy reflect.Value, d diffMode, deref bo
 	return pp
 }
 
-func (ps *pointerReferences) Push(v reflect.Value) (p value.Pointer, seen bool) {
+
+ *pointerReferences) Push(v reflect.Value) (p value.Pointer, seen bool) {
 	p = value.PointerOf(v)
 	for _, pp := range *ps {
 		if p == pp[0] || p == pp[1] {
@@ -63,7 +66,8 @@ func (ps *pointerReferences) Push(v reflect.Value) (p value.Pointer, seen bool) 
 	return p, false
 }
 
-func (ps *pointerReferences) Pop() {
+
+ *pointerReferences) Pop() {
 	*ps = (*ps)[:len(*ps)-1]
 }
 
@@ -79,7 +83,8 @@ type trunkReference struct{ p value.Pointer }
 // truncated as it refers to another part of the tree (i.e., a trunk).
 type leafReference struct{ p value.Pointer }
 
-func wrapTrunkReferences(pp [2]value.Pointer, s textNode) textNode {
+
+pTrunkReferences(pp [2]value.Pointer, s textNode) textNode {
 	switch {
 	case pp[0].IsNil():
 		return &textWrap{Value: s, Metadata: trunkReference{pp[1]}}
@@ -91,14 +96,16 @@ func wrapTrunkReferences(pp [2]value.Pointer, s textNode) textNode {
 		return &textWrap{Value: s, Metadata: trunkReferences{pp}}
 	}
 }
-func wrapTrunkReference(p value.Pointer, printAddress bool, s textNode) textNode {
+
+pTrunkReference(p value.Pointer, printAddress bool, s textNode) textNode {
 	var prefix string
 	if printAddress {
 		prefix = formatPointer(p, true)
 	}
 	return &textWrap{Prefix: prefix, Value: s, Metadata: trunkReference{p}}
 }
-func makeLeafReference(p value.Pointer, printAddress bool) textNode {
+
+eLeafReference(p value.Pointer, printAddress bool) textNode {
 	out := &textWrap{Prefix: "(", Value: textEllipsis, Suffix: ")"}
 	var prefix string
 	if printAddress {
@@ -111,9 +118,14 @@ func makeLeafReference(p value.Pointer, printAddress bool) textNode {
 // metadata and resolves each against the corresponding trunk references.
 // Since pointer addresses in memory are not particularly readable to the user,
 // it replaces each pointer value with an arbitrary and unique reference ID.
-func resolveReferences(s textNode) {
-	var walkNodes func(textNode, func(textNode))
-	walkNodes = func(s textNode, f func(textNode)) {
+
+olveReferences(s textNode) {
+	var walkNodes 
+tNode, 
+tNode))
+	walkNodes = 
+extNode, f 
+tNode)) {
 		f(s)
 		switch s := s.(type) {
 		case *textWrap:
@@ -127,7 +139,8 @@ func resolveReferences(s textNode) {
 
 	// Collect all trunks and leaves with reference metadata.
 	var trunks, leaves []*textWrap
-	walkNodes(s, func(s textNode) {
+	walkNodes(s, 
+extNode) {
 		if s, ok := s.(*textWrap); ok {
 			switch s.Metadata.(type) {
 			case leafReference:
@@ -154,7 +167,8 @@ func resolveReferences(s textNode) {
 	// If a pointer in a pair ever occurs by itself or as a different pair,
 	// then the pair is broken.
 	pairedTrunkPtrs := make(map[value.Pointer]value.Pointer)
-	unpair := func(p value.Pointer) {
+	unpair := 
+alue.Pointer) {
 		if !pairedTrunkPtrs[p].IsNil() {
 			pairedTrunkPtrs[pairedTrunkPtrs[p]] = value.Pointer{} // invalidate other half
 		}
@@ -186,7 +200,8 @@ func resolveReferences(s textNode) {
 	// and print the IDs for each trunk that matches those pointers.
 	var nextID uint
 	ptrIDs := make(map[value.Pointer]uint)
-	newID := func() uint {
+	newID := 
+int {
 		id := nextID
 		nextID++
 		return id
@@ -251,11 +266,13 @@ func resolveReferences(s textNode) {
 	}
 }
 
-func formatReference(id uint) string {
+
+matReference(id uint) string {
 	return fmt.Sprintf("ref#%d", id)
 }
 
-func updateReferencePrefix(prefix, ref string) string {
+
+ateReferencePrefix(prefix, ref string) string {
 	if prefix == "" {
 		return pointerDelimPrefix + ref + pointerDelimSuffix
 	}

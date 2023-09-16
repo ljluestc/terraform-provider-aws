@@ -28,11 +28,11 @@ func TestAccKinesisStream_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
@@ -54,7 +54,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -71,11 +71,11 @@ func TestAccKinesisStream_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
@@ -98,11 +98,11 @@ func TestAccKinesisStream_createMultipleConcurrentStreams(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_concurrent(rName),
@@ -132,7 +132,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName + "-0",
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -147,11 +147,11 @@ func TestAccKinesisStream_encryptionWithoutKMSKeyThrowsError(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccStreamConfig_encryptionAndNoKMSKey(rName),
@@ -169,11 +169,11 @@ func TestAccKinesisStream_encryption(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_encryption(rName),
@@ -185,7 +185,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -232,11 +232,11 @@ func(*terraform.State) error {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_shardCount(rName, 128),
@@ -248,7 +248,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -274,11 +274,11 @@ func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
@@ -290,7 +290,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -324,11 +324,11 @@ func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_singleShardLevelMetric(rName),
@@ -341,7 +341,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -382,11 +382,11 @@ func TestAccKinesisStream_enforceConsumerDeletion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_enforceConsumerDeletion(rName),
@@ -398,7 +398,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -415,11 +415,11 @@ func TestAccKinesisStream_tags(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_tags1(rName, "key1", "value1"),
@@ -432,7 +432,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -468,11 +468,11 @@ func TestAccKinesisStream_updateKMSKeyID(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_updateKMSKeyID(rName, 0),
@@ -502,11 +502,11 @@ func TestAccKinesisStream_basicOnDemand(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basicOnDemand(rName),
@@ -519,7 +519,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -536,11 +536,11 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_changeProvisionedToOnDemand1(rName),
@@ -553,7 +553,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -569,7 +569,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -585,7 +585,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -601,7 +601,7 @@ func(
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
@@ -618,11 +618,11 @@ func TestAccKinesisStream_failOnBadStreamCountAndStreamModeCombination(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStreamDestroy(ctx),
+		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			// Check that we can't create an invalid combination
 			{
@@ -776,7 +776,7 @@ resource "aws_kinesis_stream" "test" {
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 
   policy = <<POLICY
@@ -814,7 +814,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_updateRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name             = %[1]q
+  name= %[1]q
   shard_count      = 2
   retention_period = 8760
 }
@@ -825,7 +825,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_decreaseRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name             = %[1]q
+  name= %[1]q
   shard_count      = 2
   retention_period = 28
 }
@@ -899,8 +899,8 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_enforceConsumerDeletion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name                      = %[1]q
-  shard_count               = 2
+  name         = %[1]q
+  shard_count  = 2
   enforce_consumer_deletion = true
 }
 `, rName)
@@ -912,7 +912,7 @@ func testAccStreamConfig_updateKMSKeyID(rName string, keyIdx int) string {
 resource "aws_kms_key" "key" {
   count = 2
 
-  description             = "%[1]s-${count.index}"
+  description= "%[1]s-${count.index}"
   deletion_window_in_days = 10
 }
 

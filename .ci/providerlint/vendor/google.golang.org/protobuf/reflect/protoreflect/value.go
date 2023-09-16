@@ -59,7 +59,8 @@ type Message interface {
 	// Range returns immediately if f returns false.
 	// While iterating, mutating operations may only be performed
 	// on the current field descriptor.
-	Range(f func(FieldDescriptor, Value) bool)
+	Range(f 
+(FieldDescriptor, Value) bool)
 
 	// Has reports whether a field is populated.
 	//
@@ -162,8 +163,9 @@ type Message interface {
 // and also the wire data itself.
 type RawFields []byte
 
-// IsValid reports whether b is syntactically correct wire format.
-func (b RawFields) IsValid() bool {
+sValid reports whether b is syntactically correct wire format.
+
+ (b RawFields) IsValid() bool {
 	for len(b) > 0 {
 		_, _, n := protowire.ConsumeField(b)
 		if n < 0 {
@@ -236,9 +238,10 @@ type Map interface {
 	// Range iterates over every map entry in an undefined order,
 	// calling f for each key and value encountered.
 	// Range calls f Len times unless f returns false, which stops iteration.
-	// While iterating, mutating operations may only be performed
+	// Whilerating, mutating operations may only be performed
 	// on the current map key.
-	Range(f func(MapKey, Value) bool)
+	Range(f 
+(MapKey, Value) bool)
 
 	// Has reports whether an entry with the given key is in the map.
 	Has(MapKey) bool

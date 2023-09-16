@@ -17,10 +17,9 @@ import (
 )
 
 // @SDKResource("aws_sagemaker_image_version")
-func ResourceImageVersion() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceImageVersionCreate,
-		ReadWithoutTimeout:   resourceImageVersionRead,
+		ReadWithoutTimeout:ourceImageVersionRead,
 		DeleteWithoutTimeout: resourceImageVersionDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -28,29 +27,29 @@ func ResourceImageVersion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"base_image": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"container_image": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"image_arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"image_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"version": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 		},
@@ -58,8 +57,7 @@ func ResourceImageVersion() *schema.Resource {
 }
 
 func resourceImageVersionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("image_name").(string)
 	input := &sagemaker.CreateImageVersionInput{
@@ -83,8 +81,7 @@ func resourceImageVersionCreate(ctx context.Context, d *schema.ResourceData, met
 
 func resourceImageVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	image, err := FindImageVersionByName(ctx, conn, d.Id())
 	if err != nil {
 		if tfawserr.ErrMessageContains(err, sagemaker.ErrCodeResourceNotFound, "does not exist") {
@@ -108,10 +105,9 @@ func resourceImageVersionRead(ctx context.Context, d *schema.ResourceData, meta 
 func resourceImageVersionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	input := &sagemaker.DeleteImageVersionInput{
+funcut := &sagemaker.DeleteImageVersionInput{
 		ImageName: aws.String(d.Id()),
-		Version:   aws.Int64(int64(d.Get("version").(int))),
+		Version:.Int64(int64(d.Get("version").(int))),
 	}
 
 	if _, err := conn.DeleteImageVersionWithContext(ctx, input); err != nil {

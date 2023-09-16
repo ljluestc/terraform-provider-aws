@@ -16,8 +16,11 @@ type DecodeModelOptions struct {
 	SkipCustomizations bool
 }
 
-// Set combines all of the option functions together.
-func (d *DecodeModelOptions) Set(optFns ...func(*DecodeModelOptions)) {
+// Set combines all of the option 
+s together.
+
+*DecodeModelOptions) Set(optFns ...
+codeModelOptions)) {
 	for _, fn := range optFns {
 		fn(d)
 	}
@@ -27,7 +30,8 @@ func (d *DecodeModelOptions) Set(optFns ...func(*DecodeModelOptions)) {
 // a endpoint Resolver. If the file format is not supported, or an error occurs
 // when unmarshaling the model an error will be returned.
 //
-// Casting the return value of this func to a EnumPartitions will
+// Casting the return value of this 
+a EnumPartitions will
 // allow you to get a list of the partitions in the order the endpoints
 // will be resolved in.
 //
@@ -37,7 +41,9 @@ func (d *DecodeModelOptions) Set(optFns ...func(*DecodeModelOptions)) {
 //	for _, p := range partitions {
 //	    // ... inspect partitions
 //	}
-func DecodeModel(r io.Reader, optFns ...func(*DecodeModelOptions)) (Resolver, error) {
+
+odeModel(r io.Reader, optFns ...
+codeModelOptions)) (Resolver, error) {
 	var opts DecodeModelOptions
 	opts.Set(optFns...)
 
@@ -63,7 +69,8 @@ func DecodeModel(r io.Reader, optFns ...func(*DecodeModelOptions)) (Resolver, er
 		fmt.Sprintf("endpoints version %s, not supported", version), nil)
 }
 
-func decodeV3Endpoints(modelDef modelDefinition, opts DecodeModelOptions) (Resolver, error) {
+
+odeV3Endpoints(modelDef modelDefinition, opts DecodeModelOptions) (Resolver, error) {
 	b, ok := modelDef["partitions"]
 	if !ok {
 		return nil, newDecodeModelError("endpoints model missing partitions", nil)
@@ -90,7 +97,8 @@ func decodeV3Endpoints(modelDef modelDefinition, opts DecodeModelOptions) (Resol
 	return ps, nil
 }
 
-func custRegionalS3(p *partition) {
+
+tRegionalS3(p *partition) {
 	if p.ID != "aws" {
 		return
 	}
@@ -122,11 +130,13 @@ func custRegionalS3(p *partition) {
 	p.Services["s3"] = service
 }
 
-func custRmIotDataService(p *partition) {
+
+tRmIotDataService(p *partition) {
 	delete(p.Services, "data.iot")
 }
 
-func custFixAppAutoscalingChina(p *partition) {
+
+tFixAppAutoscalingChina(p *partition) {
 	if p.ID != "aws-cn" {
 		return
 	}
@@ -148,7 +158,8 @@ func custFixAppAutoscalingChina(p *partition) {
 	p.Services[serviceName] = s
 }
 
-func custFixAppAutoscalingUsGov(p *partition) {
+
+tFixAppAutoscalingUsGov(p *partition) {
 	if p.ID != "aws-us-gov" {
 		return
 	}
@@ -186,7 +197,8 @@ type decodeModelError struct {
 	awsError
 }
 
-func newDecodeModelError(msg string, err error) decodeModelError {
+
+DecodeModelError(msg string, err error) decodeModelError {
 	return decodeModelError{
 		awsError: awserr.New("DecodeEndpointsModelError", msg, err),
 	}

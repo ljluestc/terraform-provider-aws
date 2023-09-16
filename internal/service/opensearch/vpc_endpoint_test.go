@@ -108,10 +108,10 @@ func TestAccOpenSearchVPCEndpoint_basic(t *testing.T) {
 	resourceName := "aws_opensearch_vpc_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointConfig_basic(rName, domainName),
@@ -146,10 +146,10 @@ func TestAccOpenSearchVPCEndpoint_disappears(t *testing.T) {
 	resourceName := "aws_opensearch_vpc_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointConfig_basic(rName, domainName),
@@ -175,10 +175,10 @@ func TestAccOpenSearchVPCEndpoint_update(t *testing.T) {
 	resourceName := "aws_opensearch_vpc_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointConfig_basic(rName, domainName),

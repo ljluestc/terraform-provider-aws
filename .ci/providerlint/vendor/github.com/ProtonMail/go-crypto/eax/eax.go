@@ -25,17 +25,20 @@ type eax struct {
 	nonceSize int
 }
 
-func (e *eax) NonceSize() int {
+
+*eax) NonceSize() int {
 	return e.nonceSize
 }
 
-func (e *eax) Overhead() int {
+
+*eax) Overhead() int {
 	return e.tagSize
 }
 
 // NewEAX returns an EAX instance with AES-{KEYLENGTH} and default nonce and
 // tag lengths. Supports {128, 192, 256}- bit key length.
-func NewEAX(block cipher.Block) (cipher.AEAD, error) {
+
+EAX(block cipher.Block) (cipher.AEAD, error) {
 	return NewEAXWithNonceAndTagSize(block, defaultNonceSize, defaultTagSize)
 }
 
@@ -48,7 +51,8 @@ func NewEAX(block cipher.Block) (cipher.AEAD, error) {
 //
 // Only to be used for compatibility with existing cryptosystems with
 // non-standard parameters. For all other cases, prefer NewEAX.
-func NewEAXWithNonceAndTagSize(
+
+EAXWithNonceAndTagSize(
 	block cipher.Block, nonceSize, tagSize int) (cipher.AEAD, error) {
 	if nonceSize < 1 {
 		return nil, eaxError("Cannot initialize EAX with nonceSize = 0")
@@ -63,7 +67,8 @@ func NewEAXWithNonceAndTagSize(
 	}, nil
 }
 
-func (e *eax) Seal(dst, nonce, plaintext, adata []byte) []byte {
+
+*eax) Seal(dst, nonce, plaintext, adata []byte) []byte {
 	if len(nonce) > e.nonceSize {
 		panic("crypto/eax: Nonce too long for this instance")
 	}
@@ -85,7 +90,8 @@ func (e *eax) Seal(dst, nonce, plaintext, adata []byte) []byte {
 	return ret
 }
 
-func (e *eax) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
+
+*eax) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
 	if len(nonce) > e.nonceSize {
 		panic("crypto/eax: Nonce too long for this instance")
 	}
@@ -118,7 +124,8 @@ func (e *eax) Open(dst, nonce, ciphertext, adata []byte) ([]byte, error) {
 }
 
 // Tweakable OMAC - Calls OMAC_K([t]_n || plaintext)
-func (e *eax) omacT(t byte, plaintext []byte) []byte {
+
+*eax) omacT(t byte, plaintext []byte) []byte {
 	blockSize := e.block.BlockSize()
 	byteT := make([]byte, blockSize)
 	byteT[blockSize-1] = t
@@ -126,7 +133,8 @@ func (e *eax) omacT(t byte, plaintext []byte) []byte {
 	return e.omac(concat)
 }
 
-func (e *eax) omac(plaintext []byte) []byte {
+
+*eax) omac(plaintext []byte) []byte {
 	blockSize := e.block.BlockSize()
 	// L ← E_K(0^n); B ← 2L; P ← 4L
 	L := make([]byte, blockSize)
@@ -143,7 +151,8 @@ func (e *eax) omac(plaintext []byte) []byte {
 	return cbcCiphertext[len(cbcCiphertext)-blockSize:]
 }
 
-func (e *eax) pad(plaintext, B, P []byte) []byte {
+
+*eax) pad(plaintext, B, P []byte) []byte {
 	// if |M| in {n, 2n, 3n, ...}
 	blockSize := e.block.BlockSize()
 	if len(plaintext) != 0 && len(plaintext)%blockSize == 0 {
@@ -157,6 +166,7 @@ func (e *eax) pad(plaintext, B, P []byte) []byte {
 	return byteutil.RightXor(padded, P)
 }
 
-func eaxError(err string) error {
+
+Error(err string) error {
 	return errors.New("crypto/eax: " + err)
 }

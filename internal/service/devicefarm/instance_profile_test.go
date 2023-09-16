@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDeviceFarmInstanceProfile_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var profile devicefarm.InstanceProfile
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
@@ -29,15 +28,14 @@ func TestAccDeviceFarmInstanceProfile_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	acctest.Pfunctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceProfileDestroy(ctx),
+CheckDestroy:testAccCheckInstanceProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceProfileConfig_basic(rName),
@@ -70,21 +68,19 @@ Check: resource.ComposeTestCheckFunc(
 
 func TestAccDeviceFarmInstanceProfile_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var profile devicefarm.InstanceProfile
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_instance_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-	// Currently, DeviceFarm is only supported in us-west-2
-	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	// Currenfunchttps://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceProfileDestroy(ctx),
+CheckDestroy:testAccCheckInstanceProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceProfileConfig_tags1(rName, "key1", "value1"),
@@ -124,19 +120,17 @@ func TestAccDeviceFarmInstanceProfile_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var profile devicefarm.InstanceProfile
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_instance_profile.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-},
+	acctest.Pfunc
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceProfileDestroy(ctx),
+CheckDestroy:testAccCheckInstanceProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceProfileConfig_basic(rName),
@@ -157,10 +151,8 @@ rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
-
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No ID is set")
-}
+funcs.Primary.ID == "" {
+	return func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 resp, err := tfdevicefarm.FindInstanceProfileByARN(ctx, conn, rs.Primary.ID)
@@ -185,10 +177,8 @@ for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_devicefarm_instance_profile" {
 continue
 	}
-
-	// Try to find the resource
-	_, err := tfdevicefarm.FindInstanceProfileByARN(ctx, conn, rs.Primary.ID)
-	if tfresource.NotFound(err) {
+funcTry to find the resource
+	_, err functfresource.NotFound(err) {
 continue
 	}
 
@@ -213,8 +203,7 @@ resource "aws_devicefarm_instance_profile" "test" {
 
 func testAccInstanceProfileConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
-resource "aws_devicefarm_instance_profile" "test" {
-  name = %[1]q
+funcme = %[1]q
 
   tags = {
     %[2]q = %[3]q
@@ -222,7 +211,6 @@ resource "aws_devicefarm_instance_profile" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccInstanceProfileConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_instance_profile" "test" {
@@ -235,3 +223,4 @@ resource "aws_devicefarm_instance_profile" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

@@ -4,7 +4,8 @@ package configschema
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -20,7 +21,8 @@ const _NestingMode_name = "nestingModeInvalidNestingSingleNestingGroupNestingLis
 
 var _NestingMode_index = [...]uint8{0, 18, 31, 43, 54, 64, 74}
 
-func (i NestingMode) String() string {
+
+ (i NestingMode) String() string {
 	if i < 0 || i >= NestingMode(len(_NestingMode_index)-1) {
 		return "NestingMode(" + strconv.FormatInt(int64(i), 10) + ")"
 	}

@@ -85,13 +85,13 @@ func ResourceScheduledAction() *schema.Resource {
 			// The AWS API normalizes start_time and end_time to UTC. Uses
 			// suppressEquivalentTime to allow any timezone to be used.
 			"start_time": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateFunc:     validation.IsRFC3339Time,
 				DiffSuppressFunc: suppressEquivalentTime,
 			},
 			"end_time": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateFunc:     validation.IsRFC3339Time,
 				DiffSuppressFunc: suppressEquivalentTime,

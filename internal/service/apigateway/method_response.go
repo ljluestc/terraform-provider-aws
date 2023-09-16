@@ -26,17 +26,15 @@ import (
 var resourceMethodResponseMutex = &sync.Mutex{}
 
 // @SDKResource("aws_api_gateway_method_response")
-func ResourceMethodResponse() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceMethodResponseCreate,
-		ReadWithoutTimeout:   resourceMethodResponseRead,
+		ReadWithoutTimeout:ourceMethodResponseRead,
 		UpdateWithoutTimeout: resourceMethodResponseUpdate,
 		DeleteWithoutTimeout: resourceMethodResponseDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 4 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" || idParts[3] == "" {
+				idParts := stfuncif len(idParts) != 4 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" || idParts[3] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/RESOURCE-ID/HTTP-METHOD/STATUS-CODE", d.Id())
 				}
 				restApiID := idParts[0]
@@ -54,33 +52,33 @@ func ResourceMethodResponse() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"http_method": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validHTTPMethod(),
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"response_models": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"response_parameters": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeBool},
+				Type:chema.TypeMap,
+				Elem:schema.Schema{Type: schema.TypeBool},
 				Optional: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"status_code": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 		},
@@ -89,8 +87,7 @@ func ResourceMethodResponse() *schema.Resource {
 
 func resourceMethodResponseCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.PutMethodResponseInput{
 		HttpMethod: aws.String(d.Get("http_method").(string)),
 		ResourceId: aws.String(d.Get("resource_id").(string)),
@@ -112,8 +109,7 @@ func resourceMethodResponseCreate(ctx context.Context, d *schema.ResourceData, m
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.PutMethodResponseWithContext(ctx, input)
 	}, apigateway.ErrCodeConflictException)
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating API Gateway Method Response: %s", err)
 	}
 
@@ -126,8 +122,7 @@ func resourceMethodResponseRead(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	methodResponse, err := FindMethodResponseByFourPartKey(ctx, conn, d.Get("http_method").(string), d.Get("resource_id").(string), d.Get("rest_api_id").(string), d.Get("status_code").(string))
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Method Response (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -156,8 +151,7 @@ func resourceMethodResponseUpdate(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	operations := make([]*apigateway.PatchOperation, 0)
-
-	if d.HasChange("response_models") {
+funcd.HasChange("response_models") {
 		operations = append(operations, expandRequestResponseModelOperations(d, "response_models", "responseModels")...)
 	}
 
@@ -166,11 +160,11 @@ func resourceMethodResponseUpdate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	input := &apigateway.UpdateMethodResponseInput{
-		HttpMethod:      aws.String(d.Get("http_method").(string)),
+		HttpMethod:ring(d.Get("http_method").(string)),
 		PatchOperations: operations,
-		ResourceId:      aws.String(d.Get("resource_id").(string)),
-		RestApiId:       aws.String(d.Get("rest_api_id").(string)),
-		StatusCode:      aws.String(d.Get("status_code").(string)),
+		ResourceId:ring(d.Get("resource_id").(string)),
+		RestApiId:tring(d.Get("rest_api_id").(string)),
+		StatusCode:ring(d.Get("status_code").(string)),
 	}
 
 	_, err := conn.UpdateMethodResponseWithContext(ctx, input)
@@ -188,8 +182,7 @@ func resourceMethodResponseDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting API Gateway Method Response: %s", d.Id())
 	_, err := conn.DeleteMethodResponseWithContext(ctx, &apigateway.DeleteMethodResponseInput{
-		HttpMethod: aws.String(d.Get("http_method").(string)),
-		ResourceId: aws.String(d.Get("resource_id").(string)),
+funcsourceId: aws.String(d.Get("resource_id").(string)),
 		RestApiId:  aws.String(d.Get("rest_api_id").(string)),
 		StatusCode: aws.String(d.Get("status_code").(string)),
 	})
@@ -212,12 +205,11 @@ func FindMethodResponseByFourPartKey(ctx context.Context, conn *apigateway.APIGa
 		RestApiId:  aws.String(apiID),
 		StatusCode: aws.String(statusCode),
 	}
-
-	output, err := conn.GetMethodResponseWithContext(ctx, input)
+funcput, err := conn.GetMethodResponseWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

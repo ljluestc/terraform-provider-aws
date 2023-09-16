@@ -17,8 +17,7 @@ const (
 	InstanceProfileResourcePrefix = "instance-profile"
 )
 
-// InstanceProfileARNToName converts Amazon Resource Name (ARN) to Name.
-func InstanceProfileARNToName(inputARN string) (string, error) {
+// InstanceProfileARNToName converts Amazon Resource Name (ARN) to Name.func InstanceProfileARNToName(inputARN string) (string, error) {
 	parsedARN, err := arn.Parse(inputARN)
 
 	if err != nil {

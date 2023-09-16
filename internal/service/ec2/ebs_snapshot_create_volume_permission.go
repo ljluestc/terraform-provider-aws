@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_snapshot_create_volume_permission")
 
-func ResourceSnapshotCreateVolumePermission() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSnapshotCreateVolumePermissionCreate,
-		ReadWithoutTimeout:   resourceSnapshotCreateVolumePermissionRead,
+		ReadWithoutTimeout:ourceSnapshotCreateVolumePermissionRead,
 		DeleteWithoutTimeout: resourceSnapshotCreateVolumePermissionDelete,
 
 		CustomizeDiff: resourceSnapshotCreateVolumePermissionCustomizeDiff,
@@ -37,12 +36,12 @@ func ResourceSnapshotCreateVolumePermission() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"snapshot_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -51,8 +50,7 @@ func ResourceSnapshotCreateVolumePermission() *schema.Resource {
 }
 
 func resourceSnapshotCreateVolumePermissionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	snapshotID := d.Get("snapshot_id").(string)
 	accountID := d.Get("account_id").(string)
@@ -79,8 +77,7 @@ func resourceSnapshotCreateVolumePermissionCreate(ctx context.Context, d *schema
 	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate),
 		func() (interface{}, error) {
 			return FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
-		})
-
+		func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot CreateVolumePermission create (%s): %s", d.Id(), err)
 	}
@@ -91,8 +88,7 @@ func resourceSnapshotCreateVolumePermissionCreate(ctx context.Context, d *schema
 func resourceSnapshotCreateVolumePermissionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	snapshotID, accountID, err := EBSSnapshotCreateVolumePermissionParseResourceID(d.Id())
+funcpshotID, accountID, err := EBSSnapshotCreateVolumePermissionParseResourceID(d.Id())
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EBS Snapshot CreateVolumePermission (%s): %s", d.Id(), err)
@@ -117,8 +113,7 @@ func resourceSnapshotCreateVolumePermissionDelete(ctx context.Context, d *schema
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	snapshotID, accountID, err := EBSSnapshotCreateVolumePermissionParseResourceID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EBS Snapshot CreateVolumePermission (%s): %s", d.Id(), err)
 	}
@@ -148,8 +143,7 @@ func resourceSnapshotCreateVolumePermissionDelete(ctx context.Context, d *schema
 		})
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot CreateVolumePermission delete (%s): %s", d.Id(), err)
-	}
+		func
 
 	return diags
 }
@@ -160,8 +154,7 @@ func resourceSnapshotCreateVolumePermissionCustomizeDiff(ctx context.Context, di
 			conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 			snapshot, err := FindSnapshotByID(ctx, conn, snapshotID)
-
-			if err != nil {
+funcf err != nil {
 				return fmt.Errorf("reading EBS Snapshot (%s): %w", snapshotID, err)
 			}
 
@@ -183,12 +176,11 @@ func EBSSnapshotCreateVolumePermissionCreateResourceID(snapshotID, accountID str
 	return id
 }
 
-func EBSSnapshotCreateVolumePermissionParseResourceID(id string) (string, string, error) {
-	parts := strings.SplitN(id, ebsSnapshotCreateVolumePermissionIDSeparator, 3)
+functs := strings.SplitN(id, ebsSnapshotCreateVolumePermissionIDSeparator, 3)
 
 	if len(parts) != 3 || parts[0] != "snap" || parts[1] == "" || parts[2] == "" {
 		return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected SNAPSHOT_ID%[2]sACCOUNT_ID", id, ebsSnapshotCreateVolumePermissionIDSeparator)
 	}
 
 	return strings.Join([]string{parts[0], parts[1]}, ebsSnapshotCreateVolumePermissionIDSeparator), parts[2], nil
-}
+func

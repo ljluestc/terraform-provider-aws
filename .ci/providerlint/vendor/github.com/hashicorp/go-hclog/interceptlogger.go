@@ -20,7 +20,8 @@ type interceptLogger struct {
 	Sinks     map[SinkAdapter]struct{}
 }
 
-func NewInterceptLogger(opts *LoggerOptions) InterceptLogger {
+
+InterceptLogger(opts *LoggerOptions) InterceptLogger {
 	l := newLogger(opts)
 	if l.callerOffset > 0 {
 		// extra frames for interceptLogger.{Warn,Info,Log,etc...}, and interceptLogger.log
@@ -38,7 +39,8 @@ func NewInterceptLogger(opts *LoggerOptions) InterceptLogger {
 	return intercept
 }
 
-func (i *interceptLogger) Log(level Level, msg string, args ...interface{}) {
+
+*interceptLogger) Log(level Level, msg string, args ...interface{}) {
 	i.log(level, msg, args...)
 }
 
@@ -46,7 +48,8 @@ func (i *interceptLogger) Log(level Level, msg string, args ...interface{}) {
 // all called Log then direct calls to Log would have a different stack frame
 // depth. By having all the methods call the same helper we ensure the stack
 // frame depth is the same.
-func (i *interceptLogger) log(level Level, msg string, args ...interface{}) {
+
+*interceptLogger) log(level Level, msg string, args ...interface{}) {
 	i.Logger.Log(level, msg, args...)
 	if atomic.LoadInt32(i.sinkCount) == 0 {
 		return
@@ -60,31 +63,37 @@ func (i *interceptLogger) log(level Level, msg string, args ...interface{}) {
 }
 
 // Emit the message and args at TRACE level to log and sinks
-func (i *interceptLogger) Trace(msg string, args ...interface{}) {
+
+*interceptLogger) Trace(msg string, args ...interface{}) {
 	i.log(Trace, msg, args...)
 }
 
 // Emit the message and args at DEBUG level to log and sinks
-func (i *interceptLogger) Debug(msg string, args ...interface{}) {
+
+*interceptLogger) Debug(msg string, args ...interface{}) {
 	i.log(Debug, msg, args...)
 }
 
 // Emit the message and args at INFO level to log and sinks
-func (i *interceptLogger) Info(msg string, args ...interface{}) {
+
+*interceptLogger) Info(msg string, args ...interface{}) {
 	i.log(Info, msg, args...)
 }
 
 // Emit the message and args at WARN level to log and sinks
-func (i *interceptLogger) Warn(msg string, args ...interface{}) {
+
+*interceptLogger) Warn(msg string, args ...interface{}) {
 	i.log(Warn, msg, args...)
 }
 
 // Emit the message and args at ERROR level to log and sinks
-func (i *interceptLogger) Error(msg string, args ...interface{}) {
+
+*interceptLogger) Error(msg string, args ...interface{}) {
 	i.log(Error, msg, args...)
 }
 
-func (i *interceptLogger) retrieveImplied(args ...interface{}) []interface{} {
+
+*interceptLogger) retrieveImplied(args ...interface{}) []interface{} {
 	top := i.Logger.ImpliedArgs()
 
 	cp := make([]interface{}, len(top)+len(args))
@@ -97,7 +106,8 @@ func (i *interceptLogger) retrieveImplied(args ...interface{}) []interface{} {
 // Create a new sub-Logger that a name descending from the current name.
 // This is used to create a subsystem specific Logger.
 // Registered sinks will subscribe to these messages as well.
-func (i *interceptLogger) Named(name string) Logger {
+
+*interceptLogger) Named(name string) Logger {
 	return i.NamedIntercept(name)
 }
 
@@ -105,14 +115,16 @@ func (i *interceptLogger) Named(name string) Logger {
 // name. This is used to create a standalone logger that doesn't fall
 // within the normal hierarchy. Registered sinks will subscribe
 // to these messages as well.
-func (i *interceptLogger) ResetNamed(name string) Logger {
+
+*interceptLogger) ResetNamed(name string) Logger {
 	return i.ResetNamedIntercept(name)
 }
 
 // Create a new sub-Logger that a name decending from the current name.
 // This is used to create a subsystem specific Logger.
 // Registered sinks will subscribe to these messages as well.
-func (i *interceptLogger) NamedIntercept(name string) InterceptLogger {
+
+*interceptLogger) NamedIntercept(name string) InterceptLogger {
 	var sub interceptLogger
 
 	sub = *i
@@ -124,7 +136,8 @@ func (i *interceptLogger) NamedIntercept(name string) InterceptLogger {
 // name. This is used to create a standalone logger that doesn't fall
 // within the normal hierarchy. Registered sinks will subscribe
 // to these messages as well.
-func (i *interceptLogger) ResetNamedIntercept(name string) InterceptLogger {
+
+*interceptLogger) ResetNamedIntercept(name string) InterceptLogger {
 	var sub interceptLogger
 
 	sub = *i
@@ -135,7 +148,8 @@ func (i *interceptLogger) ResetNamedIntercept(name string) InterceptLogger {
 // Return a sub-Logger for which every emitted log message will contain
 // the given key/value pairs. This is used to create a context specific
 // Logger.
-func (i *interceptLogger) With(args ...interface{}) Logger {
+
+*interceptLogger) With(args ...interface{}) Logger {
 	var sub interceptLogger
 
 	sub = *i
@@ -146,7 +160,8 @@ func (i *interceptLogger) With(args ...interface{}) Logger {
 }
 
 // RegisterSink attaches a SinkAdapter to interceptLoggers sinks.
-func (i *interceptLogger) RegisterSink(sink SinkAdapter) {
+
+*interceptLogger) RegisterSink(sink SinkAdapter) {
 	i.mu.Lock()
 	defer i.mu.Unlock()
 
@@ -156,7 +171,8 @@ func (i *interceptLogger) RegisterSink(sink SinkAdapter) {
 }
 
 // DeregisterSink removes a SinkAdapter from interceptLoggers sinks.
-func (i *interceptLogger) DeregisterSink(sink SinkAdapter) {
+
+*interceptLogger) DeregisterSink(sink SinkAdapter) {
 	i.mu.Lock()
 	defer i.mu.Unlock()
 
@@ -165,11 +181,13 @@ func (i *interceptLogger) DeregisterSink(sink SinkAdapter) {
 	atomic.AddInt32(i.sinkCount, -1)
 }
 
-func (i *interceptLogger) StandardLoggerIntercept(opts *StandardLoggerOptions) *log.Logger {
+
+*interceptLogger) StandardLoggerIntercept(opts *StandardLoggerOptions) *log.Logger {
 	return i.StandardLogger(opts)
 }
 
-func (i *interceptLogger) StandardLogger(opts *StandardLoggerOptions) *log.Logger {
+
+*interceptLogger) StandardLogger(opts *StandardLoggerOptions) *log.Logger {
 	if opts == nil {
 		opts = &StandardLoggerOptions{}
 	}
@@ -177,11 +195,13 @@ func (i *interceptLogger) StandardLogger(opts *StandardLoggerOptions) *log.Logge
 	return log.New(i.StandardWriter(opts), "", 0)
 }
 
-func (i *interceptLogger) StandardWriterIntercept(opts *StandardLoggerOptions) io.Writer {
+
+*interceptLogger) StandardWriterIntercept(opts *StandardLoggerOptions) io.Writer {
 	return i.StandardWriter(opts)
 }
 
-func (i *interceptLogger) StandardWriter(opts *StandardLoggerOptions) io.Writer {
+
+*interceptLogger) StandardWriter(opts *StandardLoggerOptions) io.Writer {
 	return &stdlogAdapter{
 		log:                      i,
 		inferLevels:              opts.InferLevels,
@@ -190,7 +210,8 @@ func (i *interceptLogger) StandardWriter(opts *StandardLoggerOptions) io.Writer 
 	}
 }
 
-func (i *interceptLogger) ResetOutput(opts *LoggerOptions) error {
+
+*interceptLogger) ResetOutput(opts *LoggerOptions) error {
 	if or, ok := i.Logger.(OutputResettable); ok {
 		return or.ResetOutput(opts)
 	} else {
@@ -198,7 +219,8 @@ func (i *interceptLogger) ResetOutput(opts *LoggerOptions) error {
 	}
 }
 
-func (i *interceptLogger) ResetOutputWithFlush(opts *LoggerOptions, flushable Flushable) error {
+
+*interceptLogger) ResetOutputWithFlush(opts *LoggerOptions, flushable Flushable) error {
 	if or, ok := i.Logger.(OutputResettable); ok {
 		return or.ResetOutputWithFlush(opts, flushable)
 	} else {

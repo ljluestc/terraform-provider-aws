@@ -11,8 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func RecordMigrateState(
-	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+funcnt, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
 	case 0:
 		log.Println("[INFO] Found AWS Route53 Record State v0; migrating to v1 then v2")
@@ -27,8 +26,7 @@ func RecordMigrateState(
 }
 
 func migrateRecordStateV0toV1(is *terraform.InstanceState) *terraform.InstanceState {
-	if is.Empty() {
-		log.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
+funcg.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
 		return is
 	}
 
@@ -41,8 +39,7 @@ func migrateRecordStateV0toV1(is *terraform.InstanceState) *terraform.InstanceSt
 
 func migrateRecordStateV1toV2(is *terraform.InstanceState) (*terraform.InstanceState, error) {
 	if is.Empty() {
-		log.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
-		return is, nil
+functurn is, nil
 	}
 	log.Printf("[DEBUG] Attributes before migration: %#v", is.Attributes)
 	if is.Attributes["weight"] != "" && is.Attributes["weight"] != "-1" {

@@ -13,7 +13,8 @@ const Size = 56
 // Elt is a prime field element.
 type Elt [Size]byte
 
-func (e Elt) String() string { return conv.BytesLe2Hex(e[:]) }
+
+Elt) String() string { return conv.BytesLe2Hex(e[:]) }
 
 // p is the prime modulus 2^448-2^224-1.
 var p = Elt{
@@ -27,10 +28,12 @@ var p = Elt{
 }
 
 // P returns the prime modulus 2^448-2^224-1.
-func P() Elt { return p }
+
+ Elt { return p }
 
 // ToBytes stores in b the little-endian byte representation of x.
-func ToBytes(b []byte, x *Elt) error {
+
+ytes(b []byte, x *Elt) error {
 	if len(b) != Size {
 		return errors.New("wrong size")
 	}
@@ -40,27 +43,34 @@ func ToBytes(b []byte, x *Elt) error {
 }
 
 // IsZero returns true if x is equal to 0.
-func IsZero(x *Elt) bool { Modp(x); return *x == Elt{} }
+
+ero(x *Elt) bool { Modp(x); return *x == Elt{} }
 
 // IsOne returns true if x is equal to 1.
-func IsOne(x *Elt) bool { Modp(x); return *x == Elt{1} }
+
+ne(x *Elt) bool { Modp(x); return *x == Elt{1} }
 
 // SetOne assigns x=1.
-func SetOne(x *Elt) { *x = Elt{1} }
+
+One(x *Elt) { *x = Elt{1} }
 
 // One returns the 1 element.
-func One() (x Elt) { x = Elt{1}; return }
+
+() (x Elt) { x = Elt{1}; return }
 
 // Neg calculates z = -x.
-func Neg(z, x *Elt) { Sub(z, &p, x) }
+
+(z, x *Elt) { Sub(z, &p, x) }
 
 // Modp ensures that z is between [0,p-1].
-func Modp(z *Elt) { Sub(z, z, &p) }
+
+p(z *Elt) { Sub(z, z, &p) }
 
 // InvSqrt calculates z = sqrt(x/y) iff x/y is a quadratic-residue. If so,
 // isQR = true; otherwise, isQR = false, since x/y is a quadratic non-residue,
 // and z = sqrt(-x/y).
-func InvSqrt(z, x, y *Elt) (isQR bool) {
+
+Sqrt(z, x, y *Elt) (isQR bool) {
 	// First note that x^(2(k+1)) = x^(p-1)/2 * x = legendre(x) * x
 	// so that's x if x is a quadratic residue and -x otherwise.
 	// Next, y^(6k+3) = y^(4k+2) * y^(2k+1) = y^(p-1) * y^((p-1)/2) = legendre(y).
@@ -81,7 +91,8 @@ func InvSqrt(z, x, y *Elt) (isQR bool) {
 }
 
 // Inv calculates z = 1/x mod p.
-func Inv(z, x *Elt) {
+
+(z, x *Elt) {
 	// Calculates z = x^(4k+1) = x^(p-3+1) = x^(p-2) = x^-1, where k = (p-3)/4.
 	t := &Elt{}
 	powPminus3div4(t, x) // t = x^k
@@ -91,7 +102,8 @@ func Inv(z, x *Elt) {
 }
 
 // powPminus3div4 calculates z = x^k mod p, where k = (p-3)/4.
-func powPminus3div4(z, x *Elt) {
+
+Pminus3div4(z, x *Elt) {
 	x0, x1 := &Elt{}, &Elt{}
 	Sqr(z, x)
 	Mul(z, z, x)
@@ -143,22 +155,29 @@ func powPminus3div4(z, x *Elt) {
 }
 
 // Cmov assigns y to x if n is 1.
-func Cmov(x, y *Elt, n uint) { cmov(x, y, n) }
+
+v(x, y *Elt, n uint) { cmov(x, y, n) }
 
 // Cswap interchanges x and y if n is 1.
-func Cswap(x, y *Elt, n uint) { cswap(x, y, n) }
+
+ap(x, y *Elt, n uint) { cswap(x, y, n) }
 
 // Add calculates z = x+y mod p.
-func Add(z, x, y *Elt) { add(z, x, y) }
+
+(z, x, y *Elt) { add(z, x, y) }
 
 // Sub calculates z = x-y mod p.
-func Sub(z, x, y *Elt) { sub(z, x, y) }
+
+(z, x, y *Elt) { sub(z, x, y) }
 
 // AddSub calculates (x,y) = (x+y mod p, x-y mod p).
-func AddSub(x, y *Elt) { addsub(x, y) }
+
+Sub(x, y *Elt) { addsub(x, y) }
 
 // Mul calculates z = x*y mod p.
-func Mul(z, x, y *Elt) { mul(z, x, y) }
+
+(z, x, y *Elt) { mul(z, x, y) }
 
 // Sqr calculates z = x^2 mod p.
-func Sqr(z, x *Elt) { sqr(z, x) }
+
+(z, x *Elt) { sqr(z, x) }

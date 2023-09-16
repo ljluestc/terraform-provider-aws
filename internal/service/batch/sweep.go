@@ -105,7 +105,7 @@ func sweepComputeEnvironments(region string) error {
 
 				iamCreateRoleInput := &iam.CreateRoleInput{
 					AssumeRolePolicyDocument: aws.String(fmt.Sprintf("{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\": \"%s\"},\"Action\":\"sts:AssumeRole\"}]}", servicePrincipal)),
-					RoleName:                 aws.String(serviceRoleName),
+					RoleName:    aws.String(serviceRoleName),
 				}
 
 				_, err = iamconn.CreateRoleWithContext(ctx, iamCreateRoleInput)

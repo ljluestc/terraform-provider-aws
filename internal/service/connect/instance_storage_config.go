@@ -21,6 +21,8 @@ import (
 
 // @SDKResource("aws_connect_instance_storage_config")
 
+
+
 func ResourceInstanceStorageConfig() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceInstanceStorageConfigCreate,
@@ -40,6 +42,8 @@ Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 100),
 	},
 	"resource_type": {
@@ -47,6 +51,8 @@ Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
+
+
 func: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),
 	},
 	"storage_config": {
@@ -65,6 +71,8 @@ Schema: map[string]*schema.Schema{
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: verify.ValidARN,
 	},
 },
@@ -80,6 +88,8 @@ Schema: map[string]*schema.Schema{
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: verify.ValidARN,
 	},
 },
@@ -101,12 +111,16 @@ Elem: &schema.Resource{
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: validation.StringInSlice(connect.EncryptionType_Values(), false),
 },
 "key_id": {
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: verify.ValidARN,
 },
 	},
@@ -116,10 +130,16 @@ func: verify.ValidARN,
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 128),
 // API returns <prefix>-connect-<connect_instance_alias>-contact-
 DiffSuppress
+
+
 func: 
+
+
 func(k, old, new string, d *schema.ResourceData) bool {
 	// API returns <prefix>-connect-<connect_instance_alias>-contact-
 	// case 1: API appends to prefix. User-defined string (old) is prefix of API-returned string (new). Check non-empty old in resoure creation scenario
@@ -132,6 +152,8 @@ func(k, old, new string, d *schema.ResourceData) bool {
 Type:schema.TypeInt,
 Required:     true,
 Validate
+
+
 func: validation.IntBetween(0, 87600),
 	},
 },
@@ -147,12 +169,16 @@ Schema: map[string]*schema.Schema{
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 128),
 	},
 	"bucket_prefix": {
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 128),
 	},
 	"encryption_config": {
@@ -165,12 +191,16 @@ Elem: &schema.Resource{
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: validation.StringInSlice(connect.EncryptionType_Values(), false),
 },
 "key_id": {
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: verify.ValidARN,
 },
 	},
@@ -183,6 +213,8 @@ func: verify.ValidARN,
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: validation.StringInSlice(connect.StorageType_Values(), false),
 },
 	},
@@ -191,6 +223,8 @@ func: validation.StringInSlice(connect.StorageType_Values(), false),
 },
 	}
 }
+
+
 
 
 func resourceInstanceStorageConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -220,6 +254,8 @@ return diag.Errorf("creating Connect Instance Storage Config for Connect Instanc
 
 	return resourceInstanceStorageConfigRead(ctx, d, meta)
 }
+
+
 
 
 func resourceInstanceStorageConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -265,6 +301,8 @@ return diag.Errorf("setting storage_config: %s", err)
 }
 
 
+
+
 func resourceInstanceStorageConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -294,6 +332,8 @@ return diag.Errorf("updating Instance Storage Config (%s): %s", d.Id(), err)
 }
 
 
+
+
 func resourceInstanceStorageConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -317,6 +357,8 @@ return diag.Errorf("deleting InstanceStorageConfig (%s): %s", d.Id(), err)
 }
 
 
+
+
 func InstanceStorageConfigParseId(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, ":", 3)
 
@@ -326,6 +368,8 @@ return "", "", "", fmt.Errorf("unexpected format of ID (%s), expected instanceId
 
 	return parts[0], parts[1], parts[2], nil
 }
+
+
 
 
 func expandStorageConfig(tfList []interface{}) *connect.InstanceStorageConfig {
@@ -362,6 +406,8 @@ result.S3Config = exapandS3Config(v)
 }
 
 
+
+
 func expandKinesisFirehoseConfig(tfList []interface{}) *connect.KinesisFirehoseConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
@@ -378,6 +424,8 @@ FirehoseArn: aws.String(tfMap["firehose_arn"].(string)),
 
 	return result
 }
+
+
 
 
 func expandKinesisStreamConfig(tfList []interface{}) *connect.KinesisStreamConfig {
@@ -398,6 +446,8 @@ StreamArn: aws.String(tfMap["stream_arn"].(string)),
 }
 
 
+
+
 func expandKinesisVideoStreamConfig(tfList []interface{}) *connect.KinesisVideoStreamConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
@@ -416,6 +466,8 @@ RetentionPeriodHours: aws.Int64(int64(tfMap["retention_period_hours"].(int))),
 
 	return result
 }
+
+
 
 
 func exapandS3Config(tfList []interface{}) *connect.S3Config {
@@ -441,6 +493,8 @@ result.EncryptionConfig = expandEncryptionConfig(v)
 }
 
 
+
+
 func expandEncryptionConfig(tfList []interface{}) *connect.EncryptionConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
@@ -458,6 +512,8 @@ KeyId: aws.String(tfMap["key_id"].(string)),
 
 	return result
 }
+
+
 
 
 func flattenStorageConfig(apiObject *connect.InstanceStorageConfig) []interface{} {
@@ -489,6 +545,8 @@ values["s3_config"] = flattenS3Config(v)
 }
 
 
+
+
 func flattenKinesisFirehoseConfig(apiObject *connect.KinesisFirehoseConfig) []interface{} {
 	if apiObject == nil {
 return []interface{}{}
@@ -500,6 +558,8 @@ return []interface{}{}
 
 	return []interface{}{values}
 }
+
+
 
 
 func flattenKinesisStreamConfig(apiObject *connect.KinesisStreamConfig) []interface{} {
@@ -515,6 +575,8 @@ return []interface{}{}
 }
 
 
+
+
 func flattenKinesisVideoStreamConfig(apiObject *connect.KinesisVideoStreamConfig) []interface{} {
 	if apiObject == nil {
 return []interface{}{}
@@ -524,6 +586,8 @@ return []interface{}{}
 "encryption_config": flattenEncryptionConfig(apiObject.EncryptionConfig),
 // API returns <prefix>-connect-<connect_instance_alias>-contact-
 // DiffSuppress
+
+
 func used
 "prefix":  aws.StringValue(apiObject.Prefix),
 "retention_period_hours": aws.Int64Value(apiObject.RetentionPeriodHours),
@@ -531,6 +595,8 @@ func used
 
 	return []interface{}{values}
 }
+
+
 
 
 func flattenS3Config(apiObject *connect.S3Config) []interface{} {
@@ -549,6 +615,8 @@ values["encryption_config"] = flattenEncryptionConfig(v)
 
 	return []interface{}{values}
 }
+
+
 
 
 func flattenEncryptionConfig(apiObject *connect.EncryptionConfig) []interface{} {

@@ -21,8 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_user_ssh_key")
-func ResourceUserSSHKey() *schema.Resource {
+// @SDKResource("aws_iam_user_ssh_key")func ResourceUserSSHKey() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserSSHKeyCreate,
 		ReadWithoutTimeout:   resourceUserSSHKeyRead,
@@ -72,10 +71,7 @@ func ResourceUserSSHKey() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceUserSSHKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	username := d.Get("username").(string)
@@ -115,11 +111,8 @@ func resourceUserSSHKeyCreate(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	return append(diags, resourceUserSSHKeyRead(ctx, d, meta)...)
-}
-
-func resourceUserSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceUserSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	encoding := d.Get("encoding").(string)
 	key, err := FindSSHPublicKeyByThreePartKey(ctx, conn, d.Id(), encoding, d.Get("username").(string))
@@ -144,12 +137,9 @@ func resourceUserSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("status", key.Status)
 
 	return diags
-}
-
-func resourceUserSSHKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserSSHKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	input := &iam.UpdateSSHPublicKeyInput{
 		SSHPublicKeyId: aws.String(d.Id()),
 		Status:         aws.String(d.Get("status").(string)),
@@ -163,13 +153,10 @@ func resourceUserSSHKeyUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	return append(diags, resourceUserSSHKeyRead(ctx, d, meta)...)
-}
-
-func resourceUserSSHKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserSSHKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	log.Printf("[DEBUG] Deleting IAM User SSH Key: %s", d.Id())
+func.Printf("[DEBUG] Deleting IAM User SSH Key: %s", d.Id())
 	_, err := conn.DeleteSSHPublicKeyWithContext(ctx, &iam.DeleteSSHPublicKeyInput{
 		SSHPublicKeyId: aws.String(d.Id()),
 		UserName:       aws.String(d.Get("username").(string)),
@@ -180,14 +167,11 @@ func resourceUserSSHKeyDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	return diags
-}
-
-func resourceUserSSHKeyImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+}func resourceUserSSHKeyImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.SplitN(d.Id(), ":", 3)
 
 	if len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
-		return nil, fmt.Errorf("unexpected format of ID (%q), UserName:SSHPublicKeyId:Encoding", d.Id())
-	}
+	func
 
 	username := idParts[0]
 	sshPublicKeyId := idParts[1]
@@ -199,15 +183,12 @@ func resourceUserSSHKeyImport(ctx context.Context, d *schema.ResourceData, meta 
 	d.SetId(sshPublicKeyId)
 
 	return []*schema.ResourceData{d}, nil
-}
-
-func FindSSHPublicKeyByThreePartKey(ctx context.Context, conn *iam.IAM, id, encoding, username string) (*iam.SSHPublicKey, error) {
+}func FindSSHPublicKeyByThreePartKey(ctx context.Context, conn *iam.IAM, id, encoding, username string) (*iam.SSHPublicKey, error) {
 	input := &iam.GetSSHPublicKeyInput{
 		Encoding:       aws.String(encoding),
 		SSHPublicKeyId: aws.String(id),
 		UserName:       aws.String(username),
-	}
-
+	func
 	output, err := conn.GetSSHPublicKeyWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
@@ -226,14 +207,11 @@ func FindSSHPublicKeyByThreePartKey(ctx context.Context, conn *iam.IAM, id, enco
 	}
 
 	return output.SSHPublicKey, nil
-}
-
-func cleanSSHKey(key string) string {
+}func cleanSSHKey(key string) string {
 	// Remove comments from SSH Keys
 	// Comments are anything after "ssh-rsa XXXX" where XXXX is the key.
 	parts := strings.Split(key, " ")
 	if len(parts) > 2 {
 		parts = parts[0:2]
-	}
-	return strings.Join(parts, " ")
+	funcurn strings.Join(parts, " ")
 }

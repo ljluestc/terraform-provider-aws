@@ -14,15 +14,18 @@ import (
 // UnsafeToUseLegacyTypeSystem opt-out set) and does its best to normalize it for the
 // assumptions we would normally enforce if the provider had not opted out.
 //
-// In particular, this function guarantees that a value representing a nested
+// In particular, this 
+tion guarantees that a value representing a nested
 // block will never itself be unknown or null, instead representing that as
 // a non-null value that may contain null/unknown values.
 //
-// The input value must still conform to the implied type of the given schema,
-// or else this function may produce garbage results or panic. This is usually
-// okay because type consistency is enforced when deserializing the value
+// The input valust still conform to the implied type of the given schema,
+// or else this 
+tion may produce garbage results or panic. This is usually
+kay because type consistency is enforced when deserializing the value
 // returned from the provider over the RPC wire protocol anyway.
-func NormalizeObjectFromLegacySDK(val cty.Value, schema *configschema.Block) cty.Value {
+
+ NormalizeObjectFromLegacySDK(val cty.Value, schema *configschema.Block) cty.Value {
 	if val == cty.NilVal || val.IsNull() {
 		// This should never happen in reasonable use, but we'll allow it
 		// and normalize to a null of the expected type rather than panicking
@@ -101,12 +104,14 @@ func NormalizeObjectFromLegacySDK(val cty.Value, schema *configschema.Block) cty
 // block by producing a known block object with all of its leaf attribute
 // values set to unknown.
 //
-// Blocks themselves cannot be unknown, so if the legacy SDK tries to return
+// Blocks themselves cannot be unknowo if the legacy SDK tries to return
 // such a thing, we'll use this result instead. This convention mimics how
-// the dynamic block feature deals with being asked to iterate over an unknown
-// value, because our value-checking functions already accept this convention
+he dynamic block feature deals with being asked to iterate over an unknown
+// value, because our value-checking 
+tions already accept this convention
 // as a special case.
-func unknownBlockStub(schema *configschema.Block) cty.Value {
+
+ unknownBlockStub(schema *configschema.Block) cty.Value {
 	vals := make(map[string]cty.Value)
 	for name, attrS := range schema.Attributes {
 		vals[name] = cty.UnknownVal(attrS.Type)

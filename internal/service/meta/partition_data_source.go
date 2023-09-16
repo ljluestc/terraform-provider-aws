@@ -72,7 +72,7 @@ func (d *dataSourcePartition) Read(ctx context.Context, request datasource.ReadR
 
 type dataSourcePartitionData struct {
 	DNSSuffix        types.String `tfsdk:"dns_suffix"`
-	ID               types.String `tfsdk:"id"`
+	ID  types.String `tfsdk:"id"`
 	Partition        types.String `tfsdk:"partition"`
 	ReverseDNSPrefix types.String `tfsdk:"reverse_dns_prefix"`
 }

@@ -33,12 +33,12 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"resolver_query_log_config_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"resource_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},

@@ -20,6 +20,8 @@ import (
 )
 
 
+
+
 func testAccContactFlow_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowOutput
@@ -29,14 +31,18 @@ func testAccContactFlow_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactFlowDestroy(ctx),
+CheckDestroy:testAccCheckContactFlowDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactFlowConfig_basic(rName, rName2, "Created"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckContactFlowExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -57,6 +63,8 @@ ImportStateVerify: true,
 	{
 Config: testAccContactFlowConfig_basic(rName, rName2, "Updated"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckContactFlowExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -74,6 +82,8 @@ func(
 }
 
 
+
+
 func testAccContactFlow_filename(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowOutput
@@ -83,14 +93,18 @@ func testAccContactFlow_filename(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactFlowDestroy(ctx),
+CheckDestroy:testAccCheckContactFlowDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactFlowConfig_filename(rName, rName2, "Created", "test-fixtures/connect_contact_flow.json"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckContactFlowExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -114,6 +128,8 @@ ImportStateVerifyIgnore: []string{
 	{
 Config: testAccContactFlowConfig_filename(rName, rName2, "Updated", "test-fixtures/connect_contact_flow_updated.json"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckContactFlowExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -130,6 +146,8 @@ func(
 }
 
 
+
+
 func testAccContactFlow_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowOutput
@@ -140,14 +158,18 @@ func testAccContactFlow_disappears(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactFlowDestroy(ctx),
+CheckDestroy:testAccCheckContactFlowDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactFlowConfig_basic(rName, rName2, "Disappear"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckContactFlowExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceContactFlow(), resourceName),
@@ -159,10 +181,18 @@ ExpectNonEmptyPlan: true,
 }
 
 
+
+
 func testAccCheckContactFlowExists(ctx context.Context, resourceName string, 
+
+
 function *connect.DescribeContactFlowOutput) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
@@ -186,13 +216,19 @@ params := &connect.DescribeContactFlowInput{
 }
 
 get
+
+
 function, err := conn.DescribeContactFlowWithContext(ctx, params)
 if err != nil {
 	return err
 }
 
 *
+
+
 function = *get
+
+
 function
 
 return nil
@@ -200,9 +236,15 @@ return nil
 }
 
 
+
+
 func testAccCheckContactFlowDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_contact_flow" {
@@ -238,6 +280,8 @@ return nil
 }
 
 
+
+
 func testAccContactFlowConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -248,6 +292,8 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccContactFlowConfig_basic(rName, rName2, label string) string {
@@ -292,6 +338,8 @@ resource "aws_connect_contact_flow" "test" {
 }
 `, rName2, label))
 }
+
+
 
 
 func testAccContactFlowConfig_filename(rName, rName2 string, label string, filepath string) string {

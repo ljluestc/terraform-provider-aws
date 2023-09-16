@@ -19,8 +19,7 @@ import (
 	tfappstream "github.com/hashicorp/terraform-provider-aws/internal/service/appstream"
 )
 
-func TestAccAppStreamUserStackAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_appstream_user_stack_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	authType := "USERPOOL"
@@ -29,10 +28,9 @@ func TestAccAppStreamUserStackAssociation_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-},
+	acctest.Pfunc
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserStackAssociationDestroy(ctx),
+CheckDestroy:testAccCheckUserStackAssociationDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -55,8 +53,7 @@ ImportStateVerify: true,
 
 func TestAccAppStreamUserStackAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_appstream_user_stack_association.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	authType := "USERPOOL"
 	domain := acctest.RandomDomainName()
 	rEmail := acctest.RandomEmailAddress(domain)
@@ -65,8 +62,7 @@ func TestAccAppStreamUserStackAssociation_disappears(t *testing.T) {
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 },
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserStackAssociationDestroy(ctx),
+ProtoV5ProfunckDestroy:testAccCheckUserStackAssociationDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -85,8 +81,7 @@ func TestAccAppStreamUserStackAssociation_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_appstream_user_stack_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	authType := "USERPOOL"
-	domain := acctest.RandomDomainName()
+funcain := acctest.RandomDomainName()
 	rEmail := acctest.RandomEmailAddress(domain)
 	rEmailUpdated := acctest.RandomEmailAddress(domain)
 
@@ -95,9 +90,8 @@ PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserStackAssociationDestroy(ctx),
-ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
-Steps: []resource.TestStep{
+CheckDestroy:testAccCheckUserStackAssociationDestroy(ctx),
+ErrorCheckfuncs: []resource.TestStep{
 	{
 Config: testAccUserStackAssociationConfig_basic(rName, authType, rEmail),
 Check: resource.ComposeTestCheckFunc(
@@ -125,10 +119,8 @@ rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("not found: %s", resourceName)
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
-
-userName, authType, stackName, err := tfappstream.DecodeUserStackAssociationID(rs.Primary.ID)
+func := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
+funcName, authType, stackName, err := tfappstream.DecodeUserStackAssociationID(rs.Primary.ID)
 if err != nil {
 	return fmt.Errorf("error decoding AppStream User Stack Association ID (%s): %w", rs.Primary.ID, err)
 }
@@ -159,10 +151,8 @@ for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_appstream_user_stack_association" {
 continue
 	}
-
-	userName, authType, stackName, err := tfappstream.DecodeUserStackAssociationID(rs.Primary.ID)
-	if err != nil {
-return fmt.Errorf("error decoding AppStream User Stack Association ID (%s): %w", rs.Primary.ID, err)
+funcrName, authType, stackName, err := tfappstream.DecodeUserStackAssociationID(rs.Primary.ID)
+	if err funcrn fmt.Errorf("error decoding AppStream User Stack Association ID (%s): %w", rs.Primary.ID, err)
 	}
 
 	resp, err := conn.DescribeUserStackAssociationsWithContext(ctx, &appstream.DescribeUserStackAssociationsInput{
@@ -198,8 +188,7 @@ resource "aws_appstream_user" "test" {
   authentication_type = %[2]q
   user_name           = %[3]q
 }
-
-resource "aws_appstream_user_stack_association" "test" {
+funcurce "aws_appstream_user_stack_association" "test" {
   authentication_type = aws_appstream_user.test.authentication_type
   stack_name          = aws_appstream_stack.test.name
   user_name           = aws_appstream_user.test.user_name

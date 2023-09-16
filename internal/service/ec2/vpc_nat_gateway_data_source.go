@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_nat_gateway")
 
-func DataSourceNATGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceNATGatewayRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,62 +27,62 @@ func DataSourceNATGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allocation_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"association_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"connectivity_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"public_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"secondary_allocation_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"secondary_private_ip_address_count": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"secondary_private_ip_addresses": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"subnet_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -92,15 +91,14 @@ func DataSourceNATGateway() *schema.Resource {
 }
 
 func dataSourceNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeNatGatewaysInput{
 		Filter: BuildAttributeFilterList(
 			map[string]string{
-				"state":     d.Get("state").(string),
+				"state":te").(string),
 				"subnet-id": d.Get("subnet_id").(string),
-				"vpc-id":    d.Get("vpc_id").(string),
+				"vpc-id":Get("vpc_id").(string),
 			},
 		),
 	}

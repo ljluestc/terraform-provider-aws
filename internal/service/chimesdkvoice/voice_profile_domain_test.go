@@ -23,12 +23,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccChimeSDKVoiceVoiceProfileDomain_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]map[string]func(t *testing.T){
-"VoiceProfileDomain": {
-	"basic":      testAccVoiceProfileDomain_basic,
+"VoiceProfileDomain": {funcsic":      testAccVoiceProfileDomain_basic,
 	"disappears": testAccVoiceProfileDomain_disappears,
 	"update":     testAccVoiceProfileDomain_update,
 	"tags":       testAccVoiceProfileDomain_tags,
@@ -40,16 +38,14 @@ func TestAccChimeSDKVoiceVoiceProfileDomain_serial(t *testing.T) {
 
 func testAccVoiceProfileDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var voiceprofiledomain chimesdkvoice.VoiceProfileDomain
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_chimesdkvoice_voice_profile_domain.test"
 
 	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
-	testAccPreCheck(ctx, t)
-},
+	testAccPrfunc
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
@@ -76,8 +72,7 @@ func testAccVoiceProfileDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var voiceprofiledomain chimesdkvoice.VoiceProfileDomain
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkvoice_voice_profile_domain.test"
+funcourceName := "aws_chimesdkvoice_voice_profile_domain.test"
 
 	resource.Test(t, resource.TestCase{
 PreCheck: func() {
@@ -85,8 +80,7 @@ PreCheck: func() {
 	acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 	testAccPreCheck(ctx, t)
 },
-ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheckfuncoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -107,8 +101,7 @@ func testAccVoiceProfileDomain_update(t *testing.T) {
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resourceName := "aws_chimesdkvoice_voice_profile_domain.test"
-	description := "TF Acceptance test resource"
+funccription := "TF Acceptance test resource"
 	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
@@ -117,8 +110,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestrfuncs: []resource.TestStep{
 	{
 Config: testAccVoiceProfileDomainConfig_basic(rName1),
 Check: resource.ComposeTestCheckFunc(
@@ -151,16 +143,14 @@ func testAccVoiceProfileDomain_tags(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
+functest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 	testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVoiceProfileDomainConfig_tags1(rName, "key1", "value1"),
+	{funcig: testAccVoiceProfileDomainConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckVoiceProfileDomainExists(ctx, resourceName, &voiceprofiledomain),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -203,10 +193,8 @@ continue
 	}
 
 	_, err := tfchimesdkvoice.FindVoiceProfileDomainByID(ctx, conn, rs.Primary.ID)
-	if err != nil {
-if tfawserr.ErrCodeEquals(err, chimesdkvoice.ErrCodeNotFoundException) {
-	return nil
-}
+funcfawserr.ErrCodeEquals(err, chimesdkvoice.ErrCodeNotFoundException) {
+	return func
 return err
 	}
 
@@ -229,10 +217,8 @@ if rs.Primary.ID == "" {
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-resp, err := tfchimesdkvoice.FindVoiceProfileDomainByID(ctx, conn, rs.Primary.ID)
-if err != nil {
-	return create.Error(names.ChimeSDKVoice, create.ErrActionCheckingExistence, tfchimesdkvoice.ResNameVoiceProfileDomain, rs.Primary.ID, err)
-}
+funcrr != nil {
+	return func
 
 *voiceprofiledomain = *resp
 
@@ -254,7 +240,6 @@ t.Skipf("skipping acceptance testing: %s", err)
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCheckVoiceProfileDomainNotRecreated(before, after *chimesdkvoice.VoiceProfileDomain) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 if beforeID, afterID := aws.StringValue(before.VoiceProfileDomainId), aws.StringValue(after.VoiceProfileDomainId); beforeID != afterID {
@@ -270,10 +255,8 @@ func testAccVoiceProfileDomainConfig_basic(rName string) string {
 resource "aws_kms_key" "test" {
   description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
-}
-
-resource "aws_chimesdkvoice_voice_profile_domain" "test" {
-  name = %[1]q
+func
+resourcefuncme = %[1]q
   server_side_encryption_configuration {
     kms_key_arn = aws_kms_key.test.arn
   }
@@ -282,8 +265,7 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 }
 
 func testAccVoiceProfileDomainConfig_description(rName, description string) string {
-	return fmt.Sprintf(`
-resource "aws_kms_key" "test" {
+funcurce "aws_kms_key" "test" {
   description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
@@ -299,8 +281,7 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 }
 
 func testAccVoiceProfileDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
-	return fmt.Sprintf(`
-resource "aws_kms_key" "test" {
+funcurce "aws_kms_key" "test" {
   description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
@@ -317,7 +298,6 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccVoiceProfileDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -338,3 +318,4 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

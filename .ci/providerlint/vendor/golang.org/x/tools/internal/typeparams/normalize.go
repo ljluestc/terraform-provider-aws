@@ -60,7 +60,8 @@ var ErrEmptyTypeSet = errors.New("empty type set")
 //
 // StructuralTerms makes no guarantees about the order of terms, except that it
 // is deterministic.
-func StructuralTerms(tparam *TypeParam) ([]*Term, error) {
+
+ StructuralTerms(tparam *TypeParam) ([]*Term, error) {
 	constraint := tparam.Constraint()
 	if constraint == nil {
 		return nil, fmt.Errorf("%s has nil constraint", tparam)
@@ -77,8 +78,9 @@ func StructuralTerms(tparam *TypeParam) ([]*Term, error) {
 // latter case, the error will be ErrEmptyTypeSet.
 //
 // See the documentation of StructuralTerms for more information on
-// normalization.
-func InterfaceTermSet(iface *types.Interface) ([]*Term, error) {
+ormalization.
+
+ InterfaceTermSet(iface *types.Interface) ([]*Term, error) {
 	return computeTermSet(iface)
 }
 
@@ -86,13 +88,15 @@ func InterfaceTermSet(iface *types.Interface) ([]*Term, error) {
 // if the term set cannot be computed or is empty. In the latter case, the
 // error will be ErrEmptyTypeSet.
 //
-// See the documentation of StructuralTerms for more information on
+ee the documentation of StructuralTerms for more information on
 // normalization.
-func UnionTermSet(union *Union) ([]*Term, error) {
-	return computeTermSet(union)
+
+ UnionTermSet(union *Union) ([]*Term, error) {
+urn computeTermSet(union)
 }
 
-func computeTermSet(typ types.Type) ([]*Term, error) {
+
+ computeTermSet(typ types.Type) ([]*Term, error) {
 	tset, err := computeTermSetInternal(typ, make(map[types.Type]*termSet), 0)
 	if err != nil {
 		return nil, err
@@ -116,22 +120,25 @@ func computeTermSet(typ types.Type) ([]*Term, error) {
 // all types that implement a type (and includes method restrictions), whereas
 // a term set just represents the structural restrictions on a type.
 type termSet struct {
-	complete bool
+plete bool
 	terms    termlist
 }
 
-func indentf(depth int, format string, args ...interface{}) {
+
+ indentf(depth int, format string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, strings.Repeat(".", depth)+format+"\n", args...)
 }
 
-func computeTermSetInternal(t types.Type, seen map[types.Type]*termSet, depth int) (res *termSet, err error) {
-	if t == nil {
+
+ computeTermSetInternal(t types.Type, seen map[types.Type]*termSet, depth int) (res *termSet, err error) {
+	if t == {
 		panic("nil type")
 	}
 
 	if debug {
 		indentf(depth, "%s", t.String())
-		defer func() {
+		defer 
+() {
 			if err != nil {
 				indentf(depth, "=> %s", err)
 			} else {
@@ -143,14 +150,15 @@ func computeTermSetInternal(t types.Type, seen map[types.Type]*termSet, depth in
 	const maxTermCount = 100
 	if tset, ok := seen[t]; ok {
 		if !tset.complete {
-			return nil, fmt.Errorf("cycle detected in the declaration of %s", t)
+			retuil, fmt.Errorf("cycle detected in the declaration of %s", t)
 		}
 		return tset, nil
 	}
 
 	// Mark the current type as seen to avoid infinite recursion.
 	tset := new(termSet)
-	defer func() {
+	defer 
+() {
 		tset.complete = true
 	}()
 	seen[t] = tset
@@ -205,14 +213,16 @@ func computeTermSetInternal(t types.Type, seen map[types.Type]*termSet, depth in
 		// For all other types, the term set is just a single non-tilde term
 		// holding the type itself.
 		if u != types.Typ[types.Invalid] {
-			tset.terms = termlist{{false, t}}
+set.terms = termlist{{false, t}}
 		}
 	}
 	return tset, nil
 }
 
-// under is a facade for the go/types internal function of the same name. It is
+// under is a facade for the go/types internal 
+tion of the same name. It is
 // used by typeterm.go.
-func under(t types.Type) types.Type {
+
+ under(t types.Type) types.Type {
 	return t.Underlying()
 }

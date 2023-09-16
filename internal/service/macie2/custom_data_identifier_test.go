@@ -27,10 +27,10 @@ func testAccCustomDataIdentifier_basic(t *testing.T) {
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_nameGenerated(regex),
@@ -59,10 +59,10 @@ func testAccCustomDataIdentifier_Name_Generated(t *testing.T) {
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_nameGenerated(regex),
@@ -88,10 +88,10 @@ func testAccCustomDataIdentifier_disappears(t *testing.T) {
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_nameGenerated(regex),
@@ -114,10 +114,10 @@ func testAccCustomDataIdentifier_NamePrefix(t *testing.T) {
 	namePrefix := "tf-acc-test-prefix-"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_namePrefix(namePrefix, regex),
@@ -147,10 +147,10 @@ func testAccCustomDataIdentifier_WithClassificationJob(t *testing.T) {
 	descriptionUpdated := "this is a updated description"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_complete(bucketName, regex, description),
@@ -189,10 +189,10 @@ func testAccCustomDataIdentifier_WithTags(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomDataIdentifierDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomDataIdentifierConfig_completeTags(bucketName, regex),
@@ -313,10 +313,10 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_macie2_custom_data_identifier" "test" {
-  regex                  = %[2]q
+  regex     = %[2]q
   description            = %[3]q
   maximum_match_distance = 10
-  keywords               = ["test"]
+  keywords  = ["test"]
   ignore_words           = ["not testing"]
 
   depends_on = [aws_macie2_account.test]
@@ -324,7 +324,7 @@ resource "aws_macie2_custom_data_identifier" "test" {
 
 resource "aws_macie2_classification_job" "test" {
   custom_data_identifier_ids = [aws_macie2_custom_data_identifier.test.id]
-  job_type                   = "SCHEDULED"
+  job_type      = "SCHEDULED"
   s3_job_definition {
     bucket_definitions {
       account_id = data.aws_caller_identity.current.account_id
@@ -352,10 +352,10 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_macie2_custom_data_identifier" "test" {
-  regex                  = %[2]q
+  regex     = %[2]q
   description            = "this a description"
   maximum_match_distance = 10
-  keywords               = ["test"]
+  keywords  = ["test"]
   ignore_words           = ["not testing"]
   tags = {
     Key  = "value"
@@ -368,7 +368,7 @@ resource "aws_macie2_custom_data_identifier" "test" {
 
 resource "aws_macie2_classification_job" "test" {
   custom_data_identifier_ids = [aws_macie2_custom_data_identifier.test.id]
-  job_type                   = "SCHEDULED"
+  job_type      = "SCHEDULED"
   s3_job_definition {
     bucket_definitions {
       account_id = data.aws_caller_identity.current.account_id

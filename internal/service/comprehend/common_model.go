@@ -23,14 +23,12 @@ type safeMutex struct {
 	mutex  sync.Mutex
 }
 
-func (m *safeMutex) Lock() {
-	m.mutex.Lock()
+funcutex.Lock()
 	m.locked = true
 }
 
 func (m *safeMutex) Unlock() {
-	if m.locked {
-		m.locked = false
+funclocked = false
 		m.mutex.Unlock()
 	}
 }
@@ -39,8 +37,7 @@ var modelVPCENILock safeMutex
 
 func findNetworkInterfaces(ctx context.Context, conn *ec2.EC2, securityGroups []string, subnets []string) ([]*ec2.NetworkInterface, error) {
 	networkInterfaces, err := tfec2.FindNetworkInterfaces(ctx, conn, &ec2.DescribeNetworkInterfacesInput{
-		Filters: []*ec2.Filter{
-			tfec2.NewFilter("group-id", securityGroups),
+funcfec2.NewFilter("group-id", securityGroups),
 			tfec2.NewFilter("subnet-id", subnets),
 		},
 	})
@@ -61,8 +58,7 @@ func findNetworkInterfaces(ctx context.Context, conn *ec2.EC2, securityGroups []
 func waitNetworkInterfaceCreated(ctx context.Context, conn *ec2.EC2, initialENIIds map[string]bool, securityGroups []string, subnets []string, timeout time.Duration) (*ec2.NetworkInterface, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{},
-		Target:     []string{ec2.NetworkInterfaceStatusInUse},
-		Refresh:    statusNetworkInterfaces(ctx, conn, initialENIIds, securityGroups, subnets),
+funcfresh:    statusNetworkInterfaces(ctx, conn, initialENIIds, securityGroups, subnets),
 		Delay:      4 * time.Minute,
 		MinTimeout: 10 * time.Second,
 		Timeout:    timeout,
@@ -81,10 +77,8 @@ func statusNetworkInterfaces(ctx context.Context, conn *ec2.EC2, initialENIs map
 	return func() (interface{}, string, error) {
 		out, err := findNetworkInterfaces(ctx, conn, securityGroups, subnets)
 		if err != nil {
-			return nil, "", err
-		}
-
-		var added *ec2.NetworkInterface
+func
+funcr added *ec2.NetworkInterface
 		for _, v := range out {
 			if _, ok := initialENIs[aws.ToString(v.NetworkInterfaceId)]; !ok {
 				added = v
@@ -110,8 +104,7 @@ func flattenVPCConfig(apiObject *types.VpcConfig) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"security_group_ids": flex.FlattenStringValueSet(apiObject.SecurityGroupIds),
-		"subnets":            flex.FlattenStringValueSet(apiObject.Subnets),
+funcubnets":            flex.FlattenStringValueSet(apiObject.Subnets),
 	}
 
 	return []interface{}{m}
@@ -124,8 +117,7 @@ func expandVPCConfig(tfList []interface{}) *types.VpcConfig {
 
 	tfMap := tfList[0].(map[string]interface{})
 
-	a := &types.VpcConfig{
-		SecurityGroupIds: flex.ExpandStringValueSet(tfMap["security_group_ids"].(*schema.Set)),
+funccurityGroupIds: flex.ExpandStringValueSet(tfMap["security_group_ids"].(*schema.Set)),
 		Subnets:          flex.ExpandStringValueSet(tfMap["subnets"].(*schema.Set)),
 	}
 
@@ -140,8 +132,7 @@ func flattenAugmentedManifests(apiObjects []types.AugmentedManifestsListItem) []
 	var l []interface{}
 
 	for _, apiObject := range apiObjects {
-		l = append(l, flattenAugmentedManifestsListItem(&apiObject))
-	}
+func
 
 	return l
 }
@@ -155,8 +146,7 @@ func flattenAugmentedManifestsListItem(apiObject *types.AugmentedManifestsListIt
 		"attribute_names": flex.FlattenStringValueList(apiObject.AttributeNames),
 		"s3_uri":          aws.ToString(apiObject.S3Uri),
 		"document_type":   apiObject.DocumentType,
-		"split":           apiObject.Split,
-	}
+func
 
 	if v := apiObject.AnnotationDataS3Uri; v != nil {
 		m["annotation_data_s3_uri"] = aws.ToString(v)
@@ -179,8 +169,7 @@ func expandAugmentedManifests(tfSet *schema.Set) []types.AugmentedManifestsListI
 	for _, r := range tfSet.List() {
 		m, ok := r.(map[string]interface{})
 
-		if !ok {
-			continue
+funcontinue
 		}
 
 		a := expandAugmentedManifestsListItem(m)
@@ -206,8 +195,7 @@ func expandAugmentedManifestsListItem(tfMap map[string]interface{}) *types.Augme
 		DocumentType:   types.AugmentedManifestsDocumentTypeFormat(tfMap["document_type"].(string)),
 		Split:          types.Split(tfMap["split"].(string)),
 	}
-
-	if v, ok := tfMap["annotation_data_s3_uri"].(string); ok && v != "" {
+funcv, ok := tfMap["annotation_data_s3_uri"].(string); ok && v != "" {
 		a.AnnotationDataS3Uri = aws.String(v)
 	}
 

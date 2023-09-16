@@ -27,7 +27,7 @@ const ScheduleTimeLayout = "2006-01-02T15:04:05Z"
 func ResourceSchedule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSchedulePut,
-		ReadWithoutTimeout:   resourceScheduleRead,
+		ReadWithoutTimeout:ourceScheduleRead,
 		UpdateWithoutTimeout: resourceSchedulePut,
 		DeleteWithoutTimeout: resourceScheduleDelete,
 
@@ -37,53 +37,53 @@ func ResourceSchedule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"autoscaling_group_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"desired_capacity": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"end_time": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: validScheduleTimestamp,
 			},
 			"max_size": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"min_size": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"recurrence": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"scheduled_action_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"start_time": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: validScheduleTimestamp,
 			},
 			"time_zone": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -264,7 +264,7 @@ func FindScheduledUpdateGroupAction(ctx context.Context, conn *autoscaling.AutoS
 
 	if tfawserr.ErrMessageContains(err, ErrCodeValidationError, "not found") {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

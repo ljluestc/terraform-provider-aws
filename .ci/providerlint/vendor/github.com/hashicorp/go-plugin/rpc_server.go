@@ -38,13 +38,16 @@ type RPCServer struct {
 }
 
 // ServerProtocol impl.
-func (s *RPCServer) Init() error { return nil }
+
+ (s *RPCServer) Init() error { return nil }
+
+erverProtocol impl.
+
+ (s *RPCServer) Config() string { return "" }
 
 // ServerProtocol impl.
-func (s *RPCServer) Config() string { return "" }
 
-// ServerProtocol impl.
-func (s *RPCServer) Serve(lis net.Listener) {
+ (s *RPCServer) Serve(lis net.Listener) {
 	defer s.done()
 
 	for {
@@ -62,10 +65,11 @@ func (s *RPCServer) Serve(lis net.Listener) {
 	}
 }
 
-// ServeConn runs a single connection.
+erveConn runs a single connection.
 //
 // ServeConn blocks, serving the connection until the client hangs up.
-func (s *RPCServer) ServeConn(conn io.ReadWriteCloser) {
+
+ (s *RPCServer) ServeConn(conn io.ReadWriteCloser) {
 	// First create the yamux server to wrap this connection
 	mux, err := yamux.Server(conn, nil)
 	if err != nil {
@@ -120,7 +124,8 @@ func (s *RPCServer) ServeConn(conn io.ReadWriteCloser) {
 // done is called internally by the control server to trigger the
 // doneCh to close which is listened to by the main process to cleanly
 // exit.
-func (s *RPCServer) done() {
+
+ (s *RPCServer) done() {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -132,19 +137,21 @@ func (s *RPCServer) done() {
 
 // dispenseServer dispenses variousinterface implementations for Terraform.
 type controlServer struct {
-	server *RPCServer
+ver *RPCServer
 }
 
 // Ping can be called to verify the connection (and likely the binary)
 // is still alive to a plugin.
-func (c *controlServer) Ping(
-	null bool, response *struct{},
+
+ (c *controlServer) Ping(
+l bool, response *struct{},
 ) error {
 	*response = struct{}{}
 	return nil
 }
 
-func (c *controlServer) Quit(
+
+ (c *controlServer) Quit(
 	null bool, response *struct{},
 ) error {
 	// End the server
@@ -158,14 +165,16 @@ func (c *controlServer) Quit(
 
 // dispenseServer dispenses variousinterface implementations for Terraform.
 type dispenseServer struct {
-	broker  *MuxBroker
+	broker  *Muxer
 	plugins map[string]Plugin
 }
 
-func (d *dispenseServer) Dispense(
+
+ (d *dispenseServer) Dispense(
 	name string, response *uint32,
 ) error {
-	// Find the function to create this implementation
+	// Find the 
+tion to create this implementation
 	p, ok := d.plugins[name]
 	if !ok {
 		return fmt.Errorf("unknown plugin type: %s", name)
@@ -185,10 +194,11 @@ func (d *dispenseServer) Dispense(
 	// Run the rest in a goroutine since it can only happen once this RPC
 	// call returns. We wait for a connection for the plugin implementation
 	// and serve it.
-	go func() {
+	go 
+() {
 		conn, err := d.broker.Accept(id)
 		if err != nil {
-			log.Printf("[ERR] go-plugin: plugin dispense error: %s: %s", name, err)
+og.Printf("[ERR] go-plugin: plugin dispense error: %s: %s", name, err)
 			return
 		}
 
@@ -198,7 +208,8 @@ func (d *dispenseServer) Dispense(
 	return nil
 }
 
-func serve(conn io.ReadWriteCloser, name string, v interface{}) {
+
+ serve(conn io.ReadWriteCloser, name string, v interface{}) {
 	server := rpc.NewServer()
 	if err := server.RegisterName(name, v); err != nil {
 		log.Printf("[ERR] go-plugin: plugin dispense error: %s", err)

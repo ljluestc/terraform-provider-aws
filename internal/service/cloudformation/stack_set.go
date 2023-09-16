@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_cloudformation_stack_set", name="Stack Set")
 // @Tags
+
 func ResourceStackSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceStackSetCreate,
@@ -193,7 +194,7 @@ func ResourceStackSet() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"template_body": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				Computed:         true,
 				ConflictsWith:    []string{"template_url"},
@@ -211,6 +212,7 @@ func ResourceStackSet() *schema.Resource {
 	}
 }
 
+
 func resourceStackSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -219,7 +221,7 @@ func resourceStackSetCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &cloudformation.CreateStackSetInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
 		StackSetName:       aws.String(name),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("administration_role_arn"); ok {
@@ -277,6 +279,7 @@ func resourceStackSetCreate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceStackSetRead(ctx, d, meta)...)
 }
 
+
 func resourceStackSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -317,6 +320,7 @@ func resourceStackSetRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
+
 
 func resourceStackSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -399,6 +403,7 @@ func resourceStackSetUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceStackSetRead(ctx, d, meta)...)
 }
 
+
 func resourceStackSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -425,6 +430,7 @@ func resourceStackSetDelete(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceStackSetImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	const stackSetImportIDSeparator = ","
 
@@ -439,6 +445,7 @@ func resourceStackSetImport(ctx context.Context, d *schema.ResourceData, meta in
 
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func expandAutoDeployment(l []interface{}) *cloudformation.AutoDeployment {
 	if len(l) == 0 {
@@ -459,6 +466,7 @@ func expandAutoDeployment(l []interface{}) *cloudformation.AutoDeployment {
 	return autoDeployment
 }
 
+
 func expandManagedExecution(l []interface{}) *cloudformation.ManagedExecution {
 	if len(l) == 0 {
 		return nil
@@ -473,18 +481,20 @@ func expandManagedExecution(l []interface{}) *cloudformation.ManagedExecution {
 	return managedExecution
 }
 
+
 func flattenStackSetAutoDeploymentResponse(autoDeployment *cloudformation.AutoDeployment) []map[string]interface{} {
 	if autoDeployment == nil {
 		return []map[string]interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"enabled":                          aws.BoolValue(autoDeployment.Enabled),
+		"enabled":aws.BoolValue(autoDeployment.Enabled),
 		"retain_stacks_on_account_removal": aws.BoolValue(autoDeployment.RetainStacksOnAccountRemoval),
 	}
 
 	return []map[string]interface{}{m}
 }
+
 
 func flattenStackSetManagedExecution(managedExecution *cloudformation.ManagedExecution) []map[string]interface{} {
 	if managedExecution == nil {

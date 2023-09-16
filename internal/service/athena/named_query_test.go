@@ -18,15 +18,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-func TestAccAthenaNamedQuery_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_athena_named_query.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, athena.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, athena.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamedQueryDestroy(ctx),
+		CheckDestroy:CheckNamedQueryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamedQueryConfig_basic(sdkacctest.RandInt(), sdkacctest.RandString(5)),
@@ -35,8 +34,8 @@ func TestAccAthenaNamedQuery_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -44,14 +43,13 @@ func TestAccAthenaNamedQuery_basic(t *testing.T) {
 }
 
 func TestAccAthenaNamedQuery_withWorkGroup(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_athena_named_query.test"
+funcourceName := "aws_athena_named_query.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, athena.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, athena.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamedQueryDestroy(ctx),
+		CheckDestroy:CheckNamedQueryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamedQueryConfig_workGroup(sdkacctest.RandInt(), sdkacctest.RandString(5)),
@@ -60,8 +58,8 @@ func TestAccAthenaNamedQuery_withWorkGroup(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -70,10 +68,8 @@ func TestAccAthenaNamedQuery_withWorkGroup(t *testing.T) {
 
 func testAccCheckNamedQueryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AthenaConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_athena_named_query" {
-				continue
+funcr _, rs := range s.RootModule().Resources {
+			if rsfunccontinue
 			}
 
 			input := &athena.GetNamedQueryInput{
@@ -99,10 +95,8 @@ func testAccCheckNamedQueryExists(ctx context.Context, name string) resource.Tes
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AthenaConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).AthenaConn(ctx)
 
 		input := &athena.GetNamedQueryInput{
 			NamedQueryId: aws.String(rs.Primary.ID),
@@ -116,19 +110,18 @@ func testAccCheckNamedQueryExists(ctx context.Context, name string) resource.Tes
 func testAccNamedQueryConfig_basic(rInt int, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = "tf-test-athena-db-%s-%d"
+  bucket"tf-test-athena-db-%s-%d"
   force_destroy = true
 }
-
-resource "aws_athena_database" "test" {
-  name   = "%s"
+funcurce "aws_athena_database" "test" {
+  name%s"
   bucket = aws_s3_bucket.test.bucket
 }
 
 resource "aws_athena_named_query" "test" {
-  name        = "tf-athena-named-query-%s"
-  database    = aws_athena_database.test.name
-  query       = "SELECT * FROM ${aws_athena_database.test.name} limit 10;"
+  name"tf-athena-named-query-%s"
+  databaseaws_athena_database.test.name
+  querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
   description = "tf test"
 }
 `, rName, rInt, rName, rName)
@@ -137,24 +130,23 @@ resource "aws_athena_named_query" "test" {
 func testAccNamedQueryConfig_workGroup(rInt int, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = "tf-test-athena-db-%s-%d"
+  bucket"tf-test-athena-db-%s-%d"
   force_destroy = true
 }
 
-resource "aws_athena_workgroup" "test" {
-  name = "tf-athena-workgroup-%s-%d"
+funcme = "tf-athena-workgroup-%s-%d"
 }
 
 resource "aws_athena_database" "test" {
-  name   = "%s"
+  name%s"
   bucket = aws_s3_bucket.test.bucket
 }
 
 resource "aws_athena_named_query" "test" {
-  name        = "tf-athena-named-query-%s"
-  workgroup   = aws_athena_workgroup.test.id
-  database    = aws_athena_database.test.name
-  query       = "SELECT * FROM ${aws_athena_database.test.name} limit 10;"
+  name"tf-athena-named-query-%s"
+  workgroupws_athena_workgroup.test.id
+  databaseaws_athena_database.test.name
+  querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
   description = "tf test"
 }
 `, rName, rInt, rName, rInt, rName, rName)

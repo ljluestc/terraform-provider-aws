@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_devicefarm_instance_profile", name="Instance Profile")
 // @Tags(identifierAttribute="arn")
-func ResourceInstanceProfile() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceProfileCreate,
 		ReadWithoutTimeout:   resourceInstanceProfileRead,
 		UpdateWithoutTimeout: resourceInstanceProfileUpdate,
@@ -72,8 +71,7 @@ func ResourceInstanceProfile() *schema.Resource {
 }
 
 func resourceInstanceProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &devicefarm.CreateInstanceProfileInput{
@@ -113,8 +111,7 @@ func resourceInstanceProfileCreate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceInstanceProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	instaceProf, err := FindInstanceProfileByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -141,8 +138,7 @@ func resourceInstanceProfileRead(ctx context.Context, d *schema.ResourceData, me
 func resourceInstanceProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateInstanceProfileInput{
 			Arn: aws.String(d.Id()),
 		}
@@ -181,8 +177,7 @@ func resourceInstanceProfileDelete(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	log.Printf("[DEBUG] Deleting DeviceFarm Instance Profile: %s", d.Id())
-	_, err := conn.DeleteInstanceProfileWithContext(ctx, &devicefarm.DeleteInstanceProfileInput{
+funcerr := conn.DeleteInstanceProfileWithContext(ctx, &devicefarm.DeleteInstanceProfileInput{
 		Arn: aws.String(d.Id()),
 	})
 

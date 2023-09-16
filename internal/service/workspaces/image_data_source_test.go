@@ -31,7 +31,7 @@ func testAccImageDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccImagePreCheck(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

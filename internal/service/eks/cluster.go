@@ -298,10 +298,10 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	input := &eks.CreateClusterInput{
 		EncryptionConfig:   expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
 		Logging:            expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
-		Name:               aws.String(name),
+		Name:  aws.String(name),
 		ResourcesVpcConfig: expandVPCConfigRequestForCreate(d.Get("vpc_config").([]interface{})),
 		RoleArn:            aws.String(d.Get("role_arn").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if _, ok := d.GetOk("kubernetes_network_config"); ok {
@@ -489,7 +489,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if d.HasChanges("vpc_config.0.endpoint_private_access", "vpc_config.0.endpoint_public_access", "vpc_config.0.public_access_cidrs") {
 		input := &eks.UpdateClusterConfigInput{
-			Name:               aws.String(d.Id()),
+			Name:  aws.String(d.Id()),
 			ResourcesVpcConfig: expandVPCConfigRequestForUpdate(d.Get("vpc_config").([]interface{})),
 		}
 
@@ -802,7 +802,7 @@ func expandVPCConfigRequestForCreate(l []interface{}) *eks.VpcConfigRequest {
 		EndpointPrivateAccess: aws.Bool(m["endpoint_private_access"].(bool)),
 		EndpointPublicAccess:  aws.Bool(m["endpoint_public_access"].(bool)),
 		SecurityGroupIds:      flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
-		SubnetIds:             flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
+		SubnetIds:flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
 	}
 
 	if v, ok := m["public_access_cidrs"].(*schema.Set); ok && v.Len() > 0 {
@@ -949,9 +949,9 @@ func flattenVPCConfigResponse(vpcConfig *eks.VpcConfigResponse) []map[string]int
 		"endpoint_private_access":   aws.BoolValue(vpcConfig.EndpointPrivateAccess),
 		"endpoint_public_access":    aws.BoolValue(vpcConfig.EndpointPublicAccess),
 		"security_group_ids":        flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
-		"subnet_ids":                flex.FlattenStringSet(vpcConfig.SubnetIds),
+		"subnet_ids":   flex.FlattenStringSet(vpcConfig.SubnetIds),
 		"public_access_cidrs":       flex.FlattenStringSet(vpcConfig.PublicAccessCidrs),
-		"vpc_id":                    aws.StringValue(vpcConfig.VpcId),
+		"vpc_id":       aws.StringValue(vpcConfig.VpcId),
 	}
 
 	return []map[string]interface{}{m}
@@ -996,7 +996,7 @@ func flattenOutpostConfigResponse(apiObject *eks.OutpostConfigResponse) []interf
 	tfMap := map[string]interface{}{
 		"control_plane_instance_type": aws.StringValue(apiObject.ControlPlaneInstanceType),
 		"control_plane_placement":     flattenControlPlanePlacementResponse(apiObject.ControlPlanePlacement),
-		"outpost_arns":                aws.StringValueSlice(apiObject.OutpostArns),
+		"outpost_arns":   aws.StringValueSlice(apiObject.OutpostArns),
 	}
 
 	return []interface{}{tfMap}

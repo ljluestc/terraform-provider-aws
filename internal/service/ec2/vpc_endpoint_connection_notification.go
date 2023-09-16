@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_connection_notification")
 
-func ResourceVPCEndpointConnectionNotification() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointConnectionNotificationCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointConnectionNotificationRead,
+		ReadWithoutTimeout:ourceVPCEndpointConnectionNotificationRead,
 		UpdateWithoutTimeout: resourceVPCEndpointConnectionNotificationUpdate,
 		DeleteWithoutTimeout: resourceVPCEndpointConnectionNotificationDelete,
 
@@ -34,35 +33,34 @@ func ResourceVPCEndpointConnectionNotification() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"connection_events": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Required: true,
 				MinItems: 1,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"connection_notification_arn": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: verify.ValidARN,
-			},
-			"notification_type": {
-				Type:     schema.TypeString,
+funcnotification_type": {
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_endpoint_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				ExactlyOneOf: []string{"vpc_endpoint_id", "vpc_endpoint_service_id"},
 			},
 			"vpc_endpoint_service_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				ExactlyOneOf: []string{"vpc_endpoint_id", "vpc_endpoint_service_id"},
 			},
 		},
@@ -72,8 +70,7 @@ func: verify.ValidARN,
 
 func resourceVPCEndpointConnectionNotificationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.CreateVpcEndpointConnectionNotificationInput{
 		ConnectionEvents: flex.ExpandStringSet(d.Get("connection_events").(*schema.Set)),
 		ConnectionNotificationArn: aws.String(d.Get("connection_notification_arn").(string)),
@@ -102,8 +99,7 @@ func resourceVPCEndpointConnectionNotificationCreate(ctx context.Context, d *sch
 func resourceVPCEndpointConnectionNotificationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	cn, err := FindVPCConnectionNotificationByID(ctx, conn, d.Id())
+func err := FindVPCConnectionNotificationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 VPC Endpoint Connection Notification %s not found, removing from state", d.Id())
@@ -130,8 +126,7 @@ func resourceVPCEndpointConnectionNotificationUpdate(ctx context.Context, d *sch
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.ModifyVpcEndpointConnectionNotificationInput{
-		ConnectionNotificationId: aws.String(d.Id()),
+funcnnectionNotificationId: aws.String(d.Id()),
 	}
 
 	if d.HasChange("connection_events") {
@@ -157,8 +152,7 @@ func resourceVPCEndpointConnectionNotificationDelete(ctx context.Context, d *sch
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 VPC Endpoint Connection Notification: %s", d.Id())
-	_, err := conn.DeleteVpcEndpointConnectionNotificationsWithContext(ctx, &ec2.DeleteVpcEndpointConnectionNotificationsInput{
-		ConnectionNotificationIds: aws.StringSlice([]string{d.Id()}),
+funcnnectionNotificationIds: aws.StringSlice([]string{d.Id()}),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidConnectionNotification) {

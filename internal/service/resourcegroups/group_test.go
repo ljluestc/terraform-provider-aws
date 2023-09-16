@@ -43,10 +43,10 @@ func TestAccResourceGroupsGroup_basic(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroups.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceGroupDestroy(ctx),
+		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName, desc1, testAccResourceGroupQueryConfig),
@@ -82,10 +82,10 @@ func TestAccResourceGroupsGroup_tags(t *testing.T) {
 	desc1 := "Hello World"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroups.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceGroupDestroy(ctx),
+		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_tags1(rName, desc1, testAccResourceGroupQueryConfig, "key1", "value1"),
@@ -133,10 +133,10 @@ func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 	configType2 := "AWS::ResourceGroups::Generic"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroups.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceGroupDestroy(ctx),
+		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_configuration(rName, desc1, configType1, configType2, false),
@@ -199,10 +199,10 @@ func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
 	configType2 := "AWS::EC2::CapacityReservationPool"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroups.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceGroupDestroy(ctx),
+		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_configurationParametersOptional(rName, configType1, configType2),
@@ -235,10 +235,10 @@ func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
 	configType := "AWS::NetworkFirewall::RuleGroup"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroups.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceGroupDestroy(ctx),
+		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_resourceQueryAndConfiguration(rName, testAccResourceGroupQueryConfig, configType),

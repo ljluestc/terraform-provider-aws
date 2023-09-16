@@ -13,11 +13,13 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func (p *parser) ParseTemplate() (Expression, hcl.Diagnostics) {
+
+ (p *parser) ParseTemplate() (Expression, hcl.Diagnostics) {
 	return p.parseTemplate(TokenEOF, false)
 }
 
-func (p *parser) parseTemplate(end TokenType, flushHeredoc bool) (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseTemplate(end TokenType, flushHeredoc bool) (Expression, hcl.Diagnostics) {
 	exprs, passthru, rng, diags := p.parseTemplateInner(end, flushHeredoc)
 
 	if passthru {
@@ -34,9 +36,10 @@ func (p *parser) parseTemplate(end TokenType, flushHeredoc bool) (Expression, hc
 		Parts:    exprs,
 		SrcRange: rng,
 	}, diags
-}
 
-func (p *parser) parseTemplateInner(end TokenType, flushHeredoc bool) ([]Expression, bool, hcl.Range, hcl.Diagnostics) {
+
+
+ (p *parser) parseTemplateInner(end TokenType, flushHeredoc bool) ([]Expression, bool, hcl.Range, hcl.Diagnostics) {
 	parts, diags := p.parseTemplateParts(end)
 	if flushHeredoc {
 		flushHeredocTemplateParts(parts) // Trim off leading spaces on lines per the flush heredoc spec
@@ -63,10 +66,11 @@ type templateParser struct {
 	Tokens   []templateToken
 	SrcRange hcl.Range
 
-	pos int
+ int
 }
 
-func (p *templateParser) parseRoot() ([]Expression, hcl.Diagnostics) {
+
+ (p *templateParser) parseRoot() ([]Expression, hcl.Diagnostics) {
 	var exprs []Expression
 	var diags hcl.Diagnostics
 
@@ -84,7 +88,8 @@ func (p *templateParser) parseRoot() ([]Expression, hcl.Diagnostics) {
 	return exprs, diags
 }
 
-func (p *templateParser) parseExpr() (Expression, hcl.Diagnostics) {
+
+ (p *templateParser) parseExpr() (Expression, hcl.Diagnostics) {
 	next := p.Peek()
 	switch tok := next.(type) {
 
@@ -131,12 +136,13 @@ func (p *templateParser) parseExpr() (Expression, hcl.Diagnostics) {
 		}
 
 	default:
-		// should never happen, because above should be exhaustive
+ should never happen, because above should be exhaustive
 		panic(fmt.Sprintf("unhandled template token type %T", next))
 	}
 }
 
-func (p *templateParser) parseIf() (Expression, hcl.Diagnostics) {
+
+ (p *templateParser) parseIf() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	openIf, isIf := open.(*templateIfToken)
 	if !isIf {
@@ -242,13 +248,14 @@ Token:
 	return &ConditionalExpr{
 		Condition:   openIf.CondExpr,
 		TrueResult:  trueExpr,
-		FalseResult: falseExpr,
+lseResult: falseExpr,
 
 		SrcRange: hcl.RangeBetween(openIf.SrcRange, endifRange),
 	}, diags
 }
 
-func (p *templateParser) parseFor() (Expression, hcl.Diagnostics) {
+
+ (p *templateParser) parseFor() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	openFor, isFor := open.(*templateForToken)
 	if !isFor {
@@ -338,22 +345,24 @@ Token:
 		SrcRange:   hcl.RangeBetween(openFor.SrcRange, endforRange),
 		OpenRange:  openFor.SrcRange,
 		CloseRange: endforRange,
-	}
+
 
 	return &TemplateJoinExpr{
 		Tuple: forExpr,
-	}, diags
+diags
 }
 
-func (p *templateParser) Peek() templateToken {
+
+ (p *templateParser) Peek() templateToken {
 	return p.Tokens[p.pos]
 }
 
-func (p *templateParser) Read() templateToken {
+
+ (p *templateParser) Read() templateToken {
 	ret := p.Peek()
 	if _, end := ret.(*templateEndToken); !end {
 		p.pos++
-	}
+
 	return ret
 }
 
@@ -362,7 +371,8 @@ func (p *templateParser) Read() templateToken {
 // sequences, or control flow markers.
 //
 // A further pass is required on the result to turn it into an AST.
-func (p *parser) parseTemplateParts(end TokenType) (*templateParts, hcl.Diagnostics) {
+
+ (p *parser) parseTemplateParts(end TokenType) (*templateParts, hcl.Diagnostics) {
 	var parts []templateToken
 	var diags hcl.Diagnostics
 
@@ -391,7 +401,8 @@ Token:
 			diags = append(diags, strDiags...)
 
 			if ltrim {
-				str = strings.TrimLeftFunc(str, unicode.IsSpace)
+				str = strings.TrimLeft
+(str, unicode.IsSpace)
 			}
 
 			parts = append(parts, &templateLiteralToken{
@@ -407,7 +418,8 @@ Token:
 			if canTrimPrev && len(next.Bytes) == 3 && next.Bytes[2] == '~' && len(parts) > 0 {
 				prevExpr := parts[len(parts)-1]
 				if lexpr, ok := prevExpr.(*templateLiteralToken); ok {
-					lexpr.Val = strings.TrimRightFunc(lexpr.Val, unicode.IsSpace)
+					lexpr.Val = strings.TrimRight
+(lexpr.Val, unicode.IsSpace)
 				}
 			}
 
@@ -468,7 +480,7 @@ Token:
 				}
 			}
 			p.PopIncludeNewlines()
-			parts = append(parts, &templateInterpToken{
+			parts = append(parts, &templaterpToken{
 				Expr:     expr,
 				SrcRange: hcl.RangeBetween(next.Range, close.Range),
 			})
@@ -480,7 +492,8 @@ Token:
 			if canTrimPrev && len(next.Bytes) == 3 && next.Bytes[2] == '~' && len(parts) > 0 {
 				prevExpr := parts[len(parts)-1]
 				if lexpr, ok := prevExpr.(*templateLiteralToken); ok {
-					lexpr.Val = strings.TrimRightFunc(lexpr.Val, unicode.IsSpace)
+					lexpr.Val = strings.TrimRight
+(lexpr.Val, unicode.IsSpace)
 				}
 			}
 			p.PushIncludeNewlines(false)
@@ -683,7 +696,7 @@ Token:
 	ret := &templateParts{
 		Tokens:   parts,
 		SrcRange: hcl.RangeBetween(startRange, endRange),
-	}
+
 
 	return ret, diags
 }
@@ -696,7 +709,8 @@ Token:
 // This rule is applied to static tokens rather than to the rendered result,
 // so interpolating a string with leading whitespace cannot affect the chosen
 // prefix length.
-func flushHeredocTemplateParts(parts *templateParts) {
+
+ flushHeredocTemplateParts(parts *templateParts) {
 	if len(parts.Tokens) == 0 {
 		// Nothing to do
 		return
@@ -713,7 +727,8 @@ func flushHeredocTemplateParts(parts *templateParts) {
 			var spaces int
 			if lit, ok := ttok.(*templateLiteralToken); ok {
 				orig := lit.Val
-				trimmed := strings.TrimLeftFunc(orig, unicode.IsSpace)
+				trimmed := strings.TrimLeft
+(orig, unicode.IsSpace)
 				// If a token is entirely spaces and ends with a newline
 				// then it's a "blank line" and thus not considered for
 				// space-prefix-counting purposes.
@@ -743,7 +758,7 @@ func flushHeredocTemplateParts(parts *templateParts) {
 		// we can't just do a straightforward slice operation here and instead
 		// need to hunt for the split point with a scanner.
 		valBytes := []byte(lit.Val)
-		spaceByteCount := 0
+aceByteCount := 0
 		for i := 0; i < minSpaces; i++ {
 			adv, _, _ := textseg.ScanGraphemeClusters(valBytes, true)
 			spaceByteCount += adv
@@ -758,7 +773,8 @@ func flushHeredocTemplateParts(parts *templateParts) {
 // meldConsecutiveStringLiterals simplifies the AST output by combining a
 // sequence of string literal tokens into a single string literal. This must be
 // performed after any whitespace trimming operations.
-func meldConsecutiveStringLiterals(parts *templateParts) {
+
+ meldConsecutiveStringLiterals(parts *templateParts) {
 	if len(parts.Tokens) == 0 {
 		return
 	}
@@ -823,7 +839,7 @@ type templateForToken struct {
 	CollExpr Expression
 	SrcRange hcl.Range
 	isTemplateToken
-}
+
 
 type templateEndCtrlType int
 
@@ -839,11 +855,12 @@ type templateEndCtrlToken struct {
 	isTemplateToken
 }
 
-func (t *templateEndCtrlToken) Name() string {
+
+ (t *templateEndCtrlToken) Name() string {
 	switch t.Type {
 	case templateEndIf:
 		return "endif"
-	case templateElse:
+e templateElse:
 		return "else"
 	case templateEndFor:
 		return "endfor"
@@ -860,6 +877,7 @@ type templateEndToken struct {
 
 type isTemplateToken [0]int
 
-func (t isTemplateToken) templateToken() templateToken {
+
+ (t isTemplateToken) templateToken() templateToken {
 	return t
 }

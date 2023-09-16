@@ -28,13 +28,13 @@ func TestFilterPermissions(t *testing.T) {
 	}
 
 	testCases := []struct {
-		Name                string
-		Input               *lakeformation.ListPermissionsInput
+		Name   string
+		Input  *lakeformation.ListPermissionsInput
 		TableType           string
 		ColumnNames         []*string
 		ExcludedColumnNames []*string
 		ColumnWildcard      bool
-		All                 []*lakeformation.PrincipalResourcePermissions
+		All    []*lakeformation.PrincipalResourcePermissions
 		ExpectedClean       []*lakeformation.PrincipalResourcePermissions
 	}{
 		{
@@ -75,9 +75,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -103,9 +103,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -117,9 +117,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -144,9 +144,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -156,9 +156,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -169,9 +169,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -183,9 +183,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -195,9 +195,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -223,9 +223,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -235,9 +235,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{lakeformation.PermissionSelect}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -248,9 +248,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{lakeformation.PermissionAlter}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -262,9 +262,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -274,9 +274,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{lakeformation.PermissionSelect}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -304,9 +304,9 @@ func TestFilterPermissions(t *testing.T) {
 			ColumnNames: aws.StringSlice([]string{"value"}),
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -316,9 +316,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -329,9 +329,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -344,9 +344,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -356,9 +356,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -386,9 +386,9 @@ func TestFilterPermissions(t *testing.T) {
 			ColumnWildcard: true,
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -398,9 +398,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -411,9 +411,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -426,9 +426,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -438,9 +438,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
@@ -469,9 +469,9 @@ func TestFilterPermissions(t *testing.T) {
 			ExcludedColumnNames: aws.StringSlice([]string{"value"}),
 			All: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -481,9 +481,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId: aws.String(accountID),
@@ -496,9 +496,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
@@ -511,9 +511,9 @@ func TestFilterPermissions(t *testing.T) {
 			},
 			ExpectedClean: []*lakeformation.PrincipalResourcePermissions{
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionAlter, lakeformation.PermissionDelete}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
@@ -523,9 +523,9 @@ func TestFilterPermissions(t *testing.T) {
 					},
 				},
 				{
-					Permissions:                aws.StringSlice([]string{lakeformation.PermissionSelect}),
+					Permissions:   aws.StringSlice([]string{lakeformation.PermissionSelect}),
 					PermissionsWithGrantOption: aws.StringSlice([]string{}),
-					Principal:                  principal,
+					Principal:     principal,
 					Resource: &lakeformation.Resource{
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId: aws.String(accountID),

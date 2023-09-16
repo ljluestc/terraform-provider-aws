@@ -21,10 +21,10 @@ func TestAccRedshiftClusterIAMRoles_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterIAMRolesConfig_basic(rName),
@@ -63,10 +63,10 @@ func TestAccRedshiftClusterIAMRoles_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterIAMRolesConfig_basic(rName),
@@ -131,15 +131,15 @@ EOF
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }

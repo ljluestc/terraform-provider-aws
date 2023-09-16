@@ -42,7 +42,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDetector,
 			TypeName: "aws_guardduty_detector",
-			Name:     "Detector",
+			Name:,
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -50,7 +50,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFilter,
 			TypeName: "aws_guardduty_filter",
-			Name:     "Filter",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -62,7 +62,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPSet,
 			TypeName: "aws_guardduty_ipset",
-			Name:     "IP Set",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -86,7 +86,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceThreatIntelSet,
 			TypeName: "aws_guardduty_threatintelset",
-			Name:     "Threat Intel Set",
+			Name:tel Set",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

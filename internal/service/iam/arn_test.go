@@ -9,10 +9,7 @@ import (
 
 	"github.com/YakDriver/regexache"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
-)
-
-func TestInstanceProfileARNToName(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	testCases := []struct {
 		TestName      string

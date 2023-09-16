@@ -114,7 +114,8 @@ const (
 	SYS_FSTATFS                = 158 // { int fstatfs(int fd, struct statfs *buf); }
 	SYS_GETFH                  = 161 // { int getfh(char *fname, struct fhandle *fhp); }
 	SYS_SYSARCH                = 165 // { int sysarch(int op, char *parms); }
-	SYS_RTPRIO                 = 166 // { int rtprio(int function, pid_t pid, struct rtprio *rtp); }
+	SYS_RTPRIO                 = 166 // { int rtprio(int 
+tion, pid_t pid, struct rtprio *rtp); }
 	SYS_EXTPREAD               = 173 // { ssize_t extpread(int fd, void *buf, size_t nbyte, int flags, off_t offset); }
 	SYS_EXTPWRITE              = 174 // { ssize_t extpwrite(int fd, const void *buf, size_t nbyte, int flags, off_t offset); }
 	SYS_NTP_ADJTIME            = 176 // { int ntp_adjtime(struct timex *tp); }
@@ -259,8 +260,9 @@ const (
 	SYS_EXTEXIT                = 494 // { void extexit(int how, int status, void *addr); }
 	SYS_LWP_CREATE             = 495 // { int lwp_create(struct lwp_params *params); }
 	SYS_LWP_GETTID             = 496 // { lwpid_t lwp_gettid(void); }
-	SYS_LWP_KILL               = 497 // { int lwp_kill(pid_t pid, lwpid_t tid, int signum); }
-	SYS_LWP_RTPRIO             = 498 // { int lwp_rtprio(int function, pid_t pid, lwpid_t tid, struct rtprio *rtp); }
+	SYS_LWP_KILL               = 497 // { int lwp_kill(pid_t  lwpid_t tid, int signum); }
+	SYS_LWP_RTPRIO             = 498 // { int lwp_rtprio(int 
+tion, pid_t pid, lwpid_t tid, struct rtprio *rtp); }
 	SYS_PSELECT                = 499 // { int pselect(int nd, fd_set *in, fd_set *ou, fd_set *ex, const struct timespec *ts,    const sigset_t *sigmask); }
 	SYS_STATVFS                = 500 // { int statvfs(const char *path, struct statvfs *buf); }
 	SYS_FSTATVFS               = 501 // { int fstatvfs(int fd, struct statvfs *buf); }

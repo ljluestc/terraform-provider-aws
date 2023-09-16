@@ -11,7 +11,8 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func (o MarshalOptions) sizeSingular(num protowire.Number, kind protoreflect.Kind, v protoreflect.Value) int {
+
+ (o MarshalOptions) sizeSingular(num protowire.Number, kind protoreflect.Kind, v protoreflect.Value) int {
 	switch kind {
 	case protoreflect.BoolKind:
 		return protowire.SizeVarint(protowire.EncodeBool(v.Bool()))

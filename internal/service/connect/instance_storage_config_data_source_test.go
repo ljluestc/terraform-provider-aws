@@ -14,6 +14,7 @@ import (
 )
 
 
+
 func testAccInstanceStorageConfigDataSource_KinesisFirehoseConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -22,6 +23,7 @@ func testAccInstanceStorageConfigDataSource_KinesisFirehoseConfig(t *testing.T) 
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -29,6 +31,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigDataSourceConfig_kinesisFirehoseConfig(rName),
 Check: resource.ComposeAggregateTestCheck
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "association_id", resourceName, "association_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -44,6 +47,7 @@ func(
 }
 
 
+
 func testAccInstanceStorageConfigDataSource_KinesisStreamConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -53,6 +57,7 @@ func testAccInstanceStorageConfigDataSource_KinesisStreamConfig(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -60,6 +65,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigDataSourceConfig_kinesisStreamConfig(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "association_id", resourceName, "association_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -75,6 +81,7 @@ func(
 }
 
 
+
 func testAccInstanceStorageConfigDataSource_KinesisVideoStreamConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -83,6 +90,7 @@ func testAccInstanceStorageConfigDataSource_KinesisVideoStreamConfig(t *testing.
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,6 +98,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigDataSourceConfig_kinesisVideoStreamConfig(rName),
 Check: resource.ComposeAggregateTestCheck
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "association_id", resourceName, "association_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -109,6 +118,7 @@ func(
 }
 
 
+
 func testAccInstanceStorageConfigDataSource_S3Config(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -118,14 +128,17 @@ func testAccInstanceStorageConfigDataSource_S3Config(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{ // nosemgrep:ci.test-config-
+
 funcs-correct-form
 Config: testAccInstanceStorageConfigDataSourceConfig_S3Config(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "association_id", resourceName, "association_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -145,6 +158,7 @@ func(
 }
 
 
+
 func testAccInstanceStorageConfigDataSourceConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -155,6 +169,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 
 func testAccInstanceStorageConfigDataSourceConfig_kinesisFirehoseConfig(rName string) string {
@@ -274,6 +289,7 @@ data "aws_connect_instance_storage_config" "test" {
 }
 
 
+
 func testAccInstanceStorageConfigDataSourceConfig_kinesisStreamConfig(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccInstanceStorageConfigDataSourceConfig_base(rName),
@@ -302,6 +318,7 @@ data "aws_connect_instance_storage_config" "test" {
 }
 `, rName2))
 }
+
 
 
 func testAccInstanceStorageConfigDataSourceConfig_kinesisVideoStreamConfig(rName string) string {
@@ -338,6 +355,7 @@ data "aws_connect_instance_storage_config" "test" {
 }
 `)
 }
+
 
 
 func testAccInstanceStorageConfigDataSourceConfig_S3Config(rName, rName2 string) string {

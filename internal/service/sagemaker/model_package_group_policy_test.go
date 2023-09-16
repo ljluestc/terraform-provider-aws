@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerModelPackageGroupPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var mpg sagemaker.GetModelPackageGroupPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_model_package_group_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckModelPackageGroupPolicyDestroy(ctx),
+		CheckDestroy:CheckModelPackageGroupPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccModelPackageGroupPolicyConfig_basic(rName),
@@ -38,8 +37,8 @@ func TestAccSageMakerModelPackageGroupPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -47,16 +46,15 @@ func TestAccSageMakerModelPackageGroupPolicy_basic(t *testing.T) {
 }
 
 func TestAccSageMakerModelPackageGroupPolicy_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var mpg sagemaker.GetModelPackageGroupPolicyOutput
+func mpg sagemaker.GetModelPackageGroupPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_model_package_group_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckModelPackageGroupPolicyDestroy(ctx),
+		CheckDestroy:CheckModelPackageGroupPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccModelPackageGroupPolicyConfig_basic(rName),
@@ -73,15 +71,14 @@ func TestAccSageMakerModelPackageGroupPolicy_disappears(t *testing.T) {
 
 func TestAccSageMakerModelPackageGroupPolicy_Disappears_modelPackageGroup(t *testing.T) {
 	ctx := acctest.Context(t)
-	var mpg sagemaker.GetModelPackageGroupPolicyOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_model_package_group_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckModelPackageGroupPolicyDestroy(ctx),
+		CheckDestroy:CheckModelPackageGroupPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccModelPackageGroupPolicyConfig_basic(rName),
@@ -99,10 +96,8 @@ func TestAccSageMakerModelPackageGroupPolicy_Disappears_modelPackageGroup(t *tes
 func testAccCheckModelPackageGroupPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_model_package_group_policy" {
-				continue
+funcr _, rs := range s.RootModule().Resources {
+			if rsfunccontinue
 			}
 
 			_, err := tfsagemaker.FindModelPackageGroupPolicyByName(ctx, conn, rs.Primary.ID)
@@ -124,10 +119,8 @@ func testAccCheckModelPackageGroupPolicyExists(ctx context.Context, n string, mp
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No sagmaker Model Package Group ID is set")
+func
+		if rs.funceturn fmt.Errorf("No sagmaker Model Package Group ID is set")
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
@@ -149,13 +142,12 @@ data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "test" {
   statement {
-    sid       = "AddPermModelPackageGroup"
-    actions   = ["sagemaker:DescribeModelPackage", "sagemaker:ListModelPackages"]
-    resources = [aws_sagemaker_model_package_group.test.arn]
-    principals {
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-      type        = "AWS"
-    }
+funcs= [gemaker:DescribeModelPackage", "sagemaker:ListModelPackages"]
+sources = [aws_sagemaker_model_package_group.test.arn]
+incipals {
+tifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
+
   }
 }
 
@@ -165,7 +157,7 @@ resource "aws_sagemaker_model_package_group" "test" {
 
 resource "aws_sagemaker_model_package_group_policy" "test" {
   model_package_group_name = aws_sagemaker_model_package_group.test.model_package_group_name
-  resource_policy          = jsonencode(jsondecode(data.aws_iam_policy_document.test.json))
+  resource_policyde(jsondecode(data.aws_iam_policy_document.test.json))
 }
 `, rName)
 }

@@ -17,7 +17,8 @@ import (
 	"google.golang.org/protobuf/runtime/protoiface"
 )
 
-func (xi *ExtensionInfo) initToLegacy() {
+
+ (xi *ExtensionInfo) initToLegacy() {
 	xd := xi.desc
 	var parent protoiface.MessageV1
 	messageName := xd.ContainingMessage().FullName()
@@ -71,8 +72,9 @@ func (xi *ExtensionInfo) initToLegacy() {
 }
 
 // initFromLegacy initializes an ExtensionInfo from
-// the contents of the deprecated exported fields of the type.
-func (xi *ExtensionInfo) initFromLegacy() {
+he contents of the deprecated exported fields of the type.
+
+ (xi *ExtensionInfo) initFromLegacy() {
 	// The v1 API returns "type incomplete" descriptors where only the
 	// field number is specified. In such a case, use a placeholder.
 	if xi.ExtendedType == nil || xi.ExtensionType == nil {
@@ -140,37 +142,69 @@ func (xi *ExtensionInfo) initFromLegacy() {
 type placeholderExtension struct {
 	name   protoreflect.FullName
 	number protoreflect.FieldNumber
-}
 
-func (x placeholderExtension) ParentFile() protoreflect.FileDescriptor            { return nil }
-func (x placeholderExtension) Parent() protoreflect.Descriptor                    { return nil }
-func (x placeholderExtension) Index() int                                         { return 0 }
-func (x placeholderExtension) Syntax() protoreflect.Syntax                        { return 0 }
-func (x placeholderExtension) Name() protoreflect.Name                            { return x.name.Name() }
-func (x placeholderExtension) FullName() protoreflect.FullName                    { return x.name }
-func (x placeholderExtension) IsPlaceholder() bool                                { return true }
-func (x placeholderExtension) Options() protoreflect.ProtoMessage                 { return descopts.Field }
-func (x placeholderExtension) Number() protoreflect.FieldNumber                   { return x.number }
-func (x placeholderExtension) Cardinality() protoreflect.Cardinality              { return 0 }
-func (x placeholderExtension) Kind() protoreflect.Kind                            { return 0 }
-func (x placeholderExtension) HasJSONName() bool                                  { return false }
-func (x placeholderExtension) JSONName() string                                   { return "[" + string(x.name) + "]" }
-func (x placeholderExtension) TextName() string                                   { return "[" + string(x.name) + "]" }
-func (x placeholderExtension) HasPresence() bool                                  { return false }
-func (x placeholderExtension) HasOptionalKeyword() bool                           { return false }
-func (x placeholderExtension) IsExtension() bool                                  { return true }
-func (x placeholderExtension) IsWeak() bool                                       { return false }
-func (x placeholderExtension) IsPacked() bool                                     { return false }
-func (x placeholderExtension) IsList() bool                                       { return false }
-func (x placeholderExtension) IsMap() bool                                        { return false }
-func (x placeholderExtension) MapKey() protoreflect.FieldDescriptor               { return nil }
-func (x placeholderExtension) MapValue() protoreflect.FieldDescriptor             { return nil }
-func (x placeholderExtension) HasDefault() bool                                   { return false }
-func (x placeholderExtension) Default() protoreflect.Value                        { return protoreflect.Value{} }
-func (x placeholderExtension) DefaultEnumValue() protoreflect.EnumValueDescriptor { return nil }
-func (x placeholderExtension) ContainingOneof() protoreflect.OneofDescriptor      { return nil }
-func (x placeholderExtension) ContainingMessage() protoreflect.MessageDescriptor  { return nil }
-func (x placeholderExtension) Enum() protoreflect.EnumDescriptor                  { return nil }
-func (x placeholderExtension) Message() protoreflect.MessageDescriptor            { return nil }
-func (x placeholderExtension) ProtoType(protoreflect.FieldDescriptor)             { return }
-func (x placeholderExtension) ProtoInternal(pragma.DoNotImplement)                { return }
+
+
+placeholderExtension) ParentFile() protoreflect.FileDescriptor            { return nil }
+
+placeholderExtension) Parent() protoreflect.Descriptor                    { return nil }
+
+placeholderExtension) Index() int                                         { return 0 }
+
+placeholderExtension) Syntax() protoreflect.Syntax                        { return 0 }
+
+placeholderExtension) Name() protoreflect.Name                            { return x.name.Name() }
+
+placeholderExtension) FullName() protoreflect.FullName                    { return x.name }
+
+placeholderExtension) IsPlaceholder() bool                                { return true }
+
+placeholderExtension) Options() protoreflect.ProtoMessage                 { return descopts.Field }
+
+placeholderExtension) Number() protoreflect.FieldNumber                   { return x.number }
+
+placeholderExtension) Cardinality() protoreflect.Cardinality              { return 0 }
+
+placeholderExtension) Kind() protoreflect.Kind                            { return 0 }
+
+placeholderExtension) HasJSONName() bool                                  { return false }
+
+placeholderExtension) JSONName() string                                   { return "[" + string(x.name) + "]" }
+
+placeholderExtension) TextName() string                                   { return "[" + string(x.name) + "]" }
+
+placeholderExtension) HasPresence() bool                                  { return false }
+
+ (x placeholderExtension) HasOptionalKeyword() bool                           { return false }
+
+ (x placeholderExtension) IsExtension() bool                                  { return true }
+
+ (x placeholderExtension) IsWeak() bool                                       { return false }
+
+ (x placeholderExtension) IsPacked() bool                                     { return false }
+
+ (x placeholderExtension) IsList() bool                                       { return false }
+
+ (x placeholderExtension) IsMap() bool                                        { return false }
+
+ (x placeholderExtension) MapKey() protoreflect.FieldDescriptor               { return nil }
+
+ (x placeholderExtension) MapValue() protoreflect.FieldDescriptor             { return nil }
+
+ (x placeholderExtension) HasDefault() bool                                   { return false }
+
+ (x placeholderExtension) Default() protoreflect.Value                        { return protoreflect.Value{} }
+
+ (x placeholderExtension) DefaultEnumValue() protoreflect.EnumValueDescriptor { return nil }
+
+ (x placeholderExtension) ContainingOneof() protoreflect.OneofDescriptor      { return nil }
+
+ (x placeholderExtension) ContainingMessage() protoreflect.MessageDescriptor  { return nil }
+
+ (x placeholderExtension) Enum() protoreflect.EnumDescriptor                  { return nil }
+
+ (x placeholderExtension) Message() protoreflect.MessageDescriptor            { return nil }
+
+ (x placeholderExtension) ProtoType(protoreflect.FieldDescriptor)             { return }
+
+ (x placeholderExtension) ProtoInternal(pragma.DoNotImplement)                { return }

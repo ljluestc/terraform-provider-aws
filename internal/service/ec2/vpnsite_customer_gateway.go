@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_customer_gateway", name="Customer Gateway")
 // @Tags(identifierAttribute="id")
 
-func ResourceCustomerGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCustomerGatewayCreate,
-		ReadWithoutTimeout:   resourceCustomerGatewayRead,
+		ReadWithoutTimeout:ourceCustomerGatewayRead,
 		UpdateWithoutTimeout: resourceCustomerGatewayUpdate,
 		DeleteWithoutTimeout: resourceCustomerGatewayDelete,
 
@@ -39,51 +38,46 @@ func ResourceCustomerGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"bgp_asn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: verify.Valid4ByteASN,
-			},
-			"certificate_arn": {
+funccertificate_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
 			},
-			"device_name": {
-				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+funcType:schema.TypeString,
+				Optional:
+				ForceNew:
 				Validate
 func: validation.StringLenBetween(1, 255),
 			},
 			"ip_address": {
-				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+funcOptional:
+				ForceNew:
 				Validate
 func: validation.IsIPv4Address,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"type": {
-				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+funcType:schema.TypeString,
+				Required:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.GatewayType_Values(), false),
 			},
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
-	}
-}
+func
 
 
 func resourceCustomerGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -91,9 +85,8 @@ func resourceCustomerGatewayCreate(ctx context.Context, d *schema.ResourceData, 
 
 	input := &ec2.CreateCustomerGatewayInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeCustomerGateway),
-		Type:     aws.String(d.Get("type").(string)),
-	}
-
+		Type:(d.Get("type").(string)),
+func
 	if v, ok := d.GetOk("bgp_asn"); ok {
 		v, err := strconv.ParseInt(v.(string), 10, 64)
 
@@ -139,8 +132,7 @@ func resourceCustomerGatewayRead(ctx context.Context, d *schema.ResourceData, me
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Customer Gateway (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+functurn nil
 	}
 
 	if err != nil {
@@ -149,8 +141,8 @@ func resourceCustomerGatewayRead(ctx context.Context, d *schema.ResourceData, me
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("customer-gateway/%s", d.Id()),
 	}.String()
@@ -175,15 +167,13 @@ func resourceCustomerGatewayUpdate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceCustomerGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	log.Printf("[INFO] Deleting EC2 Customer Gateway: %s", d.Id())
+func.Printf("[INFO] Deleting EC2 Customer Gateway: %s", d.Id())
 	_, err := conn.DeleteCustomerGatewayWithContext(ctx, &ec2.DeleteCustomerGatewayInput{
 		CustomerGatewayId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidCustomerGatewayIDNotFound) {
-		return nil
-	}
+func
 
 	if err != nil {
 		return diag.Errorf("deleting EC2 Customer Gateway (%s): %s", d.Id(), err)

@@ -10,9 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/apigateway/apigatewayiface"
 )
 
-func getAuthorizersPages(ctx context.Context, conn apigatewayiface.APIGatewayAPI, input *apigateway.GetAuthorizersInput, fn func(*apigateway.GetAuthorizersOutput, bool) bool) error {
-	for {
-		output, err := conn.GetAuthorizersWithContext(ctx, input)
+func {functput, err := conn.GetAuthorizersWithContext(ctx, input)
 		if err != nil {
 			return err
 		}

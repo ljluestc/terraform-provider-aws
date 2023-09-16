@@ -29,7 +29,7 @@ func TestAccS3OutpostsEndpoint_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEndpointConfig_basic(rName, rInt),
@@ -65,7 +65,7 @@ func TestAccS3OutpostsEndpoint_private(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEndpointConfig_private(rName, rInt),
@@ -101,7 +101,7 @@ func TestAccS3OutpostsEndpoint_customerOwnedIPv4Pool(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEndpointConfig_customerOwnedIPv4Pool(rName, rInt),
@@ -138,7 +138,7 @@ func TestAccS3OutpostsEndpoint_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEndpointConfig_basic(rName, rInt),
@@ -289,7 +289,7 @@ resource "aws_s3outposts_endpoint" "test" {
   outpost_id= data.aws_outposts_outpost.test.id
   security_group_id        = aws_security_group.test.id
   subnet_id = aws_subnet.test.id
-  access_type              = "CustomerOwnedIp"
+  access_type = "CustomerOwnedIp"
   customer_owned_ipv4_pool = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
 }
 `, rName))

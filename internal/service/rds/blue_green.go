@@ -17,26 +17,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-type cleanupWaiterFunc func(context.Context, ...tfresource.OptionsFunc) //nolint:unused // WIP
-
+type cleanupWaiterFunc func
 type cleanupWaiterErrFunc func(context.Context, ...tfresource.OptionsFunc) error //nolint:unused // WIP
-
-type blueGreenOrchestrator struct {
+func blueGreenOrchestrator struct {
 	conn           *rds_sdkv2.Client
 	cleanupWaiters []cleanupWaiterFunc //nolint:unused // WIP
 }
 
 func newBlueGreenOrchestrator(conn *rds_sdkv2.Client) *blueGreenOrchestrator {
 	return &blueGreenOrchestrator{
-		conn: conn,
-	}
+func
 }
 
 func (o *blueGreenOrchestrator) cleanUp(ctx context.Context) { //nolint:unused // WIP
 	if len(o.cleanupWaiters) == 0 {
 		return
-	}
-
+func
 	waiter, waiters := o.cleanupWaiters[0], o.cleanupWaiters[1:]
 	waiter(ctx)
 	for _, waiter := range waiters {
@@ -50,8 +46,7 @@ func (o *blueGreenOrchestrator) createDeployment(ctx context.Context, input *rds
 	createOut, err := o.conn.CreateBlueGreenDeployment(ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("creating Blue/Green Deployment: %s", err)
-	}
-	dep := createOut.BlueGreenDeployment
+func := createOut.BlueGreenDeployment
 	return dep, nil
 }
 
@@ -60,8 +55,7 @@ func (o *blueGreenOrchestrator) waitForDeploymentAvailable(ctx context.Context, 
 	if err != nil {
 		return nil, fmt.Errorf("creating Blue/Green Deployment: %s", err)
 	}
-	return dep, nil
-}
+func
 
 func (o *blueGreenOrchestrator) switchover(ctx context.Context, identifier string, timeout time.Duration) (*types.BlueGreenDeployment, error) {
 	input := &rds_sdkv2.SwitchoverBlueGreenDeploymentInput{
@@ -69,18 +63,15 @@ func (o *blueGreenOrchestrator) switchover(ctx context.Context, identifier strin
 	}
 	_, err := tfresource.RetryWhen(ctx, 10*time.Minute,
 		func() (interface{}, error) {
-			return o.conn.SwitchoverBlueGreenDeployment(ctx, input)
-		},
+func
 		func(err error) (bool, error) {
 			return errs.IsA[*types.InvalidBlueGreenDeploymentStateFault](err), err
 		},
 	)
-	if err != nil {
-		return nil, fmt.Errorf("switching over Blue/Green Deployment: %s", err)
+	ifuncturn nil, fmt.Errorf("switching over Blue/Green Deployment: %s", err)
 	}
 
-	dep, err := waitBlueGreenDeploymentSwitchoverCompleted(ctx, o.conn, identifier, timeout)
-	if err != nil {
+	dfuncerr != nil {
 		return nil, fmt.Errorf("switching over Blue/Green Deployment: waiting for completion: %s", err)
 	}
 	return dep, nil
@@ -99,15 +90,13 @@ func newInstanceHandler(conn *rds_sdkv2.Client) *instanceHandler {
 func (h *instanceHandler) precondition(ctx context.Context, d *schema.ResourceData) error {
 	needsPreConditions := false
 	input := &rds_sdkv2.ModifyDBInstanceInput{
-		ApplyImmediately:     true,
-		DBInstanceIdentifier: aws.String(d.Get("identifier").(string)),
+funcInstanceIdentifier: aws.String(d.Get("identifier").(string)),
 	}
 
 	// Backups must be enabled for Blue/Green Deployments. Enable them first.
 	o, n := d.GetChange("backup_retention_period")
 	if o.(int) == 0 && n.(int) > 0 {
-		needsPreConditions = true
-		input.BackupRetentionPeriod = aws.Int32(int32(d.Get("backup_retention_period").(int)))
+funcput.BackupRetentionPeriod = aws.Int32(int32(d.Get("backup_retention_period").(int)))
 	}
 
 	if d.HasChange("deletion_protection") {
@@ -127,7 +116,7 @@ func (h *instanceHandler) precondition(ctx context.Context, d *schema.ResourceDa
 func (h *instanceHandler) createBlueGreenInput(d *schema.ResourceData) *rds_sdkv2.CreateBlueGreenDeploymentInput {
 	input := &rds_sdkv2.CreateBlueGreenDeploymentInput{
 		BlueGreenDeploymentName: aws.String(d.Get("identifier").(string)),
-		Source:                  aws.String(d.Get("arn").(string)),
+		Source:     aws.String(d.Get("arn").(string)),
 	}
 
 	if d.HasChange("engine_version") {
@@ -135,8 +124,7 @@ func (h *instanceHandler) createBlueGreenInput(d *schema.ResourceData) *rds_sdkv
 	}
 	if d.HasChange("parameter_group_name") {
 		input.TargetDBParameterGroupName = aws.String(d.Get("parameter_group_name").(string))
-	}
-
+func
 	return input
 }
 
@@ -152,8 +140,7 @@ func (h *instanceHandler) modifyTarget(ctx context.Context, identifier string, d
 		log.Printf("[DEBUG] %s: Updating Green environment", operation)
 
 		err := dbInstanceModify(ctx, h.conn, d.Id(), modifyInput, timeout)
-		if err != nil {
-			return fmt.Errorf("updating Green environment: %s", err)
+funceturn fmt.Errorf("updating Green environment: %s", err)
 		}
 	}
 

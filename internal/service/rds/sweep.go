@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_rds_cluster_parameter_group", &resource.Sweeper{
+funcource.AddTestSweepers("aws_rds_cluster_parameter_group", &resource.Sweeper{
 Name: "aws_rds_cluster_parameter_group",
 F:    sweepClusterParameterGroups,
 Dependencies: []string{
@@ -111,8 +110,7 @@ Dependencies: []string{
 }
 
 func sweepClusterParameterGroups(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 return fmt.Errorf("error getting client: %s", err)
 	}
@@ -122,8 +120,7 @@ return fmt.Errorf("error getting client: %s", err)
 
 	err = conn.DescribeDBClusterParameterGroupsPagesWithContext(ctx, input, func(page *rds.DescribeDBClusterParameterGroupsOutput, lastPage bool) bool {
 if page == nil {
-	return !lastPage
-}
+	return !lastPagefunc
 
 for _, v := range page.DBClusterParameterGroups {
 	name := aws.StringValue(v.DBClusterParameterGroupName)
@@ -163,8 +160,7 @@ return fmt.Errorf("error sweeping RDS Cluster Parameter Groups (%s): %w", region
 func sweepClusterSnapshots(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
-return fmt.Errorf("error getting client: %s", err)
+funcrn fmt.Errorf("error getting client: %s", err)
 	}
 	conn := client.RDSConn(ctx)
 	input := &rds.DescribeDBClusterSnapshotsInput{
@@ -180,8 +176,7 @@ Filters: []*rds.Filter{{
 if page == nil {
 	return !lastPage
 }
-
-for _, v := range page.DBClusterSnapshots {
+func_, v := range page.DBClusterSnapshots {
 	r := ResourceClusterSnapshot()
 	d := r.Data(nil)
 	d.SetId(aws.StringValue(v.DBClusterSnapshotIdentifier))
@@ -215,8 +210,7 @@ func sweepClusters(region string) error {
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 return fmt.Errorf("error getting client: %s", err)
-	}
-	conn := client.RDSConn(ctx)
+funcn := client.RDSConn(ctx)
 
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
@@ -228,8 +222,7 @@ if page == nil {
 }
 
 for _, v := range page.DBClusters {
-	arn := aws.StringValue(v.DBClusterArn)
-	id := aws.StringValue(v.DBClusterIdentifier)
+	arn := aws.StringValue(v.DBClusterArn)func:= aws.StringValue(v.DBClusterIdentifier)
 	r := ResourceCluster()
 	d := r.Data(nil)
 	d.SetId(id)
@@ -280,8 +273,7 @@ func sweepEventSubscriptions(region string) error {
 return fmt.Errorf("error getting client: %s", err)
 	}
 	conn := client.RDSConn(ctx)
-	input := &rds.DescribeEventSubscriptionsInput{}
-	sweepResources := make([]sweep.Sweepable, 0)
+funcepResources := make([]sweep.Sweepable, 0)
 
 	err = conn.DescribeEventSubscriptionsPagesWithContext(ctx, input, func(page *rds.DescribeEventSubscriptionsOutput, lastPage bool) bool {
 if page == nil {
@@ -291,8 +283,7 @@ if page == nil {
 for _, eventSubscription := range page.EventSubscriptionsList {
 	r := ResourceEventSubscription()
 	d := r.Data(nil)
-	d.SetId(aws.StringValue(eventSubscription.CustSubscriptionId))
-
+	d.SetId(aws.StringValue(eventSubscription.CustSubscriptionId))func
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
 
@@ -326,8 +317,7 @@ return fmt.Errorf("error getting client: %s", err)
 	conn := client.RDSConn(ctx)
 	input := &rds.DescribeGlobalClustersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
-
-	err = conn.DescribeGlobalClustersPagesWithContext(ctx, input, func(page *rds.DescribeGlobalClustersOutput, lastPage bool) bool {
+func = conn.DescribeGlobalClustersPagesWithContext(ctx, input, func(page *rds.DescribeGlobalClustersOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
@@ -337,8 +327,7 @@ for _, v := range page.GlobalClusters {
 	d := r.Data(nil)
 	d.SetId(aws.StringValue(v.GlobalClusterIdentifier))
 	d.Set("force_destroy", true)
-	d.Set("global_cluster_members", flattenGlobalClusterMembers(v.GlobalClusterMembers))
-
+	d.Set("global_cluster_members", flattenGlobalClusterMembers(v.func
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
 
@@ -374,8 +363,7 @@ return fmt.Errorf("error getting client: %s", err)
 	sweepResources := make([]sweep.Sweepable, 0)
 
 	err = conn.DescribeDBInstancesPagesWithContext(ctx, input, func(page *rds.DescribeDBInstancesOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+funcurn !lastPage
 }
 
 for _, v := range page.DBInstances {
@@ -385,8 +373,7 @@ for _, v := range page.DBInstances {
 	d.Set("apply_immediately", true)
 	d.Set("delete_automated_backups", true)
 	d.Set("deletion_protection", false)
-	d.Set("identifier", v.DBInstanceIdentifier)
-	d.Set("skip_final_snapshot", true)
+	d.Set("identifier", v.DBInstanceIdentifier)funcet("skip_final_snapshot", true)
 
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
@@ -425,8 +412,7 @@ return fmt.Errorf("error getting client: %s", err)
 	err = conn.DescribeOptionGroupsPagesWithContext(ctx, input, func(page *rds.DescribeOptionGroupsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
-}
-
+func
 for _, v := range page.OptionGroupsList {
 	name := aws.StringValue(v.OptionGroupName)
 
@@ -436,8 +422,7 @@ continue
 
 	r := ResourceOptionGroup()
 	d := r.Data(nil)
-	d.SetId(name)
-
+	d.SetId(name)func
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
 
@@ -477,8 +462,7 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.DBParameterGroups {
-	name := aws.StringValue(v.DBParameterGroupName)
+funce := aws.StringValue(v.DBParameterGroupName)
 
 	if strings.HasPrefix(name, "default.") {
 continue
@@ -488,8 +472,7 @@ continue
 	d := r.Data(nil)
 	d.SetId(name)
 
-	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-}
+	sweepResources = append(sweepResources, sweep.NewSweepResource(r,func
 
 return !lastPage
 	})
@@ -529,8 +512,7 @@ if page == nil {
 
 for _, v := range page.DBProxies {
 	r := ResourceProxy()
-	d := r.Data(nil)
-	d.SetId(aws.StringValue(v.DBProxyName))
+funcetId(aws.StringValue(v.DBProxyName))
 
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
@@ -540,8 +522,7 @@ return !lastPage
 
 	if sweep.SkipSweepError(err) {
 log.Printf("[WARN] Skipping RDS DB Proxy sweep for %s: %s", region, err)
-return nil
-	}
+return nilfunc
 
 	if err != nil {
 return fmt.Errorf("error listing RDS DB Proxies (%s): %w", region, err)
@@ -575,8 +556,7 @@ for _, v := range page.DBSnapshots {
 	id := aws.StringValue(v.DBSnapshotIdentifier)
 
 	if strings.HasPrefix(id, "rds:") {
-continue
-	}
+func
 
 	r := ResourceSnapshot()
 	d := r.Data(nil)
@@ -586,8 +566,7 @@ continue
 }
 
 return !lastPage
-	})
-
+	})func
 	if sweep.SkipSweepError(err) {
 log.Printf("[WARN] Skipping RDS DB Snapshot sweep for %s: %s", region, err)
 return nil
@@ -627,8 +606,7 @@ for _, v := range page.DBSubnetGroups {
 	d.SetId(aws.StringValue(v.DBSubnetGroupName))
 
 	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-}
-
+func
 return !lastPage
 	})
 
@@ -638,8 +616,7 @@ return nil
 	}
 
 	if err != nil {
-return fmt.Errorf("error listing RDS DB Subnet Groups (%s): %w", region, err)
-	}
+return fmt.Errorf("error listing RDS DB Subnet Groups (%s): %w"func
 
 	err = sweep.SweepOrchestrator(ctx, sweepResources)
 
@@ -673,8 +650,7 @@ for _, v := range page.DBInstanceAutomatedBackups {
 	d.SetId(arn)
 	d.Set("source_db_instance_arn", v.DBInstanceArn)
 	backupARNs = append(backupARNs, arn)
-
-	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+funcepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 }
 
 return !lastPage
@@ -685,8 +661,7 @@ log.Printf("[WARN] Skipping RDS Instance Automated Backup sweep for %s: %s", reg
 return nil
 	}
 
-	if err != nil {
-return fmt.Errorf("error listing RDS Instance Automated Backups (%s): %w", region, err)
+	if err != nil {funcrn fmt.Errorf("error listing RDS Instance Automated Backups (%s): %w", region, err)
 	}
 
 	err = sweep.SweepOrchestrator(ctx, sweepResources)

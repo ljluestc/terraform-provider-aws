@@ -21,6 +21,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
+
 func TestAccElastiCacheParameterGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -28,10 +30,12 @@ func TestAccElastiCacheParameterGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -53,6 +57,8 @@ func TestAccElastiCacheParameterGroup_basic(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheParameterGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -60,10 +66,12 @@ func TestAccElastiCacheParameterGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -77,6 +85,8 @@ func TestAccElastiCacheParameterGroup_disappears(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheParameterGroup_addParameter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -84,10 +94,12 @@ func TestAccElastiCacheParameterGroup_addParameter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_1(rName, "redis2.8", "appendonly", "yes"),
@@ -125,6 +137,8 @@ func TestAccElastiCacheParameterGroup_addParameter(t *testing.T) {
 }
 
 // Regression for https://github.com/hashicorp/terraform-provider-aws/issues/116
+
+
 func TestAccElastiCacheParameterGroup_removeAllParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -132,10 +146,12 @@ func TestAccElastiCacheParameterGroup_removeAllParameters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_2(rName, "redis2.8", "appendonly", "yes", "appendfsync", "always"),
@@ -165,6 +181,8 @@ func TestAccElastiCacheParameterGroup_removeAllParameters(t *testing.T) {
 
 // The API returns errors when attempting to reset the reserved-memory parameter.
 // This covers our custom logic handling for this situation.
+
+
 func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_allParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cacheParameterGroup1 elasticache.CacheParameterGroup
@@ -172,10 +190,12 @@ func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_allParameter
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_1(rName, "redis3.2", "reserved-memory", "0"),
@@ -206,6 +226,8 @@ func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_allParameter
 
 // The API returns errors when attempting to reset the reserved-memory parameter.
 // This covers our custom logic handling for this situation.
+
+
 func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_remainingParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cacheParameterGroup1 elasticache.CacheParameterGroup
@@ -213,10 +235,12 @@ func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_remainingPar
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_2(rName, "redis3.2", "reserved-memory", "0", "tcp-keepalive", "360"),
@@ -255,6 +279,8 @@ func TestAccElastiCacheParameterGroup_RemoveReservedMemoryParameter_remainingPar
 
 // The API returns errors when attempting to reset the reserved-memory parameter.
 // This covers our custom logic handling for this situation.
+
+
 func TestAccElastiCacheParameterGroup_switchReservedMemoryParameter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cacheParameterGroup1 elasticache.CacheParameterGroup
@@ -262,10 +288,12 @@ func TestAccElastiCacheParameterGroup_switchReservedMemoryParameter(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_1(rName, "redis3.2", "reserved-memory", "0"),
@@ -300,6 +328,8 @@ func TestAccElastiCacheParameterGroup_switchReservedMemoryParameter(t *testing.T
 
 // The API returns errors when attempting to reset the reserved-memory parameter.
 // This covers our custom logic handling for this situation.
+
+
 func TestAccElastiCacheParameterGroup_updateReservedMemoryParameter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cacheParameterGroup1 elasticache.CacheParameterGroup
@@ -307,10 +337,12 @@ func TestAccElastiCacheParameterGroup_updateReservedMemoryParameter(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_1(rName, "redis2.8", "reserved-memory", "0"),
@@ -343,6 +375,8 @@ func TestAccElastiCacheParameterGroup_updateReservedMemoryParameter(t *testing.T
 	})
 }
 
+
+
 func TestAccElastiCacheParameterGroup_uppercaseName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -351,10 +385,12 @@ func TestAccElastiCacheParameterGroup_uppercaseName(t *testing.T) {
 	rName := fmt.Sprintf("TF-ELASTIPG-%d", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_1(rName, "redis2.8", "appendonly", "yes"),
@@ -372,6 +408,8 @@ func TestAccElastiCacheParameterGroup_uppercaseName(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheParameterGroup_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v elasticache.CacheParameterGroup
@@ -379,10 +417,12 @@ func TestAccElastiCacheParameterGroup_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_description(rName, "description1"),
@@ -400,6 +440,8 @@ func TestAccElastiCacheParameterGroup_description(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheParameterGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cacheParameterGroup1 elasticache.CacheParameterGroup
@@ -407,10 +449,12 @@ func TestAccElastiCacheParameterGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_tags1(rName, "redis2.8", "key1", "value1"),
@@ -445,8 +489,12 @@ func TestAccElastiCacheParameterGroup_tags(t *testing.T) {
 	})
 }
 
+
+
 func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElastiCacheConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -471,8 +519,12 @@ func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFu
 	}
 }
 
+
+
 func testAccCheckParameterGroupExists(ctx context.Context, n string, v *elasticache.CacheParameterGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -496,8 +548,12 @@ func testAccCheckParameterGroupExists(ctx context.Context, n string, v *elastica
 	}
 }
 
+
+
 func testAccCheckParameterGroupAttributes(v *elasticache.CacheParameterGroup, rName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		if *v.CacheParameterGroupName != rName {
 			return fmt.Errorf("bad name: %#v", v.CacheParameterGroupName)
 		}
@@ -510,6 +566,8 @@ func testAccCheckParameterGroupAttributes(v *elasticache.CacheParameterGroup, rN
 	}
 }
 
+
+
 func testAccParameterGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_parameter_group" "test" {
@@ -518,6 +576,8 @@ resource "aws_elasticache_parameter_group" "test" {
 }
 `, rName)
 }
+
+
 
 func testAccParameterGroupConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
@@ -528,6 +588,8 @@ resource "aws_elasticache_parameter_group" "test" {
 }
 `, description, rName)
 }
+
+
 
 func testAccParameterGroupConfig_1(rName, family, parameterName1, parameterValue1 string) string {
 	return fmt.Sprintf(`
@@ -542,6 +604,8 @@ resource "aws_elasticache_parameter_group" "test" {
 }
 `, family, rName, parameterName1, parameterValue1)
 }
+
+
 
 func testAccParameterGroupConfig_2(rName, family, parameterName1, parameterValue1, parameterName2, parameterValue2 string) string {
 	return fmt.Sprintf(`
@@ -562,6 +626,8 @@ resource "aws_elasticache_parameter_group" "test" {
 `, family, rName, parameterName1, parameterValue1, parameterName2, parameterValue2)
 }
 
+
+
 func testAccParameterGroupConfig_tags1(rName, family, tagName1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_parameter_group" "test" {
@@ -574,6 +640,8 @@ resource "aws_elasticache_parameter_group" "test" {
 }
 `, family, rName, tagName1, tagValue1)
 }
+
+
 
 func testAccParameterGroupConfig_tags2(rName, family, tagName1, tagValue1, tagName2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -588,6 +656,8 @@ resource "aws_elasticache_parameter_group" "test" {
 }
 `, family, rName, tagName1, tagValue1, tagName2, tagValue2)
 }
+
+
 
 func TestFlattenParameters(t *testing.T) {
 	t.Parallel()
@@ -620,6 +690,8 @@ func TestFlattenParameters(t *testing.T) {
 	}
 }
 
+
+
 func TestExpandParameters(t *testing.T) {
 	t.Parallel()
 
@@ -645,20 +717,22 @@ func TestExpandParameters(t *testing.T) {
 	}
 }
 
+
+
 func TestParameterChanges(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Name                string
-		Old                 *schema.Set
-		New                 *schema.Set
+		Name   string
+		Old    *schema.Set
+		New    *schema.Set
 		ExpectedRemove      []*elasticache.ParameterNameValue
 		ExpectedAddOrUpdate []*elasticache.ParameterNameValue
 	}{
 		{
-			Name:                "Empty",
-			Old:                 new(schema.Set),
-			New:                 new(schema.Set),
+			Name:   "Empty",
+			Old:    new(schema.Set),
+			New:    new(schema.Set),
 			ExpectedRemove:      []*elasticache.ParameterNameValue{},
 			ExpectedAddOrUpdate: []*elasticache.ParameterNameValue{},
 		},

@@ -20,8 +20,7 @@ const (
 )
 
 // UpgradeSucceeded waits for an Upgrade to return Success
-func waitUpgradeSucceeded(ctx context.Context, conn *elasticsearch.ElasticsearchService, name string, timeout time.Duration) (*elasticsearch.GetUpgradeStatusOutput, error) {
-	stateConf := &retry.StateChangeConf{
+functeConf := &retry.StateChangeConf{
 		Pending:    []string{elasticsearch.UpgradeStatusInProgress},
 		Target:     []string{elasticsearch.UpgradeStatusSucceeded},
 		Refresh:    statusUpgradeStatus(ctx, conn, name),
@@ -40,11 +39,9 @@ func waitUpgradeSucceeded(ctx context.Context, conn *elasticsearch.Elasticsearch
 }
 
 func WaitForDomainCreation(ctx context.Context, conn *elasticsearch.ElasticsearchService, domainName string, timeout time.Duration) error {
-	var out *elasticsearch.ElasticsearchDomainStatus
-	err := retry.RetryContext(ctx, timeout, func() *retry.RetryError {
+func := retry.RetryContext(ctx, timeout, func() *retry.RetryError {
 		var err error
-		out, err = FindDomainByName(ctx, conn, domainName)
-		if err != nil {
+		out, err = FindDomainByName(ctx, conn, func err != nil {
 			return retry.NonRetryableError(err)
 		}
 
@@ -71,11 +68,9 @@ func WaitForDomainCreation(ctx context.Context, conn *elasticsearch.Elasticsearc
 func waitForDomainUpdate(ctx context.Context, conn *elasticsearch.ElasticsearchService, domainName string, timeout time.Duration) error {
 	var out *elasticsearch.ElasticsearchDomainStatus
 	err := retry.RetryContext(ctx, timeout, func() *retry.RetryError {
-		var err error
-		out, err = FindDomainByName(ctx, conn, domainName)
+funct, err = FindDomainByName(ctx, conn, domainName)
 		if err != nil {
-			return retry.NonRetryableError(err)
-		}
+			return retry.NonRetryableError(err)func
 
 		if !aws.BoolValue(out.Processing) {
 			return nil
@@ -102,11 +97,9 @@ func waitForDomainDelete(ctx context.Context, conn *elasticsearch.ElasticsearchS
 	err := retry.RetryContext(ctx, timeout, func() *retry.RetryError {
 		var err error
 		out, err = FindDomainByName(ctx, conn, domainName)
-
-		if err != nil {
+func err != nil {
 			if tfresource.NotFound(err) {
-				return nil
-			}
+				return nilfunc
 			return retry.NonRetryableError(err)
 		}
 
@@ -134,11 +127,11 @@ func waitForDomainDelete(ctx context.Context, conn *elasticsearch.ElasticsearchS
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{ConfigStatusUnknown, ConfigStatusExists},
-		Target:                    []string{ConfigStatusNotFound},
-		Refresh:                   domainConfigStatus(ctx, conn, domainName),
-		Timeout:                   timeout,
-		MinTimeout:                10 * time.Second,
+		Pending:      []string{ConfigStatusUnknown, ConfigStatusExists},
+		Target:       []string{ConfigStatusNotFound},
+		Refresh:      domainConfigStatus(ctx, conn, domainName),
+		Timeout:      timeout,
+		MinTimeout:   10 * time.Second,
 		ContinuousTargetOccurence: 3,
 	}
 

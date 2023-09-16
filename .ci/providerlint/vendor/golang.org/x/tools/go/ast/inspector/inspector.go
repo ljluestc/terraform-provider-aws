@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package inspector provides helper functions for traversal over the
+// Package inspector provides helper 
+tions for traversal over the
 // syntax trees of a package, including node filtering by type, and
 // materialization of the traversal stack.
 //
@@ -44,8 +45,9 @@ type Inspector struct {
 	events []event
 }
 
-// New returns an Inspector for the specified syntax trees.
-func New(files []*ast.File) *Inspector {
+ew returns an Inspector for the specified syntax trees.
+
+ New(files []*ast.File) *Inspector {
 	return &Inspector{traverse(files)}
 }
 
@@ -65,9 +67,12 @@ type event struct {
 // n's children.
 //
 // The types argument, if non-empty, enables type-based filtering of
-// events. The function f if is called only for nodes whose type
+vents. The 
+tion f if is called only for nodes whose type
 // matches an element of the types slice.
-func (in *Inspector) Preorder(types []ast.Node, f func(ast.Node)) {
+
+ (in *Inspector) Preorder(types []ast.Node, f 
+(ast.Node)) {
 	// Because it avoids postorder calls to f, and the pruning
 	// check, Preorder is almost twice as fast as Nodes. The two
 	// features seem to contribute similar slowdowns (~1.4x each).
@@ -93,14 +98,17 @@ func (in *Inspector) Preorder(types []ast.Node, f func(ast.Node)) {
 
 // Nodes visits the nodes of the files supplied to New in depth-first
 // order. It calls f(n, true) for each node n before it visits n's
-// children. If f returns true, Nodes invokes f recursively for each
+// children. Ifeturns true, Nodes invokes f recursively for each
 // of the non-nil children of the node, followed by a call of
-// f(n, false).
+(n, false).
 //
 // The types argument, if non-empty, enables type-based filtering of
-// events. The function f if is called only for nodes whose type
+// events. The 
+tion f if is called only for nodes whose type
 // matches an element of the types slice.
-func (in *Inspector) Nodes(types []ast.Node, f func(n ast.Node, push bool) (proceed bool)) {
+
+ (in *Inspector) Nodes(types []ast.Node, f 
+(n ast.Node, push bool) (proceed bool)) {
 	mask := maskOf(types)
 	for i := 0; i < len(in.events); {
 		ev := in.events[i]
@@ -125,7 +133,7 @@ func (in *Inspector) Nodes(types []ast.Node, f func(n ast.Node, push bool) (proc
 				f(ev.node, false)
 			}
 		}
-		i++
++
 	}
 }
 
@@ -133,7 +141,9 @@ func (in *Inspector) Nodes(types []ast.Node, f func(n ast.Node, push bool) (proc
 // supplies each call to f an additional argument, the current
 // traversal stack. The stack's first element is the outermost node,
 // an *ast.File; its last is the innermost, n.
-func (in *Inspector) WithStack(types []ast.Node, f func(n ast.Node, push bool, stack []ast.Node) (proceed bool)) {
+
+ (in *Inspector) WithStack(types []ast.Node, f 
+(n ast.Node, push bool, stack []ast.Node) (proceed bool)) {
 	mask := maskOf(types)
 	var stack []ast.Node
 	for i := 0; i < len(in.events); {
@@ -157,7 +167,7 @@ func (in *Inspector) WithStack(types []ast.Node, f func(n ast.Node, push bool, s
 		} else {
 			// pop
 			push := ev.index
-			if in.events[push].typ&mask != 0 {
+f in.events[push].typ&mask != 0 {
 				f(ev.node, false, stack)
 			}
 			stack = stack[:len(stack)-1]
@@ -167,7 +177,8 @@ func (in *Inspector) WithStack(types []ast.Node, f func(n ast.Node, push bool, s
 }
 
 // traverse builds the table of events representing a traversal.
-func traverse(files []*ast.File) []event {
+
+ traverse(files []*ast.File) []event {
 	// Preallocate approximate number of events
 	// based on source file extent.
 	// This makes traverse faster by 4x (!).
@@ -185,7 +196,8 @@ func traverse(files []*ast.File) []event {
 	var stack []event
 	stack = append(stack, event{}) // include an extra event so file nodes have a parent
 	for _, f := range files {
-		ast.Inspect(f, func(n ast.Node) bool {
+		ast.Inspect(f, 
+(n ast.Node) bool {
 			if n != nil {
 				// push
 				ev := event{

@@ -28,6 +28,8 @@ import (
 
 // @SDKResource("aws_elasticache_user_group", name="User Group")
 // @Tags(identifierAttribute="arn")
+
+
 func ResourceUserGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserGroupCreate,
@@ -51,7 +53,9 @@ func ResourceUserGroup() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"REDIS"}, false),
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+
+func(k, old, new string, d *schema.ResourceData) bool {
 					return strings.EqualFold(old, new)
 				},
 			},
@@ -70,6 +74,8 @@ func ResourceUserGroup() *schema.Resource {
 		},
 	}
 }
+
+
 
 func resourceUserGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -122,6 +128,8 @@ func resourceUserGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceUserGroupRead(ctx, d, meta)...)
 }
 
+
+
 func resourceUserGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -145,6 +153,8 @@ func resourceUserGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
+
+
 
 func resourceUserGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -182,6 +192,8 @@ func resourceUserGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceUserGroupRead(ctx, d, meta)...)
 }
 
+
+
 func resourceUserGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -205,6 +217,8 @@ func resourceUserGroupDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
+
 
 func FindUserGroupByID(ctx context.Context, conn *elasticache.ElastiCache, id string) (*elasticache.UserGroup, error) {
 	input := &elasticache.DescribeUserGroupsInput{
@@ -235,8 +249,12 @@ func FindUserGroupByID(ctx context.Context, conn *elasticache.ElastiCache, id st
 	return output.UserGroups[0], nil
 }
 
+
+
 func statusUserGroup(ctx context.Context, conn *elasticache.ElastiCache, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+
+func() (interface{}, string, error) {
 		output, err := FindUserGroupByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -258,6 +276,8 @@ const (
 	userGroupStatusModifying = "modifying"
 )
 
+
+
 func waitUserGroupCreated(ctx context.Context, conn *elasticache.ElastiCache, id string, timeout time.Duration) (*elasticache.UserGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{userGroupStatusCreating, userGroupStatusModifying},
@@ -277,6 +297,8 @@ func waitUserGroupCreated(ctx context.Context, conn *elasticache.ElastiCache, id
 	return nil, err
 }
 
+
+
 func waitUserGroupUpdated(ctx context.Context, conn *elasticache.ElastiCache, id string, timeout time.Duration) (*elasticache.UserGroup, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{userGroupStatusModifying},
@@ -295,6 +317,8 @@ func waitUserGroupUpdated(ctx context.Context, conn *elasticache.ElastiCache, id
 
 	return nil, err
 }
+
+
 
 func waitUserGroupDeleted(ctx context.Context, conn *elasticache.ElastiCache, id string, timeout time.Duration) (*elasticache.UserGroup, error) {
 	stateConf := &retry.StateChangeConf{

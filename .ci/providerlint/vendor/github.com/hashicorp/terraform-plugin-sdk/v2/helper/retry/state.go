@@ -11,7 +11,9 @@ import (
 
 var refreshGracePeriod = 30 * time.Second
 
-// StateRefreshFunc is a function type used for StateChangeConf that is
+// StateRefresh
+ is a 
+tion type used for StateChangeConf that is
 // responsible for refreshing the item being watched for a state change.
 //
 // It returns three results. `result` is any object that will be returned
@@ -19,15 +21,18 @@ var refreshGracePeriod = 30 * time.Second
 // return the final updated object, for example an EC2 instance after refreshing
 // it. A nil result represents not found.
 //
-// `state` is the latest state of that object. And `err` is any error that
+// `state` is theetate of that object. And `err` is any error that
 // may have happened while refreshing the state.
-type StateRefreshFunc func() (result interface{}, state string, err error)
+type StateRefresh
+ 
+() (result interface{}, state string, err error)
 
-// StateChangeConf is the configuration struct used for `WaitForState`.
+// StateChangeConf is the couration struct used for `WaitForState`.
 type StateChangeConf struct {
 	Delay          time.Duration    // Wait this time before starting checks
 	Pending        []string         // States that are "allowed" and will continue trying
-	Refresh        StateRefreshFunc // Refreshes the current state
+	Refresh        StateRefresh
+ // Refreshes the current state
 	Target         []string         // Target state
 	Timeout        time.Duration    // The amount of time to wait before timeout
 	MinTimeout     time.Duration    // Smallest time to wait before refreshes
@@ -39,22 +44,27 @@ type StateChangeConf struct {
 }
 
 // WaitForStateContext watches an object and waits for it to achieve the state
-// specified in the configuration using the specified Refresh() func,
+// specified in thnfiguration using the specified Refresh() 
+,
 // waiting the number of seconds specified in the timeout configuration.
 //
-// If the Refresh function returns an error, exit immediately with that error.
+// If the Refresh 
+tion returns an error, exit immediately with that error.
 //
-// If the Refresh function returns a state other than the Target state or one
+// If the Refresh 
+tion returns a state other than the Target state or one
 // listed in Pending, return immediately with an error.
-//
+
 // If the Timeout is exceeded before reaching the Target state, return an
 // error.
 //
-// Otherwise, the result is the result of the first call to the Refresh function to
+// Otherwise, the result is the result of the first call to the Refresh 
+tion to
 // reach the target state.
 //
 // Cancellation from the passed in context will cancel the refresh loop
-func (conf *StateChangeConf) WaitForStateContext(ctx context.Context) (interface{}, error) {
+
+ (conf *StateChangeConf) WaitForStateContext(ctx context.Context) (interface{}, error) {
 	log.Printf("[DEBUG] Waiting for state to become: %s", conf.Target)
 
 	notfoundTick := 0
@@ -73,7 +83,7 @@ func (conf *StateChangeConf) WaitForStateContext(ctx context.Context) (interface
 		Result interface{}
 		State  string
 		Error  error
-		Done   bool
+		Do bool
 	}
 
 	// Read every result from the refresh loop, waiting for a positive result.Done.
@@ -83,7 +93,8 @@ func (conf *StateChangeConf) WaitForStateContext(ctx context.Context) (interface
 
 	result := Result{}
 
-	go func() {
+	go 
+() {
 		defer close(resCh)
 
 		select {
@@ -267,17 +278,19 @@ func (conf *StateChangeConf) WaitForStateContext(ctx context.Context) (interface
 				LastError:     lastResult.Error,
 				LastState:     lastResult.State,
 				Timeout:       conf.Timeout,
-				ExpectedState: conf.Target,
+ExpectedState: conf.Target,
 			}
 		}
 	}
 }
 
 // WaitForState watches an object and waits for it to achieve the state
-// specified in the configuration using the specified Refresh() func,
+// specified in the configuration using the specified Refresh() 
+,
 // waiting the number of seconds specified in the timeout configuration.
 //
 // Deprecated: Please use WaitForStateContext to ensure proper plugin shutdown
-func (conf *StateChangeConf) WaitForState() (interface{}, error) {
+
+ (conf *StateChangeConf) WaitForState() (interface{}, error) {
 	return conf.WaitForStateContext(context.Background())
 }

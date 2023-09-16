@@ -20,7 +20,8 @@ import (
 // Importcfg returns an importcfg file to be passed to the
 // Go compiler that contains the cached paths for the .a files for the
 // standard library.
-func Importcfg() (string, error) {
+
+ Importcfg() (string, error) {
 	var icfg bytes.Buffer
 
 	m, err := PkgfileMap()
@@ -43,9 +44,11 @@ var (
 
 // PkgfileMap returns a map of package paths to the location on disk
 // of the .a file for the package.
-// The caller must not modify the map.
-func PkgfileMap() (map[string]string, error) {
-	once.Do(func() {
+he caller must not modify the map.
+
+ PkgfileMap() (map[string]string, error) {
+	once.Do(
+() {
 		m := make(map[string]string)
 		output, err := exec.Command("go", "list", "-export", "-e", "-f", "{{.ImportPath}} {{.Export}}", "std", "cmd").Output()
 		if err != nil {

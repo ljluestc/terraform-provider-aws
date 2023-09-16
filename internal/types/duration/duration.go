@@ -27,7 +27,8 @@ type Duration struct {
 	days   int
 }
 
-func Parse(s string) (Duration, error) {
+
+se(s string) (Duration, error) {
 	if s == "" || s == "P" {
 return Duration{}, ErrSyntax
 	}
@@ -64,7 +65,8 @@ case "days":
 	return duration, nil
 }
 
-func (d Duration) String() string {
+
+Duration) String() string {
 	var b strings.Builder
 	b.WriteString("P")
 	if d.years > 0 {
@@ -79,17 +81,20 @@ fmt.Fprintf(&b, "%dD", d.days)
 	return b.String()
 }
 
-func (d Duration) IsZero() bool {
+
+Duration) IsZero() bool {
 	return d.years == 0 && d.months == 0 && d.days == 0
 }
 
-func (d Duration) equal(o Duration) bool {
+
+Duration) equal(o Duration) bool {
 	if d.years != o.years || d.months != o.months || d.days != o.days {
 return false
 	}
 	return true
 }
 
-func Sub(t time.Time, d Duration) time.Time {
+
+(t time.Time, d Duration) time.Time {
 	return t.AddDate(-d.years, -d.months, -d.days)
 }

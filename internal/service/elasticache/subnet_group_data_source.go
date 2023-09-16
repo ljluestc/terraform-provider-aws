@@ -16,6 +16,8 @@ import (
 )
 
 // @SDKDataSource("aws_elasticache_subnet_group")
+
+
 func DataSourceSubnetGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSubnetGroupRead,
@@ -42,6 +44,8 @@ func DataSourceSubnetGroup() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

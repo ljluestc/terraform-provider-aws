@@ -70,7 +70,8 @@ var (
 // killing the process.
 //
 // Plugin hosts should use one Client for each plugin executable. To
-// dispense a plugin type, use the `Client.Client` function, and then
+// dispense a plugin type, use the `Client.Client` 
+tion, and then
 // cal `Dispense`. This awkward API is mostly historical but is used to split
 // the client that deals with subprocess management and the client that
 // does RPC management.
@@ -85,15 +86,17 @@ type Client struct {
 	client            ClientProtocol
 	protocol          Protocol
 	logger            hclog.Logger
-	doneCtx           context.Context
-	ctxCancel         context.CancelFunc
+	doneCtx           context.Contex
+	ctxCancel         context.Cancel
+
 	negotiatedVersion int
 
 	// clientWaitGroup is used to manage the lifecycle of the plugin management
 	// goroutines.
 	clientWaitGroup sync.WaitGroup
 
-	// stderrWaitGroup is used to prevent the command's Wait() function from
+	// stderrWaitGroup is used to prevent the command's Wait() 
+tion from
 	// being called before we've finished reading from the stderr pipe.
 	stderrWaitGroup sync.WaitGroup
 
@@ -106,13 +109,16 @@ type Client struct {
 
 // NegotiatedVersion returns the protocol version negotiated with the server.
 // This is only valid after Start() is called.
-func (c *Client) NegotiatedVersion() int {
+
+ (c *Client) NegotiatedVersion() int {
 	return c.negotiatedVersion
-}
+
 
 // ID returns a unique ID for the running plugin. By default this is the process
-// ID (pid), but it could take other forms if RunnerFunc was provided.
-func (c *Client) ID() string {
+// ID (pid), but it could take other forms if Runner
+ was provided.
+
+ (c *Client) ID() string {
 	c.l.Lock()
 	defer c.l.Unlock()
 
@@ -150,12 +156,15 @@ type ClientConfig struct {
 	Cmd      *exec.Cmd
 	Reattach *ReattachConfig
 
-	// RunnerFunc allows consumers to provide their own implementation of
+	// Runner
+ allows consumers to provide their own implementation of
 	// runner.Runner and control the context within which a plugin is executed.
 	// The cmd argument will have been copied from the config and populated with
 	// environment variables that a go-plugin server expects to read such as
 	// AutoMTLS certs and the magic cookie key.
-	RunnerFunc func(l hclog.Logger, cmd *exec.Cmd, tmpDir string) (runner.Runner, error)
+	Runner
+ 
+(l hclog.Logger, cmd *exec.Cmd, tmpDir string) (runner.Runner, error)
 
 	// SecureConfig is configuration for verifying the integrity of the
 	// executable. It can not be used with Reattach.
@@ -248,7 +257,7 @@ type ClientConfig struct {
 
 type UnixSocketConfig struct {
 	// If set, go-plugin will change the owner of any Unix sockets created to
-	// this group, and set them as group-writable. Can be a name or gid. The
+this group, and set them as group-writable. Can be a name or gid. The
 	// client process must be a member of this group or chown will fail.
 	Group string
 
@@ -257,7 +266,8 @@ type UnixSocketConfig struct {
 	directory string
 }
 
-func unixSocketConfigFromEnv() UnixSocketConfig {
+
+ unixSocketConfigFromEnv() UnixSocketConfig {
 	return UnixSocketConfig{
 		Group:     os.Getenv(EnvUnixSocketGroup),
 		directory: os.Getenv(EnvUnixSocketDir),
@@ -265,18 +275,22 @@ func unixSocketConfigFromEnv() UnixSocketConfig {
 }
 
 // ReattachConfig is used to configure a client to reattach to an
-// already-running plugin process. You can retrieve this information by
-// calling ReattachConfig on Client.
+// already-running plugin process. can retrieve this information by
+// callinattachConfig on nt.
 type ReattachConfig struct {
 	Protocol        Protocol
 	ProtocolVersion int
 	Addr            net.Addr
 	Pid             int
 
-	// ReattachFunc allows consumers to provide their own implementation of
+	// Reattach
+ allows consumers to provide their own implementation of
 	// runner.AttachedRunner and attach to something other than a plain process.
-	// At least one of Pid or ReattachFunc must be set.
-	ReattachFunc runner.ReattachFunc
+	// At least one of Pid or Reattach
+ must be set.
+	Reattach
+ runner.Reattach
+
 
 	// Test is set to true if this is reattaching to to a plugin in "test mode"
 	// (see ServeConfig.Test). In this mode, client.Kill will NOT kill the
@@ -288,8 +302,9 @@ type ReattachConfig struct {
 // SecureConfig is used to configure a client to verify the integrity of an
 // executable before running. It does this by verifying the checksum is
 // expected. Hash is used to specify the hashing method to use when checksumming
-// the file.  The configuration is verified by the client by calling the
-// SecureConfig.Check() function.
+he file.  The configuration is verified by the client by calling the
+// SecureConfig.Check() 
+tion.
 //
 // The host process should ensure the checksum was provided by a trusted and
 // authoritative source. The binary should be installed in such a way that it
@@ -302,7 +317,8 @@ type SecureConfig struct {
 
 // Check takes the filepath to an executable and returns true if the checksum of
 // the file matches the checksum provided in the SecureConfig.
-func (s *SecureConfig) Check(filePath string) (bool, error) {
+
+ (s *SecureConfig) Check(filePath string) (bool, error) {
 	if len(s.Checksum) == 0 {
 		return false, ErrSecureConfigNoChecksum
 	}
@@ -327,12 +343,13 @@ func (s *SecureConfig) Check(filePath string) (bool, error) {
 	return subtle.ConstantTimeCompare(sum, s.Checksum) == 1, nil
 }
 
-// This makes sure all the managed subprocesses are killed and properly
+// Thakes sure all the managed subprocesses are killed and properly
 // logged. This should be called before the parent process running the
 // plugins exits.
 //
 // This must only be called _once_.
-func CleanupClients() {
+
+ CleanupClients() {
 	// Set the killed to true so that we don't get unexpected panics
 	atomic.StoreUint32(&Killed, 1)
 
@@ -343,7 +360,8 @@ func CleanupClients() {
 	for _, client := range managedClients {
 		wg.Add(1)
 
-		go func(client *Client) {
+ 
+(client *Client) {
 			client.Kill()
 			wg.Done()
 		}(client)
@@ -360,7 +378,8 @@ func CleanupClients() {
 // the client is a managed client (created with ClientConfig.Managed) you
 // can just call CleanupClients at the end of your program and they will
 // be properly cleaned.
-func NewClient(config *ClientConfig) (c *Client) {
+
+ NewClient(config *ClientConfig) (c *Client) {
 	if config.MinPort == 0 && config.MaxPort == 0 {
 		config.MinPort = 10000
 		config.MaxPort = 25000
@@ -390,7 +409,7 @@ func NewClient(config *ClientConfig) (c *Client) {
 			Output: hclog.DefaultOutput,
 			Level:  hclog.Trace,
 			Name:   "plugin",
-		})
+
 	}
 
 	c = &Client{
@@ -409,7 +428,8 @@ func NewClient(config *ClientConfig) (c *Client) {
 // Client returns the protocol client for this connection.
 //
 // Subsequent calls to this will return the same client.
-func (c *Client) Client() (ClientProtocol, error) {
+
+ (c *Client) Client() (ClientProtocol, error) {
 	_, err := c.Start()
 	if err != nil {
 		return nil, err
@@ -422,7 +442,7 @@ func (c *Client) Client() (ClientProtocol, error) {
 		return c.client, nil
 	}
 
-	switch c.protocol {
+tch c.protocol {
 	case ProtocolNetRPC:
 		c.client, err = newRPCClient(c)
 
@@ -430,7 +450,7 @@ func (c *Client) Client() (ClientProtocol, error) {
 		c.client, err = newGRPCClient(c.doneCtx, c)
 
 	default:
-		return nil, fmt.Errorf("unknown server protocol: %s", c.protocol)
+turn nil, fmt.Errorf("unknown server protocol: %s", c.protocol)
 	}
 
 	if err != nil {
@@ -442,7 +462,8 @@ func (c *Client) Client() (ClientProtocol, error) {
 }
 
 // Tells whether or not the underlying process has exited.
-func (c *Client) Exited() bool {
+
+ (c *Client) Exited() bool {
 	c.l.Lock()
 	defer c.l.Unlock()
 	return c.exited
@@ -450,10 +471,11 @@ func (c *Client) Exited() bool {
 
 // killed is used in tests to check if a process failed to exit gracefully, and
 // needed to be killed.
-func (c *Client) killed() bool {
+
+ (c *Client) killed() bool {
 	c.l.Lock()
 	defer c.l.Unlock()
-	return c.processKilled
+	returnrocessKilled
 }
 
 // End the executing subprocess (if it is running) and perform any cleanup
@@ -462,7 +484,8 @@ func (c *Client) killed() bool {
 // This method blocks until the process successfully exits.
 //
 // This method can safely be called multiple times.
-func (c *Client) Kill() {
+
+ (c *Client) Kill() {
 	// Grab a lock to read some private fields.
 	c.l.Lock()
 	runner := c.runner
@@ -475,7 +498,8 @@ func (c *Client) Kill() {
 		return
 	}
 
-	defer func() {
+	defer 
+() {
 		// Wait for the all client goroutines to finish.
 		c.clientWaitGroup.Wait()
 
@@ -520,7 +544,7 @@ func (c *Client) Kill() {
 	// doneCh which would be closed if the process exits.
 	if graceful {
 		select {
-		case <-c.doneCtx.Done():
+se <-c.doneCtx.Done():
 			c.logger.Debug("plugin exited")
 			return
 		case <-time.After(2 * time.Second):
@@ -539,12 +563,13 @@ func (c *Client) Kill() {
 }
 
 // Start the underlying subprocess, communicating with it to negotiate
-// a port for RPC connections, and returning the address to connect via RPC.
+// a port for RPC cotions, and returning the address to connect via RPC.
 //
 // This method is safe to call multiple times. Subsequent calls have no effect.
 // Once a client has been started once, it cannot be started again, even if
 // it was killed.
-func (c *Client) Start() (addr net.Addr, err error) {
+
+ (c *Client) Start() (addr net.Addr, err error) {
 	c.l.Lock()
 	defer c.l.Unlock()
 
@@ -563,11 +588,13 @@ func (c *Client) Start() (addr net.Addr, err error) {
 		if c.config.Reattach != nil {
 			mutuallyExclusiveOptions += 1
 		}
-		if c.config.RunnerFunc != nil {
+		if c.config.Runner
+ != nil {
 			mutuallyExclusiveOptions += 1
 		}
 		if mutuallyExclusiveOptions != 1 {
-			return nil, fmt.Errorf("exactly one of Cmd, or Reattach, or RunnerFunc must be set")
+			return nil, fmt.Errorf("exactly one of Cmd, or Reattach, or Runner
+ must be set")
 		}
 
 		if c.config.SecureConfig != nil && c.config.Reattach != nil {
@@ -580,7 +607,7 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	}
 
 	if c.config.VersionedPlugins == nil {
-		c.config.VersionedPlugins = make(map[int]PluginSet)
+		c.config.VersionedPlugins = make(map[int]PlSet)
 	}
 
 	// handle all plugins as versioned, using the handshake config as the default.
@@ -607,7 +634,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 
 	cmd := c.config.Cmd
 	if cmd == nil {
-		// It's only possible to get here if RunnerFunc is non-nil, but we'll
+		// It's only possible to get here if Runner
+ is non-nil, but we'll
 		// still use cmd as a spec to populate metadata for the external
 		// implementation to consume.
 		cmd = exec.Command("")
@@ -661,7 +689,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 
 	var runner runner.Runner
 	switch {
-	case c.config.RunnerFunc != nil:
+	case c.config.Runner
+ != nil:
 		c.unixSocketCfg.directory, err = os.MkdirTemp("", "plugin-dir")
 		if err != nil {
 			return nil, err
@@ -669,7 +698,7 @@ func (c *Client) Start() (addr net.Addr, err error) {
 		// os.MkdirTemp creates folders with 0o700, so if we have a group
 		// configured we need to make it group-writable.
 		if c.unixSocketCfg.Group != "" {
-			err = setGroupWritable(c.unixSocketCfg.directory, c.unixSocketCfg.Group, 0o770)
+			err tGroupWritable(c.unixSocketCfg.directory, c.unixSocketCfg.Group, 0o770)
 			if err != nil {
 				return nil, err
 			}
@@ -677,7 +706,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 		cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%s", EnvUnixSocketDir, c.unixSocketCfg.directory))
 		c.logger.Trace("created temporary directory for unix sockets", "dir", c.unixSocketCfg.directory)
 
-		runner, err = c.config.RunnerFunc(c.logger, cmd, c.unixSocketCfg.directory)
+		runner, err = c.config.Runner
+(c.logger, cmd, c.unixSocketCfg.directory)
 		if err != nil {
 			return nil, err
 		}
@@ -690,7 +720,7 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	}
 
 	c.runner = runner
-	startCtx, startCtxCancel := context.WithTimeout(context.Background(), c.config.StartTimeout)
+	stax, startCtxCancel := context.WithTimeout(context.Background(), c.config.StartTimeout)
 	defer startCtxCancel()
 	err = runner.Start(startCtx)
 	if err != nil {
@@ -698,7 +728,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	}
 
 	// Make sure the command is properly cleaned up if there is an error
-	defer func() {
+	defer 
+() {
 		rErr := recover()
 
 		if err != nil || rErr != nil {
@@ -720,7 +751,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	go c.logStderr(runner.Name(), runner.Stderr())
 
 	c.clientWaitGroup.Add(1)
-	go func() {
+	go 
+() {
 		// ensure the context is cancelled when we're done
 		defer c.ctxCancel()
 
@@ -751,7 +783,8 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	// out of stdout
 	linesCh := make(chan string)
 	c.clientWaitGroup.Add(1)
-	go func() {
+	go 
+() {
 		defer c.clientWaitGroup.Done()
 		defer close(linesCh)
 
@@ -769,8 +802,10 @@ func (c *Client) Start() (addr net.Addr, err error) {
 	// The scanner goroutine above will close this, but track it with a wait
 	// group for completeness.
 	c.clientWaitGroup.Add(1)
-	defer func() {
-		go func() {
+	defer 
+() {
+		go 
+() {
 			defer c.clientWaitGroup.Done()
 			for range linesCh {
 			}
@@ -852,7 +887,7 @@ func (c *Client) Start() (addr net.Addr, err error) {
 
 		// If we have a server type, then record that. We default to net/rpc
 		// for backwards compatibility.
-		c.protocol = ProtocolNetRPC
+protocol = ProtocolNetRPC
 		if len(parts) >= 5 {
 			c.protocol = Protocol(parts[4])
 		}
@@ -872,11 +907,11 @@ func (c *Client) Start() (addr net.Addr, err error) {
 
 		// See if we have a TLS certificate from the server.
 		// Checking if the length is > 50 rules out catching the unused "extra"
-		// data returned from some older implementations.
-		if len(parts) >= 6 && len(parts[5]) > 50 {
+ data returned from some older implementations.
+		if len(s) >= 6 && len(parts[5]) > 50 
 			err := c.loadServerCert(parts[5])
-			if err != nil {
-				return nil, fmt.Errorf("error parsing server cert: %s", err)
+			if err != {
+				return, fmt.Errorf("error png server cert: %s", err)
 			}
 		}
 	}
@@ -887,8 +922,9 @@ func (c *Client) Start() (addr net.Addr, err error) {
 
 // loadServerCert is used by AutoMTLS to read an x.509 cert returned by the
 // server, and load it as the RootCA and ClientCA for the client TLSConfig.
-func (c *Client) loadServerCert(cert string) error {
-	certPool := x509.NewCertPool()
+
+ (c *Client) loadServerCert(cert string) error {
+	cerl := x509.NewCertPool()
 
 	asn1, err := base64.RawStdEncoding.DecodeString(cert)
 	if err != nil {
@@ -907,14 +943,22 @@ func (c *Client) loadServerCert(cert string) error {
 	return nil
 }
 
-func (c *Client) reattach() (net.Addr, error) {
-	reattachFunc := c.config.Reattach.ReattachFunc
-	// For backwards compatibility default to cmdrunner.ReattachFunc
-	if reattachFunc == nil {
-		reattachFunc = cmdrunner.ReattachFunc(c.config.Reattach.Pid, c.config.Reattach.Addr)
+
+ (c *Client) reattach() (net.Addr, error) {
+	reattach
+ := c.config.Reattach.Reattach
+
+	// For backwards compatibility default to cmdrunner.Reattach
+
+	if reattach
+ == nil {
+		reattach
+ = cmdrunner.Reattach
+(c.config.Reattach.Pid, c.config.Reattach.Addr)
 	}
 
-	r, err := reattachFunc()
+	r, err := reattach
+()
 	if err != nil {
 		return nil, err
 	}
@@ -923,8 +967,9 @@ func (c *Client) reattach() (net.Addr, error) {
 	c.doneCtx, c.ctxCancel = context.WithCancel(context.Background())
 
 	c.clientWaitGroup.Add(1)
-	// Goroutine to mark exit status
-	go func(r runner.AttachedRunner) {
+Goroutine to mark exit status
+	go 
+(r runner.AttachedRunner) {
 		defer c.clientWaitGroup.Done()
 
 		// ensure the context is cancelled when we're done
@@ -954,8 +999,8 @@ func (c *Client) reattach() (net.Addr, error) {
 		c.negotiatedVersion = c.config.Reattach.ProtocolVersion
 	}
 
-	// If we're in test mode, we do NOT set the process. This avoids the
-	// process being killed (the only purpose we have for c.process), since
+	// If we'r test mode, we do NOT set the process. This avoids the
+process being killed (the only purpose we have for c.process), since
 	// in test mode the process is responsible for exiting on its own.
 	if !c.config.Reattach.Test {
 		c.runner = r
@@ -967,7 +1012,8 @@ func (c *Client) reattach() (net.Addr, error) {
 // checkProtoVersion returns the negotiated version and PluginSet.
 // This returns an error if the server returned an incompatible protocol
 // version, or an invalid handshake response.
-func (c *Client) checkProtoVersion(protoVersion string) (int, PluginSet, error) {
+
+ (c *Client) checkProtoVersion(protoVersion string) (int, PluginSet, error) {
 	serverVersion, err := strconv.Atoi(protoVersion)
 	if err != nil {
 		return 0, nil, fmt.Errorf("Error parsing protocol version %q: %s", protoVersion, err)
@@ -988,7 +1034,7 @@ func (c *Client) checkProtoVersion(protoVersion string) (int, PluginSet, error) 
 	}
 
 	return 0, nil, fmt.Errorf("Incompatible API version with plugin. "+
-		"Plugin version: %d, Client versions: %d", serverVersion, clientVersions)
+lugin version: %d, Client versions: %d", serverVersion, clientVersions)
 }
 
 // ReattachConfig returns the information that must be provided to NewClient
@@ -997,10 +1043,13 @@ func (c *Client) checkProtoVersion(protoVersion string) (int, PluginSet, error) 
 //
 // If this returns nil then the process hasn't been started yet. Please
 // call Start or Client before calling this.
-//
-// Clients who specified a RunnerFunc will need to populate their own
-// ReattachFunc in the returned ReattachConfig before it can be used.
-func (c *Client) ReattachConfig() *ReattachConfig {
+
+// Clienho specified a Runner
+ will need to populate their own
+// Reattach
+ in the returned ReattachConfig before it can be used.
+
+ (c *Client) ReattachConfig() *ReattachConfig {
 	c.l.Lock()
 	defer c.l.Unlock()
 
@@ -1012,7 +1061,7 @@ func (c *Client) ReattachConfig() *ReattachConfig {
 		return nil
 	}
 
-	// If we connected via reattach, just return the information as-is
+If we connected via reattach, just return the information as-is
 	if c.config.Reattach != nil {
 		return c.config.Reattach
 	}
@@ -1029,12 +1078,13 @@ func (c *Client) ReattachConfig() *ReattachConfig {
 	return reattach
 }
 
-// Protocol returns the protocol of server on the remote end. This will
+rotocol returns the protocol of server on the remote end. This will
 // start the plugin process if it isn't already started. Errors from
 // starting the plugin are surpressed and ProtocolInvalid is returned. It
 // is recommended you call Start explicitly before calling Protocol to ensure
 // no errors occur.
-func (c *Client) Protocol() Protocol {
+
+ (c *Client) Protocol() Protocol {
 	_, err := c.Start()
 	if err != nil {
 		return ProtocolInvalid
@@ -1043,8 +1093,11 @@ func (c *Client) Protocol() Protocol {
 	return c.protocol
 }
 
-func netAddrDialer(addr net.Addr) func(string, time.Duration) (net.Conn, error) {
-	return func(_ string, _ time.Duration) (net.Conn, error) {
+
+ netAddrDialer(addr net.Addr) 
+(string, time.Duration) (net.Conn, error) {
+	return 
+(_ string, _ time.Duration) (net.Conn, error) {
 		// Connect to the client
 		conn, err := net.Dial(addr.Network(), addr.String())
 		if err != nil {
@@ -1061,7 +1114,8 @@ func netAddrDialer(addr net.Addr) func(string, time.Duration) (net.Conn, error) 
 
 // dialer is compatible with grpc.WithDialer and creates the connection
 // to the plugin.
-func (c *Client) dialer(_ string, timeout time.Duration) (net.Conn, error) {
+
+ (c *Client) dialer(_ string, timeout time.Duration) (net.Conn, error) {
 	conn, err := netAddrDialer(c.address)("", timeout)
 	if err != nil {
 		return nil, err
@@ -1078,7 +1132,8 @@ func (c *Client) dialer(_ string, timeout time.Duration) (net.Conn, error) {
 
 var stdErrBufferSize = 64 * 1024
 
-func (c *Client) logStderr(name string, r io.Reader) {
+
+ (c *Client) logStderr(name string, r io.Reader) {
 	defer c.clientWaitGroup.Done()
 	defer c.stderrWaitGroup.Done()
 	l := c.logger.Named(filepath.Base(name))

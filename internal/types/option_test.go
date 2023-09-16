@@ -7,7 +7,8 @@ import (
 	"testing"
 )
 
-func TestIsNone(t *testing.T) {
+
+tIsNone(t *testing.T) {
 	t.Parallel()
 
 	none := None[int]()
@@ -22,7 +23,8 @@ t.Errorf("some.IsNone = %v, want = %v", got, want)
 	}
 }
 
-func TestIsSome(t *testing.T) {
+
+tIsSome(t *testing.T) {
 	t.Parallel()
 
 	none := None[int]()
@@ -37,7 +39,8 @@ t.Errorf("some.IsSome = %v, want = %v", got, want)
 	}
 }
 
-func TestUnwrapOr(t *testing.T) {
+
+tUnwrapOr(t *testing.T) {
 	t.Parallel()
 
 	none := None[int]()
@@ -52,7 +55,8 @@ t.Errorf("some.UnwrapOr = %v, want = %v", got, want)
 	}
 }
 
-func TestUnwrapOrDefault(t *testing.T) {
+
+tUnwrapOrDefault(t *testing.T) {
 	t.Parallel()
 
 	none := None[int]()
@@ -67,17 +71,20 @@ t.Errorf("some.UnwrapOrDefault = %v, want = %v", got, want)
 	}
 }
 
-func TestUnwrapOrElse(t *testing.T) {
+
+tUnwrapOrElse(t *testing.T) {
 	t.Parallel()
 
 	none := None[int]()
 	some := Some("yes")
 
-	if got, want := none.UnwrapOrElse(func() int { return 42 }), 42; got != want {
+	if got, want := none.UnwrapOrElse(
+nt { return 42 }), 42; got != want {
 t.Errorf("none.UnwrapOrElse = %v, want = %v", got, want)
 	}
 
-	if got, want := some.UnwrapOrElse(func() string { return "no" }), "yes"; got != want {
+	if got, want := some.UnwrapOrElse(
+tring { return "no" }), "yes"; got != want {
 t.Errorf("some.UnwrapOrElse = %v, want = %v", got, want)
 	}
 }

@@ -34,27 +34,32 @@ tlsX509CertificateSerialNumberLimit = new(big.Int).Lsh(big.NewInt(1), 128) //nol
 
 // TLSPEMRemovePublicKeyEncapsulationBoundaries removes public key
 // pre and post encapsulation boundaries from a PEM string.
-func TLSPEMRemovePublicKeyEncapsulationBoundaries(pem string) string {
+
+PEMRemovePublicKeyEncapsulationBoundaries(pem string) string {
 return removePEMEncapsulationBoundaries(pem, PEMBlockTypePublicKey)
 }
 
-func removePEMEncapsulationBoundaries(pem, label string) string {
+
+ovePEMEncapsulationBoundaries(pem, label string) string {
 return strings.ReplaceAll(strings.ReplaceAll(pem, pemPreEncapsulationBoundary(label), ""), pemPostEncapsulationBoundary(label), "")
 }
 
 // See https://www.rfc-editor.org/rfc/rfc7468#section-2.
-func pemPreEncapsulationBoundary(label string) string {
+
+PreEncapsulationBoundary(label string) string {
 return `-----BEGIN ` + label + `-----`
 }
 
-func pemPostEncapsulationBoundary(label string) string {
+
+PostEncapsulationBoundary(label string) string {
 return `-----END ` + label + `-----`
 }
 
 // TLSECDSAPublicKeyPEM generates an ECDSA private key PEM string using the specified elliptic curve.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: private_key_pem = "%[1]s"
-func TLSECDSAPrivateKeyPEM(t *testing.T, curveName string) string {
+
+ECDSAPrivateKeyPEM(t *testing.T, curveName string) string {
 curve := ellipticCurveForName(curveName)
 
 if curve == nil {
@@ -82,7 +87,8 @@ return string(pem.EncodeToMemory(block))
 }
 
 // TLSECDSAPublicKeyPEM generates an ECDSA public key PEM string and fingerprint.
-func TLSECDSAPublicKeyPEM(t *testing.T, keyPem string) (string, string) {
+
+ECDSAPublicKeyPEM(t *testing.T, keyPem string) (string, string) {
 keyBlock, _ := pem.Decode([]byte(keyPem))
 
 key, err := x509.ParseECPrivateKey(keyBlock.Bytes)
@@ -114,7 +120,8 @@ return string(pem.EncodeToMemory(block)), strings.Join(hexarray, ":")
 // TLSRSAPrivateKeyPEM generates a RSA private key PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: private_key_pem = "%[1]s"
-func TLSRSAPrivateKeyPEM(t *testing.T, bits int) string {
+
+RSAPrivateKeyPEM(t *testing.T, bits int) string {
 key, err := rsa.GenerateKey(rand.Reader, bits)
 
 if err != nil {
@@ -132,7 +139,8 @@ return string(pem.EncodeToMemory(block))
 // TLSRSAPublicKeyPEM generates a RSA public key PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: public_key_pem = "%[1]s"
-func TLSRSAPublicKeyPEM(t *testing.T, keyPem string) string {
+
+RSAPublicKeyPEM(t *testing.T, keyPem string) string {
 keyBlock, _ := pem.Decode([]byte(keyPem))
 
 key, err := x509.ParsePKCS1PrivateKey(keyBlock.Bytes)
@@ -158,7 +166,8 @@ return string(pem.EncodeToMemory(block))
 // TLSRSAX509LocallySignedCertificatePEM generates a local CA x509 certificate PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: certificate_pem = "%[1]s"
-func TLSRSAX509LocallySignedCertificatePEM(t *testing.T, caKeyPem, caCertificatePem, keyPem, commonName string) string {
+
+RSAX509LocallySignedCertificatePEM(t *testing.T, caKeyPem, caCertificatePem, keyPem, commonName string) string {
 caCertificateBlock, _ := pem.Decode([]byte(caCertificatePem))
 
 caCertificate, err := x509.ParseCertificate(caCertificateBlock.Bytes)
@@ -219,7 +228,8 @@ return string(pem.EncodeToMemory(certificateBlock))
 // TLSRSAX509SelfSignedCACertificatePEM generates a x509 CA certificate PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: root_certificate_pem = "%[1]s"
-func TLSRSAX509SelfSignedCACertificatePEM(t *testing.T, keyPem string) string {
+
+RSAX509SelfSignedCACertificatePEM(t *testing.T, keyPem string) string {
 keyBlock, _ := pem.Decode([]byte(keyPem))
 
 key, err := x509.ParsePKCS1PrivateKey(keyBlock.Bytes)
@@ -276,7 +286,8 @@ return string(pem.EncodeToMemory(certificateBlock))
 // See https://docs.aws.amazon.com/rolesanywhere/latest/userguide/trust-model.html#signature-verification.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: root_certificate_pem = "%[1]s"
-func TLSRSAX509SelfSignedCACertificateForRolesAnywhereTrustAnchorPEM(t *testing.T, keyPem string) string {
+
+RSAX509SelfSignedCACertificateForRolesAnywhereTrustAnchorPEM(t *testing.T, keyPem string) string {
 keyBlock, _ := pem.Decode([]byte(keyPem))
 
 key, err := x509.ParsePKCS1PrivateKey(keyBlock.Bytes)
@@ -332,7 +343,8 @@ return string(pem.EncodeToMemory(certificateBlock))
 // TLSRSAX509SelfSignedCertificatePEM generates a x509 certificate PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: private_key_pem = "%[1]s"
-func TLSRSAX509SelfSignedCertificatePEM(t *testing.T, keyPem, commonName string) string {
+
+RSAX509SelfSignedCertificatePEM(t *testing.T, keyPem, commonName string) string {
 keyBlock, _ := pem.Decode([]byte(keyPem))
 
 key, err := x509.ParsePKCS1PrivateKey(keyBlock.Bytes)
@@ -378,7 +390,8 @@ return string(pem.EncodeToMemory(certificateBlock))
 // and a RSA private key PEM string.
 // Wrap with TLSPEMEscapeNewlines() to allow simple fmt.Sprintf()
 // configurations such as: certificate_signing_request_pem = "%[1]s" private_key_pem = "%[2]s"
-func TLSRSAX509CertificateRequestPEM(t *testing.T, keyBits int, commonName string) (string, string) {
+
+RSAX509CertificateRequestPEM(t *testing.T, keyBits int, commonName string) (string, string) {
 keyBytes, err := rsa.GenerateKey(rand.Reader, keyBits)
 
 if err != nil {
@@ -412,15 +425,18 @@ Type:  PEMBlockTypeRSAPrivateKey,
 return string(pem.EncodeToMemory(csrBlock)), string(pem.EncodeToMemory(keyBlock))
 }
 
-func TLSPEMEscapeNewlines(pem string) string {
+
+PEMEscapeNewlines(pem string) string {
 return strings.ReplaceAll(pem, "\n", "\\n")
 }
 
-func TLSPEMRemoveNewlines(pem string) string {
+
+PEMRemoveNewlines(pem string) string {
 return strings.ReplaceAll(pem, "\n", "")
 }
 
-func ellipticCurveForName(name string) elliptic.Curve {
+
+ipticCurveForName(name string) elliptic.Curve {
 switch name {
 case "P-224":
 return elliptic.P224()

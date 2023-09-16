@@ -38,7 +38,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -91,7 +91,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -119,7 +119,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_addresses2(rName),
@@ -214,7 +214,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_emails1(rName, email1),
@@ -291,7 +291,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_locale(rName, "en-US"),
@@ -342,7 +342,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameFamilyName(rName, "Doe"),
@@ -381,7 +381,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameFormatted(rName, "JD1"),
@@ -432,7 +432,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameGivenName(rName, "John"),
@@ -471,7 +471,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameHonorificPrefix(rName, "Dr."),
@@ -510,7 +510,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameHonorificSuffix(rName, "M.D."),
@@ -561,7 +561,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nameMiddleName(rName, "Howard"),
@@ -612,7 +612,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_nickName(rName, "JD"),
@@ -663,7 +663,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_phoneNumbers1(rName),
@@ -740,7 +740,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_preferredLanguage(rName, "EN"),
@@ -791,7 +791,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_profileURL(rName, "http://example.com/1"),
@@ -842,7 +842,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_timezone(rName, "UTC"),
@@ -893,7 +893,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_title(rName, "Mr"),
@@ -944,7 +944,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_userType(rName, "Member"),

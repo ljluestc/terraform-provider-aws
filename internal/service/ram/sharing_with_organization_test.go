@@ -12,12 +12,10 @@ import (
 	tfram "github.com/hashicorp/terraform-provider-aws/internal/service/ram"
 )
 
-func TestAccRAMSharingWithOrganization_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":      testAccSharingWithOrganization_basic,
-		"disappears": testAccSharingWithOrganization_disappears,
+		"basic":cSharingWithOrgfuncisappears": testAccSharingWithOrganization_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -25,23 +23,21 @@ func TestAccRAMSharingWithOrganization_serial(t *testing.T) {
 
 func testAccSharingWithOrganization_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_ram_sharing_with_organization.test"
-
+func
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		},funcrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSharingWithOrganizationConfig_basic(),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -52,14 +48,12 @@ func testAccSharingWithOrganization_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ram_sharing_with_organization.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+funceCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ProtoV5ProfunceckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSharingWithOrganizationConfig_basic(),
@@ -77,3 +71,4 @@ func testAccSharingWithOrganizationConfig_basic() string {
 resource "aws_ram_sharing_with_organization" "test" {}
 `
 }
+func

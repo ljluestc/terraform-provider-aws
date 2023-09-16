@@ -26,7 +26,8 @@ type stdlogAdapter struct {
 
 // Take the data, infer the levels if configured, and send it through
 // a regular Logger.
-func (s *stdlogAdapter) Write(data []byte) (int, error) {
+
+*stdlogAdapter) Write(data []byte) (int, error) {
 	str := string(bytes.TrimRight(data, " \t\n"))
 
 	if s.forceLevel != NoLevel {
@@ -50,7 +51,8 @@ func (s *stdlogAdapter) Write(data []byte) (int, error) {
 	return len(data), nil
 }
 
-func (s *stdlogAdapter) dispatch(str string, level Level) {
+
+*stdlogAdapter) dispatch(str string, level Level) {
 	switch level {
 	case Trace:
 		s.log.Trace(str)
@@ -68,7 +70,8 @@ func (s *stdlogAdapter) dispatch(str string, level Level) {
 }
 
 // Detect, based on conventions, what log level this is.
-func (s *stdlogAdapter) pickLevel(str string) (Level, string) {
+
+*stdlogAdapter) pickLevel(str string) (Level, string) {
 	switch {
 	case strings.HasPrefix(str, "[DEBUG]"):
 		return Debug, strings.TrimSpace(str[7:])
@@ -87,7 +90,8 @@ func (s *stdlogAdapter) pickLevel(str string) (Level, string) {
 	}
 }
 
-func (s *stdlogAdapter) trimTimestamp(str string) string {
+
+*stdlogAdapter) trimTimestamp(str string) string {
 	idx := logTimestampRegexp.FindStringIndex(str)
 	return str[idx[1]:]
 }
@@ -96,13 +100,15 @@ type logWriter struct {
 	l *log.Logger
 }
 
-func (l *logWriter) Write(b []byte) (int, error) {
+
+*logWriter) Write(b []byte) (int, error) {
 	l.l.Println(string(bytes.TrimRight(b, " \n\t")))
 	return len(b), nil
 }
 
 // Takes a standard library logger and returns a Logger that will write to it
-func FromStandardLogger(l *log.Logger, opts *LoggerOptions) Logger {
+
+mStandardLogger(l *log.Logger, opts *LoggerOptions) Logger {
 	var dl LoggerOptions = *opts
 
 	// Use the time format that log.Logger uses

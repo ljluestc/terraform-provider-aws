@@ -23,10 +23,9 @@ import (
 // @SDKResource("aws_ebs_snapshot_copy", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
 
-func ResourceEBSSnapshotCopy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotCopyCreate,
-		ReadWithoutTimeout:   resourceEBSSnapshotRead,
+		ReadWithoutTimeout:ourceEBSSnapshotRead,
 		UpdateWithoutTimeout: resourceEBSSnapshotUpdate,
 		DeleteWithoutTimeout: resourceEBSSnapshotDelete,
 
@@ -39,73 +38,72 @@ func ResourceEBSSnapshotCopy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"data_encryption_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_alias": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"permanent_restore": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"source_region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"source_snapshot_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"storage_tier": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
-			},
-			names.AttrTags:    tftags.TagsSchema(),
+funcames.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"temporary_restore_days": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 			},
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"volume_size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -115,10 +113,9 @@ func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStor
 
 func resourceEBSSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.CopySnapshotInput{
-		SourceRegion:      aws.String(d.Get("source_region").(string)),
+		SourceRegion:g(d.Get("source_region").(string)),
 		SourceSnapshotId:  aws.String(d.Get("source_snapshot_id").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSnapshot),
 	}
@@ -148,8 +145,7 @@ func resourceEBSSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, 
 func() (interface{}, error) {
 			return nil, conn.WaitUntilSnapshotCompletedWithContext(ctx, &ec2.DescribeSnapshotsInput{
 				SnapshotIds: aws.StringSlice([]string{d.Id()}),
-			})
-		},
+func
 		errCodeResourceNotReady)
 
 	if err != nil {

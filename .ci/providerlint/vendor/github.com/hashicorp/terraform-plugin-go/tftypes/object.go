@@ -51,7 +51,8 @@ type Object struct {
 // returning the Type found at that AttributePath within the Object. If the
 // AttributePathStep cannot be applied to the Object, an ErrInvalidStep error
 // will be returned.
-func (o Object) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
+
+ (o Object) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
 	switch s := step.(type) {
 	case AttributeName:
 		if len(o.AttributeTypes) == 0 {
@@ -71,8 +72,9 @@ func (o Object) ApplyTerraform5AttributePathStep(step AttributePathStep) (interf
 }
 
 // Equal returns true if the two Objects are exactly equal. Unlike Is, passing
-// in an Object with no AttributeTypes will always return false.
-func (o Object) Equal(other Type) bool {
+n an Object with no AttributeTypes will always return false.
+
+ (o Object) Equal(other Type) bool {
 	v, ok := other.(Object)
 	if !ok {
 		return false
@@ -119,9 +121,10 @@ func (o Object) Equal(other Type) bool {
 // return false.
 // If the other Object does not have a type compatible ElementType for every
 // nested attribute, it will return false.
-//
+
 // If the current type contains OptionalAttributes, it will panic.
-func (o Object) UsableAs(other Type) bool {
+
+ (o Object) UsableAs(other Type) bool {
 	if other.Is(DynamicPseudoType) {
 		return true
 	}
@@ -149,20 +152,23 @@ func (o Object) UsableAs(other Type) bool {
 
 // Is returns whether `t` is an Object type or not. It does not perform any
 // AttributeTypes checks.
-func (o Object) Is(t Type) bool {
-	_, ok := t.(Object)
+
+ (o Object) Is(t Type) bool {
+ok := t.(Object)
 	return ok
 }
 
-func (o Object) attrIsOptional(attr string) bool {
+
+ (o Object) attrIsOptional(attr string) bool {
 	if o.OptionalAttributes == nil {
 		return false
-	}
+
 	_, ok := o.OptionalAttributes[attr]
 	return ok
 }
 
-func (o Object) String() string {
+
+ (o Object) String() string {
 	var res strings.Builder
 	res.WriteString("tftypes.Object[")
 	keys := make([]string, 0, len(o.AttributeTypes))
@@ -178,19 +184,22 @@ func (o Object) String() string {
 		res.WriteString(o.AttributeTypes[key].String())
 		if o.attrIsOptional(key) {
 			res.WriteString(`?`)
-		}
+
 	}
-	res.WriteString("]")
+.WriteString("]")
 	return res.String()
 }
 
-func (o Object) private() {}
 
-func (o Object) supportedGoTypes() []string {
+ (o Object) private() {}
+
+
+ (o Object) supportedGoTypes() []string {
 	return []string{"map[string]tftypes.Value"}
 }
 
-func valueFromObject(types map[string]Type, optionalAttrs map[string]struct{}, in interface{}) (Value, error) {
+
+ valueFromObject(types map[string]Type, optionalAttrs map[string]struct{}, in interface{}) (Value, error) {
 	switch value := in.(type) {
 	case map[string]Value:
 		// types should only be null if the "Object" is actually a
@@ -224,7 +233,7 @@ func valueFromObject(types map[string]Type, optionalAttrs map[string]struct{}, i
 			typ:   Object{AttributeTypes: types, OptionalAttributes: optionalAttrs},
 			value: value,
 		}, nil
-	default:
+ault:
 		return Value{}, fmt.Errorf("tftypes.NewValue can't use %T as a tftypes.Object; expected types are: %s", in, formattedSupportedGoTypes(Object{}))
 	}
 }
@@ -233,7 +242,8 @@ func valueFromObject(types map[string]Type, optionalAttrs map[string]struct{}, i
 // including the AttributeTypes.
 //
 // Deprecated: this is not meant to be called by third-party code.
-func (o Object) MarshalJSON() ([]byte, error) {
+
+ (o Object) MarshalJSON() ([]byte, error) {
 	attrs, err := json.Marshal(o.AttributeTypes)
 	if err != nil {
 		return nil, err

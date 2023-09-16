@@ -6,7 +6,8 @@ package fieldutils
 // Input order matters: in case two or more maps use the same key,
 // the last one to set that key will have the corresponding value
 // persisted.
-func MergeFieldMaps(maps ...map[string]interface{}) map[string]interface{} {
+
+ MergeFieldMaps(maps ...map[string]interface{}) map[string]interface{} {
 	// Pre-allocate a map to merge all the maps into,
 	// that has at least the capacity equivalent to the number
 	// of maps to merge
@@ -24,8 +25,9 @@ func MergeFieldMaps(maps ...map[string]interface{}) map[string]interface{} {
 }
 
 // FieldMapsToKeys will extract all the field maps keys, avoiding repetitions
-// in case two or more maps contained the same key.
-func FieldMapsToKeys(maps ...map[string]interface{}) []string {
+n case two or more maps contained the same key.
+
+ FieldMapsToKeys(maps ...map[string]interface{}) []string {
 	switch len(maps) {
 	case 0:
 		return nil
@@ -39,7 +41,8 @@ func FieldMapsToKeys(maps ...map[string]interface{}) []string {
 		return result
 	default:
 		// As we merge all maps into one, we can use this
-		// same function recursively, falling back on the `switch case 1`.
+		// same 
+tion recursively, falling back on the `switch case 1`.
 		return FieldMapsToKeys(MergeFieldMaps(maps...))
 	}
 }

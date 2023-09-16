@@ -46,74 +46,74 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"api_mapping_selection_expression": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"domain_name": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:.TypeString,
+Required:
+ForceNew:
 ValidateFunc: validation.StringLenBetween(1, 512),
 	},
 	"domain_name_configuration": {
-Type:     schema.TypeList,
+Type:eList,
 Required: true,
 MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "certificate_arn": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:.TypeString,
+	Required:
 	ValidateFunc: verify.ValidARN,
 },
 "endpoint_type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 	ValidateFunc: validation.StringInSlice([]string{
 apigatewayv2.EndpointTypeRegional,
 	}, true),
 },
 "hosted_zone_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "security_policy": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 	ValidateFunc: validation.StringInSlice([]string{
 apigatewayv2.SecurityPolicyTls12,
 	}, true),
 },
 "target_domain_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "ownership_verification_certificate_arn": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Computed:     true,
+	Type:.TypeString,
+	Optional:
+	Computed:
 	ValidateFunc: verify.ValidARN,
 },
 	},
 },
 	},
 	"mutual_tls_authentication": {
-Type:     schema.TypeList,
+Type:eList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "truststore_uri": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 },
 "truststore_version": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 },
 	},
@@ -136,7 +136,7 @@ func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta 
 DomainName:aws.String(domainName),
 DomainNameConfigurations: expandDomainNameConfigurations(d.Get("domain_name_configuration").([]interface{})),
 MutualTlsAuthentication:  expandMutualTLSAuthentication(d.Get("mutual_tls_authentication").([]interface{})),
-Tags:      getTagsIn(ctx),
+Tags:(ctx),
 	}
 
 	output, err := conn.CreateDomainNameWithContext(ctx, input)

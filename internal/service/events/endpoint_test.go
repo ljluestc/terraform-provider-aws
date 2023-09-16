@@ -27,10 +27,10 @@ func TestAccEventsEndpoint_basic(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -71,10 +71,10 @@ func TestAccEventsEndpoint_disappears(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -96,10 +96,10 @@ func TestAccEventsEndpoint_roleARN(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_roleARN(rName),
@@ -140,10 +140,10 @@ func TestAccEventsEndpoint_description(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_description(rName, "description 1"),
@@ -206,10 +206,10 @@ func TestAccEventsEndpoint_updateRoutingConfig(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -332,7 +332,7 @@ data "aws_iam_policy_document" "test_assume" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.test_assume.json
 
   inline_policy {
@@ -377,11 +377,11 @@ data "aws_iam_policy_document" "test" {
 }
 
 resource "aws_route53_health_check" "test" {
-  fqdn             = "example.com"
-  type             = "HTTP"
+  fqdn= "example.com"
+  type= "HTTP"
   request_interval = "30"
   disabled         = true
-  port             = 80
+  port= 80
 
   tags = {
     Name = %[1]q
@@ -485,11 +485,11 @@ resource "aws_cloudwatch_event_endpoint" "test" {
 func testAccEndpointConfig_updateRoutingConfig(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_health_check" "test2" {
-  fqdn             = "example.com"
-  type             = "HTTPS"
+  fqdn= "example.com"
+  type= "HTTPS"
   request_interval = "10"
   disabled         = true
-  port             = 443
+  port= 443
 
   tags = {
     Name = %[1]q

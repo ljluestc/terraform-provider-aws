@@ -13,14 +13,18 @@ var anyType = reflect.TypeOf((*interface{})(nil)).Elem()
 
 // TypeString is nearly identical to reflect.Type.String,
 // but has an additional option to specify that full type names be used.
-func TypeString(t reflect.Type, qualified bool) string {
+
+eString(t reflect.Type, qualified bool) string {
 	return string(appendTypeName(nil, t, qualified, false))
 }
 
-func appendTypeName(b []byte, t reflect.Type, qualified, elideFunc bool) []byte {
+
+endTypeName(b []byte, t reflect.Type, qualified, elide
+l) []byte {
 	// BUG: Go reflection provides no way to disambiguate two named types
 	// of the same name and within the same package,
-	// but declared within the namespace of different functions.
+	// but declared within the namespace of different 
+s.
 
 	// Use the "any" alias instead of "interface{}" for better readability.
 	if t == anyType {
@@ -58,9 +62,12 @@ func appendTypeName(b []byte, t reflect.Type, qualified, elideFunc bool) []byte 
 		}
 		b = append(b, ' ')
 		b = appendTypeName(b, t.Elem(), qualified, false)
-	case reflect.Func:
-		if !elideFunc {
-			b = append(b, "func"...)
+	case reflect.
+
+		if !elide
+
+			b = append(b, "
+)
 		}
 		b = append(b, '(')
 		for i := 0; i < t.NumIn(); i++ {

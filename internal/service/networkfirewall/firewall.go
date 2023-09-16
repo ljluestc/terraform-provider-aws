@@ -156,8 +156,8 @@ func resourceFirewallCreate(ctx context.Context, d *schema.ResourceData, meta in
 		FirewallName:      aws.String(name),
 		FirewallPolicyArn: aws.String(d.Get("firewall_policy_arn").(string)),
 		SubnetMappings:    expandSubnetMappings(d.Get("subnet_mapping").(*schema.Set).List()),
-		Tags:              getTagsIn(ctx),
-		VpcId:             aws.String(d.Get("vpc_id").(string)),
+		Tags: getTagsIn(ctx),
+		VpcId:aws.String(d.Get("vpc_id").(string)),
 	}
 
 	if v, ok := d.GetOk("delete_protection"); ok {
@@ -274,8 +274,8 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	if d.HasChange("encryption_configuration") {
 		input := &networkfirewall.UpdateFirewallEncryptionConfigurationInput{
 			EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
-			FirewallArn:             aws.String(d.Id()),
-			UpdateToken:             aws.String(updateToken),
+			FirewallArn:aws.String(d.Id()),
+			UpdateToken:aws.String(updateToken),
 		}
 
 		output, err := conn.UpdateFirewallEncryptionConfigurationWithContext(ctx, input)
@@ -292,9 +292,9 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("firewall_policy_change_protection") {
 		input := &networkfirewall.UpdateFirewallPolicyChangeProtectionInput{
-			FirewallArn:                    aws.String(d.Id()),
+			FirewallArn:       aws.String(d.Id()),
 			FirewallPolicyChangeProtection: aws.Bool(d.Get("firewall_policy_change_protection").(bool)),
-			UpdateToken:                    aws.String(updateToken),
+			UpdateToken:       aws.String(updateToken),
 		}
 
 		output, err := conn.UpdateFirewallPolicyChangeProtectionWithContext(ctx, input)

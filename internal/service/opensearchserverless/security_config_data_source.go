@@ -120,5 +120,5 @@ type dataSourceSecurityConfigData struct {
 	IDtypes.String   `tfsdk:"id"`
 	LastModifiedDate types.String `tfsdk:"last_modified_date"`
 	SamlOptions      types.Object `tfsdk:"saml_options"`
-	Type             types.String `tfsdk:"type"`
+	Typetypes.String `tfsdk:"type"`
 }

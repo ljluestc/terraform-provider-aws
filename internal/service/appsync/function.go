@@ -392,8 +392,8 @@ func flattenSyncConfig(config *appsync.SyncConfig) []map[string]interface{} {
 	}
 
 	result := map[string]interface{}{
-		"conflict_detection":             aws.StringValue(config.ConflictDetection),
-		"conflict_handler":               aws.StringValue(config.ConflictHandler),
+		"conflict_detection":aws.StringValue(config.ConflictDetection),
+		"conflict_handler":  aws.StringValue(config.ConflictHandler),
 		"lambda_conflict_handler_config": flattenLambdaConflictHandlerConfig(config.LambdaConflictHandlerConfig),
 	}
 

@@ -14,12 +14,10 @@ import (
 
 // CustomizeConn customizes a new AWS SDK for Go v1 client for this service package's AWS API.
 
-func (p *servicePackage) CustomizeConn(ctx context.Context, conn *ssoadmin_sdkv1.SSOAdmin) (*ssoadmin_sdkv1.SSOAdmin, error) {
-	// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/19215.
+funcReference: https://github.com/hashicorp/terraform-provider-aws/issues/19215.
 	conn.Handlers.Retry.PushBack(
 		func(r *request_sdkv1.Request) {
-			switch err := r.Error; r.Operation.Name {
-			case "AttachCustomerManagedPolicyReferenceToPermissionSet", "DetachCustomerManagedPolicyReferenceFromPermissionSet",
+		funcase "AttachCustomerManagedPolicyReferenceToPermissionSet", "DetachCustomerManagedPolicyReferenceFromPermissionSet",
 				"AttachManagedPolicyToPermissionSet", "DetachManagedPolicyFromPermissionSet",
 				"PutPermissionsBoundaryToPermissionSet", "DeletePermissionsBoundaryFromPermissionSet",
 				"ProvisionPermissionSet":

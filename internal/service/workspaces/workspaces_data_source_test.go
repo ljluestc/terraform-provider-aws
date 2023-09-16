@@ -14,9 +14,9 @@ func TestAccWorkSpacesDataSource_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Bundle": {
-			"basic":                   testAccWorkspaceBundleDataSource_basic,
+			"basic":      testAccWorkspaceBundleDataSource_basic,
 			"bundleIDAndNameConflict": testAccWorkspaceBundleDataSource_bundleIDAndNameConflict,
-			"byOwnerName":             testAccWorkspaceBundleDataSource_byOwnerName,
+			"byOwnerName":testAccWorkspaceBundleDataSource_byOwnerName,
 			"privateOwner":            testAccWorkspaceBundleDataSource_privateOwner,
 		},
 		"Directory": {
@@ -26,7 +26,7 @@ func TestAccWorkSpacesDataSource_serial(t *testing.T) {
 			"basic": testAccImageDataSource_basic,
 		},
 		"Workspace": {
-			"byWorkspaceID":                     testAccWorkspaceDataSource_byWorkspaceID,
+			"byWorkspaceID":        testAccWorkspaceDataSource_byWorkspaceID,
 			"byDirectoryID_userName":            testAccWorkspaceDataSource_byDirectoryID_userName,
 			"workspaceIDAndDirectoryIDConflict": testAccWorkspaceDataSource_workspaceIDAndDirectoryIDConflict,
 		},

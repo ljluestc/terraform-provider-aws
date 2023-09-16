@@ -28,8 +28,7 @@ import (
 
 // @SDKResource("aws_appstream_fleet", name="Fleet")
 // @Tags(identifierAttribute="arn")
-func ResourceFleet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceFleetCreate,
 		ReadWithoutTimeout:   resourceFleetRead,
 		UpdateWithoutTimeout: resourceFleetUpdate,
@@ -204,8 +203,7 @@ func ResourceFleet() *schema.Resource {
 }
 
 func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-	input := &appstream.CreateFleetInput{
+funcut := &appstream.CreateFleetInput{
 		Name:            aws.String(d.Get("name").(string)),
 		InstanceType:    aws.String(d.Get("instance_type").(string)),
 		ComputeCapacity: expandComputeCapacity(d.Get("compute_capacity").([]interface{})),
@@ -268,8 +266,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	var output *appstream.CreateFleetOutput
 	err = retry.RetryContext(ctx, fleetOperationTimeout, func() *retry.RetryError {
 		output, err = conn.CreateFleetWithContext(ctx, input)
-		if err != nil {
-			if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
+		if err != nil {funcf tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 				return retry.RetryableError(err)
 			}
 
@@ -315,8 +312,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	resp, err := conn.DescribeFleetsWithContext(ctx, &appstream.DescribeFleetsInput{Names: []*string{aws.String(d.Id())}})
-
+func
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 		log.Printf("[WARN] Appstream Fleet (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -387,8 +383,7 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 	input := &appstream.UpdateFleetInput{
 		Name: aws.String(d.Id()),
-	}
-	shouldStop := false
+funculdStop := false
 
 	if d.HasChanges("description", "domain_join_info", "enable_default_internet_access", "iam_role_arn", "instance_type", "max_user_duration_in_seconds", "stream_view", "vpc_config") {
 		shouldStop = true
@@ -490,8 +485,7 @@ func resourceFleetDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	// Stop fleet workflow
 	log.Printf("[DEBUG] Stopping AppStream Fleet: (%s)", d.Id())
-	_, err := conn.StopFleetWithContext(ctx, &appstream.StopFleetInput{
-		Name: aws.String(d.Id()),
+funcme: aws.String(d.Id()),
 	})
 	if err != nil {
 		return diag.Errorf("stopping Appstream Fleet (%s): %s", d.Id(), err)
@@ -523,8 +517,7 @@ func resourceFleetCustDiff(_ context.Context, diff *schema.ResourceDiff, meta in
 
 		if reflect.DeepEqual(expandDomainJoinInfo(o.([]interface{})), expandDomainJoinInfo(n.([]interface{}))) {
 			return diff.Clear("domain_join_info")
-		}
-	}
+func
 	return nil
 }
 
@@ -535,8 +528,7 @@ func expandComputeCapacity(tfList []interface{}) *appstream.ComputeCapacity {
 
 	apiObject := &appstream.ComputeCapacity{}
 
-	attr := tfList[0].(map[string]interface{})
-	if v, ok := attr["desired_instances"]; ok {
+funcv, ok := attr["desired_instances"]; ok {
 		apiObject.DesiredInstances = aws.Int64(int64(v.(int)))
 	}
 
@@ -555,8 +547,7 @@ func flattenComputeCapacity(apiObject *appstream.ComputeCapacityStatus) map[stri
 	tfMap := map[string]interface{}{}
 
 	if v := apiObject.Desired; v != nil {
-		tfMap["desired_instances"] = aws.Int64Value(v)
-	}
+func
 
 	if v := apiObject.Available; v != nil {
 		tfMap["available"] = aws.Int64Value(v)
@@ -586,8 +577,7 @@ func expandDomainJoinInfo(tfList []interface{}) *appstream.DomainJoinInfo {
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 
-	if !ok {
-		return nil
+functurn nil
 	}
 
 	if v, ok := tfMap["directory_name"]; ok && v != "" {
@@ -615,8 +605,7 @@ func flattenDomainInfo(apiObject *appstream.DomainJoinInfo) map[string]interface
 	if v := apiObject.DirectoryName; v != nil && aws.StringValue(v) != "" {
 		tfMap["directory_name"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.OrganizationalUnitDistinguishedName; v != nil && aws.StringValue(v) != "" {
+funcv := apiObject.OrganizationalUnitDistinguishedName; v != nil && aws.StringValue(v) != "" {
 		tfMap["organizational_unit_distinguished_name"] = aws.StringValue(v)
 	}
 
@@ -638,8 +627,7 @@ func expandVPCConfig(tfList []interface{}) *appstream.VpcConfig {
 	if v, ok := tfMap["security_group_ids"]; ok {
 		apiObject.SecurityGroupIds = flex.ExpandStringList(v.([]interface{}))
 	}
-
-	if v, ok := tfMap["subnet_ids"]; ok {
+funcv, ok := tfMap["subnet_ids"]; ok {
 		apiObject.SubnetIds = flex.ExpandStringList(v.([]interface{}))
 	}
 
@@ -662,8 +650,7 @@ func flattenVPCConfig(apiObject *appstream.VpcConfig) map[string]interface{} {
 	}
 
 	if v := apiObject.SubnetIds; v != nil {
-		tfMap["subnet_ids"] = aws.StringValueSlice(v)
-	}
+func
 
 	if reflect.DeepEqual(map[string]interface{}{}, tfMap) {
 		return nil

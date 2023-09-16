@@ -28,10 +28,10 @@ func TestAccDMSEventSubscription_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, true),
@@ -63,10 +63,10 @@ func TestAccDMSEventSubscription_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, true),
@@ -87,10 +87,10 @@ func TestAccDMSEventSubscription_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, false),
@@ -129,10 +129,10 @@ func TestAccDMSEventSubscription_eventCategories(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_categories2(rName, "creation", "failure"),
@@ -168,10 +168,10 @@ func TestAccDMSEventSubscription_tags(t *testing.T) {
 	resourceName := "aws_dms_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckEKS(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckEKS(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_tags1(rName, "key1", "value1"),
@@ -303,7 +303,7 @@ resource "aws_subnet" "test" {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_description = %[1]q
   replication_subnet_group_id          = %[1]q
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 }
 
 resource "aws_dms_replication_instance" "test" {
@@ -324,7 +324,7 @@ func testAccEventSubscriptionConfig_enabled(rName string, enabled bool) string {
 		testAccEventSubscriptionConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_dms_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = %[2]t
   event_categories = ["creation", "failure"]
   source_type      = "replication-instance"
@@ -339,7 +339,7 @@ func testAccEventSubscriptionConfig_categories2(rName string, eventCategory1 str
 		testAccEventSubscriptionConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_dms_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = false
   event_categories = [%[2]q, %[3]q]
   source_type      = "replication-instance"
@@ -354,7 +354,7 @@ func testAccEventSubscriptionConfig_tags1(rName, tagKey1, tagValue1 string) stri
 		testAccEventSubscriptionConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_dms_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = true
   event_categories = ["creation", "failure"]
   source_type      = "replication-instance"
@@ -373,7 +373,7 @@ func testAccEventSubscriptionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, ta
 		testAccEventSubscriptionConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_dms_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = true
   event_categories = ["creation", "failure"]
   source_type      = "replication-instance"

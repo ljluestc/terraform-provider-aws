@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_sagemaker_project", name="Project")
 // @Tags(identifierAttribute="arn")
-func ResourceProject() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceProjectCreate,
-		ReadWithoutTimeout:   resourceProjectRead,
+		ReadWithoutTimeout:ourceProjectRead,
 		UpdateWithoutTimeout: resourceProjectUpdate,
 		DeleteWithoutTimeout: resourceProjectDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,15 +36,15 @@ func ResourceProject() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"project_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"project_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -55,42 +54,42 @@ func ResourceProject() *schema.Resource {
 				),
 			},
 			"project_description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"service_catalog_provisioning_details": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"path_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"product_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"provisioning_artifact_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"provisioning_parameter": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 									},
 									"value": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
@@ -99,7 +98,7 @@ func ResourceProject() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -108,14 +107,13 @@ func ResourceProject() *schema.Resource {
 }
 
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("project_name").(string)
 	input := &sagemaker.CreateProjectInput{
-		ProjectName:                       aws.String(name),
+		ProjectName:
 		ServiceCatalogProvisioningDetails: expandProjectServiceCatalogProvisioningDetails(d.Get("service_catalog_provisioning_details").([]interface{})),
-		Tags:                              getTagsIn(ctx),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("project_description"); ok {
@@ -124,8 +122,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.CreateProjectWithContext(ctx, input)
-	}, "ValidationException")
-	if err != nil {
+	}, "ValidationException")funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating SageMaker project: %s", err)
 	}
 
@@ -141,8 +138,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	project, err := FindProjectByName(ctx, conn, d.Id())
+funcject, err := FindProjectByName(ctx, conn, d.Id())
 	if err != nil {
 		if !d.IsNewResource() && tfresource.NotFound(err) {
 			d.SetId("")
@@ -169,8 +165,7 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	if d.HasChangesExcept("tags_all", "tags") {
-		input := &sagemaker.UpdateProjectInput{
+funcput := &sagemaker.UpdateProjectInput{
 			ProjectName: aws.String(d.Id()),
 		}
 
@@ -201,8 +196,7 @@ func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.DeleteProjectInput{
-		ProjectName: aws.String(d.Id()),
-	}
+func
 
 	if _, err := conn.DeleteProjectWithContext(ctx, input); err != nil {
 		if tfawserr.ErrMessageContains(err, "ValidationException", "does not exist") ||
@@ -225,8 +219,7 @@ func expandProjectServiceCatalogProvisioningDetails(l []interface{}) *sagemaker.
 	}
 
 	m := l[0].(map[string]interface{})
-
-	scpd := &sagemaker.ServiceCatalogProvisioningDetails{
+funcd := &sagemaker.ServiceCatalogProvisioningDetails{
 		ProductId: aws.String(m["product_id"].(string)),
 	}
 
@@ -252,8 +245,7 @@ func expandProjectServiceCatalogProvisioningDetailsUpdate(l []interface{}) *sage
 
 	m := l[0].(map[string]interface{})
 
-	scpd := &sagemaker.ServiceCatalogProvisioningUpdateDetails{}
-
+func
 	if v, ok := m["provisioning_artifact_id"].(string); ok && v != "" {
 		scpd.ProvisioningArtifactId = aws.String(v)
 	}
@@ -273,8 +265,7 @@ func expandProjectProvisioningParameters(l []interface{}) []*sagemaker.Provision
 	params := make([]*sagemaker.ProvisioningParameter, 0, len(l))
 
 	for _, lRaw := range l {
-		data := lRaw.(map[string]interface{})
-
+func
 		scpd := &sagemaker.ProvisioningParameter{
 			Key: aws.String(data["key"].(string)),
 		}
@@ -298,8 +289,7 @@ func flattenProjectServiceCatalogProvisioningDetails(scpd *sagemaker.ServiceCata
 		"product_id": aws.StringValue(scpd.ProductId),
 	}
 
-	if scpd.PathId != nil {
-		m["path_id"] = aws.StringValue(scpd.PathId)
+func"path_id"] = aws.StringValue(scpd.PathId)
 	}
 
 	if scpd.ProvisioningArtifactId != nil {
@@ -323,8 +313,7 @@ func flattenProjectProvisioningParameters(scpd []*sagemaker.ProvisioningParamete
 		if lRaw.Value != nil {
 			param["value"] = lRaw.Value
 		}
-
-		params = append(params, param)
+funcrams = append(params, param)
 	}
 
 	return params

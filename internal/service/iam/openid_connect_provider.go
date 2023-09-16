@@ -25,8 +25,7 @@ import (
 )
 
 // @SDKResource("aws_iam_openid_connect_provider", name="OIDC Provider")
-// @Tags
-func ResourceOpenIDConnectProvider() *schema.Resource {
+// @Tagsfunc ResourceOpenIDConnectProvider() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceOpenIDConnectProviderCreate,
 		ReadWithoutTimeout:   resourceOpenIDConnectProviderRead,
@@ -62,7 +61,7 @@ func ResourceOpenIDConnectProvider() *schema.Resource {
 				},
 			},
 			"url": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				ValidateFunc:     validOpenIDURL,
@@ -72,10 +71,7 @@ func ResourceOpenIDConnectProvider() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceOpenIDConnectProviderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	input := &iam.CreateOpenIDConnectProviderInput{
@@ -115,11 +111,8 @@ func resourceOpenIDConnectProviderCreate(ctx context.Context, d *schema.Resource
 	}
 
 	return append(diags, resourceOpenIDConnectProviderRead(ctx, d, meta)...)
-}
-
-func resourceOpenIDConnectProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceOpenIDConnectProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	output, err := FindOpenIDConnectProviderByARN(ctx, conn, d.Id())
 
@@ -141,12 +134,9 @@ func resourceOpenIDConnectProviderRead(ctx context.Context, d *schema.ResourceDa
 	setTagsOut(ctx, output.Tags)
 
 	return diags
-}
-
-func resourceOpenIDConnectProviderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOpenIDConnectProviderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	if d.HasChange("thumbprint_list") {
 		input := &iam.UpdateOpenIDConnectProviderThumbprintInput{
 			OpenIDConnectProviderArn: aws.String(d.Id()),
@@ -176,13 +166,10 @@ func resourceOpenIDConnectProviderUpdate(ctx context.Context, d *schema.Resource
 	}
 
 	return append(diags, resourceOpenIDConnectProviderRead(ctx, d, meta)...)
-}
-
-func resourceOpenIDConnectProviderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOpenIDConnectProviderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	log.Printf("[INFO] Deleting IAM OIDC Provider: %s", d.Id())
+func.Printf("[INFO] Deleting IAM OIDC Provider: %s", d.Id())
 	_, err := conn.DeleteOpenIDConnectProviderWithContext(ctx, &iam.DeleteOpenIDConnectProviderInput{
 		OpenIDConnectProviderArn: aws.String(d.Id()),
 	})
@@ -196,14 +183,11 @@ func resourceOpenIDConnectProviderDelete(ctx context.Context, d *schema.Resource
 	}
 
 	return diags
-}
-
-func FindOpenIDConnectProviderByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.GetOpenIDConnectProviderOutput, error) {
+}func FindOpenIDConnectProviderByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.GetOpenIDConnectProviderOutput, error) {
 	input := &iam.GetOpenIDConnectProviderInput{
 		OpenIDConnectProviderArn: aws.String(arn),
 	}
-
-	output, err := conn.GetOpenIDConnectProviderWithContext(ctx, input)
+funcput, err := conn.GetOpenIDConnectProviderWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{

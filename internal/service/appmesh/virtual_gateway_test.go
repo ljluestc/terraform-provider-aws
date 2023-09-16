@@ -27,10 +27,10 @@ func testAccVirtualGateway_basic(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_basic(meshName, vgName),
@@ -73,10 +73,10 @@ func testAccVirtualGateway_disappears(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_basic(meshName, vgName),
@@ -98,10 +98,10 @@ func testAccVirtualGateway_BackendDefaults(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_backendDefaults(meshName, vgName),
@@ -192,10 +192,10 @@ func testAccVirtualGateway_BackendDefaultsCertificate(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_backendDefaultsCertificate(meshName, vgName),
@@ -257,10 +257,10 @@ func testAccVirtualGateway_ListenerConnectionPool(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_listenerConnectionPool(meshName, vgName),
@@ -335,10 +335,10 @@ func testAccVirtualGateway_ListenerHealthChecks(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_listenerHealthChecks(meshName, vgName),
@@ -423,10 +423,10 @@ func testAccVirtualGateway_ListenerTLS(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_listenerTLSFile(meshName, vgName),
@@ -528,10 +528,10 @@ func testAccVirtualGateway_ListenerValidation(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_listenerValidation(meshName, vgName),
@@ -627,10 +627,10 @@ func testAccVirtualGateway_MultiListenerValidation(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_multiListenerValidation(meshName, vgName),
@@ -776,10 +776,10 @@ func testAccVirtualGateway_Logging(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_logging(meshName, vgName, "/dev/stdout"),
@@ -880,10 +880,10 @@ func testAccVirtualGateway_Tags(t *testing.T) {
 	vgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualGatewayConfig_tags1(meshName, vgName, "key1", "value1"),
@@ -1018,9 +1018,9 @@ resource "aws_appmesh_virtual_gateway" "test" {
 
           validation {
             trust {
-              file {
-                certificate_chain = "/cert_chain.pem"
-              }
+ file {
+   certificate_chain = "/cert_chain.pem"
+ }
             }
           }
         }
@@ -1056,9 +1056,9 @@ resource "aws_appmesh_virtual_gateway" "test" {
 
           validation {
             trust {
-              file {
-                certificate_chain = "/etc/ssl/certs/cert_chain.pem"
-              }
+ file {
+   certificate_chain = "/etc/ssl/certs/cert_chain.pem"
+ }
             }
           }
         }
@@ -1092,22 +1092,22 @@ resource "aws_appmesh_virtual_gateway" "test" {
         tls {
           certificate {
             file {
-              certificate_chain = "/cert_chain.pem"
-              private_key       = "tell-nobody"
+ certificate_chain = "/cert_chain.pem"
+ private_key       = "tell-nobody"
             }
           }
 
           validation {
             subject_alternative_names {
-              match {
-                exact = ["def.example.com"]
-              }
+ match {
+   exact = ["def.example.com"]
+ }
             }
 
             trust {
-              sds {
-                secret_name = "restricted"
-              }
+ sds {
+   secret_name = "restricted"
+ }
             }
           }
         }
@@ -1194,7 +1194,7 @@ resource "aws_appmesh_virtual_gateway" "test" {
 
       health_check {
         protocol            = "http2"
-        path                = "/ping"
+        path   = "/ping"
         healthy_threshold   = 3
         unhealthy_threshold = 5
         timeout_millis      = 2000
@@ -1225,7 +1225,7 @@ resource "aws_appmesh_virtual_gateway" "test" {
 
       health_check {
         protocol            = "grpc"
-        port                = 8081
+        port   = 8081
         healthy_threshold   = 4
         unhealthy_threshold = 9
         timeout_millis      = 3000
@@ -1241,7 +1241,7 @@ func testAccVirtualGatewayConfig_rootCA(domain string) string {
 	return fmt.Sprintf(`
 resource "aws_acmpca_certificate_authority" "test" {
   permanent_deletion_time_in_days = 7
-  type                            = "ROOT"
+  type  = "ROOT"
 
   certificate_authority_configuration {
     key_algorithm     = "RSA_4096"
@@ -1264,7 +1264,7 @@ resource "aws_appmesh_mesh" "test" {
 }
 
 resource "aws_acm_certificate" "test" {
-  domain_name               = "test.%[3]s"
+  domain_name  = "test.%[3]s"
   certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
 }
 
@@ -1356,13 +1356,13 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -1402,7 +1402,7 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           trust {
             sds {
-              secret_name = "confidential"
+ secret_name = "confidential"
             }
           }
         }
@@ -1442,13 +1442,13 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -1473,13 +1473,13 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -1521,13 +1521,13 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -1552,13 +1552,13 @@ resource "aws_appmesh_virtual_gateway" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -1624,8 +1624,8 @@ resource "aws_appmesh_virtual_gateway" "test" {
 
           format {
             json {
-              key   = "k1"
-              value = "v1"
+ key   = "k1"
+ value = "v1"
             }
           }
         }

@@ -26,10 +26,10 @@ func TestAccDirectConnectGateway_basic(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayConfig_basic(rName, rBgpAsn),
@@ -55,10 +55,10 @@ func TestAccDirectConnectGateway_disappears(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayConfig_basic(rName, rBgpAsn),
@@ -80,10 +80,10 @@ func TestAccDirectConnectGateway_complex(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayConfig_associationMultiVPNSingleAccount(rName, rBgpAsn),
@@ -110,10 +110,10 @@ func TestAccDirectConnectGateway_update(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayConfig_basic(rName1, rBgpAsn),

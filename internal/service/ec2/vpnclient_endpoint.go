@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_ec2_client_vpn_endpoint", name="Client VPN Endpoint")
 // @Tags(identifierAttribute="id")
 
-func ResourceClientVPNEndpoint() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClientVPNEndpointCreate,
-		ReadWithoutTimeout:   resourceClientVPNEndpointRead,
+		ReadWithoutTimeout:ourceClientVPNEndpointRead,
 		DeleteWithoutTimeout: resourceClientVPNEndpointDelete,
 		UpdateWithoutTimeout: resourceClientVPNEndpointUpdate,
 		Importer: &schema.ResourceImporter{
@@ -41,194 +40,182 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"authentication_options": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 2,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"active_directory_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"root_certificate_chain_arn": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Optional:
+							ForceNew:
+							Validate
+func: verify.ValidARN,
+func		"saml_provider_arn": {
+							Type:schema.TypeString,
+							Optional:
+							ForceNew:
 							Validate
 func: verify.ValidARN,
 						},
-						"saml_provider_arn": {
-							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Validate
-func: verify.ValidARN,
-						},
-						"self_service_saml_provider_arn": {
-							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+func			Type:schema.TypeString,
+							Optional:
+							ForceNew:
 							Validate
 func: verify.ValidARN,
 						},
 						"type": {
-							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+func			Required:
+							ForceNew:
 							Validate
 func: validation.StringInSlice(ec2.ClientVpnAuthenticationType_Values(), false),
 						},
 					},
 				},
-			},
-			"client_cidr_block": {
+funcclient_cidr_block": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.IsCIDR,
 			},
 			"client_connect_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Computed: true,
-				MaxItems: 1,
+funcMaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Computed: true,
 						},
 						"lambda_
 function_arn": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional:
+							Computed:
 							Validate
 func: verify.ValidARN,
-						},
-					},
+func	},
 				},
 			},
 			"client_login_banner_options": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Computed: true,
+				Type:eList,
+funcComputed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"banner_text": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional:
+							Computed:
 							Validate
 func: validation.StringLenBetween(0, 1400),
 						},
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Computed: true,
 						},
 					},
-				},
-			},
+func,
 			"connection_log_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_log_group": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"cloudwatch_log_stream": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							Computed: true,
 						},
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Required: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"dns_servers": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				MinItems: 1,
 				MaxItems: 5,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"self_service_portal": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      ec2.SelfServicePortalDisabled,
+				Optional:
+				Default:ervicePortalDisabled,
 				Validate
 func: validation.StringInSlice(ec2.SelfServicePortal_Values(), false),
 			},
 			"server_certificate_arn": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: verify.ValidARN,
 			},
 			"session_timeout_hours": {
-				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      24,
+funcOptional:
+				Default:
 				Validate
 func: validation.IntInSlice([]int{8, 10, 12, 24}),
 			},
 			"split_tunnel": {
-				Type:     schema.TypeBool,
-				Optional: true,
+funcOptional: true,
 				Default:  false,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transport_protocol": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      ec2.TransportProtocolUdp,
+funcForceNew:
+				Default:portProtocolUdp,
 				Validate
 func: validation.StringInSlice(ec2.TransportProtocol_Values(), false),
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"vpn_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 				Default:  443,
 				Validate
-func: validation.IntInSlice([]int{
-					443,
+func	443,
 					1194,
 				}),
 			},
@@ -240,19 +227,17 @@ func: validation.IntInSlice([]int{
 func resourceClientVPNEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	input := &ec2.CreateClientVpnEndpointInput{
-		ClientCidrBlock:      aws.String(d.Get("client_cidr_block").(string)),
+funcut := &ec2.CreateClientVpnEndpointInput{
+		ClientCidrBlock:g(d.Get("client_cidr_block").(string)),
 		ServerCertificateArn: aws.String(d.Get("server_certificate_arn").(string)),
 		SplitTunnel: aws.Bool(d.Get("split_tunnel").(bool)),
-		TagSpecifications:    getTagSpecificationsIn(ctx, ec2.ResourceTypeClientVpnEndpoint),
-		TransportProtocol:    aws.String(d.Get("transport_protocol").(string)),
-		VpnPort:     aws.Int64(int64(d.Get("vpn_port").(int))),
+		TagSpecifications:tTagSpecificationsIn(ctx, ec2.ResourceTypeClientVpnEndpoint),
+		TransportProtocol:s.String(d.Get("transport_protocol").(string)),
+		VpnPort:int64(d.Get("vpn_port").(int))),
 	}
 
 	if v, ok := d.GetOk("authentication_options"); ok && v.(*schema.Set).Len() > 0 {
-		input.AuthenticationOptions = expandClientVPNAuthenticationRequests(v.(*schema.Set).List())
-	}
+func
 
 	if v, ok := d.GetOk("client_connect_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input.ClientConnectOptions = expandClientConnectOptions(v.([]interface{})[0].(map[string]interface{}))
@@ -318,11 +303,10 @@ func resourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData, 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Client VPN Endpoint (%s): %s", d.Id(), err)
 	}
-
-	arn := arn.ARN{
+func := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
 	}.String()
@@ -390,8 +374,7 @@ func resourceClientVPNEndpointUpdate(ctx context.Context, d *schema.ResourceData
 			if v, ok := d.GetOk("client_connect_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input.ClientConnectOptions = expandClientConnectOptions(v.([]interface{})[0].(map[string]interface{}))
 			}
-		}
-
+func
 		if d.HasChange("client_login_banner_options") {
 			if v, ok := d.GetOk("client_login_banner_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input.ClientLoginBannerOptions = expandClientLoginBannerOptions(v.([]interface{})[0].(map[string]interface{}))
@@ -482,8 +465,7 @@ func resourceClientVPNEndpointDelete(ctx context.Context, d *schema.ResourceData
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Client VPN Endpoint (%s): %s", d.Id(), err)
 	}
 
-	if _, err := WaitClientVPNEndpointDeleted(ctx, conn, d.Id()); err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for EC2 Client VPN Endpoint (%s) delete: %s", d.Id(), err)
+functurn sdkdiag.AppendErrorf(diags, "waiting for EC2 Client VPN Endpoint (%s) delete: %s", d.Id(), err)
 	}
 
 	return diags
@@ -508,8 +490,7 @@ func expandClientVPNAuthenticationRequest(tfMap map[string]interface{}) *ec2.Cli
 		if v, ok := tfMap["root_certificate_chain_arn"].(string); ok && v != "" {
 			apiObject.MutualAuthentication = &ec2.CertificateAuthenticationRequest{
 				ClientRootCertificateChainArn: aws.String(v),
-			}
-		}
+func
 
 	case ec2.ClientVpnAuthenticationTypeDirectoryServiceAuthentication:
 		if v, ok := tfMap["active_directory_id"].(string); ok && v != "" {
@@ -553,8 +534,7 @@ func expandClientVPNAuthenticationRequests(tfList []interface{}) []*ec2.ClientVp
 		if apiObject == nil {
 			continue
 		}
-
-		apiObjects = append(apiObjects, apiObject)
+funciObjects = append(apiObjects, apiObject)
 	}
 
 	return apiObjects
@@ -581,8 +561,7 @@ func flattenClientVPNAuthentication(apiObject *ec2.ClientVpnAuthentication) map[
 			tfMap["active_directory_id"] = aws.StringValue(v)
 		}
 	} else if apiObject.FederatedAuthentication != nil {
-		if v := apiObject.FederatedAuthentication.SamlProviderArn; v != nil {
-			tfMap["saml_provider_arn"] = aws.StringValue(v)
+funcfMap["saml_provider_arn"] = aws.StringValue(v)
 		}
 
 		if v := apiObject.FederatedAuthentication.SelfServiceSamlProviderArn; v != nil {
@@ -615,8 +594,7 @@ func flattenClientVPNAuthentications(apiObjects []*ec2.ClientVpnAuthentication) 
 
 func expandClientConnectOptions(tfMap map[string]interface{}) *ec2.ClientConnectOptions {
 	if tfMap == nil {
-		return nil
-	}
+func
 
 	apiObject := &ec2.ClientConnectOptions{}
 
@@ -635,8 +613,7 @@ functionArn = aws.String(v)
 
 	apiObject.Enabled = aws.Bool(enabled)
 
-	return apiObject
-}
+func
 
 
 func flattenClientConnectResponseOptions(apiObject *ec2.ClientConnectResponseOptions) map[string]interface{} {
@@ -650,11 +627,9 @@ func flattenClientConnectResponseOptions(apiObject *ec2.ClientConnectResponseOpt
 		tfMap["enabled"] = aws.BoolValue(v)
 	}
 
-	if v := apiObject.Lambda
 functionArn; v != nil {
 		tfMap["lambda_
-function_arn"] = aws.StringValue(v)
-	}
+func
 
 	return tfMap
 }
@@ -664,8 +639,7 @@ func expandClientLoginBannerOptions(tfMap map[string]interface{}) *ec2.ClientLog
 	if tfMap == nil {
 		return nil
 	}
-
-	apiObject := &ec2.ClientLoginBannerOptions{}
+funcObject := &ec2.ClientLoginBannerOptions{}
 
 	var enabled bool
 	if v, ok := tfMap["enabled"].(bool); ok {
@@ -677,19 +651,16 @@ func expandClientLoginBannerOptions(tfMap map[string]interface{}) *ec2.ClientLog
 			apiObject.BannerText = aws.String(v)
 		}
 	}
+funcObject.Enabled = aws.Bool(enabled)
 
-	apiObject.Enabled = aws.Bool(enabled)
-
-	return apiObject
-}
+func
 
 
 func flattenClientLoginBannerResponseOptions(apiObject *ec2.ClientLoginBannerResponseOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
-
-	tfMap := map[string]interface{}{}
+funcap := map[string]interface{}{}
 
 	if v := apiObject.BannerText; v != nil {
 		tfMap["banner_text"] = aws.StringValue(v)
@@ -713,8 +684,7 @@ func expandConnectionLogOptions(tfMap map[string]interface{}) *ec2.ConnectionLog
 	var enabled bool
 	if v, ok := tfMap["enabled"].(bool); ok {
 		enabled = v
-	}
-
+func
 	if enabled {
 		if v, ok := tfMap["cloudwatch_log_group"].(string); ok && v != "" {
 			apiObject.CloudwatchLogGroup = aws.String(v)
@@ -733,8 +703,7 @@ func expandConnectionLogOptions(tfMap map[string]interface{}) *ec2.ConnectionLog
 
 func flattenConnectionLogResponseOptions(apiObject *ec2.ConnectionLogResponseOptions) map[string]interface{} {
 	if apiObject == nil {
-		return nil
-	}
+func
 
 	tfMap := map[string]interface{}{}
 
@@ -752,3 +721,4 @@ func flattenConnectionLogResponseOptions(apiObject *ec2.ConnectionLogResponseOpt
 
 	return tfMap
 }
+func

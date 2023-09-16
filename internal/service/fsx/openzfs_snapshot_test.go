@@ -27,10 +27,10 @@ func TestAccFSxOpenzfsSnapshot_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccFSxOpenzfsSnapshot_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_basic(rName),
@@ -83,10 +83,10 @@ func TestAccFSxOpenzfsSnapshot_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_tags1(rName, "key1", "value1"),
@@ -130,10 +130,10 @@ func TestAccFSxOpenzfsSnapshot_name(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_basic(rName),
@@ -166,10 +166,10 @@ func TestAccFSxOpenzfsSnapshot_childVolume(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_childVolume(rName),
@@ -197,10 +197,10 @@ func TestAccFSxOpenzfsSnapshot_volumeId(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOpenzfsSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOpenZFSSnapshotConfig_volumeID1(rName),
@@ -360,7 +360,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 func testAccOpenZFSSnapshotConfig_childVolume(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 
@@ -374,7 +374,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 func testAccOpenZFSSnapshotConfig_volumeID1(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test1" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 
@@ -388,7 +388,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 func testAccOpenZFSSnapshotConfig_volumeID2(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test2" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 

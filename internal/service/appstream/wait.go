@@ -31,8 +31,7 @@ const (
 )
 
 // waitFleetStateRunning waits for a fleet running
-func waitFleetStateRunning(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.Fleet, error) { //nolint:unparam
-	stateConf := &retry.StateChangeConf{
+functeConf := &retry.StateChangeConf{
 		Pending: []string{appstream.FleetStateStarting},
 		Target:  []string{appstream.FleetStateRunning},
 		Refresh: statusFleetState(ctx, conn, name),
@@ -60,8 +59,7 @@ func waitFleetStateRunning(ctx context.Context, conn *appstream.AppStream, name 
 
 // waitFleetStateStopped waits for a fleet stopped
 func waitFleetStateStopped(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.Fleet, error) { //nolint:unparam
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{appstream.FleetStateStopping},
+funcnding: []string{appstream.FleetStateStopping},
 		Target:  []string{appstream.FleetStateStopped},
 		Refresh: statusFleetState(ctx, conn, name),
 		Timeout: fleetStateTimeout,
@@ -88,8 +86,7 @@ func waitFleetStateStopped(ctx context.Context, conn *appstream.AppStream, name 
 
 func waitImageBuilderStateRunning(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.ImageBuilder, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{appstream.ImageBuilderStatePending},
-		Target:  []string{appstream.ImageBuilderStateRunning},
+funcrget:  []string{appstream.ImageBuilderStateRunning},
 		Refresh: statusImageBuilderState(ctx, conn, name),
 		Timeout: imageBuilderStateTimeout,
 	}
@@ -116,8 +113,7 @@ func waitImageBuilderStateRunning(ctx context.Context, conn *appstream.AppStream
 func waitImageBuilderStateDeleted(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.ImageBuilder, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appstream.ImageBuilderStatePending, appstream.ImageBuilderStateDeleting},
-		Target:  []string{},
-		Refresh: statusImageBuilderState(ctx, conn, name),
+funcfresh: statusImageBuilderState(ctx, conn, name),
 		Timeout: imageBuilderStateTimeout,
 	}
 
@@ -145,8 +141,7 @@ func waitUserAvailable(ctx context.Context, conn *appstream.AppStream, username,
 	stateConf := &retry.StateChangeConf{
 		Target:  []string{userAvailable},
 		Refresh: statusUserAvailable(ctx, conn, username, authType),
-		Timeout: userOperationTimeout,
-	}
+func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 

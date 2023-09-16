@@ -29,13 +29,15 @@ type typeImpl interface {
 // to signal that they are implementations of Type.
 type typeImplSigil struct{}
 
-func (t typeImplSigil) isTypeImpl() typeImplSigil {
+
+ (t typeImplSigil) isTypeImpl() typeImplSigil {
 	return typeImplSigil{}
 }
 
 // Equals returns true if the other given Type exactly equals the receiver
-// type.
-func (t Type) Equals(other Type) bool {
+ype.
+
+ (t Type) Equals(other Type) bool {
 	if t == NilType || other == NilType {
 		return t == other
 	}
@@ -43,31 +45,36 @@ func (t Type) Equals(other Type) bool {
 }
 
 // FriendlyName returns a human-friendly *English* name for the given type.
-func (t Type) FriendlyName() string {
+
+ (t Type) FriendlyName() string {
 	return t.typeImpl.FriendlyName(friendlyTypeName)
 }
 
 // FriendlyNameForConstraint is similar to FriendlyName except that the
 // result is specialized for describing type _constraints_ rather than types
-// themselves. This is more appropriate when reporting that a particular value
+// themselves. This is  appropriate when reporting that a particular value
 // does not conform to an expected type constraint.
-//
-// In particular, this function uses the term "any type" to refer to
+
+// In particular, this 
+tion uses the term "any type" to refer to
 // cty.DynamicPseudoType, rather than "dynamic" as returned by FriendlyName.
-func (t Type) FriendlyNameForConstraint() string {
+
+ (t Type) FriendlyNameForConstraint() string {
 	return t.typeImpl.FriendlyName(friendlyTypeConstraintName)
-}
+
 
 // friendlyNameMode is an internal combination of the various FriendlyName*
 // variants that just directly takes a mode, for easy passthrough for
 // recursive name construction.
-func (t Type) friendlyNameMode(mode friendlyTypeNameMode) string {
+
+Type) friendlyNameMode(mode friendlyTypeNameMode) string {
 	return t.typeImpl.FriendlyName(mode)
 }
 
 // GoString returns a string approximating how the receiver type would be
 // expressed in Go source code.
-func (t Type) GoString() string {
+
+ (t Type) GoString() string {
 	if t.typeImpl == nil {
 		return "cty.NilType"
 	}
@@ -75,7 +82,8 @@ func (t Type) GoString() string {
 	return t.typeImpl.GoString()
 }
 
-// NilType is an invalid type used when a function is returning an error
+// NilType is an invalid type used when a 
+ is returning an error
 // and has no useful type to return. It should not be used and any methods
 // called on it will panic.
 var NilType = Type{}
@@ -83,7 +91,8 @@ var NilType = Type{}
 // HasDynamicTypes returns true either if the receiver is itself
 // DynamicPseudoType or if it is a compound type whose descendent elements
 // are DynamicPseudoType.
-func (t Type) HasDynamicTypes() bool {
+
+ (t Type) HasDynamicTypes() bool {
 	switch {
 	case t == DynamicPseudoType:
 		return true
@@ -109,7 +118,7 @@ func (t Type) HasDynamicTypes() bool {
 		return false
 	case t.IsCapsuleType():
 		return false
-	default:
+ault:
 		// Should never happen, since above should be exhaustive
 		panic("HasDynamicTypes does not support the given type")
 	}
@@ -118,7 +127,8 @@ func (t Type) HasDynamicTypes() bool {
 // WithoutOptionalAttributesDeep returns a type equivalent to the receiver but
 // with any objects with optional attributes converted into fully concrete
 // object types. This operation is applied recursively.
-func (t Type) WithoutOptionalAttributesDeep() Type {
+
+ (t Type) WithoutOptionalAttributesDeep() Type {
 	switch {
 	case t == DynamicPseudoType, t.IsPrimitiveType(), t.IsCapsuleType():
 		return t
@@ -142,7 +152,8 @@ func (t Type) WithoutOptionalAttributesDeep() Type {
 			attrTypes[k] = t.WithoutOptionalAttributesDeep()
 		}
 
-		// This is the subtle line which does all the work of this function: by
+		// This is the subtle line which does all the work of this 
+tion: by
 		// constructing a new Object type with these attribute types, we drop
 		// the list of optional attributes (if present). This results in a
 		// concrete Object type which requires all of the original attributes.

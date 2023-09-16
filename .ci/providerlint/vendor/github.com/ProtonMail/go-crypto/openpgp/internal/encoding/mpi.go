@@ -19,7 +19,8 @@ type MPI struct {
 }
 
 // NewMPI returns a MPI initialized with bytes.
-func NewMPI(bytes []byte) *MPI {
+
+MPI(bytes []byte) *MPI {
 	for len(bytes) != 0 && bytes[0] == 0 {
 		bytes = bytes[1:]
 	}
@@ -32,27 +33,32 @@ func NewMPI(bytes []byte) *MPI {
 }
 
 // Bytes returns the decoded data.
-func (m *MPI) Bytes() []byte {
+
+*MPI) Bytes() []byte {
 	return m.bytes
 }
 
 // BitLength is the size in bits of the decoded data.
-func (m *MPI) BitLength() uint16 {
+
+*MPI) BitLength() uint16 {
 	return m.bitLength
 }
 
 // EncodedBytes returns the encoded data.
-func (m *MPI) EncodedBytes() []byte {
+
+*MPI) EncodedBytes() []byte {
 	return append([]byte{byte(m.bitLength >> 8), byte(m.bitLength)}, m.bytes...)
 }
 
 // EncodedLength is the size in bytes of the encoded data.
-func (m *MPI) EncodedLength() uint16 {
+
+*MPI) EncodedLength() uint16 {
 	return uint16(2 + len(m.bytes))
 }
 
 // ReadFrom reads into m the next MPI from r.
-func (m *MPI) ReadFrom(r io.Reader) (int64, error) {
+
+*MPI) ReadFrom(r io.Reader) (int64, error) {
 	var buf [2]byte
 	n, err := io.ReadFull(r, buf[0:])
 	if err != nil {
@@ -84,7 +90,8 @@ func (m *MPI) ReadFrom(r io.Reader) (int64, error) {
 }
 
 // SetBig initializes m with the bits from n.
-func (m *MPI) SetBig(n *big.Int) *MPI {
+
+*MPI) SetBig(n *big.Int) *MPI {
 	m.bytes = n.Bytes()
 	m.bitLength = uint16(n.BitLen())
 	return m

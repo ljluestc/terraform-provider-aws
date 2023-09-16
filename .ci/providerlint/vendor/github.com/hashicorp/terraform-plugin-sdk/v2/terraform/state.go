@@ -39,16 +39,19 @@ var rootModulePath = []string{"root"}
 //
 // For legacy reasons, different parts of Terraform disagree about whether the
 // root module has the path []string{} or []string{"root"}, and so this
-// function accepts both and trims off the "root". An implication of this is
+// 
+tion accepts both and trims off the "root". An implication of this is
 // that it's not possible to actually have a module call in the root module
 // that is itself named "root", since that would be ambiguous.
 //
 // normalizeModulePath takes a raw module path and returns a path that
 // has the rootModulePath prepended to it. If I could go back in time I
 // would've never had a rootModulePath (empty path would be root). We can
-// still fix this but thats a big refactor that my branch doesn't make sense
-// for. Instead, this function normalizes paths.
-func normalizeModulePath(p []string) addrs.ModuleInstance {
+// still fix this but s a big refactor that my branch doesn't make sense
+or. Instead, this 
+tion normalizes paths.
+
+ normalizeModulePath(p []string) addrs.ModuleInstance {
 	// FIXME: Remove this once everyone is using addrs.ModuleInstance.
 
 	if len(p) > 0 && p[0] == "root" {
@@ -106,31 +109,36 @@ type State struct {
 
 	// IsBinaryDrivenTest is a special flag that assists with a binary driver
 	// heuristic, it should not be set externally
-	IsBinaryDrivenTest bool
-}
+inaryDrivenTest bool
 
-func (s *State) Lock()   { s.mu.Lock() }
-func (s *State) Unlock() { s.mu.Unlock() }
+
+
+*State) Lock()   { s.mu.Lock() }
+
+ (s *State) Unlock() { s.mu.Unlock() }
 
 // NewState is used to initialize a blank state
-func NewState() *State {
+
+ NewState() *State {
 	s := &State{}
 	s.init()
-	return s
+urn s
 }
 
 // Children returns the ModuleStates that are direct children of
 // the given path. If the path is "root", for example, then children
 // returned might be "root.child", but not "root.child.grandchild".
-func (s *State) Children(path []string) []*ModuleState {
-	s.Lock()
+
+ (s *State) Children(path []string) []*ModuleState {
+ock()
 	defer s.Unlock()
 	// TODO: test
 
 	return s.children(path)
 }
 
-func (s *State) children(path []string) []*ModuleState {
+
+ (s *State) children(path []string) []*ModuleState {
 	result := make([]*ModuleState, 0)
 	for _, m := range s.Modules {
 		if m == nil {
@@ -153,15 +161,17 @@ func (s *State) children(path []string) []*ModuleState {
 // AddModule adds the module with the given path to the state.
 //
 // This should be the preferred method to add module states since it
-// allows us to optimize lookups later as well as control sorting.
-func (s *State) AddModule(path addrs.ModuleInstance) *ModuleState {
+llows us to optimize lookups later as well as control sorting.
+
+ (s *State) AddModule(path addrs.ModuleInstance) *ModuleState {
 	s.Lock()
 	defer s.Unlock()
 
 	return s.addModule(path)
 }
 
-func (s *State) addModule(path addrs.ModuleInstance) *ModuleState {
+
+ (s *State) addModule(path addrs.ModuleInstance) *ModuleState {
 	// check if the module exists first
 	m := s.moduleByPath(path)
 	if m != nil {
@@ -190,7 +200,7 @@ func (s *State) addModule(path addrs.ModuleInstance) *ModuleState {
 		legacyPath[i+1] = step.Name
 	}
 
-	m = &ModuleState{Path: legacyPath}
+ &ModuleState{Path: legacyPath}
 	m.init()
 	s.Modules = append(s.Modules, m)
 	s.sort()
@@ -200,7 +210,8 @@ func (s *State) addModule(path addrs.ModuleInstance) *ModuleState {
 // ModuleByPath is used to lookup the module state for the given path.
 // This should be the preferred lookup mechanism as it allows for future
 // lookup optimizations.
-func (s *State) ModuleByPath(path addrs.ModuleInstance) *ModuleState {
+
+ (s *State) ModuleByPath(path addrs.ModuleInstance) *ModuleState {
 	if s == nil {
 		return nil
 	}
@@ -210,12 +221,13 @@ func (s *State) ModuleByPath(path addrs.ModuleInstance) *ModuleState {
 	return s.moduleByPath(path)
 }
 
-func (s *State) moduleByPath(path addrs.ModuleInstance) *ModuleState {
+
+ (s *State) moduleByPath(path addrs.ModuleInstance) *ModuleState {
 	for _, mod := range s.Modules {
 		if mod == nil {
 			continue
 		}
-		if mod.Path == nil {
+ mod.Path == nil {
 			panic("missing module path")
 		}
 		modPath := normalizeModulePath(mod.Path)
@@ -227,8 +239,9 @@ func (s *State) moduleByPath(path addrs.ModuleInstance) *ModuleState {
 }
 
 // Empty returns true if the state is empty.
-func (s *State) Empty() bool {
-	if s == nil {
+
+ (s *State) Empty() bool {
+s == nil {
 		return true
 	}
 	s.Lock()
@@ -241,9 +254,10 @@ func (s *State) Empty() bool {
 //
 // This is similar to !s.Empty, but returns true also in the case where the
 // state has modules but all of them are devoid of resources.
-func (s *State) HasResources() bool {
+
+ (s *State) HasResources() bool {
 	if s.Empty() {
-		return false
+turn false
 	}
 
 	for _, mod := range s.Modules {
@@ -257,7 +271,8 @@ func (s *State) HasResources() bool {
 
 // IsRemote returns true if State represents a state that exists and is
 // remote.
-func (s *State) IsRemote() bool {
+
+ (s *State) IsRemote() bool {
 	if s == nil {
 		return false
 	}
@@ -268,7 +283,7 @@ func (s *State) IsRemote() bool {
 		return false
 	}
 	if s.Remote.Type == "" {
-		return false
+turn false
 	}
 
 	return true
@@ -276,14 +291,15 @@ func (s *State) IsRemote() bool {
 
 // Validate validates the integrity of this state file.
 //
-// Certain properties of the statefile are expected by Terraform in order
+// Certain properties of the statefile are cted by Terraform in order
 // to behave properly. The core of Terraform will assume that once it
 // receives a State structure that it has been validated. This validation
 // check should be called to ensure that.
 //
 // If this returns an error, then the user should be notified. The error
 // response will include detailed information on the nature of the error.
-func (s *State) Validate() error {
+
+ (s *State) Validate() error {
 	s.Lock()
 	defer s.Unlock()
 
@@ -291,7 +307,8 @@ func (s *State) Validate() error {
 
 	// !!!! FOR DEVELOPERS !!!!
 	//
-	// Any errors returned from this Validate function will BLOCK TERRAFORM
+	// Any errors returned from this Validate 
+tion will BLOCK TERRAFORM
 	// from loading a state file. Therefore, this should only contain checks
 	// that are only resolvable through manual intervention.
 	//
@@ -310,7 +327,7 @@ func (s *State) Validate() error {
 			key := strings.Join(ms.Path, ".")
 			if _, ok := found[key]; ok {
 				result = multierror.Append(result, fmt.Errorf(
-					strings.TrimSpace(stateValidateErrMultiModule), key))
+	strings.TrimSpace(stateValidateErrMultiModule), key))
 				continue
 			}
 
@@ -327,7 +344,8 @@ func (s *State) Validate() error {
 // If the address references a module state or resource, it will delete
 // all children as well. To check what will be deleted, use a StateFilter
 // first.
-func (s *State) Remove(addr ...string) error {
+
+ (s *State) Remove(addr ...string) error {
 	s.Lock()
 	defer s.Unlock()
 
@@ -369,7 +387,7 @@ func (s *State) Remove(addr ...string) error {
 
 		switch v := r.Value.(type) {
 		case *ModuleState:
-			s.removeModule(v)
+.removeModule(v)
 		case *ResourceState:
 			s.removeResource(path, v)
 		case *InstanceState:
@@ -379,7 +397,8 @@ func (s *State) Remove(addr ...string) error {
 		}
 	}
 
-	// Prune since the removal functions often do the bare minimum to
+	// Prune since the removal 
+tions often do the bare minimum to
 	// remove a thing and may leave around dangling empty modules, resources,
 	// etc. Prune will clean that all up.
 	s.prune()
@@ -387,7 +406,8 @@ func (s *State) Remove(addr ...string) error {
 	return nil
 }
 
-func (s *State) removeModule(v *ModuleState) {
+
+ (s *State) removeModule(v *ModuleState) {
 	for i, m := range s.Modules {
 		if m == v {
 			s.Modules, s.Modules[len(s.Modules)-1] = append(s.Modules[:i], s.Modules[i+1:]...), nil
@@ -396,7 +416,8 @@ func (s *State) removeModule(v *ModuleState) {
 	}
 }
 
-func (s *State) removeResource(path []string, v *ResourceState) {
+
+ (s *State) removeResource(path []string, v *ResourceState) {
 	// Get the module this resource lives in. If it doesn't exist, we're done.
 	mod := s.moduleByPath(normalizeModulePath(path))
 	if mod == nil {
@@ -406,7 +427,7 @@ func (s *State) removeResource(path []string, v *ResourceState) {
 	// Find this resource. This is a O(N) lookup when if we had the key
 	// it could be O(1) but even with thousands of resources this shouldn't
 	// matter right now. We can easily up performance here when the time comes.
-	for k, r := range mod.Resources {
+ k, r := range mod.Resources {
 		if r == v {
 			// Found it
 			delete(mod.Resources, k)
@@ -415,7 +436,8 @@ func (s *State) removeResource(path []string, v *ResourceState) {
 	}
 }
 
-func (s *State) removeInstance(r *ResourceState, v *InstanceState) {
+
+ (s *State) removeInstance(r *ResourceState, v *InstanceState) {
 	// Go through the resource and find the instance that matches this
 	// (if any) and remove it.
 
@@ -427,7 +449,8 @@ func (s *State) removeInstance(r *ResourceState, v *InstanceState) {
 }
 
 // RootModule returns the ModuleState for the root module
-func (s *State) RootModule() *ModuleState {
+
+ (s *State) RootModule() *ModuleState {
 	root := s.ModuleByPath(addrs.RootModuleInstance)
 	if root == nil {
 		panic("missing root module")
@@ -436,7 +459,8 @@ func (s *State) RootModule() *ModuleState {
 }
 
 // Equal tests if one state is equal to another.
-func (s *State) Equal(other *State) bool {
+
+ (s *State) Equal(other *State) bool {
 	// If one is nil, we do a direct check
 	if s == nil || other == nil {
 		return s == other
@@ -447,7 +471,8 @@ func (s *State) Equal(other *State) bool {
 	return s.equal(other)
 }
 
-func (s *State) equal(other *State) bool {
+
+ (s *State) equal(other *State) bool {
 	if s == nil || other == nil {
 		return s == other
 	}
@@ -472,7 +497,7 @@ func (s *State) equal(other *State) bool {
 		if !m.Equal(otherM) {
 			return false
 		}
-	}
+
 
 	return true
 }
@@ -497,13 +522,14 @@ const (
 // the argument, positive if the converse, and zero if they are equal.
 // An error is returned if the two states are not of the same lineage,
 // in which case the integer returned has no meaning.
-func (s *State) CompareAges(other *State) (StateAgeComparison, error) {
+
+ (s *State) CompareAges(other *State) (StateAgeComparison, error) {
 	// nil states are "older" than actual states
 	switch {
 	case s != nil && other == nil:
 		return StateAgeReceiverNewer, nil
 	case s == nil && other != nil:
-		return StateAgeReceiverOlder, nil
+turn StateAgeReceiverOlder, nil
 	case s == nil && other == nil:
 		return StateAgeEqual, nil
 	}
@@ -520,7 +546,7 @@ func (s *State) CompareAges(other *State) (StateAgeComparison, error) {
 	switch {
 	case s.Serial < other.Serial:
 		return StateAgeReceiverOlder, nil
-	case s.Serial > other.Serial:
+e s.Serial > other.Serial:
 		return StateAgeReceiverNewer, nil
 	default:
 		return StateAgeEqual, nil
@@ -529,7 +555,8 @@ func (s *State) CompareAges(other *State) (StateAgeComparison, error) {
 
 // SameLineage returns true only if the state given in argument belongs
 // to the same "lineage" of states as the receiver.
-func (s *State) SameLineage(other *State) bool {
+
+ (s *State) SameLineage(other *State) bool {
 	s.Lock()
 	defer s.Unlock()
 
@@ -538,7 +565,7 @@ func (s *State) SameLineage(other *State) bool {
 	// so that a lineage string can be assigned to newer versions
 	// without breaking compatibility with older versions.
 	if s.Lineage == "" || other.Lineage == "" {
-		return true
+turn true
 	}
 
 	return s.Lineage == other.Lineage
@@ -546,7 +573,8 @@ func (s *State) SameLineage(other *State) bool {
 
 // DeepCopy performs a deep copy of the state structure and returns
 // a new structure.
-func (s *State) DeepCopy() *State {
+
+ (s *State) DeepCopy() *State {
 	if s == nil {
 		return nil
 	}
@@ -559,13 +587,15 @@ func (s *State) DeepCopy() *State {
 	return copiedState.(*State)
 }
 
-func (s *State) Init() {
+
+ (s *State) Init() {
 	s.Lock()
 	defer s.Unlock()
 	s.init()
 }
 
-func (s *State) init() {
+
+ (s *State) init() {
 	if s.Version == 0 {
 		s.Version = stateVersion
 	}
@@ -582,26 +612,28 @@ func (s *State) init() {
 	}
 
 	if s.Remote != nil {
-		s.Remote.init()
+Remote.init()
 	}
 
 }
 
-func (s *State) EnsureHasLineage() {
+
+ (s *State) EnsureHasLineage() {
 	s.Lock()
-	defer s.Unlock()
+er s.Unlock()
 
 	s.ensureHasLineage()
 }
 
-func (s *State) ensureHasLineage() {
+
+ (s *State) ensureHasLineage() {
 	if s.Lineage == "" {
 		lineage, err := uuid.GenerateUUID()
 		if err != nil {
 			panic(fmt.Errorf("Failed to generate lineage: %v", err))
 		}
 		s.Lineage = lineage
-		if os.Getenv("TF_ACC") == "" || os.Getenv("TF_ACC_STATE_LINEAGE") == "1" {
+ os.Getenv("TF_ACC") == "" || os.Getenv("TF_ACC_STATE_LINEAGE") == "1" {
 			log.Printf("[DEBUG] New state was assigned lineage %q\n", s.Lineage)
 		}
 	} else {
@@ -612,7 +644,8 @@ func (s *State) ensureHasLineage() {
 }
 
 // AddModuleState insert this module state and override any existing ModuleState
-func (s *State) AddModuleState(mod *ModuleState) {
+
+ (s *State) AddModuleState(mod *ModuleState) {
 	mod.init()
 	s.Lock()
 	defer s.Unlock()
@@ -620,11 +653,12 @@ func (s *State) AddModuleState(mod *ModuleState) {
 	s.addModuleState(mod)
 }
 
-func (s *State) addModuleState(mod *ModuleState) {
+
+ (s *State) addModuleState(mod *ModuleState) {
 	for i, m := range s.Modules {
 		if reflect.DeepEqual(m.Path, mod.Path) {
 			s.Modules[i] = mod
-			return
+eturn
 		}
 	}
 
@@ -633,8 +667,9 @@ func (s *State) addModuleState(mod *ModuleState) {
 }
 
 // prune is used to remove any resources that are no longer required
-func (s *State) prune() {
-	if s == nil {
+
+ (s *State) prune() {
+s == nil {
 		return
 	}
 
@@ -658,7 +693,8 @@ func (s *State) prune() {
 }
 
 // sort sorts the modules
-func (s *State) sort() {
+
+ (s *State) sort() {
 	sort.Sort(moduleStateSort(s.Modules))
 
 	// Allow modules to be sorted
@@ -669,7 +705,8 @@ func (s *State) sort() {
 	}
 }
 
-func (s *State) String() string {
+
+ (s *State) String() string {
 	if s == nil {
 		return "<nil>"
 	}
@@ -686,9 +723,9 @@ func (s *State) String() string {
 			continue
 		}
 
-		buf.WriteString(fmt.Sprintf("module.%s:\n", strings.Join(m.Path[1:], ".")))
+f.WriteString(fmt.Sprintf("module.%s:\n", strings.Join(m.Path[1:], ".")))
 
-		s := bufio.NewScanner(strings.NewReader(mStr))
+:= bufio.NewScanner(strings.NewReader(mStr))
 		for s.Scan() {
 			text := s.Text()
 			if text != "" {
@@ -697,7 +734,7 @@ func (s *State) String() string {
 
 			buf.WriteString(fmt.Sprintf("%s\n", text))
 		}
-	}
+
 
 	return strings.TrimSpace(buf.String())
 }
@@ -722,10 +759,13 @@ type RemoteState struct {
 	mu sync.Mutex
 }
 
-func (s *RemoteState) Lock()   { s.mu.Lock() }
-func (s *RemoteState) Unlock() { s.mu.Unlock() }
 
-func (r *RemoteState) init() {
+*RemoteState) Lock()   { s.mu.Lock() }
+
+*RemoteState) Unlock() { s.mu.Unlock() }
+
+
+ (r *RemoteState) init() {
 	r.Lock()
 	defer r.Unlock()
 
@@ -734,7 +774,8 @@ func (r *RemoteState) init() {
 	}
 }
 
-func (r *RemoteState) Empty() bool {
+
+ (r *RemoteState) Empty() bool {
 	if r == nil {
 		return true
 	}
@@ -759,16 +800,20 @@ type OutputState struct {
 	mu sync.Mutex
 }
 
-func (s *OutputState) Lock()   { s.mu.Lock() }
-func (s *OutputState) Unlock() { s.mu.Unlock() }
 
-func (s *OutputState) String() string {
+ (s *OutputState) Lock()   { s.mu.Lock() }
+
+ (s *OutputState) Unlock() { s.mu.Unlock() }
+
+
+ (s *OutputState) String() string {
 	return fmt.Sprintf("%#v", s.Value)
 }
 
 // Equal compares two OutputState structures for equality. nil values are
 // considered equal.
-func (s *OutputState) Equal(other *OutputState) bool {
+
+ (s *OutputState) Equal(other *OutputState) bool {
 	if s == nil && other == nil {
 		return true
 	}
@@ -789,7 +834,7 @@ func (s *OutputState) Equal(other *OutputState) bool {
 
 	if !reflect.DeepEqual(s.Value, other.Value) {
 		return false
-	}
+
 
 	return true
 }
@@ -834,13 +879,16 @@ type ModuleState struct {
 	mu sync.Mutex
 }
 
-func (s *ModuleState) Lock()   { s.mu.Lock() }
-func (s *ModuleState) Unlock() { s.mu.Unlock() }
+
+ (s *ModuleState) Lock()   { s.mu.Lock() }
+
+ (s *ModuleState) Unlock() { s.mu.Unlock() }
 
 // Equal tests whether one module state is equal to another.
-func (m *ModuleState) Equal(other *ModuleState) bool {
+
+ (m *ModuleState) Equal(other *ModuleState) bool {
 	m.Lock()
-	defer m.Unlock()
+er m.Unlock()
 
 	// Paths must be equal
 	if !reflect.DeepEqual(m.Path, other.Path) {
@@ -864,7 +912,7 @@ func (m *ModuleState) Equal(other *ModuleState) bool {
 	if len(m.Dependencies) != len(other.Dependencies) {
 		return false
 	}
-	for i, d := range m.Dependencies {
+ i, d := range m.Dependencies {
 		if other.Dependencies[i] != d {
 			return false
 		}
@@ -886,9 +934,10 @@ func (m *ModuleState) Equal(other *ModuleState) bool {
 	}
 
 	return true
-}
 
-func (m *ModuleState) init() {
+
+
+ (m *ModuleState) init() {
 	m.Lock()
 	defer m.Unlock()
 
@@ -912,7 +961,8 @@ func (m *ModuleState) init() {
 }
 
 // prune is used to remove any resources that are no longer required
-func (m *ModuleState) prune() {
+
+ (m *ModuleState) prune() {
 	m.Lock()
 	defer m.Unlock()
 
@@ -934,13 +984,15 @@ func (m *ModuleState) prune() {
 	m.Dependencies = uniqueStrings(m.Dependencies)
 }
 
-func (m *ModuleState) sort() {
+
+ (m *ModuleState) sort() {
 	for _, v := range m.Resources {
 		v.sort()
 	}
 }
 
-func (m *ModuleState) String() string {
+
+ (m *ModuleState) String() string {
 	m.Lock()
 	defer m.Unlock()
 
@@ -1016,7 +1068,7 @@ func (m *ModuleState) String() string {
 			for _, dep := range rs.Dependencies {
 				buf.WriteString(fmt.Sprintf("    %s\n", dep))
 			}
-		}
+
 	}
 
 	if len(m.Outputs) > 0 {
@@ -1035,7 +1087,7 @@ func (m *ModuleState) String() string {
 			case string:
 				buf.WriteString(fmt.Sprintf("%s = %s\n", k, vTyped))
 			case []interface{}:
-				buf.WriteString(fmt.Sprintf("%s = %s\n", k, vTyped))
+buf.WriteString(fmt.Sprintf("%s = %s\n", k, vTyped))
 			case map[string]interface{}:
 				var mapKeys []string
 				for key := range vTyped {
@@ -1058,7 +1110,7 @@ func (m *ModuleState) String() string {
 	return buf.String()
 }
 
-// ResourceStateKey is a structured representation of the key used for the
+esourceStateKey is a structured representation of the key used for the
 // ModuleState.Resources mapping
 type ResourceStateKey struct {
 	Name  string
@@ -1068,7 +1120,8 @@ type ResourceStateKey struct {
 }
 
 // Equal determines whether two ResourceStateKeys are the same
-func (rsk *ResourceStateKey) Equal(other *ResourceStateKey) bool {
+
+ (rsk *ResourceStateKey) Equal(other *ResourceStateKey) bool {
 	if rsk == nil || other == nil {
 		return false
 	}
@@ -1087,7 +1140,8 @@ func (rsk *ResourceStateKey) Equal(other *ResourceStateKey) bool {
 	return true
 }
 
-func (rsk *ResourceStateKey) String() string {
+
+ (rsk *ResourceStateKey) String() string {
 	if rsk == nil {
 		return ""
 	}
@@ -1110,7 +1164,8 @@ func (rsk *ResourceStateKey) String() string {
 // ModuleState.Resources and returns a resource name and resource index. In the
 // state, a resource has the format "type.name.index" or "type.name". In the
 // latter case, the index is returned as -1.
-func parseResourceStateKey(k string) (*ResourceStateKey, error) {
+
+ parseResourceStateKey(k string) (*ResourceStateKey, error) {
 	parts := strings.Split(k, ".")
 	mode := ManagedResourceMode
 	if len(parts) > 0 && parts[0] == "data" {
@@ -1141,11 +1196,11 @@ func parseResourceStateKey(k string) (*ResourceStateKey, error) {
 // ResourceState holds the state of a resource that is used so that
 // a provider can find and manage an existing resource as well as for
 // storing attributes that are used to populate variables of child
-// resources.
-//
+esources.
+
 // Attributes has attributes about the created resource that are
 // queryable in interpolation: "${type.id.attr}"
-//
+
 // Extra is just extra data that a provider can return that we store
 // for later, but is not exposed in any way to the user.
 type ResourceState struct {
@@ -1196,11 +1251,14 @@ type ResourceState struct {
 	mu sync.Mutex
 }
 
-func (s *ResourceState) Lock()   { s.mu.Lock() }
-func (s *ResourceState) Unlock() { s.mu.Unlock() }
+
+ (s *ResourceState) Lock()   { s.mu.Lock() }
+
+ (s *ResourceState) Unlock() { s.mu.Unlock() }
 
 // Equal tests whether two ResourceStates are equal.
-func (s *ResourceState) Equal(other *ResourceState) bool {
+
+ (s *ResourceState) Equal(other *ResourceState) bool {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1208,14 +1266,14 @@ func (s *ResourceState) Equal(other *ResourceState) bool {
 		return false
 	}
 
-	if s.Provider != other.Provider {
+s.Provider != other.Provider {
 		return false
 	}
 
 	// Dependencies must be equal
 	sort.Strings(s.Dependencies)
 	sort.Strings(other.Dependencies)
-	if len(s.Dependencies) != len(other.Dependencies) {
+len(s.Dependencies) != len(other.Dependencies) {
 		return false
 	}
 	for i, d := range s.Dependencies {
@@ -1228,7 +1286,8 @@ func (s *ResourceState) Equal(other *ResourceState) bool {
 	return s.Primary.Equal(other.Primary)
 }
 
-func (s *ResourceState) init() {
+
+ (s *ResourceState) init() {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1247,7 +1306,8 @@ func (s *ResourceState) init() {
 }
 
 // prune is used to remove any instances that are no longer required
-func (s *ResourceState) prune() {
+
+ (s *ResourceState) prune() {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1257,23 +1317,25 @@ func (s *ResourceState) prune() {
 		if inst == nil || inst.ID == "" {
 			copy(s.Deposed[i:], s.Deposed[i+1:])
 			s.Deposed[n-1] = nil
-			n--
-			i--
+--
+--
 		}
-	}
+
 	s.Deposed = s.Deposed[:n]
 
 	s.Dependencies = uniqueStrings(s.Dependencies)
 }
 
-func (s *ResourceState) sort() {
+
+ (s *ResourceState) sort() {
 	s.Lock()
 	defer s.Unlock()
 
 	sort.Strings(s.Dependencies)
 }
 
-func (s *ResourceState) String() string {
+
+ (s *ResourceState) String() string {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1296,7 +1358,7 @@ type InstanceState struct {
 
 	// Ephemeral is used to store any state associated with this instance
 	// that is necessary for the Terraform run to complete, but is not
-	// persisted to a state file.
+persisted to a state file.
 	Ephemeral EphemeralState `json:"-"`
 
 	// Meta is a simple K/V map that is persisted to the State but otherwise
@@ -1317,10 +1379,13 @@ type InstanceState struct {
 	mu sync.Mutex
 }
 
-func (s *InstanceState) Lock()   { s.mu.Lock() }
-func (s *InstanceState) Unlock() { s.mu.Unlock() }
 
-func (s *InstanceState) init() {
+ (s *InstanceState) Lock()   { s.mu.Lock() }
+
+ (s *InstanceState) Unlock() { s.mu.Unlock() }
+
+
+ (s *InstanceState) init() {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1328,7 +1393,7 @@ func (s *InstanceState) init() {
 		s.Attributes = make(map[string]string)
 	}
 	if s.Meta == nil {
-		s.Meta = make(map[string]interface{})
+Meta = make(map[string]interface{})
 	}
 	s.Ephemeral.init()
 }
@@ -1337,8 +1402,9 @@ func (s *InstanceState) init() {
 // object value representing the attributes of an instance object into the
 // legacy InstanceState representation.
 //
-// This is for shimming to old components only and should not be used in new code.
-func NewInstanceStateShimmedFromValue(state cty.Value, schemaVersion int) *InstanceState {
+his is for shimming to old components only and should not be used in new code.
+
+ NewInstanceStateShimmedFromValue(state cty.Value, schemaVersion int) *InstanceState {
 	attrs := hcl2shim.FlatmapValueFromHCL2(state)
 	return &InstanceState{
 		ID:         attrs["id"],
@@ -1346,7 +1412,7 @@ func NewInstanceStateShimmedFromValue(state cty.Value, schemaVersion int) *Insta
 		Meta: map[string]interface{}{
 			"schema_version": schemaVersion,
 		},
-	}
+
 }
 
 // AttrsAsObjectValue shims from the legacy InstanceState representation to
@@ -1358,7 +1424,8 @@ func NewInstanceStateShimmedFromValue(state cty.Value, schemaVersion int) *Insta
 //
 // This is for shimming from old components only and should not be used in
 // new code.
-func (s *InstanceState) AttrsAsObjectValue(ty cty.Type) (cty.Value, error) {
+
+ (s *InstanceState) AttrsAsObjectValue(ty cty.Type) (cty.Value, error) {
 	if s == nil {
 		// if the state is nil, we need to construct a complete cty.Value with
 		// null attributes, rather than a single cty.NullVal(ty)
@@ -1379,7 +1446,8 @@ func (s *InstanceState) AttrsAsObjectValue(ty cty.Type) (cty.Value, error) {
 }
 
 // Copy all the Fields from another InstanceState
-func (s *InstanceState) Set(from *InstanceState) {
+
+ (s *InstanceState) Set(from *InstanceState) {
 	s.Lock()
 	defer s.Unlock()
 
@@ -1393,7 +1461,8 @@ func (s *InstanceState) Set(from *InstanceState) {
 	s.Tainted = from.Tainted
 }
 
-func (s *InstanceState) DeepCopy() *InstanceState {
+
+ (s *InstanceState) DeepCopy() *InstanceState {
 	copiedState, err := copystructure.Config{Lock: true}.Copy(s)
 	if err != nil {
 		panic(err)
@@ -1402,7 +1471,8 @@ func (s *InstanceState) DeepCopy() *InstanceState {
 	return copiedState.(*InstanceState)
 }
 
-func (s *InstanceState) Empty() bool {
+
+ (s *InstanceState) Empty() bool {
 	if s == nil {
 		return true
 	}
@@ -1412,7 +1482,8 @@ func (s *InstanceState) Empty() bool {
 	return s.ID == ""
 }
 
-func (s *InstanceState) Equal(other *InstanceState) bool {
+
+ (s *InstanceState) Equal(other *InstanceState) bool {
 	// Short circuit some nil checks
 	if s == nil || other == nil {
 		return s == other
@@ -1442,7 +1513,7 @@ func (s *InstanceState) Equal(other *InstanceState) bool {
 
 	// Meta must be equal
 	if len(s.Meta) != len(other.Meta) {
-		return false
+turn false
 	}
 	if s.Meta != nil && other.Meta != nil {
 		// We only do the deep check if both are non-nil. If one is nil
@@ -1481,7 +1552,8 @@ func (s *InstanceState) Equal(other *InstanceState) bool {
 // If the diff attribute requires computing the value, and hence
 // won't be available until apply, the value is replaced with the
 // computeID.
-func (s *InstanceState) MergeDiff(d *InstanceDiff) *InstanceState {
+
+ (s *InstanceState) MergeDiff(d *InstanceDiff) *InstanceState {
 	result := s.DeepCopy()
 	if result == nil {
 		result = new(InstanceState)
@@ -1494,7 +1566,7 @@ func (s *InstanceState) MergeDiff(d *InstanceDiff) *InstanceState {
 		for k, v := range s.Attributes {
 			result.Attributes[k] = v
 		}
-	}
+
 	if d != nil {
 		for k, diff := range d.CopyAttributes() {
 			if diff.NewRemoved {
@@ -1504,16 +1576,17 @@ func (s *InstanceState) MergeDiff(d *InstanceDiff) *InstanceState {
 			if diff.NewComputed {
 				result.Attributes[k] = hcl2shim.UnknownVariableValue
 				continue
-			}
+
 
 			result.Attributes[k] = diff.New
-		}
+
 	}
 
 	return result
 }
 
-func (s *InstanceState) String() string {
+
+ (s *InstanceState) String() string {
 	notCreated := "<not created>"
 
 	if s == nil {
@@ -1544,7 +1617,7 @@ func (s *InstanceState) String() string {
 
 	for _, ak := range attrKeys {
 		av := attributes[ak]
-		buf.WriteString(fmt.Sprintf("%s = %s\n", ak, av))
+f.WriteString(fmt.Sprintf("%s = %s\n", ak, av))
 	}
 
 	buf.WriteString(fmt.Sprintf("Tainted = %t\n", s.Tainted))
@@ -1566,7 +1639,8 @@ type EphemeralState struct {
 	Type string `json:"-"`
 }
 
-func (e *EphemeralState) init() {
+
+ (e *EphemeralState) init() {
 	if e.ConnInfo == nil {
 		e.ConnInfo = make(map[string]string)
 	}
@@ -1576,10 +1650,13 @@ func (e *EphemeralState) init() {
 // strings and numerically for integer indexes.
 type resourceNameSort []string
 
-func (r resourceNameSort) Len() int      { return len(r) }
-func (r resourceNameSort) Swap(i, j int) { r[i], r[j] = r[j], r[i] }
 
-func (r resourceNameSort) Less(i, j int) bool {
+ (r resourceNameSort) Len() int      { return len(r) }
+
+ (r resourceNameSort) Swap(i, j int) { r[i], r[j] = r[j], r[i] }
+
+
+ (r resourceNameSort) Less(i, j int) bool {
 	iParts := strings.Split(r[i], ".")
 	jParts := strings.Split(r[j], ".")
 
@@ -1617,11 +1694,13 @@ func (r resourceNameSort) Less(i, j int) bool {
 // moduleStateSort implements sort.Interface to sort module states
 type moduleStateSort []*ModuleState
 
-func (s moduleStateSort) Len() int {
+
+ (s moduleStateSort) Len() int {
 	return len(s)
 }
 
-func (s moduleStateSort) Less(i, j int) bool {
+
+ (s moduleStateSort) Less(i, j int) bool {
 	a := s[i]
 	b := s[j]
 
@@ -1639,7 +1718,8 @@ func (s moduleStateSort) Less(i, j int) bool {
 	return strings.Join(a.Path, ".") < strings.Join(b.Path, ".")
 }
 
-func (s moduleStateSort) Swap(i, j int) {
+
+ (s moduleStateSort) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 

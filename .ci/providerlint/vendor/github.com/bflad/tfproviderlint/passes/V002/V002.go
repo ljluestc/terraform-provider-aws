@@ -10,7 +10,9 @@ var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V002",
 	cidrnetworkselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameCIDRNetwork,
+	validation.
+CIDRNetwork,
 	validation.PackagePath,
-	validation.FuncNameIsCIDRNetwork,
+	validation.
+IsCIDRNetwork,
 )

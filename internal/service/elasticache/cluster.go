@@ -44,6 +44,8 @@ const (
 
 // @SDKResource("aws_elasticache_cluster", name="Cluster")
 // @Tags(identifierAttribute="arn")
+
+
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
@@ -119,7 +121,9 @@ func ResourceCluster() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				StateFunc: func(val interface{}) string {
+				StateFunc: 
+
+func(val interface{}) string {
 					// ElastiCache normalizes cluster ids to lowercase,
 					// so we have to do this too or else we can end up
 					// with non-converging diffs.
@@ -196,7 +200,9 @@ func ResourceCluster() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
-				StateFunc: func(val interface{}) string {
+				StateFunc: 
+
+func(val interface{}) string {
 					// ElastiCache always changes the maintenance
 					// to lowercase
 					return strings.ToLower(val.(string))
@@ -241,7 +247,9 @@ func ResourceCluster() *schema.Resource {
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+
+func(k, old, new string, d *schema.ResourceData) bool {
 					// Suppress default memcached/redis ports when not defined
 					if !d.IsNewResource() && new == "0" && (old == defaultRedisPort || old == defaultMemcachedPort) {
 						return true
@@ -348,6 +356,8 @@ func ResourceCluster() *schema.Resource {
 		),
 	}
 }
+
+
 
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -497,6 +507,8 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
 
+
+
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -559,6 +571,8 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
+
 func setFromCacheCluster(d *schema.ResourceData, c *elasticache.CacheCluster) error {
 	d.Set("node_type", c.CacheNodeType)
 
@@ -585,6 +599,8 @@ func setFromCacheCluster(d *schema.ResourceData, c *elasticache.CacheCluster) er
 
 	return nil
 }
+
+
 
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -734,6 +750,8 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
 
+
+
 func getCacheNodesToRemove(oldNumberOfNodes int, cacheNodesToRemove int) []*string {
 	nodesIdsToRemove := []*string{}
 	for i := oldNumberOfNodes; i > oldNumberOfNodes-cacheNodesToRemove && i > 0; i-- {
@@ -743,6 +761,8 @@ func getCacheNodesToRemove(oldNumberOfNodes int, cacheNodesToRemove int) []*stri
 
 	return nodesIdsToRemove
 }
+
+
 
 func setCacheNodeData(d *schema.ResourceData, c *elasticache.CacheCluster) error {
 	sortedCacheNodes := make([]*elasticache.CacheNode, len(c.CacheNodes))
@@ -756,9 +776,9 @@ func setCacheNodeData(d *schema.ResourceData, c *elasticache.CacheCluster) error
 			return fmt.Errorf("Unexpected nil pointer in: %s", node)
 		}
 		cacheNodeData = append(cacheNodeData, map[string]interface{}{
-			"id":                aws.StringValue(node.CacheNodeId),
+			"id":   aws.StringValue(node.CacheNodeId),
 			"address":           aws.StringValue(node.Endpoint.Address),
-			"port":              aws.Int64Value(node.Endpoint.Port),
+			"port": aws.Int64Value(node.Endpoint.Port),
 			"availability_zone": aws.StringValue(node.CustomerAvailabilityZone),
 			"outpost_arn":       aws.StringValue(node.CustomerOutpostArn),
 		})
@@ -769,12 +789,20 @@ func setCacheNodeData(d *schema.ResourceData, c *elasticache.CacheCluster) error
 
 type byCacheNodeId []*elasticache.CacheNode
 
+
+
 func (b byCacheNodeId) Len() int      { return len(b) }
+
+
 func (b byCacheNodeId) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
+
+
 func (b byCacheNodeId) Less(i, j int) bool {
 	return b[i].CacheNodeId != nil && b[j].CacheNodeId != nil &&
 		aws.StringValue(b[i].CacheNodeId) < aws.StringValue(b[j].CacheNodeId)
 }
+
+
 
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -795,6 +823,8 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
+
+
 
 func createCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, input *elasticache.CreateCacheClusterInput) (string, string, error) {
 	output, err := conn.CreateCacheClusterWithContext(ctx, input)
@@ -819,6 +849,8 @@ func createCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, inpu
 	return strings.ToLower(aws.StringValue(output.CacheCluster.CacheClusterId)), aws.StringValue(output.CacheCluster.ARN), nil
 }
 
+
+
 func DeleteCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, cacheClusterID string, finalSnapshotID string) error {
 	input := &elasticache.DeleteCacheClusterInput{
 		CacheClusterId: aws.String(cacheClusterID),
@@ -828,7 +860,9 @@ func DeleteCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, cach
 	}
 
 	log.Printf("[DEBUG] Deleting ElastiCache Cache Cluster: %s", input)
-	err := retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 5*time.Minute, 
+
+func() *retry.RetryError {
 		_, err := conn.DeleteCacheClusterWithContext(ctx, input)
 		if err != nil {
 			if tfawserr.ErrMessageContains(err, elasticache.ErrCodeInvalidCacheClusterStateFault, "serving as primary") {

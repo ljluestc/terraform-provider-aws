@@ -32,8 +32,10 @@ var (
 // care should be used if SetDefault() is called it random times
 // in the program as that may result in race conditions and an unexpected
 // Logger being returned.
-func Default() Logger {
-	protect.Do(func() {
+
+ault() Logger {
+	protect.Do(
+
 		// If SetDefault was used before Default() was called, we need to
 		// detect that here.
 		if def == nil {
@@ -45,7 +47,8 @@ func Default() Logger {
 }
 
 // L is a short alias for Default().
-func L() Logger {
+
+ Logger {
 	return Default()
 }
 
@@ -60,7 +63,8 @@ func L() Logger {
 // if it is called in goroutines, you may experience race conditions
 // with other goroutines retrieving the default logger. Basically,
 // don't do that.
-func SetDefault(log Logger) Logger {
+
+Default(log Logger) Logger {
 	old := def
 	def = log
 	return old

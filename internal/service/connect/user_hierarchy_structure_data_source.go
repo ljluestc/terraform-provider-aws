@@ -16,6 +16,8 @@ import (
 
 // @SDKDataSource("aws_connect_user_hierarchy_structure")
 
+
+
 func DataSourceUserHierarchyStructure() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserHierarchyStructureRead,
@@ -26,26 +28,36 @@ func DataSourceUserHierarchyStructure() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"level_one": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
 						"level_two": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
 						"level_three": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
 						"level_four": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
 						"level_five": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
@@ -57,6 +69,8 @@ func() *schema.Schema {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 		},
@@ -64,6 +78,8 @@ func: validation.StringLenBetween(1, 100),
 }
 
 // Each level shares the same schema
+
+
 
 func userHierarchyLevelDataSourceSchema() *schema.Schema {
 	return &schema.Schema{
@@ -87,6 +103,8 @@ func userHierarchyLevelDataSourceSchema() *schema.Schema {
 		},
 	}
 }
+
+
 
 
 func dataSourceUserHierarchyStructureRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {

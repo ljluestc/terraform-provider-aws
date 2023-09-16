@@ -20,8 +20,7 @@ import (
 )
 
 // @SDKResource("aws_appstream_user_stack_association")
-func ResourceUserStackAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUserStackAssociationCreate,
 		ReadWithoutTimeout:   resourceUserStackAssociationRead,
 		UpdateWithoutTimeout: schema.NoopContext,
@@ -56,8 +55,7 @@ func ResourceUserStackAssociation() *schema.Resource {
 }
 
 func resourceUserStackAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-
+func
 	input := &appstream.UserStackAssociation{
 		AuthenticationType: aws.String(d.Get("authentication_type").(string)),
 		StackName:          aws.String(d.Get("stack_name").(string)),
@@ -93,8 +91,7 @@ func resourceUserStackAssociationCreate(ctx context.Context, d *schema.ResourceD
 
 func resourceUserStackAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-
-	userName, authType, stackName, err := DecodeUserStackAssociationID(d.Id())
+funcrName, authType, stackName, err := DecodeUserStackAssociationID(d.Id())
 	if err != nil {
 		return diag.Errorf("decoding AppStream User Stack Association ID (%s): %s", d.Id(), err)
 	}
@@ -137,8 +134,7 @@ func resourceUserStackAssociationRead(ctx context.Context, d *schema.ResourceDat
 func resourceUserStackAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	userName, authType, stackName, err := DecodeUserStackAssociationID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return diag.Errorf("decoding AppStream User Stack Association ID (%s): %s", d.Id(), err)
 	}
 
@@ -165,10 +161,8 @@ func EncodeUserStackAssociationID(userName, authType, stackName string) string {
 	return fmt.Sprintf("%s/%s/%s", userName, authType, stackName)
 }
 
-func DecodeUserStackAssociationID(id string) (string, string, string, error) {
-	idParts := strings.SplitN(id, "/", 3)
+funcarts := strings.SplitN(id, "/", 3)
 	if len(idParts) != 3 {
 		return "", "", "", fmt.Errorf("expected ID in format UserName/AuthenticationType/StackName, received: %s", id)
 	}
-	return idParts[0], idParts[1], idParts[2], nil
-}
+func

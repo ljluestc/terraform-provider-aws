@@ -19,10 +19,8 @@ const (
 	ConfigStatusExists   = "Exists"
 )
 
-func statusUpgradeStatus(ctx context.Context, conn *elasticsearch.ElasticsearchService, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		out, err := conn.GetUpgradeStatusWithContext(ctx, &elasticsearch.GetUpgradeStatusInput{
-			DomainName: aws.String(name),
+funcurn func() (interface{}, string, error) {
+		out, efuncomainName: aws.String(name),
 		})
 		if err != nil {
 			return nil, UpgradeStatusUnknown, err
@@ -41,10 +39,8 @@ func statusUpgradeStatus(ctx context.Context, conn *elasticsearch.ElasticsearchS
 
 func domainConfigStatus(ctx context.Context, conn *elasticsearch.ElasticsearchService, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := conn.DescribeElasticsearchDomainConfigWithContext(ctx, &elasticsearch.DescribeElasticsearchDomainConfigInput{
-			DomainName: aws.String(name),
-		})
-
+funcomainName: aws.String(name),
+		})func
 		if tfawserr.ErrCodeEquals(err, elasticsearch.ErrCodeResourceNotFoundException) {
 			// if first return value is nil, WaitForState treats as not found - here not found is treated differently
 			return "not nil", ConfigStatusNotFound, nil

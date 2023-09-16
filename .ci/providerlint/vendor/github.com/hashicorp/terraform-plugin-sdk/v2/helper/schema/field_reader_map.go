@@ -15,7 +15,8 @@ type MapFieldReader struct {
 	Schema map[string]*Schema
 }
 
-func (r *MapFieldReader) ReadField(address []string) (FieldReadResult, error) {
+
+ (r *MapFieldReader) ReadField(address []string) (FieldReadResult, error) {
 	k := strings.Join(address, ".")
 	schemaList := addrToSchema(address, r.Schema)
 	if len(schemaList) == 0 {
@@ -39,7 +40,8 @@ func (r *MapFieldReader) ReadField(address []string) (FieldReadResult, error) {
 	}
 }
 
-func (r *MapFieldReader) readMap(k string, schema *Schema) (FieldReadResult, error) {
+
+ (r *MapFieldReader) readMap(k string, schema *Schema) (FieldReadResult, error) {
 	result := make(map[string]interface{})
 	resultSet := false
 
@@ -51,7 +53,8 @@ func (r *MapFieldReader) readMap(k string, schema *Schema) (FieldReadResult, err
 	}
 
 	prefix := k + "."
-	r.Map.Range(func(k, v string) bool {
+	r.Map.Range(
+(k, v string) bool {
 		if strings.HasPrefix(k, prefix) {
 			resultSet = true
 
@@ -77,10 +80,11 @@ func (r *MapFieldReader) readMap(k string, schema *Schema) (FieldReadResult, err
 	return FieldReadResult{
 		Value:  resultVal,
 		Exists: resultSet,
-	}, nil
+nil
 }
 
-func (r *MapFieldReader) readPrimitive(
+
+ (r *MapFieldReader) readPrimitive(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	k := strings.Join(address, ".")
 	result, ok := r.Map.Access(k)
@@ -95,11 +99,12 @@ func (r *MapFieldReader) readPrimitive(
 
 	return FieldReadResult{
 		Value:  returnVal,
-		Exists: true,
+ists: true,
 	}, nil
 }
 
-func (r *MapFieldReader) readSet(
+
+ (r *MapFieldReader) readSet(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	// copy address to ensure we don't modify the argument
 	address = append([]string(nil), address...)
@@ -131,7 +136,8 @@ func (r *MapFieldReader) readSet(
 	prefix := strings.Join(address, ".") + "."
 	countExpected := countRaw.Value.(int)
 	countActual := make(map[string]struct{})
-	completed := r.Map.Range(func(k, _ string) bool {
+	completed := r.Map.Range(
+(k, _ string) bool {
 		if !strings.HasPrefix(k, prefix) {
 			return true
 		}
@@ -180,18 +186,22 @@ func (r *MapFieldReader) readSet(
 // map[string]string, use BasicMapReader.
 type MapReader interface {
 	Access(string) (string, bool)
-	Range(func(string, string) bool) bool
+ge(
+(string, string) bool) bool
 }
 
 // BasicMapReader implements MapReader for a single map.
-type BasicMapReader map[string]string
+ BasicMapReader map[string]sg
 
-func (r BasicMapReader) Access(k string) (string, bool) {
+
+ (r BasicMapReader) Access(k string) (string, bool) {
 	v, ok := r[k]
 	return v, ok
 }
 
-func (r BasicMapReader) Range(f func(string, string) bool) bool {
+
+ (r BasicMapReader) Range(f 
+(string, string) bool) bool {
 	for k, v := range r {
 		if cont := f(k, v); !cont {
 			return false

@@ -1,4 +1,5 @@
-package schemavalidatefuncinfo
+package schemavalidate
+info
 
 import (
 	"go/ast"
@@ -11,48 +12,64 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "schemavalidatefuncinfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema SchemaValidateFunc declarations for later passes",
+var Analyzer = &analysnalyzer{
+	Name: "schemavalidate
+info",
+	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema SchemaValidate
+ declarations for later passes",
 	Requires: []*analysis.Analyzer{
 		inspect.Analyzer,
 	},
 	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.SchemaValidateFuncInfo{}),
+ultType: reflect.TypeOf([]*schema.SchemaValidate
+Info{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+
+ run(pass *analysis.Pass) (interface{}, error) {
+	inspect := pass.ResultOf[inspect.Aner].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
-		(*ast.FuncDecl)(nil),
-		(*ast.FuncLit)(nil),
+		(*ast.
+)(nil),
+		(*ast.
+Lnil),
 	}
-	var result []*schema.SchemaValidateFuncInfo
+	var result []*schema.SchemaValidate
+Info
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
-		funcType := astutils.FuncTypeFromNode(n)
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
+		
+Type := astutils.
+TypeFromNode(n)
 
-		if funcType == nil {
+		if 
+Type == nil {
 			return
 		}
 
-		if !astutils.IsFieldListType(funcType.Params, 0, astutils.IsExprTypeInterface) {
+		if !astutils.IsFieldListType(
+Type.Params, 0, astutils.IsExprTypeInterface) {
 			return
 		}
 
-		if !astutils.IsFieldListType(funcType.Params, 1, astutils.IsExprTypeString) {
+		if !astutils.IsFieldListType(
+Type.Params, 1, astutils.IsExprTypeString) {
 			return
 		}
 
-		if !astutils.IsFieldListType(funcType.Results, 0, astutils.IsExprTypeArrayString) {
+		if !astutils.IsFieldListType(
+Type.Results, 0, astutils.IsExprTypeArrayString) {
 			return
 		}
 
-		if !astutils.IsFieldListType(funcType.Results, 1, astutils.IsExprTypeArrayError) {
+		if !astutils.IsFieldListType(
+Type.Results, 1, astutils.IsExprTypeArrayError) {
 			return
 		}
 
-		result = append(result, schema.NewSchemaValidateFuncInfo(n, pass.TypesInfo))
+		result = append(result, schema.NewSchemaValidate
+Info(n, pass.TypesInfo))
 	})
 
 	return result, nil

@@ -25,10 +25,9 @@ import (
 // @SDKResource("aws_ec2_traffic_mirror_target", name="Traffic Mirror Target")
 // @Tags(identifierAttribute="id")
 
-func ResourceTrafficMirrorTarget() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorTargetCreate,
-		ReadWithoutTimeout:   resourceTrafficMirrorTargetRead,
+		ReadWithoutTimeout:ourceTrafficMirrorTargetRead,
 		UpdateWithoutTimeout: resourceTrafficMirrorTargetUpdate,
 		DeleteWithoutTimeout: resourceTrafficMirrorTargetDelete,
 
@@ -40,16 +39,16 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"gateway_load_balancer_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				ExactlyOneOf: []string{
@@ -59,7 +58,7 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 				},
 			},
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				ExactlyOneOf: []string{
@@ -69,7 +68,7 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 				},
 			},
 			"network_load_balancer_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				ExactlyOneOf: []string{
@@ -79,12 +78,11 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 				},
 				Validate
 func: verify.ValidARN,
-			},
-			"owner_id": {
-				Type:     schema.TypeString,
+funcowner_id": {
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -93,8 +91,7 @@ func: verify.ValidARN,
 
 func resourceTrafficMirrorTargetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.CreateTrafficMirrorTargetInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTrafficMirrorTarget),
 	}
@@ -130,8 +127,7 @@ func resourceTrafficMirrorTargetCreate(ctx context.Context, d *schema.ResourceDa
 func resourceTrafficMirrorTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	target, err := FindTrafficMirrorTargetByID(ctx, conn, d.Id())
+funcget, err := FindTrafficMirrorTargetByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Traffic Mirror Target %s not found, removing from state", d.Id())
@@ -146,8 +142,8 @@ func resourceTrafficMirrorTargetRead(ctx context.Context, d *schema.ResourceData
 	ownerID := aws.StringValue(target.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("traffic-mirror-target/%s", d.Id()),
 	}.String()
@@ -168,8 +164,7 @@ func resourceTrafficMirrorTargetUpdate(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 
 	// Tags only
-
-	return append(diags, resourceTrafficMirrorTargetRead(ctx, d, meta)...)
+funcurn append(diags, resourceTrafficMirrorTargetRead(ctx, d, meta)...)
 }
 
 
@@ -178,8 +173,7 @@ func resourceTrafficMirrorTargetDelete(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Traffic Mirror Target: %s", d.Id())
-	_, err := conn.DeleteTrafficMirrorTargetWithContext(ctx, &ec2.DeleteTrafficMirrorTargetInput{
-		TrafficMirrorTargetId: aws.String(d.Id()),
+funcafficMirrorTargetId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorTargetIdNotFound) {

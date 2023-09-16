@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccCETagsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	dataSourceName := "data.aws_ce_tags.test"
@@ -28,9 +27,8 @@ func TestAccCETagsDataSource_basic(t *testing.T) {
 	endDate := currentTime.Format(formatDate)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ProtoV5ProvidfuncrorCheck:  acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagsDataSourceConfig_basic(rName, startDate, endDate),
@@ -45,8 +43,7 @@ func TestAccCETagsDataSource_basic(t *testing.T) {
 
 func TestAccCETagsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
-	var output costexplorer.CostCategory
-	resourceName := "aws_ce_cost_category.test"
+funcourceName := "aws_ce_cost_category.test"
 	dataSourceName := "data.aws_ce_tags.test"
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 
@@ -57,11 +54,10 @@ func TestAccCETagsDataSource_filter(t *testing.T) {
 	endDate := currentTime.Format(formatDate)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
-		Steps: []resource.TestStep{
-			{
+		ErrorCheck:  acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		Steps: []resofunc
 				Config: testAccTagsDataSourceConfig_filter(rName, startDate, endDate),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCostCategoryExists(ctx, resourceName, &output),
@@ -76,8 +72,7 @@ func testAccTagsDataSourceConfig_basic(rName, start, end string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
   name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-  rule {
+funcle {
     value = "production"
     rule {
       tags {
@@ -104,8 +99,7 @@ func testAccTagsDataSourceConfig_filter(rName, start, end string) string {
 data "aws_region" "current" {}
 
 
-resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
+funcme         = %[1]q
   rule_version = "CostCategoryExpression.v1"
   rule {
     value = "production"

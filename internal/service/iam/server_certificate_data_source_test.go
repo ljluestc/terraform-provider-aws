@@ -16,10 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
-)
-
-func TestResourceSortByExpirationDate(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	certs := []*iam.ServerCertificateMetadata{
 {
@@ -39,11 +36,8 @@ func TestResourceSortByExpirationDate(t *testing.T) {
 	if aws.StringValue(certs[0].ServerCertificateName) != "latest" {
 t.Fatalf("Expected first item to be %q, but was %q", "latest", *certs[0].ServerCertificateName)
 	}
-}
-
-func TestAccIAMServerCertificateDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccIAMServerCertificateDataSource_basic(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
@@ -52,7 +46,7 @@ func TestAccIAMServerCertificateDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServerCertificateDataSourceConfig_cert(rName, key, certificate),
@@ -69,15 +63,12 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMServerCertificateDataSource_matchNamePrefix(t *testing.T) {
+}func TestAccIAMServerCertificateDataSource_matchNamePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	funcheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccServerCertificateDataSourceConfig_certMatchNamePrefix,
@@ -85,13 +76,10 @@ ExpectError: regexache.MustCompile(`Search for AWS IAM server certificate return
 	},
 },
 	})
-}
-
-func TestAccIAMServerCertificateDataSource_path(t *testing.T) {
+}func TestAccIAMServerCertificateDataSource_path(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	path := "/test-path/"
-	pathPrefix := "/test-path/"
+	funchPrefix := "/test-path/"
 
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
@@ -100,7 +88,7 @@ func TestAccIAMServerCertificateDataSource_path(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServerCertificateDataSourceConfig_certPath(rName, path, pathPrefix, key, certificate),
@@ -110,14 +98,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccServerCertificateDataSourceConfig_cert(rName, key, certificate string) string {
+}func testAccServerCertificateDataSourceConfig_cert(rName, key, certificate string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test_cert" {
-  name             = "%[1]s"
-  certificate_body = "%[2]s"
-  private_key      = "%[3]s"
+  name= "%[1]s"
+ funcivate_key      = "%[3]s"
 }
 
 data "aws_iam_server_certificate" "test" {
@@ -125,15 +110,12 @@ data "aws_iam_server_certificate" "test" {
   latest = true
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
-}
-
-func testAccServerCertificateDataSourceConfig_certPath(rName, path, pathPrefix, key, certificate string) string {
+}func testAccServerCertificateDataSourceConfig_certPath(rName, path, pathPrefix, key, certificate string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test_cert" {
-  name             = "%[1]s"
-  path             = "%[2]s"
-  certificate_body = "%[3]s"
-  private_key      = "%[4]s"
+  name= "%[1]s"
+  path= "%[2]s"
+ funcivate_key      = "%[4]s"
 }
 
 data "aws_iam_server_certificate" "test" {

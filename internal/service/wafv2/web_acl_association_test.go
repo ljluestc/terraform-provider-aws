@@ -31,9 +31,9 @@ func TestAccWAFV2WebACLAssociation_basic(t *testing.T) {
 			acctest.PreCheckAPIGatewayTypeEDGE(t)
 			testAccPreCheckScopeRegional(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLAssociationConfig_basic(rName),
@@ -63,9 +63,9 @@ func TestAccWAFV2WebACLAssociation_disappears(t *testing.T) {
 			acctest.PreCheckAPIGatewayTypeEDGE(t)
 			testAccPreCheckScopeRegional(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLAssociationConfig_basic(rName),
@@ -191,7 +191,7 @@ resource "aws_wafv2_web_acl" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }

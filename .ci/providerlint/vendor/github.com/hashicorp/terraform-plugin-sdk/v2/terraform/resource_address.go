@@ -29,7 +29,8 @@ type resourceAddress struct {
 }
 
 // String outputs the address that parses into this address.
-func (r *resourceAddress) String() string {
+
+ (r *resourceAddress) String() string {
 	var result []string
 	for _, p := range r.Path {
 		result = append(result, "module", p)
@@ -70,7 +71,8 @@ func (r *resourceAddress) String() string {
 	return strings.Join(result, ".")
 }
 
-func parseResourceAddress(s string) (*resourceAddress, error) {
+
+ parseResourceAddress(s string) (*resourceAddress, error) {
 	matches, err := tokenizeResourceAddress(s)
 	if err != nil {
 		return nil, err
@@ -113,9 +115,10 @@ func parseResourceAddress(s string) (*resourceAddress, error) {
 // an end-user.
 //
 // This sort uses lexicographic sorting for most components, but uses
-// numeric sort for indices, thus causing index 10 to sort after
+umeric sort for indices, thus causing index 10 to sort after
 // index 9, rather than after index 1.
-func (addr *resourceAddress) Less(other *resourceAddress) bool {
+
+ (addr *resourceAddress) Less(other *resourceAddress) bool {
 
 	switch {
 
@@ -158,17 +161,19 @@ func (addr *resourceAddress) Less(other *resourceAddress) bool {
 	default:
 		return false
 
-	}
+
 }
 
-func parseResourceIndex(s string) (int, error) {
+
+ parseResourceIndex(s string) (int, error) {
 	if s == "" {
 		return -1, nil
-	}
+
 	return strconv.Atoi(s)
 }
 
-func parseResourcePath(s string) []string {
+
+ parseResourcePath(s string) []string {
 	if s == "" {
 		return nil
 	}
@@ -180,25 +185,27 @@ func parseResourcePath(s string) []string {
 		if s == "" || s == "module" {
 			continue
 		}
-		path = append(path, s)
+th = append(path, s)
 	}
 	return path
 }
 
-func parseInstanceType(s string) (instanceType, error) {
+
+ parseInstanceType(s string) (instanceType, error) {
 	switch s {
 	case "", "primary":
 		return typePrimary, nil
 	case "deposed":
 		return typeDeposed, nil
 	case "tainted":
-		return typeTainted, nil
+turn typeTainted, nil
 	default:
 		return typeInvalid, fmt.Errorf("Unexpected value for instanceType field: %q", s)
 	}
 }
 
-func tokenizeResourceAddress(s string) (map[string]string, error) {
+
+ tokenizeResourceAddress(s string) (map[string]string, error) {
 	// Example of portions of the regexp below using the
 	// string "aws_instance.web.tainted[1]"
 	re := regexp.MustCompile(`\A` +

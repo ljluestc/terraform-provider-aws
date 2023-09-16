@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-// @SDKDataSource("aws_iam_instance_profiles")
-func DataSourceInstanceProfiles() *schema.Resource {
+// @SDKDataSource("aws_iam_instance_profiles")func DataSourceInstanceProfiles() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceProfilesRead,
 
@@ -43,10 +42,7 @@ func DataSourceInstanceProfiles() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceInstanceProfilesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	roleName := d.Get("role_name").(string)
 	instanceProfiles, err := findInstanceProfilesForRole(ctx, conn, roleName)
@@ -69,11 +65,8 @@ func dataSourceInstanceProfilesRead(ctx context.Context, d *schema.ResourceData,
 	d.Set("paths", paths)
 
 	return nil
-}
-
-func findInstanceProfilesForRole(ctx context.Context, conn *iam.IAM, roleName string) ([]*iam.InstanceProfile, error) {
-	input := &iam.ListInstanceProfilesForRoleInput{
-		RoleName: aws.String(roleName),
+}func findInstanceProfilesForRole(ctx context.Context, conn *iam.IAM, roleName string) ([]*iam.InstanceProfile, error) {
+	funcleName: aws.String(roleName),
 	}
 	var output []*iam.InstanceProfile
 

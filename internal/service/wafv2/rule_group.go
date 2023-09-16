@@ -159,10 +159,10 @@ func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &wafv2.CreateRuleGroupInput{
 		Capacity:         aws.Int64(int64(d.Get("capacity").(int))),
-		Name:             aws.String(name),
+		Name:aws.String(name),
 		Rules:            expandRules(d.Get("rule").(*schema.Set).List()),
 		Scope:            aws.String(d.Get("scope").(string)),
-		Tags:             getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		VisibilityConfig: expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
 	}
 
@@ -228,9 +228,9 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &wafv2.UpdateRuleGroupInput{
-			Id:               aws.String(d.Id()),
+			Id:  aws.String(d.Id()),
 			LockToken:        aws.String(d.Get("lock_token").(string)),
-			Name:             aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 			Rules:            expandRules(d.Get("rule").(*schema.Set).List()),
 			Scope:            aws.String(d.Get("scope").(string)),
 			VisibilityConfig: expandVisibilityConfig(d.Get("visibility_config").([]interface{})),

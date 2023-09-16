@@ -181,7 +181,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 		BlueprintId:      aws.String(d.Get("blueprint_id").(string)),
 		BundleId:         aws.String(d.Get("bundle_id").(string)),
 		InstanceNames:    []string{iName},
-		Tags:             getTagsIn(ctx),
+		Tags:),
 	}
 
 	if v, ok := d.GetOk("key_pair_name"); ok {

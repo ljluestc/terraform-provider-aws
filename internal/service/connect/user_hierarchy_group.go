@@ -24,6 +24,8 @@ import (
 // @SDKResource("aws_connect_user_hierarchy_group", name="User Hierarchy Group")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourceUserHierarchyGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserHierarchyGroupCreate,
@@ -49,26 +51,36 @@ func ResourceUserHierarchyGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"level_one": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_two": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_three": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_four": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_five": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
@@ -80,6 +92,8 @@ func() *schema.Schema {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"level_id": {
@@ -90,6 +104,8 @@ func: validation.StringLenBetween(1, 100),
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"parent_group_id": {
@@ -104,6 +120,8 @@ func: validation.StringLenBetween(1, 100),
 }
 
 // Each level shares the same schema
+
+
 
 func userHierarchyPathLevelSchema() *schema.Schema {
 	return &schema.Schema{
@@ -127,6 +145,8 @@ func userHierarchyPathLevelSchema() *schema.Schema {
 		},
 	}
 }
+
+
 
 
 func resourceUserHierarchyGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -159,6 +179,8 @@ func resourceUserHierarchyGroupCreate(ctx context.Context, d *schema.ResourceDat
 
 	return resourceUserHierarchyGroupRead(ctx, d, meta)
 }
+
+
 
 
 func resourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -205,6 +227,8 @@ func resourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData,
 }
 
 
+
+
 func resourceUserHierarchyGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -229,6 +253,8 @@ func resourceUserHierarchyGroupUpdate(ctx context.Context, d *schema.ResourceDat
 }
 
 
+
+
 func resourceUserHierarchyGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -251,6 +277,8 @@ func resourceUserHierarchyGroupDelete(ctx context.Context, d *schema.ResourceDat
 }
 
 
+
+
 func UserHierarchyGroupParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -260,6 +288,8 @@ func UserHierarchyGroupParseID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
+
 
 
 func flattenUserHierarchyPath(userHierarchyPath *connect.HierarchyPath) []interface{} {
@@ -291,6 +321,8 @@ func flattenUserHierarchyPath(userHierarchyPath *connect.HierarchyPath) []interf
 
 	return []interface{}{values}
 }
+
+
 
 
 func flattenUserHierarchyPathLevel(userHierarchyPathLevel *connect.HierarchyGroupSummary) []interface{} {

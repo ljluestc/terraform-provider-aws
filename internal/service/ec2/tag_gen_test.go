@@ -17,13 +17,10 @@ import (
 )
 
 
-func testAccCheckTagDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ec2_tag" {
 				continue
 			}
@@ -55,13 +52,10 @@ func(s *terraform.State) error {
 func testAccCheckTagExists(ctx context.Context, resourceName string) resource.TestCheck
 func {
 	return 
-func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
+func, ok := s.RootModule().Resources[resourceName]
+funceturn fmt.Errorf("not found: %s", resourceName)
 		}
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("%s: missing resource ID", resourceName)
+funceturn fmt.Errorf("%s: missing resource ID", resourceName)
 		}
 
 		identifier, key, err := tftags.GetResourceID(rs.Primary.ID)

@@ -11,13 +11,15 @@ import (
 // SetDefaults sets unpopulated scalar fields to their default values.
 // Fields within a oneof are not set even if they have a default value.
 // SetDefaults is recursively called upon any populated message fields.
-func SetDefaults(m Message) {
+
+Defaults(m Message) {
 	if m != nil {
 		setDefaults(MessageReflect(m))
 	}
 }
 
-func setDefaults(m protoreflect.Message) {
+
+Defaults(m protoreflect.Message) {
 	fds := m.Descriptor().Fields()
 	for i := 0; i < fds.Len(); i++ {
 		fd := fds.Get(i)
@@ -33,7 +35,8 @@ func setDefaults(m protoreflect.Message) {
 		}
 	}
 
-	m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	m.Range(
+protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		switch {
 		// Handle singular message.
 		case fd.Cardinality() != protoreflect.Repeated:
@@ -52,7 +55,8 @@ func setDefaults(m protoreflect.Message) {
 		case fd.IsMap():
 			if fd.MapValue().Message() != nil {
 				ms := m.Get(fd).Map()
-				ms.Range(func(_ protoreflect.MapKey, v protoreflect.Value) bool {
+				ms.Range(
+rotoreflect.MapKey, v protoreflect.Value) bool {
 					setDefaults(v.Message())
 					return true
 				})

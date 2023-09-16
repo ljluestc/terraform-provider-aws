@@ -4,90 +4,90 @@
 package outposts_test
 
 import (
-	"fmt"
-	"os"
-	"testing"
+"fmt"
+"os"
+"testing"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/service/outposts"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/service/outposts"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 func TestAccOutpostsAssetsDataSource_id(t *testing.T) {
-	key := "OUTPOST_AVAIL"
-	outpostBool := os.Getenv(key)
-	if outpostBool == "" {
-		t.Skipf("Environment variable %s is not set", key)
-	}
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_outposts_assets.test"
+key := "OUTPOST_AVAIL"
+outpostBool := os.Getenv(key)
+if outpostBool == "" {
+t.Skipf("Environment variable %s is not set", key)
+}
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_outposts_assets.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostAssetsDataSourceConfig_id(),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "outposts", regexache.MustCompile(`outpost/.+`)),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccOutpostAssetsDataSourceConfig_id(),
+Check: resource.ComposeTestCheckFunc(
+acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "outposts", regexache.MustCompile(`outpost/.+`)),
+),
+},
+},
+})
 }
 
 func TestAccOutpostsAssetsDataSource_statusFilter(t *testing.T) {
-	key := "OUTPOST_AVAIL"
-	outpostBool := os.Getenv(key)
-	if outpostBool == "" {
-		t.Skipf("Environment variable %s is not set", key)
-	}
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_outposts_assets.test"
+key := "OUTPOST_AVAIL"
+outpostBool := os.Getenv(key)
+if outpostBool == "" {
+t.Skipf("Environment variable %s is not set", key)
+}
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_outposts_assets.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostAssetsDataSourceConfig_statusFilter(),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "status_id_filter.0", "ACTIVE"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccOutpostAssetsDataSourceConfig_statusFilter(),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr(dataSourceName, "status_id_filter.0", "ACTIVE"),
+),
+},
+},
+})
 }
 
 func TestAccOutpostsAssetsDataSource_hostFilter(t *testing.T) {
-	key := "OUTPOST_HOST_ID" // Ex. "h-x38g5n0yd2a0ueb61"
-	outpostHostId := os.Getenv(key)
-	if outpostHostId == "" {
-		t.Skipf("Environment variable %s is not set", key)
-	}
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_outposts_assets.test"
+key := "OUTPOST_HOST_ID" // Ex. "h-x38g5n0yd2a0ueb61"
+outpostHostId := os.Getenv(key)
+if outpostHostId == "" {
+t.Skipf("Environment variable %s is not set", key)
+}
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_outposts_assets.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostAssetsDataSourceConfig_hostFilter(outpostHostId),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckTypeSetElemAttr(dataSourceName, "host_id_filter.*", outpostHostId),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccOutpostAssetsDataSourceConfig_hostFilter(outpostHostId),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckTypeSetElemAttr(dataSourceName, "host_id_filter.*", outpostHostId),
+),
+},
+},
+})
 }
 
 func testAccOutpostAssetsDataSourceConfig_id() string {
-	return `
+return `
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_assets" "test" {
@@ -97,7 +97,7 @@ data "aws_outposts_assets" "test" {
 }
 
 func testAccOutpostAssetsDataSourceConfig_statusFilter() string {
-	return `
+return `
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_assets" "source" {
@@ -112,7 +112,7 @@ data "aws_outposts_assets" "test" {
 }
 
 func testAccOutpostAssetsDataSourceConfig_hostFilter(outpostHostId string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_assets" "source" {

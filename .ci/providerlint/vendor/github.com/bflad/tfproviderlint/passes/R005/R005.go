@@ -32,14 +32,16 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
 		(*ast.BinaryExpr)(nil),
 	}
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 		binaryExpr := n.(*ast.BinaryExpr)
 
 		if ignorer.ShouldIgnore(analyzerName, n) {
@@ -62,9 +64,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	})
 
 	return nil, nil
-}
 
-func isHasChangeCall(e ast.Expr, info *types.Info) bool {
+
+
+ isHasChangeCall(e ast.Expr, info *types.Info) bool {
 	switch e := e.(type) {
 	case *ast.CallExpr:
 		return schema.IsReceiverMethod(e.Fun, info, schema.TypeNameResourceData, "HasChange")

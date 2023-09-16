@@ -18,10 +18,9 @@ import (
 
 // @SDKResource("aws_spot_datafeed_subscription")
 
-func ResourceSpotDataFeedSubscription() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSpotDataFeedSubscriptionCreate,
-		ReadWithoutTimeout:   resourceSpotDataFeedSubscriptionRead,
+		ReadWithoutTimeout:ourceSpotDataFeedSubscriptionRead,
 		DeleteWithoutTimeout: resourceSpotDataFeedSubscriptionDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -30,12 +29,12 @@ func ResourceSpotDataFeedSubscription() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"prefix": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -44,8 +43,7 @@ func ResourceSpotDataFeedSubscription() *schema.Resource {
 }
 
 func resourceSpotDataFeedSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateSpotDatafeedSubscriptionInput{
 		Bucket: aws.String(d.Get("bucket").(string)),
@@ -68,8 +66,7 @@ func resourceSpotDataFeedSubscriptionCreate(ctx context.Context, d *schema.Resou
 
 func resourceSpotDataFeedSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	subscription, err := FindSpotDatafeedSubscription(ctx, conn)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -91,8 +88,7 @@ func resourceSpotDataFeedSubscriptionRead(ctx context.Context, d *schema.Resourc
 func resourceSpotDataFeedSubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	log.Printf("[INFO] Deleting EC2 Spot Datafeed Subscription: %s", d.Id())
+func.Printf("[INFO] Deleting EC2 Spot Datafeed Subscription: %s", d.Id())
 	_, err := conn.DeleteSpotDatafeedSubscriptionWithContext(ctx, &ec2.DeleteSpotDatafeedSubscriptionInput{})
 
 	if err != nil {

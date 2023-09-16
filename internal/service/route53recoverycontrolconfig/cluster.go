@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_route53recoverycontrolconfig_cluster")
+
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
@@ -61,6 +62,7 @@ func ResourceCluster() *schema.Resource {
 	}
 }
 
+
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -89,6 +91,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
+
 
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -126,6 +129,7 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -156,6 +160,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func flattenClusterEndpoints(endpoints []*r53rcc.ClusterEndpoint) []interface{} {
 	if len(endpoints) == 0 {
 		return nil
@@ -173,6 +178,7 @@ func flattenClusterEndpoints(endpoints []*r53rcc.ClusterEndpoint) []interface{} 
 
 	return tfList
 }
+
 
 func flattenClusterEndpoint(ce *r53rcc.ClusterEndpoint) map[string]interface{} {
 	if ce == nil {

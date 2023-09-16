@@ -29,10 +29,9 @@ import (
 // @SDKResource("aws_ebs_volume", name="EBS Volume")
 // @Tags(identifierAttribute="id")
 
-func ResourceEBSVolume() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSVolumeCreate,
-		ReadWithoutTimeout:   resourceEBSVolumeRead,
+		ReadWithoutTimeout:ourceEBSVolumeRead,
 		UpdateWithoutTimeout: resourceEBSVolumeUpdate,
 		DeleteWithoutTimeout: resourceEBSVolumeDelete,
 
@@ -53,75 +52,72 @@ func ResourceEBSVolume() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"final_snapshot": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"iops": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 				Computed: true,
 			},
 			"kms_key_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:
+				Computed:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
-			},
-			"multi_attach_enabled": {
-				Type:     schema.TypeBool,
+funcmulti_attach_enabled": {
+				Type:eBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"outpost_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
 			},
-			"size": {
-				Type:schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+funcType:schema.TypeInt,
+				Optional:
+				Computed:
 				AtLeastOneOf: []string{"size", "snapshot_id"},
 			},
 			"snapshot_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:
+				Computed:
+				ForceNew:
 				AtLeastOneOf: []string{"size", "snapshot_id"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"throughput": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.IntBetween(125, 1000),
 			},
 			"type": {
-				Type:     schema.TypeString,
-				Optional: true,
+funcOptional: true,
 				Computed: true,
 			},
 		},
@@ -133,9 +129,8 @@ func resourceEBSVolumeCreate(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.CreateVolumeInput{
-		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
-		ClientToken:       aws.String(id.UniqueId()),
+funcailabilityZone:  aws.String(d.Get("availability_zone").(string)),
+		ClientToken:ng(id.UniqueId()),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVolume),
 	}
 
@@ -196,8 +191,7 @@ func resourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	volume, err := FindEBSVolumeByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EBS Volume %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
@@ -209,8 +203,8 @@ func resourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("volume/%s", d.Id()),
 	}
@@ -238,8 +232,7 @@ func resourceEBSVolumeUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &ec2.ModifyVolumeInput{
-			VolumeId: aws.String(d.Id()),
-		}
+func
 
 		if d.HasChange("iops") {
 			input.Iops = aws.Int64(int64(d.Get("iops").(int)))
@@ -290,8 +283,7 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 	if d.Get("final_snapshot").(bool) {
 		input := &ec2.CreateSnapshotInput{
 			TagSpecifications: tagSpecificationsFromMap(ctx, d.Get("tags_all").(map[string]interface{}), ec2.ResourceTypeSnapshot),
-			VolumeId: aws.String(d.Id()),
-		}
+func
 
 		log.Printf("[DEBUG] Creating EBS Snapshot: %s", input)
 		outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, 1*time.Minute,
@@ -304,8 +296,7 @@ func() (interface{}, error) {
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "creating EBS Snapshot (%s): %s", d.Id(), err)
 		}
-
-		snapshotID := aws.StringValue(outputRaw.(*ec2.Snapshot).SnapshotId)
+funcapshotID := aws.StringValue(outputRaw.(*ec2.Snapshot).SnapshotId)
 
 		_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete),
 			
@@ -318,8 +309,7 @@ func() (interface{}, error) {
 
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot (%s) create: %s", snapshotID, err)
-		}
-	}
+func
 
 	log.Printf("[DEBUG] Deleting EBS Volume: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete),
@@ -334,8 +324,7 @@ func() (interface{}, error) {
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVolumeNotFound) {
 		return diags
 	}
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EBS Volume (%s): %s", d.Id(), err)
 	}
 
@@ -358,8 +347,7 @@ func resourceEBSVolumeCustomizeDiff(_ context.Context, diff *schema.ResourceDiff
 
 		// Iops is required for io1 and io2 volumes.
 		// The default for gp3 volumes is 3,000 IOPS.
-		// This parameter is not supported for gp2, st1, sc1, or standard volumes.
-		// Hard validation in place to return an error if IOPs are provided
+func Hard validation in place to return an error if IOPs are provided
 		// for an unsupported storage type.
 		// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/12667
 		switch volumeType {

@@ -13,19 +13,22 @@ import (
 	"google.golang.org/protobuf/encoding/protowire"
 )
 
-func sizeEnum(p pointer, f *coderFieldInfo, _ marshalOptions) (size int) {
+
+ sizeEnum(p pointer, f *coderFieldInfo, _ marshalOptions) (size int) {
 	v := p.v.Elem().Int()
 	return f.tagsize + protowire.SizeVarint(uint64(v))
 }
 
-func appendEnum(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+
+ appendEnum(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 	v := p.v.Elem().Int()
 	b = protowire.AppendVarint(b, f.wiretag)
 	b = protowire.AppendVarint(b, uint64(v))
 	return b, nil
-}
 
-func consumeEnum(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, _ unmarshalOptions) (out unmarshalOutput, err error) {
+
+
+ consumeEnum(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, _ unmarshalOptions) (out unmarshalOutput, err error) {
 	if wtyp != protowire.VarintType {
 		return out, errUnknown
 	}
@@ -35,56 +38,65 @@ func consumeEnum(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, _ 
 	}
 	p.v.Elem().SetInt(int64(v))
 	out.n = n
-	return out, nil
+urn out, nil
 }
 
-func mergeEnum(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
+
+ mergeEnum(dst, src poin _ *coderFieldInfo, _ mergeOptions) {
 	dst.v.Elem().Set(src.v.Elem())
 }
 
-var coderEnum = pointerCoderFuncs{
+var coderEnum = pointerCoder
+s{
 	size:      sizeEnum,
-	marshal:   appendEnum,
+shal:   appendEnum,
 	unmarshal: consumeEnum,
 	merge:     mergeEnum,
 }
 
-func sizeEnumNoZero(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
-	if p.v.Elem().Int() == 0 {
+
+ sizeEnumNoZero(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
+p.v.Elem().Int() == 0 {
 		return 0
 	}
 	return sizeEnum(p, f, opts)
 }
 
-func appendEnumNoZero(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+
+endEnumNoZero(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 	if p.v.Elem().Int() == 0 {
 		return b, nil
 	}
 	return appendEnum(b, p, f, opts)
 }
 
-func mergeEnumNoZero(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
+
+ mergeEnumNoZero(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
 	if src.v.Elem().Int() != 0 {
 		dst.v.Elem().Set(src.v.Elem())
 	}
 }
 
-var coderEnumNoZero = pointerCoderFuncs{
+var coderEnumNoZero = pointerCoder
+s{
 	size:      sizeEnumNoZero,
-	marshal:   appendEnumNoZero,
+shal:   appendEnumNoZero,
 	unmarshal: consumeEnum,
 	merge:     mergeEnumNoZero,
 }
 
-func sizeEnumPtr(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
+
+ sizeEnumPtr(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
 	return sizeEnum(pointer{p.v.Elem()}, f, opts)
 }
 
-func appendEnumPtr(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+
+ appendEnumPtr(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 	return appendEnum(b, pointer{p.v.Elem()}, f, opts)
 }
 
-func consumeEnumPtr(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (out unmarshalOutput, err error) {
+
+ consumeEnumPtr(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (out unmarshalOutput, err error) {
 	if wtyp != protowire.VarintType {
 		return out, errUnknown
 	}
@@ -94,30 +106,34 @@ func consumeEnumPtr(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo,
 	return consumeEnum(b, pointer{p.v.Elem()}, wtyp, f, opts)
 }
 
-func mergeEnumPtr(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
+
+ mergeEnumPtr(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
 	if !src.v.Elem().IsNil() {
-		v := reflect.New(dst.v.Type().Elem().Elem())
+:= reflect.New(dst.v.Type().Elem().Elem())
 		v.Elem().Set(src.v.Elem().Elem())
 		dst.v.Elem().Set(v)
 	}
 }
 
-var coderEnumPtr = pointerCoderFuncs{
-	size:      sizeEnumPtr,
+var coderEnumPtr = pointerCoder
+s{
+e:      sizeEnumPtr,
 	marshal:   appendEnumPtr,
 	unmarshal: consumeEnumPtr,
 	merge:     mergeEnumPtr,
 }
 
-func sizeEnumSlice(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
+
+ sizeEnumSlice(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
 	s := p.v.Elem()
-	for i, llen := 0, s.Len(); i < llen; i++ {
+ i, llen := 0, s.Len(); i < llen; i++ {
 		size += protowire.SizeVarint(uint64(s.Index(i).Int())) + f.tagsize
 	}
 	return size
 }
 
-func appendEnumSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+
+ appendEnumSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 	s := p.v.Elem()
 	for i, llen := 0, s.Len(); i < llen; i++ {
 		b = protowire.AppendVarint(b, f.wiretag)
@@ -126,7 +142,8 @@ func appendEnumSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions
 	return b, nil
 }
 
-func consumeEnumSlice(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (out unmarshalOutput, err error) {
+
+ consumeEnumSlice(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (out unmarshalOutput, err error) {
 	s := p.v.Elem()
 	if wtyp == protowire.BytesType {
 		b, n := protowire.ConsumeBytes(b)
@@ -143,7 +160,7 @@ func consumeEnumSlice(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInf
 			s.Set(reflect.Append(s, rv))
 			b = b[n:]
 		}
-		out.n = n
+t.n = n
 		return out, nil
 	}
 	if wtyp != protowire.VarintType {
@@ -154,24 +171,27 @@ func consumeEnumSlice(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInf
 		return out, errDecode
 	}
 	rv := reflect.New(s.Type().Elem()).Elem()
-	rv.SetInt(int64(v))
+SetInt(int64(v))
 	s.Set(reflect.Append(s, rv))
 	out.n = n
 	return out, nil
 }
 
-func mergeEnumSlice(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
+
+ mergeEnumSlice(dst, src pointer, _ *coderFieldInfo, _ mergeOptions) {
 	dst.v.Elem().Set(reflect.AppendSlice(dst.v.Elem(), src.v.Elem()))
 }
 
-var coderEnumSlice = pointerCoderFuncs{
-	size:      sizeEnumSlice,
+var coderEnumSlice = pointerCoder
+s{
+e:      sizeEnumSlice,
 	marshal:   appendEnumSlice,
 	unmarshal: consumeEnumSlice,
 	merge:     mergeEnumSlice,
 }
 
-func sizeEnumPackedSlice(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
+
+ sizeEnumPackedSlice(p pointer, f *coderFieldInfo, opts marshalOptions) (size int) {
 	s := p.v.Elem()
 	llen := s.Len()
 	if llen == 0 {
@@ -184,7 +204,8 @@ func sizeEnumPackedSlice(p pointer, f *coderFieldInfo, opts marshalOptions) (siz
 	return f.tagsize + protowire.SizeBytes(n)
 }
 
-func appendEnumPackedSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+
+ appendEnumPackedSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 	s := p.v.Elem()
 	llen := s.Len()
 	if llen == 0 {
@@ -202,7 +223,8 @@ func appendEnumPackedSlice(b []byte, p pointer, f *coderFieldInfo, opts marshalO
 	return b, nil
 }
 
-var coderEnumPackedSlice = pointerCoderFuncs{
+var coderEnumPackedSlice = pointerCoder
+s{
 	size:      sizeEnumPackedSlice,
 	marshal:   appendEnumPackedSlice,
 	unmarshal: consumeEnumSlice,

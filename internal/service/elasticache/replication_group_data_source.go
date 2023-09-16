@@ -18,6 +18,8 @@ import (
 )
 
 // @SDKDataSource("aws_elasticache_replication_group")
+
+
 func DataSourceReplicationGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceReplicationGroupRead,
@@ -119,6 +121,8 @@ func DataSourceReplicationGroup() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceReplicationGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

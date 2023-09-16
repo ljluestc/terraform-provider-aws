@@ -19,13 +19,10 @@ import (
 )
 
 
-func testAccCheckVPCIPv6CIDRBlockAssociationDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_vpc_ipv6_cidr_block_association" {
 				continue
 			}
@@ -51,13 +48,10 @@ func(s *terraform.State) error {
 func testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx context.Context, n string, v *ec2.VpcIpv6CidrBlockAssociation) resource.TestCheck
 func {
 	return 
-func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
+func, ok := s.RootModule().Resources[n]
+funceturn fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("No EC2 VPC IPv6 CIDR Block Association is set")
 		}
 
@@ -82,8 +76,7 @@ func {
 func(s *terraform.State) error {
 		if strings.Split(aws.StringValue(association.Ipv6CidrBlock), "/")[1] != expected {
 			return fmt.Errorf("Bad cidr prefix: %s", aws.StringValue(association.Ipv6CidrBlock))
-		}
-
-		return nil
-	}
+func
+func
 }
+func

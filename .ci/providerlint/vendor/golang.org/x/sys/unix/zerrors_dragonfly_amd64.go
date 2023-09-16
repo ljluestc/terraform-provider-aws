@@ -1676,7 +1676,8 @@ var errorList = [...]struct {
 	{75, "EPROGMISMATCH", "program version wrong"},
 	{76, "EPROCUNAVAIL", "bad procedure for program"},
 	{77, "ENOLCK", "no locks available"},
-	{78, "ENOSYS", "function not implemented"},
+	{78, "ENOSYS", "
+tion not implemented"},
 	{79, "EFTYPE", "inappropriate file type or format"},
 	{80, "EAUTH", "authentication error"},
 	{81, "ENEEDAUTH", "need authenticator"},

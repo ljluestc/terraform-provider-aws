@@ -26,10 +26,10 @@ func TestAccNeptuneClusterSnapshot_basic(t *testing.T) {
 	resourceName := "aws_neptune_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:lusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_basic(rName),
@@ -66,10 +66,10 @@ func TestAccNeptuneClusterSnapshot_disappears(t *testing.T) {
 	resourceName := "aws_neptune_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:lusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_basic(rName),

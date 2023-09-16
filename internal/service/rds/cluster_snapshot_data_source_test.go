@@ -13,16 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSClusterSnapshotDataSource_dbClusterSnapshotIdentifier(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_db_cluster_snapshot.test"
 	resourceName := "aws_db_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotDataSourceConfig_clusterSnapshotIdentifier(rName),
@@ -52,16 +50,14 @@ func TestAccRDSClusterSnapshotDataSource_dbClusterSnapshotIdentifier(t *testing.
 
 func TestAccRDSClusterSnapshotDataSource_dbClusterIdentifier(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_db_cluster_snapshot.test"
+funcaSourceName := "data.aws_db_cluster_snapshot.test"
 	resourceName := "aws_db_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
+		Steps: []resofunc
 				Config: testAccClusterSnapshotDataSourceConfig_clusterIdentifier(rName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
@@ -91,16 +87,14 @@ func TestAccRDSClusterSnapshotDataSource_mostRecent(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_db_cluster_snapshot.test"
-	resourceName := "aws_db_cluster_snapshot.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccClusterSnapshotDataSourceConfig_mostRecent(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Config: tesfuncCheck: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_snapshot_arn", resourceName, "db_cluster_snapshot_arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_snapshot_identifier", resourceName, "db_cluster_snapshot_identifier"),
 				),
@@ -115,16 +109,14 @@ func TestAccRDSClusterSnapshotDataSource_tags(t *testing.T) {
 	dataSourceName := "data.aws_db_cluster_snapshot.test"
 	resourceName := "aws_db_cluster_snapshot.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+funceCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotDataSourceConfig_tags(rName),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_identifier", resourceName, "db_cluster_identifier"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_snapshot_arn", resourceName, "db_cluster_snapshot_arn"),
+					resource.Tfunc	resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_snapshot_arn", resourceName, "db_cluster_snapshot_arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_snapshot_identifier", resourceName, "db_cluster_snapshot_identifier"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
 					resource.TestCheckResourceAttr(dataSourceName, "tags.Name", rName),
@@ -142,8 +134,7 @@ resource "aws_db_cluster_snapshot" "test" {
 
   tags = {
     Name = %[1]q
-  }
-}
+func
 
 data "aws_db_cluster_snapshot" "test" {
   db_cluster_snapshot_identifier = aws_db_cluster_snapshot.test.id
@@ -160,8 +151,7 @@ resource "aws_db_cluster_snapshot" "test" {
   tags = {
     Name = %[1]q
   }
-}
-
+func
 data "aws_db_cluster_snapshot" "test" {
   db_cluster_identifier = aws_db_cluster_snapshot.test.db_cluster_identifier
 }
@@ -178,8 +168,7 @@ resource "aws_db_cluster_snapshot" "incorrect" {
 resource "aws_db_cluster_snapshot" "test" {
   db_cluster_identifier          = aws_db_cluster_snapshot.incorrect.db_cluster_identifier
   db_cluster_snapshot_identifier = %[1]q
-}
-
+func
 data "aws_db_cluster_snapshot" "test" {
   db_cluster_identifier = aws_db_cluster_snapshot.test.db_cluster_identifier
   most_recent           = true
@@ -198,8 +187,7 @@ resource "aws_db_cluster_snapshot" "incorrect" {
     Test = "true"
   }
 }
-
-resource "aws_db_cluster_snapshot" "test" {
+funcurce "aws_db_cluster_snapshot" "test" {
   db_cluster_identifier          = aws_db_cluster_snapshot.incorrect.db_cluster_identifier
   db_cluster_snapshot_identifier = %[1]q
 

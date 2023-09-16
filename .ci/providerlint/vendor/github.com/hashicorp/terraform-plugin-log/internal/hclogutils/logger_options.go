@@ -6,7 +6,8 @@ import (
 
 // LoggerOptionsCopy will safely copy LoggerOptions. Manually implemented
 // to save importing a dependency such as github.com/mitchellh/copystructure.
-func LoggerOptionsCopy(src *hclog.LoggerOptions) *hclog.LoggerOptions {
+
+ LoggerOptionsCopy(src *hclog.LoggerOptions) *hclog.LoggerOptions {
 	if src == nil {
 		return nil
 	}

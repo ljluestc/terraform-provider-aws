@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_local_gateway_virtual_interface")
 
-func DataSourceLocalGatewayVirtualInterface() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewayVirtualInterfaceRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,38 +28,38 @@ func DataSourceLocalGatewayVirtualInterface() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"local_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"local_bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"local_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"local_gateway_virtual_interface_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"peer_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"peer_bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vlan": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -68,8 +67,7 @@ func DataSourceLocalGatewayVirtualInterface() *schema.Resource {
 }
 
 func dataSourceLocalGatewayVirtualInterfaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeLocalGatewayVirtualInterfacesInput{}

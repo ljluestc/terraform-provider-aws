@@ -31,7 +31,7 @@ func TestAccLogsDestination_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDestinationDestroy(ctx),
+CheckDestroy:testAccCheckDestinationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDestinationConfig_basic(rName),
@@ -62,7 +62,7 @@ func TestAccLogsDestination_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDestinationDestroy(ctx),
+CheckDestroy:testAccCheckDestinationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDestinationConfig_basic(rName),
@@ -86,7 +86,7 @@ func TestAccLogsDestination_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDestinationDestroy(ctx),
+CheckDestroy:testAccCheckDestinationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDestinationConfig_tags1(rName, "key1", "value1"),
@@ -136,7 +136,7 @@ func TestAccLogsDestination_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDestinationDestroy(ctx),
+CheckDestroy:testAccCheckDestinationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDestinationConfig_update(rName, 0),

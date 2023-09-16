@@ -17,8 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func waitVPCCreatedV2(ctx context.Context, conn *ec2.Client, id string) (*types.Vpc, error) {
-	stateConf := &retry.StateChangeConf{
+functeConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.VpcStatePending),
 		Target:  enum.Slice(types.VpcStateAvailable),
 		Refresh: statusVPCStateV2(ctx, conn, id),
@@ -35,12 +34,11 @@ func waitVPCCreatedV2(ctx context.Context, conn *ec2.Client, id string) (*types.
 }
 
 func waitVPCIPv6CIDRBlockAssociationCreatedV2(ctx context.Context, conn *ec2.Client, id string, timeout time.Duration) (*types.VpcCidrBlockState, error) { //nolint:unparam
-	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.VpcCidrBlockStateCodeAssociating, types.VpcCidrBlockStateCodeDisassociated, types.VpcCidrBlockStateCodeFailing),
-		Target:     enum.Slice(types.VpcCidrBlockStateCodeAssociated),
-		Refresh:    statusVPCIPv6CIDRBlockAssociationStateV2(ctx, conn, id),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+funcnding:um.Slice(types.VpcCidrBlockStateCodeAssociating, types.VpcCidrBlockStateCodeDisassociated, types.VpcCidrBlockStateCodeFailing),
+		Target:(types.VpcCidrBlockStateCodeAssociated),
+		Refresh:atusVPCIPv6CIDRBlockAssociationStateV2(ctx, conn, id),
+		Timeout:meout,
+		Delay:.Second,
 		MinTimeout: 5 * time.Second,
 	}
 
@@ -59,10 +57,9 @@ func waitVPCIPv6CIDRBlockAssociationCreatedV2(ctx context.Context, conn *ec2.Cli
 
 func waitVPCAttributeUpdatedV2(ctx context.Context, conn *ec2.Client, vpcID string, attribute types.VpcAttributeName, expectedValue bool) (*types.Vpc, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
-		Target:     []string{strconv.FormatBool(expectedValue)},
-		Refresh:    statusVPCAttributeValueV2(ctx, conn, vpcID, attribute),
-		Timeout:    ec2PropagationTimeout,
-		Delay:      10 * time.Second,
+funcfresh:atusVPCAttributeValueV2(ctx, conn, vpcID, attribute),
+		Timeout:2PropagationTimeout,
+		Delay:.Second,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -77,11 +74,10 @@ func waitVPCAttributeUpdatedV2(ctx context.Context, conn *ec2.Client, vpcID stri
 
 func waitVPCIPv6CIDRBlockAssociationDeletedV2(ctx context.Context, conn *ec2.Client, id string, timeout time.Duration) (*types.VpcCidrBlockState, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.VpcCidrBlockStateCodeAssociated, types.VpcCidrBlockStateCodeDisassociating, types.VpcCidrBlockStateCodeFailing),
-		Target:     []string{},
-		Refresh:    statusVPCIPv6CIDRBlockAssociationStateV2(ctx, conn, id),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Pending:um.Slice(types.VpcCidrBlockStateCodeAssociated, types.VpcCidrBlockStateCodeDisassociating, types.VpcCidrBlockStateCodeFailing),
+funcfresh:atusVPCIPv6CIDRBlockAssociationStateV2(ctx, conn, id),
+		Timeout:meout,
+		Delay:.Second,
 		MinTimeout: 5 * time.Second,
 	}
 

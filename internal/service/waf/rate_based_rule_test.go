@@ -23,13 +23,13 @@ import (
 func TestAccWAFRateBasedRule_serial(t *testing.T) {
 	testCases := map[string]map[string]func(t *testing.T){
 		"resource": {
-			"basic":              testAccWAFRateBasedRule_basic,
+			"basic": testAccWAFRateBasedRule_basic,
 			"changeNameForceNew": testAccWAFRateBasedRule_changeNameForceNew,
 			"disappears":         testAccWAFRateBasedRule_disappears,
 			"changePredicates":   testAccWAFRateBasedRule_changePredicates,
 			"changeRateLimit":    testAccWAFRateBasedRule_changeRateLimit,
 			"noPredicates":       testAccWAFRateBasedRule_noPredicates,
-			"Tags":               testAccWAFRateBasedRule_tags,
+			"Tags":  testAccWAFRateBasedRule_tags,
 		},
 		"data_source": {
 			"basic": testAccWAFRateBasedRuleDataSource_basic,
@@ -46,10 +46,10 @@ func testAccWAFRateBasedRule_basic(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRateBasedRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_basic(wafRuleName),
@@ -78,10 +78,10 @@ func testAccWAFRateBasedRule_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+		CheckDestroy:testAccCheckIPSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_basic(wafRuleName),
@@ -117,10 +117,10 @@ func testAccWAFRateBasedRule_disappears(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRateBasedRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_basic(wafRuleName),
@@ -144,10 +144,10 @@ func testAccWAFRateBasedRule_changePredicates(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_basic(ruleName),
@@ -193,10 +193,10 @@ func testAccWAFRateBasedRule_changeRateLimit(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_changeLimit(ruleName, 4000),
@@ -242,10 +242,10 @@ func testAccWAFRateBasedRule_noPredicates(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRateBasedRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_noPredicates(ruleName),
@@ -271,10 +271,10 @@ func testAccWAFRateBasedRule_tags(t *testing.T) {
 	resourceName := "aws_waf_rate_based_rule.wafrule"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRateBasedRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRateBasedRuleConfig_tags1(ruleName, "key1", "value1"),

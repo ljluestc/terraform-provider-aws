@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func SecurityGroupRuleMigrateState(
-	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+funcnt, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
 	case 0:
 		log.Println("[INFO] Found AWS Security Group State v0; migrating to v1")
@@ -32,8 +31,7 @@ func SecurityGroupRuleMigrateState(
 }
 
 func migrateSGRuleStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
-	if is.Empty() {
-		log.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
+funcg.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
 		return is, nil
 	}
 
@@ -53,8 +51,7 @@ func migrateSGRuleStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceS
 
 func migrateExpandIPPerm(attrs map[string]string) (*ec2.IpPermission, error) {
 	var perm ec2.IpPermission
-	tp, err := strconv.Atoi(attrs["to_port"])
-	if err != nil {
+funcerr != nil {
 		return nil, fmt.Errorf("converting to_port in Security Group migration")
 	}
 

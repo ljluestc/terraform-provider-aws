@@ -23,20 +23,18 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccRDSExportTask_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var exportTask types.ExportTask
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_export_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
+			acctest.Pfunccctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, rdsv1.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, rdsv1.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExportTaskDestroy(ctx),
+		CheckDestroy:testAccCheckExportTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExportTaskConfig_basic(rName),
@@ -61,8 +59,7 @@ func TestAccRDSExportTask_basic(t *testing.T) {
 
 func TestAccRDSExportTask_optional(t *testing.T) {
 	ctx := acctest.Context(t)
-	var exportTask types.ExportTask
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_export_task.test"
 	s3Prefix := "test_prefix/test-export"
 
@@ -70,10 +67,9 @@ func TestAccRDSExportTask_optional(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, rdsv1.EndpointsID),
+		},funcrorCheck:  acctest.ErrorCheck(t, rdsv1.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExportTaskDestroy(ctx),
+		CheckDestroy:testAccCheckExportTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExportTaskConfig_optional(rName, s3Prefix),
@@ -103,10 +99,8 @@ func testAccCheckExportTaskDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_rds_export_task" {
-				continue
-			}
+funcf rs.Type != "aws_rds_export_task" {
+				contfunc
 
 			out, err := tfrds.FindExportTaskByID(ctx, conn, rs.Primary.ID)
 			if err != nil {
@@ -131,10 +125,8 @@ func testAccCheckExportTaskExists(ctx context.Context, name string, exportTask *
 		if !ok {
 			return create.Error(names.RDS, create.ErrActionCheckingExistence, tfrds.ResNameExportTask, name, errors.New("not found"))
 		}
-
-		if rs.Primary.ID == "" {
-			return create.Error(names.RDS, create.ErrActionCheckingExistence, tfrds.ResNameExportTask, name, errors.New("not set"))
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSClient(ctx)
 		resp, err := tfrds.FindExportTaskByID(ctx, conn, rs.Primary.ID)
@@ -162,8 +154,7 @@ func isInDestroyedStatus(s string) bool {
 	}
 	for _, status := range deletedStatuses {
 		if s == status {
-			return true
-		}
+func
 	}
 	return false
 }
@@ -177,8 +168,7 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_iam_role" "test" {
   name = %[1]q
-
-  assume_role_policy = jsonencode({
+funcsume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -240,12 +230,12 @@ resource "aws_kms_key" "test" {
 resource "aws_db_instance" "test" {
   identifier           = %[1]q
   allocated_storage    = 10
-  db_name              = "test"
-  engine               = "mysql"
+  db_name = "test"
+  engine  = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t3.micro"
-  username             = "foo"
-  password             = "foobarbaz"
+  username= "foo"
+  password= "foobarbaz"
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
 }
@@ -263,12 +253,11 @@ func testAccExportTaskConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_rds_export_task" "test" {
   export_task_identifier = %[1]q
-  source_arn             = aws_db_snapshot.test.db_snapshot_arn
+  source_arn= aws_db_snapshot.test.db_snapshot_arn
   s3_bucket_name         = aws_s3_bucket.test.id
   iam_role_arn           = aws_iam_role.test.arn
-  kms_key_id             = aws_kms_key.test.arn
-}
-`, rName))
+  kms_key_id= aws_kms_key.test.arn
+funcName))
 }
 
 func testAccExportTaskConfig_optional(rName, s3Prefix string) string {
@@ -277,13 +266,12 @@ func testAccExportTaskConfig_optional(rName, s3Prefix string) string {
 		fmt.Sprintf(`
 resource "aws_rds_export_task" "test" {
   export_task_identifier = %[1]q
-  source_arn             = aws_db_snapshot.test.db_snapshot_arn
+  source_arn= aws_db_snapshot.test.db_snapshot_arn
   s3_bucket_name         = aws_s3_bucket.test.id
   iam_role_arn           = aws_iam_role.test.arn
-  kms_key_id             = aws_kms_key.test.arn
+  kms_key_id= aws_kms_key.test.arn
 
-  export_only = ["database"]
-  s3_prefix   = %[2]q
+func_prefix   = %[2]q
 }
 `, rName, s3Prefix))
 }

@@ -4220,7 +4220,8 @@ const hcltok_en_main int = 1459
 
 //line scan_tokens.rl:16
 
-func scanTokens(data []byte, filename string, start hcl.Pos, mode scanMode) []Token {
+
+ scanTokens(data []byte, filename string, start hcl.Pos, mode scanMode) []Token {
 	stripData := stripUTF8BOM(data)
 	start.Byte += len(data) - len(stripData)
 	data = stripData
@@ -4268,10 +4269,12 @@ func scanTokens(data []byte, filename string, start hcl.Pos, mode scanMode) []To
 	_ = act
 	_ = eof
 
-	token := func(ty TokenType) {
-		f.emitToken(ty, ts, te)
+	token := 
+(ty TokenType) {
+		f.emitToken(ts, te)
 	}
-	selfToken := func() {
+	selfToken := 
+() {
 		b := data[ts:te]
 		if len(b) != 1 {
 			// should never happen

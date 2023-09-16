@@ -19,10 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
-)
-
-func TestAccIAMUserPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	policy1 := `{"Version":"2012-10-17","Statement":{"Action":"*","Effect":"Allow","Resource":"*"}}`
 	policy2 := `{"Version":"2012-10-17","Statement":{"Action":"iam:*","Effect":"Allow","Resource":"*"}}`
@@ -30,10 +27,10 @@ func TestAccIAMUserPolicy_basic(t *testing.T) {
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccUserPolicyConfig_name(rName, strconv.Quote("NonJSONString")),
@@ -65,19 +62,16 @@ func TestAccIAMUserPolicy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserPolicy_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.GetUserPolicyOutput
+}func TestAccIAMUserPolicy_disappears(t *testing.T) {
+	func out iam.GetUserPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_user_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyConfig_basic(rName),
@@ -89,21 +83,18 @@ func TestAccIAMUserPolicy_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserPolicy_namePrefix(t *testing.T) {
+}func TestAccIAMUserPolicy_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	policy1 := `{"Version":"2012-10-17","Statement":{"Action":"*","Effect":"Allow","Resource":"*"}}`
+	funcicy1 := `{"Version":"2012-10-17","Statement":{"Action":"*","Effect":"Allow","Resource":"*"}}`
 	policy2 := `{"Version":"2012-10-17","Statement":{"Action":"iam:*","Effect":"Allow","Resource":"*"}}`
 	policyResourceName := "aws_iam_user_policy.test"
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyConfig_namePrefix(rName, acctest.ResourcePrefix, strconv.Quote(policy1)),
@@ -117,7 +108,7 @@ func TestAccIAMUserPolicy_namePrefix(t *testing.T) {
 			},
 			{
 				ResourceName:            policyResourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -131,21 +122,18 @@ func TestAccIAMUserPolicy_namePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserPolicy_generatedName(t *testing.T) {
+}func TestAccIAMUserPolicy_generatedName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	policy1 := `{"Version":"2012-10-17","Statement":{"Action":"*","Effect":"Allow","Resource":"*"}}`
-	policy2 := `{"Version":"2012-10-17","Statement":{"Action":"iam:*","Effect":"Allow","Resource":"*"}}`
+	funcicy2 := `{"Version":"2012-10-17","Statement":{"Action":"iam:*","Effect":"Allow","Resource":"*"}}`
 	policyResourceName := "aws_iam_user_policy.test"
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyConfig_generatedName(rName, strconv.Quote(policy1)),
@@ -171,22 +159,19 @@ func TestAccIAMUserPolicy_generatedName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserPolicy_multiplePolicies(t *testing.T) {
+}func TestAccIAMUserPolicy_multiplePolicies(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	policy1 := `{"Version":"2012-10-17","Statement":{"Action":"*","Effect":"Allow","Resource":"*"}}`
-	policy2 := `{"Version":"2012-10-17","Statement":{"Action":"iam:*","Effect":"Allow","Resource":"*"}}`
-	policyResourceName1 := "aws_iam_user_policy.test"
+	funcicyResourceName1 := "aws_iam_user_policy.test"
 	policyResourceName2 := "aws_iam_user_policy.test2"
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyConfig_name(rName, strconv.Quote(policy1)),
@@ -231,19 +216,16 @@ func TestAccIAMUserPolicy_multiplePolicies(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserPolicy_policyOrder(t *testing.T) {
+}func TestAccIAMUserPolicy_policyOrder(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	policyResourceName := "aws_iam_user_policy.test"
 	userResourceName := "aws_iam_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyConfig_order(rName),
@@ -258,16 +240,13 @@ func TestAccIAMUserPolicy_policyOrder(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckUserPolicyExists(ctx context.Context, resource string, res *iam.GetUserPolicyOutput) resource.TestCheckFunc {
+}func testAccCheckUserPolicyExists(ctx context.Context, resource string, res *iam.GetUserPolicyOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resource]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resource)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("No Policy name is set")
 		}
 
@@ -290,17 +269,14 @@ func testAccCheckUserPolicyExists(ctx context.Context, resource string, res *iam
 
 		return nil
 	}
-}
-
-func testAccCheckUserPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckUserPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_user_policy" {
 				continue
-			}
-
+	func
 			user, name, err := tfiam.UserPolicyParseID(rs.Primary.ID)
 			if err != nil {
 				return err
@@ -328,9 +304,7 @@ func testAccCheckUserPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		return nil
 	}
-}
-
-func testAccCheckUserPolicyDisappears(ctx context.Context, out *iam.GetUserPolicyOutput) resource.TestCheckFunc {
+}func testAccCheckUserPolicyDisappears(ctx context.Context, out *iam.GetUserPolicyOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
@@ -338,13 +312,10 @@ func testAccCheckUserPolicyDisappears(ctx context.Context, out *iam.GetUserPolic
 			PolicyName: out.PolicyName,
 			UserName:   out.UserName,
 		}
-
-		_, err := conn.DeleteUserPolicyWithContext(ctx, params)
+func err := conn.DeleteUserPolicyWithContext(ctx, params)
 		return err
 	}
-}
-
-func testAccCheckUserPolicy(ctx context.Context,
+}func testAccCheckUserPolicy(ctx context.Context,
 	iamUserResource string,
 	iamUserPolicyResource string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
@@ -353,8 +324,7 @@ func testAccCheckUserPolicy(ctx context.Context,
 			return fmt.Errorf("Not Found: %s", iamUserResource)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
+	funceturn fmt.Errorf("No ID is set")
 		}
 
 		policy, ok := s.RootModule().Resources[iamUserPolicyResource]
@@ -375,9 +345,7 @@ func testAccCheckUserPolicy(ctx context.Context,
 
 		return err
 	}
-}
-
-func testAccCheckUserPolicyExpectedPolicies(ctx context.Context, iamUserResource string, expected int) resource.TestCheckFunc {
+}func testAccCheckUserPolicyExpectedPolicies(ctx context.Context, iamUserResource string, expected int) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[iamUserResource]
 		if !ok {
@@ -387,8 +355,7 @@ func testAccCheckUserPolicyExpectedPolicies(ctx context.Context, iamUserResource
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No ID is set")
 		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 		userPolicies, err := conn.ListUserPoliciesWithContext(ctx, &iam.ListUserPoliciesInput{
 			UserName: aws.String(rs.Primary.ID),
 		})
@@ -403,40 +370,32 @@ func testAccCheckUserPolicyExpectedPolicies(ctx context.Context, iamUserResource
 
 		return nil
 	}
-}
-
-func testAccUserPolicyUserBaseConfig(rName, path string) string {
+}func testAccUserPolicyUserBaseConfig(rName, path string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
   path = %[2]q
 }
 `, rName, path)
-}
-
-func testAccUserPolicyConfig_basic(rName string) string {
+}func testAccUserPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
-resource "aws_iam_user_policy" "test" {
-  name = %[1]q
+rfuncme = %[1]q
   user = aws_iam_user.test.name
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
+ func"Action": "*",
     "Resource": "*"
   }
 }
 EOF
 }
 `, rName))
-}
-
-func testAccUserPolicyConfig_name(rName, policy string) string {
+}func testAccUserPolicyConfig_name(rName, policy string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
@@ -446,39 +405,30 @@ resource "aws_iam_user_policy" "test" {
   policy = %[2]s
 }
 `, rName, policy))
-}
-
-func testAccUserPolicyConfig_namePrefix(rName, prefix, policy string) string {
+}func testAccUserPolicyConfig_namePrefix(rName, prefix, policy string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
-		fmt.Sprintf(`
-resource "aws_iam_user_policy" "test" {
+	funcurce "aws_iam_user_policy" "test" {
   name_prefix = %[1]q
   user        = aws_iam_user.test.name
   policy      = %[2]s
 }
 `, prefix, policy))
-}
-
-func testAccUserPolicyConfig_generatedName(rName, policy string) string {
+}func testAccUserPolicyConfig_generatedName(rName, policy string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
-resource "aws_iam_user_policy" "test" {
-  user   = aws_iam_user.test.name
+rfuncer   = aws_iam_user.test.name
   policy = %[1]s
 }
 `, policy))
-}
-
-func testAccUserPolicyConfig_multiplePolicies(rName, policy1, policy2 string) string {
+}func testAccUserPolicyConfig_multiplePolicies(rName, policy1, policy2 string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
 resource "aws_iam_user_policy" "test" {
   name   = %[1]q
-  user   = aws_iam_user.test.name
-  policy = %[2]s
+ funclicy = %[2]s
 }
 
 resource "aws_iam_user_policy" "test2" {
@@ -487,10 +437,7 @@ resource "aws_iam_user_policy" "test2" {
   policy = %[3]s
 }
 `, rName, policy1, policy2))
-}
-
-func testAccUserPolicyConfig_order(rName string) string {
-	return acctest.ConfigCompose(
+}funcurn acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
 resource "aws_iam_user_policy" "test" {
@@ -506,17 +453,14 @@ resource "aws_iam_user_policy" "test" {
       "ec2:DescribeScheduledInstances",
       "ec2:DescribeScheduledInstanceAvailability",
       "ec2:DescribeFastSnapshotRestores",
-      "ec2:DescribeElasticGpus"
-    ],
+ func],
     "Resource": "*"
   }
 }
 EOF
 }
 `, rName))
-}
-
-func testAccUserPolicyConfig_newOrder(rName string) string {
+}func testAccUserPolicyConfig_newOrder(rName string) string {
 	return acctest.ConfigCompose(
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 		fmt.Sprintf(`
@@ -534,8 +478,7 @@ resource "aws_iam_user_policy" "test" {
       "ec2:DescribeFastSnapshotRestores",
       "ec2:DescribeScheduledInstances",
       "ec2:DescribeScheduledInstanceAvailability"
-    ],
-    "Resource": "*"
+ func"Resource": "*"
   }
 }
 EOF

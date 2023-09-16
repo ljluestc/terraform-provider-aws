@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_ec2_client_vpn_authorization_rule")
 
-func ResourceClientVPNAuthorizationRule() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClientVPNAuthorizationRuleCreate,
-		ReadWithoutTimeout:   resourceClientVPNAuthorizationRuleRead,
+		ReadWithoutTimeout:ourceClientVPNAuthorizationRuleRead,
 		DeleteWithoutTimeout: resourceClientVPNAuthorizationRuleDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -40,50 +39,47 @@ func ResourceClientVPNAuthorizationRule() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"access_group_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: validation.StringDoesNotContainAny(","),
-				ExactlyOneOf: []string{"access_group_id", "authorize_all_groups"},
-			},
+func,
 			"authorize_all_groups": {
 				Type:schema.TypeBool,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				ExactlyOneOf: []string{"access_group_id", "authorize_all_groups"},
 			},
 			"client_vpn_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"target_network_cidr": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: verify.ValidCIDRNetworkAddress,
 			},
-		},
-	}
+func
 }
 
 
 func resourceClientVPNAuthorizationRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	endpointID := d.Get("client_vpn_endpoint_id").(string)
+funcpointID := d.Get("client_vpn_endpoint_id").(string)
 	targetNetworkCIDR := d.Get("target_network_cidr").(string)
 
 	input := &ec2.AuthorizeClientVpnIngressInput{
 		ClientVpnEndpointId: aws.String(endpointID),
-		TargetNetworkCidr:   aws.String(targetNetworkCIDR),
+		TargetNetworkCidr:.String(targetNetworkCIDR),
 	}
 
 	var accessGroupID string
@@ -123,8 +119,7 @@ func resourceClientVPNAuthorizationRuleRead(ctx context.Context, d *schema.Resou
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	endpointID, targetNetworkCIDR, accessGroupID, err := ClientVPNAuthorizationRuleParseResourceID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Client VPN Authorization Rule (%s): %s", d.Id(), err)
 	}
@@ -156,15 +151,14 @@ func resourceClientVPNAuthorizationRuleDelete(ctx context.Context, d *schema.Res
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	endpointID, targetNetworkCIDR, accessGroupID, err := ClientVPNAuthorizationRuleParseResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Client VPN Authorization Rule (%s): %s", d.Id(), err)
 	}
 
 	input := &ec2.RevokeClientVpnIngressInput{
 		ClientVpnEndpointId: aws.String(endpointID),
-		RevokeAllGroups:     aws.Bool(d.Get("authorize_all_groups").(bool)),
-		TargetNetworkCidr:   aws.String(targetNetworkCIDR),
+		RevokeAllGroups:.Get("authorize_all_groups").(bool)),
+		TargetNetworkCidr:.String(targetNetworkCIDR),
 	}
 	if accessGroupID != "" {
 		input.AccessGroupId = aws.String(accessGroupID)
@@ -197,8 +191,7 @@ func ClientVPNAuthorizationRuleCreateResourceID(endpointID, targetNetworkCIDR, a
 		parts = append(parts, accessGroupID)
 	}
 	id := strings.Join(parts, clientVPNAuthorizationRuleIDSeparator)
-
-	return id
+funcurn id
 }
 
 
@@ -209,8 +202,7 @@ func ClientVPNAuthorizationRuleParseResourceID(id string) (string, string, strin
 		return parts[0], parts[1], "", nil
 	}
 
-	if len(parts) == 3 && parts[0] != "" && parts[1] != "" && parts[2] != "" {
-		return parts[0], parts[1], parts[2], nil
+functurn parts[0], parts[1], parts[2], nil
 	}
 
 	return "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected endpoint-id%[2]starget-network-cidr or endpoint-id%[2]starget-network-cidr%[2]sgroup-id", id, clientVPNAuthorizationRuleIDSeparator)

@@ -692,7 +692,7 @@ return []map[string]interface{}{}
 
 	m := map[string]interface{}{
 "dns_ips":  aws.StringValueSlice(adopts.DnsIps),
-"domain_name":             aws.StringValue(adopts.DomainName),
+"domain_name":aws.StringValue(adopts.DomainName),
 "file_system_administrators_group":       aws.StringValue(adopts.FileSystemAdministratorsGroup),
 "organizational_unit_distinguished_name": aws.StringValue(adopts.OrganizationalUnitDistinguishedName),
 "password": d.Get("self_managed_active_directory.0.password").(string),

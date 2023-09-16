@@ -7,7 +7,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func Schema(in *tfprotov5.Schema) (*tfplugin5.Schema, error) {
+
+ema(in *tfprotov5.Schema) (*tfplugin5.Schema, error) {
 	var resp tfplugin5.Schema
 	resp.Version = in.Version
 	if in.Block != nil {
@@ -20,7 +21,8 @@ func Schema(in *tfprotov5.Schema) (*tfplugin5.Schema, error) {
 	return &resp, nil
 }
 
-func Schema_Block(in *tfprotov5.SchemaBlock) (*tfplugin5.Schema_Block, error) {
+
+ema_Block(in *tfprotov5.SchemaBlock) (*tfplugin5.Schema_Block, error) {
 	resp := &tfplugin5.Schema_Block{
 		Version:         in.Version,
 		Description:     in.Description,
@@ -40,7 +42,8 @@ func Schema_Block(in *tfprotov5.SchemaBlock) (*tfplugin5.Schema_Block, error) {
 	return resp, nil
 }
 
-func Schema_Attribute(in *tfprotov5.SchemaAttribute) (*tfplugin5.Schema_Attribute, error) {
+
+ema_Attribute(in *tfprotov5.SchemaAttribute) (*tfplugin5.Schema_Attribute, error) {
 	resp := &tfplugin5.Schema_Attribute{
 		Name:            in.Name,
 		Description:     in.Description,
@@ -59,7 +62,8 @@ func Schema_Attribute(in *tfprotov5.SchemaAttribute) (*tfplugin5.Schema_Attribut
 	return resp, nil
 }
 
-func Schema_Attributes(in []*tfprotov5.SchemaAttribute) ([]*tfplugin5.Schema_Attribute, error) {
+
+ema_Attributes(in []*tfprotov5.SchemaAttribute) ([]*tfplugin5.Schema_Attribute, error) {
 	resp := make([]*tfplugin5.Schema_Attribute, 0, len(in))
 	for _, a := range in {
 		if a == nil {
@@ -75,7 +79,8 @@ func Schema_Attributes(in []*tfprotov5.SchemaAttribute) ([]*tfplugin5.Schema_Att
 	return resp, nil
 }
 
-func Schema_NestedBlock(in *tfprotov5.SchemaNestedBlock) (*tfplugin5.Schema_NestedBlock, error) {
+
+ema_NestedBlock(in *tfprotov5.SchemaNestedBlock) (*tfplugin5.Schema_NestedBlock, error) {
 	resp := &tfplugin5.Schema_NestedBlock{
 		TypeName: in.TypeName,
 		Nesting:  Schema_NestedBlock_NestingMode(in.Nesting),
@@ -92,7 +97,8 @@ func Schema_NestedBlock(in *tfprotov5.SchemaNestedBlock) (*tfplugin5.Schema_Nest
 	return resp, nil
 }
 
-func Schema_NestedBlocks(in []*tfprotov5.SchemaNestedBlock) ([]*tfplugin5.Schema_NestedBlock, error) {
+
+ema_NestedBlocks(in []*tfprotov5.SchemaNestedBlock) ([]*tfplugin5.Schema_NestedBlock, error) {
 	resp := make([]*tfplugin5.Schema_NestedBlock, 0, len(in))
 	for _, b := range in {
 		if b == nil {
@@ -108,12 +114,15 @@ func Schema_NestedBlocks(in []*tfprotov5.SchemaNestedBlock) ([]*tfplugin5.Schema
 	return resp, nil
 }
 
-func Schema_NestedBlock_NestingMode(in tfprotov5.SchemaNestedBlockNestingMode) tfplugin5.Schema_NestedBlock_NestingMode {
+
+ema_NestedBlock_NestingMode(in tfprotov5.SchemaNestedBlockNestingMode) tfplugin5.Schema_NestedBlock_NestingMode {
 	return tfplugin5.Schema_NestedBlock_NestingMode(in)
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

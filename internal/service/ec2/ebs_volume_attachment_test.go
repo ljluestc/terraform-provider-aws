@@ -21,37 +21,32 @@ import (
 )
 
 
-func TestAccEC2EBSVolumeAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_volume_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSVolumeAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVolumeAttachmentExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "device_name", "/dev/sdh"),
-),
+func
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccVolumeAttachmentImportStateID
 func(resourceName),
 ImportStateVerify: true,
-	},
-},
-	})
-}
+func
+func
 
 
 func TestAccEC2EBSVolumeAttachment_skipDestroy(t *testing.T) {
@@ -59,25 +54,22 @@ func TestAccEC2EBSVolumeAttachment_skipDestroy(t *testing.T) {
 	resourceName := "aws_volume_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
+CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccEBSVolumeAttachmentConfig_skipDestroy(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckVolumeAttachmentExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "device_name", "/dev/sdh"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateId
+ResourceName:ame,
+funcrtStateId
 func: testAccVolumeAttachmentImportStateID
 func(resourceName),
 ImportStateVerify: true,
@@ -86,10 +78,8 @@ ImportStateVerifyIgnore: []string{
 },
 	},
 },
-	})
-}
-
-
+func
+func
 func TestAccEC2EBSVolumeAttachment_attachStopped(t *testing.T) {
 	ctx := acctest.Context(t)
 	var i ec2.Instance
@@ -100,19 +90,17 @@ func TestAccEC2EBSVolumeAttachment_attachStopped(t *testing.T) {
 func() {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-err := tfec2.StopInstance(ctx, conn, aws.StringValue(i.InstanceId), 10*time.Minute)
-
+func
 if err != nil {
 	t.Fatal(err)
 }
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
+CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSVolumeAttachmentConfig_base(rName),
@@ -121,26 +109,23 @@ func(
 	testAccCheckInstanceExists(ctx, "aws_instance.test", &i),
 ),
 	},
-	{
-PreConfig: stopInstance,
-Config:    testAccEBSVolumeAttachmentConfig_basic(rName),
+funconfig: stopInstance,
+Config:stAccEBSVolumeAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVolumeAttachmentExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "device_name", "/dev/sdh"),
 ),
 	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcurceName:ame,
+ImportState:
 ImportStateId
 func: testAccVolumeAttachmentImportStateID
 func(resourceName),
 ImportStateVerify: true,
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2EBSVolumeAttachment_update(t *testing.T) {
@@ -149,27 +134,23 @@ func TestAccEC2EBSVolumeAttachment_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSVolumeAttachmentConfig_update(rName, false),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(resourceName, "force_detach", "false"),
-	resource.TestCheckResourceAttr(resourceName, "skip_destroy", "false"),
-),
+func
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccVolumeAttachmentImportStateID
-func(resourceName),
-ImportStateVerify: true,
+funcrtStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_detach", // attribute only used on resource deletion
 	"skip_destroy", // attribute only used on resource deletion
@@ -177,20 +158,17 @@ ImportStateVerifyIgnore: []string{
 	},
 	{
 Config: testAccEBSVolumeAttachmentConfig_update(rName, true),
-Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(resourceName, "force_detach", "true"),
 	resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
-func: testAccVolumeAttachmentImportStateID
 func(resourceName),
-ImportStateVerify: true,
-ImportStateVerifyIgnore: []string{
+funcrtStateVerifyIgnore: []string{
 	"force_detach", // attribute only used on resource deletion
 	"skip_destroy", // attribute only used on resource deletion
 },
@@ -200,8 +178,7 @@ ImportStateVerifyIgnore: []string{
 }
 
 
-func TestAccEC2EBSVolumeAttachment_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var i ec2.Instance
 	var v ec2.Volume
 	resourceName := "aws_volume_attachment.test"
@@ -210,10 +187,8 @@ func TestAccEC2EBSVolumeAttachment_disappears(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
-Steps: []resource.TestStep{
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcs: []resource.TestStep{
 	{
 Config: testAccEBSVolumeAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
@@ -225,8 +200,7 @@ func(
 ),
 ExpectNonEmptyPlan: true,
 	},
-},
-	})
+func
 }
 
 
@@ -235,38 +209,34 @@ func TestAccEC2EBSVolumeAttachment_stopInstance(t *testing.T) {
 	resourceName := "aws_volume_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVolumeAttachmentDestroy(ctx),
+CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSVolumeAttachmentConfig_stopInstance(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckVolumeAttachmentExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "device_name", "/dev/sdh"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccVolumeAttachmentImportStateID
 func(resourceName),
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
-	"stop_instance_before_detaching",
-},
+func
 	},
 },
 	})
 }
 
 
-func testAccCheckVolumeAttachmentExists(ctx context.Context, n string) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -275,8 +245,7 @@ if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
 
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No EBS Volume Attachment ID is set")
+funcurn fmt.Errorf("No EBS Volume Attachment ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
@@ -285,9 +254,7 @@ _, err := tfec2.FindEBSVolumeAttachment(ctx, conn, rs.Primary.Attributes["volume
 
 return err
 	}
-}
-
-
+func
 func testAccCheckVolumeAttachmentDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
@@ -299,13 +266,10 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	_, err := tfec2.FindEBSVolumeAttachment(ctx, conn, rs.Primary.Attributes["volume_id"], rs.Primary.Attributes["instance_id"], rs.Primary.Attributes["device_name"])
-
-	if tfresource.NotFound(err) {
-continue
+func
+funcinue
 	}
-
-	if err != nil {
+funcerr != nil {
 return err
 	}
 
@@ -324,13 +288,10 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_type     = data.aws_ec2_instance_type_offering.available.instance_type
-
+funcailability_zone = data.aws_availability_zones.available.names[0]
+func
   tags = {
-    Name = %[1]q
-  }
+func
 }
 `, rName))
 }
@@ -340,10 +301,10 @@ func testAccEBSVolumeAttachmentConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccVolumeAttachmentInstanceOnlyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
+  size
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -354,10 +315,9 @@ func testAccEBSVolumeAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), `
 resource "aws_volume_attachment" "test" {
   device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.test.id
+  volume_idws_ebs_volume.test.id
   instance_id = aws_instance.test.id
-}
-`)
+func
 }
 
 
@@ -365,19 +325,18 @@ func testAccEBSVolumeAttachmentConfig_stopInstance(rName string) string {
 	return acctest.ConfigCompose(testAccVolumeAttachmentInstanceOnlyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1000
+  size
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_volume_attachment" "test" {
-  device_name     = "/dev/sdh"
-  volume_id       = aws_ebs_volume.test.id
-  instance_id     = aws_instance.test.id
-  stop_instance_before_detaching = "true"
-}
+  device_nameh"
+  volume_ids_volume.test.id
+  instance_idance.test.id
+func
 `, rName))
 }
 
@@ -386,25 +345,23 @@ func testAccEBSVolumeAttachmentConfig_skipDestroy(rName string) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), fmt.Sprintf(`
 data "aws_ebs_volume" "test" {
   filter {
-    name   = "size"
-    values = [aws_ebs_volume.test.size]
+me= "e"
+lues = [aws_ebs_volume.test.size]
   }
 
   filter {
-    name   = "availability-zone"
-    values = [aws_ebs_volume.test.availability_zone]
+func = [aws_ebs_volume.test.availability_zone]
   }
 
   filter {
-    name   = "tag:Name"
-    values = ["%[1]s"]
+me= ":Name"
+lues = ["%[1]s"]
   }
 }
 
 resource "aws_volume_attachment" "test" {
   device_name  = "/dev/sdh"
-  volume_id    = data.aws_ebs_volume.test.id
-  instance_id  = aws_instance.test.id
+funcstance_id  = aws_instance.test.id
   skip_destroy = true
 }
 `, rName))
@@ -415,7 +372,7 @@ func testAccEBSVolumeAttachmentConfig_update(rName string, detach bool) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_volume_attachment" "test" {
   device_name  = "/dev/sdh"
-  volume_id    = aws_ebs_volume.test.id
+  volume_idaws_ebs_volume.test.id
   instance_id  = aws_instance.test.id
   force_detach = %[1]t
   skip_destroy = %[1]t
@@ -425,7 +382,6 @@ resource "aws_volume_attachment" "test" {
 
 
 func testAccVolumeAttachmentImportStateID
-func(resourceName string) resource.ImportStateId
 func {
 	return 
 func(s *terraform.State) (string, error) {
@@ -436,3 +392,4 @@ if !ok {
 return fmt.Sprintf("%s:%s:%s", rs.Primary.Attributes["device_name"], rs.Primary.Attributes["volume_id"], rs.Primary.Attributes["instance_id"]), nil
 	}
 }
+funcfuncfuncfuncfunc

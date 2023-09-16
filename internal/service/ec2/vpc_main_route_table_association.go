@@ -19,10 +19,9 @@ import (
 
 // @SDKResource("aws_main_route_table_association")
 
-func ResourceMainRouteTableAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceMainRouteTableAssociationCreate,
-		ReadWithoutTimeout:   resourceMainRouteTableAssociationRead,
+		ReadWithoutTimeout:ourceMainRouteTableAssociationRead,
 		UpdateWithoutTimeout: resourceMainRouteTableAssociationUpdate,
 		DeleteWithoutTimeout: resourceMainRouteTableAssociationDelete,
 
@@ -38,17 +37,17 @@ func ResourceMainRouteTableAssociation() *schema.Resource {
 			// our main route table association, which we do by returning this route
 			// table to its original place as the Main Route Table for the VPC.
 			"original_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 
 			"route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 		},
@@ -56,8 +55,7 @@ func ResourceMainRouteTableAssociation() *schema.Resource {
 }
 
 func resourceMainRouteTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	vpcID := d.Get("vpc_id").(string)
 
@@ -94,8 +92,7 @@ func resourceMainRouteTableAssociationCreate(ctx context.Context, d *schema.Reso
 
 func resourceMainRouteTableAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	_, err := FindMainRouteTableAssociationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -114,8 +111,7 @@ func resourceMainRouteTableAssociationRead(ctx context.Context, d *schema.Resour
 func resourceMainRouteTableAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	routeTableID := d.Get("route_table_id").(string)
+functeTableID := d.Get("route_table_id").(string)
 	input := &ec2.ReplaceRouteTableAssociationInput{
 		AssociationId: aws.String(d.Id()),
 		RouteTableId:  aws.String(routeTableID),
@@ -144,8 +140,7 @@ func resourceMainRouteTableAssociationDelete(ctx context.Context, d *schema.Reso
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.ReplaceRouteTableAssociationInput{
-		AssociationId: aws.String(d.Id()),
+funcsociationId: aws.String(d.Id()),
 		RouteTableId:  aws.String(d.Get("original_route_table_id").(string)),
 	}
 

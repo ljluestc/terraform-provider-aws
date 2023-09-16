@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_route_table_association")
 
-func ResourceVPCEndpointRouteTableAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointRouteTableAssociationCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointRouteTableAssociationRead,
+		ReadWithoutTimeout:ourceVPCEndpointRouteTableAssociationRead,
 		DeleteWithoutTimeout: resourceVPCEndpointRouteTableAssociationDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceVPCEndpointRouteTableAssociationImport,
@@ -32,12 +31,12 @@ func ResourceVPCEndpointRouteTableAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -46,8 +45,7 @@ func ResourceVPCEndpointRouteTableAssociation() *schema.Resource {
 }
 
 func resourceVPCEndpointRouteTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	endpointID := d.Get("vpc_endpoint_id").(string)
 	routeTableID := d.Get("route_table_id").(string)
@@ -55,7 +53,7 @@ func resourceVPCEndpointRouteTableAssociationCreate(ctx context.Context, d *sche
 	id := fmt.Sprintf("%s/%s", endpointID, routeTableID)
 
 	input := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId:    aws.String(endpointID),
+		VpcEndpointId:s.String(endpointID),
 		AddRouteTableIds: aws.StringSlice([]string{routeTableID}),
 	}
 
@@ -78,8 +76,7 @@ func resourceVPCEndpointRouteTableAssociationCreate(ctx context.Context, d *sche
 
 func resourceVPCEndpointRouteTableAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	endpointID := d.Get("vpc_endpoint_id").(string)
 	routeTableID := d.Get("route_table_id").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
@@ -89,8 +86,7 @@ func resourceVPCEndpointRouteTableAssociationRead(ctx context.Context, d *schema
 		func() (interface{}, error) {
 			return nil, FindVPCEndpointRouteTableAssociationExists(ctx, conn, endpointID, routeTableID)
 		}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] VPC Endpoint Route Table Association (%s) not found, removing from state", id)
 		d.SetId("")
 		return diags
@@ -107,13 +103,12 @@ func resourceVPCEndpointRouteTableAssociationDelete(ctx context.Context, d *sche
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	endpointID := d.Get("vpc_endpoint_id").(string)
-	routeTableID := d.Get("route_table_id").(string)
+functeTableID := d.Get("route_table_id").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
 	id := fmt.Sprintf("%s/%s", endpointID, routeTableID)
 
 	input := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId:       aws.String(endpointID),
+		VpcEndpointId:ng(endpointID),
 		RemoveRouteTableIds: aws.StringSlice([]string{routeTableID}),
 	}
 
@@ -142,8 +137,7 @@ func resourceVPCEndpointRouteTableAssociationImport(ctx context.Context, d *sche
 	if len(parts) != 2 {
 		return nil, fmt.Errorf("wrong format of import ID (%s), use: 'vpc-endpoint-id/route-table-id'", d.Id())
 	}
-
-	endpointID := parts[0]
+funcpointID := parts[0]
 	routeTableID := parts[1]
 	log.Printf("[DEBUG] Importing VPC Endpoint (%s) Route Table (%s) Association", endpointID, routeTableID)
 

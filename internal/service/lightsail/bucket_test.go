@@ -34,9 +34,9 @@ func TestAccLightsailBucket_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:ucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_basic(rName),
@@ -75,9 +75,9 @@ func TestAccLightsailBucket_BundleId(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:ucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_bundleId(rName, bundle1),
@@ -113,9 +113,9 @@ func TestAccLightsailBucket_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:ucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_basic(rName),
@@ -140,9 +140,9 @@ func TestAccLightsailBucket_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:ucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_tags1(rName, "key1", "value1"),

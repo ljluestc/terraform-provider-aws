@@ -5,9 +5,12 @@ import (
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 )
 
-var Analyzer = analysisutils.FunctionCallExprAnalyzer(
+var Analyzer = analysisutils.
+CallExprAnalyzer(
 	"stringdoesnotmatchcallexpr",
-	validation.IsFunc,
+	validation.Is
+
 	validation.PackagePath,
-	validation.FuncNameStringDoesNotMatch,
+	validation.
+StringDoesNotMatch,
 )

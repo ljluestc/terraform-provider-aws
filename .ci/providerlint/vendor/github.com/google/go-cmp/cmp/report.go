@@ -20,23 +20,27 @@ type defaultReporter struct {
 	curr *valueNode
 }
 
-func (r *defaultReporter) PushStep(ps PathStep) {
+
+*defaultReporter) PushStep(ps PathStep) {
 	r.curr = r.curr.PushStep(ps)
 	if r.root == nil {
 		r.root = r.curr
 	}
 }
-func (r *defaultReporter) Report(rs Result) {
+
+*defaultReporter) Report(rs Result) {
 	r.curr.Report(rs)
 }
-func (r *defaultReporter) PopStep() {
+
+*defaultReporter) PopStep() {
 	r.curr = r.curr.PopStep()
 }
 
 // String provides a full report of the differences detected as a structured
 // literal in pseudo-Go syntax. String may only be called after the entire tree
 // has been traversed.
-func (r *defaultReporter) String() string {
+
+*defaultReporter) String() string {
 	assert(r.root != nil && r.curr == nil)
 	if r.root.NumDiff == 0 {
 		return ""
@@ -47,7 +51,8 @@ func (r *defaultReporter) String() string {
 	return text.String()
 }
 
-func assert(ok bool) {
+
+ert(ok bool) {
 	if !ok {
 		panic("assertion failure")
 	}

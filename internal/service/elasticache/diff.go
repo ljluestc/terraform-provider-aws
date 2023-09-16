@@ -16,6 +16,8 @@ import (
 var minMemcachedTransitEncryptionVersion = gversion.Must(gversion.NewVersion("1.6.12"))
 
 // CustomizeDiffValidateClusterAZMode validates that `num_cache_nodes` is greater than 1 when `az_mode` is "cross-az"
+
+
 func CustomizeDiffValidateClusterAZMode(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if v, ok := diff.GetOk("az_mode"); !ok || v.(string) != elasticache.AZModeCrossAz {
 		return nil
@@ -28,6 +30,8 @@ func CustomizeDiffValidateClusterAZMode(_ context.Context, diff *schema.Resource
 }
 
 // CustomizeDiffValidateClusterNumCacheNodes validates that `num_cache_nodes` is 1 when `engine` is "redis"
+
+
 func CustomizeDiffValidateClusterNumCacheNodes(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if v, ok := diff.GetOk("engine"); !ok || v.(string) == engineMemcached {
 		return nil
@@ -40,6 +44,8 @@ func CustomizeDiffValidateClusterNumCacheNodes(_ context.Context, diff *schema.R
 }
 
 // CustomizeDiffClusterMemcachedNodeType causes re-creation when `node_type` is changed and `engine` is "memcached"
+
+
 func CustomizeDiffClusterMemcachedNodeType(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	// Engine memcached does not currently support vertical scaling
 	// https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Scaling.html#Scaling.Memcached.Vertically
@@ -53,6 +59,8 @@ func CustomizeDiffClusterMemcachedNodeType(_ context.Context, diff *schema.Resou
 }
 
 // CustomizeDiffValidateClusterMemcachedSnapshotIdentifier validates that `final_snapshot_identifier` is not set when `engine` is "memcached"
+
+
 func CustomizeDiffValidateClusterMemcachedSnapshotIdentifier(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if v, ok := diff.GetOk("engine"); !ok || v.(string) == engineRedis {
 		return nil
@@ -64,6 +72,8 @@ func CustomizeDiffValidateClusterMemcachedSnapshotIdentifier(_ context.Context, 
 }
 
 // CustomizeDiffValidateReplicationGroupAutomaticFailover validates that `automatic_failover_enabled` is set when `multi_az_enabled` is true
+
+
 func CustomizeDiffValidateReplicationGroupAutomaticFailover(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if v := diff.Get("multi_az_enabled").(bool); !v {
 		return nil
@@ -76,6 +86,8 @@ func CustomizeDiffValidateReplicationGroupAutomaticFailover(_ context.Context, d
 
 // CustomizeDiffValidateTransitEncryptionEnabled validates that an appropriate engine type and version
 // are utilized when in-transit encryption is enabled
+
+
 func CustomizeDiffValidateTransitEncryptionEnabled(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 	if v, ok := diff.GetOk("transit_encryption_enabled"); ok && v.(bool) {
 		if engine := diff.Get("engine").(string); engine == engineRedis {

@@ -17,24 +17,29 @@ Package levenshtein implements distance and similarity metrics for strings, base
 
 The Levenshtein `Distance` between two strings is the minimum total cost of edits that would convert the first string into the second. The allowed edit operations are insertions, deletions, and substitutions, all at character (one UTF-8 code point) level. Each operation has a default cost of 1, but each can be assigned its own cost equal to or greater than 0.
 
-A `Distance` of 0 means the two strings are identical, and the higher the value the more different the strings. Since in practice we are interested in finding if the two strings are "close enough", it often does not make sense to continue the calculation once the result is mathematically guaranteed to exceed a desired threshold. Providing this value to the `Distance` function allows it to take a shortcut and return a lower bound instead of an exact cost when the threshold is exceeded.
+A `Distance` of 0 means the two strings are identical, and the higher the value the more different the strings. Since in practice we are interested in finding if the two strings are "close enough", it often does not make sense to continue the calculation once the result is mathematically guaranteed to exceed a desired threshold. Providing this value to the `Distance` 
+tion allows it to take a shortcut and return a lower bound instead of an exact cost when the threshold is exceeded.
 
-The `Similarity` function calculates the distance, then converts it into a normalized metric within the range 0..1, with 1 meaning the strings are identical, and 0 that they have nothing in common. A minimum similarity threshold can be provided to speed up the calculation of the metric for strings that are far too dissimilar for the purpose at hand. All values under this threshold are rounded down to 0.
+The `Similarity` 
+tion caltes the distance, then converts it into a normalized metric within the range 0..1, with 1 meaning the strings are identical, and 0 that they have nothing in common. A minimum similarity threshold can be provided to speed up the calculation of the metric for strings that are far too dissimilar for the purpose at hand. All values under this threshold are rounded down to 0.
 
-The `Match` function provides a similarity metric, with the same range and meaning as `Similarity`, but with a bonus for string pairs that share a common prefix and have a similarity above a "bonus threshold". It uses the same method as proposed by Winkler for the Jaro distance, and the reasoning behind it is that these string pairs are very likely spelling variations or errors, and they are more closely linked than the edit distance alone would suggest.
+The `Match` 
+tion provides a similarity metric, with the same range and meaning as `Similarity`, but with a bonus for string pairs that share a common prefix and have a similarity above a "bonus threshold". It uses the same method as proposed by Winkler for the Jaro distance, and the reasoning behind it is that these string pairs are very likely spelling variations or errors, and they are more closely linked than the edit distance alone would suggest.
 
-The underlying `Calculate` function is also exported, to allow the building of other derivative metrics, if needed.
+The underlying `Calculate` 
+tion is also exported, to allow the building of other derivative metrics, if needed.
 */
 package levenshtein
 
 // Calculate determines the Levenshtein distance between two strings, using
 // the given costs for each edit operation. It returns the distance along with
 // the lengths of the longest common prefix and suffix.
-//
+
 // If maxCost is non-zero, the calculation stops as soon as the distance is determined
 // to be greater than maxCost. Therefore, any return value higher than maxCost is a
 // lower bound for the actual distance.
-func Calculate(str1, str2 []rune, maxCost, insCost, subCost, delCost int) (dist, prefixLen, suffixLen int) {
+
+ Calculate(str1, str2 []rune, maxCost, insCost, subCost, delCost int) (dist, prefixLen, suffixLen int) {
 	l1, l2 := len(str1), len(str2)
 	// trim common prefix, if any, as it doesn't affect the distance
 	for ; prefixLen < l1 && prefixLen < l2; prefixLen++ {
@@ -188,12 +193,13 @@ func Calculate(str1, str2 []rune, maxCost, insCost, subCost, delCost int) (dist,
 	}
 
 	return
-}
+
 
 // Distance returns the Levenshtein distance between str1 and str2, using the
 // default or provided cost values. Pass nil for the third argument to use the
 // default cost of 1 for all three operations, with no maximum.
-func Distance(str1, str2 string, p *Params) int {
+
+ Distance(str1, str2 string, p *Params) int {
 	if p == nil {
 		p = defaultParams
 	}
@@ -202,13 +208,14 @@ func Distance(str1, str2 string, p *Params) int {
 }
 
 // Similarity returns a score in the range of 0..1 for how similar the two strings are.
-// A score of 1 means the strings are identical, and 0 means they have nothing in common.
+ score of 1 means the strings are identical, and 0 means they have nothing in common.
 //
 // A nil third argument uses the default cost of 1 for all three operations.
 //
 // If a non-zero MinScore value is provided in the parameters, scores lower than it
 // will be returned as 0.
-func Similarity(str1, str2 string, p *Params) float64 {
+
+ Similarity(str1, str2 string, p *Params) float64 {
 	return Match(str1, str2, p.Clone().BonusThreshold(1.1)) // guaranteed no bonus
 }
 
@@ -217,14 +224,15 @@ func Similarity(str1, str2 string, p *Params) float64 {
 // similarity score is already over a threshold.
 //
 // The score is in the range of 0..1, with 1 meaning the strings are identical,
-// and 0 meaning they have nothing in common.
+nd 0 meaning they have nothing in common.
 //
 // A nil third argument uses the default cost of 1 for all three operations, maximum length of
 // common prefix to consider for bonus of 4, scaling factor of 0.1, and bonus threshold of 0.7.
 //
 // If a non-zero MinScore value is provided in the parameters, scores lower than it
 // will be returned as 0.
-func Match(str1, str2 string, p *Params) float64 {
+
+ Match(str1, str2 string, p *Params) float64 {
 	s1, s2 := []rune(str1), []rune(str2)
 	l1, l2 := len(s1), len(s2)
 	// two empty strings are identical; shortcut also avoids divByZero issues later on.

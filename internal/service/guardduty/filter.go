@@ -39,73 +39,73 @@ func ResourceFilter() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(3, 64),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"finding_criteria": {
-				Type:     schema.TypeList,
+				Type:eList,
 				MaxItems: 1,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"criterion": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							MinItems: 1,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"field": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Required: true,
 									},
 									"equals": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Optional: true,
 										MinItems: 1,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:hema{Type: schema.TypeString},
 									},
 									"not_equals": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Optional: true,
 										MinItems: 1,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:hema{Type: schema.TypeString},
 									},
 									"greater_than": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidStringDateOrPositiveInt,
 									},
 									"greater_than_or_equal": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidStringDateOrPositiveInt,
 									},
 									"less_than": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidStringDateOrPositiveInt,
 									},
 									"less_than_or_equal": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidStringDateOrPositiveInt,
 									},
 								},
@@ -115,7 +115,7 @@ func ResourceFilter() *schema.Resource {
 				},
 			},
 			"action": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ValidateFunc: validation.StringInSlice([]string{
 					guardduty.FilterActionNoop,
@@ -123,7 +123,7 @@ func ResourceFilter() *schema.Resource {
 				}, false),
 			},
 			"rank": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Required: true,
 			},
 		},
@@ -137,12 +137,12 @@ func resourceFilterCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
 
 	input := guardduty.CreateFilterInput{
-		Action:      aws.String(d.Get("action").(string)),
+		Action:g(d.Get("action").(string)),
 		Description: aws.String(d.Get("description").(string)),
 		DetectorId:  aws.String(d.Get("detector_id").(string)),
-		Name:        aws.String(d.Get("name").(string)),
-		Rank:        aws.Int64(int64(d.Get("rank").(int))),
-		Tags:        getTagsIn(ctx),
+		Name:ing(d.Get("name").(string)),
+		Rank:64(int64(d.Get("rank").(int))),
+		Tags:In(ctx),
 	}
 
 	var err error
@@ -230,11 +230,11 @@ func resourceFilterUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChanges("action", "description", "finding_criteria", "rank") {
 		input := guardduty.UpdateFilterInput{
-			Action:      aws.String(d.Get("action").(string)),
+			Action:g(d.Get("action").(string)),
 			Description: aws.String(d.Get("description").(string)),
 			DetectorId:  aws.String(d.Get("detector_id").(string)),
 			FilterName:  aws.String(d.Get("name").(string)),
-			Rank:        aws.Int64(int64(d.Get("rank").(int))),
+			Rank:64(int64(d.Get("rank").(int))),
 		}
 
 		var err error

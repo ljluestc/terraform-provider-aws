@@ -29,10 +29,10 @@ func testAccFunction_basic(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_basic(rName1, rName2, acctest.Region()),
@@ -72,10 +72,10 @@ func testAccFunction_code(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_code(rName1, rName2, "test-fixtures/test-code.js"),
@@ -115,10 +115,10 @@ func testAccFunction_syncConfig(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_sync(rName, acctest.Region()),
@@ -146,10 +146,10 @@ func testAccFunction_description(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_description(rName1, rName2, acctest.Region(), "test description 1"),
@@ -182,10 +182,10 @@ func testAccFunction_responseMappingTemplate(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_responseMappingTemplate(rName1, rName2, acctest.Region()),
@@ -210,10 +210,10 @@ func testAccFunction_disappears(t *testing.T) {
 	var config appsync.FunctionConfiguration
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:testAccCheckFunctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_basic(rName1, rName2, acctest.Region()),
@@ -291,9 +291,9 @@ func testAccCheckFunctionExists(ctx context.Context, name string, config *appsyn
 func testAccFunctionConfig_basic(r1, r2, region string) string {
 	return acctest.ConfigCompose(testAccDataSourceConfig_dynamoDBRegion(r1, region), fmt.Sprintf(`
 resource "aws_appsync_function" "test" {
-  api_id                   = aws_appsync_graphql_api.test.id
-  data_source              = aws_appsync_datasource.test.name
-  name                     = %[1]q
+  api_id      = aws_appsync_graphql_api.test.id
+  data_source = aws_appsync_datasource.test.name
+  name        = %[1]q
   request_mapping_template = <<EOF
 {
 	"version": "2018-05-29",
@@ -336,14 +336,14 @@ func testAccFunctionConfig_sync(rName, region string) string {
 	return acctest.ConfigCompose(testAccDatasourceConfig_baseDynamoDB(rName), fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[1]q
+  name   = %[1]q
 }
 
 resource "aws_appsync_datasource" "test" {
   api_id           = aws_appsync_graphql_api.test.id
-  name             = %[1]q
+  name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type             = "AMAZON_DYNAMODB"
+  type= "AMAZON_DYNAMODB"
 
   dynamodb_config {
     region     = %[2]q
@@ -359,9 +359,9 @@ resource "aws_appsync_datasource" "test" {
 }
 
 resource "aws_appsync_function" "test" {
-  api_id                   = aws_appsync_graphql_api.test.id
-  data_source              = aws_appsync_datasource.test.name
-  name                     = %[1]q
+  api_id      = aws_appsync_graphql_api.test.id
+  data_source = aws_appsync_datasource.test.name
+  name        = %[1]q
   request_mapping_template = <<EOF
 {
 	"version": "2018-05-29",
@@ -392,10 +392,10 @@ EOF
 func testAccFunctionConfig_description(r1, r2, region, description string) string {
 	return acctest.ConfigCompose(testAccDataSourceConfig_dynamoDBRegion(r1, region), fmt.Sprintf(`
 resource "aws_appsync_function" "test" {
-  api_id                   = aws_appsync_graphql_api.test.id
-  data_source              = aws_appsync_datasource.test.name
-  name                     = %[1]q
-  description              = %[2]q
+  api_id      = aws_appsync_graphql_api.test.id
+  data_source = aws_appsync_datasource.test.name
+  name        = %[1]q
+  description = %[2]q
   request_mapping_template = <<EOF
 {
 	"version": "2018-05-29",
@@ -421,9 +421,9 @@ EOF
 func testAccFunctionConfig_responseMappingTemplate(r1, r2, region string) string {
 	return acctest.ConfigCompose(testAccDataSourceConfig_dynamoDBRegion(r1, region), fmt.Sprintf(`
 resource "aws_appsync_function" "test" {
-  api_id                   = aws_appsync_graphql_api.test.id
-  data_source              = aws_appsync_datasource.test.name
-  name                     = %[1]q
+  api_id      = aws_appsync_graphql_api.test.id
+  data_source = aws_appsync_datasource.test.name
+  name        = %[1]q
   request_mapping_template = <<EOF
 {
 	"version": "2018-05-29",

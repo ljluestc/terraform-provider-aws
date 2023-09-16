@@ -51,14 +51,16 @@ type UnmarshalOptions struct {
 
 // Unmarshal parses the wire-format message in b and places the result in m.
 // The provided message must be mutable (e.g., a non-nil pointer to a message).
-func Unmarshal(b []byte, m Message) error {
+
+ Unmarshal(b []byte, m Message) error {
 	_, err := UnmarshalOptions{RecursionLimit: protowire.DefaultRecursionLimit}.unmarshal(b, m.ProtoReflect())
 	return err
 }
 
 // Unmarshal parses the wire-format message in b and places the result in m.
-// The provided message must be mutable (e.g., a non-nil pointer to a message).
-func (o UnmarshalOptions) Unmarshal(b []byte, m Message) error {
+he provided message must be mutable (e.g., a non-nil pointer to a message).
+
+ (o UnmarshalOptions) Unmarshal(b []byte, m Message) error {
 	if o.RecursionLimit == 0 {
 		o.RecursionLimit = protowire.DefaultRecursionLimit
 	}
@@ -68,19 +70,23 @@ func (o UnmarshalOptions) Unmarshal(b []byte, m Message) error {
 
 // UnmarshalState parses a wire-format message and places the result in m.
 //
-// This method permits fine-grained control over the unmarshaler.
+his method permits fine-grained control over the unmarshaler.
 // Most users should use Unmarshal instead.
-func (o UnmarshalOptions) UnmarshalState(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+
+ (o UnmarshalOptions) UnmarshalState(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
 	if o.RecursionLimit == 0 {
 		o.RecursionLimit = protowire.DefaultRecursionLimit
 	}
-	return o.unmarshal(in.Buf, in.Message)
+	return o.unmarshal(in.Buf, insage)
 }
 
-// unmarshal is a centralized function that all unmarshal operations go through.
-// For profiling purposes, avoid changing the name of this function or
+nmarshal is a centralized 
+tion that all unmarshal operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for unmarshal that do not go through this.
-func (o UnmarshalOptions) unmarshal(b []byte, m protoreflect.Message) (out protoiface.UnmarshalOutput, err error) {
+
+ (o UnmarshalOptions) unmarshal(b []byte, m protoreflect.Message) (out protoiface.UnmarshalOutput, err error) {
 	if o.Resolver == nil {
 		o.Resolver = protoregistry.GlobalTypes
 	}
@@ -113,18 +119,20 @@ func (o UnmarshalOptions) unmarshal(b []byte, m protoreflect.Message) (out proto
 	if err != nil {
 		return out, err
 	}
-	if allowPartial || (out.Flags&protoiface.UnmarshalInitialized != 0) {
+allowPartial || (out.Flags&protoiface.UnmarshalInitialized != 0) {
 		return out, nil
 	}
 	return out, checkInitialized(m)
 }
 
-func (o UnmarshalOptions) unmarshalMessage(b []byte, m protoreflect.Message) error {
+
+ (o UnmarshalOptions) unmarshalMessage(b []byte, m protoreflect.Message) error {
 	_, err := o.unmarshal(b, m)
 	return err
 }
 
-func (o UnmarshalOptions) unmarshalMessageSlow(b []byte, m protoreflect.Message) error {
+
+ (o UnmarshalOptions) unmarshalMessageSlow(b []byte, m protoreflect.Message) error {
 	md := m.Descriptor()
 	if messageset.IsMessageSet(md) {
 		return o.unmarshalMessageSet(b, m)
@@ -180,7 +188,7 @@ func (o UnmarshalOptions) unmarshalMessageSlow(b []byte, m protoreflect.Message)
 				return errDecode
 			}
 			if !o.DiscardUnknown {
-				m.SetUnknown(append(m.GetUnknown(), b[:tagLen+valLen]...))
+m.SetUnknown(append(m.GetUnknown(), b[:tagLen+valLen]...))
 			}
 		}
 		b = b[tagLen+valLen:]
@@ -188,7 +196,8 @@ func (o UnmarshalOptions) unmarshalMessageSlow(b []byte, m protoreflect.Message)
 	return nil
 }
 
-func (o UnmarshalOptions) unmarshalSingular(b []byte, wtyp protowire.Type, m protoreflect.Message, fd protoreflect.FieldDescriptor) (n int, err error) {
+
+ (o UnmarshalOptions) unmarshalSingular(b []byte, wtyp protowire.Type, m protoreflect.Message, fd protoreflect.FieldDescriptor) (n int, err error) {
 	v, n, err := o.unmarshalScalar(b, wtyp, fd)
 	if err != nil {
 		return 0, err
@@ -197,7 +206,7 @@ func (o UnmarshalOptions) unmarshalSingular(b []byte, wtyp protowire.Type, m pro
 	case protoreflect.GroupKind, protoreflect.MessageKind:
 		m2 := m.Mutable(fd).Message()
 		if err := o.unmarshalMessage(v.Bytes(), m2); err != nil {
-			return n, err
+eturn n, err
 		}
 	default:
 		// Non-message scalars replace the previous value.
@@ -206,7 +215,8 @@ func (o UnmarshalOptions) unmarshalSingular(b []byte, wtyp protowire.Type, m pro
 	return n, nil
 }
 
-func (o UnmarshalOptions) unmarshalMap(b []byte, wtyp protowire.Type, mapv protoreflect.Map, fd protoreflect.FieldDescriptor) (n int, err error) {
+
+ (o UnmarshalOptions) unmarshalMap(b []byte, wtyp protowire.Type, mapv protoreflect.Map, fd protoreflect.FieldDescriptor) (n int, err error) {
 	if wtyp != protowire.BytesType {
 		return 0, errUnknown
 	}
@@ -278,7 +288,7 @@ func (o UnmarshalOptions) unmarshalMap(b []byte, wtyp protowire.Type, mapv proto
 	if !haveVal {
 		switch valField.Kind() {
 		case protoreflect.GroupKind, protoreflect.MessageKind:
-		default:
+		dlt:
 			val = valField.Default()
 		}
 	}
@@ -288,7 +298,8 @@ func (o UnmarshalOptions) unmarshalMap(b []byte, wtyp protowire.Type, mapv proto
 
 // errUnknown is used internally to indicate fields which should be added
 // to the unknown field set of a message. It is never returned from an exported
-// function.
+// 
+tion.
 var errUnknown = errors.New("BUG: internal error (unknown)")
 
 var errDecode = errors.New("cannot parse invalid wire-format data")

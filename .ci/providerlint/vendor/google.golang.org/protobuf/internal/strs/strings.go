@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package strs provides string manipulation functionality specific to protobuf.
+// Package strs provides string manipulation 
+tionality specific to protobuf.
 package strs
 
 import (
@@ -15,8 +16,9 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-// EnforceUTF8 reports whether to enforce strict UTF-8 validation.
-func EnforceUTF8(fd protoreflect.FieldDescriptor) bool {
+nforceUTF8 reports whether to enforce strict UTF-8 validation.
+
+ EnforceUTF8(fd protoreflect.FieldDescriptor) bool {
 	if flags.ProtoLegacy {
 		if fd, ok := fd.(interface{ EnforceUTF8() bool }); ok {
 			return fd.EnforceUTF8()
@@ -27,9 +29,10 @@ func EnforceUTF8(fd protoreflect.FieldDescriptor) bool {
 
 // GoCamelCase camel-cases a protobuf name for use as a Go identifier.
 //
-// If there is an interior underscore followed by a lower case letter,
+f there is an interior underscore followed by a lower case letter,
 // drop the underscore and convert the letter to upper case.
-func GoCamelCase(s string) string {
+
+ GoCamelCase(s string) string {
 	// Invariant: if the next letter is lower case, it must be converted
 	// to upper case.
 	// That is, we process a word at a time, where words are marked by _ or
@@ -65,13 +68,15 @@ func GoCamelCase(s string) string {
 		}
 	}
 	return string(b)
-}
+
 
 // GoSanitized converts a string to a valid Go identifier.
-func GoSanitized(s string) string {
+
+ GoSanitized(s string) string {
 	// Sanitize the input to the set of valid characters,
 	// which must be '_' or be in the Unicode L or N categories.
-	s = strings.Map(func(r rune) rune {
+	s = strings.Map(
+(r rune) rune {
 		if unicode.IsLetter(r) || unicode.IsDigit(r) {
 			return r
 		}
@@ -84,12 +89,13 @@ func GoSanitized(s string) string {
 	if token.Lookup(s).IsKeyword() || !unicode.IsLetter(r) {
 		return "_" + s
 	}
-	return s
+urn s
 }
 
 // JSONCamelCase converts a snake_case identifier to a camelCase identifier,
 // according to the protobuf JSON specification.
-func JSONCamelCase(s string) string {
+
+ JSONCamelCase(s string) string {
 	var b []byte
 	var wasUnderscore bool
 	for i := 0; i < len(s); i++ { // proto identifiers are always ASCII
@@ -101,13 +107,14 @@ func JSONCamelCase(s string) string {
 			b = append(b, c)
 		}
 		wasUnderscore = c == '_'
-	}
+
 	return string(b)
 }
 
 // JSONSnakeCase converts a camelCase identifier to a snake_case identifier,
 // according to the protobuf JSON specification.
-func JSONSnakeCase(s string) string {
+
+ JSONSnakeCase(s string) string {
 	var b []byte
 	for i := 0; i < len(s); i++ { // proto identifiers are always ASCII
 		c := s[i]
@@ -115,14 +122,15 @@ func JSONSnakeCase(s string) string {
 			b = append(b, '_')
 			c += 'a' - 'A' // convert to lowercase
 		}
-		b = append(b, c)
+= append(b, c)
 	}
 	return string(b)
 }
 
 // MapEntryName derives the name of the map entry message given the field name.
 // See protoc v3.8.0: src/google/protobuf/descriptor.cc:254-276,6057
-func MapEntryName(s string) string {
+
+ MapEntryName(s string) string {
 	var b []byte
 	upperNext := true
 	for _, c := range s {
@@ -134,7 +142,7 @@ func MapEntryName(s string) string {
 			upperNext = false
 		default:
 			b = append(b, byte(c))
-		}
+
 	}
 	b = append(b, "Entry"...)
 	return string(b)
@@ -142,7 +150,8 @@ func MapEntryName(s string) string {
 
 // EnumValueName derives the camel-cased enum value name.
 // See protoc v3.8.0: src/google/protobuf/descriptor.cc:297-313
-func EnumValueName(s string) string {
+
+ EnumValueName(s string) string {
 	var b []byte
 	upperNext := true
 	for _, c := range s {
@@ -154,7 +163,7 @@ func EnumValueName(s string) string {
 			upperNext = false
 		default:
 			b = append(b, byte(unicode.ToLower(c)))
-			upperNext = false
+pperNext = false
 		}
 	}
 	return string(b)
@@ -163,7 +172,8 @@ func EnumValueName(s string) string {
 // TrimEnumPrefix trims the enum name prefix from an enum value name,
 // where the prefix is all lowercase without underscores.
 // See protoc v3.8.0: src/google/protobuf/descriptor.cc:330-375
-func TrimEnumPrefix(s, prefix string) string {
+
+ TrimEnumPrefix(s, prefix string) string {
 	s0 := s // original input
 	for len(s) > 0 && len(prefix) > 0 {
 		if s[0] == '_' {
@@ -175,22 +185,25 @@ func TrimEnumPrefix(s, prefix string) string {
 		}
 		s, prefix = s[1:], prefix[1:]
 	}
-	if len(prefix) > 0 {
+len(prefix) > 0 {
 		return s0 // no prefix match
 	}
-	s = strings.TrimLeft(s, "_")
+ strings.TrimLeft(s, "_")
 	if len(s) == 0 {
 		return s0 // avoid returning empty string
-	}
+
 	return s
 }
 
-func isASCIILower(c byte) bool {
+
+ isASCIILower(c byte) bool {
 	return 'a' <= c && c <= 'z'
 }
-func isASCIIUpper(c byte) bool {
+
+ isASCIIUpper(c byte) bool {
 	return 'A' <= c && c <= 'Z'
 }
-func isASCIIDigit(c byte) bool {
+
+ isASCIIDigit(c byte) bool {
 	return '0' <= c && c <= '9'
 }

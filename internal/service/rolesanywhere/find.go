@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindProfileByID(ctx context.Context, conn *rolesanywhere.Client, id string) (*types.ProfileDetail, error) {
-	in := &rolesanywhere.GetProfileInput{
+func:= &rolesanywhere.GetProfileInput{
 		ProfileId: aws.String(id),
 	}
 
@@ -41,8 +40,7 @@ func FindProfileByID(ctx context.Context, conn *rolesanywhere.Client, id string)
 }
 
 func FindTrustAnchorByID(ctx context.Context, conn *rolesanywhere.Client, id string) (*types.TrustAnchorDetail, error) {
-	in := &rolesanywhere.GetTrustAnchorInput{
-		TrustAnchorId: aws.String(id),
+funcustAnchorId: aws.String(id),
 	}
 
 	out, err := conn.GetTrustAnchor(ctx, in)

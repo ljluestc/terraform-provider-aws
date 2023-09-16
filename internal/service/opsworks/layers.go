@@ -38,15 +38,15 @@ import (
 // layer resource types, which have names matching aws_opsworks_*_layer .
 
 type opsworksLayerTypeAttribute struct {
-	AttrName     string
+	AttrNametring
 	Typeschema.ValueType
-	Default      interface{}
-	ForceNew     bool
-	Required     bool
+	Defaultace{}
+	ForceNewool
+	Requiredool
 	Validate
 func schema.SchemaValidate
 func
-	WriteOnly    bool
+	WriteOnlyol
 }
 
 type opsworksLayerTypeAttributeMap map[string]*opsworksLayerTypeAttribute
@@ -54,7 +54,7 @@ type opsworksLayerTypeAttributeMap map[string]*opsworksLayerTypeAttribute
 type opsworksLayerType struct {
 	TypeNamestring
 	DefaultLayerName string
-	Attributes       opsworksLayerTypeAttributeMap
+	AttributesrksLayerTypeAttributeMap
 	CustomShortName  bool
 }
 
@@ -62,26 +62,26 @@ type opsworksLayerType struct {
 func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 	resourceSchema := map[string]*schema.Schema{
 "arn": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Computed: true,
 },
 "auto_assign_elastic_ips": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  false,
 },
 "auto_assign_public_ips": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  false,
 },
 "auto_healing": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  true,
 },
 "cloudwatch_configuration": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
 	MaxItems: 1,
 	DiffSuppress
@@ -95,7 +95,7 @@ return false
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"enabled": {
-Type:     schema.TypeBool,
+Type:chema.TypeBool,
 Optional: true,
 DiffSuppress
 func: 
@@ -107,7 +107,7 @@ return true
 },
 	},
 	"log_streams": {
-Type:     schema.TypeList,
+Type:chema.TypeList,
 Optional: true,
 DiffSuppress
 func: 
@@ -121,63 +121,63 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "batch_count": {
 	Type:schema.TypeInt,
-	Default:      1000,
-	Optional:     true,
+	Default:
+	Optional:rue,
 	Validate
 func: validation.IntAtMost(10000),
 },
 "batch_size": {
 	Type:schema.TypeInt,
-	Default:      32768,
-	Optional:     true,
+	Default:
+	Optional:rue,
 	Validate
 func: validation.IntAtMost(1048576),
 },
 "buffer_duration": {
 	Type:schema.TypeInt,
-	Default:      5000,
-	Optional:     true,
+	Default:
+	Optional:rue,
 	Validate
 func: validation.IntAtLeast(5000),
 },
 "datetime_format": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Optional: true,
 },
 "encoding": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Default:      opsworks.CloudWatchLogsEncodingUtf8,
+	Optional:rue,
+	Default:ks.CloudWatchLogsEncodingUtf8,
 	Validate
 func: validation.StringInSlice(opsworks.CloudWatchLogsEncoding_Values(), false),
 },
 "file": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 },
 "file_fingerprint_lines": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Optional: true,
 	Default:  "1",
 },
 "initial_position": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Default:      opsworks.CloudWatchLogsInitialPositionStartOfFile,
+	Optional:rue,
+	Default:ks.CloudWatchLogsInitialPositionStartOfFile,
 	Validate
 func: validation.StringInSlice(opsworks.CloudWatchLogsInitialPosition_Values(), false),
 },
 "log_group_name": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 },
 "multiline_start_pattern": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Optional: true,
 },
 "time_zone": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:rue,
 	Validate
 func: validation.StringInSlice(opsworks.CloudWatchLogsTimeZone_Values(), false),
 },
@@ -188,18 +188,18 @@ func: validation.StringInSlice(opsworks.CloudWatchLogsTimeZone_Values(), false),
 	},
 },
 "custom_configure_recipes": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "custom_deploy_recipes": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "custom_instance_profile_arn": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:rue,
 	Validate
 func: verify.ValidARN,
 },
@@ -216,65 +216,65 @@ return json
 	Optional: true,
 },
 "custom_security_group_ids": {
-	Type:     schema.TypeSet,
+	Type:chema.TypeSet,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "custom_setup_recipes": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "custom_shutdown_recipes": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "custom_undeploy_recipes": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "drain_elb_on_shutdown": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  true,
 },
 "ebs_volume": {
-	Type:     schema.TypeSet,
+	Type:chema.TypeSet,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"encrypted": {
-Type:     schema.TypeBool,
+Type:chema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"iops": {
-Type:     schema.TypeInt,
+Type:chema.TypeInt,
 Optional: true,
 Default:  0,
 	},
 	"mount_point": {
-Type:     schema.TypeString,
+Type:chema.TypeString,
 Required: true,
 	},
 	"number_of_disks": {
-Type:     schema.TypeInt,
+Type:chema.TypeInt,
 Required: true,
 	},
 	"raid_level": {
-Type:     schema.TypeString,
+Type:chema.TypeString,
 Optional: true,
 Default:  "",
 	},
 	"size": {
-Type:     schema.TypeInt,
+Type:chema.TypeInt,
 Required: true,
 	},
 	"type": {
-Type:     schema.TypeString,
+Type:chema.TypeString,
 Optional: true,
 Default:  "standard",
 Validate
@@ -295,68 +295,68 @@ return create.StringHashcode(m["mount_point"].(string))
 	},
 },
 "elastic_load_balancer": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Optional: true,
 },
 "instance_shutdown_timeout": {
-	Type:     schema.TypeInt,
+	Type:chema.TypeInt,
 	Optional: true,
 	Default:  120,
 },
 "install_updates_on_boot": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  true,
 },
 "load_based_auto_scaling": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
 	Computed: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"downscaling": {
-Type:     schema.TypeList,
+Type:chema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "alarms": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 	MaxItems: 5,
 },
 "cpu_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 	Default:  30.0,
 },
 "ignore_metrics_time": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	Default:      10,
+	Optional:rue,
+	Default:
 	Validate
 func: validation.IntBetween(1, 100),
 },
 "instance_count": {
-	Type:     schema.TypeInt,
+	Type:chema.TypeInt,
 	Optional: true,
 	Default:  1,
 },
 "load_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 },
 "memory_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 },
 "thresholds_wait_time": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	Default:      10,
+	Optional:rue,
+	Default:
 	Validate
 func: validation.IntBetween(1, 100),
 },
@@ -364,51 +364,51 @@ func: validation.IntBetween(1, 100),
 },
 	},
 	"enable": {
-Type:     schema.TypeBool,
+Type:chema.TypeBool,
 Optional: true,
 	},
 	"upscaling": {
-Type:     schema.TypeList,
+Type:chema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "alarms": {
-	Type:     schema.TypeList,
+	Type:chema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 	MaxItems: 5,
 },
 "cpu_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 	Default:  80.0,
 },
 "ignore_metrics_time": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	Default:      5,
+	Optional:rue,
+	Default:
 	Validate
 func: validation.IntBetween(1, 100),
 },
 "instance_count": {
-	Type:     schema.TypeInt,
+	Type:chema.TypeInt,
 	Optional: true,
 	Default:  1,
 },
 "load_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 },
 "memory_threshold": {
-	Type:     schema.TypeFloat,
+	Type:chema.TypeFloat,
 	Optional: true,
 },
 "thresholds_wait_time": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	Default:      5,
+	Optional:rue,
+	Default:
 	Validate
 func: validation.IntBetween(1, 100),
 },
@@ -419,19 +419,19 @@ func: validation.IntBetween(1, 100),
 	},
 },
 "system_packages": {
-	Type:     schema.TypeSet,
+	Type:chema.TypeSet,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:schema.Schema{Type: schema.TypeString},
 },
 "stack_id": {
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	ForceNew: true,
 	Required: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "use_ebs_optimized_instances": {
-	Type:     schema.TypeBool,
+	Type:chema.TypeBool,
 	Optional: true,
 	Default:  false,
 },
@@ -439,20 +439,20 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 	if lt.CustomShortName {
 resourceSchema["short_name"] = &schema.Schema{
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 }
 	}
 
 	if lt.DefaultLayerName != "" {
 resourceSchema["name"] = &schema.Schema{
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Optional: true,
 	Default:  lt.DefaultLayerName,
 }
 	} else {
 resourceSchema["name"] = &schema.Schema{
-	Type:     schema.TypeString,
+	Type:chema.TypeString,
 	Required: true,
 }
 	}
@@ -460,10 +460,10 @@ resourceSchema["name"] = &schema.Schema{
 	for key, def := range lt.Attributes {
 resourceSchema[key] = &schema.Schema{
 	Type:def.Type,
-	Default:      def.Default,
-	ForceNew:     def.ForceNew,
-	Required:     def.Required,
-	Optional:     !def.Required,
+	Default:fault,
+	ForceNew:ef.ForceNew,
+	Required:ef.Required,
+	Optional:def.Required,
 	Validate
 func: def.Validate
 func,
@@ -517,17 +517,17 @@ return diag.FromErr(err)
 Attributes:  aws.StringMap(attributes),
 AutoAssignElasticIps: aws.Bool(d.Get("auto_assign_elastic_ips").(bool)),
 AutoAssignPublicIps:  aws.Bool(d.Get("auto_assign_public_ips").(bool)),
-CustomRecipes:        &opsworks.Recipes{},
-EnableAutoHealing:    aws.Bool(d.Get("auto_healing").(bool)),
+CustomRecipes:works.Recipes{},
+EnableAutoHealing:s.Bool(d.Get("auto_healing").(bool)),
 InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
 LifecycleEventConfiguration: &opsworks.LifecycleEventConfiguration{
 	Shutdown: &opsworks.ShutdownEventConfiguration{
 DelayUntilElbConnectionsDrained: aws.Bool(d.Get("drain_elb_on_shutdown").(bool)),
 	},
 },
-Name:      aws.String(name),
-Type:      aws.String(lt.TypeName),
-StackId:   aws.String(d.Get("stack_id").(string)),
+Name:ring(name),
+Type:ring(lt.TypeName),
+StackId:.String(d.Get("stack_id").(string)),
 UseEbsOptimizedInstances: aws.Bool(d.Get("use_ebs_optimized_instances").(bool)),
 	}
 
@@ -589,7 +589,7 @@ input.Packages = flex.ExpandStringSet(v.(*schema.Set))
 arn := v.(string)
 _, err := conn.RegisterEcsClusterWithContext(ctx, &opsworks.RegisterEcsClusterInput{
 	EcsClusterArn: aws.String(arn),
-	StackId:       input.StackId,
+	StackId:.StackId,
 })
 
 if err != nil {
@@ -944,7 +944,7 @@ LayerIds: aws.StringSlice([]string{id}),
 
 	if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}

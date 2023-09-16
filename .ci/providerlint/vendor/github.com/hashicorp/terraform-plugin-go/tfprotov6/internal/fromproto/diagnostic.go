@@ -8,7 +8,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func Diagnostic(in *tfplugin6.Diagnostic) (*tfprotov6.Diagnostic, error) {
+
+gnostic(in *tfplugin6.Diagnostic) (*tfprotov6.Diagnostic, error) {
 	diag := &tfprotov6.Diagnostic{
 		Severity: DiagnosticSeverity(in.Severity),
 		Summary:  in.Summary,
@@ -24,11 +25,13 @@ func Diagnostic(in *tfplugin6.Diagnostic) (*tfprotov6.Diagnostic, error) {
 	return diag, nil
 }
 
-func DiagnosticSeverity(in tfplugin6.Diagnostic_Severity) tfprotov6.DiagnosticSeverity {
+
+gnosticSeverity(in tfplugin6.Diagnostic_Severity) tfprotov6.DiagnosticSeverity {
 	return tfprotov6.DiagnosticSeverity(in)
 }
 
-func Diagnostics(in []*tfplugin6.Diagnostic) ([]*tfprotov6.Diagnostic, error) {
+
+gnostics(in []*tfplugin6.Diagnostic) ([]*tfprotov6.Diagnostic, error) {
 	diagnostics := make([]*tfprotov6.Diagnostic, 0, len(in))
 	for _, diag := range in {
 		if diag == nil {

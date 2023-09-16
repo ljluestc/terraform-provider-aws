@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_ec2_traffic_mirror_filter", name="Traffic Mirror Filter")
 // @Tags(identifierAttribute="id")
 
-func ResourceTrafficMirrorFilter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorFilterCreate,
-		ReadWithoutTimeout:   resourceTrafficMirrorFilterRead,
+		ReadWithoutTimeout:ourceTrafficMirrorFilterRead,
 		UpdateWithoutTimeout: resourceTrafficMirrorFilterUpdate,
 		DeleteWithoutTimeout: resourceTrafficMirrorFilterDelete,
 		Importer: &schema.ResourceImporter{
@@ -40,26 +39,25 @@ func ResourceTrafficMirrorFilter() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"network_services": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 					Validate
 func: validation.StringInSlice([]string{
-						"amazon-dns",
-					}, false),
+func	}, false),
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -68,8 +66,7 @@ func: validation.StringInSlice([]string{
 
 func resourceTrafficMirrorFilterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.CreateTrafficMirrorFilterInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTrafficMirrorFilter),
 	}
@@ -88,7 +85,7 @@ func resourceTrafficMirrorFilterCreate(ctx context.Context, d *schema.ResourceDa
 
 	if v, ok := d.GetOk("network_services"); ok && v.(*schema.Set).Len() > 0 {
 		input := &ec2.ModifyTrafficMirrorFilterNetworkServicesInput{
-			AddNetworkServices:    flex.ExpandStringSet(v.(*schema.Set)),
+			AddNetworkServices:ex.ExpandStringSet(v.(*schema.Set)),
 			TrafficMirrorFilterId: aws.String(d.Id()),
 		}
 
@@ -106,8 +103,7 @@ func resourceTrafficMirrorFilterCreate(ctx context.Context, d *schema.ResourceDa
 func resourceTrafficMirrorFilterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	trafficMirrorFilter, err := FindTrafficMirrorFilterByID(ctx, conn, d.Id())
+funcfficMirrorFilter, err := FindTrafficMirrorFilterByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Traffic Mirror Filter %s not found, removing from state", d.Id())
@@ -121,8 +117,8 @@ func resourceTrafficMirrorFilterRead(ctx context.Context, d *schema.ResourceData
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("traffic-mirror-filter/%s", d.Id()),
 	}.String()
@@ -140,8 +136,7 @@ func resourceTrafficMirrorFilterUpdate(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	if d.HasChange("network_services") {
-		input := &ec2.ModifyTrafficMirrorFilterNetworkServicesInput{
+funcput := &ec2.ModifyTrafficMirrorFilterNetworkServicesInput{
 			TrafficMirrorFilterId: aws.String(d.Id()),
 		}
 
@@ -171,8 +166,7 @@ func resourceTrafficMirrorFilterDelete(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Traffic Mirror Filter: %s", d.Id())
-	_, err := conn.DeleteTrafficMirrorFilterWithContext(ctx, &ec2.DeleteTrafficMirrorFilterInput{
-		TrafficMirrorFilterId: aws.String(d.Id()),
+funcafficMirrorFilterId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorFilterIdNotFound) {

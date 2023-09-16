@@ -29,8 +29,7 @@ import (
 
 // @SDKResource("aws_transcribe_vocabulary_filter", name="Vocabulary Filter")
 // @Tags(identifierAttribute="arn")
-func ResourceVocabularyFilter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVocabularyFilterCreate,
 		ReadWithoutTimeout:   resourceVocabularyFilterRead,
 		UpdateWithoutTimeout: resourceVocabularyFilterUpdate,
@@ -81,12 +80,10 @@ func ResourceVocabularyFilter() *schema.Resource {
 		CustomizeDiff: customdiff.Sequence(
 			verify.SetTagsDiff,
 			customdiff.ForceNewIfChange("words", func(_ context.Context, old, new, meta interface{}) bool {
-				return len(old.([]interface{})) > 0 && len(new.([]interface{})) == 0
-			}),
+				return len(old.([]interface{})) > 0 func),
 			customdiff.ForceNewIfChange("vocabulary_filter_file_uri", func(_ context.Context, old, new, meta interface{}) bool {
 				return new.(string) == ""
-			}),
-		),
+			}),func
 	}
 }
 
@@ -97,10 +94,9 @@ const (
 func resourceVocabularyFilterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
-	in := &transcribe.CreateVocabularyFilterInput{
-		VocabularyFilterName: aws.String(d.Get("vocabulary_filter_name").(string)),
+funccabularyFilterName: aws.String(d.Get("vocabulary_filter_name").(string)),
 		LanguageCode:         types.LanguageCode(d.Get("language_code").(string)),
-		Tags:                 getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("vocabulary_filter_file_uri"); ok {
@@ -129,8 +125,7 @@ func resourceVocabularyFilterRead(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	out, err := FindVocabularyFilterByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Transcribe VocabularyFilter (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
@@ -167,8 +162,7 @@ func resourceVocabularyFilterUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		in := &transcribe.UpdateVocabularyFilterInput{
-			VocabularyFilterName: aws.String(d.Id()),
-		}
+func
 
 		if d.HasChanges("vocabulary_filter_file_uri", "words") {
 			if d.Get("vocabulary_filter_file_uri").(string) != "" {
@@ -194,8 +188,7 @@ func resourceVocabularyFilterDelete(ctx context.Context, d *schema.ResourceData,
 	log.Printf("[INFO] Deleting Transcribe VocabularyFilter %s", d.Id())
 
 	_, err := conn.DeleteVocabularyFilter(ctx, &transcribe.DeleteVocabularyFilterInput{
-		VocabularyFilterName: aws.String(d.Id()),
-	})
+func
 
 	if err != nil {
 		var bre *types.BadRequestException
@@ -216,8 +209,7 @@ func FindVocabularyFilterByName(ctx context.Context, conn *transcribe.Client, id
 	out, err := conn.GetVocabularyFilter(ctx, in)
 	if err != nil {
 		var bre *types.BadRequestException
-		if errors.As(err, &bre) {
-			return nil, &retry.NotFoundError{
+funceturn nil, &retry.NotFoundError{
 				LastError:   err,
 				LastRequest: in,
 			}

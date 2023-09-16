@@ -24,6 +24,8 @@ const (
 )
 
 // WaitReplicationGroupAvailable waits for a ReplicationGroup to return Available
+
+
 func WaitReplicationGroupAvailable(ctx context.Context, conn *elasticache.ElastiCache, replicationGroupID string, timeout time.Duration) (*elasticache.ReplicationGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -46,6 +48,8 @@ func WaitReplicationGroupAvailable(ctx context.Context, conn *elasticache.Elasti
 }
 
 // WaitReplicationGroupDeleted waits for a ReplicationGroup to be deleted
+
+
 func WaitReplicationGroupDeleted(ctx context.Context, conn *elasticache.ElastiCache, replicationGroupID string, timeout time.Duration) (*elasticache.ReplicationGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -68,6 +72,8 @@ func WaitReplicationGroupDeleted(ctx context.Context, conn *elasticache.ElastiCa
 }
 
 // WaitReplicationGroupMemberClustersAvailable waits for all of a ReplicationGroup's Member Clusters to return Available
+
+
 func WaitReplicationGroupMemberClustersAvailable(ctx context.Context, conn *elasticache.ElastiCache, replicationGroupID string, timeout time.Duration) ([]*elasticache.CacheCluster, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -102,6 +108,8 @@ const (
 )
 
 // waitCacheClusterAvailable waits for a Cache Cluster to return Available
+
+
 func waitCacheClusterAvailable(ctx context.Context, conn *elasticache.ElastiCache, cacheClusterID string, timeout time.Duration) (*elasticache.CacheCluster, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -125,6 +133,8 @@ func waitCacheClusterAvailable(ctx context.Context, conn *elasticache.ElastiCach
 }
 
 // WaitCacheClusterDeleted waits for a Cache Cluster to be deleted
+
+
 func WaitCacheClusterDeleted(ctx context.Context, conn *elasticache.ElastiCache, cacheClusterID string, timeout time.Duration) (*elasticache.CacheCluster, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -164,6 +174,8 @@ const (
 
 // waitGlobalReplicationGroupAvailable waits for a Global Replication Group to be available,
 // with status either "available" or "primary-only"
+
+
 func waitGlobalReplicationGroupAvailable(ctx context.Context, conn *elasticache.ElastiCache, globalReplicationGroupID string, timeout time.Duration) (*elasticache.GlobalReplicationGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{GlobalReplicationGroupStatusCreating, GlobalReplicationGroupStatusModifying},
@@ -182,6 +194,8 @@ func waitGlobalReplicationGroupAvailable(ctx context.Context, conn *elasticache.
 }
 
 // waitGlobalReplicationGroupDeleted waits for a Global Replication Group to be deleted
+
+
 func waitGlobalReplicationGroupDeleted(ctx context.Context, conn *elasticache.ElastiCache, globalReplicationGroupID string, timeout time.Duration) (*elasticache.GlobalReplicationGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -215,6 +229,8 @@ const (
 	globalReplicationGroupDisassociationMinTimeout = 10 * time.Second
 	globalReplicationGroupDisassociationDelay      = 30 * time.Second
 )
+
+
 
 func waitGlobalReplicationGroupMemberDetached(ctx context.Context, conn *elasticache.ElastiCache, globalReplicationGroupID, id string) (*elasticache.GlobalReplicationGroupMember, error) {
 	stateConf := &retry.StateChangeConf{

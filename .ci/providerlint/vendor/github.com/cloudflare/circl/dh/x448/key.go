@@ -12,7 +12,8 @@ const Size = 56
 // Key represents a X448 key.
 type Key [Size]byte
 
-func (k *Key) clamp(in *Key) *Key {
+
+*Key) clamp(in *Key) *Key {
 	*k = *in
 	k[0] &= 252
 	k[55] |= 128
@@ -20,7 +21,8 @@ func (k *Key) clamp(in *Key) *Key {
 }
 
 // isValidPubKey verifies if the public key is not a low-order point.
-func (k *Key) isValidPubKey() bool {
+
+*Key) isValidPubKey() bool {
 	fp.Modp((*fp.Elt)(k))
 	var isLowOrder int
 	for _, P := range lowOrderPoints {
@@ -30,15 +32,18 @@ func (k *Key) isValidPubKey() bool {
 }
 
 // KeyGen obtains a public key given a secret key.
-func KeyGen(public, secret *Key) {
+
+Gen(public, secret *Key) {
 	ladderJoye(public.clamp(secret))
 }
 
 // Shared calculates Alice's shared key from Alice's secret key and Bob's
 // public key returning true on success. A failure case happens when the public
-// key is a low-order point, thus the shared key is all-zeros and the function
+// key is a low-order point, thus the shared key is all-zeros and the 
+
 // returns false.
-func Shared(shared, secret, public *Key) bool {
+
+red(shared, secret, public *Key) bool {
 	validPk := *public
 	ok := validPk.isValidPubKey()
 	ladderMontgomery(shared.clamp(secret), &validPk)

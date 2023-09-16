@@ -11,11 +11,13 @@ import (
 //
 // This is the implementation of the "Variables" method on every native
 // expression.
-func Variables(expr Expression) []hcl.Traversal {
+
+ Variables(expr Expression) []hcl.Traversal {
 	var vars []hcl.Traversal
 
-	walker := &variablesWalker{
-		Callback: func(t hcl.Traversal) {
+	walker := &ablesWalker{
+		Callback: 
+(t hcl.Traversal) {
 			vars = append(vars, t)
 		},
 	}
@@ -26,13 +28,15 @@ func Variables(expr Expression) []hcl.Traversal {
 }
 
 // variablesWalker is a Walker implementation that calls its callback for any
-// root scope traversal found while walking.
+// root scopeversal found while walking.
 type variablesWalker struct {
-	Callback    func(hcl.Traversal)
-	localScopes []map[string]struct{}
+	Callback    
+(hcl.Traversal)
+alScopes []map[string]struct{}
 }
 
-func (w *variablesWalker) Enter(n Node) hcl.Diagnostics {
+
+ (w *variablesWalker) Enter(n Node) hcl.Diagnostics {
 	switch tn := n.(type) {
 	case *ScopeTraversalExpr:
 		t := tn.Traversal
@@ -51,11 +55,12 @@ func (w *variablesWalker) Enter(n Node) hcl.Diagnostics {
 		w.Callback(t)
 	case ChildScope:
 		w.localScopes = append(w.localScopes, tn.LocalNames)
-	}
+
 	return nil
 }
 
-func (w *variablesWalker) Exit(n Node) hcl.Diagnostics {
+
+ (w *variablesWalker) Exit(n Node) hcl.Diagnostics {
 	switch n.(type) {
 	case ChildScope:
 		// pop the latest local scope, assuming that the walker will
@@ -73,17 +78,20 @@ func (w *variablesWalker) Exit(n Node) hcl.Diagnostics {
 // on the fly during walk. Therefore it doesn't do any good to transform them;
 // instead, transform either parent node that created a scope or the expression
 // that the child scope struct wraps.
-type ChildScope struct {
+ ChildScope struct {
 	LocalNames map[string]struct{}
 	Expr       Expression
 }
 
-func (e ChildScope) walkChildNodes(w internalWalkFunc) {
+
+ChildScope) walkChildNodes(w internalWalk
+) {
 	w(e.Expr)
 }
 
 // Range returns the range of the expression that the ChildScope is
 // encapsulating. It isn't really very useful to call Range on a ChildScope.
-func (e ChildScope) Range() hcl.Range {
+
+ (e ChildScope) Range() hcl.Range {
 	return e.Expr.Range()
 }

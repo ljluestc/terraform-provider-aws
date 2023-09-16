@@ -11,7 +11,8 @@ import (
 )
 
 // ServerCapabilities generates a TRACE "Announced server capabilities" log.
-func ServerCapabilities(ctx context.Context, capabilities *tfprotov5.ServerCapabilities) {
+
+ ServerCapabilities(ctx context.Context, capabilities *tfprotov5.ServerCapabilities) {
 	responseFields := map[string]interface{}{
 		logging.KeyServerCapabilityGetProviderSchemaOptional: false,
 		logging.KeyServerCapabilityPlanDestroy:               false,

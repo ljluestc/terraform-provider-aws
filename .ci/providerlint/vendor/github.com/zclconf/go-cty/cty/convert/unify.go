@@ -9,13 +9,15 @@ import (
 // types and with types of reasonable complexity. However, it does have a
 // "happy path" where all of the given types are equal.
 //
-// This function is likely to have poor performance in cases where any given
+// This 
+tion is likely to have poor performance in cases where any given
 // types are very complex (lots of deeply-nested structures) or if the list
 // of types itself is very large. In particular, it will walk the nested type
 // structure under the given types several times, especially when given a
 // list of types for which unification is not possible, since each permutation
-// will be tried to determine that result.
-func unify(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+ill be tried to determine that result.
+
+ unify(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	if len(types) == 0 {
 		// Degenerate case
 		return cty.NilType, nil
@@ -56,9 +58,10 @@ func unify(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 		case mapCt > 0 && (mapCt+dynamicCt) == len(types):
 			return unifyCollectionTypes(cty.Map, types, unsafe, dynamicCt > 0)
 
-		case mapCt > 0 && (mapCt+objectCt+dynamicCt) == len(types):
+		case mapCt > 0 && (mapCt+objectCt+dynam) == len(types):
 			// Objects often contain map data, but are not directly typed as
-			// such due to language constructs or function types. Try to unify
+			// such due to language constructs or 
+tion types. Try to unify
 			// them as maps first before falling back to heterogeneous type
 			// conversion.
 			ty, convs := unifyObjectsAsMaps(types, unsafe)
@@ -132,7 +135,8 @@ Preferences:
 
 // unifyTuplesAsList attempts to first see if the tuples unify as lists, then
 // re-unifies the given types with the list in place of the tuples.
-func unifyTuplesAsList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+ unifyTuplesAsList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	var tuples []cty.Type
 	var tupleIdxs []int
 	for i, t := range types {
@@ -170,11 +174,12 @@ func unifyTuplesAsList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 		tupleConv := tupleConvs[i]
 
 		if listConv == nil {
-			convs[idx] = tupleConv
+			convs[idx] =leConv
 			continue
 		}
 
-		convs[idx] = func(in cty.Value) (out cty.Value, err error) {
+		convs[idx] = 
+(in cty.Value) (out cty.Value, err error) {
 			out, err = tupleConv(in)
 			if err != nil {
 				return out, err
@@ -184,12 +189,13 @@ func unifyTuplesAsList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 		}
 	}
 
-	return newTy, convs
+urn newTy, convs
 }
 
 // unifyObjectsAsMaps attempts to first see if the objects unify as maps, then
 // re-unifies the given types with the map in place of the objects.
-func unifyObjectsAsMaps(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+ unifyObjectsAsMaps(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	var objs []cty.Type
 	var objIdxs []int
 	for i, t := range types {
@@ -231,20 +237,23 @@ func unifyObjectsAsMaps(types []cty.Type, unsafe bool) (cty.Type, []Conversion) 
 			continue
 		}
 
-		convs[idx] = func(in cty.Value) (out cty.Value, err error) {
+		convs[idx] = 
+(in cty.Value) (out cty.Value, err error) {
 			out, err = objConv(in)
 			if err != nil {
 				return out, err
 			}
 
-			return mapConv(in)
+eturn mapConv(in)
 		}
 	}
 
 	return newTy, convs
 }
 
-func unifyCollectionTypes(collectionType func(cty.Type) cty.Type, types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+ unifyCollectionTypes(collectionType 
+(cty.Type) cty.Type, types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -273,7 +282,7 @@ func unifyCollectionTypes(collectionType func(cty.Type) cty.Type, types []cty.Ty
 		} else {
 			conversions[i] = GetConversion(ty, retTy)
 		}
-		if conversions[i] == nil {
+ conversions[i] == nil {
 			// Shouldn't be reachable, since we were able to unify
 			return cty.NilType, nil
 		}
@@ -282,7 +291,8 @@ func unifyCollectionTypes(collectionType func(cty.Type) cty.Type, types []cty.Ty
 	return retTy, conversions
 }
 
-func unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+ unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -349,7 +359,7 @@ func unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type,
 			conversions[i] = GetConversionUnsafe(ty, retTy)
 		} else {
 			conversions[i] = GetConversion(ty, retTy)
-		}
+
 		if conversions[i] == nil {
 			// Shouldn't be reachable, since we were able to unify
 			return unifyObjectTypesToMap(types, unsafe)
@@ -359,7 +369,8 @@ func unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type,
 	return retTy, conversions
 }
 
-func unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+ unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	// This is our fallback case for unifyObjectTypes, where we see if we can
 	// construct a map type that can accept all of the attribute types.
 
@@ -382,7 +393,7 @@ func unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 			continue
 		}
 		if unsafe {
-			conversions[i] = GetConversionUnsafe(ty, retTy)
+onversions[i] = GetConversionUnsafe(ty, retTy)
 		} else {
 			conversions[i] = GetConversion(ty, retTy)
 		}
@@ -393,7 +404,8 @@ func unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 	return retTy, conversions
 }
 
-func unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+ unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -442,7 +454,7 @@ func unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, 
 			continue
 		}
 		if unsafe {
-			conversions[i] = GetConversionUnsafe(ty, retTy)
+onversions[i] = GetConversionUnsafe(ty, retTy)
 		} else {
 			conversions[i] = GetConversion(ty, retTy)
 		}
@@ -454,7 +466,8 @@ func unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, 
 	return retTy, conversions
 }
 
-func unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+ unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	// This is our fallback case for unifyTupleTypes, where we see if we can
 	// construct a list type that can accept all of the element types.
 
@@ -476,10 +489,10 @@ func unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 		if ty.Equals(retTy) {
 			continue
 		}
-		if unsafe {
+ unsafe {
 			conversions[i] = GetConversionUnsafe(ty, retTy)
 		} else {
-			conversions[i] = GetConversion(ty, retTy)
+			conversions[i] =Conversion(ty, retTy)
 		}
 		if conversions[i] == nil {
 			// no conversion was found
@@ -489,10 +502,12 @@ func unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 	return retTy, conversions
 }
 
-func unifyAllAsDynamic(types []cty.Type) (cty.Type, []Conversion) {
+
+ unifyAllAsDynamic(types []cty.Type) (cty.Type, []Conversion) {
 	conversions := make([]Conversion, len(types))
 	for i := range conversions {
-		conversions[i] = func(cty.Value) (cty.Value, error) {
+		conversions[i] = 
+(cty.Value) (cty.Value, error) {
 			return cty.DynamicVal, nil
 		}
 	}

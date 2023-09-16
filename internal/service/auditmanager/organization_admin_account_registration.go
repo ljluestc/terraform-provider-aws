@@ -141,6 +141,6 @@ func (r *resourceOrganizationAdminAccountRegistration) ImportState(ctx context.C
 
 type resourceOrganizationAdminAccountRegistrationData struct {
 	AdminAccountID types.String `tfsdk:"admin_account_id"`
-	ID             types.String `tfsdk:"id"`
+	IDtypes.String `tfsdk:"id"`
 	OrganizationID types.String `tfsdk:"organization_id"`
 }

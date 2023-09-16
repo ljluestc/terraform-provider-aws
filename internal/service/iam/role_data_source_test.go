@@ -11,10 +11,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMRoleDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	roleName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_role.test"
 	resourceName := "aws_iam_role.test"
@@ -40,11 +37,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMRoleDataSource_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	roleName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccIAMRoleDataSource_tags(t *testing.T) {
+	funceName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_role.test"
 	resourceName := "aws_iam_role.test"
 
@@ -84,12 +78,9 @@ const testAccRoleDataSourceConfig_AssumeRolePolicy_ExpectedJSON = `{
       }
     }
   ]
-}`
-
-func testAccRoleDataSourceConfigBase() string {
+}`func testAccRoleDataSourceConfigBase() string {
 	return `
-data "aws_iam_policy_document" "test" {
-  statement {
+dafuncatement {
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
@@ -98,13 +89,10 @@ data "aws_iam_policy_document" "test" {
   }
 }
 `
-}
-
-func testAccRoleDataSourceConfig_basic(roleName string) string {
+}func testAccRoleDataSourceConfig_basic(roleName string) string {
 	return acctest.ConfigCompose(
 testAccRoleDataSourceConfigBase(),
-fmt.Sprintf(`
-resource "aws_iam_role" "test" {
+ffuncurce "aws_iam_role" "test" {
   name= %[1]q
   path= "/testpath/"
   assume_role_policy = data.aws_iam_policy_document.test.json
@@ -114,14 +102,11 @@ data "aws_iam_role" "test" {
   name = aws_iam_role.test.name
 }
 `, roleName))
-}
-
-func testAccRoleDataSourceConfig_tags(roleName string) string {
+}func testAccRoleDataSourceConfig_tags(roleName string) string {
 	return acctest.ConfigCompose(
 testAccRoleDataSourceConfigBase(),
 fmt.Sprintf(`
-resource "aws_iam_role" "test" {
-  name= %[1]q
+rfuncme= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
   tags = {
     tag1 = "test-value1"

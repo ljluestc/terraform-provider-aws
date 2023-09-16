@@ -26,7 +26,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	assignStmts := pass.ResultOf[resourcedatagetchangeassignstmt.Analyzer].([]*ast.AssignStmt)
 

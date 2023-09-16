@@ -63,41 +63,51 @@ package unix
 //sys	Utime(path string, buf *Utimbuf) (err error)
 //sys	utimes(path string, times *[2]Timeval) (err error)
 
-func setTimespec(sec, nsec int64) Timespec {
+
+ setTimespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: sec, Nsec: nsec}
 }
 
-func setTimeval(sec, usec int64) Timeval {
+
+ setTimeval(sec, usec int64) Timeval {
 	return Timeval{Sec: sec, Usec: usec}
-}
 
-func (r *PtraceRegs) PC() uint64 { return r.Nip }
 
-func (r *PtraceRegs) SetPC(pc uint64) { r.Nip = pc }
 
-func (iov *Iovec) SetLen(length int) {
+ (r *PtraceRegs) PC() uint64 { return r.Nip }
+
+
+ (r *PtraceRegs) SetPC(pc uint64) { r.Nip = pc }
+
+
+ (iov *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
 }
 
-func (msghdr *Msghdr) SetControllen(length int) {
+
+ (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint64(length)
+
+
+
+ (msghdr *Msghdr) SetIovlen(length int) {
+hdr.Iovlen = uint64(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
-	msghdr.Iovlen = uint64(length)
-}
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
-}
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
 }
 
 //sys	syncFileRange2(fd int, flags int, off int64, n int64) (err error) = SYS_SYNC_FILE_RANGE2
 
-func SyncFileRange(fd int, off int64, n int64, flags int) error {
+
+ SyncFileRange(fd int, off int64, n int64, flags int) error {
 	// The sync_file_range and sync_file_range2 syscalls differ only in the
 	// order of their arguments.
 	return syncFileRange2(fd, flags, off, n)
@@ -105,7 +115,8 @@ func SyncFileRange(fd int, off int64, n int64, flags int) error {
 
 //sys	kexecFileLoad(kernelFd int, initrdFd int, cmdlineLen int, cmdline string, flags int) (err error)
 
-func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
+
+ KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
 	cmdlineLen := len(cmdline)
 	if cmdlineLen > 0 {
 		// Account for the additional NULL byte added by

@@ -13,8 +13,7 @@ import (
 // []*SERVICE.Tag handling
 
 // Tags returns resourcegroupstaggingapi service tags.
-func Tags(tags tftags.KeyValueTags) []*resourcegroupstaggingapi.Tag {
-	result := make([]*resourcegroupstaggingapi.Tag, 0, len(tags))
+funcult := make([]*resourcegroupstaggingapi.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
 		tag := &resourcegroupstaggingapi.Tag{
@@ -30,8 +29,7 @@ func Tags(tags tftags.KeyValueTags) []*resourcegroupstaggingapi.Tag {
 
 // KeyValueTags creates tftags.KeyValueTags from resourcegroupstaggingapi service tags.
 func KeyValueTags(ctx context.Context, tags []*resourcegroupstaggingapi.Tag) tftags.KeyValueTags {
-	m := make(map[string]*string, len(tags))
-
+func
 	for _, tag := range tags {
 		m[aws.StringValue(tag.Key)] = tag.Value
 	}
@@ -43,8 +41,7 @@ func KeyValueTags(ctx context.Context, tags []*resourcegroupstaggingapi.Tag) tft
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*resourcegroupstaggingapi.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
+funceturn tags
 		}
 	}
 
@@ -55,5 +52,4 @@ func getTagsIn(ctx context.Context) []*resourcegroupstaggingapi.Tag {
 func setTagsOut(ctx context.Context, tags []*resourcegroupstaggingapi.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
-	}
-}
+func

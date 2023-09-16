@@ -25,8 +25,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_s3_bucket_policy")
-func ResourceBucketPolicy() *schema.Resource {
+// @SDKResource("aws_s3_bucket_policy")func ResourceBucketPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketPolicyPut,
 		ReadWithoutTimeout:   resourceBucketPolicyRead,
@@ -56,10 +55,7 @@ func ResourceBucketPolicy() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
@@ -96,11 +92,8 @@ func resourceBucketPolicyPut(ctx context.Context, d *schema.ResourceData, meta i
 	d.SetId(bucket)
 
 	return diags
-}
-
-func resourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	log.Printf("[DEBUG] S3 bucket policy, read for bucket: %s", d.Id())
 	pol, err := conn.GetBucketPolicyWithContext(ctx, &s3.GetBucketPolicyInput{
@@ -133,12 +126,9 @@ func resourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("bucket", d.Id())
 
 	return diags
-}
-
-func resourceBucketPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	bucket := d.Get("bucket").(string)
 
 	log.Printf("[DEBUG] S3 bucket: %s, delete policy", bucket)

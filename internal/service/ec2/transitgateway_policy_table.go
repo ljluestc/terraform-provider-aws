@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_ec2_transit_gateway_policy_table", name="Transit Gateway Policy Table")
 // @Tags(identifierAttribute="id")
 
-func ResourceTransitGatewayPolicyTable() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayPolicyTableCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayPolicyTableRead,
+		ReadWithoutTimeout:ourceTransitGatewayPolicyTableRead,
 		UpdateWithoutTimeout: resourceTransitGatewayPolicyTableUpdate,
 		DeleteWithoutTimeout: resourceTransitGatewayPolicyTableDelete,
 
@@ -41,31 +40,29 @@ func ResourceTransitGatewayPolicyTable() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
-			},
-		},
+func
 	}
 }
 
 
 func resourceTransitGatewayPolicyTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	transitGatewayID := d.Get("transit_gateway_id").(string)
 	input := &ec2.CreateTransitGatewayPolicyTableInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayPolicyTable),
@@ -92,8 +89,7 @@ func resourceTransitGatewayPolicyTableCreate(ctx context.Context, d *schema.Reso
 func resourceTransitGatewayPolicyTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	transitGatewayPolicyTable, err := FindTransitGatewayPolicyTableByID(ctx, conn, d.Id())
+funcnsitGatewayPolicyTable, err := FindTransitGatewayPolicyTableByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Transit Gateway Policy Table (%s) not found, removing from state", d.Id())
@@ -107,8 +103,8 @@ func resourceTransitGatewayPolicyTableRead(ctx context.Context, d *schema.Resour
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("transit-gateway-policy-table/%s", d.Id()),
 	}.String()
@@ -126,8 +122,7 @@ func resourceTransitGatewayPolicyTableUpdate(ctx context.Context, d *schema.Reso
 	var diags diag.Diagnostics
 
 	// Tags only.
-
-	return append(diags, resourceTransitGatewayPolicyTableRead(ctx, d, meta)...)
+funcurn append(diags, resourceTransitGatewayPolicyTableRead(ctx, d, meta)...)
 }
 
 
@@ -136,8 +131,7 @@ func resourceTransitGatewayPolicyTableDelete(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Policy Table: %s", d.Id())
-	_, err := conn.DeleteTransitGatewayPolicyTableWithContext(ctx, &ec2.DeleteTransitGatewayPolicyTableInput{
-		TransitGatewayPolicyTableId: aws.String(d.Id()),
+funcansitGatewayPolicyTableId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayPolicyTableIdNotFound) {

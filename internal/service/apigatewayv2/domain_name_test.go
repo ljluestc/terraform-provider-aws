@@ -30,10 +30,10 @@ func TestAccAPIGatewayV2DomainName_basic(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, domainName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_basic(rName, certificate, key, 1, 0),
@@ -52,8 +52,8 @@ func TestAccAPIGatewayV2DomainName_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -70,10 +70,10 @@ func TestAccAPIGatewayV2DomainName_disappears(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, domainName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_basic(rName, certificate, key, 1, 0),
@@ -98,10 +98,10 @@ func TestAccAPIGatewayV2DomainName_tags(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, domainName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_tags(rName, certificate, key, 1, 0),
@@ -122,8 +122,8 @@ func TestAccAPIGatewayV2DomainName_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -158,10 +158,10 @@ func TestAccAPIGatewayV2DomainName_updateCertificate(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, domainName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_basic(rName, certificate, key, 2, 0),
@@ -214,8 +214,8 @@ func TestAccAPIGatewayV2DomainName_updateCertificate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -233,10 +233,10 @@ func TestAccAPIGatewayV2DomainName_MutualTLSAuthentication_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_mutualTLSAuthenticationObjectVersion(rName, rootDomain, domain),
@@ -275,8 +275,8 @@ func TestAccAPIGatewayV2DomainName_MutualTLSAuthentication_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			// Test disabling mutual TLS authentication.
@@ -328,10 +328,10 @@ func TestAccAPIGatewayV2DomainName_MutualTLSAuthentication_noVersion(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_mutualTLSAuthenticationNoObjectVersion(rName, rootDomain, domain),
@@ -369,10 +369,10 @@ func TestAccAPIGatewayV2DomainName_MutualTLSAuthentication_ownership(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:nNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_mutualTLSAuthenticationOwnershipVerificationCert(rName, rootDomain, domain, certificate, key),
@@ -394,8 +394,8 @@ func TestAccAPIGatewayV2DomainName_MutualTLSAuthentication_ownership(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -459,7 +459,7 @@ resource "aws_acm_certificate" "test" {
   count = %[4]d
 
   certificate_body = %[2]q
-  private_key      = %[3]q
+  private_key
 
   tags = {
     Name = %[1]q
@@ -471,12 +471,12 @@ resource "aws_acm_certificate" "test" {
 func testAccDomainNamePublicCertConfig(rootDomain, domain string) string {
 	return fmt.Sprintf(`
 data "aws_route53_zone" "test" {
-  name         = %[1]q
+  nameq
   private_zone = false
 }
 
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[2]q
+  domain_name
   validation_method = "DNS"
 }
 
@@ -486,31 +486,31 @@ resource "aws_acm_certificate" "test" {
 #
 # resource "aws_route53_record" "test" {
 #   for_each = {
-#     for dvo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
-#       name   = dvo.resource_record_name
-#       record = dvo.resource_record_value
-#       type   = dvo.resource_record_type
-#     }
+# aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
+# dvo.resource_record_name
+# dvo.resource_record_value
+# dvo.resource_record_type
+#
 #   }
 #   allow_overwrite = true
-#   name            = each.value.name
-#   records         = [each.value.record]
-#   ttl             = 60
-#   type            = each.value.type
-#   zone_id         = data.aws_route53_zone.test.zone_id
+#   name
+#   recordsh.value.record]
+#   ttl
+#   type
+#   zone_id.aws_route53_zone.test.zone_id
 # }
 
 resource "aws_route53_record" "test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  nameertificate.test.domain_validation_options)[0].resource_record_name
+  recordsist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+  ttl
+  typeertificate.test.domain_validation_options)[0].resource_record_type
+  zone_id.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arnacm_certificate.test.arn
   validation_record_fqdns = [aws_route53_record.test.fqdn]
 }
 `, rootDomain, domain)
@@ -618,7 +618,7 @@ resource "aws_apigatewayv2_domain_name" "test" {
   }
 
   mutual_tls_authentication {
-    truststore_uri     = "s3://${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
+    truststore_uriaws_s3_object.test.bucket}/${aws_s3_object.test.key}"
     truststore_version = aws_s3_object.test.version_id
   }
 }
@@ -659,7 +659,7 @@ resource "aws_s3_bucket_object" "test" {
 
 resource "aws_acm_certificate" "imported" {
   certificate_body = %[2]q
-  private_key      = %[3]q
+  private_key
 
   tags = {
     Name = %[1]q
@@ -670,9 +670,9 @@ resource "aws_apigatewayv2_domain_name" "test" {
   domain_name = aws_acm_certificate.imported.domain_name
 
   domain_name_configuration {
-    certificate_arn         = aws_acm_certificate.imported.arn
-    endpoint_type           = "REGIONAL"
-    security_policy         = "TLS_1_2"
+    certificate_arnacm_certificate.imported.arn
+    endpoint_type
+    security_policy_1_2"
     ownership_verification_certificate_arn = aws_acm_certificate_validation.test.certificate_arn
   }
 

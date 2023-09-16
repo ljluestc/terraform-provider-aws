@@ -13,7 +13,8 @@ import (
 )
 
 // Format returns a go.mod file as a byte slice, formatted in standard style.
-func Format(f *FileSyntax) []byte {
+
+ Format(f *FileSyntax) []byte {
 	pr := &printer{}
 	pr.file(f)
 
@@ -32,23 +33,26 @@ type printer struct {
 	margin       int       // left margin (indent), a number of tabs
 }
 
-// printf prints to the buffer.
-func (p *printer) printf(format string, args ...interface{}) {
+rintf prints to the buffer.
+
+ (p *printer) printf(format string, args ...interface{}) {
 	fmt.Fprintf(p, format, args...)
 }
 
 // indent returns the position on the current line, in bytes, 0-indexed.
-func (p *printer) indent() int {
+
+ (p *printer) indent() int {
 	b := p.Bytes()
 	n := 0
 	for n < len(b) && b[len(b)-1-n] != '\n' {
 		n++
 	}
 	return n
-}
+
 
 // newline ends the current line, flushing end-of-line comments.
-func (p *printer) newline() {
+
+ (p *printer) newline() {
 	if len(p.comment) > 0 {
 		p.printf(" ")
 		for i, com := range p.comment {
@@ -72,22 +76,24 @@ func (p *printer) newline() {
 	}
 	for i := 0; i < p.margin; i++ {
 		p.printf("\t")
-	}
+
 }
 
 // trim removes trailing spaces and tabs from the current line.
-func (p *printer) trim() {
+
+ (p *printer) trim() {
 	// Remove trailing spaces and tabs from line we're about to end.
 	b := p.Bytes()
 	n := len(b)
 	for n > 0 && (b[n-1] == '\t' || b[n-1] == ' ') {
 		n--
-	}
+
 	p.Truncate(n)
 }
 
 // file formats the given file into the print buffer.
-func (p *printer) file(f *FileSyntax) {
+
+ (p *printer) file(f *FileSyntax) {
 	for _, com := range f.Before {
 		p.printf("%s", strings.TrimSpace(com.Token))
 		p.newline()
@@ -109,13 +115,14 @@ func (p *printer) file(f *FileSyntax) {
 			p.newline()
 		}
 
-		if i+1 < len(f.Stmt) {
+ i+1 < len(f.Stmt) {
 			p.newline()
 		}
 	}
 }
 
-func (p *printer) expr(x Expr) {
+
+ (p *printer) expr(x Expr) {
 	// Emit line-comments preceding this expression.
 	if before := x.Comment().Before; len(before) > 0 {
 		// Want to print a line comment.
@@ -162,14 +169,15 @@ func (p *printer) expr(x Expr) {
 		p.margin--
 		p.newline()
 		p.expr(&x.RParen)
-	}
+
 
 	// Queue end-of-line comments for printing when we
 	// reach the end of the line.
 	p.comment = append(p.comment, x.Comment().Suffix...)
 }
 
-func (p *printer) tokens(tokens []string) {
+
+ (p *printer) tokens(tokens []string) {
 	sep := ""
 	for _, t := range tokens {
 		if t == "," || t == ")" || t == "]" || t == "}" {

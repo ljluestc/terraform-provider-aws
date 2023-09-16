@@ -15,10 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMAccountPasswordPolicy_serial(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	testCases := map[string]func(t *testing.T){
 		"basic":      testAccAccountPasswordPolicy_basic,
@@ -26,18 +23,15 @@ func TestAccIAMAccountPasswordPolicy_serial(t *testing.T) {
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
-}
-
-func testAccAccountPasswordPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var policy iam.PasswordPolicy
+}func testAccAccountPasswordPolicy_basic(t *testing.T) {
+	func policy iam.PasswordPolicy
 	resourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountPasswordPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckAccountPasswordPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountPasswordPolicyConfig_basic,
@@ -60,18 +54,15 @@ func testAccAccountPasswordPolicy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccAccountPasswordPolicy_disappears(t *testing.T) {
+}func testAccAccountPasswordPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var policy iam.PasswordPolicy
-	resourceName := "aws_iam_account_password_policy.test"
+	funcourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountPasswordPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckAccountPasswordPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountPasswordPolicyConfig_basic,
@@ -83,13 +74,10 @@ func testAccAccountPasswordPolicy_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckAccountPasswordPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckAccountPasswordPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_account_password_policy" {
 				continue
 			}
@@ -109,14 +97,11 @@ func testAccCheckAccountPasswordPolicyDestroy(ctx context.Context) resource.Test
 
 		return nil
 	}
-}
-
-func testAccCheckAccountPasswordPolicyExists(ctx context.Context, n string, v *iam.PasswordPolicy) resource.TestCheckFunc {
+}func testAccCheckAccountPasswordPolicyExists(ctx context.Context, n string, v *iam.PasswordPolicy) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+	func
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IAM Account Password Policy ID is set")

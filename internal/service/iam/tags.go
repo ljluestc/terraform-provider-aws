@@ -20,15 +20,14 @@ import (
 // Custom IAM tag service update functions using the same format as generated code.
 
 // instanceProfileUpdateTags updates IAM Instance Profile tags.
-// The identifier is the Instance Profile name.
-func instanceProfileUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the Instance Profile name.func instanceProfileUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
 	if removedTags := oldTags.Removed(newTags).IgnoreSystem(names.IAM); len(removedTags) > 0 {
 input := &iam.UntagInstanceProfileInput{
 	InstanceProfileName: aws.String(identifier),
-	TagKeys:             aws.StringSlice(removedTags.Keys()),
+	TagKeys:aws.StringSlice(removedTags.Keys()),
 }
 
 _, err := conn.UntagInstanceProfileWithContext(ctx, input)
@@ -52,10 +51,7 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func instanceProfileCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
-	if len(tags) == 0 {
+}funclen(tags) == 0 {
 return nil
 	}
 
@@ -63,8 +59,7 @@ return nil
 }
 
 // openIDConnectProviderUpdateTags updates IAM OpenID Connect Provider tags.
-// The identifier is the OpenID Connect Provider ARN.
-func openIDConnectProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the OpenID Connect Provider ARN.func openIDConnectProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -95,19 +90,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func openIDConnectProviderCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
-	if len(tags) == 0 {
-return nil
+}func openIDConnectProviderCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+	funcrn nil
 	}
 
 	return openIDConnectProviderUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }
 
 // policyUpdateTags updates IAM Policy tags.
-// The identifier is the Policy ARN.
-func policyUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the Policy ARN.func policyUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -138,19 +129,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func policyCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func policyCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
-return nil
-	}
+rfunc
 
 	return policyUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }
 
 // roleUpdateTags updates IAM role tags.
-// The identifier is the role name.
-func roleUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the role name.func roleUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -181,19 +168,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func roleCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func roleCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
 return nil
-	}
-
+	func
 	return roleUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }
 
 // samlProviderUpdateTags updates IAM SAML Provider tags.
-// The identifier is the SAML Provider ARN.
-func samlProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the SAML Provider ARN.func samlProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -224,19 +207,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func samlProviderCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func samlProviderCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
 return nil
 	}
-
-	return samlProviderUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
+funcurn samlProviderUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }
 
 // serverCertificateUpdateTags updates IAM Server Certificate tags.
-// The identifier is the Server Certificate name.
-func serverCertificateUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the Server Certificate name.func serverCertificateUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -267,19 +246,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func serverCertificateCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func serverCertificateCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
 return nil
 	}
 
-	return serverCertificateUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
-}
+	func
 
 // userUpdateTags updates IAM user tags.
-// The identifier is the user name.
-func userUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the user name.func userUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -310,19 +285,15 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func userCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func userCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
 return nil
 	}
 
 	return userUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
-}
-
+}func
 // virtualMFADeviceUpdateTags updates IAM Virtual MFA Device tags.
-// The identifier is the Virtual MFA Device ARN.
-func virtualMFADeviceUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// The identifier is the Virtual MFA Device ARN.func virtualMFADeviceUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -353,12 +324,11 @@ if err != nil {
 	}
 
 	return nil
-}
-
-func virtualMFADeviceCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
+}func virtualMFADeviceCreateTags(ctx context.Context, conn iamiface.IAMAPI, identifier string, tags []*iam.Tag) error {
 	if len(tags) == 0 {
 return nil
 	}
 
 	return virtualMFADeviceUpdateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }
+func

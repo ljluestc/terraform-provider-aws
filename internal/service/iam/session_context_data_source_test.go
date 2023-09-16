@@ -12,10 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
-)
-
-func TestAssumedRoleRoleSessionName(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	testCases := []struct {
 Name string
@@ -98,11 +95,8 @@ t.Errorf("for %s: got role %s, session %s; expected role %s, session %s", testCa
 	}
 })
 	}
-}
-
-func TestAccIAMSessionContextDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccIAMSessionContextDataSource_basic(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_session_context.test"
 	resourceName := "aws_iam_role.test"
 
@@ -122,12 +116,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMSessionContextDataSource_withPath(t *testing.T) {
+}func TestAccIAMSessionContextDataSource_withPath(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_iam_session_context.test"
+	funcaSourceName := "data.aws_iam_session_context.test"
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -145,13 +136,10 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMSessionContextDataSource_notAssumedRole(t *testing.T) {
+}func TestAccIAMSessionContextDataSource_notAssumedRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_iam_session_context.test"
-	resourceName := "aws_iam_role.test"
+	funcourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
@@ -168,14 +156,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMSessionContextDataSource_notAssumedRoleWithPath(t *testing.T) {
+}func TestAccIAMSessionContextDataSource_notAssumedRoleWithPath(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_session_context.test"
-	resourceName := "aws_iam_role.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
@@ -191,15 +176,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMSessionContextDataSource_notAssumedRoleUser(t *testing.T) {
+}func TestAccIAMSessionContextDataSource_notAssumedRoleUser(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_session_context.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	funcheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -213,16 +195,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccSessionContextDataSourceConfig_basic(rName, path, sessionID string) string {
+}func testAccSessionContextDataSourceConfig_basic(rName, path, sessionID string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
   name = %[1]q
   path = %[2]q
 
-  assume_role_policy = jsonencode({
-    "Version" = "2012-10-17"
+ func"Version" = "2012-10-17"
 
     "Statement" = [{
       "Action" = "sts:AssumeRole"
@@ -241,17 +220,14 @@ data "aws_iam_session_context" "test" {
   arn = "arn:${data.aws_partition.current.partition}:sts::${data.aws_caller_identity.current.account_id}:assumed-role/${aws_iam_role.test.name}/%[3]s"
 }
 `, rName, path, sessionID)
-}
-
-func testAccSessionContextDataSourceConfig_notAssumed(rName, path string) string {
+}func testAccSessionContextDataSourceConfig_notAssumed(rName, path string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
   name = %[1]q
   path = %[2]q
-
-  assume_role_policy = jsonencode({
+funcsume_role_policy = jsonencode({
     "Version" = "2012-10-17"
 
     "Statement" = [{
@@ -268,9 +244,7 @@ data "aws_iam_session_context" "test" {
   arn = aws_iam_role.test.arn
 }
 `, rName, path)
-}
-
-func testAccSessionContextDataSourceConfig_user(rName string) string {
+}func testAccSessionContextDataSourceConfig_user(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -278,5 +252,4 @@ data "aws_caller_identity" "current" {}
 data "aws_iam_session_context" "test" {
   arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:user/division/extra-division/not-assumed-role/%[1]s"
 }
-`, rName)
-}
+`func

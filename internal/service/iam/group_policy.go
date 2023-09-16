@@ -23,8 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_iam_group_policy")
-func ResourceGroupPolicy() *schema.Resource {
+// @SDKResource("aws_iam_group_policy")func ResourceGroupPolicy() *schema.Resource {
 	return &schema.Resource{
 		// PutGroupPolicy API is idempotent, so these can be the same.
 		CreateWithoutTimeout: resourceGroupPolicyPut,
@@ -39,8 +38,8 @@ func ResourceGroupPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
@@ -69,10 +68,7 @@ func ResourceGroupPolicy() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceGroupPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	policyDoc, err := verify.LegacyPolicyNormalize(d.Get("policy").(string))
@@ -101,11 +97,8 @@ func resourceGroupPolicyPut(ctx context.Context, d *schema.ResourceData, meta in
 
 	d.SetId(fmt.Sprintf("%s:%s", *request.GroupName, *request.PolicyName))
 	return diags
-}
-
-func resourceGroupPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceGroupPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	group, name, err := GroupPolicyParseID(d.Id())
 	if err != nil {
@@ -174,12 +167,9 @@ func resourceGroupPolicyRead(ctx context.Context, d *schema.ResourceData, meta i
 	}
 
 	return diags
-}
-
-func resourceGroupPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceGroupPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	group, name, err := GroupPolicyParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting IAM Group Policy (%s): %s", d.Id(), err)
@@ -197,13 +187,10 @@ func resourceGroupPolicyDelete(ctx context.Context, d *schema.ResourceData, meta
 		return sdkdiag.AppendErrorf(diags, "deleting IAM Group Policy (%s): %s", d.Id(), err)
 	}
 	return diags
-}
-
-func GroupPolicyParseID(id string) (groupName, policyName string, err error) {
+}func GroupPolicyParseID(id string) (groupName, policyName string, err error) {
 	parts := strings.SplitN(id, ":", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
-		err = fmt.Errorf("group_policy id must be of the form <group name>:<policy name>")
-		return
+	functurn
 	}
 
 	groupName = parts[0]

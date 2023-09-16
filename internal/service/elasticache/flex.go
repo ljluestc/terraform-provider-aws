@@ -8,6 +8,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/elasticache"
 )
 
+
+
 func flattenSecurityGroupIDs(securityGroups []*elasticache.SecurityGroupMembership) []string {
 	result := make([]string, 0, len(securityGroups))
 	for _, sg := range securityGroups {
@@ -17,6 +19,8 @@ func flattenSecurityGroupIDs(securityGroups []*elasticache.SecurityGroupMembersh
 	}
 	return result
 }
+
+
 
 func flattenLogDeliveryConfigurations(logDeliveryConfiguration []*elasticache.LogDeliveryConfiguration) []map[string]interface{} {
 	if len(logDeliveryConfiguration) == 0 {
@@ -43,6 +47,8 @@ func flattenLogDeliveryConfigurations(logDeliveryConfiguration []*elasticache.Lo
 	return logDeliveryConfigurations
 }
 
+
+
 func expandEmptyLogDeliveryConfigurations(v map[string]interface{}) elasticache.LogDeliveryConfigurationRequest {
 	logDeliveryConfigurationRequest := elasticache.LogDeliveryConfigurationRequest{}
 	logDeliveryConfigurationRequest.SetEnabled(false)
@@ -50,6 +56,8 @@ func expandEmptyLogDeliveryConfigurations(v map[string]interface{}) elasticache.
 
 	return logDeliveryConfigurationRequest
 }
+
+
 
 func expandLogDeliveryConfigurations(v map[string]interface{}) elasticache.LogDeliveryConfigurationRequest {
 	logDeliveryConfigurationRequest := elasticache.LogDeliveryConfigurationRequest{}

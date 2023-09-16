@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_key_pair")
 
-func DataSourceKeyPair() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceKeyPairRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,37 +30,37 @@ func DataSourceKeyPair() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"create_time": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"fingerprint": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"key_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"key_pair_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"key_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"include_public_key": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"public_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -70,8 +69,7 @@ func DataSourceKeyPair() *schema.Resource {
 }
 
 func dataSourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeKeyPairsInput{}
@@ -103,8 +101,8 @@ func dataSourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta int
 	keyName := aws.StringValue(keyPair.KeyName)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("key-pair/%s", keyName),
 	}.String()

@@ -260,9 +260,9 @@ func TestAccMQBroker_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_basic(rName, testAccBrokerVersionNewer),
@@ -315,7 +315,7 @@ func TestAccMQBroker_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -339,9 +339,9 @@ func TestAccMQBroker_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_basic(rName, testAccBrokerVersionNewer),
@@ -371,9 +371,9 @@ func TestAccMQBroker_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_tags1(rName, testAccBrokerVersionNewer, "key1", "value1"),
@@ -385,7 +385,7 @@ func TestAccMQBroker_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -426,9 +426,9 @@ func TestAccMQBroker_throughputOptimized(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_ebs(rName, testAccBrokerVersionNewer),
@@ -510,9 +510,9 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_allFieldsDefaultVPC(rName, testAccBrokerVersionNewer, rName, cfgBodyBefore),
@@ -580,7 +580,7 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -639,9 +639,9 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_allFieldsCustomVPC(rName, testAccBrokerVersionNewer, rName, cfgBodyBefore, "CET"),
@@ -709,7 +709,7 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -760,9 +760,9 @@ func TestAccMQBroker_EncryptionOptions_kmsKeyID(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_encryptionOptionsKMSKeyID(rName, testAccBrokerVersionNewer),
@@ -775,7 +775,7 @@ func TestAccMQBroker_EncryptionOptions_kmsKeyID(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -799,9 +799,9 @@ func TestAccMQBroker_EncryptionOptions_managedKeyDisabled(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_encryptionOptionsManagedKey(rName, testAccBrokerVersionNewer, false),
@@ -813,7 +813,7 @@ func TestAccMQBroker_EncryptionOptions_managedKeyDisabled(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -837,9 +837,9 @@ func TestAccMQBroker_EncryptionOptions_managedKeyEnabled(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_encryptionOptionsManagedKey(rName, testAccBrokerVersionNewer, true),
@@ -851,7 +851,7 @@ func TestAccMQBroker_EncryptionOptions_managedKeyEnabled(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -875,9 +875,9 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_updateUsers1(rName, testAccBrokerVersionNewer),
@@ -894,7 +894,7 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -953,9 +953,9 @@ func TestAccMQBroker_Update_securityGroup(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_basic(rName, testAccBrokerVersionNewer),
@@ -966,7 +966,7 @@ func TestAccMQBroker_Update_securityGroup(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -1011,9 +1011,9 @@ func TestAccMQBroker_Update_engineVersion(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_basic(rName, testAccBrokerVersionOlder),
@@ -1024,7 +1024,7 @@ func TestAccMQBroker_Update_engineVersion(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -1055,9 +1055,9 @@ func TestAccMQBroker_Update_hostInstanceType(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_instanceType(rName, testAccBrokerVersionNewer, "mq.t2.micro"),
@@ -1094,9 +1094,9 @@ func TestAccMQBroker_RabbitMQ_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_rabbit(rName, testAccRabbitVersion),
@@ -1116,7 +1116,7 @@ func TestAccMQBroker_RabbitMQ_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -1140,9 +1140,9 @@ func TestAccMQBroker_RabbitMQ_logs(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_rabbitLogs(rName, testAccRabbitVersion),
@@ -1162,7 +1162,7 @@ func TestAccMQBroker_RabbitMQ_logs(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -1186,9 +1186,9 @@ func TestAccMQBroker_RabbitMQ_validationAuditLog(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccBrokerConfig_rabbitAuditLog(rName, testAccRabbitVersion, true),
@@ -1225,9 +1225,9 @@ func TestAccMQBroker_RabbitMQ_cluster(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_rabbitCluster(rName, testAccRabbitVersion),
@@ -1268,7 +1268,7 @@ func TestAccMQBroker_RabbitMQ_cluster(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
@@ -1292,9 +1292,9 @@ func TestAccMQBroker_ldap(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBrokerDestroy(ctx),
+		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerConfig_ldap(rName, testAccBrokerVersionNewer, "anyusername"),
@@ -1409,8 +1409,8 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name             = %[1]q
-  engine_type             = "ActiveMQ"
+  broker_name= %[1]q
+  engine_type= "ActiveMQ"
   engine_version          = %[2]q
   host_instance_type      = "mq.t2.micro"
   security_groups         = [aws_security_group.test.id]
@@ -1657,7 +1657,7 @@ resource "aws_mq_broker" "test" {
 func testAccBrokerConfig_encryptionOptionsKMSKeyID(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -2072,8 +2072,8 @@ resource "aws_security_group" "test" {
 resource "aws_mq_broker" "test" {
   apply_immediately       = true
   authentication_strategy = "ldap"
-  broker_name             = %[1]q
-  engine_type             = "ActiveMQ"
+  broker_name= %[1]q
+  engine_type= "ActiveMQ"
   engine_version          = %[2]q
   host_instance_type      = "mq.t2.micro"
   security_groups         = [aws_security_group.test.id]

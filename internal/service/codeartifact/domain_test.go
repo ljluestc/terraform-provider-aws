@@ -26,10 +26,10 @@ func testAccDomain_basic(t *testing.T) {
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_basic(rName),
@@ -60,10 +60,10 @@ func testAccDomain_defaultEncryptionKey(t *testing.T) {
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_defaultEncryptionKey(rName),
@@ -93,10 +93,10 @@ func testAccDomain_tags(t *testing.T) {
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_tags1(rName, "key1", "value1"),
@@ -137,10 +137,10 @@ func testAccDomain_disappears(t *testing.T) {
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_defaultEncryptionKey(rName),
@@ -180,8 +180,8 @@ func testAccDomain_MigrateAssetSizeBytesToString(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccDomainConfig_basic(rName),
-				PlanOnly:                 true,
+				Config:      testAccDomainConfig_basic(rName),
+				PlanOnly:    true,
 			},
 		},
 	})
@@ -253,7 +253,7 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

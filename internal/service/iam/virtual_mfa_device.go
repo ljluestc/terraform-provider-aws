@@ -28,8 +28,7 @@ import (
 )
 
 // @SDKResource("aws_iam_virtual_mfa_device", name="Virtual MFA Device")
-// @Tags
-func ResourceVirtualMFADevice() *schema.Resource {
+// @Tagsfunc ResourceVirtualMFADevice() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVirtualMFADeviceCreate,
 		ReadWithoutTimeout:   resourceVirtualMFADeviceRead,
@@ -83,16 +82,13 @@ func ResourceVirtualMFADevice() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceVirtualMFADeviceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := d.Get("virtual_mfa_device_name").(string)
 	input := &iam.CreateVirtualMFADeviceInput{
-		Path:                 aws.String(d.Get("path").(string)),
-		Tags:                 getTagsIn(ctx),
+		Path:    aws.String(d.Get("path").(string)),
+		Tags:    getTagsIn(ctx),
 		VirtualMFADeviceName: aws.String(name),
 	}
 
@@ -131,11 +127,8 @@ func resourceVirtualMFADeviceCreate(ctx context.Context, d *schema.ResourceData,
 	}
 
 	return append(diags, resourceVirtualMFADeviceRead(ctx, d, meta)...)
-}
-
-func resourceVirtualMFADeviceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceVirtualMFADeviceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	vMFA, err := FindVirtualMFADeviceBySerialNumber(ctx, conn, d.Id())
 
@@ -179,12 +172,9 @@ func resourceVirtualMFADeviceRead(ctx context.Context, d *schema.ResourceData, m
 	setTagsOut(ctx, output.Tags)
 
 	return diags
-}
-
-func resourceVirtualMFADeviceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceVirtualMFADeviceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	o, n := d.GetChange("tags_all")
 
 	err := virtualMFADeviceUpdateTags(ctx, conn, d.Id(), o, n)
@@ -199,13 +189,10 @@ func resourceVirtualMFADeviceUpdate(ctx context.Context, d *schema.ResourceData,
 	}
 
 	return append(diags, resourceVirtualMFADeviceRead(ctx, d, meta)...)
-}
-
-func resourceVirtualMFADeviceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceVirtualMFADeviceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	if v := d.Get("user_name"); v != "" {
+funcv := d.Get("user_name"); v != "" {
 		_, err := conn.DeactivateMFADeviceWithContext(ctx, &iam.DeactivateMFADeviceInput{
 			UserName:     aws.String(v.(string)),
 			SerialNumber: aws.String(d.Id()),
@@ -232,14 +219,11 @@ func resourceVirtualMFADeviceDelete(ctx context.Context, d *schema.ResourceData,
 	}
 
 	return diags
-}
-
-func FindVirtualMFADeviceBySerialNumber(ctx context.Context, conn *iam.IAM, serialNumber string) (*iam.VirtualMFADevice, error) {
+}func FindVirtualMFADeviceBySerialNumber(ctx context.Context, conn *iam.IAM, serialNumber string) (*iam.VirtualMFADevice, error) {
 	input := &iam.ListVirtualMFADevicesInput{}
 	var output *iam.VirtualMFADevice
 
-	err := conn.ListVirtualMFADevicesPagesWithContext(ctx, input, func(page *iam.ListVirtualMFADevicesOutput, lastPage bool) bool {
-		if page == nil {
+	func page == nil {
 			return !lastPage
 		}
 
@@ -262,15 +246,12 @@ func FindVirtualMFADeviceBySerialNumber(ctx context.Context, conn *iam.IAM, seri
 	}
 
 	return output, nil
-}
-
-func parseVirtualMFADeviceARN(s string) (path, name string, err error) {
+}func parseVirtualMFADeviceARN(s string) (path, name string, err error) {
 	arn, err := arn.Parse(s)
 	if err != nil {
 		return "", "", err
 	}
-
-	re := regexache.MustCompile(`^mfa(/|/[\x{0021}-\x{007E}]+/)([0-9A-Za-z_+=,.@-]+)$`)
+func:= regexache.MustCompile(`^mfa(/|/[\x{0021}-\x{007E}]+/)([0-9A-Za-z_+=,.@-]+)$`)
 	matches := re.FindStringSubmatch(arn.Resource)
 	if len(matches) != 3 {
 		return "", "", fmt.Errorf("IAM Virtual MFA Device ARN: invalid resource section (%s)", arn.Resource)

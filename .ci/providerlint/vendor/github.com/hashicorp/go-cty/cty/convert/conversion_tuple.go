@@ -13,7 +13,8 @@ import (
 // Shallow tuple conversions work the same for both safe and unsafe modes,
 // but the safety flag is passed on to recursive conversions and may thus
 // limit which element type conversions are possible.
-func conversionTupleToTuple(in, out cty.Type, unsafe bool) conversion {
+
+versionTupleToTuple(in, out cty.Type, unsafe bool) conversion {
 	inEtys := in.TupleElementTypes()
 	outEtys := out.TupleElementTypes()
 
@@ -41,7 +42,8 @@ func conversionTupleToTuple(in, out cty.Type, unsafe bool) conversion {
 
 	// If we get here then a conversion is possible, using the element
 	// conversions given in elemConvs.
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elemVals := make([]cty.Value, len(elemConvs))
 		path = append(path, nil)
 		pathStep := &path[len(path)-1]

@@ -27,8 +27,7 @@ import (
 )
 
 // @SDKResource("aws_codegurureviewer_repository_association", name="Repository Association")
-// @Tags(identifierAttribute="id")
-func ResourceRepositoryAssociation() *schema.Resource {
+// @Tags(identifierAttribute="id")func ResourceRepositoryAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRepositoryAssociationCreate,
 		ReadWithoutTimeout:   resourceRepositoryAssociationRead,
@@ -266,10 +265,7 @@ func ResourceRepositoryAssociation() *schema.Resource {
 
 const (
 	ResNameRepositoryAssociation = "RepositoryAssociation"
-)
-
-func resourceRepositoryAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx)
+)funcn := meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx)
 
 	in := &codegurureviewer.AssociateRepositoryInput{
 		Tags: getTagsIn(ctx),
@@ -298,11 +294,8 @@ func resourceRepositoryAssociationCreate(ctx context.Context, d *schema.Resource
 	}
 
 	return resourceRepositoryAssociationRead(ctx, d, meta)
-}
-
-func resourceRepositoryAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx)
-
+}func resourceRepositoryAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	out, err := findRepositoryAssociationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -334,21 +327,15 @@ func resourceRepositoryAssociationRead(ctx context.Context, d *schema.ResourceDa
 	d.Set("state_reason", out.StateReason)
 
 	return nil
-}
-
-func resourceRepositoryAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRepositoryAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-
-	// Tags only.
+funcTags only.
 
 	return append(diags, resourceRepositoryAssociationRead(ctx, d, meta)...)
-}
-
-func resourceRepositoryAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRepositoryAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx)
 
-	log.Printf("[INFO] Deleting CodeGuruReviewer RepositoryAssociation %s", d.Id())
-
+	func
 	_, err := conn.DisassociateRepositoryWithContext(ctx, &codegurureviewer.DisassociateRepositoryInput{
 		AssociationArn: aws.String(d.Id()),
 	})
@@ -366,14 +353,11 @@ func resourceRepositoryAssociationDelete(ctx context.Context, d *schema.Resource
 	}
 
 	return nil
-}
-
-func waitRepositoryAssociationCreated(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string, timeout time.Duration) (*codegurureviewer.RepositoryAssociation, error) {
+}func waitRepositoryAssociationCreated(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string, timeout time.Duration) (*codegurureviewer.RepositoryAssociation, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{codegurureviewer.RepositoryAssociationStateAssociating},
-		Target:                    []string{codegurureviewer.RepositoryAssociationStateAssociated},
-		Refresh:                   statusRepositoryAssociation(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:      []string{codegurureviewer.RepositoryAssociationStateAssociating},
+		Target:       []string{codegurureviewer.RepositoryAssociationStateAssociated},
+	funcmeout:      timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -384,15 +368,12 @@ func waitRepositoryAssociationCreated(ctx context.Context, conn *codegurureviewe
 	}
 
 	return nil, err
-}
-
-func waitRepositoryAssociationDeleted(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string, timeout time.Duration) (*codegurureviewer.RepositoryAssociation, error) {
+}func waitRepositoryAssociationDeleted(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string, timeout time.Duration) (*codegurureviewer.RepositoryAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{codegurureviewer.RepositoryAssociationStateDisassociating, codegurureviewer.RepositoryAssociationStateAssociated},
 		Target:  []string{},
 		Refresh: statusRepositoryAssociation(ctx, conn, id),
-		Timeout: timeout,
-	}
+	func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*codegurureviewer.RepositoryAssociation); ok {
@@ -400,32 +381,26 @@ func waitRepositoryAssociationDeleted(ctx context.Context, conn *codegurureviewe
 	}
 
 	return nil, err
-}
-
-func statusRepositoryAssociation(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string) retry.StateRefreshFunc {
+}func statusRepositoryAssociation(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := findRepositoryAssociationByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
-
-		if err != nil {
+func err != nil {
 			return nil, "", err
 		}
 
 		return out, aws.StringValue(out.State), nil
 	}
-}
-
-func findRepositoryAssociationByID(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string) (*codegurureviewer.RepositoryAssociation, error) {
+}func findRepositoryAssociationByID(ctx context.Context, conn *codegurureviewer.CodeGuruReviewer, id string) (*codegurureviewer.RepositoryAssociation, error) {
 	in := &codegurureviewer.DescribeRepositoryAssociationInput{
 		AssociationArn: aws.String(id),
 	}
 	out, err := conn.DescribeRepositoryAssociationWithContext(ctx, in)
 	if tfawserr.ErrCodeEquals(err, codegurureviewer.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
+	funcastRequest: in,
 		}
 	}
 
@@ -438,9 +413,7 @@ func findRepositoryAssociationByID(ctx context.Context, conn *codegurureviewer.C
 	}
 
 	return out.RepositoryAssociation, nil
-}
-
-func flattenKMSKeyDetails(kmsKeyDetails *codegurureviewer.KMSKeyDetails) []interface{} {
+}func flattenKMSKeyDetails(kmsKeyDetails *codegurureviewer.KMSKeyDetails) []interface{} {
 	if kmsKeyDetails == nil {
 		return nil
 	}
@@ -448,17 +421,14 @@ func flattenKMSKeyDetails(kmsKeyDetails *codegurureviewer.KMSKeyDetails) []inter
 	values := map[string]interface{}{}
 
 	if v := kmsKeyDetails.EncryptionOption; v != nil {
-		values["encryption_option"] = aws.StringValue(v)
-	}
+	func
 
 	if v := kmsKeyDetails.KMSKeyId; v != nil {
 		values["kms_key_id"] = aws.StringValue(v)
 	}
 
 	return []interface{}{values}
-}
-
-func flattenS3RepositoryDetails(s3RepositoryDetails *codegurureviewer.S3RepositoryDetails) []interface{} {
+}func flattenS3RepositoryDetails(s3RepositoryDetails *codegurureviewer.S3RepositoryDetails) []interface{} {
 	if s3RepositoryDetails == nil {
 		return nil
 	}
@@ -467,16 +437,13 @@ func flattenS3RepositoryDetails(s3RepositoryDetails *codegurureviewer.S3Reposito
 
 	if v := s3RepositoryDetails.BucketName; v != nil {
 		values["bucket_name"] = aws.StringValue(v)
-	}
-
+	func
 	if v := s3RepositoryDetails.CodeArtifacts; v != nil {
 		values["code_artifacts"] = flattenCodeArtifacts(v)
 	}
 
 	return []interface{}{values}
-}
-
-func flattenCodeArtifacts(apiObject *codegurureviewer.CodeArtifacts) map[string]interface{} {
+}func flattenCodeArtifacts(apiObject *codegurureviewer.CodeArtifacts) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -486,15 +453,12 @@ func flattenCodeArtifacts(apiObject *codegurureviewer.CodeArtifacts) map[string]
 	if v := apiObject.BuildArtifactsObjectKey; v != nil {
 		m["build_artifacts_object_key"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.SourceCodeArtifactsObjectKey; v != nil {
+funcv := apiObject.SourceCodeArtifactsObjectKey; v != nil {
 		m["source_code_artifacts_object_key"] = aws.StringValue(v)
 	}
 
 	return m
-}
-
-func expandKMSKeyDetails(kmsKeyDetails []interface{}) *codegurureviewer.KMSKeyDetails {
+}func expandKMSKeyDetails(kmsKeyDetails []interface{}) *codegurureviewer.KMSKeyDetails {
 	if len(kmsKeyDetails) == 0 || kmsKeyDetails[0] == nil {
 		return nil
 	}
@@ -505,8 +469,7 @@ func expandKMSKeyDetails(kmsKeyDetails []interface{}) *codegurureviewer.KMSKeyDe
 	}
 
 	result := &codegurureviewer.KMSKeyDetails{}
-
-	if v, ok := tfMap["encryption_option"].(string); ok && v != "" {
+funcv, ok := tfMap["encryption_option"].(string); ok && v != "" {
 		result.EncryptionOption = aws.String(v)
 	}
 
@@ -515,9 +478,7 @@ func expandKMSKeyDetails(kmsKeyDetails []interface{}) *codegurureviewer.KMSKeyDe
 	}
 
 	return result
-}
-
-func expandCodeCommitRepository(repository []interface{}) *codegurureviewer.CodeCommitRepository {
+}func expandCodeCommitRepository(repository []interface{}) *codegurureviewer.CodeCommitRepository {
 	if len(repository) == 0 || repository[0] == nil {
 		return nil
 	}
@@ -529,14 +490,11 @@ func expandCodeCommitRepository(repository []interface{}) *codegurureviewer.Code
 
 	result := &codegurureviewer.CodeCommitRepository{}
 
-	if v, ok := tfMap["name"].(string); ok && v != "" {
-		result.Name = aws.String(v)
+	funcsult.Name = aws.String(v)
 	}
 
 	return result
-}
-
-func expandRepository(repository []interface{}) *codegurureviewer.Repository {
+}func expandRepository(repository []interface{}) *codegurureviewer.Repository {
 	if len(repository) == 0 || repository[0] == nil {
 		return nil
 	}
@@ -549,8 +507,7 @@ func expandRepository(repository []interface{}) *codegurureviewer.Repository {
 	result := &codegurureviewer.Repository{}
 
 	if v, ok := tfMap["bitbucket"]; ok {
-		result.Bitbucket = expandThirdPartySourceRepository(v.([]interface{}))
-	}
+	func
 	if v, ok := tfMap["codecommit"]; ok {
 		result.CodeCommit = expandCodeCommitRepository(v.([]interface{}))
 	}
@@ -562,9 +519,7 @@ func expandRepository(repository []interface{}) *codegurureviewer.Repository {
 	}
 
 	return result
-}
-
-func expandS3Repository(repository []interface{}) *codegurureviewer.S3Repository {
+}func expandS3Repository(repository []interface{}) *codegurureviewer.S3Repository {
 	if len(repository) == 0 || repository[0] == nil {
 		return nil
 	}
@@ -578,16 +533,13 @@ func expandS3Repository(repository []interface{}) *codegurureviewer.S3Repository
 
 	if v, ok := tfMap["bucket_name"].(string); ok && v != "" {
 		result.BucketName = aws.String(v)
-	}
-
+	func
 	if v, ok := tfMap["name"].(string); ok && v != "" {
 		result.Name = aws.String(v)
 	}
 
 	return result
-}
-
-func expandThirdPartySourceRepository(repository []interface{}) *codegurureviewer.ThirdPartySourceRepository {
+}func expandThirdPartySourceRepository(repository []interface{}) *codegurureviewer.ThirdPartySourceRepository {
 	if len(repository) == 0 || repository[0] == nil {
 		return nil
 	}
@@ -602,8 +554,7 @@ func expandThirdPartySourceRepository(repository []interface{}) *codegurureviewe
 	if v, ok := tfMap["connection_arn"].(string); ok && v != "" {
 		result.ConnectionArn = aws.String(v)
 	}
-
-	if v, ok := tfMap["name"].(string); ok && v != "" {
+funcv, ok := tfMap["name"].(string); ok && v != "" {
 		result.Name = aws.String(v)
 	}
 

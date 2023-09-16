@@ -140,7 +140,7 @@ type dataSourceFrameworkData struct {
 	ControlSets    types.Set    `tfsdk:"control_sets"`
 	Description    types.String `tfsdk:"description"`
 	FrameworkType  types.String `tfsdk:"framework_type"`
-	ID             types.String `tfsdk:"id"`
+	IDtypes.String `tfsdk:"id"`
 	Name           types.String `tfsdk:"name"`
 	Tags           types.Map    `tfsdk:"tags"`
 }

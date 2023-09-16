@@ -14,14 +14,15 @@ import (
 // ServicePackageResourceTags represents resource-level tagging information.
 type ServicePackageResourceTags struct {
 	IdentifierAttribute string // The attribute for the identifier for UpdateTags etc.
-	ResourceType        string // Extra resourceType parameter value for UpdateTags etc.
+	ResourceType// Extra resourceType parameter value for UpdateTags etc.
 }
 
 // ServicePackageFrameworkDataSource represents a Terraform Plugin Framework data source
 // implemented by a service package.
 type ServicePackageFrameworkDataSource struct {
 	Factory 
-func(context.Context) (datasource.DataSourceWithConfigure, error)
+
+text.Context) (datasource.DataSourceWithConfigure, error)
 	Name    string
 	Tags    *ServicePackageResourceTags
 }
@@ -30,7 +31,8 @@ func(context.Context) (datasource.DataSourceWithConfigure, error)
 // implemented by a service package.
 type ServicePackageFrameworkResource struct {
 	Factory 
-func(context.Context) (resource.ResourceWithConfigure, error)
+
+text.Context) (resource.ResourceWithConfigure, error)
 	Name    string
 	Tags    *ServicePackageResourceTags
 }
@@ -39,18 +41,20 @@ func(context.Context) (resource.ResourceWithConfigure, error)
 // implemented by a service package.
 type ServicePackageSDKDataSource struct {
 	Factory  
-func() *schema.Resource
+
+schema.Resource
 	TypeName string
-	Name     string
-	Tags     *ServicePackageResourceTags
+	Name
+	TagsckageResourceTags
 }
 
 // ServicePackageSDKResource represents a Terraform Plugin SDK resource
 // implemented by a service package.
 type ServicePackageSDKResource struct {
 	Factory  
-func() *schema.Resource
+
+schema.Resource
 	TypeName string
-	Name     string
-	Tags     *ServicePackageResourceTags
+	Name
+	TagsckageResourceTags
 }

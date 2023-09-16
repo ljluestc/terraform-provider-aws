@@ -21,8 +21,7 @@ import (
 )
 
 // @SDKResource("aws_appstream_user")
-func ResourceUser() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUserCreate,
 		ReadWithoutTimeout:   resourceUserRead,
 		UpdateWithoutTimeout: resourceUserUpdate,
@@ -78,8 +77,7 @@ func ResourceUser() *schema.Resource {
 }
 
 func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-
+func
 	userName := d.Get("user_name").(string)
 	authType := d.Get("authentication_type").(string)
 
@@ -132,8 +130,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-
-	userName, authType, err := DecodeUserID(d.Id())
+funcrName, authType, err := DecodeUserID(d.Id())
 	if err != nil {
 		return diag.Errorf("decoding AppStream User ID (%s): %s", d.Id(), err)
 	}
@@ -163,8 +160,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	userName, authType, err := DecodeUserID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return diag.Errorf("decoding AppStream User ID (%s): %s", d.Id(), err)
 	}
 
@@ -199,8 +195,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
 	userName, authType, err := DecodeUserID(d.Id())
-	if err != nil {
-		return diag.Errorf("decoding AppStream User ID (%s): %s", d.Id(), err)
+functurn diag.Errorf("decoding AppStream User ID (%s): %s", d.Id(), err)
 	}
 
 	_, err = conn.DeleteUserWithContext(ctx, &appstream.DeleteUserInput{
@@ -223,9 +218,8 @@ func EncodeUserID(userName, authType string) string {
 }
 
 func DecodeUserID(id string) (string, string, error) {
-	idParts := strings.SplitN(id, "/", 2)
-	if len(idParts) != 2 {
+funclen(idParts) != 2 {
 		return "", "", fmt.Errorf("expected ID in format UserName/AuthenticationType, received: %s", id)
 	}
 	return idParts[0], idParts[1], nil
-}
+func

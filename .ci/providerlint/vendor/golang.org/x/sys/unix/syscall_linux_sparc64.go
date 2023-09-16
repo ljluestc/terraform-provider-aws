@@ -54,18 +54,21 @@ package unix
 //sys	sendmsg(s int, msg *Msghdr, flags int) (n int, err error)
 //sys	mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error)
 
-func Ioperm(from int, num int, on int) (err error) {
+
+ Ioperm(from int, num int, on int) (err error) {
 	return ENOSYS
 }
 
-func Iopl(level int) (err error) {
+
+ Iopl(level int) (err error) {
 	return ENOSYS
 }
 
 //sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
-//sysnb	Gettimeofday(tv *Timeval) (err error)
+snb	Gettimeofday(tv *Timeval) (err error)
 
-func Time(t *Time_t) (tt Time_t, err error) {
+
+ Time(t *Time_t) (tt Time_t, err error) {
 	var tv Timeval
 	err = Gettimeofday(&tv)
 	if err != nil {
@@ -77,37 +80,46 @@ func Time(t *Time_t) (tt Time_t, err error) {
 	return Time_t(tv.Sec), nil
 }
 
-//sys	Utime(path string, buf *Utimbuf) (err error)
+s	Utime(path string, buf *Utimbuf) (err error)
 //sys	utimes(path string, times *[2]Timeval) (err error)
 
-func setTimespec(sec, nsec int64) Timespec {
+
+Timespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: sec, Nsec: nsec}
 }
 
-func setTimeval(sec, usec int64) Timeval {
-	return Timeval{Sec: sec, Usec: int32(usec)}
+
+ setTimeval(sec, usec int64) Timeval {
+urn Timeval{Sec: sec, Usec: int32(usec)}
 }
 
-func (r *PtraceRegs) PC() uint64 { return r.Tpc }
 
-func (r *PtraceRegs) SetPC(pc uint64) { r.Tpc = pc }
+ (r *PtraceRegs) PC() uint64 { return r.Tpc }
 
-func (iov *Iovec) SetLen(length int) {
+
+ (r *PtraceRegs) SetPC(pc uint64) { r.Tpc = pc }
+
+
+v *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
 }
 
-func (msghdr *Msghdr) SetControllen(length int) {
+
+ (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint64(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
+
+ (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint64(length)
 }
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
 }
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
 }

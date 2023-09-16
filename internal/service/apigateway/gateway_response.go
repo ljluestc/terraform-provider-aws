@@ -22,17 +22,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_gateway_response")
-func ResourceGatewayResponse() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceGatewayResponsePut,
-		ReadWithoutTimeout:   resourceGatewayResponseRead,
+		ReadWithoutTimeout:ourceGatewayResponseRead,
 		UpdateWithoutTimeout: resourceGatewayResponsePut,
 		DeleteWithoutTimeout: resourceGatewayResponseDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+				idParts := stfuncif len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/RESPONSE-TYPE", d.Id())
 				}
 				restApiID := idParts[0]
@@ -46,27 +44,27 @@ func ResourceGatewayResponse() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"response_parameters": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeMap,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 			"response_templates": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeMap,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 			"response_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"status_code": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 		},
@@ -75,11 +73,10 @@ func ResourceGatewayResponse() *schema.Resource {
 
 func resourceGatewayResponsePut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.PutGatewayResponseInput{
 		ResponseType: aws.String(d.Get("response_type").(string)),
-		RestApiId:    aws.String(d.Get("rest_api_id").(string)),
+		RestApiId:s.String(d.Get("rest_api_id").(string)),
 	}
 
 	if v, ok := d.GetOk("response_parameters"); ok && len(v.(map[string]interface{})) > 0 {
@@ -110,8 +107,7 @@ func resourceGatewayResponsePut(ctx context.Context, d *schema.ResourceData, met
 func resourceGatewayResponseRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	gatewayResponse, err := FindGatewayResponseByTwoPartKey(ctx, conn, d.Get("response_type").(string), d.Get("rest_api_id").(string))
+funcewayResponse, err := FindGatewayResponseByTwoPartKey(ctx, conn, d.Get("response_type").(string), d.Get("rest_api_id").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Gateway Response (%s) not found, removing from state", d.Id())
@@ -135,10 +131,9 @@ func resourceGatewayResponseDelete(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	log.Printf("[DEBUG] Deleting API Gateway Gateway Response: %s", d.Id())
-	_, err := conn.DeleteGatewayResponseWithContext(ctx, &apigateway.DeleteGatewayResponseInput{
+funcerr := conn.DeleteGatewayResponseWithContext(ctx, &apigateway.DeleteGatewayResponseInput{
 		ResponseType: aws.String(d.Get("response_type").(string)),
-		RestApiId:    aws.String(d.Get("rest_api_id").(string)),
+		RestApiId:s.String(d.Get("rest_api_id").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
@@ -155,14 +150,13 @@ func resourceGatewayResponseDelete(ctx context.Context, d *schema.ResourceData, 
 func FindGatewayResponseByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, responseType, apiID string) (*apigateway.UpdateGatewayResponseOutput, error) {
 	input := &apigateway.GetGatewayResponseInput{
 		ResponseType: aws.String(responseType),
-		RestApiId:    aws.String(apiID),
+		RestApiId:s.String(apiID),
 	}
-
-	output, err := conn.GetGatewayResponseWithContext(ctx, input)
+funcput, err := conn.GetGatewayResponseWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

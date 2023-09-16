@@ -15,17 +15,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func findVPCAttributeV2(ctx context.Context, conn *ec2.Client, vpcID string, attribute awstypes.VpcAttributeName) (bool, error) {
-	input := &ec2.DescribeVpcAttributeInput{
+funcut := &ec2.DescribeVpcAttributeInput{
 		Attribute: attribute,
-		VpcId:     aws.String(vpcID),
+		VpcId:(vpcID),
 	}
 
 	output, err := conn.DescribeVpcAttribute(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {
 		return false, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -58,8 +57,7 @@ func findVPCAttributeV2(ctx context.Context, conn *ec2.Client, vpcID string, att
 }
 
 func findVPCV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeVpcsInput) (*awstypes.Vpc, error) {
-	output, err := findVPCsV2(ctx, conn, input)
-
+func
 	if err != nil {
 		return nil, err
 	}
@@ -69,14 +67,13 @@ func findVPCV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeVpcsInp
 
 func findVPCsV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeVpcsInput) ([]awstypes.Vpc, error) {
 	var output []awstypes.Vpc
-
-	pages := ec2.NewDescribeVpcsPaginator(conn, input)
+funces := ec2.NewDescribeVpcsPaginator(conn, input)
 	for pages.HasMorePages() {
 		page, err := pages.NextPage(ctx)
 
 		if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:,
 				LastRequest: input,
 			}
 		}
@@ -94,8 +91,7 @@ func findVPCsV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeVpcsIn
 func findVPCByIDV2(ctx context.Context, conn *ec2.Client, id string) (*awstypes.Vpc, error) {
 	input := &ec2.DescribeVpcsInput{
 		VpcIds: []string{id},
-	}
-
+func
 	return findVPCV2(ctx, conn, input)
 }
 
@@ -103,8 +99,7 @@ func findVPCIPv6CIDRBlockAssociationByIDV2(ctx context.Context, conn *ec2.Client
 	input := &ec2.DescribeVpcsInput{
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"ipv6-cidr-block-association.association-id": id,
-		}),
-	}
+func
 
 	vpc, err := findVPCV2(ctx, conn, input)
 
@@ -130,8 +125,7 @@ func findVPCDefaultNetworkACLV2(ctx context.Context, conn *ec2.Client, id string
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"default": "true",
 			"vpc-id":  id,
-		}),
-	}
+func
 
 	return findNetworkACLV2(ctx, conn, input)
 }
@@ -142,8 +136,7 @@ func findNetworkACLV2(ctx context.Context, conn *ec2.Client, input *ec2.Describe
 	if err != nil {
 		return nil, err
 	}
-
-	return tfresource.AssertSingleValueResult(output)
+funcurn tfresource.AssertSingleValueResult(output)
 }
 
 func findNetworkACLsV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeNetworkAclsInput) ([]awstypes.NetworkAcl, error) {
@@ -153,10 +146,9 @@ func findNetworkACLsV2(ctx context.Context, conn *ec2.Client, input *ec2.Describ
 
 	for pages.HasMorePages() {
 		page, err := pages.NextPage(ctx)
-
-		if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkACLIDNotFound) {
+func tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkACLIDNotFound) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:,
 				LastRequest: input,
 			}
 		}
@@ -175,12 +167,11 @@ func FindVPCDefaultSecurityGroupV2(ctx context.Context, conn *ec2.Client, id str
 	input := &ec2.DescribeSecurityGroupsInput{
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"group-name": DefaultSecurityGroupName,
-			"vpc-id":     id,
+			"vpc-id":
 		}),
 	}
 
-	return findSecurityGroupV2(ctx, conn, input)
-}
+func
 
 func findVPCMainRouteTableV2(ctx context.Context, conn *ec2.Client, id string) (*awstypes.RouteTable, error) {
 	input := &ec2.DescribeRouteTablesInput{
@@ -191,8 +182,7 @@ func findVPCMainRouteTableV2(ctx context.Context, conn *ec2.Client, id string) (
 	}
 
 	return findRouteTableV2(ctx, conn, input)
-}
-
+func
 func findRouteTableV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeRouteTablesInput) (*awstypes.RouteTable, error) {
 	output, err := findRouteTablesV2(ctx, conn, input)
 
@@ -203,8 +193,7 @@ func findRouteTableV2(ctx context.Context, conn *ec2.Client, input *ec2.Describe
 	return tfresource.AssertSingleValueResult(output)
 }
 
-func findRouteTablesV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeRouteTablesInput) ([]awstypes.RouteTable, error) {
-	var output []awstypes.RouteTable
+func output []awstypes.RouteTable
 
 	pages := ec2.NewDescribeRouteTablesPaginator(conn, input)
 
@@ -213,9 +202,8 @@ func findRouteTablesV2(ctx context.Context, conn *ec2.Client, input *ec2.Describ
 
 		if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: input,
-			}
+				LastError:,
+func
 		}
 
 		if err != nil {
@@ -240,19 +228,17 @@ func findSecurityGroupV2(ctx context.Context, conn *ec2.Client, input *ec2.Descr
 
 func findSecurityGroupsV2(ctx context.Context, conn *ec2.Client, input *ec2.DescribeSecurityGroupsInput) ([]awstypes.SecurityGroup, error) {
 	var output []awstypes.SecurityGroup
-
-	pages := ec2.NewDescribeSecurityGroupsPaginator(conn, input)
+funces := ec2.NewDescribeSecurityGroupsPaginator(conn, input)
 
 	for pages.HasMorePages() {
 		page, err := pages.NextPage(ctx)
 
 		if tfawserr.ErrCodeEquals(err, errCodeInvalidGroupNotFound, errCodeInvalidSecurityGroupIDNotFound) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:,
 				LastRequest: input,
 			}
-		}
-
+func
 		if err != nil {
 			return nil, err
 		}
@@ -273,12 +259,11 @@ func findIPAMPoolAllocationsV2(ctx context.Context, conn *ec2.Client, input *ec2
 
 		if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMPoolAllocationIdNotFound, errCodeInvalidIPAMPoolIdNotFound) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:,
 				LastRequest: input,
 			}
 		}
-
-		if err != nil {
+func err != nil {
 			return nil, err
 		}
 

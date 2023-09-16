@@ -27,10 +27,10 @@ func TestAccRedshiftSnapshotSchedule_basic(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_basic(rName),
@@ -64,10 +64,10 @@ func TestAccRedshiftSnapshotSchedule_disappears(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_basic(rName),
@@ -88,10 +88,10 @@ func TestAccRedshiftSnapshotSchedule_tags(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_tags1(rName, "key1", "value1"),
@@ -136,10 +136,10 @@ func TestAccRedshiftSnapshotSchedule_identifierGenerated(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_identifierGenerated(),
@@ -167,10 +167,10 @@ func TestAccRedshiftSnapshotSchedule_identifierPrefix(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_identifierPrefix("tf-acc-test-prefix-"),
@@ -199,10 +199,10 @@ func TestAccRedshiftSnapshotSchedule_update(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_multipleDefinitions(rName, "cron(30 12 *)", "cron(15 6 *)"),
@@ -249,10 +249,10 @@ func TestAccRedshiftSnapshotSchedule_withDescription(t *testing.T) {
 	resourceName := "aws_redshift_snapshot_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_description(rName),
@@ -282,10 +282,10 @@ func TestAccRedshiftSnapshotSchedule_withForceDestroy(t *testing.T) {
 	clusterResourceName := "aws_redshift_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotScheduleDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotScheduleConfig_forceDestroy(rName),

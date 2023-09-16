@@ -28,10 +28,10 @@ func TestAccNeptuneEventSubscription_basic(t *testing.T) {
 	resourceName := "aws_neptune_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_basic(rName, rInt),
@@ -73,10 +73,10 @@ func TestAccNeptuneEventSubscription_withPrefix(t *testing.T) {
 	resourceName := "aws_neptune_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_prefix(rInt),
@@ -87,7 +87,7 @@ func TestAccNeptuneEventSubscription_withPrefix(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -103,10 +103,10 @@ func TestAccNeptuneEventSubscription_withSourceIDs(t *testing.T) {
 	resourceName := "aws_neptune_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_sourceIDs(rInt),
@@ -142,10 +142,10 @@ func TestAccNeptuneEventSubscription_withCategories(t *testing.T) {
 	resourceName := "aws_neptune_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_basic(rName, rInt),

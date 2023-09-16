@@ -32,26 +32,26 @@ func ResourceRouteResponse() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"model_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"response_models": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"route_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"route_response_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 		},
@@ -63,8 +63,8 @@ func resourceRouteResponseCreate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateRouteResponseInput{
-		ApiId:            aws.String(d.Get("api_id").(string)),
-		RouteId:          aws.String(d.Get("route_id").(string)),
+		ApiId:api_id").(string)),
+		RouteId:ute_id").(string)),
 		RouteResponseKey: aws.String(d.Get("route_response_key").(string)),
 	}
 	if v, ok := d.GetOk("model_selection_expression"); ok {
@@ -90,8 +90,8 @@ func resourceRouteResponseRead(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetRouteResponseWithContext(ctx, &apigatewayv2.GetRouteResponseInput{
-		ApiId:           aws.String(d.Get("api_id").(string)),
-		RouteId:         aws.String(d.Get("route_id").(string)),
+		ApiId:pi_id").(string)),
+		RouteId:ring(d.Get("route_id").(string)),
 		RouteResponseId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) && !d.IsNewResource() {
@@ -117,8 +117,8 @@ func resourceRouteResponseUpdate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateRouteResponseInput{
-		ApiId:           aws.String(d.Get("api_id").(string)),
-		RouteId:         aws.String(d.Get("route_id").(string)),
+		ApiId:pi_id").(string)),
+		RouteId:ring(d.Get("route_id").(string)),
 		RouteResponseId: aws.String(d.Id()),
 	}
 	if d.HasChange("model_selection_expression") {
@@ -146,8 +146,8 @@ func resourceRouteResponseDelete(ctx context.Context, d *schema.ResourceData, me
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 route response (%s)", d.Id())
 	_, err := conn.DeleteRouteResponseWithContext(ctx, &apigatewayv2.DeleteRouteResponseInput{
-		ApiId:           aws.String(d.Get("api_id").(string)),
-		RouteId:         aws.String(d.Get("route_id").(string)),
+		ApiId:pi_id").(string)),
+		RouteId:ring(d.Get("route_id").(string)),
 		RouteResponseId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {

@@ -29,9 +29,9 @@ func TestAccAMPWorkspace_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkspaceDestroy(ctx),
+		CheckDestroy:testAccCheckWorkspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkspaceConfig_basic(),
@@ -63,9 +63,9 @@ func TestAccAMPWorkspace_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkspaceDestroy(ctx),
+		CheckDestroy:testAccCheckWorkspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkspaceConfig_basic(),
@@ -85,10 +85,10 @@ func TestAccAMPWorkspace_tags(t *testing.T) {
 	resourceName := "aws_prometheus_workspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkspaceDestroy(ctx),
+		CheckDestroy:testAccCheckWorkspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkspaceConfig_tags1("key1", "value1"),
@@ -136,9 +136,9 @@ func TestAccAMPWorkspace_alias(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkspaceDestroy(ctx),
+		CheckDestroy:testAccCheckWorkspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkspaceConfig_alias(rName1),
@@ -187,10 +187,10 @@ func TestAccAMPWorkspace_loggingConfiguration(t *testing.T) {
 	resourceName := "aws_prometheus_workspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkspaceDestroy(ctx),
+		CheckDestroy:testAccCheckWorkspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkspaceConfig_loggingConfiguration(rName, 0),

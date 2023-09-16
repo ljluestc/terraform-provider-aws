@@ -390,10 +390,10 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChanges("description", "metric_groups", "name", "new_game_session_protection_policy", "resource_creation_limit_policy") {
 		_, err := conn.UpdateFleetAttributesWithContext(ctx, &gamelift.UpdateFleetAttributesInput{
-			Description:                    aws.String(d.Get("description").(string)),
-			FleetId:                        aws.String(d.Id()),
-			MetricGroups:                   flex.ExpandStringList(d.Get("metric_groups").([]interface{})),
-			Name:                           aws.String(d.Get("name").(string)),
+			Description:       aws.String(d.Get("description").(string)),
+			FleetId:           aws.String(d.Id()),
+			MetricGroups:      flex.ExpandStringList(d.Get("metric_groups").([]interface{})),
+			Name: aws.String(d.Get("name").(string)),
 			NewGameSessionProtectionPolicy: aws.String(d.Get("new_game_session_protection_policy").(string)),
 			ResourceCreationLimitPolicy:    expandResourceCreationLimitPolicy(d.Get("resource_creation_limit_policy").([]interface{})),
 		})
@@ -407,7 +407,7 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		authorizations, revocations := DiffPortSettings(oldPerms.(*schema.Set).List(), newPerms.(*schema.Set).List())
 
 		_, err := conn.UpdateFleetPortSettingsWithContext(ctx, &gamelift.UpdateFleetPortSettingsInput{
-			FleetId:                         aws.String(d.Id()),
+			FleetId:            aws.String(d.Id()),
 			InboundPermissionAuthorizations: authorizations,
 			InboundPermissionRevocations:    revocations,
 		})
@@ -418,7 +418,7 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChange("runtime_configuration") {
 		_, err := conn.UpdateRuntimeConfigurationWithContext(ctx, &gamelift.UpdateRuntimeConfigurationInput{
-			FleetId:              aws.String(d.Id()),
+			FleetId: aws.String(d.Id()),
 			RuntimeConfiguration: expandRuntimeConfiguration(d.Get("runtime_configuration").([]interface{})),
 		})
 		if err != nil {

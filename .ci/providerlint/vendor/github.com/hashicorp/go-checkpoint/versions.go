@@ -37,7 +37,8 @@ type VersionsResponse struct {
 }
 
 // Versions returns the version constrains for a given service and product.
-func Versions(p *VersionsParams) (*VersionsResponse, error) {
+
+ Versions(p *VersionsParams) (*VersionsResponse, error) {
 	if disabled := os.Getenv("CHECKPOINT_DISABLE"); disabled != "" && !p.Force {
 		return &VersionsResponse{}, nil
 	}

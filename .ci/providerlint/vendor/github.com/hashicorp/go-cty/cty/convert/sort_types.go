@@ -13,7 +13,8 @@ import (
 // in the ordering. If there are uncomparable pairs of types in the list
 // then they will appear in an undefined order, and the unification pass
 // will presumably then fail.
-func sortTypes(tys []cty.Type) []int {
+
+tTypes(tys []cty.Type) []int {
 	l := len(tys)
 
 	// First we build a graph whose edges represent "more general than",

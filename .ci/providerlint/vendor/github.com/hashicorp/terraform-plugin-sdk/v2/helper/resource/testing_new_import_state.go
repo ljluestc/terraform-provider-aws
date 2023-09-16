@@ -17,7 +17,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest.Helper, wd *plugintest.WorkingDir, step TestStep, cfg string, providers *providerFactories) error {
+
+ testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest.Helper, wd *plugintest.WorkingDir, step TestStep, cfg string, providers *providerFactories) error {
 	t.Helper()
 
 	if step.ResourceName == "" {
@@ -27,7 +28,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 	// get state from check sequence
 	var state *terraform.State
 	var err error
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		state, err = getState(ctx, t, wd)
 		if err != nil {
 			return err
@@ -41,20 +43,25 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 	// Determine the ID to import
 	var importId string
 	switch {
-	case step.ImportStateIdFunc != nil:
-		logging.HelperResourceTrace(ctx, "Using TestStep ImportStateIdFunc for import identifier")
+	case step.ImportStateId
+ != nil:
+		logging.HelperResourceTrace(ctx, "Using TestStep ImportStateId
+ for import identifier")
 
 		var err error
 
-		logging.HelperResourceDebug(ctx, "Calling TestStep ImportStateIdFunc")
+		logging.HelperResourceDebug(ctx, "Calling TestStep ImportStateId
+")
 
-		importId, err = step.ImportStateIdFunc(state)
+		importId, err = step.ImportStateId
+(state)
 
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		logging.HelperResourceDebug(ctx, "Called TestStep ImportStateIdFunc")
+		logging.HelperResourceDebug(ctx, "Called TestStep ImportStateId
+")
 	case step.ImportStateId != "":
 		logging.HelperResourceTrace(ctx, "Using TestStep ImportStateId for import identifier")
 
@@ -105,7 +112,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 	logging.HelperResourceDebug(ctx, "Running Terraform CLI init and import")
 
 	if !step.ImportStatePersist {
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			return importWd.Init(ctx)
 		}, importWd, providers)
 		if err != nil {
@@ -113,7 +121,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 		}
 	}
 
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		return importWd.Import(ctx, step.ResourceName, importId)
 	}, importWd, providers)
 	if err != nil {
@@ -121,7 +130,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 	}
 
 	var importState *terraform.State
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		importState, err = getState(ctx, t, importWd)
 		if err != nil {
 			return err
@@ -137,7 +147,7 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 		logging.HelperResourceTrace(ctx, "Using TestStep ImportStateCheck")
 
 		var states []*terraform.InstanceState
-		for address, r := range importState.RootModule().Resources {
+		for address, r := range importState.RootModule().Reces {
 			if strings.HasPrefix(address, "data.") {
 				continue
 			}
@@ -147,7 +157,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 			}
 
 			is := r.Primary.DeepCopy()
-			is.Ephemeral.Type = r.Type // otherwise the check function cannot see the type
+			is.Ephemeral.Type = r.Type // otherwise the check 
+tion cannot see the type
 			states = append(states, is)
 		}
 
@@ -199,7 +210,8 @@ func testStepNewImportState(ctx context.Context, t testing.T, helper *plugintest
 
 			// don't add empty flatmapped containers, so we can more easily
 			// compare the attributes
-			skipEmpty := func(k, v string) bool {
+			skipEmpty := 
+(k, v string) bool {
 				if strings.HasSuffix(k, ".#") || strings.HasSuffix(k, ".%") {
 					if v == "0" {
 						return true

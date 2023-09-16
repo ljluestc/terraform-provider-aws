@@ -17,7 +17,8 @@ const (
 // StringKind indicates a formatting or encoding scheme for a string.
 type StringKind int32
 
-func (s StringKind) String() string {
+
+StringKind) String() string {
 	switch s {
 	case 0:
 		return "PLAIN"

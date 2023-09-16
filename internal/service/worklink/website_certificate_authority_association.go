@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_worklink_website_certificate_authority_association")
+
 func ResourceWebsiteCertificateAuthorityAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWebsiteCertificateAuthorityAssociationCreate,
@@ -56,6 +57,7 @@ func ResourceWebsiteCertificateAuthorityAssociation() *schema.Resource {
 	}
 }
 
+
 func resourceWebsiteCertificateAuthorityAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
@@ -78,6 +80,7 @@ func resourceWebsiteCertificateAuthorityAssociationCreate(ctx context.Context, d
 
 	return append(diags, resourceWebsiteCertificateAuthorityAssociationRead(ctx, d, meta)...)
 }
+
 
 func resourceWebsiteCertificateAuthorityAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -110,6 +113,7 @@ func resourceWebsiteCertificateAuthorityAssociationRead(ctx context.Context, d *
 
 	return diags
 }
+
 
 func resourceWebsiteCertificateAuthorityAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -149,8 +153,10 @@ func resourceWebsiteCertificateAuthorityAssociationDelete(ctx context.Context, d
 	return diags
 }
 
+
 func WebsiteCertificateAuthorityAssociationStateRefresh(ctx context.Context, conn *worklink.WorkLink, websiteCaID, arn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		emptyResp := &worklink.DescribeWebsiteCertificateAuthorityOutput{}
 
 		resp, err := conn.DescribeWebsiteCertificateAuthorityWithContext(ctx, &worklink.DescribeWebsiteCertificateAuthorityInput{
@@ -167,6 +173,7 @@ func WebsiteCertificateAuthorityAssociationStateRefresh(ctx context.Context, con
 		return resp, "", nil
 	}
 }
+
 
 func DecodeWebsiteCertificateAuthorityAssociationResourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)

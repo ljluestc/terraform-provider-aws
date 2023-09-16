@@ -53,7 +53,8 @@ type encoderState struct {
 // If outputASCII is true, strings will be serialized in such a way that
 // multi-byte UTF-8 sequences are escaped. This property ensures that the
 // overall output is ASCII (as opposed to UTF-8).
-func NewEncoder(buf []byte, indent string, delims [2]byte, outputASCII bool) (*Encoder, error) {
+
+ NewEncoder(buf []byte, indent string, delims [2]byte, outputASCII bool) (*Encoder, error) {
 	e := &Encoder{
 		encoderState: encoderState{out: buf},
 	}
@@ -76,46 +77,53 @@ func NewEncoder(buf []byte, indent string, delims [2]byte, outputASCII bool) (*E
 	return e, nil
 }
 
-// Bytes returns the content of the written bytes.
-func (e *Encoder) Bytes() []byte {
+ytes returns the content of the written bytes.
+
+ (e *Encoder) Bytes() []byte {
 	return e.out
 }
 
 // StartMessage writes out the '{' or '<' symbol.
-func (e *Encoder) StartMessage() {
+
+ (e *Encoder) StartMessage() {
 	e.prepareNext(messageOpen)
 	e.out = append(e.out, e.delims[0])
-}
+
 
 // EndMessage writes out the '}' or '>' symbol.
-func (e *Encoder) EndMessage() {
+
+ (e *Encoder) EndMessage() {
 	e.prepareNext(messageClose)
-	e.out = append(e.out, e.delims[1])
+ut = append(e.out, e.delims[1])
 }
 
 // WriteName writes out the field name and the separator ':'.
-func (e *Encoder) WriteName(s string) {
+
+ (e *Encoder) WriteName(s string) {
 	e.prepareNext(name)
-	e.out = append(e.out, s...)
+ut = append(e.out, s...)
 	e.out = append(e.out, ':')
 }
 
 // WriteBool writes out the given boolean value.
-func (e *Encoder) WriteBool(b bool) {
+
+ (e *Encoder) WriteBool(b bool) {
 	if b {
 		e.WriteLiteral("true")
-	} else {
+lse {
 		e.WriteLiteral("false")
 	}
 }
 
-// WriteString writes out the given string value.
-func (e *Encoder) WriteString(s string) {
+riteString writes out the given string value.
+
+ (e *Encoder) WriteString(s string) {
 	e.prepareNext(scalar)
 	e.out = appendString(e.out, s, e.outputASCII)
 }
 
-func appendString(out []byte, in string, outputASCII bool) []byte {
+
+ appendString(out []byte, in string, outputASCII bool) []byte {
 	out = append(out, '"')
 	i := indexNeedEscapeInString(in)
 	in, out = in[i:], append(out, in[:i]...)
@@ -158,7 +166,7 @@ func appendString(out []byte, in string, outputASCII bool) []byte {
 		default:
 			i := indexNeedEscapeInString(in[n:])
 			in, out = in[n+i:], append(out, in[:n+i]...)
-		}
+
 	}
 	out = append(out, '"')
 	return out
@@ -166,57 +174,65 @@ func appendString(out []byte, in string, outputASCII bool) []byte {
 
 // indexNeedEscapeInString returns the index of the character that needs
 // escaping. If no characters need escaping, this returns the input length.
-func indexNeedEscapeInString(s string) int {
-	for i := 0; i < len(s); i++ {
+
+ indexNeedEscapeInString(s string) int {
+ i := 0; i < len(s); i++ {
 		if c := s[i]; c < ' ' || c == '"' || c == '\'' || c == '\\' || c >= 0x7f {
 			return i
 		}
 	}
-	return len(s)
+urn len(s)
 }
 
 // WriteFloat writes out the given float value for given bitSize.
-func (e *Encoder) WriteFloat(n float64, bitSize int) {
+
+ (e *Encoder) WriteFloat(n float64, bitSize int) {
 	e.prepareNext(scalar)
 	e.out = appendFloat(e.out, n, bitSize)
 }
 
-func appendFloat(out []byte, n float64, bitSize int) []byte {
+
+ appendFloat(out []byte, n float64, bitSize int) []byte {
 	switch {
 	case math.IsNaN(n):
-		return append(out, "nan"...)
+turn append(out, "nan"...)
 	case math.IsInf(n, +1):
 		return append(out, "inf"...)
 	case math.IsInf(n, -1):
 		return append(out, "-inf"...)
 	default:
-		return strconv.AppendFloat(out, n, 'g', -1, bitSize)
+turn strconv.AppendFloat(out, n, 'g', -1, bitSize)
 	}
 }
 
 // WriteInt writes out the given signed integer value.
-func (e *Encoder) WriteInt(n int64) {
-	e.prepareNext(scalar)
+
+ (e *Encoder) WriteInt(n int64) {
+repareNext(scalar)
 	e.out = strconv.AppendInt(e.out, n, 10)
 }
 
 // WriteUint writes out the given unsigned integer value.
-func (e *Encoder) WriteUint(n uint64) {
-	e.prepareNext(scalar)
-	e.out = strconv.AppendUint(e.out, n, 10)
+
+ (e *Encoder) WriteUint(n uint64) {
+repareNext(scalar)
+	e.out rconv.AppendUint(e.out, n, 10)
 }
 
 // WriteLiteral writes out the given string as a literal value without quotes.
 // This is used for writing enum literal strings.
-func (e *Encoder) WriteLiteral(s string) {
+
+ (e *Encoder) WriteLiteral(s string) {
 	e.prepareNext(scalar)
 	e.out = append(e.out, s...)
 }
 
 // prepareNext adds possible space and indentation for the next value based
 // on last encType and indent option. It also updates e.lastType to next.
-func (e *Encoder) prepareNext(next encType) {
-	defer func() {
+
+ (e *Encoder) prepareNext(next encType) {
+	defer 
+() {
 		e.lastType = next
 	}()
 
@@ -251,22 +267,25 @@ func (e *Encoder) prepareNext(next encType) {
 		if next == messageClose {
 			e.indents = e.indents[:len(e.indents)-len(e.indent)]
 		}
-		e.out = append(e.out, '\n')
+out = append(e.out, '\n')
 		e.out = append(e.out, e.indents...)
 	}
 }
 
 // Snapshot returns the current snapshot for use in Reset.
-func (e *Encoder) Snapshot() encoderState {
+
+ (e *Encoder) Snapshot() encoderState {
 	return e.encoderState
 }
 
 // Reset resets the Encoder to the given encoderState from a Snapshot.
-func (e *Encoder) Reset(es encoderState) {
+
+ (e *Encoder) Reset(es encoderState) {
 	e.encoderState = es
 }
 
 // AppendString appends the escaped form of the input string to b.
-func AppendString(b []byte, s string) []byte {
+
+ AppendString(b []byte, s string) []byte {
 	return appendString(b, s, false)
 }

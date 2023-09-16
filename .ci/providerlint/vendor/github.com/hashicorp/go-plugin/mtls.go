@@ -17,7 +17,8 @@ import (
 
 // generateCert generates a temporary certificate for plugin authentication. The
 // certificate and private key are returns in PEM format.
-func generateCert() (cert []byte, privateKey []byte, err error) {
+
+ generateCert() (cert []byte, privateKey []byte, err error) {
 	key, err := ecdsa.GenerateKey(elliptic.P521(), rand.Reader)
 	if err != nil {
 		return nil, nil, err

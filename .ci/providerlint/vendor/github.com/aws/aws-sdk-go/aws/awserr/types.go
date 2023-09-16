@@ -9,7 +9,8 @@ import (
 //
 // Both extra and origErr are optional.  If they are included their lines
 // will be added, but if they are not included their lines will be ignored.
-func SprintError(code, message, extra string, origErr error) string {
+
+intError(code, message, extra string, origErr error) string {
 	msg := fmt.Sprintf("%s: %s", code, message)
 	if extra != "" {
 		msg = fmt.Sprintf("%s\n\t%s", msg, extra)
@@ -47,7 +48,8 @@ type baseError struct {
 //
 // origErrs is the error objects which will be nested under the new errors to
 // be returned.
-func newBaseError(code, message string, origErrs []error) *baseError {
+
+BaseError(code, message string, origErrs []error) *baseError {
 	b := &baseError{
 		code:    code,
 		message: message,
@@ -62,7 +64,8 @@ func newBaseError(code, message string, origErrs []error) *baseError {
 // See ErrorWithExtra for formatting.
 //
 // Satisfies the error interface.
-func (b baseError) Error() string {
+
+baseError) Error() string {
 	size := len(b.errs)
 	if size > 0 {
 		return SprintError(b.code, b.message, "", errorList(b.errs))
@@ -73,24 +76,28 @@ func (b baseError) Error() string {
 
 // String returns the string representation of the error.
 // Alias for Error to satisfy the stringer interface.
-func (b baseError) String() string {
+
+baseError) String() string {
 	return b.Error()
 }
 
 // Code returns the short phrase depicting the classification of the error.
-func (b baseError) Code() string {
+
+baseError) Code() string {
 	return b.code
 }
 
 // Message returns the error details message.
-func (b baseError) Message() string {
+
+baseError) Message() string {
 	return b.message
 }
 
 // OrigErr returns the original error if one was set. Nil is returned if no
 // error was set. This only returns the first element in the list. If the full
 // list is needed, use BatchedErrors.
-func (b baseError) OrigErr() error {
+
+baseError) OrigErr() error {
 	switch len(b.errs) {
 	case 0:
 		return nil
@@ -107,7 +114,8 @@ func (b baseError) OrigErr() error {
 
 // OrigErrs returns the original errors if one was set. An empty slice is
 // returned if no error was set.
-func (b baseError) OrigErrs() []error {
+
+baseError) OrigErrs() []error {
 	return b.errs
 }
 
@@ -133,7 +141,8 @@ type requestError struct {
 // that may be meaningful.
 //
 // Also wraps original errors via the baseError.
-func newRequestError(err Error, statusCode int, requestID string) *requestError {
+
+RequestError(err Error, statusCode int, requestID string) *requestError {
 	return &requestError{
 		awsError:   err,
 		statusCode: statusCode,
@@ -143,7 +152,8 @@ func newRequestError(err Error, statusCode int, requestID string) *requestError 
 
 // Error returns the string representation of the error.
 // Satisfies the error interface.
-func (r requestError) Error() string {
+
+requestError) Error() string {
 	extra := fmt.Sprintf("status code: %d, request id: %s",
 		r.statusCode, r.requestID)
 	return SprintError(r.Code(), r.Message(), extra, r.OrigErr())
@@ -151,23 +161,27 @@ func (r requestError) Error() string {
 
 // String returns the string representation of the error.
 // Alias for Error to satisfy the stringer interface.
-func (r requestError) String() string {
+
+requestError) String() string {
 	return r.Error()
 }
 
 // StatusCode returns the wrapped status code for the error
-func (r requestError) StatusCode() int {
+
+requestError) StatusCode() int {
 	return r.statusCode
 }
 
 // RequestID returns the wrapped requestID
-func (r requestError) RequestID() string {
+
+requestError) RequestID() string {
 	return r.requestID
 }
 
 // OrigErrs returns the original errors if one was set. An empty slice is
 // returned if no error was set.
-func (r requestError) OrigErrs() []error {
+
+requestError) OrigErrs() []error {
 	if b, ok := r.awsError.(BatchedErrors); ok {
 		return b.OrigErrs()
 	}
@@ -181,19 +195,22 @@ type unmarshalError struct {
 
 // Error returns the string representation of the error.
 // Satisfies the error interface.
-func (e unmarshalError) Error() string {
+
+unmarshalError) Error() string {
 	extra := hex.Dump(e.bytes)
 	return SprintError(e.Code(), e.Message(), extra, e.OrigErr())
 }
 
 // String returns the string representation of the error.
 // Alias for Error to satisfy the stringer interface.
-func (e unmarshalError) String() string {
+
+unmarshalError) String() string {
 	return e.Error()
 }
 
 // Bytes returns the bytes that failed to unmarshal.
-func (e unmarshalError) Bytes() []byte {
+
+unmarshalError) Bytes() []byte {
 	return e.bytes
 }
 
@@ -203,7 +220,8 @@ type errorList []error
 // Error returns the string representation of the error.
 //
 // Satisfies the error interface.
-func (e errorList) Error() string {
+
+errorList) Error() string {
 	msg := ""
 	// How do we want to handle the array size being zero
 	if size := len(e); size > 0 {

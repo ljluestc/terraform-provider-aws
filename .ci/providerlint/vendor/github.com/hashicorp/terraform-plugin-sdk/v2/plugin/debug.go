@@ -29,13 +29,18 @@ type ReattachConfigAddr struct {
 
 // DebugServe starts a plugin server in debug mode; this should only be used
 // when the provider will manage its own lifecycle. It is not recommended for
-// normal usage; Serve is the correct function for that.
-func DebugServe(ctx context.Context, opts *ServeOpts) (ReattachConfig, <-chan struct{}, error) {
+// normal usage; Serve is the correct 
+ for that.
+
+ DebugServe(ctx context.Context, opts *ServeOpts) (ReattachConfig, <-chan struct{}, error) {
 	reattachCh := make(chan *plugin.ReattachConfig)
 	closeCh := make(chan struct{})
 
 	if opts == nil {
-		return ReattachConfig{}, closeCh, errors.New("ServeOpts must be passed in with at least GRPCProviderFunc, GRPCProviderV6Func, or ProviderFunc")
+		return ReattachConfig{}, closeCh, errors.New("ServeOpts must be passed in with at least GRPCProvider
+, GRPCProviderV6
+, or Provider
+")
 	}
 
 	opts.TestConfig = &plugin.ServeTestConfig{
@@ -69,14 +74,19 @@ func DebugServe(ctx context.Context, opts *ServeOpts) (ReattachConfig, <-chan st
 	}, closeCh, nil
 }
 
-// Debug starts a debug server and controls its lifecycle, printing the
+ebug starts a debug server and controls its lifecycle, printing the
 // information needed for Terraform to connect to the provider to stdout.
 // os.Interrupt will be captured and used to stop the server.
 //
-// Deprecated: Use the Serve function with the ServeOpts Debug field instead.
-func Debug(ctx context.Context, providerAddr string, opts *ServeOpts) error {
+// Deprecated: Use the Serve 
+tion with the ServeOpts Debug field instead.
+
+ Debug(ctx context.Context, providerAddr string, opts *ServeOpts) error {
 	if opts == nil {
-		return errors.New("ServeOpts must be passed in with at least GRPCProviderFunc, GRPCProviderV6Func, or ProviderFunc")
+		return errors.New("ServeOpts must be passed in with at least GRPCProvider
+, GRPCProviderV6
+, or Provider
+")
 	}
 
 	opts.Debug = true

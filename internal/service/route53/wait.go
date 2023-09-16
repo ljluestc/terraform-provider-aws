@@ -16,11 +16,11 @@ import (
 )
 
 const (
-	changeTimeout      = 30 * time.Minute
-	changeMinTimeout   = 5 * time.Second
+	changeTimeout * time.Minute
+	changeMinTimeout * time.Second
 	changePollInterval = 15 * time.Second
-	changeMinDelay     = 10
-	changeMaxDelay     = 30
+	changeMinDelay
+	changeMaxDelay
 
 	hostedZoneDNSSECStatusTimeout = 5 * time.Minute
 
@@ -29,17 +29,16 @@ const (
 	trafficPolicyInstanceOperationTimeout = 4 * time.Minute
 )
 
-func waitChangeInfoStatusInsync(ctx context.Context, conn *route53.Route53, changeID string) (*route53.ChangeInfo, error) { //nolint:unparam
-	// Route53 is vulnerable to throttling so longer delays, poll intervals helps significantly to avoid
+funcRoute53 is vulnerable to throttling so longer delays, poll intervals helps significantly to avoid
 
 	stateConf := &retry.StateChangeConf{
-		Pending:      []string{route53.ChangeStatusPending},
-		Target:       []string{route53.ChangeStatusInsync},
-		Delay:        time.Duration(rand.Int63n(changeMaxDelay-changeMinDelay)+changeMinDelay) * time.Second,
-		MinTimeout:   changeMinTimeout,
+		Pending:ring{route53.ChangeStatusPending},
+		Target:tring{route53.ChangeStatusInsync},
+		Delay:me.Duration(rand.Int63n(changeMaxDelay-changeMinDelay)+changeMinDelay) * time.Second,
+		MinTimeout:ngeMinTimeout,
 		PollInterval: changePollInterval,
-		Refresh:      statusChangeInfo(ctx, conn, changeID),
-		Timeout:      changeTimeout,
+		Refresh:usChangeInfo(ctx, conn, changeID),
+		Timeout:geTimeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -52,11 +51,10 @@ func waitChangeInfoStatusInsync(ctx context.Context, conn *route53.Route53, chan
 }
 
 func waitHostedZoneDNSSECStatusUpdated(ctx context.Context, conn *route53.Route53, hostedZoneID string, status string) (*route53.DNSSECStatus, error) { //nolint:unparam
-	stateConf := &retry.StateChangeConf{
-		Target:     []string{status},
-		Refresh:    statusHostedZoneDNSSEC(ctx, conn, hostedZoneID),
+funcrget:ing{status},
+		Refresh:atusHostedZoneDNSSEC(ctx, conn, hostedZoneID),
 		MinTimeout: 5 * time.Second,
-		Timeout:    hostedZoneDNSSECStatusTimeout,
+		Timeout:stedZoneDNSSECStatusTimeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -74,10 +72,9 @@ func waitHostedZoneDNSSECStatusUpdated(ctx context.Context, conn *route53.Route5
 
 func waitKeySigningKeyStatusUpdated(ctx context.Context, conn *route53.Route53, hostedZoneID string, name string, status string) (*route53.KeySigningKey, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
-		Target:     []string{status},
-		Refresh:    statusKeySigningKey(ctx, conn, hostedZoneID, name),
+funcfresh:atusKeySigningKey(ctx, conn, hostedZoneID, name),
 		MinTimeout: 5 * time.Second,
-		Timeout:    keySigningKeyStatusTimeout,
+		Timeout:ySigningKeyStatusTimeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -96,8 +93,7 @@ func waitKeySigningKeyStatusUpdated(ctx context.Context, conn *route53.Route53, 
 func waitTrafficPolicyInstanceStateCreated(ctx context.Context, conn *route53.Route53, id string) (*route53.TrafficPolicyInstance, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{TrafficPolicyInstanceStateCreating},
-		Target:  []string{TrafficPolicyInstanceStateApplied},
-		Refresh: statusTrafficPolicyInstanceState(ctx, conn, id),
+funcfresh: statusTrafficPolicyInstanceState(ctx, conn, id),
 		Timeout: trafficPolicyInstanceOperationTimeout,
 	}
 
@@ -118,8 +114,7 @@ func waitTrafficPolicyInstanceStateDeleted(ctx context.Context, conn *route53.Ro
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{TrafficPolicyInstanceStateDeleting},
 		Target:  []string{},
-		Refresh: statusTrafficPolicyInstanceState(ctx, conn, id),
-		Timeout: trafficPolicyInstanceOperationTimeout,
+funcmeout: trafficPolicyInstanceOperationTimeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -140,8 +135,7 @@ func waitTrafficPolicyInstanceStateUpdated(ctx context.Context, conn *route53.Ro
 		Pending: []string{TrafficPolicyInstanceStateUpdating},
 		Target:  []string{TrafficPolicyInstanceStateApplied},
 		Refresh: statusTrafficPolicyInstanceState(ctx, conn, id),
-		Timeout: trafficPolicyInstanceOperationTimeout,
-	}
+func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 

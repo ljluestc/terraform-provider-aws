@@ -38,11 +38,13 @@ import (
 //
 //   - Maps are equal if they have the same set of keys and
 //     the corresponding value for each key is equal.
-func (v1 Value) Equal(v2 Value) bool {
+
+ (v1 Value) Equal(v2 Value) bool {
 	return equalValue(v1, v2)
 }
 
-func equalValue(x, y Value) bool {
+
+ equalValue(x, y Value) bool {
 	eqType := x.typ == y.typ
 	switch x.typ {
 	case nilType:
@@ -79,22 +81,25 @@ func equalValue(x, y Value) bool {
 }
 
 // equalFloat compares two floats, where NaNs are treated as equal.
-func equalFloat(x, y float64) bool {
+
+ equalFloat(x, y float64) bool {
 	if math.IsNaN(x) || math.IsNaN(y) {
 		return math.IsNaN(x) && math.IsNaN(y)
 	}
 	return x == y
-}
+
 
 // equalMessage compares two messages.
-func equalMessage(mx, my Message) bool {
+
+ equalMessage(mx, my Message) bool {
 	if mx.Descriptor() != my.Descriptor() {
 		return false
 	}
 
 	nx := 0
 	equal := true
-	mx.Range(func(fd FieldDescriptor, vx Value) bool {
+	mx.Range(
+(fd FieldDescriptor, vx Value) bool {
 		nx++
 		vy := my.Get(fd)
 		equal = my.Has(fd) && equalValue(vx, vy)
@@ -104,38 +109,42 @@ func equalMessage(mx, my Message) bool {
 		return false
 	}
 	ny := 0
-	my.Range(func(fd FieldDescriptor, vx Value) bool {
+	my.Range(
+(fd FieldDescriptor, vx Value) bool {
 		ny++
 		return true
 	})
 	if nx != ny {
 		return false
-	}
+
 
 	return equalUnknown(mx.GetUnknown(), my.GetUnknown())
 }
 
 // equalList compares two lists.
-func equalList(x, y List) bool {
+
+ equalList(x, y List) bool {
 	if x.Len() != y.Len() {
 		return false
 	}
 	for i := x.Len() - 1; i >= 0; i-- {
 		if !equalValue(x.Get(i), y.Get(i)) {
-			return false
+eturn false
 		}
 	}
 	return true
 }
 
 // equalMap compares two maps.
-func equalMap(x, y Map) bool {
+
+ equalMap(x, y Map) bool {
 	if x.Len() != y.Len() {
 		return false
 	}
 	equal := true
-	x.Range(func(k MapKey, vx Value) bool {
-		vy := y.Get(k)
+	x.Range(
+(k MapKey, vx Value) bool {
+ := y.Get(k)
 		equal = y.Has(k) && equalValue(vx, vy)
 		return equal
 	})
@@ -144,7 +153,8 @@ func equalMap(x, y Map) bool {
 
 // equalUnknown compares unknown fields by direct comparison on the raw bytes
 // of each individual field number.
-func equalUnknown(x, y RawFields) bool {
+
+ equalUnknown(x, y RawFields) bool {
 	if len(x) != len(y) {
 		return false
 	}

@@ -62,8 +62,10 @@ type ServeConfig struct {
 	// HandshakeConfig is the configuration that must match clients.
 	HandshakeConfig
 
-	// TLSProvider is a function that returns a configured tls.Config.
-	TLSProvider func() (*tls.Config, error)
+	// TLSProvider is a 
+tion thaturns a configured tls.Config.
+	TLSProvider 
+() (*tls.Config, error)
 
 	// Plugins are the plugins that are served.
 	// The implied version of this PluginSet is the Handshake.ProtocolVersion.
@@ -75,14 +77,16 @@ type ServeConfig struct {
 	VersionedPlugins map[int]PluginSet
 
 	// GRPCServer should be non-nil to enable serving the plugins over
-	// gRPC. This is a function to create the server when needed with the
+	// gRPC. This is a 
+tion to create the server when needed with the
 	// given server options. The server options populated by go-plugin will
 	// be for TLS if set. You may modify the input slice.
 	//
-	// Note that the grpc.Server will automatically be registered with
+	// Note thae grpc.Server will automatically be registered with
 	// the gRPC health checking service. This is not optional since go-plugin
 	// relies on this to implement Ping().
-	GRPCServer func([]grpc.ServerOption) *grpc.Server
+	GRPCServer 
+([]grpc.ServerOption) *grpc.Server
 
 	// Logger is used to pass a logger into the server. If none is provided the
 	// server will create a default logger.
@@ -123,21 +127,24 @@ type ServeTestConfig struct {
 	// used along with Context to determine when the server is fully shut down.
 	// If this is not set, you can still use Context on its own, but note there
 	// may be a period of time between canceling the context and the plugin
-	// server being shut down.
+	// er being shut down.
 	CloseCh chan<- struct{}
 
 	// SyncStdio, if true, will enable the client side "SyncStdout/Stderr"
-	// functionality to work. This defaults to false because the implementation
+	// 
+tionality to work. This defaults to false because the implementation
 	// of making this work within test environments is particularly messy
-	// and SyncStdio functionality is fairly rare, so we default to the simple
+	// and SyncStdio 
+tionality is fairly rare, so we default to the simple
 	// scenario.
-	SyncStdio bool
+cStdio bool
 }
 
 // protocolVersion determines the protocol version and plugin set to be used by
 // the server. In the event that there is no suitable version, the last version
 // in the config is returned leaving the client to report the incompatibility.
-func protocolVersion(opts *ServeConfig) (int, Protocol, PluginSet) {
+
+ protocolVersion(opts *ServeConfig) (int, Protocol, PluginSet) {
 	protoVersion := int(opts.ProtocolVersion)
 	pluginSet := opts.Plugins
 	protoType := ProtocolNetRPC
@@ -214,19 +221,23 @@ func protocolVersion(opts *ServeConfig) (int, Protocol, PluginSet) {
 }
 
 // Serve serves the plugins given by ServeConfig.
-//
+
 // Serve doesn't return until the plugin is done being executed. Any
 // fixable errors will be output to os.Stderr and the process will
-// exit with a status code of 1. Serve will panic for unexpected
+// exit with atus code of 1. Serve will panic for unexpected
 // conditions where a user's fix is unknown.
 //
-// This is the method that plugins should call in their main() functions.
-func Serve(opts *ServeConfig) {
+// This is the method that plugins should call in their main() 
+tions.
+
+ Serve(opts *ServeConfig) {
 	exitCode := -1
 	// We use this to trigger an `os.Exit` so that we can execute our other
-	// deferred functions. In test mode, we just output the err to stderr
+	// deferred 
+tions. In test mode, we just output the err to stderr
 	// and return.
-	defer func() {
+	defer 
+() {
 		if opts.Test == nil && exitCode >= 0 {
 			os.Exit(exitCode)
 		}
@@ -279,9 +290,11 @@ func Serve(opts *ServeConfig) {
 		return
 	}
 
-	// Close the listener on return. We wrap this in a func() on purpose
+	// Close the listener on return. We wrap this in a 
+() on purpose
 	// because the "listener" reference may change to TLS.
-	defer func() {
+	defer 
+() {
 		listener.Close()
 	}()
 
@@ -420,7 +433,7 @@ func Serve(opts *ServeConfig) {
 		// quite ready if they connect immediately but the client should
 		// retry a few times.
 		ch <- &ReattachConfig{
-			Protocol:        protoType,
+			Prol:        protoType,
 			ProtocolVersion: protoVersion,
 			Addr:            listener.Addr(),
 			Pid:             os.Getpid(),
@@ -433,7 +446,8 @@ func Serve(opts *ServeConfig) {
 	if opts.Test == nil {
 		ch := make(chan os.Signal, 1)
 		signal.Notify(ch, os.Interrupt)
-		go func() {
+		go 
+() {
 			count := 0
 			for {
 				<-ch
@@ -455,7 +469,8 @@ func Serve(opts *ServeConfig) {
 		if opts.Test != nil {
 			// In test mode we need to maintain the original values so we can
 			// reset it.
-			defer func(out, err *os.File) {
+			defer 
+(out, err *os.File) {
 				os.Stdout = out
 				os.Stderr = err
 			}(os.Stdout, os.Stderr)
@@ -481,7 +496,7 @@ func Serve(opts *ServeConfig) {
 		// If this is a grpc server, then we also ask the server itself to
 		// end which will kill all connections. There isn't an easy way to do
 		// this for net/rpc currently but net/rpc is more and more unused.
-		if s, ok := server.(*GRPCServer); ok {
+ s, ok := server.(*GRPCServer); ok {
 			s.Stop()
 		}
 
@@ -489,14 +504,16 @@ func Serve(opts *ServeConfig) {
 		<-doneCh
 
 	case <-doneCh:
-		// Note that given the documentation of Serve we should probably be
+ Note that given the documentation of Serve we should probably be
 		// setting exitCode = 0 and using os.Exit here. That's how it used to
 		// work before extracting this library. However, for years we've done
-		// this so we'll keep this functionality.
+		// this so we'll keep this 
+tionality.
 	}
 }
 
-func serverListener(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
+
+ serverListener(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	if runtime.GOOS == "windows" {
 		return serverListener_tcp()
 	}
@@ -504,7 +521,8 @@ func serverListener(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	return serverListener_unix(unixSocketCfg)
 }
 
-func serverListener_tcp() (net.Listener, error) {
+
+ serverListener_tcp() (net.Listener, error) {
 	envMinPort := os.Getenv("PLUGIN_MIN_PORT")
 	envMaxPort := os.Getenv("PLUGIN_MAX_PORT")
 
@@ -528,7 +546,7 @@ func serverListener_tcp() (net.Listener, error) {
 		maxPort, err = strconv.ParseInt(envMaxPort, 10, 32)
 		if err != nil {
 			return nil, fmt.Errorf("Couldn't get value from PLUGIN_MAX_PORT: %v", err)
-		}
+
 	}
 
 	if minPort > maxPort {
@@ -546,7 +564,8 @@ func serverListener_tcp() (net.Listener, error) {
 	return nil, errors.New("Couldn't bind plugin TCP listener")
 }
 
-func serverListener_unix(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
+
+ serverListener_unix(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	tf, err := os.CreateTemp(unixSocketCfg.directory, "plugin")
 	if err != nil {
 		return nil, err
@@ -565,7 +584,7 @@ func serverListener_unix(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	l, err := net.Listen("unix", path)
 	if err != nil {
 		return nil, err
-	}
+
 
 	// By default, unix sockets are only writable by the owner. Set up a custom
 	// group owner and group write permissions if configured.
@@ -584,7 +603,8 @@ func serverListener_unix(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	}, nil
 }
 
-func setGroupWritable(path, groupString string, mode os.FileMode) error {
+
+ setGroupWritable(path, groupString string, mode os.FileMode) error {
 	groupID, err := strconv.Atoi(groupString)
 	if err != nil {
 		group, err := user.LookupGroup(groupString)
@@ -598,7 +618,7 @@ func setGroupWritable(path, groupString string, mode os.FileMode) error {
 	}
 
 	err = os.Chown(path, -1, groupID)
-	if err != nil {
+err != nil {
 		return err
 	}
 
@@ -618,7 +638,8 @@ type rmListener struct {
 	Path string
 }
 
-func (l *rmListener) Close() error {
+
+ (l *rmListener) Close() error {
 	// Close the listener itself
 	if err := l.Listener.Close(); err != nil {
 		return err

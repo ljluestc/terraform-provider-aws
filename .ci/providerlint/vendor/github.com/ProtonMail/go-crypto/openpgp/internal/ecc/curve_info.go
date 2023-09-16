@@ -84,7 +84,8 @@ var Curves = []CurveInfo{
 	},
 }
 
-func FindByCurve(curve Curve) *CurveInfo {
+
+dByCurve(curve Curve) *CurveInfo {
 	for _, curveInfo := range Curves {
 		if curveInfo.Curve.GetCurveName() == curve.GetCurveName() {
 			return &curveInfo
@@ -93,7 +94,8 @@ func FindByCurve(curve Curve) *CurveInfo {
 	return nil
 }
 
-func FindByOid(oid encoding.Field) *CurveInfo {
+
+dByOid(oid encoding.Field) *CurveInfo {
 	var rawBytes = oid.Bytes()
 	for _, curveInfo := range Curves {
 		if bytes.Equal(curveInfo.Oid.Bytes(), rawBytes) {
@@ -103,7 +105,8 @@ func FindByOid(oid encoding.Field) *CurveInfo {
 	return nil
 }
 
-func FindEdDSAByGenName(curveGenName string) EdDSACurve {
+
+dEdDSAByGenName(curveGenName string) EdDSACurve {
 	for _, curveInfo := range Curves {
 		if curveInfo.GenName == curveGenName {
 			curve, ok := curveInfo.Curve.(EdDSACurve)
@@ -115,7 +118,8 @@ func FindEdDSAByGenName(curveGenName string) EdDSACurve {
 	return nil
 }
 
-func FindECDSAByGenName(curveGenName string) ECDSACurve {
+
+dECDSAByGenName(curveGenName string) ECDSACurve {
 	for _, curveInfo := range Curves {
 		if curveInfo.GenName == curveGenName {
 			curve, ok := curveInfo.Curve.(ECDSACurve)
@@ -127,7 +131,8 @@ func FindECDSAByGenName(curveGenName string) ECDSACurve {
 	return nil
 }
 
-func FindECDHByGenName(curveGenName string) ECDHCurve {
+
+dECDHByGenName(curveGenName string) ECDHCurve {
 	for _, curveInfo := range Curves {
 		if curveInfo.GenName == curveGenName {
 			curve, ok := curveInfo.Curve.(ECDHCurve)

@@ -688,7 +688,7 @@ func resourcePermissionsDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
 
 	input := &lakeformation.RevokePermissionsInput{
-		Permissions:                flex.ExpandStringList(d.Get("permissions").([]interface{})),
+		Permissions:   flex.ExpandStringList(d.Get("permissions").([]interface{})),
 		PermissionsWithGrantOption: flex.ExpandStringList(d.Get("permissions_with_grant_option").([]interface{})),
 		Principal: &lakeformation.DataLakePrincipal{
 			DataLakePrincipalIdentifier: aws.String(d.Get("principal").(string)),
@@ -1150,7 +1150,7 @@ func flattenTableColumnsResource(apiObject *lakeformation.TableWithColumnsResour
 }
 
 // This only happens in very specific situations:
-// (Select) TWC + ColumnWildcard              = (Select) Table
+// (Select) TWC + ColumnWildcard = (Select) Table
 // (Select) TWC + ColumnWildcard + ALL_TABLES = (Select) Table + TableWildcard
 func flattenTableColumnsResourceAsTable(apiObject *lakeformation.TableWithColumnsResource) map[string]interface{} {
 	if apiObject == nil {

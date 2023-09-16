@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_route53recoverycontrolconfig_safety_rule")
+
 func ResourceSafetyRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSafetyRuleCreate,
@@ -114,6 +115,7 @@ func ResourceSafetyRule() *schema.Resource {
 	}
 }
 
+
 func resourceSafetyRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	if _, ok := d.GetOk("asserted_controls"); ok {
@@ -126,6 +128,7 @@ func resourceSafetyRuleCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
+
 
 func resourceSafetyRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -198,6 +201,7 @@ func resourceSafetyRuleRead(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceSafetyRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	if _, ok := d.GetOk("asserted_controls"); ok {
@@ -210,6 +214,7 @@ func resourceSafetyRuleUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
+
 
 func resourceSafetyRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -241,12 +246,13 @@ func resourceSafetyRuleDelete(ctx context.Context, d *schema.ResourceData, meta 
 	return diags
 }
 
+
 func createAssertionRule(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
 
 	assertionRule := &r53rcc.NewAssertionRule{
-		Name:             aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		ControlPanelArn:  aws.String(d.Get("control_panel_arn").(string)),
 		WaitPeriodMs:     aws.Int64(int64(d.Get("wait_period_ms").(int))),
 		RuleConfig:       testAccSafetyRuleConfig_expandRule(d.Get("rule_config").([]interface{})[0].(map[string]interface{})),
@@ -277,6 +283,7 @@ func createAssertionRule(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceSafetyRuleRead(ctx, d, meta)...)
 }
+
 
 func createGatingRule(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -316,6 +323,7 @@ func createGatingRule(ctx context.Context, d *schema.ResourceData, meta interfac
 	return append(diags, resourceSafetyRuleRead(ctx, d, meta)...)
 }
 
+
 func updateAssertionRule(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -344,6 +352,7 @@ func updateAssertionRule(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, sdkdiag.WrapDiagsf(resourceControlPanelRead(ctx, d, meta), "updating Route53 Recovery Control Config Assertion Rule")...)
 }
+
 
 func updateGatingRule(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -374,6 +383,7 @@ func updateGatingRule(ctx context.Context, d *schema.ResourceData, meta interfac
 	return append(diags, sdkdiag.WrapDiagsf(resourceControlPanelRead(ctx, d, meta), "updating Route53 Recovery Control Config Gating Rule")...)
 }
 
+
 func testAccSafetyRuleConfig_expandRule(tfMap map[string]interface{}) *r53rcc.RuleConfig {
 	if tfMap == nil {
 		return nil
@@ -394,6 +404,7 @@ func testAccSafetyRuleConfig_expandRule(tfMap map[string]interface{}) *r53rcc.Ru
 	}
 	return apiObject
 }
+
 
 func flattenRuleConfig(apiObject *r53rcc.RuleConfig) map[string]interface{} {
 	if apiObject == nil {

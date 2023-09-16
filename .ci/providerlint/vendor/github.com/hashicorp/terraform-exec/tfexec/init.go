@@ -43,64 +43,79 @@ type InitOption interface {
 	configureInit(*initConfig)
 }
 
-func (opt *BackendOption) configureInit(conf *initConfig) {
+
+ (opt *BackendOption) configureInit(conf *initConfig) {
 	conf.backend = opt.backend
 }
 
-func (opt *BackendConfigOption) configureInit(conf *initConfig) {
+
+ (opt *BackendConfigOption) configureInit(conf *initConfig) {
 	conf.backendConfig = append(conf.backendConfig, opt.path)
+
+
+
+ (opt *DirOption) configureInit(conf *initConfig) {
+f.dir = opt.path
 }
 
-func (opt *DirOption) configureInit(conf *initConfig) {
-	conf.dir = opt.path
-}
 
-func (opt *ForceCopyOption) configureInit(conf *initConfig) {
+t *ForceCopyOption) configureInit(conf *initConfig) {
 	conf.forceCopy = opt.forceCopy
 }
 
-func (opt *FromModuleOption) configureInit(conf *initConfig) {
+
+ (opt *FromModuleOption) configureInit(conf *initConfig) {
 	conf.fromModule = opt.source
 }
 
-func (opt *GetOption) configureInit(conf *initConfig) {
+
+ (opt *GetOption) configureInit(conf *initConfig) {
 	conf.get = opt.get
+
+
+
+ (opt *GetPluginsOption) configureInit(conf *initConfig) {
+f.getPlugins = opt.getPlugins
 }
 
-func (opt *GetPluginsOption) configureInit(conf *initConfig) {
-	conf.getPlugins = opt.getPlugins
-}
 
-func (opt *LockOption) configureInit(conf *initConfig) {
+t *LockOption) configureInit(conf *initConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureInit(conf *initConfig) {
+
+ (opt *LockTimeoutOption) configureInit(conf *initConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *PluginDirOption) configureInit(conf *initConfig) {
+
+ (opt *PluginDirOption) configureInit(conf *initConfig) {
 	conf.pluginDir = append(conf.pluginDir, opt.pluginDir)
+
+
+
+ (opt *ReattachOption) configureInit(conf *initConfig) {
+f.reattachInfo = opt.info
 }
 
-func (opt *ReattachOption) configureInit(conf *initConfig) {
-	conf.reattachInfo = opt.info
+
+ (opt *ReconfigureOption) configureInit(conf *initConfig) {
+f.reconfigure = opt.reconfigure
 }
 
-func (opt *ReconfigureOption) configureInit(conf *initConfig) {
-	conf.reconfigure = opt.reconfigure
-}
 
-func (opt *UpgradeOption) configureInit(conf *initConfig) {
+ (opt *UpgradeOption) configureInit(conf *initConfig) {
 	conf.upgrade = opt.upgrade
 }
 
-func (opt *VerifyPluginsOption) configureInit(conf *initConfig) {
+
+ (opt *VerifyPluginsOption) configureInit(conf *initConfig) {
 	conf.verifyPlugins = opt.verifyPlugins
 }
 
 // Init represents the terraform init subcommand.
-func (tf *Terraform) Init(ctx context.Context, opts ...InitOption) error {
+
+ (tf *Terraform) Init(ctx context.Context, opts ...InitOption) error {
 	cmd, err := tf.initCmd(ctx, opts...)
 	if err != nil {
 		return err
@@ -108,7 +123,8 @@ func (tf *Terraform) Init(ctx context.Context, opts ...InitOption) error {
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) initCmd(ctx context.Context, opts ...InitOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) initCmd(ctx context.Context, opts ...InitOption) (*exec.Cmd, error) {
 	c := defaultInitOptions
 
 	for _, o := range opts {

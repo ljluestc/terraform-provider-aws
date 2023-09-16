@@ -24,10 +24,10 @@ func TestAccRedshiftUsageLimit_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsageLimitDestroy(ctx),
+		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsageLimitConfig_basic(rName, 60),
@@ -70,10 +70,10 @@ func TestAccRedshiftUsageLimit_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsageLimitDestroy(ctx),
+		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsageLimitConfig_tags1(rName, "key1", "value1"),
@@ -114,10 +114,10 @@ func TestAccRedshiftUsageLimit_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsageLimitDestroy(ctx),
+		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsageLimitConfig_basic(rName, 60),
@@ -181,7 +181,7 @@ resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
   feature_type       = "concurrency-scaling"
   limit_type         = "time"
-  amount             = %[1]d
+  amount= %[1]d
 }
 `, amount))
 }
@@ -192,7 +192,7 @@ resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
   feature_type       = "concurrency-scaling"
   limit_type         = "time"
-  amount             = 60
+  amount= 60
 
   tags = {
     %[1]q = %[2]q
@@ -207,7 +207,7 @@ resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
   feature_type       = "concurrency-scaling"
   limit_type         = "time"
-  amount             = 60
+  amount= 60
 
   tags = {
     %[1]q = %[2]q

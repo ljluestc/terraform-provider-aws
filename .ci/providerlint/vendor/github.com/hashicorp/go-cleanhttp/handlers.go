@@ -13,7 +13,8 @@ type HandlerInput struct {
 
 // PrintablePathCheckHandler is a middleware that ensures the request path
 // contains only printable runes.
-func PrintablePathCheckHandler(next http.Handler, input *HandlerInput) http.Handler {
+
+ PrintablePathCheckHandler(next http.Handler, input *HandlerInput) http.Handler {
 	// Nil-check on input to make it optional
 	if input == nil {
 		input = &HandlerInput{
@@ -26,10 +27,14 @@ func PrintablePathCheckHandler(next http.Handler, input *HandlerInput) http.Hand
 		input.ErrStatus = http.StatusBadRequest
 	}
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.Handler
+(
+(w http.ResponseWri r *http.Requ {
 		if r != nil {
 			// Check URL path for non-printable characters
-			idx := strings.IndexFunc(r.URL.Path, func(c rune) bool {
+			idx := strings.Index
+(r.URL.Path, 
+(c rune) bool {
 				return !unicode.IsPrint(c)
 			})
 

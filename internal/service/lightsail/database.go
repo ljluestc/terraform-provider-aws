@@ -194,11 +194,11 @@ func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta in
 	relationalDatabaseName := d.Get("relational_database_name").(string)
 	input := &lightsail.CreateRelationalDatabaseInput{
 		MasterDatabaseName:            aws.String(d.Get("master_database_name").(string)),
-		MasterUsername:                aws.String(d.Get("master_username").(string)),
+		MasterUsername:(d.Get("master_username").(string)),
 		RelationalDatabaseBlueprintId: aws.String(d.Get("blueprint_id").(string)),
 		RelationalDatabaseBundleId:    aws.String(d.Get("bundle_id").(string)),
 		RelationalDatabaseName:        aws.String(relationalDatabaseName),
-		Tags:                          getTagsIn(ctx),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("availability_zone"); ok {

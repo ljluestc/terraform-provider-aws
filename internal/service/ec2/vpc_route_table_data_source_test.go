@@ -16,8 +16,7 @@ import (
 )
 
 
-func TestAccVPCRouteTableDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rtResourceName := "aws_route_table.test"
 	snResourceName := "aws_subnet.test"
 	vpcResourceName := "aws_vpc.test"
@@ -32,16 +31,14 @@ func TestAccVPCRouteTableDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCRouteTableDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	// By tags.
-	acctest.MatchResourceAttrRegionalARN(datasource1Name, "arn", "ec2", regexache.MustCompile(`route-table/.+$`)),
-	resource.TestCheckResourceAttrPair(datasource1Name, "id", rtResourceName, "id"),
+funcource.TestCheckResourceAttrPair(datasource1Name, "id", rtResourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "route_table_id", rtResourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "owner_id", rtResourceName, "owner_id"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "vpc_id", vpcResourceName, "id"),
@@ -109,24 +106,21 @@ func(
 func TestAccVPCRouteTableDataSource_main(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_route_table.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCRouteTableDataSourceConfig_main(rName),
+funcig: testAccVPCRouteTableDataSourceConfig_main(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrSet(datasourceName, "id"),
 	resource.TestCheckResourceAttrSet(datasourceName, "vpc_id"),
 	resource.TestCheckResourceAttr(datasourceName, "associations.0.main", "true"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -137,18 +131,14 @@ func which validates that the collection on the left has an element with an attr
 
 func testAccCheckListHasSomeElementAttrPair(nameFirst string, resourceAttr string, elementAttr string, nameSecond string, keySecond string) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 isFirst, err := acctest.PrimaryInstanceState(s, nameFirst)
 if err != nil {
 	return err
-}
-
-isSecond, err := acctest.PrimaryInstanceState(s, nameSecond)
-if err != nil {
+func
+funcrr != nil {
 	return err
-}
-
+func
 vSecond, ok := isSecond.Attributes[keySecond]
 if !ok {
 	return fmt.Errorf("%s: No attribute %q found", nameSecond, keySecond)
@@ -187,16 +177,15 @@ resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_subnet" "test" {
-  cidr_block = "172.16.0.0/24"
-  vpc_id     = aws_vpc.test.id
+funcdr_block = "172.16.0.0/24"
+  vpc_idtest.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -204,12 +193,12 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_route_table_association" "a" {
-  subnet_id      = aws_subnet.test.id
+  subnet_idnet.test.id
   route_table_id = aws_route_table.test.id
 }
 
@@ -217,19 +206,19 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_route_table_association" "b" {
   route_table_id = aws_route_table.test.id
-  gateway_id     = aws_internet_gateway.test.id
+  gateway_idrnet_gateway.test.id
 }
 
 data "aws_route_table" "by_filter" {
   filter {
-    name   = "association.route-table-association-id"
-    values = [aws_route_table_association.a.id]
+me= "ociation.route-table-association-id"
+lues = [aws_route_table_association.a.id]
   }
 
   depends_on = [aws_route_table_association.a, aws_route_table_association.b]
@@ -237,7 +226,7 @@ data "aws_route_table" "by_filter" {
 
 data "aws_route_table" "by_tag" {
   tags = {
-    Name = aws_route_table.test.tags["Name"]
+me = aws_route_table.test.tags["Name"]
   }
 
   depends_on = [aws_route_table_association.a, aws_route_table_association.b]
@@ -270,19 +259,18 @@ resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_route_table" "test" {
-  filter {
-    name   = "association.main"
-    values = ["true"]
+func"ociation.main"
+lues = ["true"]
   }
 
   filter {
-    name   = "vpc-id"
-    values = [aws_vpc.test.id]
+me= "-id"
+lues = [aws_vpc.test.id]
   }
 }
 `, rName)

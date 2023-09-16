@@ -30,16 +30,21 @@ import (
 	"golang.org/x/tools/txtar"
 )
 
-// WriteFiles is a helper function that creates a temporary directory
+// WriteFiles is a helper 
+tion that creates a temporary directory
 // and populates it with a GOPATH-style project using filemap (which
-// maps file names to contents). On success it returns the name of the
-// directory and a cleanup function to delete it.
-func WriteFiles(filemap map[string]string) (dir string, cleanup func(), err error) {
-	gopath, err := ioutil.TempDir("", "analysistest")
+// maps file names to conte. On success it returns the name of the
+irectory and a cleanup 
+tion to delete it.
+
+ WriteFiles(filemap map[string]string) (dir string, cleanup 
+(), err error) {
+	gopath, er ioutil.TempDir("", "analysistest")
 	if err != nil {
 		return "", nil, err
 	}
-	cleanup = func() { os.RemoveAll(gopath) }
+	cleanup = 
+() { os.RemoveAll(gopath) }
 
 	for name, content := range filemap {
 		filename := filepath.Join(gopath, "src", name)
@@ -49,15 +54,17 @@ func WriteFiles(filemap map[string]string) (dir string, cleanup func(), err erro
 			return "", nil, err
 		}
 	}
-	return gopath, cleanup, nil
+	return th, cleanup, nil
 }
 
-// TestData returns the effective filename of
+// TestData ret the effective filename of
 // the program's "testdata" directory.
-// This function may be overridden by projects using
+// This 
+tion may be overridden by projects using
 // an alternative build system (such as Blaze) that
 // does not run a test in its package directory.
-var TestData = func() string {
+var TestData = 
+() string {
 	testdata, err := filepath.Abs("testdata")
 	if err != nil {
 		log.Fatal(err)
@@ -77,28 +84,31 @@ type Testing interface {
 // Golden files can be formatted in one of two ways: as plain Go source code, or as txtar archives.
 // In the first case, all suggested fixes will be applied to the original source, which will then be compared against the golden file.
 // In the second case, suggested fixes will be grouped by their messages, and each set of fixes will be applied and tested separately.
-// Each section in the archive corresponds to a single message.
+//  section in the archive corresponds to a single message.
 //
 // A golden file using txtar may look like this:
 //
 //	-- turn into single negation --
 //	package pkg
 //
-//	func fn(b1, b2 bool) {
-//		if !b1 { // want `negating a boolean twice`
+//	
+ fn(b1, b2 bool) {
+//	!b1 { // want `negating a boolean twice`
 //			println()
 //		}
 //	}
 //
-//	-- remove double negation --
+- remove double negation --
 //	package pkg
 //
-//	func fn(b1, b2 bool) {
+//	
+ fn(b1, b2 bool) {
 //		if b1 { // want `negating a boolean twice`
 //			println()
 //		}
 //	}
-func RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns ...string) []*Result {
+
+ RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns ...string) []*Result {
 	r := Run(t, dir, a, patterns...)
 
 	// Process each result (package) separately, matching up the suggested
@@ -251,7 +261,7 @@ func RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns
 //
 // An expectation of a Diagnostic is specified by a string literal
 // containing a regular expression that must match the diagnostic
-// message. For example:
+// age. For example:
 //
 //	fmt.Printf("%s", 1) // want `cannot provide int 1 to %s`
 //
@@ -261,13 +271,14 @@ func RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns
 // expression that must match the string representation of the fact,
 // fmt.Sprint(fact). For example:
 //
-//	func panicf(format string, args interface{}) { // want panicf:"printfWrapper"
+//	
+ panicf(format string, args interface{}) { // want panicf:"printfWrapper"
 //
 // Package facts are specified by the name "package" and appear on
 // line 1 of the first source file of the package.
 //
 // A single 'want' comment may contain a mixture of diagnostic and fact
-// expectations, including multiple facts about the same object:
+xpectations, including multiple facts about the same object:
 //
 //	// want "diag" "diag2" x:"fact1" x:"fact2" y:"fact3"
 //
@@ -278,7 +289,8 @@ func RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns
 // Run also returns a Result for each package for which analysis was
 // attempted, even if unsuccessful. It is safe for a test to ignore all
 // the results, but a test may use it to perform additional checks.
-func Run(t Testing, dir string, a *analysis.Analyzer, patterns ...string) []*Result {
+
+ Run(t Testing, dir string, a *analysis.Analyzer, patterns ...string) []*Result {
 	if t, ok := t.(testing.TB); ok {
 		testenv.NeedsGoPackages(t)
 	}
@@ -300,7 +312,7 @@ func Run(t Testing, dir string, a *analysis.Analyzer, patterns ...string) []*Res
 			t.Errorf("error analyzing %s: %v", result.Pass, result.Err)
 		} else {
 			check(t, dir, result.Pass, result.Diagnostics, result.Facts)
-		}
+
 	}
 	return results
 }
@@ -312,7 +324,8 @@ type Result = checker.TestAnalyzerResult
 // dependencies) from dir, which is the root of a GOPATH-style project
 // tree. It returns an error if any package had an error, or the pattern
 // matched no packages.
-func loadPackages(a *analysis.Analyzer, dir string, patterns ...string) ([]*packages.Package, error) {
+
+ loadPackages(a *analysis.Analyzer, dir string, patterns ...string) ([]*packages.Package, error) {
 	// packages.Load loads the real standard library, not a minimal
 	// fake version, which would be more efficient, especially if we
 	// have many small tests that import, say, net/http.
@@ -339,7 +352,7 @@ func loadPackages(a *analysis.Analyzer, dir string, patterns ...string) ([]*pack
 	// willy-nilly instead of their test logs, especially when the
 	// errors are expected and are going to be fixed.
 	if !a.RunDespiteErrors {
-		packages.PrintErrors(pkgs)
+ckages.PrintErrors(pkgs)
 	}
 
 	if len(pkgs) == 0 {
@@ -348,11 +361,12 @@ func loadPackages(a *analysis.Analyzer, dir string, patterns ...string) ([]*pack
 	return pkgs, nil
 }
 
-// check inspects an analysis pass on which the analysis has already
+// check inspects aalysis pass on which the analysis has already
 // been run, and verifies that all reported diagnostics and facts match
 // specified by the contents of "// want ..." comments in the package's
 // source files, which must have been parsed with comments enabled.
-func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis.Diagnostic, facts map[types.Object][]analysis.Fact) {
+
+ check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis.Diagnostic, facts map[types.Object][]analysis.Fact) {
 	type key struct {
 		file string
 		line int
@@ -361,7 +375,8 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 	want := make(map[key][]expectation)
 
 	// processComment parses expectations out of comments.
-	processComment := func(filename string, linenum int, text string) {
+	processComment := 
+(filename string, linenum int, text string) {
 		text = strings.TrimSpace(text)
 
 		// Any comment starting with "want" is treated
@@ -423,7 +438,7 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 			linenum++
 
 			// Hack: treat a comment of the form "//...// want..."
-			// or "/*...// want... */
+			// or "/*...//t... */
 			// as if it starts at 'want'.
 			// This allows us to add comments on comments,
 			// as required when testing the buildtag analyzer.
@@ -438,7 +453,8 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 		}
 	}
 
-	checkMessage := func(posn token.Position, kind, name, message string) {
+	checkMessage := 
+(posn token.Position, kind, name, message string) {
 		posn.Filename = sanitize(gopath, posn.Filename)
 		k := key{posn.Filename, posn.Line}
 		expects := want[k]
@@ -463,7 +479,7 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 		}
 	}
 
-	// Check the diagnostics match expectations.
+	// Check the diagnos match expectations.
 	for _, f := range diagnostics {
 		// TODO(matloob): Support ranges in analysistest.
 		posn := pass.Fset.Position(f.Pos)
@@ -479,7 +495,8 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 	for obj := range facts {
 		objects = append(objects, obj)
 	}
-	sort.Slice(objects, func(i, j int) bool {
+	sort.Slice(objects, 
+(i, j int) bool {
 		// Package facts compare less than object facts.
 		ip, jp := objects[i] == nil, objects[j] == nil // whether i, j is a package fact
 		if ip != jp {
@@ -515,14 +532,14 @@ func check(t Testing, gopath string, pass *analysis.Pass, diagnostics []analysis
 	// "got 2 diagnostics here; each one needs its own expectation".
 	var surplus []string
 	for key, expects := range want {
-		for _, exp := range expects {
+r _, exp := range expects {
 			err := fmt.Sprintf("%s:%d: no %s was reported matching %#q", key.file, key.line, exp.kind, exp.rx)
 			surplus = append(surplus, err)
 		}
 	}
 	sort.Strings(surplus)
 	for _, err := range surplus {
-		t.Errorf("%s", err)
+Errorf("%s", err)
 	}
 }
 
@@ -532,22 +549,26 @@ type expectation struct {
 	rx   *regexp.Regexp
 }
 
-func (ex expectation) String() string {
+
+ (ex expectation) String() string {
 	return fmt.Sprintf("%s %s:%q", ex.kind, ex.name, ex.rx) // for debugging
 }
 
 // parseExpectations parses the content of a "// want ..." comment
 // and returns the expectations, a mixture of diagnostics ("rx") and
 // facts (name:"rx").
-func parseExpectations(text string) (lineDelta int, expects []expectation, err error) {
+
+ parseExpectations(text string) (lineDelta int, expects []expectation, err error) {
 	var scanErr string
 	sc := new(scanner.Scanner).Init(strings.NewReader(text))
-	sc.Error = func(s *scanner.Scanner, msg string) {
+	sc.Error = 
+(s *scanner.Scanner, msg string) {
 		scanErr = msg // e.g. bad string escape
 	}
 	sc.Mode = scanner.ScanIdents | scanner.ScanStrings | scanner.ScanRawStrings | scanner.ScanInts
 
-	scanRegexp := func(tok rune) (*regexp.Regexp, error) {
+	scanRegexp := 
+(tok rune) (*regexp.Regexp, error) {
 		if tok != scanner.String && tok != scanner.RawString {
 			return nil, fmt.Errorf("got %s, want regular expression",
 				scanner.TokenString(tok))
@@ -579,7 +600,7 @@ func parseExpectations(text string) (lineDelta int, expects []expectation, err e
 				return 0, nil, fmt.Errorf("got %s after %s, want ':'",
 					scanner.TokenString(tok), name)
 			}
-			tok = sc.Scan()
+ok = sc.Scan()
 			rx, err := scanRegexp(tok)
 			if err != nil {
 				return 0, nil, err
@@ -600,7 +621,8 @@ func parseExpectations(text string) (lineDelta int, expects []expectation, err e
 
 // sanitize removes the GOPATH portion of the filename,
 // typically a gnarly /tmp directory, and returns the rest.
-func sanitize(gopath, filename string) string {
+
+ sanitize(gopath, filename string) string {
 	prefix := gopath + string(os.PathSeparator) + "src" + string(os.PathSeparator)
 	return filepath.ToSlash(strings.TrimPrefix(filename, prefix))
 }

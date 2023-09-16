@@ -28,21 +28,20 @@ import (
 )
 
 const (
-	amiRetryTimeout    = 40 * time.Minute
-	amiDeleteTimeout   = 90 * time.Minute
-	amiRetryDelay      = 5 * time.Second
+	amiRetryTimeout40 * time.Minute
+	amiDeleteTimeout0 * time.Minute
+	amiRetryDelaye.Second
 	amiRetryMinTimeout = 3 * time.Second
 )
 
 // @SDKResource("aws_ami", name="AMI")
 // @Tags(identifierAttribute="id")
 
-func ResourceAMI() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceAMICreate,
 // The Read, Update and Delete operations are shared with aws_ami_copy and aws_ami_from_instance,
 // since they differ only in how the image is created.
-ReadWithoutTimeout:   resourceAMIRead,
+ReadWithoutTimeout:ourceAMIRead,
 UpdateWithoutTimeout: resourceAMIUpdate,
 DeleteWithoutTimeout: resourceAMIDelete,
 
@@ -60,35 +59,31 @@ Timeouts: &schema.ResourceTimeout{
 Schema: map[string]*schema.Schema{
 	"architecture": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.ArchitectureValuesX8664,
+Optional:
+ForceNew:
+Default:tectureValuesX8664,
 Validate
 func: validation.StringInSlice(ec2.ArchitectureValues_Values(), false),
-	},
-	"arn": {
-Type:     schema.TypeString,
+funcn": {
+Type:eString,
 Computed: true,
 	},
 	"boot_mode": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.BootModeValues_Values(), false),
 	},
-	"deprecation_time": {
-Type:   schema.TypeString,
-Optional:     true,
+func:ema.TypeString,
+Optional:
 Validate
 func: validation.IsRFC3339Time,
 DiffSuppress
-func:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
-DiffSuppressOnRefresh: true,
-	},
+func:ppressEquivalentRoundedTime(time.RFC3339, time.Minute),
+func
 	"description": {
-Type:     schema.TypeString,
-Optional: true,
+funconal: true,
 	},
 	// The following block device attributes intentionally mimick the
 	// corresponding attributes on aws_instance, since they have the
@@ -97,61 +92,60 @@ Optional: true,
 	// on which root device attributes can be overridden for an instance to
 	// not apply when registering an AMI.
 	"ebs_block_device": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "delete_on_termination": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 	Default:  true,
 	ForceNew: true,
 },
 "device_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 	ForceNew: true,
 },
 "encrypted": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 	ForceNew: true,
 },
 "iops": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Optional: true,
 	ForceNew: true,
 },
 "outpost_arn": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: verify.ValidARN,
 },
 "snapshot_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
-	ForceNew: true,
-},
+func
 "throughput": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Optional: true,
 	Computed: true,
 	ForceNew: true,
 },
 "volume_size": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Optional: true,
 	Computed: true,
 	ForceNew: true,
 },
 "volume_type": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Default:      ec2.VolumeTypeStandard,
+	Optional:
+	ForceNew:
+	Default:eTypeStandard,
 	Validate
 func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 },
@@ -159,31 +153,29 @@ func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 },
 Set: 
 func(v interface{}) int {
-	var buf bytes.Buffer
-	m := v.(map[string]interface{})
+func= v.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
 	buf.WriteString(fmt.Sprintf("%s-", m["snapshot_id"].(string)))
 	return create.StringHashcode(buf.String())
 },
-	},
-	"ena_support": {
-Type:     schema.TypeBool,
+funca_support": {
+Type:eBool,
 Optional: true,
 ForceNew: true,
 	},
 	"ephemeral_block_device": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 Computed: true,
 ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "device_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 },
 "virtual_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 },
 	},
@@ -197,104 +189,101 @@ func(v interface{}) int {
 	return create.StringHashcode(buf.String())
 },
 	},
-	"hypervisor": {
-Type:     schema.TypeString,
+func:eString,
 Computed: true,
 	},
 	"image_location": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"image_owner_alias": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"imds_support": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true, // this attribute can only be set at registration time
+Optional:
+ForceNew:his attribute can only be set at registration time
 Validate
 func: validation.StringInSlice([]string{"v2.0"}, false),
 	},
 	"kernel_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	// Not a public attribute; used to let the aws_ami_copy and aws_ami_from_instance
 	// resources record that they implicitly created new EBS snapshots that we should
-	// now manage. Not set by aws_ami, since the snapshots used there are presumed to
-	// be independently managed.
+funcbe independently managed.
 	"manage_ebs_snapshots": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"name": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"owner_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"platform_details": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"platform": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"public": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"ramdisk_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	"root_device_name": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	"root_snapshot_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"sriov_net_support": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 Default:  SriovNetSupportSimple,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"tpm_support": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.TpmSupportValues_Values(), false),
 	},
 	"usage_operation": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"virtualization_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.VirtualizationTypeParavirtual,
-Validate
+Optional:
+ForceNew:
+funcdate
 func: validation.StringInSlice(ec2.VirtualizationType_Values(), false),
 	},
 },
@@ -306,18 +295,16 @@ CustomizeDiff: verify.SetTagsDiff,
 
 func resourceAMICreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &ec2.RegisterImageInput{
-Architecture:       aws.String(d.Get("architecture").(string)),
-Description:        aws.String(d.Get("description").(string)),
+Architecture:ng(d.Get("architecture").(string)),
+Description:ing(d.Get("description").(string)),
 EnaSupport:aws.Bool(d.Get("ena_support").(bool)),
-ImageLocation:      aws.String(d.Get("image_location").(string)),
+ImageLocation:g(d.Get("image_location").(string)),
 Name:aws.String(name),
-RootDeviceName:     aws.String(d.Get("root_device_name").(string)),
-SriovNetSupport:    aws.String(d.Get("sriov_net_support").(string)),
-VirtualizationType: aws.String(d.Get("virtualization_type").(string)),
+RootDeviceName:(d.Get("root_device_name").(string)),
+funcualizationType: aws.String(d.Get("virtualization_type").(string)),
 	}
 
 	if v := d.Get("boot_mode").(string); v != "" {
@@ -411,14 +398,12 @@ return FindImageByID(ctx, conn, d.Id())
 log.Printf("[WARN] EC2 AMI %s not found, removing from state", d.Id())
 d.SetId("")
 return diags
-	}
-
+func
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading EC2 AMI (%s): %s", d.Id(), err)
 	}
 
-	image := outputRaw.(*ec2.Image)
-
+func
 	if aws.StringValue(image.State) == ec2.ImageStatePending {
 // This could happen if a user manually adds an image we didn't create
 // to the state. We'll wait for the image to become available
@@ -435,9 +420,9 @@ if err != nil {
 	d.Set("architecture", image.Architecture)
 	imageArn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
+Region:ta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("image/%s", d.Id()),
-Service:   ec2.ServiceName,
+Service:.ServiceName,
 	}.String()
 	d.Set("arn", imageArn)
 	d.Set("boot_mode", image.BootMode)
@@ -492,8 +477,7 @@ Value: aws.String(d.Get("description").(string)),
 if err != nil {
 	return sdkdiag.AppendErrorf(diags, "updating EC2 AMI (%s) description: %s", d.Id(), err)
 }
-	}
-
+func
 	if d.HasChange("deprecation_time") {
 if err := enableImageDeprecation(ctx, conn, d.Id(), d.Get("deprecation_time").(string)); err != nil {
 	return sdkdiag.AppendErrorf(diags, "updating EC2 AMI (%s): %s", d.Id(), err)
@@ -520,8 +504,7 @@ return diags
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "deregistering EC2 AMI (%s): %s", d.Id(), err)
 	}
-
-	// If we're managing the EBS snapshots then we need to delete those too.
+funcIf we're managing the EBS snapshots then we need to delete those too.
 	if d.Get("manage_ebs_snapshots").(bool) {
 errs := map[string]error{}
 ebsBlockDevsSet := d.Get("ebs_block_device").(*schema.Set)
@@ -560,7 +543,7 @@ func enableImageDeprecation(ctx context.Context, conn *ec2.EC2, id string, depre
 	v, _ := time.Parse(time.RFC3339, deprecateAt)
 	input := &ec2.EnableImageDeprecationInput{
 DeprecateAt: aws.Time(v),
-ImageId:     aws.String(id),
+ImageId:(id),
 	}
 
 	_, err := conn.EnableImageDeprecationWithContext(ctx, input)
@@ -573,8 +556,7 @@ return fmt.Errorf("enabling deprecation: %w", err)
 }
 
 
-func expandBlockDeviceMappingForAMIEBSBlockDevice(tfMap map[string]interface{}) *ec2.BlockDeviceMapping {
-	if tfMap == nil {
+functfMap == nil {
 return nil
 	}
 
@@ -591,8 +573,7 @@ apiObject.DeviceName = aws.String(v)
 	}
 
 	if v, ok := tfMap["iops"].(int); ok && v != 0 {
-apiObject.Ebs.Iops = aws.Int64(int64(v))
-	}
+func
 
 	// "Parameter encrypted is invalid. You cannot specify the encrypted flag if specifying a snapshot id in a block device mapping."
 	if v, ok := tfMap["snapshot_id"].(string); ok && v != "" {
@@ -640,8 +621,7 @@ apiObject := expandBlockDeviceMappingForAMIEBSBlockDevice(tfMap)
 if apiObject == nil {
 	continue
 }
-
-apiObjects = append(apiObjects, apiObject)
+funcbjects = append(apiObjects, apiObject)
 	}
 
 	return apiObjects
@@ -668,8 +648,7 @@ tfMap["device_name"] = aws.StringValue(v)
 	}
 
 	if v := apiObject.Ebs.Encrypted; v != nil {
-tfMap["encrypted"] = aws.BoolValue(v)
-	}
+func
 
 	if v := apiObject.Ebs.Iops; v != nil {
 tfMap["iops"] = aws.Int64Value(v)
@@ -720,8 +699,7 @@ tfList = append(tfList, flattenBlockDeviceMappingForAMIEBSBlockDevice(apiObject)
 
 	return tfList
 }
-
-
+func
 func expandBlockDeviceMappingForAMIEphemeralBlockDevice(tfMap map[string]interface{}) *ec2.BlockDeviceMapping {
 	if tfMap == nil {
 return nil
@@ -744,8 +722,7 @@ apiObject.VirtualName = aws.String(v)
 func expandBlockDeviceMappingsForAMIEphemeralBlockDevice(tfList []interface{}) []*ec2.BlockDeviceMapping {
 	if len(tfList) == 0 {
 return nil
-	}
-
+func
 	var apiObjects []*ec2.BlockDeviceMapping
 
 	for _, tfMapRaw := range tfList {
@@ -764,8 +741,7 @@ if apiObject == nil {
 apiObjects = append(apiObjects, apiObject)
 	}
 
-	return apiObjects
-}
+func
 
 
 func flattenBlockDeviceMappingForAMIEphemeralBlockDevice(apiObject *ec2.BlockDeviceMapping) map[string]interface{} {
@@ -792,8 +768,7 @@ func flattenBlockDeviceMappingsForAMIEphemeralBlockDevice(apiObjects []*ec2.Bloc
 return nil
 	}
 
-	var tfList []interface{}
-
+func
 	for _, apiObject := range apiObjects {
 if apiObject == nil {
 	continue
@@ -808,3 +783,4 @@ tfList = append(tfList, flattenBlockDeviceMappingForAMIEphemeralBlockDevice(apiO
 
 	return tfList
 }
+func

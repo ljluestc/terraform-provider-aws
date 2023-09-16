@@ -8,7 +8,8 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func marshal(val cty.Value, t cty.Type, path cty.Path, b *bytes.Buffer) error {
+
+ marshal(val cty.Value, t cty.Type, path cty.Path, b *bytes.Buffer) error {
 if val.IsMarked() {
 return path.NewErrorf("value has marks, so it cannot be serialized as JSON")
 }
@@ -178,8 +179,9 @@ return path.NewErrorf("cannot JSON-serialize %s", t.FriendlyName())
 }
 
 // marshalDynamic adds an extra wrapping object containing dynamic type
-// information for the given value.
-func marshalDynamic(val cty.Value, path cty.Path, b *bytes.Buffer) error {
+nformation for the given value.
+
+ marshalDynamic(val cty.Value, path cty.Path, b *bytes.Buffer) error {
 typeJSON, err := MarshalType(val.Type())
 if err != nil {
 return path.NewErrorf("failed to serialize type: %s", err)

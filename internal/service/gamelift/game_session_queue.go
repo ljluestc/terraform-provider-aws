@@ -99,11 +99,11 @@ func resourceGameSessionQueueCreate(ctx context.Context, d *schema.ResourceData,
 
 	name := d.Get("name").(string)
 	input := &gamelift.CreateGameSessionQueueInput{
-		Name:                  aws.String(name),
+		Name:     aws.String(name),
 		Destinations:          expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
 		PlayerLatencyPolicies: expandGameSessionPlayerLatencyPolicies(d.Get("player_latency_policy").([]interface{})),
 		TimeoutInSeconds:      aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
-		Tags:                  getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("custom_event_data"); ok {
@@ -163,7 +163,7 @@ func resourceGameSessionQueueUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &gamelift.UpdateGameSessionQueueInput{
-			Name:                  aws.String(d.Id()),
+			Name:     aws.String(d.Id()),
 			Destinations:          expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
 			PlayerLatencyPolicies: expandGameSessionPlayerLatencyPolicies(d.Get("player_latency_policy").([]interface{})),
 			TimeoutInSeconds:      aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
@@ -263,7 +263,7 @@ func flattenPlayerLatencyPolicies(playerLatencyPolicies []*gamelift.PlayerLatenc
 	for _, policy := range playerLatencyPolicies {
 		m := map[string]interface{}{
 			"maximum_individual_player_latency_milliseconds": aws.Int64Value(policy.MaximumIndividualPlayerLatencyMilliseconds),
-			"policy_duration_seconds":                        aws.Int64Value(policy.PolicyDurationSeconds),
+			"policy_duration_seconds":           aws.Int64Value(policy.PolicyDurationSeconds),
 		}
 		l = append(l, m)
 	}
@@ -296,7 +296,7 @@ func expandGameSessionPlayerLatencyPolicies(destinationsPlayerLatencyPolicyMap [
 			playerLatencyPolicies,
 			&gamelift.PlayerLatencyPolicy{
 				MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(int64(item["maximum_individual_player_latency_milliseconds"].(int))),
-				PolicyDurationSeconds:                      aws.Int64(int64(item["policy_duration_seconds"].(int))),
+				PolicyDurationSeconds:         aws.Int64(int64(item["policy_duration_seconds"].(int))),
 			})
 	}
 	return playerLatencyPolicies

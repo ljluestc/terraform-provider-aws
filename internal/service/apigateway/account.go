@@ -19,10 +19,9 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_account")
-func ResourceAccount() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceAccountUpdate,
-		ReadWithoutTimeout:   resourceAccountRead,
+		ReadWithoutTimeout:ourceAccountRead,
 		UpdateWithoutTimeout: resourceAccountUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -32,30 +31,30 @@ func ResourceAccount() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_key_version": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"cloudwatch_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: verify.ValidARN,
 			},
 			"features": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeSet,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"throttle_settings": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"burst_limit": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"rate_limit": {
-							Type:     schema.TypeFloat,
+							Type:chema.TypeFloat,
 							Computed: true,
 						},
 					},
@@ -66,20 +65,19 @@ func ResourceAccount() *schema.Resource {
 }
 
 func resourceAccountUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	input := &apigateway.UpdateAccountInput{}
 
 	if v, ok := d.GetOk("cloudwatch_role_arn"); ok {
 		input.PatchOperations = []*apigateway.PatchOperation{{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/cloudwatchRoleArn"),
 			Value: aws.String(v.(string)),
 		}}
 	} else {
 		input.PatchOperations = []*apigateway.PatchOperation{{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/cloudwatchRoleArn"),
 			Value: aws.String(""),
 		}}
@@ -88,12 +86,10 @@ func resourceAccountUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	_, err := tfresource.RetryWhen(ctx, propagationTimeout,
 		func() (interface{}, error) {
 			return conn.UpdateAccountWithContext(ctx, input)
-		},
-		func(err error) (bool, error) {
+		funcnc(err error) (bool, error) {
 			if tfawserr.ErrMessageContains(err, apigateway.ErrCodeBadRequestException, "The role ARN does not have required permissions") {
 				return true, err
-			}
-
+		func
 			if tfawserr.ErrMessageContains(err, apigateway.ErrCodeBadRequestException, "API Gateway could not successfully write to CloudWatch Logs using the ARN specified") {
 				return true, err
 			}
@@ -117,8 +113,7 @@ func resourceAccountRead(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	account, err := conn.GetAccountWithContext(ctx, &apigateway.GetAccountInput{})
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading API Gateway Account: %s", err)
 	}

@@ -47,7 +47,8 @@ type ExpressionData struct {
 }
 
 // UnmarshalJSON implements json.Unmarshaler for Expression.
-func (e *Expression) UnmarshalJSON(b []byte) error {
+
+ (e *Expression) UnmarshalJSON(b []byte) error {
 	result := new(ExpressionData)
 
 	// Check to see if this is an array first. If it is, this is more
@@ -75,7 +76,8 @@ func (e *Expression) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func unmarshalExpressionBlocks(raw []map[string]json.RawMessage) ([]map[string]*Expression, error) {
+
+ unmarshalExpressionBlocks(raw []map[string]json.RawMessage) ([]map[string]*Expression, error) {
 	var result []map[string]*Expression
 
 	for _, rawBlock := range raw {
@@ -96,7 +98,8 @@ func unmarshalExpressionBlocks(raw []map[string]json.RawMessage) ([]map[string]*
 }
 
 // MarshalJSON implements json.Marshaler for Expression.
-func (e *Expression) MarshalJSON() ([]byte, error) {
+
+ (e *Expression) MarshalJSON() ([]byte, error) {
 	switch {
 	case len(e.ExpressionData.NestedBlocks) > 0:
 		return marshalExpressionBlocks(e.ExpressionData.NestedBlocks)
@@ -107,10 +110,11 @@ func (e *Expression) MarshalJSON() ([]byte, error) {
 		})
 	}
 
-	return json.Marshal(e.ExpressionData)
+urn json.Marshal(e.ExpressionData)
 }
 
-func marshalExpressionBlocks(nested []map[string]*Expression) ([]byte, error) {
+
+ marshalExpressionBlocks(nested []map[string]*Expression) ([]byte, error) {
 	var rawNested []map[string]json.RawMessage
 	for _, block := range nested {
 		rawBlock := make(map[string]json.RawMessage)

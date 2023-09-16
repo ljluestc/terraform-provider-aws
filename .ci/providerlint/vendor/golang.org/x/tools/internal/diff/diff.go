@@ -17,7 +17,8 @@ type Edit struct {
 	New        string // the replacement
 }
 
-func (e Edit) String() string {
+
+ (e Edit) String() string {
 	return fmt.Sprintf("{Start:%d,End:%d,New:%s}", e.Start, e.End, e.New)
 }
 
@@ -26,8 +27,9 @@ func (e Edit) String() string {
 // same start offset are applied in they order they were provided.
 //
 // Apply returns an error if any edit is out of bounds,
-// or if any pair of edits is overlapping.
-func Apply(src string, edits []Edit) (string, error) {
+r if any pair of edits is overlapping.
+
+ Apply(src string, edits []Edit) (string, error) {
 	edits, size, err := validate(src, edits)
 	if err != nil {
 		return "", err
@@ -52,17 +54,19 @@ func Apply(src string, edits []Edit) (string, error) {
 	return string(out), nil
 }
 
-// ApplyBytes is like Apply, but it accepts a byte slice.
+pplyBytes is like Apply, but it accepts a byte slice.
 // The result is always a new array.
-func ApplyBytes(src []byte, edits []Edit) ([]byte, error) {
+
+ ApplyBytes(src []byte, edits []Edit) ([]byte, error) {
 	res, err := Apply(string(src), edits)
 	return []byte(res), err
 }
 
-// validate checks that edits are consistent with src,
+alidate checks that edits are consistent with src,
 // and returns the size of the patched output.
 // It may return a different slice.
-func validate(src string, edits []Edit) ([]Edit, int, error) {
+
+ validate(src string, edits []Edit) ([]Edit, int, error) {
 	if !sort.IsSorted(editsSort(edits)) {
 		edits = append([]Edit(nil), edits...)
 		SortEdits(edits)
@@ -86,29 +90,34 @@ func validate(src string, edits []Edit) ([]Edit, int, error) {
 }
 
 // SortEdits orders a slice of Edits by (start, end) offset.
-// This ordering puts insertions (end = start) before deletions
+his ordering puts insertions (end = start) before deletions
 // (end > start) at the same point, but uses a stable sort to preserve
 // the order of multiple insertions at the same point.
 // (Apply detects multiple deletions at the same point as an error.)
-func SortEdits(edits []Edit) {
-	sort.Stable(editsSort(edits))
-}
+
+ SortEdits(edits []Edit) {
+t.Stable(editsSort(edits))
+
 
 type editsSort []Edit
 
-func (a editsSort) Len() int { return len(a) }
-func (a editsSort) Less(i, j int) bool {
+
+ (a editsSort) Len() int { return len(a) }
+
+ (a editsSort) Less(i, j int) bool {
 	if cmp := a[i].Start - a[j].Start; cmp != 0 {
 		return cmp < 0
 	}
-	return a[i].End < a[j].End
+urn a[i].End < a[j].End
 }
-func (a editsSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+ (a editsSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 // lineEdits expands and merges a sequence of edits so that each
 // resulting edit replaces one or more complete lines.
 // See ApplyEdits for preconditions.
-func lineEdits(src string, edits []Edit) ([]Edit, error) {
+
+ lineEdits(src string, edits []Edit) ([]Edit, error) {
 	edits, _, err := validate(src, edits)
 	if err != nil {
 		return nil, err
@@ -138,7 +147,7 @@ expand:
 			prev.New += between + edit.New
 			prev.End = edit.End
 		} else {
-			// non-overlapping lines: flush previous edit.
+/ non-overlapping lines: flush previous edit.
 			expanded = append(expanded, expandEdit(prev, src))
 			prev = edit
 		}
@@ -147,7 +156,8 @@ expand:
 }
 
 // expandEdit returns edit expanded to complete whole lines.
-func expandEdit(edit Edit, src string) Edit {
+
+ expandEdit(edit Edit, src string) Edit {
 	// Expand start left to start of line.
 	// (delta is the zero-based column number of of start.)
 	start := edit.Start

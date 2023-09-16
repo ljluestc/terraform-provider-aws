@@ -11,17 +11,27 @@ import (
 	tfjson "github.com/hashicorp/terraform-json"
 )
 
-// MetadataFunctions represents the terraform metadata functions -json subcommand.
-func (tf *Terraform) MetadataFunctions(ctx context.Context) (*tfjson.MetadataFunctions, error) {
-	err := tf.compatible(ctx, tf1_4_0, nil)
+// Metadata
+s represents the terrm metadata 
+tions -json subcommand.
+
+ (tf *Terraform) Metadata
+tions(ctx context.Context) (*tfjson.Metadata
+tions, error) {
+	:= tf.compatible(ctx, t_0, nil)
 	if err != nil {
-		return nil, fmt.Errorf("terraform metadata functions was added in 1.4.0: %w", err)
+		return nil, fmt.Errorfrraform metadata 
+tions was added in 1.4.0: %w", 
 	}
 
-	functionsCmd := tf.metadataFunctionsCmd(ctx)
+	
+tionsCmd := tf.metadata
+tionsCmd(ctx)
 
-	var ret tfjson.MetadataFunctions
-	err = tf.runTerraformCmdJSON(ctx, functionsCmd, &ret)
+	var ret tfjson.Metadata
+s
+	err = tf.runTerraformCmdJSON(ctx,
+tionsCmd, &ret)
 	if err != nil {
 		return nil, err
 	}
@@ -29,8 +39,11 @@ func (tf *Terraform) MetadataFunctions(ctx context.Context) (*tfjson.MetadataFun
 	return &ret, nil
 }
 
-func (tf *Terraform) metadataFunctionsCmd(ctx context.Context, args ...string) *exec.Cmd {
-	allArgs := []string{"metadata", "functions", "-json"}
+
+ (tf *Terraform) metadata
+tionsCmd(ctx context.Context, args ...string) *exec.Cmd {
+	allArgs := []string{"metadata", "
+tions", "-json"}
 	allArgs = append(allArgs, args...)
 
 	return tf.buildTerraformCmd(ctx, nil, allArgs...)

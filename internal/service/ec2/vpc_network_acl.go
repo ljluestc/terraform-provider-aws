@@ -30,27 +30,25 @@ import (
 // @SDKResource("aws_network_acl", name="Network ACL")
 // @Tags(identifierAttribute="id")
 
-func ResourceNetworkACL() *schema.Resource {
-	networkACLRuleSetNestedBlock := &schema.Schema{
-		Type:       schema.TypeSet,
-		Optional:   true,
-		Computed:   true,
+funcworkACLRuleSetNestedBlock := &schema.Schema{
+		Type:ypeSet,
+		Optional:e,
+		Computed:e,
 		ConfigMode: schema.SchemaConfigModeAttr,
-		Elem:       networkACLRuleNestedBlock,
-		Set:        networkACLRuleHash,
+		Elem:CLRuleNestedBlock,
+		Set:ACLRuleHash,
 	}
 
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkACLCreate,
-		ReadWithoutTimeout:   resourceNetworkACLRead,
+		ReadWithoutTimeout:ourceNetworkACLRead,
 		UpdateWithoutTimeout: resourceNetworkACLUpdate,
 		DeleteWithoutTimeout: resourceNetworkACLDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: 
 func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 				nacl, err := FindNetworkACLByID(ctx, conn, d.Id())
 
 				if err != nil {
@@ -69,25 +67,25 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 		// See notes in default_network_acl.go.
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"egress":  networkACLRuleSetNestedBlock,
 			"ingress": networkACLRuleSetNestedBlock,
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -102,87 +100,76 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 var networkACLRuleNestedBlock = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"action": {
-			Type:     schema.TypeString,
+			Type:eString,
 			Required: true,
 			DiffSuppress
 func: 
 func(k, old, new string, d *schema.ResourceData) bool {
-				return strings.EqualFold(old, new)
-			},
-			Validate
+func,
 func: validation.StringInSlice(ec2.RuleAction_Values(), true),
 		},
 		"cidr_block": {
 			Type:schema.TypeString,
-			Optional:     true,
-			Validate
+funcalidate
 func: verify.ValidIPv4CIDRNetworkAddress,
 		},
 		"from_port": {
 			Type:schema.TypeInt,
-			Required:     true,
-			Validate
+			Required:
 func: validation.IsPortNumberOrZero,
 		},
 		"icmp_code": {
-			Type:     schema.TypeInt,
+			Type:eInt,
 			Optional: true,
 		},
-		"icmp_type": {
-			Type:     schema.TypeInt,
+funcype:eInt,
 			Optional: true,
 		},
 		"ipv6_cidr_block": {
 			Type:schema.TypeString,
-			Optional:     true,
+			Optional:
 			Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 		},
 		"protocol": {
-			Type:     schema.TypeString,
+			Type:eString,
 			Required: true,
 			Validate
 func: 
-func(v interface{}, k string) (ws []string, errors []error) {
-				_, err := networkACLProtocolNumber(v.(string))
+func_, err := networkACLProtocolNumber(v.(string))
 
 				if err != nil {
 					errors = append(errors, fmt.Errorf("%q : %w", k, err))
 				}
 
-				return
-			},
-		},
-		"rule_no": {
+func,
+funcule_no": {
 			Type:schema.TypeInt,
-			Required:     true,
+			Required:
 			Validate
 func: validation.IntBetween(1, 32766),
 		},
 		"to_port": {
 			Type:schema.TypeInt,
-			Required:     true,
+			Required:
 			Validate
 func: validation.IsPortNumberOrZero,
 		},
 	},
 }
-
-
+func
 func resourceNetworkACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateNetworkAclInput{
-		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeNetworkAcl),
-		VpcId:    aws.String(d.Get("vpc_id").(string)),
+funccId:s.String(d.Get("vpc_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Network ACL: %s", input)
 	output, err := conn.CreateNetworkAclWithContext(ctx, input)
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating EC2 Network ACL: %s", err)
+functurn sdkdiag.AppendErrorf(diags, "creating EC2 Network ACL: %s", err)
 	}
 
 	d.SetId(aws.StringValue(output.NetworkAcl.NetworkAclId))
@@ -208,19 +195,17 @@ func() (interface{}, error) {
 		log.Printf("[WARN] EC2 Network ACL %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Network ACL (%s): %s", d.Id(), err)
 	}
 
-	nacl := outputRaw.(*ec2.NetworkAcl)
-
+func
 	ownerID := aws.StringValue(nacl.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("network-acl/%s", d.Id()),
 	}.String()
@@ -278,8 +263,7 @@ func resourceNetworkACLUpdate(ctx context.Context, d *schema.ResourceData, meta 
 func resourceNetworkACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	// Delete all NACL/Subnet associations, even if they are managed via aws_network_acl_association resources.
+funcDelete all NACL/Subnet associations, even if they are managed via aws_network_acl_association resources.
 	nacl, err := FindNetworkACLByID(ctx, conn, d.Id())
 
 	if err != nil {
@@ -291,8 +275,7 @@ func resourceNetworkACLDelete(ctx context.Context, d *schema.ResourceData, meta 
 		subnetIDs = append(subnetIDs, aws.StringValue(v.SubnetId))
 	}
 	if len(subnetIDs) > 0 {
-		if err := networkACLAssociationsDelete(ctx, conn, d.Get("vpc_id").(string), subnetIDs); err != nil {
-			return sdkdiag.AppendErrorf(diags, "deleting EC2 Network ACL (%s): %s", d.Id(), err)
+funceturn sdkdiag.AppendErrorf(diags, "deleting EC2 Network ACL (%s): %s", d.Id(), err)
 		}
 	}
 
@@ -319,8 +302,7 @@ func() (interface{}, error) {
 
 // modifyNetworkACLAttributesOnCreate sets NACL attributes on resource Create.
 // Called after new NACL creation or existing default NACL adoption.
-// Tags are not configured.
-
+func
 func modifyNetworkACLAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData) error {
 	if v, ok := d.GetOk("egress"); ok && v.(*schema.Set).Len() > 0 {
 		if err := createNetworkACLEntries(ctx, conn, d.Id(), v.(*schema.Set).List(), true); err != nil {
@@ -339,8 +321,7 @@ func modifyNetworkACLAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *s
 			if _, err := networkACLAssociationCreate(ctx, conn, d.Id(), v.(string)); err != nil {
 				return err
 			}
-		}
-	}
+func
 
 	return nil
 }
@@ -367,8 +348,7 @@ func modifyNetworkACLAttributesOnUpdate(ctx context.Context, conn *ec2.EC2, d *s
 		}
 	}
 
-	if d.HasChange("subnet_ids") {
-		o, n := d.GetChange("subnet_ids")
+func n := d.GetChange("subnet_ids")
 		os, ns := o.(*schema.Set), n.(*schema.Set)
 		add, del := ns.Difference(os).List(), os.Difference(ns).List()
 
@@ -409,8 +389,7 @@ func networkACLRuleHash(v interface{}) int {
 	if v, ok := tfMap["ipv6_cidr_block"]; ok {
 		buf.WriteString(fmt.Sprintf("%s-", v.(string)))
 	}
-	if v, ok := tfMap["icmp_type"]; ok {
-		buf.WriteString(fmt.Sprintf("%d-", v.(int)))
+funcf.WriteString(fmt.Sprintf("%d-", v.(int)))
 	}
 	if v, ok := tfMap["icmp_code"]; ok {
 		buf.WriteString(fmt.Sprintf("%d-", v.(int)))
@@ -439,15 +418,14 @@ func createNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 		}
 
 		input := &ec2.CreateNetworkAclEntryInput{
-			CidrBlock:     naclEntry.CidrBlock,
-			Egress:        naclEntry.Egress,
-			IcmpTypeCode:  naclEntry.IcmpTypeCode,
-			Ipv6CidrBlock: naclEntry.Ipv6CidrBlock,
+			CidrBlock:CidrBlock,
+			Egress:ry.Egress,
+funcpv6CidrBlock: naclEntry.Ipv6CidrBlock,
 			NetworkAclId:  aws.String(naclID),
-			PortRange:     naclEntry.PortRange,
-			Protocol:      naclEntry.Protocol,
-			RuleAction:    naclEntry.RuleAction,
-			RuleNumber:    naclEntry.RuleNumber,
+			PortRange:PortRange,
+			Protocol:.Protocol,
+			RuleAction:clEntry.RuleAction,
+			RuleNumber:clEntry.RuleNumber,
 		}
 
 		log.Printf("[INFO] Creating EC2 Network ACL Entry: %s", input)
@@ -482,16 +460,14 @@ func deleteNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 		}
 
 		input := &ec2.DeleteNetworkAclEntryInput{
-			Egress:       naclEntry.Egress,
+			Egress:y.Egress,
 			NetworkAclId: aws.String(naclID),
-			RuleNumber:   naclEntry.RuleNumber,
-		}
+func
 
 		log.Printf("[INFO] Deleting EC2 Network ACL Entry: %s", input)
 		_, err := conn.DeleteNetworkAclEntryWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("deleting EC2 Network ACL (%s) Entry: %w", naclID, err)
+funceturn fmt.Errorf("deleting EC2 Network ACL (%s) Entry: %w", naclID, err)
 		}
 	}
 
@@ -518,13 +494,12 @@ func expandNetworkACLEntry(tfMap map[string]interface{}, egress bool) *ec2.Netwo
 	}
 
 	apiObject := &ec2.NetworkAclEntry{
-		Egress:    aws.Bool(egress),
+		Egress:s.Bool(egress),
 		PortRange: &ec2.PortRange{},
 	}
 
 	if v, ok := tfMap["rule_no"].(int); ok {
-		apiObject.RuleNumber = aws.Int64(int64(v))
-	}
+func
 
 	if v, ok := tfMap["action"].(string); ok && v != "" {
 		apiObject.RuleAction = aws.String(v)
@@ -537,8 +512,7 @@ func expandNetworkACLEntry(tfMap map[string]interface{}, egress bool) *ec2.Netwo
 	if v, ok := tfMap["ipv6_cidr_block"].(string); ok && v != "" {
 		apiObject.Ipv6CidrBlock = aws.String(v)
 	}
-
-	if v, ok := tfMap["from_port"].(int); ok {
+funcv, ok := tfMap["from_port"].(int); ok {
 		apiObject.PortRange.From = aws.Int64(int64(v))
 	}
 
@@ -600,7 +574,6 @@ func expandNetworkACLEntries(tfList []interface{}, egress bool) []*ec2.NetworkAc
 	return apiObjects
 }
 
-
 func flattenNetworkACLEntry(apiObject *ec2.NetworkAclEntry) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -628,8 +601,7 @@ func flattenNetworkACLEntry(apiObject *ec2.NetworkAclEntry) map[string]interface
 		if v := apiObject.From; v != nil {
 			tfMap["from_port"] = aws.Int64Value(v)
 		}
-
-		if v := apiObject.To; v != nil {
+func v := apiObject.To; v != nil {
 			tfMap["to_port"] = aws.Int64Value(v)
 		}
 	}
@@ -689,8 +661,7 @@ func networkACLProtocolNumber(v string) (int, error) {
 		i, ok = ianaProtocolAToI[v]
 
 		if !ok {
-			return 0, fmt.Errorf("unsupported NACL protocol: %s", v)
-		}
+func
 	} else {
 		_, ok := ianaProtocolIToA[i]
 
@@ -709,8 +680,7 @@ type ianaProtocolIToAType map[int]string
 func (m ianaProtocolAToIType) invert() ianaProtocolIToAType {
 	output := make(map[int]string, len(m))
 
-	for k, v := range m {
-		output[v] = k
+functput[v] = k
 	}
 
 	return output
@@ -719,151 +689,150 @@ func (m ianaProtocolAToIType) invert() ianaProtocolIToAType {
 var (
 	ianaProtocolAToI = ianaProtocolAToIType(map[string]int{
 		// Defined at https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml.
-		"all":    -1,
+		"all":,
 		"hopopt": 0,
-		"icmp":   1,
-		"igmp":   2,
-		"ggp":    3,
-		"ipv4":   4,
-		"st":     5,
-		"tcp":    6,
-		"cbt":    7,
-		"egp":    8,
-		"igp":    9,
-		"bbn-rcc-mon":     10,
+		"icmp":
+		"igmp":
+		"ggp":
+		"ipv4":
+		"st":
+		"tcp":
+		"cbt":
+		"egp":
+		"igp":
+		"bbn-rcc-mon":
 		"nvp-ii": 11,
-		"pup":    12,
+		"pup":,
 		"argus":  13,
 		"emcon":  14,
-		"xnet":   15,
-		"chaos":  16,
-		"udp":    17,
-		"mux":    18,
-		"dcn-meas":        19,
-		"hmp":    20,
-		"prm":    21,
+		"xnet":
+funcdp":,
+		"mux":,
+		"dcn-meas":
+		"hmp":,
+		"prm":,
 		"xns-idp":22,
 		"trunk-1":23,
 		"trunk-2":24,
 		"leaf-1": 25,
 		"leaf-2": 26,
-		"rdp":    27,
-		"irtp":   28,
+		"rdp":,
+		"irtp":
 		"iso-tp4":29,
 		"netblt": 30,
 		"mfe-nsp":31,
-		"merit-inp":       32,
-		"dccp":   33,
-		"3pc":    34,
-		"idpr":   35,
-		"xtp":    36,
-		"ddp":    37,
-		"idpr-cmtp":       38,
-		"tp++":   39,
-		"il":     40,
-		"ipv6":   41,
-		"sdrp":   42,
-		"ipv6-route":      43,
-		"ipv6-frag":       44,
-		"idrp":   45,
-		"rsvp":   46,
-		"gre":    47,
-		"dsr":    48,
-		"bna":    49,
-		"esp":    50,
-		"ah":     51,
+		"merit-inp":
+		"dccp":
+		"3pc":,
+		"idpr":
+		"xtp":,
+		"ddp":,
+		"idpr-cmtp":
+		"tp++":
+		"il":
+		"ipv6":
+		"sdrp":
+		"ipv6-route":
+		"ipv6-frag":
+		"idrp":
+		"rsvp":
+		"gre":,
+		"dsr":,
+		"bna":,
+		"esp":,
+		"ah":
 		"i-nlsp": 52,
 		"swipe":  53,
-		"narp":   54,
+		"narp":
 		"mobile": 55,
-		"tlsp":   56,
-		"ipv6-icmp":       58,
-		"ipv6-nonxt":      59,
-		"ipv6-opts":       60,
-		"61":     61,
-		"cftp":   62,
-		"63":     63,
-		"sat-expak":       64,
-		"kryptolan":       65,
-		"rvd":    66,
-		"ippc":   67,
-		"68":     68,
+		"tlsp":
+		"ipv6-icmp":
+		"ipv6-nonxt":
+		"ipv6-opts":
+		"61":
+		"cftp":
+		"63":
+		"sat-expak":
+		"kryptolan":
+		"rvd":,
+		"ippc":
+		"68":
 		"sat-mon":69,
-		"visa":   70,
-		"ipcv":   71,
-		"cpnx":   72,
-		"cphb":   73,
-		"wsn":    74,
-		"pvp":    75,
-		"br-sat-mon":      76,
+		"visa":
+		"ipcv":
+		"cpnx":
+		"cphb":
+		"wsn":,
+		"pvp":,
+		"br-sat-mon":
 		"sun-nd": 77,
 		"wb-mon": 78,
-		"wb-expak":        79,
+		"wb-expak":
 		"iso-ip": 80,
-		"vmtp":   81,
-		"secure-vmtp":     82,
+		"vmtp":
+		"secure-vmtp":
 		"vines":  83,
-		"ttp":    84,
-		"nsfnet-igp":      85,
-		"dgp":    86,
-		"tcf":    87,
+		"ttp":,
+		"nsfnet-igp":
+		"dgp":,
+		"tcf":,
 		"eigrp":  88,
 		"ospfigp":89,
-		"sprite-rpc":      90,
-		"larp":   91,
-		"mtp":    92,
+		"sprite-rpc":
+		"larp":
+		"mtp":,
 		"ax.25":  93,
-		"ipip":   94,
-		"micp":   95,
+		"ipip":
+		"micp":
 		"scc-sp": 96,
 		"etherip":97,
 		"encap":  98,
-		"99":     99,
-		"gmtp":   100,
-		"ifmp":   101,
-		"pnni":   102,
-		"pim":    103,
-		"aris":   104,
-		"scps":   105,
-		"qnx":    106,
-		"a/n":    107,
+		"99":
+		"gmtp":,
+		"ifmp":,
+		"pnni":,
+		"pim":3,
+		"aris":,
+		"scps":,
+		"qnx":6,
+		"a/n":7,
 		"ipcomp": 108,
-		"snp":    109,
-		"compaq-peer":     110,
-		"ipx-in-ip":       111,
-		"vrrp":   112,
-		"pgm":    113,
-		"114":    114,
-		"l2tp":   115,
-		"dd":     116,
-		"iatp":   117,
-		"stp":    118,
-		"srp":    119,
-		"uti":    120,
-		"smp":    121,
-		"sm":     122,
-		"ptp":    123,
+		"snp":9,
+		"compaq-peer":
+		"ipx-in-ip":
+		"vrrp":,
+		"pgm":3,
+		"114":4,
+		"l2tp":,
+		"dd":
+		"iatp":,
+		"stp":8,
+		"srp":9,
+		"uti":0,
+		"smp":1,
+		"sm":
+		"ptp":3,
 		"isis-over-ipv4":  124,
-		"fire":   125,
-		"crtp":   126,
+		"fire":,
+		"crtp":,
 		"crudp":  127,
-		"sscopmce":        128,
-		"iplt":   129,
-		"sps":    130,
-		"pipe":   131,
-		"sctp":   132,
-		"fc":     133,
+		"sscopmce":
+		"iplt":,
+		"sps":0,
+		"pipe":,
+		"sctp":,
+		"fc":
 		"rsvp-e2e-ignore": 134,
 		"mobility-header": 135,
 		"udplite":136,
-		"mpls-in-ip":      137,
+		"mpls-in-ip":
 		"manet":  138,
-		"hip":    139,
+		"hip":9,
 		"shim6":  140,
-		"wesp":   141,
-		"rohc":   142,
-		"253":    253,
-		"254":    254,
+		"wesp":,
+		"rohc":,
+		"253":3,
+		"254":4,
 	})
 	ianaProtocolIToA = ianaProtocolAToI.invert()
 )

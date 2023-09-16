@@ -18,24 +18,21 @@ import (
 )
 
 
-func TestAccEC2AvailabilityZoneDataSource_allAvailabilityZones(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	availabilityZonesDataSourceName := "data.aws_availability_zones.available"
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccAvailabilityZoneDataSourceConfig_allAZs(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "group_name", acctest.Region()),
-	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
-	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[a-z]$`)),
+funcource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[a-z]$`)),
 	resource.TestCheckResourceAttr(dataSourceName, "network_border_group", acctest.Region()),
 	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptInNotRequired),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_id", ""),
@@ -53,24 +50,21 @@ func(
 func TestAccEC2AvailabilityZoneDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	availabilityZonesDataSourceName := "data.aws_availability_zones.available"
-	dataSourceName := "data.aws_availability_zone.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccAvailabilityZoneDataSourceConfig_filter(),
+funcig: testAccAvailabilityZoneDataSourceConfig_filter(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "group_name", acctest.Region()),
 	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
 	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[a-z]$`)),
 	resource.TestCheckResourceAttr(dataSourceName, "network_border_group", acctest.Region()),
-	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptInNotRequired),
-	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_id", ""),
+funcource.TestCheckResourceAttr(dataSourceName, "parent_zone_id", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_name", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "region", acctest.Region()),
 	resource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
@@ -88,7 +82,6 @@ func TestAccEC2AvailabilityZoneDataSource_localZone(t *testing.T) {
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckLocalZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -96,16 +89,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccAvailabilityZoneDataSourceConfig_type("local-zone"),
 Check: resource.ComposeTestCheck
-func(
-	resource.TestCheckResourceAttrSet(dataSourceName, "group_name"),
+funcource.TestCheckResourceAttrSet(dataSourceName, "group_name"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
 	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[0-9a-z][0-9a-z-]+$`)),
 	resource.TestCheckResourceAttrSet(dataSourceName, "network_border_group"),
 	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptedIn),
 	resource.TestCheckResourceAttrSet(dataSourceName, "parent_zone_id"),
 	resource.TestCheckResourceAttrSet(dataSourceName, "parent_zone_name"),
-	resource.TestCheckResourceAttr(dataSourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
+funcource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
 	resource.TestCheckResourceAttr(dataSourceName, "zone_type", "local-zone"),
 ),
 	},
@@ -123,24 +114,21 @@ func TestAccEC2AvailabilityZoneDataSource_name(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccAvailabilityZoneDataSourceConfig_name(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "group_name", acctest.Region()),
 	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
-	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[a-z]$`)),
-	resource.TestCheckResourceAttr(dataSourceName, "network_border_group", acctest.Region()),
+funcource.TestCheckResourceAttr(dataSourceName, "network_border_group", acctest.Region()),
 	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptInNotRequired),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_id", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_name", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "region", acctest.Region()),
 	resource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
 	resource.TestCheckResourceAttr(dataSourceName, "zone_type", "availability-zone"),
-),
-	},
+func
 },
 	})
 }
@@ -158,24 +146,21 @@ ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config: testAccAvailabilityZoneDataSourceConfig_type("wavelength-zone"),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrSet(dataSourceName, "group_name"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
 	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[0-9a-z][0-9a-z-]+$`)),
 	resource.TestCheckResourceAttrSet(dataSourceName, "network_border_group"),
 	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptedIn),
-	resource.TestCheckResourceAttrSet(dataSourceName, "parent_zone_id"),
-	resource.TestCheckResourceAttrSet(dataSourceName, "parent_zone_name"),
+funcource.TestCheckResourceAttrSet(dataSourceName, "parent_zone_name"),
 	resource.TestCheckResourceAttr(dataSourceName, "region", acctest.Region()),
 	resource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
 	resource.TestCheckResourceAttr(dataSourceName, "zone_type", "wavelength-zone"),
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2AvailabilityZoneDataSource_zoneID(t *testing.T) {
@@ -193,43 +178,39 @@ Steps: []resource.TestStep{
 Config: testAccAvailabilityZoneDataSourceConfig_id(),
 Check: resource.ComposeTestCheck
 func(
-	resource.TestCheckResourceAttr(dataSourceName, "group_name", acctest.Region()),
-	resource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
+funcource.TestCheckResourceAttrPair(dataSourceName, "name", availabilityZonesDataSourceName, "names.0"),
 	resource.TestMatchResourceAttr(dataSourceName, "name_suffix", regexache.MustCompile(`^[a-z]$`)),
 	resource.TestCheckResourceAttr(dataSourceName, "network_border_group", acctest.Region()),
 	resource.TestCheckResourceAttr(dataSourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptInNotRequired),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_id", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "parent_zone_name", ""),
 	resource.TestCheckResourceAttr(dataSourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrPair(dataSourceName, "zone_id", availabilityZonesDataSourceName, "zone_ids.0"),
-	resource.TestCheckResourceAttr(dataSourceName, "zone_type", "availability-zone"),
+funcource.TestCheckResourceAttr(dataSourceName, "zone_type", "availability-zone"),
 ),
 	},
 },
 	})
 }
 
-
 func testAccPreCheckLocalZoneAvailable(ctx context.Context, t *testing.T, groupNames ...string) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeAvailabilityZonesInput{
 Filters: tfec2.BuildAttributeFilterList(map[string]string{
-	"zone-type":     "local-zone",
+	"zone-type":e",
 	"opt-in-status": "opted-in",
 }),
 	}
 
 	if len(groupNames) > 0 {
 input.Filters = append(input.Filters, &ec2.Filter{
-	Name:   aws.String("group-name"),
+	Name:.String("group-name"),
 	Values: aws.StringSlice(groupNames),
 })
 	}
 
 	output, err := tfec2.FindAvailabilityZones(ctx, conn, input)
-
-	if acctest.PreCheckSkipError(err) {
+funcacctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
 	}
 
@@ -249,7 +230,7 @@ acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
   all_availability_zones = true
-  name    = data.aws_availability_zones.available.names[0]
+  namedata.aws_availability_zones.available.names[0]
 }
 `)
 }
@@ -261,9 +242,8 @@ acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
   filter {
-    name   = "zone-name"
-    values = [data.aws_availability_zones.available.names[0]]
-  }
+me= "e-name"
+func
 }
 `)
 }
@@ -275,8 +255,7 @@ acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
   name = data.aws_availability_zones.available.names[0]
-}
-`)
+func
 }
 
 
@@ -290,20 +269,18 @@ data "aws_availability_zone" "test" {
 `)
 }
 
-
 func testAccAvailabilityZoneDataSourceConfig_type(zoneType string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "zone-type"
-    values = [%[1]q]
+me= "e-type"
+lues = [%[1]q]
   }
 
   filter {
-    name   = "opt-in-status"
-    values = ["opted-in"]
+func = ["opted-in"]
   }
 }
 
@@ -312,3 +289,4 @@ data "aws_availability_zone" "test" {
 }
 `, zoneType)
 }
+func

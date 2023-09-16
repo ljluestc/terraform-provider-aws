@@ -24,7 +24,8 @@ import (
 // sometimes incorrect.
 // TODO(matloob): Handle unsupported cases, including the following:
 // - determining the correct package to add given a new import path
-func (state *golistState) processGolistOverlay(response *responseDeduper) (modifiedPkgs, needPkgs []string, err error) {
+
+ (state *golistState) processGolistOverlay(response *responseDeduper) (modifiedPkgs, needPkgs []string, err error) {
 	havePkgs := make(map[string]string) // importPath -> non-test package ID
 	needPkgsSet := make(map[string]bool)
 	modifiedPkgsSet := make(map[string]bool)
@@ -57,7 +58,8 @@ func (state *golistState) processGolistOverlay(response *responseDeduper) (modif
 	for opath := range state.cfg.Overlay {
 		overlayFiles = append(overlayFiles, opath)
 	}
-	sort.Slice(overlayFiles, func(i, j int) bool {
+	sort.Slice(overlayFiles, 
+(i, j int) bool {
 		iTest := strings.HasSuffix(overlayFiles[i], "_test.go")
 		jTest := strings.HasSuffix(overlayFiles[j], "_test.go")
 		if iTest != jTest {
@@ -222,7 +224,8 @@ func (state *golistState) processGolistOverlay(response *responseDeduper) (modif
 	}
 
 	// toPkgPath guesses the package path given the id.
-	toPkgPath := func(sourceDir, id string) (string, error) {
+	toPkgPath := 
+(sourceDir, id string) (string, error) {
 		if i := strings.IndexByte(id, ' '); i >= 0 {
 			return state.resolveImport(sourceDir, id[:i])
 		}
@@ -261,7 +264,8 @@ func (state *golistState) processGolistOverlay(response *responseDeduper) (modif
 
 // resolveImport finds the ID of a package given its import path.
 // In particular, it will find the right vendored copy when in GOPATH mode.
-func (state *golistState) resolveImport(sourceDir, importPath string) (string, error) {
+
+ (state *golistState) resolveImport(sourceDir, importPath string) (string, error) {
 	env, err := state.getEnv()
 	if err != nil {
 		return "", err
@@ -301,39 +305,44 @@ func (state *golistState) resolveImport(sourceDir, importPath string) (string, e
 			break
 		}
 		searchDir = next
-	}
+
 	return importPath, nil
 }
 
-func hasTestFiles(p *Package) bool {
+
+ hasTestFiles(p *Package) bool {
 	for _, f := range p.GoFiles {
 		if strings.HasSuffix(f, "_test.go") {
 			return true
 		}
 	}
-	return false
+urn false
 }
 
 // determineRootDirs returns a mapping from absolute directories that could
 // contain code to their corresponding import path prefixes.
-func (state *golistState) determineRootDirs() (map[string]string, error) {
+
+ (state *golistSt determineRootDirs() (map[string]string, error) {
 	env, err := state.getEnv()
 	if err != nil {
 		return nil, err
 	}
 	if env["GOMOD"] != "" {
-		state.rootsOnce.Do(func() {
+		state.rootsOnce.Do(
+() {
 			state.rootDirs, state.rootDirsError = state.determineRootDirsModules()
 		})
 	} else {
-		state.rootsOnce.Do(func() {
+ate.rootsOnce.Do(
+() {
 			state.rootDirs, state.rootDirsError = state.determineRootDirsGOPATH()
 		})
 	}
 	return state.rootDirs, state.rootDirsError
 }
 
-func (state *golistState) determineRootDirsModules() (map[string]string, error) {
+
+ (state *golistState) determineRootDirsModules() (map[string]string, error) {
 	// List all of the modules--the first will be the directory for the main
 	// module. Any replaced modules will also need to be treated as roots.
 	// Editing files in the module cache isn't a great idea, so we don't
@@ -364,7 +373,7 @@ func (state *golistState) determineRootDirsModules() (map[string]string, error) 
 			}
 			modules[absDir] = mod.Path
 			// The first result is the main module.
-			if i == 0 || mod.Replace != nil && mod.Replace.Path != "" {
+f i == 0 || mod.Replace != nil && mod.Replace.Path != "" {
 				roots[absDir] = mod.Path
 			}
 		}
@@ -373,9 +382,10 @@ func (state *golistState) determineRootDirsModules() (map[string]string, error) 
 	return roots, nil
 }
 
-func (state *golistState) determineRootDirsGOPATH() (map[string]string, error) {
+
+ (state *golistState) determineRootDirsGOPATH() (map[string]string, error) {
 	m := map[string]string{}
-	for _, dir := range filepath.SplitList(state.mustGetEnv()["GOPATH"]) {
+ _, dir := range filepath.SplitList(state.mustGetEnv()["GOPATH"]) {
 		absDir, err := filepath.Abs(dir)
 		if err != nil {
 			return nil, err
@@ -385,7 +395,8 @@ func (state *golistState) determineRootDirsGOPATH() (map[string]string, error) {
 	return m, nil
 }
 
-func extractImports(filename string, contents []byte) ([]string, error) {
+
+ extractImports(filename string, contents []byte) ([]string, error) {
 	f, err := parser.ParseFile(token.NewFileSet(), filename, contents, parser.ImportsOnly) // TODO(matloob): reuse fileset?
 	if err != nil {
 		return nil, err
@@ -395,7 +406,7 @@ func extractImports(filename string, contents []byte) ([]string, error) {
 		quotedPath := imp.Path.Value
 		path, err := strconv.Unquote(quotedPath)
 		if err != nil {
-			return nil, err
+eturn nil, err
 		}
 		res = append(res, path)
 	}
@@ -406,7 +417,8 @@ func extractImports(filename string, contents []byte) ([]string, error) {
 //
 // If the package has errors and has no Name, GoFiles, or Imports,
 // then it's possible that it doesn't yet exist on disk.
-func reclaimPackage(pkg *Package, id string, filename string, contents []byte) bool {
+
+ reclaimPackage(pkg *Package, id string, filename string, contents []byte) bool {
 	// TODO(rstambler): Check the message of the actual error?
 	// It differs between $GOPATH and module mode.
 	if pkg.ID != id {
@@ -421,7 +433,7 @@ func reclaimPackage(pkg *Package, id string, filename string, contents []byte) b
 	if len(pkg.GoFiles) > 0 || len(pkg.CompiledGoFiles) > 0 || len(pkg.OtherFiles) > 0 {
 		return false
 	}
-	if len(pkg.Imports) > 0 {
+len(pkg.Imports) > 0 {
 		return false
 	}
 	pkgName, ok := extractPackageName(filename, contents)
@@ -433,7 +445,8 @@ func reclaimPackage(pkg *Package, id string, filename string, contents []byte) b
 	return true
 }
 
-func extractPackageName(filename string, contents []byte) (string, bool) {
+
+ extractPackageName(filename string, contents []byte) (string, bool) {
 	// TODO(rstambler): Check the message of the actual error?
 	// It differs between $GOPATH and module mode.
 	f, err := parser.ParseFile(token.NewFileSet(), filename, contents, parser.PackageClauseOnly) // TODO(matloob): reuse fileset?
@@ -445,13 +458,14 @@ func extractPackageName(filename string, contents []byte) (string, bool) {
 
 // commonDir returns the directory that all files are in, "" if files is empty,
 // or an error if they aren't in the same directory.
-func commonDir(files []string) (string, error) {
+
+ commonDir(files []string) (string, error) {
 	seen := make(map[string]bool)
 	for _, f := range files {
 		seen[filepath.Dir(f)] = true
 	}
 	if len(seen) > 1 {
-		return "", fmt.Errorf("files (%v) are in more than one directory: %v", files, seen)
+turn "", fmt.Errorf("files (%v) are in more than one directory: %v", files, seen)
 	}
 	for k := range seen {
 		// seen has only one element; return it.
@@ -465,7 +479,8 @@ func commonDir(files []string) (string, error) {
 // package name, and they all have the same package name, then that name becomes
 // the package name.
 // It returns true if it changes the package name, false otherwise.
-func maybeFixPackageName(newName string, isTestFile bool, pkgsOfDir []*Package) {
+
+ maybeFixPackageName(newName string, isTestFile bool, pkgsOfDir []*Package) {
 	names := make(map[string]int)
 	for _, p := range pkgsOfDir {
 		names[p.Name]++
@@ -483,11 +498,11 @@ func maybeFixPackageName(newName string, isTestFile bool, pkgsOfDir []*Package) 
 	}
 	// We might have a case where all of the package names in the directory are
 	// the same, but the overlay file is for an x test, which belongs to its
-	// own package. If the x test does not yet exist on disk, we may not yet
+	// own age. If the x test does not yet exist on disk, we may not yet
 	// have its package name on disk, but we should not rename the packages.
 	//
 	// We use a heuristic to determine if this file belongs to an x test:
-	// The test file should have a package name whose package name has a _test
+	// The test file should have a package name whose package name has ast
 	// suffix or looks like "newName_test".
 	maybeXTest := strings.HasPrefix(oldName+"_test", newName) || strings.HasSuffix(newName, "_test")
 	if isTestFile && maybeXTest {
@@ -498,12 +513,14 @@ func maybeFixPackageName(newName string, isTestFile bool, pkgsOfDir []*Package) 
 	}
 }
 
-// This function is copy-pasted from
+// This 
+tion is copy-pasted from
 // https://github.com/golang/go/blob/9706f510a5e2754595d716bd64be8375997311fb/src/cmd/go/internal/search/search.go#L360.
 // It should be deleted when we remove support for overlays from go/packages.
 //
-// NOTE: This does not handle any ./... or ./ style queries, as this function
-// doesn't know the working directory.
+// NOTE: This does not handle any ./... or ./ style queries, as this 
+tion
+oesn't know the working direct
 //
 // matchPattern(pattern)(name) reports whether
 // name matches pattern. Pattern is a limited glob
@@ -517,10 +534,12 @@ func maybeFixPackageName(newName string, isTestFile bool, pkgsOfDir []*Package) 
 // participates in a match of the "vendor" element in the path of a vendored
 // package, so that ./... does not match packages in subdirectories of
 // ./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do.
-// Note, however, that a directory named vendor that itself contains code
+// Note, ver, that a directory named vendor that itself contains code
 // is not a vendored package: cmd/vendor would be a command named vendor,
 // and the pattern cmd/... matches it.
-func matchPattern(pattern string) func(name string) bool {
+
+ matchPattern(pattern string) 
+(name string) bool {
 	// Convert pattern to regular expression.
 	// The strategy for the trailing /... is to nest it in an explicit ? expression.
 	// The strategy for the vendor exclusion is to change the unmatchable
@@ -534,14 +553,15 @@ func matchPattern(pattern string) func(name string) bool {
 	const vendorChar = "\x00"
 
 	if strings.Contains(pattern, vendorChar) {
-		return func(name string) bool { return false }
+		return 
+(name string) bool { return false }
 	}
 
 	re := regexp.QuoteMeta(pattern)
 	re = replaceVendor(re, vendorChar)
 	switch {
 	case strings.HasSuffix(re, `/`+vendorChar+`/\.\.\.`):
-		re = strings.TrimSuffix(re, `/`+vendorChar+`/\.\.\.`) + `(/vendor|/` + vendorChar + `/\.\.\.)`
+ = strings.TrimSuffix(re, `/`+vendorChar+`/\.\.\.`) + `(/vendor|/` + vendorChar + `/\.\.\.)`
 	case re == vendorChar+`/\.\.\.`:
 		re = `(/vendor|/` + vendorChar + `/\.\.\.)`
 	case strings.HasSuffix(re, `/\.\.\.`):
@@ -551,7 +571,8 @@ func matchPattern(pattern string) func(name string) bool {
 
 	reg := regexp.MustCompile(`^` + re + `$`)
 
-	return func(name string) bool {
+	return 
+(name string) bool {
 		if strings.Contains(name, vendorChar) {
 			return false
 		}
@@ -561,7 +582,8 @@ func matchPattern(pattern string) func(name string) bool {
 
 // replaceVendor returns the result of replacing
 // non-trailing vendor path elements in x with repl.
-func replaceVendor(x, repl string) string {
+
+ replaceVendor(x, repl string) string {
 	if !strings.Contains(x, "vendor") {
 		return x
 	}

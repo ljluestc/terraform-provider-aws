@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCNetworkInsightsPathDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ec2_network_insights_path.test"
 	datasourceName := "data.aws_ec2_network_insights_path.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,16 +22,14 @@ func TestAccVPCNetworkInsightsPathDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInsightsPathDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "destination", resourceName, "destination"),
-	resource.TestCheckResourceAttrPair(datasourceName, "destination_arn", resourceName, "destination_arn"),
+funcource.TestCheckResourceAttrPair(datasourceName, "destination_arn", resourceName, "destination_arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "destination_ip", resourceName, "destination_ip"),
 	resource.TestCheckResourceAttrPair(datasourceName, "destination_port", resourceName, "destination_port"),
 	resource.TestCheckResourceAttrPair(datasourceName, "network_insights_path_id", resourceName, "id"),
@@ -51,23 +48,22 @@ func(
 func testAccVPCNetworkInsightsPathDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
-
+func
   subnet_id = aws_subnet.test[0].id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_network_insights_path" "test" {
   source  = aws_network_interface.test[0].id
-  destination      = aws_network_interface.test[1].id
+  destinationwork_interface.test[1].id
   destination_port = 443
   protocol= "tcp"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

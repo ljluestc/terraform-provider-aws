@@ -140,7 +140,7 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 	if v, ok := d.GetOk("external_connections"); ok {
 		externalConnection := v.([]interface{})[0].(map[string]interface{})
 		input := &codeartifact.AssociateExternalConnectionInput{
-			Domain:             repo.DomainName,
+			Domain:repo.DomainName,
 			Repository:         repo.Name,
 			DomainOwner:        repo.DomainOwner,
 			ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
@@ -239,7 +239,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			externalConnection := v.([]interface{})[0].(map[string]interface{})
 			input := &codeartifact.AssociateExternalConnectionInput{
 				Repository:         aws.String(d.Get("repository").(string)),
-				Domain:             aws.String(d.Get("domain").(string)),
+				Domain:aws.String(d.Get("domain").(string)),
 				DomainOwner:        aws.String(d.Get("domain_owner").(string)),
 				ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
 			}
@@ -253,7 +253,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			externalConnection := oldConn.([]interface{})[0].(map[string]interface{})
 			input := &codeartifact.DisassociateExternalConnectionInput{
 				Repository:         aws.String(d.Get("repository").(string)),
-				Domain:             aws.String(d.Get("domain").(string)),
+				Domain:aws.String(d.Get("domain").(string)),
 				DomainOwner:        aws.String(d.Get("domain_owner").(string)),
 				ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
 			}
@@ -340,7 +340,7 @@ func flattenExternalConnections(connections []*codeartifact.RepositoryExternalCo
 		m := map[string]interface{}{
 			"external_connection_name": aws.StringValue(connection.ExternalConnectionName),
 			"package_format":           aws.StringValue(connection.PackageFormat),
-			"status":                   aws.StringValue(connection.Status),
+			"status":      aws.StringValue(connection.Status),
 		}
 
 		ls = append(ls, m)

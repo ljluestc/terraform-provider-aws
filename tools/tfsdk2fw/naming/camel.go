@@ -8,7 +8,8 @@ import (
 )
 
 // ToCamelCase converts a string to CamelCase.
-func ToCamelCase(s string) string {
+
+amelCase(s string) string {
 	c := strings.Builder{}
 
 	capitalizeNext := true
@@ -45,19 +46,23 @@ func ToCamelCase(s string) string {
 	return s
 }
 
-func isCapitalLetter(ch byte) bool {
+
+apitalLetter(ch byte) bool {
 	return ch >= 'A' && ch <= 'Z'
 }
 
-func isLowercaseLetter(ch byte) bool {
+
+owercaseLetter(ch byte) bool {
 	return ch >= 'a' && ch <= 'z'
 }
 
-func isNumeric(ch byte) bool {
+
+umeric(ch byte) bool {
 	return ch >= '0' && ch <= '9'
 }
 
-func toCapitalLetter(ch byte) byte {
+
+apitalLetter(ch byte) byte {
 	ch += 'A'
 	ch -= 'a'
 	return ch

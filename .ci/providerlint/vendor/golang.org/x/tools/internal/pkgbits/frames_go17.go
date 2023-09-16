@@ -12,7 +12,8 @@ import "runtime"
 // walkFrames calls visit for each call frame represented by pcs.
 //
 // pcs should be a slice of PCs, as returned by runtime.Callers.
-func walkFrames(pcs []uintptr, visit frameVisitor) {
+
+ walkFrames(pcs []uintptr, visit frameVisitor) {
 	if len(pcs) == 0 {
 		return
 	}
@@ -20,7 +21,8 @@ func walkFrames(pcs []uintptr, visit frameVisitor) {
 	frames := runtime.CallersFrames(pcs)
 	for {
 		frame, more := frames.Next()
-		visit(frame.File, frame.Line, frame.Function, frame.PC-frame.Entry)
+		visit(frame.File, frame.Line, frame.
+tion, frame.PC-frame.Entry)
 		if !more {
 			return
 		}

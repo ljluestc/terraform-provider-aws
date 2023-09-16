@@ -85,13 +85,13 @@ func resourceHSMConfigurationCreate(ctx context.Context, d *schema.ResourceData,
 
 	hsmConfigurationID := d.Get("hsm_configuration_identifier").(string)
 	input := &redshift.CreateHsmConfigurationInput{
-		Description:                aws.String(d.Get("description").(string)),
+		Description:   aws.String(d.Get("description").(string)),
 		HsmConfigurationIdentifier: aws.String(hsmConfigurationID),
-		HsmIpAddress:               aws.String(d.Get("hsm_ip_address").(string)),
+		HsmIpAddress:  aws.String(d.Get("hsm_ip_address").(string)),
 		HsmPartitionName:           aws.String(d.Get("hsm_partition_name").(string)),
 		HsmPartitionPassword:       aws.String(d.Get("hsm_partition_password").(string)),
 		HsmServerPublicCertificate: aws.String(d.Get("hsm_server_public_certificate").(string)),
-		Tags:                       getTagsIn(ctx),
+		Tags:          getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateHsmConfigurationWithContext(ctx, input)

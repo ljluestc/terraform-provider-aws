@@ -30,10 +30,10 @@ func testAccThreatIntelSet_basic(t *testing.T) {
 	resourceName := "aws_guardduty_threatintelset.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThreatIntelSetDestroy(ctx),
+		CheckDestroy:tIntelSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThreatIntelSetConfig_basic(bucketName, keyName1, threatintelsetName1, true),
@@ -47,8 +47,8 @@ func testAccThreatIntelSet_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -70,10 +70,10 @@ func testAccThreatIntelSet_tags(t *testing.T) {
 	resourceName := "aws_guardduty_threatintelset.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThreatIntelSetDestroy(ctx),
+		CheckDestroy:tIntelSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThreatIntelSetConfig_tags1(rName, "key1", "value1"),
@@ -84,8 +84,8 @@ func testAccThreatIntelSet_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -124,7 +124,7 @@ func testAccCheckThreatIntelSetDestroy(ctx context.Context) resource.TestCheckFu
 			}
 			input := &guardduty.GetThreatIntelSetInput{
 				ThreatIntelSetId: aws.String(threatIntelSetId),
-				DetectorId:       aws.String(detectorId),
+				DetectorId:ng(detectorId),
 			}
 
 			resp, err := conn.GetThreatIntelSetWithContext(ctx, input)
@@ -159,7 +159,7 @@ func testAccCheckThreatIntelSetExists(ctx context.Context, name string) resource
 		}
 
 		input := &guardduty.GetThreatIntelSetInput{
-			DetectorId:       aws.String(detectorId),
+			DetectorId:ng(detectorId),
 			ThreatIntelSetId: aws.String(threatIntelSetId),
 		}
 
@@ -174,21 +174,21 @@ func testAccThreatIntelSetConfig_basic(bucketName, keyName, threatintelsetName s
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = "%s"
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = "%s"
+  key
 }
 
 resource "aws_guardduty_threatintelset" "test" {
-  name        = "%s"
+  name
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
   activate    = %t
 }
@@ -200,23 +200,23 @@ func testAccThreatIntelSetConfig_tags1(rName, tagKey1, tagValue1 string) string 
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key
 }
 
 resource "aws_guardduty_threatintelset" "test" {
   activate    = true
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  name        = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q
@@ -230,23 +230,23 @@ func testAccThreatIntelSetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key
 }
 
 resource "aws_guardduty_threatintelset" "test" {
   activate    = true
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  name        = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q

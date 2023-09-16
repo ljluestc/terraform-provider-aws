@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_route53recoverycontrolconfig_control_panel")
+
 func ResourceControlPanel() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceControlPanelCreate,
@@ -57,6 +58,7 @@ func ResourceControlPanel() *schema.Resource {
 	}
 }
 
+
 func resourceControlPanelCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -86,6 +88,7 @@ func resourceControlPanelCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceControlPanelRead(ctx, d, meta)...)
 }
+
 
 func resourceControlPanelRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -122,6 +125,7 @@ func resourceControlPanelRead(ctx context.Context, d *schema.ResourceData, meta 
 	return diags
 }
 
+
 func resourceControlPanelUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -139,6 +143,7 @@ func resourceControlPanelUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceControlPanelRead(ctx, d, meta)...)
 }
+
 
 func resourceControlPanelDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

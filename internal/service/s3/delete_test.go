@@ -16,10 +16,7 @@ import (
 // AWS_REGION=us-west-2 go test -v ./internal/service/s3 -run=TestEmptyBucket -b ewbankkit-test-empty-bucket-001 -f
 
 var bucket = flag.String("b", "", "bucket")
-var force = flag.Bool("f", false, "force")
-
-func TestEmptyBucket(t *testing.T) {
-	t.Parallel()
+var force = flag.Bool("f", false, "force")funcarallel()
 
 	ctx := acctest.Context(t)
 
@@ -37,11 +34,8 @@ func TestEmptyBucket(t *testing.T) {
 	}
 
 	t.Logf("%d S3 objects deleted", n)
-}
-
-func TestDeleteAllObjectVersions(t *testing.T) {
-	t.Parallel()
-
+}func TestDeleteAllObjectVersions(t *testing.T) {
+	func
 	ctx := acctest.Context(t)
 
 	if *bucket == "" {

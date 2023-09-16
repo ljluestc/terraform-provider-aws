@@ -20,28 +20,25 @@ import (
 )
 
 
-func TestAccEC2EBSSnapshotCreateVolumePermission_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_snapshot_create_volume_permission.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckAlternateAccount(t)
+functest.PreCheckAlternateAccount(t)
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+CheckDestroy:stAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
-	resource.TestCheckResourceAttrSet(resourceName, "account_id"),
-	resource.TestCheckResourceAttrSet(resourceName, "snapshot_id"),
+funcource.TestCheckResourceAttrSet(resourceName, "snapshot_id"),
 ),
 	},
 },
@@ -52,17 +49,15 @@ func(
 func TestAccEC2EBSSnapshotCreateVolumePermission_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_snapshot_create_volume_permission.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:stAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
@@ -72,8 +67,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSnapshotCreateVolumePermission(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -84,15 +78,13 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_snapshotOwnerExpectError(t *tes
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+CheckDestroy:stAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName),
-ExpectError: regexache.MustCompile(`owns EBS Snapshot`),
-	},
+Config:SSnapshotCreateVolumePermissionConfig_snapshotOwner(rName),
+func
 },
 	})
 }
@@ -106,13 +98,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_snapshot_create_volume_permission" {
-continue
-	}
+func
+funcpshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
 
-	snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
-
-	if err != nil {
-return err
+funcrn err
 	}
 
 	_, err = tfec2.FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
@@ -144,13 +133,10 @@ if !ok {
 
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No EBS Snapshot CreateVolumePermission ID is set")
-}
-
-snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
-
+func
+func
 if err != nil {
-	return err
-}
+func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -168,18 +154,17 @@ acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
+  size
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+funclume_id = aws_ebs_volume.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -200,18 +185,17 @@ func testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName string) 
 fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
+  size
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ebs_snapshot" "test" {
   volume_id = aws_ebs_volume.test.id
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 

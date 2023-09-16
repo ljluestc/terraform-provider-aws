@@ -30,10 +30,10 @@ func TestAccCloudFrontDistribution_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_enabled(false, false),
@@ -61,10 +61,10 @@ func TestAccCloudFrontDistribution_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_enabled(false, false),
@@ -84,10 +84,10 @@ func TestAccCloudFrontDistribution_tags(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_tags1("key1", "value1"),
@@ -142,10 +142,10 @@ func TestAccCloudFrontDistribution_s3Origin(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_s3(rName),
@@ -181,10 +181,10 @@ func TestAccCloudFrontDistribution_customOrigin(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_custom(rName),
@@ -214,10 +214,10 @@ func TestAccCloudFrontDistribution_originPolicyDefault(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_originRequestPolicyDefault(rName),
@@ -247,10 +247,10 @@ func TestAccCloudFrontDistribution_originPolicyOrdered(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_originRequestPolicyOrdered(rName),
@@ -287,10 +287,10 @@ func TestAccCloudFrontDistribution_multiOrigin(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_multiOrigin(rName),
@@ -330,10 +330,10 @@ func TestAccCloudFrontDistribution_orderedCacheBehavior(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehavior(),
@@ -370,10 +370,10 @@ func TestAccCloudFrontDistribution_orderedCacheBehaviorCachePolicy(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehaviorCachePolicy(rName),
@@ -407,10 +407,10 @@ func TestAccCloudFrontDistribution_orderedCacheBehaviorResponseHeadersPolicy(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehaviorResponseHeadersPolicy(rName),
@@ -444,10 +444,10 @@ func TestAccCloudFrontDistribution_forwardedValuesToCachePolicy(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehavior(),
@@ -468,10 +468,10 @@ func TestAccCloudFrontDistribution_forwardedValuesToCachePolicy(t *testing.T) {
 func TestAccCloudFrontDistribution_Origin_emptyDomainName(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDistributionConfig_originEmptyDomainName(),
@@ -484,10 +484,10 @@ func TestAccCloudFrontDistribution_Origin_emptyDomainName(t *testing.T) {
 func TestAccCloudFrontDistribution_Origin_emptyOriginID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDistributionConfig_originEmptyOriginID(),
@@ -508,10 +508,10 @@ func TestAccCloudFrontDistribution_Origin_connectionAttempts(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDistributionConfig_originItem(rName, `connection_attempts = 0`),
@@ -544,10 +544,10 @@ func TestAccCloudFrontDistribution_Origin_connectionTimeout(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDistributionConfig_originItem(rName, `connection_timeout = 0`),
@@ -580,10 +580,10 @@ func TestAccCloudFrontDistribution_Origin_originShield(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "cloudfront") },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDistributionConfig_originItem(rName, originShieldItem(`null`, `data.aws_region.current.name`)),
@@ -628,10 +628,10 @@ func TestAccCloudFrontDistribution_Origin_originAccessControl(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_originAccessControl(rName, 0),
@@ -675,10 +675,10 @@ func TestAccCloudFrontDistribution_noOptionalItems(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.no_optional_items"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_noOptionalItems(),
@@ -715,10 +715,10 @@ func TestAccCloudFrontDistribution_noOptionalItems(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "logging_config.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "origin.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "origin.*", map[string]string{
-						"custom_header.#":                                 "0",
-						"custom_origin_config.#":                          "1",
-						"custom_origin_config.0.http_port":                "80",
-						"custom_origin_config.0.https_port":               "443",
+						"custom_header.#":
+						"custom_origin_config.#":
+						"custom_origin_config.0.http_port":
+						"custom_origin_config.0.https_port":
 						"custom_origin_config.0.origin_keepalive_timeout": "5",
 						"custom_origin_config.0.origin_protocol_policy":   "http-only",
 						"custom_origin_config.0.origin_read_timeout":      "30",
@@ -764,10 +764,10 @@ func TestAccCloudFrontDistribution_http11(t *testing.T) {
 	var distribution cloudfront.Distribution
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_http11(),
@@ -797,10 +797,10 @@ func TestAccCloudFrontDistribution_isIPV6Enabled(t *testing.T) {
 	var distribution cloudfront.Distribution
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_isIPV6Enabled(),
@@ -832,10 +832,10 @@ func TestAccCloudFrontDistribution_noCustomErrorResponse(t *testing.T) {
 	var distribution cloudfront.Distribution
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_noCustomErroResponseInfo(),
@@ -863,10 +863,10 @@ func TestAccCloudFrontDistribution_DefaultCacheBehaviorForwardedValuesCookies_wh
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorForwardedValuesCookiesWhitelistedNamesUnordered3(retainOnDelete),
@@ -908,10 +908,10 @@ func TestAccCloudFrontDistribution_DefaultCacheBehaviorForwardedValues_headers(t
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorForwardedValuesHeadersUnordered3(retainOnDelete),
@@ -953,10 +953,10 @@ func TestAccCloudFrontDistribution_DefaultCacheBehavior_trustedKeyGroups(t *test
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorTrustedKeyGroups(retainOnDelete, rName),
@@ -991,10 +991,10 @@ func TestAccCloudFrontDistribution_DefaultCacheBehavior_trustedSigners(t *testin
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorTrustedSignersSelf(retainOnDelete),
@@ -1029,10 +1029,10 @@ func TestAccCloudFrontDistribution_DefaultCacheBehavior_realtimeLogARN(t *testin
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorRealtimeLogARN(rName, retainOnDelete),
@@ -1064,10 +1064,10 @@ func TestAccCloudFrontDistribution_OrderedCacheBehavior_realtimeLogARN(t *testin
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehaviorRealtimeLogARN(rName, retainOnDelete),
@@ -1100,10 +1100,10 @@ func TestAccCloudFrontDistribution_enabled(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_enabled(false, false),
@@ -1147,10 +1147,10 @@ func TestAccCloudFrontDistribution_retainOnDelete(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_enabled(true, true),
@@ -1183,10 +1183,10 @@ func TestAccCloudFrontDistribution_OrderedCacheBehaviorForwardedValuesCookies_wh
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehaviorForwardedValuesCookiesWhitelistedNamesUnordered3(retainOnDelete),
@@ -1232,10 +1232,10 @@ func TestAccCloudFrontDistribution_OrderedCacheBehaviorForwardedValues_headers(t
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_orderedCacheBehaviorForwardedValuesHeadersUnordered3(retainOnDelete),
@@ -1275,10 +1275,10 @@ func TestAccCloudFrontDistribution_ViewerCertificate_acmCertificateARN(t *testin
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_viewerCertificateACMCertificateARN(t, retainOnDelete),
@@ -1308,10 +1308,10 @@ func TestAccCloudFrontDistribution_ViewerCertificateACMCertificateARN_conflictsW
 	retainOnDelete := testAccDistributionRetainOnDeleteFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_viewerCertificateACMCertificateARNConflictsDefaultCertificate(t, retainOnDelete),
@@ -1343,10 +1343,10 @@ func TestAccCloudFrontDistribution_waitForDeployment(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_waitForDeployment(false, false),
@@ -1397,10 +1397,10 @@ func TestAccCloudFrontDistribution_preconditionFailed(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_eTagInitial(rName),
@@ -1667,10 +1667,10 @@ func TestAccCloudFrontDistribution_originGroups(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_originGroups(rName),
@@ -1678,12 +1678,12 @@ func TestAccCloudFrontDistribution_originGroups(t *testing.T) {
 					testAccCheckDistributionExists(ctx, resourceName, &distribution),
 					resource.TestCheckResourceAttr(resourceName, "origin_group.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "origin_group.*", map[string]string{
-						"origin_id":                          "groupS3",
-						"failover_criteria.#":                "1",
+						"origin_id":
+						"failover_criteria.#":
 						"failover_criteria.0.status_codes.#": "4",
-						"member.#":                           "2",
-						"member.0.origin_id":                 "primaryS3",
-						"member.1.origin_id":                 "failoverS3",
+						"member.#":
+						"member.0.origin_id":3",
+						"member.1.origin_id":S3",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "origin_group.*.failover_criteria.0.status_codes.*", "403"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "origin_group.*.failover_criteria.0.status_codes.*", "404"),
@@ -1815,7 +1815,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_id   = "myS3Origin"
   }
 
-  enabled             = true
+  enabled
   default_root_object = "index.html"
 
   logging_config {
@@ -1838,9 +1838,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   price_class = "PriceClass_200"
@@ -1887,8 +1887,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -1937,8 +1937,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -1974,8 +1974,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -1983,8 +1983,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -2008,9 +2008,9 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   price_class = "PriceClass_200"
@@ -2117,8 +2117,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -2126,8 +2126,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -2253,8 +2253,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -2262,8 +2262,8 @@ resource "aws_cloudfront_distribution" "custom_distribution" {
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -2338,16 +2338,16 @@ resource "aws_cloudfront_distribution" "multi_origin_distribution" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_keepalive_timeout = 45
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -2370,9 +2370,9 @@ resource "aws_cloudfront_distribution" "multi_origin_distribution" {
       }
     }
 
-    min_ttl                = 100
+    min_ttl
     default_ttl            = 100
-    max_ttl                = 100
+    max_ttl
     viewer_protocol_policy = "allow-all"
   }
 
@@ -2389,9 +2389,9 @@ resource "aws_cloudfront_distribution" "multi_origin_distribution" {
       }
     }
 
-    min_ttl                = 50
+    min_ttl
     default_ttl            = 50
-    max_ttl                = 50
+    max_ttl
     viewer_protocol_policy = "allow-all"
     path_pattern           = "images1/*.jpg"
   }
@@ -2409,9 +2409,9 @@ resource "aws_cloudfront_distribution" "multi_origin_distribution" {
       }
     }
 
-    min_ttl                = 50
+    min_ttl
     default_ttl            = 50
-    max_ttl                = 50
+    max_ttl
     viewer_protocol_policy = "allow-all"
     path_pattern           = "images2/*.jpg"
   }
@@ -2448,8 +2448,8 @@ resource "aws_cloudfront_distribution" "no_custom_error_responses" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2473,9 +2473,9 @@ resource "aws_cloudfront_distribution" "no_custom_error_responses" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   custom_error_response {
@@ -2507,8 +2507,8 @@ resource "aws_cloudfront_distribution" "no_optional_items" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2557,8 +2557,8 @@ resource "aws_cloudfront_distribution" "Origin_EmptyDomainName" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2607,8 +2607,8 @@ resource "aws_cloudfront_distribution" "Origin_EmptyOriginID" {
     origin_id   = ""
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2657,8 +2657,8 @@ resource "aws_cloudfront_distribution" "http_1_1" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2682,9 +2682,9 @@ resource "aws_cloudfront_distribution" "http_1_1" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   http_version = "http1.1"
@@ -2713,8 +2713,8 @@ resource "aws_cloudfront_distribution" "is_ipv6_enabled" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2739,9 +2739,9 @@ resource "aws_cloudfront_distribution" "is_ipv6_enabled" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   http_version = "http1.1"
@@ -2770,8 +2770,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2794,9 +2794,9 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    min_ttl                = 100
+    min_ttl
     default_ttl            = 100
-    max_ttl                = 100
+    max_ttl
     viewer_protocol_policy = "allow-all"
   }
 
@@ -2813,9 +2813,9 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    min_ttl                = 50
+    min_ttl
     default_ttl            = 50
-    max_ttl                = 50
+    max_ttl
     viewer_protocol_policy = "allow-all"
     path_pattern           = "images1/*.jpg"
   }
@@ -2833,9 +2833,9 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    min_ttl                = 51
+    min_ttl
     default_ttl            = 51
-    max_ttl                = 51
+    max_ttl
     viewer_protocol_policy = "allow-all"
     path_pattern           = "images2/*.jpg"
   }
@@ -2865,8 +2865,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -2946,8 +2946,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -3117,7 +3117,7 @@ func testAccDistributionConfig_defaultCacheBehaviorForwardedValuesCookiesWhiteli
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3142,8 +3142,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3166,7 +3166,7 @@ func testAccDistributionConfig_defaultCacheBehaviorForwardedValuesCookiesWhiteli
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3191,8 +3191,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3215,7 +3215,7 @@ func testAccDistributionConfig_defaultCacheBehaviorForwardedValuesHeadersUnorder
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3240,8 +3240,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3264,7 +3264,7 @@ func testAccDistributionConfig_defaultCacheBehaviorForwardedValuesHeadersUnorder
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3289,8 +3289,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3335,8 +3335,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3359,7 +3359,7 @@ func testAccDistributionConfig_orderedCacheBehaviorForwardedValuesCookiesWhiteli
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3400,8 +3400,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3424,7 +3424,7 @@ func testAccDistributionConfig_orderedCacheBehaviorForwardedValuesCookiesWhiteli
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3465,8 +3465,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3489,7 +3489,7 @@ func testAccDistributionConfig_orderedCacheBehaviorForwardedValuesHeadersUnorder
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3530,8 +3530,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3554,7 +3554,7 @@ func testAccDistributionConfig_orderedCacheBehaviorForwardedValuesHeadersUnorder
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3595,8 +3595,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3619,7 +3619,7 @@ func testAccDistributionConfig_defaultCacheBehaviorTrustedKeyGroups(retainOnDele
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3644,8 +3644,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3680,7 +3680,7 @@ func testAccDistributionConfig_defaultCacheBehaviorTrustedSignersSelf(retainOnDe
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3705,8 +3705,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3764,8 +3764,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3811,8 +3811,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3827,7 +3827,7 @@ resource "aws_cloudfront_distribution" "test" {
   viewer_certificate {
     acm_certificate_arn            = aws_acm_certificate.test.arn
     cloudfront_default_certificate = false
-    ssl_support_method             = "sni-only"
+    ssl_support_method
   }
 }
 `, retainOnDelete))
@@ -3836,7 +3836,7 @@ resource "aws_cloudfront_distribution" "test" {
 func testAccDistributionConfig_waitForDeployment(enabled, waitForDeployment bool) string {
 	return fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
-  enabled             = %[1]t
+  enabled
   wait_for_deployment = %[2]t
 
   default_cache_behavior {
@@ -3859,8 +3859,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -3949,7 +3949,7 @@ func testAccDistributionConfig_defaultCacheBehaviorRealtimeLogARN(rName string, 
 		fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -3974,8 +3974,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -4000,7 +4000,7 @@ func testAccDistributionConfig_orderedCacheBehaviorRealtimeLogARN(rName string, 
 		fmt.Sprintf(`
 resource "aws_cloudfront_distribution" "test" {
   # Faster acceptance testing
-  enabled             = false
+  enabled
   retain_on_delete    = %[1]t
   wait_for_deployment = false
 
@@ -4041,8 +4041,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -4064,7 +4064,7 @@ resource "aws_cloudfront_distribution" "test" {
 func originShieldItem(enabled, region string) string {
 	return fmt.Sprintf(`
 origin_shield {
-  enabled              = %[1]s
+  enabled
   origin_shield_region = %[2]s
 }
 `, enabled, region)
@@ -4097,9 +4097,9 @@ resource "aws_cloudfront_distribution" "test" {
       }
     }
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
   price_class = "PriceClass_200"
   restrictions {
@@ -4201,8 +4201,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -4210,8 +4210,8 @@ resource "aws_cloudfront_distribution" "main" {
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -4337,8 +4337,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -4346,8 +4346,8 @@ resource "aws_cloudfront_distribution" "main" {
     }
   }
 
-  enabled             = true
-  comment             = "Some comment"
+  enabled
+  commentnt"
   default_root_object = "index.html"
 
   logging_config {
@@ -4473,8 +4473,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port                = 80
-      https_port               = 443
+      http_port
+      https_port
       origin_protocol_policy   = "http-only"
       origin_ssl_protocols     = ["SSLv3", "TLSv1"]
       origin_read_timeout      = 30
@@ -4482,8 +4482,8 @@ resource "aws_cloudfront_distribution" "main" {
     }
   }
 
-  enabled             = true
-  comment             = "Updated comment"
+  enabled
+  commentmment"
   default_root_object = "index.html"
 
   logging_config {
@@ -4535,10 +4535,10 @@ locals {
 resource "aws_cloudfront_origin_access_control" "test" {
   count = 2
 
-  name                              = "${local.rName}-${count.index}"
+  nameunt.index}"
   origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
+  signing_behaviors"
+  signing_protocol"
 }
 
 resource "aws_cloudfront_distribution" "test" {
@@ -4554,7 +4554,7 @@ resource "aws_cloudfront_distribution" "test" {
     origin_access_control_id = aws_cloudfront_origin_access_control.test[%[3]d].id
   }
 
-  enabled             = true
+  enabled
   default_root_object = "index.html"
 
   logging_config {
@@ -4577,9 +4577,9 @@ resource "aws_cloudfront_distribution" "test" {
     }
 
     viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
+    min_ttl
     default_ttl            = 3600
-    max_ttl                = 86400
+    max_ttl
   }
 
   price_class = "PriceClass_200"

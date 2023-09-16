@@ -11,7 +11,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
-func Schema(in *tfplugin5.Schema) (*tfprotov5.Schema, error) {
+
+ema(in *tfplugin5.Schema) (*tfprotov5.Schema, error) {
 	var resp tfprotov5.Schema
 	resp.Version = in.Version
 	if in.Block != nil {
@@ -24,7 +25,8 @@ func Schema(in *tfplugin5.Schema) (*tfprotov5.Schema, error) {
 	return &resp, nil
 }
 
-func SchemaBlock(in *tfplugin5.Schema_Block) (*tfprotov5.SchemaBlock, error) {
+
+emaBlock(in *tfplugin5.Schema_Block) (*tfprotov5.SchemaBlock, error) {
 	resp := &tfprotov5.SchemaBlock{
 		Version:         in.Version,
 		Description:     in.Description,
@@ -44,7 +46,8 @@ func SchemaBlock(in *tfplugin5.Schema_Block) (*tfprotov5.SchemaBlock, error) {
 	return resp, nil
 }
 
-func SchemaAttribute(in *tfplugin5.Schema_Attribute) (*tfprotov5.SchemaAttribute, error) {
+
+emaAttribute(in *tfplugin5.Schema_Attribute) (*tfprotov5.SchemaAttribute, error) {
 	resp := &tfprotov5.SchemaAttribute{
 		Name:            in.Name,
 		Description:     in.Description,
@@ -63,7 +66,8 @@ func SchemaAttribute(in *tfplugin5.Schema_Attribute) (*tfprotov5.SchemaAttribute
 	return resp, nil
 }
 
-func SchemaAttributes(in []*tfplugin5.Schema_Attribute) ([]*tfprotov5.SchemaAttribute, error) {
+
+emaAttributes(in []*tfplugin5.Schema_Attribute) ([]*tfprotov5.SchemaAttribute, error) {
 	resp := make([]*tfprotov5.SchemaAttribute, 0, len(in))
 	for pos, a := range in {
 		if a == nil {
@@ -79,7 +83,8 @@ func SchemaAttributes(in []*tfplugin5.Schema_Attribute) ([]*tfprotov5.SchemaAttr
 	return resp, nil
 }
 
-func SchemaNestedBlock(in *tfplugin5.Schema_NestedBlock) (*tfprotov5.SchemaNestedBlock, error) {
+
+emaNestedBlock(in *tfplugin5.Schema_NestedBlock) (*tfprotov5.SchemaNestedBlock, error) {
 	resp := &tfprotov5.SchemaNestedBlock{
 		TypeName: in.TypeName,
 		Nesting:  SchemaNestedBlockNestingMode(in.Nesting),
@@ -96,7 +101,8 @@ func SchemaNestedBlock(in *tfplugin5.Schema_NestedBlock) (*tfprotov5.SchemaNeste
 	return resp, nil
 }
 
-func SchemaNestedBlocks(in []*tfplugin5.Schema_NestedBlock) ([]*tfprotov5.SchemaNestedBlock, error) {
+
+emaNestedBlocks(in []*tfplugin5.Schema_NestedBlock) ([]*tfprotov5.SchemaNestedBlock, error) {
 	resp := make([]*tfprotov5.SchemaNestedBlock, 0, len(in))
 	for pos, b := range in {
 		if b == nil {
@@ -112,6 +118,7 @@ func SchemaNestedBlocks(in []*tfplugin5.Schema_NestedBlock) ([]*tfprotov5.Schema
 	return resp, nil
 }
 
-func SchemaNestedBlockNestingMode(in tfplugin5.Schema_NestedBlock_NestingMode) tfprotov5.SchemaNestedBlockNestingMode {
+
+emaNestedBlockNestingMode(in tfplugin5.Schema_NestedBlock_NestingMode) tfprotov5.SchemaNestedBlockNestingMode {
 	return tfprotov5.SchemaNestedBlockNestingMode(in)
 }

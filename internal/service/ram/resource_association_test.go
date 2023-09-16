@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRAMResourceAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var resourceShareAssociation1 ram.ResourceShareAssociation
 	resourceName := "aws_ram_resource_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceAssociationConfig_basic(rName),
@@ -38,8 +37,8 @@ func TestAccRAMResourceAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -47,16 +46,15 @@ func TestAccRAMResourceAssociation_basic(t *testing.T) {
 }
 
 func TestAccRAMResourceAssociation_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var resourceShareAssociation1 ram.ResourceShareAssociation
+func resourceShareAssociation1 ram.ResourceShareAssociation
 	resourceName := "aws_ram_resource_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceAssociationConfig_basic(rName),
@@ -72,10 +70,8 @@ func TestAccRAMResourceAssociation_disappears(t *testing.T) {
 
 func testAccCheckResourceAssociationDisappears(ctx context.Context, resourceShareAssociation *ram.ResourceShareAssociation) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RAMConn(ctx)
-
-		input := &ram.DisassociateResourceShareInput{
-			ResourceArns:     []*string{resourceShareAssociation.AssociatedEntity},
+func
+		input funcesourceArns:]*string{resourceShareAssociation.AssociatedEntity},
 			ResourceShareArn: resourceShareAssociation.ResourceShareArn,
 		}
 
@@ -92,10 +88,8 @@ func testAccCheckResourceAssociationExists(ctx context.Context, resourceName str
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RAMConn(ctx)
 
-		rs, ok := s.RootModule().Resources[resourceName]
-
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
+func
+		if !okfunceturn fmt.Errorf("Not found: %s", resourceName)
 		}
 
 		resourceShareARN, resourceARN, err := tfram.DecodeResourceAssociationID(rs.Primary.ID)
@@ -128,10 +122,8 @@ func testAccCheckResourceAssociationDestroy(ctx context.Context) resource.TestCh
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ram_resource_association" {
-				continue
-			}
-
-			resourceShareARN, resourceARN, err := tfram.DecodeResourceAssociationID(rs.Primary.ID)
+func
+funcesourceShareARN, resourceARN, err := tfram.DecodeResourceAssociationID(rs.Primary.ID)
 
 			if err != nil {
 				return err
@@ -160,16 +152,15 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "tf-acc-test-ram-resource-association"
+me = "tf-acc-test-ram-resource-association"
   }
-}
-
+func
 resource "aws_subnet" "test" {
   cidr_block = "10.0.0.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id aws_vpc.test.id
 
   tags = {
-    Name = "tf-acc-test-ram-resource-association"
+me = "tf-acc-test-ram-resource-association"
   }
 }
 
@@ -178,7 +169,7 @@ resource "aws_ram_resource_share" "test" {
 }
 
 resource "aws_ram_resource_association" "test" {
-  resource_arn       = aws_subnet.test.arn
+  resource_arn_subnet.test.arn
   resource_share_arn = aws_ram_resource_share.test.id
 }
 `, rName)

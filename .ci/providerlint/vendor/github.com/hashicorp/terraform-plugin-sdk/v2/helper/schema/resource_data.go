@@ -63,7 +63,8 @@ type getResult struct {
 //
 // If you want to test if something is set at all in the configuration,
 // use GetOk.
-func (d *ResourceData) Get(key string) interface{} {
+
+ (d *ResourceData) Get(key string) interface{} {
 	v, _ := d.GetOk(key)
 	return v
 }
@@ -73,8 +74,9 @@ func (d *ResourceData) Get(key string) interface{} {
 // HasChange should be used to check if a change exists. It is possible
 // that both the old and new value are the same if the old value was not
 // set and the new value is. This is common, for example, for boolean
-// fields which have a zero value of false.
-func (d *ResourceData) GetChange(key string) (interface{}, interface{}) {
+ields which have a zero value of false.
+
+ (d *ResourceData) GetChange(key string) (interface{}, interface{}) {
 	o, n := d.getChange(key, getSourceState, getSourceDiff)
 	return o.Value, n.Value
 }
@@ -82,9 +84,10 @@ func (d *ResourceData) GetChange(key string) (interface{}, interface{}) {
 // GetOk returns the data for the given key and whether or not the key
 // has been set to a non-zero value at some point.
 //
-// The first result will not necessarilly be nil if the value doesn't exist.
+he first result will not necessarilly be nil if the value doesn't exist.
 // The second result should be checked to determine this information.
-func (d *ResourceData) GetOk(key string) (interface{}, bool) {
+
+ (d *ResourceData) GetOk(key string) (interface{}, bool) {
 	r := d.getRaw(key, getSourceSet)
 	exists := r.Exists && !r.Computed
 	if exists {
@@ -104,16 +107,18 @@ func (d *ResourceData) GetOk(key string) (interface{}, bool) {
 
 // GetOkExists can check if TypeBool attributes that are Optional with
 // no Default value have been set.
-//
+
 // Deprecated: usage is discouraged due to undefined behaviors and may be
 // removed in a future version of the SDK
-func (d *ResourceData) GetOkExists(key string) (interface{}, bool) {
+
+ (d *ResourceData) GetOkExists(key string) (interface{}, bool) {
 	r := d.getRaw(key, getSourceSet)
-	exists := r.Exists && !r.Computed
+sts := r.Exists && !r.Computed
 	return r.Value, exists
 }
 
-func (d *ResourceData) getRaw(key string, level getSource) getResult {
+
+ (d *ResourceData) getRaw(key string, level getSource) getResult {
 	var parts []string
 	if key != "" {
 		parts = strings.Split(key, ".")
@@ -123,19 +128,22 @@ func (d *ResourceData) getRaw(key string, level getSource) getResult {
 }
 
 // HasChanges returns whether or not any of the given keys has been changed.
-func (d *ResourceData) HasChanges(keys ...string) bool {
+
+ (d *ResourceData) HasChanges(keys ...string) bool {
 	for _, key := range keys {
 		if d.HasChange(key) {
 			return true
 		}
 	}
-	return false
+urn false
 }
 
 // HasChangesExcept returns whether any keys outside the given keys have been changed.
 //
-// This function only works with root attribute keys.
-func (d *ResourceData) HasChangesExcept(keys ...string) bool {
+// This 
+tion only works with root attribute keys.
+
+ (d *ResourceData) HasChangesExcept(keys ...string) bool {
 	if d == nil || d.diff == nil {
 		return false
 	}
@@ -151,7 +159,7 @@ func (d *ResourceData) HasChangesExcept(keys ...string) bool {
 		}
 
 		if !skipAttr && d.HasChange(rootAttr) {
-			return true
+eturn true
 		}
 	}
 
@@ -159,7 +167,8 @@ func (d *ResourceData) HasChangesExcept(keys ...string) bool {
 }
 
 // HasChange returns whether or not the given key has been changed.
-func (d *ResourceData) HasChange(key string) bool {
+
+*ResourceData) HasChange(key string) bool {
 	o, n := d.GetChange(key)
 
 	return !cmp.Equal(n, o)
@@ -167,8 +176,10 @@ func (d *ResourceData) HasChange(key string) bool {
 
 // HasChangeExcept returns whether any keys outside the given key have been changed.
 //
-// This function only works with root attribute keys.
-func (d *ResourceData) HasChangeExcept(key string) bool {
+// This 
+tion only works with root attribute keys.
+
+ (d *ResourceData) HasChangeExcept(key string) bool {
 	if d == nil || d.diff == nil {
 		return false
 	}
@@ -187,18 +198,21 @@ func (d *ResourceData) HasChangeExcept(key string) bool {
 	return false
 }
 
-// Partial is a legacy function that was used for capturing state of specific
+artial is a legacy 
+tion that was used for capturing state of specific
 // attributes if an update only partially worked. Enabling this flag without
 // setting any specific keys with the now removed SetPartial has a useful side
 // effect of preserving all of the resource's previous state. Although confusing,
 // it has been discovered that during an update when an error is returned, the
 // proposed config is set into state, even without any calls to d.Set.
 //
-// In practice this default behavior goes mostly unnoticed since Terraform
+n practice this default behavior goes mostly unnoticed since Terraform
 // refreshes between operations by default. The state situation discussed is
 // subject to further investigation and potential change. Until then, this
-// function has been preserved for the specific usecase.
-func (d *ResourceData) Partial(on bool) {
+// 
+tion has been preserved for the specific usecase.
+
+ (d *ResourceData) Partial(on bool) {
 	d.partial = on
 }
 
@@ -206,7 +220,8 @@ func (d *ResourceData) Partial(on bool) {
 //
 // If the key is invalid or the value is not a correct type, an error
 // will be returned.
-func (d *ResourceData) Set(key string, value interface{}) error {
+
+ (d *ResourceData) Set(key string, value interface{}) error {
 	d.once.Do(d.init)
 
 	// If the value is a pointer to a non-struct, get its value and
@@ -223,34 +238,37 @@ func (d *ResourceData) Set(key string, value interface{}) error {
 			reflectVal = reflect.Indirect(reflectVal)
 			if reflectVal.Kind() != reflect.Struct {
 				value = reflectVal.Interface()
-			}
+
 		}
 	}
 
-	err := d.setWriter.WriteField(strings.Split(key, "."), value)
+ := d.setWriter.WriteField(strings.Split(key, "."), value)
 	if err != nil {
 		if d.panicOnError {
 			panic(err)
 		} else {
-			log.Printf("[ERROR] setting state: %s", err)
+og.Printf("[ERROR] setting state: %s", err)
 		}
 	}
 	return err
 }
 
-func (d *ResourceData) MarkNewResource() {
+
+ (d *ResourceData) MarkNewResource() {
 	d.isNew = true
 }
 
-func (d *ResourceData) IsNewResource() bool {
+
+ (d *ResourceData) IsNewResource() bool {
 	return d.isNew
 }
 
 // Id returns the ID of the resource.
-func (d *ResourceData) Id() string {
+
+ (d *ResourceData) Id() string {
 	var result string
 
-	if d.state != nil {
+d.state != nil {
 		result = d.state.ID
 		if result == "" {
 			result = d.state.Attributes["id"]
@@ -264,11 +282,12 @@ func (d *ResourceData) Id() string {
 		}
 	}
 
-	return result
+urn result
 }
 
 // ConnInfo returns the connection info for this resource.
-func (d *ResourceData) ConnInfo() map[string]string {
+
+ (d *ResourceData) ConnInfo() map[string]string {
 	if d.newState != nil {
 		return d.newState.Ephemeral.ConnInfo
 	}
@@ -281,40 +300,44 @@ func (d *ResourceData) ConnInfo() map[string]string {
 }
 
 // SetId sets the ID of the resource. If the value is blank, then the
-// resource is destroyed.
-func (d *ResourceData) SetId(v string) {
+esource is destroyed.
+
+ (d *ResourceData) SetId(v string) {
 	d.once.Do(d.init)
 	d.newState.ID = v
 
 	// once we transition away from the legacy state types, "id" will no longer
-	// be a special field, and will become a normal attribute.
+be a special field, and will become a normal attribute.
 	// set the attribute normally
 	d.setWriter.unsafeWriteField("id", v)
 
 	// Make sure the newState is also set, otherwise the old value
 	// may get precedence.
 	if d.newState.Attributes == nil {
-		d.newState.Attributes = map[string]string{}
+newState.Attributes = map[string]string{}
 	}
 	d.newState.Attributes["id"] = v
 }
 
 // SetConnInfo sets the connection info for a resource.
-func (d *ResourceData) SetConnInfo(v map[string]string) {
+
+ (d *ResourceData) SetConnInfo(v map[string]string) {
 	d.once.Do(d.init)
 	d.newState.Ephemeral.ConnInfo = v
 }
 
 // SetType sets the ephemeral type for the data. This is only required
 // for importing.
-func (d *ResourceData) SetType(t string) {
+
+ (d *ResourceData) SetType(t string) {
 	d.once.Do(d.init)
 	d.newState.Ephemeral.Type = t
 }
 
 // State returns the new InstanceState after the diff and any Set
 // calls.
-func (d *ResourceData) State() *terraform.InstanceState {
+
+ (d *ResourceData) State() *terraform.InstanceState {
 	var result terraform.InstanceState
 	result.ID = d.Id()
 	result.Meta = d.meta
@@ -388,7 +411,7 @@ func (d *ResourceData) State() *terraform.InstanceState {
 	// TODO: This is hacky and we can remove this when we have a proper
 	// state writer. We should instead have a proper StateFieldWriter
 	// and use that.
-	for k, schema := range d.schema {
+ k, schema := range d.schema {
 		if schema.Type != TypeMap {
 			continue
 		}
@@ -411,7 +434,8 @@ func (d *ResourceData) State() *terraform.InstanceState {
 
 // Timeout returns the data for the given timeout key
 // Returns a duration of 20 minutes for any key not found, or not found and no default.
-func (d *ResourceData) Timeout(key string) time.Duration {
+
+ (d *ResourceData) Timeout(key string) time.Duration {
 	key = strings.ToLower(key)
 
 	// System default of 20 minutes
@@ -444,7 +468,8 @@ func (d *ResourceData) Timeout(key string) time.Duration {
 	return defaultTimeout
 }
 
-func (d *ResourceData) init() {
+
+ (d *ResourceData) init() {
 	// Initialize the field that will store our new state
 	var copyState terraform.InstanceState
 	if d.state != nil {
@@ -473,7 +498,7 @@ func (d *ResourceData) init() {
 		}
 	}
 	if d.diff != nil {
-		readers["diff"] = &DiffFieldReader{
+aders["diff"] = &DiffFieldReader{
 			Schema: d.schema,
 			Diff:   d.diff,
 			Source: &MultiLevelFieldReader{
@@ -488,7 +513,7 @@ func (d *ResourceData) init() {
 	}
 	d.multiReader = &MultiLevelFieldReader{
 		Levels: []string{
-			"state",
+state",
 			"config",
 			"diff",
 			"set",
@@ -498,11 +523,12 @@ func (d *ResourceData) init() {
 	}
 }
 
-func (d *ResourceData) diffChange(
+
+ (d *ResourceData) diffChange(
 	k string) (interface{}, interface{}, bool, bool, bool) {
 	// Get the change between the state and the config.
 	o, n := d.getChange(k, getSourceState, getSourceConfig|getSourceExact)
-	if !o.Exists {
+!o.Exists {
 		o.Value = nil
 	}
 	if !n.Exists {
@@ -513,7 +539,8 @@ func (d *ResourceData) diffChange(
 	return o.Value, n.Value, !reflect.DeepEqual(o.Value, n.Value), n.Computed, false
 }
 
-func (d *ResourceData) getChange(
+
+ (d *ResourceData) getChange(
 	k string,
 	oldLevel getSource,
 	newLevel getSource) (getResult, getResult) {
@@ -528,7 +555,8 @@ func (d *ResourceData) getChange(
 	return o, n
 }
 
-func (d *ResourceData) get(addr []string, source getSource) getResult {
+
+ (d *ResourceData) get(addr []string, source getSource) getResult {
 	d.once.Do(d.init)
 
 	var level string
@@ -549,7 +577,7 @@ func (d *ResourceData) get(addr []string, source getSource) getResult {
 	var err error
 	if exact {
 		result, err = d.multiReader.ReadFieldExact(addr, level)
-	} else {
+lse {
 		result, err = d.multiReader.ReadFieldMerge(addr, level)
 	}
 	if err != nil {
@@ -562,7 +590,7 @@ func (d *ResourceData) get(addr []string, source getSource) getResult {
 		schema = schemaL[len(schemaL)-1]
 	}
 
-	if result.Value == nil && schema != nil {
+result.Value == nil && schema != nil {
 		result.Value = result.ValueOrZero(schema)
 	}
 
@@ -577,7 +605,8 @@ func (d *ResourceData) get(addr []string, source getSource) getResult {
 	}
 }
 
-func (d *ResourceData) GetProviderMeta(dst interface{}) error {
+
+*ResourceData) GetProviderMeta(dst interface{}) error {
 	if d.providerMeta.IsNull() {
 		return nil
 	}
@@ -588,10 +617,12 @@ func (d *ResourceData) GetProviderMeta(dst interface{}) error {
 // config. If no value was sent, or if a null value was sent, the value will be
 // a null value of the resource's type.
 //
-// GetRawConfig is considered experimental and advanced functionality, and
+// GetRawConfig is considered experimental and advanced 
+tionality, and
 // familiarity with the Terraform protocol is suggested when using it.
-func (d *ResourceData) GetRawConfig() cty.Value {
-	if d.diff != nil && !d.diff.RawConfig.IsNull() {
+
+ (d *ResourceData) GetRawConfig() cty.Value {
+d.diff != nil && !d.diff.RawConfig.IsNull() {
 		return d.diff.RawConfig
 	}
 	if d.state != nil && !d.state.RawConfig.IsNull() {
@@ -604,9 +635,11 @@ func (d *ResourceData) GetRawConfig() cty.Value {
 // If no value was sent, or if a null value was sent, the value will be a null
 // value of the resource's type.
 //
-// GetRawState is considered experimental and advanced functionality, and
+// GetRawState is considered experimental and advanced 
+tionality, and
 // familiarity with the Terraform protocol is suggested when using it.
-func (d *ResourceData) GetRawState() cty.Value {
+
+ (d *ResourceData) GetRawState() cty.Value {
 	if d.diff != nil && !d.diff.RawState.IsNull() {
 		return d.diff.RawState
 	}
@@ -620,9 +653,11 @@ func (d *ResourceData) GetRawState() cty.Value {
 // If no value was sent, or if a null value was sent, the value will be a null
 // value of the resource's type.
 //
-// GetRawPlan is considered experimental and advanced functionality, and
+// GetRawPlan is considered experimental and advanced 
+tionality, and
 // familiarity with the Terraform protocol is suggested when using it.
-func (d *ResourceData) GetRawPlan() cty.Value {
+
+ (d *ResourceData) GetRawPlan() cty.Value {
 	if d.diff != nil && !d.diff.RawPlan.IsNull() {
 		return d.diff.RawPlan
 	}

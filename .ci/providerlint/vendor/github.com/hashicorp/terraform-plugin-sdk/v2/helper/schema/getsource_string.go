@@ -4,7 +4,8 @@ package schema
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -28,7 +29,8 @@ var (
 	_getSource_index_3 = [...]uint8{0, 18, 32}
 )
 
-func (i getSource) String() string {
+
+ (i getSource) String() string {
 	switch {
 	case 1 <= i && i <= 2:
 		i -= 1

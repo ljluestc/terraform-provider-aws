@@ -27,10 +27,10 @@ func testAccVirtualNode_basic(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_basic(meshName, vnName),
@@ -70,10 +70,10 @@ func testAccVirtualNode_disappears(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_basic(meshName, vnName),
@@ -99,10 +99,10 @@ func testAccVirtualNode_backendClientPolicyACM(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			// We need to create and activate the CA before issuing a certificate.
 			{
@@ -122,19 +122,19 @@ func testAccVirtualNode_backendClientPolicyACM(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                                                                "1",
-						"virtual_service.0.client_policy.#":                                                "1",
-						"virtual_service.0.client_policy.0.tls.#":                                          "1",
-						"virtual_service.0.client_policy.0.tls.0.certificate.#":                            "0",
-						"virtual_service.0.client_policy.0.tls.0.enforce":                                  "true",
-						"virtual_service.0.client_policy.0.tls.0.ports.#":                                  "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.#":                             "1",
+						"virtual_service.#":            "1",
+						"virtual_service.0.client_policy.#":         "1",
+						"virtual_service.0.client_policy.0.tls.#":   "1",
+						"virtual_service.0.client_policy.0.tls.0.certificate.#":  "0",
+						"virtual_service.0.client_policy.0.tls.0.enforce":        "true",
+						"virtual_service.0.client_policy.0.tls.0.ports.#":        "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.#":   "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.#": "0",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":                     "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":               "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#":              "0",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.sds.#":               "0",
-						"virtual_service.0.virtual_service_name":                                           "servicea.simpleapp.local",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":        "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":  "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#": "0",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.sds.#":  "0",
+						"virtual_service.0.virtual_service_name":    "servicea.simpleapp.local",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "spec.0.backend.*.virtual_service.0.client_policy.0.tls.0.ports.*", "8443"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "spec.0.backend.*.virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.0.certificate_authority_arns.*", acmCAResourceName, "arn"),
@@ -184,10 +184,10 @@ func testAccVirtualNode_backendClientPolicyFile(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_backendClientPolicyFile(meshName, vnName),
@@ -199,20 +199,20 @@ func testAccVirtualNode_backendClientPolicyFile(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                                                                     "1",
-						"virtual_service.0.client_policy.#":                                                     "1",
-						"virtual_service.0.client_policy.0.tls.#":                                               "1",
-						"virtual_service.0.client_policy.0.tls.0.certificate.#":                                 "0",
-						"virtual_service.0.client_policy.0.tls.0.enforce":                                       "true",
-						"virtual_service.0.client_policy.0.tls.0.ports.#":                                       "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.#":                                  "1",
+						"virtual_service.#":    "1",
+						"virtual_service.0.client_policy.#": "1",
+						"virtual_service.0.client_policy.0.tls.#":        "1",
+						"virtual_service.0.client_policy.0.tls.0.certificate.#":       "0",
+						"virtual_service.0.client_policy.0.tls.0.enforce":"true",
+						"virtual_service.0.client_policy.0.tls.0.ports.#":"1",
+						"virtual_service.0.client_policy.0.tls.0.validation.#":        "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.#":      "0",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":                          "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":                    "0",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#":                   "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":"1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":       "0",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#":      "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.0.certificate_chain": "/cert_chain.pem",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.sds.#":                    "0",
-						"virtual_service.0.virtual_service_name":                                                "servicea.simpleapp.local",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.sds.#":       "0",
+						"virtual_service.0.virtual_service_name":         "servicea.simpleapp.local",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "spec.0.backend.*.virtual_service.0.client_policy.0.tls.0.ports.*", "8443"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend_defaults.#", "0"),
@@ -245,20 +245,20 @@ func testAccVirtualNode_backendClientPolicyFile(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                                                                                "1",
-						"virtual_service.0.client_policy.#":                                                                "1",
-						"virtual_service.0.client_policy.0.tls.#":                                                          "1",
-						"virtual_service.0.client_policy.0.tls.0.enforce":                                                  "true",
-						"virtual_service.0.client_policy.0.tls.0.ports.#":                                                  "2",
-						"virtual_service.0.client_policy.0.tls.0.validation.#":                                             "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.#":                 "1",
+						"virtual_service.#":  "1",
+						"virtual_service.0.client_policy.#":            "1",
+						"virtual_service.0.client_policy.0.tls.#":      "1",
+						"virtual_service.0.client_policy.0.tls.0.enforce":           "true",
+						"virtual_service.0.client_policy.0.tls.0.ports.#":           "2",
+						"virtual_service.0.client_policy.0.tls.0.validation.#":      "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.#":    "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.0.match.#":         "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.subject_alternative_names.0.match.0.exact.#": "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":                                     "1",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":                               "0",
-						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#":                              "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.#":           "1",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.acm.#":     "0",
+						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.#":    "1",
 						"virtual_service.0.client_policy.0.tls.0.validation.0.trust.0.file.0.certificate_chain":            "/etc/ssl/certs/cert_chain.pem",
-						"virtual_service.0.virtual_service_name":                                                           "servicea.simpleapp.local",
+						"virtual_service.0.virtual_service_name":       "servicea.simpleapp.local",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "spec.0.backend.*.virtual_service.0.client_policy.0.tls.0.ports.*", "443"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "spec.0.backend.*.virtual_service.0.client_policy.0.tls.0.ports.*", "8443"),
@@ -301,10 +301,10 @@ func testAccVirtualNode_backendDefaults(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_backendDefaults(meshName, vnName),
@@ -391,10 +391,10 @@ func testAccVirtualNode_backendDefaultsCertificate(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_backendDefaultsCertificate(meshName, vnName),
@@ -457,10 +457,10 @@ func testAccVirtualNode_cloudMapServiceDiscovery(t *testing.T) {
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_cloudMapServiceDiscovery(meshName, vnName, rName, "Key1", "Value1"),
@@ -510,10 +510,10 @@ func testAccVirtualNode_listenerConnectionPool(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerConnectionPool(meshName, vnName),
@@ -525,7 +525,7 @@ func testAccVirtualNode_listenerConnectionPool(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -561,7 +561,7 @@ func testAccVirtualNode_listenerConnectionPool(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -606,10 +606,10 @@ func testAccVirtualNode_listenerHealthChecks(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerHealthChecks(meshName, vnName),
@@ -621,7 +621,7 @@ func testAccVirtualNode_listenerHealthChecks(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -663,12 +663,12 @@ func testAccVirtualNode_listenerHealthChecks(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicec.simpleapp.local",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "serviced.simpleapp.local",
 					}),
@@ -717,10 +717,10 @@ func testAccVirtualNode_listenerOutlierDetection(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerOutlierDetection(meshName, vnName),
@@ -732,7 +732,7 @@ func testAccVirtualNode_listenerOutlierDetection(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -769,7 +769,7 @@ func testAccVirtualNode_listenerOutlierDetection(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -814,10 +814,10 @@ func testAccVirtualNode_listenerTimeout(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerTimeout(meshName, vnName),
@@ -829,7 +829,7 @@ func testAccVirtualNode_listenerTimeout(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -865,7 +865,7 @@ func testAccVirtualNode_listenerTimeout(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.listener.#", "1"),
@@ -917,10 +917,10 @@ func testAccVirtualNode_listenerTLS(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerTLSFile(meshName, vnName),
@@ -932,7 +932,7 @@ func testAccVirtualNode_listenerTLS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -988,7 +988,7 @@ func testAccVirtualNode_listenerTLS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -1045,10 +1045,10 @@ func testAccVirtualNode_listenerValidation(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_listenerValidation(meshName, vnName),
@@ -1060,7 +1060,7 @@ func testAccVirtualNode_listenerValidation(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -1117,7 +1117,7 @@ func testAccVirtualNode_listenerValidation(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -1166,10 +1166,10 @@ func testAccVirtualNode_multiListenerValidation(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_multiListenerValidation(meshName, vnName),
@@ -1181,7 +1181,7 @@ func testAccVirtualNode_multiListenerValidation(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -1262,7 +1262,7 @@ func testAccVirtualNode_multiListenerValidation(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "spec.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "spec.0.backend.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "spec.0.backend.*", map[string]string{
-						"virtual_service.#":                      "1",
+						"virtual_service.#":         "1",
 						"virtual_service.0.client_policy.#":      "0",
 						"virtual_service.0.virtual_service_name": "servicea.simpleapp.local",
 					}),
@@ -1351,10 +1351,10 @@ func testAccVirtualNode_logging(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_logging(meshName, vnName, "/dev/stdout"),
@@ -1421,10 +1421,10 @@ func testAccVirtualNode_tags(t *testing.T) {
 	vnName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualNodeDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualNodeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualNodeConfig_tags1(meshName, vnName, "key1", "value1"),
@@ -1523,7 +1523,7 @@ func testAccVirtualNodeConfig_rootCA(domain string) string {
 	return fmt.Sprintf(`
 resource "aws_acmpca_certificate_authority" "test" {
   permanent_deletion_time_in_days = 7
-  type                            = "ROOT"
+  type  = "ROOT"
 
   certificate_authority_configuration {
     key_algorithm     = "RSA_4096"
@@ -1540,7 +1540,7 @@ resource "aws_acmpca_certificate_authority" "test" {
 func testAccVirtualNodeConfigPrivateCert(domain string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name               = "test.%[1]s"
+  domain_name  = "test.%[1]s"
   certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
 }
 `, domain)
@@ -1571,9 +1571,9 @@ resource "aws_appmesh_virtual_node" "test" {
 
           validation {
             trust {
-              file {
-                certificate_chain = "/cert_chain.pem"
-              }
+ file {
+   certificate_chain = "/cert_chain.pem"
+ }
             }
           }
         }
@@ -1598,9 +1598,9 @@ resource "aws_appmesh_virtual_node" "test" {
 
           validation {
             trust {
-              file {
-                certificate_chain = "/etc/ssl/certs/cert_chain.pem"
-              }
+ file {
+   certificate_chain = "/etc/ssl/certs/cert_chain.pem"
+ }
             }
           }
         }
@@ -1623,8 +1623,8 @@ resource "aws_appmesh_virtual_node" "test" {
         tls {
           certificate {
             file {
-              certificate_chain = "/cert_chain.pem"
-              private_key       = "tell-nobody"
+ certificate_chain = "/cert_chain.pem"
+ private_key       = "tell-nobody"
             }
           }
 
@@ -1632,15 +1632,15 @@ resource "aws_appmesh_virtual_node" "test" {
 
           validation {
             subject_alternative_names {
-              match {
-                exact = ["def.example.com"]
-              }
+ match {
+   exact = ["def.example.com"]
+ }
             }
 
             trust {
-              sds {
-                secret_name = "restricted"
-              }
+ sds {
+   secret_name = "restricted"
+ }
             }
           }
         }
@@ -1671,11 +1671,11 @@ resource "aws_appmesh_virtual_node" "test" {
             ports = [8443]
 
             validation {
-              trust {
-                acm {
-                  certificate_authority_arns = [aws_acmpca_certificate_authority.test.arn]
-                }
-              }
+ trust {
+   acm {
+     certificate_authority_arns = [aws_acmpca_certificate_authority.test.arn]
+   }
+ }
             }
           }
         }
@@ -1715,11 +1715,11 @@ resource "aws_appmesh_virtual_node" "test" {
             ports = [8443]
 
             validation {
-              trust {
-                file {
-                  certificate_chain = "/cert_chain.pem"
-                }
-              }
+ trust {
+   file {
+     certificate_chain = "/cert_chain.pem"
+   }
+ }
             }
           }
         }
@@ -1759,17 +1759,17 @@ resource "aws_appmesh_virtual_node" "test" {
             ports = [443, 8443]
 
             validation {
-              subject_alternative_names {
-                match {
-                  exact = ["abc.example.com"]
-                }
-              }
+ subject_alternative_names {
+   match {
+     exact = ["abc.example.com"]
+   }
+ }
 
-              trust {
-                file {
-                  certificate_chain = "/etc/ssl/certs/cert_chain.pem"
-                }
-              }
+ trust {
+   file {
+     certificate_chain = "/etc/ssl/certs/cert_chain.pem"
+   }
+ }
             }
           }
         }
@@ -1928,7 +1928,7 @@ resource "aws_appmesh_virtual_node" "test" {
 
       health_check {
         protocol            = "http2"
-        path                = "/ping"
+        path   = "/ping"
         healthy_threshold   = 3
         unhealthy_threshold = 5
         timeout_millis      = 2000
@@ -1973,7 +1973,7 @@ resource "aws_appmesh_virtual_node" "test" {
 
       health_check {
         protocol            = "tcp"
-        port                = 8081
+        port   = 8081
         healthy_threshold   = 4
         unhealthy_threshold = 9
         timeout_millis      = 3000
@@ -2280,13 +2280,13 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -2334,7 +2334,7 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           trust {
             sds {
-              secret_name = "confidential"
+ secret_name = "confidential"
             }
           }
         }
@@ -2382,13 +2382,13 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -2413,13 +2413,13 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           subject_alternative_names {
             match {
-              exact = ["abc.example.com", "xyz.example.com"]
+ exact = ["abc.example.com", "xyz.example.com"]
             }
           }
 
           trust {
             file {
-              certificate_chain = "/cert_chain.pem"
+ certificate_chain = "/cert_chain.pem"
             }
           }
         }
@@ -2467,7 +2467,7 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           trust {
             sds {
-              secret_name = "confidential"
+ secret_name = "confidential"
             }
           }
         }
@@ -2492,7 +2492,7 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           trust {
             sds {
-              secret_name = "confidential"
+ secret_name = "confidential"
             }
           }
         }
@@ -2517,7 +2517,7 @@ resource "aws_appmesh_virtual_node" "test" {
         validation {
           trust {
             sds {
-              secret_name = "confidential"
+ secret_name = "confidential"
             }
           }
         }
@@ -2599,8 +2599,8 @@ resource "aws_appmesh_virtual_node" "test" {
 
           format {
             json {
-              key   = "k1"
-              value = "v1"
+ key   = "k1"
+ value = "v1"
             }
           }
         }

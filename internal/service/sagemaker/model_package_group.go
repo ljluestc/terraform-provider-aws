@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_sagemaker_model_package_group", name="Model Package Group")
 // @Tags(identifierAttribute="arn")
-func ResourceModelPackageGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceModelPackageGroupCreate,
-		ReadWithoutTimeout:   resourceModelPackageGroupRead,
+		ReadWithoutTimeout:ourceModelPackageGroupRead,
 		UpdateWithoutTimeout: resourceModelPackageGroupUpdate,
 		DeleteWithoutTimeout: resourceModelPackageGroupDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,11 +34,11 @@ func ResourceModelPackageGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"model_package_group_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -49,12 +48,12 @@ func ResourceModelPackageGroup() *schema.Resource {
 				),
 			},
 			"model_package_group_description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -63,13 +62,12 @@ func ResourceModelPackageGroup() *schema.Resource {
 }
 
 func resourceModelPackageGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("model_package_group_name").(string)
 	input := &sagemaker.CreateModelPackageGroupInput{
 		ModelPackageGroupName: aws.String(name),
-		Tags:                  getTagsIn(ctx),
+		Tags:x),
 	}
 
 	if v, ok := d.GetOk("model_package_group_description"); ok {
@@ -92,8 +90,7 @@ func resourceModelPackageGroupCreate(ctx context.Context, d *schema.ResourceData
 
 func resourceModelPackageGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	mpg, err := FindModelPackageGroupByName(ctx, conn, d.Id())
 	if err != nil {
 		if tfawserr.ErrMessageContains(err, "ValidationException", "does not exist") {
@@ -115,8 +112,7 @@ func resourceModelPackageGroupRead(ctx context.Context, d *schema.ResourceData, 
 func resourceModelPackageGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceModelPackageGroupRead(ctx, d, meta)...)
 }
 
@@ -124,8 +120,7 @@ func resourceModelPackageGroupDelete(ctx context.Context, d *schema.ResourceData
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteModelPackageGroupInput{
-		ModelPackageGroupName: aws.String(d.Id()),
+funcdelPackageGroupName: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteModelPackageGroupWithContext(ctx, input); err != nil {

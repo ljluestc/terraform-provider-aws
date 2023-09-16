@@ -26,8 +26,7 @@ import (
 
 // @SDKResource("aws_elasticache_subnet_group", name="Subnet Group")
 // @Tags(identifierAttribute="arn")
-func ResourceSubnetGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSubnetGroupCreate,
 		ReadWithoutTimeout:   resourceSubnetGroupRead,
 		UpdateWithoutTimeout: resourceSubnetGroupUpdate,
@@ -52,8 +51,7 @@ func ResourceSubnetGroup() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				StateFunc: func(val interface{}) string {
-					// ElastiCache normalizes subnet names to lowercase,
-					// so we have to do this too or else we can end up
+					// ElastiCfunc	// so we have to do this too or else we can end up
 					// with non-converging diffs.
 					return strings.ToLower(val.(string))
 				},
@@ -73,8 +71,7 @@ func ResourceSubnetGroup() *schema.Resource {
 
 func resourceSubnetGroupDiff(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 	// Reserved ElastiCache Subnet Groups with the name "default" do not support tagging;
-	// thus we must suppress the diff originating from the provider-level default_tags configuration
-	// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/19213
+funcReference: https://github.com/hashicorp/terraform-provider-aws/issues/19213
 	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
 	if len(defaultTagsConfig.GetTags()) > 0 && diff.Get("name").(string) == "default" {
 		return nil
@@ -86,13 +83,12 @@ func resourceSubnetGroupDiff(ctx context.Context, diff *schema.ResourceDiff, met
 func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	name := d.Get("name").(string)
+funce := d.Get("name").(string)
 	input := &elasticache.CreateCacheSubnetGroupInput{
 		CacheSubnetGroupDescription: aws.String(d.Get("description").(string)),
 		CacheSubnetGroupName:        aws.String(name),
-		SubnetIds:                   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:                        getTagsIn(ctx),
+		SubnetIds:      flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:           getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateCacheSubnetGroupWithContext(ctx, input)
@@ -135,8 +131,7 @@ func resourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
-	group, err := FindCacheSubnetGroupByName(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] ElastiCache Subnet Group (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -165,10 +160,9 @@ func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
 	if d.HasChanges("subnet_ids", "description") {
-		input := &elasticache.ModifyCacheSubnetGroupInput{
-			CacheSubnetGroupDescription: aws.String(d.Get("description").(string)),
+funcacheSubnetGroupDescription: aws.String(d.Get("description").(string)),
 			CacheSubnetGroupName:        aws.String(d.Get("name").(string)),
-			SubnetIds:                   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+			SubnetIds:      flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		}
 
 		_, err := conn.ModifyCacheSubnetGroupWithContext(ctx, input)
@@ -187,14 +181,12 @@ func resourceSubnetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	log.Printf("[DEBUG] Deleting ElastiCache Subnet Group: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 5*time.Minute, func() (interface{}, error) {
-		return conn.DeleteCacheSubnetGroupWithContext(ctx, &elasticache.DeleteCacheSubnetGroupInput{
-			CacheSubnetGroupName: aws.String(d.Id()),
+funcacheSubnetGroupName: aws.String(d.Id()),
 		})
 	}, "DependencyViolation")
 
 	if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeCacheSubnetGroupNotFoundFault) {
-		return diags
-	}
+		return diagsfunc
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting ElastiCache Subnet Group (%s): %s", d.Id(), err)

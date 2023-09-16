@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_launch_template")
 
-func DataSourceLaunchTemplate() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceLaunchTemplateRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -32,89 +31,89 @@ func DataSourceLaunchTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"block_device_mappings": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"device_name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"ebs": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"delete_on_termination": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"encrypted": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"iops": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"kms_key_id": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"snapshot_id": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"throughput": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"volume_size": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"volume_type": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"no_device": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"virtual_name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"capacity_reservation_specification": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"capacity_reservation_preference": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"capacity_reservation_target": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"capacity_reservation_id": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"capacity_reservation_resource_group_arn": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 								},
@@ -124,88 +123,88 @@ func DataSourceLaunchTemplate() *schema.Resource {
 				},
 			},
 			"cpu_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"amd_sev_snp": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"core_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"threads_per_core": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"credit_specification": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cpu_credits": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"default_version": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"disable_api_stop": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"disable_api_termination": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"ebs_optimized": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"elastic_gpu_specifications": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"elastic_inference_accelerator": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"enclave_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
@@ -213,78 +212,78 @@ func DataSourceLaunchTemplate() *schema.Resource {
 			},
 			"filter": CustomFiltersSchema(),
 			"hibernation_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"configured": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"iam_instance_profile": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"image_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"instance_initiated_shutdown_behavior": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"instance_market_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"market_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"spot_options": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"block_duration_minutes": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"instance_interruption_behavior": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"max_price": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"spot_instance_type": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"valid_until": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 								},
@@ -294,213 +293,213 @@ func DataSourceLaunchTemplate() *schema.Resource {
 				},
 			},
 			"instance_requirements": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"accelerator_count": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"accelerator_manufacturers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"accelerator_names": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"accelerator_total_memory_mib": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"accelerator_types": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"allowed_instance_types": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"bare_metal": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"baseline_ebs_bandwidth_mbps": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"burstable_performance": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"cpu_manufacturers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"excluded_instance_types": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"instance_generations": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"local_storage": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"local_storage_types": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"memory_gib_per_vcpu": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"memory_mib": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"network_bandwidth_gbps": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"network_interface_count": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"on_demand_max_price_percentage_over_lowest_price": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"require_hibernate_support": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"spot_max_price_percentage_over_lowest_price": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"total_local_storage_gb": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeFloat,
+										Type:eFloat,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"vcpu_count": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"min": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
@@ -510,255 +509,255 @@ func DataSourceLaunchTemplate() *schema.Resource {
 				},
 			},
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"kernel_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"key_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"latest_version": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"license_specification": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"license_configuration_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"maintenance_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_recovery": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"metadata_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_endpoint": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"http_protocol_ipv6": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"http_put_response_hop_limit": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"http_tokens": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"instance_metadata_tags": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"monitoring": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"network_interfaces": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"associate_carrier_ip_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"associate_public_ip_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"delete_on_termination": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"device_index": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"interface_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"ipv4_address_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"ipv4_addresses": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"ipv4_prefix_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"ipv4_prefixes": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"ipv6_address_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"ipv6_addresses": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"ipv6_prefix_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"ipv6_prefixes": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"network_card_index": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"private_ip_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"security_groups": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"subnet_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"placement": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"affinity": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"availability_zone": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"group_name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"host_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"host_resource_group_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"partition_number": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"spread_domain": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"tenancy": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"private_dns_name_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enable_resource_name_dns_aaaa_record": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"enable_resource_name_dns_a_record": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"hostname_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"ram_disk_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"security_group_names": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tag_specifications": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"resource_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"tags": tftags.TagsSchemaComputed(),
@@ -767,21 +766,20 @@ func DataSourceLaunchTemplate() *schema.Resource {
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"user_data": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceLaunchTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeLaunchTemplatesInput{}
@@ -823,8 +821,8 @@ func dataSourceLaunchTemplateRead(ctx context.Context, d *schema.ResourceData, m
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("launch-template/%s", d.Id()),
 	}.String()

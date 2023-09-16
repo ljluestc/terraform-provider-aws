@@ -38,51 +38,51 @@ func ResourceDetector() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 
 			"datasources": {
-				Type:     schema.TypeList,
+				Type:eList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3_logs": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"enable": {
-										Type:     schema.TypeBool,
+										Type:eBool,
 										Required: true,
 									},
 								},
 							},
 						},
 						"kubernetes": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"audit_logs": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"enable": {
-													Type:     schema.TypeBool,
+													Type:eBool,
 													Required: true,
 												},
 											},
@@ -92,26 +92,26 @@ func ResourceDetector() *schema.Resource {
 							},
 						},
 						"malware_protection": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"scan_ec2_instance_with_findings": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"ebs_volumes": {
-													Type:     schema.TypeList,
+													Type:eList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"enable": {
-																Type:     schema.TypeBool,
+																Type:eBool,
 																Required: true,
 															},
 														},
@@ -128,7 +128,7 @@ func ResourceDetector() *schema.Resource {
 			},
 
 			"enable": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
@@ -136,7 +136,7 @@ func ResourceDetector() *schema.Resource {
 			// finding_publishing_frequency is marked as Computed:true since
 			// GuardDuty member accounts inherit setting from master account
 			"finding_publishing_frequency": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -228,8 +228,8 @@ func resourceDetectorUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := guardduty.UpdateDetectorInput{
-			DetectorId:                 aws.String(d.Id()),
-			Enable:                     aws.Bool(d.Get("enable").(bool)),
+			DetectorId:
+			Enable:
 			FindingPublishingFrequency: aws.String(d.Get("finding_publishing_frequency").(string)),
 		}
 

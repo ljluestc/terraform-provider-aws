@@ -592,7 +592,7 @@ if d.HasChange("root_volume_configuration") {
 	input := &fsx.UpdateVolumeInput{
 ClientRequestToken:   aws.String(id.UniqueId()),
 OpenZFSConfiguration: expandOpenZFSUpdateRootVolumeConfiguration(d.Get("root_volume_configuration").([]interface{})),
-VolumeId:             aws.String(rootVolumeID),
+VolumeId:aws.String(rootVolumeID),
 	}
 
 	_, err := conn.UpdateVolumeWithContext(ctx, input)

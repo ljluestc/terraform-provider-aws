@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccVPCEndpointSecurityGroupAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v ec2.VpcEndpoint
 	resourceName := "aws_vpc_endpoint_security_group_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,17 +27,15 @@ func TestAccVPCEndpointSecurityGroupAssociation_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointSecurityGroupAssociationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointSecurityGroupAssociationExists(ctx, resourceName, &v),
-	testAccCheckVPCEndpointSecurityGroupAssociationNumAssociations(&v, 2),
-),
+func
 	},
 },
 	})
@@ -48,17 +45,15 @@ func(
 func TestAccVPCEndpointSecurityGroupAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcEndpoint
-	resourceName := "aws_vpc_endpoint_security_group_association.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
+func
 Config: testAccVPCEndpointSecurityGroupAssociationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -66,8 +61,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointSecurityGroupAssociation(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -78,18 +72,16 @@ func TestAccVPCEndpointSecurityGroupAssociation_multiple(t *testing.T) {
 	resourceName0 := "aws_vpc_endpoint_security_group_association.test.0"
 	resourceName1 := "aws_vpc_endpoint_security_group_association.test.1"
 	resourceName2 := "aws_vpc_endpoint_security_group_association.test.2"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointSecurityGroupAssociationConfig_multiple(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointSecurityGroupAssociationExists(ctx, resourceName0, &v),
 	testAccCheckVPCEndpointSecurityGroupAssociationExists(ctx, resourceName1, &v),
@@ -98,8 +90,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCEndpointSecurityGroupAssociation_replaceDefaultAssociation(t *testing.T) {
@@ -111,17 +102,15 @@ func TestAccVPCEndpointSecurityGroupAssociation_replaceDefaultAssociation(t *tes
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointSecurityGroupAssociationConfig_replaceDefault(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointSecurityGroupAssociationExists(ctx, resourceName, &v),
-	testAccCheckVPCEndpointSecurityGroupAssociationNumAssociations(&v, 1),
-),
+func
 	},
 },
 	})
@@ -129,8 +118,7 @@ func(
 
 
 func testAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx context.Context) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -140,13 +128,10 @@ continue
 	}
 
 	err := tfec2.FindVPCEndpointSecurityGroupAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["security_group_id"])
+functfresource.NotFound(err) {
+func
 
-	if tfresource.NotFound(err) {
-continue
-	}
-
-	if err != nil {
-return err
+funcrn err
 	}
 
 	return fmt.Errorf("VPC Endpoint Security Group Association %s still exists", rs.Primary.ID)
@@ -172,13 +157,10 @@ if rs.Primary.ID == "" {
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-output, err := tfec2.FindVPCEndpointByID(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"])
-
-if err != nil {
-	return err
+func
+funcurn err
 }
-
-err = tfec2.FindVPCEndpointSecurityGroupAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["security_group_id"])
+func= tfec2.FindVPCEndpointSecurityGroupAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["security_group_id"])
 
 if err != nil {
 	return err
@@ -209,30 +191,26 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_base(rName string) string 
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name = %[1]q
-  }
-}
+func %[1]q
+func
 
-data "aws_region" "current" {}
-
+func
 resource "aws_security_group" "test" {
   count = 3
 
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_vpc_endpoint" "test" {
-  vpc_id   = aws_vpc.test.id
-  service_name      = "com.amazonaws.${data.aws_region.current.name}.ec2"
+funcurce "aws_vpc_endpoint" "test" {
+  vpc_idws_vpc.test.id
+  service_nameazonaws.${data.aws_region.current.name}.ec2"
   vpc_endpoint_type = "Interface"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -244,7 +222,7 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_basic(rName string) string
 testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_security_group_association" "test" {
-  vpc_endpoint_id   = aws_vpc_endpoint.test.id
+  vpc_endpoint_idws_vpc_endpoint.test.id
   security_group_id = aws_security_group.test[0].id
 }
 `)
@@ -258,11 +236,10 @@ testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 resource "aws_vpc_endpoint_security_group_association" "test" {
   count = length(aws_security_group.test)
 
-  vpc_endpoint_id   = aws_vpc_endpoint.test.id
+  vpc_endpoint_idws_vpc_endpoint.test.id
   security_group_id = aws_security_group.test[count.index].id
 }
-`)
-}
+func
 
 
 func testAccVPCEndpointSecurityGroupAssociationConfig_replaceDefault(rName string) string {
@@ -270,10 +247,10 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_replaceDefault(rName strin
 testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_security_group_association" "test" {
-  vpc_endpoint_id   = aws_vpc_endpoint.test.id
+  vpc_endpoint_idws_vpc_endpoint.test.id
   security_group_id = aws_security_group.test[0].id
 
   replace_default_association = true
+func
 }
-`)
-}
+func

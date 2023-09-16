@@ -1,5 +1,6 @@
 // Package S010 defines an Analyzer that checks for
-// Schema with only Computed enabled and ValidateFunc configured
+// Schema with only Computed enabled and Validate
+ configured
 package S010
 
 import (
@@ -11,10 +12,12 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and ValidateFunc configured
+const Doc = `check for Schema with only Computed enabled and Validate
+ configured
 
 The S010 analyzer reports cases of schemas which only enables Computed
-and configures ValidateFunc, which will fail provider schema validation.`
+and configures Validate
+, which will fail provider schema validation.`
 
 const analyzerName = "S010"
 
@@ -25,26 +28,30 @@ var Analyzer = &analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-	Run: run,
+: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
 	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+		if ignorer.ShouldIgnore(analyame, schemaInfo.AstCompositeLit) {
 			continue
 		}
 
-		if schemaInfo.Schema.ValidateFunc == nil {
+		if schemaInfo.Schema.Validate
+ == nil {
 			continue
 		}
 
 		switch t := schemaInfo.AstCompositeLit.Type.(type) {
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure ValidateFunc", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure Validate
+", analyzerName)
 		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure ValidateFunc", analyzerName)
+			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure Validate
+", analyzerName)
 		}
 	}
 

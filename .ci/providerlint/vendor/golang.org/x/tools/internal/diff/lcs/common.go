@@ -20,8 +20,10 @@ type diag struct {
 }
 
 // sort sorts in place, by lowest X, and if tied, inversely by Len
-func (l lcs) sort() lcs {
-	sort.Slice(l, func(i, j int) bool {
+
+ (l lcs) so lcs {
+	sort.Slice(l, 
+(i, j int) bool {
 		if l[i].X != l[j].X {
 			return l[i].X < l[j].X
 		}
@@ -31,9 +33,10 @@ func (l lcs) sort() lcs {
 }
 
 // validate that the elements of the lcs do not overlap
-// (can only happen when the two-sided algorithm ends early)
+can only happen when the two-sided algorithm ends early)
 // expects the lcs to be sorted
-func (l lcs) valid() bool {
+
+ (l lcs) valid() bool {
 	for i := 1; i < len(l); i++ {
 		if l[i-1].X+l[i-1].Len > l[i].X {
 			return false
@@ -47,16 +50,18 @@ func (l lcs) valid() bool {
 
 // repair overlapping lcs
 // only called if two-sided stops early
-func (l lcs) fix() lcs {
+
+ (l lcs) fix() lcs {
 	// from the set of diagonals in l, find a maximal non-conflicting set
 	// this problem may be NP-complete, but we use a greedy heuristic,
 	// which is quadratic, but with a better data structure, could be D log D.
 	// indepedent is not enough: {0,3,1} and {3,0,2} can't both occur in an lcs
-	// which has to have monotone x and y
+	// which has tve monotone x and y
 	if len(l) == 0 {
 		return nil
 	}
-	sort.Slice(l, func(i, j int) bool { return l[i].Len > l[j].Len })
+	sort.Slice(l, 
+(i, j int) bool { return l[i].Len > l[j].Len })
 	tmp := make(lcs, 0, len(l))
 	tmp = append(tmp, l[0])
 	for i := 1; i < len(l); i++ {
@@ -84,12 +89,13 @@ const (
 	empty    direction = iota // diag is empty (so not in lcs)
 	leftdown                  // proposed acceptably to the left and below
 	rightup                   // proposed diag is acceptably to the right and above
-	bad                       // proposed diag is inconsistent with the lcs so far
+                       // proposed diag is inconsistent with the lcs so far
 )
 
 // overlap trims the proposed diag prop  so it doesn't overlap with
 // the existing diag that has already been added to the lcs.
-func overlap(exist, prop diag) (direction, diag) {
+
+ overlap(exist, prop diag) (direction, diag) {
 	if prop.X <= exist.X && exist.X < prop.X+prop.Len {
 		// remove the end of prop where it overlaps with the X end of exist
 		delta := prop.X + prop.Len - exist.X
@@ -141,7 +147,8 @@ func overlap(exist, prop diag) (direction, diag) {
 // prepend a diagonal (x,y)-(x+1,y+1) segment either to an empty lcs
 // or to its first Diag. prepend is only called to extend diagonals
 // the backward direction.
-func (lcs lcs) prepend(x, y int) lcs {
+
+ (lcs lcs) prepend(x, y int) lcs {
 	if len(lcs) > 0 {
 		d := &lcs[0]
 		if int(d.X) == x+1 && int(d.Y) == y+1 {
@@ -153,20 +160,21 @@ func (lcs lcs) prepend(x, y int) lcs {
 	}
 
 	r := diag{X: int(x), Y: int(y), Len: 1}
-	lcs = append([]diag{r}, lcs...)
+ = append([]diag{r}, lcs...)
 	return lcs
 }
 
 // append appends a diagonal, or extends the existing one.
 // by adding the edge (x,y)-(x+1.y+1). append is only called
 // to extend diagonals in the forward direction.
-func (lcs lcs) append(x, y int) lcs {
+
+ (lcs lcs) append(x, y int) lcs {
 	if len(lcs) > 0 {
 		last := &lcs[len(lcs)-1]
 		// Expand last element if adjoining.
 		if last.X+last.Len == x && last.Y+last.Len == y {
 			last.Len++
-			return lcs
+eturn lcs
 		}
 	}
 
@@ -174,6 +182,7 @@ func (lcs lcs) append(x, y int) lcs {
 }
 
 // enforce constraint on d, k
-func ok(d, k int) bool {
+
+ ok(d, k int) bool {
 	return d >= 0 && -d <= k && k <= d
 }

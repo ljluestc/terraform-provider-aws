@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func FindDataSourceByID(ctx context.Context, conn *kendra.Client, id, indexId string) (*kendra.DescribeDataSourceOutput, error) {
 	in := &kendra.DescribeDataSourceInput{
 		Id:      aws.String(id),
@@ -40,6 +41,7 @@ func FindDataSourceByID(ctx context.Context, conn *kendra.Client, id, indexId st
 
 	return out, nil
 }
+
 
 func FindFaqByID(ctx context.Context, conn *kendra.Client, id, indexId string) (*kendra.DescribeFaqOutput, error) {
 	in := &kendra.DescribeFaqInput{
@@ -68,6 +70,7 @@ func FindFaqByID(ctx context.Context, conn *kendra.Client, id, indexId string) (
 	return out, nil
 }
 
+
 func FindQuerySuggestionsBlockListByID(ctx context.Context, conn *kendra.Client, id, indexId string) (*kendra.DescribeQuerySuggestionsBlockListOutput, error) {
 	in := &kendra.DescribeQuerySuggestionsBlockListInput{
 		Id:      aws.String(id),
@@ -94,6 +97,7 @@ func FindQuerySuggestionsBlockListByID(ctx context.Context, conn *kendra.Client,
 
 	return out, nil
 }
+
 
 func FindThesaurusByID(ctx context.Context, conn *kendra.Client, id, indexId string) (*kendra.DescribeThesaurusOutput, error) {
 	in := &kendra.DescribeThesaurusInput{

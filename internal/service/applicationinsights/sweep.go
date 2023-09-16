@@ -15,18 +15,12 @@ import (
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
-)
-
-func init() {
-	resource.AddTestSweepers("aws_applicationinsights_application", &resource.Sweeper{
+)funcource.AddTestSweepers("aws_applicationinsights_application", &resource.Sweeper{
 		Name: "aws_applicationinsights_application",
 		F:    sweepApplications,
 	})
-}
-
-func sweepApplications(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+}func sweepApplications(region string) error {
+	funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("error getting client: %s", err)

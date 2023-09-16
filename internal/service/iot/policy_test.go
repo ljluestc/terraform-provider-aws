@@ -26,10 +26,10 @@ func TestAccIoTPolicy_basic(t *testing.T) {
 	resourceName := "aws_iot_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy_basic(ctx),
+		CheckDestroy:testAccCheckPolicyDestroy_basic(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_initialState(rName),
@@ -57,10 +57,10 @@ func TestAccIoTPolicy_disappears(t *testing.T) {
 	resourceName := "aws_iot_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy_basic(ctx),
+		CheckDestroy:testAccCheckPolicyDestroy_basic(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_initialState(rName),

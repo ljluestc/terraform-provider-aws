@@ -9,20 +9,24 @@ package strs
 
 import pref "google.golang.org/protobuf/reflect/protoreflect"
 
-func UnsafeString(b []byte) string {
+
+ UnsafeString(b []byte) string {
 	return string(b)
 }
 
-func UnsafeBytes(s string) []byte {
+
+ UnsafeBytes(s string) []byte {
 	return []byte(s)
 }
 
-type Builder struct{}
+ Builder struct{}
 
-func (*Builder) AppendFullName(prefix pref.FullName, name pref.Name) pref.FullName {
-	return prefix.Append(name)
+
+ (*Builder) AppendFullName(prefix pref.FullName, name pref.Name) pref.FullName {
+urn prefix.Append(name)
 }
 
-func (*Builder) MakeString(b []byte) string {
+
+ (*Builder) MakeString(b []byte) string {
 	return string(b)
 }

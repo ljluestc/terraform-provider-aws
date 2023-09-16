@@ -28,10 +28,10 @@ func TestAccBatchJobQueue_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_state(rName, batch.JQStateEnabled),
@@ -61,10 +61,10 @@ func TestAccBatchJobQueue_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
+		CheckDestroy:testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_state(rName, batch.JQStateEnabled),
@@ -104,8 +104,8 @@ func TestAccBatchJobQueue_MigrateFromPluginSDK(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccJobQueueConfig_state(rName, batch.JQStateEnabled),
-				PlanOnly:                 true,
+				Config:      testAccJobQueueConfig_state(rName, batch.JQStateEnabled),
+				PlanOnly:    true,
 			},
 		},
 	})
@@ -119,10 +119,10 @@ func TestAccBatchJobQueue_ComputeEnvironments_externalOrderUpdate(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_state(rName, batch.JQStateEnabled),
@@ -147,10 +147,10 @@ func TestAccBatchJobQueue_priority(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_priority(rName, 1),
@@ -184,10 +184,10 @@ func TestAccBatchJobQueue_schedulingPolicy(t *testing.T) {
 	schedulingPolicyName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				// last variable selects the scheduling policy's arn. In this case, the first scheduling policy's arn.
@@ -221,10 +221,10 @@ func TestAccBatchJobQueue_state(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_state(rName, batch.JQStateDisabled),
@@ -256,10 +256,10 @@ func TestAccBatchJobQueue_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobQueueDestroy(ctx),
+		CheckDestroy:testAccCheckJobQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobQueueConfig_tags1(rName, "key1", "value1"),
@@ -351,7 +351,7 @@ func testAccCheckJobQueueComputeEnvironmentOrderUpdate(ctx context.Context, jobQ
 
 		input := &batch.UpdateJobQueueInput{
 			ComputeEnvironmentOrder: jobQueue.ComputeEnvironmentOrder,
-			JobQueue:                jobQueue.JobQueueName,
+			JobQueue:   jobQueue.JobQueueName,
 		}
 		name := aws.StringValue(jobQueue.JobQueueName)
 
@@ -380,7 +380,7 @@ func testAccJobQueueConfigBase(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -455,8 +455,8 @@ resource "aws_subnet" "test" {
 
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
-  service_role             = aws_iam_role.test.arn
-  type                     = "MANAGED"
+  service_role= aws_iam_role.test.arn
+  type        = "MANAGED"
 
   compute_resources {
     instance_role      = aws_iam_instance_profile.ecs_instance_role.arn
@@ -465,7 +465,7 @@ resource "aws_batch_compute_environment" "test" {
     min_vcpus          = 0
     security_group_ids = [aws_security_group.test.id]
     subnets            = [aws_subnet.test.id]
-    type               = "EC2"
+    type  = "EC2"
   }
 
   depends_on = [aws_iam_role_policy_attachment.test]
@@ -479,9 +479,9 @@ func testAccJobQueueConfig_priority(rName string, priority int) string {
 		fmt.Sprintf(`
 resource "aws_batch_job_queue" "test" {
   compute_environments = [aws_batch_compute_environment.test.arn]
-  name                 = %[1]q
-  priority             = %[2]d
-  state                = "ENABLED"
+  name    = %[1]q
+  priority= %[2]d
+  state   = "ENABLED"
 }
 `, rName, priority))
 }
@@ -529,10 +529,10 @@ locals {
 
 resource "aws_batch_job_queue" "test" {
   compute_environments  = [aws_batch_compute_environment.test.arn]
-  name                  = %[1]q
-  priority              = 1
+  name     = %[1]q
+  priority = 1
   scheduling_policy_arn = local.select_scheduling_policy == "first" ? aws_batch_scheduling_policy.test1.arn : aws_batch_scheduling_policy.test2.arn
-  state                 = "ENABLED"
+  state    = "ENABLED"
 }
 `, rName, selectSchedulingPolicy))
 }
@@ -543,9 +543,9 @@ func testAccJobQueueConfig_state(rName string, state string) string {
 		fmt.Sprintf(`
 resource "aws_batch_job_queue" "test" {
   compute_environments = [aws_batch_compute_environment.test.arn]
-  name                 = %[1]q
-  priority             = 1
-  state                = %[2]q
+  name    = %[1]q
+  priority= 1
+  state   = %[2]q
 }
 `, rName, state))
 }
@@ -556,9 +556,9 @@ func testAccJobQueueConfig_tags1(rName, tagKey1, tagValue1 string) string {
 		fmt.Sprintf(`
 resource "aws_batch_job_queue" "test" {
   compute_environments = [aws_batch_compute_environment.test.arn]
-  name                 = %[1]q
-  priority             = 1
-  state                = "DISABLED"
+  name    = %[1]q
+  priority= 1
+  state   = "DISABLED"
 
   tags = {
     %[2]q = %[3]q
@@ -573,9 +573,9 @@ func testAccJobQueueConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 		fmt.Sprintf(`
 resource "aws_batch_job_queue" "test" {
   compute_environments = [aws_batch_compute_environment.test.arn]
-  name                 = %[1]q
-  priority             = 1
-  state                = "DISABLED"
+  name    = %[1]q
+  priority= 1
+  state   = "DISABLED"
 
   tags = {
     %[2]q = %[3]q

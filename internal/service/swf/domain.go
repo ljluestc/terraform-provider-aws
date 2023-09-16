@@ -27,8 +27,7 @@ import (
 
 // @SDKResource("aws_swf_domain", name="Domain")
 // @Tags(identifierAttribute="arn")
-func resourceDomain() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainCreate,
 		ReadWithoutTimeout:   resourceDomainRead,
 		UpdateWithoutTimeout: resourceDomainUpdate,
@@ -69,8 +68,7 @@ func resourceDomain() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
-					value, err := strconv.Atoi(v.(string))
-					if err != nil || value > 90 || value < 0 {
+					value, err :=func	if err != nil || value > 90 || value < 0 {
 						es = append(es, fmt.Errorf(
 							"%q must be between 0 and 90 days inclusive", k))
 					}
@@ -85,12 +83,11 @@ func resourceDomain() *schema.Resource {
 
 func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SWFClient(ctx)
-
+func
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &swf.RegisterDomainInput{
-		Name:                                   aws.String(name),
-		Tags:                                   getTagsIn(ctx),
+		Name:         aws.String(name),
+		Tags:         getTagsIn(ctx),
 		WorkflowExecutionRetentionPeriodInDays: aws.String(d.Get("workflow_execution_retention_period_in_days").(string)),
 	}
 
@@ -112,8 +109,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SWFClient(ctx)
-
-	output, err := findDomainByName(ctx, conn, d.Id())
+funcput, err := findDomainByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] SWF Domain (%s) not found, removing from state", d.Id())
@@ -139,14 +135,12 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	// Tags only.
 	return resourceDomainRead(ctx, d, meta)
 }
-
 func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SWFClient(ctx)
 
 	_, err := conn.DeprecateDomain(ctx, &swf.DeprecateDomainInput{
-		Name: aws.String(d.Get("name").(string)),
-	})
+func
 
 	if errs.IsA[*types.DomainDeprecatedFault](err) || errs.IsA[*types.UnknownResourceFault](err) {
 		return diags
@@ -165,8 +159,7 @@ func findDomainByName(ctx context.Context, conn *swf.Client, name string) (*swf.
 	}
 
 	output, err := conn.DescribeDomain(ctx, input)
-
-	if errs.IsA[*types.UnknownResourceFault](err) {
+funcerrs.IsA[*types.UnknownResourceFault](err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,

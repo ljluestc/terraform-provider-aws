@@ -18,7 +18,8 @@ var Analyzer = &analysis.Analyzer{
 	ResultType: reflect.TypeOf([]*schema.SchemaInfo{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
 
 	var result []*schema.SchemaInfo

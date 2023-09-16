@@ -25,10 +25,10 @@ func TestAccElasticBeanstalkApplication_basic(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:pplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -57,10 +57,10 @@ func TestAccElasticBeanstalkApplication_disappears(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:pplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -81,10 +81,10 @@ func TestAccElasticBeanstalkApplication_tags(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:pplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_tags1(rName, "key1", "value1"),
@@ -127,10 +127,10 @@ func TestAccElasticBeanstalkApplication_description(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:pplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_description(rName, "description 1"),
@@ -170,10 +170,10 @@ func TestAccElasticBeanstalkApplication_appVersionLifecycle(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:pplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_maxAge(rName),
@@ -384,7 +384,7 @@ resource "aws_elastic_beanstalk_application" "test" {
 
   appversion_lifecycle {
     service_role          = aws_iam_role.test.arn
-    max_count             = 10
+    max_count
     delete_source_from_s3 = false
   }
 }

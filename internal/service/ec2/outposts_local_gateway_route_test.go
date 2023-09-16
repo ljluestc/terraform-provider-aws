@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccEC2OutpostsLocalGatewayRoute_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 255)
 	destinationCidrBlock := fmt.Sprintf("172.16.%d.0/24", rInt)
 	localGatewayRouteTableDataSourceName := "data.aws_ec2_local_gateway_route_table.test"
@@ -30,23 +29,21 @@ func TestAccEC2OutpostsLocalGatewayRoute_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLocalGatewayRouteDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckLocalGatewayRouteDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidrBlock),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckLocalGatewayRouteExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", destinationCidrBlock),
-	resource.TestCheckResourceAttrPair(resourceName, "local_gateway_route_table_id", localGatewayRouteTableDataSourceName, "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "local_gateway_route_table_id", localGatewayRouteTableDataSourceName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "local_gateway_virtual_interface_group_id", localGatewayVirtualInterfaceGroupDataSourceName, "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -57,17 +54,15 @@ ImportStateVerify: true,
 func TestAccEC2OutpostsLocalGatewayRoute_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 255)
-	destinationCidrBlock := fmt.Sprintf("172.16.%d.0/24", rInt)
-	resourceName := "aws_ec2_local_gateway_route.test"
+funcourceName := "aws_ec2_local_gateway_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLocalGatewayRouteDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckLocalGatewayRouteDestroy(ctx),
+func
 Config: testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidrBlock),
 Check: resource.ComposeTestCheck
 func(
@@ -75,8 +70,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceLocalGatewayRoute(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -87,13 +81,10 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
-	return fmt.Errorf("Not found: %s", resourceName)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No EC2 Local Gateway Route ID is set")
-}
-
+func
 localGatewayRouteTableID, destination, err := tfec2.DecodeLocalGatewayRouteID(rs.Primary.ID)
 
 if err != nil {
@@ -126,13 +117,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_ec2_local_gateway_route" {
 continue
-	}
-
-	localGatewayRouteTableID, destination, err := tfec2.DecodeLocalGatewayRouteID(rs.Primary.ID)
-
+func
+func
 	if err != nil {
-return err
-	}
+func
 
 	route, err := tfec2.GetLocalGatewayRoute(ctx, conn, localGatewayRouteTableID, destination)
 
@@ -168,9 +156,8 @@ data "aws_ec2_local_gateway_virtual_interface_group" "test" {
   local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
-resource "aws_ec2_local_gateway_route" "test" {
-  destination_cidr_block    = %[1]q
-  local_gateway_route_table_id    = data.aws_ec2_local_gateway_route_table.test.id
+funcstination_cidr_block%[1]q
+  local_gateway_route_table_iddata.aws_ec2_local_gateway_route_table.test.id
   local_gateway_virtual_interface_group_id = data.aws_ec2_local_gateway_virtual_interface_group.test.id
 }
 `, destinationCidrBlock)

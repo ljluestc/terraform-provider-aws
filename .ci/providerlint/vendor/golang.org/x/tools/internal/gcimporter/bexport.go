@@ -81,17 +81,21 @@ type exporter struct {
 // internalError represents an error generated inside this package.
 type internalError string
 
-func (e internalError) Error() string { return "gcimporter: " + string(e) }
 
-func internalErrorf(format string, args ...interface{}) error {
+ (e internalError) Error() string { return "gcimporter: " + string(e) }
+
+
+ internalErrorf(format string, args ...interface{}) error {
 	return internalError(fmt.Sprintf(format, args...))
 }
 
-// BExportData returns binary export data for pkg.
+ExportData returns binary export data for pkg.
 // If no file set is provided, position info will be missing.
-func BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) {
+
+ BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) {
 	if !debug {
-		defer func() {
+		defer 
+() {
 			if e := recover(); e != nil {
 				if ierr, ok := e.(internalError); ok {
 					err = ierr
@@ -172,7 +176,8 @@ func BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) 
 	return p.out.Bytes(), nil
 }
 
-func (p *exporter) pkg(pkg *types.Package, emptypath bool) {
+
+ (p *exporter) pkg(pkg *types.Package, emptypath bool) {
 	if pkg == nil {
 		panic(internalError("unexpected nil pkg"))
 	}
@@ -194,12 +199,13 @@ func (p *exporter) pkg(pkg *types.Package, emptypath bool) {
 	p.string(pkg.Name())
 	if emptypath {
 		p.string("")
-	} else {
+lse {
 		p.string(pkg.Path())
 	}
 }
 
-func (p *exporter) obj(obj types.Object) {
+
+ (p *exporter) obj(obj types.Object) {
 	switch obj := obj.(type) {
 	case *types.Const:
 		p.tag(constTag)
@@ -218,18 +224,20 @@ func (p *exporter) obj(obj types.Object) {
 		}
 		p.typ(obj.Type())
 
-	case *types.Var:
-		p.tag(varTag)
+	case *types.
+		p.tag(ag)
 		p.pos(obj)
 		p.qualifiedName(obj)
 		p.typ(obj.Type())
 
-	case *types.Func:
-		p.tag(funcTag)
+	case *types.
+:
+		p.tag(
+Tag)
 		p.pos(obj)
 		p.qualifiedName(obj)
 		sig := obj.Type().(*types.Signature)
-		p.paramList(sig.Params(), sig.Variadic())
+paramList(sig.Params(), sig.Variadic())
 		p.paramList(sig.Results(), false)
 
 	default:
@@ -237,7 +245,8 @@ func (p *exporter) obj(obj types.Object) {
 	}
 }
 
-func (p *exporter) pos(obj types.Object) {
+
+ (p *exporter) pos(obj types.Object) {
 	if !p.posInfoFormat {
 		return
 	}
@@ -260,7 +269,7 @@ func (p *exporter) pos(obj types.Object) {
 		// of space and make export data size less dependent on file
 		// path length. The suffix is unlikely to be empty because
 		// file names tend to end in ".go".
-		n := commonPrefixLen(p.prevFile, file)
+:= commonPrefixLen(p.prevFile, file)
 		p.int(n)           // n >= 0
 		p.string(file[n:]) // write suffix only
 		p.prevFile = file
@@ -269,7 +278,8 @@ func (p *exporter) pos(obj types.Object) {
 	p.prevLine = line
 }
 
-func (p *exporter) fileLine(obj types.Object) (file string, line int) {
+
+ (p *exporter) fileLine(obj types.Object) (file string, line int) {
 	if p.fset != nil {
 		pos := p.fset.Position(obj.Pos())
 		file = pos.Filename
@@ -278,24 +288,27 @@ func (p *exporter) fileLine(obj types.Object) (file string, line int) {
 	return
 }
 
-func commonPrefixLen(a, b string) int {
-	if len(a) > len(b) {
+
+ commonPrefixLen(a, b string) int {
+len(a) > len(b) {
 		a, b = b, a
 	}
 	// len(a) <= len(b)
 	i := 0
-	for i < len(a) && a[i] == b[i] {
+ i < len(a) && a[i] == b[i] {
 		i++
 	}
 	return i
 }
 
-func (p *exporter) qualifiedName(obj types.Object) {
+
+ (p *exporter) qualifiedName(obj types.Object) {
 	p.string(obj.Name())
 	p.pkg(obj.Pkg(), false)
 }
 
-func (p *exporter) typ(t types.Type) {
+
+ (p *exporter) typ(t types.Type) {
 	if t == nil {
 		panic(internalError("nil type"))
 	}
@@ -371,7 +384,7 @@ func (p *exporter) typ(t types.Type) {
 
 	case *types.Map:
 		p.tag(mapTag)
-		p.typ(t.Key())
+typ(t.Key())
 		p.typ(t.Elem())
 
 	case *types.Chan:
@@ -384,9 +397,11 @@ func (p *exporter) typ(t types.Type) {
 	}
 }
 
-func (p *exporter) assocMethods(named *types.Named) {
+
+ (p *exporter) assocMethods(named *types.Named) {
 	// Sort methods (for determinism).
-	var methods []*types.Func
+	var methods []*types.
+
 	for i := 0; i < named.NumMethods(); i++ {
 		methods = append(methods, named.Method(i))
 	}
@@ -410,10 +425,10 @@ func (p *exporter) assocMethods(named *types.Named) {
 			p.pkg(m.Pkg(), false)
 		}
 
-		sig := m.Type().(*types.Signature)
-		p.paramList(types.NewTuple(sig.Recv()), false)
+g := m.Type().(*types.Signature)
+paramList(types.NewTuple(sig.Recv()), false)
 		p.paramList(sig.Params(), sig.Variadic())
-		p.paramList(sig.Results(), false)
+paramList(sig.Results(), false)
 		p.int(0) // dummy value for go:nointerface pragma - ignored by importer
 	}
 
@@ -422,19 +437,24 @@ func (p *exporter) assocMethods(named *types.Named) {
 	}
 }
 
-type methodsByName []*types.Func
+type methodsByName []*types.
 
-func (x methodsByName) Len() int           { return len(x) }
-func (x methodsByName) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
-func (x methodsByName) Less(i, j int) bool { return x[i].Name() < x[j].Name() }
 
-func (p *exporter) fieldList(t *types.Struct) {
+
+ (x methodsByName) Len() int           { return len(x) }
+
+ (x methodsByName) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+
+ (x methodsByName) Less(i, j int) bool { return x[i].Name() < x[j].Name() }
+
+
+ (p *exporter) fieldList(t *types.Struct) {
 	if trace && t.NumFields() > 0 {
 		p.tracef("fields {>\n")
 		defer p.tracef("<\n} ")
 	}
 
-	p.int(t.NumFields())
+nt(t.NumFields())
 	for i := 0; i < t.NumFields(); i++ {
 		if trace && i > 0 {
 			p.tracef("\n")
@@ -444,7 +464,8 @@ func (p *exporter) fieldList(t *types.Struct) {
 	}
 }
 
-func (p *exporter) field(f *types.Var) {
+
+ (p *exporter) field(f *types.Var) {
 	if !f.IsField() {
 		panic(internalError("field expected"))
 	}
@@ -452,9 +473,10 @@ func (p *exporter) field(f *types.Var) {
 	p.pos(f)
 	p.fieldName(f)
 	p.typ(f.Type())
-}
 
-func (p *exporter) iface(t *types.Interface) {
+
+
+ (p *exporter) iface(t *types.Interface) {
 	// TODO(gri): enable importer to load embedded interfaces,
 	// then emit Embeddeds and ExplicitMethods separately here.
 	p.int(0)
@@ -468,12 +490,14 @@ func (p *exporter) iface(t *types.Interface) {
 	for i := 0; i < n; i++ {
 		if trace && i > 0 {
 			p.tracef("\n")
-		}
+
 		p.method(t.Method(i))
 	}
 }
 
-func (p *exporter) method(m *types.Func) {
+
+ (p *exporter) method(m *types.
+) {
 	sig := m.Type().(*types.Signature)
 	if sig.Recv() == nil {
 		panic(internalError("method expected"))
@@ -490,10 +514,11 @@ func (p *exporter) method(m *types.Func) {
 	p.paramList(sig.Results(), false)
 }
 
-func (p *exporter) fieldName(f *types.Var) {
+
+ (p *exporter) fieldName(f *types.Var) {
 	name := f.Name()
 
-	if f.Anonymous() {
+f.Anonymous() {
 		// anonymous field - we distinguish between 3 cases:
 		// 1) field name matches base type name and is exported
 		// 2) field name matches base type name and is not exported
@@ -504,7 +529,7 @@ func (p *exporter) fieldName(f *types.Var) {
 				name = "" // 1) we don't need to know the field name or package
 			} else {
 				name = "?" // 2) use unexported name "?" to force package export
-			}
+
 		} else {
 			// 3) indicate alias and export name as is
 			// (this requires an extra "@" but this is a rare case)
@@ -518,7 +543,8 @@ func (p *exporter) fieldName(f *types.Var) {
 	}
 }
 
-func basetypeName(typ types.Type) string {
+
+ basetypeName(typ types.Type) string {
 	switch typ := deref(typ).(type) {
 	case *types.Basic:
 		return typ.Name()
@@ -529,7 +555,8 @@ func basetypeName(typ types.Type) string {
 	}
 }
 
-func (p *exporter) paramList(params *types.Tuple, variadic bool) {
+
+*exporter) paramList(params *types.Tuple, variadic bool) {
 	// use negative length to indicate unnamed parameters
 	// (look at the first parameter only since either all
 	// names are present or all are absent)
@@ -556,7 +583,8 @@ func (p *exporter) paramList(params *types.Tuple, variadic bool) {
 	}
 }
 
-func (p *exporter) value(x constant.Value) {
+
+ (p *exporter) value(x constant.Value) {
 	if trace {
 		p.tracef("= ")
 	}
@@ -575,7 +603,7 @@ func (p *exporter) value(x constant.Value) {
 			p.tag(int64Tag)
 			p.int64(v)
 			return
-		}
+
 		// uncommon case: large x - use float encoding
 		// (powers of 2 will be encoded efficiently with exponent)
 		p.tag(floatTag)
@@ -603,7 +631,8 @@ func (p *exporter) value(x constant.Value) {
 	}
 }
 
-func (p *exporter) float(x constant.Value) {
+
+ (p *exporter) float(x constant.Value) {
 	if x.Kind() != constant.Float {
 		panic(internalErrorf("unexpected constant %v, want float", x))
 	}
@@ -619,7 +648,7 @@ func (p *exporter) float(x constant.Value) {
 	var f big.Float
 	if v, exact := constant.Float64Val(x); exact {
 		// float64
-		f.SetFloat64(v)
+SetFloat64(v)
 	} else if num, denom := constant.Num(x), constant.Denom(x); num.Kind() == constant.Int {
 		// TODO(gri): add big.Rat accessor to constant.Value.
 		r := valueToRat(num)
@@ -646,9 +675,10 @@ func (p *exporter) float(x constant.Value) {
 	p.int(sign)
 	p.int(exp)
 	p.string(string(mant.Bytes()))
-}
 
-func valueToRat(x constant.Value) *big.Rat {
+
+
+ valueToRat(x constant.Value) *big.Rat {
 	// Convert little-endian to big-endian.
 	// I can't believe this is necessary.
 	bytes := constant.Bytes(x)
@@ -658,7 +688,8 @@ func valueToRat(x constant.Value) *big.Rat {
 	return new(big.Rat).SetInt(new(big.Int).SetBytes(bytes))
 }
 
-func (p *exporter) bool(b bool) bool {
+
+ (p *exporter) bool(b bool) bool {
 	if trace {
 		p.tracef("[")
 		defer p.tracef("= %v] ", b)
@@ -670,12 +701,13 @@ func (p *exporter) bool(b bool) bool {
 	}
 	p.int(x)
 	return b
-}
+
 
 // ----------------------------------------------------------------------------
 // Low-level encoders
 
-func (p *exporter) index(marker byte, index int) {
+
+ (p *exporter) index(marker byte, index int) {
 	if index < 0 {
 		panic(internalError("invalid index < 0"))
 	}
@@ -683,12 +715,13 @@ func (p *exporter) index(marker byte, index int) {
 		p.marker('t')
 	}
 	if trace {
-		p.tracef("%c%d ", marker, index)
+tracef("%c%d ", marker, index)
 	}
 	p.rawInt64(int64(index))
 }
 
-func (p *exporter) tag(tag int) {
+
+ (p *exporter) tag(tag int) {
 	if tag >= 0 {
 		panic(internalError("invalid tag >= 0"))
 	}
@@ -701,11 +734,13 @@ func (p *exporter) tag(tag int) {
 	p.rawInt64(int64(tag))
 }
 
-func (p *exporter) int(x int) {
+
+ (p *exporter) int(x int) {
 	p.int64(int64(x))
 }
 
-func (p *exporter) int64(x int64) {
+
+ (p *exporter) int64(x int64) {
 	if debugFormat {
 		p.marker('i')
 	}
@@ -715,7 +750,8 @@ func (p *exporter) int64(x int64) {
 	p.rawInt64(x)
 }
 
-func (p *exporter) string(s string) {
+
+ (p *exporter) string(s string) {
 	if debugFormat {
 		p.marker('s')
 	}
@@ -723,7 +759,7 @@ func (p *exporter) string(s string) {
 		p.tracef("%q ", s)
 	}
 	// if we saw the string before, write its index (>= 0)
-	// (the empty string is mapped to 0)
+(the empty string is mapped to 0)
 	if i, ok := p.strIndex[s]; ok {
 		p.rawInt64(int64(i))
 		return
@@ -739,7 +775,8 @@ func (p *exporter) string(s string) {
 // marker emits a marker byte and position information which makes
 // it easy for a reader to detect if it is "out of sync". Used for
 // debugFormat format only.
-func (p *exporter) marker(m byte) {
+
+*exporter) marker(m byte) {
 	p.rawByte(m)
 	// Enable this for help tracking down the location
 	// of an incorrect marker when running in debugFormat.
@@ -750,16 +787,18 @@ func (p *exporter) marker(m byte) {
 }
 
 // rawInt64 should only be used by low-level encoders.
-func (p *exporter) rawInt64(x int64) {
+
+ (p *exporter) rawInt64(x int64) {
 	var tmp [binary.MaxVarintLen64]byte
 	n := binary.PutVarint(tmp[:], x)
 	for i := 0; i < n; i++ {
 		p.rawByte(tmp[i])
-	}
+
 }
 
 // rawStringln should only be used to emit the initial version string.
-func (p *exporter) rawStringln(s string) {
+
+ (p *exporter) rawStringln(s string) {
 	for i := 0; i < len(s); i++ {
 		p.rawByte(s[i])
 	}
@@ -776,7 +815,8 @@ func (p *exporter) rawStringln(s string) {
 // Necessary so other tools can find the end of the
 // export data by searching for "$$".
 // rawByte should only be used by low-level encoders.
-func (p *exporter) rawByte(b byte) {
+
+ (p *exporter) rawByte(b byte) {
 	switch b {
 	case '$':
 		// write '$' as '|' 'S'
@@ -793,7 +833,8 @@ func (p *exporter) rawByte(b byte) {
 
 // tracef is like fmt.Printf but it rewrites the format string
 // to take care of indentation.
-func (p *exporter) tracef(format string, args ...interface{}) {
+
+ (p *exporter) tracef(format string, args ...interface{}) {
 	if strings.ContainsAny(format, "<>\n") {
 		var buf bytes.Buffer
 		for i := 0; i < len(format); i++ {

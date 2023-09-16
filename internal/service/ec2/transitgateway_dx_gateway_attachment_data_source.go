@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_dx_gateway_attachment")
 
-func DataSourceTransitGatewayDxGatewayAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayDxGatewayAttachmentRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,13 +28,13 @@ func DataSourceTransitGatewayDxGatewayAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"dx_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"filter": CustomFiltersSchema(),
-			"tags":   tftags.TagsSchemaComputed(),
+			"tags":ags.TagsSchemaComputed(),
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -43,8 +42,7 @@ func DataSourceTransitGatewayDxGatewayAttachment() *schema.Resource {
 }
 
 func dataSourceTransitGatewayDxGatewayAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayAttachmentsInput{
@@ -66,8 +64,7 @@ func dataSourceTransitGatewayDxGatewayAttachmentRead(ctx context.Context, d *sch
 	// to preserve original
 	functionality
 	if v, ok := d.GetOk("dx_gateway_id"); ok {
-		input.Filters = append(input.Filters, BuildAttributeFilterList(map[string]string{
-			"resource-id": v.(string),
+	funcresource-id": v.(string),
 		})...)
 	}
 

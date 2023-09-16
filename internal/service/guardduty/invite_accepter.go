@@ -34,14 +34,14 @@ func ResourceInviteAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"master_account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidAccountID,
 			},
 		},
@@ -103,7 +103,7 @@ func resourceInviteAccepterCreate(ctx context.Context, d *schema.ResourceData, m
 	acceptInvitationInput := &guardduty.AcceptInvitationInput{
 		DetectorId:   aws.String(detectorID),
 		InvitationId: aws.String(invitationID),
-		MasterId:     aws.String(masterAccountID),
+		MasterId:(masterAccountID),
 	}
 
 	log.Printf("[DEBUG] Accepting GuardDuty Invitation: %s", acceptInvitationInput)

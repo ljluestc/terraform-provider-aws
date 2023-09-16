@@ -25,7 +25,8 @@ package hcl
 // so comparison by pointer identity is not possible.
 //
 // The result is nil if no blocks at all contain the given position.
-func (f *File) BlocksAtPos(pos Pos) []*Block {
+
+ (f *File) BlocksAtPos(pos Pos) []*Block {
 	// The root body of the file must implement this interface in order
 	// to support BlocksAtPos.
 	type Interface interface {
@@ -43,8 +44,9 @@ func (f *File) BlocksAtPos(pos Pos) []*Block {
 // that contains the given position. This is a best-effort method that may not
 // be able to produce a result for all positions or for all HCL syntaxes.
 //
-// The result is nil if no single block could be selected for any reason.
-func (f *File) OutermostBlockAtPos(pos Pos) *Block {
+he result is nil if no single block could be selected for any reason.
+
+ (f *File) OutermostBlockAtPos(pos Pos) *Block {
 	// The root body of the file must implement this interface in order
 	// to support OutermostBlockAtPos.
 	type Interface interface {
@@ -62,9 +64,10 @@ func (f *File) OutermostBlockAtPos(pos Pos) *Block {
 // receiving file that contains the given position. This is a best-effort
 // method that may not be able to produce a result for all positions or for
 // all HCL syntaxes.
-//
+
 // The result is nil if no single block could be selected for any reason.
-func (f *File) InnermostBlockAtPos(pos Pos) *Block {
+
+ (f *File) InnermostBlockAtPos(pos Pos) *Block {
 	// The root body of the file must implement this interface in order
 	// to support InnermostBlockAtPos.
 	type Interface interface {
@@ -83,10 +86,11 @@ func (f *File) InnermostBlockAtPos(pos Pos) *Block {
 // be able to produce a result for all positions or for all HCL syntaxes.
 //
 // Since expressions are often nested inside one another, this method returns
-// the outermost "root" expression that is not contained by any other.
+he outermost "root" expression that is not contained by any other.
 //
 // The result is nil if no single expression could be selected for any reason.
-func (f *File) OutermostExprAtPos(pos Pos) Expression {
+
+ (f *File) OutermostExprAtPos(pos Pos) Expression {
 	// The root body of the file must implement this interface in order
 	// to support OutermostExprAtPos.
 	type Interface interface {
@@ -101,11 +105,12 @@ func (f *File) OutermostExprAtPos(pos Pos) Expression {
 }
 
 // AttributeAtPos attempts to find an attribute definition in the receiving
-// file that contains the given position. This is a best-effort method that may
+ile that contains the given position. This is a best-effort method that may
 // not be able to produce a result for all positions or for all HCL syntaxes.
 //
 // The result is nil if no single attribute could be selected for any reason.
-func (f *File) AttributeAtPos(pos Pos) *Attribute {
+
+ (f *File) AttributeAtPos(pos Pos) *Attribute {
 	// The root body of the file must implement this interface in order
 	// to support OutermostExprAtPos.
 	type Interface interface {

@@ -27,9 +27,9 @@ func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerCertificateDestroy(ctx),
+		CheckDestroy:oadBalancerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccLoadBalancerCertificateAttachmentConfig_basic(lbName, cName, domainName),
@@ -42,7 +42,7 @@ func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 func testAccLoadBalancerCertificateAttachmentConfig_basic(lbName string, cName string, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
 }

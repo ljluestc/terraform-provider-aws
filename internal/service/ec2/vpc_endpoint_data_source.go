@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_vpc_endpoint")
 
-func DataSourceVPCEndpoint() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCEndpointRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -32,41 +31,41 @@ func DataSourceVPCEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"cidr_blocks": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"dns_entry": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"dns_name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"hosted_zone_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"dns_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"dns_record_ip_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"private_dns_only_for_inbound_resolver_endpoint": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
@@ -74,71 +73,71 @@ func DataSourceVPCEndpoint() *schema.Resource {
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"ip_address_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"network_interface_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"prefix_list_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_dns_enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"requester_managed": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"route_table_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"service_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_endpoint_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -147,16 +146,15 @@ func DataSourceVPCEndpoint() *schema.Resource {
 }
 
 func dataSourceVPCEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeVpcEndpointsInput{
 		Filters: BuildAttributeFilterList(
 			map[string]string{
 				"vpc-endpoint-state": d.Get("state").(string),
-				"vpc-id":    d.Get("vpc_id").(string),
-				"service-name":       d.Get("service_name").(string),
+				"vpc-id":Get("vpc_id").(string),
+				"service-name":ervice_name").(string),
 			},
 		),
 	}
@@ -186,8 +184,8 @@ func dataSourceVPCEndpointRead(ctx context.Context, d *schema.ResourceData, meta
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(vpce.OwnerId),
 		Resource:  fmt.Sprintf("vpc-endpoint/%s", d.Id()),
 	}.String()

@@ -27,7 +27,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationProfilesDataSourceConfig_basic(appName, rName1, rName2),

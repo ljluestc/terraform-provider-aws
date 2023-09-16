@@ -1,4 +1,5 @@
-package function
+package 
+tion
 
 import (
 	"fmt"
@@ -15,36 +16,44 @@ error
 Index int
 }
 
-func NewArgErrorf(i int, f string, args ...interface{}) error {
+
+ NewArgErrorf(i int, f string, args ...interface{}) error {
 return ArgError{
 error: fmt.Errorf(f, args...),
 Index: i,
 }
-}
 
-func NewArgError(i int, err error) error {
+
+
+ NewArgError(i int, err error) error {
 return ArgError{
 error: err,
 Index: i,
 }
 }
 
-// PanicError indicates that a panic occurred while executing either a
-// function's type or implementation function. This is captured and wrapped
+// PanicError indicates that a panic occurred while exing either a
+// 
+tion's type or implementation 
+tion. This is captured and wrapped
 // into a normal error so that callers (expected to be language runtimes)
-// are freed from having to deal with panics in buggy functions.
+// are freed from having to deal with panics in buggy 
+s.
 type PanicError struct {
 Value interface{}
 Stack []byte
 }
 
-func errorForPanic(val interface{}) error {
+
+orForPanic(val interface{}) error {
 return PanicError{
 Value: val,
 Stack: debug.Stack(),
 }
 }
 
-func (e PanicError) Error() string {
-return fmt.Sprintf("panic in function implementation: %s\n%s", e.Value, e.Stack)
+
+ (e PanicError) Error() string {
+return fmt.Sprintf("panic in 
+tion implementation: %s\n%s", e.Value, e.Stack)
 }

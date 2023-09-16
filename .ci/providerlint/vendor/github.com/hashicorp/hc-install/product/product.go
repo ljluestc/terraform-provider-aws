@@ -16,17 +16,21 @@ type Product struct {
 	Name string
 
 	// BinaryName represents name of the unpacked binary to be executed or built
-	BinaryName BinaryNameFunc
+	BinaryName BinaryName
+
 
 	// GetVersion represents how to obtain the version of the product
-	// reflecting any output or CLI flag differences
-	GetVersion func(ctx context.Context, execPath string) (*version.Version, error)
+	// reflectiny output or CLI flag differences
+	GetVersion 
+(ctx context.Context, execPath string) (*version.Version, error)
 
 	// BuildInstructions represents how to build the product "from scratch"
 	BuildInstructions *BuildInstructions
 }
 
-type BinaryNameFunc func() string
+type BinaryName
+ 
+() string
 
 type BuildInstructions struct {
 	GitRepoURL string

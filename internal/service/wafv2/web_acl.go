@@ -180,10 +180,10 @@ func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta inte
 		AssociationConfig: expandAssociationConfig(d.Get("association_config").([]interface{})),
 		CaptchaConfig:     expandCaptchaConfig(d.Get("captcha_config").([]interface{})),
 		DefaultAction:     expandDefaultAction(d.Get("default_action").([]interface{})),
-		Name:              aws.String(name),
-		Rules:             expandWebACLRules(d.Get("rule").(*schema.Set).List()),
-		Scope:             aws.String(d.Get("scope").(string)),
-		Tags:              getTagsIn(ctx),
+		Name: aws.String(name),
+		Rules:expandWebACLRules(d.Get("rule").(*schema.Set).List()),
+		Scope:aws.String(d.Get("scope").(string)),
+		Tags: getTagsIn(ctx),
 		VisibilityConfig:  expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
 	}
 
@@ -279,11 +279,11 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			AssociationConfig: expandAssociationConfig(d.Get("association_config").([]interface{})),
 			CaptchaConfig:     expandCaptchaConfig(d.Get("captcha_config").([]interface{})),
 			DefaultAction:     expandDefaultAction(d.Get("default_action").([]interface{})),
-			Id:                aws.String(d.Id()),
+			Id:   aws.String(d.Id()),
 			LockToken:         aws.String(d.Get("lock_token").(string)),
-			Name:              aws.String(d.Get("name").(string)),
-			Rules:             rules,
-			Scope:             aws.String(d.Get("scope").(string)),
+			Name: aws.String(d.Get("name").(string)),
+			Rules:rules,
+			Scope:aws.String(d.Get("scope").(string)),
 			VisibilityConfig:  expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
 		}
 

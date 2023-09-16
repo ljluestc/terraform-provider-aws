@@ -35,10 +35,10 @@ func TestAccNetworkFirewallResourcePolicy_basic(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),
@@ -63,10 +63,10 @@ func TestAccNetworkFirewallResourcePolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),
@@ -93,10 +93,10 @@ func TestAccNetworkFirewallResourcePolicy_ruleGroup(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_ruleGroup(rName),
@@ -129,10 +129,10 @@ func TestAccNetworkFirewallResourcePolicy_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),
@@ -152,10 +152,10 @@ func TestAccNetworkFirewallResourcePolicy_Disappears_firewallPolicy(t *testing.T
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),
@@ -175,10 +175,10 @@ func TestAccNetworkFirewallResourcePolicy_Disappears_ruleGroup(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_ruleGroup(rName),
@@ -324,7 +324,7 @@ resource "aws_networkfirewall_rule_group" "test" {
       rules_source_list {
         generated_rules_type = "ALLOWLIST"
         target_types         = ["HTTP_HOST"]
-        targets              = ["test.example.com"]
+        targets = ["test.example.com"]
       }
     }
   }

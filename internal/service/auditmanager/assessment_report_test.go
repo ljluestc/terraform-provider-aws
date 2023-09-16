@@ -32,9 +32,9 @@ func TestAccAuditManagerAssessmentReport_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentReportDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentReportDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentReportConfig_basic(rName),
@@ -46,7 +46,7 @@ func TestAccAuditManagerAssessmentReport_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
@@ -65,9 +65,9 @@ func TestAccAuditManagerAssessmentReport_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentReportDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentReportDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentReportConfig_basic(rName),
@@ -92,9 +92,9 @@ func TestAccAuditManagerAssessmentReport_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentReportDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentReportDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentReportConfig_optional(rName, "text"),
@@ -107,7 +107,7 @@ func TestAccAuditManagerAssessmentReport_optional(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},

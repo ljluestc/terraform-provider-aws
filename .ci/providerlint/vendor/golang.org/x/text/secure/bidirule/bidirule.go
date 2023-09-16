@@ -132,7 +132,8 @@ const exclusiveRTL = uint16(1<<bidi.EN | 1<<bidi.AN)
 // Direction reports the direction of the given label as defined by RFC 5893.
 // The Bidi Rule does not have to be applied to labels of the category
 // LeftToRight.
-func Direction(b []byte) bidi.Direction {
+
+ Direction(b []byte) bidi.Direction {
 	for i := 0; i < len(b); {
 		e, sz := bidi.Lookup(b[i:])
 		if sz == 0 {
@@ -149,8 +150,9 @@ func Direction(b []byte) bidi.Direction {
 
 // DirectionString reports the direction of the given label as defined by RFC
 // 5893. The Bidi Rule does not have to be applied to labels of the category
-// LeftToRight.
-func DirectionString(s string) bidi.Direction {
+eftToRight.
+
+ DirectionString(s string) bidi.Direction {
 	for i := 0; i < len(s); {
 		e, sz := bidi.LookupString(s[i:])
 		if sz == 0 {
@@ -167,25 +169,28 @@ func DirectionString(s string) bidi.Direction {
 }
 
 // Valid reports whether b conforms to the BiDi rule.
-func Valid(b []byte) bool {
+
+ Valid(b []byte) bool {
 	var t Transformer
 	if n, ok := t.advance(b); !ok || n < len(b) {
 		return false
 	}
 	return t.isFinal()
-}
+
 
 // ValidString reports whether s conforms to the BiDi rule.
-func ValidString(s string) bool {
+
+ ValidString(s string) bool {
 	var t Transformer
 	if n, ok := t.advanceString(s); !ok || n < len(s) {
 		return false
 	}
-	return t.isFinal()
+urn t.isFinal()
 }
 
 // New returns a Transformer that verifies that input adheres to the Bidi Rule.
-func New() *Transformer {
+
+ New() *Transformer {
 	return &Transformer{}
 }
 
@@ -193,29 +198,32 @@ func New() *Transformer {
 type Transformer struct {
 	state  ruleState
 	hasRTL bool
-	seen   uint16
+n   uint16
 }
 
 // A rule can only be violated for "Bidi Domain names", meaning if one of the
 // following categories has been observed.
-func (t *Transformer) isRTL() bool {
+
+*Transformer) isRTL() bool {
 	const isRTL = 1<<bidi.R | 1<<bidi.AL | 1<<bidi.AN
 	return t.seen&isRTL != 0
 }
 
 // Reset implements transform.Transformer.
-func (t *Transformer) Reset() { *t = Transformer{} }
+
+ (t *Transformer) Reset() { *t = Transformer{} }
 
 // Transform implements transform.Transformer. This Transformer has state and
 // needs to be reset between uses.
-func (t *Transformer) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
+
+ (t *Transformer) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
 	if len(dst) < len(src) {
 		src = src[:len(dst)]
 		atEOF = false
 		err = transform.ErrShortDst
 	}
 	n, err1 := t.Span(src, atEOF)
-	copy(dst, src[:n])
+y(dst, src[:n])
 	if err == nil || err1 != nil && err1 != transform.ErrShortSrc {
 		err = err1
 	}
@@ -223,7 +231,8 @@ func (t *Transformer) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, er
 }
 
 // Span returns the first n bytes of src that conform to the Bidi rule.
-func (t *Transformer) Span(src []byte, atEOF bool) (n int, err error) {
+
+ (t *Transformer) Span(src []byte, atEOF bool) (n int, err error) {
 	if t.state == ruleInvalid && t.isRTL() {
 		return 0, ErrInvalid
 	}
@@ -238,23 +247,25 @@ func (t *Transformer) Span(src []byte, atEOF bool) (n int, err error) {
 		}
 		err = ErrInvalid
 	case !t.isFinal():
-		err = ErrInvalid
+r = ErrInvalid
 	}
 	return n, err
 }
 
 // Precomputing the ASCII values decreases running time for the ASCII fast path
 // by about 30%.
-var asciiTable [128]bidi.Properties
+asciiTable [128]bidi.Properties
 
-func init() {
+
+ init() {
 	for i := range asciiTable {
 		p, _ := bidi.LookupRune(rune(i))
 		asciiTable[i] = p
 	}
 }
 
-func (t *Transformer) advance(s []byte) (n int, ok bool) {
+
+ (t *Transformer) advance(s []byte) (n int, ok bool) {
 	var e bidi.Properties
 	var sz int
 	for n < len(s) {
@@ -285,7 +296,7 @@ func (t *Transformer) advance(s []byte) (n int, ok bool) {
 			t.state = tr[0].next
 		case tr[1].mask&c != 0:
 			t.state = tr[1].next
-		default:
+fault:
 			t.state = ruleInvalid
 			if t.isRTL() {
 				return n, false
@@ -296,7 +307,8 @@ func (t *Transformer) advance(s []byte) (n int, ok bool) {
 	return n, true
 }
 
-func (t *Transformer) advanceString(s string) (n int, ok bool) {
+
+ (t *Transformer) advanceString(s string) (n int, ok bool) {
 	var e bidi.Properties
 	var sz int
 	for n < len(s) {

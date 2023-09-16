@@ -42,7 +42,8 @@ var errNotExtendable = errors.New("proto: not an extendable proto.Message")
 
 // HasExtension reports whether the extension field is present in m
 // either as an explicitly populated field or as an unknown field.
-func HasExtension(m Message, xt *ExtensionDesc) (has bool) {
+
+Extension(m Message, xt *ExtensionDesc) (has bool) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return false
@@ -53,7 +54,8 @@ func HasExtension(m Message, xt *ExtensionDesc) (has bool) {
 	if isValidExtension(mr.Descriptor(), xtd) {
 		has = mr.Has(xtd)
 	} else {
-		mr.Range(func(fd protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
+		mr.Range(
+protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
 			has = int32(fd.Number()) == xt.Field
 			return !has
 		})
@@ -70,7 +72,8 @@ func HasExtension(m Message, xt *ExtensionDesc) (has bool) {
 
 // ClearExtension removes the extension field from m
 // either as an explicitly populated field or as an unknown field.
-func ClearExtension(m Message, xt *ExtensionDesc) {
+
+arExtension(m Message, xt *ExtensionDesc) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return
@@ -80,7 +83,8 @@ func ClearExtension(m Message, xt *ExtensionDesc) {
 	if isValidExtension(mr.Descriptor(), xtd) {
 		mr.Clear(xtd)
 	} else {
-		mr.Range(func(fd protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
+		mr.Range(
+protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
 			if int32(fd.Number()) == xt.Field {
 				mr.Clear(fd)
 				return false
@@ -93,13 +97,15 @@ func ClearExtension(m Message, xt *ExtensionDesc) {
 
 // ClearAllExtensions clears all extensions from m.
 // This includes populated fields and unknown fields in the extension range.
-func ClearAllExtensions(m Message) {
+
+arAllExtensions(m Message) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return
 	}
 
-	mr.Range(func(fd protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
+	mr.Range(
+protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
 		if fd.IsExtension() {
 			mr.Clear(fd)
 		}
@@ -117,7 +123,8 @@ func ClearAllExtensions(m Message) {
 //
 // If the descriptor is type incomplete (i.e., ExtensionDesc.ExtensionType is nil),
 // then GetExtension returns the raw encoded bytes for the extension field.
-func GetExtension(m Message, xt *ExtensionDesc) (interface{}, error) {
+
+Extension(m Message, xt *ExtensionDesc) (interface{}, error) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() || mr.Descriptor().ExtensionRanges().Len() == 0 {
 		return nil, errNotExtendable
@@ -182,14 +189,16 @@ func GetExtension(m Message, xt *ExtensionDesc) (interface{}, error) {
 // extension type that takes precedence over the global registry.
 type extensionResolver struct{ xt protoreflect.ExtensionType }
 
-func (r extensionResolver) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
+
+extensionResolver) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
 	if xtd := r.xt.TypeDescriptor(); xtd.FullName() == field {
 		return r.xt, nil
 	}
 	return protoregistry.GlobalTypes.FindExtensionByName(field)
 }
 
-func (r extensionResolver) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
+
+extensionResolver) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
 	if xtd := r.xt.TypeDescriptor(); xtd.ContainingMessage().FullName() == message && xtd.Number() == field {
 		return r.xt, nil
 	}
@@ -199,7 +208,8 @@ func (r extensionResolver) FindExtensionByNumber(message protoreflect.FullName, 
 // GetExtensions returns a list of the extensions values present in m,
 // corresponding with the provided list of extension descriptors, xts.
 // If an extension is missing in m, the corresponding value is nil.
-func GetExtensions(m Message, xts []*ExtensionDesc) ([]interface{}, error) {
+
+Extensions(m Message, xts []*ExtensionDesc) ([]interface{}, error) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return nil, errNotExtendable
@@ -220,7 +230,8 @@ func GetExtensions(m Message, xts []*ExtensionDesc) ([]interface{}, error) {
 }
 
 // SetExtension sets an extension field in m to the provided value.
-func SetExtension(m Message, xt *ExtensionDesc, v interface{}) error {
+
+Extension(m Message, xt *ExtensionDesc, v interface{}) error {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() || mr.Descriptor().ExtensionRanges().Len() == 0 {
 		return errNotExtendable
@@ -251,7 +262,8 @@ func SetExtension(m Message, xt *ExtensionDesc, v interface{}) error {
 // SetRawExtension inserts b into the unknown fields of m.
 //
 // Deprecated: Use Message.ProtoReflect.SetUnknown instead.
-func SetRawExtension(m Message, fnum int32, b []byte) {
+
+RawExtension(m Message, fnum int32, b []byte) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return
@@ -276,7 +288,8 @@ func SetRawExtension(m Message, fnum int32, b []byte) {
 // For the later case, an type incomplete descriptor is provided where only
 // the ExtensionDesc.Field field is populated.
 // The order of the extension descriptors is undefined.
-func ExtensionDescs(m Message) ([]*ExtensionDesc, error) {
+
+ensionDescs(m Message) ([]*ExtensionDesc, error) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() || mr.Descriptor().ExtensionRanges().Len() == 0 {
 		return nil, errNotExtendable
@@ -284,7 +297,8 @@ func ExtensionDescs(m Message) ([]*ExtensionDesc, error) {
 
 	// Collect a set of known extension descriptors.
 	extDescs := make(map[protoreflect.FieldNumber]*ExtensionDesc)
-	mr.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	mr.Range(
+protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		if fd.IsExtension() {
 			xt := fd.(protoreflect.ExtensionTypeDescriptor)
 			if xd, ok := xt.Type().(*ExtensionDesc); ok {
@@ -316,14 +330,17 @@ func ExtensionDescs(m Message) ([]*ExtensionDesc, error) {
 }
 
 // isValidExtension reports whether xtd is a valid extension descriptor for md.
-func isValidExtension(md protoreflect.MessageDescriptor, xtd protoreflect.ExtensionTypeDescriptor) bool {
+
+alidExtension(md protoreflect.MessageDescriptor, xtd protoreflect.ExtensionTypeDescriptor) bool {
 	return xtd.ContainingMessage() == md && md.ExtensionRanges().Has(xtd.Number())
 }
 
 // isScalarKind reports whether k is a protobuf scalar kind (except bytes).
-// This function exists for historical reasons since the representation of
+// This 
+ exists for historical reasons since the representation of
 // scalars differs between v1 and v2, where v1 uses *T and v2 uses T.
-func isScalarKind(k reflect.Kind) bool {
+
+calarKind(k reflect.Kind) bool {
 	switch k {
 	case reflect.Bool, reflect.Int32, reflect.Int64, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.String:
 		return true
@@ -333,7 +350,8 @@ func isScalarKind(k reflect.Kind) bool {
 }
 
 // clearUnknown removes unknown fields from m where remover.Has reports true.
-func clearUnknown(m protoreflect.Message, remover interface {
+
+arUnknown(m protoreflect.Message, remover interface {
 	Has(protoreflect.FieldNumber) bool
 }) {
 	var bo protoreflect.RawFields
@@ -351,6 +369,7 @@ func clearUnknown(m protoreflect.Message, remover interface {
 
 type fieldNum protoreflect.FieldNumber
 
-func (n1 fieldNum) Has(n2 protoreflect.FieldNumber) bool {
+
+ fieldNum) Has(n2 protoreflect.FieldNumber) bool {
 	return protoreflect.FieldNumber(n1) == n2
 }

@@ -21,10 +21,10 @@ func TestAccCloudFrontRealtimeLogConfigDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_cloudfront_realtime_log_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRealtimeLogConfigDestroy(ctx),
+		CheckDestroy:ealtimeLogConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRealtimeLogConfigDataSourceConfig_basic(rName, samplingRate),

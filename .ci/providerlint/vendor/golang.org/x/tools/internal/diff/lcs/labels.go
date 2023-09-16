@@ -19,14 +19,16 @@ const debug = false
 
 // debugging. check that the (d,k) pair is valid
 // (that is, -d<=k<=d and d+k even)
-func checkDK(D, k int) {
+
+ checkDK(D, k int) {
 	if k >= -D && k <= D && (D+k)%2 == 0 {
 		return
 	}
 	panic(fmt.Sprintf("out of range, d=%d,k=%d", D, k))
 }
 
-func (t *label) set(D, k, x int) {
+
+ (t *label) set(D, k, x int) {
 	if debug {
 		checkDK(D, k)
 	}
@@ -37,16 +39,18 @@ func (t *label) set(D, k, x int) {
 		t.vec[D] = make([]int, D+1)
 	}
 	t.vec[D][(D+k)/2] = x // known that D+k is even
-}
 
-func (t *label) get(d, k int) int {
+
+
+ (t *label) get(d, k int) int {
 	if debug {
 		checkDK(d, k)
 	}
-	return int(t.vec[d][(d+k)/2])
+urn int(t.vec[d][(d+k)/2])
 }
 
-func newtriang(limit int) label {
+
+ newtriang(limit int) label {
 	if limit < 100 {
 		// Preallocate if limit is not large.
 		return label{vec: make([][]int, limit)}

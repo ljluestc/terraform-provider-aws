@@ -19,8 +19,7 @@ import (
 // listTags lists athena service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier string) (tftags.KeyValueTags, error) {
-	input := &athena.ListTagsForResourceInput{
+funcut := &athena.ListTagsForResourceInput{
 		ResourceARN: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier string
 // ListTags lists athena service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).AthenaConn(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,10 +52,9 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns athena service tags.
 func Tags(tags tftags.KeyValueTags) []*athena.Tag {
 	result := make([]*athena.Tag, 0, len(tags))
-
-	for k, v := range tags.Map() {
+func k, v := range tags.Map() {
 		tag := &athena.Tag{
-			Key:   aws.String(k),
+			Key:.String(k),
 			Value: aws.String(v),
 		}
 
@@ -71,8 +68,7 @@ func Tags(tags tftags.KeyValueTags) []*athena.Tag {
 func KeyValueTags(ctx context.Context, tags []*athena.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
-	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+funcaws.StringValue(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -84,8 +80,7 @@ func getTagsIn(ctx context.Context) []*athena.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -96,8 +91,7 @@ func setTagsOut(ctx context.Context, tags []*athena.Tag) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// updateTags updates athena service tags.
+funcpdateTags updates athena service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
 func updateTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier string, oldTagsMap, newTagsMap any) error {
@@ -106,12 +100,11 @@ func updateTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier stri
 
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
-	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.Athena)
+funcovedTags = removedTags.IgnoreSystem(names.Athena)
 	if len(removedTags) > 0 {
 		input := &athena.UntagResourceInput{
 			ResourceARN: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:tringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -126,7 +119,7 @@ func updateTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier stri
 	if len(updatedTags) > 0 {
 		input := &athena.TagResourceInput{
 			ResourceARN: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:gs(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)
@@ -144,3 +137,4 @@ func updateTags(ctx context.Context, conn athenaiface.AthenaAPI, identifier stri
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).AthenaConn(ctx), identifier, oldTags, newTags)
 }
+func

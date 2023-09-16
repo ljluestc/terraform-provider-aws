@@ -35,13 +35,15 @@ type streamSafe uint8
 
 // first inserts the first rune of a segment. It is a faster version of next if
 // it is known p represents the first rune in a segment.
-func (ss *streamSafe) first(p Properties) {
+
+ (ss *streamSafe) first(p Properties) {
 	*ss = streamSafe(p.nTrailingNonStarters())
 }
 
 // insert returns a ssState value to indicate whether a rune represented by p
-// can be inserted.
-func (ss *streamSafe) next(p Properties) ssState {
+an be inserted.
+
+ (ss *streamSafe) next(p Properties) ssState {
 	if *ss > maxNonStarters {
 		panic("streamSafe was not reset")
 	}
@@ -66,9 +68,10 @@ func (ss *streamSafe) next(p Properties) ssState {
 
 // backwards is used for checking for overflow and segment starts
 // when traversing a string backwards. Users do not need to call first
-// for the first rune. The state of the streamSafe retains the count of
+or the first rune. The state of the streamSafe retains the count of
 // the non-starters loaded.
-func (ss *streamSafe) backwards(p Properties) ssState {
+
+ (ss *streamSafe) backwards(p Properties) ssState {
 	if *ss > maxNonStarters {
 		panic("streamSafe was not reset")
 	}
@@ -80,10 +83,11 @@ func (ss *streamSafe) backwards(p Properties) ssState {
 	if p.nLeadingNonStarters() == 0 {
 		return ssStarter
 	}
-	return ssSuccess
+urn ssSuccess
 }
 
-func (ss streamSafe) isMax() bool {
+
+ (ss streamSafe) isMax() bool {
 	return ss == maxNonStarters
 }
 
@@ -104,39 +108,46 @@ type reorderBuffer struct {
 	f     formInfo
 
 	src      input
-	nsrc     int
+	nsrc   t
 	tmpBytes input
 
-	out    []byte
-	flushF func(*reorderBuffer) bool
+    []byte
+	flushF 
+(*reorderBuffer) bool
 }
 
-func (rb *reorderBuffer) init(f Form, src []byte) {
-	rb.f = *formTable[f]
+
+ (rb *reorderBuffer) init(f Form, src []byte) {
+f = *formTable[f]
 	rb.src.setBytes(src)
 	rb.nsrc = len(src)
 	rb.ss = 0
 }
 
-func (rb *reorderBuffer) initString(f Form, src string) {
+
+ *reorderBuffer) initString(f Form, src st) {
 	rb.f = *formTable[f]
 	rb.src.setString(src)
 	rb.nsrc = len(src)
 	rb.ss = 0
 }
 
-func (rb *reorderBuffer) setFlusher(out []byte, f func(*reorderBuffer) bool) {
+
+ (rb *reorderBuffer) setFlusher(out []byte, f 
+(*reorderBuffer) bool) {
 	rb.out = out
-	rb.flushF = f
+flushF = f
 }
 
 // reset discards all characters from the buffer.
-func (rb *reorderBuffer) reset() {
+
+ (rb *reorderBuffer) reset() {
 	rb.nrune = 0
 	rb.nbyte = 0
 }
 
-func (rb *reorderBuffer) doFlush() bool {
+
+ (rb *reorderBuffer) doFlush() bool {
 	if rb.f.composing {
 		rb.compose()
 	}
@@ -145,8 +156,9 @@ func (rb *reorderBuffer) doFlush() bool {
 	return res
 }
 
-// appendFlush appends the normalized segment to rb.out.
-func appendFlush(rb *reorderBuffer) bool {
+ppendFlush appends the normalized segment to rb.out.
+
+ appendFlush(rb *reorderBuffer) bool {
 	for i := 0; i < rb.nrune; i++ {
 		start := rb.rune[i].pos
 		end := start + rb.rune[i].size
@@ -156,7 +168,8 @@ func appendFlush(rb *reorderBuffer) bool {
 }
 
 // flush appends the normalized segment to out and resets rb.
-func (rb *reorderBuffer) flush(out []byte) []byte {
+
+ (rb *reorderBuffer) flush(out []byte) []byte {
 	for i := 0; i < rb.nrune; i++ {
 		start := rb.rune[i].pos
 		end := start + rb.rune[i].size
@@ -168,7 +181,8 @@ func (rb *reorderBuffer) flush(out []byte) []byte {
 
 // flushCopy copies the normalized segment to buf and resets rb.
 // It returns the number of bytes written to buf.
-func (rb *reorderBuffer) flushCopy(buf []byte) int {
+
+ (rb *reorderBuffer) flushCopy(buf []byte) int {
 	p := 0
 	for i := 0; i < rb.nrune; i++ {
 		runep := rb.rune[i]
@@ -181,7 +195,8 @@ func (rb *reorderBuffer) flushCopy(buf []byte) int {
 // insertOrdered inserts a rune in the buffer, ordered by Canonical Combining Class.
 // It returns false if the buffer is not large enough to hold the rune.
 // It is used internally by insert and insertString only.
-func (rb *reorderBuffer) insertOrdered(info Properties) {
+
+ (rb *reorderBuffer) insertOrdered(info Properties) {
 	n := rb.nrune
 	b := rb.rune[:]
 	cc := info.ccc
@@ -215,7 +230,8 @@ const (
 // If a decomposition with multiple segments are encountered, they leading
 // ones are flushed.
 // It returns a non-zero error code if the rune was not inserted.
-func (rb *reorderBuffer) insertFlush(src input, i int, info Properties) insertErr {
+
+ *reorderBuffer) insertFlush(src input, i int, info Properties) insertErr {
 	if rune := src.hangul(i); rune != 0 {
 		rb.decomposeHangul(rune)
 		return iSuccess
@@ -230,8 +246,9 @@ func (rb *reorderBuffer) insertFlush(src input, i int, info Properties) insertEr
 // insertUnsafe inserts the given rune in the buffer ordered by CCC.
 // It is assumed there is sufficient space to hold the runes. It is the
 // responsibility of the caller to ensure this. This can be done by checking
-// the state returned by the streamSafe type.
-func (rb *reorderBuffer) insertUnsafe(src input, i int, info Properties) {
+he state returned by the streamSafe type.
+
+ (rb *reorderBuffer) insertUnsafe(src input, i int, info Properties) {
 	if rune := src.hangul(i); rune != 0 {
 		rb.decomposeHangul(rune)
 	}
@@ -246,52 +263,58 @@ func (rb *reorderBuffer) insertUnsafe(src input, i int, info Properties) {
 // insertDecomposed inserts an entry in to the reorderBuffer for each rune
 // in dcomp. dcomp must be a sequence of decomposed UTF-8-encoded runes.
 // It flushes the buffer on each new segment start.
-func (rb *reorderBuffer) insertDecomposed(dcomp []byte) insertErr {
+
+ *reorderBuffer) insertDecomposed(dcomp []byte) insertErr {
 	rb.tmpBytes.setBytes(dcomp)
 	// As the streamSafe accounting already handles the counting for modifiers,
 	// we don't have to call next. However, we do need to keep the accounting
 	// intact when flushing the buffer.
 	for i := 0; i < len(dcomp); {
-		info := rb.f.info(rb.tmpBytes, i)
+fo := rb.f.info(rb.tmpBytes, i)
 		if info.BoundaryBefore() && rb.nrune > 0 && !rb.doFlush() {
 			return iShortDst
 		}
 		i += copy(rb.byte[rb.nbyte:], dcomp[i:i+int(info.size)])
-		rb.insertOrdered(info)
+.insertOrdered(info)
 	}
 	return iSuccess
 }
 
 // insertSingle inserts an entry in the reorderBuffer for the rune at
 // position i. info is the runeInfo for the rune at position i.
-func (rb *reorderBuffer) insertSingle(src input, i int, info Properties) {
-	src.copySlice(rb.byte[rb.nbyte:], i, i+int(info.size))
+
+ (rb *reorderBuffer) insertSingle(src input, i int, info Properties) {
+.copySlice(rb.byte[rb.nbyte:], i, i+int(info.size))
 	rb.insertOrdered(info)
 }
 
 // insertCGJ inserts a Combining Grapheme Joiner (0x034f) into rb.
-func (rb *reorderBuffer) insertCGJ() {
-	rb.insertSingle(input{str: GraphemeJoiner}, 0, Properties{size: uint8(len(GraphemeJoiner))})
+
+ (rb *reorderBuffer) insertCGJ() {
+insertSingle(input{str: GraphemeJoiner}, 0, Properties{size: uint8(len(GraphemeJoiner))})
 }
 
 // appendRune inserts a rune at the end of the buffer. It is used for Hangul.
-func (rb *reorderBuffer) appendRune(r rune) {
+
+ (rb *reorderBuffer) appendRune(r rune) {
 	bn := rb.nbyte
 	sz := utf8.EncodeRune(rb.byte[bn:], rune(r))
-	rb.nbyte += utf8.UTFMax
+nbyte += utf8.UTFMax
 	rb.rune[rb.nrune] = Properties{pos: bn, size: uint8(sz)}
 	rb.nrune++
 }
 
 // assignRune sets a rune at position pos. It is used for Hangul and recomposition.
-func (rb *reorderBuffer) assignRune(pos int, r rune) {
+
+ (rb *reorderBuffer) assignRune(pos int, r rune) {
 	bn := rb.rune[pos].pos
 	sz := utf8.EncodeRune(rb.byte[bn:], rune(r))
 	rb.rune[pos] = Properties{pos: bn, size: uint8(sz)}
 }
 
 // runeAt returns the rune at position n. It is used for Hangul and recomposition.
-func (rb *reorderBuffer) runeAt(n int) rune {
+
+ (rb *reorderBuffer) runeAt(n int) rune {
 	inf := rb.rune[n]
 	r, _ := utf8.DecodeRune(rb.byte[inf.pos : inf.pos+inf.size])
 	return r
@@ -299,7 +322,8 @@ func (rb *reorderBuffer) runeAt(n int) rune {
 
 // bytesAt returns the UTF-8 encoding of the rune at position n.
 // It is used for Hangul and recomposition.
-func (rb *reorderBuffer) bytesAt(n int) []byte {
+
+ (rb *reorderBuffer) bytesAt(n int) []byte {
 	inf := rb.rune[n]
 	return rb.byte[inf.pos : int(inf.pos)+int(inf.size)]
 }
@@ -309,7 +333,7 @@ const (
 	hangulBase  = 0xAC00 // UTF-8(hangulBase) -> EA B0 80
 	hangulBase0 = 0xEA
 	hangulBase1 = 0xB0
-	hangulBase2 = 0x80
+gulBase2 = 0x80
 
 	hangulEnd  = hangulBase + jamoLVTCount // UTF-8(0xD7A4) -> ED 9E A4
 	hangulEnd0 = 0xED
@@ -331,9 +355,10 @@ const (
 	jamoLVTCount = 19 * 21 * 28
 )
 
-const hangulUTF8Size = 3
+t hangulUTF8Size = 3
 
-func isHangul(b []byte) bool {
+
+ isHangul(b []byte) bool {
 	if len(b) < hangulUTF8Size {
 		return false
 	}
@@ -353,11 +378,12 @@ func isHangul(b []byte) bool {
 		return true
 	}
 	return b1 == hangulEnd1 && b[2] < hangulEnd2
-}
 
-func isHangulString(b string) bool {
+
+
+ isHangulString(b string) bool {
 	if len(b) < hangulUTF8Size {
-		return false
+turn false
 	}
 	b0 := b[0]
 	if b0 < hangulBase0 {
@@ -365,7 +391,7 @@ func isHangulString(b string) bool {
 	}
 	b1 := b[1]
 	switch {
-	case b0 == hangulBase0:
+e b0 == hangulBase0:
 		return b1 >= hangulBase1
 	case b0 < hangulEnd0:
 		return true
@@ -378,12 +404,14 @@ func isHangulString(b string) bool {
 }
 
 // Caller must ensure len(b) >= 2.
-func isJamoVT(b []byte) bool {
+
+ isJamoVT(b []byte) bool {
 	// True if (rune & 0xff00) == jamoLBase
 	return b[0] == jamoLBase0 && (b[1]&0xFC) == jamoLBase1
-}
 
-func isHangulWithoutJamoT(b []byte) bool {
+
+
+ isHangulWithoutJamoT(b []byte) bool {
 	c, _ := utf8.DecodeRune(b)
 	c -= hangulBase
 	return c < jamoLVTCount && c%jamoTCount == 0
@@ -391,8 +419,9 @@ func isHangulWithoutJamoT(b []byte) bool {
 
 // decomposeHangul writes the decomposed Hangul to buf and returns the number
 // of bytes written.  len(buf) should be at least 9.
-func decomposeHangul(buf []byte, r rune) int {
-	const JamoUTF8Len = 3
+
+ decomposeHangul(buf []byte, r rune) int {
+st JamoUTF8Len = 3
 	r -= hangulBase
 	x := r % jamoTCount
 	r /= jamoTCount
@@ -408,7 +437,8 @@ func decomposeHangul(buf []byte, r rune) int {
 // decomposeHangul algorithmically decomposes a Hangul rune into
 // its Jamo components.
 // See https://unicode.org/reports/tr15/#Hangul for details on decomposing Hangul.
-func (rb *reorderBuffer) decomposeHangul(r rune) {
+
+ (rb *reorderBuffer) decomposeHangul(r rune) {
 	r -= hangulBase
 	x := r % jamoTCount
 	r /= jamoTCount
@@ -421,7 +451,8 @@ func (rb *reorderBuffer) decomposeHangul(r rune) {
 
 // combineHangul algorithmically combines Jamo character components into Hangul.
 // See https://unicode.org/reports/tr15/#Hangul for details on combining Hangul.
-func (rb *reorderBuffer) combineHangul(s, i, k int) {
+
+ (rb *reorderBuffer) combineHangul(s, i, k int) {
 	b := rb.rune[:]
 	bn := rb.nrune
 	for ; i < bn; i++ {
@@ -429,7 +460,7 @@ func (rb *reorderBuffer) combineHangul(s, i, k int) {
 		cccC := b[i].ccc
 		if cccB == 0 {
 			s = k - 1
-		}
+
 		if s != k-1 && cccB >= cccC {
 			// b[i] is blocked by greater-equal cccX below it
 			b[k] = b[i]
@@ -460,8 +491,10 @@ func (rb *reorderBuffer) combineHangul(s, i, k int) {
 // compose recombines the runes in the buffer.
 // It should only be used to recompose a single segment, as it will not
 // handle alternations between Hangul and non-Hangul characters correctly.
-func (rb *reorderBuffer) compose() {
-	// Lazily load the map used by the combine func below, but do
+
+ (rb *reorderBuffer) compose() {
+	// Lazily load the map used by the combine 
+ below, but do
 	// it outside of the loop.
 	recompMapOnce.Do(buildRecompMap)
 

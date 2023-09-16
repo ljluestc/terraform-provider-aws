@@ -10,9 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sfn/sfniface"
 )
 
-func listStateMachineVersionsPages(ctx context.Context, conn sfniface.SFNAPI, input *sfn.ListStateMachineVersionsInput, fn func(*sfn.ListStateMachineVersionsOutput, bool) bool) error {
-	for {
-		output, err := conn.ListStateMachineVersionsWithContext(ctx, input)
+func {functput, err := conn.ListStateMachineVersionsWithContext(ctx, input)
 		if err != nil {
 			return err
 		}

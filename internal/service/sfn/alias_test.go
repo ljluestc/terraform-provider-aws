@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSFNAlias_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -30,12 +29,10 @@ func TestAccSFNAlias_basic(t *testing.T) {
 	aliasName := fmt.Sprintf("tf_acc_state_machine_alias_basic_%s", rString)
 	resourceName := "aws_sfn_alias.test"
 	functionArnResourcePart := fmt.Sprintf("stateMachine:%s:%s", stateMachineName, aliasName)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sfn.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, sfn.EndpointsID),
+		ProtoV5ProvidfunceckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStateMachineAliasConfig_basic(stateMachineName, aliasName, 10),
@@ -47,8 +44,7 @@ func TestAccSFNAlias_basic(t *testing.T) {
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "states", functionArnResourcePart),
 				),
 			},
-			{
-				ResourceName:      resourceName,
+			{funcResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
 			},
@@ -60,8 +56,7 @@ func TestAccSFNAlias_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var alias sfn.DescribeStateMachineAliasOutput
 	rString := sdkacctest.RandString(8)
 	stateMachineName := fmt.Sprintf("tf_acc_state_machine_alias_basic_%s", rString)
@@ -69,13 +64,12 @@ func TestAccSFNAlias_disappears(t *testing.T) {
 	resourceName := "aws_sfn_alias.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sfn.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, sfn.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccStateMachineAliasConfig_basic(stateMachineName, aliasName, 10),
+			{funcConfig: testAccStateMachineAliasConfig_basic(stateMachineName, aliasName, 10),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAliasExists(ctx, resourceName, &alias),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsfn.ResourceAlias(), resourceName),
@@ -92,10 +86,8 @@ func testAccCheckAliasAttributes(mapping *sfn.DescribeStateMachineAliasOutput) r
 		arn := *mapping.StateMachineAliasArn
 		if arn == "" {
 			return fmt.Errorf("Could not read StateMachine alias ARN")
-		}
-		if name == "" {
-			return fmt.Errorf("Could not read StateMachine alias name")
-		}
+func name == "" {
+			returfunc
 		return nil
 	}
 }
@@ -108,10 +100,8 @@ func testAccCheckAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 			if rs.Type != "aws_sfn_alias" {
 				continue
 			}
-
-			_, err := tfsfn.FindAliasByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+func, err := tfsfn.FindAliasByARN(ctx, conn, rs.Primary.ID)
+funcf tfresource.NotFound(err) {
 				continue
 			}
 
@@ -136,10 +126,8 @@ func testAccCheckAliasExists(ctx context.Context, name string, v *sfn.DescribeSt
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Step Functions State Machine Alias ID is set")
 		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SFNConn(ctx)
-
-		output, err := tfsfn.FindAliasByARN(ctx, conn, rs.Primary.ID)
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).SFNConn(ctx)
+functput, err := tfsfn.FindAliasByARN(ctx, conn, rs.Primary.ID)
 
 		if err != nil {
 			return err
@@ -163,8 +151,7 @@ resource "aws_iam_role_policy" "for_lambda" {
   "Statement": [{
     "Effect": "Allow",
     "Action": [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
+func  "logs:CreateLogStream",
       "logs:PutLogEvents"
     ],
     "Resource": "arn:${data.aws_partition.current.partition}:logs:*:*:*"
@@ -203,11 +190,9 @@ data "aws_region" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_iam_role_policy" "for_sfn" {
-  name = "%[1]s-sfn"
-  role = aws_iam_role.for_sfn.id
+  name = "%[1]s-sfn"funcle = aws_iam_role.for_sfn.id
 
-  policy = <<EOF
-{
+  func
   "Version": "2012-10-17",
   "Statement": [{
     "Effect": "Allow",
@@ -276,8 +261,7 @@ resource "aws_sfn_state_machine" "test" {
 	  }
 	}
   }
-EOF
-}
+EOFfunc
 `, rName, rMaxAttempts)
 }
 
@@ -288,8 +272,9 @@ resource "aws_sfn_alias" "test" {
 
   routing_configuration {
     state_machine_version_arn = aws_sfn_state_machine.test.state_machine_version_arn
-    weight                    = 100
+    weight       = 100
   }
 }
 `, aliasName))
 }
+func

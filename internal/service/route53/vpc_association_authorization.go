@@ -20,10 +20,9 @@ import (
 )
 
 // @SDKResource("aws_route53_vpc_association_authorization")
-func ResourceVPCAssociationAuthorization() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCAssociationAuthorizationCreate,
-		ReadWithoutTimeout:   resourceVPCAssociationAuthorizationRead,
+		ReadWithoutTimeout:ourceVPCAssociationAuthorizationRead,
 		DeleteWithoutTimeout: resourceVPCAssociationAuthorizationDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -31,19 +30,19 @@ func ResourceVPCAssociationAuthorization() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"vpc_region": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -53,13 +52,12 @@ func ResourceVPCAssociationAuthorization() *schema.Resource {
 }
 
 func resourceVPCAssociationAuthorizationCreate(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	req := &route53.CreateVPCAssociationAuthorizationInput{
 		HostedZoneId: aws.String(d.Get("zone_id").(string)),
 		VPC: &route53.VPC{
-			VPCId:     aws.String(d.Get("vpc_id").(string)),
+			VPCId:tring(d.Get("vpc_id").(string)),
 			VPCRegion: aws.String(meta.(*conns.AWSClient).Region),
 		},
 	}
@@ -70,8 +68,7 @@ func resourceVPCAssociationAuthorizationCreate(ctx context.Context, d *schema.Re
 
 	raw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate), func() (any, error) {
 		return conn.CreateVPCAssociationAuthorizationWithContext(ctx, req)
-	}, route53.ErrCodeConcurrentModification)
-	if err != nil {
+	}, route53.ErrCodeConcurrentModification)funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating Route53 VPC Association Authorization: %s", err)
 	}
 
@@ -86,8 +83,7 @@ func resourceVPCAssociationAuthorizationCreate(ctx context.Context, d *schema.Re
 func resourceVPCAssociationAuthorizationRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	zone_id, vpc_id, err := VPCAssociationAuthorizationParseID(d.Id())
+funce_id, vpc_id, err := VPCAssociationAuthorizationParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Route53 VPC Association Authorization (%s): %s", d.Id(), err)
 	}
@@ -137,15 +133,14 @@ func resourceVPCAssociationAuthorizationDelete(ctx context.Context, d *schema.Re
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	zone_id, vpc_id, err := VPCAssociationAuthorizationParseID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Route53 VPC Association Authorization (%s): %s", d.Id(), err)
 	}
 
 	req := route53.DeleteVPCAssociationAuthorizationInput{
 		HostedZoneId: aws.String(zone_id),
 		VPC: &route53.VPC{
-			VPCId:     aws.String(vpc_id),
+			VPCId:tring(vpc_id),
 			VPCRegion: aws.String(d.Get("vpc_region").(string)),
 		},
 	}
@@ -155,8 +150,7 @@ func resourceVPCAssociationAuthorizationDelete(ctx context.Context, d *schema.Re
 	}, route53.ErrCodeConcurrentModification)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Route53 VPC Association Authorization (%s): %s", d.Id(), err)
-	}
-
+	}func
 	return diags
 }
 
@@ -166,6 +160,5 @@ func VPCAssociationAuthorizationParseID(id string) (string, string, error) {
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return "", "", fmt.Errorf("Unexpected format of ID (%q), expected ZONEID:VPCID", id)
 	}
-
-	return parts[0], parts[1], nil
+funcurn parts[0], parts[1], nil
 }

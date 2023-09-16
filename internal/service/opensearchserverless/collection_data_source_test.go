@@ -31,9 +31,9 @@ func TestAccOpenSearchServerlessCollectionDataSource_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+		CheckDestroy:testAccCheckCollectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCollectionDataSourceConfig_basic(rName, "encryption"),
@@ -70,9 +70,9 @@ func TestAccOpenSearchServerlessCollectionDataSource_name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+		CheckDestroy:testAccCheckCollectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCollectionDataSourceConfig_name(rName, "encryption"),

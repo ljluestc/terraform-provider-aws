@@ -18,70 +18,69 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_domain_name")
-func DataSourceDomainName() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceDomainNameRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"certificate_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"certificate_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"certificate_upload_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"cloudfront_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"cloudfront_zone_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"endpoint_configuration": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"types": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"regional_certificate_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"regional_certificate_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"regional_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"regional_zone_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"security_policy": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchema(),
@@ -90,8 +89,7 @@ func DataSourceDomainName() *schema.Resource {
 }
 
 func dataSourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	domainName := d.Get("domain_name").(string)
@@ -105,8 +103,8 @@ func dataSourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/domainnames/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)

@@ -17,6 +17,7 @@ import (
 
 // @SDKDataSource("aws_connect_contact_flow_module")
 
+
 func DataSourceContactFlowModule() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceContactFlowModuleRead,
@@ -61,6 +62,7 @@ func DataSourceContactFlowModule() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceContactFlowModuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -118,6 +120,7 @@ func dataSourceContactFlowModuleRead(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
+
 func dataSourceGetContactFlowModuleSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.ContactFlowModuleSummary, error) {
 	var result *connect.ContactFlowModuleSummary
 
@@ -127,7 +130,8 @@ func dataSourceGetContactFlowModuleSummaryByName(ctx context.Context, conn *conn
 	}
 
 	err := conn.ListContactFlowModulesPagesWithContext(ctx, input,
-		func(page *connect.ListContactFlowModulesOutput, lastPage bool) bool {
+		
+func(page *connect.ListContactFlowModulesOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

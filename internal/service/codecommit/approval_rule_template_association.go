@@ -23,8 +23,7 @@ import (
 
 // @SDKResource("aws_codecommit_approval_rule_template_association")
 
-func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceApprovalRuleTemplateAssociationCreate,
 		ReadWithoutTimeout:   resourceApprovalRuleTemplateAssociationRead,
 		DeleteWithoutTimeout: resourceApprovalRuleTemplateAssociationDelete,
@@ -39,16 +38,14 @@ func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
 				ForceNew:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
-			},
-			"repository_name": {
+funcrepository_name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				Validate
 func: validation.All(
 					validation.StringLenBetween(1, 100),
-					validation.StringMatch(regexache.MustCompile(`[\w\.-]+`), ""),
-				),
+func),
 			},
 		},
 	}
@@ -58,8 +55,7 @@ func: validation.All(
 func resourceApprovalRuleTemplateAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
-
-	approvalRuleTemplateName := d.Get("approval_rule_template_name").(string)
+funcrovalRuleTemplateName := d.Get("approval_rule_template_name").(string)
 	repositoryName := d.Get("repository_name").(string)
 
 	input := &codecommit.AssociateApprovalRuleTemplateWithRepositoryInput{
@@ -83,8 +79,7 @@ func resourceApprovalRuleTemplateAssociationRead(ctx context.Context, d *schema.
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
 
-	approvalRuleTemplateName, repositoryName, err := ApprovalRuleTemplateAssociationParseID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CodeCommit Approval Rule Template Association (%s): %s", d.Id(), err)
 	}
@@ -113,8 +108,7 @@ func resourceApprovalRuleTemplateAssociationDelete(ctx context.Context, d *schem
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
 
 	approvalRuleTemplateName, repositoryName, err := ApprovalRuleTemplateAssociationParseID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting CodeCommit Approval Rule Template (%s) from repository (%s): %s", approvalRuleTemplateName, repositoryName, err)
 	}
 
@@ -143,5 +137,4 @@ func ApprovalRuleTemplateAssociationParseID(id string) (string, string, error) {
 		return "", "", fmt.Errorf("unexpected format of ID (%s), expected APPROVAL_RULE_TEMPLATE_NAME,REPOSITORY_NAME", id)
 	}
 
-	return parts[0], parts[1], nil
-}
+func

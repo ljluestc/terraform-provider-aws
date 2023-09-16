@@ -22,16 +22,20 @@ const maxSessionKeySizeInBytes = 64
 // 4880, section 5.3.
 type SymmetricKeyEncrypted struct {
 	Version      int
-	CipherFunc   CipherFunction
+	Cipher
+ipher
+
 	Mode         AEADMode
-	s2k          func(out, in []byte)
+	s2k          
+, in []byte)
 	iv           []byte
 	encryptedKey []byte // Contains also the authentication tag for AEAD
 }
 
 // parse parses an SymmetricKeyEncrypted packet as specified in
 // https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#name-symmetric-key-encrypted-ses
-func (ske *SymmetricKeyEncrypted) parse(r io.Reader) error {
+
+e *SymmetricKeyEncrypted) parse(r io.Reader) error {
 	var buf [1]byte
 
 	// Version
@@ -43,12 +47,16 @@ func (ske *SymmetricKeyEncrypted) parse(r io.Reader) error {
 		return errors.UnsupportedError("unknown SymmetricKeyEncrypted version")
 	}
 
-	// Cipher function
+	// Cipher 
+
 	if _, err := readFull(r, buf[:]); err != nil {
 		return err
 	}
-	ske.CipherFunc = CipherFunction(buf[0])
-	if !ske.CipherFunc.IsSupported() {
+	ske.Cipher
+ipher
+(buf[0])
+	if !ske.Cipher
+upported() {
 		return errors.UnsupportedError("unknown cipher: " + strconv.Itoa(int(buf[0])))
 	}
 
@@ -99,46 +107,69 @@ func (ske *SymmetricKeyEncrypted) parse(r io.Reader) error {
 // Decrypt attempts to decrypt an encrypted session key and returns the key and
 // the cipher to use when decrypting a subsequent Symmetrically Encrypted Data
 // packet.
-func (ske *SymmetricKeyEncrypted) Decrypt(passphrase []byte) ([]byte, CipherFunction, error) {
-	key := make([]byte, ske.CipherFunc.KeySize())
+
+e *SymmetricKeyEncrypted) Decrypt(passphrase []byte) ([]byte, Cipher
+, error) {
+	key := make([]byte, ske.Cipher
+Size())
 	ske.s2k(key, passphrase)
 	if len(ske.encryptedKey) == 0 {
-		return key, ske.CipherFunc, nil
+		return key, ske.Cipher
+l
 	}
 	switch ske.Version {
 	case 4:
-		plaintextKey, cipherFunc, err := ske.decryptV4(key)
-		return plaintextKey, cipherFunc, err
+		plaintextKey, cipher
+r := ske.decryptV4(key)
+		return plaintextKey, cipher
+r
 	case 5:
 		plaintextKey, err := ske.decryptV5(key)
-		return plaintextKey, CipherFunction(0), err
+		return plaintextKey, Cipher
+(0), err
 	}
 	err := errors.UnsupportedError("unknown SymmetricKeyEncrypted version")
-	return nil, CipherFunction(0), err
+	return nil, Cipher
+(0), err
 }
 
-func (ske *SymmetricKeyEncrypted) decryptV4(key []byte) ([]byte, CipherFunction, error) {
+
+e *SymmetricKeyEncrypted) decryptV4(key []byte) ([]byte, Cipher
+, error) {
 	// the IV is all zeros
-	iv := make([]byte, ske.CipherFunc.blockSize())
-	c := cipher.NewCFBDecrypter(ske.CipherFunc.new(key), iv)
+	iv := make([]byte, ske.Cipher
+ckSize())
+	c := cipher.NewCFBDecrypter(ske.Cipher
+(key), iv)
 	plaintextKey := make([]byte, len(ske.encryptedKey))
 	c.XORKeyStream(plaintextKey, ske.encryptedKey)
-	cipherFunc := CipherFunction(plaintextKey[0])
-	if cipherFunc.blockSize() == 0 {
-		return nil, ske.CipherFunc, errors.UnsupportedError(
-			"unknown cipher: " + strconv.Itoa(int(cipherFunc)))
+	cipher
+Cipher
+(plaintextKey[0])
+	if cipher
+ckSize() == 0 {
+		return nil, ske.Cipher
+rors.UnsupportedError(
+			"unknown cipher: " + strconv.Itoa(int(cipher
+
 	}
 	plaintextKey = plaintextKey[1:]
-	if len(plaintextKey) != cipherFunc.KeySize() {
-		return nil, cipherFunc, errors.StructuralError(
+	if len(plaintextKey) != cipher
+Size() {
+		return nil, cipher
+rors.StructuralError(
 			"length of decrypted key not equal to cipher keysize")
 	}
-	return plaintextKey, cipherFunc, nil
+	return plaintextKey, cipher
+l
 }
 
-func (ske *SymmetricKeyEncrypted) decryptV5(key []byte) ([]byte, error) {
-	adata := []byte{0xc3, byte(5), byte(ske.CipherFunc), byte(ske.Mode)}
-	aead := getEncryptedKeyAeadInstance(ske.CipherFunc, ske.Mode, key, adata)
+
+e *SymmetricKeyEncrypted) decryptV5(key []byte) ([]byte, error) {
+	adata := []byte{0xc3, byte(5), byte(ske.Cipher
+yte(ske.Mode)}
+	aead := getEncryptedKeyAeadInstance(ske.Cipher
+e.Mode, key, adata)
 
 	plaintextKey, err := aead.Open(nil, ske.iv, ske.encryptedKey, adata)
 	if err != nil {
@@ -152,10 +183,13 @@ func (ske *SymmetricKeyEncrypted) decryptV5(key []byte) ([]byte, error) {
 // the given passphrase. The session key is returned and must be passed to
 // SerializeSymmetricallyEncrypted.
 // If config is nil, sensible defaults will be used.
-func SerializeSymmetricKeyEncrypted(w io.Writer, passphrase []byte, config *Config) (key []byte, err error) {
-	cipherFunc := config.Cipher()
 
-	sessionKey := make([]byte, cipherFunc.KeySize())
+ializeSymmetricKeyEncrypted(w io.Writer, passphrase []byte, config *Config) (key []byte, err error) {
+	cipher
+config.Cipher()
+
+	sessionKey := make([]byte, cipher
+Size())
 	_, err = io.ReadFull(config.Random(), sessionKey)
 	if err != nil {
 		return
@@ -175,20 +209,28 @@ func SerializeSymmetricKeyEncrypted(w io.Writer, passphrase []byte, config *Conf
 // the given passphrase. The returned session key must be passed to
 // SerializeSymmetricallyEncrypted.
 // If config is nil, sensible defaults will be used.
-func SerializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, passphrase []byte, config *Config) (err error) {
+
+ializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, passphrase []byte, config *Config) (err error) {
 	var version int
 	if config.AEAD() != nil {
 		version = 5
 	} else {
 		version = 4
 	}
-	cipherFunc := config.Cipher()
-	// cipherFunc must be AES
-	if !cipherFunc.IsSupported() || cipherFunc < CipherAES128 || cipherFunc > CipherAES256 {
-		return errors.UnsupportedError("unsupported cipher: " + strconv.Itoa(int(cipherFunc)))
+	cipher
+config.Cipher()
+	// cipher
+t be AES
+	if !cipher
+upported() || cipher
+ipherAES128 || cipher
+ipherAES256 {
+		return errors.UnsupportedError("unsupported cipher: " + strconv.Itoa(int(cipher
+
 	}
 
-	keySize := cipherFunc.KeySize()
+	keySize := cipher
+Size()
 	s2kBuf := new(bytes.Buffer)
 	keyEncryptingKey := make([]byte, keySize)
 	// s2k.Serialize salts and stretches the passphrase, and writes the
@@ -216,8 +258,10 @@ func SerializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, pass
 	// Symmetric Key Encrypted Version
 	buf := []byte{byte(version)}
 
-	// Cipher function
-	buf = append(buf, byte(cipherFunc))
+	// Cipher 
+
+	buf = append(buf, byte(cipher
+
 
 	if version == 5 {
 		// AEAD mode
@@ -234,8 +278,10 @@ func SerializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, pass
 
 	switch version {
 	case 4:
-		iv := make([]byte, cipherFunc.blockSize())
-		c := cipher.NewCFBEncrypter(cipherFunc.new(keyEncryptingKey), iv)
+		iv := make([]byte, cipher
+ckSize())
+		c := cipher.NewCFBEncrypter(cipher
+(keyEncryptingKey), iv)
 		encryptedCipherAndKey := make([]byte, keySize+1)
 		c.XORKeyStream(encryptedCipherAndKey, buf[1:])
 		c.XORKeyStream(encryptedCipherAndKey[1:], sessionKey)
@@ -245,8 +291,10 @@ func SerializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, pass
 		}
 	case 5:
 		mode := config.AEAD().Mode()
-		adata := []byte{0xc3, byte(5), byte(cipherFunc), byte(mode)}
-		aead := getEncryptedKeyAeadInstance(cipherFunc, mode, keyEncryptingKey, adata)
+		adata := []byte{0xc3, byte(5), byte(cipher
+yte(mode)}
+		aead := getEncryptedKeyAeadInstance(cipher
+de, keyEncryptingKey, adata)
 
 		// Sample iv using random reader
 		iv := make([]byte, config.AEAD().Mode().IvLength())
@@ -270,7 +318,9 @@ func SerializeSymmetricKeyEncryptedReuseKey(w io.Writer, sessionKey []byte, pass
 	return
 }
 
-func getEncryptedKeyAeadInstance(c CipherFunction, mode AEADMode, inputKey, associatedData []byte) (aead cipher.AEAD) {
+
+EncryptedKeyAeadInstance(c Cipher
+, mode AEADMode, inputKey, associatedData []byte) (aead cipher.AEAD) {
 	blockCipher := c.new(inputKey)
 	return mode.new(blockCipher)
 }

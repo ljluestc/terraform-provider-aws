@@ -29,36 +29,44 @@ type StateMvCmdOption interface {
 	configureStateMv(*stateMvConfig)
 }
 
-func (opt *BackupOption) configureStateMv(conf *stateMvConfig) {
+
+ (opt *BackupOption) configureStateMv(conf *stateMvConfig) {
 	conf.backup = opt.path
 }
 
-func (opt *BackupOutOption) configureStateMv(conf *stateMvConfig) {
+
+ (opt *BackupOutOption) configureStateMv(conf *stateMvConfig) {
 	conf.backupOut = opt.path
+
+
+
+ (opt *DryRunOption) configureStateMv(conf *stateMvConfig) {
+f.dryRun = opt.dryRun
 }
 
-func (opt *DryRunOption) configureStateMv(conf *stateMvConfig) {
-	conf.dryRun = opt.dryRun
-}
 
-func (opt *LockOption) configureStateMv(conf *stateMvConfig) {
+t *LockOption) configureStateMv(conf *stateMvConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureStateMv(conf *stateMvConfig) {
+
+ (opt *LockTimeoutOption) configureStateMv(conf *stateMvConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *StateOption) configureStateMv(conf *stateMvConfig) {
+
+ (opt *StateOption) configureStateMv(conf *stateMvConfig) {
 	conf.state = opt.path
 }
 
-func (opt *StateOutOption) configureStateMv(conf *stateMvConfig) {
+
+ (opt *StateOutOption) configureStateMv(conf *stateMvConfig) {
 	conf.stateOut = opt.path
 }
 
 // StateMv represents the terraform state mv subcommand.
-func (tf *Terraform) StateMv(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) error {
+
+ *Terraform) StateMv(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) error {
 	cmd, err := tf.stateMvCmd(ctx, source, destination, opts...)
 	if err != nil {
 		return err
@@ -66,7 +74,8 @@ func (tf *Terraform) StateMv(ctx context.Context, source string, destination str
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) stateMvCmd(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) stateMvCmd(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) (*exec.Cmd, error) {
 	c := defaultStateMvOptions
 
 	for _, o := range opts {

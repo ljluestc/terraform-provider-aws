@@ -100,7 +100,7 @@ func ResourceDomain() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_policies": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				Computed:         true,
 				ValidateFunc:     validation.StringIsJSON,
@@ -247,7 +247,7 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"dedicated_master_count": {
-							Type:             schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:         true,
 							DiffSuppressFunc: suppressComputedDedicatedMaster,
 						},
@@ -257,7 +257,7 @@ func ResourceDomain() *schema.Resource {
 							Default:  false,
 						},
 						"dedicated_master_type": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							DiffSuppressFunc: suppressComputedDedicatedMaster,
 						},
@@ -290,7 +290,7 @@ func ResourceDomain() *schema.Resource {
 							ValidateFunc: validation.StringInSlice(opensearchservice.OpenSearchWarmPartitionInstanceType_Values(), false),
 						},
 						"zone_awareness_config": {
-							Type:             schema.TypeList,
+							Type:schema.TypeList,
 							Optional:         true,
 							MaxItems:         1,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -313,7 +313,7 @@ func ResourceDomain() *schema.Resource {
 				},
 			},
 			"cognito_options": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -352,12 +352,12 @@ func ResourceDomain() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_endpoint": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							DiffSuppressFunc: isCustomEndpointDisabled,
 						},
 						"custom_endpoint_certificate_arn": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateFunc:     verify.ValidARN,
 							DiffSuppressFunc: isCustomEndpointDisabled,
@@ -440,7 +440,7 @@ func ResourceDomain() *schema.Resource {
 							Required: true,
 						},
 						"kms_key_id": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Computed:         true,
 							ForceNew:         true,
@@ -546,7 +546,7 @@ func ResourceDomain() *schema.Resource {
 				},
 			},
 			"snapshot_options": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -560,7 +560,7 @@ func ResourceDomain() *schema.Resource {
 				},
 			},
 			"software_update_options": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				Computed:         true,
 				MaxItems:         1,

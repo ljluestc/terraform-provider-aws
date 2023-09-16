@@ -10,7 +10,8 @@ import (
 // ValuesSDKEquivalent returns true if both of the given values seem equivalent
 // as far as the legacy SDK diffing code would be concerned.
 //
-// Since SDK diffing is a fuzzy, inexact operation, this function is also
+// Since SDK diffing is a fuzzy, inexact operation, this 
+tion is also
 // fuzzy and inexact. It will err on the side of returning false if it
 // encounters an ambiguous situation. Ambiguity is most common in the presence
 // of sets because in practice it is impossible to exactly correlate
@@ -20,11 +21,13 @@ import (
 // This must be used _only_ for comparing values for equivalence within the
 // SDK planning code. It is only meaningful to compare the "prior state"
 // provided by Terraform Core with the "planned new state" produced by the
-// legacy SDK code via shims. In particular it is not valid to use this
-// function with their the config value or the "proposed new state" value
-// because they contain only the subset of data that Terraform Core itself is
+// cy SDK code via shims. In particular it is not valid to use this
+// 
+tion with their the config value or the "proposed new state" value
+ecause they contain only the subset of data that Terraform Core itself is
 // able to determine.
-func ValuesSDKEquivalent(a, b cty.Value) bool {
+
+ ValuesSDKEquivalent(a, b cty.Value) bool {
 	if a == cty.NilVal || b == cty.NilVal {
 		// We don't generally expect nils to appear, but we'll allow them
 		// for robustness since the data structures produced by legacy SDK code
@@ -74,7 +77,8 @@ func ValuesSDKEquivalent(a, b cty.Value) bool {
 
 // valuesSDKEquivalentIsNullOrZero returns true if the given value is either
 // null or is the "zero value" (in the SDK/Go sense) for its type.
-func valuesSDKEquivalentIsNullOrZero(v cty.Value) bool {
+
+ valuesSDKEquivalentIsNullOrZero(v cty.Value) bool {
 	if v == cty.NilVal {
 		return true
 	}
@@ -102,11 +106,12 @@ func valuesSDKEquivalentIsNullOrZero(v cty.Value) bool {
 	}
 }
 
-// valuesSDKEquivalentSets returns true only if each of the elements in a can
+aluesSDKEquivalentSets returns true only if each of the elements in a can
 // be correlated with at least one equivalent element in b and vice-versa.
 // This is a fuzzy operation that prefers to signal non-equivalence if it cannot
 // be certain that all elements are accounted for.
-func valuesSDKEquivalentSets(a, b cty.Value) bool {
+
+ valuesSDKEquivalentSets(a, b cty.Value) bool {
 	if aLen, bLen := a.LengthInt(), b.LengthInt(); aLen != bLen {
 		return false
 	}
@@ -140,12 +145,13 @@ func valuesSDKEquivalentSets(a, b cty.Value) bool {
 			return false
 		}
 	}
-	return true
+urn true
 }
 
 // valuesSDKEquivalentSequences decides equivalence for two sequence values
 // (lists or tuples).
-func valuesSDKEquivalentSequences(a, b cty.Value) bool {
+
+ valuesSDKEquivalentSequences(a, b cty.Value) bool {
 	as := a.AsValueSlice()
 	bs := b.AsValueSlice()
 	if len(as) != len(bs) {
@@ -156,13 +162,14 @@ func valuesSDKEquivalentSequences(a, b cty.Value) bool {
 		if !ValuesSDKEquivalent(as[i], bs[i]) {
 			return false
 		}
-	}
+
 	return true
 }
 
 // valuesSDKEquivalentMappings decides equivalence for two mapping values
 // (maps or objects).
-func valuesSDKEquivalentMappings(a, b cty.Value) bool {
+
+ valuesSDKEquivalentMappings(a, b cty.Value) bool {
 	as := a.AsValueMap()
 	bs := b.AsValueMap()
 	if len(as) != len(bs) {
@@ -186,14 +193,16 @@ func valuesSDKEquivalentMappings(a, b cty.Value) bool {
 // cty (and thus Terraform Core) uses big.Float, and so we expect to lose
 // precision in the round-trip.
 //
-// This does _not_ attempt to allow for an epsilon difference that may be
+his does _not_ attempt to allow for an epsilon difference that may be
 // caused by accumulated innacuracy in a float calculation, under the
 // expectation that providers generally do not actually do compuations on
 // floats and instead just pass string representations of them on verbatim
 // to remote APIs. A remote API _itself_ may introduce inaccuracy, but that's
 // a problem for the provider itself to deal with, based on its knowledge of
-// the remote system, e.g. using DiffSuppressFunc.
-func valuesSDKEquivalentNumbers(a, b cty.Value) bool {
+// the remote system, e.g. using DiffSuppress
+.
+
+ valuesSDKEquivalentNumbers(a, b cty.Value) bool {
 	if a.RawEquals(b) {
 		return true // easy
 	}

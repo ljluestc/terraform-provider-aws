@@ -224,7 +224,7 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 		EnableSelfService: aws.Bool(false), // this is handled separately below
 		EnableWorkDocs:    aws.Bool(false),
 		Tenancy:           types.TenancyShared,
-		Tags:              getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("subnet_ids"); ok {
@@ -251,7 +251,7 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 	if v, ok := d.GetOk("self_service_permissions"); ok {
 		log.Printf("[DEBUG] Modifying WorkSpaces Directory (%s) self-service permissions", directoryID)
 		_, err := conn.ModifySelfservicePermissions(ctx, &workspaces.ModifySelfservicePermissionsInput{
-			ResourceId:             aws.String(directoryID),
+			ResourceId:aws.String(directoryID),
 			SelfservicePermissions: ExpandSelfServicePermissions(v.([]interface{})),
 		})
 		if err != nil {
@@ -263,7 +263,7 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 	if v, ok := d.GetOk("workspace_access_properties"); ok {
 		log.Printf("[DEBUG] Modifying WorkSpaces Directory (%s) access properties", directoryID)
 		_, err := conn.ModifyWorkspaceAccessProperties(ctx, &workspaces.ModifyWorkspaceAccessPropertiesInput{
-			ResourceId:                aws.String(directoryID),
+			ResourceId:   aws.String(directoryID),
 			WorkspaceAccessProperties: ExpandWorkspaceAccessProperties(v.([]interface{})),
 		})
 		if err != nil {
@@ -275,7 +275,7 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 	if v, ok := d.GetOk("workspace_creation_properties"); ok {
 		log.Printf("[DEBUG] Modifying WorkSpaces Directory (%s) creation properties", directoryID)
 		_, err := conn.ModifyWorkspaceCreationProperties(ctx, &workspaces.ModifyWorkspaceCreationPropertiesInput{
-			ResourceId:                  aws.String(directoryID),
+			ResourceId:     aws.String(directoryID),
 			WorkspaceCreationProperties: ExpandWorkspaceCreationProperties(v.([]interface{})),
 		})
 		if err != nil {
@@ -359,7 +359,7 @@ func resourceDirectoryUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		permissions := d.Get("self_service_permissions").([]interface{})
 
 		_, err := conn.ModifySelfservicePermissions(ctx, &workspaces.ModifySelfservicePermissionsInput{
-			ResourceId:             aws.String(d.Id()),
+			ResourceId:aws.String(d.Id()),
 			SelfservicePermissions: ExpandSelfServicePermissions(permissions),
 		})
 		if err != nil {
@@ -373,7 +373,7 @@ func resourceDirectoryUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		properties := d.Get("workspace_access_properties").([]interface{})
 
 		_, err := conn.ModifyWorkspaceAccessProperties(ctx, &workspaces.ModifyWorkspaceAccessPropertiesInput{
-			ResourceId:                aws.String(d.Id()),
+			ResourceId:   aws.String(d.Id()),
 			WorkspaceAccessProperties: ExpandWorkspaceAccessProperties(properties),
 		})
 		if err != nil {
@@ -387,7 +387,7 @@ func resourceDirectoryUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		properties := d.Get("workspace_creation_properties").([]interface{})
 
 		_, err := conn.ModifyWorkspaceCreationProperties(ctx, &workspaces.ModifyWorkspaceCreationPropertiesInput{
-			ResourceId:                  aws.String(d.Id()),
+			ResourceId:     aws.String(d.Id()),
 			WorkspaceCreationProperties: ExpandWorkspaceCreationProperties(properties),
 		})
 		if err != nil {
@@ -648,9 +648,9 @@ func FlattenWorkspaceCreationProperties(properties *types.DefaultWorkspaceCreati
 	return []interface{}{
 		map[string]interface{}{
 			"custom_security_group_id":            aws.ToString(properties.CustomSecurityGroupId),
-			"default_ou":                          aws.ToString(properties.DefaultOu),
-			"enable_internet_access":              aws.ToBool(properties.EnableInternetAccess),
-			"enable_maintenance_mode":             aws.ToBool(properties.EnableMaintenanceMode),
+			"default_ou":aws.ToString(properties.DefaultOu),
+			"enable_internet_access": aws.ToBool(properties.EnableInternetAccess),
+			"enable_maintenance_mode":aws.ToBool(properties.EnableMaintenanceMode),
 			"user_enabled_as_local_administrator": aws.ToBool(properties.UserEnabledAsLocalAdministrator),
 		},
 	}

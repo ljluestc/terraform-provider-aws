@@ -269,8 +269,8 @@ func resourceDataLakeSettingsDelete(ctx context.Context, d *schema.ResourceData,
 		DataLakeSettings: &lakeformation.DataLakeSettings{
 			CreateDatabaseDefaultPermissions: make([]*lakeformation.PrincipalPermissions, 0),
 			CreateTableDefaultPermissions:    make([]*lakeformation.PrincipalPermissions, 0),
-			DataLakeAdmins:                   make([]*lakeformation.DataLakePrincipal, 0),
-			ReadOnlyAdmins:                   make([]*lakeformation.DataLakePrincipal, 0),
+			DataLakeAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
+			ReadOnlyAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
 			TrustedResourceOwners:            make([]*string, 0),
 		},
 	}

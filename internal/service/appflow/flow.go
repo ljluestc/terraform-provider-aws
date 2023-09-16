@@ -1222,12 +1222,12 @@ func resourceFlowCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).AppFlowConn(ctx)
 
 	in := &appflow.CreateFlowInput{
-		FlowName:                  aws.String(d.Get(names.AttrName).(string)),
+		FlowName:     aws.String(d.Get(names.AttrName).(string)),
 		DestinationFlowConfigList: expandDestinationFlowConfigs(d.Get("destination_flow_config").(*schema.Set).List()),
 		SourceFlowConfig:          expandSourceFlowConfig(d.Get("source_flow_config").([]interface{})[0].(map[string]interface{})),
-		Tags:                      getTagsIn(ctx),
-		Tasks:                     expandTasks(d.Get("task").(*schema.Set).List()),
-		TriggerConfig:             expandTriggerConfig(d.Get("trigger_config").([]interface{})[0].(map[string]interface{})),
+		Tags:         getTagsIn(ctx),
+		Tasks:        expandTasks(d.Get("task").(*schema.Set).List()),
+		TriggerConfig:expandTriggerConfig(d.Get("trigger_config").([]interface{})[0].(map[string]interface{})),
 	}
 
 	if v, ok := d.GetOk(names.AttrDescription); ok {
@@ -1316,11 +1316,11 @@ func resourceFlowUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		in := &appflow.UpdateFlowInput{
-			FlowName:                  aws.String(d.Get(names.AttrName).(string)),
+			FlowName:     aws.String(d.Get(names.AttrName).(string)),
 			DestinationFlowConfigList: expandDestinationFlowConfigs(d.Get("destination_flow_config").(*schema.Set).List()),
 			SourceFlowConfig:          expandSourceFlowConfig(d.Get("source_flow_config").([]interface{})[0].(map[string]interface{})),
-			Tasks:                     expandTasks(d.Get("task").(*schema.Set).List()),
-			TriggerConfig:             expandTriggerConfig(d.Get("trigger_config").([]interface{})[0].(map[string]interface{})),
+			Tasks:        expandTasks(d.Get("task").(*schema.Set).List()),
+			TriggerConfig:expandTriggerConfig(d.Get("trigger_config").([]interface{})[0].(map[string]interface{})),
 		}
 
 		if d.HasChange(names.AttrDescription) {

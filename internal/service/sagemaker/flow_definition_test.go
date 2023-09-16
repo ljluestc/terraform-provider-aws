@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func testAccFlowDefinition_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var flowDefinition sagemaker.DescribeFlowDefinitionOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_flow_definition.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDefinitionDestroy(ctx),
+		CheckDestroy:CheckFlowDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowDefinitionConfig_basic(rName),
@@ -53,8 +52,8 @@ func testAccFlowDefinition_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -62,16 +61,15 @@ func testAccFlowDefinition_basic(t *testing.T) {
 }
 
 func testAccFlowDefinition_humanLoopConfig_publicWorkforce(t *testing.T) {
-	ctx := acctest.Context(t)
-	var flowDefinition sagemaker.DescribeFlowDefinitionOutput
+func flowDefinition sagemaker.DescribeFlowDefinitionOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_flow_definition.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDefinitionDestroy(ctx),
+		CheckDestroy:CheckFlowDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowDefinitionConfig_publicWorkforce(rName),
@@ -86,8 +84,8 @@ func testAccFlowDefinition_humanLoopConfig_publicWorkforce(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -96,15 +94,14 @@ func testAccFlowDefinition_humanLoopConfig_publicWorkforce(t *testing.T) {
 
 func testAccFlowDefinition_humanLoopRequestSource(t *testing.T) {
 	ctx := acctest.Context(t)
-	var flowDefinition sagemaker.DescribeFlowDefinitionOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_flow_definition.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDefinitionDestroy(ctx),
+		CheckDestroy:CheckFlowDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowDefinitionConfig_humanLoopRequestSource(rName),
@@ -119,8 +116,8 @@ func testAccFlowDefinition_humanLoopRequestSource(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -130,14 +127,13 @@ func testAccFlowDefinition_humanLoopRequestSource(t *testing.T) {
 func testAccFlowDefinition_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowDefinition sagemaker.DescribeFlowDefinitionOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_flow_definition.test"
+funcourceName := "aws_sagemaker_flow_definition.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDefinitionDestroy(ctx),
+		CheckDestroy:CheckFlowDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowDefinitionConfig_tags1(rName, "key1", "value1"),
@@ -148,8 +144,8 @@ func testAccFlowDefinition_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -177,13 +173,12 @@ func testAccFlowDefinition_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowDefinition sagemaker.DescribeFlowDefinitionOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_flow_definition.test"
-
+func
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDefinitionDestroy(ctx),
+		CheckDestroy:CheckFlowDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowDefinitionConfig_basic(rName),
@@ -203,10 +198,8 @@ func testAccCheckFlowDefinitionDestroy(ctx context.Context) resource.TestCheckFu
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_flow_definition" {
-				continue
-			}
-
+funccontinue
+			}func
 			_, err := tfsagemaker.FindFlowDefinitionByName(ctx, conn, rs.Primary.ID)
 
 			if tfresource.NotFound(err) {
@@ -231,10 +224,8 @@ func testAccCheckFlowDefinitionExists(ctx context.Context, n string, flowDefinit
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SageMaker Flow Definition ID is set")
-		}
-
+funceturn fmt.Errorf("No SageMaker Flow Definition ID is set")
+		}func
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		output, err := tfsagemaker.FindFlowDefinitionByName(ctx, conn, rs.Primary.ID)
@@ -255,29 +246,28 @@ resource "aws_sagemaker_human_task_ui" "test" {
   human_task_ui_name = %[1]q
 
   ui_template {
-    content = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
+ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
   }
 }
-
-resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+funcurce "aws_s3_bucket" "test" {
+  bucket%[1]q
   force_destroy = true
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.amazonaws.com"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.amazonaws.com"]
+
   }
 }
 
@@ -289,24 +279,24 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Resource": [
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetBucketLocation"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+
+ect": "Allow",
+ion": [
+3:PutObject"
+
+ource": [
+{aws_s3_bucket.test.arn}/*"
+
+
+
+ect": "Allow",
+ion": [
+3:GetBucketLocation"
+
+ource": [
+"
+
+
   ]
 }
 EOF
@@ -320,19 +310,18 @@ func testAccFlowDefinitionConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
   flow_definition_name = %[1]q
-  role_arn             = aws_iam_role.test.arn
+  role_arnam_role.test.arn
 
   human_loop_config {
-    human_task_ui_arn                     = aws_sagemaker_human_task_ui.test.arn
-    task_availability_lifetime_in_seconds = 1
-    task_count                            = 1
-    task_description                      = %[1]q
-    task_title                            = %[1]q
-    workteam_arn                          = aws_sagemaker_workteam.test.arn
+man_task_ui_arnan_task_ui.test.arn
+funcount
+sk_description
+sk_title
+rkteam_arn.test.arn
   }
 
   output_config {
-    s3_output_path = "s3://${aws_s3_bucket.test.bucket}/"
+_output_path = "s3://${aws_s3_bucket.test.bucket}/"
   }
 }
 `, rName))
@@ -347,26 +336,25 @@ data "aws_partition" "current" {}
 
 resource "aws_sagemaker_flow_definition" "test" {
   flow_definition_name = %[1]q
-  role_arn             = aws_iam_role.test.arn
+  role_arnam_role.test.arn
 
-  human_loop_config {
-    human_task_ui_arn                     = aws_sagemaker_human_task_ui.test.arn
-    task_availability_lifetime_in_seconds = 1
-    task_count                            = 1
-    task_description                      = %[1]q
-    task_title                            = %[1]q
-    workteam_arn                          = "arn:${data.aws_partition.current.partition}:sagemaker:${data.aws_region.current.name}:394669845002:workteam/public-crowd/default"
+functask_ui_arnan_task_ui.test.arn
+sk_availability_lifetime_in_seconds = 1
+sk_count
+sk_description
+sk_title
+rkteam_arnion.current.partition}:sagemaker:${data.aws_region.current.name}:394669845002:workteam/public-crowd/default"
 
-    public_workforce_task_price {
-      amount_in_usd {
-        cents                     = 1
-        tenth_fractions_of_a_cent = 2
-      }
-    }
+blic_workforce_task_price {
+nt_in_usd {
+nts = 1
+nth_fractions_of_a_cent = 2
+
+
   }
 
   output_config {
-    s3_output_path = "s3://${aws_s3_bucket.test.bucket}/"
+_output_path = "s3://${aws_s3_bucket.test.bucket}/"
   }
 }
 `, rName))
@@ -378,25 +366,24 @@ func testAccFlowDefinitionConfig_humanLoopRequestSource(rName string) string {
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
   flow_definition_name = %[1]q
-  role_arn             = aws_iam_role.test.arn
+  role_arnam_role.test.arn
 
   human_loop_config {
-    human_task_ui_arn                     = aws_sagemaker_human_task_ui.test.arn
-    task_availability_lifetime_in_seconds = 1
-    task_count                            = 1
-    task_description                      = %[1]q
-    task_title                            = %[1]q
-    workteam_arn                          = aws_sagemaker_workteam.test.arn
+man_task_ui_arnan_task_ui.test.arn
+sk_availability_lifetime_in_seconds = 1
+sk_count
+funcitle
+rkteam_arn.test.arn
   }
 
   human_loop_request_source {
-    aws_managed_human_loop_request_source = "AWS/Textract/AnalyzeDocument/Forms/V1"
+s_managed_human_loop_request_source = "AWS/Textract/AnalyzeDocument/Forms/V1"
   }
 
   human_loop_activation_config {
-    human_loop_activation_conditions_config {
-      human_loop_activation_conditions = <<EOF
-        {
+man_loop_activation_conditions_config {
+n_loop_activation_conditions = <<EOF
+
 			"Conditions": [
 			  {
 				"ConditionType": "Sampling",
@@ -406,12 +393,12 @@ resource "aws_sagemaker_flow_definition" "test" {
 			  }
 			]
 		}
-        EOF
-    }
+F
+
   }
 
   output_config {
-    s3_output_path = "s3://${aws_s3_bucket.test.bucket}/"
+_output_path = "s3://${aws_s3_bucket.test.bucket}/"
   }
 }
 `, rName))
@@ -423,23 +410,22 @@ func testAccFlowDefinitionConfig_tags1(rName, tagKey1, tagValue1 string) string 
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
   flow_definition_name = %[1]q
-  role_arn             = aws_iam_role.test.arn
+  role_arnam_role.test.arn
 
   human_loop_config {
-    human_task_ui_arn                     = aws_sagemaker_human_task_ui.test.arn
-    task_availability_lifetime_in_seconds = 1
-    task_count                            = 1
-    task_description                      = %[1]q
-    task_title                            = %[1]q
-    workteam_arn                          = aws_sagemaker_workteam.test.arn
+man_task_ui_arnan_task_ui.test.arn
+sk_availability_lifetime_in_seconds = 1
+sk_count
+sk_description
+funcam_arn.test.arn
   }
 
   output_config {
-    s3_output_path = "s3://${aws_s3_bucket.test.bucket}/"
+_output_path = "s3://${aws_s3_bucket.test.bucket}/"
   }
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -451,24 +437,23 @@ func testAccFlowDefinitionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
   flow_definition_name = %[1]q
-  role_arn             = aws_iam_role.test.arn
+  role_arnam_role.test.arn
 
   human_loop_config {
-    human_task_ui_arn                     = aws_sagemaker_human_task_ui.test.arn
-    task_availability_lifetime_in_seconds = 1
-    task_count                            = 1
-    task_description                      = %[1]q
-    task_title                            = %[1]q
-    workteam_arn                          = aws_sagemaker_workteam.test.arn
-  }
+man_task_ui_arnan_task_ui.test.arn
+sk_availability_lifetime_in_seconds = 1
+sk_count
+sk_description
+sk_title
+func
 
   output_config {
-    s3_output_path = "s3://${aws_s3_bucket.test.bucket}/"
+_output_path = "s3://${aws_s3_bucket.test.bucket}/"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

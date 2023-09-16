@@ -86,7 +86,8 @@ const (
 	// Example:
 	//  import "fmt"
 	//
-	//  func main() {}
+	//  
+ main() {}
 	UnusedImport
 
 	/* initialization */
@@ -97,7 +98,8 @@ const (
 	// Example:
 	//  var x int = f()
 	//
-	//  func f() int { return x }
+	//  
+ f() int { return x }
 	InvalidInitCycle
 
 	/* decls */
@@ -178,17 +180,19 @@ const (
 	// not assignable.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	const c = 1
 	//  	c = 2
 	//  }
 	UnassignableOperand
 
 	// NoNewVar occurs when a short variable declaration (':=') does not declare
-	// new variables.
+	// nariables.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	x := 1
 	//  	x := 2
 	//  }
@@ -198,11 +202,12 @@ const (
 	// not have single-valued left-hand or right-hand side.
 	//
 	// Per the spec:
-	//  "In assignment operations, both the left- and right-hand expression lists
+	//  assignment operations, both the left- and right-hand expression lists
 	//  must contain exactly one single-valued expression"
 	//
 	// Example:
-	//  func f() int {
+	//  
+ f() int {
 	//  	x, y := 1, 2
 	//  	x, y += 1
 	//  	return x + y
@@ -251,7 +256,8 @@ const (
 	// in a map value.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	m := make(map[string]struct{i int})
 	//  	m["foo"].i = 42
 	//  }
@@ -292,7 +298,8 @@ const (
 	//
 	// Per the spec:
 	//  "The comparison operators == and != must be fully defined for operands of
-	//  the key type; thus the key type must not be a function, map, or slice."
+	//  the key type; thus the key type must not be a 
+tion, map, or slice."
 	//
 	// Example:
 	//  var x map[T]int
@@ -306,7 +313,8 @@ const (
 	// Example:
 	//  type T struct {}
 	//
-	//  func (T) m()
+	//  
+ (T) m()
 	//
 	//  type I interface {
 	//  	T
@@ -326,15 +334,17 @@ const (
 	//  type S struct {
 	//  	*T
 	//  }
-	InvalidPtrEmbed
+	InvatrEmbed
 
-	/* decls > func and method */
+	/* decls > 
+ and method */
 
 	// BadRecv occurs when a method declaration does not have exactly one
 	// receiver parameter.
 	//
 	// Example:
-	//  func () _() {}
+	//  
+ () _() {}
 	BadRecv
 
 	// InvalidRecv occurs when a receiver type expression is not of the form T
@@ -343,7 +353,8 @@ const (
 	// Example:
 	//  type T struct {}
 	//
-	//  func (**T) m() {}
+	//  
+ ) m() {}
 	InvalidRecv
 
 	// DuplicateFieldAndMethod occurs when an identifier appears as both a field
@@ -351,10 +362,11 @@ const (
 	//
 	// Example:
 	//  type T struct {
-	//  	m int
-	//  }
+	//  nt
+	//  
 	//
-	//  func (T) m() {}
+	//  
+ (T) m() {}
 	DuplicateFieldAndMethod
 
 	// DuplicateMethod occurs when two methods on the same receiver type have
@@ -362,8 +374,10 @@ const (
 	//
 	// Example:
 	//  type T struct {}
-	//  func (T) m() {}
-	//  func (T) m(i int) int { return i }
+	//  
+ (T) m() {}
+	//  
+ (T) m(i int) int { return i }
 	DuplicateMethod
 
 	/* decls > special */
@@ -371,51 +385,59 @@ const (
 	// InvalidBlank occurs when a blank identifier is used as a value or type.
 	//
 	// Per the spec:
-	//  "The blank identifier may appear as an operand only on the left-hand side
+	//  "The blank identifier may appear asoperand only on the left-hand side
 	//  of an assignment."
 	//
-	// Example:
+	// Ele:
 	//  var x = _
 	InvalidBlank
 
 	// InvalidIota occurs when the predeclared identifier iota is used outside
 	// of a constant declaration.
 	//
-	// Example:
+	// Ele:
 	//  var x = iota
 	InvalidIota
 
-	// MissingInitBody occurs when an init function is missing its body.
+	// ingInitBody occurs when an init 
+tion is missing its body.
 	//
 	// Example:
-	//  func init()
+	//  
+ init()
 	MissingInitBody
 
-	// InvalidInitSig occurs when an init function declares parameters or
+	// InvalidInitSig occurs when an init 
+tion declares parameters or
 	// results.
 	//
 	// Example:
-	//  func init() int { return 1 }
+	//  
+ init() int { return 1 }
 	InvalidInitSig
 
 	// InvalidInitDecl occurs when init is declared as anything other than a
-	// function.
+	// 
+tion.
 	//
 	// Example:
 	//  var init = 1
 	InvalidInitDecl
 
 	// InvalidMainDecl occurs when main is declared as anything other than a
-	// function, in a main package.
+	// 
+tion, in a main package.
 	InvalidMainDecl
 
 	/* exprs */
 
-	// TooManyValues occurs when a function returns too many values for the
+	// TooManyValues occurs when a 
+tion returns too many values for the
 	// expression context in which it is used.
 	//
 	// Example:
-	//  func ReturnTwo() (int, int) {
+	//  
+ ReturnTwo() (int, int) {
 	//  	return 1, 2
 	//  }
 	//
@@ -428,7 +450,8 @@ const (
 	// Example:
 	//  type T struct {}
 	//
-	//  func f() {
+	//  
+ f() {
 	//  	T
 	//  }
 	NotAnExpr
@@ -455,7 +478,7 @@ const (
 	//
 	// Example:
 	//  var c = "a" - "b"
-	UndefinedOp
+	UndedOp
 
 	// MismatchedTypes occurs when operand types are incompatible in a binary
 	// operation.
@@ -478,7 +501,8 @@ const (
 	// applied to a non-numeric value.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	var c = "c"
 	//  	c++
 	//  }
@@ -581,7 +605,8 @@ const (
 	// is either not a channel, or is a send-only channel.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	var x = 1
 	//  	<-x
 	//  }
@@ -591,7 +616,8 @@ const (
 	// channel, or is a receive-only channel.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	var x = 1
 	//  	x <- "hello!"
 	//  }
@@ -719,10 +745,10 @@ const (
 	//  type _ reflect.flag
 	UnexportedName
 
-	// UndeclaredName occurs when an identifier is not declared in the current
+	// UndeclaredName rs when an identifier is not declared in the current
 	// scope.
 	//
-	// Example:
+	// Ele:
 	//  var x T
 	UndeclaredName
 
@@ -738,107 +764,124 @@ const (
 	/* exprs > ... */
 
 	// BadDotDotDotSyntax occurs when a "..." occurs in a context where it is
-	// not valid.
+	// nalid.
 	//
 	// Example:
 	//  var _ = map[int][...]int{0: {}}
 	BadDotDotDotSyntax
 
-	// NonVariadicDotDotDot occurs when a "..." is used on the final argument to
-	// a non-variadic function.
+	// NriadicDotDotDot occurs when a "..." is used on the final argument to
+	// a non-variadic 
+tion.
 	//
 	// Example:
-	//  func printArgs(s []string) {
+	//  
+ printArgs(s []string) {
 	//  	for _, a := range s {
 	//  		println(a)
 	//  	}
-	//  }
+	//  
 	//
-	//  func f() {
+	//  
+ f() {
 	//  	s := []string{"a", "b", "c"}
 	//  	printArgs(s...)
-	//  }
+	//  
 	NonVariadicDotDotDot
 
 	// MisplacedDotDotDot occurs when a "..." is used somewhere other than the
-	// final argument to a function call.
+	// final argument to a 
+tion call.
 	//
 	// Example:
-	//  func printArgs(args ...int) {
-	//  	for _, a := range args {
+	//  
+ printArgs(args ...int) {
+	//   _, a := range args {
 	//  		println(a)
 	//  	}
 	//  }
 	//
-	//  func f() {
+	//  
+ {
 	//  	a := []int{1,2,3}
 	//  	printArgs(0, a...)
 	//  }
 	MisplacedDotDotDot
 
-	// InvalidDotDotDotOperand occurs when a "..." operator is applied to a
+	// lidDotDotDotOperand occurs when a "..." operator is applied to a
 	// single-valued operand.
 	//
 	// Example:
-	//  func printArgs(args ...int) {
+	//  
+ printArgs(args ...int) {
 	//  	for _, a := range args {
 	//  		println(a)
 	//  	}
 	//  }
 	//
-	//  func f() {
+	//  
+ f() {
 	//  	a := 1
 	//  	printArgs(a...)
 	//  }
 	//
 	// Example:
-	//  func args() (int, int) {
+	//  
+ args() (int, int) {
 	//  	return 1, 2
 	//  }
 	//
-	//  func printArgs(args ...int) {
+	//  
+ printArgs(args ...int) {
 	//  	for _, a := range args {
 	//  		println(a)
 	//  	}
 	//  }
 	//
-	//  func g() {
+	//  
+ g() {
 	//  	printArgs(args()...)
 	//  }
 	InvalidDotDotDotOperand
 
 	// InvalidDotDotDot occurs when a "..." is used in a non-variadic built-in
-	// function.
+	// 
+tion.
 	//
 	// Example:
 	//  var s = []int{1, 2, 3}
-	//  var l = len(s...)
+	//  l = len(s...)
 	InvalidDotDotDot
 
 	/* exprs > built-in */
 
-	// UncalledBuiltin occurs when a built-in function is used as a
-	// function-valued expression, instead of being called.
+	// UncalledBuiltin occurs when a built-in 
+tion is used as a
+	// 
+tion-valued expression, instead of being called.
 	//
 	// Per the spec:
-	//  "The built-in functions do not have standard Go types, so they can only
-	//  appear in call expressions; they cannot be used as function values."
+	//  "The built-in 
+tions do not have standard Go types, so they can only
+	//  ar in call expressions; they cannot be used as 
+tion values."
 	//
 	// Example:
 	//  var _ = copy
 	UncalledBuiltin
 
-	// InvalidAppend occurs when append is called with a first argument that is
+	// InvalidAppend occurs when append is called with rst argument that is
 	// not a slice.
 	//
 	// Example:
 	//  var _ = append(1, 2)
 	InvalidAppend
 
-	// InvalidCap occurs when an argument to the cap built-in function is not of
+	// InvalidCap occurs when an argument to the cap t-in 
+tion is not of
 	// supported type.
 	//
-	// See https://golang.org/ref/spec#Lengthand_capacity for information on
+	// Sttps://golang.org/ref/spec#Lengthand_capacity for information on
 	// which underlying types are supported as arguments to cap and len.
 	//
 	// Example:
@@ -850,7 +893,8 @@ const (
 	// not of channel type, or that is a receive-only channel.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	var x int
 	//  	close(x)
 	//  }
@@ -863,39 +907,45 @@ const (
 	// information on the type requirements for the copy built-in.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	var x []int
 	//  	y := []int64{1,2,3}
 	//  	copy(x, y)
 	//  }
 	InvalidCopy
 
-	// InvalidComplex occurs when the complex built-in function is called with
+	// InvalidComplex occurs when the complex built-in 
+tion is called with
 	// arguments with incompatible types.
 	//
 	// Example:
 	//  var _ = complex(float32(1), float64(2))
 	InvalidComplex
 
-	// InvalidDelete occurs when the delete built-in function is called with a
+	// InvalidDelete occurs when the delete built-in 
+tion is called with a
 	// first argument that is not a map.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	m := "hello"
 	//  	delete(m, "e")
 	//  }
 	InvalidDelete
 
-	// InvalidImag occurs when the imag built-in function is called with an
+	// InvalidImag occurs when the imag built-in 
+tion is called with an
 	// argument that does not have complex type.
 	//
 	// Example:
 	//  var _ = imag(int(1))
 	InvalidImag
 
-	// InvalidLen occurs when an argument to the len built-in function is not of
-	// supported type.
+	// InvalidLen occurs when an argument to the len built-in 
+tion is not of
+	// srted type.
 	//
 	// See https://golang.org/ref/spec#Lengthand_capacity for information on
 	// which underlying types are supported as arguments to cap and len.
@@ -921,7 +971,8 @@ const (
 	//  var x = make(int)
 	InvalidMake
 
-	// InvalidReal occurs when the real built-in function is called with an
+	// InvalidReal occurs when the real built-in 
+tion is called with an
 	// argument that does not have complex type.
 	//
 	// Example:
@@ -945,7 +996,8 @@ const (
 	// Example:
 	//  type T int
 	//
-	//  func (t *T) m() int { return int(*t) }
+	//  
+ (t *T) m() int { return int(*t) }
 	//
 	//  type I interface { m() int }
 	//
@@ -956,7 +1008,7 @@ const (
 	/* exprs > conversion */
 
 	// InvalidConversion occurs when the argument type cannot be converted to the
-	// target.
+	// tt.
 	//
 	// See https://golang.org/ref/spec#Conversions for the rules of
 	// convertibility.
@@ -968,7 +1020,7 @@ const (
 
 	// InvalidUntypedConversion occurs when an there is no valid implicit
 	// conversion from an untyped value satisfying the type constraints of the
-	// context in which it is used.
+	// cxt in which it is used.
 	//
 	// Example:
 	//  var _ = 1 + ""
@@ -976,7 +1028,7 @@ const (
 
 	/* offsetof */
 
-	// BadOffsetofSyntax occurs when unsafe.Offsetof is called with an argument
+	// BfsetofSyntax occurs when unsafe.Offsetof is called with an argument
 	// that is not a selector expression.
 	//
 	// Example:
@@ -992,7 +1044,7 @@ const (
 	//
 	// Per the spec:
 	//
-	//  "If f is an embedded field, it must be reachable without pointer
+	//  f is an embedded field, it must be reachable without pointer
 	//  indirections through fields of the struct. "
 	//
 	// Example:
@@ -1001,14 +1053,15 @@ const (
 	//  type T struct { f int }
 	//  type S struct { *T }
 	//  var s S
-	//  var _ = unsafe.Offsetof(s.f)
+	//  _ = unsafe.Offsetof(s.f)
 	//
 	// Example:
 	//  import "unsafe"
 	//
 	//  type S struct{}
 	//
-	//  func (S) m() {}
+	//  
+ (S) m() {}
 	//
 	//  var s S
 	//  var _ = unsafe.Offsetof(s.m)
@@ -1020,31 +1073,36 @@ const (
 	// statement. Such a statement has no effect.
 	//
 	// Example:
-	//  func f(i int) {
+	//  
+ f(i int) {
 	//  	i*i
 	//  }
 	UnusedExpr
 
 	// UnusedVar occurs when a variable is declared but unused.
 	//
-	// Example:
-	//  func f() {
+	// Ele:
+	//  
+ f() {
 	//  	x := 1
 	//  }
 	UnusedVar
 
-	// MissingReturn occurs when a function with results is missing a return
-	// statement.
+	// MissingReturn occurs when a 
+tion with results is missing a return
+	// sment.
 	//
 	// Example:
-	//  func f() int {}
+	//  
+ f() int {}
 	MissingReturn
 
 	// WrongResultCount occurs when a return statement returns an incorrect
 	// number of values.
 	//
 	// Example:
-	//  func ReturnOne() int {
+	//  
+ rnOne() int {
 	//  	return 1, 2
 	//  }
 	WrongResultCount
@@ -1053,8 +1111,9 @@ const (
 	// an empty return statement is shadowed in a nested scope.
 	//
 	// Example:
-	//  func factor(n int) (i int) {
-	//  	for i := 2; i < n; i++ {
+	//  
+ factor(n int) (i int) {
+	//   i := 2; i < n; i++ {
 	//  		if n%i == 0 {
 	//  			return
 	//  		}
@@ -1067,21 +1126,23 @@ const (
 
 	// InvalidCond occurs when an if condition is not a boolean expression.
 	//
-	// Example:
-	//  func checkReturn(i int) {
+	// Ele:
+	//  
+ checkReturn(i int) {
 	//  	if i {
 	//  		panic("non-zero return")
 	//  	}
 	//  }
 	InvalidCond
 
-	/* control flow > for */
+	/* col flow > for */
 
 	// InvalidPostDecl occurs when there is a declaration in a for-loop post
 	// statement.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	for i := 0; i < 10; j := 0 {}
 	//  }
 	InvalidPostDecl
@@ -1090,9 +1151,10 @@ const (
 	// expression.
 	//
 	// Example:
-	//  func sum(c chan<- int) {
+	//  
+ sum(c chan<- int) {
 	//  	s := 0
-	//  	for i := range c {
+	//   i := range c {
 	//  		s += i
 	//  	}
 	//  }
@@ -1102,18 +1164,20 @@ const (
 	// over a channel.
 	//
 	// Example:
-	//  func f(c chan int) {
+	//  
+ f(c chan int) {
 	//  	for k, v := range c {
 	//  		println(k, v)
 	//  	}
-	//  }
+	//  
 	InvalidIterVar
 
 	// InvalidRangeExpr occurs when the type of a range expression is not array,
 	// slice, string, map, or channel.
 	//
 	// Example:
-	//  func f(i int) {
+	//  
+ f(i int) {
 	//  	for j := range i {
 	//  		println(j)
 	//  	}
@@ -1123,25 +1187,30 @@ const (
 	/* control flow > switch */
 
 	// MisplacedBreak occurs when a break statement is not within a for, switch,
-	// or select statement of the innermost function definition.
+	// or select statement of the innermost 
+tion definition.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  	break
 	//  }
 	MisplacedBreak
 
 	// MisplacedContinue occurs when a continue statement is not within a for
-	// loop of the innermost function definition.
+	// loop of the innermost 
+tion definition.
 	//
 	// Example:
-	//  func sumeven(n int) int {
-	//  	proceed := func() {
+	//  
+ sumeven(n int) int {
+	//  	proceed := 
+() {
 	//  		continue
 	//  	}
 	//  	sum := 0
 	//  	for i := 1; i <= n; i++ {
-	//  		if i % 2 != 0 {
+	//   i % 2 != 0 {
 	//  			proceed()
 	//  		}
 	//  		sum += i
@@ -1150,18 +1219,19 @@ const (
 	//  }
 	MisplacedContinue
 
-	// MisplacedFallthrough occurs when a fallthrough statement is not within an
+	// MisplacedFallthrouccurs when a fallthrough statement is not within an
 	// expression switch.
 	//
 	// Example:
-	//  func typename(i interface{}) string {
+	//  
+ typename(i interface{}) string {
 	//  	switch i.(type) {
 	//  	case int64:
 	//  		fallthrough
 	//  	case int:
 	//  		return "int"
 	//  	}
-	//  	return "unsupported"
+	//  urn "unsupported"
 	//  }
 	MisplacedFallthrough
 
@@ -1169,13 +1239,14 @@ const (
 	// cases.
 	//
 	// Example:
-	//  func printInt(i int) {
+	//  
+ printInt(i int) {
 	//  	switch i {
 	//  	case 1:
 	//  		println("one")
 	//  	case 1:
 	//  		println("One")
-	//  	}
+	//  
 	//  }
 	DuplicateCase
 
@@ -1183,7 +1254,8 @@ const (
 	// default clauses.
 	//
 	// Example:
-	//  func printInt(i int) {
+	//  
+ printInt(i int) {
 	//  	switch i {
 	//  	case 1:
 	//  		println("one")
@@ -1193,7 +1265,7 @@ const (
 	//  		println("1")
 	//  	}
 	//  }
-	DuplicateDefault
+	DupleDefault
 
 	// BadTypeKeyword occurs when a .(type) expression is used anywhere other
 	// than a type switch.
@@ -1210,16 +1282,19 @@ const (
 	// not of interface type.
 	//
 	// Example:
-	//  func f(i int) {
+	//  
+ f(i int) {
 	//  	switch x := i.(type) {}
 	//  }
 	InvalidTypeSwitch
 
-	// InvalidExprSwitch occurs when a switch expression is not comparable.
+	// IidExprSwitch occurs when a switch expression is not comparable.
 	//
 	// Example:
-	//  func _() {
-	//  	var a struct{ _ func() }
+	//  
+ _() {
+	//  	var a struct{ _ 
+() }
 	//  	switch a /* ERROR cannot switch on a */ {
 	//  	}
 	//  }
@@ -1231,7 +1306,8 @@ const (
 	// receive.
 	//
 	// Example:
-	//  func checkChan(c <-chan int) bool {
+	//  
+ checkChan(c <-chan int) bool {
 	//  	select {
 	//  	case c:
 	//  		return true
@@ -1246,15 +1322,17 @@ const (
 	// UndeclaredLabel occurs when an undeclared label is jumped to.
 	//
 	// Example:
-	//  func f() {
-	//  	goto L
+	//  
+ f() {
+	// to L
 	//  }
 	UndeclaredLabel
 
 	// DuplicateLabel occurs when a label is declared more than once.
 	//
 	// Example:
-	//  func f() int {
+	//  
+ f() int {
 	//  L:
 	//  L:
 	//  	return 1
@@ -1265,9 +1343,10 @@ const (
 	// switch, or select statement.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  L:
-	//  	a := []int{1,2,3}
+	//  = []int{1,2,3}
 	//  	for _, e := range a {
 	//  		if e > 10 {
 	//  			break L
@@ -1277,10 +1356,11 @@ const (
 	//  }
 	MisplacedLabel
 
-	// UnusedLabel occurs when a label is declared but not used.
+	// UdLabel occurs when a label is declared but not used.
 	//
 	// Example:
-	//  func f() {
+	//  
+ f() {
 	//  L:
 	//  }
 	UnusedLabel
@@ -1288,7 +1368,8 @@ const (
 	// JumpOverDecl occurs when a label jumps over a variable declaration.
 	//
 	// Example:
-	//  func f() int {
+	//  
+ f() int {
 	//  	goto L
 	//  	x := 2
 	//  L:
@@ -1301,7 +1382,8 @@ const (
 	// block.
 	//
 	// Example:
-	//  func f(x int) {
+	//  
+ int) {
 	//  	goto L
 	//  	if x > 0 {
 	//  	L:
@@ -1318,20 +1400,24 @@ const (
 	// Example:
 	//  type T struct {}
 	//
-	//  func (*T) m() int { return 1 }
+	//  
+ (*T) m() int { return 1 }
 	//
 	//  var _ = T.m(T{})
 	InvalidMethodExpr
 
 	// WrongArgCount occurs when too few or too many arguments are passed by a
-	// function call.
+	// 
+tion call.
 	//
 	// Example:
-	//  func f(i int) {}
+	//  
+ f(i int) {}
 	//  var x = f()
 	WrongArgCount
 
-	// InvalidCall occurs when an expression is called that is not of function
+	// InvalidCall occurs when an expression is called that is not of 
+tion
 	// type.
 	//
 	// Example:
@@ -1341,33 +1427,40 @@ const (
 
 	/* control flow > suspended */
 
-	// UnusedResults occurs when a restricted expression-only built-in function
+	// UnusedResults occurs when a restricted expression-only built-in 
+tion
 	// is suspended via go or defer. Such a suspension discards the results of
-	// these side-effect free built-in functions, and therefore is ineffectual.
+	// these side-effect free built-in 
+tions, and therefore is ineffectual.
 	//
 	// Example:
-	//  func f(a []int) int {
+	//  
+ f(a []int) int {
 	//  	defer len(a)
 	//  	return i
 	//  }
 	UnusedResults
 
-	// InvalidDefer occurs when a deferred expression is not a function call,
+	// InvalidDefer occurs when a deferred expression is not a 
+tion call,
 	// for example if the expression is a type conversion.
 	//
 	// Example:
-	//  func f(i int) int {
+	//  
+ f(i int) int {
 	//  	defer int32(i)
 	//  	return i
-	//  }
+	// 
 	InvalidDefer
 
-	// InvalidGo occurs when a go expression is not a function call, for example
+	// InvalidGo occurs when a go expression is not a 
+tion call, for example
 	// if the expression is a type conversion.
 	//
 	// Example:
-	//  func f(i int) int {
-	//  	go int32(i)
+	//  
+ f(i int) int {
+	//  int32(i)
 	//  	return i
 	//  }
 	InvalidGo
@@ -1376,14 +1469,15 @@ const (
 
 	/* decl */
 
-	// BadDecl occurs when a declaration has invalid syntax.
+	// Bcl occurs when a declaration has invalid syntax.
 	BadDecl
 
 	// RepeatedDecl occurs when an identifier occurs more than once on the left
 	// hand side of a short variable declaration.
 	//
 	// Example:
-	//  func _() {
+	//  
+ _() {
 	//  	x, y, y := 1, 2, 3
 	//  }
 	RepeatedDecl
@@ -1400,7 +1494,7 @@ const (
 	//  var _ = unsafe.Add(p, float64(1))
 	InvalidUnsafeAdd
 
-	// InvalidUnsafeSlice occurs when unsafe.Slice is called with a
+	// IidUnsafeSlice occurs when unsafe.Slice is called with a
 	// pointer argument that is not of pointer type or a length argument
 	// that is not of integer type, negative, or out of bounds.
 	//
@@ -1440,7 +1534,8 @@ const (
 	/* type params */
 
 	// NotAGenericType occurs when a non-generic type is used where a generic
-	// type is expected: in type or function instantiation.
+	// type is expected: in type or 
+tion instantiation.
 	//
 	// Example:
 	//  type T int
@@ -1448,9 +1543,11 @@ const (
 	//  var _ T[int]
 	NotAGenericType
 
-	// WrongTypeArgCount occurs when a type or function is instantiated with an
+	// WrongTypeArgCount occurs when a type or 
+tion is instantiated with an
 	// incorrent number of type arguments, including when a generic type or
-	// function is used without instantiation.
+	// 
+tion is used without instantiation.
 	//
 	// Errors inolving failed type inference are assigned other error codes.
 	//
@@ -1460,18 +1557,22 @@ const (
 	//  var _ T[int, string]
 	//
 	// Example:
-	//  func f[T any]() {}
+	//  
+ f[T any]() {}
 	//
 	//  var x = f
 	WrongTypeArgCount
 
-	// CannotInferTypeArgs occurs when type or function type argument inference
+	// CannotInferTypeArgs occurs when type or 
+tion type argument inference
 	// fails to infer all type arguments.
 	//
 	// Example:
-	//  func f[T any]() {}
+	//  
+ f[T any]() {}
 	//
-	//  func _() {
+	//  
+ _() {
 	//  	f()
 	//  }
 	//
@@ -1494,7 +1595,8 @@ const (
 	// within the instantiation graph.
 	//
 	// Example:
-	//  func f[T any]() { f[*T]() }
+	//  
+ f[T any]() { f[*T]() }
 	InvalidInstanceCycle
 
 	// InvalidUnion occurs when an embedded union or approximation element is

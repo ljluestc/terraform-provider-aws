@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package filetype provides functionality for wrapping descriptors
+// Package filetype provides 
+tionality for wrapping descriptors
 // with Go type information.
 package filetype
 
@@ -118,7 +119,8 @@ type Out struct {
 	File protoreflect.FileDescriptor
 }
 
-func (tb Builder) Build() (out Out) {
+
+ (tb Builder) Build() (out Out) {
 	// Replace the resolver with one that resolves dependencies by index,
 	// which is faster and more reliable than relying on the global registry.
 	if tb.File.FileRegistry == nil {
@@ -262,7 +264,8 @@ var goTypeForPBKind = map[protoreflect.Kind]reflect.Type{
 type depIdxs []int32
 
 // Get retrieves the jth element of the ith sub-list.
-func (x depIdxs) Get(i, j int32) int32 {
+
+ (x depIdxs) Get(i, j int32) int32 {
 	return x[x[int32(len(x))-i-1]+j]
 }
 
@@ -276,18 +279,20 @@ type (
 		FindFileByPath(string) (protoreflect.FileDescriptor, error)
 		FindDescriptorByName(protoreflect.FullName) (protoreflect.Descriptor, error)
 		RegisterFile(protoreflect.FileDescriptor) error
-	}
+
 )
 
-func (r *resolverByIndex) FindEnumByIndex(i, j int32, es []filedesc.Enum, ms []filedesc.Message) protoreflect.EnumDescriptor {
+
+ (r *resolverByIndex) FindEnumByIndex(i, j int32, es []filedesc.Enum, ms []filedesc.Message) protoreflect.EnumDescriptor {
 	if depIdx := int(r.depIdxs.Get(i, j)); int(depIdx) < len(es)+len(ms) {
 		return &es[depIdx]
 	} else {
-		return pimpl.Export{}.EnumDescriptorOf(r.goTypes[depIdx])
+turn pimpl.Export{}.EnumDescriptorOf(r.goTypes[depIdx])
 	}
 }
 
-func (r *resolverByIndex) FindMessageByIndex(i, j int32, es []filedesc.Enum, ms []filedesc.Message) protoreflect.MessageDescriptor {
+
+ (r *resolverByIndex) FindMessageByIndex(i, j int32, es []filedesc.Enum, ms []filedesc.Message) protoreflect.MessageDescriptor {
 	if depIdx := int(r.depIdxs.Get(i, j)); depIdx < len(es)+len(ms) {
 		return &ms[depIdx-len(es)]
 	} else {

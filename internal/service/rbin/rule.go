@@ -82,7 +82,7 @@ func ResourceRule() *schema.Resource {
 				},
 			},
 			"resource_type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				ValidateDiagFunc: enum.Validate[types.ResourceType](),
@@ -99,7 +99,7 @@ func ResourceRule() *schema.Resource {
 							ValidateFunc: validation.IntBetween(1, 365),
 						},
 						"retention_period_unit": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Required:         true,
 							ValidateDiagFunc: enum.Validate[types.RetentionPeriodUnit](),
 						},
@@ -119,7 +119,7 @@ func ResourceRule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"unlock_delay_unit": {
-										Type:             schema.TypeString,
+										Type:schema.TypeString,
 										Required:         true,
 										ValidateDiagFunc: enum.Validate[types.UnlockDelayUnit](),
 									},
@@ -300,10 +300,10 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.RuleStatusPending),
-		Target:                    enum.Slice(types.RuleStatusAvailable),
-		Refresh:                   statusRule(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:      enum.Slice(types.RuleStatusPending),
+		Target:       enum.Slice(types.RuleStatusAvailable),
+		Refresh:      statusRule(ctx, conn, id),
+		Timeout:      timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -318,10 +318,10 @@ func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout 
 
 func waitRuleUpdated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.RuleStatusPending),
-		Target:                    enum.Slice(types.RuleStatusAvailable),
-		Refresh:                   statusRule(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:      enum.Slice(types.RuleStatusPending),
+		Target:       enum.Slice(types.RuleStatusAvailable),
+		Refresh:      statusRule(ctx, conn, id),
+		Timeout:      timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

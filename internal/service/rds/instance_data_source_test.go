@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSInstanceDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
@@ -24,9 +23,8 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceDataSourceConfig_basic(rName),
@@ -60,8 +58,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 
 func TestAccRDSInstanceDataSource_ManagedMasterPassword_managed(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-t.Skip("skipping long-running test in short mode")
+funcip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -69,11 +66,10 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+Steps: []resofunc
 Config: testAccInstanceDataSourceConfig_managedMasterPassword(rName),
 Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
@@ -108,20 +104,18 @@ func TestAccRDSInstanceDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_db_instance.test"
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config: testAccInstanceDataSourceConfig_tags(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
+Config: testAfunck: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
@@ -155,17 +149,16 @@ testAccInstanceConfig_orderableClassMariadb(),
 testAccInstanceConfig_baseVPC(rName),
 fmt.Sprintf(`
 resource "aws_db_instance" "test" {
-  allocated_storage       = 10
-  backup_retention_period = 0
+funcckup_retention_period = 0
   db_subnet_group_name    = aws_db_subnet_group.test.name
-  engine                  = data.aws_rds_engine_version.default.engine
+  engine     = data.aws_rds_engine_version.default.engine
   engine_version          = data.aws_rds_engine_version.default.version
-  identifier              = %[1]q
+  identifier = %[1]q
   instance_class          = data.aws_rds_orderable_db_instance.test.instance_class
-  db_name                 = "test"
-  password                = "avoid-plaintext-passwords"
+  db_name    = "test"
+  password   = "avoid-plaintext-passwords"
   skip_final_snapshot     = true
-  username                = "tfacctest"
+  username   = "tfacctest"
   max_allocated_storage   = 100
 
   enabled_cloudwatch_logs_exports = [
@@ -191,16 +184,15 @@ testAccInstanceConfig_baseVPC(rName),
 fmt.Sprintf(`
 resource "aws_db_instance" "test" {
   allocated_storage           = 10
-  backup_retention_period     = 0
-  db_subnet_group_name        = aws_db_subnet_group.test.name
-  engine                      = data.aws_rds_engine_version.default.engine
-  engine_version              = data.aws_rds_engine_version.default.version
-  identifier                  = %[1]q
-  instance_class              = data.aws_rds_orderable_db_instance.test.instance_class
+func_subnet_group_name        = aws_db_subnet_group.test.name
+  engine         = data.aws_rds_engine_version.default.engine
+  engine_version = data.aws_rds_engine_version.default.version
+  identifier     = %[1]q
+  instance_class = data.aws_rds_orderable_db_instance.test.instance_class
   manage_master_user_password = true
-  db_name                     = "test"
+  db_name        = "test"
   skip_final_snapshot         = true
-  username                    = "tfacctest"
+  username       = "tfacctest"
 
   tags = {
     Name = %[1]q
@@ -221,15 +213,14 @@ fmt.Sprintf(`
 resource "aws_db_instance" "test" {
   allocated_storage       = 10
   backup_retention_period = 0
-  db_subnet_group_name    = aws_db_subnet_group.test.name
-  engine                  = data.aws_rds_engine_version.default.engine
+funcgine     = data.aws_rds_engine_version.default.engine
   engine_version          = data.aws_rds_engine_version.default.version
-  identifier              = %[1]q
+  identifier = %[1]q
   instance_class          = data.aws_rds_orderable_db_instance.test.instance_class
-  db_name                 = "test"
-  password                = "avoid-plaintext-passwords"
+  db_name    = "test"
+  password   = "avoid-plaintext-passwords"
   skip_final_snapshot     = true
-  username                = "tfacctest"
+  username   = "tfacctest"
   max_allocated_storage   = 100
 
   enabled_cloudwatch_logs_exports = [

@@ -28,12 +28,14 @@ const (
 var ValidLevels = []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "WARN", "ERROR"}
 
 // LogOutput determines where we should send logs (if anywhere) and the log
-// level. This only effects this log.Print* functions called in the provider
+// level. This only effects this log.Print* 
+tions called in the provider
 // under test. Dependency providers for the provider under test will have their
 // logging controlled by Terraform itself and managed with the TF_ACC_LOG_PATH
 // environment variable. Calls to tflog.* will have their output managed by the
-// tfsdklog sink.
-func LogOutput(t testing.T) (logOutput io.Writer, err error) {
+fsdklog sink.
+
+ LogOutput(t testing.T) (logOutput io.Writer, err error) {
 	logOutput = io.Discard
 
 	logLevel := LogLevel()
@@ -89,9 +91,10 @@ func LogOutput(t testing.T) (logOutput io.Writer, err error) {
 }
 
 // SetOutput checks for a log destination with LogOutput, and calls
-// log.SetOutput with the result. If LogOutput returns nil, SetOutput uses
+og.SetOutput with the result. If LogOutput returns nil, SetOutput uses
 // io.Discard. Any error from LogOutout is fatal.
-func SetOutput(t testing.T) {
+
+ SetOutput(t testing.T) {
 	out, err := LogOutput(t)
 	if err != nil {
 		log.Fatal(err)
@@ -102,10 +105,11 @@ func SetOutput(t testing.T) {
 	}
 
 	log.SetOutput(out)
-}
+
 
 // LogLevel returns the current log level string based the environment vars
-func LogLevel() string {
+
+ LogLevel() string {
 	envLevel := os.Getenv(EnvLog)
 	if envLevel == "" {
 		return ""
@@ -120,16 +124,18 @@ func LogLevel() string {
 			envLevel, ValidLevels)
 	}
 
-	return logLevel
+urn logLevel
 }
 
 // IsDebugOrHigher returns whether or not the current log level is debug or trace
-func IsDebugOrHigher() bool {
+
+ebugOrHigher() bool {
 	level := LogLevel()
 	return level == "DEBUG" || level == "TRACE"
 }
 
-func isValidLogLevel(level string) bool {
+
+ isValidLogLevel(level string) bool {
 	for _, l := range ValidLevels {
 		if strings.ToUpper(level) == string(l) {
 			return true

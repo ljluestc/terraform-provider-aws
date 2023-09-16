@@ -13,7 +13,8 @@ import (
 
 // This file simulates fstatfs on z/OS using fstatvfs and w_getmntent.
 
-func Fstatfs(fd int, stat *Statfs_t) (err error) {
+
+ Fstatfs(fd int, stat *Statfs_t) (err error) {
 	var stat_v Statvfs_t
 	err = Fstatvfs(fd, &stat_v)
 	if err == nil {
@@ -58,7 +59,8 @@ func Fstatfs(fd int, stat *Statfs_t) (err error) {
 	return err
 }
 
-func tryGetmntent64(stat *Statfs_t) (err error) {
+
+ tryGetmntent64(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [64]W_Mntent
@@ -77,9 +79,10 @@ func tryGetmntent64(stat *Statfs_t) (err error) {
 		}
 	}
 	return err
-}
 
-func tryGetmntent128(stat *Statfs_t) (err error) {
+
+
+ tryGetmntent128(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [128]W_Mntent
@@ -97,10 +100,11 @@ func tryGetmntent128(stat *Statfs_t) (err error) {
 			break
 		}
 	}
-	return err
+urn err
 }
 
-func tryGetmntent256(stat *Statfs_t) (err error) {
+
+ tryGetmntent256(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [256]W_Mntent
@@ -117,11 +121,12 @@ func tryGetmntent256(stat *Statfs_t) (err error) {
 			err = nil
 			break
 		}
-	}
+
 	return err
 }
 
-func tryGetmntent512(stat *Statfs_t) (err error) {
+
+ tryGetmntent512(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [512]W_Mntent
@@ -137,12 +142,13 @@ func tryGetmntent512(stat *Statfs_t) (err error) {
 			stat.Type = uint32(mnt_ent_buffer.filesys_info[i].Fstname[0])
 			err = nil
 			break
-		}
+
 	}
 	return err
 }
 
-func tryGetmntent1024(stat *Statfs_t) (err error) {
+
+ tryGetmntent1024(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [1024]W_Mntent

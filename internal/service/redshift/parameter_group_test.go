@@ -25,10 +25,10 @@ func TestAccRedshiftParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -70,10 +70,10 @@ func TestAccRedshiftParameterGroup_disappears(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -94,10 +94,10 @@ func TestAccRedshiftParameterGroup_update(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_noParameters(rName),
@@ -151,10 +151,10 @@ func TestAccRedshiftParameterGroup_tags(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_tags1(rName, "key1", "value1"),

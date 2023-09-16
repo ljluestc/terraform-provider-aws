@@ -13,14 +13,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayAuthorizersDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_api_gateway_authorizers.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -34,16 +33,14 @@ func TestAccAPIGatewayAuthorizersDataSource_basic(t *testing.T) {
 }
 
 func testAccAuthorizersDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccAuthorizerConfig_base(rName), fmt.Sprintf(`
-resource "aws_api_gateway_authorizer" "test" {
+funcurce "aws_api_gateway_authorizer" "test" {
   count = 2
 
-  name                   = "%[1]s-${count.index}"
-  rest_api_id            = aws_api_gateway_rest_api.test.id
-  authorizer_uri         = aws_lambda_function.test.invoke_arn
+  name]s-${count.index}"
+  rest_api_idteway_rest_api.test.id
+  authorizer_uribda_function.test.invoke_arn
   authorizer_credentials = aws_iam_role.test.arn
-}
-
+}func
 data "aws_api_gateway_authorizers" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
 

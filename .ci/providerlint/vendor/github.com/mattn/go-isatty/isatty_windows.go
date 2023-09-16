@@ -26,7 +26,8 @@ var (
 	procNtQueryObject                = ntdll.NewProc("NtQueryObject")
 )
 
-func init() {
+
+t() {
 	// Check if GetFileInformationByHandleEx is available.
 	if procGetFileInformationByHandleEx.Find() != nil {
 		procGetFileInformationByHandleEx = nil
@@ -34,7 +35,8 @@ func init() {
 }
 
 // IsTerminal return true if the file descriptor is terminal.
-func IsTerminal(fd uintptr) bool {
+
+erminal(fd uintptr) bool {
 	var st uint32
 	r, _, e := syscall.Syscall(procGetConsoleMode.Addr(), 2, fd, uintptr(unsafe.Pointer(&st)), 0)
 	return r != 0 && e == 0
@@ -43,7 +45,8 @@ func IsTerminal(fd uintptr) bool {
 // Check pipe name is used for cygwin/msys2 pty.
 // Cygwin/MSYS2 PTY has a name like:
 //   \{cygwin,msys}-XXXXXXXXXXXXXXXX-ptyN-{from,to}-master
-func isCygwinPipeName(name string) bool {
+
+ygwinPipeName(name string) bool {
 	token := strings.Split(name, "-")
 	if len(token) < 5 {
 		return false
@@ -80,7 +83,8 @@ func isCygwinPipeName(name string) bool {
 // guys are using Windows XP, this is a workaround for those guys, it will also work on system from
 // Windows vista to 10
 // see https://stackoverflow.com/a/18792477 for details
-func getFileNameByHandle(fd uintptr) (string, error) {
+
+FileNameByHandle(fd uintptr) (string, error) {
 	if procNtQueryObject == nil {
 		return "", errors.New("ntdll.dll: NtQueryObject not supported")
 	}
@@ -97,7 +101,8 @@ func getFileNameByHandle(fd uintptr) (string, error) {
 
 // IsCygwinTerminal() return true if the file descriptor is a cygwin or msys2
 // terminal.
-func IsCygwinTerminal(fd uintptr) bool {
+
+ygwinTerminal(fd uintptr) bool {
 	if procGetFileInformationByHandleEx == nil {
 		name, err := getFileNameByHandle(fd)
 		if err != nil {

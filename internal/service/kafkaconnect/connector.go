@@ -40,39 +40,39 @@ func ResourceConnector() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"capacity": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"autoscaling": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max_worker_count": {
 										Type:schema.TypeInt,
-										Required:     true,
+										Required:
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
 									"mcu_count": {
 										Type:schema.TypeInt,
-										Optional:     true,
-										Default:      1,
+										Optional:
+										Default:
 										ValidateFunc: validation.IntInSlice([]int{1, 2, 4, 8}),
 									},
 									"min_worker_count": {
 										Type:schema.TypeInt,
-										Required:     true,
+										Required:
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
 									"scale_in_policy": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										Computed: true,
@@ -80,15 +80,15 @@ func ResourceConnector() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"cpu_utilization_percentage": {
 													Type:schema.TypeInt,
-													Optional:     true,
-													Computed:     true,
+													Optional:
+													Computed:
 													ValidateFunc: validation.IntBetween(1, 100),
 												},
 											},
 										},
 									},
 									"scale_out_policy": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										Computed: true,
@@ -96,8 +96,8 @@ func ResourceConnector() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"cpu_utilization_percentage": {
 													Type:schema.TypeInt,
-													Optional:     true,
-													Computed:     true,
+													Optional:
+													Computed:
 													ValidateFunc: validation.IntBetween(1, 100),
 												},
 											},
@@ -108,20 +108,20 @@ func ResourceConnector() *schema.Resource {
 							ExactlyOneOf: []string{"capacity.0.autoscaling", "capacity.0.provisioned_capacity"},
 						},
 						"provisioned_capacity": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"mcu_count": {
 										Type:schema.TypeInt,
-										Optional:     true,
-										Default:      1,
+										Optional:
+										Default:
 										ValidateFunc: validation.IntInSlice([]int{1, 2, 4, 8}),
 									},
 									"worker_count": {
 										Type:schema.TypeInt,
-										Required:     true,
+										Required:
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
 								},
@@ -132,54 +132,54 @@ func ResourceConnector() *schema.Resource {
 				},
 			},
 			"connector_configuration": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:a.TypeMap,
+				Elem:ma.Schema{Type: schema.TypeString},
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"kafka_cluster": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"apache_kafka_cluster": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bootstrap_servers": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 									},
 									"vpc": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Required: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"security_groups": {
-													Type:     schema.TypeSet,
+													Type:a.TypeSet,
 													Required: true,
 													ForceNew: true,
-													Elem:     &schema.Schema{Type: schema.TypeString},
+													Elem:ma.Schema{Type: schema.TypeString},
 												},
 												"subnets": {
-													Type:     schema.TypeSet,
+													Type:a.TypeSet,
 													Required: true,
 													ForceNew: true,
-													Elem:     &schema.Schema{Type: schema.TypeString},
+													Elem:ma.Schema{Type: schema.TypeString},
 												},
 											},
 										},
@@ -191,7 +191,7 @@ func ResourceConnector() *schema.Resource {
 				},
 			},
 			"kafka_cluster_client_authentication": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
@@ -199,16 +199,16 @@ func ResourceConnector() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"authentication_type": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      kafkaconnect.KafkaClusterClientAuthenticationTypeNone,
+							Optional:
+							ForceNew:
+							Default:aconnect.KafkaClusterClientAuthenticationTypeNone,
 							ValidateFunc: validation.StringInSlice(kafkaconnect.KafkaClusterClientAuthenticationType_Values(), false),
 						},
 					},
 				},
 			},
 			"kafka_cluster_encryption_in_transit": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
@@ -216,47 +216,47 @@ func ResourceConnector() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"encryption_type": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      kafkaconnect.KafkaClusterEncryptionInTransitTypePlaintext,
+							Optional:
+							ForceNew:
+							Default:aconnect.KafkaClusterEncryptionInTransitTypePlaintext,
 							ValidateFunc: validation.StringInSlice(kafkaconnect.KafkaClusterEncryptionInTransitType_Values(), false),
 						},
 					},
 				},
 			},
 			"kafkaconnect_version": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"log_delivery": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"worker_log_delivery": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"cloudwatch_logs": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"enabled": {
-													Type:     schema.TypeBool,
+													Type:a.TypeBool,
 													Required: true,
 													ForceNew: true,
 												},
 												"log_group": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													ForceNew: true,
 												},
@@ -264,19 +264,19 @@ func ResourceConnector() *schema.Resource {
 										},
 									},
 									"firehose": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"delivery_stream": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													ForceNew: true,
 												},
 												"enabled": {
-													Type:     schema.TypeBool,
+													Type:a.TypeBool,
 													Required: true,
 													ForceNew: true,
 												},
@@ -284,24 +284,24 @@ func ResourceConnector() *schema.Resource {
 										},
 									},
 									"s3": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"bucket": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													ForceNew: true,
 												},
 												"enabled": {
-													Type:     schema.TypeBool,
+													Type:a.TypeBool,
 													Required: true,
 													ForceNew: true,
 												},
 												"prefix": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													ForceNew: true,
 												},
@@ -316,18 +316,18 @@ func ResourceConnector() *schema.Resource {
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"plugin": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_plugin": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Required: true,
 							ForceNew: true,
@@ -335,12 +335,12 @@ func ResourceConnector() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"arn": {
 										Type:schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Required:
+										ForceNew:
 										ValidateFunc: verify.ValidARN,
 									},
 									"revision": {
-										Type:     schema.TypeInt,
+										Type:a.TypeInt,
 										Required: true,
 										ForceNew: true,
 									},
@@ -352,16 +352,16 @@ func ResourceConnector() *schema.Resource {
 			},
 			"service_execution_role_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"worker_configuration": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
@@ -369,12 +369,12 @@ func ResourceConnector() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"arn": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 						"revision": {
-							Type:     schema.TypeInt,
+							Type:a.TypeInt,
 							Required: true,
 							ForceNew: true,
 						},
@@ -390,14 +390,14 @@ func resourceConnectorCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	name := d.Get("name").(string)
 	input := &kafkaconnect.CreateConnectorInput{
-		Capacity:       expandCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
+		Capacity:andCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
 		ConnectorConfiguration:  flex.ExpandStringMap(d.Get("connector_configuration").(map[string]interface{})),
 		ConnectorName:  aws.String(name),
 		KafkaCluster:   expandCluster(d.Get("kafka_cluster").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterClientAuthentication: expandClusterClientAuthentication(d.Get("kafka_cluster_client_authentication").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterEncryptionInTransit:  expandClusterEncryptionInTransit(d.Get("kafka_cluster_encryption_in_transit").([]interface{})[0].(map[string]interface{})),
-		KafkaConnectVersion:     aws.String(d.Get("kafkaconnect_version").(string)),
-		Plugins:        expandPlugins(d.Get("plugin").(*schema.Set).List()),
+		KafkaConnectVersion:tring(d.Get("kafkaconnect_version").(string)),
+		Plugins:pandPlugins(d.Get("plugin").(*schema.Set).List()),
 		ServiceExecutionRoleArn: aws.String(d.Get("service_execution_role_arn").(string)),
 	}
 
@@ -506,7 +506,7 @@ func resourceConnectorUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	conn := meta.(*conns.AWSClient).KafkaConnectConn(ctx)
 
 	input := &kafkaconnect.UpdateConnectorInput{
-		Capacity:       expandCapacityUpdate(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
+		Capacity:andCapacityUpdate(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
 		ConnectorArn:   aws.String(d.Id()),
 		CurrentVersion: aws.String(d.Get("version").(string)),
 	}

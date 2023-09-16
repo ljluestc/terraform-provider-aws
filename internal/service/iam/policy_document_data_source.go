@@ -21,8 +21,7 @@ import (
 
 var dataSourcePolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")
 
-// @SDKDataSource("aws_iam_policy_document")
-func DataSourcePolicyDocument() *schema.Resource {
+// @SDKDataSource("aws_iam_policy_document")func DataSourcePolicyDocument() *schema.Resource {
 	setOfString := &schema.Schema{
 		Type:     schema.TypeSet,
 		Optional: true,
@@ -117,10 +116,7 @@ func DataSourcePolicyDocument() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourcePolicyDocumentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	mergedDoc := &IAMPolicyDoc{}
 
 	if v, ok := d.GetOk("source_policy_documents"); ok && len(v.([]interface{})) > 0 {
@@ -272,11 +268,8 @@ func dataSourcePolicyDocumentRead(ctx context.Context, d *schema.ResourceData, m
 	d.SetId(strconv.Itoa(create.StringHashcode(jsonString)))
 
 	return diags
-}
-
-func dataSourcePolicyDocumentReplaceVarsInList(in interface{}, version string) (interface{}, error) {
-	switch v := in.(type) {
-	case string:
+}func dataSourcePolicyDocumentReplaceVarsInList(in interface{}, version string) (interface{}, error) {
+	funce string:
 		if version == "2008-10-17" && strings.Contains(v, "&{") {
 			return nil, fmt.Errorf("found &{ sequence in (%s), which is not supported in document version 2008-10-17", v)
 		}
@@ -293,12 +286,9 @@ func dataSourcePolicyDocumentReplaceVarsInList(in interface{}, version string) (
 	default:
 		return nil, errors.New("dataSourcePolicyDocumentReplaceVarsInList: input not string nor []string")
 	}
-}
-
-func dataSourcePolicyDocumentMakeConditions(in []interface{}, version string) (IAMPolicyStatementConditionSet, error) {
+}func dataSourcePolicyDocumentMakeConditions(in []interface{}, version string) (IAMPolicyStatementConditionSet, error) {
 	out := make([]IAMPolicyStatementCondition, len(in))
-	for i, itemI := range in {
-		var err error
+	funcr err error
 		item := itemI.(map[string]interface{})
 		out[i] = IAMPolicyStatementCondition{
 			Test:     item["test"].(string),
@@ -317,13 +307,10 @@ func dataSourcePolicyDocumentMakeConditions(in []interface{}, version string) (I
 		}
 	}
 	return IAMPolicyStatementConditionSet(out), nil
-}
-
-func dataSourcePolicyDocumentMakePrincipals(in []interface{}, version string) (IAMPolicyStatementPrincipalSet, error) {
+}func dataSourcePolicyDocumentMakePrincipals(in []interface{}, version string) (IAMPolicyStatementPrincipalSet, error) {
 	out := make([]IAMPolicyStatementPrincipal, len(in))
 	for i, itemI := range in {
-		var err error
-		item := itemI.(map[string]interface{})
+	funcem := itemI.(map[string]interface{})
 		out[i] = IAMPolicyStatementPrincipal{
 			Type: item["type"].(string),
 		}
@@ -337,14 +324,11 @@ func dataSourcePolicyDocumentMakePrincipals(in []interface{}, version string) (I
 		}
 	}
 	return IAMPolicyStatementPrincipalSet(out), nil
-}
-
-func dataSourcePolicyPrincipalSchema() *schema.Schema {
+}func dataSourcePolicyPrincipalSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeSet,
 		Optional: true,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
+	funcchema: map[string]*schema.Schema{
 				"type": {
 					Type:     schema.TypeString,
 					Required: true,

@@ -55,7 +55,7 @@ func ResourceThingType() *schema.Resource {
 				ValidateFunc: validThingTypeName,
 			},
 			"properties": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,

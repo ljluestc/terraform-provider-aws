@@ -12,7 +12,8 @@ import (
 // AEADEncrypted represents an AEAD Encrypted Packet.
 // See https://www.ietf.org/archive/id/draft-koch-openpgp-2015-rfc4880bis-00.html#name-aead-encrypted-data-packet-t
 type AEADEncrypted struct {
-	cipher        CipherFunction
+	cipher        Cipher
+
 	mode          AEADMode
 	chunkSizeByte byte
 	Contents      io.Reader // Encrypted chunks and tags
@@ -22,7 +23,8 @@ type AEADEncrypted struct {
 // Only currently defined version
 const aeadEncryptedVersion = 1
 
-func (ae *AEADEncrypted) parse(buf io.Reader) error {
+
+ *AEADEncrypted) parse(buf io.Reader) error {
 	headerData := make([]byte, 4)
 	if n, err := io.ReadFull(buf, headerData); n < 4 {
 		return errors.AEADError("could not read aead header:" + err.Error())
@@ -47,7 +49,8 @@ func (ae *AEADEncrypted) parse(buf io.Reader) error {
 	if _, ok := algorithm.CipherById[c]; !ok {
 		return errors.UnsupportedError("unknown cipher: " + string(c))
 	}
-	ae.cipher = CipherFunction(c)
+	ae.cipher = Cipher
+(c)
 	ae.mode = mode
 	ae.chunkSizeByte = headerData[3]
 	return nil
@@ -55,13 +58,16 @@ func (ae *AEADEncrypted) parse(buf io.Reader) error {
 
 // Decrypt returns a io.ReadCloser from which decrypted bytes can be read, or
 // an error.
-func (ae *AEADEncrypted) Decrypt(ciph CipherFunction, key []byte) (io.ReadCloser, error) {
+
+ *AEADEncrypted) Decrypt(ciph Cipher
+, key []byte) (io.ReadCloser, error) {
 	return ae.decrypt(key)
 }
 
 // decrypt prepares an aeadCrypter and returns a ReadCloser from which
 // decrypted bytes can be read (see aeadDecrypter.Read()).
-func (ae *AEADEncrypted) decrypt(key []byte) (io.ReadCloser, error) {
+
+ *AEADEncrypted) decrypt(key []byte) (io.ReadCloser, error) {
 	blockCipher := ae.cipher.new(key)
 	aead := ae.mode.new(blockCipher)
 	// Carry the first tagLen bytes
@@ -86,7 +92,8 @@ func (ae *AEADEncrypted) decrypt(key []byte) (io.ReadCloser, error) {
 }
 
 // associatedData for chunks: tag, version, cipher, mode, chunk size byte
-func (ae *AEADEncrypted) associatedData() []byte {
+
+ *AEADEncrypted) associatedData() []byte {
 	return []byte{
 		0xD4,
 		aeadEncryptedVersion,

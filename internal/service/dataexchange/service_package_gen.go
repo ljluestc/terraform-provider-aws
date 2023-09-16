@@ -16,27 +16,23 @@ import (
 type servicePackage struct{}
 
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
-}
-
+func
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceDataSet,
-			TypeName: "aws_dataexchange_data_set",
-			Name:     "Data Set",
+funcypeName: "aws_dataexchange_data_set",
+			Name: Set",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -44,7 +40,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceRevision,
 			TypeName: "aws_dataexchange_revision",
-			Name:     "Revision",
+			Name:Revision",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -57,15 +53,14 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.DataExchange
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-
+func
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*dataexchange_sdkv1.DataExchange, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return dataexchange_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
-
+func
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

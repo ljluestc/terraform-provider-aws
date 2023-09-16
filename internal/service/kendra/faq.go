@@ -31,6 +31,7 @@ import (
 
 // @SDKResource("aws_kendra_faq", name="FAQ")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFaq() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFaqCreate,
@@ -148,6 +149,7 @@ func ResourceFaq() *schema.Resource {
 	}
 }
 
+
 func resourceFaqCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)
 
@@ -174,10 +176,12 @@ func resourceFaqCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	}
 
 	outputRaw, err := tfresource.RetryWhen(ctx, propagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.CreateFaq(ctx, input)
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			var validationException *types.ValidationException
 
 			if errors.As(err, &validationException) && strings.Contains(validationException.ErrorMessage(), validationExceptionMessage) {
@@ -209,6 +213,7 @@ func resourceFaqCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return resourceFaqRead(ctx, d, meta)
 }
+
 
 func resourceFaqRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)
@@ -258,10 +263,12 @@ func resourceFaqRead(ctx context.Context, d *schema.ResourceData, meta interface
 	return nil
 }
 
+
 func resourceFaqUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceFaqRead(ctx, d, meta)
 }
+
 
 func resourceFaqDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)
@@ -294,6 +301,7 @@ func resourceFaqDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	return nil
 }
 
+
 func waitFaqCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeFaqOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.FaqStatusCreating, "PENDING_CREATION"), // API currently returns PENDING_CREATION instead of CREATING
@@ -316,6 +324,7 @@ func waitFaqCreated(ctx context.Context, conn *kendra.Client, id, indexId string
 	return nil, err
 }
 
+
 func waitFaqDeleted(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeFaqOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.FaqStatusDeleting, "PENDING_DELETION"), // API currently returns PENDING_DELETION instead of DELETING
@@ -335,8 +344,10 @@ func waitFaqDeleted(ctx context.Context, conn *kendra.Client, id, indexId string
 	return nil, err
 }
 
+
 func statusFaq(ctx context.Context, conn *kendra.Client, id, indexId string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindFaqByID(ctx, conn, id, indexId)
 
 		if tfresource.NotFound(err) {
@@ -350,6 +361,7 @@ func statusFaq(ctx context.Context, conn *kendra.Client, id, indexId string) ret
 		return output, string(output.Status), nil
 	}
 }
+
 
 func expandS3Path(tfList []interface{}) *types.S3Path {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -373,6 +385,7 @@ func expandS3Path(tfList []interface{}) *types.S3Path {
 
 	return result
 }
+
 
 func flattenS3Path(apiObject *types.S3Path) []interface{} {
 	if apiObject == nil {

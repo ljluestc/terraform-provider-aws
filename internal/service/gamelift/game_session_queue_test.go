@@ -31,11 +31,11 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(100),
-			PolicyDurationSeconds:                      aws.Int64(5),
+			PolicyDurationSeconds:         aws.Int64(5),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(200),
-			PolicyDurationSeconds:                      nil,
+			PolicyDurationSeconds:         nil,
 		},
 	}
 	timeoutInSeconds := int64(124)
@@ -44,11 +44,11 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 	uPlayerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(150),
-			PolicyDurationSeconds:                      aws.Int64(10),
+			PolicyDurationSeconds:         aws.Int64(10),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(250),
-			PolicyDurationSeconds:                      nil,
+			PolicyDurationSeconds:         nil,
 		},
 	}
 	uTimeoutInSeconds := int64(600)
@@ -59,9 +59,9 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameSessionQueueDestroy(ctx),
+		CheckDestroy:testAccCheckGameSessionQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameSessionQueueConfig_basic(queueName,
@@ -128,9 +128,9 @@ func TestAccGameLiftGameSessionQueue_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameSessionQueueDestroy(ctx),
+		CheckDestroy:testAccCheckGameSessionQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameSessionQueueConfig_basicTags1(queueName, "key1", "value1"),
@@ -175,11 +175,11 @@ func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(100),
-			PolicyDurationSeconds:                      aws.Int64(5),
+			PolicyDurationSeconds:         aws.Int64(5),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(200),
-			PolicyDurationSeconds:                      nil,
+			PolicyDurationSeconds:         nil,
 		},
 	}
 	timeoutInSeconds := int64(124)
@@ -190,9 +190,9 @@ func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameSessionQueueDestroy(ctx),
+		CheckDestroy:testAccCheckGameSessionQueueDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameSessionQueueConfig_basic(queueName,
@@ -266,7 +266,7 @@ resource "aws_gamelift_game_session_queue" "test" {
 
   player_latency_policy {
     maximum_individual_player_latency_milliseconds = %d
-    policy_duration_seconds                        = %d
+    policy_duration_seconds           = %d
   }
 
   player_latency_policy {
@@ -294,7 +294,7 @@ resource "aws_gamelift_game_session_queue" "test" {
 
   player_latency_policy {
     maximum_individual_player_latency_milliseconds = 100000
-    policy_duration_seconds                        = 10
+    policy_duration_seconds           = 10
   }
 
   player_latency_policy {
@@ -318,7 +318,7 @@ resource "aws_gamelift_game_session_queue" "test" {
 
   player_latency_policy {
     maximum_individual_player_latency_milliseconds = 100000
-    policy_duration_seconds                        = 10
+    policy_duration_seconds           = 10
   }
 
   player_latency_policy {

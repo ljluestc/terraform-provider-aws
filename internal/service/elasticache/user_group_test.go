@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccElastiCacheUserGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var userGroup elasticache.UserGroup
@@ -25,10 +26,11 @@ func TestAccElastiCacheUserGroup_basic(t *testing.T) {
 	resourceName := "aws_elasticache_user_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupConfig_basic(rName),
@@ -48,6 +50,7 @@ func TestAccElastiCacheUserGroup_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccElastiCacheUserGroup_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var userGroup elasticache.UserGroup
@@ -55,10 +58,11 @@ func TestAccElastiCacheUserGroup_update(t *testing.T) {
 	resourceName := "aws_elasticache_user_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupConfig_basic(rName),
@@ -91,6 +95,7 @@ func TestAccElastiCacheUserGroup_update(t *testing.T) {
 	})
 }
 
+
 func TestAccElastiCacheUserGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var userGroup elasticache.UserGroup
@@ -98,10 +103,11 @@ func TestAccElastiCacheUserGroup_tags(t *testing.T) {
 	resourceName := "aws_elasticache_user_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupConfig_tags1(rName, "key1", "value1"),
@@ -132,6 +138,7 @@ func TestAccElastiCacheUserGroup_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccElastiCacheUserGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var userGroup elasticache.UserGroup
@@ -139,10 +146,11 @@ func TestAccElastiCacheUserGroup_disappears(t *testing.T) {
 	resourceName := "aws_elasticache_user_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupConfig_basic(rName),
@@ -156,8 +164,10 @@ func TestAccElastiCacheUserGroup_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccCheckUserGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElastiCacheConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -182,8 +192,10 @@ func testAccCheckUserGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccCheckUserGroupExists(ctx context.Context, n string, v *elasticache.UserGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -206,6 +218,7 @@ func testAccCheckUserGroupExists(ctx context.Context, n string, v *elasticache.U
 		return nil
 	}
 }
+
 
 func testAccUserGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -233,6 +246,7 @@ resource "aws_elasticache_user_group" "test" {
 `, rName))
 }
 
+
 func testAccUserGroupConfig_multiple(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elasticache_user" "test1" {
@@ -259,6 +273,7 @@ resource "aws_elasticache_user_group" "test" {
 `, rName))
 }
 
+
 func testAccUserGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elasticache_user" "test1" {
@@ -278,6 +293,7 @@ resource "aws_elasticache_user_group" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
+
 
 func testAccUserGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

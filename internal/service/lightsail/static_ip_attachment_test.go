@@ -27,10 +27,10 @@ func TestAccLightsailStaticIPAttachment_basic(t *testing.T) {
 	keypairName := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStaticIPAttachmentDestroy(ctx),
+		CheckDestroy:taticIPAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStaticIPAttachmentConfig_basic(staticIpName, instanceName, keypairName),
@@ -63,10 +63,10 @@ func TestAccLightsailStaticIPAttachment_disappears(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStaticIPAttachmentDestroy(ctx),
+		CheckDestroy:taticIPAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStaticIPAttachmentConfig_basic(staticIpName, instanceName, keypairName),
@@ -163,7 +163,7 @@ resource "aws_lightsail_static_ip" "test" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = "%s"
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "micro_1_0"

@@ -32,10 +32,9 @@ import (
 // @SDKResource("aws_network_interface", name="Network Interface")
 // @Tags(identifierAttribute="id")
 
-func ResourceNetworkInterface() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfaceCreate,
-		ReadWithoutTimeout:   resourceNetworkInterfaceRead,
+		ReadWithoutTimeout:ourceNetworkInterfaceRead,
 		UpdateWithoutTimeout: resourceNetworkInterfaceUpdate,
 		DeleteWithoutTimeout: resourceNetworkInterfaceDelete,
 
@@ -45,44 +44,43 @@ func ResourceNetworkInterface() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"attachment": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attachment_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"device_index": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Required: true,
 						},
 						"instance": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"interface_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:
+				Computed:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.NetworkInterfaceCreationType_Values(), false),
-			},
-			"ipv4_prefixes": {
-				Type:     schema.TypeSet,
+funcipv4_prefixes": {
+				Type:eSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -90,34 +88,33 @@ func: validation.StringInSlice(ec2.NetworkInterfaceCreationType_Values(), false)
 					Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 				},
-				ConflictsWith: []string{"ipv4_prefix_count"},
-			},
+func,
 			"ipv4_prefix_count": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"ipv4_prefixes"},
 			},
 			"ipv6_address_count": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"ipv6_addresses", "ipv6_address_list"},
 			},
 			"ipv6_address_list": {
 				Type: schema.TypeList,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"ipv6_addresses", "ipv6_address_count"},
 			},
 			"ipv6_address_list_enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"ipv6_addresses": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -126,9 +123,8 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 func: validation.IsIPv6Address,
 				},
 				ConflictsWith: []string{"ipv6_address_count", "ipv6_address_list"},
-			},
-			"ipv6_prefixes": {
-				Type:     schema.TypeSet,
+funcipv6_prefixes": {
+				Type:eSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -138,75 +134,74 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"ipv6_prefix_count"},
 			},
-			"ipv6_prefix_count": {
-				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
+funcType: schema.TypeInt,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"ipv6_prefixes"},
 			},
 			"mac_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_dns_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"private_ips": {
 				Type: schema.TypeSet,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"private_ip_list"},
 			},
 			"private_ips_count": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"private_ip_list"},
 			},
 			"private_ip_list": {
 				Type: schema.TypeList,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"private_ips", "private_ips_count"},
 			},
 			"private_ip_list_enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"security_groups": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"source_dest_check": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
 			"subnet_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -218,8 +213,7 @@ func(_ context.Context, d *schema.ResourceDiff, meta interface{}) bool {
 				if privateIPListEnabled {
 					return false
 				}
-				_, new := d.GetChange("private_ips")
-				if new != nil {
+funcif new != nil {
 					oldPrimaryIP := ""
 					if v, ok := d.GetOk("private_ip_list"); ok {
 						for _, ip := range v.([]interface{}) {
@@ -246,8 +240,7 @@ func(_ context.Context, d *schema.ResourceDiff, meta interface{}) bool {
 					return false
 				}
 				old, new := d.GetChange("private_ip_list")
-				if old != nil && new != nil {
-					oldPrimaryIP := ""
+func	oldPrimaryIP := ""
 					newPrimaryIP := ""
 					for _, ip := range old.([]interface{}) {
 						oldPrimaryIP = ip.(string)
@@ -272,8 +265,7 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 						return false
 					} else {
 						return diff.HasChange("private_ips_count")
-					}
-				} else {
+func} else {
 					return diff.HasChange("private_ip_list")
 				}
 			}),
@@ -286,8 +278,7 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 					} else {
 						// compute the new count if private_ips change
 						return diff.HasChange("private_ips")
-					}
-				} else {
+func} else {
 					// compute the new count if private_ip_list changes
 					return diff.HasChange("private_ip_list")
 				}
@@ -302,7 +293,6 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 					return diff.HasChange("private_ips") || diff.HasChange("private_ips_count") || diff.HasChange("private_ip_list")
 				}
 			}),
-			customdiff.ComputedIf("ipv6_addresses", 
 func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				if !diff.Get("ipv6_address_list_enabled").(bool) {
 					// it is not computed if we are actively updating it
@@ -313,8 +303,7 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 					}
 				} else {
 					return diff.HasChange("ipv6_address_list")
-				}
-			}),
+func),
 			customdiff.ComputedIf("ipv6_address_count", 
 func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				if !diff.Get("ipv6_address_list_enabled").(bool) {
@@ -327,8 +316,7 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 					}
 				} else {
 					// compute the new count if ipv6_address_list changes
-					return diff.HasChange("ipv6_address_list")
-				}
+func}
 			}),
 			customdiff.ComputedIf("ipv6_address_list", 
 func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
@@ -343,8 +331,7 @@ func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 		),
 	}
 }
-
-
+func
 func resourceNetworkInterfaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -354,12 +341,11 @@ func resourceNetworkInterfaceCreate(ctx context.Context, d *schema.ResourceData,
 
 	input := &ec2.CreateNetworkInterfaceInput{
 		ClientToken: aws.String(id.UniqueId()),
-		SubnetId:    aws.String(d.Get("subnet_id").(string)),
+		SubnetId:s.String(d.Get("subnet_id").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
-		input.Description = aws.String(v.(string))
-	}
+func
 
 	if v, ok := d.GetOk("interface_type"); ok {
 		input.InterfaceType = aws.String(v.(string))
@@ -452,7 +438,7 @@ func resourceNetworkInterfaceCreate(ctx context.Context, d *schema.ResourceData,
 			if privateIPsCount, ok := d.GetOk("private_ips_count"); ok {
 				if privateIPsCount.(int)+1 > totalPrivateIPs {
 					input := &ec2.AssignPrivateIpAddressesInput{
-						NetworkInterfaceId:    aws.String(d.Id()),
+						NetworkInterfaceId:s.String(d.Id()),
 						SecondaryPrivateIpAddressCount: aws.Int64(int64(privateIPsCount.(int) + 1 - totalPrivateIPs)),
 					}
 
@@ -476,7 +462,7 @@ func resourceNetworkInterfaceCreate(ctx context.Context, d *schema.ResourceData,
 	if !d.Get("source_dest_check").(bool) {
 		input := &ec2.ModifyNetworkInterfaceAttributeInput{
 			NetworkInterfaceId: aws.String(d.Id()),
-			SourceDestCheck:    &ec2.AttributeBooleanValue{Value: aws.Bool(false)},
+			SourceDestCheck:c2.AttributeBooleanValue{Value: aws.Bool(false)},
 		}
 
 		_, err := conn.ModifyNetworkInterfaceAttributeWithContext(ctx, input)
@@ -514,18 +500,16 @@ func() (interface{}, error) {
 		d.SetId("")
 		return diags
 	}
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Network Interface (%s): %s", d.Id(), err)
 	}
 
 	eni := outputRaw.(*ec2.NetworkInterface)
-
-	ownerID := aws.StringValue(eni.OwnerId)
+funcerID := aws.StringValue(eni.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("network-interface/%s", d.Id()),
 	}.String()
@@ -594,8 +578,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			if err != nil {
 				return sdkdiag.AppendFromErr(diags, err)
 			}
-		}
-
+func
 		if na != nil && na.(*schema.Set).Len() > 0 {
 			attachment := na.(*schema.Set).List()[0].(map[string]interface{})
 
@@ -722,7 +705,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if o != nil && n != nil && n != len(privateIPsFiltered) {
 			if diff := n.(int) - o.(int) - privateIPsNetChange; diff > 0 {
 				input := &ec2.AssignPrivateIpAddressesInput{
-					NetworkInterfaceId:    aws.String(d.Id()),
+					NetworkInterfaceId:s.String(d.Id()),
 					SecondaryPrivateIpAddressCount: aws.Int64(int64(diff)),
 				}
 
@@ -754,7 +737,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			if diff := n - o; diff > 0 {
 				input := &ec2.AssignPrivateIpAddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv4PrefixCount:    aws.Int64(int64(diff)),
+					Ipv4PrefixCount:s.Int64(int64(diff)),
 				}
 
 				_, err := conn.AssignPrivateIpAddressesWithContext(ctx, input)
@@ -765,7 +748,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			} else if diff < 0 {
 				input := &ec2.UnassignPrivateIpAddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv4Prefixes:       flex.ExpandStringList(ipv4Prefixes[0:-diff]),
+					Ipv4Prefixes:andStringList(ipv4Prefixes[0:-diff]),
 				}
 
 				_, err := conn.UnassignPrivateIpAddressesWithContext(ctx, input)
@@ -794,7 +777,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if unassignPrefixes.Len() != 0 {
 			input := &ec2.UnassignPrivateIpAddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv4Prefixes:       flex.ExpandStringSet(unassignPrefixes),
+				Ipv4Prefixes:andStringSet(unassignPrefixes),
 			}
 
 			_, err := conn.UnassignPrivateIpAddressesWithContext(ctx, input)
@@ -809,7 +792,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if assignPrefixes.Len() != 0 {
 			input := &ec2.AssignPrivateIpAddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv4Prefixes:       flex.ExpandStringSet(assignPrefixes),
+				Ipv4Prefixes:andStringSet(assignPrefixes),
 			}
 
 			_, err := conn.AssignPrivateIpAddressesWithContext(ctx, input)
@@ -837,7 +820,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if unassignIPs.Len() != 0 {
 			input := &ec2.UnassignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Addresses:      flex.ExpandStringSet(unassignIPs),
+				Ipv6Addresses:ndStringSet(unassignIPs),
 			}
 
 			_, err := conn.UnassignIpv6AddressesWithContext(ctx, input)
@@ -852,7 +835,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if assignIPs.Len() != 0 {
 			input := &ec2.AssignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Addresses:      flex.ExpandStringSet(assignIPs),
+				Ipv6Addresses:ndStringSet(assignIPs),
 			}
 
 			_, err := conn.AssignIpv6AddressesWithContext(ctx, input)
@@ -871,7 +854,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			if diff := n.(int) - o.(int); diff > 0 {
 				input := &ec2.AssignIpv6AddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv6AddressCount:   aws.Int64(int64(diff)),
+					Ipv6AddressCount:.Int64(int64(diff)),
 				}
 
 				_, err := conn.AssignIpv6AddressesWithContext(ctx, input)
@@ -882,7 +865,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			} else if diff < 0 {
 				input := &ec2.UnassignIpv6AddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv6Addresses:      flex.ExpandStringList(ipv6Addresses[0:-diff]),
+					Ipv6Addresses:ndStringList(ipv6Addresses[0:-diff]),
 				}
 
 				_, err := conn.UnassignIpv6AddressesWithContext(ctx, input)
@@ -910,7 +893,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 
 			input := &ec2.UnassignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Addresses:      flex.ExpandStringList(unassignIPs),
+				Ipv6Addresses:ndStringList(unassignIPs),
 			}
 
 			_, err := conn.UnassignIpv6AddressesWithContext(ctx, input)
@@ -926,7 +909,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 
 			input := &ec2.AssignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Addresses:      flex.ExpandStringList(privateIPToAssign),
+				Ipv6Addresses:ndStringList(privateIPToAssign),
 			}
 
 			_, err := conn.AssignIpv6AddressesWithContext(ctx, input)
@@ -954,7 +937,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if unassignPrefixes.Len() != 0 {
 			input := &ec2.UnassignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Prefixes:       flex.ExpandStringSet(unassignPrefixes),
+				Ipv6Prefixes:andStringSet(unassignPrefixes),
 			}
 
 			_, err := conn.UnassignIpv6AddressesWithContext(ctx, input)
@@ -969,7 +952,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if assignPrefixes.Len() != 0 {
 			input := &ec2.AssignIpv6AddressesInput{
 				NetworkInterfaceId: aws.String(d.Id()),
-				Ipv6Prefixes:       flex.ExpandStringSet(assignPrefixes),
+				Ipv6Prefixes:andStringSet(assignPrefixes),
 			}
 
 			_, err := conn.AssignIpv6AddressesWithContext(ctx, input)
@@ -988,7 +971,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			if diff := n - o; diff > 0 {
 				input := &ec2.AssignIpv6AddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv6PrefixCount:    aws.Int64(int64(diff)),
+					Ipv6PrefixCount:s.Int64(int64(diff)),
 				}
 
 				_, err := conn.AssignIpv6AddressesWithContext(ctx, input)
@@ -999,7 +982,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 			} else if diff < 0 {
 				input := &ec2.UnassignIpv6AddressesInput{
 					NetworkInterfaceId: aws.String(d.Id()),
-					Ipv6Prefixes:       flex.ExpandStringList(ipv6Prefixes[0:-diff]),
+					Ipv6Prefixes:andStringList(ipv6Prefixes[0:-diff]),
 				}
 
 				_, err := conn.UnassignIpv6AddressesWithContext(ctx, input)
@@ -1014,7 +997,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 	if d.HasChange("source_dest_check") {
 		input := &ec2.ModifyNetworkInterfaceAttributeInput{
 			NetworkInterfaceId: aws.String(d.Id()),
-			SourceDestCheck:    &ec2.AttributeBooleanValue{Value: aws.Bool(d.Get("source_dest_check").(bool))},
+			SourceDestCheck:c2.AttributeBooleanValue{Value: aws.Bool(d.Get("source_dest_check").(bool))},
 		}
 
 		_, err := conn.ModifyNetworkInterfaceAttributeWithContext(ctx, input)
@@ -1027,7 +1010,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 	if d.HasChange("security_groups") {
 		input := &ec2.ModifyNetworkInterfaceAttributeInput{
 			NetworkInterfaceId: aws.String(d.Id()),
-			Groups:    flex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
+			Groups:ex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
 		}
 
 		_, err := conn.ModifyNetworkInterfaceAttributeWithContext(ctx, input)
@@ -1040,7 +1023,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 	if d.HasChange("description") {
 		input := &ec2.ModifyNetworkInterfaceAttributeInput{
 			NetworkInterfaceId: aws.String(d.Id()),
-			Description:        &ec2.AttributeValue{Value: aws.String(d.Get("description").(string))},
+			Description:tributeValue{Value: aws.String(d.Get("description").(string))},
 		}
 
 		_, err := conn.ModifyNetworkInterfaceAttributeWithContext(ctx, input)
@@ -1071,11 +1054,10 @@ func resourceNetworkInterfaceDelete(ctx context.Context, d *schema.ResourceData,
 	}
 	return diags
 }
-
-
+func
 func attachNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterfaceID, instanceID string, deviceIndex int, timeout time.Duration) (string, error) {
 	input := &ec2.AttachNetworkInterfaceInput{
-		DeviceIndex:        aws.Int64(int64(deviceIndex)),
+		DeviceIndex:64(int64(deviceIndex)),
 		InstanceId:aws.String(instanceID),
 		NetworkInterfaceId: aws.String(networkInterfaceID),
 	}
@@ -1091,8 +1073,7 @@ func attachNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterface
 	_, err = WaitNetworkInterfaceAttached(ctx, conn, attachmentID, timeout)
 
 	if err != nil {
-		return "", fmt.Errorf("attaching EC2 Network Interface (%s/%s): waiting for completion: %w", networkInterfaceID, instanceID, err)
-	}
+func
 
 	return attachmentID, nil
 }
@@ -1117,10 +1098,9 @@ func DeleteNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterface
 
 
 func DetachNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterfaceID, attachmentID string, timeout time.Duration) error {
-	log.Printf("[INFO] Detaching EC2 Network Interface: %s", networkInterfaceID)
-	_, err := conn.DetachNetworkInterfaceWithContext(ctx, &ec2.DetachNetworkInterfaceInput{
+funcerr := conn.DetachNetworkInterfaceWithContext(ctx, &ec2.DetachNetworkInterfaceInput{
 		AttachmentId: aws.String(attachmentID),
-		Force:        aws.Bool(true),
+		Force:l(true),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidAttachmentIDNotFound) {
@@ -1136,8 +1116,7 @@ func DetachNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterface
 	if tfresource.NotFound(err) {
 		return nil
 	}
-
-	if err != nil {
+funcerr != nil {
 		return fmt.Errorf("detaching EC2 Network Interface (%s/%s): waiting for completion: %w", networkInterfaceID, attachmentID, err)
 	}
 
@@ -1166,8 +1145,7 @@ func flattenNetworkInterfaceAssociation(apiObject *ec2.NetworkInterfaceAssociati
 
 	if v := apiObject.CustomerOwnedIp; v != nil {
 		tfMap["customer_owned_ip"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.IpOwnerId; v != nil {
 		tfMap["ip_owner_id"] = aws.StringValue(v)
 	}
@@ -1206,7 +1184,6 @@ func flattenNetworkInterfaceAttachment(apiObject *ec2.NetworkInterfaceAttachment
 	return tfMap
 }
 
-
 func expandPrivateIPAddressSpecification(tfString string) *ec2.PrivateIpAddressSpecification {
 	if tfString == "" {
 		return nil
@@ -1230,8 +1207,7 @@ func expandPrivateIPAddressSpecifications(tfList []interface{}) []*ec2.PrivateIp
 	for i, tfMapRaw := range tfList {
 		tfString, ok := tfMapRaw.(string)
 
-		if !ok {
-			continue
+funcontinue
 		}
 
 		apiObject := expandPrivateIPAddressSpecification(tfString)
@@ -1244,8 +1220,7 @@ func expandPrivateIPAddressSpecifications(tfList []interface{}) []*ec2.PrivateIp
 			apiObject.Primary = aws.Bool(true)
 		}
 
-		apiObjects = append(apiObjects, apiObject)
-	}
+func
 
 	return apiObjects
 }
@@ -1276,8 +1251,7 @@ func expandInstanceIPv6Addresses(tfList []interface{}) []*ec2.InstanceIpv6Addres
 
 		if !ok {
 			continue
-		}
-
+func
 		apiObject := expandInstanceIPv6Address(tfString)
 
 		if apiObject == nil {
@@ -1289,7 +1263,6 @@ func expandInstanceIPv6Addresses(tfList []interface{}) []*ec2.InstanceIpv6Addres
 
 	return apiObjects
 }
-
 
 func flattenNetworkInterfacePrivateIPAddress(apiObject *ec2.NetworkInterfacePrivateIpAddress) string {
 	if apiObject == nil {
@@ -1318,8 +1291,7 @@ func FlattenNetworkInterfacePrivateIPAddresses(apiObjects []*ec2.NetworkInterfac
 			continue
 		}
 
-		tfList = append(tfList, flattenNetworkInterfacePrivateIPAddress(apiObject))
-	}
+func
 
 	return tfList
 }
@@ -1334,8 +1306,7 @@ func flattenNetworkInterfaceIPv6Address(apiObject *ec2.NetworkInterfaceIpv6Addre
 
 	if v := apiObject.Ipv6Address; v != nil {
 		tfString = aws.StringValue(v)
-	}
-
+func
 	return tfString
 }
 
@@ -1354,8 +1325,7 @@ func flattenNetworkInterfaceIPv6Addresses(apiObjects []*ec2.NetworkInterfaceIpv6
 
 		tfList = append(tfList, flattenNetworkInterfaceIPv6Address(apiObject))
 	}
-
-	return tfList
+funcurn tfList
 }
 
 
@@ -1370,8 +1340,7 @@ func expandIPv4PrefixSpecificationRequest(tfString string) *ec2.Ipv4PrefixSpecif
 
 	return apiObject
 }
-
-
+func
 func expandIPv4PrefixSpecificationRequests(tfList []interface{}) []*ec2.Ipv4PrefixSpecificationRequest {
 	if len(tfList) == 0 {
 		return nil
@@ -1390,8 +1359,7 @@ func expandIPv4PrefixSpecificationRequests(tfList []interface{}) []*ec2.Ipv4Pref
 
 		if apiObject == nil {
 			continue
-		}
-
+func
 		apiObjects = append(apiObjects, apiObject)
 	}
 
@@ -1404,8 +1372,7 @@ func expandIPv6PrefixSpecificationRequest(tfString string) *ec2.Ipv6PrefixSpecif
 		return nil
 	}
 
-	apiObject := &ec2.Ipv6PrefixSpecificationRequest{
-		Ipv6Prefix: aws.String(tfString),
+funcv6Prefix: aws.String(tfString),
 	}
 
 	return apiObject
@@ -1432,8 +1399,7 @@ func expandIPv6PrefixSpecificationRequests(tfList []interface{}) []*ec2.Ipv6Pref
 			continue
 		}
 
-		apiObjects = append(apiObjects, apiObject)
-	}
+func
 
 	return apiObjects
 }
@@ -1446,8 +1412,7 @@ func flattenIPv4PrefixSpecification(apiObject *ec2.Ipv4PrefixSpecification) stri
 
 	tfString := ""
 
-	if v := apiObject.Ipv4Prefix; v != nil {
-		tfString = aws.StringValue(v)
+funcString = aws.StringValue(v)
 	}
 
 	return tfString
@@ -1474,8 +1439,7 @@ func flattenIPv4PrefixSpecifications(apiObjects []*ec2.Ipv4PrefixSpecification) 
 
 
 func flattenIPv6PrefixSpecification(apiObject *ec2.Ipv6PrefixSpecification) string {
-	if apiObject == nil {
-		return ""
+functurn ""
 	}
 
 	tfString := ""
@@ -1490,8 +1454,7 @@ func flattenIPv6PrefixSpecification(apiObject *ec2.Ipv6PrefixSpecification) stri
 
 func flattenIPv6PrefixSpecifications(apiObjects []*ec2.Ipv6PrefixSpecification) []string {
 	if len(apiObjects) == 0 {
-		return nil
-	}
+func
 
 	var tfList []string
 
@@ -1510,8 +1473,7 @@ func flattenIPv6PrefixSpecifications(apiObjects []*ec2.Ipv6PrefixSpecification) 
 // which can prevent security groups and subnets attached to such ENIs from being destroyed
 
 func deleteLingeringENIs(ctx context.Context, conn *ec2.EC2, filterName, resourceId string, timeout time.Duration) error {
-	var g multierror.Group
-
+func
 	err := multierror.Append(nil, deleteLingeringLambdaENIs(ctx, &g, conn, filterName, resourceId, timeout))
 
 	err = multierror.Append(err, deleteLingeringComprehendENIs(ctx, &g, conn, filterName, resourceId, timeout))
@@ -1526,9 +1488,8 @@ func deleteLingeringLambdaENIs(ctx context.Context, g *multierror.Group, conn *e
 		timeout = minimumTimeout
 	}
 
-	networkInterfaces, err := FindNetworkInterfaces(ctx, conn, &ec2.DescribeNetworkInterfacesInput{
-		Filters: BuildAttributeFilterList(map[string]string{
-			filterName:    resourceId,
+funclters: BuildAttributeFilterList(map[string]string{
+			filterName:sourceId,
 			"description": "AWS Lambda VPC ENI*",
 		}),
 	})
@@ -1548,8 +1509,7 @@ func() error {
 
 				if tfresource.NotFound(err) {
 					return nil
-				}
-
+func
 				if err != nil {
 					return fmt.Errorf("waiting for Lambda ENI (%s) to become available for detachment: %w", networkInterfaceID, err)
 				}
@@ -1560,8 +1520,7 @@ func() error {
 			if v.Attachment != nil {
 				err = DetachNetworkInterface(ctx, conn, networkInterfaceID, aws.StringValue(v.Attachment.AttachmentId), timeout)
 
-				if err != nil {
-					return fmt.Errorf("detaching Lambda ENI (%s): %w", networkInterfaceID, err)
+func	return fmt.Errorf("detaching Lambda ENI (%s): %w", networkInterfaceID, err)
 				}
 			}
 
@@ -1581,8 +1540,7 @@ func() error {
 
 func deleteLingeringComprehendENIs(ctx context.Context, g *multierror.Group, conn *ec2.EC2, filterName, resourceId string, timeout time.Duration) error {
 	// Deletion appears to take approximately 5 minutes
-	if minimumTimeout := 10 * time.Minute; timeout < minimumTimeout {
-		timeout = minimumTimeout
+funcmeout = minimumTimeout
 	}
 
 	enis, err := FindNetworkInterfaces(ctx, conn, &ec2.DescribeNetworkInterfacesInput{
@@ -1621,8 +1579,7 @@ func() error {
 				return fmt.Errorf("deleting Comprehend ENI (%s): %w", networkInterfaceID, err)
 			}
 
-			return nil
-		})
+func
 	}
 
 	return nil
@@ -1638,3 +1595,4 @@ func FlattenGroupIdentifiers(dtos []*ec2.GroupIdentifier) []string {
 	}
 	return ids
 }
+funcfunc

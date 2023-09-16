@@ -14,6 +14,8 @@ import (
 )
 
 
+
+
 func testAccUserHierarchyStructureDataSource_instanceID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -22,6 +24,8 @@ func testAccUserHierarchyStructureDataSource_instanceID(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -29,6 +33,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyStructureDataSourceConfig_instanceID(rName),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.#", resourceName, "hierarchy_structure.#"),
@@ -47,6 +53,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccUserHierarchyStructureBaseDataSourceConfig(rName string) string {
@@ -85,6 +93,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccUserHierarchyStructureDataSourceConfig_instanceID(rName string) string {

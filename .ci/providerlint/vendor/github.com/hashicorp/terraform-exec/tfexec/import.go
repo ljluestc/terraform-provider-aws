@@ -35,48 +35,59 @@ type ImportOption interface {
 	configureImport(*importConfig)
 }
 
-func (opt *BackupOption) configureImport(conf *importConfig) {
+
+ (opt *BackupOption) configureImport(conf *importConfig) {
 	conf.backup = opt.path
 }
 
-func (opt *ConfigOption) configureImport(conf *importConfig) {
+
+ (opt *ConfigOption) configureImport(conf *importConfig) {
 	conf.config = opt.path
+
+
+
+ (opt *AllowMissingConfigOption) configureImport(conf *importConfig) {
+f.allowMissingConfig = opt.allowMissingConfig
 }
 
-func (opt *AllowMissingConfigOption) configureImport(conf *importConfig) {
-	conf.allowMissingConfig = opt.allowMissingConfig
-}
 
-func (opt *LockOption) configureImport(conf *importConfig) {
+t *LockOption) configureImport(conf *importConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureImport(conf *importConfig) {
+
+ (opt *LockTimeoutOption) configureImport(conf *importConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *ReattachOption) configureImport(conf *importConfig) {
+
+ (opt *ReattachOption) configureImport(conf *importConfig) {
 	conf.reattachInfo = opt.info
+
+
+
+ (opt *StateOption) configureImport(conf *importConfig) {
+f.state = opt.path
 }
 
-func (opt *StateOption) configureImport(conf *importConfig) {
-	conf.state = opt.path
-}
 
-func (opt *StateOutOption) configureImport(conf *importConfig) {
+t *StateOutOption) configureImport(conf *importConfig) {
 	conf.stateOut = opt.path
 }
 
-func (opt *VarOption) configureImport(conf *importConfig) {
+
+t *VarOption) configureImport(conf *importConfig) {
 	conf.vars = append(conf.vars, opt.assignment)
 }
 
-func (opt *VarFileOption) configureImport(conf *importConfig) {
+
+ (opt *VarFileOption) configureImport(conf *importConfig) {
 	conf.varFiles = append(conf.varFiles, opt.path)
 }
 
 // Import represents the terraform import subcommand.
-func (tf *Terraform) Import(ctx context.Context, address, id string, opts ...ImportOption) error {
+
+ (tf *Terraform) Import(ctx context.Context, address, id string, opts ...ImportOption) error {
 	cmd, err := tf.importCmd(ctx, address, id, opts...)
 	if err != nil {
 		return err
@@ -84,7 +95,8 @@ func (tf *Terraform) Import(ctx context.Context, address, id string, opts ...Imp
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) importCmd(ctx context.Context, address, id string, opts ...ImportOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) importCmd(ctx context.Context, address, id string, opts ...ImportOption) (*exec.Cmd, error) {
 	c := defaultImportOptions
 
 	for _, o := range opts {

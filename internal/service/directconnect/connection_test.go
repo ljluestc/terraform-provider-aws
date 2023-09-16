@@ -27,10 +27,10 @@ func TestAccDirectConnectConnection_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -50,7 +50,7 @@ func TestAccDirectConnectConnection_basic(t *testing.T) {
 			// Test import.
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
@@ -65,10 +65,10 @@ func TestAccDirectConnectConnection_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -102,13 +102,13 @@ func TestAccDirectConnectConnection_encryptionMode(t *testing.T) {
 	cak := testAccDirecConnectMacSecGenerateHex()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
-				Config:             testAccConnectionConfig_encryptionModeShouldEncrypt(connectionName, ckn, cak),
+				Config:testAccConnectionConfig_encryptionModeShouldEncrypt(connectionName, ckn, cak),
 				ResourceName:       resourceName,
 				ImportState:        true,
 				ImportStateId:      connectionId,
@@ -147,10 +147,10 @@ func TestAccDirectConnectConnection_macsecRequested(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_macsecEnabled(rName),
@@ -168,7 +168,7 @@ func TestAccDirectConnectConnection_macsecRequested(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
@@ -183,10 +183,10 @@ func TestAccDirectConnectConnection_providerName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_providerName(rName),
@@ -204,7 +204,7 @@ func TestAccDirectConnectConnection_providerName(t *testing.T) {
 			// Test import.
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
@@ -219,10 +219,10 @@ func TestAccDirectConnectConnection_skipDestroy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionNoDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionNoDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_skipDestroy(rName),
@@ -242,10 +242,10 @@ func TestAccDirectConnectConnection_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_tags1(rName, "key1", "value1"),
@@ -259,7 +259,7 @@ func TestAccDirectConnectConnection_tags(t *testing.T) {
 			// Test import.
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
@@ -314,7 +314,7 @@ func TestAccDirectConnectConnection_vlanIDMigration501(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccConnectionConfig_basic(rName),
+				Config:      testAccConnectionConfig_basic(rName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckConnectionExists(ctx, resourceName, &connection),
 					resource.TestCheckResourceAttr(resourceName, "vlan_id", "0"),
@@ -351,8 +351,8 @@ func TestAccDirectConnectConnection_vlanIDMigration510(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccConnectionConfig_basic(rName),
-				PlanOnly:                 true,
+				Config:      testAccConnectionConfig_basic(rName),
+				PlanOnly:    true,
 			},
 		},
 	})

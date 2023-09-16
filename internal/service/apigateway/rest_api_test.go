@@ -21,17 +21,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayRestAPI_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.RestApi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_name(rName),
@@ -53,9 +52,9 @@ func TestAccAPIGatewayRestAPI_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 		},
@@ -63,16 +62,15 @@ func TestAccAPIGatewayRestAPI_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayRestAPI_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.RestApi
+func conf apigateway.RestApi
 	resourceName := "aws_api_gateway_rest_api.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_tags1(rName, "key1", "value1"),
@@ -84,9 +82,9 @@ func TestAccAPIGatewayRestAPI_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 
@@ -116,15 +114,14 @@ func TestAccAPIGatewayRestAPI_tags(t *testing.T) {
 
 func TestAccAPIGatewayRestAPI_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var restApi apigateway.RestApi
-	resourceName := "aws_api_gateway_rest_api.test"
+funcourceName := "aws_api_gateway_rest_api.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_name(rName),
@@ -141,14 +138,13 @@ func TestAccAPIGatewayRestAPI_disappears(t *testing.T) {
 func TestAccAPIGatewayRestAPI_endpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	var restApi apigateway.RestApi
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_rest_api.test"
+funcourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_endpointConfiguration(rName, "REGIONAL"),
@@ -160,9 +156,9 @@ func TestAccAPIGatewayRestAPI_endpoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 			// For backwards compatibility, test removing endpoint_configuration, which should do nothing
@@ -181,11 +177,9 @@ func TestAccAPIGatewayRestAPI_endpoint(t *testing.T) {
 					// Ensure region supports EDGE endpoint
 					// This can eventually be moved to a PreCheck function
 					// If the region does not support EDGE endpoint type, this test will either show
-					// SKIP (if REGIONAL passed) or FAIL (if REGIONAL failed)
-					conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
+					// SKIP (ifunc	conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 					output, err := conn.CreateRestApiWithContext(ctx, &apigateway.CreateRestApiInput{
-						Name: aws.String(sdkacctest.RandomWithPrefix("tf-acc-test-edge-endpoint-precheck")),
-						EndpointConfiguration: &apigateway.EndpointConfiguration{
+						Name: aws.String(sdkacctest.RandomWithPrefix(func		EndpointConfiguration: &apigateway.EndpointConfiguration{
 							Types: []*string{aws.String("EDGE")},
 						},
 					})
@@ -222,11 +216,10 @@ func TestAccAPIGatewayRestAPI_Endpoint_private(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_rest_api.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funceCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {
@@ -236,11 +229,9 @@ func TestAccAPIGatewayRestAPI_Endpoint_private(t *testing.T) {
 					output, err := conn.CreateRestApiWithContext(ctx, &apigateway.CreateRestApiInput{
 						Name: aws.String(sdkacctest.RandomWithPrefix("tf-acc-test-private-endpoint-precheck")),
 						EndpointConfiguration: &apigateway.EndpointConfiguration{
-							Types: []*string{aws.String("PRIVATE")},
-						},
+							Types: [func		},
 					})
-					if err != nil {
-						if tfawserr.ErrMessageContains(err, apigateway.ErrCodeBadRequestException, "Endpoint Configuration type PRIVATE is not supported in this region") {
+					if err != nil {func		if tfawserr.ErrMessageContains(err, apigateway.ErrCodeBadRequestException, "Endpoint Configuration type PRIVATE is not supported in this region") {
 							t.Skip("Region does not support PRIVATE endpoint type")
 						}
 						t.Fatal(err)
@@ -263,9 +254,9 @@ func TestAccAPIGatewayRestAPI_Endpoint_private(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 		},
@@ -278,11 +269,10 @@ func TestAccAPIGatewayRestAPI_apiKeySource(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
-		Steps: []resource.TestStep{
+funceps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_keySource(rName, "AUTHORIZER"),
 				Check: resource.ComposeTestCheckFunc(
@@ -290,9 +280,9 @@ func TestAccAPIGatewayRestAPI_apiKeySource(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 			{
@@ -318,11 +308,10 @@ func TestAccAPIGatewayRestAPI_APIKeySource_overrideBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
-		Steps: []resource.TestStep{
+funceps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_keySourceOverrideBody(rName, "AUTHORIZER", "HEADER"),
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -331,9 +320,9 @@ func TestAccAPIGatewayRestAPI_APIKeySource_overrideBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated API key source still overrides
@@ -363,12 +352,11 @@ func TestAccAPIGatewayRestAPI_APIKeySource_setByBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
+func
 				Config: testAccRestAPIConfig_keySourceSetByBody(rName, "AUTHORIZER"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
@@ -376,9 +364,9 @@ func TestAccAPIGatewayRestAPI_APIKeySource_setByBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -392,13 +380,12 @@ func TestAccAPIGatewayRestAPI_binaryMediaTypes(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccRestAPIConfig_binaryMediaTypes1(rName, "application/octet-stream"),
+funcConfig: testAccRestAPIConfig_binaryMediaTypes1(rName, "application/octet-stream"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "binary_media_types.#", "1"),
@@ -406,9 +393,9 @@ func TestAccAPIGatewayRestAPI_binaryMediaTypes(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			{
@@ -430,23 +417,22 @@ func TestAccAPIGatewayRestAPI_BinaryMediaTypes_overrideBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccRestAPIConfig_binaryMediaTypes1OverrideBody(rName, "application/octet-stream", "image/jpeg"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+funcCheck: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "binary_media_types.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "binary_media_types.0", "application/octet-stream"),
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated minimum compression size still overrides
@@ -478,23 +464,22 @@ func TestAccAPIGatewayRestAPI_BinaryMediaTypes_setByBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_binaryMediaTypes1SetByBody(rName, "application/octet-stream"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckRestAPIExists(ctx, resourceName, &conf),
+func	testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "binary_media_types.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "binary_media_types.0", "application/octet-stream"),
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -508,16 +493,15 @@ func TestAccAPIGatewayRestAPI_body(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			// The body is expected to only set a title (name) and one route
 			{
 				Config: testAccRestAPIConfig_body(rName, "/test"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRestAPIExists(ctx, resourceName, &conf),
+func	testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					testAccCheckRestAPIRoutes(ctx, &conf, []string{"/", "/test"}),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "description", ""),
@@ -526,9 +510,9 @@ func TestAccAPIGatewayRestAPI_body(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			{
@@ -552,22 +536,21 @@ func TestAccAPIGatewayRestAPI_description(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_description(rName, "description1"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "description", "description1"),
-				),
+func),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			{
@@ -588,22 +571,21 @@ func TestAccAPIGatewayRestAPI_Description_overrideBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_descriptionOverrideBody(rName, "tfdescription1", "oasdescription1"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "description", "tfdescription1"),
-				),
-			},
+func,
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated description still overrides
@@ -633,10 +615,10 @@ func TestAccAPIGatewayRestAPI_Description_setByBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_descriptionSetByBody(rName, "oasdescription1"),
@@ -644,11 +626,10 @@ func TestAccAPIGatewayRestAPI_Description_setByBody(t *testing.T) {
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "description", "oasdescription1"),
 				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+func
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -661,10 +642,10 @@ func TestAccAPIGatewayRestAPI_disableExecuteAPIEndpoint(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_disableExecuteEndpoint(rName, false),
@@ -673,9 +654,8 @@ func TestAccAPIGatewayRestAPI_disableExecuteAPIEndpoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+funcImportStateVerify:
 				ImportStateVerifyIgnore: []string{"put_rest_api_mode"},
 			},
 			{
@@ -701,10 +681,10 @@ func TestAccAPIGatewayRestAPI_DisableExecuteAPIEndpoint_overrideBody(t *testing.
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_disableExecuteEndpointOverrideBody(rName, true, false),
@@ -714,9 +694,8 @@ func TestAccAPIGatewayRestAPI_DisableExecuteAPIEndpoint_overrideBody(t *testing.
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+funcImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify override can be unset (only for body set to false)
@@ -746,10 +725,10 @@ func TestAccAPIGatewayRestAPI_DisableExecuteAPIEndpoint_setByBody(t *testing.T) 
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_disableExecuteEndpointSetByBody(rName, true),
@@ -759,9 +738,8 @@ func TestAccAPIGatewayRestAPI_DisableExecuteAPIEndpoint_setByBody(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+funcImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -777,10 +755,10 @@ func TestAccAPIGatewayRestAPI_Endpoint_vpcEndpointIDs(t *testing.T) {
 	vpcEndpointResourceName2 := "aws_vpc_endpoint.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_vpcEndpointIDs1(rName),
@@ -790,13 +768,12 @@ func TestAccAPIGatewayRestAPI_Endpoint_vpcEndpointIDs(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.0.types.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.0.types.0", "PRIVATE"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.0.vpc_endpoint_ids.#", "1"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.0.vpc_endpoint_ids.*", vpcEndpointResourceName1, "id"),
-				),
+func),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			{
@@ -836,10 +813,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_overrideBody(t *testing.T) 
 	vpcEndpointResourceName3 := "aws_vpc_endpoint.test.2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsOverrideBody(rName, vpcEndpointResourceName1, vpcEndpointResourceName2),
@@ -849,12 +826,11 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_overrideBody(t *testing.T) 
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.0.vpc_endpoint_ids.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.0.vpc_endpoint_ids.*", vpcEndpointResourceName1, "id"),
 					testAccCheckRestAPIEndpointsCount(ctx, &conf, 1),
-				),
-			},
+func,
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated configuration value still overrides
@@ -893,10 +869,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_mergeBody(t *testing.T) {
 	vpcEndpointResourceName3 := "aws_vpc_endpoint.test.2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsMergeBody(rName, vpcEndpointResourceName1, vpcEndpointResourceName2),
@@ -907,11 +883,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_mergeBody(t *testing.T) {
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.0.vpc_endpoint_ids.*", vpcEndpointResourceName1, "id"),
 					testAccCheckRestAPIEndpointsCount(ctx, &conf, 1),
 				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+func
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 
@@ -950,10 +925,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_overrideToMergeBody(t *test
 	vpcEndpointResourceName2 := "aws_vpc_endpoint.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsOverrideBody(rName, vpcEndpointResourceName1, vpcEndpointResourceName2),
@@ -966,9 +941,8 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_overrideToMergeBody(t *test
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+funcImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 
@@ -984,9 +958,9 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_overrideToMergeBody(t *test
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -1001,10 +975,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_setByBody(t *testing.T) {
 	vpcEndpointResourceName := "aws_vpc_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsSetByBody(rName),
@@ -1016,11 +990,10 @@ func TestAccAPIGatewayRestAPI_EndpointVPCEndpointIDs_setByBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
-			},
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
+func,
 		},
 	})
 }
@@ -1032,10 +1005,10 @@ func TestAccAPIGatewayRestAPI_minimumCompressionSize(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_minimumCompressionSize(rName, "1"),
@@ -1045,15 +1018,14 @@ func TestAccAPIGatewayRestAPI_minimumCompressionSize(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			{
 				Config: testAccRestAPIConfig_minimumCompressionSize(rName, "-1"), // -1 removes existing values
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckRestAPIExists(ctx, resourceName, &conf),
+func	testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "minimum_compression_size", ""),
 				),
 			},
@@ -1075,10 +1047,10 @@ func TestAccAPIGatewayRestAPI_MinimumCompressionSize_overrideBody(t *testing.T) 
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_minimumCompressionSizeOverrideBody(rName, "1", 5242880),
@@ -1088,16 +1060,15 @@ func TestAccAPIGatewayRestAPI_MinimumCompressionSize_overrideBody(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated minimum compression size still overrides
 			{
 				Config: testAccRestAPIConfig_minimumCompressionSizeOverrideBody(rName, "2", 5242880),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckRestAPIExists(ctx, resourceName, &conf),
+func	testAccCheckRestAPIExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "minimum_compression_size", "2"),
 				),
 			},
@@ -1120,10 +1091,10 @@ func TestAccAPIGatewayRestAPI_MinimumCompressionSize_setByBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_minimumCompressionSizeSetByBody(rName, 1048576),
@@ -1133,27 +1104,26 @@ func TestAccAPIGatewayRestAPI_MinimumCompressionSize_setByBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
 	})
 }
 
-func TestAccAPIGatewayRestAPI_Name_overrideBody(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.RestApi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_nameOverrideBody(rName, "title1"),
@@ -1163,17 +1133,16 @@ func TestAccAPIGatewayRestAPI_Name_overrideBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 			// Verify updated name still overrides
 			{
 				Config: testAccRestAPIConfig_nameOverrideBody(rName2, "title1"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckRestAPIExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
+func	resource.TestCheckResourceAttr(resourceName, "name", rName2),
 				),
 			},
 			// Verify updated title still overrides
@@ -1195,14 +1164,14 @@ func TestAccAPIGatewayRestAPI_FailOnWarnings(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			// Verify invalid body fails creation, when fail_on_warnings is true
 			{
-				Config:      testAccRestAPIConfig_failOnWarnings(rName, "original", "fail_on_warnings = true"),
+				Config:cRestAPIConfig_failOnWarnings(rName, "original", "fail_on_warnings = true"),
 				ExpectError: regexache.MustCompile(`BadRequestException: Warnings found during import`),
 			},
 			// Verify invalid body succeeds creation, when fail_on_warnings is not set
@@ -1215,14 +1184,13 @@ func TestAccAPIGatewayRestAPI_FailOnWarnings(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
-			},
-			// Verify invalid body fails update, when fail_on_warnings is true
+func/ Verify invalid body fails update, when fail_on_warnings is true
 			{
-				Config:      testAccRestAPIConfig_failOnWarnings(rName, "update", "fail_on_warnings = true"),
+				Config:cRestAPIConfig_failOnWarnings(rName, "update", "fail_on_warnings = true"),
 				ExpectError: regexache.MustCompile(`BadRequestException: Warnings found during import`),
 			},
 			// Verify invalid body succeeds update, when fail_on_warnings is not set
@@ -1241,10 +1209,10 @@ func TestAccAPIGatewayRestAPI_parameters(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_parameters1(rName, "basepath", "prepend"),
@@ -1254,9 +1222,9 @@ func TestAccAPIGatewayRestAPI_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "parameters", "put_rest_api_mode"},
 			},
 			{
@@ -1266,8 +1234,7 @@ func TestAccAPIGatewayRestAPI_parameters(t *testing.T) {
 					testAccCheckRestAPIRoutes(ctx, &conf, []string{"/", "/test"}),
 				),
 			},
-		},
-	})
+func
 }
 
 func TestAccAPIGatewayRestAPI_Policy_basic(t *testing.T) {
@@ -1278,10 +1245,10 @@ func TestAccAPIGatewayRestAPI_Policy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_policy(rName),
@@ -1290,9 +1257,9 @@ func TestAccAPIGatewayRestAPI_Policy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"policy", "put_rest_api_mode"},
 			},
 			{
@@ -1303,8 +1270,7 @@ func TestAccAPIGatewayRestAPI_Policy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
+func
 func TestAccAPIGatewayRestAPI_Policy_order(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_api_gateway_rest_api.test"
@@ -1312,10 +1278,10 @@ func TestAccAPIGatewayRestAPI_Policy_order(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_policyOrder(rName),
@@ -1324,7 +1290,7 @@ func TestAccAPIGatewayRestAPI_Policy_order(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccRestAPIConfig_policyNewOrder(rName),
+				Config:tAccRestAPIConfig_policyNewOrder(rName),
 				PlanOnly: true,
 			},
 		},
@@ -1338,10 +1304,9 @@ func TestAccAPIGatewayRestAPI_Policy_overrideBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_policyOverrideBody(rName, "/test", "Allow"),
@@ -1352,9 +1317,9 @@ func TestAccAPIGatewayRestAPI_Policy_overrideBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "policy", "put_rest_api_mode"},
 			},
 			// Verify updated body still has override policy
@@ -1366,8 +1331,7 @@ func TestAccAPIGatewayRestAPI_Policy_overrideBody(t *testing.T) {
 					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile(`"Allow"`)),
 				),
 			},
-			// Verify updated policy still overrides body
-			{
+func
 				Config: testAccRestAPIConfig_policyOverrideBody(rName, "/test2", "Deny"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckRestAPIExists(ctx, resourceName, &conf),
@@ -1386,10 +1350,10 @@ func TestAccAPIGatewayRestAPI_Policy_setByBody(t *testing.T) {
 	resourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRestAPIDestroy(ctx),
+		CheckDestroy:testAccCheckRestAPIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRestAPIConfig_policySetByBody(rName, "Allow"),
@@ -1399,9 +1363,9 @@ func TestAccAPIGatewayRestAPI_Policy_setByBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:,
+				ImportState:true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"body", "put_rest_api_mode"},
 			},
 		},
@@ -1415,8 +1379,7 @@ func testAccCheckRestAPIRoutes(ctx context.Context, conf *apigateway.RestApi, ro
 		resp, err := conn.GetResourcesWithContext(ctx, &apigateway.GetResourcesInput{
 			RestApiId: conf.Id,
 		})
-		if err != nil {
-			return err
+funceturn err
 		}
 
 		actualRoutePaths := map[string]bool{}
@@ -1445,10 +1408,8 @@ func testAccCheckRestAPIEndpointsCount(ctx context.Context, conf *apigateway.Res
 
 		resp, err := conn.GetRestApiWithContext(ctx, &apigateway.GetRestApiInput{
 			RestApiId: conf.Id,
-		})
-		if err != nil {
-			return err
-		}
+func err != nil {
+			returfunc
 
 		actualEndpoints := map[string]bool{}
 		for _, endpoint := range resp.EndpointConfiguration.VpcEndpointIds {
@@ -1478,10 +1439,8 @@ func testAccCheckRestAPIExists(ctx context.Context, n string, v *apigateway.Rest
 
 		output, err := tfapigateway.FindRESTAPIByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
-
+funceturn err
+		}func
 		*v = *output
 
 		return nil
@@ -1504,10 +1463,8 @@ func testAccCheckRestAPIDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 
 			if err != nil {
-				return err
-			}
-
-			return fmt.Errorf("API Gateway REST API %s still exists", rs.Primary.ID)
+func
+funceturn fmt.Errorf("API Gateway REST API %s still exists", rs.Primary.ID)
 		}
 
 		return nil
@@ -1520,7 +1477,7 @@ resource "aws_api_gateway_rest_api" "test" {
   name = "%s"
 
   endpoint_configuration {
-    types = ["%s"]
+pes = ["%s"]
   }
 }
 `, rName, endpointType)
@@ -1530,50 +1487,46 @@ func testAccRestAPIConfig_disableExecuteEndpoint(rName string, disableExecuteApi
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   disable_execute_api_endpoint = %[2]t
-  name                         = %[1]q
-}
-`, rName, disableExecuteApiEndpoint)
-}
-
+  name
+funcName, disableExecuteApiEndpoint)
+}func
 func testAccRestAPIConfig_disableExecuteEndpointOverrideBody(rName string, configDisableExecuteApiEndpoint bool, bodyDisableExecuteApiEndpoint bool) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   disable_execute_api_endpoint = %[2]t
-  name                         = %[1]q
+  name
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-endpoint-configuration = {
-      disableExecuteApiEndpoint = %[3]t
-    }
-  })
-}
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+funcault = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-endpoint-configuration = {
+eExecuteApiEndpoint = %[3]t
+
+func
 `, rName, configDisableExecuteApiEndpoint, bodyDisableExecuteApiEndpoint)
 }
 
@@ -1582,37 +1535,36 @@ func testAccRestAPIConfig_disableExecuteEndpointSetByBody(rName string, bodyDisa
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
-  body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-endpoint-configuration = {
-      disableExecuteApiEndpoint = %[2]t
-    }
+funcr = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-endpoint-configuration = {
+eExecuteApiEndpoint = %[2]t
+
   })
 }
 `, rName, bodyDisableExecuteApiEndpoint)
@@ -1625,7 +1577,6 @@ resource "aws_api_gateway_rest_api" "test" {
 }
 `, rName)
 }
-
 func testAccRestAPIConfig_vpcEndpointIDs1(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -1633,12 +1584,12 @@ func testAccRestAPIConfig_vpcEndpointIDs1(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
+  cidr_block.0.0/16"
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1648,47 +1599,45 @@ resource "aws_default_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
-
-  endpoint_configuration {
-    types            = ["PRIVATE"]
-    vpc_endpoint_ids = [aws_vpc_endpoint.test.id]
+funcdpoint_configuration {
+pes= [
+c_endpoint_ids = [aws_vpc_endpoint.test.id]
   }
 }
 `, rName))
 }
 
-func testAccRestAPIConfig_endpointConfigurationVPCEndpointIds2(rName string) string {
-	return acctest.ConfigCompose(
+funcurn acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
+  cidr_block.0.0/16"
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1698,38 +1647,37 @@ resource "aws_default_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_vpc_endpoint" "test2" {
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
-  endpoint_configuration {
-    types            = ["PRIVATE"]
-    vpc_endpoint_ids = [aws_vpc_endpoint.test.id, aws_vpc_endpoint.test2.id]
+func [
+c_endpoint_ids = [aws_vpc_endpoint.test.id, aws_vpc_endpoint.test2.id]
   }
 }
 `, rName))
@@ -1742,12 +1690,12 @@ func testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsOverrideBody(rName 
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
+  cidr_block.0.0/16"
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1757,11 +1705,11 @@ resource "aws_default_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1770,51 +1718,50 @@ resource "aws_vpc_endpoint" "test" {
 
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   endpoint_configuration {
-    types            = ["PRIVATE"]
-    vpc_endpoint_ids = [%[2]s]
+pes= [
+c_endpoint_ids = [%[2]s]
   }
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-endpoint-configuration = {
-      vpcEndpointIds = [%[3]s]
-    }
+agger = "2.0"
+fo = {
+func"2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-endpoint-configuration = {
+pointIds = [%[3]s]
+
   })
 }
 `, rName, configVpcEndpointResourceName+".id", bodyVpcEndpointResourceName+".id"))
@@ -1827,12 +1774,12 @@ func testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsMergeBody(rName str
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
+  cidr_block.0.0/16"
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1842,11 +1789,11 @@ resource "aws_default_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1855,52 +1802,51 @@ resource "aws_vpc_endpoint" "test" {
 
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_api_gateway_rest_api" "test" {
-  name              = %[1]q
+  name = %[1]q
   put_rest_api_mode = "merge"
 
   endpoint_configuration {
-    types            = ["PRIVATE"]
-    vpc_endpoint_ids = [%[2]s]
+pes= [
+c_endpoint_ids = [%[2]s]
   }
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-endpoint-configuration = {
-      vpcEndpointIds = [%[3]s]
-    }
+agger = "2.0"
+fo = {
+func"2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-endpoint-configuration = {
+pointIds = [%[3]s]
+
   })
 }
 `, rName, configVpcEndpointResourceName+".id", bodyVpcEndpointResourceName+".id"))
@@ -1913,12 +1859,12 @@ func testAccRestAPIConfig_endpointConfigurationVPCEndpointIdsSetByBody(rName str
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
+  cidr_block.0.0/16"
+  enable_dns_supportrue
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -1928,61 +1874,60 @@ resource "aws_default_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   private_dns_enabled = false
   security_group_ids  = [aws_default_security_group.test.id]
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.execute-api"
-  subnet_ids          = [aws_subnet.test.id]
-  vpc_endpoint_type   = "Interface"
-  vpc_id              = aws_vpc.test.id
+  service_nameom.amazonaws.${data.aws_region.current.name}.execute-api"
+  subnet_idsubnet.test.id]
+  vpc_endpoint_typeInterface"
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   endpoint_configuration {
-    types = ["PRIVATE"]
+pes = ["PRIVATE"]
   }
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-endpoint-configuration = {
-      vpcEndpointIds = [aws_vpc_endpoint.test.id]
-    }
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+func
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-endpoint-configuration = {
+pointIds = [aws_vpc_endpoint.test.id]
+
   })
 }
 `, rName))
@@ -1994,7 +1939,7 @@ resource "aws_api_gateway_rest_api" "test" {
   name = "%s"
 
   tags = {
-    %q = %q
+ = %q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -2006,8 +1951,8 @@ resource "aws_api_gateway_rest_api" "test" {
   name = "%s"
 
   tags = {
-    %q = %q
-    %q = %q
+ = %q
+ = %q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -2018,20 +1963,20 @@ func testAccRestAPIConfig_policy(rName string) string {
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "execute-api:Invoke"
-      Condition = {
-        IpAddress = {
-          "aws:SourceIp" = "123.123.123.123/32"
-        }
-      }
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Resource = "*"
-    }]
+rsion = "2012-10-17"
+atement = [{
+ = "execute-api:Invoke"
+ion = {
+dress = {
+rceIp" = "123.123.123.123/32"
+
+
+ = "Allow"
+pal = {
+= "*"
+
+ce = "*"
+
   })
 }
 `, rName)
@@ -2042,43 +1987,40 @@ func testAccRestAPIConfig_updatePolicy(rName string) string {
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "execute-api:Invoke"
-      Effect = "Deny"
-      Principal = {
-        AWS = "*"
-      }
-      Resource = "*"
-    }]
+rsion = "2012-10-17"
+funcexecute-api:Invoke"
+ = "Deny"
+pal = {
+= "*"
+
+ce = "*"
+
   })
 }
 `, rName)
 }
 
-func testAccRestAPIConfig_policyOrder(rName string) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "execute-api:Invoke"
-      Condition = {
-        IpAddress = {
-          "aws:SourceIp" = [
-            "123.123.123.123/32",
-            "122.122.122.122/32",
-            "169.254.169.253/32",
-          ]
-        }
-      }
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Resource = "*"
-    }]
+rsion = "2012-10-17"
+atement = [{
+ = "execute-api:Invoke"
+ion = {
+dress = {
+rceIp" = [
+.123/32",
+.122/32",
+.253/32",
+func
+
+ = "Allow"
+pal = {
+= "*"
+
+ce = "*"
+
   })
 }
 `, rName)
@@ -2089,24 +2031,23 @@ func testAccRestAPIConfig_policyNewOrder(rName string) string {
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "execute-api:Invoke"
-      Condition = {
-        IpAddress = {
-          "aws:SourceIp" = [
-            "122.122.122.122/32",
-            "169.254.169.253/32",
-            "123.123.123.123/32",
-          ]
-        }
-      }
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Resource = "*"
-    }]
+rsion = "2012-10-17"
+atement = [{
+ = "execute-api:Invoke"
+ion = {
+dress = {
+rceIp" = [
+func/32",
+.123/32",
+
+
+
+ = "Allow"
+pal = {
+= "*"
+
+ce = "*"
+
   })
 }
 `, rName)
@@ -2115,8 +2056,7 @@ resource "aws_api_gateway_rest_api" "test" {
 func testAccRestAPIConfig_keySource(rName string, apiKeySource string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
-  api_key_source = %[2]q
-  name           = %[1]q
+funcme
 }
 `, rName, apiKeySource)
 }
@@ -2125,37 +2065,36 @@ func testAccRestAPIConfig_keySourceOverrideBody(rName string, apiKeySource strin
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   api_key_source = %[2]q
-  name           = %[1]q
+  name
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-api-key-source = %[3]q
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+func
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-api-key-source = %[3]q
   })
 }
 `, rName, apiKeySource, bodyApiKeySource)
@@ -2167,34 +2106,32 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-api-key-source = %[2]q
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+func{
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+func
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-api-key-source = %[2]q
   })
 }
 `, rName, bodyApiKeySource)
@@ -2204,7 +2141,7 @@ func testAccRestAPIConfig_binaryMediaTypes1(rName string, binaryMediaTypes1 stri
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   binary_media_types = [%[2]q]
-  name               = %[1]q
+  name  = %[1]q
 }
 `, rName, binaryMediaTypes1)
 }
@@ -2213,37 +2150,36 @@ func testAccRestAPIConfig_binaryMediaTypes1OverrideBody(rName string, binaryMedi
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   binary_media_types = [%[2]q]
-  name               = %[1]q
+  name  = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-binary-media-types = [%[3]q]
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+func{
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-binary-media-types = [%[3]q]
   })
 }
 `, rName, binaryMediaTypes1, bodyBinaryMediaTypes1)
@@ -2255,34 +2191,32 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-binary-media-types = [%[2]q]
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+func
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+func
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-binary-media-types = [%[2]q]
   })
 }
 `, rName, bodyBinaryMediaTypes1)
@@ -2294,33 +2228,32 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      %[2]q = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+= {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+funcpi.example.com/"
+
+
+
+
   })
 }
 `, rName, basePath)
@@ -2330,7 +2263,7 @@ func testAccRestAPIConfig_description(rName string, description string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   description = %[2]q
-  name        = %[1]q
+  name1]q
 }
 `, rName, description)
 }
@@ -2339,37 +2272,36 @@ func testAccRestAPIConfig_descriptionOverrideBody(rName string, description stri
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
   description = %[2]q
-  name        = %[1]q
+  name1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      description = %[3]q
-      title       = "test"
-      version     = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
+agger = "2.0"
+fo = {
+ption = %[3]q
+= "te
+n  = "2-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+func
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
   })
 }
 `, rName, description, bodyDescription)
@@ -2381,34 +2313,32 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      description = %[2]q
-      title       = "test"
-      version     = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
+agger = "2.0"
+fo = {
+ption = %[2]q
+= "te
+n  = "2-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+func
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+func
+
+
+
   })
 }
 `, rName, bodyDescription)
@@ -2417,7 +2347,7 @@ resource "aws_api_gateway_rest_api" "test" {
 func testAccRestAPIConfig_minimumCompressionSize(rName string, minimumCompressionSize string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
-  name                     = %[1]q
+  name1]q
   minimum_compression_size = %[2]q
 }
 `, rName, minimumCompressionSize)
@@ -2426,38 +2356,37 @@ resource "aws_api_gateway_rest_api" "test" {
 func testAccRestAPIConfig_minimumCompressionSizeOverrideBody(rName string, minimumCompressionSize string, bodyMinimumCompressionSize int) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
-  name                     = %[1]q
+  name1]q
   minimum_compression_size = %[2]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-minimum-compression-size = %[3]d
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+func
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-minimum-compression-size = %[3]d
   })
 }
 `, rName, minimumCompressionSize, bodyMinimumCompressionSize)
@@ -2469,34 +2398,32 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-minimum-compression-size = %[2]d
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+func
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+funcon-apigateway-minimum-compression-size = %[2]d
   })
 }
 `, rName, bodyMinimumCompressionSize)
@@ -2508,36 +2435,35 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = %[2]q
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
+agger = "2.0"
+fo = {
+ %[2]
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
   })
-}
-`, rName, title)
+funcName, title)
 }
 
 func testAccRestAPIConfig_parameters1(rName string, parameterKey1 string, parameterValue1 string) string {
@@ -2546,38 +2472,37 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes  = ["https"]
-    basePath = "/foo/bar/baz"
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes  = ["https"]
+sePath = "/foo/bar/baz"
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
   })
 
-  parameters = {
-    %[2]s = %[3]q
+func= %[3]q
   }
 }
 `, rName, parameterKey1, parameterValue1)
@@ -2589,52 +2514,51 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      %[2]q = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-  })
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+= {
+= {
+s = {
+
+ description = "OK"
+
+
+-apigateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+func
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "execute-api:Invoke"
-        Condition = {
-          IpAddress = {
-            "aws:SourceIp" = "123.123.123.123/32"
-          }
-        }
-        Effect = %[3]q
-        Principal = {
-          AWS = "*"
-        }
-        Resource = "*"
-      }
-    ]
+rsion = "2012-10-17"
+atement = [
+
+on = "execute-api:Invoke"
+ition = {
+s = {
+p" = "123.123.123.123/32"
+
+
+ct = %[3]q
+cipal = {
+"
+
+urce = "*"
+
+
   })
 }
 `, rName, bodyPath, policyEffect)
@@ -2646,51 +2570,50 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 
   body = jsonencode({
-    swagger = "2.0"
-    info = {
-      title   = "test"
-      version = "2017-04-20T04:08:08Z"
-    }
-    schemes = ["https"]
-    paths = {
-      "/test" = {
-        get = {
-          responses = {
-            "200" = {
-              description = "OK"
-            }
-          }
-          x-amazon-apigateway-integration = {
-            httpMethod = "GET"
-            type       = "HTTP"
-            responses = {
-              default = {
-                statusCode = 200
-              }
-            }
-            uri = "https://api.example.com/"
-          }
-        }
-      }
-    }
-    x-amazon-apigateway-policy = {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Action = "execute-api:Invoke"
-          Condition = {
-            IpAddress = {
-              "aws:SourceIp" = "123.123.123.123/32"
-            }
-          }
-          Effect = %[2]q
-          Principal = {
-            AWS = "*"
-          }
-          Resource = "*"
-        }
-      ]
-    }
+agger = "2.0"
+fo = {
+ "tes
+n = "2017-04-20T04:08:08Z"
+
+hemes = ["https"]
+ths = {
+" = {
+= {
+s = {
+
+ description = "OK"
+
+funcgateway-integration = {
+ "GET"
+"
+{
+ default = {
+tusCode = 200
+ }
+
+://api.example.com/"
+
+
+
+
+amazon-apigateway-policy = {
+n = "2012-10-17"
+ent = [
+
+ "execute-api:Invoke"
+n = {
+{
+ "aws:SourceIp" = "123.123.123.123/32"
+
+
+ %[2]q
+l = {
+
+
+ = "*"
+
+
+
   })
 }
 `, rName, bodyPolicyEffect)
@@ -2699,46 +2622,46 @@ resource "aws_api_gateway_rest_api" "test" {
 func testAccRestAPIConfig_failOnWarnings(rName string, title string, failOnWarnings string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
-  name        = %[1]q
+  name1]q
   description = %[2]q
   %[3]s
   body = jsonencode({
-    openapi = "3.0.0"
-    info = {
-      title       = "Sample API"
-      description = %[2]q
-      version     = "0.1.9"
-    }
-    servers = [{
-      url = "http://api.example.com/v1"
-    }]
-    components = {
-      invalid_key_will_warn = "a_value"
-    }
-    paths = {
-      "/users" = {
-        get = {
-          summary     = "Returns a list of users."
-          description = "Optional extended description in CommonMark or HTML."
-          responses = {
-            "200" = {
-              description = "A JSON array of user names"
-              content = {
-                "application/json" = {
-                  schema = {
-                    type = "array"
-                    items = {
-                      type = "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+enapi = "3.0.0"
+fo = {
+= "SaPI"
+ption = %[2]q
+n  = "09"
+
+rvers = [{
+"http://api.example.com/v1"
+
+mponents = {
+d_key_will_warn = "a_value"
+
+ths = {
+s" = {
+funcRetu a list of users."
+ion = "Optional extended description in CommonMark or HTML."
+s = {
+
+ description = "A JSON array of user names"
+ content = {
+plication/json" = {
+chema = {
+= "array"
+ = {
+tring"
+
+
+
+ }
+
+
+
+
+
   })
 }
 `, rName, title, failOnWarnings)
 }
+func

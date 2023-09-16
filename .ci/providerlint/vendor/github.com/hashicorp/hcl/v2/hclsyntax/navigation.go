@@ -15,7 +15,8 @@ type navigation struct {
 }
 
 // Implementation of hcled.ContextString
-func (n navigation) ContextString(offset int) string {
+
+ (n navigation) ContextString(offset int) string {
 	// We will walk our top-level blocks until we find one that contains
 	// the given offset, and then construct a representation of the header
 	// of the block.
@@ -45,7 +46,8 @@ func (n navigation) ContextString(offset int) string {
 	return buf.String()
 }
 
-func (n navigation) ContextDefRange(offset int) hcl.Range {
+
+ (n navigation) ContextDefRange(offset int) hcl.Range {
 	var block *Block
 	for _, candidate := range n.root.Blocks {
 		if candidate.Range().ContainsOffset(offset) {

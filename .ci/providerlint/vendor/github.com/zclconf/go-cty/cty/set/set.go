@@ -25,38 +25,44 @@ rules Rules[T]
 }
 
 // NewSet returns an empty set with the membership rules given.
-func NewSet[T any](rules Rules[T]) Set[T] {
+
+ NewSet[T any](rules Rules[T]) Set[T] {
 return Set[T]{
 vals:  map[int][]T{},
 rules: rules,
 }
 }
 
-func NewSetFromSlice[T any](rules Rules[T], vals []T) Set[T] {
+
+ NewSetFromSlice[T any](rules Rules[T], vals []T) Set[T] {
 s := NewSet(rules)
 for _, v := range vals {
 s.Add(v)
 }
 return s
+
+
+
+ sameRules[T any](s1 Set[T], s2 Set[T]) bool {
+rn s1.rules.SameRules(s2.rules)
 }
 
-func sameRules[T any](s1 Set[T], s2 Set[T]) bool {
-return s1.rules.SameRules(s2.rules)
-}
 
-func mustHaveSameRules[T any](s1 Set[T], s2 Set[T]) {
+ mustHaveSameRules[T any](s1 Set[T], s2 Set[T]) {
 if !sameRules(s1, s2) {
 panic(fmt.Errorf("incompatible set rules: %#v, %#v", s1.rules, s2.rules))
 }
-}
+
 
 // HasRules returns true if and only if the receiving set has the given rules
 // instance as its rules.
-func (s Set[T]) HasRules(rules Rules[T]) bool {
+
+Set[T]) HasRules(rules Rules[T]) bool {
 return s.rules.SameRules(rules)
 }
 
 // Rules returns the receiving set's rules instance.
-func (s Set[T]) Rules() Rules[T] {
+
+ (s Set[T]) Rules() Rules[T] {
 return s.rules
 }

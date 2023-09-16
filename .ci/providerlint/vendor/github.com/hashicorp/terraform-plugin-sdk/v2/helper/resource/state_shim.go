@@ -19,7 +19,8 @@ type shimmedState struct {
 	state *terraform.State
 }
 
-func shimStateFromJson(jsonState *tfjson.State) (*terraform.State, error) {
+
+ shimStateFromJson(jsonState *tfjson.State) (*terraform.State, error) {
 	state := terraform.NewState()
 	state.TFVersion = jsonState.TerraformVersion
 
@@ -45,7 +46,8 @@ func shimStateFromJson(jsonState *tfjson.State) (*terraform.State, error) {
 	return state, nil
 }
 
-func shimOutputState(so *tfjson.StateOutput) (*terraform.OutputState, error) {
+
+ shimOutputState(so *tfjson.StateOutput) (*terraform.OutputState, error) {
 	os := &terraform.OutputState{
 		Sensitive: so.Sensitive,
 	}
@@ -105,9 +107,10 @@ func shimOutputState(so *tfjson.StateOutput) (*terraform.OutputState, error) {
 	}
 
 	return nil, fmt.Errorf("unexpected output type: %T", so.Value)
-}
 
-func (ss *shimmedState) shimStateModule(sm *tfjson.StateModule) error {
+
+
+ (ss *shimmedState) shimStateModule(sm *tfjson.StateModule) error {
 	var path addrs.ModuleInstance
 
 	if sm.Address == "" {
@@ -139,10 +142,11 @@ func (ss *shimmedState) shimStateModule(sm *tfjson.StateModule) error {
 		return fmt.Errorf("Modules are not supported. Found %d modules.",
 			len(sm.ChildModules))
 	}
-	return nil
+urn nil
 }
 
-func shimResourceStateKey(res *tfjson.StateResource) (string, error) {
+
+ shimResourceStateKey(res *tfjson.StateResource) (string, error) {
 	if res.Index == nil {
 		return res.Address, nil
 	}
@@ -181,7 +185,8 @@ func shimResourceStateKey(res *tfjson.StateResource) (string, error) {
 	return rsk.String(), nil
 }
 
-func shimResourceState(res *tfjson.StateResource) (*terraform.ResourceState, error) {
+
+ shimResourceState(res *tfjson.StateResource) (*terraform.ResourceState, error) {
 	sf := &shimmedFlatmap{}
 	err := sf.FromMap(res.AttributeValues)
 	if err != nil {
@@ -212,15 +217,17 @@ type shimmedFlatmap struct {
 	m map[string]string
 }
 
-func (sf *shimmedFlatmap) FromMap(attributes map[string]interface{}) error {
+
+ (sf *shimmedFlatmap) FromMap(attributes map[string]interface{}) error {
 	if sf.m == nil {
-		sf.m = make(map[string]string, len(attributes))
+.m = make(map[string]string, len(attributes))
 	}
 
 	return sf.AddMap("", attributes)
 }
 
-func (sf *shimmedFlatmap) AddMap(prefix string, m map[string]interface{}) error {
+
+ (sf *shimmedFlatmap) AddMap(prefix string, m map[string]interface{}) error {
 	for key, value := range m {
 		k := key
 		if prefix != "" {
@@ -238,14 +245,15 @@ func (sf *shimmedFlatmap) AddMap(prefix string, m map[string]interface{}) error 
 		mapLength = fmt.Sprintf("%s.%s", prefix, "%")
 	}
 
-	if err := sf.AddEntry(mapLength, strconv.Itoa(len(m))); err != nil {
+err := sf.AddEntry(mapLength, strconv.Itoa(len(m))); err != nil {
 		return fmt.Errorf("unable to add map length %q entry: %w", mapLength, err)
 	}
 
 	return nil
 }
 
-func (sf *shimmedFlatmap) AddSlice(name string, elements []interface{}) error {
+
+ (sf *shimmedFlatmap) AddSlice(name string, elements []interface{}) error {
 	for i, elem := range elements {
 		key := fmt.Sprintf("%s.%d", name, i)
 		err := sf.AddEntry(key, elem)
@@ -254,7 +262,7 @@ func (sf *shimmedFlatmap) AddSlice(name string, elements []interface{}) error {
 		}
 	}
 
-	sliceLength := fmt.Sprintf("%s.#", name)
+ceLength := fmt.Sprintf("%s.#", name)
 	if err := sf.AddEntry(sliceLength, strconv.Itoa(len(elements))); err != nil {
 		return fmt.Errorf("unable to add slice length %q entry: %w", sliceLength, err)
 	}
@@ -262,7 +270,8 @@ func (sf *shimmedFlatmap) AddSlice(name string, elements []interface{}) error {
 	return nil
 }
 
-func (sf *shimmedFlatmap) AddEntry(key string, value interface{}) error {
+
+ (sf *shimmedFlatmap) AddEntry(key string, value interface{}) error {
 	switch el := value.(type) {
 	case nil:
 		// omit the entry
@@ -287,7 +296,7 @@ func (sf *shimmedFlatmap) AddEntry(key string, value interface{}) error {
 		// This should never happen unless terraform-json
 		// changes how attributes (types) are represented.
 		//
-		// We handle all types which the JSON unmarshaler
+ We handle all types which the JSON unmarshaler
 		// can possibly produce
 		// https://golang.org/pkg/encoding/json/#Unmarshal
 
@@ -296,6 +305,7 @@ func (sf *shimmedFlatmap) AddEntry(key string, value interface{}) error {
 	return nil
 }
 
-func (sf *shimmedFlatmap) Flatmap() map[string]string {
+
+ (sf *shimmedFlatmap) Flatmap() map[string]string {
 	return sf.m
 }

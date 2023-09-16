@@ -11,10 +11,7 @@ import (
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func FindApplicationByName(ctx context.Context, conn *applicationinsights.ApplicationInsights, name string) (*applicationinsights.ApplicationInfo, error) {
-	input := applicationinsights.DescribeApplicationInput{
+)funcut := applicationinsights.DescribeApplicationInput{
 		ResourceGroupName: aws.String(name),
 	}
 

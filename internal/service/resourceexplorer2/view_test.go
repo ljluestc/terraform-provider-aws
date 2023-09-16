@@ -33,7 +33,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckViewDestroy(ctx),
+CheckDestroy:testAccCheckViewDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccViewConfig_basic(rName),
@@ -69,7 +69,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckViewDestroy(ctx),
+CheckDestroy:testAccCheckViewDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccViewConfig_defaultView(rName, true),
@@ -114,7 +114,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckViewDestroy(ctx),
+CheckDestroy:testAccCheckViewDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccViewConfig_basic(rName),
@@ -141,7 +141,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckViewDestroy(ctx),
+CheckDestroy:testAccCheckViewDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccViewConfig_filter(rName, "resourcetype:ec2:instance"),
@@ -193,7 +193,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckViewDestroy(ctx),
+CheckDestroy:testAccCheckViewDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccViewConfig_tags1(rName, "key1", "value1"),

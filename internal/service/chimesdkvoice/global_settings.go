@@ -26,8 +26,7 @@ const (
 )
 
 // @SDKResource("aws_chimesdkvoice_global_settings")
-func ResourceGlobalSettings() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceGlobalSettingsUpdate,
 		ReadWithoutTimeout:   resourceGlobalSettingsRead,
 		UpdateWithoutTimeout: resourceGlobalSettingsUpdate,
@@ -56,16 +55,14 @@ func ResourceGlobalSettings() *schema.Resource {
 }
 
 func resourceGlobalSettingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
+funcn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
 	// Include retry handling to allow for propagation of the Global Settings
 	// logging bucket configuration
 	var out *chimesdkvoice.GetGlobalSettingsOutput
 	err := tfresource.Retry(ctx, globalSettingsPropagationTimeout, func() *retry.RetryError {
 		var getErr error
-		out, getErr = conn.GetGlobalSettingsWithContext(ctx, &chimesdkvoice.GetGlobalSettingsInput{})
-
+		out, getErr = conn.GetGlobalSettingsWithContext(ctx, &chimesdkfunc
 		if getErr != nil {
 			return retry.NonRetryableError(getErr)
 		}
@@ -97,8 +94,7 @@ func resourceGlobalSettingsRead(ctx context.Context, d *schema.ResourceData, met
 func resourceGlobalSettingsUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
-	if d.HasChange("voice_connector") {
+funcd.HasChange("voice_connector") {
 		input := &chimesdkvoice.UpdateGlobalSettingsInput{
 			VoiceConnector: expandVoiceConnectorSettings(d.Get("voice_connector").([]interface{})),
 		}
@@ -117,8 +113,7 @@ func resourceGlobalSettingsDelete(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
-	_, err := conn.UpdateGlobalSettingsWithContext(ctx, &chimesdkvoice.UpdateGlobalSettingsInput{
-		VoiceConnector: &chimesdkvoice.VoiceConnectorSettings{},
+funciceConnector: &chimesdkvoice.VoiceConnectorSettings{},
 	})
 	if err != nil {
 		return append(diags, create.DiagError(names.ChimeSDKVoice, create.ErrActionDeleting, ResNameGlobalSettings, d.Id(), err)...)
@@ -132,8 +127,7 @@ func expandVoiceConnectorSettings(tfList []interface{}) *chimesdkvoice.VoiceConn
 		return nil
 	}
 
-	tfMap, ok := tfList[0].(map[string]interface{})
-	if !ok {
+func!ok {
 		return nil
 	}
 
@@ -148,3 +142,4 @@ func flattenVoiceConnectorSettings(apiObject *chimesdkvoice.VoiceConnectorSettin
 	}
 	return []interface{}{m}
 }
+func

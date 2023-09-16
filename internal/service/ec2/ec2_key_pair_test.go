@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccEC2KeyPair_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
 	resourceName := "aws_key_pair.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -34,26 +33,24 @@ t.Fatalf("error generating random SSH key: %s", err)
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckKeyPairDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKeyPairConfig_basic(rName, publicKey),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("key-pair/%s", rName)),
-	resource.TestMatchResourceAttr(resourceName, "fingerprint", regexache.MustCompile(`[0-9a-f]{2}(:[0-9a-f]{2}){15}`)),
+funcource.TestMatchResourceAttr(resourceName, "fingerprint", regexache.MustCompile(`[0-9a-f]{2}(:[0-9a-f]{2}){15}`)),
 	resource.TestCheckResourceAttr(resourceName, "key_name", rName),
 	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", ""),
 	resource.TestCheckResourceAttr(resourceName, "public_key", publicKey),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"public_key"},
 	},
 },
@@ -64,8 +61,7 @@ ImportStateVerifyIgnore: []string{"public_key"},
 func TestAccEC2KeyPair_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
-	resourceName := "aws_key_pair.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
@@ -77,9 +73,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckKeyPairDestroy(ctx),
+func
 Config: testAccKeyPairConfig_tags1(rName, publicKey, "key1", "value1"),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -87,11 +82,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"public_key"},
 	},
 	{
@@ -103,8 +97,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-	{
+func
 Config: testAccKeyPairConfig_tags1(rName, publicKey, "key2", "value2"),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -114,8 +107,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
@@ -126,30 +118,27 @@ func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
 t.Fatalf("error generating random SSH key: %s", err)
-	}
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+CheckDestroy:stAccCheckKeyPairDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKeyPairConfig_nameGenerated(publicKey),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-	acctest.CheckResourceAttrNameGenerated(resourceName, "key_name"),
+functest.CheckResourceAttrNameGenerated(resourceName, "key_name"),
 	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "terraform-"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"public_key"},
-	},
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
+func
 },
 	})
 }
@@ -166,11 +155,10 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+CheckDestroy:stAccCheckKeyPairDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKeyPairConfig_namePrefix("tf-acc-test-prefix-", publicKey),
@@ -179,17 +167,15 @@ func(
 	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 	acctest.CheckResourceAttrNameFromPrefix(resourceName, "key_name", "tf-acc-test-prefix-"),
 	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "tf-acc-test-prefix-"),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"public_key"},
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2KeyPair_disappears(t *testing.T) {
@@ -206,9 +192,8 @@ t.Fatalf("error generating random SSH key: %s", err)
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckKeyPairDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKeyPairConfig_basic(rName, publicKey),
@@ -220,8 +205,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheck
@@ -229,8 +213,7 @@ func {
 	return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+func_, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_key_pair" {
 continue
 	}
@@ -241,13 +224,10 @@ continue
 continue
 	}
 
-	if err != nil {
-return err
-	}
-
+funcrn err
+func
 	return fmt.Errorf("EC2 Key Pair %s still exists", rs.Primary.ID)
-}
-
+func
 return nil
 	}
 }
@@ -273,18 +253,15 @@ output, err := tfec2.FindKeyPairByName(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
 }
-
-*v = *output
-
-return nil
+func *output
+funcrn nil
 	}
-}
-
+func
 
 func testAccKeyPairConfig_basic(rName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name[1]q
   public_key = %[2]q
 }
 `, rName, publicKey)
@@ -294,29 +271,27 @@ resource "aws_key_pair" "test" {
 func testAccKeyPairConfig_tags1(rName, publicKey, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name[1]q
   public_key = %[2]q
 
   tags = {
-    %[3]q = %[4]q
+3]q = %[4]q
   }
 }
 `, rName, publicKey, tagKey1, tagValue1)
 }
 
-
 func testAccKeyPairConfig_tags2(rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name[1]q
   public_key = %[2]q
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+3]q = %[4]q
+5]q = %[6]q
   }
-}
-`, rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)
+funcName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
 
@@ -330,10 +305,10 @@ resource "aws_key_pair" "test" {
 
 
 func testAccKeyPairConfig_namePrefix(namePrefix, publicKey string) string {
-	return fmt.Sprintf(`
-resource "aws_key_pair" "test" {
+funcurce "aws_key_pair" "test" {
   key_name_prefix = %[1]q
-  public_key      = %[2]q
+  public_key
 }
 `, namePrefix, publicKey)
 }
+funcfunc

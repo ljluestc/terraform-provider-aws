@@ -14,23 +14,20 @@ import (
 )
 
 
-func TestAccEC2AMIDataSource_natInstance(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccAMIDataSourceConfig_basic,
 Check: resource.ComposeAggregateTestCheck
 func(
 	// Check attributes. Some attributes are tough to test - any not contained here should not be considered
-	// stable and should not be used in interpolation. Exception to block_device_mappings which should both
-	// show up consistently and break if certain references are not available. However modification of the
+funcshow up consistently and break if certain references are not available. However modification of the
 	// snapshot ID which is bound to happen on the NAT AMIs will cause testing to break consistently, so
 	// deep inspection is not included, simply the count is checked.
 	// Tags and product codes may need more testing, but I'm having a hard time finding images with
@@ -74,23 +71,20 @@ func(
 func TestAccEC2AMIDataSource_windowsInstance(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccAMIDataSourceConfig_windows,
+funcig: testAccAMIDataSourceConfig_windows,
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(datasourceName, "architecture", "x86_64"),
 	resource.TestCheckResourceAttr(datasourceName, "block_device_mappings.#", "27"),
 	resource.TestMatchResourceAttr(datasourceName, "creation_date", regexache.MustCompile("^20[0-9]{2}-")),
 	resource.TestMatchResourceAttr(datasourceName, "deprecation_time", regexache.MustCompile("^20[0-9]{2}-")),
-	resource.TestMatchResourceAttr(datasourceName, "description", regexache.MustCompile("^Microsoft Windows Server")),
-	resource.TestCheckResourceAttr(datasourceName, "ena_support", "true"),
+funcource.TestCheckResourceAttr(datasourceName, "ena_support", "true"),
 	resource.TestCheckResourceAttr(datasourceName, "hypervisor", "xen"),
 	resource.TestMatchResourceAttr(datasourceName, "image_id", regexache.MustCompile("^ami-")),
 	resource.TestMatchResourceAttr(datasourceName, "image_location", regexache.MustCompile("^amazon/")),
@@ -127,23 +121,20 @@ func TestAccEC2AMIDataSource_instanceStore(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore(),
 Check: resource.ComposeAggregateTestCheck
-func(
-	resource.TestCheckResourceAttr(datasourceName, "architecture", "x86_64"),
+funcource.TestCheckResourceAttr(datasourceName, "architecture", "x86_64"),
 	resource.TestCheckResourceAttr(datasourceName, "block_device_mappings.#", "0"),
 	resource.TestMatchResourceAttr(datasourceName, "creation_date", regexache.MustCompile("^20[0-9]{2}-")),
 	resource.TestMatchResourceAttr(datasourceName, "deprecation_time", regexache.MustCompile("^20[0-9]{2}-")),
 	resource.TestCheckResourceAttr(datasourceName, "ena_support", "true"),
 	resource.TestCheckResourceAttr(datasourceName, "hypervisor", "xen"),
 	resource.TestMatchResourceAttr(datasourceName, "image_id", regexache.MustCompile("^ami-")),
-	resource.TestMatchResourceAttr(datasourceName, "image_location", regexache.MustCompile("amzn-ami-minimal-hvm")),
-	resource.TestCheckResourceAttr(datasourceName, "image_type", "machine"),
+funcource.TestCheckResourceAttr(datasourceName, "image_type", "machine"),
 	resource.TestCheckResourceAttr(datasourceName, "most_recent", "true"),
 	resource.TestMatchResourceAttr(datasourceName, "name", regexache.MustCompile("amzn-ami-minimal-hvm")),
 	acctest.MatchResourceAttrAccountID(datasourceName, "owner_id"),
@@ -176,23 +167,20 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccAMIDataSourceConfig_nameRegex,
 Check: resource.ComposeTestCheck
 func(
 	resource.TestMatchResourceAttr(datasourceName, "image_id", regexache.MustCompile("^ami-")),
 ),
-	},
-},
+func
 	})
 }
 
 
 func TestAccEC2AMIDataSource_gp3BlockDevice(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_ami.test"
-	datasourceName := "data.aws_ami.test"
+funcasourceName := "data.aws_ami.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -201,8 +189,7 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccAMIDataSourceConfig_gp3BlockDevice(rName),
+funcig: testAccAMIDataSourceConfig_gp3BlockDevice(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "architecture", resourceName, "architecture"),
@@ -210,16 +197,14 @@ func(
 	resource.TestCheckResourceAttrPair(datasourceName, "block_device_mappings.#", resourceName, "ebs_block_device.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttrPair(datasourceName, "image_id", resourceName, "id"),
-	acctest.CheckResourceAttrAccountID(datasourceName, "owner_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "root_device_name", resourceName, "root_device_name"),
+funcource.TestCheckResourceAttrPair(datasourceName, "root_device_name", resourceName, "root_device_name"),
 	resource.TestCheckResourceAttr(datasourceName, "root_device_type", "ebs"),
 	resource.TestCheckResourceAttrPair(datasourceName, "root_snapshot_id", resourceName, "root_snapshot_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "sriov_net_support", resourceName, "sriov_net_support"),
 	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
 	resource.TestCheckResourceAttrPair(datasourceName, "virtualization_type", resourceName, "virtualization_type"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -233,17 +218,16 @@ data "aws_ami" "amzn-ami-minimal-hvm-instance-store" {
   most_recent = true
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-minimal-hvm-*"]
+me= "e"
+lues = ["amzn-ami-minimal-hvm-*"]
   }
 
   filter {
-    name   = "root-device-type"
-    values = ["instance-store"]
+me= "t-device-type"
+lues = ["instance-store"]
   }
 }
-`
-}
+func
 
 // Using NAT AMIs for testing - I would expect with NAT gateways now a thing,
 // that this will possibly be deprecated at some point in time. Other candidates
@@ -252,26 +236,26 @@ data "aws_ami" "amzn-ami-minimal-hvm-instance-store" {
 const testAccAMIDataSourceConfig_basic = `
 data "aws_ami" "test" {
   most_recent = true
-  owners      = ["amazon"]
+  ownersn"]
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-vpc-nat*"]
+me= "e"
+lues = ["amzn-ami-vpc-nat*"]
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+me= "tualization-type"
+lues = ["hvm"]
   }
 
   filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+me= "t-device-type"
+lues = ["ebs"]
   }
 
   filter {
-    name   = "block-device-mapping.volume-type"
-    values = ["standard"]
+me= "ck-device-mapping.volume-type"
+lues = ["standard"]
   }
 }
 `
@@ -280,26 +264,26 @@ data "aws_ami" "test" {
 const testAccAMIDataSourceConfig_windows = `
 data "aws_ami" "test" {
   most_recent = true
-  owners      = ["amazon"]
+  ownersn"]
 
   filter {
-    name   = "name"
-    values = ["Windows_Server-2012-R2*"]
+me= "e"
+lues = ["Windows_Server-2012-R2*"]
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+me= "tualization-type"
+lues = ["hvm"]
   }
 
   filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+me= "t-device-type"
+lues = ["ebs"]
   }
 
   filter {
-    name   = "block-device-mapping.volume-type"
-    values = ["gp2"]
+me= "ck-device-mapping.volume-type"
+lues = ["gp2"]
   }
 }
 `
@@ -308,11 +292,11 @@ data "aws_ami" "test" {
 const testAccAMIDataSourceConfig_nameRegex = `
 data "aws_ami" "test" {
   most_recent = true
-  owners      = ["amazon"]
+  ownersn"]
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-*"]
+me= "e"
+lues = ["amzn-ami-*"]
   }
 
   name_regex = "^amzn-ami-min[a-z]{4}-hvm"
@@ -330,9 +314,10 @@ data "aws_ami" "test" {
   owners = [data.aws_caller_identity.current.account_id]
 
   filter {
-    name   = "image-id"
-    values = [aws_ami.test.id]
+me= "ge-id"
+lues = [aws_ami.test.id]
   }
 }
 `)
 }
+func

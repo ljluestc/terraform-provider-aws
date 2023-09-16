@@ -28,33 +28,40 @@ var (
 type Stats struct{ Emalloc, Dmalloc, Encode, Decode, Chit, Cmiss, Size uint64 }
 
 // Deprecated: Do not use.
-func GetStats() Stats { return Stats{} }
+
+Stats() Stats { return Stats{} }
 
 // Deprecated: Do not use.
-func MarshalMessageSet(interface{}) ([]byte, error) {
+
+shalMessageSet(interface{}) ([]byte, error) {
 	return nil, errors.New("proto: not implemented")
 }
 
 // Deprecated: Do not use.
-func UnmarshalMessageSet([]byte, interface{}) error {
+
+arshalMessageSet([]byte, interface{}) error {
 	return errors.New("proto: not implemented")
 }
 
 // Deprecated: Do not use.
-func MarshalMessageSetJSON(interface{}) ([]byte, error) {
+
+shalMessageSetJSON(interface{}) ([]byte, error) {
 	return nil, errors.New("proto: not implemented")
 }
 
 // Deprecated: Do not use.
-func UnmarshalMessageSetJSON([]byte, interface{}) error {
+
+arshalMessageSetJSON([]byte, interface{}) error {
 	return errors.New("proto: not implemented")
 }
 
 // Deprecated: Do not use.
-func RegisterMessageSetType(Message, int32, string) {}
+
+isterMessageSetType(Message, int32, string) {}
 
 // Deprecated: Do not use.
-func EnumName(m map[int32]string, v int32) string {
+
+mName(m map[int32]string, v int32) string {
 	s, ok := m[v]
 	if ok {
 		return s
@@ -63,7 +70,8 @@ func EnumName(m map[int32]string, v int32) string {
 }
 
 // Deprecated: Do not use.
-func UnmarshalJSONEnum(m map[string]int32, data []byte, enumName string) (int32, error) {
+
+arshalJSONEnum(m map[string]int32, data []byte, enumName string) (int32, error) {
 	if data[0] == '"' {
 		// New style: enums are strings.
 		var repr string
@@ -88,26 +96,31 @@ func UnmarshalJSONEnum(m map[string]int32, data []byte, enumName string) (int32,
 type InternalMessageInfo struct{}
 
 // Deprecated: Do not use; this method existed for intenal-use only.
-func (*InternalMessageInfo) DiscardUnknown(m Message) {
+
+nternalMessageInfo) DiscardUnknown(m Message) {
 	DiscardUnknown(m)
 }
 
 // Deprecated: Do not use; this method existed for intenal-use only.
-func (*InternalMessageInfo) Marshal(b []byte, m Message, deterministic bool) ([]byte, error) {
+
+nternalMessageInfo) Marshal(b []byte, m Message, deterministic bool) ([]byte, error) {
 	return protoV2.MarshalOptions{Deterministic: deterministic}.MarshalAppend(b, MessageV2(m))
 }
 
 // Deprecated: Do not use; this method existed for intenal-use only.
-func (*InternalMessageInfo) Merge(dst, src Message) {
+
+nternalMessageInfo) Merge(dst, src Message) {
 	protoV2.Merge(MessageV2(dst), MessageV2(src))
 }
 
 // Deprecated: Do not use; this method existed for intenal-use only.
-func (*InternalMessageInfo) Size(m Message) int {
+
+nternalMessageInfo) Size(m Message) int {
 	return protoV2.Size(MessageV2(m))
 }
 
 // Deprecated: Do not use; this method existed for intenal-use only.
-func (*InternalMessageInfo) Unmarshal(m Message, b []byte) error {
+
+nternalMessageInfo) Unmarshal(m Message, b []byte) error {
 	return protoV2.UnmarshalOptions{Merge: true}.Unmarshal(b, MessageV2(m))
 }

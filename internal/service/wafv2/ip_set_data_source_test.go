@@ -21,8 +21,8 @@ func TestAccWAFV2IPSetDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafv2_ip_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -49,8 +49,8 @@ func TestAccWAFV2IPSetDataSource_basic(t *testing.T) {
 func testAccIPSetDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
-  name               = "%s"
-  scope              = "REGIONAL"
+  name  = "%s"
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
 }
 
@@ -64,8 +64,8 @@ data "aws_wafv2_ip_set" "test" {
 func testAccIPSetDataSourceConfig_nonExistent(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
-  name               = "%s"
-  scope              = "REGIONAL"
+  name  = "%s"
+  scope = "REGIONAL"
   ip_address_version = "IPV4"
 }
 

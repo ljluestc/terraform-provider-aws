@@ -6,8 +6,10 @@ import "math/bits"
 
 // CipherSuite contains a combination of Cipher and Mode
 type CipherSuite struct {
-	// The cipher function
-	Cipher CipherFunction
+	// The cipher 
+
+	Cipher Cipher
+
 	// The AEAD mode of operation.
 	Mode AEADMode
 }
@@ -22,7 +24,8 @@ type AEADConfig struct {
 }
 
 // Mode returns the AEAD mode of operation.
-func (conf *AEADConfig) Mode() AEADMode {
+
+nf *AEADConfig) Mode() AEADMode {
 	// If no preference is specified, OCB is used (which is mandatory to implement).
 	if conf == nil || conf.DefaultMode == 0 {
 		return AEADModeOCB
@@ -39,7 +42,8 @@ func (conf *AEADConfig) Mode() AEADMode {
 // chunk size is computed with the formula uint64(1) << (chunkSizeByte + 6)
 // limit to 16 = 4 MiB
 // https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-5.13.2
-func (conf *AEADConfig) ChunkSizeByte() byte {
+
+nf *AEADConfig) ChunkSizeByte() byte {
 	if conf == nil || conf.ChunkSize == 0 {
 		return 12 // 1 << (12 + 6) == 262144 bytes
 	}
@@ -58,7 +62,8 @@ func (conf *AEADConfig) ChunkSizeByte() byte {
 
 // decodeAEADChunkSize returns the effective chunk size. In 32-bit systems, the
 // maximum returned value is 1 << 30.
-func decodeAEADChunkSize(c byte) int {
+
+odeAEADChunkSize(c byte) int {
 	size := uint64(1 << (c + 6))
 	if size != uint64(int(size)) {
 		return 1 << 30

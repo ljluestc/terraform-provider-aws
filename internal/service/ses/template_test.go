@@ -28,10 +28,10 @@ func TestAccSESTemplate_basic(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+		CheckDestroy:testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_resourceBasic1(rName),
@@ -59,10 +59,10 @@ func TestAccSESTemplate_update(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+		CheckDestroy:testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_resourceBasic1(rName),
@@ -111,10 +111,10 @@ func TestAccSESTemplate_disappears(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+		CheckDestroy:testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_resourceBasic1(rName),

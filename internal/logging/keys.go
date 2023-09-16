@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package logging
-
-const (
-	KeyResourceId = "id"
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package loggingconst (KeyResourceId = "id")

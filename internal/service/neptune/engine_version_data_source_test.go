@@ -22,10 +22,10 @@ func TestAccNeptuneEngineVersionDataSource_basic(t *testing.T) {
 	version := "1.0.2.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_basic(version),
@@ -51,10 +51,10 @@ func TestAccNeptuneEngineVersionDataSource_preferred(t *testing.T) {
 	dataSourceName := "data.aws_neptune_engine_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_preferred(),
@@ -72,10 +72,10 @@ func TestAccNeptuneEngineVersionDataSource_defaultOnly(t *testing.T) {
 	dataSourceName := "data.aws_neptune_engine_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_defaultOnly(),

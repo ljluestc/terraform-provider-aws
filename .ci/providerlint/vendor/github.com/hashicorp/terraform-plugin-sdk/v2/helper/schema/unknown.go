@@ -13,7 +13,8 @@ import (
 
 // SetUnknowns takes a cty.Value, and compares it to the schema setting any null
 // values which are computed to unknown.
-func SetUnknowns(val cty.Value, schema *configschema.Block) cty.Value {
+
+ SetUnknowns(val cty.Value, schema *configschema.Block) cty.Value {
 	if !val.IsKnown() {
 		return val
 	}

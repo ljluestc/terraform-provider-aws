@@ -13,18 +13,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRoute53ZoneDataSource_id(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_route53_zone.test"
 	dataSourceName := "data.aws_route53_zone.test"
 
 	fqdn := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckZoneDestroy(ctx),
+		CheckDestroy:CheckZoneDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccZoneDataSourceConfig_id(fqdn),
@@ -42,17 +41,16 @@ func TestAccRoute53ZoneDataSource_id(t *testing.T) {
 }
 
 func TestAccRoute53ZoneDataSource_name(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_route53_zone.test"
+funcourceName := "aws_route53_zone.test"
 	dataSourceName := "data.aws_route53_zone.test"
 
 	fqdn := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckZoneDestroy(ctx),
+		CheckDestroy:CheckZoneDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccZoneDataSourceConfig_name(fqdn),
@@ -70,17 +68,16 @@ func TestAccRoute53ZoneDataSource_name(t *testing.T) {
 
 func TestAccRoute53ZoneDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	rInt := sdkacctest.RandInt()
-	resourceName := "aws_route53_zone.test"
+funcourceName := "aws_route53_zone.test"
 	dataSourceName := "data.aws_route53_zone.test"
 
 	fqdn := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckZoneDestroy(ctx),
+		CheckDestroy:CheckZoneDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccZoneDataSourceConfig_tagsPrivate(fqdn, rInt),
@@ -99,14 +96,13 @@ func TestAccRoute53ZoneDataSource_tags(t *testing.T) {
 func TestAccRoute53ZoneDataSource_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
-	resourceName := "aws_route53_zone.test"
-	dataSourceName := "data.aws_route53_zone.test"
+funcaSourceName := "data.aws_route53_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckZoneDestroy(ctx),
+		CheckDestroy:CheckZoneDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccZoneDataSourceConfig_vpc(rInt),
@@ -126,13 +122,12 @@ func TestAccRoute53ZoneDataSource_serviceDiscovery(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_service_discovery_private_dns_namespace.test"
-	dataSourceName := "data.aws_route53_zone.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "servicediscovery") },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "servicediscovery") },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckZoneDestroy(ctx),
+		CheckDestroy:CheckZoneDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccZoneDataSourceConfig_serviceDiscovery(rInt),
@@ -151,8 +146,7 @@ func testAccZoneDataSourceConfig_id(fqdn string) string {
 resource "aws_route53_zone" "test" {
   name = %[1]q
 }
-
-data "aws_route53_zone" "test" {
+func "aws_route53_zone" "test" {
   zone_id = aws_route53_zone.test.zone_id
 }
 `, fqdn)
@@ -164,8 +158,7 @@ resource "aws_route53_zone" "test" {
   name = %[1]q
 }
 
-data "aws_route53_zone" "test" {
-  name = aws_route53_zone.test.name
+funcme = aws_route53_zone.test.name
 }
 `, fqdn)
 }
@@ -177,25 +170,24 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_route53_zone" "test" {
-  name = %[1]q
-
+func
   vpc {
-    vpc_id = aws_vpc.test.id
+c_id = aws_vpc.test.id
   }
 
   tags = {
-    Environment = "tf-acc-test-%[2]d"
-    Name        = "tf-acc-test-%[2]d"
+vironment = "tf-acc-test-%[2]d"
+me"tf-acc-test-%[2]d"
   }
 }
 
 data "aws_route53_zone" "test" {
-  name         = aws_route53_zone.test.name
+  name aws_route53_zone.test.name
   private_zone = true
-  vpc_id       = aws_vpc.test.id
+  vpc_idws_vpc.test.id
 
   tags = {
-    Environment = "tf-acc-test-%[2]d"
+vironment = "tf-acc-test-%[2]d"
   }
 }
 `, fqdn, rInt)
@@ -207,26 +199,25 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-r53-zone-data-source-%[1]d"
+me = "terraform-testacc-r53-zone-data-source-%[1]d"
   }
-}
-
+func
 resource "aws_route53_zone" "test" {
   name = "test.acc-%[1]d."
 
   vpc {
-    vpc_id = aws_vpc.test.id
+c_id = aws_vpc.test.id
   }
 
   tags = {
-    Environment = "dev-%[1]d"
+vironment = "dev-%[1]d"
   }
 }
 
 data "aws_route53_zone" "test" {
-  name         = aws_route53_zone.test.name
+  name aws_route53_zone.test.name
   private_zone = true
-  vpc_id       = aws_vpc.test.id
+  vpc_idws_vpc.test.id
 }
 `, rInt)
 }
@@ -237,17 +228,16 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-r53-zone-data-source-%[1]d"
+me = "terraform-testacc-r53-zone-data-source-%[1]d"
   }
 }
-
-resource "aws_service_discovery_private_dns_namespace" "test" {
+funcurce "aws_service_discovery_private_dns_namespace" "test" {
   name = "test.acc-sd-%[1]d"
   vpc  = aws_vpc.test.id
 }
 
 data "aws_route53_zone" "test" {
-  name   = aws_service_discovery_private_dns_namespace.test.name
+  namews_service_discovery_private_dns_namespace.test.name
   vpc_id = aws_vpc.test.id
 }
 `, rInt)

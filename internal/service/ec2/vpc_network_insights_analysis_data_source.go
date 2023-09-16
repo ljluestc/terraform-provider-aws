@@ -18,68 +18,67 @@ import (
 
 // @SDKDataSource("aws_ec2_network_insights_analysis")
 
-func DataSourceNetworkInsightsAnalysis() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceNetworkInsightsAnalysisRead,
 
 		Schema: map[string]*schema.Schema{
 			"alternate_path_hints": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"component_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"component_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"explanations": networkInsightsAnalysisExplanationsSchema,
-			"filter":       CustomFiltersSchema(),
+			"filter":ltersSchema(),
 			"filter_in_arns": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"forward_path_components": networkInsightsAnalysisPathComponentsSchema,
 			"network_insights_analysis_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"network_insights_path_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"path_found": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"return_path_components": networkInsightsAnalysisPathComponentsSchema,
 			"start_date": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"status_message": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"warning_message": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -87,8 +86,7 @@ func DataSourceNetworkInsightsAnalysis() *schema.Resource {
 }
 
 func dataSourceNetworkInsightsAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeNetworkInsightsAnalysesInput{}
 

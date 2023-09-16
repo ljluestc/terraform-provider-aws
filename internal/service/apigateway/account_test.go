@@ -13,16 +13,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayAccount_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_account.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountConfig_role0(rName),
@@ -34,8 +33,8 @@ func TestAccAPIGatewayAccount_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -61,8 +60,7 @@ resource "aws_api_gateway_account" "test" {}
 `
 
 func testAccAccountConfig_base(rName string) string {
-	return fmt.Sprintf(`
-data "aws_partition" "current" {}
+func "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
   count = 2
@@ -70,14 +68,14 @@ resource "aws_iam_role" "test" {
   name = "%[1]s-${count.index}"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "apigateway.amazonaws.com"
-      }
-    }]
+rsion = "2012-10-17"
+atement = [{
+ = "sts:AssumeRole"
+ = "Allow"
+pal = {
+ice = "apigateway.amazonaws.com"
+
+
   })
 
   managed_policy_arns = ["arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]
@@ -87,8 +85,7 @@ resource "aws_iam_role" "test" {
 
 func testAccAccountConfig_role0(rName string) string {
 	return acctest.ConfigCompose(testAccAccountConfig_base(rName), `
-resource "aws_api_gateway_account" "test" {
-  cloudwatch_role_arn = aws_iam_role.test[0].arn
+funcoudwatch_role_arn = aws_iam_role.test[0].arn
 }
 `)
 }
@@ -96,7 +93,6 @@ resource "aws_api_gateway_account" "test" {
 func testAccAccountConfig_role1(rName string) string {
 	return acctest.ConfigCompose(testAccAccountConfig_base(rName), `
 resource "aws_api_gateway_account" "test" {
-  cloudwatch_role_arn = aws_iam_role.test[1].arn
-}
+func
 `)
 }

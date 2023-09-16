@@ -12,18 +12,22 @@ import (
 	"os"
 )
 
-func rename(oldpath, newpath string) error {
+
+ rename(oldpath, newpath string) error {
 	return os.Rename(oldpath, newpath)
 }
 
-func readFile(filename string) ([]byte, error) {
+
+ readFile(filename string) ([]byte, error) {
 	return ioutil.ReadFile(filename)
+
+
+
+ removeAll(path string) error {
+urn os.RemoveAll(path)
 }
 
-func removeAll(path string) error {
-	return os.RemoveAll(path)
-}
 
-func isEphemeralError(err error) bool {
+ isEphemeralError(err error) bool {
 	return false
 }

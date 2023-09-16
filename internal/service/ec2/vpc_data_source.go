@@ -24,8 +24,7 @@ import (
 // @SDKDataSource("aws_vpc", name="VPC")
 // @Tags
 
-func DataSourceVPC() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -34,84 +33,84 @@ func DataSourceVPC() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"cidr_block_associations": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"association_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"cidr_block": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"default": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Computed: true,
 			},
 			"dhcp_options_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"enable_dns_hostnames": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"enable_dns_support": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"enable_network_address_usage_metrics": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"instance_tenancy": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipv6_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipv6_association_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"main_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -121,8 +120,7 @@ func DataSourceVPC() *schema.Resource {
 }
 
 func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	// We specify "default" as boolean, but EC2 filters want
 	// it to be serialized as a string. Note that setting it to
@@ -136,9 +134,9 @@ func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	input := &ec2.DescribeVpcsInput{
 		Filters: BuildAttributeFilterList(
 			map[string]string{
-				"cidr":   d.Get("cidr_block").(string),
+				"cidr":et("cidr_block").(string),
 				"dhcp-options-id": d.Get("dhcp_options_id").(string),
-				"isDefault":       isDefaultStr,
+				"isDefault":tStr,
 				"state":  d.Get("state").(string),
 			},
 		),
@@ -167,8 +165,8 @@ func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	ownerID := aws.StringValue(vpc.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("vpc/%s", d.Id()),
 	}.String()
@@ -208,7 +206,7 @@ func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	for _, v := range vpc.CidrBlockAssociationSet {
 		association := map[string]interface{}{
 			"association_id": aws.StringValue(v.AssociationId),
-			"cidr_block":     aws.StringValue(v.CidrBlock),
+			"cidr_block":Value(v.CidrBlock),
 			"state": aws.StringValue(v.CidrBlockState.State),
 		}
 		cidrAssociations = append(cidrAssociations, association)

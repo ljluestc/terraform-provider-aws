@@ -25,10 +25,10 @@ func TestAccLocationMap_basic(t *testing.T) {
 	resourceName := "aws_location_map.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMapDestroy(ctx),
+		CheckDestroy:testAccCheckMapDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMapConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccLocationMap_disappears(t *testing.T) {
 	resourceName := "aws_location_map.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMapDestroy(ctx),
+		CheckDestroy:testAccCheckMapDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMapConfig_basic(rName),
@@ -82,10 +82,10 @@ func TestAccLocationMap_description(t *testing.T) {
 	resourceName := "aws_location_map.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMapDestroy(ctx),
+		CheckDestroy:testAccCheckMapDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMapConfig_description(rName, "description1"),
@@ -116,10 +116,10 @@ func TestAccLocationMap_tags(t *testing.T) {
 	resourceName := "aws_location_map.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMapDestroy(ctx),
+		CheckDestroy:testAccCheckMapDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMapConfig_tags1(rName, "key1", "value1"),

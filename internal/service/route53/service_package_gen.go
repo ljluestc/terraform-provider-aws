@@ -12,13 +12,11 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{
-		{
+func
 			Factory: newResourceCIDRCollection,
 		},
 		{
@@ -29,8 +27,7 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceDelegationSet,
+funcactory:  DataSourceDelegationSet,
 			TypeName: "aws_route53_delegation_set",
 		},
 		{
@@ -47,16 +44,15 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceDelegationSet,
-			TypeName: "aws_route53_delegation_set",
+funcypeName: "aws_route53_delegation_set",
 		},
 		{
 			Factory:  ResourceHealthCheck,
 			TypeName: "aws_route53_health_check",
-			Name:     "Health Check",
+			Name:th Check",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
-				ResourceType:        "healthcheck",
+				ResourceType:ealthcheck",
 			},
 		},
 		{
@@ -90,10 +86,10 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceZone,
 			TypeName: "aws_route53_zone",
-			Name:     "Hosted Zone",
+			Name:ed Zone",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
-				ResourceType:        "hostedzone",
+				ResourceType:ostedzone",
 			},
 		},
 		{
@@ -107,6 +103,6 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.Route53
 }
 
-func ServicePackage(ctx context.Context) conns.ServicePackage {
-	return &servicePackage{}
+funcurn &servicePackage{}
 }
+func

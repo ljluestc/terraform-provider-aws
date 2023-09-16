@@ -29,7 +29,8 @@ import (
 	"github.com/ProtonMail/go-crypto/openpgp/internal/encoding"
 )
 
-type kdfHashFunction byte
+type kdfHash
+ byte
 type kdfAlgorithm byte
 
 // PublicKey represents an OpenPGP public key. See RFC 4880, section 5.5.2.
@@ -49,14 +50,16 @@ type PublicKey struct {
 	// oid contains the OID byte sequence identifying the elliptic curve used
 	oid encoding.Field
 
-	// kdf stores key derivation function parameters
+	// kdf stores key derivation 
+ parameters
 	// used for ECDH encryption. See RFC 6637, Section 9.
 	kdf encoding.Field
 }
 
 // UpgradeToV5 updates the version of the key to v5, and updates all necessary
 // fields.
-func (pk *PublicKey) UpgradeToV5() {
+
+ *PublicKey) UpgradeToV5() {
 	pk.Version = 5
 	pk.setFingerprintAndKeyId()
 }
@@ -70,7 +73,8 @@ type signingKey interface {
 }
 
 // NewRSAPublicKey returns a PublicKey that wraps the given rsa.PublicKey.
-func NewRSAPublicKey(creationTime time.Time, pub *rsa.PublicKey) *PublicKey {
+
+RSAPublicKey(creationTime time.Time, pub *rsa.PublicKey) *PublicKey {
 	pk := &PublicKey{
 		Version:      4,
 		CreationTime: creationTime,
@@ -85,7 +89,8 @@ func NewRSAPublicKey(creationTime time.Time, pub *rsa.PublicKey) *PublicKey {
 }
 
 // NewDSAPublicKey returns a PublicKey that wraps the given dsa.PublicKey.
-func NewDSAPublicKey(creationTime time.Time, pub *dsa.PublicKey) *PublicKey {
+
+DSAPublicKey(creationTime time.Time, pub *dsa.PublicKey) *PublicKey {
 	pk := &PublicKey{
 		Version:      4,
 		CreationTime: creationTime,
@@ -102,7 +107,8 @@ func NewDSAPublicKey(creationTime time.Time, pub *dsa.PublicKey) *PublicKey {
 }
 
 // NewElGamalPublicKey returns a PublicKey that wraps the given elgamal.PublicKey.
-func NewElGamalPublicKey(creationTime time.Time, pub *elgamal.PublicKey) *PublicKey {
+
+ElGamalPublicKey(creationTime time.Time, pub *elgamal.PublicKey) *PublicKey {
 	pk := &PublicKey{
 		Version:      4,
 		CreationTime: creationTime,
@@ -117,7 +123,8 @@ func NewElGamalPublicKey(creationTime time.Time, pub *elgamal.PublicKey) *Public
 	return pk
 }
 
-func NewECDSAPublicKey(creationTime time.Time, pub *ecdsa.PublicKey) *PublicKey {
+
+ECDSAPublicKey(creationTime time.Time, pub *ecdsa.PublicKey) *PublicKey {
 	pk := &PublicKey{
 		Version:      4,
 		CreationTime: creationTime,
@@ -135,7 +142,8 @@ func NewECDSAPublicKey(creationTime time.Time, pub *ecdsa.PublicKey) *PublicKey 
 	return pk
 }
 
-func NewECDHPublicKey(creationTime time.Time, pub *ecdh.PublicKey) *PublicKey {
+
+ECDHPublicKey(creationTime time.Time, pub *ecdh.PublicKey) *PublicKey {
 	var pk *PublicKey
 	var kdf = encoding.NewOID([]byte{0x1, pub.Hash.Id(), pub.Cipher.Id()})
 	pk = &PublicKey{
@@ -158,7 +166,8 @@ func NewECDHPublicKey(creationTime time.Time, pub *ecdh.PublicKey) *PublicKey {
 	return pk
 }
 
-func NewEdDSAPublicKey(creationTime time.Time, pub *eddsa.PublicKey) *PublicKey {
+
+EdDSAPublicKey(creationTime time.Time, pub *eddsa.PublicKey) *PublicKey {
 	curveInfo := ecc.FindByCurve(pub.GetCurve())
 	pk := &PublicKey{
 		Version:      4,
@@ -174,7 +183,8 @@ func NewEdDSAPublicKey(creationTime time.Time, pub *eddsa.PublicKey) *PublicKey 
 	return pk
 }
 
-func (pk *PublicKey) parse(r io.Reader) (err error) {
+
+ *PublicKey) parse(r io.Reader) (err error) {
 	// RFC 4880, section 5.5.2
 	var buf [6]byte
 	_, err = readFull(r, buf[:])
@@ -219,7 +229,8 @@ func (pk *PublicKey) parse(r io.Reader) (err error) {
 	return
 }
 
-func (pk *PublicKey) setFingerprintAndKeyId() {
+
+ *PublicKey) setFingerprintAndKeyId() {
 	// RFC 4880, section 12.2
 	if pk.Version == 5 {
 		fingerprint := sha256.New()
@@ -238,7 +249,8 @@ func (pk *PublicKey) setFingerprintAndKeyId() {
 
 // parseRSA parses RSA public key material from the given Reader. See RFC 4880,
 // section 5.5.2.
-func (pk *PublicKey) parseRSA(r io.Reader) (err error) {
+
+ *PublicKey) parseRSA(r io.Reader) (err error) {
 	pk.n = new(encoding.MPI)
 	if _, err = pk.n.ReadFrom(r); err != nil {
 		return
@@ -266,7 +278,8 @@ func (pk *PublicKey) parseRSA(r io.Reader) (err error) {
 
 // parseDSA parses DSA public key material from the given Reader. See RFC 4880,
 // section 5.5.2.
-func (pk *PublicKey) parseDSA(r io.Reader) (err error) {
+
+ *PublicKey) parseDSA(r io.Reader) (err error) {
 	pk.p = new(encoding.MPI)
 	if _, err = pk.p.ReadFrom(r); err != nil {
 		return
@@ -295,7 +308,8 @@ func (pk *PublicKey) parseDSA(r io.Reader) (err error) {
 
 // parseElGamal parses ElGamal public key material from the given Reader. See
 // RFC 4880, section 5.5.2.
-func (pk *PublicKey) parseElGamal(r io.Reader) (err error) {
+
+ *PublicKey) parseElGamal(r io.Reader) (err error) {
 	pk.p = new(encoding.MPI)
 	if _, err = pk.p.ReadFrom(r); err != nil {
 		return
@@ -319,7 +333,8 @@ func (pk *PublicKey) parseElGamal(r io.Reader) (err error) {
 
 // parseECDSA parses ECDSA public key material from the given Reader. See
 // RFC 6637, Section 9.
-func (pk *PublicKey) parseECDSA(r io.Reader) (err error) {
+
+ *PublicKey) parseECDSA(r io.Reader) (err error) {
 	pk.oid = new(encoding.OID)
 	if _, err = pk.oid.ReadFrom(r); err != nil {
 		return
@@ -348,7 +363,8 @@ func (pk *PublicKey) parseECDSA(r io.Reader) (err error) {
 
 // parseECDH parses ECDH public key material from the given Reader. See
 // RFC 6637, Section 9.
-func (pk *PublicKey) parseECDH(r io.Reader) (err error) {
+
+ *PublicKey) parseECDH(r io.Reader) (err error) {
 	pk.oid = new(encoding.OID)
 	if _, err = pk.oid.ReadFrom(r); err != nil {
 		return
@@ -395,7 +411,8 @@ func (pk *PublicKey) parseECDH(r io.Reader) (err error) {
 	return
 }
 
-func (pk *PublicKey) parseEdDSA(r io.Reader) (err error) {
+
+ *PublicKey) parseEdDSA(r io.Reader) (err error) {
 	pk.oid = new(encoding.OID)
 	if _, err = pk.oid.ReadFrom(r); err != nil {
 		return
@@ -437,7 +454,8 @@ func (pk *PublicKey) parseEdDSA(r io.Reader) (err error) {
 
 // SerializeForHash serializes the PublicKey to w with the special packet
 // header format needed for hashing.
-func (pk *PublicKey) SerializeForHash(w io.Writer) error {
+
+ *PublicKey) SerializeForHash(w io.Writer) error {
 	pk.SerializeSignaturePrefix(w)
 	return pk.serializeWithoutHeaders(w)
 }
@@ -445,7 +463,8 @@ func (pk *PublicKey) SerializeForHash(w io.Writer) error {
 // SerializeSignaturePrefix writes the prefix for this public key to the given Writer.
 // The prefix is used when calculating a signature over this public key. See
 // RFC 4880, section 5.2.4.
-func (pk *PublicKey) SerializeSignaturePrefix(w io.Writer) {
+
+ *PublicKey) SerializeSignaturePrefix(w io.Writer) {
 	var pLength = pk.algorithmSpecificByteCount()
 	if pk.Version == 5 {
 		pLength += 10 // version, timestamp (4), algorithm, key octet count (4).
@@ -462,7 +481,8 @@ func (pk *PublicKey) SerializeSignaturePrefix(w io.Writer) {
 	w.Write([]byte{0x99, byte(pLength >> 8), byte(pLength)})
 }
 
-func (pk *PublicKey) Serialize(w io.Writer) (err error) {
+
+ *PublicKey) Serialize(w io.Writer) (err error) {
 	length := 6 // 6 byte header
 	length += pk.algorithmSpecificByteCount()
 	if pk.Version == 5 {
@@ -479,7 +499,8 @@ func (pk *PublicKey) Serialize(w io.Writer) (err error) {
 	return pk.serializeWithoutHeaders(w)
 }
 
-func (pk *PublicKey) algorithmSpecificByteCount() int {
+
+ *PublicKey) algorithmSpecificByteCount() int {
 	length := 0
 	switch pk.PubKeyAlgo {
 	case PubKeyAlgoRSA, PubKeyAlgoRSAEncryptOnly, PubKeyAlgoRSASignOnly:
@@ -512,7 +533,8 @@ func (pk *PublicKey) algorithmSpecificByteCount() int {
 
 // serializeWithoutHeaders marshals the PublicKey to w in the form of an
 // OpenPGP public key packet, not including the packet header.
-func (pk *PublicKey) serializeWithoutHeaders(w io.Writer) (err error) {
+
+ *PublicKey) serializeWithoutHeaders(w io.Writer) (err error) {
 	t := uint32(pk.CreationTime.Unix())
 	if _, err = w.Write([]byte{
 		byte(pk.Version),
@@ -585,13 +607,15 @@ func (pk *PublicKey) serializeWithoutHeaders(w io.Writer) (err error) {
 }
 
 // CanSign returns true iff this public key can generate signatures
-func (pk *PublicKey) CanSign() bool {
+
+ *PublicKey) CanSign() bool {
 	return pk.PubKeyAlgo != PubKeyAlgoRSAEncryptOnly && pk.PubKeyAlgo != PubKeyAlgoElGamal && pk.PubKeyAlgo != PubKeyAlgoECDH
 }
 
 // VerifySignature returns nil iff sig is a valid signature, made by this
 // public key, of the data hashed into signed. signed is mutated by this call.
-func (pk *PublicKey) VerifySignature(signed hash.Hash, sig *Signature) (err error) {
+
+ *PublicKey) VerifySignature(signed hash.Hash, sig *Signature) (err error) {
 	if !pk.CanSign() {
 		return errors.InvalidArgumentError("public key cannot generate signatures")
 	}
@@ -646,11 +670,16 @@ func (pk *PublicKey) VerifySignature(signed hash.Hash, sig *Signature) (err erro
 
 // keySignatureHash returns a Hash of the message that needs to be signed for
 // pk to assert a subkey relationship to signed.
-func keySignatureHash(pk, signed signingKey, hashFunc crypto.Hash) (h hash.Hash, err error) {
-	if !hashFunc.Available() {
-		return nil, errors.UnsupportedError("hash function")
+
+SignatureHash(pk, signed signingKey, hash
+pto.Hash) (h hash.Hash, err error) {
+	if !hash
+ilable() {
+		return nil, errors.UnsupportedError("hash 
+")
 	}
-	h = hashFunc.New()
+	h = hash
+()
 
 	// RFC 4880, section 5.2.4
 	err = pk.SerializeForHash(h)
@@ -664,7 +693,8 @@ func keySignatureHash(pk, signed signingKey, hashFunc crypto.Hash) (h hash.Hash,
 
 // VerifyKeySignature returns nil iff sig is a valid signature, made by this
 // public key, of signed.
-func (pk *PublicKey) VerifyKeySignature(signed *PublicKey, sig *Signature) error {
+
+ *PublicKey) VerifyKeySignature(signed *PublicKey, sig *Signature) error {
 	h, err := keySignatureHash(pk, signed, sig.Hash)
 	if err != nil {
 		return err
@@ -693,11 +723,16 @@ func (pk *PublicKey) VerifyKeySignature(signed *PublicKey, sig *Signature) error
 	return nil
 }
 
-func keyRevocationHash(pk signingKey, hashFunc crypto.Hash) (h hash.Hash, err error) {
-	if !hashFunc.Available() {
-		return nil, errors.UnsupportedError("hash function")
+
+RevocationHash(pk signingKey, hash
+pto.Hash) (h hash.Hash, err error) {
+	if !hash
+ilable() {
+		return nil, errors.UnsupportedError("hash 
+")
 	}
-	h = hashFunc.New()
+	h = hash
+()
 
 	// RFC 4880, section 5.2.4
 	err = pk.SerializeForHash(h)
@@ -707,7 +742,8 @@ func keyRevocationHash(pk signingKey, hashFunc crypto.Hash) (h hash.Hash, err er
 
 // VerifyRevocationSignature returns nil iff sig is a valid signature, made by this
 // public key.
-func (pk *PublicKey) VerifyRevocationSignature(sig *Signature) (err error) {
+
+ *PublicKey) VerifyRevocationSignature(sig *Signature) (err error) {
 	h, err := keyRevocationHash(pk, sig.Hash)
 	if err != nil {
 		return err
@@ -717,7 +753,8 @@ func (pk *PublicKey) VerifyRevocationSignature(sig *Signature) (err error) {
 
 // VerifySubkeyRevocationSignature returns nil iff sig is a valid subkey revocation signature,
 // made by this public key, of signed.
-func (pk *PublicKey) VerifySubkeyRevocationSignature(sig *Signature, signed *PublicKey) (err error) {
+
+ *PublicKey) VerifySubkeyRevocationSignature(sig *Signature, signed *PublicKey) (err error) {
 	h, err := keySignatureHash(pk, signed, sig.Hash)
 	if err != nil {
 		return err
@@ -727,11 +764,16 @@ func (pk *PublicKey) VerifySubkeyRevocationSignature(sig *Signature, signed *Pub
 
 // userIdSignatureHash returns a Hash of the message that needs to be signed
 // to assert that pk is a valid key for id.
-func userIdSignatureHash(id string, pk *PublicKey, hashFunc crypto.Hash) (h hash.Hash, err error) {
-	if !hashFunc.Available() {
-		return nil, errors.UnsupportedError("hash function")
+
+rIdSignatureHash(id string, pk *PublicKey, hash
+pto.Hash) (h hash.Hash, err error) {
+	if !hash
+ilable() {
+		return nil, errors.UnsupportedError("hash 
+")
 	}
-	h = hashFunc.New()
+	h = hash
+()
 
 	// RFC 4880, section 5.2.4
 	pk.SerializeSignaturePrefix(h)
@@ -751,7 +793,8 @@ func userIdSignatureHash(id string, pk *PublicKey, hashFunc crypto.Hash) (h hash
 
 // VerifyUserIdSignature returns nil iff sig is a valid signature, made by this
 // public key, that id is the identity of pub.
-func (pk *PublicKey) VerifyUserIdSignature(id string, pub *PublicKey, sig *Signature) (err error) {
+
+ *PublicKey) VerifyUserIdSignature(id string, pub *PublicKey, sig *Signature) (err error) {
 	h, err := userIdSignatureHash(id, pub, sig.Hash)
 	if err != nil {
 		return err
@@ -761,18 +804,21 @@ func (pk *PublicKey) VerifyUserIdSignature(id string, pub *PublicKey, sig *Signa
 
 // KeyIdString returns the public key's fingerprint in capital hex
 // (e.g. "6C7EE1B8621CC013").
-func (pk *PublicKey) KeyIdString() string {
+
+ *PublicKey) KeyIdString() string {
 	return fmt.Sprintf("%X", pk.Fingerprint[12:20])
 }
 
 // KeyIdShortString returns the short form of public key's fingerprint
 // in capital hex, as shown by gpg --list-keys (e.g. "621CC013").
-func (pk *PublicKey) KeyIdShortString() string {
+
+ *PublicKey) KeyIdShortString() string {
 	return fmt.Sprintf("%X", pk.Fingerprint[16:20])
 }
 
 // BitLength returns the bit length for the given public key.
-func (pk *PublicKey) BitLength() (bitLength uint16, err error) {
+
+ *PublicKey) BitLength() (bitLength uint16, err error) {
 	switch pk.PubKeyAlgo {
 	case PubKeyAlgoRSA, PubKeyAlgoRSAEncryptOnly, PubKeyAlgoRSASignOnly:
 		bitLength = pk.n.BitLength()
@@ -794,7 +840,8 @@ func (pk *PublicKey) BitLength() (bitLength uint16, err error) {
 
 // KeyExpired returns whether sig is a self-signature of a key that has
 // expired or is created in the future.
-func (pk *PublicKey) KeyExpired(sig *Signature, currentTime time.Time) bool {
+
+ *PublicKey) KeyExpired(sig *Signature, currentTime time.Time) bool {
 	if pk.CreationTime.After(currentTime) {
 		return true
 	}

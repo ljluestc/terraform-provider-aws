@@ -38,10 +38,10 @@ func TestAccEventsConnection_apiKey(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_connection.api_key"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_apiKey(
@@ -61,7 +61,7 @@ func TestAccEventsConnection_apiKey(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"auth_parameters.0.api_key.0.value"},
 			},
@@ -121,10 +121,10 @@ func TestAccEventsConnection_basic(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_connection.basic"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(
@@ -144,7 +144,7 @@ func TestAccEventsConnection_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"auth_parameters.0.basic.0.password"},
 			},
@@ -241,10 +241,10 @@ func TestAccEventsConnection_oAuth(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_connection.oauth"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_oauth(
@@ -407,10 +407,10 @@ func TestAccEventsConnection_invocationHTTPParameters(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_connection.invocation_http_parameters"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_invocationHTTPParameters(
@@ -554,10 +554,10 @@ func TestAccEventsConnection_disappears(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_connection.api_key"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_apiKey(
@@ -645,7 +645,7 @@ func testAccCheckConnectionNotRecreated(i, j *eventbridge.DescribeConnectionOutp
 func testAccConnectionConfig_apiKey(name, description, authorizationType, key, value string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "api_key" {
-  name               = %[1]q
+  name  = %[1]q
   description        = %[2]q
   authorization_type = %[3]q
   auth_parameters {
@@ -665,7 +665,7 @@ resource "aws_cloudwatch_event_connection" "api_key" {
 func testAccConnectionConfig_basic(name, description, authorizationType, username, password string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "basic" {
-  name               = %[1]q
+  name  = %[1]q
   description        = %[2]q
   authorization_type = %[3]q
   auth_parameters {
@@ -701,7 +701,7 @@ func testAccConnectionConfig_oauth(
 	queryStringIsSecretValue bool) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "oauth" {
-  name               = %[1]q
+  name  = %[1]q
   description        = %[2]q
   authorization_type = %[3]q
   auth_parameters {
@@ -715,19 +715,19 @@ resource "aws_cloudwatch_event_connection" "oauth" {
 
       oauth_http_parameters {
         body {
-          key             = %[8]q
+          key= %[8]q
           value           = %[9]q
           is_value_secret = %[10]t
         }
 
         header {
-          key             = %[11]q
+          key= %[11]q
           value           = %[12]q
           is_value_secret = %[13]t
         }
 
         query_string {
-          key             = %[14]q
+          key= %[14]q
           value           = %[15]q
           is_value_secret = %[16]t
         }
@@ -770,7 +770,7 @@ func testAccConnectionConfig_invocationHTTPParameters(
 	queryStringIsSecretValue bool) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "invocation_http_parameters" {
-  name               = %[1]q
+  name  = %[1]q
   description        = %[2]q
   authorization_type = %[3]q
   auth_parameters {
@@ -781,37 +781,37 @@ resource "aws_cloudwatch_event_connection" "invocation_http_parameters" {
 
     invocation_http_parameters {
       body {
-        key             = %[6]q
+        key= %[6]q
         value           = %[7]q
         is_value_secret = %[8]t
       }
 
       body {
-        key             = "second-%[6]s"
+        key= "second-%[6]s"
         value           = "second-%[7]s"
         is_value_secret = %[8]t
       }
 
       header {
-        key             = %[9]q
+        key= %[9]q
         value           = %[10]q
         is_value_secret = %[11]t
       }
 
       header {
-        key             = "second-%[9]s"
+        key= "second-%[9]s"
         value           = "second-%[10]s"
         is_value_secret = %[11]t
       }
 
       query_string {
-        key             = %[12]q
+        key= %[12]q
         value           = %[13]q
         is_value_secret = %[14]t
       }
 
       query_string {
-        key             = "second-%[12]s"
+        key= "second-%[12]s"
         value           = "second-%[13]s"
         is_value_secret = %[14]t
       }

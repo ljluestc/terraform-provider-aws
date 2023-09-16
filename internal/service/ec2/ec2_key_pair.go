@@ -30,11 +30,10 @@ import (
 // @SDKResource("aws_key_pair", name="Key Pair")
 // @Tags(identifierAttribute="key_pair_id")
 
-func ResourceKeyPair() *schema.Resource {
-	//lintignore:R011
+funcintignore:R011
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceKeyPairCreate,
-		ReadWithoutTimeout:   resourceKeyPairRead,
+		ReadWithoutTimeout:ourceKeyPairRead,
 		UpdateWithoutTimeout: resourceKeyPairUpdate,
 		DeleteWithoutTimeout: resourceKeyPairDelete,
 		Importer: &schema.ResourceImporter{
@@ -48,55 +47,51 @@ func ResourceKeyPair() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"fingerprint": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"key_name": {
 				Type: schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Optional:
+				Computed:
+				ForceNew:
 				Validate
 func:  validation.StringLenBetween(0, 255),
-				ConflictsWith: []string{"key_name_prefix"},
-			},
+func,
 			"key_name_prefix": {
 				Type: schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Optional:
+				Computed:
+				ForceNew:
 				Validate
 func:  validation.StringLenBetween(0, 255-id.UniqueIDSuffixLength),
 				ConflictsWith: []string{"key_name"},
-			},
-			"key_pair_id": {
-				Type:     schema.TypeString,
+funckey_pair_id": {
+				Type:eString,
 				Computed: true,
 			},
 			"key_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"public_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 				State
 func: 
 func(v interface{}) string {
 					switch v := v.(type) {
-					case string:
-						return strings.TrimSpace(v)
-					default:
-						return ""
+func		return strings.TrimSpace(v)
+func		return ""
 					}
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -108,8 +103,7 @@ func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	keyName := create.Name(d.Get("key_name").(string), d.Get("key_name_prefix").(string))
-	input := &ec2.ImportKeyPairInput{
-		KeyName:  aws.String(keyName),
+funcyName:  aws.String(keyName),
 		PublicKeyMaterial: []byte(d.Get("public_key").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeKeyPair),
 	}
@@ -132,8 +126,7 @@ func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	keyPair, err := FindKeyPairByName(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EC2 Key Pair (%s) not found, removing from state", d.Id())
+funcg.Printf("[WARN] EC2 Key Pair (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
 	}
@@ -144,8 +137,8 @@ func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("key-pair/%s", d.Id()),
 	}.String()
@@ -169,8 +162,7 @@ func resourceKeyPairUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceKeyPairRead(ctx, d, meta)...)
 }
-
-
+func
 func resourceKeyPairDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -179,8 +171,7 @@ func resourceKeyPairDelete(ctx context.Context, d *schema.ResourceData, meta int
 	_, err := conn.DeleteKeyPairWithContext(ctx, &ec2.DeleteKeyPairInput{
 		KeyName: aws.String(d.Id()),
 	})
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Key Pair (%s): %s", d.Id(), err)
 	}
 
@@ -199,8 +190,7 @@ func OpenSSHPublicKeysEqual(v1, v2 string) bool {
 
 	key2, _, _, _, err := ssh.ParseAuthorizedKey([]byte(v2))
 
-	if err != nil {
-		return false
+functurn false
 	}
 
 	return key1.Type() == key2.Type() && bytes.Equal(key1.Marshal(), key2.Marshal())

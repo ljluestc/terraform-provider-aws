@@ -13,7 +13,8 @@ import (
 // Reset clears every field in the message.
 // The resulting message shares no observable memory with its previous state
 // other than the memory for the message itself.
-func Reset(m Message) {
+
+ Reset(m Message) {
 	if mr, ok := m.(interface{ Reset() }); ok && hasProtoMethods {
 		mr.Reset()
 		return
@@ -21,7 +22,8 @@ func Reset(m Message) {
 	resetMessage(m.ProtoReflect())
 }
 
-func resetMessage(m protoreflect.Message) {
+
+ resetMessage(m protoreflect.Message) {
 	if !m.IsValid() {
 		panic(fmt.Sprintf("cannot reset invalid %v message", m.Descriptor().FullName()))
 	}
@@ -33,7 +35,8 @@ func resetMessage(m protoreflect.Message) {
 	}
 
 	// Clear extension fields.
-	m.Range(func(fd protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
+	m.Range(
+(fd protoreflect.FieldDescriptor, _ protoreflect.Value) bool {
 		m.Clear(fd)
 		return true
 	})

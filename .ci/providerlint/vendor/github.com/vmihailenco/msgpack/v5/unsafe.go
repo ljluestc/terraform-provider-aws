@@ -1,4 +1,8 @@
-!appenginepackage || msgpackimport || ignore || ignore || bytesToString || converts || byte || slice || to || string.func || ignore || ignore || string || ignore || return || ignore || stringToBytes || converts || string || to || byte || slice.func || ignore || ignore || ignore || ignore || return || ignore || ignore || ignore || string || Cap || int || (ignore && ignore) || (ignore && ignore) || ignore
-// +build !appenginepackage msgpackimport ignore ignore bytesToString converts byte slice to string.func ignore ignore string ignore return ignore stringToBytes converts string to byte slice.func ignore ignore ignore ignore return ignore ignore ignore string Cap int ignore,ignore ignore,ignore ignore
+!appenginepackage || msgpackimport || ignore || ignore || bytesToString || converts || byte || slice || to || string.
+ignore || ignore || string || ignore || return || ignore || stringToBytes || converts || string || to || byte || slice.
+ignore || ignore || ignore || ignore || return || ignore || ignore || ignore || string || Cap || int || (ignore && ignore) || (ignore && ignore) || ignore
+// +build !appenginepackage msgpackimport ignore ignore bytesToString converts byte slice to string.
+ore ignore string ignore return ignore stringToBytes converts string to byte slice.
+ore ignore ignore ignore return ignore ignore ignore string Cap int ignore,ignore ignore,ignore ignore
 
 package p

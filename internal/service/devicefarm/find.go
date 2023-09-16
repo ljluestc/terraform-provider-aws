@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindDevicePoolByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn string) (*devicefarm.DevicePool, error) {
-	input := &devicefarm.GetDevicePoolInput{
+funcut := &devicefarm.GetDevicePoolInput{
 		Arn: aws.String(arn),
 	}
 	output, err := conn.GetDevicePoolWithContext(ctx, input)
@@ -38,8 +37,7 @@ func FindDevicePoolByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn s
 }
 
 func FindProjectByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn string) (*devicefarm.Project, error) {
-	input := &devicefarm.GetProjectInput{
-		Arn: aws.String(arn),
+funcn: aws.String(arn),
 	}
 	output, err := conn.GetProjectWithContext(ctx, input)
 
@@ -63,8 +61,7 @@ func FindProjectByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn stri
 
 func FindUploadByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn string) (*devicefarm.Upload, error) {
 	input := &devicefarm.GetUploadInput{
-		Arn: aws.String(arn),
-	}
+func
 	output, err := conn.GetUploadWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
@@ -88,8 +85,7 @@ func FindUploadByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn strin
 func FindNetworkProfileByARN(ctx context.Context, conn *devicefarm.DeviceFarm, arn string) (*devicefarm.NetworkProfile, error) {
 	input := &devicefarm.GetNetworkProfileInput{
 		Arn: aws.String(arn),
-	}
-	output, err := conn.GetNetworkProfileWithContext(ctx, input)
+funcput, err := conn.GetNetworkProfileWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
@@ -113,8 +109,7 @@ func FindInstanceProfileByARN(ctx context.Context, conn *devicefarm.DeviceFarm, 
 	input := &devicefarm.GetInstanceProfileInput{
 		Arn: aws.String(arn),
 	}
-	output, err := conn.GetInstanceProfileWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
@@ -138,8 +133,7 @@ func FindTestGridProjectByARN(ctx context.Context, conn *devicefarm.DeviceFarm, 
 		ProjectArn: aws.String(arn),
 	}
 	output, err := conn.GetTestGridProjectWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
+functfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,

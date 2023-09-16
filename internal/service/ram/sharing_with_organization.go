@@ -20,10 +20,9 @@ import (
 )
 
 // @SDKResource("aws_ram_sharing_with_organization")
-func ResourceSharingWithOrganization() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSharingWithOrganizationCreate,
-		ReadWithoutTimeout:   resourceSharingWithOrganizationRead,
+		ReadWithoutTimeout:ourceSharingWithOrganizationRead,
 		DeleteWithoutTimeout: resourceSharingWithOrganizationDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -36,12 +35,11 @@ func ResourceSharingWithOrganization() *schema.Resource {
 
 const (
 	sharingWithOrganizationRoleName = "AWSServiceRoleForResourceAccessManager"
-	servicePrincipalName            = "ram.amazonaws.com"
+	servicePrincipalNamenaws.com"
 )
 
 func resourceSharingWithOrganizationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
+funcn := meta.(*conns.AWSClient).RAMConn(ctx)
 
 	output, err := conn.EnableSharingWithAwsOrganizationWithContext(ctx, &ram.EnableSharingWithAwsOrganizationInput{})
 
@@ -60,8 +58,7 @@ func resourceSharingWithOrganizationCreate(ctx context.Context, d *schema.Resour
 
 func resourceSharingWithOrganizationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-
-	// See https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html#getting-started-sharing-orgs.
+funcSee https://docs.aws.amazon.com/ram/latest/userguide/getting-started-sharing.html#getting-started-sharing-orgs.
 	// Check for IAM role and Organizations trusted access.
 
 	_, err := tfiam.FindRoleByName(ctx, meta.(*conns.AWSClient).IAMConn(ctx), sharingWithOrganizationRoleName)
@@ -96,8 +93,7 @@ func resourceSharingWithOrganizationRead(ctx context.Context, d *schema.Resource
 func resourceSharingWithOrganizationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// See https://docs.aws.amazon.com/ram/latest/userguide/security-disable-sharing-with-orgs.html.
-
+func
 	if err := tforganizations.DisableServicePrincipal(ctx, meta.(*conns.AWSClient).OrganizationsConn(ctx), servicePrincipalName); err != nil {
 		return sdkdiag.AppendErrorf(diags, "disabling Organization service principal (%s): %s", servicePrincipalName, err)
 	}

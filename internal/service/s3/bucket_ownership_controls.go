@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_s3_bucket_ownership_controls")
-func ResourceBucketOwnershipControls() *schema.Resource {
+// @SDKResource("aws_s3_bucket_ownership_controls")func ResourceBucketOwnershipControls() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketOwnershipControlsCreate,
 		ReadWithoutTimeout:   resourceBucketOwnershipControlsRead,
@@ -55,10 +54,7 @@ func ResourceBucketOwnershipControls() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketOwnershipControlsCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
@@ -79,11 +75,8 @@ func resourceBucketOwnershipControlsCreate(ctx context.Context, d *schema.Resour
 	d.SetId(bucket)
 
 	return append(diags, resourceBucketOwnershipControlsRead(ctx, d, meta)...)
-}
-
-func resourceBucketOwnershipControlsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketOwnershipControlsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	input := &s3.GetBucketOwnershipControlsInput{
 		Bucket: aws.String(d.Id()),
@@ -122,12 +115,9 @@ func resourceBucketOwnershipControlsRead(ctx context.Context, d *schema.Resource
 	}
 
 	return diags
-}
-
-func resourceBucketOwnershipControlsUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketOwnershipControlsUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	input := &s3.PutBucketOwnershipControlsInput{
 		Bucket: aws.String(d.Id()),
 		OwnershipControls: &s3.OwnershipControls{
@@ -142,13 +132,10 @@ func resourceBucketOwnershipControlsUpdate(ctx context.Context, d *schema.Resour
 	}
 
 	return append(diags, resourceBucketOwnershipControlsRead(ctx, d, meta)...)
-}
-
-func resourceBucketOwnershipControlsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketOwnershipControlsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	input := &s3.DeleteBucketOwnershipControlsInput{
+funcut := &s3.DeleteBucketOwnershipControlsInput{
 		Bucket: aws.String(d.Id()),
 	}
 
@@ -172,14 +159,11 @@ func resourceBucketOwnershipControlsDelete(ctx context.Context, d *schema.Resour
 	}
 
 	return diags
-}
-
-func expandOwnershipControlsRules(tfList []interface{}) []*s3.OwnershipControlsRule {
+}func expandOwnershipControlsRules(tfList []interface{}) []*s3.OwnershipControlsRule {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
-
-	var apiObjects []*s3.OwnershipControlsRule
+func apiObjects []*s3.OwnershipControlsRule
 
 	for _, tfMapRaw := range tfList {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
@@ -192,30 +176,24 @@ func expandOwnershipControlsRules(tfList []interface{}) []*s3.OwnershipControlsR
 	}
 
 	return apiObjects
-}
-
-func expandOwnershipControlsRule(tfMap map[string]interface{}) *s3.OwnershipControlsRule {
+}func expandOwnershipControlsRule(tfMap map[string]interface{}) *s3.OwnershipControlsRule {
 	if tfMap == nil {
 		return nil
 	}
 
-	apiObject := &s3.OwnershipControlsRule{}
-
+	func
 	if v, ok := tfMap["object_ownership"].(string); ok && v != "" {
 		apiObject.ObjectOwnership = aws.String(v)
 	}
 
 	return apiObject
-}
-
-func flattenOwnershipControlsRules(apiObjects []*s3.OwnershipControlsRule) []interface{} {
+}func flattenOwnershipControlsRules(apiObjects []*s3.OwnershipControlsRule) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
 	}
 
 	var tfList []interface{}
-
-	for _, apiObject := range apiObjects {
+func _, apiObject := range apiObjects {
 		if apiObject == nil {
 			continue
 		}
@@ -224,17 +202,14 @@ func flattenOwnershipControlsRules(apiObjects []*s3.OwnershipControlsRule) []int
 	}
 
 	return tfList
-}
-
-func flattenOwnershipControlsRule(apiObject *s3.OwnershipControlsRule) map[string]interface{} {
+}func flattenOwnershipControlsRule(apiObject *s3.OwnershipControlsRule) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
 
 	tfMap := map[string]interface{}{}
 
-	if v := apiObject.ObjectOwnership; v != nil {
-		tfMap["object_ownership"] = aws.StringValue(v)
+	funcMap["object_ownership"] = aws.StringValue(v)
 	}
 
 	return tfMap

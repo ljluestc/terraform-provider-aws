@@ -18,6 +18,8 @@ import (
 
 // @SDKDataSource("aws_connect_user_hierarchy_group")
 
+
+
 func DataSourceUserHierarchyGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserHierarchyGroupRead,
@@ -38,26 +40,36 @@ func DataSourceUserHierarchyGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"level_one": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_two": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_three": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_four": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
 						"level_five": 
+
+
 func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
@@ -69,6 +81,8 @@ func() *schema.Schema {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"level_id": {
@@ -90,6 +104,8 @@ func: validation.StringLenBetween(1, 100),
 		},
 	}
 }
+
+
 
 
 func dataSourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -151,6 +167,8 @@ func dataSourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceDat
 }
 
 
+
+
 func userHierarchyGroupSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.HierarchyGroupSummary, error) {
 	var result *connect.HierarchyGroupSummary
 
@@ -160,6 +178,8 @@ func userHierarchyGroupSummaryByName(ctx context.Context, conn *connect.Connect,
 	}
 
 	err := conn.ListUserHierarchyGroupsPagesWithContext(ctx, input, 
+
+
 func(page *connect.ListUserHierarchyGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

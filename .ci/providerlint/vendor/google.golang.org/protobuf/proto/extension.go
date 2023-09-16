@@ -10,7 +10,8 @@ import (
 
 // HasExtension reports whether an extension field is populated.
 // It returns false if m is invalid or if xt does not extend m.
-func HasExtension(m Message, xt protoreflect.ExtensionType) bool {
+
+ HasExtension(m Message, xt protoreflect.ExtensionType) bool {
 	// Treat nil message interface as an empty message; no populated fields.
 	if m == nil {
 		return false
@@ -27,16 +28,18 @@ func HasExtension(m Message, xt protoreflect.ExtensionType) bool {
 
 // ClearExtension clears an extension field such that subsequent
 // HasExtension calls return false.
-// It panics if m is invalid or if xt does not extend m.
-func ClearExtension(m Message, xt protoreflect.ExtensionType) {
+t panics if m is invalid or if xt does not extend m.
+
+ ClearExtension(m Message, xt protoreflect.ExtensionType) {
 	m.ProtoReflect().Clear(xt.TypeDescriptor())
 }
 
 // GetExtension retrieves the value for an extension field.
 // If the field is unpopulated, it returns the default value for
-// scalars and an immutable, empty value for lists or messages.
+calars and an immutable, empty value for lists or messages.
 // It panics if xt does not extend m.
-func GetExtension(m Message, xt protoreflect.ExtensionType) interface{} {
+
+ GetExtension(m Message, xt protoreflect.ExtensionType) interface{} {
 	// Treat nil message interface as an empty message; return the default.
 	if m == nil {
 		return xt.InterfaceOf(xt.Zero())
@@ -45,10 +48,11 @@ func GetExtension(m Message, xt protoreflect.ExtensionType) interface{} {
 	return xt.InterfaceOf(m.ProtoReflect().Get(xt.TypeDescriptor()))
 }
 
-// SetExtension stores the value of an extension field.
+etExtension stores the value of an extension field.
 // It panics if m is invalid, xt does not extend m, or if type of v
 // is invalid for the specified extension field.
-func SetExtension(m Message, xt protoreflect.ExtensionType, v interface{}) {
+
+ SetExtension(m Message, xt protoreflect.ExtensionType, v interface{}) {
 	xd := xt.TypeDescriptor()
 	pv := xt.ValueOf(v)
 
@@ -71,17 +75,20 @@ func SetExtension(m Message, xt protoreflect.ExtensionType, v interface{}) {
 }
 
 // RangeExtensions iterates over every populated extension field in m in an
-// undefined order, calling f for each extension type and value encountered.
+ndefined order, calling f for  extension type and value encountered.
 // It returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current extension field.
-func RangeExtensions(m Message, f func(protoreflect.ExtensionType, interface{}) bool) {
+
+ RangeExtensions(m Message, f 
+(protoreflect.Extensype, interface{}) bool) {
 	// Treat nil message interface as an empty message; nothing to range over.
 	if m == nil {
 		return
 	}
 
-	m.ProtoReflect().Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	m.ProtoReflect().Range(
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		if fd.IsExtension() {
 			xt := fd.(protoreflect.ExtensionTypeDescriptor).Type()
 			vi := xt.InterfaceOf(v)

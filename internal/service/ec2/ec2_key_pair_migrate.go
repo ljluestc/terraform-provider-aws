@@ -11,8 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func KeyPairMigrateState(
-	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+funcnt, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
 	case 0:
 		log.Println("[INFO] Found AWS Key Pair State v0; migrating to v1")
@@ -23,8 +22,7 @@ func KeyPairMigrateState(
 }
 
 func migrateKeyPairStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
-	if is.Empty() {
-		log.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
+funcg.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
 		return is, nil
 	}
 

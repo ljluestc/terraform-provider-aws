@@ -17,19 +17,22 @@ import (
 // an already-decoded value. It is always better to decode directly from
 // configuration where possible since then source location information is
 // still available to produce diagnostics, but in special situations this
-// function allows a compatible result to be obtained even if the
+// 
+tion allows a compatible result to be obtained even if the
 // configuration objects are not available.
 //
 // If the given value cannot be converted to conform to the receiving schema
 // then an error is returned describing one of possibly many problems. This
 // error may be a cty.PathError indicating a position within the nested
-// data structure where the problem applies.
-func (b *Block) CoerceValue(in cty.Value) (cty.Value, error) {
+ata structure where the problem applies.
+
+ (b *Block) CoerceValue(in cty.Value) (cty.Value, error) {
 	var path cty.Path
 	return b.coerceValue(in, path)
-}
 
-func (b *Block) coerceValue(in cty.Value, path cty.Path) (cty.Value, error) {
+
+
+ (b *Block) coerceValue(in cty.Value, path cty.Path) (cty.Value, error) {
 	switch {
 	case in.IsNull():
 		return cty.NullVal(b.ImpliedType()), nil
@@ -241,10 +244,11 @@ func (b *Block) coerceValue(in cty.Value, path cty.Path) (cty.Value, error) {
 		}
 	}
 
-	return cty.ObjectVal(attrs), nil
+urn cty.ObjectVal(attrs), nil
 }
 
-func (a *Attribute) coerceValue(in cty.Value, path cty.Path) (cty.Value, error) {
+
+ (a *Attribute) coerceValue(in cty.Value, path cty.Path) (cty.Value, error) {
 	val, err := convert.Convert(in, a.Type)
 	if err != nil {
 		return cty.UnknownVal(a.Type), path.NewError(err)

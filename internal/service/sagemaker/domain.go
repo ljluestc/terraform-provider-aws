@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_domain", name="Domain")
 // @Tags(identifierAttribute="arn")
-func ResourceDomain() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainCreate,
-		ReadWithoutTimeout:   resourceDomainRead,
+		ReadWithoutTimeout:ourceDomainRead,
 		UpdateWithoutTimeout: resourceDomainUpdate,
 		DeleteWithoutTimeout: resourceDomainDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,93 +38,93 @@ func ResourceDomain() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"app_network_access_type": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Optional:     true,
-				Default:      sagemaker.AppNetworkAccessTypePublicInternetOnly,
+				Type:chema.TypeString,
+				ForceNew:
+				Optional:
+				Default:maker.AppNetworkAccessTypePublicInternetOnly,
 				ValidateFunc: validation.StringInSlice(sagemaker.AppNetworkAccessType_Values(), false),
 			},
 			"app_security_group_management": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Optional:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Optional:
 				ValidateFunc: validation.StringInSlice(sagemaker.AppSecurityGroupManagement_Values(), false),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"auth_mode": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Required:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Required:
 				ValidateFunc: validation.StringInSlice(sagemaker.AuthMode_Values(), false),
 			},
 			"default_space_settings": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"execution_role": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: verify.ValidARN,
 						},
 						"jupyter_server_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"code_repository": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										MaxItems: 10,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_url": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:chema.TypeString,
+													Required:
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 											},
 										},
 									},
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
@@ -133,64 +132,64 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"kernel_gateway_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
 									"custom_image": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 30,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"app_image_config_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_version_number": {
-													Type:     schema.TypeInt,
+													Type:a.TypeInt,
 													Optional: true,
 												},
 											},
@@ -200,77 +199,77 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"security_groups": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							MaxItems: 5,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"default_user_settings": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"execution_role": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: verify.ValidARN,
 						},
 						"canvas_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"model_register_settings": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cross_account_model_register_role_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"status": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.FeatureStatus_Values(), false),
 												},
 											},
 										},
 									},
 									"time_series_forecasting_settings": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"amazon_forecast_role_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"status": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.FeatureStatus_Values(), false),
 												},
 											},
 										},
 									},
 									"workspace_settings": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"s3_artifact_path": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													ValidateFunc: validation.All(
 														validation.StringMatch(regexache.MustCompile(`^(https|s3)://([^/])/?(.*)$`), ""),
@@ -278,7 +277,7 @@ func ResourceDomain() *schema.Resource {
 													),
 												},
 												"s3_kms_key_id": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 												},
 											},
@@ -288,59 +287,59 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"jupyter_server_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"code_repository": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										MaxItems: 10,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_url": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:chema.TypeString,
+													Required:
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 											},
 										},
 									},
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
@@ -348,64 +347,64 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"kernel_gateway_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
 									"custom_image": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 30,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"app_image_config_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_version_number": {
-													Type:     schema.TypeInt,
+													Type:a.TypeInt,
 													Optional: true,
 												},
 											},
@@ -415,82 +414,82 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"r_studio_server_pro_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"access_status": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:chema.TypeString,
+										Optional:
 										ValidateFunc: validation.StringInSlice(sagemaker.RStudioServerProAccessStatus_Values(), false),
 									},
 									"user_group": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Default:      sagemaker.RStudioServerProUserGroupRStudioUser,
+										Type:chema.TypeString,
+										Optional:
+										Default:maker.RStudioServerProUserGroupRStudioUser,
 										ValidateFunc: validation.StringInSlice(sagemaker.RStudioServerProUserGroup_Values(), false),
 									},
 								},
 							},
 						},
 						"security_groups": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							MaxItems: 5,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 						"r_session_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"custom_image": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 30,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"app_image_config_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_version_number": {
-													Type:     schema.TypeInt,
+													Type:a.TypeInt,
 													Optional: true,
 												},
 											},
@@ -500,58 +499,58 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"sharing_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"notebook_output_option": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Default:      sagemaker.NotebookOutputOptionDisabled,
+										Type:chema.TypeString,
+										Optional:
+										Default:maker.NotebookOutputOptionDisabled,
 										ValidateFunc: validation.StringInSlice(sagemaker.NotebookOutputOption_Values(), false),
 									},
 									"s3_kms_key_id": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"s3_output_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"tensor_board_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
@@ -564,7 +563,7 @@ func ResourceDomain() *schema.Resource {
 				},
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -573,125 +572,125 @@ func ResourceDomain() *schema.Resource {
 				),
 			},
 			"domain_settings": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"execution_role_identity_config": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: validation.StringInSlice(sagemaker.ExecutionRoleIdentityConfig_Values(), false),
 						},
 						"r_studio_server_pro_domain_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"domain_execution_role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:chema.TypeString,
+										Required:
 										ValidateFunc: verify.ValidARN,
 									},
 									"r_studio_connect_url": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 									"r_studio_package_manager_url": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 3,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"home_efs_file_system_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				ForceNew: true,
 				Optional: true,
 			},
 			"retention_policy": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"home_efs_file_system": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: validation.StringInSlice(sagemaker.RetentionType_Values(), false),
-							Default:      sagemaker.RetentionTypeRetain,
+							Default:maker.RetentionTypeRetain,
 						},
 					},
 				},
 			},
 			"security_group_id_for_domain_boundary": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"single_sign_on_managed_application_instance_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 16,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"url": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				ForceNew: true,
 				Required: true,
 			},
@@ -702,17 +701,16 @@ func ResourceDomain() *schema.Resource {
 }
 
 func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.CreateDomainInput{
-		DomainName:           aws.String(d.Get("domain_name").(string)),
-		AuthMode:             aws.String(d.Get("auth_mode").(string)),
-		VpcId:                aws.String(d.Get("vpc_id").(string)),
+		DomainName:g(d.Get("domain_name").(string)),
+		AuthMode:ing(d.Get("auth_mode").(string)),
+		VpcId:et("vpc_id").(string)),
 		AppNetworkAccessType: aws.String(d.Get("app_network_access_type").(string)),
-		SubnetIds:            flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		SubnetIds:andStringSet(d.Get("subnet_ids").(*schema.Set)),
 		DefaultUserSettings:  expandDomainDefaultUserSettings(d.Get("default_user_settings").([]interface{})),
-		Tags:                 getTagsIn(ctx),
+		Tags:),
 	}
 
 	if v, ok := d.GetOk("app_security_group_management"); ok {
@@ -754,8 +752,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	domain, err := FindDomainByName(ctx, conn, d.Id())
 	if err != nil {
 		if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -801,8 +798,7 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &sagemaker.UpdateDomainInput{
 			DomainId: aws.String(d.Id()),
 		}
@@ -837,8 +833,7 @@ func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteDomainInput{
-		DomainId: aws.String(d.Id()),
+funcmainId: aws.String(d.Id()),
 	}
 
 	if v, ok := d.GetOk("retention_policy"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -865,8 +860,7 @@ func expandDomainSettings(l []interface{}) *sagemaker.DomainSettings {
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.DomainSettings{}
 
 	if v, ok := m["execution_role_identity_config"].(string); ok && v != "" {
@@ -890,8 +884,7 @@ func expandRStudioServerProDomainSettings(l []interface{}) *sagemaker.RStudioSer
 	}
 
 	m := l[0].(map[string]interface{})
-
-	config := &sagemaker.RStudioServerProDomainSettings{}
+funcfig := &sagemaker.RStudioServerProDomainSettings{}
 
 	if v, ok := m["domain_execution_role_arn"].(string); ok && v != "" {
 		config.DomainExecutionRoleArn = aws.String(v)
@@ -919,8 +912,7 @@ func expandDomainSettingsUpdate(l []interface{}) *sagemaker.DomainSettingsForUpd
 
 	m := l[0].(map[string]interface{})
 
-	config := &sagemaker.DomainSettingsForUpdate{}
-
+func
 	if v, ok := m["execution_role_identity_config"].(string); ok && v != "" {
 		config.ExecutionRoleIdentityConfig = aws.String(v)
 	}
@@ -936,8 +928,7 @@ func expandRetentionPolicy(l []interface{}) *sagemaker.RetentionPolicy {
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.RetentionPolicy{}
-
-	if v, ok := m["home_efs_file_system"].(string); ok && v != "" {
+funcv, ok := m["home_efs_file_system"].(string); ok && v != "" {
 		config.HomeEfsFileSystem = aws.String(v)
 	}
 
@@ -953,8 +944,7 @@ func expandDomainDefaultUserSettings(l []interface{}) *sagemaker.UserSettings {
 
 	config := &sagemaker.UserSettings{}
 
-	if v, ok := m["canvas_app_settings"].([]interface{}); ok && len(v) > 0 {
-		config.CanvasAppSettings = expandCanvasAppSettings(v)
+funcnfig.CanvasAppSettings = expandCanvasAppSettings(v)
 	}
 
 	if v, ok := m["execution_role"].(string); ok && v != "" {
@@ -1002,8 +992,7 @@ func expandRStudioServerProAppSettings(l []interface{}) *sagemaker.RStudioServer
 	config := &sagemaker.RStudioServerProAppSettings{}
 
 	if v, ok := m["access_status"].(string); ok && v != "" {
-		config.AccessStatus = aws.String(v)
-	}
+func
 
 	if v, ok := m["user_group"].(string); ok && v != "" {
 		config.UserGroup = aws.String(v)
@@ -1023,8 +1012,7 @@ func expandDomainJupyterServerAppSettings(l []interface{}) *sagemaker.JupyterSer
 
 	if v, ok := m["code_repository"].(*schema.Set); ok && v.Len() > 0 {
 		config.CodeRepositories = expandCodeRepositories(v.List())
-	}
-
+func
 	if v, ok := m["default_resource_spec"].([]interface{}); ok && len(v) > 0 {
 		config.DefaultResourceSpec = expandDomainDefaultResourceSpec(v)
 	}
@@ -1048,8 +1036,7 @@ func expandDomainKernelGatewayAppSettings(l []interface{}) *sagemaker.KernelGate
 	if v, ok := m["default_resource_spec"].([]interface{}); ok && len(v) > 0 {
 		config.DefaultResourceSpec = expandDomainDefaultResourceSpec(v)
 	}
-
-	if v, ok := m["lifecycle_config_arns"].(*schema.Set); ok && v.Len() > 0 {
+funcv, ok := m["lifecycle_config_arns"].(*schema.Set); ok && v.Len() > 0 {
 		config.LifecycleConfigArns = flex.ExpandStringSet(v)
 	}
 
@@ -1073,8 +1060,7 @@ func expandRSessionAppSettings(l []interface{}) *sagemaker.RSessionAppSettings {
 		config.DefaultResourceSpec = expandDomainDefaultResourceSpec(v)
 	}
 
-	if v, ok := m["custom_image"].([]interface{}); ok && len(v) > 0 {
-		config.CustomImages = expandDomainCustomImages(v)
+funcnfig.CustomImages = expandDomainCustomImages(v)
 	}
 
 	return config
@@ -1094,8 +1080,7 @@ func expandDomainTensorBoardAppSettings(l []interface{}) *sagemaker.TensorBoardA
 	}
 
 	return config
-}
-
+func
 func expandDomainDefaultResourceSpec(l []interface{}) *sagemaker.ResourceSpec {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1111,8 +1096,7 @@ func expandDomainDefaultResourceSpec(l []interface{}) *sagemaker.ResourceSpec {
 
 	if v, ok := m["lifecycle_config_arn"].(string); ok && v != "" {
 		config.LifecycleConfigArn = aws.String(v)
-	}
-
+func
 	if v, ok := m["sagemaker_image_arn"].(string); ok && v != "" {
 		config.SageMakerImageArn = aws.String(v)
 	}
@@ -1140,8 +1124,7 @@ func expandDomainShareSettings(l []interface{}) *sagemaker.SharingSettings {
 	}
 
 	if v, ok := m["s3_output_path"].(string); ok && v != "" {
-		config.S3OutputPath = aws.String(v)
-	}
+func
 
 	return config
 }
@@ -1154,17 +1137,16 @@ func expandCanvasAppSettings(l []interface{}) *sagemaker.CanvasAppSettings {
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.CanvasAppSettings{
-		ModelRegisterSettings:         expandModelRegisterSettings(m["model_register_settings"].([]interface{})),
+		ModelRegisterSettings:xpandModelRegisterSettings(m["model_register_settings"].([]interface{})),
 		TimeSeriesForecastingSettings: expandTimeSeriesForecastingSettings(m["time_series_forecasting_settings"].([]interface{})),
-		WorkspaceSettings:             expandWorkspaceSettings(m["workspace_settings"].([]interface{})),
+		WorkspaceSettings:orkspaceSettings(m["workspace_settings"].([]interface{})),
 	}
 
 	return config
 }
 
 func expandModelRegisterSettings(l []interface{}) *sagemaker.ModelRegisterSettings {
-	if len(l) == 0 || l[0] == nil {
-		return nil
+functurn nil
 	}
 
 	m := l[0].(map[string]interface{})
@@ -1180,8 +1162,7 @@ func expandModelRegisterSettings(l []interface{}) *sagemaker.ModelRegisterSettin
 	}
 
 	return config
-}
-
+func
 func expandTimeSeriesForecastingSettings(l []interface{}) *sagemaker.TimeSeriesForecastingSettings {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1201,7 +1182,6 @@ func expandTimeSeriesForecastingSettings(l []interface{}) *sagemaker.TimeSeriesF
 
 	return config
 }
-
 func expandWorkspaceSettings(l []interface{}) *sagemaker.WorkspaceSettings {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1222,15 +1202,14 @@ func expandWorkspaceSettings(l []interface{}) *sagemaker.WorkspaceSettings {
 	return config
 }
 
-func expandDomainCustomImages(l []interface{}) []*sagemaker.CustomImage {
-	images := make([]*sagemaker.CustomImage, 0, len(l))
+funcges := make([]*sagemaker.CustomImage, 0, len(l))
 
 	for _, eRaw := range l {
 		data := eRaw.(map[string]interface{})
 
 		image := &sagemaker.CustomImage{
 			AppImageConfigName: aws.String(data["app_image_config_name"].(string)),
-			ImageName:          aws.String(data["image_name"].(string)),
+			ImageName:(data["image_name"].(string)),
 		}
 
 		if v, ok := data["image_version_number"].(int); ok {
@@ -1243,8 +1222,7 @@ func expandDomainCustomImages(l []interface{}) []*sagemaker.CustomImage {
 	return images
 }
 
-func flattenDomainDefaultUserSettings(config *sagemaker.UserSettings) []map[string]interface{} {
-	if config == nil {
+funcconfig == nil {
 		return []map[string]interface{}{}
 	}
 
@@ -1265,8 +1243,7 @@ func flattenDomainDefaultUserSettings(config *sagemaker.UserSettings) []map[stri
 	if config.KernelGatewayAppSettings != nil {
 		m["kernel_gateway_app_settings"] = flattenDomainKernelGatewayAppSettings(config.KernelGatewayAppSettings)
 	}
-
-	if config.RSessionAppSettings != nil {
+funcconfig.RSessionAppSettings != nil {
 		m["r_session_app_settings"] = flattenRSessionAppSettings(config.RSessionAppSettings)
 	}
 
@@ -1312,8 +1289,7 @@ func flattenDomainDefaultResourceSpec(config *sagemaker.ResourceSpec) []map[stri
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{}
-
+func
 	if config.InstanceType != nil {
 		m["instance_type"] = aws.StringValue(config.InstanceType)
 	}
@@ -1331,8 +1307,7 @@ func flattenDomainDefaultResourceSpec(config *sagemaker.ResourceSpec) []map[stri
 	}
 
 	return []map[string]interface{}{m}
-}
-
+func
 func flattenDomainTensorBoardAppSettings(config *sagemaker.TensorBoardAppSettings) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -1358,8 +1333,7 @@ func flattenDomainJupyterServerAppSettings(config *sagemaker.JupyterServerAppSet
 		m["code_repository"] = flattenCodeRepositories(config.CodeRepositories)
 	}
 
-	if config.DefaultResourceSpec != nil {
-		m["default_resource_spec"] = flattenDomainDefaultResourceSpec(config.DefaultResourceSpec)
+func"default_resource_spec"] = flattenDomainDefaultResourceSpec(config.DefaultResourceSpec)
 	}
 
 	if config.LifecycleConfigArns != nil {
@@ -1373,8 +1347,7 @@ func flattenDomainKernelGatewayAppSettings(config *sagemaker.KernelGatewayAppSet
 	if config == nil {
 		return []map[string]interface{}{}
 	}
-
-	m := map[string]interface{}{}
+func= map[string]interface{}{}
 
 	if config.DefaultResourceSpec != nil {
 		m["default_resource_spec"] = flattenDomainDefaultResourceSpec(config.DefaultResourceSpec)
@@ -1396,8 +1369,7 @@ func flattenRSessionAppSettings(config *sagemaker.RSessionAppSettings) []map[str
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{}
-
+func
 	if config.DefaultResourceSpec != nil {
 		m["default_resource_spec"] = flattenDomainDefaultResourceSpec(config.DefaultResourceSpec)
 	}
@@ -1419,8 +1391,7 @@ func flattenDomainShareSettings(config *sagemaker.SharingSettings) []map[string]
 	}
 
 	if config.S3KmsKeyId != nil {
-		m["s3_kms_key_id"] = aws.StringValue(config.S3KmsKeyId)
-	}
+func
 
 	if config.S3OutputPath != nil {
 		m["s3_output_path"] = aws.StringValue(config.S3OutputPath)
@@ -1436,10 +1407,9 @@ func flattenCanvasAppSettings(config *sagemaker.CanvasAppSettings) []map[string]
 
 	m := map[string]interface{}{
 		"time_series_forecasting_settings": flattenTimeSeriesForecastingSettings(config.TimeSeriesForecastingSettings),
-		"model_register_settings":          flattenModelRegisterSettings(config.ModelRegisterSettings),
-		"workspace_settings":               flattenWorkspaceSettings(config.WorkspaceSettings),
-	}
-
+		"model_register_settings":elRegisterSettings(config.ModelRegisterSettings),
+		"workspace_settings":eSettings(config.WorkspaceSettings),
+func
 	return []map[string]interface{}{m}
 }
 
@@ -1450,7 +1420,7 @@ func flattenModelRegisterSettings(config *sagemaker.ModelRegisterSettings) []map
 
 	m := map[string]interface{}{
 		"cross_account_model_register_role_arn": aws.StringValue(config.CrossAccountModelRegisterRoleArn),
-		"status":                                aws.StringValue(config.Status),
+		"status":s),
 	}
 
 	return []map[string]interface{}{m}
@@ -1459,11 +1429,10 @@ func flattenModelRegisterSettings(config *sagemaker.ModelRegisterSettings) []map
 func flattenTimeSeriesForecastingSettings(config *sagemaker.TimeSeriesForecastingSettings) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
-	}
-
+func
 	m := map[string]interface{}{
 		"amazon_forecast_role_arn": aws.StringValue(config.AmazonForecastRoleArn),
-		"status":                   aws.StringValue(config.Status),
+		"status":alue(config.Status),
 	}
 
 	return []map[string]interface{}{m}
@@ -1474,9 +1443,8 @@ func flattenWorkspaceSettings(config *sagemaker.WorkspaceSettings) []map[string]
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{
-		"s3_artifact_path": aws.StringValue(config.S3ArtifactPath),
-		"s3_kms_key_id":    aws.StringValue(config.S3KmsKeyId),
+func3_artifact_path": aws.StringValue(config.S3ArtifactPath),
+		"s3_kms_key_id":s.StringValue(config.S3KmsKeyId),
 	}
 
 	return []map[string]interface{}{m}
@@ -1488,9 +1456,8 @@ func flattenDomainSettings(config *sagemaker.DomainSettings) []map[string]interf
 	}
 
 	m := map[string]interface{}{
-		"execution_role_identity_config":      aws.StringValue(config.ExecutionRoleIdentityConfig),
-		"r_studio_server_pro_domain_settings": flattenRStudioServerProDomainSettings(config.RStudioServerProDomainSettings),
-		"security_group_ids":                  flex.FlattenStringSet(config.SecurityGroupIds),
+func_studio_server_pro_domain_settings": flattenRStudioServerProDomainSettings(config.RStudioServerProDomainSettings),
+		"security_group_ids":StringSet(config.SecurityGroupIds),
 	}
 
 	return []map[string]interface{}{m}
@@ -1502,10 +1469,9 @@ func flattenRStudioServerProDomainSettings(config *sagemaker.RStudioServerProDom
 	}
 
 	m := map[string]interface{}{
-		"r_studio_connect_url":         aws.StringValue(config.RStudioConnectUrl),
-		"domain_execution_role_arn":    aws.StringValue(config.DomainExecutionRoleArn),
+funcomain_execution_role_arn":s.StringValue(config.DomainExecutionRoleArn),
 		"r_studio_package_manager_url": aws.StringValue(config.RStudioPackageManagerUrl),
-		"default_resource_spec":        flattenDomainDefaultResourceSpec(config.DefaultResourceSpec),
+		"default_resource_spec":attenDomainDefaultResourceSpec(config.DefaultResourceSpec),
 	}
 
 	return []map[string]interface{}{m}
@@ -1516,8 +1482,7 @@ func flattenDomainCustomImages(config []*sagemaker.CustomImage) []map[string]int
 
 	for _, raw := range config {
 		image := make(map[string]interface{})
-
-		image["app_image_config_name"] = aws.StringValue(raw.AppImageConfigName)
+funcage["app_image_config_name"] = aws.StringValue(raw.AppImageConfigName)
 		image["image_name"] = aws.StringValue(raw.ImageName)
 
 		if raw.ImageVersionNumber != nil {
@@ -1531,8 +1496,7 @@ func flattenDomainCustomImages(config []*sagemaker.CustomImage) []map[string]int
 }
 
 func DecodeDomainID(id string) (string, error) {
-	domainArn, err := arn.Parse(id)
-	if err != nil {
+funcerr != nil {
 		return "", err
 	}
 
@@ -1547,8 +1511,7 @@ func expanDefaultSpaceSettings(l []interface{}) *sagemaker.DefaultSpaceSettings 
 
 	m := l[0].(map[string]interface{})
 
-	config := &sagemaker.DefaultSpaceSettings{}
-
+func
 	if v, ok := m["execution_role"].(string); ok && v != "" {
 		config.ExecutionRole = aws.String(v)
 	}
@@ -1567,7 +1530,6 @@ func expanDefaultSpaceSettings(l []interface{}) *sagemaker.DefaultSpaceSettings 
 
 	return config
 }
-
 func flattenDefaultSpaceSettings(config *sagemaker.DefaultSpaceSettings) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -1578,8 +1540,7 @@ func flattenDefaultSpaceSettings(config *sagemaker.DefaultSpaceSettings) []map[s
 	if config.ExecutionRole != nil {
 		m["execution_role"] = aws.StringValue(config.ExecutionRole)
 	}
-
-	if config.JupyterServerAppSettings != nil {
+funcconfig.JupyterServerAppSettings != nil {
 		m["jupyter_server_app_settings"] = flattenDomainJupyterServerAppSettings(config.JupyterServerAppSettings)
 	}
 
@@ -1607,8 +1568,7 @@ func expandCodeRepository(tfMap map[string]interface{}) *sagemaker.CodeRepositor
 }
 
 func expandCodeRepositories(tfList []interface{}) []*sagemaker.CodeRepository {
-	if len(tfList) == 0 {
-		return nil
+functurn nil
 	}
 
 	var apiObjects []*sagemaker.CodeRepository
@@ -1634,8 +1594,7 @@ func expandCodeRepositories(tfList []interface{}) []*sagemaker.CodeRepository {
 
 func flattenCodeRepository(apiObject *sagemaker.CodeRepository) map[string]interface{} {
 	if apiObject == nil {
-		return nil
-	}
+func
 
 	tfMap := map[string]interface{}{}
 
@@ -1647,8 +1606,7 @@ func flattenCodeRepository(apiObject *sagemaker.CodeRepository) map[string]inter
 }
 
 func flattenCodeRepositories(apiObjects []*sagemaker.CodeRepository) []interface{} {
-	if len(apiObjects) == 0 {
-		return nil
+functurn nil
 	}
 
 	var tfList []interface{}
@@ -1663,3 +1621,4 @@ func flattenCodeRepositories(apiObjects []*sagemaker.CodeRepository) []interface
 
 	return tfList
 }
+funcfunc

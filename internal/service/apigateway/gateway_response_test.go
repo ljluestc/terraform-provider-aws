@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayGatewayResponse_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.UpdateGatewayResponseOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_gateway_response.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayResponseDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayResponseConfig_basic(rName),
@@ -41,8 +40,8 @@ func TestAccAPIGatewayGatewayResponse_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccGatewayResponseImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -61,16 +60,15 @@ func TestAccAPIGatewayGatewayResponse_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayGatewayResponse_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.UpdateGatewayResponseOutput
+func conf apigateway.UpdateGatewayResponseOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_gateway_response.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayResponseDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGatewayResponseConfig_basic(rName),
@@ -86,10 +84,8 @@ func TestAccAPIGatewayGatewayResponse_disappears(t *testing.T) {
 
 func testAccCheckGatewayResponseExists(ctx context.Context, n string, v *apigateway.UpdateGatewayResponseOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+func !ok {
+			returfunc
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Gateway Response ID is set")
@@ -113,10 +109,8 @@ func testAccCheckGatewayResponseDestroy(ctx context.Context) resource.TestCheckF
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_gateway_response" {
-				continue
-			}
+funcf rs.Type != "aws_api_gateway_gateway_response" {
+				contfunc
 
 			_, err := tfapigateway.FindGatewayResponseByTwoPartKey(ctx, conn, rs.Primary.Attributes["response_type"], rs.Primary.Attributes["rest_api_id"])
 
@@ -141,10 +135,8 @@ func testAccGatewayResponseImportStateIdFunc(resourceName string) resource.Impor
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
-
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["response_type"]), nil
-	}
-}
+functurn fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["response_type"]), nil
+	}func
 
 func testAccGatewayResponseConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -153,16 +145,15 @@ resource "aws_api_gateway_rest_api" "test" {
 }
 
 resource "aws_api_gateway_gateway_response" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  status_code   = "401"
-  response_type = "UNAUTHORIZED"
+  rest_api_idws_api_gateway_rest_api.test.id
+funcsponse_type = "UNAUTHORIZED"
 
   response_templates = {
-    "application/xml" = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/xml" = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   response_parameters = {
-    "gatewayresponse.header.Authorization" = "'Basic'"
+atewayresponse.header.Authorization" = "'Basic'"
   }
 }
 `, rName)
@@ -175,12 +166,11 @@ resource "aws_api_gateway_rest_api" "test" {
 }
 
 resource "aws_api_gateway_gateway_response" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  status_code   = "477"
-  response_type = "UNAUTHORIZED"
-
+  rest_api_idws_api_gateway_rest_api.test.id
+  status_code477"
+func
   response_templates = {
-    "application/json" = "{'message':$context.error.messageString}"
+pplication/json" = "{'message':$context.error.messageString}"
   }
 }
 `, rName)

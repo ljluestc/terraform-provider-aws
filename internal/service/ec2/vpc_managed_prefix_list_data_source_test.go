@@ -18,16 +18,13 @@ import (
 )
 
 
-func testAccManagedPrefixListGetIdByNameDataSource(ctx context.Context, name string, id *string, arn *string) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-output, err := conn.DescribeManagedPrefixListsWithContext(ctx, &ec2.DescribeManagedPrefixListsInput{
+funcut, err := conn.DescribeManagedPrefixListsWithContext(ctx, &ec2.DescribeManagedPrefixListsInput{
 	Filters: []*ec2.Filter{
 {
-	Name:   aws.String("prefix-list-name"),
+	Name:.String("prefix-list-name"),
 	Values: aws.StringSlice([]string{name}),
 },
 	},
@@ -47,8 +44,7 @@ return nil
 func TestAccVPCManagedPrefixListDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	prefixListName := fmt.Sprintf("com.amazonaws.%s.s3", acctest.Region())
-	prefixListId := ""
-	prefixListArn := ""
+funcfixListArn := ""
 
 	resourceByName := "data.aws_ec2_managed_prefix_list.s3_by_name"
 	resourceById := "data.aws_ec2_managed_prefix_list.s3_by_id"
@@ -60,16 +56,14 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCManagedPrefixListDataSourceConfig_basic,
+funcig: testAccVPCManagedPrefixListDataSourceConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
 
 	resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
 	resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
-	resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
-	resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
+funcource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
 	resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
 	resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
 	resource.TestCheckResourceAttr(resourceByName, "version", "0"),
@@ -110,8 +104,7 @@ func TestAccVPCManagedPrefixListDataSource_filter(t *testing.T) {
 	prefixListId := ""
 	prefixListArn := ""
 
-	resourceByName := "data.aws_ec2_managed_prefix_list.s3_by_name"
-	resourceById := "data.aws_ec2_managed_prefix_list.s3_by_id"
+funcourceById := "data.aws_ec2_managed_prefix_list.s3_by_id"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
@@ -122,16 +115,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCManagedPrefixListDataSourceConfig_filter,
 Check: resource.ComposeTestCheck
-func(
-	testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
+functAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
 	resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
 	resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
 	resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
 	resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
 	resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
 	resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
-	resource.TestCheckResourceAttr(resourceByName, "version", "0"),
-	resource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
+funcource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
 
 	resource.TestCheckResourceAttrPair(resourceByName, "id", resourceById, "id"),
 	resource.TestCheckResourceAttrPair(resourceByName, "name", resourceById, "name"),
@@ -153,15 +144,15 @@ data "aws_region" "current" {}
 
 data "aws_ec2_managed_prefix_list" "s3_by_name" {
   filter {
-    name   = "prefix-list-name"
-    values = ["com.amazonaws.${data.aws_region.current.name}.s3"]
+me= "fix-list-name"
+lues = ["com.amazonaws.${data.aws_region.current.name}.s3"]
   }
 }
 
 data "aws_ec2_managed_prefix_list" "s3_by_id" {
   filter {
-    name   = "prefix-list-id"
-    values = [data.aws_ec2_managed_prefix_list.s3_by_name.id]
+me= "fix-list-id"
+lues = [data.aws_ec2_managed_prefix_list.s3_by_name.id]
   }
 }
 `
@@ -176,13 +167,11 @@ ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccVPCManagedPrefixListDataSourceConfig_matchesTooMany,
-ExpectError: regexache.MustCompile(`multiple EC2 Managed Prefix Lists matched`),
+funcctError: regexache.MustCompile(`multiple EC2 Managed Prefix Lists matched`),
 	},
 },
 	})
-}
-
+func
 const testAccVPCManagedPrefixListDataSourceConfig_matchesTooMany = `
 data "aws_ec2_managed_prefix_list" "test" {}
 `

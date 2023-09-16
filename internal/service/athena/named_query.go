@@ -17,10 +17,9 @@ import (
 )
 
 // @SDKResource("aws_athena_named_query")
-func ResourceNamedQuery() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNamedQueryCreate,
-		ReadWithoutTimeout:   resourceNamedQueryRead,
+		ReadWithoutTimeout:ourceNamedQueryRead,
 		DeleteWithoutTimeout: resourceNamedQueryDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -29,28 +28,28 @@ func ResourceNamedQuery() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"query": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"workgroup": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Default:  "primary",
 			},
 			"database": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -59,12 +58,11 @@ func ResourceNamedQuery() *schema.Resource {
 }
 
 func resourceNamedQueryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
+funcn := meta.(*conns.AWSClient).AthenaConn(ctx)
 
 	input := &athena.CreateNamedQueryInput{
-		Database:    aws.String(d.Get("database").(string)),
-		Name:        aws.String(d.Get("name").(string)),
+		Database:s.String(d.Get("database").(string)),
+		Name:s.String(d.Get("name").(string)),
 		QueryString: aws.String(d.Get("query").(string)),
 	}
 	if raw, ok := d.GetOk("workgroup"); ok {
@@ -84,8 +82,7 @@ func resourceNamedQueryCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 func resourceNamedQueryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
+func
 	input := &athena.GetNamedQueryInput{
 		NamedQueryId: aws.String(d.Id()),
 	}
@@ -111,8 +108,7 @@ func resourceNamedQueryRead(ctx context.Context, d *schema.ResourceData, meta in
 func resourceNamedQueryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
-	input := &athena.DeleteNamedQueryInput{
+funcut := &athena.DeleteNamedQueryInput{
 		NamedQueryId: aws.String(d.Id()),
 	}
 

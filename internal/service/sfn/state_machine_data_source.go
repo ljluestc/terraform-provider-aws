@@ -15,8 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_sfn_state_machine")
-func DataSourceStateMachine() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceStateMachineRead,
 
 		Schema: map[string]*schema.Schema{
@@ -57,15 +56,13 @@ func DataSourceStateMachine() *schema.Resource {
 }
 
 func dataSourceStateMachineRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SFNConn(ctx)
-
+func
 	name := d.Get("name").(string)
 	var arns []string
 
 	err := conn.ListStateMachinesPagesWithContext(ctx, &sfn.ListStateMachinesInput{}, func(page *sfn.ListStateMachinesOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.StateMachines {
 			if aws.StringValue(v.Name) == name {

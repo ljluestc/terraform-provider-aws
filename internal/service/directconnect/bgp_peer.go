@@ -176,7 +176,7 @@ func resourceBGPPeerDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	log.Printf("[DEBUG] Deleting Direct Connect BGP peer: %s", d.Id())
 	_, err := conn.DeleteBGPPeerWithContext(ctx, &directconnect.DeleteBGPPeerInput{
-		Asn:                aws.Int64(asn),
+		Asn:   aws.Int64(asn),
 		CustomerAddress:    aws.String(d.Get("customer_address").(string)),
 		VirtualInterfaceId: aws.String(vifId),
 	})

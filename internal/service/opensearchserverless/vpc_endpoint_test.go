@@ -40,7 +40,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointConfig_basic(rName),
@@ -76,7 +76,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointConfig_basic(rName),
@@ -122,7 +122,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointConfig_basic(rName),
@@ -176,7 +176,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointConfig_basic(rName),

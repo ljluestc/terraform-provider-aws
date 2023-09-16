@@ -29,7 +29,7 @@ func TestAccImageBuilderInfrastructureConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_name(rName),
@@ -71,7 +71,7 @@ func TestAccImageBuilderInfrastructureConfiguration_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_name(rName),
@@ -94,7 +94,7 @@ func TestAccImageBuilderInfrastructureConfiguration_description(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_description(rName, "description1"),
@@ -129,7 +129,7 @@ func TestAccImageBuilderInfrastructureConfiguration_instanceMetadataOptions(t *t
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_instanceMetadataOptions(rName),
@@ -160,7 +160,7 @@ func TestAccImageBuilderInfrastructureConfiguration_instanceProfileName(t *testi
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_instanceProfileName1(rName),
@@ -195,7 +195,7 @@ func TestAccImageBuilderInfrastructureConfiguration_instanceTypes(t *testing.T) 
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_instanceTypes1(rName),
@@ -241,7 +241,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_keyPair1(rName, publicKey1),
@@ -278,7 +278,7 @@ func TestAccImageBuilderInfrastructureConfiguration_LoggingS3Logs_s3BucketName(t
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_loggingS3LogsS3BucketName1(rName),
@@ -317,7 +317,7 @@ func TestAccImageBuilderInfrastructureConfiguration_LoggingS3Logs_s3KeyPrefix(t 
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_loggingS3LogsS3KeyPrefix(rName, "/prefix1/"),
@@ -356,7 +356,7 @@ func TestAccImageBuilderInfrastructureConfiguration_resourceTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_resourceTags(rName, "key1", "value1"),
@@ -395,7 +395,7 @@ func TestAccImageBuilderInfrastructureConfiguration_securityGroupIDs(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_securityGroupIDs1(rName),
@@ -434,7 +434,7 @@ func TestAccImageBuilderInfrastructureConfiguration_snsTopicARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_snsTopicARN1(rName),
@@ -471,7 +471,7 @@ func TestAccImageBuilderInfrastructureConfiguration_subnetID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_subnetID1(rName),
@@ -506,7 +506,7 @@ func TestAccImageBuilderInfrastructureConfiguration_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_tags1(rName, "key1", "value1"),
@@ -551,7 +551,7 @@ func TestAccImageBuilderInfrastructureConfiguration_terminateInstanceOnFailure(t
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationConfig_terminateInstanceOnFailure(rName, true),
@@ -765,7 +765,7 @@ resource "aws_key_pair" "test" {
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  key_pair              = aws_key_pair.test.key_name
+  key_pairir.test.key_name
   name   = %[1]q
 }
 `, rName, publicKey))
@@ -782,7 +782,7 @@ resource "aws_key_pair" "test2" {
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  key_pair              = aws_key_pair.test2.key_name
+  key_pairir.test2.key_name
   name   = %[1]q
 }
 `, rName, publicKey))
@@ -939,7 +939,7 @@ resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_security_group.test.id] # Required with subnet_id
-  subnet_id             = aws_subnet.test.id
+  subnet_idtest.id
 }
 `, rName))
 }
@@ -965,7 +965,7 @@ resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_security_group.test.id] # Required with subnet_id
-  subnet_id             = aws_subnet.test2.id
+  subnet_idtest2.id
 }
 `, rName))
 }

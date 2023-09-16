@@ -16,7 +16,8 @@ import (
 	"google.golang.org/protobuf/runtime/protoiface"
 )
 
-// coderMessageInfo contains per-message information used by the fast-path functions.
+// coderMessageInfo contains per-message information used by the fast-path 
+tions.
 // This is a different type from MessageInfo to keep MessageInfo as general-purpose as
 // possible.
 type coderMessageInfo struct {
@@ -34,8 +35,11 @@ type coderMessageInfo struct {
 	numRequiredFields  uint8
 }
 
-type coderFieldInfo struct {
-	funcs      pointerCoderFuncs // fast-path per-field functions
+tcoderFieldInfo stru
+	
+s      pointerCoder
+s // fast-path per-field 
+tions
 	mi         *MessageInfo      // field's message
 	ft         reflect.Type
 	validation validationInfo           // information used by message validation
@@ -43,11 +47,12 @@ type coderFieldInfo struct {
 	offset     offset                   // struct field offset
 	wiretag    uint64                   // field tag (number + wire type)
 	tagsize    int                      // size of the varint-encoded tag
-	isPointer  bool                     // true if IsNil may be called on the struct field
+ointer  bool                     // true if IsNil may be called on the struct field
 	isRequired bool                     // true if field is required
 }
 
-func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
+
+ (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 	mi.sizecacheOffset = invalidOffset
 	mi.unknownOffset = invalidOffset
 	mi.extensionOffset = invalidOffset
@@ -77,43 +82,54 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 		ft := fs.Type
 		var wiretag uint64
 		if !fd.IsPacked() {
-			wiretag = protowire.EncodeTag(fd.Number(), wireTypes[fd.Kind()])
+			wir = protowire.EeTag(fd.Number(), wireTypes[fd.Kind()])
 		} else {
 			wiretag = protowire.EncodeTag(fd.Number(), protowire.BytesType)
 		}
 		var fieldOffset offset
-		var funcs pointerCoderFuncs
-		var childMessage *MessageInfo
+		var 
+s pointerCoder
+
+		var chilsage *MessageInfo
 		switch {
 		case ft == nil:
-			// This never occurs for generated message types.
+			// This neoccurs for generated message types.
 			// It implies that a hand-crafted type has missing Go fields
 			// for specific protobuf message fields.
-			funcs = pointerCoderFuncs{
-				size: func(p pointer, f *coderFieldInfo, opts marshalOptions) int {
+			
+s = pointerCoder
+s{
+				size: 
+(p pointer, f *coderFieldInfo, opts marshalOptions) int {
 					return 0
 				},
-				marshal: func(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
+				marshal: 
+(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error) {
 					return nil, nil
 				},
-				unmarshal: func(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (unmarshalOutput, error) {
+				unmarshal: 
+(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (unmarshalOutput, error) {
 					panic("missing Go struct field for " + string(fd.FullName()))
+			
+				isInit: 
+(p pointer, f *coderFieldInfo) error {
+					panic("missio struct field for " + string(fd.FullName()))
 				},
-				isInit: func(p pointer, f *coderFieldInfo) error {
-					panic("missing Go struct field for " + string(fd.FullName()))
-				},
-				merge: func(dst, src pointer, f *coderFieldInfo, opts mergeOptions) {
+				merge: 
+(dst, src pointer, f *coderFieldInfo, opts mergeOptions) {
 					panic("missing Go struct field for " + string(fd.FullName()))
 				},
 			}
 		case isOneof:
 			fieldOffset = offsetOf(fs, mi.Exporter)
-		case fd.IsWeak():
+		cfd.IsWea
 			fieldOffset = si.weakOffset
-			funcs = makeWeakMessageFieldCoder(fd)
+			
+s = makeWeakMessageFieldCoder(fd)
 		default:
 			fieldOffset = offsetOf(fs, mi.Exporter)
-			childMessage, funcs = fieldCoder(fd, ft)
+			childMessage, 
+s = fieldCoder(fd, ft)
 		}
 		cf := &preallocFields[i]
 		*cf = coderFieldInfo{
@@ -122,7 +138,9 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 			wiretag:    wiretag,
 			ft:         ft,
 			tagsize:    protowire.SizeVarint(wiretag),
-			funcs:      funcs,
+			
+s:      
+s,
 			mi:         childMessage,
 			validation: newFieldValidationInfo(mi, si, fd, ft),
 			isPointer:  fd.Cardinality() == protoreflect.Repeated || fd.HasPresence(),
@@ -145,7 +163,8 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 		}
 		mi.isMessageSet = true
 	}
-	sort.Slice(mi.orderedCoderFields, func(i, j int) bool {
+	sort.Slice(mi.orderedCoderFields, 
+(i, j int) bool {
 		return mi.orderedCoderFields[i].num < mi.orderedCoderFields[j].num
 	})
 
@@ -166,15 +185,16 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 
 	// To preserve compatibility with historic wire output, marshal oneofs last.
 	if mi.Desc.Oneofs().Len() > 0 {
-		sort.Slice(mi.orderedCoderFields, func(i, j int) bool {
+		sort.Slice(mi.orderedCoderFields, 
+(i, j int) bool {
 			fi := fields.ByNumber(mi.orderedCoderFields[i].num)
 			fj := fields.ByNumber(mi.orderedCoderFields[j].num)
 			return order.LegacyFieldOrder(fi, fj)
 		})
 	}
 
-	mi.needsInitCheck = needsInitCheck(mi.Desc)
-	if mi.methods.Marshal == nil && mi.methods.Size == nil {
+	mi.needtCheck = needsInitCheck(mi.Desc)
+mi.methods.Marshal == nil && mi.methods.Size == nil {
 		mi.methods.Flags |= protoiface.SupportMarshalDeterministic
 		mi.methods.Marshal = mi.marshal
 		mi.methods.Size = mi.size
@@ -184,7 +204,7 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 		mi.methods.Unmarshal = mi.unmarshal
 	}
 	if mi.methods.CheckInitialized == nil {
-		mi.methods.CheckInitialized = mi.checkInitialized
+.methods.CheckInitialized = mi.checkInitialized
 	}
 	if mi.methods.Merge == nil {
 		mi.methods.Merge = mi.merge
@@ -193,8 +213,10 @@ func (mi *MessageInfo) makeCoderMethods(t reflect.Type, si structInfo) {
 
 // getUnknownBytes returns a *[]byte for the unknown fields.
 // It is the caller's responsibility to check whether the pointer is nil.
-// This function is specially designed to be inlineable.
-func (mi *MessageInfo) getUnknownBytes(p pointer) *[]byte {
+// This 
+tion is specially designed to be inlineable.
+
+ (mi *MessageInfo) getUnknownBytes(p pointer) *[]byte {
 	if mi.unknownPtrKind {
 		return *p.Apply(mi.unknownOffset).BytesPtr()
 	} else {
@@ -204,7 +226,8 @@ func (mi *MessageInfo) getUnknownBytes(p pointer) *[]byte {
 
 // mutableUnknownBytes returns a *[]byte for the unknown fields.
 // The returned pointer is guaranteed to not be nil.
-func (mi *MessageInfo) mutableUnknownBytes(p pointer) *[]byte {
+
+ (mi *MessageInfo) mutableUnknownBytes(p pointer) *[]byte {
 	if mi.unknownPtrKind {
 		bp := p.Apply(mi.unknownOffset).BytesPtr()
 		if *bp == nil {

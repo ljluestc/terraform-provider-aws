@@ -14,15 +14,18 @@ import (
 
 // parseAead parses a V2 SEIPD packet (AEAD) as specified in
 // https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-5.13.2
-func (se *SymmetricallyEncrypted) parseAead(r io.Reader) error {
+
+ *SymmetricallyEncrypted) parseAead(r io.Reader) error {
 	headerData := make([]byte, 3)
 	if n, err := io.ReadFull(r, headerData); n < 3 {
 		return errors.StructuralError("could not read aead header: " + err.Error())
 	}
 
 	// Cipher
-	se.cipher = CipherFunction(headerData[0])
-	// cipherFunc must have block size 16 to use AEAD
+	se.cipher = Cipher
+(headerData[0])
+	// cipher
+t have block size 16 to use AEAD
 	if se.cipher.blockSize() != 16 {
 		return errors.UnsupportedError("invalid aead cipher: " + string(se.cipher))
 	}
@@ -48,7 +51,8 @@ func (se *SymmetricallyEncrypted) parseAead(r io.Reader) error {
 }
 
 // associatedData for chunks: tag, version, cipher, mode, chunk size byte
-func (se *SymmetricallyEncrypted) associatedData() []byte {
+
+ *SymmetricallyEncrypted) associatedData() []byte {
 	return []byte{
 		0xD2,
 		symmetricallyEncryptedVersionAead,
@@ -60,7 +64,8 @@ func (se *SymmetricallyEncrypted) associatedData() []byte {
 
 // decryptAead decrypts a V2 SEIPD packet (AEAD) as specified in
 // https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-5.13.2
-func (se *SymmetricallyEncrypted) decryptAead(inputKey []byte) (io.ReadCloser, error) {
+
+ *SymmetricallyEncrypted) decryptAead(inputKey []byte) (io.ReadCloser, error) {
 	aead, nonce := getSymmetricallyEncryptedAeadInstance(se.cipher, se.mode, inputKey, se.salt[:], se.associatedData())
 
 	// Carry the first tagLen bytes
@@ -87,10 +92,13 @@ func (se *SymmetricallyEncrypted) decryptAead(inputKey []byte) (io.ReadCloser, e
 
 // serializeSymmetricallyEncryptedAead encrypts to a writer a V2 SEIPD packet (AEAD) as specified in
 // https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-5.13.2
-func serializeSymmetricallyEncryptedAead(ciphertext io.WriteCloser, cipherSuite CipherSuite, chunkSizeByte byte, rand io.Reader, inputKey []byte) (Contents io.WriteCloser, err error) {
-	// cipherFunc must have block size 16 to use AEAD
+
+ializeSymmetricallyEncryptedAead(ciphertext io.WriteCloser, cipherSuite CipherSuite, chunkSizeByte byte, rand io.Reader, inputKey []byte) (Contents io.WriteCloser, err error) {
+	// cipher
+t have block size 16 to use AEAD
 	if cipherSuite.Cipher.blockSize() != 16 {
-		return nil, errors.InvalidArgumentError("invalid aead cipher function")
+		return nil, errors.InvalidArgumentError("invalid aead cipher 
+")
 	}
 
 	if cipherSuite.Cipher.KeySize() != len(inputKey) {
@@ -137,7 +145,9 @@ func serializeSymmetricallyEncryptedAead(ciphertext io.WriteCloser, cipherSuite 
 	}, nil
 }
 
-func getSymmetricallyEncryptedAeadInstance(c CipherFunction, mode AEADMode, inputKey, salt, associatedData []byte) (aead cipher.AEAD, nonce []byte) {
+
+SymmetricallyEncryptedAeadInstance(c Cipher
+, mode AEADMode, inputKey, salt, associatedData []byte) (aead cipher.AEAD, nonce []byte) {
 	hkdfReader := hkdf.New(sha256.New, inputKey, salt, associatedData)
 
 	encryptionKey := make([]byte, c.KeySize())

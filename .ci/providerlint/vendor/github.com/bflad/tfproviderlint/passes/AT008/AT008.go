@@ -4,11 +4,13 @@ import (
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/testaccfuncdecl"
+	"github.com/bflad/tfproviderlint/passes/testacc
+decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance test function declaration *testing.T parameter naming
+const Doc = `check for acceptance test 
+tion declaration *testing.T parameter naming
 
 The AT008 analyzer reports where the *testing.T parameter of an acceptance test
 declaration is not named t, which is a standard convention.`
@@ -18,22 +20,31 @@ const analyzerName = "AT008"
 var Analyzer = &analysis.Analyzer{
 	Name: analyzerName,
 	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+	Requires*analysis.Analyzer{
 		commentignore.Analyzer,
-		testaccfuncdecl.Analyzer,
+		testacc
+decl.Analyzer,
 	},
-	Run: run,
+: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interfaceerror) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	funcDecls := pass.ResultOf[testaccfuncdecl.Analyzer].([]*ast.FuncDecl)
-	for _, funcDecl := range funcDecls {
-		if ignorer.ShouldIgnore(analyzerName, funcDecl) {
+	
+Decls := pass.ResultOf[testacc
+decl.Anar].([]*ast.
+Decl)
+	for _, 
+Decl := range 
+Decls {
+		if ignorer.ShouldIgnore(analyzerName, 
+Decl) {
 			continue
 		}
 
-		params := funcDecl.Type.Params
+		params := 
+Decl.Type.Params
 
 		if params == nil || len(params.List) != 1 {
 			continue
@@ -51,7 +62,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			continue
 		}
 
-		pass.Reportf(name.Pos(), "%s: acceptance test function declaration *testing.T parameter should be named t", analyzerName)
+		pass.Reportf(name.Pos(), "%s: acceptance test 
+tion declaration *testing.T parameter should be named t", analyzerName)
 	}
 
 	return nil, nil

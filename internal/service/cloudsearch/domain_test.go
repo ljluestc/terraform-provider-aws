@@ -28,7 +28,7 @@ func TestAccCloudSearchDomain_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudsearch.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloudsearch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:testAccCheckDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDomainConfig_basic(rName),
@@ -67,7 +67,7 @@ func TestAccCloudSearchDomain_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudsearch.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloudsearch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:testAccCheckDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDomainConfig_basic(rName),
@@ -91,7 +91,7 @@ func TestAccCloudSearchDomain_indexFields(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudsearch.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloudsearch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:testAccCheckDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDomainConfig_indexFields(rName),
@@ -156,7 +156,7 @@ func TestAccCloudSearchDomain_sourceFields(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudsearch.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloudsearch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:testAccCheckDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDomainConfig_sourceFields(rName),
@@ -231,7 +231,7 @@ func TestAccCloudSearchDomain_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudsearch.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloudsearch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:testAccCheckDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDomainConfig_allOptions(rName),

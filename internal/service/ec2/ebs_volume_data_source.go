@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_ebs_volume")
 
-func DataSourceEBSVolume() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSVolumeRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,58 +30,58 @@ func DataSourceEBSVolume() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"iops": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"most_recent": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"multi_attach_enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"snapshot_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"throughput": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"volume_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -90,8 +89,7 @@ func DataSourceEBSVolume() *schema.Resource {
 }
 
 func dataSourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeVolumesInput{}
@@ -134,8 +132,8 @@ func dataSourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("volume/%s", d.Id()),
 	}
@@ -163,16 +161,14 @@ type volumeSort []*ec2.Volume
 
 func (a volumeSort) Len() int { return len(a) }
 
-func (a volumeSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-
+func
 func (a volumeSort) Less(i, j int) bool {
-	itime := aws.TimeValue(a[i].CreateTime)
-	jtime := aws.TimeValue(a[j].CreateTime)
+funcme := aws.TimeValue(a[j].CreateTime)
 	return itime.Unix() < jtime.Unix()
-}
-
+func
 func mostRecentVolume(volumes []*ec2.Volume) *ec2.Volume {
 	sortedVolumes := volumes
 	sort.Sort(volumeSort(sortedVolumes))
 	return sortedVolumes[len(sortedVolumes)-1]
 }
+func

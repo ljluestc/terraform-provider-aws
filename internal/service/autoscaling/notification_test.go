@@ -28,7 +28,7 @@ func TestAccAutoScalingNotification_ASG_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckASGNDestroy(ctx),
+CheckDestroy:stAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_basic(rName),
@@ -51,7 +51,7 @@ func TestAccAutoScalingNotification_ASG_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckASGNDestroy(ctx),
+CheckDestroy:stAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_basic(rName),
@@ -82,7 +82,7 @@ func TestAccAutoScalingNotification_ASG_pagination(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckASGNDestroy(ctx),
+CheckDestroy:stAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_pagination(),
@@ -131,7 +131,7 @@ if rs.Primary.ID == "" {
 conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 opts := &autoscaling.DescribeNotificationConfigurationsInput{
 	AutoScalingGroupNames: aws.StringSlice(groups),
-	MaxRecords:   aws.Int64(100),
+	MaxRecords:.Int64(100),
 }
 
 resp, err := conn.DescribeNotificationConfigurationsWithContext(ctx, opts)
@@ -233,7 +233,7 @@ resource "aws_sns_topic" "topic_example" {
 
 resource "aws_launch_configuration" "foobar" {
   name = "foobarautoscaling-terraform-test-%s"
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
 
@@ -241,30 +241,30 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_autoscaling_group" "bar" {
-  availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name       = "foobar1-terraform-test-%s"
-  max_size   = 1
-  min_size   = 1
+  availability_zonesata.aws_availability_zones.available.names[1]]
+  nameobar1-terraform-test-%s"
+  max_size
+  min_size
   health_check_grace_period = 100
   health_check_type= "ELB"
   desired_capacity = 1
-  force_delete     = true
-  termination_policies      = ["OldestInstance"]
-  launch_configuration      = aws_launch_configuration.foobar.name
+  force_delete true
+  termination_policiesdestInstance"]
+  launch_configurationlaunch_configuration.foobar.name
 }
 
 resource "aws_autoscaling_notification" "example" {
   group_names = [aws_autoscaling_group.bar.name]
 
   notifications = [
-    "autoscaling:EC2_INSTANCE_LAUNCH",
-    "autoscaling:EC2_INSTANCE_TERMINATE",
+utoscaling:EC2_INSTANCE_LAUNCH",
+utoscaling:EC2_INSTANCE_TERMINATE",
   ]
 
   topic_arn = aws_sns_topic.topic_example.arn
@@ -280,7 +280,7 @@ resource "aws_sns_topic" "topic_example" {
 
 resource "aws_launch_configuration" "foobar" {
   name = "foobarautoscaling-terraform-test-%s"
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
 
@@ -288,47 +288,47 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_autoscaling_group" "bar" {
-  availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name       = "foobar1-terraform-test-%s"
-  max_size   = 1
-  min_size   = 1
+  availability_zonesata.aws_availability_zones.available.names[1]]
+  nameobar1-terraform-test-%s"
+  max_size
+  min_size
   health_check_grace_period = 100
   health_check_type= "ELB"
   desired_capacity = 1
-  force_delete     = true
-  termination_policies      = ["OldestInstance"]
-  launch_configuration      = aws_launch_configuration.foobar.name
+  force_delete true
+  termination_policiesdestInstance"]
+  launch_configurationlaunch_configuration.foobar.name
 }
 
 resource "aws_autoscaling_group" "foo" {
-  availability_zones        = [data.aws_availability_zones.available.names[2]]
-  name       = "barfoo-terraform-test-%s"
-  max_size   = 1
-  min_size   = 1
+  availability_zonesata.aws_availability_zones.available.names[2]]
+  namerfoo-terraform-test-%s"
+  max_size
+  min_size
   health_check_grace_period = 200
   health_check_type= "ELB"
   desired_capacity = 1
-  force_delete     = true
-  termination_policies      = ["OldestInstance"]
-  launch_configuration      = aws_launch_configuration.foobar.name
+  force_delete true
+  termination_policiesdestInstance"]
+  launch_configurationlaunch_configuration.foobar.name
 }
 
 resource "aws_autoscaling_notification" "example" {
   group_names = [
-    aws_autoscaling_group.bar.name,
-    aws_autoscaling_group.foo.name,
+s_autoscaling_group.bar.name,
+s_autoscaling_group.foo.name,
   ]
 
   notifications = [
-    "autoscaling:EC2_INSTANCE_LAUNCH",
-    "autoscaling:EC2_INSTANCE_TERMINATE",
-    "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+utoscaling:EC2_INSTANCE_LAUNCH",
+utoscaling:EC2_INSTANCE_TERMINATE",
+utoscaling:EC2_INSTANCE_LAUNCH_ERROR",
   ]
 
   topic_arn = aws_sns_topic.topic_example.arn
@@ -343,7 +343,7 @@ resource "aws_sns_topic" "user_updates" {
 }
 
 resource "aws_launch_configuration" "foobar" {
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
 
@@ -351,32 +351,32 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_autoscaling_group" "bar" {
-  availability_zones        = [data.aws_availability_zones.available.names[1]]
-  count      = 20
-  name       = "foobar3-terraform-test-${count.index}"
-  max_size   = 1
-  min_size   = 0
+  availability_zonesata.aws_availability_zones.available.names[1]]
+  count
+  nameobar3-terraform-test-${count.index}"
+  max_size
+  min_size
   health_check_grace_period = 300
   health_check_type= "ELB"
   desired_capacity = 0
-  force_delete     = true
-  termination_policies      = ["OldestInstance"]
-  launch_configuration      = aws_launch_configuration.foobar.name
+  force_delete true
+  termination_policiesdestInstance"]
+  launch_configurationlaunch_configuration.foobar.name
 }
 
 resource "aws_autoscaling_notification" "example" {
   group_names = aws_autoscaling_group.bar[*].name
 
   notifications = [
-    "autoscaling:EC2_INSTANCE_LAUNCH",
-    "autoscaling:EC2_INSTANCE_TERMINATE",
-    "autoscaling:TEST_NOTIFICATION"
+utoscaling:EC2_INSTANCE_LAUNCH",
+utoscaling:EC2_INSTANCE_TERMINATE",
+utoscaling:TEST_NOTIFICATION"
   ]
   topic_arn = aws_sns_topic.user_updates.arn
 }`)

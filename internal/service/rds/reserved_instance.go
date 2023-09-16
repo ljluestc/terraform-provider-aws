@@ -26,8 +26,7 @@ const (
 
 // @SDKResource("aws_rds_reserved_instance", name="Reserved Instance")
 // @Tags(identifierAttribute="arn")
-func ResourceReservedInstance() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceReservedInstanceCreate,
 ReadWithoutTimeout:   resourceReservedInstanceRead,
 UpdateWithoutTimeout: resourceReservedInstanceUpdate,
@@ -132,11 +131,10 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceReservedInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	input := &rds.PurchaseReservedDBInstancesOfferingInput{
 ReservedDBInstancesOfferingId: aws.String(d.Get("offering_id").(string)),
-Tags:                          getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.Get("instance_count").(int); ok && v > 0 {
@@ -163,8 +161,7 @@ return create.DiagError(names.RDS, create.ErrActionWaitingForCreation, ResNameRe
 
 func resourceReservedInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	reservation, err := FindReservedDBInstanceByID(ctx, conn, d.Id())
+funcervation, err := FindReservedDBInstanceByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 create.LogNotFoundRemoveState(names.RDS, create.ErrActionReading, ResNameReservedInstance, d.Id())
@@ -199,14 +196,12 @@ return create.DiagError(names.RDS, create.ErrActionReading, ResNameReservedInsta
 func resourceReservedInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceReservedInstanceRead(ctx, d, meta)
-}
-
+func
 func flattenRecurringCharges(recurringCharges []*rds.RecurringCharge) []interface{} {
 	if len(recurringCharges) == 0 {
 return []interface{}{}
 	}
-
-	var rawRecurringCharges []interface{}
+func rawRecurringCharges []interface{}
 	for _, recurringCharge := range recurringCharges {
 rawRecurringCharge := map[string]interface{}{
 	"recurring_charge_amount":    recurringCharge.RecurringChargeAmount,

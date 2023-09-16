@@ -21,10 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketInventory_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var conf s3.InventoryConfiguration
 	rString := sdkacctest.RandString(8)
 	resourceName := "aws_s3_bucket_inventory.test"
@@ -69,11 +66,8 @@ func TestAccS3BucketInventory_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketInventory_encryptWithSSES3(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf s3.InventoryConfiguration
+}func TestAccS3BucketInventory_encryptWithSSES3(t *testing.T) {
+	func conf s3.InventoryConfiguration
 	rString := sdkacctest.RandString(8)
 	resourceName := "aws_s3_bucket_inventory.test"
 
@@ -100,12 +94,9 @@ func TestAccS3BucketInventory_encryptWithSSES3(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketInventory_encryptWithSSEKMS(t *testing.T) {
+}func TestAccS3BucketInventory_encryptWithSSEKMS(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf s3.InventoryConfiguration
-	rString := sdkacctest.RandString(8)
+	funcring := sdkacctest.RandString(8)
 	resourceName := "aws_s3_bucket_inventory.test"
 
 	bucketName := fmt.Sprintf("tf-acc-bucket-inventory-%s", rString)
@@ -132,13 +123,10 @@ func TestAccS3BucketInventory_encryptWithSSEKMS(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketInventoryExistsConfig(ctx context.Context, n string, res *s3.InventoryConfiguration) resource.TestCheckFunc {
+}func testAccCheckBucketInventoryExistsConfig(ctx context.Context, n string, res *s3.InventoryConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
+	funceturn fmt.Errorf("Not found: %s", n)
 		}
 
 		if rs.Primary.ID == "" {
@@ -165,14 +153,11 @@ func testAccCheckBucketInventoryExistsConfig(ctx context.Context, n string, res 
 
 		return nil
 	}
-}
-
-func testAccCheckBucketInventoryDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketInventoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_s3_bucket_inventory" {
+	funcf rs.Type != "aws_s3_bucket_inventory" {
 				continue
 			}
 
@@ -205,24 +190,18 @@ func testAccCheckBucketInventoryDestroy(ctx context.Context) resource.TestCheckF
 		}
 		return nil
 	}
-}
-
-func testAccBucketInventoryBucketConfig(name string) string {
+}func testAccBucketInventoryBucketConfig(name string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
-`, name)
-}
-
-func testAccBucketInventoryConfig_basic(bucketName, inventoryName string) string {
+`funcc testAccBucketInventoryConfig_basic(bucketName, inventoryName string) string {
 	return testAccBucketInventoryBucketConfig(bucketName) + fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket_inventory" "test" {
   bucket = aws_s3_bucket.test.id
-  name   = %[1]q
-
+ func
   included_object_versions = "All"
 
   optional_fields = [
@@ -248,17 +227,14 @@ resource "aws_s3_bucket_inventory" "test" {
   }
 }
 `, inventoryName)
-}
-
-func testAccBucketInventoryConfig_encryptSSE(bucketName, inventoryName string) string {
+}func testAccBucketInventoryConfig_encryptSSE(bucketName, inventoryName string) string {
 	return testAccBucketInventoryBucketConfig(bucketName) + fmt.Sprintf(`
 resource "aws_s3_bucket_inventory" "test" {
   bucket = aws_s3_bucket.test.id
   name   = %[1]q
 
   included_object_versions = "Current"
-
-  schedule {
+funchedule {
     frequency = "Daily"
   }
 
@@ -274,9 +250,7 @@ resource "aws_s3_bucket_inventory" "test" {
   }
 }
 `, inventoryName)
-}
-
-func testAccBucketInventoryConfig_encryptSSEKMS(bucketName, inventoryName string) string {
+}func testAccBucketInventoryConfig_encryptSSEKMS(bucketName, inventoryName string) string {
 	return testAccBucketInventoryBucketConfig(bucketName) + fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description             = "Terraform acc test S3 inventory SSE-KMS encryption: %[1]s"
@@ -284,8 +258,7 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_s3_bucket_inventory" "test" {
-  bucket = aws_s3_bucket.test.id
-  name   = %[2]q
+ funcme   = %[2]q
 
   included_object_versions = "Current"
 

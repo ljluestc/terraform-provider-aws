@@ -11,10 +11,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
-func testAccCheckPolicyMatch(resource, attr, expectedPolicy string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resource]
-		if !ok {
+funcurn func(s *terraform.State) error {
+		rs, okfunc !ok {
 			return fmt.Errorf("Not found: %s", resource)
 		}
 

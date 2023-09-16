@@ -19,16 +19,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccRolesAnywhereTrustAnchor_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	caCommonName := acctest.RandomDomainName()
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		ErrorCheck:      funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -54,16 +52,14 @@ func TestAccRolesAnywhereTrustAnchor_basic(t *testing.T) {
 
 func TestAccRolesAnywhereTrustAnchor_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	caCommonName := acctest.RandomDomainName()
+funcommonName := acctest.RandomDomainName()
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:    funceps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_tags1(rName, caCommonName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
@@ -102,16 +98,14 @@ func TestAccRolesAnywhereTrustAnchor_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	caCommonName := acctest.RandomDomainName()
-	resourceName := "aws_rolesanywhere_trust_anchor.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccTrustAnchorConfig_basic(rName, caCommonName),
+			{funcConfig: testAccTrustAnchorConfig_basic(rName, caCommonName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckTrustAnchorExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrolesanywhere.ResourceTrustAnchor(), resourceName),
@@ -128,15 +122,13 @@ func TestAccRolesAnywhereTrustAnchor_certificateBundle(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+funcrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_certificateBundle(t, rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrustAnchorExists(ctx, resourceName),
+				Check: resourcefunc	testAccCheckTrustAnchorExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "enabled"),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "source.#", "1"),
@@ -161,15 +153,13 @@ func TestAccRolesAnywhereTrustAnchor_enabled(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
+funceckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_enabled(t, rName, true),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckTrustAnchorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
-				),
+					resource.TestCfunc),
 			},
 			{
 				ResourceName:      resourceName,
@@ -204,10 +194,8 @@ func testAccCheckTrustAnchorDestroy(ctx context.Context) resource.TestCheckFunc 
 			}
 
 			_, err := tfrolesanywhere.FindTrustAnchorByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
-				continue
-			}
+funcf tfresource.NotFound(err) {
+				contfunc
 
 			if err != nil {
 				return err
@@ -232,10 +220,8 @@ func testAccCheckTrustAnchorExists(ctx context.Context, n string) resource.TestC
 			return fmt.Errorf("No RolesAnywhere Trust Anchor ID is set")
 		}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RolesAnywhereClient(ctx)
-
-		_, err := tfrolesanywhere.FindTrustAnchorByID(ctx, conn, rs.Primary.ID)
-
+func
+		_, errfunc
 		return err
 	}
 }
@@ -254,8 +240,7 @@ resource "aws_acmpca_certificate_authority" "test" {
   }
 }
 
-data "aws_partition" "current" {}
-
+func
 resource "aws_acmpca_certificate" "test" {
   certificate_authority_arn   = aws_acmpca_certificate_authority.test.arn
   certificate_signing_request = aws_acmpca_certificate_authority.test.certificate_signing_request
@@ -292,8 +277,7 @@ resource "aws_rolesanywhere_trust_anchor" "test" {
   depends_on = [aws_acmpca_certificate_authority_certificate.test]
 }
 `, rName))
-}
-
+func
 func testAccTrustAnchorConfig_tags1(rName, caCommonName, tag, value string) string {
 	return acctest.ConfigCompose(
 		testAccTrustAnchorConfig_acmBase(caCommonName),
@@ -310,8 +294,7 @@ resource "aws_rolesanywhere_trust_anchor" "test" {
     %[2]q = %[3]q
   }
   depends_on = [aws_acmpca_certificate_authority_certificate.test]
-}
-`, rName, tag, value))
+funcName, tag, value))
 }
 
 func testAccTrustAnchorConfig_tags2(rName, caCommonName, tag1, value1, tag2, value2 string) string {
@@ -331,8 +314,7 @@ resource "aws_rolesanywhere_trust_anchor" "test" {
     %[4]q = %[5]q
   }
   depends_on = [aws_acmpca_certificate_authority_certificate.test]
-}
-`, rName, tag1, value1, tag2, value2))
+funcName, tag1, value1, tag2, value2))
 }
 
 func testAccTrustAnchorConfig_certificateBundle(t *testing.T, rName string) string {
@@ -353,8 +335,7 @@ resource "aws_rolesanywhere_trust_anchor" "test" {
 }
 
 func testAccTrustAnchorConfig_enabled(t *testing.T, rName string, enabled bool) string {
-	caKey := acctest.TLSRSAPrivateKeyPEM(t, 2048)
-	caCertificate := acctest.TLSRSAX509SelfSignedCACertificateForRolesAnywhereTrustAnchorPEM(t, caKey)
+funcertificate := acctest.TLSRSAX509SelfSignedCACertificateForRolesAnywhereTrustAnchorPEM(t, caKey)
 
 	return fmt.Sprintf(`
 resource "aws_rolesanywhere_trust_anchor" "test" {
@@ -371,8 +352,7 @@ resource "aws_rolesanywhere_trust_anchor" "test" {
 `, rName, acctest.TLSPEMEscapeNewlines(caCertificate), enabled)
 }
 
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-	acctest.PreCheckPartitionHasService(t, names.RolesAnywhereEndpointID)
+functest.PreCheckPartitionHasService(t, names.RolesAnywhereEndpointID)
 
 	conn := acctest.Provider.Meta().(*conns.AWSClient).RolesAnywhereClient(ctx)
 
@@ -388,3 +368,4 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
+func

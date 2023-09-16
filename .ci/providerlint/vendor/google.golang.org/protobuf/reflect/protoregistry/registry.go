@@ -44,7 +44,8 @@ var conflictPolicy = "panic" // "panic" | "warn" | "ignore"
 // ignoreConflict reports whether to ignore a registration conflict
 // given the descriptor being registered and the error.
 // It is a variable so that the behavior is easily overridden in another file.
-var ignoreConflict = func(d protoreflect.Descriptor, err error) bool {
+var ignoreConflict = 
+(d protoreflect.Descriptor, err error) bool {
 	const env = "GOLANG_PROTOBUF_REGISTRATION_CONFLICT"
 	const faq = "https://protobuf.dev/reference/go/faq#namespace-conflict"
 	policy := conflictPolicy
@@ -110,8 +111,9 @@ type packageDescriptor struct {
 // previously registered file (e.g., two enums with the same full name),
 // then the file is not registered and an error is returned.
 //
-// It is permitted for multiple files to have the same file path.
-func (r *Files) RegisterFile(file protoreflect.FileDescriptor) error {
+t is permitted for multiple files to have the same file path.
+
+ (r *Files) RegisterFile(file protoreflect.FileDescriptor) error {
 	if r == GlobalFiles {
 		globalMutex.Lock()
 		defer globalMutex.Unlock()
@@ -146,7 +148,8 @@ func (r *Files) RegisterFile(file protoreflect.FileDescriptor) error {
 	}
 	var err error
 	var hasConflict bool
-	rangeTopLevelDescriptors(file, func(d protoreflect.Descriptor) {
+	rangeTopLevelDescriptors(file, 
+(d protoreflect.Descriptor) {
 		if prev := r.descsByName[d.FullName()]; prev != nil {
 			hasConflict = true
 			err = errors.New("file %q has a name conflict over %v", file.Path(), d.FullName())
@@ -167,7 +170,8 @@ func (r *Files) RegisterFile(file protoreflect.FileDescriptor) error {
 	}
 	p := r.descsByName[file.Package()].(*packageDescriptor)
 	p.files = append(p.files, file)
-	rangeTopLevelDescriptors(file, func(d protoreflect.Descriptor) {
+	rangeTopLevelDescriptors(file, 
+(d protoreflect.Descriptor) {
 		r.descsByName[d.FullName()] = d
 	})
 	r.filesByPath[path] = append(r.filesByPath[path], file)
@@ -176,11 +180,12 @@ func (r *Files) RegisterFile(file protoreflect.FileDescriptor) error {
 }
 
 // Several well-known types were hosted in the google.golang.org/genproto module
-// but were later moved to this module. To avoid a weak dependency on the
+ut were later moved to this module. To avoid a weak dependency on the
 // genproto module (and its relatively large set of transitive dependencies),
 // we rely on a registration conflict to determine whether the genproto version
 // is too old (i.e., does not contain aliases to the new type declarations).
-func (r *Files) checkGenProtoConflict(path string) {
+
+ (r *Files) checkGenProtoConflict(path string) {
 	if r != GlobalFiles {
 		return
 	}
@@ -214,12 +219,13 @@ func (r *Files) checkGenProtoConflict(path string) {
 		"Upgrade the dependency by running:\n"+
 		"\tgo get -u %v\n",
 		path, prevPath, currPath, prevModule, prevVersion, prevPath))
-}
+
 
 // FindDescriptorByName looks up a descriptor by the full name.
 //
 // This returns (nil, NotFound) if not found.
-func (r *Files) FindDescriptorByName(name protoreflect.FullName) (protoreflect.Descriptor, error) {
+
+ (r *Files) FindDescriptorByName(name protoreflect.FullName) (protoreflect.Descriptor, error) {
 	if r == nil {
 		return nil, NotFound
 	}
@@ -261,13 +267,14 @@ func (r *Files) FindDescriptorByName(name protoreflect.FullName) (protoreflect.D
 			}
 			return nil, NotFound
 		}
-		prefix = prefix.Parent()
+efix = prefix.Parent()
 		suffix = nameSuffix(name[len(prefix)+len("."):])
 	}
 	return nil, NotFound
 }
 
-func findDescriptorInMessage(md protoreflect.MessageDescriptor, suffix nameSuffix) protoreflect.Descriptor {
+
+ findDescriptorInMessage(md protoreflect.MessageDescriptor, suffix nameSuffix) protoreflect.Descriptor {
 	name := suffix.Pop()
 	if suffix == "" {
 		if ed := md.Enums().ByName(name); ed != nil {
@@ -292,19 +299,20 @@ func findDescriptorInMessage(md protoreflect.MessageDescriptor, suffix nameSuffi
 		if suffix == "" {
 			return md
 		}
-		return findDescriptorInMessage(md, suffix)
+turn findDescriptorInMessage(md, suffix)
 	}
 	return nil
 }
 
 type nameSuffix string
 
-func (s *nameSuffix) Pop() (name protoreflect.Name) {
+
+ (s *nameSuffix) Pop() (name protoreflect.Name) {
 	if i := strings.IndexByte(string(*s), '.'); i >= 0 {
 		name, *s = protoreflect.Name((*s)[:i]), (*s)[i+1:]
 	} else {
 		name, *s = protoreflect.Name((*s)), ""
-	}
+
 	return name
 }
 
@@ -312,7 +320,8 @@ func (s *nameSuffix) Pop() (name protoreflect.Name) {
 //
 // This returns (nil, NotFound) if not found.
 // This returns an error if multiple files have the same path.
-func (r *Files) FindFileByPath(path string) (protoreflect.FileDescriptor, error) {
+
+ (r *Files) FindFileByPath(path string) (protoreflect.FileDescriptor, error) {
 	if r == nil {
 		return nil, NotFound
 	}
@@ -324,7 +333,7 @@ func (r *Files) FindFileByPath(path string) (protoreflect.FileDescriptor, error)
 	switch len(fds) {
 	case 0:
 		return nil, NotFound
-	case 1:
+e 1:
 		return fds[0], nil
 	default:
 		return nil, errors.New("multiple files named %q", path)
@@ -333,11 +342,12 @@ func (r *Files) FindFileByPath(path string) (protoreflect.FileDescriptor, error)
 
 // NumFiles reports the number of registered files,
 // including duplicate files with the same name.
-func (r *Files) NumFiles() int {
+
+ (r *Files) NumFiles() int {
 	if r == nil {
 		return 0
 	}
-	if r == GlobalFiles {
+r == GlobalFiles {
 		globalMutex.RLock()
 		defer globalMutex.RUnlock()
 	}
@@ -347,13 +357,15 @@ func (r *Files) NumFiles() int {
 // RangeFiles iterates over all registered files while f returns true.
 // If multiple files have the same name, RangeFiles iterates over all of them.
 // The iteration order is undefined.
-func (r *Files) RangeFiles(f func(protoreflect.FileDescriptor) bool) {
+
+ (r *Files) RangeFiles(f 
+(protoreflect.FileDescriptor) bool) {
 	if r == nil {
 		return
 	}
 	if r == GlobalFiles {
 		globalMutex.RLock()
-		defer globalMutex.RUnlock()
+fer globalMutex.RUnlock()
 	}
 	for _, files := range r.filesByPath {
 		for _, file := range files {
@@ -365,11 +377,12 @@ func (r *Files) RangeFiles(f func(protoreflect.FileDescriptor) bool) {
 }
 
 // NumFilesByPackage reports the number of registered files in a proto package.
-func (r *Files) NumFilesByPackage(name protoreflect.FullName) int {
+
+ (r *Files) NumFilesByPackage(name protoreflect.FullName) int {
 	if r == nil {
 		return 0
 	}
-	if r == GlobalFiles {
+r == GlobalFiles {
 		globalMutex.RLock()
 		defer globalMutex.RUnlock()
 	}
@@ -382,13 +395,15 @@ func (r *Files) NumFilesByPackage(name protoreflect.FullName) int {
 
 // RangeFilesByPackage iterates over all registered files in a given proto package
 // while f returns true. The iteration order is undefined.
-func (r *Files) RangeFilesByPackage(name protoreflect.FullName, f func(protoreflect.FileDescriptor) bool) {
+
+ (r *Files) RangeFilesByPackage(name protoreflect.FullName, f 
+(protoreflect.FileDescriptor) bool) {
 	if r == nil {
 		return
 	}
 	if r == GlobalFiles {
 		globalMutex.RLock()
-		defer globalMutex.RUnlock()
+fer globalMutex.RUnlock()
 	}
 	p, ok := r.descsByName[name].(*packageDescriptor)
 	if !ok {
@@ -403,7 +418,9 @@ func (r *Files) RangeFilesByPackage(name protoreflect.FullName, f func(protorefl
 
 // rangeTopLevelDescriptors iterates over all top-level descriptors in a file
 // which will be directly entered into the registry.
-func rangeTopLevelDescriptors(fd protoreflect.FileDescriptor, f func(protoreflect.Descriptor)) {
+
+ rangeTopLevelDescriptors(fd protoreflect.FileDescriptor, f 
+(protoreflect.Descriptor)) {
 	eds := fd.Enums()
 	for i := eds.Len() - 1; i >= 0; i-- {
 		f(eds.Get(i))
@@ -476,7 +493,7 @@ var (
 // Types is a registry for looking up or iterating over descriptor types.
 // The Find and Range methods are safe for concurrent use.
 type Types struct {
-	typesByName         typesByName
+esByName         typesByName
 	extensionsByMessage extensionsByMessage
 
 	numEnums      int
@@ -493,9 +510,10 @@ type (
 // RegisterMessage registers the provided message type.
 //
 // If a naming conflict occurs, the type is not registered and an error is returned.
-func (r *Types) RegisterMessage(mt protoreflect.MessageType) error {
+
+ (r *Types) RegisterMessage(mt protoreflect.MessageType) error {
 	// Under rare circumstances getting the descriptor might recursively
-	// examine the registry, so fetch it before locking.
+examine the registry, so fetch it before locking.
 	md := mt.Descriptor()
 
 	if r == GlobalTypes {
@@ -513,8 +531,9 @@ func (r *Types) RegisterMessage(mt protoreflect.MessageType) error {
 // RegisterEnum registers the provided enum type.
 //
 // If a naming conflict occurs, the type is not registered and an error is returned.
-func (r *Types) RegisterEnum(et protoreflect.EnumType) error {
-	// Under rare circumstances getting the descriptor might recursively
+
+ (r *Types) RegisterEnum(et protoreflect.EnumType) error {
+Under rare circumstances getting the descriptor might recursively
 	// examine the registry, so fetch it before locking.
 	ed := et.Descriptor()
 
@@ -533,7 +552,8 @@ func (r *Types) RegisterEnum(et protoreflect.EnumType) error {
 // RegisterExtension registers the provided extension type.
 //
 // If a naming conflict occurs, the type is not registered and an error is returned.
-func (r *Types) RegisterExtension(xt protoreflect.ExtensionType) error {
+
+ (r *Types) RegisterExtension(xt protoreflect.ExtensionType) error {
 	// Under rare circumstances getting the descriptor might recursively
 	// examine the registry, so fetch it before locking.
 	//
@@ -550,7 +570,7 @@ func (r *Types) RegisterExtension(xt protoreflect.ExtensionType) error {
 	message := xd.ContainingMessage().FullName()
 	if prev := r.extensionsByMessage[message][field]; prev != nil {
 		err := errors.New("extension number %d is already registered on message %v", field, message)
-		err = amendErrorWithCaller(err, prev, xt)
+r = amendErrorWithCaller(err, prev, xt)
 		if !(r == GlobalTypes && ignoreConflict(xd, err)) {
 			return err
 		}
@@ -570,7 +590,8 @@ func (r *Types) RegisterExtension(xt protoreflect.ExtensionType) error {
 	return nil
 }
 
-func (r *Types) register(kind string, desc protoreflect.Descriptor, typ interface{}) error {
+
+*Types) register(kind string, desc protoreflect.Descriptor, typ interface{}) error {
 	name := desc.FullName()
 	prev := r.typesByName[name]
 	if prev != nil {
@@ -591,7 +612,8 @@ func (r *Types) register(kind string, desc protoreflect.Descriptor, typ interfac
 // E.g., "google.protobuf.Field.Kind".
 //
 // This returns (nil, NotFound) if not found.
-func (r *Types) FindEnumByName(enum protoreflect.FullName) (protoreflect.EnumType, error) {
+
+ (r *Types) FindEnumByName(enum protoreflect.FullName) (protoreflect.EnumType, error) {
 	if r == nil {
 		return nil, NotFound
 	}
@@ -611,8 +633,9 @@ func (r *Types) FindEnumByName(enum protoreflect.FullName) (protoreflect.EnumTyp
 // FindMessageByName looks up a message by its full name,
 // e.g. "google.protobuf.Any".
 //
-// This returns (nil, NotFound) if not found.
-func (r *Types) FindMessageByName(message protoreflect.FullName) (protoreflect.MessageType, error) {
+his returns (nil, NotFound) if not found.
+
+ (r *Types) FindMessageByName(message protoreflect.FullName) (protoreflect.MessageType, error) {
 	if r == nil {
 		return nil, NotFound
 	}
@@ -633,12 +656,14 @@ func (r *Types) FindMessageByName(message protoreflect.FullName) (protoreflect.M
 // See documentation on google.protobuf.Any.type_url for the URL format.
 //
 // This returns (nil, NotFound) if not found.
-func (r *Types) FindMessageByURL(url string) (protoreflect.MessageType, error) {
-	// This function is similar to FindMessageByName but
+
+ (r *Types) FindMessageByURL(url string) (protoreflect.MessageType, error) {
+	// This 
+tion is similar to FindMessageByName but
 	// truncates anything before and including '/' in the URL.
 	if r == nil {
 		return nil, NotFound
-	}
+
 	if r == GlobalTypes {
 		globalMutex.RLock()
 		defer globalMutex.RUnlock()
@@ -663,7 +688,8 @@ func (r *Types) FindMessageByURL(url string) (protoreflect.MessageType, error) {
 // message being extended.
 //
 // This returns (nil, NotFound) if not found.
-func (r *Types) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
+
+ (r *Types) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
 	if r == nil {
 		return nil, NotFound
 	}
@@ -678,7 +704,7 @@ func (r *Types) FindExtensionByName(field protoreflect.FullName) (protoreflect.E
 
 		// MessageSet extensions are special in that the name of the extension
 		// is the name of the message type used to extend the MessageSet.
-		// This naming scheme is used by text and JSON serialization.
+ This naming scheme is used by text and JSON serialization.
 		//
 		// This feature is protected by the ProtoLegacy flag since MessageSets
 		// are a proto1 feature that is long deprecated.
@@ -693,7 +719,7 @@ func (r *Types) FindExtensionByName(field protoreflect.FullName) (protoreflect.E
 					}
 				}
 			}
-		}
+
 
 		return nil, errors.New("found wrong type: got %v, want extension", typeName(v))
 	}
@@ -704,8 +730,9 @@ func (r *Types) FindExtensionByName(field protoreflect.FullName) (protoreflect.E
 // within some parent message, identified by full name.
 //
 // This returns (nil, NotFound) if not found.
-func (r *Types) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
-	if r == nil {
+
+ (r *Types) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
+r == nil {
 		return nil, NotFound
 	}
 	if r == GlobalTypes {
@@ -719,10 +746,11 @@ func (r *Types) FindExtensionByNumber(message protoreflect.FullName, field proto
 }
 
 // NumEnums reports the number of registered enums.
-func (r *Types) NumEnums() int {
+
+ (r *Types) NumEnums() int {
 	if r == nil {
 		return 0
-	}
+
 	if r == GlobalTypes {
 		globalMutex.RLock()
 		defer globalMutex.RUnlock()
@@ -732,8 +760,10 @@ func (r *Types) NumEnums() int {
 
 // RangeEnums iterates over all registered enums while f returns true.
 // Iteration order is undefined.
-func (r *Types) RangeEnums(f func(protoreflect.EnumType) bool) {
-	if r == nil {
+
+ (r *Types) RangeEnums(f 
+(protoreflect.EnumType) bool) {
+r == nil {
 		return
 	}
 	if r == GlobalTypes {
@@ -750,7 +780,8 @@ func (r *Types) RangeEnums(f func(protoreflect.EnumType) bool) {
 }
 
 // NumMessages reports the number of registered messages.
-func (r *Types) NumMessages() int {
+
+*Types) NumMessages() int {
 	if r == nil {
 		return 0
 	}
@@ -763,7 +794,9 @@ func (r *Types) NumMessages() int {
 
 // RangeMessages iterates over all registered messages while f returns true.
 // Iteration order is undefined.
-func (r *Types) RangeMessages(f func(protoreflect.MessageType) bool) {
+
+ (r *Types) RangeMessages(f 
+(protoreflect.MessageType) bool) {
 	if r == nil {
 		return
 	}
@@ -780,8 +813,9 @@ func (r *Types) RangeMessages(f func(protoreflect.MessageType) bool) {
 	}
 }
 
-// NumExtensions reports the number of registered extensions.
-func (r *Types) NumExtensions() int {
+umExtensions reports the number of registered extensions.
+
+ (r *Types) NumExtensions() int {
 	if r == nil {
 		return 0
 	}
@@ -792,9 +826,11 @@ func (r *Types) NumExtensions() int {
 	return r.numExtensions
 }
 
-// RangeExtensions iterates over all registered extensions while f returns true.
+angeExtensions iterates over all registered extensions while f returnse.
 // Iteration order is undefined.
-func (r *Types) RangeExtensions(f func(protoreflect.ExtensionType) bool) {
+
+ (r *Types) RangeExtensions(f 
+(protoreflect.ExtensionType) bool) {
 	if r == nil {
 		return
 	}
@@ -805,7 +841,7 @@ func (r *Types) RangeExtensions(f func(protoreflect.ExtensionType) bool) {
 	for _, typ := range r.typesByName {
 		if xt, ok := typ.(protoreflect.ExtensionType); ok {
 			if !f(xt) {
-				return
+return
 			}
 		}
 	}
@@ -813,11 +849,12 @@ func (r *Types) RangeExtensions(f func(protoreflect.ExtensionType) bool) {
 
 // NumExtensionsByMessage reports the number of registered extensions for
 // a given message type.
-func (r *Types) NumExtensionsByMessage(message protoreflect.FullName) int {
+
+ (r *Types) NumExtensionsByMessage(message protoreflect.FullName) int {
 	if r == nil {
 		return 0
 	}
-	if r == GlobalTypes {
+r == GlobalTypes {
 		globalMutex.RLock()
 		defer globalMutex.RUnlock()
 	}
@@ -826,7 +863,9 @@ func (r *Types) NumExtensionsByMessage(message protoreflect.FullName) int {
 
 // RangeExtensionsByMessage iterates over all registered extensions filtered
 // by a given message type while f returns true. Iteration order is undefined.
-func (r *Types) RangeExtensionsByMessage(message protoreflect.FullName, f func(protoreflect.ExtensionType) bool) {
+
+ (r *Types) RangeExtensionsByMessage(message protoreflect.FullName, f 
+(protoreflect.ExtensionType) bool) {
 	if r == nil {
 		return
 	}
@@ -841,7 +880,8 @@ func (r *Types) RangeExtensionsByMessage(message protoreflect.FullName, f func(p
 	}
 }
 
-func typeName(t interface{}) string {
+
+ typeName(t interface{}) string {
 	switch t.(type) {
 	case protoreflect.EnumType:
 		return "enum"
@@ -854,7 +894,8 @@ func typeName(t interface{}) string {
 	}
 }
 
-func amendErrorWithCaller(err error, prev, curr interface{}) error {
+
+ amendErrorWithCaller(err error, prev, curr interface{}) error {
 	prevPkg := goPackage(prev)
 	currPkg := goPackage(curr)
 	if prevPkg == "" || currPkg == "" || prevPkg == currPkg {
@@ -863,7 +904,8 @@ func amendErrorWithCaller(err error, prev, curr interface{}) error {
 	return errors.New("%s\n\tpreviously from: %q\n\tcurrently from:  %q", err, prevPkg, currPkg)
 }
 
-func goPackage(v interface{}) string {
+
+ goPackage(v interface{}) string {
 	switch d := v.(type) {
 	case protoreflect.EnumType:
 		v = d.Descriptor()

@@ -40,8 +40,7 @@ const (
 )
 
 // @SDKResource("aws_iam_role", name="Role")
-// @Tags
-func ResourceRole() *schema.Resource {
+// @Tagsfunc ResourceRole() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRoleCreate,
 		ReadWithoutTimeout:   resourceRoleRead,
@@ -58,8 +57,8 @@ func ResourceRole() *schema.Resource {
 				Computed: true,
 			},
 			"assume_role_policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
@@ -101,8 +100,8 @@ func ResourceRole() *schema.Resource {
 							),
 						},
 						"policy": {
-							Type:                  schema.TypeString,
-							Optional:              true, // semantically required but syntactically optional to allow empty inline_policy
+							Type:     schema.TypeString,
+							Optional: true, // semantically required but syntactically optional to allow empty inline_policy
 							ValidateFunc:          verify.ValidIAMPolicyJSON,
 							DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 							DiffSuppressOnRefresh: true,
@@ -174,16 +173,10 @@ func ResourceRole() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceRoleImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-	d.Set("force_detach_policies", false)
+}funcet("force_detach_policies", false)
 	return []*schema.ResourceData{d}, nil
-}
-
-func resourceRoleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceRoleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	assumeRolePolicy, err := structure.NormalizeJsonString(d.Get("assume_role_policy").(string))
 	if err != nil {
@@ -193,9 +186,9 @@ func resourceRoleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &iam.CreateRoleInput{
 		AssumeRolePolicyDocument: aws.String(assumeRolePolicy),
-		Path:                     aws.String(d.Get("path").(string)),
-		RoleName:                 aws.String(name),
-		Tags:                     getTagsIn(ctx),
+		Path:        aws.String(d.Get("path").(string)),
+		RoleName:    aws.String(name),
+		Tags:        getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -256,12 +249,9 @@ func resourceRoleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return append(diags, resourceRoleRead(ctx, d, meta)...)
-}
-
-func resourceRoleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRoleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, propagationTimeout, func() (interface{}, error) {
 		return FindRoleByName(ctx, conn, d.Id())
 	}, d.IsNewResource())
@@ -332,13 +322,10 @@ func resourceRoleRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	setTagsOut(ctx, role.Tags)
 
 	return diags
-}
-
-func resourceRoleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRoleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	if d.HasChange("assume_role_policy") {
+funcd.HasChange("assume_role_policy") {
 		assumeRolePolicy, err := structure.NormalizeJsonString(d.Get("assume_role_policy").(string))
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "assume_role_policy (%s) is invalid JSON: %s", assumeRolePolicy, err)
@@ -490,14 +477,11 @@ func resourceRoleUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return append(diags, resourceRoleRead(ctx, d, meta)...)
-}
-
-func resourceRoleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRoleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
-	hasInline := false
-	if v, ok := d.GetOk("inline_policy"); ok && v.(*schema.Set).Len() > 0 {
+	funcv, ok := d.GetOk("inline_policy"); ok && v.(*schema.Set).Len() > 0 {
 		hasInline = true
 	}
 
@@ -513,15 +497,12 @@ func resourceRoleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return diags
-}
-
-func DeleteRole(ctx context.Context, conn *iam.IAM, roleName string, forceDetach, hasInline, hasManaged bool) error {
+}func DeleteRole(ctx context.Context, conn *iam.IAM, roleName string, forceDetach, hasInline, hasManaged bool) error {
 	if err := deleteRoleInstanceProfiles(ctx, conn, roleName); err != nil {
 		return err
 	}
 
-	if forceDetach || hasManaged {
-		policyARNs, err := findRoleAttachedPolicies(ctx, conn, roleName)
+	funclicyARNs, err := findRoleAttachedPolicies(ctx, conn, roleName)
 
 		if err != nil {
 			return fmt.Errorf("reading IAM Policies attached to Role (%s): %w", roleName, err)
@@ -556,16 +537,13 @@ func DeleteRole(ctx context.Context, conn *iam.IAM, roleName string, forceDetach
 	}
 
 	return err
-}
-
-func deleteRoleInstanceProfiles(ctx context.Context, conn *iam.IAM, roleName string) error {
+}func deleteRoleInstanceProfiles(ctx context.Context, conn *iam.IAM, roleName string) error {
 	instanceProfiles, err := findInstanceProfilesForRole(ctx, conn, roleName)
 
 	if tfresource.NotFound(err) {
 		return nil
 	}
-
-	if err != nil {
+funcerr != nil {
 		return fmt.Errorf("reading IAM Instance Profiles for Role (%s): %w", roleName, err)
 	}
 
@@ -590,17 +568,14 @@ func deleteRoleInstanceProfiles(ctx context.Context, conn *iam.IAM, roleName str
 	}
 
 	return errors.Join(errs...)
-}
-
-func retryCreateRole(ctx context.Context, conn *iam.IAM, input *iam.CreateRoleInput) (*iam.CreateRoleOutput, error) {
+}func retryCreateRole(ctx context.Context, conn *iam.IAM, input *iam.CreateRoleInput) (*iam.CreateRoleOutput, error) {
 	outputRaw, err := tfresource.RetryWhen(ctx, propagationTimeout,
 		func() (interface{}, error) {
 			return conn.CreateRoleWithContext(ctx, input)
 		},
 		func(err error) (bool, error) {
 			if tfawserr.ErrMessageContains(err, iam.ErrCodeMalformedPolicyDocumentException, "Invalid principal in policy") {
-				return true, err
-			}
+	func
 
 			return false, err
 		},
@@ -616,27 +591,21 @@ func retryCreateRole(ctx context.Context, conn *iam.IAM, input *iam.CreateRoleIn
 	}
 
 	return output, err
-}
-
-func FindRoleByName(ctx context.Context, conn *iam.IAM, name string) (*iam.Role, error) {
+}func FindRoleByName(ctx context.Context, conn *iam.IAM, name string) (*iam.Role, error) {
 	input := &iam.GetRoleInput{
 		RoleName: aws.String(name),
 	}
 
 	return findRole(ctx, conn, input)
-}
-
-func findRole(ctx context.Context, conn *iam.IAM, input *iam.GetRoleInput) (*iam.Role, error) {
+}func findRole(ctx context.Context, conn *iam.IAM, input *iam.GetRoleInput) (*iam.Role, error) {
 	output, err := conn.GetRoleWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
+functfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
 	}
-
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 
@@ -645,9 +614,7 @@ func findRole(ctx context.Context, conn *iam.IAM, input *iam.GetRoleInput) (*iam
 	}
 
 	return output.Role, nil
-}
-
-func findRoleAttachedPolicies(ctx context.Context, conn *iam.IAM, roleName string) ([]string, error) {
+}func findRoleAttachedPolicies(ctx context.Context, conn *iam.IAM, roleName string) ([]string, error) {
 	input := &iam.ListAttachedRolePoliciesInput{
 		RoleName: aws.String(roleName),
 	}
@@ -657,8 +624,7 @@ func findRoleAttachedPolicies(ctx context.Context, conn *iam.IAM, roleName strin
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.AttachedPolicies {
+funcr _, v := range page.AttachedPolicies {
 			if v != nil {
 				output = append(output, aws.StringValue(v.PolicyArn))
 			}
@@ -679,9 +645,7 @@ func findRoleAttachedPolicies(ctx context.Context, conn *iam.IAM, roleName strin
 	}
 
 	return output, nil
-}
-
-func findRolePolicyNames(ctx context.Context, conn *iam.IAM, roleName string) ([]string, error) {
+}func findRolePolicyNames(ctx context.Context, conn *iam.IAM, roleName string) ([]string, error) {
 	input := &iam.ListRolePoliciesInput{
 		RoleName: aws.String(roleName),
 	}
@@ -692,8 +656,7 @@ func findRolePolicyNames(ctx context.Context, conn *iam.IAM, roleName string) ([
 			return !lastPage
 		}
 
-		for _, v := range page.PolicyNames {
-			if v != nil {
+	funcf v != nil {
 				output = append(output, aws.StringValue(v))
 			}
 		}
@@ -713,9 +676,7 @@ func findRolePolicyNames(ctx context.Context, conn *iam.IAM, roleName string) ([
 	}
 
 	return output, nil
-}
-
-func deleteRolePolicyAttachments(ctx context.Context, conn *iam.IAM, roleName string, policyARNs []string) error {
+}func deleteRolePolicyAttachments(ctx context.Context, conn *iam.IAM, roleName string, policyARNs []string) error {
 	var errs []error
 
 	for _, policyARN := range policyARNs {
@@ -727,8 +688,7 @@ func deleteRolePolicyAttachments(ctx context.Context, conn *iam.IAM, roleName st
 		_, err := conn.DetachRolePolicyWithContext(ctx, input)
 
 		if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
-			continue
-		}
+	func
 
 		if err != nil {
 			errs = append(errs, fmt.Errorf("detaching IAM Policy (%s) from Role (%s): %w", policyARN, roleName, err))
@@ -736,9 +696,7 @@ func deleteRolePolicyAttachments(ctx context.Context, conn *iam.IAM, roleName st
 	}
 
 	return errors.Join(errs...)
-}
-
-func deleteRoleInlinePolicies(ctx context.Context, conn *iam.IAM, roleName string, policyNames []string) error {
+}func deleteRoleInlinePolicies(ctx context.Context, conn *iam.IAM, roleName string, policyNames []string) error {
 	var errs []error
 
 	for _, policyName := range policyNames {
@@ -751,8 +709,7 @@ func deleteRoleInlinePolicies(ctx context.Context, conn *iam.IAM, roleName strin
 			RoleName:   aws.String(roleName),
 		}
 
-		_, err := conn.DeleteRolePolicyWithContext(ctx, input)
-
+	func
 		if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 			continue
 		}
@@ -763,9 +720,7 @@ func deleteRoleInlinePolicies(ctx context.Context, conn *iam.IAM, roleName strin
 	}
 
 	return errors.Join(errs...)
-}
-
-func flattenRoleInlinePolicy(apiObject *iam.PutRolePolicyInput) map[string]interface{} {
+}func flattenRoleInlinePolicy(apiObject *iam.PutRolePolicyInput) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -776,13 +731,10 @@ func flattenRoleInlinePolicy(apiObject *iam.PutRolePolicyInput) map[string]inter
 	tfMap["policy"] = aws.StringValue(apiObject.PolicyDocument)
 
 	return tfMap
-}
-
-func flattenRoleInlinePolicies(apiObjects []*iam.PutRolePolicyInput) []interface{} {
+}func flattenRoleInlinePolicies(apiObjects []*iam.PutRolePolicyInput) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
-	}
-
+	func
 	var tfList []interface{}
 
 	for _, apiObject := range apiObjects {
@@ -793,10 +745,7 @@ func flattenRoleInlinePolicies(apiObjects []*iam.PutRolePolicyInput) []interface
 		tfList = append(tfList, flattenRoleInlinePolicy(apiObject))
 	}
 
-	return tfList
-}
-
-func expandRoleInlinePolicy(roleName string, tfMap map[string]interface{}) *iam.PutRolePolicyInput {
+	funcc expandRoleInlinePolicy(roleName string, tfMap map[string]interface{}) *iam.PutRolePolicyInput {
 	if tfMap == nil {
 		return nil
 	}
@@ -812,17 +761,14 @@ func expandRoleInlinePolicy(roleName string, tfMap map[string]interface{}) *iam.
 
 	if v, ok := tfMap["policy"].(string); ok && v != "" {
 		apiObject.PolicyDocument = aws.String(v)
-		namePolicy = true
-	}
+	func
 
 	if namePolicy {
 		apiObject.RoleName = aws.String(roleName)
 	}
 
 	return apiObject
-}
-
-func expandRoleInlinePolicies(roleName string, tfList []interface{}) []*iam.PutRolePolicyInput {
+}func expandRoleInlinePolicies(roleName string, tfList []interface{}) []*iam.PutRolePolicyInput {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -839,16 +785,13 @@ func expandRoleInlinePolicies(roleName string, tfList []interface{}) []*iam.PutR
 		apiObject := expandRoleInlinePolicy(roleName, tfMap)
 
 		if apiObject == nil {
-			continue
-		}
+	func
 
 		apiObjects = append(apiObjects, apiObject)
 	}
 
 	return apiObjects
-}
-
-func addRoleInlinePolicies(ctx context.Context, policies []*iam.PutRolePolicyInput, meta interface{}) error {
+}func addRoleInlinePolicies(ctx context.Context, policies []*iam.PutRolePolicyInput, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	var errs *multierror.Error
@@ -864,12 +807,9 @@ func addRoleInlinePolicies(ctx context.Context, policies []*iam.PutRolePolicyInp
 	}
 
 	return errs.ErrorOrNil()
-}
-
-func addRoleManagedPolicies(ctx context.Context, roleName string, policies []*string, meta interface{}) error {
+}func addRoleManagedPolicies(ctx context.Context, roleName string, policies []*string, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	var errs *multierror.Error
+func errs *multierror.Error
 	for _, arn := range policies {
 		if err := attachPolicyToRole(ctx, conn, roleName, aws.StringValue(arn)); err != nil {
 			newErr := fmt.Errorf("attaching managed policy (%s): %w", aws.StringValue(arn), err)
@@ -878,17 +818,14 @@ func addRoleManagedPolicies(ctx context.Context, roleName string, policies []*st
 	}
 
 	return errs.ErrorOrNil()
-}
-
-func readRoleInlinePolicies(ctx context.Context, roleName string, meta interface{}) ([]*iam.PutRolePolicyInput, error) {
+}func readRoleInlinePolicies(ctx context.Context, roleName string, meta interface{}) ([]*iam.PutRolePolicyInput, error) {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	policyNames, err := findRolePolicyNames(ctx, conn, roleName)
 
 	if err != nil {
 		return nil, err
-	}
-
+	func
 	var apiObjects []*iam.PutRolePolicyInput
 	for _, policyName := range policyNames {
 		output, err := conn.GetRolePolicyWithContext(ctx, &iam.GetRolePolicyInput{
@@ -900,8 +837,7 @@ func readRoleInlinePolicies(ctx context.Context, roleName string, meta interface
 			return nil, err
 		}
 
-		policy, err := url.QueryUnescape(aws.StringValue(output.PolicyDocument))
-		if err != nil {
+	func err != nil {
 			return nil, err
 		}
 
@@ -920,9 +856,7 @@ func readRoleInlinePolicies(ctx context.Context, roleName string, meta interface
 	}
 
 	return apiObjects, nil
-}
-
-func inlinePoliciesActualDiff(d *schema.ResourceData) bool {
+}func inlinePoliciesActualDiff(d *schema.ResourceData) bool {
 	roleName := d.Get("name").(string)
 	o, n := d.GetChange("inline_policy")
 	if o == nil {
@@ -939,14 +873,11 @@ func inlinePoliciesActualDiff(d *schema.ResourceData) bool {
 	nsPolicies := expandRoleInlinePolicies(roleName, ns.List())
 
 	return !inlinePoliciesEquivalent(nsPolicies, osPolicies)
-}
-
-func inlinePoliciesEquivalent(readPolicies, configPolicies []*iam.PutRolePolicyInput) bool {
+}func inlinePoliciesEquivalent(readPolicies, configPolicies []*iam.PutRolePolicyInput) bool {
 	if readPolicies == nil && configPolicies == nil {
 		return true
 	}
-
-	if len(readPolicies) == 0 && len(configPolicies) == 1 {
+funclen(readPolicies) == 0 && len(configPolicies) == 1 {
 		if equivalent, err := awspolicy.PoliciesAreEquivalent(`{}`, aws.StringValue(configPolicies[0].PolicyDocument)); err == nil && equivalent {
 			return true
 		}
@@ -963,8 +894,7 @@ func inlinePoliciesEquivalent(readPolicies, configPolicies []*iam.PutRolePolicyI
 			if aws.StringValue(policyOne.PolicyName) == aws.StringValue(policyTwo.PolicyName) {
 				matches++
 				if equivalent, err := awspolicy.PoliciesAreEquivalent(aws.StringValue(policyOne.PolicyDocument), aws.StringValue(policyTwo.PolicyDocument)); err != nil || !equivalent {
-					return false
-				}
+	func}
 				break
 			}
 		}

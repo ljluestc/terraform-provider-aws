@@ -18,8 +18,7 @@ import (
 type servicePackage struct{}
 
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{
+funcurn []*types.ServicePackageFrameworkDataSource{
 		{
 			Factory: newDataSourceSecurityGroupRule,
 		},
@@ -31,24 +30,23 @@ func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.Serv
 
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{
-		{
+func
 			Factory: newResourceInstanceConnectEndpoint,
-			Name:    "Instance Connect Endpoint",
+			Name:nstance Connect Endpoint",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
 		},
 		{
 			Factory: newResourceSecurityGroupEgressRule,
-			Name:    "Security Group Egress Rule",
+			Name:ecurity Group Egress Rule",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
 		},
 		{
 			Factory: newResourceSecurityGroupIngressRule,
-			Name:    "Security Group Ingress Rule",
+			Name:ecurity Group Ingress Rule",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -59,8 +57,7 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceAMI,
+funcactory:  DataSourceAMI,
 			TypeName: "aws_ami",
 		},
 		{
@@ -342,8 +339,8 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		{
 			Factory:  DataSourceVPC,
 			TypeName: "aws_vpc",
-			Name:     "VPC",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:
+			Tags:vicePackageResourceTags{},
 		},
 		{
 			Factory:  DataSourceVPCDHCPOptions,
@@ -396,9 +393,8 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceAMI,
-			TypeName: "aws_ami",
-			Name:     "AMI",
+funcypeName: "aws_ami",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -406,7 +402,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceAMICopy,
 			TypeName: "aws_ami_copy",
-			Name:     "AMI",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -414,7 +410,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceAMIFromInstance,
 			TypeName: "aws_ami_from_instance",
-			Name:     "AMI",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -426,7 +422,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCustomerGateway,
 			TypeName: "aws_customer_gateway",
-			Name:     "Customer Gateway",
+			Name:Gateway",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -434,7 +430,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultNetworkACL,
 			TypeName: "aws_default_network_acl",
-			Name:     "Network ACL",
+			Name:CL",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -442,7 +438,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultRouteTable,
 			TypeName: "aws_default_route_table",
-			Name:     "Route Table",
+			Name:le",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -450,7 +446,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultSecurityGroup,
 			TypeName: "aws_default_security_group",
-			Name:     "Security Group",
+			Name:Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -458,7 +454,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultSubnet,
 			TypeName: "aws_default_subnet",
-			Name:     "Subnet",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -466,7 +462,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultVPC,
 			TypeName: "aws_default_vpc",
-			Name:     "VPC",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -474,7 +470,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDefaultVPCDHCPOptions,
 			TypeName: "aws_default_vpc_dhcp_options",
-			Name:     "DHCP Options",
+			Name:ons",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -490,7 +486,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEBSSnapshot,
 			TypeName: "aws_ebs_snapshot",
-			Name:     "EBS Snapshot",
+			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -498,7 +494,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEBSSnapshotCopy,
 			TypeName: "aws_ebs_snapshot_copy",
-			Name:     "EBS Snapshot",
+			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -506,7 +502,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEBSSnapshotImport,
 			TypeName: "aws_ebs_snapshot_import",
-			Name:     "EBS Snapshot",
+			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -514,7 +510,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEBSVolume,
 			TypeName: "aws_ebs_volume",
-			Name:     "EBS Volume",
+			Name:e",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -526,7 +522,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCapacityReservation,
 			TypeName: "aws_ec2_capacity_reservation",
-			Name:     "Capacity Reservation",
+			Name:Reservation",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -534,7 +530,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCarrierGateway,
 			TypeName: "aws_ec2_carrier_gateway",
-			Name:     "Carrier Gateway",
+			Name:ateway",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -546,7 +542,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceClientVPNEndpoint,
 			TypeName: "aws_ec2_client_vpn_endpoint",
-			Name:     "Client VPN Endpoint",
+			Name:N Endpoint",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -562,7 +558,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFleet,
 			TypeName: "aws_ec2_fleet",
-			Name:     "Fleet",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -570,7 +566,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceHost,
 			TypeName: "aws_ec2_host",
-			Name:     "Host",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -586,7 +582,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceLocalGatewayRouteTableVPCAssociation,
 			TypeName: "aws_ec2_local_gateway_route_table_vpc_association",
-			Name:     "Local Gateway Route Table VPC Association",
+			Name:eway Route Table VPC Association",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -594,7 +590,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceManagedPrefixList,
 			TypeName: "aws_ec2_managed_prefix_list",
-			Name:     "Managed Prefix List",
+			Name:refix List",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -606,7 +602,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNetworkInsightsAnalysis,
 			TypeName: "aws_ec2_network_insights_analysis",
-			Name:     "Network Insights Analysis",
+			Name:nsights Analysis",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -614,7 +610,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNetworkInsightsPath,
 			TypeName: "aws_ec2_network_insights_path",
-			Name:     "Network Insights Path",
+			Name:nsights Path",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -634,7 +630,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTrafficMirrorFilter,
 			TypeName: "aws_ec2_traffic_mirror_filter",
-			Name:     "Traffic Mirror Filter",
+			Name:irror Filter",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -646,7 +642,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTrafficMirrorSession,
 			TypeName: "aws_ec2_traffic_mirror_session",
-			Name:     "Traffic Mirror Session",
+			Name:irror Session",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -654,7 +650,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTrafficMirrorTarget,
 			TypeName: "aws_ec2_traffic_mirror_target",
-			Name:     "Traffic Mirror Target",
+			Name:irror Target",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -662,7 +658,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGateway,
 			TypeName: "aws_ec2_transit_gateway",
-			Name:     "Transit Gateway",
+			Name:ateway",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -670,7 +666,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayConnect,
 			TypeName: "aws_ec2_transit_gateway_connect",
-			Name:     "Transit Gateway Connect",
+			Name:ateway Connect",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -678,7 +674,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayConnectPeer,
 			TypeName: "aws_ec2_transit_gateway_connect_peer",
-			Name:     "Transit Gateway Connect Peer",
+			Name:ateway Connect Peer",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -686,7 +682,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayMulticastDomain,
 			TypeName: "aws_ec2_transit_gateway_multicast_domain",
-			Name:     "Transit Gateway Multicast Domain",
+			Name:ateway Multicast Domain",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -706,7 +702,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayPeeringAttachment,
 			TypeName: "aws_ec2_transit_gateway_peering_attachment",
-			Name:     "Transit Gateway Peering Attachment",
+			Name:ateway Peering Attachment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -714,7 +710,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayPeeringAttachmentAccepter,
 			TypeName: "aws_ec2_transit_gateway_peering_attachment_accepter",
-			Name:     "Transit Gateway Peering Attachment",
+			Name:ateway Peering Attachment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -722,7 +718,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayPolicyTable,
 			TypeName: "aws_ec2_transit_gateway_policy_table",
-			Name:     "Transit Gateway Policy Table",
+			Name:ateway Policy Table",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -742,7 +738,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayRouteTable,
 			TypeName: "aws_ec2_transit_gateway_route_table",
-			Name:     "Transit Gateway Route Table",
+			Name:ateway Route Table",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -758,7 +754,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayVPCAttachment,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachment",
-			Name:     "Transit Gateway VPC Attachment",
+			Name:ateway VPC Attachment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -766,7 +762,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitGatewayVPCAttachmentAccepter,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachment_accepter",
-			Name:     "Transit Gateway VPC Attachment",
+			Name:ateway VPC Attachment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -774,7 +770,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEgressOnlyInternetGateway,
 			TypeName: "aws_egress_only_internet_gateway",
-			Name:     "Egress-only Internet Gateway",
+			Name:ly Internet Gateway",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -782,7 +778,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEIP,
 			TypeName: "aws_eip",
-			Name:     "EIP",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -794,7 +790,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFlowLog,
 			TypeName: "aws_flow_log",
-			Name:     "Flow Log",
+			Name:,
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -802,7 +798,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceInstance,
 			TypeName: "aws_instance",
-			Name:     "Instance",
+			Name:,
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -810,7 +806,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceInternetGateway,
 			TypeName: "aws_internet_gateway",
-			Name:     "Internet Gateway",
+			Name:Gateway",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -822,7 +818,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceKeyPair,
 			TypeName: "aws_key_pair",
-			Name:     "Key Pair",
+			Name:,
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "key_pair_id",
 			},
@@ -830,7 +826,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceLaunchTemplate,
 			TypeName: "aws_launch_template",
-			Name:     "Launch Template",
+			Name:mplate",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -842,7 +838,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNATGateway,
 			TypeName: "aws_nat_gateway",
-			Name:     "NAT Gateway",
+			Name:ay",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -850,7 +846,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNetworkACL,
 			TypeName: "aws_network_acl",
-			Name:     "Network ACL",
+			Name:CL",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -866,7 +862,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNetworkInterface,
 			TypeName: "aws_network_interface",
-			Name:     "Network Interface",
+			Name:nterface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -882,7 +878,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePlacementGroup,
 			TypeName: "aws_placement_group",
-			Name:     "Placement Group",
+			Name: Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "placement_group_id",
 			},
@@ -894,7 +890,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceRouteTable,
 			TypeName: "aws_route_table",
-			Name:     "Route Table",
+			Name:le",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -906,7 +902,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSecurityGroup,
 			TypeName: "aws_security_group",
-			Name:     "Security Group",
+			Name:Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -926,7 +922,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSpotFleetRequest,
 			TypeName: "aws_spot_fleet_request",
-			Name:     "Spot Fleet Request",
+			Name:t Request",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -934,7 +930,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSpotInstanceRequest,
 			TypeName: "aws_spot_instance_request",
-			Name:     "Spot Instance Request",
+			Name:ance Request",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -942,7 +938,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSubnet,
 			TypeName: "aws_subnet",
-			Name:     "Subnet",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -954,7 +950,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPC,
 			TypeName: "aws_vpc",
-			Name:     "VPC",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -962,7 +958,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCDHCPOptions,
 			TypeName: "aws_vpc_dhcp_options",
-			Name:     "DHCP Options",
+			Name:ons",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -974,7 +970,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCEndpoint,
 			TypeName: "aws_vpc_endpoint",
-			Name:     "VPC Endpoint",
+			Name:int",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1002,7 +998,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCEndpointService,
 			TypeName: "aws_vpc_endpoint_service",
-			Name:     "VPC Endpoint Service",
+			Name:int Service",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1018,7 +1014,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPAM,
 			TypeName: "aws_vpc_ipam",
-			Name:     "IPAM",
+			Name:
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1030,7 +1026,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPAMPool,
 			TypeName: "aws_vpc_ipam_pool",
-			Name:     "IPAM Pool",
+			Name:",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1050,7 +1046,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPAMResourceDiscovery,
 			TypeName: "aws_vpc_ipam_resource_discovery",
-			Name:     "IPAM Resource Discovery",
+			Name:urce Discovery",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1058,7 +1054,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPAMResourceDiscoveryAssociation,
 			TypeName: "aws_vpc_ipam_resource_discovery_association",
-			Name:     "IPAM Resource Discovery Association",
+			Name:urce Discovery Association",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1066,7 +1062,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIPAMScope,
 			TypeName: "aws_vpc_ipam_scope",
-			Name:     "IPAM Scope",
+			Name:e",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1086,7 +1082,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCPeeringConnection,
 			TypeName: "aws_vpc_peering_connection",
-			Name:     "VPC Peering Connection",
+			Name:ng Connection",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1094,7 +1090,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCPeeringConnectionAccepter,
 			TypeName: "aws_vpc_peering_connection_accepter",
-			Name:     "VPC Peering Connection",
+			Name:ng Connection",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1106,7 +1102,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPNConnection,
 			TypeName: "aws_vpn_connection",
-			Name:     "VPN Connection",
+			Name:ction",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1118,7 +1114,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPNGateway,
 			TypeName: "aws_vpn_gateway",
-			Name:     "VPN Gateway",
+			Name:ay",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -1139,15 +1135,13 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.EC2
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-
+func
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*ec2_sdkv1.EC2, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return ec2_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
-// NewClient returns a new AWS SDK for Go v2 client for this service package's AWS API.
+funcewClient returns a new AWS SDK for Go v2 client for this service package's AWS API.
 
 func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (*ec2_sdkv2.Client, error) {
 	cfg := *(config["aws_sdkv2_config"].(*aws_sdkv2.Config))
@@ -1155,12 +1149,11 @@ func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (
 	return ec2_sdkv2.NewFromConfig(cfg, 
 func(o *ec2_sdkv2.Options) {
 		if endpoint := config["endpoint"].(string); endpoint != "" {
-			o.BaseEndpoint = aws_sdkv2.String(endpoint)
-		}
+func
 	}), nil
 }
-
 
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

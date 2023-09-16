@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_dataexchange_revision", name="Revision")
 // @Tags(identifierAttribute="arn")
 
-func ResourceRevision() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceRevisionCreate,
-		ReadWithoutTimeout:   resourceRevisionRead,
+		ReadWithoutTimeout:ourceRevisionRead,
 		UpdateWithoutTimeout: resourceRevisionUpdate,
 		DeleteWithoutTimeout: resourceRevisionDelete,
 		Importer: &schema.ResourceImporter{
@@ -38,25 +37,24 @@ func ResourceRevision() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"comment": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				Validate
 func: validation.StringLenBetween(0, 16348),
-			},
-			"data_set_id": {
-				Type:     schema.TypeString,
+funcdata_set_id": {
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"revision_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -66,12 +64,11 @@ func: validation.StringLenBetween(0, 16348),
 
 func resourceRevisionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
-
+func
 	input := &dataexchange.CreateRevisionInput{
 		DataSetId: aws.String(d.Get("data_set_id").(string)),
-		Comment:   aws.String(d.Get("comment").(string)),
-		Tags:      getTagsIn(ctx),
+		Comment:.String(d.Get("comment").(string)),
+		Tags:agsIn(ctx),
 	}
 
 	out, err := conn.CreateRevisionWithContext(ctx, input)
@@ -88,8 +85,7 @@ func resourceRevisionCreate(ctx context.Context, d *schema.ResourceData, meta in
 func resourceRevisionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
-
-	dataSetId, revisionId, err := RevisionParseResourceID(d.Id())
+funcaSetId, revisionId, err := RevisionParseResourceID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading DataExchange Revision (%s): %s", d.Id(), err)
 	}
@@ -121,8 +117,7 @@ func resourceRevisionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &dataexchange.UpdateRevisionInput{
+funcput := &dataexchange.UpdateRevisionInput{
 			RevisionId: aws.String(d.Get("revision_id").(string)),
 			DataSetId:  aws.String(d.Get("data_set_id").(string)),
 		}
@@ -147,8 +142,7 @@ func resourceRevisionDelete(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
 
 	input := &dataexchange.DeleteRevisionInput{
-		RevisionId: aws.String(d.Get("revision_id").(string)),
-		DataSetId:  aws.String(d.Get("data_set_id").(string)),
+functaSetId:  aws.String(d.Get("data_set_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Deleting DataExchange Revision: %s", d.Id())
@@ -170,6 +164,5 @@ func RevisionParseResourceID(id string) (string, string, error) {
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
 	}
-
-	return "", "", fmt.Errorf("unexpected format for ID (%s), expected DATA-SET_ID:REVISION-ID", id)
+funcurn "", "", fmt.Errorf("unexpected format for ID (%s), expected DATA-SET_ID:REVISION-ID", id)
 }

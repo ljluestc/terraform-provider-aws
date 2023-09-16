@@ -23,8 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_iam_user_policy")
-func ResourceUserPolicy() *schema.Resource {
+// @SDKResource("aws_iam_user_policy")func ResourceUserPolicy() *schema.Resource {
 	return &schema.Resource{
 		// PutUserPolicy API is idempotent, so these can be the same.
 		CreateWithoutTimeout: resourceUserPolicyPut,
@@ -38,8 +37,8 @@ func ResourceUserPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
@@ -68,10 +67,7 @@ func ResourceUserPolicy() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceUserPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	p, err := verify.LegacyPolicyNormalize(d.Get("policy").(string))
@@ -105,11 +101,8 @@ func resourceUserPolicyPut(ctx context.Context, d *schema.ResourceData, meta int
 
 	d.SetId(fmt.Sprintf("%s:%s", aws.StringValue(request.UserName), aws.StringValue(request.PolicyName)))
 	return diags
-}
-
-func resourceUserPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceUserPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	user, name, err := UserPolicyParseID(d.Id())
 	if err != nil {
@@ -173,12 +166,9 @@ func resourceUserPolicyRead(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("user", user)
 
 	return diags
-}
-
-func resourceUserPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	user, name, err := UserPolicyParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting IAM User Policy %s: %s", d.Id(), err)
@@ -196,13 +186,10 @@ func resourceUserPolicyDelete(ctx context.Context, d *schema.ResourceData, meta 
 		return sdkdiag.AppendErrorf(diags, "deleting IAM User Policy %s: %s", d.Id(), err)
 	}
 	return diags
-}
-
-func UserPolicyParseID(id string) (userName, policyName string, err error) {
+}func UserPolicyParseID(id string) (userName, policyName string, err error) {
 	parts := strings.SplitN(id, ":", 2)
 	if len(parts) != 2 {
-		err = fmt.Errorf("user_policy id must be of the form <user name>:<policy name>")
-		return
+	functurn
 	}
 
 	userName = parts[0]

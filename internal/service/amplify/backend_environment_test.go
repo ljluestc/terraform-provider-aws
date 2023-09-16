@@ -31,7 +31,7 @@ func testAccBackendEnvironment_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+CheckDestroy:testAccCheckBackendEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
@@ -64,7 +64,7 @@ func testAccBackendEnvironment_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+CheckDestroy:testAccCheckBackendEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
@@ -90,7 +90,7 @@ func testAccBackendEnvironment_DeploymentArtifacts_StackName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+CheckDestroy:testAccCheckBackendEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBackendEnvironmentConfig_deploymentArtifactsAndStackName(rName, environmentName),

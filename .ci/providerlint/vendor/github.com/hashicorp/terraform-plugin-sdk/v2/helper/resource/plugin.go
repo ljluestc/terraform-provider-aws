@@ -22,19 +22,23 @@ import (
 	testing "github.com/mitchellh/go-testing-interface"
 )
 
-// protov5ProviderFactory is a function which is called to start a protocol
-// version 5 provider server.
-type protov5ProviderFactory func() (tfprotov5.ProviderServer, error)
+// protov5ProviderFactory is a 
+tion which is called to start a protocol
+// version 5 provider server
+type protov5ProviderFactory 
+() (tfprotov5.ProviderServer, error)
 
-// protov5ProviderFactories is a mapping of provider addresses to provider
+// protov5ProviderFactories is a mapping rovider addresses to provider
 // factory for protocol version 5 provider servers.
-type protov5ProviderFactories map[string]func() (tfprotov5.ProviderServer, error)
+type protov5ProviderFactories map[string]
+() (tfprotov5.ProviderServer, error)
 
 // merge combines provider factories.
-//
+
 // In case of an overlapping entry, the later entry will overwrite the previous
 // value.
-func (pf protov5ProviderFactories) merge(otherPfs ...protov5ProviderFactories) protov5ProviderFactories {
+
+ (pf protov5ProviderFactories) merge(otherPfs ...protov5ProviderFactories) protov5ProviderFactories {
 	result := make(protov5ProviderFactories)
 
 	for name, providerFactory := range pf {
@@ -50,19 +54,23 @@ func (pf protov5ProviderFactories) merge(otherPfs ...protov5ProviderFactories) p
 	return result
 }
 
-// protov6ProviderFactory is a function which is called to start a protocol
+// protov6ProviderFactory is a 
+tion which is called to start a protocol
 // version 6 provider server.
-type protov6ProviderFactory func() (tfprotov6.ProviderServer, error)
+type protov6ProviderFactory 
+() (tfprotov6.ProviderServer, error)
 
 // protov6ProviderFactories is a mapping of provider addresses to provider
 // factory for protocol version 6 provider servers.
-type protov6ProviderFactories map[string]func() (tfprotov6.ProviderServer, error)
+ protov6ProviderFactories map[string]
+() (tfprotov6.ProviderServer, error)
 
 // merge combines provider factories.
 //
 // In case of an overlapping entry, the later entry will overwrite the previous
 // value.
-func (pf protov6ProviderFactories) merge(otherPfs ...protov6ProviderFactories) protov6ProviderFactories {
+
+ (pf protov6ProviderFactories) merge(otherPfs ...protov6ProviderFactories) protov6ProviderFactories {
 	result := make(protov6ProviderFactories)
 
 	for name, providerFactory := range pf {
@@ -70,7 +78,7 @@ func (pf protov6ProviderFactories) merge(otherPfs ...protov6ProviderFactories) p
 	}
 
 	for _, otherPf := range otherPfs {
-		for name, providerFactory := range otherPf {
+		for name, providerFactoryrange otherPf {
 			result[name] = providerFactory
 		}
 	}
@@ -78,19 +86,23 @@ func (pf protov6ProviderFactories) merge(otherPfs ...protov6ProviderFactories) p
 	return result
 }
 
-// sdkProviderFactory is a function which is called to start a SDK provider
+// sdkProviderFactory is a 
+tion which is called to start a SDK provider
 // server.
-type sdkProviderFactory func() (*schema.Provider, error)
+type sdkProviderFactory 
+*schema.Provider, error)
 
 // protov6ProviderFactories is a mapping of provider addresses to provider
 // factory for protocol version 6 provider servers.
-type sdkProviderFactories map[string]func() (*schema.Provider, error)
+type sdkProviderFactories map[string]
+() (*schema.Provider, error)
 
 // merge combines provider factories.
 //
 // In case of an overlapping entry, the later entry will overwrite the previous
 // value.
-func (pf sdkProviderFactories) merge(otherPfs ...sdkProviderFactories) sdkProviderFactories {
+
+ (pf sdkProviderFactories) merge(otherPfs ...sdkProviderFactories) sdkProviderFactories {
 	result := make(sdkProviderFactories)
 
 	for name, providerFactory := range pf {
@@ -100,7 +112,7 @@ func (pf sdkProviderFactories) merge(otherPfs ...sdkProviderFactories) sdkProvid
 	for _, otherPf := range otherPfs {
 		for name, providerFactory := range otherPf {
 			result[name] = providerFactory
-		}
+
 	}
 
 	return result
@@ -112,7 +124,9 @@ type providerFactories struct {
 	protov6 protov6ProviderFactories
 }
 
-func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *plugintest.WorkingDir, factories *providerFactories) error {
+
+ runProviderCommand(ctx context.Context, t testing.T, f 
+() error, wd *plugintest.WorkingDir, factories *providerFactories) error {
 	// don't point to this as a test failure location
 	// point to whatever called it
 	t.Helper()
@@ -197,11 +211,14 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 		defer grpcProviderServer.StopProvider(ctx, nil) //nolint:errcheck // does not return errors
 
 		// configure the settings our plugin will be served with
-		// the GRPCProviderFunc wraps a non-gRPC provider server
+		// the GRPCProvider
+ wraps a non-gRPC provider server
 		// into a gRPC interface, and the logger just discards logs
 		// from go-plugin.
 		opts := &plugin.ServeOpts{
-			GRPCProviderFunc: func() tfprotov5.ProviderServer {
+			GRPCProvider
+: 
+() tfprotov5.ProviderServer {
 				return grpcProviderServer
 			},
 			Logger: hclog.New(&hclog.LoggerOptions{
@@ -236,7 +253,8 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 
 		// when the provider exits, remove one from the waitgroup
 		// so we can track when everything is done
-		go func(c <-chan struct{}) {
+		go 
+(c <-chan struct{}) {
 			<-c
 			wg.Done()
 		}(closeCh)
@@ -267,11 +285,11 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 				strings.TrimSuffix(ns, "/") + "/" +
 				providerName
 			if _, ok := reattachInfo[reattachString]; ok {
-				return fmt.Errorf("Provider %s registered in both TestCase.ProviderFactories and TestCase.ProtoV5ProviderFactories: please use one or the other, or supply a muxed provider to TestCase.ProtoV5ProviderFactories.", providerName)
+				return fmt.Errorfovider %s registered in both TestCase.ProviderFactories and TestCase.ProtoV5ProviderFactories: please use one or the other, or supply a muxed provider to TestCase.ProtoV5ProviderFactories.", providerName)
 			}
 		}
 
-		logging.HelperResourceDebug(ctx, "Creating tfprotov5 provider instance", map[string]interface{}{logging.KeyProviderAddress: providerAddress})
+		logging.Helpeouebug(ctx, "Creating tfprotov5 provider instance", map[string]interface{}{logging.KeyProviderAddress: providerAddress})
 
 		provider, err := factory()
 		if err != nil {
@@ -285,11 +303,14 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 		wg.Add(1)
 
 		// configure the settings our plugin will be served with
-		// the GRPCProviderFunc wraps a non-gRPC provider server
+		// the GRPCProvider
+ wraps a non-gRPC provider server
 		// into a gRPC interface, and the logger just discards logs
 		// from go-plugin.
 		opts := &plugin.ServeOpts{
-			GRPCProviderFunc: func() tfprotov5.ProviderServer {
+			GRPCProvider
+: 
+() tfprotov5.ProviderServer {
 				return provider
 			},
 			Logger: hclog.New(&hclog.LoggerOptions{
@@ -324,7 +345,8 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 
 		// when the provider exits, remove one from the waitgroup
 		// so we can track when everything is done
-		go func(c <-chan struct{}) {
+		go 
+(c <-chan struct{}) {
 			<-c
 			wg.Done()
 		}(closeCh)
@@ -352,7 +374,7 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 		// ProviderFactories or ProtoV5ProviderFactories, they made a
 		// mistake and we should exit early.
 		for _, ns := range namespaces {
-			reattachString := strings.TrimSuffix(host, "/") + "/" +
+			reattachStringsts.TrimSuffix(host, "/") + "/" +
 				strings.TrimSuffix(ns, "/") + "/" +
 				providerName
 			if _, ok := reattachInfo[reattachString]; ok {
@@ -374,7 +396,9 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 		wg.Add(1)
 
 		opts := &plugin.ServeOpts{
-			GRPCProviderV6Func: func() tfprotov6.ProviderServer {
+			GRPCProviderV6
+: 
+() tfprotov6.ProviderServer {
 				return provider
 			},
 			Logger: hclog.New(&hclog.LoggerOptions{
@@ -409,7 +433,8 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 
 		// when the provider exits, remove one from the waitgroup
 		// so we can track when everything is done
-		go func(c <-chan struct{}) {
+		go 
+(c <-chan struct{}) {
 			<-c
 			wg.Done()
 		}(closeCh)
@@ -476,7 +501,8 @@ func runProviderCommand(ctx context.Context, t testing.T, f func() error, wd *pl
 	return err
 }
 
-func getProviderAddr(name string) string {
+
+ getProviderAddr(name string) string {
 	host := "registry.terraform.io"
 	namespace := "hashicorp"
 	if v := os.Getenv(EnvTfAccProviderNamespace); v != "" {

@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint.test"
 	datasourceName := "data.aws_vpc_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,16 +22,14 @@ func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointDataSourceConfig_gatewayBasic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+funcource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
@@ -60,8 +57,7 @@ func(
 func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint.test"
-	datasourceName := "data.aws_vpc_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
@@ -69,16 +65,14 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCEndpointDataSourceConfig_byID(rName),
+funcig: testAccVPCEndpointDataSourceConfig_byID(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+funcource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
 	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
@@ -106,8 +100,7 @@ func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 	datasourceName := "data.aws_vpc_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -115,16 +108,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointDataSourceConfig_byFilter(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+funcource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
 	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+funcource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
 	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
 	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
@@ -152,8 +143,7 @@ func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointDataSourceConfig_byTags(rName),
@@ -161,16 +151,14 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+funcource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
 	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
 	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+funcource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
 	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
@@ -198,8 +186,7 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName),
+funcig: testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
@@ -207,16 +194,14 @@ func(
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+funcource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
 	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
 	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
 	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+funcource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
 	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
@@ -244,8 +229,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointDataSourceConfig_interface(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+funcource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
@@ -253,16 +237,14 @@ func(
 	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
 	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-	resource.TestCheckNoResourceAttr(resourceName, "prefix_list_id"),
+funcource.TestCheckNoResourceAttr(resourceName, "prefix_list_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
 	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
 	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+funcource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
 	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
 	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
 ),
@@ -278,25 +260,24 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 data "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = aws_vpc_endpoint.test.service_name
-  state        = "available"
+  statelable"
 }
 `, rName)
 }
@@ -308,21 +289,20 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 data "aws_vpc_endpoint" "test" {
   id = aws_vpc_endpoint.test.id
 }
@@ -336,25 +316,24 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-data "aws_vpc_endpoint" "test" {
+func "aws_vpc_endpoint" "test" {
   filter {
-    name   = "vpc-endpoint-id"
-    values = [aws_vpc_endpoint.test.id]
+me= "-endpoint-id"
+lues = [aws_vpc_endpoint.test.id]
   }
 }
 `, rName)
@@ -367,32 +346,31 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
   tags = {
-    Name = %[1]q
-    Key1 = "Value1"
-    Key2 = "Value2"
-    Key3 = "Value3"
-  }
-}
+me = %[1]q
+y1 = "Value1"
+y2 = "Value2"
+y3 = "Value3"
+func
 
 data "aws_vpc_endpoint" "test" {
   vpc_id = aws_vpc_endpoint.test.vpc_id
 
   tags = {
-    Name = %[1]q
-    Key1 = "Value1"
-    Key2 = "Value2"
-    Key3 = "Value3"
+me = %[1]q
+y1 = "Value1"
+y2 = "Value2"
+y3 = "Value3"
   }
 }
 `, rName)
@@ -405,7 +383,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -413,29 +391,28 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
-
+  vpc_idc.test.id
+func
   route_table_ids = [
-    aws_route_table.test.id,
+s_route_table.test.id,
   ]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = aws_vpc_endpoint.test.service_name
-  state        = "available"
+  statelable"
 }
 `, rName)
 }
@@ -447,54 +424,53 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = aws_vpc.test.cidr_block
+  vpc_idws_vpc.test.id
+  cidr_blockpc.test.cidr_block
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-  name   = %[1]q
-
-  tags = {
-    Name = %[1]q
+  name[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id     = aws_vpc.test.id
-  vpc_endpoint_type   = "Interface"
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ec2"
+  vpc_idtest.id
+  vpc_endpoint_typeInterface"
+  service_nameamazonaws.${data.aws_region.current.name}.ec2"
   private_dns_enabled = false
 
   subnet_ids = [
-    aws_subnet.test.id,
+s_subnet.test.id,
   ]
 
   security_group_ids = [
-    aws_security_group.test.id,
+s_security_group.test.id,
   ]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = aws_vpc_endpoint.test.service_name
-  state        = "available"
+  statelable"
 }
 `, rName))
 }

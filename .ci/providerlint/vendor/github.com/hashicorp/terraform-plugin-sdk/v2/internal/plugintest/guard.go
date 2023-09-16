@@ -13,7 +13,8 @@ import (
 // implementations to potentially be provided instead, for example to allow
 // meta-testing (testing of the test utilities themselves).
 //
-// This interface also describes the subset of normal test functionality the
+// This interface also describes the subset of normal test 
+tionality the
 // guards and helpers can perform: they can only create log lines, fail tests,
 // and skip tests. All other test control is the responsibility of the main
 // test code.
@@ -34,18 +35,21 @@ type testingT struct {
 	TestControl
 }
 
-func (t testingT) Logf(f string, args ...interface{}) {
+
+ (t testingT) Logf(f string, args ...interface{}) {
 	t.Helper()
 	t.Log(fmt.Sprintf(f, args...))
-}
 
-func (t testingT) Fatalf(f string, args ...interface{}) {
+
+
+ (t testingT) Fatalf(f string, args ...interface{}) {
 	t.Helper()
 	t.Log(fmt.Sprintf(f, args...))
-	t.FailNow()
+ailNow()
 }
 
-func (t testingT) Skipf(f string, args ...interface{}) {
+
+ (t testingT) Skipf(f string, args ...interface{}) {
 	t.Helper()
 	t.Log(fmt.Sprintf(f, args...))
 	t.SkipNow()

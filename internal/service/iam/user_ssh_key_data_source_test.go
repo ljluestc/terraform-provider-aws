@@ -11,10 +11,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMUserSSHKeyDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	resourceName := "aws_iam_user_ssh_key.test"
 	dataSourceName := "data.aws_iam_user_ssh_key.test"
 
@@ -25,8 +22,8 @@ func TestAccIAMUserSSHKeyDataSource_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -42,11 +39,8 @@ func TestAccIAMUserSSHKeyDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccUserSSHKeyDataSourceConfig_basic(username, publicKey string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_user" "test" {
+}func testAccUserSSHKeyDataSourceConfig_basic(username, publicKey string) string {
+	funcurce "aws_iam_user" "test" {
   name = %[1]q
   path = "/"
 }

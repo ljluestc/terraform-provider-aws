@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_sagemaker_pipeline", name="Pipeline")
 // @Tags(identifierAttribute="arn")
-func ResourcePipeline() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourcePipelineCreate,
-		ReadWithoutTimeout:   resourcePipelineRead,
+		ReadWithoutTimeout:ourcePipelineRead,
 		UpdateWithoutTimeout: resourcePipelineUpdate,
 		DeleteWithoutTimeout: resourcePipelineDelete,
 
@@ -38,26 +37,26 @@ func ResourcePipeline() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"parallelism_configuration": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"max_parallel_execution_steps": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type:chema.TypeInt,
+							Required:
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 					},
 				},
 			},
 			"pipeline_definition": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ExactlyOneOf: []string{"pipeline_definition", "pipeline_definition_s3_location"},
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 1048576),
@@ -65,34 +64,34 @@ func ResourcePipeline() *schema.Resource {
 				),
 			},
 			"pipeline_definition_s3_location": {
-				Type:         schema.TypeList,
-				Optional:     true,
+				Type:chema.TypeList,
+				Optional:
 				ExactlyOneOf: []string{"pipeline_definition", "pipeline_definition_s3_location"},
-				MaxItems:     1,
+				MaxItems:
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 						"object_key": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 						"version_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"pipeline_description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 3072),
 			},
 			"pipeline_display_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 256),
@@ -100,7 +99,7 @@ func ResourcePipeline() *schema.Resource {
 				),
 			},
 			"pipeline_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -109,11 +108,11 @@ func ResourcePipeline() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -122,16 +121,15 @@ func ResourcePipeline() *schema.Resource {
 }
 
 func resourcePipelineCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("pipeline_name").(string)
 	input := &sagemaker.CreatePipelineInput{
 		ClientRequestToken:  aws.String(id.UniqueId()),
 		PipelineDisplayName: aws.String(d.Get("pipeline_display_name").(string)),
-		PipelineName:        aws.String(name),
-		RoleArn:             aws.String(d.Get("role_arn").(string)),
-		Tags:                getTagsIn(ctx),
+		PipelineName:s.String(name),
+		RoleArn:ing(d.Get("role_arn").(string)),
+		Tags:,
 	}
 
 	if v, ok := d.GetOk("parallelism_configuration"); ok {
@@ -163,8 +161,7 @@ func resourcePipelineCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 func resourcePipelineRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	pipeline, err := FindPipelineByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -193,8 +190,7 @@ func resourcePipelineRead(ctx context.Context, d *schema.ResourceData, meta inte
 func resourcePipelineUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &sagemaker.UpdatePipelineInput{
 			PipelineName: aws.String(d.Id()),
 		}
@@ -237,10 +233,9 @@ func resourcePipelineDelete(ctx context.Context, d *schema.ResourceData, meta in
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	log.Printf("[DEBUG] Deleting SageMaker Pipeline: %s", d.Id())
-	_, err := conn.DeletePipelineWithContext(ctx, &sagemaker.DeletePipelineInput{
+funcerr := conn.DeletePipelineWithContext(ctx, &sagemaker.DeletePipelineInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		PipelineName:       aws.String(d.Id()),
+		PipelineName:.String(d.Id()),
 	})
 
 	if tfawserr.ErrMessageContains(err, "ValidationException", "No pipeline") {
@@ -259,10 +254,9 @@ func expandPipelineDefinitionS3Location(l []interface{}) *sagemaker.PipelineDefi
 		return &sagemaker.PipelineDefinitionS3Location{}
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.PipelineDefinitionS3Location{
-		Bucket:    aws.String(m["bucket"].(string)),
+		Bucket:s.String(m["bucket"].(string)),
 		ObjectKey: aws.String(m["object_key"].(string)),
 	}
 
@@ -279,8 +273,7 @@ func expandParallelismConfiguration(l []interface{}) *sagemaker.ParallelismConfi
 	}
 
 	m := l[0].(map[string]interface{})
-
-	config := &sagemaker.ParallelismConfiguration{
+funcfig := &sagemaker.ParallelismConfiguration{
 		MaxParallelExecutionSteps: aws.Int64(int64(m["max_parallel_execution_steps"].(int))),
 	}
 
@@ -294,7 +287,6 @@ func flattenParallelismConfiguration(config *sagemaker.ParallelismConfiguration)
 
 	m := map[string]interface{}{
 		"max_parallel_execution_steps": aws.Int64Value(config.MaxParallelExecutionSteps),
-	}
-
+func
 	return []map[string]interface{}{m}
 }

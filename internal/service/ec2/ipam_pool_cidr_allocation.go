@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_vpc_ipam_pool_cidr_allocation")
 
-func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceIPAMPoolCIDRAllocationCreate,
-ReadWithoutTimeout:   resourceIPAMPoolCIDRAllocationRead,
+ReadWithoutTimeout:ourceIPAMPoolCIDRAllocationRead,
 DeleteWithoutTimeout: resourceIPAMPoolCIDRAllocationDelete,
 
 Importer: &schema.ResourceImporter{
@@ -38,23 +37,22 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"cidr": {
 Type: schema.TypeString,
-Optional:      true,
-ForceNew:      true,
-Computed:      true,
+Optional:
+ForceNew:
+Computed:
 ConflictsWith: []string{"netmask_length"},
 Validate
 func: validation.Any(
-	verify.ValidIPv4CIDRNetworkAddress,
-	verify.ValidIPv6CIDRNetworkAddress,
+funcify.ValidIPv6CIDRNetworkAddress,
 ),
 	},
 	"description": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	"disallowed_cidrs": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Schema{
@@ -62,38 +60,36 @@ Elem: &schema.Schema{
 	Validate
 func: validation.Any(
 verify.ValidIPv4CIDRNetworkAddress,
-// Follow the numbers used for netmask_length
-validation.IsCIDRNetwork(0, 128),
+funcdation.IsCIDRNetwork(0, 128),
 	),
 },
 	},
 	"ipam_pool_allocation_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"ipam_pool_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"netmask_length": {
 Type: schema.TypeInt,
-Optional:      true,
-ForceNew:      true,
+Optional:
+ForceNew:
 Validate
 func:  validation.IntBetween(0, 128),
 ConflictsWith: []string{"cidr"},
 	},
-	"resource_id": {
-Type:     schema.TypeString,
+func:eString,
 Computed: true,
 	},
 	"resource_owner": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"resource_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 },
@@ -105,8 +101,7 @@ func resourceIPAMPoolCIDRAllocationCreate(ctx context.Context, d *schema.Resourc
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	ipamPoolID := d.Get("ipam_pool_id").(string)
-	input := &ec2.AllocateIpamPoolCidrInput{
+funcut := &ec2.AllocateIpamPoolCidrInput{
 ClientToken: aws.String(id.UniqueId()),
 IpamPoolId:  aws.String(ipamPoolID),
 	}
@@ -148,8 +143,7 @@ func resourceIPAMPoolCIDRAllocationRead(ctx context.Context, d *schema.ResourceD
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	allocationID, poolID, err := IPAMPoolCIDRAllocationParseResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 return sdkdiag.AppendFromErr(diags, err)
 	}
 
@@ -182,8 +176,7 @@ func resourceIPAMPoolCIDRAllocationDelete(ctx context.Context, d *schema.Resourc
 
 	allocationID, poolID, err := IPAMPoolCIDRAllocationParseResourceID(d.Id())
 
-	if err != nil {
-return sdkdiag.AppendFromErr(diags, err)
+funcrn sdkdiag.AppendFromErr(diags, err)
 	}
 
 	log.Printf("[DEBUG] Deleting IPAM Pool CIDR Allocation: %s", d.Id())
@@ -214,7 +207,6 @@ func IPAMPoolCIDRAllocationCreateResourceID(allocationID, poolID string) string 
 	return id
 }
 
-
 func IPAMPoolCIDRAllocationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, ipamPoolCIDRAllocationIDSeparator)
 
@@ -223,4 +215,4 @@ return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected allocation
 	}
 
 	return parts[0], parts[1], nil
-}
+func

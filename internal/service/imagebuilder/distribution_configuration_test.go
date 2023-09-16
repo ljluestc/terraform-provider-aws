@@ -36,10 +36,10 @@ func TestAccImageBuilderDistributionConfiguration_basic(t *testing.T) {
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_name(rName),
@@ -68,10 +68,10 @@ func TestAccImageBuilderDistributionConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_name(rName),
@@ -91,10 +91,10 @@ func TestAccImageBuilderDistributionConfiguration_description(t *testing.T) {
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_description(rName, "description1"),
@@ -130,9 +130,9 @@ func TestAccImageBuilderDistributionConfiguration_distribution(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_2(rName),
@@ -156,10 +156,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_am
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiTags(rName, "key1", "value1"),
@@ -167,7 +167,7 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_am
 					testAccCheckDistributionConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "distribution.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "distribution.*", map[string]string{
-						"ami_distribution_configuration.#":               "1",
+						"ami_distribution_configuration.#":
 						"ami_distribution_configuration.0.ami_tags.%":    "1",
 						"ami_distribution_configuration.0.ami_tags.key1": "value1",
 					}),
@@ -185,7 +185,7 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_am
 					acctest.CheckResourceAttrRFC3339(resourceName, "date_updated"),
 					resource.TestCheckResourceAttr(resourceName, "distribution.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "distribution.*", map[string]string{
-						"ami_distribution_configuration.#":               "1",
+						"ami_distribution_configuration.#":
 						"ami_distribution_configuration.0.ami_tags.%":    "1",
 						"ami_distribution_configuration.0.ami_tags.key2": "value2",
 					}),
@@ -201,10 +201,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_de
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiDescription(rName, "description1"),
@@ -212,7 +212,7 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_de
 					testAccCheckDistributionConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "distribution.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "distribution.*", map[string]string{
-						"ami_distribution_configuration.#":             "1",
+						"ami_distribution_configuration.#":
 						"ami_distribution_configuration.0.description": "description1",
 					}),
 				),
@@ -229,7 +229,7 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_de
 					acctest.CheckResourceAttrRFC3339(resourceName, "date_updated"),
 					resource.TestCheckResourceAttr(resourceName, "distribution.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "distribution.*", map[string]string{
-						"ami_distribution_configuration.#":             "1",
+						"ami_distribution_configuration.#":
 						"ami_distribution_configuration.0.description": "description2",
 					}),
 				),
@@ -246,10 +246,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_km
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiKMSKeyID1(rName),
@@ -283,10 +283,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistributionLau
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiLaunchPermissionUserGroups(rName, "all"),
@@ -311,10 +311,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistributionLau
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiLaunchPermissionUserIDs(rName, "111111111111"),
@@ -353,9 +353,9 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistributionLau
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiLaunchPermissionOrganizationARNs(rName),
@@ -386,9 +386,9 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistributionLau
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiLaunchPermissionOrganizationalUnitARNs(rName),
@@ -413,10 +413,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_na
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiName(rName, "name1-{{ imagebuilder:buildDate }}"),
@@ -456,10 +456,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionAMIDistribution_ta
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_amiTargetAccountIDs(rName, "111111111111"),
@@ -493,10 +493,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionContainerDistribut
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_containerTags(rName, "tag1"),
@@ -532,10 +532,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionContainerDistribut
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_containerDescription(rName, "description1"),
@@ -571,10 +571,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionContainerDistribut
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_containerTargetRepository(rName, "repository1"),
@@ -614,10 +614,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionFastLaunchConfigur
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_fastLaunchEnabled(rName, "true"),
@@ -654,10 +654,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionFastLaunchConfigur
 	launchTemplateResourceName2 := "aws_launch_template.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_fastLaunchLaunchTemplate1(rName),
@@ -698,10 +698,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionFastLaunchConfigur
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_fastLaunchMaxParallelLaunches(rName, 7),
@@ -736,10 +736,10 @@ func TestAccImageBuilderDistributionConfiguration_DistributionFastLaunchConfigur
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_fastLaunchSnapshotConfiguration(rName, 5),
@@ -777,10 +777,10 @@ func TestAccImageBuilderDistributionConfiguration_Distribution_launchTemplateCon
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_launchTemplateIDDefault(rName),
@@ -836,9 +836,9 @@ func TestAccImageBuilderDistributionConfiguration_Distribution_licenseARNs(t *te
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/license-manager.amazonaws.com")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_licenseARNs1(rName),
@@ -872,10 +872,10 @@ func TestAccImageBuilderDistributionConfiguration_tags(t *testing.T) {
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationConfig_tags1(rName, "key1", "value1"),

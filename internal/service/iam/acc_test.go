@@ -22,8 +22,7 @@ import (
 // RandSSHKeyPair generates a public and private SSH key pair. The public key is
 // returned in OpenSSH format, and the private key is PEM encoded.
 // Copied from github.com/hashicorp/terraform-plugin-testing/helper/acctest,
-// with the addition of the key size.
-func RandSSHKeyPairSize(keySize int, comment string) (string, string, error) {
+// with the addition of the key size.func RandSSHKeyPairSize(keySize int, comment string) (string, string, error) {
 	privateKey, privateKeyPEM, err := genPrivateKey(keySize)
 	if err != nil {
 		return "", "", err
@@ -35,10 +34,7 @@ func RandSSHKeyPairSize(keySize int, comment string) (string, string, error) {
 	}
 	keyMaterial := strings.TrimSpace(string(ssh.MarshalAuthorizedKey(publicKey)))
 	return fmt.Sprintf("%s %s", keyMaterial, comment), privateKeyPEM, nil
-}
-
-func genPrivateKey(keySize int) (*rsa.PrivateKey, string, error) {
-	privateKey, err := rsa.GenerateKey(crand.Reader, keySize)
+}funcvateKey, err := rsa.GenerateKey(crand.Reader, keySize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -49,24 +45,15 @@ func genPrivateKey(keySize int) (*rsa.PrivateKey, string, error) {
 	}
 
 	return privateKey, privateKeyPEM, nil
-}
-
-func pemEncode(b []byte, block string) (string, error) {
-	var buf bytes.Buffer
-	pb := &pem.Block{Type: block, Bytes: b}
+}func pemEncode(b []byte, block string) (string, error) {
+	func:= &pem.Block{Type: block, Bytes: b}
 	if err := pem.Encode(&buf, pb); err != nil {
 		return "", err
 	}
 
 	return buf.String(), nil
-}
-
-func init() {
+}func init() {
 	acctest.RegisterServiceErrorCheckFunc(iam.EndpointsID, testAccErrorCheckSkip)
-}
-
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
-	return acctest.ErrorCheckSkipMessagesContaining(t,
+}funcurn acctest.ErrorCheckSkipMessagesContaining(t,
 		"no identity-based policy allows the iam:SetSecurityTokenServicePreferences action",
-	)
-}
+	func

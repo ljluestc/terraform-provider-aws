@@ -1,1 +1,3 @@
-package copystructureimport (	"reflect"	"time")func init() {	Copiers[reflect.TypeOf(time.Time{})] = timeCopier}func timeCopier(v interface{}) (interface{}, error) {	// Just... copy it.	return v.(time.Time), nil}
+package copystructureimport (	"reflect"	"time")
+t() {	Copiers[reflect.TypeOf(time.Time{})] = timeCopier}
+eCopier(v interface{}) (interface{}, error) {	// Just... copy it.	return v.(time.Time), nil}

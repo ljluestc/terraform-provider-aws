@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRAMResourceShare_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var resourceShare ram.ResourceShare
 	resourceName := "aws_ram_resource_share.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_name(rName),
@@ -43,8 +42,8 @@ func TestAccRAMResourceShare_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -52,16 +51,15 @@ func TestAccRAMResourceShare_basic(t *testing.T) {
 }
 
 func TestAccRAMResourceShare_permission(t *testing.T) {
-	ctx := acctest.Context(t)
-	var resourceShare ram.ResourceShare
+func resourceShare ram.ResourceShare
 	resourceName := "aws_ram_resource_share.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_namePermission(rName),
@@ -75,8 +73,8 @@ func TestAccRAMResourceShare_permission(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -85,15 +83,14 @@ func TestAccRAMResourceShare_permission(t *testing.T) {
 
 func TestAccRAMResourceShare_allowExternalPrincipals(t *testing.T) {
 	ctx := acctest.Context(t)
-	var resourceShare1, resourceShare2 ram.ResourceShare
-	resourceName := "aws_ram_resource_share.test"
+funcourceName := "aws_ram_resource_share.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_allowExternalPrincipals(rName, false),
@@ -103,8 +100,8 @@ func TestAccRAMResourceShare_allowExternalPrincipals(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -121,15 +118,14 @@ func TestAccRAMResourceShare_allowExternalPrincipals(t *testing.T) {
 func TestAccRAMResourceShare_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	var resourceShare1, resourceShare2 ram.ResourceShare
-	resourceName := "aws_ram_resource_share.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_name(rName),
@@ -139,8 +135,8 @@ func TestAccRAMResourceShare_name(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -158,13 +154,12 @@ func TestAccRAMResourceShare_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var resourceShare1, resourceShare2, resourceShare3 ram.ResourceShare
 	resourceName := "aws_ram_resource_share.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_tags1(rName, "key1", "value1"),
@@ -175,8 +170,8 @@ func TestAccRAMResourceShare_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -205,12 +200,11 @@ func TestAccRAMResourceShare_disappears(t *testing.T) {
 	var resourceShare ram.ResourceShare
 	resourceName := "aws_ram_resource_share.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceShareDestroy(ctx),
+		CheckDestroy:testAccCheckResourceShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceShareConfig_name(rName),
@@ -230,10 +224,8 @@ func testAccCheckResourceShareExists(ctx context.Context, n string, v *ram.Resou
 
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
-		output, err := tfram.FindResourceShareOwnerSelfByARN(ctx, conn, rs.Primary.ID)
+func
+functput, err := tfram.FindResourceShareOwnerSelfByARN(ctx, conn, rs.Primary.ID)
 
 		if err != nil {
 			return err
@@ -253,10 +245,8 @@ func testAccCheckResourceShareDestroy(ctx context.Context) resource.TestCheckFun
 			if rs.Type != "aws_ram_resource_share" {
 				continue
 			}
-
-			_, err := tfram.FindResourceShareOwnerSelfByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+func, err := tfram.FindResourceShareOwnerSelfByARN(ctx, conn, rs.Primary.ID)
+funcf tfresource.NotFound(err) {
 				continue
 			}
 
@@ -275,14 +265,13 @@ func testAccResourceShareConfig_allowExternalPrincipals(rName string, allowExter
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
   allow_external_principals = %[1]t
-  name                      = %[2]q
+  name
 }
 `, allowExternalPrincipals, rName)
 }
 
 func testAccResourceShareConfig_name(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_ram_resource_share" "test" {
+funcurce "aws_ram_resource_share" "test" {
   name = %[1]q
 }
 `, rName)
@@ -291,35 +280,33 @@ resource "aws_ram_resource_share" "test" {
 func testAccResourceShareConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
-
+func
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
 
-func testAccResourceShareConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
-func testAccResourceShareConfig_namePermission(rName string) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 data "aws_partition" "current" {}
 
 resource "aws_ram_resource_share" "test" {
-  name            = %[1]q
+  name
   permission_arns = ["arn:${data.aws_partition.current.partition}:ram::aws:permission/AWSRAMBlankEndEntityCertificateAPICSRPassthroughIssuanceCertificateAuthority"]
 }
 `, rName)
 }
+func

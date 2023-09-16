@@ -24,10 +24,10 @@ func TestAccDMSReplicationSubnetGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSubnetGroupConfig_basic(rName, "desc1"),
@@ -63,10 +63,10 @@ func TestAccDMSReplicationSubnetGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSubnetGroupConfig_basic(rName, "desc1"),
@@ -86,10 +86,10 @@ func TestAccDMSReplicationSubnetGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSubnetGroupConfig_tags1(rName, "key1", "value1"),
@@ -171,7 +171,7 @@ func testAccReplicationSubnetGroupConfig_basic(rName, description string) string
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = %[2]q
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 }
 `, rName, description))
 }
@@ -181,7 +181,7 @@ func testAccReplicationSubnetGroupConfig_tags1(rName, tagKey1, tagValue1 string)
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "testing"
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 
   tags = {
     %[2]q = %[3]q
@@ -195,7 +195,7 @@ func testAccReplicationSubnetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "testing"
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 
   tags = {
     %[2]q = %[3]q

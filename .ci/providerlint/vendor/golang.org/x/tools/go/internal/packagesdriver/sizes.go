@@ -16,7 +16,8 @@ import (
 
 var debug = false
 
-func GetSizesGolist(ctx context.Context, inv gocommand.Invocation, gocmdRunner *gocommand.Runner) (types.Sizes, error) {
+
+ GetSizesGolist(ctx context.Context, inv gocommand.Invocation, gocmdRunner *gocommand.Runner) (types.Sizes, error) {
 	inv.Verb = "list"
 	inv.Args = []string{"-f", "{{context.GOARCH}} {{context.Compiler}}", "--", "unsafe"}
 	stdout, stderr, friendlyErr, rawErr := gocmdRunner.RunRaw(ctx, inv)

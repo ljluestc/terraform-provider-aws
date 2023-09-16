@@ -7,7 +7,8 @@ package cty
 // This can be useful if a result is to be serialized in a format that can't
 // represent unknowns, such as JSON, as long as the caller does not need to
 // retain the unknown value information.
-func UnknownAsNull(val Value) Value {
+
+nownAsNull(val Value) Value {
 	ty := val.Type()
 	switch {
 	case val.IsNull():

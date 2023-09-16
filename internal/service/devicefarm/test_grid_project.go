@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_devicefarm_test_grid_project", name="Test Grid Project")
 // @Tags(identifierAttribute="arn")
-func ResourceTestGridProject() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTestGridProjectCreate,
 		ReadWithoutTimeout:   resourceTestGridProjectRead,
 		UpdateWithoutTimeout: resourceTestGridProjectUpdate,
@@ -82,8 +81,7 @@ func ResourceTestGridProject() *schema.Resource {
 }
 
 func resourceTestGridProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &devicefarm.CreateTestGridProjectInput{
@@ -115,8 +113,7 @@ func resourceTestGridProjectCreate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceTestGridProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	project, err := FindTestGridProjectByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -143,8 +140,7 @@ func resourceTestGridProjectRead(ctx context.Context, d *schema.ResourceData, me
 func resourceTestGridProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateTestGridProjectInput{
 			ProjectArn: aws.String(d.Id()),
 		}
@@ -171,8 +167,7 @@ func resourceTestGridProjectDelete(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	log.Printf("[DEBUG] Deleting DeviceFarm Test Grid Project: %s", d.Id())
-	_, err := conn.DeleteTestGridProjectWithContext(ctx, &devicefarm.DeleteTestGridProjectInput{
+funcerr := conn.DeleteTestGridProjectWithContext(ctx, &devicefarm.DeleteTestGridProjectInput{
 		ProjectArn: aws.String(d.Id()),
 	})
 
@@ -192,8 +187,7 @@ func expandTestGridProjectVPCConfig(l []interface{}) *devicefarm.TestGridVpcConf
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &devicefarm.TestGridVpcConfig{
 		VpcId:            aws.String(m["vpc_id"].(string)),
 		SubnetIds:        flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
@@ -209,8 +203,7 @@ func flattenTestGridProjectVPCConfig(conf *devicefarm.TestGridVpcConfig) []inter
 	}
 
 	m := map[string]interface{}{
-		"vpc_id":             aws.StringValue(conf.VpcId),
-		"subnet_ids":         flex.FlattenStringSet(conf.SubnetIds),
+funcubnet_ids":         flex.FlattenStringSet(conf.SubnetIds),
 		"security_group_ids": flex.FlattenStringSet(conf.SecurityGroupIds),
 	}
 

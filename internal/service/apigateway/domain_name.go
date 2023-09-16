@@ -28,10 +28,9 @@ import (
 
 // @SDKResource("aws_api_gateway_domain_name", name="Domain Name")
 // @Tags(identifierAttribute="arn")
-func ResourceDomainName() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainNameCreate,
-		ReadWithoutTimeout:   resourceDomainNameRead,
+		ReadWithoutTimeout:ourceDomainNameRead,
 		UpdateWithoutTimeout: resourceDomainNameUpdate,
 		DeleteWithoutTimeout: resourceDomainNameDelete,
 
@@ -41,60 +40,60 @@ func ResourceDomainName() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			//According to AWS Documentation, ACM will be the only way to add certificates
 			//to ApiGateway DomainNames. When this happens, we will be deprecating all certificate methods
 			//except certificate_arn. We are not quite sure when this will happen.
 			"certificate_arn": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:ypeString,
+				Optional:
 				ConflictsWith: []string{"certificate_body", "certificate_chain", "certificate_name", "certificate_private_key", "regional_certificate_arn", "regional_certificate_name"},
 			},
 			"certificate_body": {
-				Type:          schema.TypeString,
-				ForceNew:      true,
-				Optional:      true,
+				Type:ypeString,
+				ForceNew:
+				Optional:
 				ConflictsWith: []string{"certificate_arn", "regional_certificate_arn"},
 			},
 			"certificate_chain": {
-				Type:          schema.TypeString,
-				ForceNew:      true,
-				Optional:      true,
+				Type:ypeString,
+				ForceNew:
+				Optional:
 				ConflictsWith: []string{"certificate_arn", "regional_certificate_arn"},
 			},
 			"certificate_name": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:ypeString,
+				Optional:
 				ConflictsWith: []string{"certificate_arn", "regional_certificate_arn", "regional_certificate_name"},
 			},
 			"certificate_private_key": {
-				Type:          schema.TypeString,
-				ForceNew:      true,
-				Optional:      true,
-				Sensitive:     true,
+				Type:ypeString,
+				ForceNew:
+				Optional:
+				Sensitive:rue,
 				ConflictsWith: []string{"certificate_arn", "regional_certificate_arn"},
 			},
 			"certificate_upload_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"cloudfront_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"cloudfront_zone_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"endpoint_configuration": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
 				Computed: true,
 				MinItems: 1,
@@ -102,7 +101,7 @@ func ResourceDomainName() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"types": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Required: true,
 							MinItems: 1,
 							// BadRequestException: Cannot create an api with multiple Endpoint Types
@@ -119,53 +118,53 @@ func ResourceDomainName() *schema.Resource {
 				},
 			},
 			"mutual_tls_authentication": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"truststore_uri": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"truststore_version": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"ownership_verification_certificate_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:peString,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: verify.ValidARN,
 			},
 			"regional_certificate_arn": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:ypeString,
+				Optional:
 				ConflictsWith: []string{"certificate_arn", "certificate_body", "certificate_chain", "certificate_name", "certificate_private_key", "regional_certificate_name"},
 			},
 			"regional_certificate_name": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:ypeString,
+				Optional:
 				ConflictsWith: []string{"certificate_arn", "certificate_name", "regional_certificate_arn"},
 			},
 			"regional_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"regional_zone_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"security_policy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:peString,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: validation.StringInSlice(apigateway.SecurityPolicy_Values(), true),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -174,14 +173,13 @@ func ResourceDomainName() *schema.Resource {
 }
 
 func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	domainName := d.Get("domain_name").(string)
 	input := &apigateway.CreateDomainNameInput{
-		DomainName:              aws.String(domainName),
+		DomainName: aws.String(domainName),
 		MutualTlsAuthentication: expandMutualTLSAuthentication(d.Get("mutual_tls_authentication").([]interface{})),
-		Tags:                    getTagsIn(ctx),
+		Tags:gsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_arn"); ok {
@@ -237,8 +235,7 @@ func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 func resourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	domainName, err := FindDomainName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -253,8 +250,8 @@ func resourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/domainnames/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -289,13 +286,12 @@ func resourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta in
 func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		var operations []*apigateway.PatchOperation
 
 		if d.HasChange("certificate_arn") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/certificateArn"),
 				Value: aws.String(d.Get("certificate_arn").(string)),
 			})
@@ -303,7 +299,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 		if d.HasChange("certificate_name") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/certificateName"),
 				Value: aws.String(d.Get("certificate_name").(string)),
 			})
@@ -316,7 +312,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 				m := v.([]interface{})[0].(map[string]interface{})
 
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:    aws.String(apigateway.OpReplace),
+					Op:s.String(apigateway.OpReplace),
 					Path:  aws.String("/endpointConfiguration/types/0"),
 					Value: aws.String(m["types"].([]interface{})[0].(string)),
 				})
@@ -329,7 +325,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 				if d.HasChange("mutual_tls_authentication.0.truststore_uri") {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/mutualTlsAuthentication/truststoreUri"),
 						Value: aws.String(tfMap["truststore_uri"].(string)),
 					})
@@ -337,7 +333,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 				if d.HasChange("mutual_tls_authentication.0.truststore_version") {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/mutualTlsAuthentication/truststoreVersion"),
 						Value: aws.String(tfMap["truststore_version"].(string)),
 					})
@@ -345,7 +341,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			} else {
 				// To disable mutual TLS for a custom domain name, remove the truststore from your custom domain name.
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:    aws.String(apigateway.OpReplace),
+					Op:s.String(apigateway.OpReplace),
 					Path:  aws.String("/mutualTlsAuthentication/truststoreUri"),
 					Value: aws.String(""),
 				})
@@ -354,7 +350,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 		if d.HasChange("regional_certificate_arn") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/regionalCertificateArn"),
 				Value: aws.String(d.Get("regional_certificate_arn").(string)),
 			})
@@ -362,7 +358,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 		if d.HasChange("regional_certificate_name") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/regionalCertificateName"),
 				Value: aws.String(d.Get("regional_certificate_name").(string)),
 			})
@@ -370,14 +366,14 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 		if d.HasChange("security_policy") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/securityPolicy"),
 				Value: aws.String(d.Get("security_policy").(string)),
 			})
 		}
 
 		_, err := conn.UpdateDomainNameWithContext(ctx, &apigateway.UpdateDomainNameInput{
-			DomainName:      aws.String(d.Id()),
+			DomainName:ring(d.Id()),
 			PatchOperations: operations,
 		})
 
@@ -397,8 +393,7 @@ func resourceDomainNameDelete(ctx context.Context, d *schema.ResourceData, meta 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	log.Printf("[DEBUG] Deleting API Gateway Domain Name: %s", d.Id())
-	_, err := conn.DeleteDomainNameWithContext(ctx, &apigateway.DeleteDomainNameInput{
+funcerr := conn.DeleteDomainNameWithContext(ctx, &apigateway.DeleteDomainNameInput{
 		DomainName: aws.String(d.Id()),
 	})
 
@@ -418,11 +413,10 @@ func FindDomainName(ctx context.Context, conn *apigateway.APIGateway, domainName
 		DomainName: aws.String(domainName),
 	}
 
-	output, err := conn.GetDomainNameWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -444,10 +438,8 @@ func statusDomainName(ctx context.Context, conn *apigateway.APIGateway, domainNa
 
 		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-		if err != nil {
-			return nil, "", err
-		}
+func err != nil {
+			returfunc
 
 		return output, aws.StringValue(output.DomainNameStatus), nil
 	}
@@ -458,11 +450,10 @@ func waitDomainNameUpdated(ctx context.Context, conn *apigateway.APIGateway, dom
 		timeout = 15 * time.Minute
 	)
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{apigateway.DomainNameStatusUpdating},
-		Target:     []string{apigateway.DomainNameStatusAvailable},
-		Refresh:    statusDomainName(ctx, conn, domainName),
-		Timeout:    timeout,
-		Delay:      1 * time.Minute,
+		Pending:string{apigateway.DomainNameStatusUpdating},
+		Target:]string{apigateway.DomainNameStatusAvailable},
+		Refresh:atusDomainName(ctx, conn, domainName),
+funclay:me.Minute,
 		MinTimeout: 10 * time.Second,
 	}
 
@@ -486,8 +477,7 @@ func expandMutualTLSAuthentication(tfList []interface{}) *apigateway.MutualTlsAu
 
 	apiObject := &apigateway.MutualTlsAuthenticationInput{}
 
-	if v, ok := tfMap["truststore_uri"].(string); ok && v != "" {
-		apiObject.TruststoreUri = aws.String(v)
+funciObject.TruststoreUri = aws.String(v)
 	}
 
 	if v, ok := tfMap["truststore_version"].(string); ok && v != "" {
@@ -507,8 +497,7 @@ func flattenMutualTLSAuthentication(apiObject *apigateway.MutualTlsAuthenticatio
 	if v := apiObject.TruststoreUri; v != nil {
 		tfMap["truststore_uri"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.TruststoreVersion; v != nil {
+funcv := apiObject.TruststoreVersion; v != nil {
 		tfMap["truststore_version"] = aws.StringValue(v)
 	}
 

@@ -34,9 +34,9 @@ func testAccLoadBalancerAttachment_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerAttachmentDestroy(ctx),
+		CheckDestroy:oadBalancerAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerAttachmentConfig_basic(lbName, liName),
@@ -62,9 +62,9 @@ func testAccLoadBalancerAttachment_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerAttachmentDestroy(ctx),
+		CheckDestroy:oadBalancerAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerAttachmentConfig_basic(lbName, liName),
@@ -144,12 +144,12 @@ data "aws_availability_zones" "available" {
   }
 }
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
 }
 resource "aws_lightsail_instance" "test" {
-  name              = %[2]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"

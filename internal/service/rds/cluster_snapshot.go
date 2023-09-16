@@ -29,8 +29,7 @@ const clusterSnapshotCreateTimeout = 2 * time.Minute
 
 // @SDKResource("aws_db_cluster_snapshot", name="DB Cluster Snapshot")
 // @Tags(identifierAttribute="db_cluster_snapshot_arn")
-func ResourceClusterSnapshot() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceClusterSnapshotCreate,
 ReadWithoutTimeout:   resourceClusterSnapshotRead,
 DeleteWithoutTimeout: resourceClusterSnapshotDelete,
@@ -124,20 +123,18 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	id := d.Get("db_cluster_snapshot_identifier").(string)
 	input := &rds.CreateDBClusterSnapshotInput{
 DBClusterIdentifier:         aws.String(d.Get("db_cluster_identifier").(string)),
 DBClusterSnapshotIdentifier: aws.String(id),
-Tags:                        getTagsIn(ctx),
+Tags:           getTagsIn(ctx),
 	}
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, clusterSnapshotCreateTimeout, func() (interface{}, error) {
 return conn.CreateDBClusterSnapshotWithContext(ctx, input)
-	}, rds.ErrCodeInvalidDBClusterStateFault)
-
+	}, rds.ErrCodeInvalidDBClusterStateFault)func
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating RDS DB Cluster Snapshot (%s): %s", id, err)
 	}
@@ -154,8 +151,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for RDS DB Cluster Snapshot (%s) cre
 func resourceClusterSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	snapshot, err := FindDBClusterSnapshotByID(ctx, conn, d.Id())
+funcpshot, err := FindDBClusterSnapshotByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] RDS DB Cluster Snapshot (%s) not found, removing from state", d.Id())
@@ -192,8 +188,7 @@ func resourceClusterSnapshotUpdate(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 
 	// Tags only.
-
-	return append(diags, resourceClusterSnapshotRead(ctx, d, meta)...)
+funcurn append(diags, resourceClusterSnapshotRead(ctx, d, meta)...)
 }
 
 func resourceClusterSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -201,8 +196,7 @@ func resourceClusterSnapshotDelete(ctx context.Context, d *schema.ResourceData, 
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	log.Printf("[DEBUG] Deleting RDS DB Cluster Snapshot: %s", d.Id())
-	_, err := conn.DeleteDBClusterSnapshotWithContext(ctx, &rds.DeleteDBClusterSnapshotInput{
-DBClusterSnapshotIdentifier: aws.String(d.Id()),
+funcusterSnapshotIdentifier: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBClusterSnapshotNotFoundFault) {
@@ -222,8 +216,7 @@ DBClusterSnapshotIdentifier: aws.String(id),
 	}
 	output, err := findDBClusterSnapshot(ctx, conn, input, tfslices.PredicateTrue[*rds.DBClusterSnapshot]())
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	// Eventual consistency check.
@@ -243,8 +236,7 @@ func findDBClusterSnapshot(ctx context.Context, conn *rds.RDS, input *rds.Descri
 return nil, err
 	}
 
-	return tfresource.AssertSinglePtrResult(output)
-}
+func
 
 func findDBClusterSnapshots(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBClusterSnapshotsInput, filter tfslices.Predicate[*rds.DBClusterSnapshot]) ([]*rds.DBClusterSnapshot, error) {
 	var output []*rds.DBClusterSnapshot
@@ -254,12 +246,10 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.DBClusterSnapshots {
-	if v != nil && filter(v) {
+funcv != nil && filter(v) {
 output = append(output, v)
 	}
-}
-
+}func
 return !lastPage
 	})
 
@@ -287,10 +277,8 @@ if tfresource.NotFound(err) {
 
 if err != nil {
 	return nil, "", err
-}
-
-return output, aws.StringValue(output.Status), nil
-	}
+func
+return ofunc
 }
 
 func waitDBClusterSnapshotCreated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBClusterSnapshot, error) {
@@ -305,8 +293,7 @@ Delay:      5 * time.Second,
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
-	if output, ok := outputRaw.(*rds.DBClusterSnapshot); ok {
-return output, err
+funcrn output, err
 	}
 
 	return nil, err

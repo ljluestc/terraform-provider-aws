@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerHumanTaskUI_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var humanTaskUi sagemaker.DescribeHumanTaskUiOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_human_task_ui.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHumanTaskUIDestroy(ctx),
+		CheckDestroy:CheckHumanTaskUIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHumanTaskUIConfig_cognitoBasic(rName),
@@ -41,9 +40,9 @@ func TestAccSageMakerHumanTaskUI_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:Name,
+				ImportState:
+				ImportStateVerify:e,
 				ImportStateVerifyIgnore: []string{"ui_template.0.content", "ui_template.0.url"},
 			},
 		},
@@ -51,16 +50,15 @@ func TestAccSageMakerHumanTaskUI_basic(t *testing.T) {
 }
 
 func TestAccSageMakerHumanTaskUI_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var humanTaskUi sagemaker.DescribeHumanTaskUiOutput
+func humanTaskUi sagemaker.DescribeHumanTaskUiOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_human_task_ui.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHumanTaskUIDestroy(ctx),
+		CheckDestroy:CheckHumanTaskUIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHumanTaskUIConfig_tags1(rName, "key1", "value1"),
@@ -71,9 +69,9 @@ func TestAccSageMakerHumanTaskUI_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:Name,
+				ImportState:
+				ImportStateVerify:e,
 				ImportStateVerifyIgnore: []string{"ui_template.0.content", "ui_template.0.url"},
 			},
 			{
@@ -99,15 +97,14 @@ func TestAccSageMakerHumanTaskUI_tags(t *testing.T) {
 
 func TestAccSageMakerHumanTaskUI_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var humanTaskUi sagemaker.DescribeHumanTaskUiOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_human_task_ui.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHumanTaskUIDestroy(ctx),
+		CheckDestroy:CheckHumanTaskUIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHumanTaskUIConfig_cognitoBasic(rName),
@@ -124,10 +121,8 @@ func TestAccSageMakerHumanTaskUI_disappears(t *testing.T) {
 func testAccCheckHumanTaskUIDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_human_task_ui" {
-				continue
+funcr _, rs := range s.RootModule().Resources {
+			if rsfunccontinue
 			}
 
 			_, err := tfsagemaker.FindHumanTaskUIByName(ctx, conn, rs.Primary.ID)
@@ -152,10 +147,8 @@ func testAccCheckHumanTaskUIExists(ctx context.Context, n string, humanTaskUi *s
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SageMaker HumanTaskUi ID is set")
+func
+		if rs.funceturn fmt.Errorf("No SageMaker HumanTaskUi ID is set")
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
@@ -178,9 +171,8 @@ resource "aws_sagemaker_human_task_ui" "test" {
   human_task_ui_name = %[1]q
 
   ui_template {
-    content = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
-  }
-}
+ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
+func
 `, rName)
 }
 
@@ -190,11 +182,10 @@ resource "aws_sagemaker_human_task_ui" "test" {
   human_task_ui_name = %[1]q
 
   ui_template {
-    content = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
+ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
   }
-
-  tags = {
-    %[2]q = %[3]q
+funcgs = {
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -206,12 +197,11 @@ resource "aws_sagemaker_human_task_ui" "test" {
   human_task_ui_name = %[1]q
 
   ui_template {
-    content = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
+ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
   }
 
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+func= %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

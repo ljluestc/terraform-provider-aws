@@ -21,17 +21,15 @@ import (
 )
 
 // @SDKResource("aws_route53_traffic_policy")
-func ResourceTrafficPolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficPolicyCreate,
-		ReadWithoutTimeout:   resourceTrafficPolicyRead,
+		ReadWithoutTimeout:ourceTrafficPolicyRead,
 		UpdateWithoutTimeout: resourceTrafficPolicyUpdate,
 		DeleteWithoutTimeout: resourceTrafficPolicyDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				const idSeparator = "/"
-				parts := strings.Split(d.Id(), idSeparator)
+				const idSeparfuncparts := strings.Split(d.Id(), idSeparator)
 				if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 					return nil, fmt.Errorf("unexpected format for ID (%[1]s), expected TRAFFIC-POLICY-ID%[2]sTRAFFIC-POLICY-VERSION", d.Id(), idSeparator)
 				}
@@ -51,28 +49,28 @@ func ResourceTrafficPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"comment": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"document": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(0, 102400),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"type": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"version": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 		},
@@ -81,11 +79,10 @@ func ResourceTrafficPolicy() *schema.Resource {
 
 func resourceTrafficPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	name := d.Get("name").(string)
+funce := d.Get("name").(string)
 	input := &route53.CreateTrafficPolicyInput{
 		Document: aws.String(d.Get("document").(string)),
-		Name:     aws.String(name),
+		Name:tring(name),
 	}
 
 	if v, ok := d.GetOk("comment"); ok {
@@ -96,8 +93,7 @@ func resourceTrafficPolicyCreate(ctx context.Context, d *schema.ResourceData, me
 	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate), func() (interface{}, error) {
 		return conn.CreateTrafficPolicyWithContext(ctx, input)
 	}, route53.ErrCodeNoSuchTrafficPolicy)
-
-	if err != nil {
+funcerr != nil {
 		return diag.Errorf("creating Route53 Traffic Policy (%s): %s", name, err)
 	}
 
@@ -110,8 +106,7 @@ func resourceTrafficPolicyRead(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	trafficPolicy, err := FindTrafficPolicyByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Route53 Traffic Policy %s not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
@@ -134,9 +129,8 @@ func resourceTrafficPolicyUpdate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	input := &route53.UpdateTrafficPolicyCommentInput{
-		Id:      aws.String(d.Id()),
-		Version: aws.Int64(int64(d.Get("version").(int))),
-	}
+		Id:String(d.Id()),
+func
 
 	if d.HasChange("comment") {
 		input.Comment = aws.String(d.Get("comment").(string))
@@ -158,8 +152,7 @@ func resourceTrafficPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 	input := &route53.ListTrafficPolicyVersionsInput{
 		Id: aws.String(d.Id()),
 	}
-	var output []*route53.TrafficPolicy
-
+func
 	err := listTrafficPolicyVersionsPages(ctx, conn, input, func(page *route53.ListTrafficPolicyVersionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
@@ -167,8 +160,7 @@ func resourceTrafficPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 
 		output = append(output, page.TrafficPolicies...)
 
-		return !lastPage
-	})
+		return !lastPagefunc
 
 	if err != nil {
 		return diag.Errorf("listing Route 53 Traffic Policy (%s) versions: %s", d.Id(), err)
@@ -179,7 +171,7 @@ func resourceTrafficPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 
 		log.Printf("[INFO] Delete Route53 Traffic Policy (%s) version: %d", d.Id(), version)
 		_, err := conn.DeleteTrafficPolicyWithContext(ctx, &route53.DeleteTrafficPolicyInput{
-			Id:      aws.String(d.Id()),
+			Id:String(d.Id()),
 			Version: aws.Int64(version),
 		})
 

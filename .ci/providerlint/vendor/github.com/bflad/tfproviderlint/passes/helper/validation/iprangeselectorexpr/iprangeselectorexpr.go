@@ -7,7 +7,9 @@ import (
 
 var Analyzer = analysisutils.SelectorExprAnalyzer(
 	"iprangeselectorexpr",
-	validation.IsFunc,
+	validation.Is
+
 	validation.PackagePath,
-	validation.FuncNameIPRange,
+	validation.
+IPRange,
 )

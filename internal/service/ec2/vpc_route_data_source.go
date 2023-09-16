@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_route")
 
-func DataSourceRoute() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceRouteRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,7 +27,7 @@ func DataSourceRoute() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 
@@ -36,17 +35,17 @@ func DataSourceRoute() *schema.Resource {
 			// Destinations.
 			///
 			"destination_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"destination_ipv6_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"destination_prefix_list_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -55,52 +54,52 @@ func DataSourceRoute() *schema.Resource {
 			// Targets.
 			//
 			"carrier_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"core_network_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"egress_only_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"local_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"nat_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"vpc_peering_connection_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -109,8 +108,7 @@ func DataSourceRoute() *schema.Resource {
 }
 
 func dataSourceRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	routeTableID := d.Get("route_table_id").(string)
 

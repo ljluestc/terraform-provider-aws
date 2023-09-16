@@ -20,8 +20,7 @@ import (
 	tfappstream "github.com/hashicorp/terraform-provider-aws/internal/service/appstream"
 )
 
-func TestAccAppStreamDirectoryConfig_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v1, v2 appstream.DirectoryConfig
 	resourceName := "aws_appstream_directory_config.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -34,8 +33,7 @@ func TestAccAppStreamDirectoryConfig_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDirectoryConfigDestroy(ctx),
+ProtoV5ProvfunckDestroy:testAccCheckDirectoryConfigDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -67,7 +65,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"service_account_credentials.0.account_password"},
 	},
@@ -77,8 +75,7 @@ ImportStateVerifyIgnore: []string{"service_account_credentials.0.account_passwor
 
 func TestAccAppStreamDirectoryConfig_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v appstream.DirectoryConfig
-	resourceName := "aws_appstream_directory_config.test"
+funcourceName := "aws_appstream_directory_config.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domain := acctest.RandomDomainName()
 	rUserName := fmt.Sprintf("%s\\%s", domain, sdkacctest.RandString(10))
@@ -88,9 +85,8 @@ func TestAccAppStreamDirectoryConfig_disappears(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDirectoryConfigDestroy(ctx),
-ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
-Steps: []resource.TestStep{
+CheckDestroy:testAccCheckDirectoryConfigDestroy(ctx),
+ErrorCheck:funcs: []resource.TestStep{
 	{
 Config: testAccDirectoryConfigConfig_basic(rName, domain, rUserName, rPassword, orgUnitDN),
 Check: resource.ComposeTestCheckFunc(
@@ -107,8 +103,7 @@ func TestAccAppStreamDirectoryConfig_OrganizationalUnitDistinguishedNames(t *tes
 	ctx := acctest.Context(t)
 	var v1, v2, v3 appstream.DirectoryConfig
 	resourceName := "aws_appstream_directory_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domain := acctest.RandomDomainName()
+funcain := acctest.RandomDomainName()
 	rUserName := fmt.Sprintf("%s\\%s", domain, sdkacctest.RandString(10))
 	rPassword := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	orgUnitDN1 := orgUnitFromDomain("One", domain)
@@ -117,11 +112,10 @@ func TestAccAppStreamDirectoryConfig_OrganizationalUnitDistinguishedNames(t *tes
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDirectoryConfigDestroy(ctx),
+CheckDestroy:testAccCheckDirectoryConfigDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
-	{
-Config: testAccDirectoryConfigConfig_basic(rName, domain, rUserName, rPassword, orgUnitDN1),
+	{funcig: testAccDirectoryConfigConfig_basic(rName, domain, rUserName, rPassword, orgUnitDN1),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckDirectoryConfigExists(ctx, resourceName, &v1),
 	resource.TestCheckResourceAttr(resourceName, "directory_name", domain),
@@ -158,10 +152,8 @@ rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("not found: %s", resourceName)
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
-resp, err := conn.DescribeDirectoryConfigsWithContext(ctx, &appstream.DescribeDirectoryConfigsInput{DirectoryNames: []*string{aws.String(rs.Primary.ID)}})
-
+func := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
+resp, erfunc
 if err != nil {
 	return err
 }
@@ -184,10 +176,8 @@ for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_appstream_directory_config" {
 continue
 	}
-
-	resp, err := conn.DescribeDirectoryConfigsWithContext(ctx, &appstream.DescribeDirectoryConfigsInput{DirectoryNames: []*string{aws.String(rs.Primary.ID)}})
-
-	if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
+funcp, err := conn.DescribeDirectoryConfigsWithContext(ctx, &appstream.DescribeDirectoryConfigsInput{DirectoryNames: []*string{aws.String(rs.Primary.ID)}})
+functfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 continue
 	}
 
@@ -214,10 +204,8 @@ return nil
 	}
 }
 
-func orgUnitFromDomain(orgUnit, domainName string) string {
-	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("OU=%s", orgUnit))
-	for _, dc := range strings.Split(domainName, ".") {
+func sb strings.Builder
+	sb.Writfunc _, dc := range strings.Split(domainName, ".") {
 sb.WriteString(fmt.Sprintf(" DC=%s", dc))
 	}
 	return sb.String()
@@ -226,8 +214,7 @@ sb.WriteString(fmt.Sprintf(" DC=%s", dc))
 func testAccDirectoryConfigConfig_basic(rName, domain, userName, password, orgUnitDN string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
-fmt.Sprintf(`
-resource "aws_appstream_directory_config" "test" {
+funcurce "aws_appstream_directory_config" "test" {
   directory_name           = %[1]q
   organizational_unit_distinguished_names = [%[4]q]
 
@@ -236,8 +223,7 @@ resource "aws_appstream_directory_config" "test" {
     account_password = %[3]q
   }
 
-  depends_on = [
-    aws_directory_service_directory.test
+funcaws_directory_service_directory.test
   ]
 }
 
@@ -269,8 +255,7 @@ resource "aws_appstream_directory_config" "test" {
   }
 
   depends_on = [
-    aws_directory_service_directory.test
-  ]
+func
 }
 
 resource "aws_directory_service_directory" "test" {

@@ -33,7 +33,8 @@ type ProviderSchemas struct {
 
 // Validate checks to ensure that ProviderSchemas is present, and the
 // version matches the version supported by this library.
-func (p *ProviderSchemas) Validate() error {
+
+ (p *ProviderSchemas) Validate() error {
 	if p == nil {
 		return errors.New("provider schema data is nil")
 	}
@@ -60,7 +61,8 @@ func (p *ProviderSchemas) Validate() error {
 	return nil
 }
 
-func (p *ProviderSchemas) UnmarshalJSON(b []byte) error {
+
+ (p *ProviderSchemas) UnmarshalJSON(b []byte) error {
 	type rawSchemas ProviderSchemas
 	var schemas rawSchemas
 
@@ -243,9 +245,10 @@ type jsonSchemaAttribute struct {
 	Optional            bool                       `json:"optional,omitempty"`
 	Computed            bool                       `json:"computed,omitempty"`
 	Sensitive           bool                       `json:"sensitive,omitempty"`
-}
 
-func (as *SchemaAttribute) MarshalJSON() ([]byte, error) {
+
+
+ (as *SchemaAttribute) MarshalJSON() ([]byte, error) {
 	jsonSa := &jsonSchemaAttribute{
 		AttributeNestedType: as.AttributeNestedType,
 		Description:         as.Description,

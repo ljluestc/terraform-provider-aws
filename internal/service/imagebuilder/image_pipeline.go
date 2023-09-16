@@ -204,9 +204,9 @@ func resourceImagePipelineCreate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
 
 	input := &imagebuilder.CreateImagePipelineInput{
-		ClientToken:                  aws.String(id.UniqueId()),
+		ClientToken:ng(id.UniqueId()),
 		EnhancedImageMetadataEnabled: aws.Bool(d.Get("enhanced_image_metadata_enabled").(bool)),
-		Tags:                         getTagsIn(ctx),
+		Tags:etTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("container_recipe_arn"); ok {
@@ -340,9 +340,9 @@ func resourceImagePipelineUpdate(ctx context.Context, d *schema.ResourceData, me
 		"status",
 	) {
 		input := &imagebuilder.UpdateImagePipelineInput{
-			ClientToken:                  aws.String(id.UniqueId()),
+			ClientToken:ng(id.UniqueId()),
 			EnhancedImageMetadataEnabled: aws.Bool(d.Get("enhanced_image_metadata_enabled").(bool)),
-			ImagePipelineArn:             aws.String(d.Id()),
+			ImagePipelineArn:Id()),
 		}
 
 		if v, ok := d.GetOk("container_recipe_arn"); ok {

@@ -32,8 +32,7 @@ const (
 )
 
 // @SDKResource("aws_iam_instance_profile", name="Instance Profile")
-// @Tags
-func ResourceInstanceProfile() *schema.Resource {
+// @Tagsfunc ResourceInstanceProfile() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceInstanceProfileCreate,
 ReadWithoutTimeout:   resourceInstanceProfileRead,
@@ -89,10 +88,7 @@ Computed: true,
 
 CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceInstanceProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
@@ -148,11 +144,8 @@ if err != nil {
 	}
 
 	return append(diags, resourceInstanceProfileRead(ctx, d, meta)...)
-}
-
-func resourceInstanceProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceInstanceProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	instanceProfile, err := FindInstanceProfileByName(ctx, conn, d.Id())
 
@@ -196,12 +189,9 @@ d.Set("role", instanceProfile.Roles[0].RoleName) //there will only be 1 role ret
 	setTagsOut(ctx, instanceProfile.Tags)
 
 	return diags
-}
-
-func resourceInstanceProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	if d.HasChange("role") {
 o, n := d.GetChange("role")
 
@@ -238,13 +228,10 @@ if err != nil {
 	}
 
 	return append(diags, resourceInstanceProfileRead(ctx, d, meta)...)
-}
-
-func resourceInstanceProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	if v, ok := d.GetOk("role"); ok {
+funcv, ok := d.GetOk("role"); ok {
 err := instanceProfileRemoveRole(ctx, conn, d.Id(), v.(string))
 
 if err != nil {
@@ -266,19 +253,14 @@ return sdkdiag.AppendErrorf(diags, "deleting IAM Instance Profile (%s): %s", d.I
 	}
 
 	return diags
-}
-
-func instanceProfileAddRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
+}func instanceProfileAddRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
 	input := &iam.AddRoleToInstanceProfileInput{
 InstanceProfileName: aws.String(profileName),
 RoleName:            aws.String(roleName),
-	}
-
-	_, err := tfresource.RetryWhen(ctx, propagationTimeout,
-func() (interface{}, error) {
+	func
+	_, err := tfresource.RetryWhen(ctx, propagationTimeout,func() (interface{}, error) {
 	return conn.AddRoleToInstanceProfileWithContext(ctx, input)
-},
-func(err error) (bool, error) {
+},func(err error) (bool, error) {
 	// IAM unfortunately does not provide a better error code or message for eventual consistency
 	// InvalidParameterValue: Value (XXX) for parameter iamInstanceProfile.name is invalid. Invalid IAM Instance Profile name
 	// NoSuchEntity: The request was rejected because it referenced an entity that does not exist. The error message describes the entity. HTTP Status Code: 404
@@ -295,15 +277,12 @@ return fmt.Errorf("adding IAM Role (%s) to IAM Instance Profile (%s): %w", roleN
 	}
 
 	return nil
-}
-
-func instanceProfileRemoveRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
+}func instanceProfileRemoveRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
 	input := &iam.RemoveRoleFromInstanceProfileInput{
 InstanceProfileName: aws.String(profileName),
 RoleName:            aws.String(roleName),
 	}
-
-	_, err := conn.RemoveRoleFromInstanceProfileWithContext(ctx, input)
+funcerr := conn.RemoveRoleFromInstanceProfileWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil
@@ -314,16 +293,13 @@ return fmt.Errorf("removing IAM Role (%s) from IAM Instance Profile (%s): %w", r
 	}
 
 	return nil
-}
-
-func FindInstanceProfileByName(ctx context.Context, conn *iam.IAM, name string) (*iam.InstanceProfile, error) {
+}func FindInstanceProfileByName(ctx context.Context, conn *iam.IAM, name string) (*iam.InstanceProfile, error) {
 	input := &iam.GetInstanceProfileInput{
 InstanceProfileName: aws.String(name),
 	}
 
 	output, err := conn.GetInstanceProfileWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
+functfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: input,

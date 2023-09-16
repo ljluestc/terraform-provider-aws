@@ -13,9 +13,15 @@ import (
 )
 
 
+
+
 func statusPhoneNumber(ctx context.Context, conn *connect.Connect, phoneNumberId string) retry.StateRefresh
+
+
 func {
 	return 
+
+
 func() (interface{}, string, error) {
 		input := &connect.DescribePhoneNumberInput{
 			PhoneNumberId: aws.String(phoneNumberId),
@@ -36,9 +42,15 @@ func() (interface{}, string, error) {
 }
 
 
+
+
 func statusVocabulary(ctx context.Context, conn *connect.Connect, instanceId, vocabularyId string) retry.StateRefresh
+
+
 func {
 	return 
+
+
 func() (interface{}, string, error) {
 		input := &connect.DescribeVocabularyInput{
 			InstanceId:   aws.String(instanceId),

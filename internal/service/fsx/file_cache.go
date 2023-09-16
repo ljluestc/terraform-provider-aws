@@ -307,7 +307,7 @@ func resourceFileCacheCreate(ctx context.Context, d *schema.ResourceData, meta i
 		FileCacheTypeVersion: aws.String(d.Get("file_cache_type_version").(string)),
 		StorageCapacity:      aws.Int64(int64(d.Get("storage_capacity").(int))),
 		SubnetIds:            flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:                 getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 	if v, ok := d.GetOk("copy_tags_to_data_repository_associations"); ok {
 		input.CopyTagsToDataRepositoryAssociations = aws.Bool(v.(bool))
@@ -451,15 +451,15 @@ func flattenDataRepositoryAssociations(ctx context.Context, dataRepositoryAssoci
 		tags := KeyValueTags(ctx, dataRepositoryAssociation.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)
 
 		values := map[string]interface{}{
-			"association_id":                 dataRepositoryAssociation.AssociationId,
+			"association_id":    dataRepositoryAssociation.AssociationId,
 			"data_repository_path":           dataRepositoryAssociation.DataRepositoryPath,
 			"data_repository_subdirectories": aws.StringValueSlice(dataRepositoryAssociation.DataRepositorySubdirectories),
-			"file_cache_id":                  dataRepositoryAssociation.FileCacheId,
-			"file_cache_path":                dataRepositoryAssociation.FileCachePath,
+			"file_cache_id":     dataRepositoryAssociation.FileCacheId,
+			"file_cache_path":   dataRepositoryAssociation.FileCachePath,
 			"imported_file_chunk_size":       dataRepositoryAssociation.ImportedFileChunkSize,
-			"nfs":                            flattenNFSDataRepositoryConfiguration(dataRepositoryAssociation.NFS),
-			"resource_arn":                   dataRepositoryAssociation.ResourceARN,
-			"tags":                           tags.RemoveDefaultConfig(defaultTagsConfig).Map(),
+			"nfs":  flattenNFSDataRepositoryConfiguration(dataRepositoryAssociation.NFS),
+			"resource_arn":      dataRepositoryAssociation.ResourceARN,
+			"tags": tags.RemoveDefaultConfig(defaultTagsConfig).Map(),
 		}
 		flattenedDataRepositoryAssociations = append(flattenedDataRepositoryAssociations, values)
 	}

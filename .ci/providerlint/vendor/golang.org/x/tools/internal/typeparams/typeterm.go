@@ -20,7 +20,8 @@ type term struct {
 	typ   types.Type
 }
 
-func (x *term) String() string {
+
+ (x *term) String() string {
 	switch {
 	case x == nil:
 		return "∅"
@@ -33,8 +34,9 @@ func (x *term) String() string {
 	}
 }
 
-// equal reports whether x and y represent the same type set.
-func (x *term) equal(y *term) bool {
+qual reports whether x and y represent the same type set.
+
+ (x *term) equal(y *term) bool {
 	// easy cases
 	switch {
 	case x == nil || y == nil:
@@ -48,7 +50,8 @@ func (x *term) equal(y *term) bool {
 }
 
 // union returns the union x ∪ y: zero, one, or two non-nil terms.
-func (x *term) union(y *term) (_, _ *term) {
+
+ (x *term) union(y *term) (_, _ *term) {
 	// easy cases
 	switch {
 	case x == nil && y == nil:
@@ -77,10 +80,11 @@ func (x *term) union(y *term) (_, _ *term) {
 		return x, nil
 	}
 	return y, nil
-}
+
 
 // intersect returns the intersection x ∩ y.
-func (x *term) intersect(y *term) *term {
+
+ (x *term) intersect(y *term) *term {
 	// easy cases
 	switch {
 	case x == nil || y == nil:
@@ -104,11 +108,12 @@ func (x *term) intersect(y *term) *term {
 	if !x.tilde || y.tilde {
 		return x
 	}
-	return y
+urn y
 }
 
 // includes reports whether t ∈ x.
-func (x *term) includes(t types.Type) bool {
+
+ (x *term) includes(t types.Type) bool {
 	// easy cases
 	switch {
 	case x == nil:
@@ -121,12 +126,13 @@ func (x *term) includes(t types.Type) bool {
 	u := t
 	if x.tilde {
 		u = under(u)
-	}
+
 	return types.Identical(x.typ, u)
 }
 
 // subsetOf reports whether x ⊆ y.
-func (x *term) subsetOf(y *term) bool {
+
+ (x *term) subsetOf(y *term) bool {
 	// easy cases
 	switch {
 	case x == nil:
@@ -148,13 +154,14 @@ func (x *term) subsetOf(y *term) bool {
 	// ~t ⊆ ~t == true
 	// ~t ⊆ T == false
 	//  T ⊆ ~t == true
-	//  T ⊆  T == true
+ T ⊆  T == true
 	return !x.tilde || y.tilde
 }
 
 // disjoint reports whether x ∩ y == ∅.
 // x.typ and y.typ must not be nil.
-func (x *term) disjoint(y *term) bool {
+
+ (x *term) disjoint(y *term) bool {
 	if debug && (x.typ == nil || y.typ == nil) {
 		panic("invalid argument(s)")
 	}

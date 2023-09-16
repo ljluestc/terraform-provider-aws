@@ -23,7 +23,7 @@ func TestAccImageBuilderImageRecipesDataSource_owner(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+CheckDestroy:mageRecipeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccImageRecipesDataSourceConfig_owner(rName),
@@ -48,7 +48,7 @@ func TestAccImageBuilderImageRecipesDataSource_filter(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+CheckDestroy:mageRecipeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccImageRecipesDataSourceConfig_filter(rName),

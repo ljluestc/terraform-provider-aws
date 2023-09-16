@@ -38,7 +38,8 @@ type Error = exec.Error
 // It is an alias for exec.ExitError.
 type ExitError = exec.ExitError
 
-func relError(file, path string) error {
+
+ relError(file, path string) error {
 	return fmt.Errorf("%s resolves to executable in current directory (.%c%s)", file, filepath.Separator, path)
 }
 
@@ -50,8 +51,9 @@ func relError(file, path string) error {
 // LookPath differs from exec.LookPath in its handling of PATH lookups,
 // which are used for file names without slashes. If exec.LookPath's
 // PATH lookup would have returned an executable from the current directory,
-// LookPath instead returns an error.
-func LookPath(file string) (string, error) {
+ookPath instead returns an error.
+
+ LookPath(file string) (string, error) {
 	path, err := exec.LookPath(file)
 	if err != nil && !isGo119ErrDot(err) {
 		return "", err
@@ -60,9 +62,10 @@ func LookPath(file string) (string, error) {
 		return "", relError(file, path)
 	}
 	return path, nil
-}
 
-func fixCmd(name string, cmd *exec.Cmd) {
+
+
+ fixCmd(name string, cmd *exec.Cmd) {
 	if filepath.Base(name) == name && !filepath.IsAbs(cmd.Path) && !isGo119ErrFieldSet(cmd) {
 		// exec.Command was called with a bare binary name and
 		// exec.LookPath returned a path which is not absolute.
@@ -77,10 +80,11 @@ func fixCmd(name string, cmd *exec.Cmd) {
 }
 
 // CommandContext is like Command but includes a context.
-//
+
 // The provided context is used to kill the process (by calling os.Process.Kill)
 // if the context becomes done before the command completes on its own.
-func CommandContext(ctx context.Context, name string, arg ...string) *exec.Cmd {
+
+ CommandContext(ctx context.Context, name string, arg ...string) *exec.Cmd {
 	cmd := exec.CommandContext(ctx, name, arg...)
 	fixCmd(name, cmd)
 	return cmd
@@ -91,11 +95,12 @@ func CommandContext(ctx context.Context, name string, arg ...string) *exec.Cmd {
 // See exec.Command for most details.
 //
 // Command differs from exec.Command in its handling of PATH lookups,
-// which are used when the program name contains no slashes.
+hich are used when the program name contains no slashes.
 // If exec.Command would have returned an exec.Cmd configured to run an
 // executable from the current directory, Command instead
 // returns an exec.Cmd that will return an error from Start or Run.
-func Command(name string, arg ...string) *exec.Cmd {
+
+ Command(name string, arg ...string) *exec.Cmd {
 	cmd := exec.Command(name, arg...)
 	fixCmd(name, cmd)
 	return cmd

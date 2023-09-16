@@ -25,8 +25,7 @@ import (
 
 // @SDKResource("aws_db_proxy", name="DB Proxy")
 // @Tags(identifierAttribute="arn")
-func ResourceProxy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceProxyCreate,
 ReadWithoutTimeout:   resourceProxyRead,
 UpdateWithoutTimeout: resourceProxyUpdate,
@@ -139,8 +138,7 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceProxyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := rds.CreateDBProxyInput{
 Auth:         expandProxyAuth(d.Get("auth").([]interface{})),
@@ -183,8 +181,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for RDS DB Proxy (%s) create: %s", d
 
 func resourceProxyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	dbProxy, err := FindDBProxyByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -215,8 +212,7 @@ return sdkdiag.AppendErrorf(diags, "reading RDS DB Proxy (%s): %s", d.Id(), err)
 func resourceProxyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 oName, nName := d.GetChange("name")
 input := &rds.ModifyDBProxyInput{
 	Auth:           expandProxyAuth(d.Get("auth").([]interface{})),
@@ -256,8 +252,7 @@ func resourceProxyDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS DB Proxy: %s", d.Id())
-	_, err := conn.DeleteDBProxyWithContext(ctx, &rds.DeleteDBProxyInput{
+funcerr := conn.DeleteDBProxyWithContext(ctx, &rds.DeleteDBProxyInput{
 DBProxyName: aws.String(d.Id()),
 	})
 
@@ -281,8 +276,7 @@ func expandProxyAuth(l []interface{}) []*rds.UserAuthConfig {
 return nil
 	}
 
-	userAuthConfigs := make([]*rds.UserAuthConfig, 0, len(l))
-
+func
 	for _, mRaw := range l {
 m, ok := mRaw.(map[string]interface{})
 
@@ -328,8 +322,7 @@ func flattenProxyAuth(userAuthConfig *rds.UserAuthConfigInfo) map[string]interfa
 	m["auth_scheme"] = aws.StringValue(userAuthConfig.AuthScheme)
 	m["client_password_auth_type"] = aws.StringValue(userAuthConfig.ClientPasswordAuthType)
 	m["description"] = aws.StringValue(userAuthConfig.Description)
-	m["iam_auth"] = aws.StringValue(userAuthConfig.IAMAuth)
-	m["secret_arn"] = aws.StringValue(userAuthConfig.SecretArn)
+funcsecret_arn"] = aws.StringValue(userAuthConfig.SecretArn)
 	m["username"] = aws.StringValue(userAuthConfig.UserName)
 
 	return m
@@ -342,3 +335,4 @@ s = append(s, flattenProxyAuth(v))
 	}
 	return s
 }
+func

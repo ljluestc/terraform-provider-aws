@@ -60,7 +60,7 @@ func ResourceAlias() *schema.Resource {
 			},
 
 			"target_key_id": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				DiffSuppressFunc: suppressEquivalentKeyARNOrID,
 			},

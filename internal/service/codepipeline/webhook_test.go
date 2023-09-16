@@ -37,7 +37,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_basic(rName, githubToken),
@@ -108,7 +108,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_ipAuth(rName, githubToken),
@@ -144,7 +144,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_unauthenticated(rName, githubToken),
@@ -178,7 +178,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_tags(rName, "tag1value", "tag2value", githubToken),
@@ -243,7 +243,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_basic(rName, githubToken),
@@ -273,7 +273,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+CheckDestroy:testAccCheckPipelineDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_basic(rName, githubToken),
@@ -533,7 +533,7 @@ resource "aws_codepipeline" "test" {
     name = "Source"
 
     action {
-      name             = "Source"
+      name= "Source"
       category         = "Source"
       owner            = "ThirdParty"
       provider         = "GitHub"

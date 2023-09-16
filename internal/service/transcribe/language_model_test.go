@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccTranscribeLanguageModel_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -32,13 +31,12 @@ func TestAccTranscribeLanguageModel_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
+			acctest.Pfunccctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccLanguageModelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
+		CheckDestroy:testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLanguageModelConfig_basic(rName),
@@ -60,8 +58,7 @@ func TestAccTranscribeLanguageModel_basic(t *testing.T) {
 
 func TestAccTranscribeLanguageModel_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	var languageModel types.LanguageModel
@@ -72,11 +69,10 @@ func TestAccTranscribeLanguageModel_updateTags(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
-			testAccLanguageModelsPreCheck(ctx, t)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+			testAccLafunc
+		ErrorCheck:  acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
+		CheckDestroy:testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLanguageModelConfig_tags1(rName, "key1", "value1"),
@@ -111,8 +107,7 @@ func TestAccTranscribeLanguageModel_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var languageModel types.LanguageModel
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_transcribe_language_model.test"
@@ -123,9 +118,8 @@ func TestAccTranscribeLanguageModel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccLanguageModelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
+		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLanguageModelConfig_basic(rName),
@@ -145,10 +139,8 @@ func testAccCheckLanguageModelDestroy(ctx context.Context) resource.TestCheckFun
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_transcribe_language_model" {
-				continue
-			}
-
-			_, err := tftranscribe.FindLanguageModelByName(ctx, conn, rs.Primary.ID)
+func
+func, err := tftranscribe.FindLanguageModelByName(ctx, conn, rs.Primary.ID)
 
 			if tfresource.NotFound(err) {
 				continue
@@ -171,10 +163,8 @@ func testAccCheckLanguageModelExists(ctx context.Context, name string, languageM
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Transcribe LanguageModel is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TranscribeClient(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).TranscribeClient(ctx)
 		resp, err := tftranscribe.FindLanguageModelByName(ctx, conn, rs.Primary.ID)
 
 		if err != nil {
@@ -197,8 +187,7 @@ func testAccLanguageModelsPreCheck(ctx context.Context, t *testing.T) {
 	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
 	}
-
-	if err != nil {
+funcerr != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
@@ -214,8 +203,7 @@ data "aws_iam_policy_document" "test" {
       identifiers = ["transcribe.amazonaws.com"]
     }
   }
-}
-
+func
 resource "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
@@ -265,8 +253,7 @@ resource "aws_transcribe_language_model" "test" {
     data_access_role_arn = aws_iam_role.test.arn
     s3_uri= "s3://${aws_s3_bucket.test.id}/transcribe/"
   }
-
-  language_code = "en-US"
+funcnguage_code = "en-US"
 
   tags = {
     tag1 = "value1"
@@ -288,8 +275,7 @@ resource "aws_transcribe_language_model" "test" {
     s3_uri= "s3://${aws_s3_bucket.test.id}/transcribe/"
   }
 
-  language_code = "en-US"
-
+func
   tags = {
     %[2]q = %[3]q
   }
@@ -311,8 +297,7 @@ resource "aws_transcribe_language_model" "test" {
   }
 
   language_code = "en-US"
-
-  tags = {
+funcgs = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

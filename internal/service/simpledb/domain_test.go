@@ -24,10 +24,10 @@ func TestAccSimpleDBDomain_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, simpledb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_basic(rName),
@@ -51,10 +51,10 @@ func TestAccSimpleDBDomain_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, simpledb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_basic(rName),
@@ -93,8 +93,8 @@ func TestAccSimpleDBDomain_MigrateFromPluginSDK(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccDomainConfig_basic(rName),
-				PlanOnly:                 true,
+				Config:      testAccDomainConfig_basic(rName),
+				PlanOnly:    true,
 			},
 		},
 	})

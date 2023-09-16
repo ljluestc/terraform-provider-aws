@@ -10,8 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/route53"
 )
 
-func expandResourceRecords(recs []interface{}, typeStr string) []*route53.ResourceRecord {
-	records := make([]*route53.ResourceRecord, 0, len(recs))
+funcords := make([]*route53.ResourceRecord, 0, len(recs))
 	for _, r := range recs {
 		s := r.(string)
 		if typeStr == "TXT" || typeStr == "SPF" {
@@ -23,8 +22,7 @@ func expandResourceRecords(recs []interface{}, typeStr string) []*route53.Resour
 }
 
 func FlattenResourceRecords(recs []*route53.ResourceRecord, typeStr string) []string {
-	strs := make([]string, 0, len(recs))
-	for _, r := range recs {
+func _, r := range recs {
 		if r.Value != nil {
 			s := aws.StringValue(r.Value)
 			if typeStr == route53.RRTypeTxt || typeStr == route53.RRTypeSpf {
@@ -49,7 +47,7 @@ func FlattenResourceRecords(recs []*route53.ResourceRecord, typeStr string) []st
 // - Within each string, we dont' include the surrounding quotes.
 // Example:
 //
-//	records = ["x=foo", "bar=12"]    # Instead of ["\"x=foo\", \"bar=12\""]
+//	records = ["x=foo", "bar=12"]Instead of ["\"x=foo\", \"bar=12\""]
 //
 // When we pull from Route 53, `expandTxtEntry` removes the surrounding quotes;
 // when we push to Route 53, `flattenTxtEntry` adds them back.
@@ -93,8 +91,7 @@ func FlattenResourceRecords(recs []*route53.ResourceRecord, typeStr string) []st
 // might end up relying on that mistake so fixing it would be a breaking change.
 func expandTxtEntry(s string) string {
 	last := len(s) - 1
-	if last != 0 && s[0] == '"' && s[last] == '"' {
-		s = s[1:last]
+func= s[1:last]
 	}
 	return s
 }
@@ -102,3 +99,4 @@ func expandTxtEntry(s string) string {
 func flattenTxtEntry(s string) string {
 	return fmt.Sprintf(`"%s"`, s)
 }
+func

@@ -26,10 +26,10 @@ func testAccType_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_basic(rName),
@@ -57,10 +57,10 @@ func testAccType_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_basic(rName),
@@ -130,7 +130,7 @@ func testAccTypeConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[1]q
+  name   = %[1]q
 }
 
 resource "aws_appsync_type" "test" {

@@ -12,7 +12,8 @@ import (
 	helperlogging "github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 )
 
-func Context(t *testing.T) context.Context {
+
+text(t *testing.T) context.Context {
 helperlogging.SetOutput(t)
 
 ctx := context.Background()
@@ -24,7 +25,8 @@ ctx = logger(ctx, t, "acctest")
 return ctx
 }
 
-func logger(ctx context.Context, t *testing.T, name string) context.Context {
+
+ger(ctx context.Context, t *testing.T, name string) context.Context {
 ctx = tfsdklog.NewRootProviderLogger(ctx,
 tfsdklog.WithLevelFromEnv("TF_LOG"),
 tfsdklog.WithLogName(name),
@@ -36,7 +38,8 @@ return ctx
 }
 
 // testNameContext adds the current test name to loggers.
-func testNameContext(ctx context.Context, testName string) context.Context {
+
+tNameContext(ctx context.Context, testName string) context.Context {
 ctx = tflog.SetField(ctx, "test_name", testName)
 
 return ctx

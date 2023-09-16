@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccKendraExperienceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -26,7 +27,8 @@ func TestAccKendraExperienceDataSource_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -69,6 +71,7 @@ data "aws_kendra_experience" "test" {
   index_id      = "tf-acc-test-does-not-exist-kendra-id"
 }
 `
+
 
 func testAccExperienceDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(

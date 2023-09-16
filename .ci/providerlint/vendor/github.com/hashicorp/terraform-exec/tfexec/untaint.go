@@ -27,33 +27,39 @@ type UntaintOption interface {
 	configureUntaint(*untaintConfig)
 }
 
-func (opt *StateOption) configureUntaint(conf *untaintConfig) {
+
+ (opt *StateOption) configureUntaint(conf *untaintConfig) {
 	conf.state = opt.path
 }
 
-func (opt *AllowMissingOption) configureUntaint(conf *untaintConfig) {
+
+ (opt *AllowMissingOption) configureUntaint(conf *untaintConfig) {
 	conf.allowMissing = opt.allowMissing
+
+
+
+ (opt *LockOption) configureUntaint(conf *untaintConfig) {
+f.lock = opt.lock
 }
 
-func (opt *LockOption) configureUntaint(conf *untaintConfig) {
-	conf.lock = opt.lock
-}
 
-func (opt *LockTimeoutOption) configureUntaint(conf *untaintConfig) {
-	conf.lockTimeout = opt.timeout
+ (opt *LockTimeoutOption) configureUntaint(conf *untaintConfig) {
+f.lockTimeout = opt.timeout
 }
 
 // Untaint represents the terraform untaint subcommand.
-func (tf *Terraform) Untaint(ctx context.Context, address string, opts ...UntaintOption) error {
+
+ (tf *Terraform) Untaint(ctx context.Context, address string, opts ...UntaintOption) error {
 	err := tf.compatible(ctx, tf0_6_13, nil)
 	if err != nil {
 		return fmt.Errorf("untaint was first introduced in Terraform 0.6.13: %w", err)
-	}
+
 	untaintCmd := tf.untaintCmd(ctx, address, opts...)
 	return tf.runTerraformCmd(ctx, untaintCmd)
 }
 
-func (tf *Terraform) untaintCmd(ctx context.Context, address string, opts ...UntaintOption) *exec.Cmd {
+
+ (tf *Terraform) untaintCmd(ctx context.Context, address string, opts ...UntaintOption) *exec.Cmd {
 	c := defaultUntaintOptions
 
 	for _, o := range opts {

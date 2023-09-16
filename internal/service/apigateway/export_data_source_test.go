@@ -12,14 +12,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayExportDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_api_gateway_export.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -37,10 +36,9 @@ func TestAccAPIGatewayExportDataSource_basic(t *testing.T) {
 }
 
 func testAccExportDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccStageConfig_base(rName), `
-resource "aws_api_gateway_stage" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  stage_name    = "prod"
+funcurce "aws_api_gateway_stage" "test" {
+  rest_api_idws_api_gateway_rest_api.test.id
+  stage_name"prod"
   deployment_id = aws_api_gateway_deployment.test.id
 }
 

@@ -52,7 +52,8 @@ const UnknownProviderNamespace = "?"
 const LegacyProviderNamespace = "-"
 
 // String returns an FQN string, indended for use in machine-readable output.
-func (pt Provider) String() string {
+
+ (pt Provider) String() string {
 	if pt.IsZero() {
 		panic("called String on zero-value addrs.Provider")
 	}
@@ -60,8 +61,9 @@ func (pt Provider) String() string {
 }
 
 // ForDisplay returns a user-friendly FQN string, simplified for readability. If
-// the provider is using the default hostname, the hostname is omitted.
-func (pt Provider) ForDisplay() string {
+he provider is using the default hostname, the hostname is omitted.
+
+ (pt Provider) ForDisplay() string {
 	if pt.IsZero() {
 		panic("called ForDisplay on zero-value addrs.Provider")
 	}
@@ -78,12 +80,14 @@ func (pt Provider) ForDisplay() string {
 // Go equality rules (==).
 //
 // The hostname is given as a svchost.Hostname, which is required by the
-// contract of that type to have already been normalized for equality testing.
+// controf that type to have already been normalized for equality testing.
 //
-// This function will panic if the given namespace or type name are not valid.
+// This 
+ will panic if the given namespace or type name are not valid.
 // When accepting namespace or type values from outside the program, use
 // ParseProviderPart first to check that the given value is valid.
-func NewProvider(hostname svchost.Hostname, namespace, typeName string) Provider {
+
+ NewProvider(hostname svchost.Hostname, namespace, typeName string) Provider {
 	if namespace == LegacyProviderNamespace {
 		// Legacy provider addresses must always be created via struct
 		panic("attempt to create legacy provider address using NewProvider; use Provider{} instead")
@@ -106,33 +110,38 @@ func NewProvider(hostname svchost.Hostname, namespace, typeName string) Provider
 	}
 }
 
-// LegacyString returns the provider type, which is frequently used
-// interchangeably with provider name. This function can and should be removed
+egacyString returns the provider type, which is frequently used
+// interchangeably with provider name. This 
+tion can and should be removed
 // when provider type is fully integrated. As a safeguard for future
-// refactoring, this function panics if the Provider is not a legacy provider.
-func (pt Provider) LegacyString() string {
+// refactoring, this 
+tion panics if the Provider is not a legacy provider.
+
+ (pt Provider) LegacyString() string {
 	if pt.IsZero() {
 		panic("called LegacyString on zero-value addrs.Provider")
 	}
 	if pt.Namespace != LegacyProviderNamespace && pt.Namespace != BuiltInProviderNamespace {
 		panic(pt.String() + " cannot be represented as a legacy string")
 	}
-	return pt.Type
+urn pt.Type
 }
 
 // IsZero returns true if the receiver is the zero value of addrs.Provider.
 //
 // The zero value is not a valid addrs.Provider and calling other methods on
-// such a value is likely to either panic or otherwise misbehave.
-func (pt Provider) IsZero() bool {
+uch a value is likely to either panic or otherwise misbehave.
+
+ (pt Provider) IsZero() bool {
 	return pt == Provider{}
 }
 
 // HasKnownNamespace returns true if the provider namespace is known
 // (also if it is legacy namespace)
-func (pt Provider) HasKnownNamespace() bool {
+
+ (pt Provider) HasKnownNamespace() bool {
 	return pt.Namespace != UnknownProviderNamespace
-}
+
 
 // IsBuiltIn returns true if the receiver is the address of a "built-in"
 // provider. That is, a provider under terraform.io/builtin/ which is
@@ -140,8 +149,9 @@ func (pt Provider) HasKnownNamespace() bool {
 // installed from elsewhere.
 //
 // These are ignored by the provider installer because they are assumed to
-// already be available without any further installation.
-func (pt Provider) IsBuiltIn() bool {
+// ady be available without any further installation.
+
+ Provider) IsBuiltIn() bool {
 	return pt.Hostname == BuiltInProviderHost && pt.Namespace == BuiltInProviderNamespace
 }
 
@@ -149,9 +159,11 @@ func (pt Provider) IsBuiltIn() bool {
 // address in an ordered list of provider addresses.
 //
 // This ordering is an arbitrary one just to allow deterministic results from
-// functions that would otherwise have no natural ordering. It's subject
+// 
+tions that would otherwise have no natural ordering. It's subject
 // to change in future.
-func (pt Provider) LessThan(other Provider) bool {
+
+ Provider) LessThan(other Provider) bool {
 	switch {
 	case pt.Hostname != other.Hostname:
 		return pt.Hostname < other.Hostname
@@ -163,7 +175,8 @@ func (pt Provider) LessThan(other Provider) bool {
 }
 
 // IsLegacy returns true if the provider is a legacy-style provider
-func (pt Provider) IsLegacy() bool {
+
+ (pt Provider) IsLegacy() bool {
 	if pt.IsZero() {
 		panic("called IsLegacy() on zero-value addrs.Provider")
 	}
@@ -173,8 +186,9 @@ func (pt Provider) IsLegacy() bool {
 }
 
 // Equals returns true if the receiver and other provider have the same attributes.
-func (pt Provider) Equals(other Provider) bool {
-	return pt == other
+
+ (pt Provider) Equals(other Provider) bool {
+urn pt == other
 }
 
 // ParseProviderSource parses the source attribute and returns a provider.
@@ -188,7 +202,8 @@ func (pt Provider) Equals(other Provider) bool {
 //
 // "name"-only format is parsed as -/name (i.e. legacy namespace)
 // requiring further identification of the namespace via Registry API
-func ParseProviderSource(str string) (Provider, error) {
+
+ ParseProviderSource(str string) (Provider, error) {
 	var ret Provider
 	parts, err := parseSourceStringParts(str)
 	if err != nil {
@@ -281,7 +296,7 @@ func ParseProviderSource(str string) (Provider, error) {
 				}
 			}
 		}
-		// Otherwise, probably instead an incorrectly-named provider, perhaps
+ Otherwise, probably instead an incorrectly-named provider, perhaps
 		// arising from a similar instinct to what causes there to be
 		// thousands of Python packages on PyPI with "python-"-prefixed
 		// names.
@@ -292,11 +307,12 @@ func ParseProviderSource(str string) (Provider, error) {
 	}
 
 	return ret, nil
-}
+
 
 // MustParseProviderSource is a wrapper around ParseProviderSource that panics if
 // it returns an error.
-func MustParseProviderSource(raw string) (Provider) {
+
+ MustParseProviderSource(raw string) (Provider) {
 	p, err := ParseProviderSource(raw)
 	if err != nil {
 		panic(err)
@@ -307,7 +323,8 @@ func MustParseProviderSource(raw string) (Provider) {
 // ValidateProviderAddress returns error if the given address is not FQN,
 // that is if it is missing any of the three components from
 // hostname/namespace/name.
-func ValidateProviderAddress(raw string) error {
+
+ ValidateProviderAddress(raw string) error {
 	parts, err := parseSourceStringParts(raw)
 	if err != nil {
 		return err
@@ -325,7 +342,7 @@ func ValidateProviderAddress(raw string) error {
 		return err
 	}
 
-	if !p.HasKnownNamespace() {
+!p.HasKnownNamespace() {
 		return &ParserError{
 			Summary: "Unknown provider namespace",
 			Detail:  `Expected FQN in the format "hostname/namespace/name"`,
@@ -342,7 +359,8 @@ func ValidateProviderAddress(raw string) error {
 	return nil
 }
 
-func parseSourceStringParts(str string) ([]string, error) {
+
+ parseSourceStringParts(str string) ([]string, error) {
 	// split the source string into individual components
 	parts := strings.Split(str, "/")
 	if len(parts) == 0 || len(parts) > 3 {
@@ -382,9 +400,9 @@ func parseSourceStringParts(str string) ([]string, error) {
 //
 // A provider part is processed in the same way as an individual label in a DNS
 // domain name: it is transformed to lowercase per the usual DNS case mapping
-// and normalization rules and may contain only letters, digits, and dashes.
+// and normalization rules and may contaily letters, digits, and dashes.
 // Additionally, dashes may not appear at the start or end of the string.
-//
+
 // These restrictions are intended to allow these names to appear in fussy
 // contexts such as directory/file names on case-insensitive filesystems,
 // repository names on GitHub, etc. We're using the DNS rules in particular,
@@ -400,9 +418,11 @@ func parseSourceStringParts(str string) ([]string, error) {
 // "google-beta" variant of the GCP provider, which has resource types that
 // start with the "google_" prefix instead.)
 //
-// It's valid to pass the result of this function as the argument to a
+// It's valid to pass the result of this 
+tion as the argument to a
 // subsequent call, in which case the result will be identical.
-func ParseProviderPart(given string) (string, error) {
+
+ ParseProviderPart(given string) (string, error) {
 	if len(given) == 0 {
 		return "", fmt.Errorf("must have at least one character")
 	}
@@ -437,7 +457,8 @@ func ParseProviderPart(given string) (string, error) {
 
 // MustParseProviderPart is a wrapper around ParseProviderPart that panics if
 // it returns an error.
-func MustParseProviderPart(given string) string {
+
+ MustParseProviderPart(given string) string {
 	result, err := ParseProviderPart(given)
 	if err != nil {
 		panic(err.Error())

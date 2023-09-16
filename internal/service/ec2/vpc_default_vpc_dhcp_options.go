@@ -22,11 +22,10 @@ import (
 // @SDKResource("aws_default_vpc_dhcp_options", name="DHCP Options")
 // @Tags(identifierAttribute="id")
 
-func ResourceDefaultVPCDHCPOptions() *schema.Resource {
-	//lintignore:R011
+funcintignore:R011
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDefaultVPCDHCPOptionsCreate,
-		ReadWithoutTimeout:   resourceVPCDHCPOptionsRead,
+		ReadWithoutTimeout:ourceVPCDHCPOptionsRead,
 		UpdateWithoutTimeout: resourceVPCDHCPOptionsUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -37,51 +36,50 @@ func ResourceDefaultVPCDHCPOptions() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 
 		// Keep in sync with aws_vpc_dhcp_options' schema with the following changes:
-		//   - domain_name is Computed-only
-		//   - domain_name_servers is Computed-only and is TypeString
-		//   - netbios_name_servers is Computed-only and is TypeString
-		//   - netbios_node_type is Computed-only
-		//   - ntp_servers is Computed-only and is TypeString
-		//   - owner_id is Optional/Computed
+		//omain_name is Computed-only
+		//omain_name_servers is Computed-only and is TypeString
+		//etbios_name_servers is Computed-only and is TypeString
+		//etbios_node_type is Computed-only
+		//tp_servers is Computed-only and is TypeString
+		//wner_id is Optional/Computed
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"domain_name_servers": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"netbios_name_servers": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"netbios_node_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ntp_servers": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
 
 func resourceDefaultVPCDHCPOptionsCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeDhcpOptionsInput{}
 
@@ -111,8 +109,7 @@ func resourceDefaultVPCDHCPOptionsCreate(ctx context.Context, d *schema.Resource
 
 func RegionalPrivateDNSSuffix(region string) string {
 	if region == endpoints.UsEast1RegionID {
-		return "ec2.internal"
-	}
+func
 
 	return fmt.Sprintf("%s.compute.internal", region)
 }
@@ -120,7 +117,6 @@ func RegionalPrivateDNSSuffix(region string) string {
 func RegionalPublicDNSSuffix(region string) string {
 	if region == endpoints.UsEast1RegionID {
 		return "compute-1"
-	}
-
+func
 	return fmt.Sprintf("%s.compute", region)
 }

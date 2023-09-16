@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_route_table_association")
 
-func ResourceTransitGatewayRouteTableAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteTableAssociationCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayRouteTableAssociationRead,
+		ReadWithoutTimeout:ourceTransitGatewayRouteTableAssociationRead,
 		UpdateWithoutTimeout: schema.NoopContext,
 		DeleteWithoutTimeout: resourceTransitGatewayRouteTableAssociationDelete,
 
@@ -35,42 +34,39 @@ func ResourceTransitGatewayRouteTableAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"replace_existing_association": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
-			},
-			"transit_gateway_route_table_id": {
+functransit_gateway_route_table_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
 			},
-		},
-	}
+func
 }
 
 
 func resourceTransitGatewayRouteTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	transitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
+funcnsitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
 	transitGatewayRouteTableID := d.Get("transit_gateway_route_table_id").(string)
 	id := TransitGatewayRouteTableAssociationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID)
 
@@ -120,8 +116,7 @@ func resourceTransitGatewayRouteTableAssociationRead(ctx context.Context, d *sch
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	transitGatewayRouteTableID, transitGatewayAttachmentID, err := TransitGatewayRouteTableAssociationParseResourceID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route Table Association (%s): %s", d.Id(), err)
 	}
@@ -152,8 +147,7 @@ func resourceTransitGatewayRouteTableAssociationDelete(ctx context.Context, d *s
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	transitGatewayRouteTableID, transitGatewayAttachmentID, err := TransitGatewayRouteTableAssociationParseResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Route Table Association (%s): %s", d.Id(), err)
 	}
 
@@ -174,8 +168,7 @@ func transitGatewayRouteTableAssociationUpdate(ctx context.Context, conn *ec2.EC
 		return nil
 	}
 
-	id := TransitGatewayRouteTableAssociationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID)
-	_, err := FindTransitGatewayRouteTableAssociationByTwoPartKey(ctx, conn, transitGatewayRouteTableID, transitGatewayAttachmentID)
+funcerr := FindTransitGatewayRouteTableAssociationByTwoPartKey(ctx, conn, transitGatewayRouteTableID, transitGatewayAttachmentID)
 
 	if tfresource.NotFound(err) {
 		if associate {
@@ -224,8 +217,7 @@ func disassociateTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, tr
 	}
 
 	_, err := conn.DisassociateTransitGatewayRouteTableWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
+functfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 		return nil
 	}
 
@@ -251,8 +243,7 @@ func TransitGatewayRouteTableAssociationCreateResourceID(transitGatewayRouteTabl
 }
 
 
-func TransitGatewayRouteTableAssociationParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, transitGatewayRouteTableAssociationIDSeparator)
+functs := strings.Split(id, transitGatewayRouteTableAssociationIDSeparator)
 
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
@@ -260,3 +251,4 @@ func TransitGatewayRouteTableAssociationParseResourceID(id string) (string, stri
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected TRANSIT-GATEWAY-ROUTE-TABLE-ID%[2]sTRANSIT-GATEWAY-ATTACHMENT-ID", id, transitGatewayRouteTableAssociationIDSeparator)
 }
+func

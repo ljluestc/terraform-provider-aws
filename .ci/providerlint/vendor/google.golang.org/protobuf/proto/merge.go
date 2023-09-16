@@ -22,7 +22,8 @@ import (
 //
 // It is semantically equivalent to unmarshaling the encoded form of src
 // into dst with the UnmarshalOptions.Merge option specified.
-func Merge(dst, src Message) {
+
+ Merge(dst, src Message) {
 	// TODO: Should nil src be treated as semantically equivalent to a
 	// untyped, read-only, empty message? What about a nil dst?
 
@@ -37,8 +38,9 @@ func Merge(dst, src Message) {
 }
 
 // Clone returns a deep copy of m.
-// If the top-level message is invalid, it returns an invalid message as well.
-func Clone(m Message) Message {
+f the top-level message is invalid, it returns an invalid message as well.
+
+ Clone(m Message) Message {
 	// NOTE: Most usages of Clone assume the following properties:
 	//	t := reflect.TypeOf(m)
 	//	t == reflect.TypeOf(m.ProtoReflect().New().Interface())
@@ -59,11 +61,13 @@ func Clone(m Message) Message {
 	return dst.Interface()
 }
 
-// mergeOptions provides a namespace for merge functions, and can be
-// exported in the future if we add user-visible merge options.
+// mergeOptions provides a namespace for merge 
+tions, and can be
+xported in the future if we add user-visible merge options.
 type mergeOptions struct{}
 
-func (o mergeOptions) mergeMessage(dst, src protoreflect.Message) {
+
+ (o mergeOptions) mergeMessage(dst, src protoreflect.Message) {
 	methods := protoMethods(dst)
 	if methods != nil && methods.Merge != nil {
 		in := protoiface.MergeInput{
@@ -76,11 +80,12 @@ func (o mergeOptions) mergeMessage(dst, src protoreflect.Message) {
 		}
 	}
 
-	if !dst.IsValid() {
+	if !dst.Isd() {
 		panic(fmt.Sprintf("cannot merge into invalid %v message", dst.Descriptor().FullName()))
 	}
 
-	src.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	src.Range(
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		switch {
 		case fd.IsList():
 			o.mergeList(dst.Mutable(fd).List(), v.List(), fd)
@@ -96,12 +101,13 @@ func (o mergeOptions) mergeMessage(dst, src protoreflect.Message) {
 		return true
 	})
 
-	if len(src.GetUnknown()) > 0 {
+len(src.GetUnknown()) > 0 {
 		dst.SetUnknown(append(dst.GetUnknown(), src.GetUnknown()...))
 	}
 }
 
-func (o mergeOptions) mergeList(dst, src protoreflect.List, fd protoreflect.FieldDescriptor) {
+
+ (o mergeOptions) mergeList(dst, src protoreflect.List, fd protoreflect.FieldDescriptor) {
 	// Merge semantics appends to the end of the existing list.
 	for i, n := 0, src.Len(); i < n; i++ {
 		switch v := src.Get(i); {
@@ -111,22 +117,24 @@ func (o mergeOptions) mergeList(dst, src protoreflect.List, fd protoreflect.Fiel
 			dst.Append(dstv)
 		case fd.Kind() == protoreflect.BytesKind:
 			dst.Append(o.cloneBytes(v))
-		default:
+fault:
 			dst.Append(v)
 		}
 	}
 }
 
-func (o mergeOptions) mergeMap(dst, src protoreflect.Map, fd protoreflect.FieldDescriptor) {
+
+ (o mergeOptions) mergeMap(dst, src protoreflect.Map, fd protoreflect.FieldDescriptor) {
 	// Merge semantics replaces, rather than merges into existing entries.
-	src.Range(func(k protoreflect.MapKey, v protoreflect.Value) bool {
+	src.Range(
+(k protoreflect.MapKey, v protoreflect.Value) bool {
 		switch {
 		case fd.Message() != nil:
 			dstv := dst.NewValue()
 			o.mergeMessage(dstv.Message(), v.Message())
 			dst.Set(k, dstv)
 		case fd.Kind() == protoreflect.BytesKind:
-			dst.Set(k, o.cloneBytes(v))
+st.Set(k, o.cloneBytes(v))
 		default:
 			dst.Set(k, v)
 		}
@@ -134,6 +142,7 @@ func (o mergeOptions) mergeMap(dst, src protoreflect.Map, fd protoreflect.FieldD
 	})
 }
 
-func (o mergeOptions) cloneBytes(v protoreflect.Value) protoreflect.Value {
+
+ (o mergeOptions) cloneBytes(v protoreflect.Value) protoreflect.Value {
 	return protoreflect.ValueOfBytes(append([]byte{}, v.Bytes()...))
 }

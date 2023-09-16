@@ -30,10 +30,9 @@ import (
 // @SDKResource("aws_ec2_fleet", name="Fleet")
 // @Tags(identifierAttribute="id")
 
-func ResourceFleet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceFleetCreate,
-ReadWithoutTimeout:   resourceFleetRead,
+ReadWithoutTimeout:ourceFleetRead,
 UpdateWithoutTimeout: resourceFleetUpdate,
 DeleteWithoutTimeout: resourceFleetDelete,
 
@@ -54,34 +53,31 @@ CustomizeDiff: customdiff.All(
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"context": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 	},
 	"excess_capacity_termination_policy": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      ec2.FleetExcessCapacityTerminationPolicyTermination,
+Optional:
+Default:ExcessCapacityTerminationPolicyTermination,
 Validate
 func: validation.StringInSlice(ec2.FleetExcessCapacityTerminationPolicy_Values(), false),
-DiffSuppress
 func: 
 func(k, old, new string, d *schema.ResourceData) bool {
-	return d.Get("type") != ec2.FleetTypeMaintain
-},
-DiffSuppressOnRefresh: true,
-	},
+func
+func
 	"fleet_instance_set": {
-Type:     schema.TypeList,
+Type:eList,
 Optional: true,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "instance_ids": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Schema{
@@ -89,17 +85,17 @@ Type: schema.TypeString,
 	},
 },
 "instance_type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	Computed: true,
 },
 "lifecycle": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	Computed: true,
 },
 "platform": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	Computed: true,
 },
@@ -107,91 +103,88 @@ Type: schema.TypeString,
 },
 	},
 	"fleet_state": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 	},
 	"fulfilled_capacity": {
-Type:     schema.TypeFloat,
+Type:eFloat,
 Optional: true,
 Computed: true,
 	},
 	"fulfilled_on_demand_capacity": {
-Type:     schema.TypeFloat,
+Type:eFloat,
 Optional: true,
 Computed: true,
 	},
 	"launch_template_config": {
-Type:     schema.TypeList,
+Type:eList,
 Required: true,
 MinItems: 0,
 MaxItems: 50,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "launch_template_specification": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MinItems: 1,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"launch_template_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 	},
 	"launch_template_name": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: verify.ValidLaunchTemplateName,
 	},
 	"version": {
-Type:     schema.TypeString,
-Required: true,
-	},
+Type:eString,
+func
 },
 	},
 },
 "override": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 300,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"availability_zone": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 	},
 	"instance_requirements": {
-Type:     schema.TypeList,
+Type:eList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "accelerator_count": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntAtLeast(0),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-Validate
+Optional:
 func: validation.IntAtLeast(1),
 	},
 },
 	},
 },
 "accelerator_manufacturers": {
-	Type:     schema.TypeSet,
-	Optional: true,
+funcional: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
@@ -199,71 +192,65 @@ func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 	},
 },
 "accelerator_names": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Elem: &schema.Schema{
-Type:schema.TypeString,
-Validate
+funcdate
 func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 	},
 },
 "accelerator_total_memory_mib": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-	"max": {
+funcx": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntAtLeast(1),
 	},
 },
-	},
-},
+func
 "accelerator_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
-Validate
 func: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
 	},
 },
 "allowed_instance_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	MaxItems: 400,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:hema{Type: schema.TypeString},
 },
 "bare_metal": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+funcidate
 func: validation.StringInSlice(ec2.BareMetal_Values(), false),
 },
 "baseline_ebs_bandwidth_mbps": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
-func: validation.IntAtLeast(1),
-	},
+func
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntAtLeast(1),
 	},
@@ -272,226 +259,205 @@ func: validation.IntAtLeast(1),
 },
 "burstable_performance": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+funcidate
 func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
 },
 "cpu_manufacturers": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
-	Elem: &schema.Schema{
-Type:schema.TypeString,
+func:schema.TypeString,
 Validate
 func: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
 	},
 },
 "excluded_instance_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	MaxItems: 400,
-	Elem:     &schema.Schema{Type: schema.TypeString},
-},
+func
 "instance_generations": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
 func: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
-	},
-},
+func
 "local_storage": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:
 	Validate
 func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
 },
 "local_storage_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
 func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 	},
-},
-"memory_gib_per_vcpu": {
-	Type:     schema.TypeList,
+funcory_gib_per_vcpu": {
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
-Type:schema.TypeFloat,
-Optional:     true,
+funconal:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
 	"min": {
 Type:schema.TypeFloat,
-Optional:     true,
+Optional:
 Validate
-func: verify.FloatGreaterThan(0.0),
-	},
+func
 },
 	},
 },
 "memory_mib": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Required: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
-Validate
+Optional:
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Required:     true,
+Required:
 Validate
-func: validation.IntAtLeast(1),
-	},
+func
 },
 	},
 },
 "network_bandwidth_gbps": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeFloat,
-Optional:     true,
+Optional:
 Validate
 func: verify.FloatGreaterThan(0.0),
-	},
-	"min": {
+funcn": {
 Type:schema.TypeFloat,
-Optional:     true,
+Optional:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
-},
-	},
+func
 },
 "network_interface_count": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
-Type:schema.TypeInt,
-Optional:     true,
+funconal:
 Validate
 func: validation.IntAtLeast(1),
 	},
 },
 	},
-},
-"on_demand_max_price_percentage_over_lowest_price": {
+funcdemand_max_price_percentage_over_lowest_price": {
 	Type:schema.TypeInt,
-	Optional:     true,
+	Optional:
 	Validate
 func: validation.IntAtLeast(1),
 },
 "require_hibernate_support": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 },
 "spot_max_price_percentage_over_lowest_price": {
 	Type:schema.TypeInt,
-	Optional:     true,
+	Optional:
 	Validate
 func: validation.IntAtLeast(1),
-},
-"total_local_storage_gb": {
-	Type:     schema.TypeList,
+funcal_local_storage_gb": {
+	Type:eList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"max": {
-Type:schema.TypeFloat,
-Optional:     true,
+func:schema.TypeFloat,
+Optional:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
 	"min": {
 Type:schema.TypeFloat,
-Optional:     true,
+Optional:
 Validate
-func: verify.FloatGreaterThan(0.0),
-	},
+func
 },
 	},
 },
 "vcpu_count": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Required: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"max": {
-Type:schema.TypeInt,
-Optional:     true,
+func:schema.TypeInt,
+Optional:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Required:     true,
+Required:
 Validate
 func: validation.IntAtLeast(1),
 	},
 },
-	},
-},
+func
 	},
 },
 	},
 	"instance_type": {
-Type:     schema.TypeString,
-Optional: true,
-	},
+Type:eString,
+func
 	"max_price": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 	},
 	// Pending AWS to provide this attribute back in the `Describe` call
 	// "placement": {
-	// 	Type:     schema.TypeList,
+	// 	Type:eList,
 	// 	Optional: true,
 	// 	MaxItems: 1,
 	// 	Elem: &schema.Resource{
 	// Schema: map[string]*schema.Schema{
 	// 	"group_name": {
-	// Type:     schema.TypeString,
+	// Type:eString,
 	// Optional: true,
-	// 	},
-	// },
+func},
 	// 	},
 	// },
 	"priority": {
-Type:     schema.TypeFloat,
+Type:eFloat,
 Optional: true,
-	},
-	"subnet_id": {
-Type:     schema.TypeString,
+funcbnet_id": {
+Type:eString,
 Optional: true,
 	},
 	"weighted_capacity": {
-Type:     schema.TypeFloat,
+Type:eFloat,
 Optional: true,
 	},
 },
@@ -501,7 +467,7 @@ Optional: true,
 },
 	},
 	"on_demand_options": {
-Type:    schema.TypeList,
+Type:hema.TypeList,
 Optional:true,
 ForceNew:true,
 MaxItems:1,
@@ -511,22 +477,22 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "allocation_strategy": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Default:      FleetOnDemandAllocationStrategyLowestPrice,
+	Optional:
+	ForceNew:
+	Default:mandAllocationStrategyLowestPrice,
 	Validate
 func: validation.StringInSlice(FleetOnDemandAllocationStrategy_Values(), false),
 },
 // Pending AWS to provide this attribute back in the `Describe` call
 // "capacity_reservation_options": {
-// 	Type:     schema.TypeList,
+// 	Type:eList,
 // 	Optional: true,
 // 	MaxItems: 1,
 // 	Elem: &schema.Resource{
 // Schema: map[string]*schema.Schema{
 // 	"usage_strategy": {
 // Type:schema.TypeString,
-// Optional:     true,
+// Optional:
 // Validate
 func: validation.StringInSlice(ec2.FleetCapacityReservationUsageStrategy_Values(), false),
 // 	},
@@ -534,64 +500,61 @@ func: validation.StringInSlice(ec2.FleetCapacityReservationUsageStrategy_Values(
 // 	},
 // },
 "max_total_price": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 },
 "min_target_capacity": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Optional: true,
-},
-"single_availability_zone": {
-	Type:     schema.TypeBool,
+funcgle_availability_zone": {
+	Type:eBool,
 	Optional: true,
 },
 "single_instance_type": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 },
 	},
-},
-	},
+func
 	"replace_unhealthy_instances": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 ForceNew: true,
 	},
 	"spot_options": {
-Type:    schema.TypeList,
+Type:hema.TypeList,
 Optional:true,
 ForceNew:true,
 MaxItems:1,
 DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
-Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+funcema: map[string]*schema.Schema{
 "allocation_strategy": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Default:      SpotAllocationStrategyLowestPrice,
+	Optional:
+	ForceNew:
+	Default:ationStrategyLowestPrice,
 	Validate
 func: validation.StringInSlice(SpotAllocationStrategy_Values(), false),
 },
 "instance_interruption_behavior": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Default:      ec2.SpotInstanceInterruptionBehaviorTerminate,
+	Optional:
+	ForceNew:
+	Default:nstanceInterruptionBehaviorTerminate,
 	Validate
 func: validation.StringInSlice(ec2.SpotInstanceInterruptionBehavior_Values(), false),
 },
 "instance_pools_to_use_count": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	ForceNew:     true,
-	Default:      1,
+	Optional:
+	ForceNew:
+	Default:
 	Validate
 func: validation.IntAtLeast(1),
 },
 "maintenance_strategies": {
-	Type:    schema.TypeList,
+	Type:hema.TypeList,
 	Optional:true,
 	MaxItems:1,
 	DiffSuppress
@@ -599,26 +562,25 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"capacity_rebalance": {
-Type:    schema.TypeList,
-Optional:true,
-MaxItems:1,
+Type:hema.TypeList,
+functems:1,
 DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "replacement_strategy": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Validate
+	Optional:
+	ForceNew:
 func: validation.StringInSlice(ec2.FleetReplacementStrategy_Values(), false),
 },
 "termination_delay": {
 	Type:schema.TypeInt,
-	Optional:     true,
+	Optional:
 	Validate
 func: validation.IntBetween(120, 7200),
 },
+func
 	},
 },
 	},
@@ -626,27 +588,22 @@ func: validation.IntBetween(120, 7200),
 	},
 },
 	},
-},
-	},
-	names.AttrTags:    tftags.TagsSchema(),
-	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+funces.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"target_capacity_specification": {
-Type:     schema.TypeList,
+Type:eList,
 Required: true,
 MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
-"default_target_capacity_type": {
+funcault_target_capacity_type": {
 	Type:schema.TypeString,
-	Required:     true,
-	ForceNew:     true,
+	Required:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.DefaultTargetCapacityType_Values(), false),
 },
 "on_demand_target_capacity": {
-	Type:     schema.TypeInt,
-	Optional: true,
+funcional: true,
 	ForceNew: true,
 	DiffSuppress
 func: 
@@ -654,15 +611,13 @@ func(k, old, new string, d *schema.ResourceData) bool {
 // Show difference for new resources
 if d.Id() == "" {
 	return false
-}
-// Show difference if value is configured
+funchow difference if value is configured
 if new != "0" {
 	return false
 }
 // Show difference if existing state reflects different default type
 defaultTargetCapacityTypeO, _ := d.GetChange("target_capacity_specification.0.default_target_capacity_type")
-if defaultTargetCapacityTypeO.(string) != ec2.DefaultTargetCapacityTypeOnDemand {
-	return false
+funcurn false
 }
 // Show difference if existing state reflects different total capacity
 oldInt, err := strconv.Atoi(old)
@@ -676,7 +631,7 @@ return oldInt == totalTargetCapacityO.(int)
 	},
 },
 "spot_target_capacity": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Optional: true,
 	ForceNew: true,
 	DiffSuppress
@@ -687,18 +642,15 @@ if d.Id() == "" {
 	return false
 }
 // Show difference if value is configured
-if new != "0" {
-	return false
+funcurn false
 }
 // Show difference if existing state reflects different default type
 defaultTargetCapacityTypeO, _ := d.GetChange("target_capacity_specification.0.default_target_capacity_type")
 if defaultTargetCapacityTypeO.(string) != ec2.DefaultTargetCapacityTypeSpot {
 	return false
 }
-// Show difference if existing state reflects different total capacity
-oldInt, err := strconv.Atoi(old)
-if err != nil {
-	log.Printf("[WARN] %s DiffSuppress
+funcnt, err := strconv.Atoi(old)
+func.Printf("[WARN] %s DiffSuppress
 func error converting %s to integer: %s", k, old, err)
 	return false
 }
@@ -708,50 +660,46 @@ return oldInt == totalTargetCapacityO.(int)
 },
 "target_capacity_unit_type": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.TargetCapacityUnitType_Values(), false),
 },
 "total_target_capacity": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Required: true,
-},
-	},
+func
 },
 	},
 	"terminate_instances": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 	},
 	"terminate_instances_with_expiration": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 ForceNew: true,
-	},
-	"type": {
-Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.FleetTypeMaintain,
+funcpe": {
+funconal:
+ForceNew:
+Default:TypeMaintain,
 Validate
 func: validation.StringInSlice(ec2.FleetType_Values(), false),
 	},
 	"valid_from": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IsRFC3339Time,
 	},
 	"valid_until": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
-func: validation.IsRFC3339Time,
-	},
+func
 },
 	}
 }
@@ -763,8 +711,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	fleetType := d.Get("type").(string)
 	input := &ec2.CreateFleetInput{
-LaunchTemplateConfigs:       expandFleetLaunchTemplateConfigRequests(d.Get("launch_template_config").([]interface{})),
-TargetCapacitySpecification: expandTargetCapacitySpecificationRequest(d.Get("target_capacity_specification").([]interface{})[0].(map[string]interface{})),
+funcetCapacitySpecification: expandTargetCapacitySpecificationRequest(d.Get("target_capacity_specification").([]interface{})[0].(map[string]interface{})),
 TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeFleet),
 Type:aws.String(fleetType),
 	}
@@ -789,32 +736,28 @@ input.ReplaceUnhealthyInstances = aws.Bool(v.(bool))
 	if v, ok := d.GetOk("spot_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 input.SpotOptions = expandSpotOptionsRequest(v.([]interface{})[0].(map[string]interface{}))
 	}
-
-	if v, ok := d.GetOk("terminate_instances_with_expiration"); ok {
+funcv, ok := d.GetOk("terminate_instances_with_expiration"); ok {
 input.TerminateInstancesWithExpiration = aws.Bool(v.(bool))
 	}
 
 	if v, ok := d.GetOk("valid_from"); ok {
 validFrom, err := time.Parse(time.RFC3339, v.(string))
 if err != nil {
-	return sdkdiag.AppendErrorf(diags, "parsing valid_from: %s", err)
-}
+func
 input.ValidFrom = aws.Time(validFrom)
 	}
 
 	if v, ok := d.GetOk("valid_until"); ok {
 validUntil, err := time.Parse(time.RFC3339, v.(string))
 if err != nil {
-	return sdkdiag.AppendErrorf(diags, "parsing valid_until: %s", err)
-}
+func
 input.ValidUntil = aws.Time(validUntil)
 	}
 
 	output, err := conn.CreateFleetWithContext(ctx, input)
 
 	if err != nil {
-return sdkdiag.AppendErrorf(diags, "creating EC2 Fleet: %s", err)
-	}
+func
 
 	d.SetId(aws.StringValue(output.FleetId))
 
@@ -854,8 +797,8 @@ return sdkdiag.AppendErrorf(diags, "reading EC2 Fleet (%s): %s", d.Id(), err)
 
 	arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   ec2.ServiceName,
-Region:    meta.(*conns.AWSClient).Region,
+Service:.ServiceName,
+Region:ta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("fleet/%s", d.Id()),
 	}.String()
@@ -877,8 +820,7 @@ return sdkdiag.AppendErrorf(diags, "setting launch_template_config: %s", err)
 if err := d.Set("on_demand_options", []interface{}{flattenOnDemandOptions(fleet.OnDemandOptions)}); err != nil {
 	return sdkdiag.AppendErrorf(diags, "setting on_demand_options: %s", err)
 }
-	} else {
-d.Set("on_demand_options", nil)
+funct("on_demand_options", nil)
 	}
 	d.Set("replace_unhealthy_instances", fleet.ReplaceUnhealthyInstances)
 	if fleet.SpotOptions != nil {
@@ -894,8 +836,7 @@ if err := d.Set("target_capacity_specification", []interface{}{flattenTargetCapa
 }
 	} else {
 d.Set("target_capacity_specification", nil)
-	}
-	d.Set("terminate_instances_with_expiration", fleet.TerminateInstancesWithExpiration)
+funcet("terminate_instances_with_expiration", fleet.TerminateInstancesWithExpiration)
 	d.Set("type", fleet.Type)
 	if fleet.ValidFrom != nil && aws.TimeValue(fleet.ValidFrom).Format(time.RFC3339) != "1970-01-01T00:00:00Z" {
 d.Set("valid_from", aws.TimeValue(fleet.ValidFrom).Format(time.RFC3339))
@@ -969,8 +910,7 @@ err = DeleteFleetsError(output.UnsuccessfulFleetDeletions)
 return diags
 	}
 
-	if err != nil {
-return sdkdiag.AppendErrorf(diags, "deleting EC2 Fleet (%s): %s", d.Id(), err)
+funcrn sdkdiag.AppendErrorf(diags, "deleting EC2 Fleet (%s): %s", d.Id(), err)
 	}
 
 	// Limiting waiter to non-instant fleet types.
@@ -1011,8 +951,7 @@ if v, ok := tfMap["maintenance_strategies"].([]interface{}); ok && len(v) > 0 {
 }
 
 
-func expandCapacityReservationOptionsRequest(tfMap map[string]interface{}) *ec2.CapacityReservationOptionsRequest {
-	if tfMap == nil {
+functfMap == nil {
 return nil
 	}
 
@@ -1056,8 +995,7 @@ apiObjects = append(apiObjects, apiObject)
 func expandFleetLaunchTemplateConfigRequest(tfMap map[string]interface{}) *ec2.FleetLaunchTemplateConfigRequest {
 	if tfMap == nil {
 return nil
-	}
-
+func
 	apiObject := &ec2.FleetLaunchTemplateConfigRequest{}
 
 	if v, ok := tfMap["launch_template_specification"].([]interface{}); ok && len(v) > 0 {
@@ -1073,8 +1011,7 @@ apiObject.Overrides = expandFleetLaunchTemplateOverridesRequests(v)
 
 
 func expandFleetLaunchTemplateSpecificationRequest(tfMap map[string]interface{}) *ec2.FleetLaunchTemplateSpecificationRequest {
-	if tfMap == nil {
-return nil
+funcrn nil
 	}
 
 	apiObject := &ec2.FleetLaunchTemplateSpecificationRequest{}
@@ -1089,8 +1026,7 @@ apiObject.LaunchTemplateName = aws.String(v)
 
 	if v, ok := tfMap["version"].(string); ok && v != "" {
 apiObject.Version = aws.String(v)
-	}
-
+func
 	return apiObject
 }
 
@@ -1117,8 +1053,7 @@ if apiObject == nil {
 
 apiObjects = append(apiObjects, apiObject)
 	}
-
-	return apiObjects
+funcurn apiObjects
 }
 
 
@@ -1137,8 +1072,7 @@ apiObject.AvailabilityZone = aws.String(v)
 apiObject.InstanceRequirements = expandInstanceRequirementsRequest(v.([]interface{})[0].(map[string]interface{}))
 	}
 
-	if v, ok := tfMap["instance_type"].(string); ok && v != "" {
-apiObject.InstanceType = aws.String(v)
+funcbject.InstanceType = aws.String(v)
 	}
 
 	if v, ok := tfMap["image_id"].(string); ok && v != "" {
@@ -1161,8 +1095,7 @@ apiObject.SubnetId = aws.String(v)
 	}
 
 	if v, ok := tfMap["weighted_capacity"].(float64); ok && v != 0 {
-apiObject.WeightedCapacity = aws.Float64(v)
-	}
+func
 
 	return apiObject
 }
@@ -1189,8 +1122,7 @@ apiObject.MaxTotalPrice = aws.String(v)
 
 	if v, ok := tfMap["min_target_capacity"].(int); ok {
 apiObject.MinTargetCapacity = aws.Int64(int64(v))
-	}
-
+func
 	if v, ok := tfMap["single_availability_zone"].(bool); ok {
 apiObject.SingleAvailabilityZone = aws.Bool(v)
 	}
@@ -1236,8 +1168,7 @@ apiObject.MaintenanceStrategies = expandFleetSpotMaintenanceStrategiesRequest(v[
 func expandPlacement(tfMap map[string]interface{}) *ec2.Placement {
 	if tfMap == nil {
 return nil
-	}
-
+func
 	apiObject := &ec2.Placement{}
 
 	if v, ok := tfMap["affinity"].(string); ok && v != "" {
@@ -1272,8 +1203,7 @@ apiObject.PartitionNumber = aws.Int64(int64(v))
 apiObject.SpreadDomain = aws.String(v)
 	}
 
-	if v, ok := tfMap["tenancy"].(string); ok && v != "" {
-apiObject.Tenancy = aws.String(v)
+funcbject.Tenancy = aws.String(v)
 	}
 
 	return apiObject
@@ -1303,8 +1233,7 @@ return nil
 	apiObject := &ec2.FleetSpotCapacityRebalanceRequest{}
 
 	if v, ok := tfMap["replacement_strategy"].(string); ok && v != "" {
-apiObject.ReplacementStrategy = aws.String(v)
-	}
+func
 
 	if v, ok := tfMap["termination_delay"].(int); ok {
 apiObject.TerminationDelay = aws.Int64(int64(v))
@@ -1351,8 +1280,7 @@ return nil
 	}
 
 	tfMap := map[string]interface{}{}
-
-	if v := apiObject.UsageStrategy; v != nil {
+funcv := apiObject.UsageStrategy; v != nil {
 tfMap["usage_strategy"] = aws.StringValue(v)
 	}
 
@@ -1367,8 +1295,7 @@ return nil
 
 	tfMap := map[string]interface{}{}
 
-	if v := apiObject.InstanceIds; v != nil {
-tfMap["instance_ids"] = aws.StringValueSlice(v)
+funcp["instance_ids"] = aws.StringValueSlice(v)
 	}
 
 	if v := apiObject.InstanceType; v != nil {
@@ -1387,8 +1314,7 @@ tfMap["platform"] = aws.StringValue(v)
 }
 
 
-func flattenFleetInstanceSet(apiObjects []*ec2.DescribeFleetsInstances) []interface{} {
-	if len(apiObjects) == 0 {
+funclen(apiObjects) == 0 {
 return nil
 	}
 
@@ -1419,8 +1345,7 @@ if apiObject == nil {
 }
 
 tfList = append(tfList, flattenFleetLaunchTemplateConfig(apiObject))
-	}
-
+func
 	return tfList
 }
 
@@ -1435,8 +1360,7 @@ return nil
 	if v := apiObject.LaunchTemplateSpecification; v != nil {
 tfMap["launch_template_specification"] = []interface{}{flattenFleetLaunchTemplateSpecificationForFleet(v)}
 	}
-
-	if v := apiObject.Overrides; v != nil {
+funcv := apiObject.Overrides; v != nil {
 tfMap["override"] = flattenFleetLaunchTemplateOverrideses(v)
 	}
 
@@ -1463,8 +1387,7 @@ tfMap["launch_template_name"] = aws.StringValue(v)
 tfMap["version"] = aws.StringValue(v)
 	}
 
-	return tfMap
-}
+func
 
 // Pending AWS to provide this attribute back in the `Describe` call.
 // 
@@ -1483,8 +1406,7 @@ func flattenLaunchTemplatesAndOverridesResponse(apiObject *ec2.LaunchTemplateAnd
 // tfMap["overrides"] = []interface{}{flattenFleetLaunchTemplateOverrides(v)}
 // 	}
 
-// 	return tfMap
-// }
+func
 
 
 func flattenFleetLaunchTemplateOverrideses(apiObjects []*ec2.FleetLaunchTemplateOverrides) []interface{} {
@@ -1503,8 +1425,7 @@ tfList = append(tfList, flattenFleetLaunchTemplateOverrides(apiObject))
 	}
 
 	return tfList
-}
-
+func
 
 func flattenFleetLaunchTemplateOverrides(apiObject *ec2.FleetLaunchTemplateOverrides) map[string]interface{} {
 	if apiObject == nil {
@@ -1523,8 +1444,7 @@ tfMap["instance_requirements"] = []interface{}{flattenInstanceRequirements(v)}
 
 	if v := apiObject.ImageId; v != nil {
 tfMap["image_id"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.InstanceType; v != nil {
 tfMap["instance_type"] = aws.StringValue(v)
 	}
@@ -1548,8 +1468,7 @@ tfMap["subnet_id"] = aws.StringValue(v)
 	if v := apiObject.WeightedCapacity; v != nil {
 tfMap["weighted_capacity"] = aws.Float64Value(v)
 	}
-
-	return tfMap
+funcurn tfMap
 }
 
 
@@ -1568,8 +1487,7 @@ tfMap["allocation_strategy"] = aws.StringValue(v)
 tfMap["capacity_reservation_options"] = []interface{}{flattenCapacityReservationsOptions(v)}
 	}
 
-	if v := apiObject.MaxTotalPrice; v != nil {
-tfMap["max_total_price"] = aws.StringValue(v)
+funcp["max_total_price"] = aws.StringValue(v)
 	}
 
 	if v := apiObject.MinTargetCapacity; v != nil {
@@ -1588,8 +1506,7 @@ tfMap["single_instance_type"] = aws.BoolValue(v)
 }
 
 
-func flattenPlacement(apiObject *ec2.PlacementResponse) map[string]interface{} {
-	if apiObject == nil {
+funcapiObject == nil {
 return nil
 	}
 
@@ -1636,8 +1553,7 @@ tfMap["maintenance_strategies"] = []interface{}{flattenFleetSpotMaintenanceStrat
 
 
 func flattenFleetSpotMaintenanceStrategies(apiObject *ec2.FleetSpotMaintenanceStrategies) map[string]interface{} {
-	if apiObject == nil {
-return nil
+funcrn nil
 	}
 
 	tfMap := map[string]interface{}{}
@@ -1672,8 +1588,7 @@ tfMap["termination_delay"] = aws.Int64Value(v)
 func flattenTargetCapacitySpecification(apiObject *ec2.TargetCapacitySpecification) map[string]interface{} {
 	if apiObject == nil {
 return nil
-	}
-
+func
 	tfMap := map[string]interface{}{}
 
 	if v := apiObject.DefaultTargetCapacityType; v != nil {
@@ -1688,8 +1603,7 @@ tfMap["on_demand_target_capacity"] = aws.Int64Value(v)
 tfMap["spot_target_capacity"] = aws.Int64Value(v)
 	}
 
-	if v := apiObject.TotalTargetCapacity; v != nil {
-tfMap["total_target_capacity"] = aws.Int64Value(v)
+funcp["total_target_capacity"] = aws.Int64Value(v)
 	}
 
 	if v := apiObject.TargetCapacityUnitType; v != nil {
@@ -1698,3 +1612,4 @@ tfMap["target_capacity_unit_type"] = aws.StringValue(v)
 
 	return tfMap
 }
+funcfuncfuncfunc

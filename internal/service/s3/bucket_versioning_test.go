@@ -18,10 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketVersioning_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
 
@@ -47,11 +44,8 @@ func TestAccS3BucketVersioning_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketVersioning_disappears(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -70,12 +64,9 @@ func TestAccS3BucketVersioning_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_disappears_bucket(t *testing.T) {
+}func TestAccS3BucketVersioning_disappears_bucket(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_versioning.test"
+	funcourceName := "aws_s3_bucket_versioning.test"
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -94,13 +85,10 @@ func TestAccS3BucketVersioning_disappears_bucket(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_update(t *testing.T) {
+}func TestAccS3BucketVersioning_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_versioning.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -137,8 +125,7 @@ func TestAccS3BucketVersioning_update(t *testing.T) {
 }
 
 // TestAccBucketVersioning_MFADelete can only test for a "Disabled"
-// mfa_delete configuration as the "mfa" argument is required if it's enabled
-func TestAccS3BucketVersioning_MFADelete(t *testing.T) {
+// mfa_delete configuration as the "mfa" argument is required if it's enabledfunc TestAccS3BucketVersioning_MFADelete(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -165,14 +152,11 @@ func TestAccS3BucketVersioning_MFADelete(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_migrate_versioningDisabledNoChange(t *testing.T) {
+}func TestAccS3BucketVersioning_migrate_versioningDisabledNoChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
-	resourceName := "aws_s3_bucket_versioning.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -197,15 +181,12 @@ func TestAccS3BucketVersioning_migrate_versioningDisabledNoChange(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_migrate_versioningDisabledWithChange(t *testing.T) {
+}func TestAccS3BucketVersioning_migrate_versioningDisabledWithChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 	resourceName := "aws_s3_bucket_versioning.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -229,16 +210,13 @@ func TestAccS3BucketVersioning_migrate_versioningDisabledWithChange(t *testing.T
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_migrate_versioningEnabledNoChange(t *testing.T) {
+}func TestAccS3BucketVersioning_migrate_versioningEnabledNoChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 	resourceName := "aws_s3_bucket_versioning.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketDestroy(ctx),
@@ -261,17 +239,14 @@ func TestAccS3BucketVersioning_migrate_versioningEnabledNoChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_migrate_versioningEnabledWithChange(t *testing.T) {
+}func TestAccS3BucketVersioning_migrate_versioningEnabledWithChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 	resourceName := "aws_s3_bucket_versioning.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -296,8 +271,7 @@ func TestAccS3BucketVersioning_migrate_versioningEnabledWithChange(t *testing.T)
 }
 
 // TestAccS3BucketVersioning_migrate_mfaDeleteNoChange can only test for a "Disabled"
-// mfa_delete configuration as the "mfa" argument is required if it's enabled
-func TestAccS3BucketVersioning_migrate_mfaDeleteNoChange(t *testing.T) {
+// mfa_delete configuration as the "mfa" argument is required if it's enabledfunc TestAccS3BucketVersioning_migrate_mfaDeleteNoChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
@@ -327,9 +301,7 @@ func TestAccS3BucketVersioning_migrate_mfaDeleteNoChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_Status_disabled(t *testing.T) {
+}func TestAccS3BucketVersioning_Status_disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -337,8 +309,7 @@ func TestAccS3BucketVersioning_Status_disabled(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
+	funceckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketVersioningConfig_basic(rName, tfs3.BucketVersioningStatusDisabled),
@@ -355,9 +326,7 @@ func TestAccS3BucketVersioning_Status_disabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_Status_disabledToEnabled(t *testing.T) {
+}func TestAccS3BucketVersioning_Status_disabledToEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -366,8 +335,7 @@ func TestAccS3BucketVersioning_Status_disabledToEnabled(t *testing.T) {
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
-		Steps: []resource.TestStep{
+	funceps: []resource.TestStep{
 			{
 				Config: testAccBucketVersioningConfig_basic(rName, tfs3.BucketVersioningStatusDisabled),
 				Check: resource.ComposeTestCheckFunc(
@@ -391,9 +359,7 @@ func TestAccS3BucketVersioning_Status_disabledToEnabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_Status_disabledToSuspended(t *testing.T) {
+}func TestAccS3BucketVersioning_Status_disabledToSuspended(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -403,8 +369,7 @@ func TestAccS3BucketVersioning_Status_disabledToSuspended(t *testing.T) {
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+	func
 				Config: testAccBucketVersioningConfig_basic(rName, tfs3.BucketVersioningStatusDisabled),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketVersioningExists(ctx, resourceName),
@@ -427,9 +392,7 @@ func TestAccS3BucketVersioning_Status_disabledToSuspended(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_Status_enabledToDisabled(t *testing.T) {
+}func TestAccS3BucketVersioning_Status_enabledToDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -440,8 +403,7 @@ func TestAccS3BucketVersioning_Status_enabledToDisabled(t *testing.T) {
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccBucketVersioningConfig_basic(rName, s3.BucketVersioningStatusEnabled),
+	funcConfig: testAccBucketVersioningConfig_basic(rName, s3.BucketVersioningStatusEnabled),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketVersioningExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "versioning_configuration.#", "1"),
@@ -454,9 +416,7 @@ func TestAccS3BucketVersioning_Status_enabledToDisabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketVersioning_Status_suspendedToDisabled(t *testing.T) {
+}func TestAccS3BucketVersioning_Status_suspendedToDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_versioning.test"
@@ -468,8 +428,7 @@ func TestAccS3BucketVersioning_Status_suspendedToDisabled(t *testing.T) {
 		CheckDestroy:             testAccCheckBucketVersioningDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccBucketVersioningConfig_basic(rName, s3.BucketVersioningStatusSuspended),
-				Check: resource.ComposeTestCheckFunc(
+	funcCheck: resource.ComposeTestCheckFunc(
 					testAccCheckBucketVersioningExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "versioning_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "versioning_configuration.0.status", s3.BucketVersioningStatusSuspended),
@@ -481,9 +440,7 @@ func TestAccS3BucketVersioning_Status_suspendedToDisabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketVersioningDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketVersioningDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
@@ -496,8 +453,7 @@ func testAccCheckBucketVersioningDestroy(ctx context.Context) resource.TestCheck
 				Bucket: aws.String(rs.Primary.ID),
 			}
 
-			output, err := conn.GetBucketVersioningWithContext(ctx, input)
-
+	func
 			if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) {
 				continue
 			}
@@ -513,9 +469,7 @@ func testAccCheckBucketVersioningDestroy(ctx context.Context) resource.TestCheck
 
 		return nil
 	}
-}
-
-func testAccCheckBucketVersioningExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckBucketVersioningExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
@@ -529,8 +483,7 @@ func testAccCheckBucketVersioningExists(ctx context.Context, resourceName string
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
 		input := &s3.GetBucketVersioningInput{
-			Bucket: aws.String(rs.Primary.ID),
-		}
+	func
 
 		output, err := conn.GetBucketVersioningWithContext(ctx, input)
 
@@ -544,9 +497,7 @@ func testAccCheckBucketVersioningExists(ctx context.Context, resourceName string
 
 		return nil
 	}
-}
-
-func testAccBucketVersioningConfig_basic(rName, status string) string {
+}func testAccBucketVersioningConfig_basic(rName, status string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -559,12 +510,9 @@ resource "aws_s3_bucket_versioning" "test" {
   }
 }
 `, rName, status)
-}
-
-func testAccBucketVersioningConfig_mfaDelete(rName, mfaDelete string) string {
+}func testAccBucketVersioningConfig_mfaDelete(rName, mfaDelete string) string {
 	return fmt.Sprintf(`
-resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+rfunccket = %[1]q
 }
 
 resource "aws_s3_bucket_versioning" "test" {
@@ -575,12 +523,9 @@ resource "aws_s3_bucket_versioning" "test" {
   }
 }
 `, rName, mfaDelete)
-}
-
-func testAccBucketVersioningConfig_migrateEnabled(rName, status string) string {
+}func testAccBucketVersioningConfig_migrateEnabled(rName, status string) string {
 	return fmt.Sprintf(`
-resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+rfunccket = %[1]q
 }
 
 resource "aws_s3_bucket_versioning" "test" {
@@ -590,14 +535,11 @@ resource "aws_s3_bucket_versioning" "test" {
   }
 }
 `, rName, status)
-}
-
-func testAccBucketVersioningConfig_migrateMFADelete(rName, mfaDelete string) string {
+}func testAccBucketVersioningConfig_migrateMFADelete(rName, mfaDelete string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
+}func
 resource "aws_s3_bucket_versioning" "test" {
   bucket = aws_s3_bucket.test.id
   versioning_configuration {
@@ -607,3 +549,4 @@ resource "aws_s3_bucket_versioning" "test" {
 }
 `, rName, mfaDelete)
 }
+func

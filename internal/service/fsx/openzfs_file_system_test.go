@@ -40,7 +40,7 @@ func TestAccFSxOpenZFSFileSystem_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_basic(rName),
@@ -105,7 +105,7 @@ func TestAccFSxOpenZFSFileSystem_diskIops(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_diskIOPSConfiguration(rName, 192),
@@ -118,7 +118,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -145,7 +145,7 @@ func TestAccFSxOpenZFSFileSystem_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_basic(rName),
@@ -169,7 +169,7 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_rootVolume1(rName, "NONE", "false", 128),
@@ -205,7 +205,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -352,7 +352,7 @@ func TestAccFSxOpenZFSFileSystem_securityGroupIDs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_securityGroupIDs1(rName),
@@ -363,7 +363,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -389,7 +389,7 @@ func TestAccFSxOpenZFSFileSystem_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_tags1(rName, "key1", "value1"),
@@ -401,7 +401,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -438,7 +438,7 @@ func TestAccFSxOpenZFSFileSystem_copyTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_copyTags(rName, "key1", "value1", "true"),
@@ -452,7 +452,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -480,7 +480,7 @@ func TestAccFSxOpenZFSFileSystem_throughput(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_throughput(rName, 64),
@@ -491,7 +491,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -517,7 +517,7 @@ func TestAccFSxOpenZFSFileSystem_storageType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_storageType(rName, "SSD"),
@@ -528,7 +528,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -546,7 +546,7 @@ func TestAccFSxOpenZFSFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName, "1:01:01"),
@@ -557,7 +557,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -583,7 +583,7 @@ func TestAccFSxOpenZFSFileSystem_automaticBackupRetentionDays(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_automaticBackupRetentionDays(rName, 90),
@@ -594,7 +594,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -627,7 +627,7 @@ func TestAccFSxOpenZFSFileSystem_kmsKeyID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_kmsKeyID(rName),
@@ -638,7 +638,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -656,7 +656,7 @@ func TestAccFSxOpenZFSFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_dailyAutomaticBackupStartTime(rName, "01:01"),
@@ -667,7 +667,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -693,7 +693,7 @@ func TestAccFSxOpenZFSFileSystem_throughputCapacity(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_basic(rName),
@@ -704,7 +704,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -730,7 +730,7 @@ func TestAccFSxOpenZFSFileSystem_storageCapacity(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_basic(rName),
@@ -741,7 +741,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -767,7 +767,7 @@ func TestAccFSxOpenZFSFileSystem_deploymentType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_deploymentType(rName, "SINGLE_AZ_1", 64),
@@ -779,7 +779,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
@@ -806,7 +806,7 @@ func TestAccFSxOpenZFSFileSystem_multiAZ(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_multiAZ(rName),
@@ -873,7 +873,7 @@ func TestAccFSxOpenZFSFileSystem_routeTableIDs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
+CheckDestroy:testAccCheckOpenZFSFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSFileSystemConfig_routeTableIDs(rName, 1),
@@ -1172,7 +1172,7 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName, weeklyMaintenanceStartTime string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity              = 64
+  storage_capacity = 64
   subnet_ids     = aws_subnet.test[*].id
   deployment_type= "SINGLE_AZ_1"
   throughput_capacity           = 512
@@ -1210,7 +1210,7 @@ resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity = 64
   subnet_ids       = aws_subnet.test[*].id
   deployment_type  = "SINGLE_AZ_1"
-  throughput_capacity             = 512
+  throughput_capacity= 512
   storage_type     = "SSD"
   automatic_backup_retention_days = %[2]d
 
@@ -1224,7 +1224,7 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_kmsKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

@@ -34,14 +34,14 @@ func TestAccLightsailDistribution_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"distribution": {
-			"basic":                   testAccDistribution_basic,
-			"disappears":              testAccDistribution_disappears,
-			"is_enabled":              testAccDistribution_isEnabled,
+			"basic":Distribution_basic,
+			"disappears":ibution_disappears,
+			"is_enabled":ibution_isEnabled,
 			"cache_behavior":          testAccDistribution_cacheBehavior,
 			"cache_behavior_settings": testAccDistribution_cacheBehaviorSettings,
 			"default_cache_behavior":  testAccDistribution_defaultCacheBehavior,
 			"ip_address_type":         testAccDistribution_ipAddressType,
-			"tags":                    testAccDistribution_tags,
+			"tags":cDistribution_tags,
 		},
 	}
 
@@ -61,9 +61,9 @@ func testAccDistribution_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_basic(rName, bucketName),
@@ -130,9 +130,9 @@ func testAccDistribution_isEnabled(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_isEnabled(rName, bucketName, isDisabled),
@@ -173,9 +173,9 @@ func testAccDistribution_cacheBehavior(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_cacheBehavior1(rName, bucketName, path1, behaviorCache),
@@ -232,9 +232,9 @@ func testAccDistribution_defaultCacheBehavior(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_defaultCacheBehaviorDontCache(rName, instanceName, ipName),
@@ -278,9 +278,9 @@ func testAccDistribution_ipAddressType(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_ipAddressType(rName, bucketName, string(types.IpAddressTypeIpv4)),
@@ -322,9 +322,9 @@ func testAccDistribution_cacheBehaviorSettings(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, allow2, header1, header2),
@@ -396,9 +396,9 @@ func testAccDistribution_tags(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_tags1(rName, bucketName, "key1", "value1"),
@@ -447,9 +447,9 @@ func testAccDistribution_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckRegion(t, string(types.RegionNameUsEast1))
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionDestroy(ctx),
+		CheckDestroy:istributionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfig_basic(rName, bucketName),
@@ -763,15 +763,15 @@ func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, 
     default_ttl          = 50000
     forwarded_cookies {
       cookies_allow_list = [%[2]q, %[3]q]
-      option             = "allow-list"
+      option"
     }
     forwarded_headers {
       headers_allow_list = [%[4]q, %[5]q]
-      option             = "allow-list"
+      option"
     }
     forwarded_query_strings {
       query_strings_allowed_list = [%[2]q, %[3]q]
-      option                     = true
+      optione
     }
     maximum_ttl = 100000
     minimum_ttl = 10000
@@ -801,7 +801,7 @@ resource "aws_lightsail_static_ip" "test" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[2]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "micro_1_0"
@@ -846,7 +846,7 @@ resource "aws_lightsail_static_ip" "test" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[2]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "micro_1_0"
@@ -876,7 +876,7 @@ resource "aws_lightsail_distribution" "test" {
 
     forwarded_headers {
       headers_allow_list = ["Host"]
-      option             = "allow-list"
+      option"
     }
 
     forwarded_query_strings {

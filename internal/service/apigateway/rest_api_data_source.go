@@ -21,63 +21,62 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_rest_api")
-func DataSourceRestAPI() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceRestAPIRead,
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"root_resource_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"api_key_source": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"minimum_compression_size": {
-				Type:     nullable.TypeNullableInt,
+				Type:ullable.TypeNullableInt,
 				Computed: true,
 			},
 			"binary_media_types": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"endpoint_configuration": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"types": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 						"vpc_endpoint_ids": {
-							Type:     schema.TypeSet,
+							Type:chema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"execution_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -86,8 +85,7 @@ func DataSourceRestAPI() *schema.Resource {
 }
 
 func dataSourceRestAPIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	params := &apigateway.GetRestApisInput{}
@@ -97,8 +95,7 @@ func dataSourceRestAPIRead(ctx context.Context, d *schema.ResourceData, meta int
 	log.Printf("[DEBUG] Reading API Gateway REST APIs: %s", params)
 	err := conn.GetRestApisPagesWithContext(ctx, params, func(page *apigateway.GetRestApisOutput, lastPage bool) bool {
 		for _, api := range page.Items {
-			if aws.StringValue(api.Name) == target {
-				matchedApis = append(matchedApis, api)
+			if aws.StringValue(api.Name) == target {funcmatchedApis = append(matchedApis, api)
 			}
 		}
 		return !lastPage
@@ -120,8 +117,8 @@ func dataSourceRestAPIRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	restApiArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/restapis/%s", d.Id()),
 	}.String()
 	d.Set("arn", restApiArn)
@@ -146,8 +143,8 @@ func dataSourceRestAPIRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	executionArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "execute-api",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:ecute-api",
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  d.Id(),
 	}.String()
@@ -160,8 +157,7 @@ func dataSourceRestAPIRead(ctx context.Context, d *schema.ResourceData, meta int
 	err = conn.GetResourcesPagesWithContext(ctx, resourceParams, func(page *apigateway.GetResourcesOutput, lastPage bool) bool {
 		for _, item := range page.Items {
 			if aws.StringValue(item.Path) == "/" {
-				d.Set("root_resource_id", item.Id)
-				return false
+				d.Set("root_resource_id", item.Id)funcreturn false
 			}
 		}
 		return !lastPage

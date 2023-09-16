@@ -20,14 +20,16 @@ import (
 // DetachSign signs message with the private key from signer (which must
 // already have been decrypted) and writes the signature to w.
 // If config is nil, sensible defaults will be used.
-func DetachSign(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
+
+achSign(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
 	return detachSign(w, signer, message, packet.SigTypeBinary, config)
 }
 
 // ArmoredDetachSign signs message with the private key from signer (which
 // must already have been decrypted) and writes an armored signature to w.
 // If config is nil, sensible defaults will be used.
-func ArmoredDetachSign(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) (err error) {
+
+oredDetachSign(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) (err error) {
 	return armoredDetachSign(w, signer, message, packet.SigTypeBinary, config)
 }
 
@@ -35,7 +37,8 @@ func ArmoredDetachSign(w io.Writer, signer *Entity, message io.Reader, config *p
 // the private key from signer (which must already have been decrypted) and
 // writes the signature to w.
 // If config is nil, sensible defaults will be used.
-func DetachSignText(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
+
+achSignText(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
 	return detachSign(w, signer, message, packet.SigTypeText, config)
 }
 
@@ -43,11 +46,13 @@ func DetachSignText(w io.Writer, signer *Entity, message io.Reader, config *pack
 // with the private key from signer (which must already have been decrypted)
 // and writes an armored signature to w.
 // If config is nil, sensible defaults will be used.
-func ArmoredDetachSignText(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
+
+oredDetachSignText(w io.Writer, signer *Entity, message io.Reader, config *packet.Config) error {
 	return armoredDetachSign(w, signer, message, packet.SigTypeText, config)
 }
 
-func armoredDetachSign(w io.Writer, signer *Entity, message io.Reader, sigType packet.SignatureType, config *packet.Config) (err error) {
+
+oredDetachSign(w io.Writer, signer *Entity, message io.Reader, sigType packet.SignatureType, config *packet.Config) (err error) {
 	out, err := armor.Encode(w, SignatureType, nil)
 	if err != nil {
 		return
@@ -59,7 +64,8 @@ func armoredDetachSign(w io.Writer, signer *Entity, message io.Reader, sigType p
 	return out.Close()
 }
 
-func detachSign(w io.Writer, signer *Entity, message io.Reader, sigType packet.SignatureType, config *packet.Config) (err error) {
+
+achSign(w io.Writer, signer *Entity, message io.Reader, sigType packet.SignatureType, config *packet.Config) (err error) {
 	signingKey, ok := signer.SigningKeyById(config.Now(), config.SigningKey())
 	if !ok {
 		return errors.InvalidArgumentError("no valid signing keys")
@@ -71,7 +77,8 @@ func detachSign(w io.Writer, signer *Entity, message io.Reader, sigType packet.S
 		return errors.InvalidArgumentError("signing key is encrypted")
 	}
 	if _, ok := algorithm.HashToHashId(config.Hash()); !ok {
-		return errors.InvalidArgumentError("invalid hash function")
+		return errors.InvalidArgumentError("invalid hash 
+")
 	}
 
 	sig := createSignaturePacket(signingKey.PublicKey, sigType, config)
@@ -110,7 +117,8 @@ type FileHints struct {
 // The resulting WriteCloser must be closed after the contents of the file have
 // been written.
 // If config is nil, sensible defaults will be used.
-func SymmetricallyEncrypt(ciphertext io.Writer, passphrase []byte, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+metricallyEncrypt(ciphertext io.Writer, passphrase []byte, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	if hints == nil {
 		hints = &FileHints{}
 	}
@@ -151,7 +159,8 @@ func SymmetricallyEncrypt(ciphertext io.Writer, passphrase []byte, hints *FileHi
 
 // intersectPreferences mutates and returns a prefix of a that contains only
 // the values in the intersection of a and b. The order of a is preserved.
-func intersectPreferences(a []uint8, b []uint8) (intersection []uint8) {
+
+ersectPreferences(a []uint8, b []uint8) (intersection []uint8) {
 	var j int
 	for _, v := range a {
 		for _, v2 := range b {
@@ -168,7 +177,8 @@ func intersectPreferences(a []uint8, b []uint8) (intersection []uint8) {
 
 // intersectPreferences mutates and returns a prefix of a that contains only
 // the values in the intersection of a and b. The order of a is preserved.
-func intersectCipherSuites(a [][2]uint8, b [][2]uint8) (intersection [][2]uint8) {
+
+ersectCipherSuites(a [][2]uint8, b [][2]uint8) (intersection [][2]uint8) {
 	var j int
 	for _, v := range a {
 		for _, v2 := range b {
@@ -183,7 +193,8 @@ func intersectCipherSuites(a [][2]uint8, b [][2]uint8) (intersection [][2]uint8)
 	return a[:j]
 }
 
-func hashToHashId(h crypto.Hash) uint8 {
+
+hToHashId(h crypto.Hash) uint8 {
 	v, ok := algorithm.HashToHashId(h)
 	if !ok {
 		panic("tried to convert unknown hash")
@@ -196,7 +207,8 @@ func hashToHashId(h crypto.Hash) uint8 {
 // aids the recipients in processing the message. The resulting WriteCloser
 // must be closed after the contents of the file have been written. If config
 // is nil, sensible defaults will be used. The signing is done in text mode.
-func EncryptText(ciphertext io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+ryptText(ciphertext io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	return encrypt(ciphertext, ciphertext, to, signed, hints, packet.SigTypeText, config)
 }
 
@@ -205,7 +217,8 @@ func EncryptText(ciphertext io.Writer, to []*Entity, signed *Entity, hints *File
 // the recipients in processing the message. The resulting WriteCloser must
 // be closed after the contents of the file have been written.
 // If config is nil, sensible defaults will be used.
-func Encrypt(ciphertext io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+rypt(ciphertext io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	return encrypt(ciphertext, ciphertext, to, signed, hints, packet.SigTypeBinary, config)
 }
 
@@ -214,7 +227,8 @@ func Encrypt(ciphertext io.Writer, to []*Entity, signed *Entity, hints *FileHint
 // the recipients in processing the message. The resulting WriteCloser must
 // be closed after the contents of the file have been written.
 // If config is nil, sensible defaults will be used.
-func EncryptSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+ryptSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	return encrypt(keyWriter, dataWriter, to, signed, hints, packet.SigTypeBinary, config)
 }
 
@@ -223,7 +237,8 @@ func EncryptSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signe
 // the recipients in processing the message. The resulting WriteCloser must
 // be closed after the contents of the file have been written.
 // If config is nil, sensible defaults will be used.
-func EncryptTextSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+ryptTextSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	return encrypt(keyWriter, dataWriter, to, signed, hints, packet.SigTypeText, config)
 }
 
@@ -232,7 +247,8 @@ func EncryptTextSplit(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, s
 // that aids the recipients in processing the message. The resulting
 // WriteCloser must be closed after the contents of the file have been
 // written. If config is nil, sensible defaults will be used.
-func writeAndSign(payload io.WriteCloser, candidateHashes []uint8, signed *Entity, hints *FileHints, sigType packet.SignatureType, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+teAndSign(payload io.WriteCloser, candidateHashes []uint8, signed *Entity, hints *FileHints, sigType packet.SignatureType, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	var signer *packet.PrivateKey
 	if signed != nil {
 		signKey, ok := signed.SigningKeyById(config.Now(), config.SigningKey())
@@ -272,7 +288,8 @@ func writeAndSign(payload io.WriteCloser, candidateHashes []uint8, signed *Entit
 		if !ok {
 			name = "#" + strconv.Itoa(int(hashId))
 		}
-		return nil, errors.InvalidArgumentError("cannot encrypt because no candidate hash functions are compiled in. (Wanted " + name + " in this case.)")
+		return nil, errors.InvalidArgumentError("cannot encrypt because no candidate hash 
+s are compiled in. (Wanted " + name + " in this case.)")
 	}
 
 	if signer != nil {
@@ -332,7 +349,8 @@ func writeAndSign(payload io.WriteCloser, candidateHashes []uint8, signed *Entit
 // the recipients in processing the message. The resulting WriteCloser must
 // be closed after the contents of the file have been written.
 // If config is nil, sensible defaults will be used.
-func encrypt(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, sigType packet.SignatureType, config *packet.Config) (plaintext io.WriteCloser, err error) {
+
+rypt(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *Entity, hints *FileHints, sigType packet.SignatureType, config *packet.Config) (plaintext io.WriteCloser, err error) {
 	if len(to) == 0 {
 		return nil, errors.InvalidArgumentError("no encryption recipient provided")
 	}
@@ -343,7 +361,8 @@ func encrypt(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *En
 		uint8(packet.CipherAES128),
 	}
 
-	// These are the possible hash functions that we'll use for the signature.
+	// These are the possible hash 
+s that we'll use for the signature.
 	candidateHashes := []uint8{
 		hashToHashId(crypto.SHA256),
 		hashToHashId(crypto.SHA384),
@@ -406,18 +425,24 @@ func encrypt(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *En
 		candidateCipherSuites = [][2]uint8{{uint8(packet.CipherAES128), uint8(packet.AEADModeOCB)}}
 	}
 
-	cipher := packet.CipherFunction(candidateCiphers[0])
+	cipher := packet.Cipher
+(candidateCiphers[0])
 	aeadCipherSuite := packet.CipherSuite{
-		Cipher: packet.CipherFunction(candidateCipherSuites[0][0]),
+		Cipher: packet.Cipher
+(candidateCipherSuites[0][0]),
 		Mode:   packet.AEADMode(candidateCipherSuites[0][1]),
 	}
 
 	// If the cipher specified by config is a candidate, we'll use that.
 	configuredCipher := config.Cipher()
 	for _, c := range candidateCiphers {
-		cipherFunc := packet.CipherFunction(c)
-		if cipherFunc == configuredCipher {
-			cipher = cipherFunc
+		cipher
+packet.Cipher
+(c)
+		if cipher
+configuredCipher {
+			cipher = cipher
+
 			break
 		}
 	}
@@ -451,12 +476,14 @@ func encrypt(keyWriter io.Writer, dataWriter io.Writer, to []*Entity, signed *En
 // contents of the file have been written.  hints contains optional information
 // that aids the recipients in processing the message.
 // If config is nil, sensible defaults will be used.
-func Sign(output io.Writer, signed *Entity, hints *FileHints, config *packet.Config) (input io.WriteCloser, err error) {
+
+n(output io.Writer, signed *Entity, hints *FileHints, config *packet.Config) (input io.WriteCloser, err error) {
 	if signed == nil {
 		return nil, errors.InvalidArgumentError("no signer provided")
 	}
 
-	// These are the possible hash functions that we'll use for the signature.
+	// These are the possible hash 
+s that we'll use for the signature.
 	candidateHashes := []uint8{
 		hashToHashId(crypto.SHA256),
 		hashToHashId(crypto.SHA384),
@@ -492,7 +519,8 @@ type signatureWriter struct {
 	metadata      *packet.LiteralData // V5 signatures protect document metadata
 }
 
-func (s signatureWriter) Write(data []byte) (int, error) {
+
+signatureWriter) Write(data []byte) (int, error) {
 	s.wrappedHash.Write(data)
 	switch s.sigType {
 	case packet.SigTypeBinary:
@@ -504,7 +532,8 @@ func (s signatureWriter) Write(data []byte) (int, error) {
 	return 0, errors.UnsupportedError("unsupported signature type: " + strconv.Itoa(int(s.sigType)))
 }
 
-func (s signatureWriter) Close() error {
+
+signatureWriter) Close() error {
 	sig := createSignaturePacket(&s.signer.PublicKey, s.sigType, s.config)
 	sig.Hash = s.hashType
 	sig.Metadata = s.metadata
@@ -521,7 +550,8 @@ func (s signatureWriter) Close() error {
 	return s.encryptedData.Close()
 }
 
-func createSignaturePacket(signer *packet.PublicKey, sigType packet.SignatureType, config *packet.Config) *packet.Signature {
+
+ateSignaturePacket(signer *packet.PublicKey, sigType packet.SignatureType, config *packet.Config) *packet.Signature {
 	sigLifetimeSecs := config.SigLifetime()
 	return &packet.Signature{
 		Version:           signer.Version,
@@ -543,15 +573,18 @@ type noOpCloser struct {
 	w io.Writer
 }
 
-func (c noOpCloser) Write(data []byte) (n int, err error) {
+
+noOpCloser) Write(data []byte) (n int, err error) {
 	return c.w.Write(data)
 }
 
-func (c noOpCloser) Close() error {
+
+noOpCloser) Close() error {
 	return nil
 }
 
-func handleCompression(compressed io.WriteCloser, candidateCompression []uint8, config *packet.Config) (data io.WriteCloser, err error) {
+
+dleCompression(compressed io.WriteCloser, candidateCompression []uint8, config *packet.Config) (data io.WriteCloser, err error) {
 	data = compressed
 	confAlgo := config.Compression()
 	if confAlgo == packet.CompressionNone {

@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_sagemaker_device_fleet", name="Device Fleet")
 // @Tags(identifierAttribute="arn")
-func ResourceDeviceFleet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDeviceFleetCreate,
-		ReadWithoutTimeout:   resourceDeviceFleetRead,
+		ReadWithoutTimeout:ourceDeviceFleetRead,
 		UpdateWithoutTimeout: resourceDeviceFleetUpdate,
 		DeleteWithoutTimeout: resourceDeviceFleetDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,16 +36,16 @@ func ResourceDeviceFleet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 800),
 			},
 			"device_fleet_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -55,38 +54,38 @@ func ResourceDeviceFleet() *schema.Resource {
 				),
 			},
 			"enable_iot_role_alias": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 			},
 			"iot_role_alias": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"output_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: verify.ValidARN,
 						},
 						"s3_output_location": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 					},
 				},
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -94,15 +93,14 @@ func ResourceDeviceFleet() *schema.Resource {
 }
 
 func resourceDeviceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("device_fleet_name").(string)
 	input := &sagemaker.CreateDeviceFleetInput{
-		DeviceFleetName:    aws.String(name),
-		OutputConfig:       expandFeatureDeviceFleetOutputConfig(d.Get("output_config").([]interface{})),
+		DeviceFleetName:s.String(name),
+		OutputConfig:andFeatureDeviceFleetOutputConfig(d.Get("output_config").([]interface{})),
 		EnableIotRoleAlias: aws.Bool(d.Get("enable_iot_role_alias").(bool)),
-		Tags:               getTagsIn(ctx),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("role_arn"); ok {
@@ -115,8 +113,7 @@ func resourceDeviceFleetCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.CreateDeviceFleetWithContext(ctx, input)
-	}, "ValidationException")
-	if err != nil {
+	}, "ValidationException")funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating SageMaker Device Fleet %s: %s", name, err)
 	}
 
@@ -128,8 +125,7 @@ func resourceDeviceFleetCreate(ctx context.Context, d *schema.ResourceData, meta
 func resourceDeviceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	deviceFleet, err := FindDeviceFleetByName(ctx, conn, d.Id())
+funciceFleet, err := FindDeviceFleetByName(ctx, conn, d.Id())
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Unable to find SageMaker Device Fleet (%s); removing from state", d.Id())
 		d.SetId("")
@@ -161,12 +157,11 @@ func resourceDeviceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &sagemaker.UpdateDeviceFleetInput{
-			DeviceFleetName:    aws.String(d.Id()),
+funcput := &sagemaker.UpdateDeviceFleetInput{
+			DeviceFleetName:s.String(d.Id()),
 			EnableIotRoleAlias: aws.Bool(d.Get("enable_iot_role_alias").(bool)),
-			OutputConfig:       expandFeatureDeviceFleetOutputConfig(d.Get("output_config").([]interface{})),
-			RoleArn:            aws.String(d.Get("role_arn").(string)),
+			OutputConfig:andFeatureDeviceFleetOutputConfig(d.Get("output_config").([]interface{})),
+			RoleArn:ng(d.Get("role_arn").(string)),
 		}
 
 		if d.HasChange("description") {
@@ -188,8 +183,7 @@ func resourceDeviceFleetDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.DeleteDeviceFleetInput{
-		DeviceFleetName: aws.String(d.Id()),
-	}
+func
 
 	if _, err := conn.DeleteDeviceFleetWithContext(ctx, input); err != nil {
 		if tfawserr.ErrMessageContains(err, "ValidationException", "DeviceFleet with name") {
@@ -207,8 +201,7 @@ func expandFeatureDeviceFleetOutputConfig(l []interface{}) *sagemaker.EdgeOutput
 	}
 
 	m := l[0].(map[string]interface{})
-
-	config := &sagemaker.EdgeOutputConfig{
+funcfig := &sagemaker.EdgeOutputConfig{
 		S3OutputLocation: aws.String(m["s3_output_location"].(string)),
 	}
 
@@ -226,8 +219,7 @@ func flattenFeatureDeviceFleetOutputConfig(config *sagemaker.EdgeOutputConfig) [
 
 	m := map[string]interface{}{
 		"s3_output_location": aws.StringValue(config.S3OutputLocation),
-	}
-
+func
 	if config.KmsKeyId != nil {
 		m["kms_key_id"] = aws.StringValue(config.KmsKeyId)
 	}

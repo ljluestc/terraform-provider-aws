@@ -19,20 +19,19 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_service_allowed_principal")
 
-func ResourceVPCEndpointServiceAllowedPrincipal() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceVPCEndpointServiceAllowedPrincipalCreate,
-ReadWithoutTimeout:   resourceVPCEndpointServiceAllowedPrincipalRead,
+ReadWithoutTimeout:ourceVPCEndpointServiceAllowedPrincipalRead,
 DeleteWithoutTimeout: resourceVPCEndpointServiceAllowedPrincipalDelete,
 
 Schema: map[string]*schema.Schema{
 	"principal_arn": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"vpc_endpoint_service_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
@@ -41,15 +40,14 @@ ForceNew: true,
 }
 
 func resourceVPCEndpointServiceAllowedPrincipalCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	serviceID := d.Get("vpc_endpoint_service_id").(string)
 	principalARN := d.Get("principal_arn").(string)
 
 	output, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, &ec2.ModifyVpcEndpointServicePermissionsInput{
 AddAllowedPrincipals: aws.StringSlice([]string{principalARN}),
-ServiceId:   aws.String(serviceID),
+ServiceId:.String(serviceID),
 	})
 
 	if err != nil {
@@ -67,8 +65,7 @@ if aws.StringValue(v.Principal) == principalARN {
 
 func resourceVPCEndpointServiceAllowedPrincipalRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	serviceID := d.Get("vpc_endpoint_service_id").(string)
 	principalARN := d.Get("principal_arn").(string)
 
@@ -92,8 +89,7 @@ return sdkdiag.AppendErrorf(diags, "reading EC2 VPC Endpoint Service (%s) Allowe
 func resourceVPCEndpointServiceAllowedPrincipalDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	serviceID := d.Get("vpc_endpoint_service_id").(string)
+funcviceID := d.Get("vpc_endpoint_service_id").(string)
 	principalARN := d.Get("principal_arn").(string)
 
 	_, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, &ec2.ModifyVpcEndpointServicePermissionsInput{

@@ -24,17 +24,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_model")
-func ResourceModel() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceModelCreate,
-		ReadWithoutTimeout:   resourceModelRead,
+		ReadWithoutTimeout:ourceModelRead,
 		UpdateWithoutTimeout: resourceModelUpdate,
 		DeleteWithoutTimeout: resourceModelDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+				idParts := stfuncif len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/NAME", d.Id())
 				}
 				restApiID := idParts[0]
@@ -61,33 +59,32 @@ func ResourceModel() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"content_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"schema": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Type:schema.TypeString,
+				Optional:
+				ValidateFunc:alidation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
+					return jsofunc},
 			},
 		},
 	}
@@ -96,12 +93,11 @@ func ResourceModel() *schema.Resource {
 func resourceModelCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	name := d.Get("name").(string)
+funce := d.Get("name").(string)
 	input := &apigateway.CreateModelInput{
 		ContentType: aws.String(d.Get("content_type").(string)),
-		Name:        aws.String(name),
-		RestApiId:   aws.String(d.Get("rest_api_id").(string)),
+		Name:String(name),
+		RestApiId:.String(d.Get("rest_api_id").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -127,8 +123,7 @@ func resourceModelRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	model, err := FindModelByTwoPartKey(ctx, conn, d.Get("name").(string), d.Get("rest_api_id").(string))
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Model (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -151,10 +146,9 @@ func resourceModelUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	operations := make([]*apigateway.PatchOperation, 0)
-
-	if d.HasChange("description") {
+funcd.HasChange("description") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/description"),
 			Value: aws.String(d.Get("description").(string)),
 		})
@@ -162,16 +156,16 @@ func resourceModelUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChange("schema") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/schema"),
 			Value: aws.String(d.Get("schema").(string)),
 		})
 	}
 
 	input := &apigateway.UpdateModelInput{
-		ModelName:       aws.String(d.Get("name").(string)),
+		ModelName:tring(d.Get("name").(string)),
 		PatchOperations: operations,
-		RestApiId:       aws.String(d.Get("rest_api_id").(string)),
+		RestApiId:tring(d.Get("rest_api_id").(string)),
 	}
 
 	_, err := conn.UpdateModelWithContext(ctx, input)
@@ -189,8 +183,7 @@ func resourceModelDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	log.Printf("[DEBUG] Deleting API Gateway Model: %s", d.Id())
 	_, err := conn.DeleteModelWithContext(ctx, &apigateway.DeleteModelInput{
-		ModelName: aws.String(d.Get("name").(string)),
-		RestApiId: aws.String(d.Get("rest_api_id").(string)),
+funcstApiId: aws.String(d.Get("rest_api_id").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
@@ -211,10 +204,9 @@ func FindModelByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, nam
 	}
 
 	output, err := conn.GetModelWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
+functfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

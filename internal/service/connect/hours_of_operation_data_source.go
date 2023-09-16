@@ -19,6 +19,8 @@ import (
 
 // @SDKDataSource("aws_connect_hours_of_operation")
 
+
+
 func DataSourceHoursOfOperation() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceHoursOfOperationRead,
@@ -70,7 +72,9 @@ func DataSourceHoursOfOperation() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(m["day"].(string))
@@ -107,6 +111,8 @@ func DataSourceHoursOfOperation() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceHoursOfOperationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -167,6 +173,8 @@ func dataSourceHoursOfOperationRead(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
+
+
 func dataSourceGetHoursOfOperationSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.HoursOfOperationSummary, error) {
 	var result *connect.HoursOfOperationSummary
 
@@ -176,7 +184,9 @@ func dataSourceGetHoursOfOperationSummaryByName(ctx context.Context, conn *conne
 	}
 
 	err := conn.ListHoursOfOperationsPagesWithContext(ctx, input,
-		func(page *connect.ListHoursOfOperationsOutput, lastPage bool) bool {
+		
+
+func(page *connect.ListHoursOfOperationsOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

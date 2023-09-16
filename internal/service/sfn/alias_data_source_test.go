@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccSFNAliasDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_sfn_alias.test"
 	resourceName := "aws_sfn_alias.test"
 	rString := sdkacctest.RandString(8)
@@ -22,9 +21,8 @@ func TestAccSFNAliasDataSource_basic(t *testing.T) {
 	aliasName := fmt.Sprintf("tf_acc_state_machine_alias_basic_%s", rString)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sfn.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAliasDataSourceConfig_basic(stateMachineName, aliasName, 10),
@@ -41,8 +39,7 @@ func TestAccSFNAliasDataSource_basic(t *testing.T) {
 
 func testAccAliasDataSourceConfig_basic(statemachineName string, aliasName string, rMaxAttempts int) string {
 	return acctest.ConfigCompose(testAccStateMachineAliasConfig_basic(statemachineName, aliasName, rMaxAttempts), `
-data "aws_sfn_alias" "test" {
-  name             = aws_sfn_alias.test.name
+funcme= aws_sfn_alias.test.name
   statemachine_arn = aws_sfn_state_machine.test.arn
 }
 `)

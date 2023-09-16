@@ -18,16 +18,18 @@ import (
 	tfroute53recoverycontrolconfig "github.com/hashicorp/terraform-provider-aws/internal/service/route53recoverycontrolconfig"
 )
 
+
 func testAccCluster_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_route53recoverycontrolconfig_cluster.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, r53rcc.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -40,7 +42,7 @@ func testAccCluster_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"cluster_endpoints"},
 			},
@@ -48,16 +50,18 @@ func testAccCluster_basic(t *testing.T) {
 	})
 }
 
+
 func testAccCluster_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_route53recoverycontrolconfig_cluster.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, r53rcc.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -71,8 +75,10 @@ func testAccCluster_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -95,6 +101,7 @@ func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccClusterConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_cluster" "test" {
@@ -103,8 +110,10 @@ resource "aws_route53recoverycontrolconfig_cluster" "test" {
 `, rName)
 }
 
+
 func testAccCheckClusterExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)

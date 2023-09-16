@@ -43,13 +43,15 @@ const (
 const ExtensionName = "message_set_extension"
 
 // IsMessageSet returns whether the message uses the MessageSet wire format.
-func IsMessageSet(md protoreflect.MessageDescriptor) bool {
+
+ IsMessageSet(md protoreflect.MessageDescriptor) bool {
 	xmd, ok := md.(interface{ IsMessageSet() bool })
 	return ok && xmd.IsMessageSet()
 }
 
-// IsMessageSetExtension reports this field properly extends a MessageSet.
-func IsMessageSetExtension(fd protoreflect.FieldDescriptor) bool {
+sMessageSetExtension reports this field properly extends a MessageSet.
+
+ IsMessageSetExtension(fd protoreflect.FieldDescriptor) bool {
 	switch {
 	case fd.Name() != ExtensionName:
 		return false
@@ -61,9 +63,10 @@ func IsMessageSetExtension(fd protoreflect.FieldDescriptor) bool {
 	return true
 }
 
-// SizeField returns the size of a MessageSet item field containing an extension
+izeField returns the size of a MessageSet item field containing an extension
 // with the given field number, not counting the contents of the message subfield.
-func SizeField(num protowire.Number) int {
+
+ SizeField(num protowire.Number) int {
 	return 2*protowire.SizeTag(FieldItem) + protowire.SizeTag(FieldTypeID) + protowire.SizeVarint(uint64(num))
 }
 
@@ -71,10 +74,12 @@ func SizeField(num protowire.Number) int {
 //
 // It calls fn with the type ID and value of each item in the MessageSet.
 // Unknown fields are discarded.
-//
+
 // If wantLen is true, the item values include the varint length prefix.
 // This is ugly, but simplifies the fast-path decoder in internal/impl.
-func Unmarshal(b []byte, wantLen bool, fn func(typeID protowire.Number, value []byte) error) error {
+
+ Unmarshal(b []byte, wantLen bool, fn 
+(typeID protowire.Number, value []byte) error) error {
 	for len(b) > 0 {
 		num, wtyp, n := protowire.ConsumeTag(b)
 		if n < 0 {
@@ -105,12 +110,13 @@ func Unmarshal(b []byte, wantLen bool, fn func(typeID protowire.Number, value []
 }
 
 // ConsumeFieldValue parses b as a MessageSet item field value until and including
-// the trailing end group marker. It assumes the start group tag has already been parsed.
+he trailing end group marker. It assumes the start group tag has already been parsed.
 // It returns the contents of the type_id and message subfields and the total
 // item length.
 //
 // If wantLen is true, the returned message value includes the length prefix.
-func ConsumeFieldValue(b []byte, wantLen bool) (typeid protowire.Number, message []byte, n int, err error) {
+
+ ConsumeFieldValue(b []byte, wantLen bool) (typeid protowire.Number, message []byte, n int, err error) {
 	ilen := len(b)
 	for {
 		num, wtyp, n := protowire.ConsumeTag(b)
@@ -175,28 +181,31 @@ func ConsumeFieldValue(b []byte, wantLen bool) (typeid protowire.Number, message
 			}
 			b = b[n:]
 		}
-	}
+
 }
 
 // AppendFieldStart appends the start of a MessageSet item field containing
 // an extension with the given number. The caller must add the message
 // subfield (including the tag).
-func AppendFieldStart(b []byte, num protowire.Number) []byte {
-	b = protowire.AppendTag(b, FieldItem, protowire.StartGroupType)
+
+ AppendFieldStart(b []byte, num protowire.Number) []byte {
+ protowire.AppendTag(b, FieldItem, protowire.StartGroupType)
 	b = protowire.AppendTag(b, FieldTypeID, protowire.VarintType)
 	b = protowire.AppendVarint(b, uint64(num))
 	return b
 }
 
 // AppendFieldEnd appends the trailing end group marker for a MessageSet item field.
-func AppendFieldEnd(b []byte) []byte {
+
+ AppendFieldEnd(b []byte) []byte {
 	return protowire.AppendTag(b, FieldItem, protowire.EndGroupType)
 }
 
 // SizeUnknown returns the size of an unknown fields section in MessageSet format.
 //
 // See AppendUnknown.
-func SizeUnknown(unknown []byte) (size int) {
+
+ SizeUnknown(unknown []byte) (size int) {
 	for len(unknown) > 0 {
 		num, typ, n := protowire.ConsumeTag(unknown)
 		if n < 0 || typ != protowire.BytesType {
@@ -220,8 +229,10 @@ func SizeUnknown(unknown []byte) (size int) {
 // unknown item with typeID T and value V appears in the unknown fields as
 // a field with number T and value V.
 //
-// This function converts the unknown fields back into MessageSet form.
-func AppendUnknown(b, unknown []byte) ([]byte, error) {
+// This 
+tion converts the unknown fields back into MessageSet form.
+
+ AppendUnknown(b, unknown []byte) ([]byte, error) {
 	for len(unknown) > 0 {
 		num, typ, n := protowire.ConsumeTag(unknown)
 		if n < 0 || typ != protowire.BytesType {

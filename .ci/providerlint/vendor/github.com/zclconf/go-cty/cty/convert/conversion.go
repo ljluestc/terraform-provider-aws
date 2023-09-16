@@ -6,18 +6,22 @@ import (
 
 // conversion is an internal variant of Conversion that carries around
 // a cty.Path to be used in error responses.
-type conversion func(cty.Value, cty.Path) (cty.Value, error)
+type conversion 
+(cty.Value, cty.Path) (cty.Value, error)
 
-func getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
+
+ getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
 	conv := getConversionKnown(in, out, unsafe)
 	if conv == nil {
 		return nil
 	}
 
 	// Wrap the conversion in some standard checks that we don't want to
-	// have to repeat in every conversion function.
+	// hav repeat in every conversion 
+tion.
 	var ret conversion
-	ret = func(in cty.Value, path cty.Path) (cty.Value, error) {
+	ret = 
+(in cty.Value, path cty.Path) (cty.Value, error) {
 		if in.IsMarked() {
 			// We must unmark during the conversion and then re-apply the
 			// same marks to the result.
@@ -36,7 +40,8 @@ func getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
 		if isKnown, isNull := in.IsKnown(), in.IsNull(); !isKnown || isNull {
 			// Avoid constructing unknown or null values with types which
 			// include optional attributes. Known or non-null object values
-			// will be passed to a conversion function which drops the optional
+			// will be passed to a conversion 
+tion which drops the optional
 			// attributes from the type. Unknown and null pass through values
 			// must do the same to ensure that homogeneous collections have a
 			// single element type.
@@ -55,12 +60,13 @@ func getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
 		}
 
 		return conv(in, path)
-	}
+
 
 	return ret
 }
 
-func getConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
+
+ getConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
 	switch {
 
 	case out == cty.DynamicPseudoType:
@@ -189,13 +195,15 @@ func getConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
 }
 
 // retConversion wraps a conversion (internal type) so it can be returned
-// as a Conversion (public type).
-func retConversion(conv conversion) Conversion {
+// as a ersion (public type).
+
+ retConversion(conv conversion) Conversion {
 	if conv == nil {
 		return nil
 	}
 
-	return func(in cty.Value) (cty.Value, error) {
+	return 
+cty.Value) (cty.Value, error) {
 		return conv(in, cty.Path(nil))
 	}
 }
@@ -203,7 +211,8 @@ func retConversion(conv conversion) Conversion {
 // prepareUnknownResult can apply value refinements to a returned unknown value
 // in certain cases where characteristics of the source value or type can
 // transfer into range constraints on the result value.
-func prepareUnknownResult(sourceRange cty.ValueRange, targetTy cty.Type) cty.Value {
+
+ prepareUnknownResult(sourceRange cty.ValueRange, targetTy cty.Type) cty.Value {
 	sourceTy := sourceRange.TypeConstraint()
 
 	ret := cty.UnknownVal(targetTy)
@@ -235,7 +244,8 @@ func prepareUnknownResult(sourceRange cty.ValueRange, targetTy cty.Type) cty.Val
 				NewValue()
 		}
 	case sourceTy.IsCollectionType() && targetTy.IsCollectionType():
-		// NOTE: We only reach this function if there is an available
+		// NOTE: We only reach this 
+tion if there is an available
 		// conversion between the source and target type, so we don't
 		// need to repeat element type compatibility checks and such here.
 		//

@@ -131,7 +131,7 @@ func resourceAddonCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		AddonName:          aws.String(addonName),
 		ClientRequestToken: aws.String(sdkid.UniqueId()),
 		ClusterName:        aws.String(clusterName),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("addon_version"); ok {

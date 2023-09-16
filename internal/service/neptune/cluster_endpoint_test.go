@@ -28,10 +28,10 @@ func TestAccNeptuneClusterEndpoint_basic(t *testing.T) {
 	resourceName := "aws_neptune_cluster_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_basic(rName),
@@ -66,10 +66,10 @@ func TestAccNeptuneClusterEndpoint_tags(t *testing.T) {
 	resourceName := "aws_neptune_cluster_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_tags1(rName, "key1", "value1"),
@@ -112,10 +112,10 @@ func TestAccNeptuneClusterEndpoint_disappears(t *testing.T) {
 	resourceName := "aws_neptune_cluster_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_basic(rName),
@@ -136,10 +136,10 @@ func TestAccNeptuneClusterEndpoint_Disappears_cluster(t *testing.T) {
 	resourceName := "aws_neptune_cluster_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterEndpointConfig_basic(rName),
@@ -218,11 +218,11 @@ locals {
 }
 
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier                   = %[1]q
-  availability_zones                   = local.availability_zone_names
-  engine                               = "neptune"
+  cluster_identifier      = %[1]q
+  availability_zones      = local.availability_zone_names
+  engine     = "neptune"
   neptune_cluster_parameter_group_name = "default.neptune1"
-  skip_final_snapshot                  = true
+  skip_final_snapshot     = true
 }
 `, rName))
 }
@@ -232,7 +232,7 @@ func testAccClusterEndpointConfig_basic(rName string) string {
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
-  endpoint_type               = "READER"
+  endpoint_type  = "READER"
 }
 `, rName))
 }
@@ -242,7 +242,7 @@ func testAccClusterEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
-  endpoint_type               = "READER"
+  endpoint_type  = "READER"
 
   tags = {
     %[2]q = %[3]q
@@ -256,7 +256,7 @@ func testAccClusterEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagV
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
-  endpoint_type               = "READER"
+  endpoint_type  = "READER"
 
   tags = {
     %[2]q = %[3]q

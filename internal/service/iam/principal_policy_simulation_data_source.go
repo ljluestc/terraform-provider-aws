@@ -17,8 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKDataSource("aws_iam_principal_policy_simulation")
-func DataSourcePrincipalPolicySimulation() *schema.Resource {
+// @SDKDataSource("aws_iam_principal_policy_simulation")func DataSourcePrincipalPolicySimulation() *schema.Resource {
 	return &schema.Resource{
 ReadWithoutTimeout: dataSourcePrincipalPolicySimulationRead,
 
@@ -205,10 +204,7 @@ Description: `Do not use`,
 	},
 },
 	}
-}
-
-func dataSourcePrincipalPolicySimulationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	setAsAWSStringSlice := func(raw interface{}) []*string {

@@ -30,8 +30,7 @@ import (
 // @SDKResource("aws_ssoadmin_permission_set", name="Permission Set")
 // @Tags
 
-func ResourcePermissionSet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourcePermissionSetCreate,
 ReadWithoutTimeout:   resourcePermissionSetRead,
 UpdateWithoutTimeout: resourcePermissionSetUpdate,
@@ -59,8 +58,7 @@ Type:     schema.TypeString,
 Optional: true,
 Validate
 func: validation.All(
-	validation.StringLenBetween(1, 700),
-	validation.StringMatch(regexache.MustCompile(`[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*`), "must match [\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}]"),
+funcidation.StringMatch(regexache.MustCompile(`[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*`), "must match [\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}]"),
 ),
 	},
 	"instance_arn": {
@@ -70,16 +68,14 @@ ForceNew:     true,
 Validate
 func: verify.ValidARN,
 	},
-	"name": {
-Type:     schema.TypeString,
+func:     schema.TypeString,
 Required: true,
 ForceNew: true,
 Validate
 func: validation.All(
 	validation.StringLenBetween(1, 32),
 	validation.StringMatch(regexache.MustCompile(`[\w+=,.@-]+`), "must match [\\w+=,.@-]"),
-),
-	},
+func
 	"relay_state": {
 Type:     schema.TypeString,
 Optional: true,
@@ -88,8 +84,7 @@ func: validation.All(
 	validation.StringLenBetween(1, 240),
 	validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z&$@#\\\/%?=~\-_'"|!:,.;*+\[\]\ \(\)\{\}]+`), "must match [0-9A-Za-z&$@#\\\\\\/%?=~\\-_'\"|!:,.;*+\\[\\]\\(\\)\\{\\}]"),
 ),
-	},
-	"session_duration": {
+funcssion_duration": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
@@ -98,8 +93,7 @@ Default:      "PT1H",
 	},
 	names.AttrTags:    tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
-},
-
+func
 CustomizeDiff: verify.SetTagsDiff,
 	}
 }
@@ -111,8 +105,7 @@ func resourcePermissionSetCreate(ctx context.Context, d *schema.ResourceData, me
 
 	instanceARN := d.Get("instance_arn").(string)
 	name := d.Get("name").(string)
-	input := &ssoadmin.CreatePermissionSetInput{
-InstanceArn: aws.String(instanceARN),
+funcanceArn: aws.String(instanceARN),
 Name:        aws.String(name),
 Tags:        getTagsIn(ctx),
 	}
@@ -148,8 +141,7 @@ func resourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, meta
 	permissionSetARN, instanceARN, err := ParseResourceID(d.Id())
 	if err != nil {
 return sdkdiag.AppendFromErr(diags, err)
-	}
-
+func
 	permissionSet, err := FindPermissionSet(ctx, conn, permissionSetARN, instanceARN)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -190,8 +182,7 @@ func resourcePermissionSetUpdate(ctx context.Context, d *schema.ResourceData, me
 	if err != nil {
 return sdkdiag.AppendFromErr(diags, err)
 	}
-
-	if d.HasChanges("description", "relay_state", "session_duration") {
+funcd.HasChanges("description", "relay_state", "session_duration") {
 input := &ssoadmin.UpdatePermissionSetInput{
 	InstanceArn:      aws.String(instanceARN),
 	PermissionSetArn: aws.String(permissionSetARN),
@@ -246,8 +237,7 @@ func resourcePermissionSetDelete(ctx context.Context, d *schema.ResourceData, me
 return sdkdiag.AppendFromErr(diags, err)
 	}
 
-	log.Printf("[INFO] Deleting SSO Permission Set: %s", d.Id())
-	_, err = conn.DeletePermissionSetWithContext(ctx, &ssoadmin.DeletePermissionSetInput{
+funcerr = conn.DeletePermissionSetWithContext(ctx, &ssoadmin.DeletePermissionSetInput{
 InstanceArn:      aws.String(instanceARN),
 PermissionSetArn: aws.String(permissionSetARN),
 	})
@@ -274,8 +264,7 @@ return "", "", fmt.Errorf("unexpected format for ID (%q), expected PERMISSION_SE
 
 
 func FindPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string) (*ssoadmin.PermissionSet, error) {
-	input := &ssoadmin.DescribePermissionSetInput{
-InstanceArn:      aws.String(instanceARN),
+funcanceArn:      aws.String(instanceARN),
 PermissionSetArn: aws.String(permissionSetARN),
 	}
 
@@ -284,8 +273,7 @@ PermissionSetArn: aws.String(permissionSetARN),
 	if tfawserr.ErrCodeEquals(err, ssoadmin.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
 	LastError:   err,
-	LastRequest: input,
-}
+func
 	}
 
 	if err != nil {
@@ -312,8 +300,7 @@ TargetType:       aws.String(ssoadmin.ProvisionTargetTypeAllProvisionedAccounts)
 	if err != nil {
 return fmt.Errorf("provisioning SSO Permission Set (%s): %w", permissionSetARN, err)
 	}
-
-	if _, err := waitPermissionSetProvisioned(ctx, conn, instanceARN, aws.StringValue(output.PermissionSetProvisioningStatus.RequestId), timeout); err != nil {
+func_, err := waitPermissionSetProvisioned(ctx, conn, instanceARN, aws.StringValue(output.PermissionSetProvisioningStatus.RequestId), timeout); err != nil {
 return fmt.Errorf("waiting for SSO Permission Set (%s) provision: %w", permissionSetARN, err)
 	}
 
@@ -334,8 +321,7 @@ return nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: input,
 }
-	}
-
+func
 	if err != nil {
 return nil, err
 	}
@@ -362,13 +348,10 @@ if err != nil {
 	return nil, "", err
 }
 
-return output, aws.StringValue(output.Status), nil
-	}
-}
+func
+func
 
-
-func waitPermissionSetProvisioned(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string, timeout time.Duration) (*ssoadmin.PermissionSetProvisioningStatus, error) {
-	stateConf := retry.StateChangeConf{
+functeConf := retry.StateChangeConf{
 Pending: []string{ssoadmin.StatusValuesInProgress},
 Target:  []string{ssoadmin.StatusValuesSucceeded},
 Refresh: statusPermissionSetProvisioning(ctx, conn, instanceARN, requestID),
@@ -384,5 +367,4 @@ tfresource.SetLastError(err, errors.New(aws.StringValue(output.FailureReason)))
 return output, err
 	}
 
-	return nil, err
-}
+func

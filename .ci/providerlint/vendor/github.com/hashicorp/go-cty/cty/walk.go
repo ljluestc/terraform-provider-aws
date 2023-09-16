@@ -1,25 +1,34 @@
 package cty
 
 // Walk visits all of the values in a possibly-complex structure, calling
-// a given function for each value.
+// a given 
+ for each value.
 //
 // For example, given a list of strings the callback would first be called
 // with the whole list and then called once for each element of the list.
 //
-// The callback function may prevent recursive visits to child values by
-// returning false. The callback function my halt the walk altogether by
+// The callback 
+ may prevent recursive visits to child values by
+// returning false. The callback 
+ my halt the walk altogether by
 // returning a non-nil error. If the returned error is about the element
 // currently being visited, it is recommended to use the provided path
 // value to produce a PathError describing that context.
 //
-// The path passed to the given function may not be used after that function
+// The path passed to the given 
+ may not be used after that 
+
 // returns, since its backing array is re-used for other calls.
-func Walk(val Value, cb func(Path, Value) (bool, error)) error {
+
+k(val Value, cb 
+h, Value) (bool, error)) error {
 	var path Path
 	return walk(path, val, cb)
 }
 
-func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
+
+k(path Path, val Value, cb 
+h, Value) (bool, error)) error {
 	deeper, err := cb(path, val)
 	if err != nil {
 		return err
@@ -62,7 +71,8 @@ func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
 }
 
 // Transform visits all of the values in a possibly-complex structure,
-// calling a given function for each value which has an opportunity to
+// calling a given 
+ for each value which has an opportunity to
 // replace that value.
 //
 // Unlike Walk, Transform visits child nodes first, so for a list of strings
@@ -71,25 +81,36 @@ func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
 //
 // This is useful for creating the effect of being able to make deep mutations
 // to a value even though values are immutable. However, it's the responsibility
-// of the given function to preserve expected invariants, such as homogenity of
-// element types in collections; this function can panic if such invariants
+// of the given 
+ to preserve expected invariants, such as homogenity of
+// element types in collections; this 
+ can panic if such invariants
 // are violated, just as if new values were constructed directly using the
-// value constructor functions. An easy way to preserve invariants is to
-// ensure that the transform function never changes the value type.
+// value constructor 
+s. An easy way to preserve invariants is to
+// ensure that the transform 
+ never changes the value type.
 //
-// The callback function my halt the walk altogether by
+// The callback 
+ my halt the walk altogether by
 // returning a non-nil error. If the returned error is about the element
 // currently being visited, it is recommended to use the provided path
 // value to produce a PathError describing that context.
 //
-// The path passed to the given function may not be used after that function
+// The path passed to the given 
+ may not be used after that 
+
 // returns, since its backing array is re-used for other calls.
-func Transform(val Value, cb func(Path, Value) (Value, error)) (Value, error) {
+
+nsform(val Value, cb 
+h, Value) (Value, error)) (Value, error) {
 	var path Path
 	return transform(path, val, cb)
 }
 
-func transform(path Path, val Value, cb func(Path, Value) (Value, error)) (Value, error) {
+
+nsform(path Path, val Value, cb 
+h, Value) (Value, error)) (Value, error) {
 	ty := val.Type()
 	var newVal Value
 

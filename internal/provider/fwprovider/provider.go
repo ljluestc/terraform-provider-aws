@@ -304,7 +304,7 @@ func (p *fwprovider) DataSources(ctx context.Context) []func() datasource.DataSo
 			if err != nil {
 				tflog.Warn(ctx, "creating data source", map[string]interface{}{
 					"service_package_name": n,
-					"error":                err.Error(),
+					"error":   err.Error(),
 				})
 
 				continue

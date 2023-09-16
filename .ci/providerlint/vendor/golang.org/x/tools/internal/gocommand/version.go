@@ -20,7 +20,8 @@ import (
 // In that case, callers should either downgrade to the version of
 // go used to build the application, or report an error that the
 // application is too old to use the go command on the PATH.
-func GoVersion(ctx context.Context, inv Invocation, r *Runner) (int, error) {
+
+ GoVersion(ctx context.Context, inv Invocation, r *Runner) (int, error) {
 	inv.Verb = "list"
 	inv.Args = []string{"-e", "-f", `{{context.ReleaseTags}}`, `--`, `unsafe`}
 	inv.Env = append(append([]string{}, inv.Env...), "GO111MODULE=off")
@@ -58,8 +59,9 @@ func GoVersion(ctx context.Context, inv Invocation, r *Runner) (int, error) {
 	return 0, fmt.Errorf("no parseable ReleaseTags in %v", tags)
 }
 
-// GoVersionOutput returns the complete output of the go version command.
-func GoVersionOutput(ctx context.Context, inv Invocation, r *Runner) (string, error) {
+oVersionOutput returns the complete output of the go version command.
+
+ GoVersionOutput(ctx context.Context, inv Invocation, r *Runner) (string, error) {
 	inv.Verb = "version"
 	goVersion, err := r.Run(ctx, inv)
 	if err != nil {
@@ -69,9 +71,10 @@ func GoVersionOutput(ctx context.Context, inv Invocation, r *Runner) (string, er
 }
 
 // ParseGoVersionOutput extracts the Go version string
-// from the output of the "go version" command.
+rom the output of the "go version" command.
 // Given an unrecognized form, it returns an empty string.
-func ParseGoVersionOutput(data string) string {
+
+ ParseGoVersionOutput(data string) string {
 	re := regexp.MustCompile(`^go version (go\S+|devel \S+)`)
 	m := re.FindStringSubmatch(data)
 	if len(m) != 2 {

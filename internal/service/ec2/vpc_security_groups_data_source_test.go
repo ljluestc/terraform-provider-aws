@@ -14,24 +14,21 @@ import (
 )
 
 
-func TestAccVPCSecurityGroupsDataSource_tag(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupsDataSourceConfig_tag(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "3"),
-	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "3"),
-	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "3"),
+funcource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "3"),
 ),
 	},
 },
@@ -42,24 +39,21 @@ func(
 func TestAccVPCSecurityGroupsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_security_groups.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCSecurityGroupsDataSourceConfig_filter(rName),
+funcig: testAccVPCSecurityGroupsDataSourceConfig_filter(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "1"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -70,7 +64,6 @@ func TestAccVPCSecurityGroupsDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -78,16 +71,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupsDataSourceConfig_empty(rName),
 Check: resource.ComposeTestCheck
-func(
-	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
+funcource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
 	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "0"),
 	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "0"),
 ),
 	},
 },
 	})
-}
-
+func
 
 func testAccVPCSecurityGroupsDataSourceConfig_tag(rName string) string {
 	return fmt.Sprintf(`
@@ -95,23 +86,22 @@ resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_security_group" "test" {
+funcurce "aws_security_group" "test" {
   count  = 3
   vpc_id = aws_vpc.test.id
-  name   = "%[1]s-${count.index}"
+  name%[1]s-${count.index}"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_security_groups" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   depends_on = [aws_security_group.test[0], aws_security_group.test[1], aws_security_group.test[2]]
@@ -126,28 +116,27 @@ resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  name   = %[1]q
+funcc_id = aws_vpc.test.id
+  name[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_security_groups" "test" {
   filter {
-    name   = "vpc-id"
-    values = [aws_vpc.test.id]
+me= "-id"
+lues = [aws_vpc.test.id]
   }
 
   filter {
-    name   = "group-name"
-    values = [aws_security_group.test.name]
+me= "up-name"
+lues = [aws_security_group.test.name]
   }
 }
 `, rName)
@@ -158,8 +147,9 @@ func testAccVPCSecurityGroupsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_security_groups" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
 }
+func

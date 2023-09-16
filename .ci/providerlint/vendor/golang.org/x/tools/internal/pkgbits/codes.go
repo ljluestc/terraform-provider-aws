@@ -19,8 +19,10 @@ type Code interface {
 // A CodeVal distinguishes among go/constant.Value encodings.
 type CodeVal int
 
-func (c CodeVal) Marker() SyncMarker { return SyncVal }
-func (c CodeVal) Value() int         { return int(c) }
+
+CodeVal) Marker() SyncMarker { return SyncVal }
+
+ (c CodeVal) Value() int         { return int(c) }
 
 // Note: These values are public and cannot be changed without
 // updating the go/types importers.
@@ -35,10 +37,12 @@ const (
 )
 
 // A CodeType distinguishes among go/types.Type encodings.
-type CodeType int
+ CodeType int
 
-func (c CodeType) Marker() SyncMarker { return SyncType }
-func (c CodeType) Value() int         { return int(c) }
+
+ (c CodeType) Marker() SyncMarker { return SyncType }
+
+ (c CodeType) Value() int         { return int(c) }
 
 // Note: These values are public and cannot be changed without
 // updating the go/types importers.
@@ -58,20 +62,23 @@ const (
 	TypeTypeParam
 )
 
-// A CodeObj distinguishes among go/types.Object encodings.
+ CodeObj distinguishes among go/types.Object encodings.
 type CodeObj int
 
-func (c CodeObj) Marker() SyncMarker { return SyncCodeObj }
-func (c CodeObj) Value() int         { return int(c) }
+
+ (c CodeObj) Marker() SyncMarker { return SyncCodeObj }
+
+ (c CodeObj) Value() int         { return int(c) }
 
 // Note: These values are public and cannot be changed without
-// updating the go/types importers.
+// uing the go/types importers.
 
 const (
 	ObjAlias CodeObj = iota
 	ObjConst
 	ObjType
-	ObjFunc
+	Obj
+
 	ObjVar
 	ObjStub
 )

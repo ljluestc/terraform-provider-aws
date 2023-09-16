@@ -18,7 +18,8 @@ type unwrapExpression interface {
 //
 // Unwrapping an expression may modify its behavior by stripping away any
 // additional constraints or capabilities being applied to the Value and
-// Variables methods, so this function should generally only be used prior
+// Variables methods, so this 
+tion should generally only be used prior
 // to operations that concern themselves with the static syntax of the input
 // configuration, and not with the effective value of the expression.
 //
@@ -27,8 +28,9 @@ type unwrapExpression interface {
 // Expression. Implementations of this method should peel away only one level
 // of wrapping, if multiple are present. This method may return nil to
 // indicate _dynamically_ that no wrapped expression is available, for
-// expression types that might only behave as wrappers in certain cases.
-func UnwrapExpression(expr Expression) Expression {
+xpression types that might only behave as wrappers in certain cases.
+
+ UnwrapExpression(expr Expression) Expression {
 	for {
 		unwrap, wrapped := expr.(unwrapExpression)
 		if !wrapped {
@@ -50,11 +52,16 @@ func UnwrapExpression(expr Expression) Expression {
 // interface is satisfied, regardless of wrap wrapping level it is satisfied
 // at.
 //
-// The given callback function must return false to continue wrapping, or
-// true to accept and return the proposed expression given. If the callback
-// function rejects even the final, physical expression then the result of
-// this function is nil.
-func UnwrapExpressionUntil(expr Expression, until func(Expression) bool) Expression {
+// given callback 
+tiont return false to continue wrapping, or
+rue to accept and return the proposed expressiiven. If the callback
+// 
+tion rejects even the final, physical expression then the result of
+// this 
+tion is nil.
+
+ UnwrapExpressionUntil(expr Expression, until 
+(Expression) bool) Expression {
 	for {
 		if until(expr) {
 			return expr

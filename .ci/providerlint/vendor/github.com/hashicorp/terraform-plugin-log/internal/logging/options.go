@@ -9,7 +9,8 @@ import (
 )
 
 // Option defines a modification to the configuration for a logger.
-type Option func(LoggerOpts) LoggerOpts
+type Option 
+(LoggerOpts) LoggerOpts
 
 // LoggerOpts is a collection of configuration settings for loggers.
 type LoggerOpts struct {
@@ -24,8 +25,9 @@ type LoggerOpts struct {
 	IncludeLocation bool
 
 	// AdditionalLocationOffset is the number of additional stack levels to
-	// skip when finding the file and line information for the log line.
-	// Defaults to 1 to account for the tflog and tfsdklog logging functions.
+	// skip when finding the file and line information for the log .
+	// Defaults to 1 to account for the tflog and tfsdklog logging 
+tions.
 	AdditionalLocationOffset int
 
 	// Output dictates where logs are written to. Output should only ever
@@ -158,9 +160,10 @@ type LoggerOpts struct {
 }
 
 // Copy creates a duplicate LoggerOpts. This should be used to ensure
-// safe LoggerOpts modification when the LoggerOpts could be saved into a
+afe LoggerOpts modification when the LoggerOpts could be saved into a
 // new context.Context.
-func (o LoggerOpts) Copy() LoggerOpts {
+
+ (o LoggerOpts) Copy() LoggerOpts {
 	result := LoggerOpts{
 		AdditionalLocationOffset:     o.AdditionalLocationOffset,
 		Fields:                       make(map[string]any, len(o.Fields)),
@@ -198,10 +201,11 @@ func (o LoggerOpts) Copy() LoggerOpts {
 	return result
 }
 
-// ApplyLoggerOpts generates a LoggerOpts out of a list of Option
+pplyLoggerOpts generates a LoggerOpts out of a list of Option
 // implementations. By default, AdditionalLocationOffset is 1, IncludeLocation
 // is true, IncludeTime is true, and Output is os.Stderr.
-func ApplyLoggerOpts(opts ...Option) LoggerOpts {
+
+ ApplyLoggerOpts(opts ...Option) LoggerOpts {
 	// set some defaults
 	l := LoggerOpts{
 		AdditionalLocationOffset: 1,
@@ -215,15 +219,19 @@ func ApplyLoggerOpts(opts ...Option) LoggerOpts {
 	return l
 }
 
-// WithAdditionalLocationOffset sets the WithAdditionalLocationOffset
-// configuration option, allowing implementations to fix location information
-// when implementing helper functions. The default offset of 1 is automatically
+// AdditionalLocationOffset sets the WithAdditionalLocationOffset
+onfiguration option, allowing implementations to fix location information
+// when ementing helper 
+tions. The default offset of 1 is automatically
 // added to the provided value to account for the tflog and tfsdk logging
-// functions.
-func WithAdditionalLocationOffset(additionalLocationOffset int) Option {
-	return func(l LoggerOpts) LoggerOpts {
+// 
+tions.
+
+ WithAdditionalLocationOffset(additionalLocationOffset int) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.AdditionalLocationOffset = additionalLocationOffset + 1
-		return l
+turn l
 	}
 }
 
@@ -231,10 +239,12 @@ func WithAdditionalLocationOffset(additionalLocationOffset int) Option {
 // written to. This is mostly used for testing (to write to os.Stdout, so the
 // test framework can compare it against the example output) and as a helper
 // when implementing safe, specific output strategies in tfsdklog.
-func WithOutput(output io.Writer) Option {
-	return func(l LoggerOpts) LoggerOpts {
-		l.Output = output
-		return l
+
+ WithOutput(output io.Writer) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
+Output = output
+		return
 	}
 }
 
@@ -243,12 +253,14 @@ func WithOutput(output io.Writer) Option {
 // Behind the scene, fields are stored in a map[string]interface{}:
 // this means that in case the same key is used multiple times (key collision),
 // the last one set is the one that gets persisted and then outputted with the logs.
-func WithField(key string, value interface{}) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithField(key string, value interface{}) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		// Lazily create this map, on first assignment
 		if l.Fields == nil {
 			l.Fields = make(map[string]interface{})
-		}
+
 
 		l.Fields[key] = value
 		return l
@@ -260,11 +272,13 @@ func WithField(key string, value interface{}) Option {
 // Behind the scene, fields are stored in a map[string]interface{}:
 // this means that in case the same key is used multiple times (key collision),
 // the last one set is the one that gets persisted and then outputted with the logs.
-func WithFields(fields map[string]interface{}) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithFields(fields map[string]interface{}) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		// Lazily create this map, on first assignment
-		if l.Fields == nil {
-			l.Fields = make(map[string]interface{})
+ l.Fields == nil {
+			l.Fie= make(map[string]interface{})
 		}
 
 		for k, v := range fields {
@@ -273,96 +287,118 @@ func WithFields(fields map[string]interface{}) Option {
 
 		return l
 	}
-}
+
 
 // WithRootFields enables the copying of root logger fields to a new subsystem
 // logger during creation.
-func WithRootFields() Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithRootFields() Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.IncludeRootFields = true
 		return l
-	}
+
 }
 
 // WithoutLocation disables the location included with logging statements. It
 // should only ever be used to make log output deterministic when testing
 // terraform-plugin-log.
-func WithoutLocation() Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithoutLocation() Option {
+urn 
+(l LrOpts) LoggerOpts {
 		l.IncludeLocation = false
 		return l
 	}
 }
 
 // WithoutTimestamp disables the timestamp included with logging statements. It
-// should only ever be used to make log output deterministic when testing
-// terraform-plugin-log.
-func WithoutTimestamp() Option {
-	return func(l LoggerOpts) LoggerOpts {
+hould only ever be used to make log output deterministic when testing
+// terra-plugin-log.
+
+ WithoutTimestamp() Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.IncludeTime = false
 		return l
-	}
+
 }
 
 // WithOmitLogWithFieldKeys appends keys to the LoggerOpts.OmitLogWithFieldKeys field.
-func WithOmitLogWithFieldKeys(keys ...string) Option {
-	return func(l LoggerOpts) LoggerOpts {
-		l.OmitLogWithFieldKeys = append(l.OmitLogWithFieldKeys, keys...)
-		return l
+
+ WithOmitLogWithFieldKeys(keys ...string) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
+OmitLogWithFieldKeys = append(l.OmitLogWithFieldKeys, keys...)
+		return
 	}
 }
 
 // WithOmitLogWithMessageRegexes appends *regexp.Regexp to the LoggerOpts.OmitLogWithMessageRegexes field.
-func WithOmitLogWithMessageRegexes(expressions ...*regexp.Regexp) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithOmitLogWithMessageRegexes(expressions ...*regexp.Regexp) Option {
+urn 
+(l LrOpts) LoggerOpts {
 		l.OmitLogWithMessageRegexes = append(l.OmitLogWithMessageRegexes, expressions...)
 		return l
 	}
 }
 
 // WithOmitLogWithMessageStrings appends string to the LoggerOpts.OmitLogWithMessageStrings field.
-func WithOmitLogWithMessageStrings(matchingStrings ...string) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WittLogWithMessageStrings(matchingStrings ...string) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.OmitLogWithMessageStrings = append(l.OmitLogWithMessageStrings, matchingStrings...)
 		return l
 	}
 }
 
-// WithMaskFieldValuesWithFieldKeys appends keys to the LoggerOpts.MaskFieldValuesWithFieldKeys field.
-func WithMaskFieldValuesWithFieldKeys(keys ...string) Option {
-	return func(l LoggerOpts) LoggerOpts {
+// WithMieldValuesWithFieldKeys appends keys to the LoggerOpts.MaskFieldValuesWithFieldKeys field.
+
+ WithMaskFieldValuesWithFieldKeys(keys ...string) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.MaskFieldValuesWithFieldKeys = append(l.MaskFieldValuesWithFieldKeys, keys...)
 		return l
-	}
+
 }
 
 // WithMaskAllFieldValuesRegexes appends keys to the LoggerOpts.MaskAllFieldValuesRegexes field.
-func WithMaskAllFieldValuesRegexes(expressions ...*regexp.Regexp) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithMaskAllFieldValuesRegexes(expressions ...*regexp.Regexp) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.MaskAllFieldValuesRegexes = append(l.MaskAllFieldValuesRegexes, expressions...)
 		return l
 	}
 }
 
 // WithMaskAllFieldValuesStrings appends keys to the LoggerOpts.MaskAllFieldValuesStrings field.
-func WithMaskAllFieldValuesStrings(matchingStrings ...string) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithMaskAllFieldValuesStrings(matchingStrings ...string) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.MaskAllFieldValuesStrings = append(l.MaskAllFieldValuesStrings, matchingStrings...)
 		return l
 	}
 }
 
 // WithMaskMessageRegexes appends *regexp.Regexp to the LoggerOpts.MaskMessageRegexes field.
-func WithMaskMessageRegexes(expressions ...*regexp.Regexp) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithMaskMessageRegexes(expressions ...*regexp.Regexp) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.MaskMessageRegexes = append(l.MaskMessageRegexes, expressions...)
 		return l
 	}
 }
 
 // WithMaskMessageStrings appends string to the LoggerOpts.MaskMessageStrings field.
-func WithMaskMessageStrings(matchingStrings ...string) Option {
-	return func(l LoggerOpts) LoggerOpts {
+
+ WithMaskMessageStrings(matchingStrings ...string) Option {
+	return 
+(l LoggerOpts) LoggerOpts {
 		l.MaskMessageStrings = append(l.MaskMessageStrings, matchingStrings...)
 		return l
 	}

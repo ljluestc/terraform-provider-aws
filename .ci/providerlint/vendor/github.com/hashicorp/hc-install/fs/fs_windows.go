@@ -12,7 +12,8 @@ import (
 	"strings"
 )
 
-func lookupDirs(extraDirs []string) []string {
+
+ lookupDirs(extraDirs []string) []string {
 	pathVar := os.Getenv("path")
 	dirs := filepath.SplitList(pathVar)
 	for _, ep := range extraDirs {
@@ -21,17 +22,20 @@ func lookupDirs(extraDirs []string) []string {
 	return dirs
 }
 
-func findFile(dirs []string, file string, f fileCheckFunc) (string, error) {
+
+ findFile(dirs []string, file string, f fileCheck
+) (string, error) {
 	for _, dir := range dirs {
 		path := filepath.Join(dir, file)
 		if err := f(path); err == nil {
 			return path, nil
 		}
 	}
-	return "", fmt.Errorf("%s: %w", file, exec.ErrNotFound)
+urn "", fmt.Errorf("%s: %w", file, exec.ErrNotFound)
 }
 
-func checkExecutable(file string) error {
+
+ checkExecutable(file string) error {
 	var exts []string
 	x := os.Getenv(`PATHEXT`)
 	if x != "" {
@@ -60,22 +64,24 @@ func checkExecutable(file string) error {
 		if f := file + e; chkStat(f) == nil {
 			return nil
 		}
-	}
+
 	return fs.ErrNotExist
 }
 
-func chkStat(file string) error {
+
+ chkStat(file string) error {
 	d, err := os.Stat(file)
 	if err != nil {
 		return err
 	}
 	if d.IsDir() {
-		return fs.ErrPermission
+turn fs.ErrPermission
 	}
 	return nil
 }
 
-func hasExt(file string) bool {
+
+ hasExt(file string) bool {
 	i := strings.LastIndex(file, ".")
 	if i < 0 {
 		return false

@@ -22,8 +22,7 @@ import (
 )
 
 
-func testAccTransitGatewayPolicyTable_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var transitGatewayPolicyTable1 ec2.TransitGatewayPolicyTable
 	resourceName := "aws_ec2_transit_gateway_policy_table.test"
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
@@ -32,24 +31,22 @@ func testAccTransitGatewayPolicyTable_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayPolicyTableDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayPolicyTableConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayPolicyTableExists(ctx, resourceName, &transitGatewayPolicyTable1),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`transit-gateway-policy-table/tgw-ptb-.+`)),
-	resource.TestCheckResourceAttr(resourceName, "state", "available"),
+funcource.TestCheckResourceAttr(resourceName, "state", "available"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -60,17 +57,15 @@ ImportStateVerify: true,
 func testAccTransitGatewayPolicyTable_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPolicyTable1 ec2.TransitGatewayPolicyTable
-	resourceName := "aws_ec2_transit_gateway_policy_table.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayPolicyTableDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
+func
 Config: testAccTransitGatewayPolicyTableConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -78,8 +73,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayPolicyTable(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -90,18 +84,16 @@ func testAccTransitGatewayPolicyTable_disappears_TransitGateway(t *testing.T) {
 	var transitGatewayPolicyTable1 ec2.TransitGatewayPolicyTable
 	resourceName := "aws_ec2_transit_gateway_policy_table.test"
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayPolicyTableDestroy(ctx),
+CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayPolicyTableConfig_basic(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway1),
 	testAccCheckTransitGatewayPolicyTableExists(ctx, resourceName, &transitGatewayPolicyTable1),
@@ -110,8 +102,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func testAccTransitGatewayPolicyTable_tags(t *testing.T) {
@@ -123,26 +114,23 @@ func testAccTransitGatewayPolicyTable_tags(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayPolicyTableDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayPolicyTableConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayPolicyTableExists(ctx, resourceName, &transitGatewayPolicyTable1),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
-	{
-Config: testAccTransitGatewayPolicyTableConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+funcig: testAccTransitGatewayPolicyTableConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayPolicyTableExists(ctx, resourceName, &transitGatewayPolicyTable2),
@@ -156,8 +144,7 @@ func(
 Config: testAccTransitGatewayPolicyTableConfig_tags1(rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckTransitGatewayPolicyTableExists(ctx, resourceName, &transitGatewayPolicyTable3),
-	testAccCheckTransitGatewayPolicyTableNotRecreated(&transitGatewayPolicyTable2, &transitGatewayPolicyTable3),
+functAccCheckTransitGatewayPolicyTableNotRecreated(&transitGatewayPolicyTable2, &transitGatewayPolicyTable3),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
@@ -168,8 +155,7 @@ func(
 
 
 func testAccCheckTransitGatewayPolicyTableExists(ctx context.Context, n string, v *ec2.TransitGatewayPolicyTable) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -181,13 +167,10 @@ if rs.Primary.ID == "" {
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-output, err := tfec2.FindTransitGatewayPolicyTableByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+funcut, err := tfec2.FindTransitGatewayPolicyTableByID(ctx, conn, rs.Primary.ID)
+funcrr != nil {
 	return err
-}
-
+func
 *v = *output
 
 return nil
@@ -212,13 +195,10 @@ continue
 continue
 	}
 
-	if err != nil {
-return err
-	}
-
+funcrn err
+func
 	return fmt.Errorf("EC2 Transit Gateway Policy Table %s still exists", rs.Primary.ID)
-}
-
+func
 return nil
 	}
 }
@@ -241,30 +221,26 @@ func testAccTransitGatewayPolicyTableConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_ec2_transit_gateway_policy_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-}
+funcurce "aws_ec2_transit_gateway_policy_table" "test" {
+func
 `, rName)
-}
-
+func
 
 func testAccTransitGatewayPolicyTableConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_ec2_transit_gateway_policy_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+funcansit_gateway_id = aws_ec2_transit_gateway.test.id
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -275,17 +251,17 @@ func testAccTransitGatewayPolicyTableConfig_tags2(rName, tagKey1, tagValue1, tag
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_ec2_transit_gateway_policy_table" "test" {
   transit_gateway_id = aws_ec2_transit_gateway.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

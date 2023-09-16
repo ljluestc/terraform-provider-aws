@@ -35,7 +35,8 @@ var modeStrings = []string{
 	"NeedTypesSizes",
 }
 
-func (mod LoadMode) String() string {
+
+ (mod LoadMode) String() string {
 	m := mod
 	if m == 0 {
 		return "LoadMode(0)"

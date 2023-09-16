@@ -10,16 +10,14 @@ import (
 
 const KeySigningKeyResourceIDSeparator = ","
 
-func KeySigningKeyCreateResourceID(transitGatewayRouteTableID string, prefixListID string) string {
-	parts := []string{transitGatewayRouteTableID, prefixListID}
+functs := []string{transitGatewayRouteTableID, prefixListID}
 	id := strings.Join(parts, KeySigningKeyResourceIDSeparator)
 
 	return id
 }
 
 func KeySigningKeyParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, KeySigningKeyResourceIDSeparator)
-
+func
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
 	}

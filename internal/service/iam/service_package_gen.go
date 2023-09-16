@@ -13,20 +13,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-type servicePackage struct{}
-
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
-}
-
-func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
-
-func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
+type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
+}func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
+	funcc (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceAccessKeys,
+	funcactory:  DataSourceAccessKeys,
 			TypeName: "aws_iam_access_keys",
 		},
 		{
@@ -94,13 +85,10 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 			TypeName: "aws_iam_users",
 		},
 	}
-}
-
-func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
+}func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceAccessKey,
-			TypeName: "aws_iam_access_key",
+	funcypeName: "aws_iam_access_key",
 		},
 		{
 			Factory:  ResourceAccountAlias,
@@ -226,19 +214,14 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 			Tags:     &types.ServicePackageResourceTags{},
 		},
 	}
-}
-
-func (p *servicePackage) ServicePackageName() string {
+}func (p *servicePackage) ServicePackageName() string {
 	return names.IAM
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*iam_sdkv1.IAM, error) {
-	sess := config["session"].(*session_sdkv1.Session)
+/funcs := config["session"].(*session_sdkv1.Session)
 
 	return iam_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
-}
-
-func ServicePackage(ctx context.Context) conns.ServicePackage {
+}func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

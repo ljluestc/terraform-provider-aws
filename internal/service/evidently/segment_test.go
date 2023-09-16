@@ -31,9 +31,9 @@ func TestAccEvidentlySegment_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSegmentDestroy(ctx),
+		CheckDestroy:testAccCheckSegmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSegmentConfig_basic(rName, pattern),
@@ -71,9 +71,9 @@ func TestAccEvidentlySegment_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSegmentDestroy(ctx),
+		CheckDestroy:testAccCheckSegmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSegmentConfig_description(rName, description),
@@ -104,9 +104,9 @@ func TestAccEvidentlySegment_patternJSON(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSegmentDestroy(ctx),
+		CheckDestroy:testAccCheckSegmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSegmentConfig_patternJSON(rName),
@@ -136,9 +136,9 @@ func TestAccEvidentlySegment_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSegmentDestroy(ctx),
+		CheckDestroy:testAccCheckSegmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSegmentConfig_tags1(rName, "key1", "value1"),
@@ -188,10 +188,10 @@ func TestAccEvidentlySegment_disappears(t *testing.T) {
 	resourceName := "aws_evidently_segment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSegmentDestroy(ctx),
+		CheckDestroy:testAccCheckSegmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSegmentConfig_basic(rName, pattern),

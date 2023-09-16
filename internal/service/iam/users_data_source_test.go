@@ -12,10 +12,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMUsersDataSource_nameRegex(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	dataSourceName := "data.aws_iam_users.test"
 	rCount := strconv.Itoa(sdkacctest.RandIntRange(1, 4))
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -34,11 +31,8 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMUsersDataSource_pathPrefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iam_users.test"
+}func TestAccIAMUsersDataSource_pathPrefix(t *testing.T) {
+	funcaSourceName := "data.aws_iam_users.test"
 	rCount := strconv.Itoa(sdkacctest.RandIntRange(1, 4))
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rPathPrefix := sdkacctest.RandomWithPrefix("tf-acc-path")
@@ -57,12 +51,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMUsersDataSource_nonExistentNameRegex(t *testing.T) {
+}func TestAccIAMUsersDataSource_nonExistentNameRegex(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iam_users.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
@@ -77,13 +68,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMUsersDataSource_nonExistentPathPrefix(t *testing.T) {
+}func TestAccIAMUsersDataSource_nonExistentPathPrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_iam_users.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,14 +85,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccUsersDataSourceConfig_nameRegex(rCount, rName string) string {
+}func testAccUsersDataSourceConfig_nameRegex(rCount, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   count = %[1]s
-  name  = "%[2]s-${count.index}-user"
-
+ func
   tags = {
     Seed = %[2]q
   }
@@ -114,15 +99,12 @@ data "aws_iam_users" "test" {
   name_regex = "${aws_iam_user.test[0].tags["Seed"]}-.*-user"
 }
 `, rCount, rName)
-}
-
-func testAccUsersDataSourceConfig_pathPrefix(rCount, rName, rPathPrefix string) string {
+}func testAccUsersDataSourceConfig_pathPrefix(rCount, rName, rPathPrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   count = %[1]s
   name  = "%[2]s-${count.index}-user"
-  path  = "/%[3]s/"
-}
+ func
 
 data "aws_iam_users" "test" {
   path_prefix = aws_iam_user.test[0].path

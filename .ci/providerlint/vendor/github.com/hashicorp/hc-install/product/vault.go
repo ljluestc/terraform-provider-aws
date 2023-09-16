@@ -21,13 +21,15 @@ var (
 
 var Vault = Product{
 	Name: "vault",
-	BinaryName: func() string {
+	BinaryName: 
+() string {
 		if runtime.GOOS == "windows" {
 			return "vault.exe"
 		}
 		return "vault"
 	},
-	GetVersion: func(ctx context.Context, path string) (*version.Version, error) {
+	GetVersion: 
+(ctx context.Context, path string) (*version.Version, error) {
 		cmd := exec.CommandContext(ctx, path, "version")
 
 		out, err := cmd.Output()

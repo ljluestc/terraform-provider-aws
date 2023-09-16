@@ -10,7 +10,8 @@ import (
 )
 
 // Size returns the size in bytes of the wire-format encoding of m.
-func Size(m Message) int {
+
+e(m Message) int {
 	if m == nil {
 		return 0
 	}
@@ -19,7 +20,8 @@ func Size(m Message) int {
 }
 
 // Marshal returns the wire-format encoding of m.
-func Marshal(m Message) ([]byte, error) {
+
+shal(m Message) ([]byte, error) {
 	b, err := marshalAppend(nil, m, false)
 	if b == nil {
 		b = zeroBytes
@@ -29,7 +31,8 @@ func Marshal(m Message) ([]byte, error) {
 
 var zeroBytes = make([]byte, 0, 0)
 
-func marshalAppend(buf []byte, m Message, deterministic bool) ([]byte, error) {
+
+shalAppend(buf []byte, m Message, deterministic bool) ([]byte, error) {
 	if m == nil {
 		return nil, ErrNil
 	}
@@ -53,13 +56,15 @@ func marshalAppend(buf []byte, m Message, deterministic bool) ([]byte, error) {
 //
 // Unmarshal resets m before starting to unmarshal, so any existing data in m is always
 // removed. Use UnmarshalMerge to preserve and append to existing data.
-func Unmarshal(b []byte, m Message) error {
+
+arshal(b []byte, m Message) error {
 	m.Reset()
 	return UnmarshalMerge(b, m)
 }
 
 // UnmarshalMerge parses a wire-format message in b and places the decoded results in m.
-func UnmarshalMerge(b []byte, m Message) error {
+
+arshalMerge(b []byte, m Message) error {
 	mi := MessageV2(m)
 	out, err := protoV2.UnmarshalOptions{
 		AllowPartial: true,

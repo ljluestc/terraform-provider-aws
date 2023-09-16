@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_route53recoverycontrolconfig_cluster", &resource.Sweeper{
 		Name: "aws_route53recoverycontrolconfig_cluster",
@@ -46,6 +47,7 @@ func init() {
 	})
 }
 
+
 func sweepClusters(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -56,7 +58,8 @@ func sweepClusters(region string) error {
 	input := &r53rcc.ListClustersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListClustersPagesWithContext(ctx, input, func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
+	err = conn.ListClustersPagesWithContext(ctx, input, 
+func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -90,6 +93,7 @@ func sweepClusters(region string) error {
 	return nil
 }
 
+
 func sweepControlPanels(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -101,7 +105,8 @@ func sweepControlPanels(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListClustersPagesWithContext(ctx, input, func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
+	err = conn.ListClustersPagesWithContext(ctx, input, 
+func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -111,7 +116,8 @@ func sweepControlPanels(region string) error {
 				ClusterArn: v.ClusterArn,
 			}
 
-			err := conn.ListControlPanelsPagesWithContext(ctx, input, func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
+			err := conn.ListControlPanelsPagesWithContext(ctx, input, 
+func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -161,6 +167,7 @@ func sweepControlPanels(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepRoutingControls(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -172,7 +179,8 @@ func sweepRoutingControls(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListClustersPagesWithContext(ctx, input, func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
+	err = conn.ListClustersPagesWithContext(ctx, input, 
+func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -182,7 +190,8 @@ func sweepRoutingControls(region string) error {
 				ClusterArn: v.ClusterArn,
 			}
 
-			err := conn.ListControlPanelsPagesWithContext(ctx, input, func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
+			err := conn.ListControlPanelsPagesWithContext(ctx, input, 
+func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -192,7 +201,8 @@ func sweepRoutingControls(region string) error {
 						ControlPanelArn: v.ControlPanelArn,
 					}
 
-					err := conn.ListRoutingControlsPagesWithContext(ctx, input, func(page *r53rcc.ListRoutingControlsOutput, lastPage bool) bool {
+					err := conn.ListRoutingControlsPagesWithContext(ctx, input, 
+func(page *r53rcc.ListRoutingControlsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
 						}
@@ -250,6 +260,7 @@ func sweepRoutingControls(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepSafetyRules(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -261,7 +272,8 @@ func sweepSafetyRules(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListClustersPagesWithContext(ctx, input, func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
+	err = conn.ListClustersPagesWithContext(ctx, input, 
+func(page *r53rcc.ListClustersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -271,7 +283,8 @@ func sweepSafetyRules(region string) error {
 				ClusterArn: v.ClusterArn,
 			}
 
-			err := conn.ListControlPanelsPagesWithContext(ctx, input, func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
+			err := conn.ListControlPanelsPagesWithContext(ctx, input, 
+func(page *r53rcc.ListControlPanelsOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -281,7 +294,8 @@ func sweepSafetyRules(region string) error {
 						ControlPanelArn: v.ControlPanelArn,
 					}
 
-					err := conn.ListSafetyRulesPagesWithContext(ctx, input, func(page *r53rcc.ListSafetyRulesOutput, lastPage bool) bool {
+					err := conn.ListSafetyRulesPagesWithContext(ctx, input, 
+func(page *r53rcc.ListSafetyRulesOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
 						}

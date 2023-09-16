@@ -26,9 +26,9 @@ func testAccOrganizationAdminAccount_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationAdminAccountDestroy(ctx),
+		CheckDestroy:izationAdminAccountDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationAdminAccountConfig_self(),
@@ -38,8 +38,8 @@ func testAccOrganizationAdminAccount_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},

@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_data_quality_job_definition", name="Data Quality Job Definition")
 // @Tags(identifierAttribute="arn")
-func ResourceDataQualityJobDefinition() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDataQualityJobDefinitionCreate,
-		ReadWithoutTimeout:   resourceDataQualityJobDefinitionRead,
+		ReadWithoutTimeout:ourceDataQualityJobDefinitionRead,
 		UpdateWithoutTimeout: resourceDataQualityJobDefinitionUpdate,
 		DeleteWithoutTimeout: resourceDataQualityJobDefinitionDelete,
 
@@ -40,31 +39,31 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"data_quality_app_specification": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"environment": {
-							Type:         schema.TypeMap,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeMap,
+							Optional:
+							ForceNew:
 							ValidateFunc: validEnvironment,
-							Elem:         &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 						"image_uri": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: validImage,
 						},
 						"post_analytics_processor_source_uri": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							ForceNew: true,
 							ValidateFunc: validation.All(
@@ -73,7 +72,7 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 							),
 						},
 						"record_preprocessor_source_uri": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							ForceNew: true,
 							ValidateFunc: validation.All(
@@ -85,21 +84,21 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"data_quality_baseline_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"constraints_resource": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -111,14 +110,14 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 							},
 						},
 						"statistics_resource": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -133,21 +132,21 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"data_quality_job_input": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"batch_transform_input": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"data_captured_destination_s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -156,21 +155,21 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 										),
 									},
 									"dataset_format": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Required: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"csv": {
-													Type:     schema.TypeList,
+													Type:a.TypeList,
 													MaxItems: 1,
 													Optional: true,
 													ForceNew: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"header": {
-																Type:     schema.TypeBool,
+																Type:a.TypeBool,
 																Optional: true,
 																ForceNew: true,
 															},
@@ -178,14 +177,14 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 													},
 												},
 												"json": {
-													Type:     schema.TypeList,
+													Type:a.TypeList,
 													MaxItems: 1,
 													Optional: true,
 													ForceNew: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"line": {
-																Type:     schema.TypeBool,
+																Type:a.TypeBool,
 																Optional: true,
 																ForceNew: true,
 															},
@@ -196,7 +195,7 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 										},
 									},
 									"local_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Default:  "/opt/ml/processing/input",
 										ForceNew: true,
@@ -206,37 +205,37 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 										),
 									},
 									"s3_data_distribution_type": {
-										Type:         schema.TypeString,
-										ForceNew:     true,
-										Optional:     true,
-										Computed:     true,
+										Type:chema.TypeString,
+										ForceNew:
+										Optional:
+										Computed:
 										ValidateFunc: validation.StringInSlice(sagemaker.ProcessingS3DataDistributionType_Values(), false),
 									},
 									"s3_input_mode": {
-										Type:         schema.TypeString,
-										ForceNew:     true,
-										Optional:     true,
-										Computed:     true,
+										Type:chema.TypeString,
+										ForceNew:
+										Optional:
+										Computed:
 										ValidateFunc: validation.StringInSlice(sagemaker.ProcessingS3InputMode_Values(), false),
 									},
 								},
 							},
 						},
 						"endpoint_input": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint_name": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: validName,
 									},
 									"local_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Default:  "/opt/ml/processing/input",
 										ForceNew: true,
@@ -246,17 +245,17 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 										),
 									},
 									"s3_data_distribution_type": {
-										Type:         schema.TypeString,
-										ForceNew:     true,
-										Optional:     true,
-										Computed:     true,
+										Type:chema.TypeString,
+										ForceNew:
+										Optional:
+										Computed:
 										ValidateFunc: validation.StringInSlice(sagemaker.ProcessingS3DataDistributionType_Values(), false),
 									},
 									"s3_input_mode": {
-										Type:         schema.TypeString,
-										ForceNew:     true,
-										Optional:     true,
-										Computed:     true,
+										Type:chema.TypeString,
+										ForceNew:
+										Optional:
+										Computed:
 										ValidateFunc: validation.StringInSlice(sagemaker.ProcessingS3InputMode_Values(), false),
 									},
 								},
@@ -266,34 +265,34 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"data_quality_job_output_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 						"monitoring_outputs": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"s3_output": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										MaxItems: 1,
 										Required: true,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"local_path": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Optional: true,
 													Default:  "/opt/ml/processing/output",
 													ForceNew: true,
@@ -303,14 +302,14 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 													),
 												},
 												"s3_upload_mode": {
-													Type:         schema.TypeString,
-													ForceNew:     true,
-													Optional:     true,
-													Computed:     true,
+													Type:chema.TypeString,
+													ForceNew:
+													Optional:
+													Computed:
 													ValidateFunc: validation.StringInSlice(sagemaker.ProcessingS3UploadMode_Values(), false),
 												},
 												"s3_uri": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 													ForceNew: true,
 													ValidateFunc: validation.All(
@@ -328,41 +327,41 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"job_resources": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cluster_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"instance_count": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntAtLeast(1),
 									},
 									"instance_type": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.StringInSlice(sagemaker.ProcessingInstanceType_Values(), false),
 									},
 									"volume_kms_key_id": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Optional:
+										ForceNew:
 										ValidateFunc: verify.ValidARN,
 									},
 									"volume_size_in_gb": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 512),
 									},
 								},
@@ -372,51 +371,51 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ValidateFunc: validName,
 			},
 			"network_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enable_inter_container_traffic_encryption": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							ForceNew: true,
 						},
 						"enable_network_isolation": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							ForceNew: true,
 						},
 						"vpc_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"security_group_ids": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										MinItems: 1,
 										MaxItems: 5,
 										Required: true,
 										ForceNew: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:ma.Schema{Type: schema.TypeString},
 									},
 									"subnets": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										MinItems: 1,
 										MaxItems: 16,
 										Required: true,
 										ForceNew: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:ma.Schema{Type: schema.TypeString},
 									},
 								},
 							},
@@ -425,12 +424,12 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				},
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: verify.ValidARN,
 			},
 			"stopping_condition": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
@@ -438,16 +437,16 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"max_runtime_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Computed:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							Computed:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(1, 3600),
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -456,8 +455,7 @@ func ResourceDataQualityJobDefinition() *schema.Resource {
 }
 
 func resourceDataQualityJobDefinitionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	var name string
 	if v, ok := d.GetOk("name"); ok {
@@ -473,12 +471,12 @@ func resourceDataQualityJobDefinitionCreate(ctx context.Context, d *schema.Resou
 
 	createOpts := &sagemaker.CreateDataQualityJobDefinitionInput{
 		DataQualityAppSpecification: expandDataQualityAppSpecification(d.Get("data_quality_app_specification").([]interface{})),
-		DataQualityJobInput:         expandDataQualityJobInput(d.Get("data_quality_job_input").([]interface{})),
+		DataQualityJobInput:xpandDataQualityJobInput(d.Get("data_quality_job_input").([]interface{})),
 		DataQualityJobOutputConfig:  expandMonitoringOutputConfig(d.Get("data_quality_job_output_config").([]interface{})),
-		JobDefinitionName:           aws.String(name),
-		JobResources:                expandMonitoringResources(d.Get("job_resources").([]interface{})),
-		RoleArn:                     aws.String(roleArn),
-		Tags:                        getTagsIn(ctx),
+		JobDefinitionName:g(name),
+		JobResources:ngResources(d.Get("job_resources").([]interface{})),
+		RoleArn:,
+		Tags:
 	}
 
 	if v, ok := d.GetOk("data_quality_baseline_config"); ok && len(v.([]interface{})) > 0 {
@@ -506,8 +504,7 @@ func resourceDataQualityJobDefinitionCreate(ctx context.Context, d *schema.Resou
 
 func resourceDataQualityJobDefinitionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	jobDefinition, err := FindDataQualityJobDefinitionByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
@@ -558,8 +555,7 @@ func resourceDataQualityJobDefinitionRead(ctx context.Context, d *schema.Resourc
 func resourceDataQualityJobDefinitionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceDataQualityJobDefinitionRead(ctx, d, meta)...)
 }
 
@@ -567,8 +563,7 @@ func resourceDataQualityJobDefinitionDelete(ctx context.Context, d *schema.Resou
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	log.Printf("[INFO] Deleting SageMaker Data Quality Job Definition: %s", d.Id())
-	_, err := conn.DeleteDataQualityJobDefinitionWithContext(ctx, &sagemaker.DeleteDataQualityJobDefinitionInput{
+funcerr := conn.DeleteDataQualityJobDefinitionWithContext(ctx, &sagemaker.DeleteDataQualityJobDefinitionInput{
 		JobDefinitionName: aws.String(d.Id()),
 	})
 
@@ -588,11 +583,10 @@ func FindDataQualityJobDefinitionByName(ctx context.Context, conn *sagemaker.Sag
 		JobDefinitionName: aws.String(name),
 	}
 
-	output, err := conn.DescribeDataQualityJobDefinitionWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -614,8 +608,7 @@ func flattenDataQualityAppSpecification(config *sagemaker.DataQualityAppSpecific
 	}
 
 	m := map[string]interface{}{}
-
-	if config.ImageUri != nil {
+funcconfig.ImageUri != nil {
 		m["image_uri"] = aws.StringValue(config.ImageUri)
 	}
 
@@ -641,8 +634,7 @@ func flattenDataQualityBaselineConfig(config *sagemaker.DataQualityBaselineConfi
 
 	m := map[string]interface{}{}
 
-	if config.ConstraintsResource != nil {
-		m["constraints_resource"] = flattenConstraintsResource(config.ConstraintsResource)
+func"constraints_resource"] = flattenConstraintsResource(config.ConstraintsResource)
 	}
 
 	if config.StatisticsResource != nil {
@@ -660,8 +652,7 @@ func flattenConstraintsResource(config *sagemaker.MonitoringConstraintsResource)
 	m := map[string]interface{}{}
 
 	if config.S3Uri != nil {
-		m["s3_uri"] = aws.StringValue(config.S3Uri)
-	}
+func
 
 	return []map[string]interface{}{m}
 }
@@ -675,8 +666,7 @@ func flattenMonitoringStatisticsResource(config *sagemaker.MonitoringStatisticsR
 
 	if config.S3Uri != nil {
 		m["s3_uri"] = aws.StringValue(config.S3Uri)
-	}
-
+func
 	return []map[string]interface{}{m}
 }
 
@@ -690,8 +680,7 @@ func flattenDataQualityJobInput(config *sagemaker.DataQualityJobInput) []map[str
 	if config.EndpointInput != nil {
 		m["endpoint_input"] = flattenEndpointInput(config.EndpointInput)
 	}
-
-	if config.BatchTransformInput != nil {
+funcconfig.BatchTransformInput != nil {
 		m["batch_transform_input"] = flattenBatchTransformInput(config.BatchTransformInput)
 	}
 
@@ -709,8 +698,7 @@ func flattenBatchTransformInput(config *sagemaker.BatchTransformInput_) []map[st
 		m["local_path"] = aws.StringValue(config.LocalPath)
 	}
 
-	if config.DataCapturedDestinationS3Uri != nil {
-		m["data_captured_destination_s3_uri"] = aws.StringValue(config.DataCapturedDestinationS3Uri)
+func"data_captured_destination_s3_uri"] = aws.StringValue(config.DataCapturedDestinationS3Uri)
 	}
 
 	if config.DatasetFormat != nil {
@@ -740,8 +728,7 @@ func flattenMonitoringDatasetFormat(config *sagemaker.MonitoringDatasetFormat) [
 	}
 
 	if config.Json != nil {
-		m["json"] = flattenMonitoringJSONDatasetFormat(config.Json)
-	}
+func
 
 	return []map[string]interface{}{m}
 }
@@ -759,7 +746,6 @@ func flattenMonitoringCSVDatasetFormat(config *sagemaker.MonitoringCsvDatasetFor
 
 	return []map[string]interface{}{m}
 }
-
 func flattenMonitoringJSONDatasetFormat(config *sagemaker.MonitoringJsonDatasetFormat) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -774,8 +760,7 @@ func flattenMonitoringJSONDatasetFormat(config *sagemaker.MonitoringJsonDatasetF
 	return []map[string]interface{}{m}
 }
 
-func flattenEndpointInput(config *sagemaker.EndpointInput) []map[string]interface{} {
-	if config == nil {
+funcconfig == nil {
 		return []map[string]interface{}{}
 	}
 
@@ -789,8 +774,7 @@ func flattenEndpointInput(config *sagemaker.EndpointInput) []map[string]interfac
 		m["local_path"] = aws.StringValue(config.LocalPath)
 	}
 
-	if config.S3DataDistributionType != nil {
-		m["s3_data_distribution_type"] = aws.StringValue(config.S3DataDistributionType)
+func"s3_data_distribution_type"] = aws.StringValue(config.S3DataDistributionType)
 	}
 
 	if config.S3InputMode != nil {
@@ -816,8 +800,7 @@ func flattenMonitoringOutputConfig(config *sagemaker.MonitoringOutputConfig) []m
 	}
 
 	return []map[string]interface{}{m}
-}
-
+func
 func flattenMonitoringOutputs(list []*sagemaker.MonitoringOutput) []map[string]interface{} {
 	outputs := make([]map[string]interface{}, 0, len(list))
 
@@ -835,8 +818,7 @@ func flattenMonitoringS3Output(config *sagemaker.MonitoringS3Output) []map[strin
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{}
-
+func
 	if config.LocalPath != nil {
 		m["local_path"] = aws.StringValue(config.LocalPath)
 	}
@@ -848,8 +830,7 @@ func flattenMonitoringS3Output(config *sagemaker.MonitoringS3Output) []map[strin
 	if config.S3Uri != nil {
 		m["s3_uri"] = aws.StringValue(config.S3Uri)
 	}
-
-	return []map[string]interface{}{m}
+funcurn []map[string]interface{}{m}
 }
 
 func flattenMonitoringResources(config *sagemaker.MonitoringResources) []map[string]interface{} {
@@ -871,8 +852,7 @@ func flattenMonitoringClusterConfig(config *sagemaker.MonitoringClusterConfig) [
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{}
-
+func
 	if config.InstanceCount != nil {
 		m["instance_count"] = aws.Int64Value(config.InstanceCount)
 	}
@@ -886,8 +866,7 @@ func flattenMonitoringClusterConfig(config *sagemaker.MonitoringClusterConfig) [
 	}
 
 	if config.VolumeSizeInGB != nil {
-		m["volume_size_in_gb"] = aws.Int64Value(config.VolumeSizeInGB)
-	}
+func
 
 	return []map[string]interface{}{m}
 }
@@ -913,7 +892,6 @@ func flattenMonitoringNetworkConfig(config *sagemaker.MonitoringNetworkConfig) [
 
 	return []map[string]interface{}{m}
 }
-
 func flattenVPCConfig(config *sagemaker.VpcConfig) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -936,8 +914,7 @@ func flattenMonitoringStoppingCondition(config *sagemaker.MonitoringStoppingCond
 	if config == nil {
 		return []map[string]interface{}{}
 	}
-
-	m := map[string]interface{}{}
+func= map[string]interface{}{}
 
 	if config.MaxRuntimeInSeconds != nil {
 		m["max_runtime_in_seconds"] = aws.Int64Value(config.MaxRuntimeInSeconds)
@@ -955,8 +932,7 @@ func expandDataQualityAppSpecification(configured []interface{}) *sagemaker.Data
 
 	c := &sagemaker.DataQualityAppSpecification{}
 
-	if v, ok := m["image_uri"].(string); ok && v != "" {
-		c.ImageUri = aws.String(v)
+funcImageUri = aws.String(v)
 	}
 
 	if v, ok := m["environment"].(map[string]interface{}); ok && len(v) > 0 {
@@ -970,8 +946,7 @@ func expandDataQualityAppSpecification(configured []interface{}) *sagemaker.Data
 	if v, ok := m["record_preprocessor_source_uri"].(string); ok && v != "" {
 		c.RecordPreprocessorSourceUri = aws.String(v)
 	}
-
-	return c
+funcurn c
 }
 
 func expandDataQualityBaselineConfig(configured []interface{}) *sagemaker.DataQualityBaselineConfig {
@@ -999,8 +974,7 @@ func expandMonitoringConstraintsResource(configured []interface{}) *sagemaker.Mo
 		return nil
 	}
 
-	m := configured[0].(map[string]interface{})
-
+func
 	c := &sagemaker.MonitoringConstraintsResource{}
 
 	if v, ok := m["s3_uri"].(string); ok && v != "" {
@@ -1020,8 +994,7 @@ func expandMonitoringStatisticsResource(configured []interface{}) *sagemaker.Mon
 	c := &sagemaker.MonitoringStatisticsResource{}
 
 	if v, ok := m["s3_uri"].(string); ok && v != "" {
-		c.S3Uri = aws.String(v)
-	}
+func
 
 	return c
 }
@@ -1037,8 +1010,7 @@ func expandDataQualityJobInput(configured []interface{}) *sagemaker.DataQualityJ
 
 	if v, ok := m["endpoint_input"].([]interface{}); ok && len(v) > 0 {
 		c.EndpointInput = expandEndpointInput(v)
-	}
-
+func
 	if v, ok := m["batch_transform_input"].([]interface{}); ok && len(v) > 0 {
 		c.BatchTransformInput = expandBatchTransformInput(v)
 	}
@@ -1054,8 +1026,7 @@ func expandEndpointInput(configured []interface{}) *sagemaker.EndpointInput {
 	m := configured[0].(map[string]interface{})
 
 	c := &sagemaker.EndpointInput{}
-
-	if v, ok := m["endpoint_name"].(string); ok && v != "" {
+funcv, ok := m["endpoint_name"].(string); ok && v != "" {
 		c.EndpointName = aws.String(v)
 	}
 
@@ -1075,8 +1046,7 @@ func expandEndpointInput(configured []interface{}) *sagemaker.EndpointInput {
 }
 
 func expandBatchTransformInput(configured []interface{}) *sagemaker.BatchTransformInput_ {
-	if len(configured) == 0 {
-		return nil
+functurn nil
 	}
 
 	m := configured[0].(map[string]interface{})
@@ -1104,8 +1074,7 @@ func expandBatchTransformInput(configured []interface{}) *sagemaker.BatchTransfo
 	}
 
 	return c
-}
-
+func
 func expandMonitoringDatasetFormat(configured []interface{}) *sagemaker.MonitoringDatasetFormat {
 	if len(configured) == 0 {
 		return nil
@@ -1137,8 +1106,7 @@ func expandMonitoringJSONDatasetFormat(configured []interface{}) *sagemaker.Moni
 		return c
 	}
 
-	m := configured[0].(map[string]interface{})
-	if v, ok := m["line"]; ok {
+funcv, ok := m["line"]; ok {
 		c.Line = aws.Bool(v.(bool))
 	}
 
@@ -1158,8 +1126,7 @@ func expandMonitoringCSVDatasetFormat(configured []interface{}) *sagemaker.Monit
 
 	m := configured[0].(map[string]interface{})
 	if v, ok := m["header"]; ok {
-		c.Header = aws.Bool(v.(bool))
-	}
+func
 
 	return c
 }
@@ -1178,8 +1145,7 @@ func expandMonitoringOutputConfig(configured []interface{}) *sagemaker.Monitorin
 	}
 
 	if v, ok := m["monitoring_outputs"].([]interface{}); ok && len(v) > 0 {
-		c.MonitoringOutputs = expandMonitoringOutputs(v)
-	}
+func
 
 	return c
 }
@@ -1198,7 +1164,6 @@ func expandMonitoringOutputs(configured []interface{}) []*sagemaker.MonitoringOu
 
 	return containers
 }
-
 func expandMonitoringS3Output(configured []interface{}) *sagemaker.MonitoringS3Output {
 	if len(configured) == 0 {
 		return nil
@@ -1219,8 +1184,7 @@ func expandMonitoringS3Output(configured []interface{}) *sagemaker.MonitoringS3O
 	if v, ok := m["s3_uri"].(string); ok && v != "" {
 		c.S3Uri = aws.String(v)
 	}
-
-	return c
+funcurn c
 }
 
 func expandMonitoringResources(configured []interface{}) *sagemaker.MonitoringResources {
@@ -1235,8 +1199,7 @@ func expandMonitoringResources(configured []interface{}) *sagemaker.MonitoringRe
 	if v, ok := m["cluster_config"].([]interface{}); ok && len(v) > 0 {
 		c.ClusterConfig = expandMonitoringClusterConfig(v)
 	}
-
-	return c
+funcurn c
 }
 
 func expandMonitoringClusterConfig(configured []interface{}) *sagemaker.MonitoringClusterConfig {
@@ -1260,8 +1223,7 @@ func expandMonitoringClusterConfig(configured []interface{}) *sagemaker.Monitori
 		c.VolumeKmsKeyId = aws.String(v)
 	}
 
-	if v, ok := m["volume_size_in_gb"].(int); ok && v > 0 {
-		c.VolumeSizeInGB = aws.Int64(int64(v))
+funcVolumeSizeInGB = aws.Int64(int64(v))
 	}
 
 	return c
@@ -1277,8 +1239,7 @@ func expandMonitoringNetworkConfig(configured []interface{}) *sagemaker.Monitori
 	c := &sagemaker.MonitoringNetworkConfig{}
 
 	if v, ok := m["enable_inter_container_traffic_encryption"]; ok {
-		c.EnableInterContainerTrafficEncryption = aws.Bool(v.(bool))
-	}
+func
 
 	if v, ok := m["enable_network_isolation"]; ok {
 		c.EnableNetworkIsolation = aws.Bool(v.(bool))
@@ -1306,8 +1267,7 @@ func expandVPCConfig(configured []interface{}) *sagemaker.VpcConfig {
 
 	if v, ok := m["subnets"].(*schema.Set); ok && v.Len() > 0 {
 		c.Subnets = flex.ExpandStringSet(v)
-	}
-
+func
 	return c
 }
 
@@ -1326,3 +1286,4 @@ func expandMonitoringStoppingCondition(configured []interface{}) *sagemaker.Moni
 
 	return c
 }
+funcfunc

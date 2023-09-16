@@ -16,16 +16,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_ram_resource_share", &resource.Sweeper{
+funcource.AddTestSweepers("aws_ram_resource_share", &resource.Sweeper{
 		Name: "aws_ram_resource_share",
-		F:    sweepResourceShares,
+		F:eepResourceShares,
 	})
 }
 
 func sweepResourceShares(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %s", err)
 	}
@@ -37,8 +35,7 @@ func sweepResourceShares(region string) error {
 
 	err = conn.GetResourceSharesPagesWithContext(ctx, input, func(page *ram.GetResourceSharesOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.ResourceShares {
 			if aws.StringValue(v.Status) == ram.ResourceShareStatusDeleted {

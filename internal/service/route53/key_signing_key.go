@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_route53_key_signing_key")
-func ResourceKeySigningKey() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceKeySigningKeyCreate,
-		ReadWithoutTimeout:   resourceKeySigningKeyRead,
+		ReadWithoutTimeout:ourceKeySigningKeyRead,
 		UpdateWithoutTimeout: resourceKeySigningKeyUpdate,
 		DeleteWithoutTimeout: resourceKeySigningKeyDelete,
 
@@ -34,45 +33,45 @@ func ResourceKeySigningKey() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"digest_algorithm_mnemonic": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"digest_algorithm_type": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 			"digest_value": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"dnskey_record": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"ds_record": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"flag": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"key_management_service_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: verify.ValidARN,
 			},
 			"key_tag": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -81,19 +80,19 @@ func ResourceKeySigningKey() *schema.Resource {
 				),
 			},
 			"public_key": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"signing_algorithm_mnemonic": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"signing_algorithm_type": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Default:  KeySigningKeyStatusActive,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -106,8 +105,7 @@ func ResourceKeySigningKey() *schema.Resource {
 }
 
 func resourceKeySigningKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	hostedZoneID := d.Get("hosted_zone_id").(string)
 	name := d.Get("name").(string)
@@ -115,9 +113,9 @@ func resourceKeySigningKeyCreate(ctx context.Context, d *schema.ResourceData, me
 
 	input := &route53.CreateKeySigningKeyInput{
 		CallerReference: aws.String(id.UniqueId()),
-		HostedZoneId:    aws.String(hostedZoneID),
-		Name:            aws.String(name),
-		Status:          aws.String(status),
+		HostedZoneId:s.String(hostedZoneID),
+		Name:ng(name),
+		Status:(status),
 	}
 
 	if v, ok := d.GetOk("key_management_service_arn"); ok {
@@ -147,8 +145,7 @@ func resourceKeySigningKeyCreate(ctx context.Context, d *schema.ResourceData, me
 
 func resourceKeySigningKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
+func
 	hostedZoneID, name, err := KeySigningKeyParseResourceID(d.Id())
 
 	if err != nil {
@@ -204,8 +201,7 @@ func resourceKeySigningKeyRead(ctx context.Context, d *schema.ResourceData, meta
 func resourceKeySigningKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	if d.HasChange("status") {
+funcd.HasChange("status") {
 		status := d.Get("status").(string)
 
 		switch status {
@@ -214,7 +210,7 @@ func resourceKeySigningKeyUpdate(ctx context.Context, d *schema.ResourceData, me
 		case KeySigningKeyStatusActive:
 			input := &route53.ActivateKeySigningKeyInput{
 				HostedZoneId: aws.String(d.Get("hosted_zone_id").(string)),
-				Name:         aws.String(d.Get("name").(string)),
+				Name:ws.String(d.Get("name").(string)),
 			}
 
 			output, err := conn.ActivateKeySigningKeyWithContext(ctx, input)
@@ -231,7 +227,7 @@ func resourceKeySigningKeyUpdate(ctx context.Context, d *schema.ResourceData, me
 		case KeySigningKeyStatusInactive:
 			input := &route53.DeactivateKeySigningKeyInput{
 				HostedZoneId: aws.String(d.Get("hosted_zone_id").(string)),
-				Name:         aws.String(d.Get("name").(string)),
+				Name:ws.String(d.Get("name").(string)),
 			}
 
 			output, err := conn.DeactivateKeySigningKeyWithContext(ctx, input)
@@ -259,12 +255,11 @@ func resourceKeySigningKeyDelete(ctx context.Context, d *schema.ResourceData, me
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	status := d.Get("status").(string)
-
+func
 	if status == KeySigningKeyStatusActive || status == KeySigningKeyStatusActionNeeded {
 		input := &route53.DeactivateKeySigningKeyInput{
 			HostedZoneId: aws.String(d.Get("hosted_zone_id").(string)),
-			Name:         aws.String(d.Get("name").(string)),
+			Name:ws.String(d.Get("name").(string)),
 		}
 
 		output, err := conn.DeactivateKeySigningKeyWithContext(ctx, input)
@@ -282,7 +277,7 @@ func resourceKeySigningKeyDelete(ctx context.Context, d *schema.ResourceData, me
 
 	input := &route53.DeleteKeySigningKeyInput{
 		HostedZoneId: aws.String(d.Get("hosted_zone_id").(string)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:ws.String(d.Get("name").(string)),
 	}
 
 	output, err := conn.DeleteKeySigningKeyWithContext(ctx, input)

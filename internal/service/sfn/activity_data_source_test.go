@@ -13,17 +13,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccSFNActivityDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sfn_activity.test"
 	dataSource1Name := "data.aws_sfn_activity.by_name"
 	dataSource2Name := "data.aws_sfn_activity.by_arn"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sfn.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccActivityDataSourceConfig_basic(rName),
@@ -43,8 +41,7 @@ func TestAccSFNActivityDataSource_basic(t *testing.T) {
 
 func testAccActivityDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-resource aws_sfn_activity "test" {
-  name = %[1]q
+funcme = %[1]q
 }
 
 data aws_sfn_activity "by_name" {

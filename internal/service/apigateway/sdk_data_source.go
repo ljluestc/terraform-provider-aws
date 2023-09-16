@@ -18,38 +18,37 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_sdk")
-func DataSourceSdk() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceSdkRead,
 		Schema: map[string]*schema.Schema{
 			"body": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"content_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"content_disposition": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"parameters": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"sdk_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:peString,
+				Required:rue,
 				ValidateFunc: validation.StringInSlice([]string{"java", "javascript", "android", "objectivec", "swift", "ruby"}, false),
 			},
 			"stage_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 		},
@@ -57,8 +56,7 @@ func DataSourceSdk() *schema.Resource {
 }
 
 func dataSourceSdkRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	restApiId := d.Get("rest_api_id").(string)
 	stageName := d.Get("stage_name").(string)
@@ -67,7 +65,7 @@ func dataSourceSdkRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	input := &apigateway.GetSdkInput{
 		RestApiId: aws.String(restApiId),
 		StageName: aws.String(stageName),
-		SdkType:   aws.String(sdkType),
+		SdkType:.String(sdkType),
 	}
 
 	if v, ok := d.GetOk("parameters"); ok && len(v.(map[string]interface{})) > 0 {

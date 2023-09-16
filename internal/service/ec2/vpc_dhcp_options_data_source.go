@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_vpc_dhcp_options")
 
-func DataSourceVPCDHCPOptions() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCDHCPOptionsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,40 +30,40 @@ func DataSourceVPCDHCPOptions() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"dhcp_options_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"domain_name_servers": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"netbios_name_servers": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"netbios_node_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ntp_servers": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -73,8 +72,7 @@ func DataSourceVPCDHCPOptions() *schema.Resource {
 }
 
 func dataSourceVPCDHCPOptionsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeDhcpOptionsInput{}
@@ -102,8 +100,8 @@ func dataSourceVPCDHCPOptionsRead(ctx context.Context, d *schema.ResourceData, m
 	ownerID := aws.StringValue(opts.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("dhcp-options/%s", d.Id()),
 	}.String()

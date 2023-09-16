@@ -37,56 +37,56 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"action": {
 Type:schema.TypeString,
-Required:     true,
+Required:
 Validate
 func: validation.StringInSlice(route53resolver.Action_Values(), false),
 	},
 	"block_override_dns_type": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: validation.StringInSlice(route53resolver.BlockOverrideDnsType_Values(), false),
 	},
 	"block_override_domain": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: validation.StringLenBetween(1, 255),
 	},
 	"block_override_ttl": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:
 Validate
 func: validation.IntBetween(0, 604800),
 	},
 	"block_response": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: validation.StringInSlice(route53resolver.BlockResponse_Values(), false),
 	},
 	"firewall_domain_list_id": {
 Type:schema.TypeString,
-ForceNew:     true,
-Required:     true,
+ForceNew:
+Required:
 Validate
 func: validation.StringLenBetween(1, 64),
 	},
 	"firewall_rule_group_id": {
 Type:schema.TypeString,
-ForceNew:     true,
-Required:     true,
+ForceNew:
+Required:
 Validate
 func: validation.StringLenBetween(1, 64),
 	},
 	"name": {
 Type:schema.TypeString,
-Required:     true,
+Required:
 Validate
 func: validResolverName,
 	},
 	"priority": {
-Type:     schema.TypeInt,
+Type:eInt,
 Required: true,
 	},
 },
@@ -103,7 +103,7 @@ func resourceFirewallRuleCreate(ctx context.Context, d *schema.ResourceData, met
 	name := d.Get("name").(string)
 	input := &route53resolver.CreateFirewallRuleInput{
 Action:aws.String(d.Get("action").(string)),
-CreatorRequestId:     aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-")),
+CreatorRequestId:(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-")),
 FirewallRuleGroupId:  aws.String(firewallRuleGroupID),
 FirewallDomainListId: aws.String(firewallDomainListID),
 Name:  aws.String(name),

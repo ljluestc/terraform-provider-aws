@@ -22,8 +22,7 @@ import (
 
 // add sweeper to delete resources
 
-func TestAccRoute53KeySigningKey_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	kmsKeyResourceName := "aws_kms_key.test"
 	route53ZoneResourceName := "aws_route53_zone.test"
 	resourceName := "aws_route53_key_signing_key.test"
@@ -31,10 +30,10 @@ func TestAccRoute53KeySigningKey_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeySigningKeyDestroy(ctx),
+		CheckDestroy:CheckKeySigningKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeySigningKeyConfig_name(rName, domainName),
@@ -57,8 +56,8 @@ func TestAccRoute53KeySigningKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -66,16 +65,15 @@ func TestAccRoute53KeySigningKey_basic(t *testing.T) {
 }
 
 func TestAccRoute53KeySigningKey_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_route53_key_signing_key.test"
+funcourceName := "aws_route53_key_signing_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeySigningKeyDestroy(ctx),
+		CheckDestroy:CheckKeySigningKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeySigningKeyConfig_name(rName, domainName),
@@ -91,15 +89,14 @@ func TestAccRoute53KeySigningKey_disappears(t *testing.T) {
 
 func TestAccRoute53KeySigningKey_status(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_route53_key_signing_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeySigningKeyDestroy(ctx),
+		CheckDestroy:CheckKeySigningKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeySigningKeyConfig_status(rName, domainName, tfroute53.KeySigningKeyStatusInactive),
@@ -109,8 +106,8 @@ func TestAccRoute53KeySigningKey_status(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -134,10 +131,8 @@ func TestAccRoute53KeySigningKey_status(t *testing.T) {
 func testAccCheckKeySigningKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_route53_key_signing_key" {
-				continue
+funcr _, rs := range s.RootModule().Resources {
+			if rsfunccontinue
 			}
 
 			keySigningKey, err := tfroute53.FindKeySigningKeyByResourceID(ctx, conn, rs.Primary.ID)
@@ -168,10 +163,8 @@ func testAccKeySigningKeyExists(ctx context.Context, resourceName string) resour
 		rs, ok := s.RootModule().Resources[resourceName]
 
 		if !ok {
-			return fmt.Errorf("resource %s not found", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+func
+func rs.Primary.ID == "" {
 			return fmt.Errorf("resource %s has not set its id", resourceName)
 		}
 
@@ -198,30 +191,29 @@ resource "aws_kms_key" "test" {
   deletion_window_in_days  = 7
   key_usage = "SIGN_VERIFY"
   policy = jsonencode({
-    Statement = [
-      {
-        Action = [
-          "kms:DescribeKey",
-          "kms:GetPublicKey",
-          "kms:Sign",
-        ],
-        Effect = "Allow"
-        Principal = {
-          Service = "api-service.dnssec.route53.aws.internal"
-        }
-        Sid = "Allow Route 53 DNSSEC Service"
-      },
-      {
-        Action = "kms:*"
-        Effect = "Allow"
-        Principal = {
-          AWS = "*"
-        }
-        Resource = "*"
-        Sid      = "Enable IAM User Permissions"
-      },
-    ]
-    Version = "2012-10-17"
+func
+tion = [
+ibeKey",
+blicKey",
+,
+
+fect = "Allow"
+incipal = {
+"api-service.dnssec.route53.aws.internal"
+
+d = "Allow Route 53 DNSSEC Service"
+
+
+tion = "kms:*"
+fect = "Allow"
+incipal = {
+
+
+source = "*"
+d = "E IAM User Permissions"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -234,20 +226,19 @@ resource "aws_route53_zone" "test" {
 func testAccKeySigningKeyConfig_name(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccKeySigningKeyConfig_base(rName, domainName), fmt.Sprintf(`
 resource "aws_route53_key_signing_key" "test" {
-  hosted_zone_id             = aws_route53_zone.test.id
+  hosted_zone_idoute53_zone.test.id
   key_management_service_arn = aws_kms_key.test.arn
-  name        = %[1]q
+  name%[1]q
 }
 `, rName))
-}
-
+func
 func testAccKeySigningKeyConfig_status(rName, domainName, status string) string {
 	return acctest.ConfigCompose(testAccKeySigningKeyConfig_base(rName, domainName), fmt.Sprintf(`
 resource "aws_route53_key_signing_key" "test" {
-  hosted_zone_id             = aws_route53_zone.test.id
+  hosted_zone_idoute53_zone.test.id
   key_management_service_arn = aws_kms_key.test.arn
-  name        = %[1]q
-  status      = %[2]q
+  name%[1]q
+  status2]q
 }
 `, rName, status))
-}
+func

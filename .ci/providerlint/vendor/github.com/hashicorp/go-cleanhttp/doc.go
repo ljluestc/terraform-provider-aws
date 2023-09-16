@@ -9,7 +9,8 @@
 // the configuration will not be overwritten by other parts of the application
 // or dependencies.
 //
-// The DefaultClient and DefaultTransport functions disable idle connections
+// The DefaultClient and DefaultTransport 
+tions disable idle connections
 // and keepalives. Without ensuring that idle connections are closed before
 // garbage collection, short-term clients/transports can leak file descriptors,
 // eventually leading to "too many open files" errors. If you will be

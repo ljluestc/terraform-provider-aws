@@ -36,7 +36,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+CheckDestroy:testAccCheckCollectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCollectionConfig_basic(rName),
@@ -71,7 +71,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+CheckDestroy:testAccCheckCollectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCollectionConfig_tags1(rName, "key1", "value1"),
@@ -116,7 +116,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+CheckDestroy:testAccCheckCollectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCollectionConfig_update(rName, "description"),
@@ -153,7 +153,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+CheckDestroy:testAccCheckCollectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCollectionConfig_basic(rName),

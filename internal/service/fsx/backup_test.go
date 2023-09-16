@@ -27,10 +27,10 @@ func TestAccFSxBackup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccFSxBackup_ontapBasic(t *testing.T) {
 	vName := strings.Replace(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "-", "_", -1)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_ontapBasic(rName, vName),
@@ -89,10 +89,10 @@ func TestAccFSxBackup_openzfsBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_openZFSBasic(rName),
@@ -119,10 +119,10 @@ func TestAccFSxBackup_windowsBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_windowsBasic(rName),
@@ -149,10 +149,10 @@ func TestAccFSxBackup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_basic(rName),
@@ -173,10 +173,10 @@ func TestAccFSxBackup_Disappears_filesystem(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_basic(rName),
@@ -197,10 +197,10 @@ func TestAccFSxBackup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_tags1(rName, "key1", "value1"),
@@ -242,10 +242,10 @@ func TestAccFSxBackup_implicitTags(t *testing.T) {
 	resourceName := "aws_fsx_backup.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackupDestroy(ctx),
+		CheckDestroy:testAccCheckBackupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackupConfig_implictTags("key1", "value1"),
@@ -337,7 +337,7 @@ func testAccBackupLustreBaseConfig(rName string) string {
 resource "aws_fsx_lustre_file_system" "test" {
   storage_capacity            = 1200
   subnet_ids   = [aws_subnet.test1.id]
-  deployment_type             = "PERSISTENT_1"
+  deployment_type= "PERSISTENT_1"
   per_unit_storage_throughput = 50
 
   tags = {
@@ -368,7 +368,7 @@ resource "aws_fsx_ontap_storage_virtual_machine" "test" {
 
 resource "aws_fsx_ontap_volume" "test" {
   name        = %[2]q
-  junction_path              = "/%[1]s"
+  junction_path = "/%[1]s"
   size_in_megabytes          = 1024
   storage_efficiency_enabled = true
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
@@ -407,12 +407,12 @@ resource "aws_directory_service_directory" "test" {
 }
 
 resource "aws_fsx_windows_file_system" "test" {
-  active_directory_id             = aws_directory_service_directory.test.id
+  active_directory_id= aws_directory_service_directory.test.id
   automatic_backup_retention_days = 0
   skip_final_backup= true
   storage_capacity = 32
   subnet_ids       = [aws_subnet.test1.id]
-  throughput_capacity             = 8
+  throughput_capacity= 8
 
   tags = {
     Name = %[1]q
@@ -509,7 +509,7 @@ resource "aws_subnet" "test1" {
 resource "aws_fsx_lustre_file_system" "test" {
   storage_capacity            = 1200
   subnet_ids   = [aws_subnet.test1.id]
-  deployment_type             = "PERSISTENT_1"
+  deployment_type= "PERSISTENT_1"
   per_unit_storage_throughput = 50
   copy_tags_to_backups        = true
 

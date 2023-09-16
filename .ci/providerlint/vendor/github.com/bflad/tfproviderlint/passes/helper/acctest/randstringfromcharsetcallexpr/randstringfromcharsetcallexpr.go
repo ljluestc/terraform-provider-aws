@@ -5,9 +5,12 @@ import (
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/acctest"
 )
 
-var Analyzer = analysisutils.FunctionCallExprAnalyzer(
+var Analyzer = analysisutils.
+CallExprAnalyzer(
 	"randstringfromcharsetcallexpr",
-	acctest.IsFunc,
+	acctest.Is
+
 	acctest.PackagePath,
-	acctest.FuncNameRandStringFromCharSet,
+	acctest.
+RandStringFromCharSet,
 )

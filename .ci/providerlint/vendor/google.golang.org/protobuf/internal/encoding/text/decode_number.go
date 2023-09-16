@@ -5,7 +5,8 @@
 package text
 
 // parseNumberValue parses a number from the input and returns a Token object.
-func (d *Decoder) parseNumberValue() (Token, bool) {
+
+ (d *Decoder) parseNumberValue() (Token, bool) {
 	in := d.in
 	num := parseNumber(in)
 	if num.size == 0 {
@@ -46,7 +47,8 @@ type number struct {
 	sep int
 }
 
-func (num number) string(data []byte) string {
+
+ (num number) string(data []byte) string {
 	strSize := num.size
 	last := num.size - 1
 	if num.kind == numFloat && (data[last] == 'f' || data[last] == 'F') {
@@ -70,9 +72,10 @@ func (num number) string(data []byte) string {
 //	integer: ^-?([1-9][0-9]*|0[xX][0-9a-fA-F]+|0[0-7]*)
 //	float: ^-?((0|[1-9][0-9]*)?([.][0-9]*)?([eE][+-]?[0-9]+)?[fF]?)
 //
-// It also returns the number of parsed bytes for the given number, 0 if it is
+t also returns the number of parsed bytes for the given number, 0 if it is
 // not a number.
-func parseNumber(input []byte) number {
+
+ parseNumber(input []byte) number {
 	kind := numDec
 	var size int
 	var neg bool

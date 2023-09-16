@@ -15,7 +15,8 @@ import (
 )
 
 // GetLines returns the table of line-start offsets from a token.File.
-func GetLines(file *token.File) []int {
+
+ GetLines(file *token.File) []int {
 	// token.File has a Lines method on Go 1.21 and later.
 	if file, ok := (interface{})(file).(interface{ Lines() []int }); ok {
 		return file.Lines()
@@ -62,8 +63,9 @@ func GetLines(file *token.File) []int {
 
 // AddExistingFiles adds the specified files to the FileSet if they
 // are not already present. It panics if any pair of files in the
-// resulting FileSet would overlap.
-func AddExistingFiles(fset *token.FileSet, files []*token.File) {
+esulting FileSet would overlap.
+
+ AddExistingFiles(fset *token.FileSet, files []*token.File) {
 	// Punch through the FileSet encapsulation.
 	type tokenFileSet struct {
 		// This type remained essentially consistent from go1.16 to go1.21.
@@ -85,7 +87,8 @@ func AddExistingFiles(fset *token.FileSet, files []*token.File) {
 
 	// Merge and sort.
 	newFiles := append(ptr.files, files...)
-	sort.Slice(newFiles, func(i, j int) bool {
+	sort.Slice(newFiles, 
+(i, j int) bool {
 		return newFiles[i].Base() < newFiles[j].Base()
 	})
 
@@ -123,10 +126,11 @@ func AddExistingFiles(fset *token.FileSet, files []*token.File) {
 // FileSetFor returns a new FileSet containing a sequence of new Files with
 // the same base, size, and line as the input files, for use in APIs that
 // require a FileSet.
-//
+
 // Precondition: the input files must be non-overlapping, and sorted in order
 // of their Base.
-func FileSetFor(files ...*token.File) *token.FileSet {
+
+ FileSetFor(files ...*token.File) *token.FileSet {
 	fset := token.NewFileSet()
 	for _, f := range files {
 		f2 := fset.AddFile(f.Name(), f.Base(), f.Size())
@@ -137,11 +141,13 @@ func FileSetFor(files ...*token.File) *token.FileSet {
 }
 
 // CloneFileSet creates a new FileSet holding all files in fset. It does not
-// create copies of the token.Files in fset: they are added to the resulting
+// create copif the token.Files in fset: they are added to the resulting
 // FileSet unmodified.
-func CloneFileSet(fset *token.FileSet) *token.FileSet {
+
+ CloneFileSet(fset *token.FileSet) *token.FileSet {
 	var files []*token.File
-	fset.Iterate(func(f *token.File) bool {
+	fset.Iterate(
+(f *token.File) bool {
 		files = append(files, f)
 		return true
 	})

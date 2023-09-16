@@ -28,10 +28,9 @@ import (
 // @SDKResource("aws_vpc_endpoint_service", name="VPC Endpoint Service")
 // @Tags(identifierAttribute="id")
 
-func ResourceVPCEndpointService() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointServiceCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointServiceRead,
+		ReadWithoutTimeout:ourceVPCEndpointServiceRead,
 		UpdateWithoutTimeout: resourceVPCEndpointServiceUpdate,
 		DeleteWithoutTimeout: resourceVPCEndpointServiceDelete,
 
@@ -41,45 +40,44 @@ func ResourceVPCEndpointService() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"acceptance_required": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Required: true,
 			},
 			"allowed_principals": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zones": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"base_endpoint_dns_names": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"gateway_load_balancer_arns": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
 					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
-				},
-			},
+func,
 			"manages_vpc_endpoints": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"network_load_balancer_arns": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
@@ -87,50 +85,49 @@ func: verify.ValidARN,
 					Validate
 func: verify.ValidARN,
 				},
-			},
-			"private_dns_name": {
-				Type:     schema.TypeString,
+funcprivate_dns_name": {
+				Type:eString,
 				Computed: true,
 				Optional: true,
 			},
 			"private_dns_name_configuration": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"service_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"service_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"supported_ip_address_types": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -139,8 +136,7 @@ func: verify.ValidARN,
 func: validation.StringInSlice(ec2.ServiceConnectivityType_Values(), false),
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
+funcames.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		Timeouts: &schema.ResourceTimeout{
@@ -158,8 +154,7 @@ func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceDat
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.CreateVpcEndpointServiceConfigurationInput{
-		AcceptanceRequired: aws.Bool(d.Get("acceptance_required").(bool)),
+funcceptanceRequired: aws.Bool(d.Get("acceptance_required").(bool)),
 		TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcEndpointService),
 	}
 
@@ -195,7 +190,7 @@ func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceDat
 	if v, ok := d.GetOk("allowed_principals"); ok && v.(*schema.Set).Len() > 0 {
 		input := &ec2.ModifyVpcEndpointServicePermissionsInput{
 			AddAllowedPrincipals: flex.ExpandStringSet(v.(*schema.Set)),
-			ServiceId:   aws.String(d.Id()),
+			ServiceId:.String(d.Id()),
 		}
 
 		if _, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, input); err != nil {
@@ -212,8 +207,7 @@ func resourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData,
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	svcCfg, err := FindVPCEndpointServiceConfigurationByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 VPC Endpoint Service %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
@@ -226,8 +220,8 @@ func resourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData,
 	d.Set("acceptance_required", svcCfg.AcceptanceRequired)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("vpc-endpoint-service/%s", d.Id()),
 	}.String()
@@ -275,8 +269,7 @@ func resourceVPCEndpointServiceUpdate(ctx context.Context, d *schema.ResourceDat
 
 	if d.HasChanges("acceptance_required", "gateway_load_balancer_arns", "network_load_balancer_arns", "private_dns_name", "supported_ip_address_types") {
 		input := &ec2.ModifyVpcEndpointServiceConfigurationInput{
-			ServiceId: aws.String(d.Id()),
-		}
+func
 
 		if d.HasChange("acceptance_required") {
 			input.AcceptanceRequired = aws.Bool(d.Get("acceptance_required").(bool))
@@ -326,8 +319,7 @@ func resourceVPCEndpointServiceDelete(ctx context.Context, d *schema.ResourceDat
 	log.Printf("[INFO] Deleting EC2 VPC Endpoint Service: %s", d.Id())
 	output, err := conn.DeleteVpcEndpointServiceConfigurationsWithContext(ctx, &ec2.DeleteVpcEndpointServiceConfigurationsInput{
 		ServiceIds: aws.StringSlice([]string{d.Id()}),
-	})
-
+func
 	if err == nil && output != nil {
 		err = UnsuccessfulItemsError(output.Unsuccessful)
 	}
@@ -356,7 +348,6 @@ func flattenAllowedPrincipal(apiObject *ec2.AllowedPrincipal) *string {
 	return apiObject.Principal
 }
 
-
 func flattenAllowedPrincipals(apiObjects []*ec2.AllowedPrincipal) []*string {
 	if len(apiObjects) == 0 {
 		return nil
@@ -366,8 +357,7 @@ func flattenAllowedPrincipals(apiObjects []*ec2.AllowedPrincipal) []*string {
 
 	for _, apiObject := range apiObjects {
 		if apiObject == nil {
-			continue
-		}
+func
 
 		tfList = append(tfList, flattenAllowedPrincipal(apiObject))
 	}
@@ -386,8 +376,7 @@ func flattenPrivateDNSNameConfiguration(apiObject *ec2.PrivateDnsNameConfigurati
 	if v := apiObject.Name; v != nil {
 		tfMap["name"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.State; v != nil {
+funcv := apiObject.State; v != nil {
 		tfMap["state"] = aws.StringValue(v)
 	}
 

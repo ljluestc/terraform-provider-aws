@@ -36,9 +36,9 @@ func testAccLoadBalancerCertificate_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerCertificateDestroy(ctx),
+		CheckDestroy:oadBalancerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerCertificateConfig_basic(rName, lbName, domainName),
@@ -73,9 +73,9 @@ func testAccLoadBalancerCertificate_subjectAlternativeNames(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerCertificateDestroy(ctx),
+		CheckDestroy:oadBalancerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerCertificateConfig_subjectAlternativeNames(rName, lbName, domainName, subjectAlternativeName),
@@ -106,9 +106,9 @@ func testAccLoadBalancerCertificate_domainValidationRecords(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerCertificateDestroy(ctx),
+		CheckDestroy:oadBalancerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerCertificateConfig_subjectAlternativeNames(rName, lbName, domainName, subjectAlternativeName),
@@ -141,9 +141,9 @@ func testAccLoadBalancerCertificate_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerCertificateDestroy(ctx),
+		CheckDestroy:oadBalancerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerCertificateConfig_basic(rName, lbName, domainName),
@@ -213,7 +213,7 @@ func testAccCheckLoadBalancerCertificateExists(ctx context.Context, n string) re
 func testAccLoadBalancerCertificateConfigBase(lbName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
 }
@@ -237,9 +237,9 @@ func testAccLoadBalancerCertificateConfig_subjectAlternativeNames(rName string, 
 		testAccLoadBalancerCertificateConfigBase(lbName),
 		fmt.Sprintf(`
 resource "aws_lightsail_lb_certificate" "test" {
-  name                      = %[1]q
-  lb_name                   = aws_lightsail_lb.test.id
-  domain_name               = %[2]q
+  name1]q
+  lb_nameightsail_lb.test.id
+  domain_name
   subject_alternative_names = [%[3]q]
 }
 `, rName, domainName, san))

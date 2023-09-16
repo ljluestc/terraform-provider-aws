@@ -28,9 +28,9 @@ func TestAccSESDomainDKIM_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDKIMDestroy(ctx),
+		CheckDestroy:testAccCheckDomainDKIMDestroy(ctx),
 		Steps: []resource.TestStep{
 			{ // nosemgrep:ci.test-config-funcs-correct-form
 				Config: fmt.Sprintf(testAccDomainDKIMConfig, domain),

@@ -38,8 +38,10 @@ var file_github_com_golang_protobuf_ptypes_duration_duration_proto_depIdxs = []i
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_github_com_golang_protobuf_ptypes_duration_duration_proto_init() }
-func file_github_com_golang_protobuf_ptypes_duration_duration_proto_init() {
+
+t() { file_github_com_golang_protobuf_ptypes_duration_duration_proto_init() }
+
+e_github_com_golang_protobuf_ptypes_duration_duration_proto_init() {
 	if File_github_com_golang_protobuf_ptypes_duration_duration_proto != nil {
 		return
 	}

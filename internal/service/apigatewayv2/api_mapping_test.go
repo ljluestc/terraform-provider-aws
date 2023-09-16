@@ -39,7 +39,7 @@ func TestAccAPIGatewayV2APIMapping_serial(t *testing.T) {
 	})
 
 	testCases := map[string]func(t *testing.T, rName string, certificateArn *string){
-		"basic":         testAccAPIMapping_basic,
+		"basic":cAPIMapping_basic,
 		"disappears":    testAccAPIMapping_disappears,
 		"ApiMappingKey": testAccAPIMapping_key,
 	}
@@ -54,10 +54,10 @@ func TestAccAPIGatewayV2APIMapping_serial(t *testing.T) {
 func testAccAPIMapping_createCertificate(t *testing.T, rName string, certificateARN *string) {
 	ctx := acctest.Context(t)
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: "# Empty config",
@@ -80,10 +80,10 @@ func testAccAPIMapping_basic(t *testing.T, rName string, certificateARN *string)
 	stageResourceName := "aws_apigatewayv2_stage.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIMappingDestroy(ctx),
+		CheckDestroy:ppingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIMappingConfig_basic(rName, *certificateARN),
@@ -93,9 +93,9 @@ func testAccAPIMapping_basic(t *testing.T, rName string, certificateARN *string)
 					resource.TestCheckResourceAttrPair(resourceName, "stage", stageResourceName, "name")),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAPIMappingImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -109,10 +109,10 @@ func testAccAPIMapping_disappears(t *testing.T, rName string, certificateARN *st
 	resourceName := "aws_apigatewayv2_api_mapping.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIMappingDestroy(ctx),
+		CheckDestroy:ppingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIMappingConfig_basic(rName, *certificateARN),
@@ -135,10 +135,10 @@ func testAccAPIMapping_key(t *testing.T, rName string, certificateARN *string) {
 	stageResourceName := "aws_apigatewayv2_stage.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIMappingDestroy(ctx),
+		CheckDestroy:ppingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIMappingConfig_key(rName, *certificateARN, "$context.domainName"),
@@ -157,9 +157,9 @@ func testAccAPIMapping_key(t *testing.T, rName string, certificateARN *string) {
 					resource.TestCheckResourceAttrPair(resourceName, "stage", stageResourceName, "name")),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAPIMappingImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -272,9 +272,9 @@ resource "aws_apigatewayv2_domain_name" "test" {
 func testAccAPIMappingConfig_basic(rName, certificateARN string) string {
 	return acctest.ConfigCompose(testAccAPIMappingConfig_base(rName, certificateARN), testAccStageConfig_basicWebSocket(rName), `
 resource "aws_apigatewayv2_api_mapping" "test" {
-  api_id      = aws_apigatewayv2_api.test.id
+  api_idgatewayv2_api.test.id
   domain_name = aws_apigatewayv2_domain_name.test.id
-  stage       = aws_apigatewayv2_stage.test.id
+  stageigatewayv2_stage.test.id
 }
 `)
 }
@@ -282,9 +282,9 @@ resource "aws_apigatewayv2_api_mapping" "test" {
 func testAccAPIMappingConfig_key(rName, certificateARN, apiMappingKey string) string {
 	return acctest.ConfigCompose(testAccAPIMappingConfig_base(rName, certificateARN), testAccStageConfig_basicWebSocket(rName), fmt.Sprintf(`
 resource "aws_apigatewayv2_api_mapping" "test" {
-  api_id      = aws_apigatewayv2_api.test.id
+  api_idgatewayv2_api.test.id
   domain_name = aws_apigatewayv2_domain_name.test.id
-  stage       = aws_apigatewayv2_stage.test.id
+  stageigatewayv2_stage.test.id
 
   api_mapping_key = %[1]q
 }

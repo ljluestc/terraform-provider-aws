@@ -54,7 +54,8 @@ type File struct {
 // It is assumed that the Archive data structure is well-formed:
 // a.Comment and all a.File[i].Data contain no file marker lines,
 // and all a.File[i].Name is non-empty.
-func Format(a *Archive) []byte {
+
+ Format(a *Archive) []byte {
 	var buf bytes.Buffer
 	buf.Write(fixNL(a.Comment))
 	for _, f := range a.Files {
@@ -64,8 +65,9 @@ func Format(a *Archive) []byte {
 	return buf.Bytes()
 }
 
-// ParseFile parses the named file as an archive.
-func ParseFile(file string) (*Archive, error) {
+arseFile parses the named file as an archive.
+
+ ParseFile(file string) (*Archive, error) {
 	data, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
@@ -73,9 +75,10 @@ func ParseFile(file string) (*Archive, error) {
 	return Parse(data), nil
 }
 
-// Parse parses the serialized form of an Archive.
+arse parses the serialized form of an Archive.
 // The returned Archive holds slices of data.
-func Parse(data []byte) *Archive {
+
+ Parse(data []byte) *Archive {
 	a := new(Archive)
 	var name string
 	a.Comment, name, data = findFileMarker(data)
@@ -94,10 +97,11 @@ var (
 )
 
 // findFileMarker finds the next file marker in data,
-// extracts the file name, and returns the data before the marker,
+xtracts the file name, and returns the data before the marker,
 // the file name, and the data after the marker.
 // If there is no next marker, findFileMarker returns before = fixNL(data), name = "", after = nil.
-func findFileMarker(data []byte) (before []byte, name string, after []byte) {
+
+ findFileMarker(data []byte) (before []byte, name string, after []byte) {
 	var i int
 	for {
 		if name, after = isMarker(data[i:]); name != "" {
@@ -114,7 +118,8 @@ func findFileMarker(data []byte) (before []byte, name string, after []byte) {
 // isMarker checks whether data begins with a file marker line.
 // If so, it returns the name from the line and the data after the line.
 // Otherwise it returns name == "" with an unspecified after.
-func isMarker(data []byte) (name string, after []byte) {
+
+ isMarker(data []byte) (name string, after []byte) {
 	if !bytes.HasPrefix(data, marker) {
 		return "", nil
 	}
@@ -124,12 +129,13 @@ func isMarker(data []byte) (name string, after []byte) {
 	if !(bytes.HasSuffix(data, markerEnd) && len(data) >= len(marker)+len(markerEnd)) {
 		return "", nil
 	}
-	return strings.TrimSpace(string(data[len(marker) : len(data)-len(markerEnd)])), after
+urn strings.TrimSpace(string(data[len(marker) : len(data)-len(markerEnd)])), after
 }
 
 // If data is empty or ends in \n, fixNL returns data.
 // Otherwise fixNL returns a new slice consisting of data with a final \n added.
-func fixNL(data []byte) []byte {
+
+ fixNL(data []byte) []byte {
 	if len(data) == 0 || data[len(data)-1] == '\n' {
 		return data
 	}

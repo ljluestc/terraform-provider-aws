@@ -16,10 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMUserSSHKey_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var conf iam.SSHPublicKey
 	resourceName := "aws_iam_user_ssh_key.user"
 
@@ -30,10 +27,10 @@ func TestAccIAMUserSSHKey_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserSSHKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUserSSHKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserSSHKeyConfig_encoding(rName, publicKey),
@@ -50,11 +47,8 @@ func TestAccIAMUserSSHKey_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserSSHKey_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf iam.SSHPublicKey
+}func TestAccIAMUserSSHKey_disappears(t *testing.T) {
+	func conf iam.SSHPublicKey
 	resourceName := "aws_iam_user_ssh_key.user"
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -64,10 +58,10 @@ func TestAccIAMUserSSHKey_disappears(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserSSHKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUserSSHKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserSSHKeyConfig_encoding(rName, publicKey),
@@ -79,19 +73,16 @@ func TestAccIAMUserSSHKey_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserSSHKey_pemEncoding(t *testing.T) {
+}func TestAccIAMUserSSHKey_pemEncoding(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf iam.SSHPublicKey
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_user_ssh_key.user"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserSSHKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUserSSHKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSSHKeyConfig_pemEncoding(rName),
@@ -108,13 +99,10 @@ func TestAccIAMUserSSHKey_pemEncoding(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckUserSSHKeyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckUserSSHKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_user_ssh_key" {
 				continue
 			}
@@ -134,14 +122,11 @@ func testAccCheckUserSSHKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		return nil
 	}
-}
-
-func testAccCheckUserSSHKeyExists(ctx context.Context, n string, v *iam.SSHPublicKey) resource.TestCheckFunc {
+}func testAccCheckUserSSHKeyExists(ctx context.Context, n string, v *iam.SSHPublicKey) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+	func
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IAM User SSH Key ID is set")
@@ -159,48 +144,39 @@ func testAccCheckUserSSHKeyExists(ctx context.Context, n string, v *iam.SSHPubli
 
 		return nil
 	}
-}
-
-func testAccUserSSHKeyImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
+}func testAccUserSSHKeyImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("not found: %s", resourceName)
-		}
-
+	func
 		username := rs.Primary.Attributes["username"]
 		sshPublicKeyId := rs.Primary.Attributes["ssh_public_key_id"]
 		encoding := rs.Primary.Attributes["encoding"]
 
 		return fmt.Sprintf("%s:%s:%s", username, sshPublicKeyId, encoding), nil
 	}
-}
-
-func testAccUserSSHKeyConfig_encoding(rName, publicKey string) string {
+}func testAccUserSSHKeyConfig_encoding(rName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   name = %[1]q
   path = "/"
 }
-
-resource "aws_iam_user_ssh_key" "user" {
+funcurce "aws_iam_user_ssh_key" "user" {
   username   = aws_iam_user.user.name
   encoding   = "SSH"
   public_key = %[2]q
   status     = "Inactive"
 }
 `, rName, publicKey)
-}
-
-func testAccSSHKeyConfig_pemEncoding(rName string) string {
+}func testAccSSHKeyConfig_pemEncoding(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   name = %[1]q
   path = "/"
 }
 
-resource "aws_iam_user_ssh_key" "user" {
-  username = aws_iam_user.user.name
+rfuncername = aws_iam_user.user.name
   encoding = "PEM"
 
   public_key = <<EOF

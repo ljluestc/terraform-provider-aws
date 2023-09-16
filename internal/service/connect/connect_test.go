@@ -11,13 +11,11 @@ import (
 
 // Serialized acceptance tests due to Connect account limits (max 2 parallel tests)
 
-func TestAccConnect_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]map[string]
 func(t *testing.T){
-"BotAssociation": {
-	"basic":   testAccBotAssociation_basic,
+funcsic":   testAccBotAssociation_basic,
 	"disappears":       testAccBotAssociation_disappears,
 	"dataSource_basic": testAccBotAssociationDataSource_basic,
 },
@@ -68,17 +66,13 @@ func(t *testing.T){
 "Lambda
 functionAssociation": {
 	"basic":   testAccLambda
-functionAssociation_basic,
-	"disappears":       testAccLambda
+funcsappears":       testAccLambda
 functionAssociation_disappears,
-	"dataSource_basic": testAccLambda
 functionAssociationDataSource_basic,
 },
-"PhoneNumber": {
-	"basic":       testAccPhoneNumber_basic,
+funcsic":       testAccPhoneNumber_basic,
 	"disappears":  testAccPhoneNumber_disappears,
-	"tags":        testAccPhoneNumber_tags,
-	"description": testAccPhoneNumber_description,
+funcscription": testAccPhoneNumber_description,
 	"prefix":      testAccPhoneNumber_prefix,
 	"targetARN":   testAccPhoneNumber_targetARN,
 },

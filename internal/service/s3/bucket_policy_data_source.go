@@ -18,26 +18,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKDataSource("aws_s3_bucket_policy")
-func DataSourceBucketPolicy() *schema.Resource {
+// @SDKDataSource("aws_s3_bucket_policy")func DataSourceBucketPolicy() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceBucketPolicyRead,
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},
 	}
-}
-
-func dataSourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	name := d.Get("bucket").(string)
 
@@ -55,11 +51,8 @@ func dataSourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, met
 	d.Set("policy", policy)
 
 	return nil
-}
-
-func FindBucketPolicy(ctx context.Context, conn *s3.S3, name string) (*s3.GetBucketPolicyOutput, error) {
-	in := &s3.GetBucketPolicyInput{
-		Bucket: aws.String(name),
+}func FindBucketPolicy(ctx context.Context, conn *s3.S3, name string) (*s3.GetBucketPolicyOutput, error) {
+	funccket: aws.String(name),
 	}
 	log.Printf("[DEBUG] Reading S3 bucket policy: %s", in)
 
@@ -67,7 +60,7 @@ func FindBucketPolicy(ctx context.Context, conn *s3.S3, name string) (*s3.GetBuc
 
 	if tfawserr.ErrCodeEquals(err, ErrCodeNoSuchBucketPolicy) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: in,
 		}
 	}

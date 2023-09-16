@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_availability_zone")
 
-func DataSourceAvailabilityZone() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAvailabilityZoneRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,55 +28,55 @@ func DataSourceAvailabilityZone() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"all_availability_zones": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"group_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"name_suffix": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"network_border_group": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"opt_in_status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"parent_zone_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"parent_zone_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"zone_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"zone_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -85,8 +84,7 @@ func DataSourceAvailabilityZone() *schema.Resource {
 }
 
 func dataSourceAvailabilityZoneRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeAvailabilityZonesInput{}
 

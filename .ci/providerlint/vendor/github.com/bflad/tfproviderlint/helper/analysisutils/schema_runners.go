@@ -11,8 +11,11 @@ import (
 )
 
 // SchemaAttributeReferencesRunner returns an Analyzer runner for fields that use schema attribute references
-func SchemaAttributeReferencesRunner(analyzerName string, fieldName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ SchttributeReferencesRunner(analyzerName string, fieldName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 		schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
 

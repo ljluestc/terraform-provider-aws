@@ -20,8 +20,7 @@ import (
 )
 
 // @SDKResource("aws_rds_cluster_activity_stream")
-func ResourceClusterActivityStream() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClusterActivityStreamCreate,
 		ReadWithoutTimeout:   resourceClusterActivityStreamRead,
 		DeleteWithoutTimeout: resourceClusterActivityStreamDelete,
@@ -63,15 +62,14 @@ func ResourceClusterActivityStream() *schema.Resource {
 }
 
 func resourceClusterActivityStreamCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	arn := d.Get("resource_arn").(string)
 	input := &rds.StartActivityStreamInput{
-		ApplyImmediately:                aws.Bool(true),
+		ApplyImmediately:   aws.Bool(true),
 		EngineNativeAuditFieldsIncluded: aws.Bool(d.Get("engine_native_audit_fields_included").(bool)),
-		KmsKeyId:                        aws.String(d.Get("kms_key_id").(string)),
-		Mode:                            aws.String(d.Get("mode").(string)),
-		ResourceArn:                     aws.String(arn),
+		KmsKeyId:           aws.String(d.Get("kms_key_id").(string)),
+		Mode:  aws.String(d.Get("mode").(string)),
+		ResourceArn:        aws.String(arn),
 	}
 
 	_, err := conn.StartActivityStreamWithContext(ctx, input)
@@ -90,8 +88,7 @@ func resourceClusterActivityStreamCreate(ctx context.Context, d *schema.Resource
 
 func resourceClusterActivityStreamRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	output, err := FindDBClusterWithActivityStream(ctx, conn, d.Id())
+funcput, err := FindDBClusterWithActivityStream(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] RDS Cluster Activity Stream (%s) not found, removing from state", d.Id())
@@ -114,8 +111,7 @@ func resourceClusterActivityStreamRead(ctx context.Context, d *schema.ResourceDa
 func resourceClusterActivityStreamDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS Cluster Activity Stream: %s", d.Id())
-	_, err := conn.StopActivityStreamWithContext(ctx, &rds.StopActivityStreamInput{
+funcerr := conn.StopActivityStreamWithContext(ctx, &rds.StopActivityStreamInput{
 		ApplyImmediately: aws.Bool(true),
 		ResourceArn:      aws.String(d.Id()),
 	})
@@ -134,8 +130,7 @@ func FindDBClusterWithActivityStream(ctx context.Context, conn *rds.RDS, arn str
 	output, err := FindDBClusterByID(ctx, conn, arn)
 	if err != nil {
 		return nil, err
-	}
-
+func
 	if status := aws.StringValue(output.ActivityStreamStatus); status == rds.ActivityStreamStatusStopped {
 		return nil, &retry.NotFoundError{
 			Message: status,
@@ -150,10 +145,8 @@ func statusDBClusterActivityStream(ctx context.Context, conn *rds.RDS, arn strin
 		output, err := FindDBClusterWithActivityStream(ctx, conn, arn)
 
 		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
+func
+func err != nil {
 			return nil, "", err
 		}
 
@@ -173,8 +166,7 @@ func waitActivityStreamStarted(ctx context.Context, conn *rds.RDS, arn string) e
 		Refresh:    statusDBClusterActivityStream(ctx, conn, arn),
 		Timeout:    dbClusterActivityStreamStartedTimeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
-	}
+func
 
 	_, err := stateConf.WaitForStateContext(ctx)
 
@@ -189,8 +181,7 @@ func waitActivityStreamStopped(ctx context.Context, conn *rds.RDS, arn string) e
 		Timeout:    dbClusterActivityStreamStoppedTimeout,
 		MinTimeout: 10 * time.Second,
 		Delay:      30 * time.Second,
-	}
-
+func
 	_, err := stateConf.WaitForStateContext(ctx)
 
 	return err

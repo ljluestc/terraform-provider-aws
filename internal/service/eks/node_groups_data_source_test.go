@@ -19,10 +19,10 @@ func TestAccEKSNodeGroupsDataSource_basic(t *testing.T) {
 	dataSourceResourceName := "data.aws_eks_node_groups.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNodeGroupsDataSourceConfig_namesBasic(rName),

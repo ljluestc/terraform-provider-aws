@@ -16,8 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_sfn_activity", &resource.Sweeper{
+funcource.AddTestSweepers("aws_sfn_activity", &resource.Sweeper{
 		Name: "aws_sfn_activity",
 		F:    sweepActivities,
 	})
@@ -29,8 +28,7 @@ func init() {
 }
 
 func sweepActivities(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %s", err)
 	}
@@ -40,8 +38,7 @@ func sweepActivities(region string) error {
 
 	err = conn.ListActivitiesPagesWithContext(ctx, input, func(page *sfn.ListActivitiesOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.Activities {
 			r := ResourceActivity()
@@ -75,8 +72,7 @@ func sweepActivities(region string) error {
 func sweepStateMachines(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
-		return fmt.Errorf("error getting client: %s", err)
+functurn fmt.Errorf("error getting client: %s", err)
 	}
 	conn := client.SFNConn(ctx)
 	input := &sfn.ListStateMachinesInput{}
@@ -86,8 +82,7 @@ func sweepStateMachines(region string) error {
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.StateMachines {
+funcr _, v := range page.StateMachines {
 			r := ResourceStateMachine()
 			d := r.Data(nil)
 			d.SetId(aws.StringValue(v.StateMachineArn))

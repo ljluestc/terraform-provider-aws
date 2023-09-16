@@ -23,8 +23,8 @@ func testAccRouteDataSource_http2Route(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -61,8 +61,8 @@ func testAccRouteDataSource_httpRoute(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -99,10 +99,10 @@ func testAccRouteDataSource_grpcRoute(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRouteDestroy(ctx),
+		CheckDestroy:testAccCheckRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRouteDataSourceConfig_grpcRoute(meshName, vrName, vnName, rName),
@@ -138,10 +138,10 @@ func testAccRouteDataSource_tcpRoute(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRouteDestroy(ctx),
+		CheckDestroy:testAccCheckRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRouteDataSourceConfig_tcpRoute(meshName, vrName, vnName, rName),
@@ -199,7 +199,7 @@ resource "aws_appmesh_virtual_node" "test" {
 func testAccRouteDataSourceConfig_httpRoute(meshName, vrName, vnName, rName string) string {
 	return acctest.ConfigCompose(testAccRouteDataSourceConfig_base(meshName, vrName, vnName), fmt.Sprintf(`
 resource "aws_appmesh_route" "test" {
-  name                = %[1]q
+  name   = %[1]q
   mesh_name           = aws_appmesh_mesh.test.id
   virtual_router_name = aws_appmesh_virtual_router.test.name
 
@@ -243,7 +243,7 @@ resource "aws_appmesh_route" "test" {
 }
 
 data "aws_appmesh_route" "test" {
-  name                = aws_appmesh_route.test.name
+  name   = aws_appmesh_route.test.name
   mesh_name           = aws_appmesh_route.test.mesh_name
   virtual_router_name = aws_appmesh_route.test.virtual_router_name
 }
@@ -253,7 +253,7 @@ data "aws_appmesh_route" "test" {
 func testAccRouteDataSourceConfig_http2Route(meshName, vrName, vnName, rName string) string {
 	return acctest.ConfigCompose(testAccRouteDataSourceConfig_base(meshName, vrName, vnName), fmt.Sprintf(`
 resource "aws_appmesh_route" "test" {
-  name                = %[1]q
+  name   = %[1]q
   mesh_name           = aws_appmesh_mesh.test.id
   virtual_router_name = aws_appmesh_virtual_router.test.name
 
@@ -293,7 +293,7 @@ resource "aws_appmesh_route" "test" {
 }
 
 data "aws_appmesh_route" "test" {
-  name                = aws_appmesh_route.test.name
+  name   = aws_appmesh_route.test.name
   mesh_name           = aws_appmesh_route.test.mesh_name
   virtual_router_name = aws_appmesh_route.test.virtual_router_name
 }
@@ -303,7 +303,7 @@ data "aws_appmesh_route" "test" {
 func testAccRouteDataSourceConfig_grpcRoute(meshName, vrName, vnName, rName string) string {
 	return acctest.ConfigCompose(testAccRouteDataSourceConfig_base(meshName, vrName, vnName), fmt.Sprintf(`
 resource "aws_appmesh_route" "test" {
-  name                = %[1]q
+  name   = %[1]q
   mesh_name           = aws_appmesh_mesh.test.id
   virtual_router_name = aws_appmesh_virtual_router.test.name
 
@@ -348,7 +348,7 @@ resource "aws_appmesh_route" "test" {
 }
 
 data "aws_appmesh_route" "test" {
-  name                = aws_appmesh_route.test.name
+  name   = aws_appmesh_route.test.name
   mesh_name           = aws_appmesh_route.test.mesh_name
   virtual_router_name = aws_appmesh_route.test.virtual_router_name
 }
@@ -358,7 +358,7 @@ data "aws_appmesh_route" "test" {
 func testAccRouteDataSourceConfig_tcpRoute(meshName, vrName, vnName, rName string) string {
 	return acctest.ConfigCompose(testAccRouteDataSourceConfig_base(meshName, vrName, vnName), fmt.Sprintf(`
 resource "aws_appmesh_route" "test" {
-  name                = %[1]q
+  name   = %[1]q
   mesh_name           = aws_appmesh_mesh.test.id
   virtual_router_name = aws_appmesh_virtual_router.test.name
 
@@ -375,7 +375,7 @@ resource "aws_appmesh_route" "test" {
 }
 
 data "aws_appmesh_route" "test" {
-  name                = aws_appmesh_route.test.name
+  name   = aws_appmesh_route.test.name
   mesh_name           = aws_appmesh_route.test.mesh_name
   virtual_router_name = aws_appmesh_route.test.virtual_router_name
 }

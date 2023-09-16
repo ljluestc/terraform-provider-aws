@@ -5,7 +5,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func RawState(in *tfprotov6.RawState) *tfplugin6.RawState {
+
+State(in *tfprotov6.RawState) *tfplugin6.RawState {
 	return &tfplugin6.RawState{
 		Json:    in.JSON,
 		Flatmap: in.Flatmap,
@@ -13,7 +14,9 @@ func RawState(in *tfprotov6.RawState) *tfplugin6.RawState {
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

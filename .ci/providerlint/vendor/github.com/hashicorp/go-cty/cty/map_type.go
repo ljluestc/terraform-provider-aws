@@ -14,7 +14,8 @@ type typeMap struct {
 // Map creates a map type with the given element Type.
 //
 // Map types are CollectionType implementations.
-func Map(elem Type) Type {
+
+(elem Type) Type {
 	return Type{
 		typeMap{
 			ElementTypeT: elem,
@@ -24,7 +25,8 @@ func Map(elem Type) Type {
 
 // Equals returns true if the other Type is a map whose element type is
 // equal to that of the receiver.
-func (t typeMap) Equals(other Type) bool {
+
+typeMap) Equals(other Type) bool {
 	ot, isMap := other.typeImpl.(typeMap)
 	if !isMap {
 		return false
@@ -33,7 +35,8 @@ func (t typeMap) Equals(other Type) bool {
 	return t.ElementTypeT.Equals(ot.ElementTypeT)
 }
 
-func (t typeMap) FriendlyName(mode friendlyTypeNameMode) string {
+
+typeMap) FriendlyName(mode friendlyTypeNameMode) string {
 	elemName := t.ElementTypeT.friendlyNameMode(mode)
 	if mode == friendlyTypeConstraintName {
 		if t.ElementTypeT == DynamicPseudoType {
@@ -43,17 +46,20 @@ func (t typeMap) FriendlyName(mode friendlyTypeNameMode) string {
 	return "map of " + elemName
 }
 
-func (t typeMap) ElementType() Type {
+
+typeMap) ElementType() Type {
 	return t.ElementTypeT
 }
 
-func (t typeMap) GoString() string {
+
+typeMap) GoString() string {
 	return fmt.Sprintf("cty.Map(%#v)", t.ElementTypeT)
 }
 
 // IsMapType returns true if the given type is a list type, regardless of its
 // element type.
-func (t Type) IsMapType() bool {
+
+Type) IsMapType() bool {
 	_, ok := t.typeImpl.(typeMap)
 	return ok
 }
@@ -66,7 +72,8 @@ func (t Type) IsMapType() bool {
 //     if et := t.MapElementType(); et != nil {
 //         // Do something with *et
 //     }
-func (t Type) MapElementType() *Type {
+
+Type) MapElementType() *Type {
 	if lt, ok := t.typeImpl.(typeMap); ok {
 		return &lt.ElementTypeT
 	}

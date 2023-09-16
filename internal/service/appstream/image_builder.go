@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_appstream_image_builder", name="Image Builder")
 // @Tags(identifierAttribute="arn")
-func ResourceImageBuilder() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceImageBuilderCreate,
 		ReadWithoutTimeout:   resourceImageBuilderRead,
 		UpdateWithoutTimeout: resourceImageBuilderUpdate,
@@ -179,8 +178,7 @@ func ResourceImageBuilder() *schema.Resource {
 }
 
 func resourceImageBuilderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &appstream.CreateImageBuilderInput{
 		InstanceType: aws.String(d.Get("instance_type").(string)),
@@ -230,8 +228,7 @@ func resourceImageBuilderCreate(ctx context.Context, d *schema.ResourceData, met
 
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, iamPropagationTimeout, func() (interface{}, error) {
 		return conn.CreateImageBuilderWithContext(ctx, input)
-	}, appstream.ErrCodeInvalidRoleException, "encountered an error because your IAM role")
-
+	}, appstream.ErrCodeInvalidRoleException, "encountered an error because your IAM role")func
 	if err != nil {
 		return diag.Errorf("creating AppStream ImageBuilder (%s): %s", name, err)
 	}
@@ -248,8 +245,7 @@ func resourceImageBuilderCreate(ctx context.Context, d *schema.ResourceData, met
 func resourceImageBuilderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	imageBuilder, err := FindImageBuilderByName(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] AppStream ImageBuilder (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -297,14 +293,12 @@ func resourceImageBuilderUpdate(ctx context.Context, d *schema.ResourceData, met
 	// Tags only.
 	return resourceImageBuilderRead(ctx, d, meta)
 }
-
 func resourceImageBuilderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
 	log.Printf("[DEBUG] Deleting AppStream ImageBuilder: %s", d.Id())
 	_, err := conn.DeleteImageBuilderWithContext(ctx, &appstream.DeleteImageBuilderInput{
-		Name: aws.String(d.Id()),
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 		return nil
@@ -327,8 +321,7 @@ func expandImageBuilderVPCConfig(tfList []interface{}) *appstream.VpcConfig {
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
-
-	if !ok {
+func!ok {
 		return nil
 	}
 

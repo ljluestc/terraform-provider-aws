@@ -28,10 +28,10 @@ func TestAccRedshiftCluster_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -73,10 +73,10 @@ func TestAccRedshiftCluster_aqua(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_aqua(rName, "enabled"),
@@ -121,10 +121,10 @@ func TestAccRedshiftCluster_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -145,10 +145,10 @@ func TestAccRedshiftCluster_withFinalSnapshot(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterTestSnapshotDestroy(ctx, rName),
+		CheckDestroy:testAccCheckClusterTestSnapshotDestroy(ctx, rName),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_finalSnapshot(rName),
@@ -179,10 +179,10 @@ func TestAccRedshiftCluster_kmsKey(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_kmsKey(rName),
@@ -215,10 +215,10 @@ func TestAccRedshiftCluster_enhancedVPCRoutingEnabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_enhancedVPCRoutingEnabled(rName),
@@ -257,10 +257,10 @@ func TestAccRedshiftCluster_loggingEnabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_loggingEnabled(rName),
@@ -311,9 +311,9 @@ func TestAccRedshiftCluster_snapshotCopy(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_snapshotCopyEnabled(rName),
@@ -341,10 +341,10 @@ func TestAccRedshiftCluster_iamRoles(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_iamRoles(rName),
@@ -371,10 +371,10 @@ func TestAccRedshiftCluster_publiclyAccessible(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_publiclyAccessible(rName, false),
@@ -402,10 +402,10 @@ func TestAccRedshiftCluster_updateNodeCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -434,10 +434,10 @@ func TestAccRedshiftCluster_updateNodeType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_updateNodeType(rName, "dc2.large"),
@@ -464,10 +464,10 @@ func TestAccRedshiftCluster_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_tags1(rName, "key1", "value1"),
@@ -516,10 +516,10 @@ func TestAccRedshiftCluster_forceNewUsername(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -549,10 +549,10 @@ func TestAccRedshiftCluster_changeAvailabilityZone(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_updateAvailabilityZone(rName, 0),
@@ -582,10 +582,10 @@ func TestAccRedshiftCluster_changeAvailabilityZoneAndSetAvailabilityZoneRelocati
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet(rName, 0),
@@ -616,10 +616,10 @@ func TestAccRedshiftCluster_changeAvailabilityZone_availabilityZoneRelocationNot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet(rName, 0),
@@ -645,10 +645,10 @@ func TestAccRedshiftCluster_changeEncryption1(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rName),
@@ -676,10 +676,10 @@ func TestAccRedshiftCluster_changeEncryption2(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_encrypted(rName),
@@ -707,10 +707,10 @@ func TestAccRedshiftCluster_availabilityZoneRelocation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_availabilityZoneRelocation(rName, true),
@@ -748,10 +748,10 @@ func TestAccRedshiftCluster_availabilityZoneRelocation_publiclyAccessible(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_availabilityZoneRelocationPubliclyAccessible(rName),
@@ -772,10 +772,10 @@ func TestAccRedshiftCluster_restoreFromSnapshot(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterTestSnapshotDestroy(ctx, rName),
+		CheckDestroy:testAccCheckClusterTestSnapshotDestroy(ctx, rName),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_createSnapshot(rName),
@@ -943,16 +943,16 @@ func testAccCheckClusterRecreated(i, j *redshift.Cluster) resource.TestCheckFunc
 func testAccClusterConfig_updateNodeCount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  number_of_nodes                     = 2
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  number_of_nodes        = 2
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -960,16 +960,16 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_updateNodeType(rName, nodeType string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = %[2]q
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = %[2]q
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  number_of_nodes                     = 2
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  number_of_nodes        = 2
+  skip_final_snapshot    = true
 }
 `, rName, nodeType))
 }
@@ -978,15 +978,15 @@ func testAccClusterConfig_basic(rName string) string {
 	// "InvalidVPCNetworkStateFault: The requested AZ us-west-2a is not a valid AZ."
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -994,17 +994,17 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_aqua(rName, status string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "ra3.xlplus"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
   aqua_configuration_status           = %[2]q
-  apply_immediately                   = true
+  apply_immediately      = true
 }
 `, rName, status))
 }
@@ -1035,17 +1035,17 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
-  encrypted                           = true
-  kms_key_id                          = aws_kms_key.test.arn
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
+  encrypted = true
+  kms_key_id= aws_kms_key.test.arn
 }
 `, rName))
 }
@@ -1078,15 +1078,15 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1094,15 +1094,15 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_finalSnapshot(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = false
+  allow_version_upgrade  = false
+  skip_final_snapshot    = false
   final_snapshot_identifier           = %[1]q
 }
 `, rName))
@@ -1133,17 +1133,17 @@ POLICY
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  kms_key_id                          = aws_kms_key.test.arn
-  encrypted                           = true
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  kms_key_id= aws_kms_key.test.arn
+  encrypted = true
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1151,16 +1151,16 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_enhancedVPCRoutingEnabled(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  enhanced_vpc_routing                = true
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  enhanced_vpc_routing   = true
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1168,16 +1168,16 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_enhancedVPCRoutingDisabled(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  enhanced_vpc_routing                = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  enhanced_vpc_routing   = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1185,14 +1185,14 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_loggingDisabled(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
+  allow_version_upgrade  = false
 
   logging {
     enable = false
@@ -1245,14 +1245,14 @@ resource "aws_redshift_cluster" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
+  allow_version_upgrade  = false
 
   logging {
     enable      = true
@@ -1267,17 +1267,17 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_loggingCloudWatch(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
+  allow_version_upgrade  = false
 
   logging {
-    enable               = true
+    enable  = true
     log_destination_type = "cloudwatch"
     log_exports          = ["connectionlog"]
   }
@@ -1293,15 +1293,15 @@ func testAccClusterConfig_snapshotCopyDisabled(rName string) string {
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1316,14 +1316,14 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
+  allow_version_upgrade  = false
 
   snapshot_copy {
     destination_region = data.aws_region.alternate.name
@@ -1338,15 +1338,15 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 7
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
   tags = {
     %[2]q = %[3]q
@@ -1358,15 +1358,15 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 7
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
   tags = {
     %[2]q = %[3]q
@@ -1430,17 +1430,17 @@ resource "aws_redshift_subnet_group" "test" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
+  allow_version_upgrade  = false
   cluster_subnet_group_name           = aws_redshift_subnet_group.test.name
-  publicly_accessible                 = %[2]t
-  skip_final_snapshot                 = true
+  publicly_accessible    = %[2]t
+  skip_final_snapshot    = true
 
   depends_on = [aws_internet_gateway.test]
 }
@@ -1498,16 +1498,16 @@ EOF
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  iam_roles                           = [aws_iam_role.ec2.arn, aws_iam_role.lambda.arn]
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  iam_roles = [aws_iam_role.ec2.arn, aws_iam_role.lambda.arn]
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1563,16 +1563,16 @@ EOF
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  iam_roles                           = [aws_iam_role.ec2.arn]
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  iam_roles = [aws_iam_role.ec2.arn]
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1580,15 +1580,15 @@ resource "aws_redshift_cluster" "test" {
 func testAccClusterConfig_updatedUsername(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "mydb"
-  master_username                     = "new_username"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier     = %[1]q
+  availability_zone      = data.aws_availability_zones.available.names[0]
+  database_name          = "mydb"
+  master_username        = "new_username"
+  master_password        = "Mustbe8characters"
+  node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 }
 `, rName))
 }
@@ -1598,18 +1598,18 @@ func testAccClusterConfig_updateAvailabilityZone(rName string, regionIndex int) 
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "ra3.xlplus"
+  cluster_identifier     = %[1]q
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
-  publicly_accessible                  = false
+  publicly_accessible     = false
   availability_zone_relocation_enabled = true
-  availability_zone                    = data.aws_availability_zones.available.names[%[2]d]
+  availability_zone       = data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
 }
@@ -1619,18 +1619,18 @@ func testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "ra3.xlplus"
+  cluster_identifier     = %[1]q
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
-  publicly_accessible                  = false
+  publicly_accessible     = false
   availability_zone_relocation_enabled = false
-  availability_zone                    = data.aws_availability_zones.available.names[%[2]d]
+  availability_zone       = data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
 }
@@ -1639,18 +1639,18 @@ func testAccClusterConfig_availabilityZoneRelocation(rName string, enabled bool)
 	return acctest.ConfigCompose(
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "ra3.xlplus"
-  number_of_nodes                     = 2
-  cluster_type                        = "multi-node"
+  cluster_identifier     = %[1]q
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "ra3.xlplus"
+  number_of_nodes        = 2
+  cluster_type           = "multi-node"
   automated_snapshot_retention_period = 1
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
-  publicly_accessible                  = false
+  publicly_accessible     = false
   availability_zone_relocation_enabled = %[2]t
 }
 `, rName, enabled))
@@ -1660,16 +1660,16 @@ func testAccClusterConfig_availabilityZoneRelocationPubliclyAccessible(rName str
 	return acctest.ConfigCompose(
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                  = %[1]q
-  database_name                       = "mydb"
-  master_username                     = "foo_test"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "ra3.xlplus"
+  cluster_identifier     = %[1]q
+  database_name          = "mydb"
+  master_username        = "foo_test"
+  master_password        = "Mustbe8characters"
+  node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade  = false
+  skip_final_snapshot    = true
 
-  publicly_accessible                  = true
+  publicly_accessible     = true
   availability_zone_relocation_enabled = true
 }
 `, rName))
@@ -1680,10 +1680,10 @@ func testAccClusterConfig_createSnapshot(rName string) string {
 resource "aws_redshift_cluster" "test" {
   cluster_identifier        = %[1]q
   availability_zone         = data.aws_availability_zones.available.names[0]
-  database_name             = "mydb"
+  database_name= "mydb"
   master_username           = "foo_test"
   master_password           = "Mustbe8characters"
-  node_type                 = "dc2.8xlarge"
+  node_type    = "dc2.8xlarge"
   number_of_nodes           = 2
   final_snapshot_identifier = %[1]q
 }

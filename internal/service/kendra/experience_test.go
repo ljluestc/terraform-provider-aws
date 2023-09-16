@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccKendraExperience_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -30,7 +31,8 @@ func TestAccKendraExperience_basic(t *testing.T) {
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -62,6 +64,7 @@ func TestAccKendraExperience_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraExperience_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -72,7 +75,8 @@ func TestAccKendraExperience_disappears(t *testing.T) {
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -93,6 +97,7 @@ func TestAccKendraExperience_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraExperience_Description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -103,7 +108,8 @@ func TestAccKendraExperience_Description(t *testing.T) {
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -150,6 +156,7 @@ func TestAccKendraExperience_Description(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraExperience_Name(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -161,7 +168,8 @@ func TestAccKendraExperience_Name(t *testing.T) {
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -198,6 +206,7 @@ func TestAccKendraExperience_Name(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraExperience_roleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -208,7 +217,8 @@ func TestAccKendraExperience_roleARN(t *testing.T) {
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -245,6 +255,7 @@ func TestAccKendraExperience_roleARN(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_ContentSourceConfiguration_DirectPutContent(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -255,7 +266,8 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_DirectPutC
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -300,6 +312,7 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_DirectPutC
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_ContentSourceConfiguration_FaqIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -310,7 +323,8 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_FaqIDs(t *
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -339,6 +353,7 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_FaqIDs(t *
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_ContentSourceConfiguration_updateFaqIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -349,7 +364,8 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_updateFaqI
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -388,6 +404,7 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_updateFaqI
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_UserIdentityConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -403,7 +420,8 @@ func TestAccKendraExperience_Configuration_UserIdentityConfiguration(t *testing.
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -430,6 +448,7 @@ func TestAccKendraExperience_Configuration_UserIdentityConfiguration(t *testing.
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_ContentSourceConfigurationAndUserIdentityConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -445,7 +464,8 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationAndUserIden
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -474,6 +494,7 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationAndUserIden
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_ContentSourceConfigurationWithUserIdentityConfigurationRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -489,7 +510,8 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationWithUserIde
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -528,6 +550,7 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationWithUserIde
 	})
 }
 
+
 func TestAccKendraExperience_Configuration_UserIdentityConfigurationWithContentSourceConfigurationRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -543,7 +566,8 @@ func TestAccKendraExperience_Configuration_UserIdentityConfigurationWithContentS
 	resourceName := "aws_kendra_experience.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -573,8 +597,10 @@ func TestAccKendraExperience_Configuration_UserIdentityConfigurationWithContentS
 	})
 }
 
+
 func testAccCheckExperienceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -601,8 +627,10 @@ func testAccCheckExperienceDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccCheckExperienceExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -624,6 +652,7 @@ func testAccCheckExperienceExists(ctx context.Context, name string) resource.Tes
 		return err
 	}
 }
+
 
 func testAccExperienceBaseConfig(rName string) string {
 	return fmt.Sprintf(`
@@ -746,6 +775,7 @@ resource "aws_kendra_index" "test" {
 `, rName)
 }
 
+
 func testAccExperienceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccExperienceBaseConfig(rName),
@@ -759,6 +789,7 @@ resource "aws_kendra_experience" "test" {
 }
 `, rName))
 }
+
 
 func testAccExperienceConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(
@@ -775,6 +806,7 @@ resource "aws_kendra_experience" "test" {
 `, rName, description))
 }
 
+
 func testAccExperienceConfig_name(rName, name string) string {
 	return acctest.ConfigCompose(
 		testAccExperienceBaseConfig(rName),
@@ -788,6 +820,7 @@ resource "aws_kendra_experience" "test" {
 }
 `, name))
 }
+
 
 func testAccExperienceConfig_roleARN(rName string) string {
 	return acctest.ConfigCompose(
@@ -818,6 +851,7 @@ resource "aws_kendra_experience" "test" {
 `, rName))
 }
 
+
 func testAccExperienceConfig_configuration_contentSourceConfiguration_empty(rName string) string {
 	return acctest.ConfigCompose(
 		testAccExperienceBaseConfig(rName),
@@ -835,6 +869,7 @@ resource "aws_kendra_experience" "test" {
 }
 `, rName))
 }
+
 
 func testAccExperienceConfig_configuration_contentSourceConfiguration_directPutContent(rName string, directPutContent bool) string {
 	return acctest.ConfigCompose(
@@ -855,6 +890,7 @@ resource "aws_kendra_experience" "test" {
 }
 `, rName, directPutContent))
 }
+
 
 func testAccExperienceConfig_configuration_contentSourceConfiguration_faqIDs(rName string) string {
 	return acctest.ConfigCompose(
@@ -924,6 +960,7 @@ resource "aws_kendra_experience" "test" {
 `, rName))
 }
 
+
 func testAccExperienceConfig_configuration_userIdentityConfiguration(rName, userId string) string {
 	return acctest.ConfigCompose(
 		testAccExperienceBaseConfig(rName),
@@ -943,6 +980,7 @@ resource "aws_kendra_experience" "test" {
 }
 `, rName, userId))
 }
+
 
 func testAccExperienceConfig_configuration_contentSourceConfigurationAndUserIdentityConfiguration(rName, userId string) string {
 	return acctest.ConfigCompose(

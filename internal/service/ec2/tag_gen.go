@@ -16,10 +16,9 @@ import (
 
 // @SDKResource("aws_ec2_tag")
 
-func ResourceTag() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTagCreate,
-		ReadWithoutTimeout:   resourceTagRead,
+		ReadWithoutTimeout:ourceTagRead,
 		UpdateWithoutTimeout: resourceTagUpdate,
 		DeleteWithoutTimeout: resourceTagDelete,
 
@@ -29,17 +28,17 @@ func ResourceTag() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"value": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 		},
@@ -48,8 +47,7 @@ func ResourceTag() *schema.Resource {
 
 
 func resourceTagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	identifier := d.Get("resource_id").(string)
 	key := d.Get("key").(string)
 	value := d.Get("value").(string)
@@ -66,8 +64,7 @@ func resourceTagCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 func resourceTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	identifier, key, err := tftags.GetResourceID(d.Id())
-
+func
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -95,8 +92,7 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, meta interface
 func resourceTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return diag.FromErr(err)
 	}
 
@@ -112,8 +108,7 @@ func resourceTagDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())
 
-	if err != nil {
-		return diag.FromErr(err)
+functurn diag.FromErr(err)
 	}
 
 	if err := updateTags(ctx, conn, identifier, map[string]string{key: d.Get("value").(string)}, nil); err != nil {

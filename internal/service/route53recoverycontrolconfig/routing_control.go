@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_route53recoverycontrolconfig_routing_control")
+
 func ResourceRoutingControl() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRoutingControlCreate,
@@ -54,6 +55,7 @@ func ResourceRoutingControl() *schema.Resource {
 	}
 }
 
+
 func resourceRoutingControlCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -88,6 +90,7 @@ func resourceRoutingControlCreate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceRoutingControlRead(ctx, d, meta)...)
 }
 
+
 func resourceRoutingControlRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -121,6 +124,7 @@ func resourceRoutingControlRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
+
 func resourceRoutingControlUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
@@ -138,6 +142,7 @@ func resourceRoutingControlUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceRoutingControlRead(ctx, d, meta)...)
 }
+
 
 func resourceRoutingControlDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

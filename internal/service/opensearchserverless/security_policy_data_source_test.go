@@ -26,7 +26,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
+CheckDestroy:testAccCheckSecurityPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSecurityPolicyDataSourceConfig_basic(rName),

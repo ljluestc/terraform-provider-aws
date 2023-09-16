@@ -80,10 +80,10 @@ func testAccLFTag_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLFTagConfig_basic(rName),
@@ -109,10 +109,10 @@ func testAccLFTag_TagKey_complex(t *testing.T) {
 	rName := fmt.Sprintf("%s:%s", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "subKey")
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLFTagConfig_basic(rName),
@@ -133,10 +133,10 @@ func testAccLFTag_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLFTagConfig_basic(rName),
@@ -156,10 +156,10 @@ func testAccLFTag_Values(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccLFTagConfig_values(rName, []string{"value1", "value2"}),
@@ -201,10 +201,10 @@ func testAccLFTag_Values_overFifty(t *testing.T) {
 	generatedValues = append(generatedValues, generateLFTagValueList(53, 60)...)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLFTagConfig_values(rName, generatedValues),

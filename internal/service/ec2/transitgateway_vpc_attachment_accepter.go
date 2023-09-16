@@ -23,10 +23,9 @@ import (
 // @SDKResource("aws_ec2_transit_gateway_vpc_attachment_accepter", name="Transit Gateway VPC Attachment")
 // @Tags(identifierAttribute="id")
 
-func ResourceTransitGatewayVPCAttachmentAccepter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayVPCAttachmentAccepterCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayVPCAttachmentAccepterRead,
+		ReadWithoutTimeout:ourceTransitGatewayVPCAttachmentAccepterRead,
 		UpdateWithoutTimeout: resourceTransitGatewayVPCAttachmentAccepterUpdate,
 		DeleteWithoutTimeout: resourceTransitGatewayVPCAttachmentAccepterDelete,
 
@@ -38,49 +37,49 @@ func ResourceTransitGatewayVPCAttachmentAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"appliance_mode_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"dns_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipv6_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"transit_gateway_default_route_table_association": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
 			"transit_gateway_default_route_table_propagation": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -88,8 +87,7 @@ func ResourceTransitGatewayVPCAttachmentAccepter() *schema.Resource {
 }
 
 func resourceTransitGatewayVPCAttachmentAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	transitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
 	input := &ec2.AcceptTransitGatewayVpcAttachmentInput{
@@ -133,8 +131,7 @@ func resourceTransitGatewayVPCAttachmentAccepterCreate(ctx context.Context, d *s
 
 func resourceTransitGatewayVPCAttachmentAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	transitGatewayVPCAttachment, err := FindTransitGatewayVPCAttachmentByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -200,8 +197,7 @@ func resourceTransitGatewayVPCAttachmentAccepterRead(ctx context.Context, d *sch
 func resourceTransitGatewayVPCAttachmentAccepterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	if d.HasChanges("transit_gateway_default_route_table_association", "transit_gateway_default_route_table_propagation") {
+funcd.HasChanges("transit_gateway_default_route_table_association", "transit_gateway_default_route_table_propagation") {
 		transitGatewayID := d.Get("transit_gateway_id").(string)
 		transitGateway, err := FindTransitGatewayByID(ctx, conn, transitGatewayID)
 
@@ -229,8 +225,7 @@ func resourceTransitGatewayVPCAttachmentAccepterDelete(ctx context.Context, d *s
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	log.Printf("[DEBUG] Deleting EC2 Transit Gateway VPC Attachment: %s", d.Id())
-	_, err := conn.DeleteTransitGatewayVpcAttachmentWithContext(ctx, &ec2.DeleteTransitGatewayVpcAttachmentInput{
+funcerr := conn.DeleteTransitGatewayVpcAttachmentWithContext(ctx, &ec2.DeleteTransitGatewayVpcAttachmentInput{
 		TransitGatewayAttachmentId: aws.String(d.Id()),
 	})
 

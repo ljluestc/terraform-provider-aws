@@ -14,7 +14,8 @@ type BasicError struct {
 // NewBasicError is used to create a BasicError.
 //
 // err is allowed to be nil.
-func NewBasicError(err error) *BasicError {
+
+ NewBasicError(err error) *BasicError {
 	if err == nil {
 		return nil
 	}
@@ -22,6 +23,7 @@ func NewBasicError(err error) *BasicError {
 	return &BasicError{err.Error()}
 }
 
-func (e *BasicError) Error() string {
+
+ (e *BasicError) Error() string {
 	return e.Message
 }

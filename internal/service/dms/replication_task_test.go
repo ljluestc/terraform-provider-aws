@@ -37,7 +37,7 @@ func TestAccDMSReplicationTask_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_basic(rName, tags),
@@ -47,13 +47,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccReplicationTaskConfig_basic(rName, tags),
+Config:testAccReplicationTaskConfig_basic(rName, tags),
 PlanOnly:           true,
 ExpectNonEmptyPlan: false,
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_replication_task"},
 	},
@@ -76,7 +76,7 @@ func TestAccDMSReplicationTask_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_update(rName, "full-load", 1024, "ZedsDead"),
@@ -98,7 +98,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccReplicationTaskConfig_update(rName, "full-load", 1024, "EMBRZ"),
+Config:testAccReplicationTaskConfig_update(rName, "full-load", 1024, "EMBRZ"),
 PlanOnly:           true,
 ExpectNonEmptyPlan: false,
 	},
@@ -122,7 +122,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccReplicationTaskConfig_update(rName, "full-load", 1024, "ZedsDead"),
+Config:testAccReplicationTaskConfig_update(rName, "full-load", 1024, "ZedsDead"),
 PlanOnly:           true,
 ExpectNonEmptyPlan: false,
 	},
@@ -146,7 +146,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccReplicationTaskConfig_update(rName, "full-load", 1024, "EMBRZ"),
+Config:testAccReplicationTaskConfig_update(rName, "full-load", 1024, "EMBRZ"),
 PlanOnly:           true,
 ExpectNonEmptyPlan: false,
 	},
@@ -163,7 +163,7 @@ func TestAccDMSReplicationTask_cdcStartPosition(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_cdcStartPosition(rName, "mysql-bin-changelog.000024:373"),
@@ -174,7 +174,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_replication_task"},
 	},
@@ -195,7 +195,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_start(rName, true, "testrule"),
@@ -206,7 +206,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_replication_task"},
 	},
@@ -239,7 +239,7 @@ func TestAccDMSReplicationTask_s3ToRDS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_s3ToRDS(rName),
@@ -249,7 +249,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccReplicationTaskConfig_s3ToRDS(rName),
+Config:testAccReplicationTaskConfig_s3ToRDS(rName),
 PlanOnly:           true,
 ExpectNonEmptyPlan: false,
 	},
@@ -270,7 +270,7 @@ func TestAccDMSReplicationTask_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationTaskConfig_basic(rName, tags),
@@ -553,13 +553,13 @@ resource "aws_rds_cluster_parameter_group" "test" {
 }
 
 resource "aws_rds_cluster" "test1" {
-  cluster_identifier              = "%[1]s-aurora-cluster-source"
+  cluster_identifier = "%[1]s-aurora-cluster-source"
   engine           = "aurora-mysql"
   engine_version   = "5.7.mysql_aurora.2.11.2"
   database_name    = "tftest"
   master_username  = "tftest"
   master_password  = "mustbeeightcharaters"
-  skip_final_snapshot             = true
+  skip_final_snapshot= true
   vpc_security_group_ids          = [aws_security_group.test.id]
   db_subnet_group_name            = aws_db_subnet_group.test.name
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.test.name
@@ -761,12 +761,12 @@ resource "aws_rds_cluster_instance" "test" {
 
 resource "aws_dms_s3_endpoint" "source" {
   bucket_folder           = "folder"
-  bucket_name             = aws_s3_bucket.test.id
+  bucket_name= aws_s3_bucket.test.id
   cdc_path = "cdc-files"
   csv_delimiter           = ";"
   csv_row_delimiter       = "\\n"
   date_partition_enabled  = false
-  endpoint_id             = "%[1]s-source"
+  endpoint_id= "%[1]s-source"
   endpoint_type           = "source"
   expected_bucket_owner   = data.aws_caller_identity.current.account_id
   ignore_header_rows      = 1

@@ -22,7 +22,8 @@ type Descriptor interface {
 	// ParentFile returns the parent file descriptor that this descriptor
 	// is declared within. The parent file for the file descriptor is itself.
 	//
-	// Support for this functionality is optional and may return nil.
+	// Support for this 
+tionality is optional and may return nil.
 	ParentFile() FileDescriptor
 
 	// Parent returns the parent containing this descriptor declaration.
@@ -41,7 +42,8 @@ type Descriptor interface {
 	//	║ MethodDescriptor    │ ServiceDescriptor                 ║
 	//	╚═════════════════════╧═══════════════════════════════════╝
 	//
-	// Support for this functionality is optional and may return nil.
+	// Support for this 
+tionality is optional and may return nil.
 	Parent() Descriptor
 
 	// Index returns the index of this descriptor within its parent.
@@ -89,7 +91,8 @@ type Descriptor interface {
 	// Options returns the descriptor options. The caller must not modify
 	// the returned value.
 	//
-	// To avoid a dependency cycle, this function returns a proto.Message value.
+	// To avoid a dependency cycle, this 
+tion returns a proto.Message value.
 	// The proto message type returned for each descriptor type is as follows:
 	//	╔═════════════════════╤══════════════════════════════════════════╗
 	//	║ Go type             │ Protobuf message type                    ║

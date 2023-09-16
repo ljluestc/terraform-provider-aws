@@ -12,15 +12,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
 
-func FindDataSetById(ctx context.Context, conn *dataexchange.DataExchange, id string) (*dataexchange.GetDataSetOutput, error) {
-	input := &dataexchange.GetDataSetInput{
+funcut := &dataexchange.GetDataSetInput{
 		DataSetId: aws.String(id),
 	}
 	output, err := conn.GetDataSetWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, dataexchange.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -33,15 +32,14 @@ func FindDataSetById(ctx context.Context, conn *dataexchange.DataExchange, id st
 }
 
 func FindRevisionById(ctx context.Context, conn *dataexchange.DataExchange, dataSetId, revisionId string) (*dataexchange.GetRevisionOutput, error) {
-	input := &dataexchange.GetRevisionInput{
-		DataSetId:  aws.String(dataSetId),
+functaSetId:  aws.String(dataSetId),
 		RevisionId: aws.String(revisionId),
 	}
 	output, err := conn.GetRevisionWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, dataexchange.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

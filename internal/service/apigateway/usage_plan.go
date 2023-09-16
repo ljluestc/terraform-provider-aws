@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_api_gateway_usage_plan", name="Usage Plan")
 // @Tags(identifierAttribute="arn")
-func ResourceUsagePlan() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUsagePlanCreate,
-		ReadWithoutTimeout:   resourceUsagePlanRead,
+		ReadWithoutTimeout:ourceUsagePlanRead,
 		UpdateWithoutTimeout: resourceUsagePlanUpdate,
 		DeleteWithoutTimeout: resourceUsagePlanDelete,
 
@@ -40,34 +39,34 @@ func ResourceUsagePlan() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_stages": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"api_id": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"stage": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"throttle": {
-							Type:     schema.TypeSet,
+							Type:chema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"burst_limit": {
-										Type:     schema.TypeInt,
+										Type:chema.TypeInt,
 										Default:  0,
 										Optional: true,
 									},
 									"path": {
-										Type:     schema.TypeString,
+										Type:chema.TypeString,
 										Required: true,
 									},
 									"rate_limit": {
-										Type:     schema.TypeFloat,
+										Type:chema.TypeFloat,
 										Default:  0,
 										Optional: true,
 									},
@@ -78,62 +77,62 @@ func ResourceUsagePlan() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true, // Required since not addable nor removable afterwards
 			},
 			"product_code": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"quota_settings": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"limit": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Required: true, // Required as not removable singularly
 						},
 						"offset": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Default:  0,
 							Optional: true,
 						},
 						"period": {
-							Type:         schema.TypeString,
-							Required:     true, // Required as not removable
+							Type:peString,
+							Required:rue, // Required as not removable
 							ValidateFunc: validation.StringInSlice(apigateway.QuotaPeriodType_Values(), false),
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"throttle_settings": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"burst_limit": {
-							Type:         schema.TypeInt,
-							Default:      0,
-							Optional:     true,
+							Type:peInt,
+							Default:
+							Optional:rue,
 							AtLeastOneOf: []string{"throttle_settings.0.burst_limit", "throttle_settings.0.rate_limit"},
 						},
 						"rate_limit": {
-							Type:         schema.TypeFloat,
-							Default:      0,
-							Optional:     true,
+							Type:peFloat,
+							Default:
+							Optional:rue,
 							AtLeastOneOf: []string{"throttle_settings.0.burst_limit", "throttle_settings.0.rate_limit"},
 						},
 					},
@@ -146,8 +145,7 @@ func ResourceUsagePlan() *schema.Resource {
 }
 
 func resourceUsagePlanCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &apigateway.CreateUsagePlanInput{
@@ -196,7 +194,7 @@ func resourceUsagePlanCreate(ctx context.Context, d *schema.ResourceData, meta i
 		input := &apigateway.UpdateUsagePlanInput{
 			PatchOperations: []*apigateway.PatchOperation{
 				{
-					Op:    aws.String(apigateway.OpAdd),
+					Op:s.String(apigateway.OpAdd),
 					Path:  aws.String("/productCode"),
 					Value: aws.String(v.(string)),
 				},
@@ -216,8 +214,7 @@ func resourceUsagePlanCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 func resourceUsagePlanRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	up, err := FindUsagePlanByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -237,8 +234,8 @@ func resourceUsagePlanRead(ctx context.Context, d *schema.ResourceData, meta int
 	}
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/usageplans/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -264,13 +261,12 @@ func resourceUsagePlanRead(ctx context.Context, d *schema.ResourceData, meta int
 func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		operations := make([]*apigateway.PatchOperation, 0)
 
 		if d.HasChange("name") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/name"),
 				Value: aws.String(d.Get("name").(string)),
 			})
@@ -278,7 +274,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 		if d.HasChange("description") {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpReplace),
+				Op:s.String(apigateway.OpReplace),
 				Path:  aws.String("/description"),
 				Value: aws.String(d.Get("description").(string)),
 			})
@@ -287,13 +283,13 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		if d.HasChange("product_code") {
 			if v, ok := d.GetOk("product_code"); ok {
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:    aws.String(apigateway.OpReplace),
+					Op:s.String(apigateway.OpReplace),
 					Path:  aws.String("/productCode"),
 					Value: aws.String(v.(string)),
 				})
 			} else {
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:   aws.String(apigateway.OpRemove),
+					Op:.String(apigateway.OpRemove),
 					Path: aws.String("/productCode"),
 				})
 			}
@@ -309,7 +305,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			for _, v := range os {
 				m := v.(map[string]interface{})
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:    aws.String(apigateway.OpRemove),
+					Op:s.String(apigateway.OpRemove),
 					Path:  aws.String("/apiStages"),
 					Value: aws.String(fmt.Sprintf("%s:%s", m["api_id"].(string), m["stage"].(string))),
 				})
@@ -321,7 +317,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 					m := v.(map[string]interface{})
 					id := fmt.Sprintf("%s:%s", m["api_id"].(string), m["stage"].(string))
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/apiStages"),
 						Value: aws.String(id),
 					})
@@ -329,12 +325,12 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 						for _, throttle := range t.List() {
 							th := throttle.(map[string]interface{})
 							operations = append(operations, &apigateway.PatchOperation{
-								Op:    aws.String(apigateway.OpReplace),
+								Op:s.String(apigateway.OpReplace),
 								Path:  aws.String(fmt.Sprintf("/apiStages/%s/throttle/%s/rateLimit", id, th["path"].(string))),
 								Value: aws.String(strconv.FormatFloat(th["rate_limit"].(float64), 'f', -1, 64)),
 							})
 							operations = append(operations, &apigateway.PatchOperation{
-								Op:    aws.String(apigateway.OpReplace),
+								Op:s.String(apigateway.OpReplace),
 								Path:  aws.String(fmt.Sprintf("/apiStages/%s/throttle/%s/burstLimit", id, th["path"].(string))),
 								Value: aws.String(strconv.Itoa(th["burst_limit"].(int))),
 							})
@@ -351,7 +347,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			// Handle Removal
 			if len(diff) == 0 {
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:   aws.String(apigateway.OpRemove),
+					Op:.String(apigateway.OpRemove),
 					Path: aws.String("/throttle"),
 				})
 			}
@@ -362,12 +358,12 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 				// Handle Replaces
 				if o != nil && n != nil {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/throttle/rateLimit"),
 						Value: aws.String(strconv.FormatFloat(d["rate_limit"].(float64), 'f', -1, 64)),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/throttle/burstLimit"),
 						Value: aws.String(strconv.Itoa(d["burst_limit"].(int))),
 					})
@@ -376,12 +372,12 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 				// Handle Additions
 				if o == nil && n != nil {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/throttle/rateLimit"),
 						Value: aws.String(strconv.FormatFloat(d["rate_limit"].(float64), 'f', -1, 64)),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/throttle/burstLimit"),
 						Value: aws.String(strconv.Itoa(d["burst_limit"].(int))),
 					})
@@ -396,7 +392,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			// Handle Removal
 			if len(diff) == 0 {
 				operations = append(operations, &apigateway.PatchOperation{
-					Op:   aws.String(apigateway.OpRemove),
+					Op:.String(apigateway.OpRemove),
 					Path: aws.String("/quota"),
 				})
 			}
@@ -411,17 +407,17 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 				// Handle Replaces
 				if o != nil && n != nil {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/quota/limit"),
 						Value: aws.String(strconv.Itoa(d["limit"].(int))),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/quota/offset"),
 						Value: aws.String(strconv.Itoa(d["offset"].(int))),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpReplace),
+						Op:s.String(apigateway.OpReplace),
 						Path:  aws.String("/quota/period"),
 						Value: aws.String(d["period"].(string)),
 					})
@@ -430,17 +426,17 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 				// Handle Additions
 				if o == nil && n != nil {
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/quota/limit"),
 						Value: aws.String(strconv.Itoa(d["limit"].(int))),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/quota/offset"),
 						Value: aws.String(strconv.Itoa(d["offset"].(int))),
 					})
 					operations = append(operations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String("/quota/period"),
 						Value: aws.String(d["period"].(string)),
 					})
@@ -450,7 +446,7 @@ func resourceUsagePlanUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 		input := &apigateway.UpdateUsagePlanInput{
 			PatchOperations: operations,
-			UsagePlanId:     aws.String(d.Id()),
+			UsagePlanId:ws.String(d.Id()),
 		}
 
 		_, err := conn.UpdateUsagePlanWithContext(ctx, input)
@@ -467,8 +463,7 @@ func resourceUsagePlanDelete(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	// Removing existing api stages associated
-	if apistages, ok := d.GetOk("api_stages"); ok {
+funcapistages, ok := d.GetOk("api_stages"); ok {
 		stages := apistages.(*schema.Set)
 		operations := []*apigateway.PatchOperation{}
 
@@ -476,7 +471,7 @@ func resourceUsagePlanDelete(ctx context.Context, d *schema.ResourceData, meta i
 			sv := v.(map[string]interface{})
 
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpRemove),
+				Op:s.String(apigateway.OpRemove),
 				Path:  aws.String("/apiStages"),
 				Value: aws.String(fmt.Sprintf("%s:%s", sv["api_id"].(string), sv["stage"].(string))),
 			})
@@ -484,7 +479,7 @@ func resourceUsagePlanDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 		_, err := conn.UpdateUsagePlanWithContext(ctx, &apigateway.UpdateUsagePlanInput{
 			PatchOperations: operations,
-			UsagePlanId:     aws.String(d.Id()),
+			UsagePlanId:ws.String(d.Id()),
 		})
 
 		if err != nil {
@@ -513,11 +508,10 @@ func FindUsagePlanByID(ctx context.Context, conn *apigateway.APIGateway, id stri
 		UsagePlanId: aws.String(id),
 	}
 
-	output, err := conn.GetUsagePlanWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -539,8 +533,7 @@ func expandAPIStages(s *schema.Set) []*apigateway.ApiStage {
 	for _, stageRaw := range s.List() {
 		stage := &apigateway.ApiStage{}
 		mStage := stageRaw.(map[string]interface{})
-
-		if v, ok := mStage["api_id"].(string); ok && v != "" {
+func v, ok := mStage["api_id"].(string); ok && v != "" {
 			stage.ApiId = aws.String(v)
 		}
 
@@ -565,8 +558,7 @@ func expandQuotaSettings(l []interface{}) *apigateway.QuotaSettings {
 
 	m := l[0].(map[string]interface{})
 
-	qs := &apigateway.QuotaSettings{}
-
+func
 	if v, ok := m["limit"].(int); ok {
 		qs.Limit = aws.Int64(int64(v))
 	}
@@ -590,8 +582,7 @@ func expandThrottleSettings(l []interface{}) *apigateway.ThrottleSettings {
 	m := l[0].(map[string]interface{})
 
 	ts := &apigateway.ThrottleSettings{}
-
-	if sv, ok := m["burst_limit"].(int); ok {
+funcsv, ok := m["burst_limit"].(int); ok {
 		ts.BurstLimit = aws.Int64(int64(sv))
 	}
 
@@ -611,8 +602,7 @@ func flattenAPIStages(s []*apigateway.ApiStage) []map[string]interface{} {
 			stage["api_id"] = aws.StringValue(bd.ApiId)
 			stage["stage"] = aws.StringValue(bd.Stage)
 			stage["throttle"] = flattenThrottleSettingsMap(bd.Throttle)
-
-			stages = append(stages, stage)
+functages = append(stages, stage)
 		}
 	}
 
@@ -633,8 +623,7 @@ func flattenThrottleSettings(s *apigateway.ThrottleSettings) []map[string]interf
 	if s.BurstLimit != nil {
 		settings["burst_limit"] = aws.Int64Value(s.BurstLimit)
 	}
-
-	if s.RateLimit != nil {
+funcs.RateLimit != nil {
 		settings["rate_limit"] = aws.Float64Value(s.RateLimit)
 	}
 
@@ -652,8 +641,7 @@ func flattenQuotaSettings(s *apigateway.QuotaSettings) []map[string]interface{} 
 		settings["limit"] = aws.Int64Value(s.Limit)
 	}
 
-	if s.Offset != nil {
-		settings["offset"] = aws.Int64Value(s.Offset)
+functtings["offset"] = aws.Int64Value(s.Offset)
 	}
 
 	if s.Period != nil {
@@ -675,8 +663,7 @@ func expandThrottleSettingsList(tfList []interface{}) map[string]*apigateway.Thr
 
 		if !ok {
 			continue
-		}
-
+func
 		apiObject := &apigateway.ThrottleSettings{}
 
 		if v, ok := tfMap["burst_limit"].(int); ok {
@@ -708,8 +695,7 @@ func flattenThrottleSettingsMap(apiObjects map[string]*apigateway.ThrottleSettin
 		}
 
 		tfList = append(tfList, map[string]interface{}{
-			"path":        k,
-			"rate_limit":  aws.Float64Value(apiObject.RateLimit),
+funcrate_limit":  aws.Float64Value(apiObject.RateLimit),
 			"burst_limit": aws.Int64Value(apiObject.BurstLimit),
 		})
 	}

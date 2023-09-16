@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_prompt")
+
 func DataSourcePrompt() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePromptRead,
@@ -38,6 +39,7 @@ func DataSourcePrompt() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourcePromptRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -65,6 +67,7 @@ func dataSourcePromptRead(ctx context.Context, d *schema.ResourceData, meta inte
 	return nil
 }
 
+
 func dataSourceGetPromptSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.PromptSummary, error) {
 	var result *connect.PromptSummary
 
@@ -73,7 +76,8 @@ func dataSourceGetPromptSummaryByName(ctx context.Context, conn *connect.Connect
 		MaxResults: aws.Int64(ListPromptsMaxResults),
 	}
 
-	err := conn.ListPromptsPagesWithContext(ctx, input, func(page *connect.ListPromptsOutput, lastPage bool) bool {
+	err := conn.ListPromptsPagesWithContext(ctx, input, 
+func(page *connect.ListPromptsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

@@ -24,11 +24,11 @@ func testAccDataLakeSettings_basic(t *testing.T) {
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
+		CheckDestroy:testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_basic,
@@ -63,11 +63,11 @@ func testAccDataLakeSettings_disappears(t *testing.T) {
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
+		CheckDestroy:testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_basic,
@@ -88,11 +88,11 @@ func testAccDataLakeSettings_withoutCatalogID(t *testing.T) {
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
+		CheckDestroy:testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_withoutCatalogID,
@@ -113,11 +113,11 @@ func testAccDataLakeSettings_readOnlyAdmins(t *testing.T) {
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:    
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
+		CheckDestroy:testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_readOnlyAdmins,
@@ -221,7 +221,7 @@ resource "aws_lakeformation_data_lake_settings" "test" {
     permissions = ["ALL"]
   }
 
-  admins                             = [data.aws_iam_session_context.current.issuer_arn]
+  admins   = [data.aws_iam_session_context.current.issuer_arn]
   trusted_resource_owners            = [data.aws_caller_identity.current.account_id]
   allow_external_data_filtering      = true
   external_data_filtering_allow_list = [data.aws_caller_identity.current.account_id]

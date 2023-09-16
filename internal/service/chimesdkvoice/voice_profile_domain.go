@@ -31,8 +31,7 @@ const (
 
 // @SDKResource("aws_chimesdkvoice_voice_profile_domain", name="Voice Profile Domain")
 // @Tags(identifierAttribute="arn")
-func ResourceVoiceProfileDomain() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceVoiceProfileDomainCreate,
 ReadWithoutTimeout:   resourceVoiceProfileDomainRead,
 UpdateWithoutTimeout: resourceVoiceProfileDomainUpdate,
@@ -94,8 +93,7 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceVoiceProfileDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
+func
 	in := &chimesdkvoice.CreateVoiceProfileDomainInput{
 Name:aws.String(d.Get(names.AttrName).(string)),
 ServerSideEncryptionConfiguration: expandServerSideEncryptionConfiguration(d.Get("server_side_encryption_configuration").([]interface{})),
@@ -122,8 +120,7 @@ return create.DiagError(names.ChimeSDKVoice, create.ErrActionCreating, ResNameVo
 
 func resourceVoiceProfileDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
-	out, err := FindVoiceProfileDomainByID(ctx, conn, d.Id())
+func, err := FindVoiceProfileDomainByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] ChimeSDKVoice VoiceProfileDomain (%s) not found, removing from state", d.Id())
@@ -150,8 +147,7 @@ return create.DiagError(names.ChimeSDKVoice, create.ErrActionSetting, ResNameVoi
 func resourceVoiceProfileDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
-	if d.HasChanges(names.AttrName, names.AttrDescription) {
-in := &chimesdkvoice.UpdateVoiceProfileDomainInput{
+func= &chimesdkvoice.UpdateVoiceProfileDomainInput{
 	VoiceProfileDomainId: aws.String(d.Id()),
 	Name:  aws.String(d.Get(names.AttrName).(string)),
 }
@@ -175,8 +171,7 @@ func resourceVoiceProfileDomainDelete(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
 	log.Printf("[INFO] Deleting ChimeSDKVoice VoiceProfileDomain %s", d.Id())
-
-	_, err := conn.DeleteVoiceProfileDomainWithContext(ctx, &chimesdkvoice.DeleteVoiceProfileDomainInput{
+funcerr := conn.DeleteVoiceProfileDomainWithContext(ctx, &chimesdkvoice.DeleteVoiceProfileDomainInput{
 VoiceProfileDomainId: aws.String(d.Id()),
 	})
 
@@ -196,8 +191,7 @@ func FindVoiceProfileDomainByID(ctx context.Context, conn *chimesdkvoice.ChimeSD
 VoiceProfileDomainId: aws.String(id),
 	}
 	out, err := conn.GetVoiceProfileDomainWithContext(ctx, in)
-	if tfawserr.ErrCodeEquals(err, chimesdkvoice.ErrCodeNotFoundException) {
-return nil, &retry.NotFoundError{
+funcrn nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: in,
 }
@@ -220,8 +214,7 @@ return nil
 	}
 
 	return []interface{}{map[string]interface{}{
-"kms_key_arn": apiObject.KmsKeyArn,
-	}}
+func
 }
 
 func expandServerSideEncryptionConfiguration(tfList []interface{}) *chimesdkvoice.ServerSideEncryptionConfiguration {
@@ -231,4 +224,4 @@ return nil
 	return &chimesdkvoice.ServerSideEncryptionConfiguration{
 KmsKeyArn: aws.String(tfList[0].(map[string]interface{})["kms_key_arn"].(string)),
 	}
-}
+func

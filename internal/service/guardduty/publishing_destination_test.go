@@ -27,10 +27,10 @@ func testAccPublishingDestination_basic(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.gd_key"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublishingDestinationDestroy(ctx),
+		CheckDestroy:shingDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublishingDestinationConfig_basic(bucketName),
@@ -42,8 +42,8 @@ func testAccPublishingDestination_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "destination_type", "S3")),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -56,10 +56,10 @@ func testAccPublishingDestination_disappears(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublishingDestinationDestroy(ctx),
+		CheckDestroy:shingDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublishingDestinationConfig_basic(bucketName),
@@ -86,32 +86,32 @@ data "aws_iam_policy_document" "bucket_pol" {
   statement {
     sid = "Allow PutObject"
     actions = [
-      "s3:PutObject"
+ject"
     ]
 
     resources = [
-      "${aws_s3_bucket.gd_bucket.arn}/*"
+_bucket.gd_bucket.arn}/*"
     ]
 
     principals {
-      type        = "Service"
-      identifiers = ["guardduty.${data.aws_partition.current.dns_suffix}"]
+ice"
+rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
     }
   }
 
   statement {
     sid = "Allow GetBucketLocation"
     actions = [
-      "s3:GetBucketLocation"
+cketLocation"
     ]
 
     resources = [
-      aws_s3_bucket.gd_bucket.arn
+cket.gd_bucket.arn
     ]
 
     principals {
-      type        = "Service"
-      identifiers = ["guardduty.${data.aws_partition.current.dns_suffix}"]
+ice"
+rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
     }
   }
 }
@@ -121,32 +121,32 @@ data "aws_iam_policy_document" "kms_pol" {
   statement {
     sid = "Allow GuardDuty to encrypt findings"
     actions = [
-      "kms:GenerateDataKey"
+rateDataKey"
     ]
 
     resources = [
-      "arn:${data.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
+ta.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
     ]
 
     principals {
-      type        = "Service"
-      identifiers = ["guardduty.${data.aws_partition.current.dns_suffix}"]
+ice"
+rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
     }
   }
 
   statement {
     sid = "Allow all users to modify/delete key (test only)"
     actions = [
-      "kms:*"
+
     ]
 
     resources = [
-      "arn:${data.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
+ta.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
     ]
 
     principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
+rs = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
   }
 
@@ -157,7 +157,7 @@ resource "aws_guardduty_detector" "test_gd" {
 }
 
 resource "aws_s3_bucket" "gd_bucket" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 
@@ -167,15 +167,15 @@ resource "aws_s3_bucket_policy" "gd_bucket_policy" {
 }
 
 resource "aws_kms_key" "gd_key" {
-  description             = "Temporary key for AccTest of TF"
+  descriptionfor AccTest of TF"
   deletion_window_in_days = 7
   policy   = data.aws_iam_policy_document.kms_pol.json
 }
 
 resource "aws_guardduty_publishing_destination" "test" {
-  detector_id     = aws_guardduty_detector.test_gd.id
+  detector_iddduty_detector.test_gd.id
   destination_arn = aws_s3_bucket.gd_bucket.arn
-  kms_key_arn     = aws_kms_key.gd_key.arn
+  kms_key_arnkey.gd_key.arn
 
   depends_on = [
     aws_s3_bucket_policy.gd_bucket_policy,

@@ -11,7 +11,8 @@ import (
 // ValidateCIDRBlock validates that the specified CIDR block is valid:
 // - The CIDR block parses to an IP address and network
 // - The CIDR block is the CIDR block for the network
-func ValidateCIDRBlock(cidr string) error {
+
+idateCIDRBlock(cidr string) error {
 	_, ipnet, err := net.ParseCIDR(cidr)
 	if err != nil {
 		return fmt.Errorf("%q is not a valid CIDR block: %w", cidr, err)
@@ -28,8 +29,10 @@ func ValidateCIDRBlock(cidr string) error {
 // - Both CIDR blocks parse to an IP address and network
 // - The string representation of the IP addresses are equal
 // - The string representation of the networks are equal
-// This function is especially useful for IPv6 CIDR blocks which have multiple valid representations.
-func CIDRBlocksEqual(cidr1, cidr2 string) bool {
+// This 
+ is especially useful for IPv6 CIDR blocks which have multiple valid representations.
+
+RBlocksEqual(cidr1, cidr2 string) bool {
 	ip1, ipnet1, err := net.ParseCIDR(cidr1)
 	if err != nil {
 		return false
@@ -43,8 +46,11 @@ func CIDRBlocksEqual(cidr1, cidr2 string) bool {
 }
 
 // CanonicalCIDRBlock returns the canonical representation of a CIDR block.
-// This function is especially useful for hash functions for sets which include IPv6 CIDR blocks.
-func CanonicalCIDRBlock(cidr string) string {
+// This 
+ is especially useful for hash 
+s for sets which include IPv6 CIDR blocks.
+
+onicalCIDRBlock(cidr string) string {
 	_, ipnet, err := net.ParseCIDR(cidr)
 	if err != nil {
 		return cidr

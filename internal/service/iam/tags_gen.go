@@ -12,8 +12,7 @@ import (
 
 // []*SERVICE.Tag handling
 
-// Tags returns iam service tags.
-func Tags(tags tftags.KeyValueTags) []*iam.Tag {
+// Tags returns iam service tags.func Tags(tags tftags.KeyValueTags) []*iam.Tag {
 	result := make([]*iam.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
@@ -28,8 +27,7 @@ func Tags(tags tftags.KeyValueTags) []*iam.Tag {
 	return result
 }
 
-// KeyValueTags creates tftags.KeyValueTags from iam service tags.
-func KeyValueTags(ctx context.Context, tags []*iam.Tag) tftags.KeyValueTags {
+// KeyValueTags creates tftags.KeyValueTags from iam service tags.func KeyValueTags(ctx context.Context, tags []*iam.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
@@ -40,8 +38,7 @@ func KeyValueTags(ctx context.Context, tags []*iam.Tag) tftags.KeyValueTags {
 }
 
 // getTagsIn returns iam service tags from Context.
-// nil is returned if there are no input tags.
-func getTagsIn(ctx context.Context) []*iam.Tag {
+// nil is returned if there are no input tags.func getTagsIn(ctx context.Context) []*iam.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
@@ -51,8 +48,7 @@ func getTagsIn(ctx context.Context) []*iam.Tag {
 	return nil
 }
 
-// setTagsOut sets iam service tags in Context.
-func setTagsOut(ctx context.Context, tags []*iam.Tag) {
+// setTagsOut sets iam service tags in Context.func setTagsOut(ctx context.Context, tags []*iam.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}

@@ -127,10 +127,10 @@ func resourceHostedTransitVirtualInterfaceCreate(ctx context.Context, d *schema.
 		OwnerAccount: aws.String(d.Get("owner_account_id").(string)),
 		NewTransitVirtualInterfaceAllocation: &directconnect.NewTransitVirtualInterfaceAllocation{
 			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:                  aws.Int64(int64(d.Get("bgp_asn").(int))),
-			Mtu:                  aws.Int64(int64(d.Get("mtu").(int))),
+			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Mtu:     aws.Int64(int64(d.Get("mtu").(int))),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:                 aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
 		},
 	}
 	if v, ok := d.GetOk("amazon_address"); ok {

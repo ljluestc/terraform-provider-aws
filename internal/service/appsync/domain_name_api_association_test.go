@@ -28,10 +28,10 @@ func testAccDomainNameAPIAssociation_basic(t *testing.T) {
 	resourceName := "aws_appsync_domain_name_api_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckDomainNameAPIAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameAPIAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameAPIAssociationConfig_basic(appsyncCertDomain, rName),
@@ -67,10 +67,10 @@ func testAccDomainNameAPIAssociation_disappears(t *testing.T) {
 	resourceName := "aws_appsync_domain_name_api_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckDomainNameAPIAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameAPIAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameAPIAssociationConfig_basic(appsyncCertDomain, rName),
@@ -148,7 +148,7 @@ resource "aws_appsync_domain_name" "test" {
 
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[2]q
+  name   = %[2]q
 }
 `, domain, rName)
 }
@@ -166,7 +166,7 @@ func testAccDomainNameAPIAssociationConfig_updated(domain, rName string) string 
 	return testAccDomainNameAPIAssociationBaseConfig(domain, rName) + fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test2" {
   authentication_type = "API_KEY"
-  name                = "%[1]s-2"
+  name   = "%[1]s-2"
 }
 
 resource "aws_appsync_domain_name_api_association" "test" {

@@ -20,10 +20,10 @@ func TestAccDMSReplicationInstanceDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_dms_replication_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceDataSourceConfig_basic(rName, replicationInstanceClass),

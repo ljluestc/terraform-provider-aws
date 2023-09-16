@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccVPCMainRouteTableAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var rta ec2.RouteTableAssociation
 	resourceName := "aws_main_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,25 +27,22 @@ func TestAccVPCMainRouteTableAssociation_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMainRouteTableAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckMainRouteTableAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCMainRouteTableAssociationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckMainRouteTableAssociationExists(ctx, resourceName, &rta),
-),
-	},
+func
 	{
 Config: testAccVPCMainRouteTableAssociationConfig_updated(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckMainRouteTableAssociationExists(ctx, resourceName, &rta),
 ),
-	},
-},
+func
 	})
 }
 
@@ -55,13 +51,10 @@ func testAccCheckMainRouteTableAssociationDestroy(ctx context.Context) resource.
 func {
 	return 
 func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_main_route_table_association" {
+func
+funcrs.Type != "aws_main_route_table_association" {
 continue
-	}
-
+func
 	_, err := tfec2.FindMainRouteTableAssociationByID(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
@@ -87,13 +80,10 @@ func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
+func
+funcurn fmt.Errorf("No ID is set")
 }
-
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+func := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 association, err := tfec2.FindMainRouteTableAssociationByID(ctx, conn, rs.Primary.ID)
 
@@ -114,16 +104,15 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_subnet" "test" {
-  vpc_id     = aws_vpc.test.id
+funcc_idtest.id
   cidr_block = "10.1.1.0/24"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -131,7 +120,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -144,13 +133,12 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "10.0.0.0/8"
-    gateway_id = aws_internet_gateway.test.id
+dr_block = "10.0.0.0/8"
+teway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_main_route_table_association" "test" {
@@ -170,12 +158,11 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "10.0.0.0/8"
-    gateway_id = aws_internet_gateway.test.id
+dr_block = "10.0.0.0/8"
+teway_id = aws_internet_gateway.test.id
   }
-
-  tags = {
-    Name = %[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
@@ -183,12 +170,12 @@ resource "aws_route_table" "test2" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "10.0.0.0/8"
-    gateway_id = aws_internet_gateway.test.id
+dr_block = "10.0.0.0/8"
+teway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

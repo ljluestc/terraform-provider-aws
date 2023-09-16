@@ -121,8 +121,8 @@ func TestSTSEndpoints(t *testing.T) {
 	t.Parallel()
 
 	verifier := tokenVerifier{}
-	chinaR := "sts.amazonaws.com.cn"                    //lintignore:AWSAT003
-	globalR := "sts.amazonaws.com"                      //lintignore:AWSAT003
+	chinaR := "sts.amazonaws.com.cn"       //lintignore:AWSAT003
+	globalR := "sts.amazonaws.com"         //lintignore:AWSAT003
 	usEast1R := "sts.us-east-1.amazonaws.com"           //lintignore:AWSAT003
 	usEast2R := "sts.us-east-2.amazonaws.com"           //lintignore:AWSAT003
 	usWest1R := "sts.us-west-1.amazonaws.com"           //lintignore:AWSAT003

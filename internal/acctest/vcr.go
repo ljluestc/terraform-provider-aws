@@ -49,29 +49,35 @@ source rand.Source
 
 type metaMap map[string]*conns.AWSClient
 
-func (m metaMap) Lock() {
+
+metaMap) Lock() {
 conns.GlobalMutexKV.Lock(m.key())
 }
 
-func (m metaMap) Unlock() {
+
+metaMap) Unlock() {
 conns.GlobalMutexKV.Unlock(m.key())
 }
 
-func (m metaMap) key() string {
+
+metaMap) key() string {
 return "vcr-metas"
 }
 
 type randomnessSourceMap map[string]*randomnessSource
 
-func (m randomnessSourceMap) Lock() {
+
+randomnessSourceMap) Lock() {
 conns.GlobalMutexKV.Lock(m.key())
 }
 
-func (m randomnessSourceMap) Unlock() {
+
+randomnessSourceMap) Unlock() {
 conns.GlobalMutexKV.Unlock(m.key())
 }
 
-func (m randomnessSourceMap) key() string {
+
+randomnessSourceMap) key() string {
 return "vcr-randomness-sources"
 }
 
@@ -81,7 +87,8 @@ randomnessSources = randomnessSourceMap(make(map[string]*randomnessSource, 0))
 )
 
 // ProviderMeta returns the current provider's state (AKA "meta" or "conns.AWSClient").
-func ProviderMeta(t *testing.T) *conns.AWSClient {
+
+viderMeta(t *testing.T) *conns.AWSClient {
 providerMetas.Lock()
 meta, ok := providerMetas[t.Name()]
 defer providerMetas.Unlock()
@@ -93,11 +100,13 @@ meta = Provider.Meta().(*conns.AWSClient)
 return meta
 }
 
-func isVCREnabled() bool {
+
+CREnabled() bool {
 return os.Getenv(envVarVCRMode) != "" && os.Getenv(envVarVCRPath) != ""
 }
 
-func vcrMode() (recorder.Mode, error) {
+
+Mode() (recorder.Mode, error) {
 switch v := os.Getenv(envVarVCRMode); v {
 case "RECORDING":
 return recorder.ModeRecordOnce, nil
@@ -109,18 +118,26 @@ return recorder.ModePassthrough, fmt.Errorf("unsupported value for %s: %s", envV
 }
 
 // vcrEnabledProtoV5ProviderFactories returns ProtoV5ProviderFactories ready for use with VCR.
-func vcrEnabledProtoV5ProviderFactories(t *testing.T, input map[string]func() (tfprotov5.ProviderServer, error)) map[string]func() (tfprotov5.ProviderServer, error) {
-output := make(map[string]func() (tfprotov5.ProviderServer, error), len(input))
+
+EnabledProtoV5ProviderFactories(t *testing.T, input map[string]
+tfprotov5.ProviderServer, error)) map[string]
+tfprotov5.ProviderServer, error) {
+output := make(map[string]
+tfprotov5.ProviderServer, error), len(input))
 
 for name := range input {
-output[name] = func() (tfprotov5.ProviderServer, error) {
+output[name] = 
+tfprotov5.ProviderServer, error) {
 providerServerFactory, primary, err := provider.ProtoV5ProviderServerFactory(context.Background())
 
 if err != nil {
 return nil, err
 }
 
-primary.ConfigureContextFunc = vcrProviderConfigureContextFunc(primary, primary.ConfigureContextFunc, t.Name())
+primary.ConfigureContext
+crProviderConfigureContext
+mary, primary.ConfigureContext
+Name())
 
 return providerServerFactory(), nil
 }
@@ -129,11 +146,20 @@ return providerServerFactory(), nil
 return output
 }
 
-// vcrProviderConfigureContextFunc returns a provider configuration function returning cached provider instance state.
-// This is necessary as ConfigureContextFunc is called multiple times for a given test, each time creating a new HTTP client.
+// vcrProviderConfigureContext
+urns a provider configuration 
+ returning cached provider instance state.
+// This is necessary as ConfigureContext
+called multiple times for a given test, each time creating a new HTTP client.
 // VCR requires a single HTTP client to handle all interactions.
-func vcrProviderConfigureContextFunc(provider *schema.Provider, configureContextFunc schema.ConfigureContextFunc, testName string) schema.ConfigureContextFunc {
-return func(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
+
+ProviderConfigureContext
+vider *schema.Provider, configureContext
+ema.ConfigureContext
+stName string) schema.ConfigureContext
+
+return 
+ context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 var diags diag.Diagnostics
 
 providerMetas.Lock()
@@ -175,7 +201,8 @@ return nil, sdkdiag.AppendFromErr(diags, err)
 }
 
 // Remove sensitive HTTP headers.
-r.AddHook(func(i *cassette.Interaction) error {
+r.AddHook(
+cassette.Interaction) error {
 delete(i.Request.Headers, "Authorization")
 delete(i.Request.Headers, "X-Amz-Security-Token")
 
@@ -183,7 +210,8 @@ return nil
 }, recorder.AfterCaptureHook)
 
 // Defines how VCR will match requests to responses.
-r.SetMatcher(func(r *http.Request, i cassette.Request) bool {
+r.SetMatcher(
+http.Request, i cassette.Request) bool {
 // Default matcher compares method and URL only.
 if !cassette.DefaultMatcher(r, i) {
 return false
@@ -255,8 +283,10 @@ return false
 })
 
 // Use the wrapped HTTP Client for AWS APIs.
-// As the HTTP client is used in the provider's ConfigureContextFunc
-// we must do this setup before calling the ConfigureContextFunc.
+// As the HTTP client is used in the provider's ConfigureContext
+
+// we must do this setup before calling the ConfigureContext
+
 httpClient.Transport = r
 if v, ok := provider.Meta().(*conns.AWSClient); ok {
 meta = v
@@ -266,7 +296,8 @@ meta = new(conns.AWSClient)
 meta.SetHTTPClient(httpClient)
 provider.SetMeta(meta)
 
-if v, ds := configureContextFunc(ctx, d); ds.HasError() {
+if v, ds := configureContext
+, d); ds.HasError() {
 return nil, append(diags, ds...)
 } else {
 meta = v.(*conns.AWSClient)
@@ -276,7 +307,8 @@ meta = v.(*conns.AWSClient)
 // TODO Need to loop through all API clients to do this.
 // TODO Use []*client.Client?
 // TODO AWS SDK for Go v2 API clients.
-meta.LogsConn(ctx).Handlers.AfterRetry.PushFront(func(r *request.Request) {
+meta.LogsConn(ctx).Handlers.AfterRetry.PushFront(
+request.Request) {
 // We have to use 'Contains' rather than 'errors.Is' because 'awserr.Error' doesn't implement 'Unwrap'.
 if errs.Contains(r.Error, cassette.ErrInteractionNotFound.Error()) {
 r.Retryable = aws.Bool(false)
@@ -292,7 +324,8 @@ return meta, diags
 // vcrRandomnessSource returns a rand.Source for VCR testing.
 // In RECORDING mode, generates a new seed and saves it to a file, using the seed for the source.
 // In REPLAYING mode, reads a seed from a file and creates a source from it.
-func vcrRandomnessSource(t *testing.T) (*randomnessSource, error) {
+
+RandomnessSource(t *testing.T) (*randomnessSource, error) {
 testName := t.Name()
 
 randomnessSources.Lock()
@@ -336,15 +369,18 @@ randomnessSources[testName] = s
 return s, nil
 }
 
-func vcrFileName(name string) string {
+
+FileName(name string) string {
 return strings.ReplaceAll(name, "/", "_")
 }
 
-func vcrSeedFile(path, name string) string {
+
+SeedFile(path, name string) string {
 return filepath.Join(path, fmt.Sprintf("%s.seed", vcrFileName(name)))
 }
 
-func readSeedFromFile(fileName string) (int64, error) {
+
+dSeedFromFile(fileName string) (int64, error) {
 // Max number of digits for int64 is 19.
 data := make([]byte, 19)
 f, err := os.Open(fileName)
@@ -365,7 +401,8 @@ return 0, err
 return strconv.ParseInt(string(bytes.Trim(data, "\x00")), 10, 64)
 }
 
-func writeSeedToFile(seed int64, fileName string) error {
+
+teSeedToFile(seed int64, fileName string) error {
 f, err := os.Create(fileName)
 
 if err != nil {
@@ -380,7 +417,8 @@ return err
 }
 
 // closeVCRRecorder closes the VCR recorder, saving the cassette and randomness seed.
-func closeVCRRecorder(t *testing.T) {
+
+seVCRRecorder(t *testing.T) {
 // Don't close the recorder if we're running because of a panic.
 if p := recover(); p != nil {
 panic(p)
@@ -422,7 +460,8 @@ delete(randomnessSources, testName)
 }
 
 // ParallelTest wraps resource.ParallelTest, initializing VCR if enabled.
-func ParallelTest(t *testing.T, c resource.TestCase) {
+
+allelTest(t *testing.T, c resource.TestCase) {
 if isVCREnabled() {
 c.ProtoV5ProviderFactories = vcrEnabledProtoV5ProviderFactories(t, c.ProtoV5ProviderFactories)
 defer closeVCRRecorder(t)
@@ -432,7 +471,8 @@ resource.ParallelTest(t, c)
 }
 
 // Test wraps resource.Test, initializing VCR if enabled.
-func Test(t *testing.T, c resource.TestCase) {
+
+t(t *testing.T, c resource.TestCase) {
 if isVCREnabled() {
 c.ProtoV5ProviderFactories = vcrEnabledProtoV5ProviderFactories(t, c.ProtoV5ProviderFactories)
 defer closeVCRRecorder(t)
@@ -442,7 +482,8 @@ resource.Test(t, c)
 }
 
 // RandInt is a VCR-friendly replacement for acctest.RandInt.
-func RandInt(t *testing.T) int {
+
+dInt(t *testing.T) int {
 if !isVCREnabled() {
 return sdkacctest.RandInt()
 }
@@ -457,6 +498,7 @@ return rand.New(s.source).Int()
 }
 
 // RandomWithPrefix is a VCR-friendly replacement for acctest.RandomWithPrefix.
-func RandomWithPrefix(t *testing.T, prefix string) string {
+
+domWithPrefix(t *testing.T, prefix string) string {
 return fmt.Sprintf("%s-%d", prefix, RandInt(t))
 }

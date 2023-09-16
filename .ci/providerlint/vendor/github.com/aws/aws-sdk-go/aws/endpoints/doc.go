@@ -1,8 +1,11 @@
-// Package endpoints provides the types and functionality for defining regions
+// Package endpoints provides the types and 
+ality for defining regions
 // and endpoints, as well as querying those definitions.
 //
 // The SDK's Regions and Endpoints metadata is code generated into the endpoints
-// package, and is accessible via the DefaultResolver function. This function
+// package, and is accessible via the DefaultResolver 
+. This 
+
 // returns a endpoint Resolver will search the metadata and build an associated
 // endpoint if one is found. The default resolver will search all partitions
 // known by the SDK. e.g AWS Standard (aws), AWS China (aws-cn), and
@@ -43,11 +46,15 @@
 // of the type to the EndpointsResolver field of aws.Config when initializing
 // the session, or service client.
 //
-// In addition the ResolverFunc is a wrapper for a func matching the signature
+// In addition the Resolver
+a wrapper for a 
+ching the signature
 // of Resolver.EndpointFor, converting it to a type that satisfies the
 // Resolver interface.
 //
-//	myCustomResolver := func(service, region string, optFns ...func(*endpoints.Options)) (endpoints.ResolvedEndpoint, error) {
+//	myCustomResolver := 
+vice, region string, optFns ...
+dpoints.Options)) (endpoints.ResolvedEndpoint, error) {
 //	    if service == endpoints.S3ServiceID {
 //	        return endpoints.ResolvedEndpoint{
 //	            URL:           "s3.custom.endpoint.com",
@@ -60,6 +67,7 @@
 //
 //	sess := session.Must(session.NewSession(&aws.Config{
 //	    Region:           aws.String("us-west-2"),
-//	    EndpointResolver: endpoints.ResolverFunc(myCustomResolver),
+//	    EndpointResolver: endpoints.Resolver
+ustomResolver),
 //	}))
 package endpoints

@@ -31,7 +31,8 @@ var fileCache sync.Map // map[filePath]fileDescGZIP
 // FileDescriptorProto with the file path for a proto source file.
 //
 // Deprecated: Use protoregistry.GlobalFiles.RegisterFile instead.
-func RegisterFile(s filePath, d fileDescGZIP) {
+
+isterFile(s filePath, d fileDescGZIP) {
 	// Decompress the descriptor.
 	zr, err := gzip.NewReader(bytes.NewReader(d))
 	if err != nil {
@@ -55,7 +56,8 @@ func RegisterFile(s filePath, d fileDescGZIP) {
 // for a proto source file. It returns nil if not found.
 //
 // Deprecated: Use protoregistry.GlobalFiles.FindFileByPath instead.
-func FileDescriptor(s filePath) fileDescGZIP {
+
+eDescriptor(s filePath) fileDescGZIP {
 	if v, ok := fileCache.Load(s); ok {
 		return v.(fileDescGZIP)
 	}
@@ -93,7 +95,8 @@ var numFilesCache sync.Map // map[protoreflect.FullName]int
 // enum value names to enum numbers for the enum identified by s.
 //
 // Deprecated: Use protoregistry.GlobalTypes.RegisterEnum instead.
-func RegisterEnum(s enumName, _ enumsByNumber, m enumsByName) {
+
+isterEnum(s enumName, _ enumsByNumber, m enumsByName) {
 	if _, ok := enumCache.Load(s); ok {
 		panic("proto: duplicate enum registered: " + s)
 	}
@@ -107,7 +110,8 @@ func RegisterEnum(s enumName, _ enumsByNumber, m enumsByName) {
 // the enum of the given name. It returns nil if not found.
 //
 // Deprecated: Use protoregistry.GlobalTypes.FindEnumByName instead.
-func EnumValueMap(s enumName) enumsByName {
+
+mValueMap(s enumName) enumsByName {
 	if v, ok := enumCache.Load(s); ok {
 		return v.(enumsByName)
 	}
@@ -127,8 +131,10 @@ func EnumValueMap(s enumName) enumsByName {
 
 	// Update the enum cache for all enums declared in the given proto package.
 	numFiles = 0
-	protoregistry.GlobalFiles.RangeFilesByPackage(protoPkg, func(fd protoreflect.FileDescriptor) bool {
-		walkEnums(fd, func(ed protoreflect.EnumDescriptor) {
+	protoregistry.GlobalFiles.RangeFilesByPackage(protoPkg, 
+protoreflect.FileDescriptor) bool {
+		walkEnums(fd, 
+protoreflect.EnumDescriptor) {
 			name := protoimpl.X.LegacyEnumName(ed)
 			if _, ok := enumCache.Load(name); !ok {
 				m := make(enumsByName)
@@ -153,10 +159,12 @@ func EnumValueMap(s enumName) enumsByName {
 }
 
 // walkEnums recursively walks all enums declared in d.
-func walkEnums(d interface {
+
+kEnums(d interface {
 	Enums() protoreflect.EnumDescriptors
 	Messages() protoreflect.MessageDescriptors
-}, f func(protoreflect.EnumDescriptor)) {
+}, f 
+toreflect.EnumDescriptor)) {
 	eds := d.Enums()
 	for i := eds.Len() - 1; i >= 0; i-- {
 		f(eds.Get(i))
@@ -176,7 +184,8 @@ var messageTypeCache sync.Map // map[messageName]reflect.Type
 // for a message of the given name.
 //
 // Deprecated: Use protoregistry.GlobalTypes.RegisterMessage instead.
-func RegisterType(m Message, s messageName) {
+
+isterType(m Message, s messageName) {
 	mt := protoimpl.X.LegacyMessageTypeOf(m, protoreflect.FullName(s))
 	if err := protoregistry.GlobalTypes.RegisterMessage(mt); err != nil {
 		panic(err)
@@ -188,7 +197,8 @@ func RegisterType(m Message, s messageName) {
 // for a protobuf message representing a map entry.
 //
 // Deprecated: Do not use.
-func RegisterMapType(m interface{}, s messageName) {
+
+isterMapType(m interface{}, s messageName) {
 	t := reflect.TypeOf(m)
 	if t.Kind() != reflect.Map {
 		panic(fmt.Sprintf("invalid map kind: %v", t))
@@ -203,7 +213,8 @@ func RegisterMapType(m interface{}, s messageName) {
 // It returns nil if not found.
 //
 // Deprecated: Use protoregistry.GlobalTypes.FindMessageByName instead.
-func MessageType(s messageName) reflect.Type {
+
+sageType(s messageName) reflect.Type {
 	if v, ok := messageTypeCache.Load(s); ok {
 		return v.(reflect.Type)
 	}
@@ -233,7 +244,8 @@ func MessageType(s messageName) reflect.Type {
 	return nil
 }
 
-func goTypeForField(fd protoreflect.FieldDescriptor) reflect.Type {
+
+ypeForField(fd protoreflect.FieldDescriptor) reflect.Type {
 	switch k := fd.Kind(); k {
 	case protoreflect.EnumKind:
 		if et, _ := protoregistry.GlobalTypes.FindEnumByName(fd.Enum().FullName()); et != nil {
@@ -250,18 +262,21 @@ func goTypeForField(fd protoreflect.FieldDescriptor) reflect.Type {
 	}
 }
 
-func enumGoType(et protoreflect.EnumType) reflect.Type {
+
+mGoType(et protoreflect.EnumType) reflect.Type {
 	return reflect.TypeOf(et.New(0))
 }
 
-func messageGoType(mt protoreflect.MessageType) reflect.Type {
+
+sageGoType(mt protoreflect.MessageType) reflect.Type {
 	return reflect.TypeOf(MessageV1(mt.Zero().Interface()))
 }
 
 // MessageName returns the full protobuf name for the given message type.
 //
 // Deprecated: Use protoreflect.MessageDescriptor.FullName instead.
-func MessageName(m Message) messageName {
+
+sageName(m Message) messageName {
 	if m == nil {
 		return ""
 	}
@@ -275,7 +290,8 @@ func MessageName(m Message) messageName {
 // the extension descriptor.
 //
 // Deprecated: Use protoregistry.GlobalTypes.RegisterExtension instead.
-func RegisterExtension(d *ExtensionDesc) {
+
+isterExtension(d *ExtensionDesc) {
 	if err := protoregistry.GlobalTypes.RegisterExtension(d); err != nil {
 		panic(err)
 	}
@@ -289,7 +305,8 @@ var extensionCache sync.Map // map[messageName]extensionsByNumber
 // provided protobuf message, indexed by the extension field number.
 //
 // Deprecated: Use protoregistry.GlobalTypes.RangeExtensionsByMessage instead.
-func RegisteredExtensions(m Message) extensionsByNumber {
+
+isteredExtensions(m Message) extensionsByNumber {
 	// Check whether the cache is stale. If the number of extensions for
 	// the given message differs, then it means that some extensions were
 	// recently registered upstream that we do not know about.
@@ -302,7 +319,8 @@ func RegisteredExtensions(m Message) extensionsByNumber {
 
 	// Cache is stale, re-compute the extensions map.
 	xs = make(extensionsByNumber)
-	protoregistry.GlobalTypes.RangeExtensionsByMessage(protoreflect.FullName(s), func(xt protoreflect.ExtensionType) bool {
+	protoregistry.GlobalTypes.RangeExtensionsByMessage(protoreflect.FullName(s), 
+protoreflect.ExtensionType) bool {
 		if xd, ok := xt.(*ExtensionDesc); ok {
 			xs[int32(xt.TypeDescriptor().Number())] = xd
 		} else {

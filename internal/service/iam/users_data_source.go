@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_users")
-func DataSourceUsers() *schema.Resource {
+// @SDKDataSource("aws_iam_users")func DataSourceUsers() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUsersRead,
 		Schema: map[string]*schema.Schema{
@@ -40,10 +39,7 @@ func DataSourceUsers() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	nameRegex := d.Get("name_regex").(string)

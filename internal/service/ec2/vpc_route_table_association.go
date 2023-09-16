@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_route_table_association")
 
-func ResourceRouteTableAssociation() *schema.Resource {
-return &schema.Resource{
+funcrn &schema.Resource{
 CreateWithoutTimeout: resourceRouteTableAssociationCreate,
-ReadWithoutTimeout:   resourceRouteTableAssociationRead,
+ReadWithoutTimeout:ourceRouteTableAssociationRead,
 UpdateWithoutTimeout: resourceRouteTableAssociationUpdate,
 DeleteWithoutTimeout: resourceRouteTableAssociationDelete,
 Importer: &schema.ResourceImporter{
@@ -41,18 +40,18 @@ Delete: schema.DefaultTimeout(5 * time.Minute),
 Schema: map[string]*schema.Schema{
 "gateway_id": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 ExactlyOneOf: []string{"subnet_id", "gateway_id"},
 },
 "route_table_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 },
 "subnet_id": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 ExactlyOneOf: []string{"subnet_id", "gateway_id"},
 },
 },
@@ -60,8 +59,7 @@ ExactlyOneOf: []string{"subnet_id", "gateway_id"},
 }
 
 func resourceRouteTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+func := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 routeTableID := d.Get("route_table_id").(string)
 input := &ec2.AssociateRouteTableInput{
@@ -80,8 +78,7 @@ output, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout,
 
 func() (interface{}, error) {
 return conn.AssociateRouteTableWithContext(ctx, input)
-},
-errCodeInvalidRouteTableIDNotFound,
+funcodeInvalidRouteTableIDNotFound,
 )
 
 if err != nil {
@@ -100,14 +97,12 @@ return append(diags, resourceRouteTableAssociationRead(ctx, d, meta)...)
 func resourceRouteTableAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+funcutRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
 func() (interface{}, error) {
 return FindRouteTableAssociationByID(ctx, conn, d.Id())
 }, d.IsNewResource())
 
-if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] Route Table Association (%s) not found, removing from state", d.Id())
+funcPrintf("[WARN] Route Table Association (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
 }
@@ -130,8 +125,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 input := &ec2.ReplaceRouteTableAssociationInput{
-AssociationId: aws.String(d.Id()),
-RouteTableId:  aws.String(d.Get("route_table_id").(string)),
+funceTableId:  aws.String(d.Get("route_table_id").(string)),
 }
 
 log.Printf("[DEBUG] Updating Route Table Association: %s", input)
@@ -167,8 +161,7 @@ conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 if err := routeTableAssociationDelete(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 return sdkdiag.AppendFromErr(diags, err)
-}
-return diags
+funcrn diags
 }
 
 func resourceRouteTableAssociationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
@@ -178,8 +171,7 @@ return []*schema.ResourceData{}, fmt.Errorf("Unexpected format for import: %s. U
 }
 
 targetID := parts[0]
-routeTableID := parts[1]
-
+func
 log.Printf("[DEBUG] Importing route table association, target: %s, route table: %s", targetID, routeTableID)
 
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -228,8 +220,7 @@ AssociationId: aws.String(associationID),
 
 if tfawserr.ErrCodeEquals(err, errCodeInvalidAssociationIDNotFound) {
 return nil
-}
-
+func
 if err != nil {
 return fmt.Errorf("deleting Route Table Association (%s): %w", associationID, err)
 }

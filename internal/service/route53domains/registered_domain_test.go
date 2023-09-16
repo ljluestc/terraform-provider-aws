@@ -66,7 +66,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_tags1(domainName, "key1", "value1"),
@@ -108,7 +108,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_autoRenew(domainName, false),
@@ -140,7 +140,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_contacts(domainName),
@@ -244,7 +244,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_contactPrivacy(domainName, true, true, true),
@@ -280,7 +280,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_nameservers(domainName),
@@ -325,7 +325,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+CheckDestroy:testAccCheckRegisteredDomainDestroy,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegisteredDomainConfig_transferLock(domainName, false),
@@ -389,10 +389,10 @@ resource "aws_route53domains_registered_domain" "test" {
   admin_contact {
     address_line_1    = "99 High Street"
     address_line_2    = "Flat 1a"
-    city              = "Little Nowhere"
+    city = "Little Nowhere"
     contact_type      = "ASSOCIATION"
     country_code      = "GB"
-    email             = "test1@example.com"
+    email= "test1@example.com"
     fax= "+44.123456788"
     first_name        = "Sys"
     last_name         = "Admin"
@@ -403,15 +403,15 @@ resource "aws_route53domains_registered_domain" "test" {
 
   registrant_contact {
     address_line_1    = "100 Main Street"
-    city              = "New York City"
+    city = "New York City"
     contact_type      = "COMPANY"
     country_code      = "US"
-    email             = "test2@example.com"
+    email= "test2@example.com"
     first_name        = "Terraform" # Changing owner's first or last name is a change of ownership.
     last_name         = "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.2025551234"
-    state             = "NY"
+    state= "NY"
     zip_code          = "10001"
   }
 
@@ -437,46 +437,46 @@ resource "aws_route53domains_registered_domain" "test" {
 
   admin_contact {
     address_line_1    = "101 2nd St #700"
-    city              = "San Francisco"
+    city = "San Francisco"
     contact_type      = "COMPANY"
     country_code      = "US"
-    email             = "terraform-acctest+aws@hashicorp.com"
+    email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
-    state             = "CA"
+    state= "CA"
     zip_code          = "94105"
   }
 
   registrant_contact {
     address_line_1    = "101 2nd St #700"
-    city              = "San Francisco"
+    city = "San Francisco"
     contact_type      = "COMPANY"
     country_code      = "US"
-    email             = "terraform-acctest+aws@hashicorp.com"
+    email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
-    state             = "CA"
+    state= "CA"
     zip_code          = "94105"
   }
 
   tech_contact {
     address_line_1    = "101 2nd St #700"
-    city              = "San Francisco"
+    city = "San Francisco"
     contact_type      = "COMPANY"
     country_code      = "US"
-    email             = "terraform-acctest+aws@hashicorp.com"
+    email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
-    state             = "CA"
+    state= "CA"
     zip_code          = "94105"
   }
 }

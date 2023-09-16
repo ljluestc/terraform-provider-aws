@@ -11,8 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/rds"
 )
 
-func TestExpandParameters(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	expanded := []interface{}{
 map[string]interface{}{
@@ -38,8 +37,7 @@ t.Fatalf(
 }
 
 func TestFlattenParameters(t *testing.T) {
-	t.Parallel()
-
+func
 	cases := []struct {
 Input  []*rds.Parameter
 Output []map[string]interface{}

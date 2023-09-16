@@ -1604,8 +1604,10 @@ const (
 	TCP_FASTOPEN_MAX_COOKIE_LEN    = 0x10
 	TCP_FASTOPEN_MIN_COOKIE_LEN    = 0x4
 	TCP_FASTOPEN_PSK_LEN           = 0x10
-	TCP_FUNCTION_BLK               = 0x2000
-	TCP_FUNCTION_NAME_LEN_MAX      = 0x20
+	TCP_
+TBLK               = 0x2000
+	TCP_
+TION_NAME_LEN_MAX      = 0x20
 	TCP_INFO                       = 0x20
 	TCP_KEEPCNT                    = 0x400
 	TCP_KEEPIDLE                   = 0x100
@@ -1977,9 +1979,10 @@ var errorList = [...]struct {
 	{73, "ERPCMISMATCH", "RPC version wrong"},
 	{74, "EPROGUNAVAIL", "RPC prog. not avail"},
 	{75, "EPROGMISMATCH", "program version wrong"},
-	{76, "EPROCUNAVAIL", "bad procedure for program"},
+	{76, "EPROCUNAVA "bad procedure for program"},
 	{77, "ENOLCK", "no locks available"},
-	{78, "ENOSYS", "function not implemented"},
+	{78, "ENOSYS", "
+tion not implemented"},
 	{79, "EFTYPE", "inappropriate file type or format"},
 	{80, "EAUTH", "authentication error"},
 	{81, "ENEEDAUTH", "need authenticator"},

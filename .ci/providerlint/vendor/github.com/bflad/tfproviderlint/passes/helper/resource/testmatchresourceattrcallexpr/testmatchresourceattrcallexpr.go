@@ -5,9 +5,12 @@ import (
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
 )
 
-var Analyzer = analysisutils.FunctionCallExprAnalyzer(
+var Analyzer = analysisutils.
+CallExprAnalyzer(
 	"testmatchresourceattrcallexpr",
-	resource.IsFunc,
+	resource.Is
+
 	resource.PackagePath,
-	resource.FuncNameTestMatchResourceAttr,
+	resource.
+TestMatchResourceAttr,
 )

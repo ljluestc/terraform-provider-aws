@@ -34,9 +34,9 @@ func TestAccCloudFrontOriginAccessControl_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginAccessControlDestroy(ctx),
+		CheckDestroy:riginAccessControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginAccessControlConfig_basic(rName),
@@ -82,9 +82,9 @@ func TestAccCloudFrontOriginAccessControl_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginAccessControlDestroy(ctx),
+		CheckDestroy:riginAccessControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginAccessControlConfig_basic(rName),
@@ -110,9 +110,9 @@ func TestAccCloudFrontOriginAccessControl_Name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginAccessControlDestroy(ctx),
+		CheckDestroy:riginAccessControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginAccessControlConfig_name(rName1),
@@ -146,9 +146,9 @@ func TestAccCloudFrontOriginAccessControl_Description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginAccessControlDestroy(ctx),
+		CheckDestroy:riginAccessControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginAccessControlConfig_description(rName, "Acceptance Test 1"),
@@ -193,9 +193,9 @@ func TestAccCloudFrontOriginAccessControl_SigningBehavior(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginAccessControlDestroy(ctx),
+		CheckDestroy:riginAccessControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginAccessControlConfig_signingBehavior(rName, "never"),
@@ -289,10 +289,10 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 func testAccOriginAccessControlConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudfront_origin_access_control" "test" {
-  name                              = %[1]q
+  name
   origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
+  signing_behaviors"
+  signing_protocol"
 }
 `, rName)
 }
@@ -300,10 +300,10 @@ resource "aws_cloudfront_origin_access_control" "test" {
 func testAccOriginAccessControlConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudfront_origin_access_control" "test" {
-  name                              = %[1]q
+  name
   origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
+  signing_behaviors"
+  signing_protocol"
 }
 `, rName)
 }
@@ -311,11 +311,11 @@ resource "aws_cloudfront_origin_access_control" "test" {
 func testAccOriginAccessControlConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudfront_origin_access_control" "test" {
-  name                              = %[1]q
-  description                       = %[2]q
+  name
+  description[2]q
   origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
+  signing_behaviors"
+  signing_protocol"
 }
 `, rName, description)
 }
@@ -323,10 +323,10 @@ resource "aws_cloudfront_origin_access_control" "test" {
 func testAccOriginAccessControlConfig_signingBehavior(rName, signingBehavior string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudfront_origin_access_control" "test" {
-  name                              = %[1]q
+  name
   origin_access_control_origin_type = "s3"
-  signing_behavior                  = %[2]q
-  signing_protocol                  = "sigv4"
+  signing_behavior
+  signing_protocol"
 }
 `, rName, signingBehavior)
 }

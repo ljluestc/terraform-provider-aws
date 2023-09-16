@@ -321,7 +321,7 @@ func TestTargetParseImportID(t *testing.T) {
 		{
 			TestName:      "ARN event bus",
 			InputID:       "arn:aws:events:us-east-2:123456789012:event-bus/default/TestRule/TestTarget", //lintignore:AWSAT003,AWSAT005
-			ExpectedPart0: "arn:aws:events:us-east-2:123456789012:event-bus/default",                     //lintignore:AWSAT003,AWSAT005
+			ExpectedPart0: "arn:aws:events:us-east-2:123456789012:event-bus/default",        //lintignore:AWSAT003,AWSAT005
 			ExpectedPart1: "TestRule",
 			ExpectedPart2: "TestTarget",
 		},

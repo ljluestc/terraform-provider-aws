@@ -14,23 +14,20 @@ import (
 )
 
 
-func TestAccVPCSecurityGroupRulesDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr("data.aws_vpc_security_group_rules.test", "ids.#", "1"),
-),
-	},
+func
 },
 	})
 }
@@ -39,23 +36,20 @@ func(
 func TestAccVPCSecurityGroupRulesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName),
+funcig: testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr("data.aws_vpc_security_group_rules.test", "ids.#", "2"),
 ),
 	},
 },
-	})
-}
+func
 
 
 func testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName string) string {
@@ -63,16 +57,15 @@ func testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName string) string {
 resource "aws_vpc_security_group_ingress_rule" "test" {
   security_group_id = aws_security_group.test.id
 
-  cidr_ipv4   = "10.0.0.0/8"
-  from_port   = 80
-  ip_protocol = "tcp"
-  to_port     = 8080
+  cidr_ipv410.0.0.0/8"
+func_protocol = "tcp"
+  to_port
 }
 
 data "aws_vpc_security_group_rules" "test" {
   filter {
-    name   = "security-group-rule-id"
-    values = [aws_vpc_security_group_ingress_rule.test.id]
+me= "urity-group-rule-id"
+lues = [aws_vpc_security_group_ingress_rule.test.id]
   }
 }
 `)
@@ -84,32 +77,31 @@ func testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName string) string {
 resource "aws_vpc_security_group_ingress_rule" "test" {
   security_group_id = aws_security_group.test.id
 
-  cidr_ipv4   = "10.0.0.0/8"
-  from_port   = 80
-  ip_protocol = "tcp"
-  to_port     = 8080
+  cidr_ipv410.0.0.0/8"
+  from_port0
+func_port
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_security_group_egress_rule" "test" {
   security_group_id = aws_security_group.test.id
 
-  cidr_ipv4   = "10.0.0.0/8"
-  from_port   = 80
+  cidr_ipv410.0.0.0/8"
+  from_port0
   ip_protocol = "tcp"
-  to_port     = 8080
+  to_port
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_vpc_security_group_rules" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   depends_on = [aws_vpc_security_group_ingress_rule.test, aws_vpc_security_group_egress_rule.test]

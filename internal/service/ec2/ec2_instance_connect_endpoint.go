@@ -34,8 +34,7 @@ import (
 // @FrameworkResource(name="Instance Connect Endpoint")
 // @Tags(identifierAttribute="id")
 
-func newResourceInstanceConnectEndpoint(context.Context) (resource.ResourceWithConfigure, error) {
-	r := &resourceInstanceConnectEndpoint{}
+func= &resourceInstanceConnectEndpoint{}
 	r.SetDefaultCreateTimeout(10 * time.Minute)
 	r.SetDefaultDeleteTimeout(10 * time.Minute)
 
@@ -49,13 +48,11 @@ type resourceInstanceConnectEndpoint struct {
 }
 
 func (r *resourceInstanceConnectEndpoint) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
-	response.TypeName = "aws_ec2_instance_connect_endpoint"
-}
+func
 
 func (r *resourceInstanceConnectEndpoint) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": schema.StringAttribute{
+funcarn": schema.StringAttribute{
 				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
@@ -81,7 +78,7 @@ func (r *resourceInstanceConnectEndpoint) Schema(ctx context.Context, req resour
 			},
 			names.AttrID: framework.IDAttribute(),
 			"network_interface_ids": schema.ListAttribute{
-				Computed:    true,
+				Computed:ue,
 				ElementType: types.StringType,
 				PlanModifiers: []planmodifier.List{
 					listplanmodifier.UseStateForUnknown(),
@@ -102,8 +99,8 @@ func (r *resourceInstanceConnectEndpoint) Schema(ctx context.Context, req resour
 				},
 			},
 			"security_group_ids": schema.SetAttribute{
-				Optional:    true,
-				Computed:    true,
+				Optional:ue,
+				Computed:ue,
 				ElementType: types.StringType,
 				PlanModifiers: []planmodifier.Set{
 					setplanmodifier.RequiresReplace(),
@@ -115,7 +112,7 @@ func (r *resourceInstanceConnectEndpoint) Schema(ctx context.Context, req resour
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags:tags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 			"vpc_id": schema.StringAttribute{
 				Computed: true,
@@ -136,8 +133,7 @@ func (r *resourceInstanceConnectEndpoint) Schema(ctx context.Context, req resour
 func (r *resourceInstanceConnectEndpoint) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	var data resourceInstanceConnectEndpointData
 
-	response.Diagnostics.Append(request.Plan.Get(ctx, &data)...)
-
+func
 	if response.Diagnostics.HasError() {
 		return
 	}
@@ -145,7 +141,7 @@ func (r *resourceInstanceConnectEndpoint) Create(ctx context.Context, request re
 	conn := r.Meta().EC2Client(ctx)
 
 	input := &ec2.CreateInstanceConnectEndpointInput{
-		ClientToken:       aws.String(id.UniqueId()),
+		ClientToken:ng(id.UniqueId()),
 		TagSpecifications: getTagSpecificationsInV2(ctx, awstypes.ResourceTypeInstanceConnectEndpoint),
 	}
 
@@ -188,8 +184,7 @@ func (r *resourceInstanceConnectEndpoint) Read(ctx context.Context, request reso
 	var data resourceInstanceConnectEndpointData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
-
-	if response.Diagnostics.HasError() {
+funcresponse.Diagnostics.HasError() {
 		return
 	}
 
@@ -227,13 +222,11 @@ func (r *resourceInstanceConnectEndpoint) Update(ctx context.Context, request re
 }
 
 func (r *resourceInstanceConnectEndpoint) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
-	var data resourceInstanceConnectEndpointData
-
+func
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
-	}
+func
 
 	conn := r.Meta().EC2Client(ctx)
 
@@ -267,18 +260,17 @@ func (r *resourceInstanceConnectEndpoint) ModifyPlan(ctx context.Context, reques
 
 // See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Ec2InstanceConnectEndpoint.html.
 type resourceInstanceConnectEndpointData struct {
-	InstanceConnectEndpointArn types.String   `tfsdk:"arn"`
-	AvailabilityZone  types.String   `tfsdk:"availability_zone"`
-	DnsName  types.String   `tfsdk:"dns_name"`
-	FipsDnsName       types.String   `tfsdk:"fips_dns_name"`
-	InstanceConnectEndpointId  types.String   `tfsdk:"id"`
-	NetworkInterfaceIds        types.List     `tfsdk:"network_interface_ids"`
-	OwnerId  types.String   `tfsdk:"owner_id"`
-	PreserveClientIp  types.Bool     `tfsdk:"preserve_client_ip"`
-	SecurityGroupIds  types.Set      `tfsdk:"security_group_ids"`
-	SubnetId types.String   `tfsdk:"subnet_id"`
-	Tags     types.Map      `tfsdk:"tags"`
-	TagsAll  types.Map      `tfsdk:"tags_all"`
+	InstanceConnectEndpointArn types.Stringsdk:"arn"`
+funcName  types.Stringsdk:"dns_name"`
+	FipsDnsNameringsdk:"fips_dns_name"`
+	InstanceConnectEndpointId  types.Stringsdk:"id"`
+	NetworkInterfaceIdsist`tfsdtworkrface_ids"`
+	OwnerId  types.Stringsdk:"owner_id"`
+	PreserveClientIp  types.Booleserve_client_ip"`
+	SecurityGroupIds  types.Setecurity_group_ids"`
+	SubnetId types.Stringsdk:"subnet_id"`
+	Tags`tfsags"`
+	TagsAll  types.Mapags_all"`
 	Timeouts timeouts.Value `tfsdk:"timeouts"`
-	VpcId    types.String   `tfsdk:"vpc_id"`
+	VpcIdpes.String`tf:"vpc_id"`
 }

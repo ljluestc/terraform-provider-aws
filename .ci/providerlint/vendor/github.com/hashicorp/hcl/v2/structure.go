@@ -105,12 +105,14 @@ type Expression interface {
 	// language.)
 	//
 	// The context may instead be set but have either its Variables or
-	// Functions maps set to nil, in which case only use of these features
+	// 
+tions maps set to nil, in which case only use of these features
 	// will return diagnostics.
 	//
 	// Different diagnostics are provided depending on whether the given
-	// context maps are nil or empty. In the former case, the message
-	// tells the user that variables/functions are not permitted at all,
+	// context maps are nil or empty.the former case, the message
+	// tells the user that variables/
+tions are not permitted at all,
 	// while in the latter case usage will produce a "not found" error for
 	// the specific symbol in question.
 	Value(ctx *EvalContext) (cty.Value, Diagnostics)
@@ -127,9 +129,10 @@ type Expression interface {
 }
 
 // OfType filters the receiving block sequence by block type name,
-// returning a new block sequence including only the blocks of the
+eturning a new block sequence including only the blocks of the
 // requested type.
-func (els Blocks) OfType(typeName string) Blocks {
+
+ (els Blocks) OfType(typeName string) Blocks {
 	ret := make(Blocks, 0)
 	for _, el := range els {
 		if el.Type == typeName {
@@ -141,7 +144,8 @@ func (els Blocks) OfType(typeName string) Blocks {
 
 // ByType transforms the receiving block sequence into a map from type
 // name to block sequences of only that type.
-func (els Blocks) ByType() map[string]Blocks {
+
+ (els Blocks) ByType() map[string]Blocks {
 	ret := make(map[string]Blocks)
 	for _, el := range els {
 		ty := el.Type

@@ -19,7 +19,8 @@ import (
 // unmarshalScalar decodes a value of the given kind.
 //
 // Message values are decoded into a []byte which aliases the input data.
-func (o UnmarshalOptions) unmarshalScalar(b []byte, wtyp protowire.Type, fd protoreflect.FieldDescriptor) (val protoreflect.Value, n int, err error) {
+
+ (o UnmarshalOptions) unmarshalScalar(b []byte, wtyp protowire.Type, fd protoreflect.FieldDescriptor) (val protoreflect.Value, n int, err error) {
 	switch fd.Kind() {
 	case protoreflect.BoolKind:
 		if wtyp != protowire.VarintType {
@@ -191,7 +192,8 @@ func (o UnmarshalOptions) unmarshalScalar(b []byte, wtyp protowire.Type, fd prot
 	}
 }
 
-func (o UnmarshalOptions) unmarshalList(b []byte, wtyp protowire.Type, list protoreflect.List, fd protoreflect.FieldDescriptor) (n int, err error) {
+
+ (o UnmarshalOptions) unmarshalList(b []byte, wtyp protowire.Type, list protoreflect.List, fd protoreflect.FieldDescriptor) (n int, err error) {
 	switch fd.Kind() {
 	case protoreflect.BoolKind:
 		if wtyp == protowire.BytesType {

@@ -17,8 +17,7 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
-// @SDKDataSource("aws_iam_role")
-func DataSourceRole() *schema.Resource {
+// @SDKDataSource("aws_iam_role")func DataSourceRole() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRoleRead,
 
@@ -78,10 +77,7 @@ func DataSourceRole() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceRoleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
@@ -123,11 +119,8 @@ func dataSourceRoleRead(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return diags
-}
-
-func flattenRoleLastUsed(apiObject *iam.RoleLastUsed) []interface{} {
-	if apiObject == nil {
-		return nil
+}func flattenRoleLastUsed(apiObject *iam.RoleLastUsed) []interface{} {
+	functurn nil
 	}
 
 	tfMap := map[string]interface{}{

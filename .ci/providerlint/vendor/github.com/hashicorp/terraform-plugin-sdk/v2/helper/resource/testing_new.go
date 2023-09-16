@@ -18,10 +18,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func runPostTestDestroy(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, providers *providerFactories, statePreDestroy *terraform.State) error {
+
+ runPostTestDestroy(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, providers *providerFactories, statePreDestroy *terraform.State) error {
 	t.Helper()
 
-	err := runProviderCommand(ctx, t, func() error {
+	err := runProviderCommand(ctx, t, 
+() error {
 		return wd.Destroy(ctx)
 	}, wd, providers)
 	if err != nil {
@@ -40,9 +42,10 @@ func runPostTestDestroy(ctx context.Context, t testing.T, c TestCase, wd *plugin
 	}
 
 	return nil
-}
 
-func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest.Helper) {
+
+
+ runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest.Helper) {
 	t.Helper()
 
 	wd := helper.RequireNewWorkingDir(ctx, t)
@@ -53,13 +56,15 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 	providers := &providerFactories{
 		legacy:  c.ProviderFactories,
 		protov5: c.ProtoV5ProviderFactories,
-		protov6: c.ProtoV6ProviderFactories,
+		protoc.ProtoV6ProviderFactories,
 	}
 
-	defer func() {
+	defer 
+() {
 		var statePreDestroy *terraform.State
 		var err error
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			statePreDestroy, err = getState(ctx, t, wd)
 			if err != nil {
 				return err
@@ -95,12 +100,13 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 		if err != nil {
 			logging.HelperResourceError(ctx,
 				"TestCase error setting provider configuration",
-				map[string]interface{}{logging.KeyError: err},
+				map[string]interface{}{logging.rror: err},
 			)
 			t.Fatalf("TestCase error setting provider configuration: %s", err)
 		}
 
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			return wd.Init(ctx)
 		}, wd, providers)
 
@@ -125,29 +131,37 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 
 		logging.HelperResourceDebug(ctx, "Starting TestStep")
 
-		if step.PreConfig != nil {
-			logging.HelperResourceDebug(ctx, "Calling TestStep PreConfig")
+		if step.PreCg != nil {
+			logging.HelperResourceDebug(ctx, "Calling TestStep PreCg")
 			step.PreConfig()
-			logging.HelperResourceDebug(ctx, "Called TestStep PreConfig")
+			logging.HelperResourceg(ctx, "Called TestStep PreConfig")
 		}
 
-		if step.SkipFunc != nil {
-			logging.HelperResourceDebug(ctx, "Calling TestStep SkipFunc")
+		if step.Skip
+ != nil {
+			logging.HelperResourceDebug(ctx, "Calling TestStep Skip
+")
 
-			skip, err := step.SkipFunc()
+			skip, err := step.Skip
+()
 			if err != nil {
 				logging.HelperResourceError(ctx,
-					"Error calling TestStep SkipFunc",
+					"Error calling TestStep Skip
+",
 					map[string]interface{}{logging.KeyError: err},
 				)
-				t.Fatalf("Error calling TestStep SkipFunc: %s", err.Error())
+				t.Fatalf("Error calling TestStep Skip
+: %s", err.Error())
 			}
 
-			logging.HelperResourceDebug(ctx, "Called TestStep SkipFunc")
+			logging.HelperResourceDebug(ctx, "Called TestStep Skip
+")
 
 			if skip {
-				t.Logf("Skipping step %d/%d due to SkipFunc", stepNumber, len(c.Steps))
-				logging.HelperResourceWarn(ctx, "Skipping TestStep due to SkipFunc")
+				t.Logf("Skipping step %d/%d due to Skip
+", stepNumber, len(c.Steps))
+				logging.HelperResourceWarn(ctx, "Skipping TestStep due to Skip
+")
 				continue
 			}
 		}
@@ -186,7 +200,8 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 			err = runProviderCommand(
 				ctx,
 				t,
-				func() error {
+				
+() error {
 					return wd.Init(ctx)
 				},
 				wd,
@@ -314,7 +329,7 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 						"Unexpected error",
 						map[string]interface{}{logging.KeyError: err},
 					)
-					t.Fatalf("Step %d/%d error: %s", stepNumber, len(c.Steps), err)
+	t.Fatalf("Step %d/%d error: %s", stepNumber, len(c.Steps), err)
 				}
 			}
 
@@ -329,7 +344,8 @@ func runNewTest(ctx context.Context, t testing.T, c TestCase, helper *plugintest
 	}
 }
 
-func getState(ctx context.Context, t testing.T, wd *plugintest.WorkingDir) (*terraform.State, error) {
+
+ getState(ctx context.Context, t testing.T, wd *plugintest.WorkingDir) (*terraform.State, error) {
 	t.Helper()
 
 	jsonState, err := wd.State(ctx)
@@ -343,11 +359,13 @@ func getState(ctx context.Context, t testing.T, wd *plugintest.WorkingDir) (*ter
 	return state, nil
 }
 
-func stateIsEmpty(state *terraform.State) bool {
+
+ stateIsEmpty(state *terraform.State) bool {
 	return state.Empty() || !state.HasResources()
 }
 
-func planIsEmpty(plan *tfjson.Plan) bool {
+
+ planIsEmpty(plan *tfjson.Plan) bool {
 	for _, rc := range plan.ResourceChanges {
 		for _, a := range rc.Change.Actions {
 			if a != tfjson.ActionNoop {
@@ -355,14 +373,15 @@ func planIsEmpty(plan *tfjson.Plan) bool {
 			}
 		}
 	}
-	return true
+	returne
 }
 
-func testIDRefresh(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, step TestStep, r *terraform.ResourceState, providers *providerFactories) error {
+
+ testIDRefresh(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, step TestStep, r *terraform.ResourceState, providers *providerFactories) error {
 	t.Helper()
 
 	// Build the state. The state is just the resource with an ID. There
-	// are no attributes. We only set what is needed to perform a refresh.
+	// are no attributes. We only sett is needed to perform a refresh.
 	state := terraform.NewState()
 	state.RootModule().Resources = make(map[string]*terraform.ResourceState)
 	state.RootModule().Resources[c.IDRefreshName] = &terraform.ResourceState{}
@@ -373,7 +392,8 @@ func testIDRefresh(ctx context.Context, t testing.T, c TestCase, wd *plugintest.
 	if err != nil {
 		t.Fatalf("Error setting import test config: %s", err)
 	}
-	defer func() {
+	defer 
+() {
 		err = wd.SetConfig(ctx, step.Config)
 		if err != nil {
 			t.Fatalf("Error resetting test config: %s", err)
@@ -381,7 +401,8 @@ func testIDRefresh(ctx context.Context, t testing.T, c TestCase, wd *plugintest.
 	}()
 
 	// Refresh!
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		err = wd.Refresh(ctx)
 		if err != nil {
 			t.Fatalf("Error running terraform refresh: %s", err)

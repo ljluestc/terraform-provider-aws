@@ -11,7 +11,8 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
-func TestNullableBool(t *testing.T) {
+
+tNullableBool(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
@@ -78,7 +79,8 @@ t.Fatalf("expected test case %d to have error matching \"%s\", got %s", i, tc.ex
 	}
 }
 
-func TestValidationBool(t *testing.T) {
+
+tValidationBool(t *testing.T) {
 	t.Parallel()
 
 	runValidationTestCases(t, []testCase{
@@ -104,7 +106,8 @@ func TestValidationBool(t *testing.T) {
 	})
 }
 
-func TestDiffSuppressBool(t *testing.T) {
+
+tDiffSuppressBool(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
@@ -248,7 +251,8 @@ if !tc.equivalent && v {
 	}
 }
 
-func TestDiffSuppressBoolFalseAsNull(t *testing.T) {
+
+tDiffSuppressBoolFalseAsNull(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {

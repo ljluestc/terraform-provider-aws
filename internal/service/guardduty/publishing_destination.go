@@ -34,24 +34,24 @@ func ResourcePublishingDestination() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"destination_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      guardduty.DestinationTypeS3,
+				Type:.TypeString,
+				Optional:
+				Default:.DestinationTypeS3,
 				ValidateFunc: validation.StringInSlice(guardduty.DestinationType_Values(), false),
 			},
 			"destination_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: verify.ValidARN,
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: verify.ValidARN,
 			},
 		},
@@ -67,7 +67,7 @@ func resourcePublishingDestinationCreate(ctx context.Context, d *schema.Resource
 		DetectorId: aws.String(detectorID),
 		DestinationProperties: &guardduty.DestinationProperties{
 			DestinationArn: aws.String(d.Get("destination_arn").(string)),
-			KmsKeyArn:      aws.String(d.Get("kms_key_arn").(string)),
+			KmsKeyArn:g(d.Get("kms_key_arn").(string)),
 		},
 		DestinationType: aws.String(d.Get("destination_type").(string)),
 	}
@@ -136,7 +136,7 @@ func resourcePublishingDestinationUpdate(ctx context.Context, d *schema.Resource
 		DetectorId:    aws.String(detectorId),
 		DestinationProperties: &guardduty.DestinationProperties{
 			DestinationArn: aws.String(d.Get("destination_arn").(string)),
-			KmsKeyArn:      aws.String(d.Get("kms_key_arn").(string)),
+			KmsKeyArn:g(d.Get("kms_key_arn").(string)),
 		},
 	}
 

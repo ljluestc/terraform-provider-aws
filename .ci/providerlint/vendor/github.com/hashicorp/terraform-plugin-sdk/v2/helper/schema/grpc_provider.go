@@ -28,7 +28,8 @@ const (
 	newExtraKey = "_new_extra_shim"
 )
 
-func NewGRPCProviderServer(p *Provider) *GRPCProviderServer {
+
+ NewGRPCProviderServer(p *Provider) *GRPCProviderServer {
 	return &GRPCProviderServer{
 		provider: p,
 		stopCh:   make(chan struct{}),
@@ -42,22 +43,27 @@ type GRPCProviderServer struct {
 	stopMu   sync.Mutex
 }
 
-// mergeStop is called in a goroutine and waits for the global stop signal
-// and propagates cancellation to the passed in ctx/cancel func. The ctx is
-// also passed to this function and waited upon so no goroutine leak is caused.
-func mergeStop(ctx context.Context, cancel context.CancelFunc, stopCh chan struct{}) {
+// mergeStop is called in a goroutine and waits for the glostop signal
+// and propagates canceion to the passed in ctx/cancel 
+e ctx is
+// also passed to this 
+tion and waited upon so no goroutine leak is caused.
+
+ mergeStop(ctx context.Context, cancel context.Cancel
+, stopCh chan struct{}) {
 	select {
 	case <-ctx.Done():
 		return
 	case <-stopCh:
 		cancel()
 	}
-}
+
 
 // StopContext derives a new context from the passed in grpc context.
 // It creates a goroutine to wait for the server stop and propagates
 // cancellation to the derived grpc context.
-func (s *GRPCProviderServer) StopContext(ctx context.Context) context.Context {
+
+ (s *GRPCProviderServer) StopContext(ctx context.Context) context.Context {
 	ctx = logging.InitContext(ctx)
 	s.stopMu.Lock()
 	defer s.stopMu.Unlock()
@@ -67,13 +73,15 @@ func (s *GRPCProviderServer) StopContext(ctx context.Context) context.Context {
 	return stoppable
 }
 
-func (s *GRPCProviderServer) serverCapabilities() *tfprotov5.ServerCapabilities {
+
+ (s *GRPCProviderServer) serverCapabilities() *tfprotov5.ServerCapabilities {
 	return &tfprotov5.ServerCapabilities{
 		GetProviderSchemaOptional: true,
 	}
 }
 
-func (s *GRPCProviderServer) GetMetadata(ctx context.Context, req *tfprotov5.GetMetadataRequest) (*tfprotov5.GetMetadataResponse, error) {
+
+ (s *GRPCProviderServer) GetMetadata(ctx context.Context, req *tfprotov5.GetMetadataRequest) (*tfprotov5.GetMetadataResponse, error) {
 	ctx = logging.InitContext(ctx)
 
 	logging.HelperSchemaTrace(ctx, "Getting provider metadata")
@@ -91,7 +99,7 @@ func (s *GRPCProviderServer) GetMetadata(ctx context.Context, req *tfprotov5.Get
 	}
 
 	for typeName := range s.provider.ResourcesMap {
-		resp.Resources = append(resp.Resources, tfprotov5.ResourceMetadata{
+sp.Resources = append(resp.Resources, tfprotov5.ResourceMetadata{
 			TypeName: typeName,
 		})
 	}
@@ -99,7 +107,8 @@ func (s *GRPCProviderServer) GetMetadata(ctx context.Context, req *tfprotov5.Get
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) GetProviderSchema(ctx context.Context, req *tfprotov5.GetProviderSchemaRequest) (*tfprotov5.GetProviderSchemaResponse, error) {
+
+ (s *GRPCProviderServer) GetProviderSchema(ctx context.Context, req *tfprotov5.GetProviderSchemaRequest) (*tfprotov5.GetProviderSchemaResponse, error) {
 	ctx = logging.InitContext(ctx)
 
 	logging.HelperSchemaTrace(ctx, "Getting provider schema")
@@ -130,36 +139,41 @@ func (s *GRPCProviderServer) GetProviderSchema(ctx context.Context, req *tfproto
 	for typ, dat := range s.provider.DataSourcesMap {
 		logging.HelperSchemaTrace(ctx, "Found data source type", map[string]interface{}{logging.KeyDataSourceType: typ})
 
-		resp.DataSourceSchemas[typ] = &tfprotov5.Schema{
+sp.DataSourceSchemas[typ] = &tfprotov5.Schema{
 			Version: int64(dat.SchemaVersion),
 			Block:   convert.ConfigSchemaToProto(ctx, dat.CoreConfigSchema()),
 		}
-	}
+
 
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) getProviderSchemaBlock() *configschema.Block {
+
+ (s *GRPCProviderServer) getProviderSchemaBlock() *configschema.Block {
 	return InternalMap(s.provider.Schema).CoreConfigSchema()
 }
 
-func (s *GRPCProviderServer) getProviderMetaSchemaBlock() *configschema.Block {
+
+ (s *GRPCProviderServer) getProviderMetaSchemaBlock() *configschema.Block {
 	return InternalMap(s.provider.ProviderMetaSchema).CoreConfigSchema()
 }
 
-func (s *GRPCProviderServer) getResourceSchemaBlock(name string) *configschema.Block {
+
+ (s *GRPCProviderServer) getResourceSchemaBlock(name string) *configschema.Block {
 	res := s.provider.ResourcesMap[name]
 	return res.CoreConfigSchema()
 }
 
-func (s *GRPCProviderServer) getDatasourceSchemaBlock(name string) *configschema.Block {
+
+ (s *GRPCProviderServer) getDatasourceSchemaBlock(name string) *configschema.Block {
 	dat := s.provider.DataSourcesMap[name]
 	return dat.CoreConfigSchema()
 }
 
-func (s *GRPCProviderServer) PrepareProviderConfig(ctx context.Context, req *tfprotov5.PrepareProviderConfigRequest) (*tfprotov5.PrepareProviderConfigResponse, error) {
+
+ (s *GRPCProviderServer) PrepareProviderConfig(ctx context.Context, req *tfprotov5.PrepareProviderConfigRequest) (*tfprotov5.PrepareProviderConfigResponse, error) {
 	ctx = logging.InitContext(ctx)
-	resp := &tfprotov5.PrepareProviderConfigResponse{}
+	resp := &tfprotov5.PrepareProviderConfigRese{}
 
 	logging.HelperSchemaTrace(ctx, "Preparing provider configuration")
 
@@ -173,7 +187,8 @@ func (s *GRPCProviderServer) PrepareProviderConfig(ctx context.Context, req *tfp
 
 	// lookup any required, top-level attributes that are Null, and see if we
 	// have a Default value available.
-	configVal, err = cty.Transform(configVal, func(path cty.Path, val cty.Value) (cty.Value, error) {
+	configVal, err = cty.Transform(configVal, 
+(path cty.Path, val cty.Value) (cty.Value, error) {
 		// we're only looking for top-level attributes
 		if len(path) != 1 {
 			return val, nil
@@ -249,7 +264,7 @@ func (s *GRPCProviderServer) PrepareProviderConfig(ctx context.Context, req *tfp
 
 	config := terraform.NewResourceConfigShimmed(configVal, schemaBlock)
 
-	logging.HelperSchemaTrace(ctx, "Calling downstream")
+ging.HelperSchemaTrace(ctx, "Calling downstream")
 	resp.Diagnostics = convert.AppendProtoDiag(ctx, resp.Diagnostics, s.provider.Validate(config))
 	logging.HelperSchemaTrace(ctx, "Called downstream")
 
@@ -264,7 +279,8 @@ func (s *GRPCProviderServer) PrepareProviderConfig(ctx context.Context, req *tfp
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ValidateResourceTypeConfig(ctx context.Context, req *tfprotov5.ValidateResourceTypeConfigRequest) (*tfprotov5.ValidateResourceTypeConfigResponse, error) {
+
+ (s *GRPCProviderServer) ValidateResourceTypeConfig(ctx context.Context, req *tfprotov5.ValidateResourceTypeConfigRequest) (*tfprotov5.ValidateResourceTypeConfigResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ValidateResourceTypeConfigResponse{}
 
@@ -285,7 +301,8 @@ func (s *GRPCProviderServer) ValidateResourceTypeConfig(ctx context.Context, req
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ValidateDataSourceConfig(ctx context.Context, req *tfprotov5.ValidateDataSourceConfigRequest) (*tfprotov5.ValidateDataSourceConfigResponse, error) {
+
+ (s *GRPCProviderServer) ValidateDataSourceConfig(ctx context.Context, req *tfprotov5.ValidateDataSourceConfigRequest) (*tfprotov5.ValidateDataSourceConfigResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ValidateDataSourceConfigResponse{}
 
@@ -295,7 +312,7 @@ func (s *GRPCProviderServer) ValidateDataSourceConfig(ctx context.Context, req *
 	if err != nil {
 		resp.Diagnostics = convert.AppendProtoDiag(ctx, resp.Diagnostics, err)
 		return resp, nil
-	}
+
 
 	// Ensure there are no nulls that will cause helper/schema to panic.
 	if err := validateConfigNulls(ctx, configVal, nil); err != nil {
@@ -312,7 +329,8 @@ func (s *GRPCProviderServer) ValidateDataSourceConfig(ctx context.Context, req *
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) UpgradeResourceState(ctx context.Context, req *tfprotov5.UpgradeResourceStateRequest) (*tfprotov5.UpgradeResourceStateResponse, error) {
+
+ (s *GRPCProviderServer) UpgradeResourceState(ctx context.Context, req *tfprotov5.UpgradeResourceStateRequest) (*tfprotov5.UpgradeResourceStateResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.UpgradeResourceStateResponse{}
 
@@ -384,12 +402,12 @@ func (s *GRPCProviderServer) UpgradeResourceState(ctx context.Context, req *tfpr
 		return resp, nil
 	}
 	// Normalize the value and fill in any missing blocks.
-	val = objchange.NormalizeObjectFromLegacySDK(val, schemaBlock)
+ = objchange.NormalizeObjectFromLegacySDK(val, schemaBlock)
 
 	// encode the final state to the expected msgpack format
 	newStateMP, err := msgpack.Marshal(val, schemaBlock.ImpliedType())
 	if err != nil {
-		resp.Diagnostics = convert.AppendProtoDiag(ctx, resp.Diagnostics, err)
+		resp.Diagnostics = convert.AppendProtoDiag(ctx, resp.Diagnost err)
 		return resp, nil
 	}
 
@@ -402,12 +420,14 @@ func (s *GRPCProviderServer) UpgradeResourceState(ctx context.Context, req *tfpr
 // map[string]interface{}.
 // upgradeFlatmapState returns the json map along with the corresponding schema
 // version.
-func (s *GRPCProviderServer) upgradeFlatmapState(_ context.Context, version int, m map[string]string, res *Resource) (map[string]interface{}, int, error) {
+
+ (s *GRPCProviderServer) upgradeFlatmapState(_ context.Context, version int, m map[string]string, res *Resource) (map[string]interface{}, int, error) {
 	// this will be the version we've upgraded so, defaulting to the given
 	// version in case no migration was called.
 	upgradedVersion := version
 
-	// first determine if we need to call the legacy MigrateState func
+	// first determine if we need to call the legacy MigrateState 
+
 	requiresMigrate := version < res.SchemaVersion
 
 	schemaType := res.CoreConfigSchema().ImpliedType()
@@ -450,10 +470,11 @@ func (s *GRPCProviderServer) upgradeFlatmapState(_ context.Context, version int,
 			upgradedVersion = res.StateUpgraders[0].Version
 		}
 	} else {
-		// the schema version may be newer than the MigrateState functions
+		// the schema version may be newer than the MigrateState 
+tions
 		// handled and older than the current, but still stored in the flatmap
 		// form. If that's the case, we need to find the correct schema type to
-		// convert the state.
+ convert the state.
 		for _, upgrader := range res.StateUpgraders {
 			if upgrader.Version == version {
 				schemaType = upgrader.Type
@@ -474,7 +495,8 @@ func (s *GRPCProviderServer) upgradeFlatmapState(_ context.Context, version int,
 	return jsonMap, upgradedVersion, err
 }
 
-func (s *GRPCProviderServer) upgradeJSONState(ctx context.Context, version int, m map[string]interface{}, res *Resource) (map[string]interface{}, error) {
+
+ (s *GRPCProviderServer) upgradeJSONState(ctx context.Context, version int, m map[string]interface{}, res *Resource) (map[string]interface{}, error) {
 	var err error
 
 	for _, upgrader := range res.StateUpgraders {
@@ -494,7 +516,8 @@ func (s *GRPCProviderServer) upgradeJSONState(ctx context.Context, version int, 
 
 // Remove any attributes no longer present in the schema, so that the json can
 // be correctly decoded.
-func (s *GRPCProviderServer) removeAttributes(ctx context.Context, v interface{}, ty cty.Type) {
+
+ (s *GRPCProviderServer) removeAttributes(ctx context.Context, v interface{}, ty cty.Type) {
 	// we're only concerned with finding maps that corespond to object
 	// attributes
 	switch v := v.(type) {
@@ -520,7 +543,7 @@ func (s *GRPCProviderServer) removeAttributes(ctx context.Context, v interface{}
 		if ty == cty.DynamicPseudoType {
 			logging.HelperSchemaDebug(ctx, "ignoring dynamic block", map[string]interface{}{"block": v})
 			return
-		}
+
 
 		if !ty.IsObjectType() {
 			// This shouldn't happen, and will fail to decode further on, so
@@ -538,12 +561,13 @@ func (s *GRPCProviderServer) removeAttributes(ctx context.Context, v interface{}
 				continue
 			}
 
-			s.removeAttributes(ctx, attrV, attrTy)
+.removeAttributes(ctx, attrV, attrTy)
 		}
 	}
 }
 
-func (s *GRPCProviderServer) StopProvider(ctx context.Context, _ *tfprotov5.StopProviderRequest) (*tfprotov5.StopProviderResponse, error) {
+
+ (s *GRPCProviderServer) StopProvider(ctx context.Context, _ *tfprotov5.StopProviderRequest) (*tfprotov5.StopProviderResponse, error) {
 	ctx = logging.InitContext(ctx)
 
 	logging.HelperSchemaTrace(ctx, "Stopping provider")
@@ -561,7 +585,8 @@ func (s *GRPCProviderServer) StopProvider(ctx context.Context, _ *tfprotov5.Stop
 	return &tfprotov5.StopProviderResponse{}, nil
 }
 
-func (s *GRPCProviderServer) ConfigureProvider(ctx context.Context, req *tfprotov5.ConfigureProviderRequest) (*tfprotov5.ConfigureProviderResponse, error) {
+
+ (s *GRPCProviderServer) ConfigureProvider(ctx context.Context, req *tfprotov5.ConfigureProviderRequest) (*tfprotov5.ConfigureProviderResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ConfigureProviderResponse{}
 
@@ -573,7 +598,7 @@ func (s *GRPCProviderServer) ConfigureProvider(ctx context.Context, req *tfproto
 		return resp, nil
 	}
 
-	s.provider.TerraformVersion = req.TerraformVersion
+rovider.TerraformVersion = req.TerraformVersion
 
 	// Ensure there are no nulls that will cause helper/schema to panic.
 	if err := validateConfigNulls(ctx, configVal, nil); err != nil {
@@ -585,7 +610,8 @@ func (s *GRPCProviderServer) ConfigureProvider(ctx context.Context, req *tfproto
 	// TODO: remove global stop context hack
 	// This attaches a global stop synchro'd context onto the provider.Configure
 	// request scoped context. This provides a substitute for the removed provider.StopContext()
-	// function. Ideally a provider should migrate to the context aware API that receives
+	// 
+tion. Ideally a provider should migrate to the context aware API that receives
 	// request scoped contexts, however this is a large undertaking for very large providers.
 	ctxHack := context.WithValue(ctx, StopContextKey, s.StopContext(context.Background()))
 
@@ -598,7 +624,8 @@ func (s *GRPCProviderServer) ConfigureProvider(ctx context.Context, req *tfproto
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ReadResource(ctx context.Context, req *tfprotov5.ReadResourceRequest) (*tfprotov5.ReadResourceResponse, error) {
+
+ (s *GRPCProviderServer) ReadResource(ctx context.Context, req *tfprotov5.ReadResourceRequest) (*tfprotov5.ReadResourceResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ReadResourceResponse{
 		// helper/schema did previously handle private data during refresh, but
@@ -664,7 +691,7 @@ func (s *GRPCProviderServer) ReadResource(ctx context.Context, req *tfprotov5.Re
 			MsgPack: newStateMP,
 		}
 		return resp, nil
-	}
+
 
 	// helper/schema should always copy the ID over, but do it again just to be safe
 	newInstanceState.Attributes["id"] = newInstanceState.ID
@@ -691,7 +718,8 @@ func (s *GRPCProviderServer) ReadResource(ctx context.Context, req *tfprotov5.Re
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprotov5.PlanResourceChangeRequest) (*tfprotov5.PlanResourceChangeResponse, error) {
+
+ (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprotov5.PlanResourceChangeRequest) (*tfprotov5.PlanResourceChangeResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.PlanResourceChangeResponse{}
 
@@ -851,7 +879,7 @@ func (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprot
 		forceNoChanges = true
 	}
 
-	// if this was creating the resource, we need to set any remaining computed
+	// if thas creating the resource, we need to set any remaining computed
 	// fields
 	if create {
 		plannedStateVal = SetUnknowns(plannedStateVal, schemaBlock)
@@ -879,7 +907,8 @@ func (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprot
 	}
 
 	// Now we need to store any NewExtra values, which are where any actual
-	// StateFunc modified config fields are hidden.
+	// State
+ modified config fields are hidden.
 	privateMap := diff.Meta
 	if privateMap == nil {
 		privateMap = map[string]interface{}{}
@@ -907,7 +936,7 @@ func (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprot
 	var requiresNew []string
 	if !forceNoChanges {
 		for attr, d := range diff.Attributes {
-			if d.RequiresNew {
+f d.RequiresNew {
 				requiresNew = append(requiresNew, attr)
 			}
 		}
@@ -936,7 +965,8 @@ func (s *GRPCProviderServer) PlanResourceChange(ctx context.Context, req *tfprot
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ApplyResourceChange(ctx context.Context, req *tfprotov5.ApplyResourceChangeRequest) (*tfprotov5.ApplyResourceChangeResponse, error) {
+
+ (s *GRPCProviderServer) ApplyResourceChange(ctx context.Context, req *tfprotov5.ApplyResourceChangeRequest) (*tfprotov5.ApplyResourceChangeResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ApplyResourceChangeResponse{
 		// Start with the existing state as a fallback
@@ -1089,7 +1119,7 @@ func (s *GRPCProviderServer) ApplyResourceChange(ctx context.Context, req *tfpro
 
 	newStateVal = copyTimeoutValues(newStateVal, plannedStateVal)
 
-	newStateMP, err := msgpack.Marshal(newStateVal, schemaBlock.ImpliedType())
+StateMP, err := msgpack.Marshal(newStateVal, schemaBlock.ImpliedType())
 	if err != nil {
 		resp.Diagnostics = convert.AppendProtoDiag(ctx, resp.Diagnostics, err)
 		return resp, nil
@@ -1119,7 +1149,8 @@ func (s *GRPCProviderServer) ApplyResourceChange(ctx context.Context, req *tfpro
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ImportResourceState(ctx context.Context, req *tfprotov5.ImportResourceStateRequest) (*tfprotov5.ImportResourceStateResponse, error) {
+
+ (s *GRPCProviderServer) ImportResourceState(ctx context.Context, req *tfprotov5.ImportResourceStateRequest) (*tfprotov5.ImportResourceStateResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ImportResourceStateResponse{}
 
@@ -1163,7 +1194,7 @@ func (s *GRPCProviderServer) ImportResourceState(ctx context.Context, req *tfpro
 		newStateType := newStateVal.Type()
 
 		if newStateVal != cty.NilVal && !newStateVal.IsNull() && newStateType.IsObjectType() && newStateType.HasAttribute(TimeoutsConfigKey) {
-			newStateValueMap := newStateVal.AsValueMap()
+ewStateValueMap := newStateVal.AsValueMap()
 			newStateValueMap[TimeoutsConfigKey] = cty.NullVal(newStateType.AttributeType(TimeoutsConfigKey))
 			newStateVal = cty.ObjectVal(newStateValueMap)
 		}
@@ -1194,7 +1225,8 @@ func (s *GRPCProviderServer) ImportResourceState(ctx context.Context, req *tfpro
 	return resp, nil
 }
 
-func (s *GRPCProviderServer) ReadDataSource(ctx context.Context, req *tfprotov5.ReadDataSourceRequest) (*tfprotov5.ReadDataSourceResponse, error) {
+
+ (s *GRPCProviderServer) ReadDataSource(ctx context.Context, req *tfprotov5.ReadDataSourceRequest) (*tfprotov5.ReadDataSourceResponse, error) {
 	ctx = logging.InitContext(ctx)
 	resp := &tfprotov5.ReadDataSourceResponse{}
 
@@ -1227,7 +1259,7 @@ func (s *GRPCProviderServer) ReadDataSource(ctx context.Context, req *tfprotov5.
 		return resp, nil
 	}
 
-	// Not setting RawConfig here is okay, as ResourceData.GetRawConfig()
+Not setting RawConfig here is okay, as ResourceData.GetRawConfig()
 	// will return a NullVal of the schema if there is no InstanceDiff.
 	if diff != nil {
 		diff.RawConfig = configVal
@@ -1259,8 +1291,9 @@ func (s *GRPCProviderServer) ReadDataSource(ctx context.Context, req *tfprotov5.
 	return resp, nil
 }
 
-func pathToAttributePath(path cty.Path) *tftypes.AttributePath {
-	var steps []tftypes.AttributePathStep
+
+ pathToAttributePath(path cty.Path) *tftypes.AttributePath {
+ steps []tftypes.AttributePathStep
 
 	for _, step := range path {
 		switch s := step.(type) {
@@ -1293,11 +1326,12 @@ func pathToAttributePath(path cty.Path) *tftypes.AttributePath {
 // helper/schema throws away timeout values from the config and stores them in
 // the Private/Meta fields. we need to copy those values into the planned state
 // so that core doesn't see a perpetual diff with the timeout block.
-func copyTimeoutValues(to cty.Value, from cty.Value) cty.Value {
-	// if `to` is null we are planning to remove it altogether.
+
+ copyTimeoutValues(to cty.Value, from cty.Value) cty.Value {
+	// if `is null we are planning to remove it altogether.
 	if to.IsNull() {
 		return to
-	}
+
 	toAttrs := to.AsValueMap()
 	// We need to remove the key since the hcl2shims will add a non-null block
 	// because we can't determine if a single block was null from the flatmapped
@@ -1328,10 +1362,12 @@ func copyTimeoutValues(to cty.Value, from cty.Value) cty.Value {
 }
 
 // stripResourceModifiers takes a *schema.Resource and returns a deep copy with all
-// StateFuncs and CustomizeDiffs removed. This will be used during apply to
+// State
+s and CustomizeDiffs removed. This will be used during apply to
 // create a diff from a planned state where the diff modifications have already
 // been applied.
-func stripResourceModifiers(r *Resource) *Resource {
+
+ stripResourceModifiers(r *Resource) *Resource {
 	if r == nil {
 		return nil
 	}
@@ -1344,12 +1380,13 @@ func stripResourceModifiers(r *Resource) *Resource {
 
 	for k, s := range r.SchemaMap() {
 		newResource.Schema[k] = stripSchema(s)
-	}
+
 
 	return newResource
 }
 
-func stripSchema(s *Schema) *Schema {
+
+ stripSchema(s *Schema) *Schema {
 	if s == nil {
 		return nil
 	}
@@ -1357,7 +1394,8 @@ func stripSchema(s *Schema) *Schema {
 	newSchema := new(Schema)
 	*newSchema = *s
 
-	newSchema.StateFunc = nil
+	newSchema.State
+ = nil
 
 	switch e := newSchema.Elem.(type) {
 	case *Schema:
@@ -1377,10 +1415,12 @@ func stripSchema(s *Schema) *Schema {
 // entirely to the new value.
 // While apply prefers the src value, during plan we prefer dst whenever there
 // is an unknown or a set is involved, since the plan can alter the value
-// however it sees fit. This however means that a CustomizeDiffFunction may not
+// however it sees fit. This however means that a CustomizeDiff
+tion may not
 // be able to change a null to an empty value or vice versa, but that should be
 // very uncommon nor was it reliable before 0.12 either.
-func normalizeNullValues(dst, src cty.Value, apply bool) cty.Value {
+
+ normalizeNullValues(dst, src cty.Value, apply bool) cty.Value {
 	ty := dst.Type()
 	if !src.IsNull() && !src.IsKnown() {
 		// Return src during plan to retain unknown interpolated placeholders,
@@ -1543,7 +1583,8 @@ func normalizeNullValues(dst, src cty.Value, apply bool) cty.Value {
 // appears in a list-like attribute (list, set, tuple) will present a nil value
 // to helper/schema which can panic. Return an error to the user in this case,
 // indicating the attribute with the null value.
-func validateConfigNulls(ctx context.Context, v cty.Value, path cty.Path) []*tfprotov5.Diagnostic {
+
+ validateConfigNulls(ctx context.Context, v cty.Value, path cty.Path) []*tfprotov5.Diagnostic {
 	var diags []*tfprotov5.Diagnostic
 	if v.IsNull() || !v.IsKnown() {
 		return diags

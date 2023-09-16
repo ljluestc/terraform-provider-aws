@@ -27,7 +27,8 @@ type marker struct {
 type ValueMarks map[interface{}]struct{}
 
 // NewValueMarks constructs a new ValueMarks set with the given mark values.
-func NewValueMarks(marks ...interface{}) ValueMarks {
+
+ValueMarks(marks ...interface{}) ValueMarks {
 	if len(marks) == 0 {
 		return nil
 	}
@@ -40,7 +41,8 @@ func NewValueMarks(marks ...interface{}) ValueMarks {
 
 // Equal returns true if the receiver and the given ValueMarks both contain
 // the same marks.
-func (m ValueMarks) Equal(o ValueMarks) bool {
+
+ValueMarks) Equal(o ValueMarks) bool {
 	if len(m) != len(o) {
 		return false
 	}
@@ -52,7 +54,8 @@ func (m ValueMarks) Equal(o ValueMarks) bool {
 	return true
 }
 
-func (m ValueMarks) GoString() string {
+
+ValueMarks) GoString() string {
 	var s strings.Builder
 	s.WriteString("cty.NewValueMarks(")
 	i := 0
@@ -70,13 +73,15 @@ func (m ValueMarks) GoString() string {
 // IsMarked returns true if and only if the receiving value carries at least
 // one mark. A marked value cannot be used directly with integration methods
 // without explicitly unmarking it (and retrieving the markings) first.
-func (val Value) IsMarked() bool {
+
+l Value) IsMarked() bool {
 	_, ok := val.v.(marker)
 	return ok
 }
 
 // HasMark returns true if and only if the receiving value has the given mark.
-func (val Value) HasMark(mark interface{}) bool {
+
+l Value) HasMark(mark interface{}) bool {
 	if mr, ok := val.v.(marker); ok {
 		_, ok := mr.marks[mark]
 		return ok
@@ -89,9 +94,11 @@ func (val Value) HasMark(mark interface{}) bool {
 //
 // This operation is relatively expensive. If you only need a shallow result,
 // use IsMarked instead.
-func (val Value) ContainsMarked() bool {
+
+l Value) ContainsMarked() bool {
 	ret := false
-	Walk(val, func(_ Path, v Value) (bool, error) {
+	Walk(val, 
+ath, v Value) (bool, error) {
 		if v.IsMarked() {
 			ret = true
 			return false, nil
@@ -101,7 +108,8 @@ func (val Value) ContainsMarked() bool {
 	return ret
 }
 
-func (val Value) assertUnmarked() {
+
+l Value) assertUnmarked() {
 	if val.IsMarked() {
 		panic("value is marked, so must be unmarked first")
 	}
@@ -110,7 +118,8 @@ func (val Value) assertUnmarked() {
 // Marks returns a map (representing a set) of all of the mark values
 // associated with the receiving value, without changing the marks. Returns nil
 // if the value is not marked at all.
-func (val Value) Marks() ValueMarks {
+
+l Value) Marks() ValueMarks {
 	if mr, ok := val.v.(marker); ok {
 		// copy so that the caller can't mutate our internals
 		ret := make(ValueMarks, len(mr.marks))
@@ -124,7 +133,8 @@ func (val Value) Marks() ValueMarks {
 
 // HasSameMarks returns true if an only if the receiver and the given other
 // value have identical marks.
-func (val Value) HasSameMarks(other Value) bool {
+
+l Value) HasSameMarks(other Value) bool {
 	vm, vmOK := val.v.(marker)
 	om, omOK := other.v.(marker)
 	if vmOK != omOK {
@@ -150,11 +160,13 @@ func (val Value) HasSameMarks(other Value) bool {
 // The mark value should be of a named type in order to use the type itself
 // as a namespace for markings. That type can be unexported if desired, in
 // order to ensure that the mark can only be handled through the defining
-// package's own functions.
+// package's own 
+s.
 //
 // An application that never calls this method does not need to worry about
 // handling marked values.
-func (val Value) Mark(mark interface{}) Value {
+
+l Value) Mark(mark interface{}) Value {
 	var newMarker marker
 	newMarker.realV = val.v
 	if mr, ok := val.v.(marker); ok {
@@ -179,7 +191,8 @@ func (val Value) Mark(mark interface{}) Value {
 //
 // If the receiver isn't marked, Unmark returns it verbatim along with a nil
 // map of marks.
-func (val Value) Unmark() (Value, ValueMarks) {
+
+l Value) Unmark() (Value, ValueMarks) {
 	if !val.IsMarked() {
 		return val, nil
 	}
@@ -197,9 +210,11 @@ func (val Value) Unmark() (Value, ValueMarks) {
 // The result is guaranteed to contain no nested values that are marked, and
 // the returned marks set includes the superset of all of the marks encountered
 // during the operation.
-func (val Value) UnmarkDeep() (Value, ValueMarks) {
+
+l Value) UnmarkDeep() (Value, ValueMarks) {
 	marks := make(ValueMarks)
-	ret, _ := Transform(val, func(_ Path, v Value) (Value, error) {
+	ret, _ := Transform(val, 
+ath, v Value) (Value, error) {
 		unmarkedV, valueMarks := v.Unmark()
 		for m, s := range valueMarks {
 			marks[m] = s
@@ -209,7 +224,8 @@ func (val Value) UnmarkDeep() (Value, ValueMarks) {
 	return ret, marks
 }
 
-func (val Value) unmarkForce() Value {
+
+l Value) unmarkForce() Value {
 	unw, _ := val.Unmark()
 	return unw
 }
@@ -217,7 +233,8 @@ func (val Value) unmarkForce() Value {
 // WithMarks returns a new value that has the same type and underlying value
 // as the receiver and also has the marks from the given maps (representing
 // sets).
-func (val Value) WithMarks(marks ...ValueMarks) Value {
+
+l Value) WithMarks(marks ...ValueMarks) Value {
 	if len(marks) == 0 {
 		return val
 	}
@@ -257,7 +274,8 @@ func (val Value) WithMarks(marks ...ValueMarks) Value {
 // Use this if you are implementing your own higher-level operations against
 // cty using the integration methods, to re-introduce the marks from the
 // source values of the operation.
-func (val Value) WithSameMarks(srcs ...Value) Value {
+
+l Value) WithSameMarks(srcs ...Value) Value {
 	if len(srcs) == 0 {
 		return val
 	}

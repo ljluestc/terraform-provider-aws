@@ -40,11 +40,11 @@ func ResourceAPI() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_endpoint": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"api_key_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Default:  "$request.header.x-api-key",
 				ValidateFunc: validation.StringInSlice([]string{
@@ -53,110 +53,110 @@ func ResourceAPI() *schema.Resource {
 				}, false),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"body": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:,
+				Optional:
 				DiffSuppressFunc: verify.SuppressEquivalentJSONOrYAMLDiffs,
-				ValidateFunc:     verify.ValidStringIsJSONOrYAML,
+				ValidateFunc:idStringIsJSONOrYAML,
 			},
 			"cors_configuration": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allow_credentials": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 						},
 						"allow_headers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"allow_methods": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"allow_origins": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"expose_headers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"max_age": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"credentials_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"disable_execute_api_endpoint": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"execution_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"fail_on_warnings": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:.TypeString,
+				Required:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"protocol_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(apigatewayv2.ProtocolType_Values(), false),
 			},
 			"route_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"route_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Default:  "$request.method $request.path",
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"target": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"version": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 		},
@@ -171,9 +171,9 @@ func resourceAPICreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	name := d.Get("name").(string)
 	input := &apigatewayv2.CreateApiInput{
-		Name:         aws.String(name),
+		Name:ring(name),
 		ProtocolType: aws.String(d.Get("protocol_type").(string)),
-		Tags:         getTagsIn(ctx),
+		Tags:sIn(ctx),
 	}
 
 	if v, ok := d.GetOk("api_key_selection_expression"); ok {
@@ -395,10 +395,10 @@ func reimportOpenAPIDefinition(ctx context.Context, d *schema.ResourceData, meta
 		}
 
 		inputU := &apigatewayv2.UpdateApiInput{
-			ApiId:       aws.String(d.Id()),
-			Name:        aws.String(d.Get("name").(string)),
+			ApiId:ng(d.Id()),
+			Name:ing(d.Get("name").(string)),
 			Description: aws.String(d.Get("description").(string)),
-			Version:     aws.String(d.Get("version").(string)),
+			Version:(d.Get("version").(string)),
 		}
 
 		if !reflect.DeepEqual(corsConfiguration, d.Get("cors_configuration")) {
@@ -495,10 +495,10 @@ func flattenCORSConfiguration(configuration *apigatewayv2.Cors) []interface{} {
 
 	return []interface{}{map[string]interface{}{
 		"allow_credentials": aws.BoolValue(configuration.AllowCredentials),
-		"allow_headers":     flattenCaseInsensitiveStringSet(configuration.AllowHeaders),
-		"allow_methods":     flattenCaseInsensitiveStringSet(configuration.AllowMethods),
-		"allow_origins":     flattenCaseInsensitiveStringSet(configuration.AllowOrigins),
+		"allow_headers":eInsensitiveStringSet(configuration.AllowHeaders),
+		"allow_methods":eInsensitiveStringSet(configuration.AllowMethods),
+		"allow_origins":eInsensitiveStringSet(configuration.AllowOrigins),
 		"expose_headers":    flattenCaseInsensitiveStringSet(configuration.ExposeHeaders),
-		"max_age":           int(aws.Int64Value(configuration.MaxAge)),
+		"max_age":configuration.MaxAge)),
 	}}
 }

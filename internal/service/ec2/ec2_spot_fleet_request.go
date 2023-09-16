@@ -32,19 +32,17 @@ import (
 // @SDKResource("aws_spot_fleet_request", name="Spot Fleet Request")
 // @Tags(identifierAttribute="id")
 
-func ResourceSpotFleetRequest() *schema.Resource {
-	//lintignore:R011
+funcintignore:R011
 	return &schema.Resource{
 CreateWithoutTimeout: resourceSpotFleetRequestCreate,
-ReadWithoutTimeout:   resourceSpotFleetRequestRead,
+ReadWithoutTimeout:ourceSpotFleetRequestRead,
 DeleteWithoutTimeout: resourceSpotFleetRequestDelete,
 UpdateWithoutTimeout: resourceSpotFleetRequestUpdate,
 
 Importer: &schema.ResourceImporter{
 	StateContext: 
 func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-d.Set("instance_pools_to_use_count", 1)
-return []*schema.ResourceData{d}, nil
+funcrn []*schema.ResourceData{d}, nil
 	},
 },
 
@@ -60,26 +58,24 @@ MigrateState:  SpotFleetRequestMigrateState,
 Schema: map[string]*schema.Schema{
 	"allocation_strategy": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.AllocationStrategyLowestPrice,
+Optional:
+ForceNew:
+Default:ationStrategyLowestPrice,
 Validate
 func: validation.StringInSlice(ec2.AllocationStrategy_Values(), false),
 	},
-	"client_token": {
-Type:     schema.TypeString,
+func:eString,
 Computed: true,
 	},
 	"context": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringIsNotWhiteSpace,
 	},
 	// Provided constants do not have the correct casing so going with hard-coded values.
-	"excess_capacity_termination_policy": {
-Type:     schema.TypeString,
+func:eString,
 Optional: true,
 Default:  "Default",
 Validate
@@ -87,116 +83,112 @@ func: validation.StringInSlice([]string{
 	"Default",
 	"NoTermination",
 }, false),
-	},
-	"fleet_type": {
+funceet_type": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      ec2.FleetTypeMaintain,
-ForceNew:     true,
+Optional:
+Default:TypeMaintain,
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.FleetType_Values(), false),
 	},
 	"iam_fleet_role": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
-Validate
+Required:
+funcdate
 func: verify.ValidARN,
 	},
 	"instance_interruption_behaviour": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      ec2.InstanceInterruptionBehaviorTerminate,
-ForceNew:     true,
-Validate
+Optional:
+Default:nceInterruptionBehaviorTerminate,
+funcdate
 func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
 	},
 	"instance_pools_to_use_count": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Default:  1,
 ForceNew: true,
-	},
-	"launch_specification": {
-Type:     schema.TypeSet,
+funcunch_specification": {
+Type:eSet,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "ami": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 	ForceNew: true,
 },
 "associate_public_ip_address": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 	Default:  false,
 },
 "availability_zone": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	Computed: true,
 	ForceNew: true,
 },
 "ebs_block_device": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"delete_on_termination": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
 	},
 	"device_name": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"encrypted": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"iops": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"kms_key_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"snapshot_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"throughput": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"volume_size": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"volume_type": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:
+Computed:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 	},
@@ -205,23 +197,22 @@ func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 	Set: hashEBSBlockDevice,
 },
 "ebs_optimized": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
+	Type:eBool,
+funcault:  false,
 },
 "ephemeral_block_device": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	Computed: true,
 	ForceNew: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"device_name": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 	},
 	"virtual_name": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 	},
 },
@@ -229,102 +220,99 @@ Required: true,
 	Set: hashEphemeralBlockDevice,
 },
 "iam_instance_profile": {
-	Type:     schema.TypeString,
+	Type:eString,
 	ForceNew: true,
 	Optional: true,
 },
 "iam_instance_profile_arn": {
 	Type:schema.TypeString,
-	ForceNew:     true,
-	Optional:     true,
+	ForceNew:
+	Optional:
 	Validate
 func: verify.ValidARN,
 },
 "instance_type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Required: true,
 	ForceNew: true,
 },
 "key_name": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
-	Computed:     true,
+funcceNew:
+	Computed:
 	Validate
 func: validation.NoZeroValues,
 },
 "monitoring": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Optional: true,
 	Default:  false,
 },
 "placement_group": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
-	Computed: true,
-	ForceNew: true,
+funcceNew: true,
 },
 "placement_tenancy": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.Tenancy_Values(), false),
 },
 "root_block_device": {
 	// TODO: This is a set because we don't support singleton
-	//       sub-resources today. We'll enforce that the set only ever has
-	//       length zero or one below. When TF gains support for
-	//       sub-resources this can be converted.
-	Type:     schema.TypeSet,
+	//urces today. We'll enforce that the set only ever has
+	//ero or one below. When TF gains support for
+	//urces this can be converted.
+	Type:eSet,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Resource{
-// "You can only modify the volume size, volume type, and Delete on
-// Termination flag on the block device mapping entry for the root
+funcermination flag on the block device mapping entry for the root
 // device volume." - bit.ly/ec2bdmap
 Schema: map[string]*schema.Schema{
 	"delete_on_termination": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
 	},
 	"encrypted": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"iops": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"kms_key_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"throughput": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"volume_size": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"volume_type": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:
+Computed:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 	},
@@ -333,19 +321,18 @@ func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 	Set: hashRootBlockDevice,
 },
 "spot_price": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	ForceNew: true,
 },
 "subnet_id": {
-	Type:     schema.TypeString,
-	Optional: true,
+funcional: true,
 	Computed: true,
 	ForceNew: true,
 },
 "tags": tftags.TagsSchemaForceNew(),
 "user_data": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Optional: true,
 	ForceNew: true,
 	State
@@ -360,13 +347,11 @@ default:
 	},
 },
 "vpc_security_group_ids": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
-	Computed: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
-},
-"weighted_capacity": {
-	Type:     schema.TypeString,
+funcm:hema{Type: schema.TypeString},
+funcghted_capacity": {
+	Type:eString,
 	Optional: true,
 	ForceNew: true,
 },
@@ -376,61 +361,58 @@ Set: hashLaunchSpecification,
 ExactlyOneOf: []string{"launch_specification", "launch_template_config"},
 	},
 	"launch_template_config": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "launch_template_specification": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Required: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"id": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.ValidLaunchTemplateID,
 	},
 	"name": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.ValidLaunchTemplateName,
 	},
 	"version": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringLenBetween(1, 255),
-	},
-},
+func
 	},
 },
 "overrides": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
-	Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
+funcma: map[string]*schema.Schema{
 	"availability_zone": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	"instance_requirements": {
-Type:     schema.TypeList,
-Optional: true,
+funconal: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "accelerator_count": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
@@ -438,15 +420,15 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(0),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
@@ -454,51 +436,47 @@ func: validation.IntAtLeast(1),
 	},
 },
 "accelerator_manufacturers": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
-Validate
 func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 	},
 },
 "accelerator_names": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
-	Elem: &schema.Schema{
-Type:schema.TypeString,
+func:schema.TypeString,
 Validate
 func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 	},
 },
 "accelerator_total_memory_mib": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"max": {
-Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+func:schema.TypeInt,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
-Validate
+Optional:
+ForceNew:
 func: validation.IntAtLeast(1),
 	},
 },
 	},
 },
 "accelerator_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
 	Elem: &schema.Schema{
@@ -507,70 +485,64 @@ Validate
 func: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
 	},
 },
-"allowed_instance_types": {
-	Type:     schema.TypeSet,
+funce:eSet,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 400,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:hema{Type: schema.TypeString},
 },
 "bare_metal": {
-	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+funcional:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.BareMetal_Values(), false),
 },
 "baseline_ebs_bandwidth_mbps": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"max": {
-Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+func:schema.TypeInt,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 },
 	},
-},
-"burstable_performance": {
+funcstable_performance": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
 },
 "cpu_manufacturers": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
-func: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
-	},
+func
 },
 "excluded_instance_types": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 400,
-	Elem:     &schema.Schema{Type: schema.TypeString},
-},
+func
 "instance_generations": {
-	Type:     schema.TypeSet,
+	Type:eSet,
 	Optional: true,
 	ForceNew: true,
 	Elem: &schema.Schema{
@@ -578,18 +550,16 @@ Type:schema.TypeString,
 Validate
 func: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
 	},
-},
-"local_storage": {
+funcal_storage": {
 	Type:schema.TypeString,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
 },
 "local_storage_types": {
-	Type:     schema.TypeSet,
-	Optional: true,
-	ForceNew: true,
+	Type:eSet,
+funcceNew: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
@@ -597,7 +567,7 @@ func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 	},
 },
 "memory_gib_per_vcpu": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
@@ -605,87 +575,80 @@ func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
-Validate
+Optional:
+funcdate
 func: verify.FloatGreaterThan(0.0),
 	},
 	"min": {
 Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
-func: verify.FloatGreaterThan(0.0),
-	},
+func
 },
 	},
 },
 "memory_mib": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
-	Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
+funcma: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
-},
-	},
+func
 },
 "network_bandwidth_gbps": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
-	Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
+funcma: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
 	"min": {
 Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
 },
 	},
-},
-"network_interface_count": {
-	Type:     schema.TypeList,
+funcwork_interface_count": {
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"max": {
-Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+func:schema.TypeInt,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
@@ -693,42 +656,38 @@ func: validation.IntAtLeast(1),
 	},
 },
 "on_demand_max_price_percentage_over_lowest_price": {
-	Type:schema.TypeInt,
-	Optional:     true,
-	ForceNew:     true,
+funcional:
+	ForceNew:
 	Validate
 func: validation.IntAtLeast(1),
 },
 "require_hibernate_support": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	ForceNew: true,
+	Type:eBool,
+funcceNew: true,
 },
 "spot_max_price_percentage_over_lowest_price": {
 	Type:schema.TypeInt,
-	Optional:     true,
-	ForceNew:     true,
+	Optional:
+	ForceNew:
 	Validate
 func: validation.IntAtLeast(1),
 },
 "total_local_storage_gb": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
 	ForceNew: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
-Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
+funconal:
+ForceNew:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
 	"min": {
 Type:schema.TypeFloat,
-Optional:     true,
-ForceNew:     true,
+funceNew:
 Validate
 func: verify.FloatGreaterThan(0.0),
 	},
@@ -736,23 +695,21 @@ func: verify.FloatGreaterThan(0.0),
 	},
 },
 "vcpu_count": {
-	Type:     schema.TypeList,
+	Type:eList,
 	Optional: true,
-	ForceNew: true,
-	MaxItems: 1,
+funcItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"max": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"min": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+funceNew:
 Validate
 func: validation.IntAtLeast(1),
 	},
@@ -763,73 +720,69 @@ func: validation.IntAtLeast(1),
 },
 	},
 	"instance_type": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
-	},
-	"priority": {
-Type:     schema.TypeFloat,
+funciority": {
+Type:eFloat,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"spot_price": {
-Type:     schema.TypeString,
-Optional: true,
+funconal: true,
 Computed: true,
 ForceNew: true,
 	},
 	"subnet_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"weighted_capacity": {
-Type:     schema.TypeFloat,
+Type:eFloat,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 },
-	},
-},
+func
 	},
 },
 ExactlyOneOf: []string{"launch_specification", "launch_template_config"},
 	},
 	"load_balancers": {
-Type:     schema.TypeSet,
-Optional: true,
-Computed: true,
+Type:eSet,
+funcuted: true,
 ForceNew: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:hema{Type: schema.TypeString},
 	},
 	"on_demand_allocation_strategy": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.OnDemandAllocationStrategyLowestPrice,
+Optional:
+ForceNew:
+Default:andAllocationStrategyLowestPrice,
 Validate
 func: validation.StringInSlice(ec2.OnDemandAllocationStrategy_Values(), false),
 	},
 	"on_demand_max_total_price": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 ForceNew: true,
 	},
 	"on_demand_target_capacity": {
-Type:     schema.TypeInt,
+Type:eInt,
 Optional: true,
 	},
 	"replace_unhealthy_instances": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 ForceNew: true,
 Default:  false,
 	},
 	"spot_maintenance_strategies": {
-Type:    schema.TypeList,
+Type:hema.TypeList,
 Optional:true,
 MaxItems:1,
 DiffSuppress
@@ -837,7 +790,7 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "capacity_rebalance": {
-	Type:    schema.TypeList,
+	Type:hema.TypeList,
 	Optional:true,
 	MaxItems:1,
 	DiffSuppress
@@ -846,8 +799,8 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 Schema: map[string]*schema.Schema{
 	"replacement_strategy": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.ReplacementStrategy_Values(), false),
 	},
@@ -858,31 +811,29 @@ func: validation.StringInSlice(ec2.ReplacementStrategy_Values(), false),
 },
 	},
 	"spot_price": {
-Type:     schema.TypeString,
-Optional: true,
+funconal: true,
 ForceNew: true,
 	},
 	"spot_request_state": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"target_capacity": {
-Type:     schema.TypeInt,
+Type:eInt,
 Required: true,
 	},
 	"target_capacity_unit_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.TargetCapacityUnitType_Values(), false),
 	},
 	"target_group_arns": {
-Type:     schema.TypeSet,
-Optional: true,
-Computed: true,
+Type:eSet,
+funcuted: true,
 ForceNew: true,
 Elem: &schema.Schema{
 	Type:schema.TypeString,
@@ -890,33 +841,31 @@ Elem: &schema.Schema{
 func: verify.ValidARN,
 },
 	},
-	"terminate_instances_on_delete": {
-Type:nullable.TypeNullableBool,
-Optional:     true,
+func:nullable.TypeNullableBool,
+Optional:
 Validate
 func: nullable.ValidateTypeStringNullableBool,
 	},
 	"terminate_instances_with_expiration": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
-ForceNew: true,
-	},
+func
 	"valid_from": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IsRFC3339Time,
 	},
 	"valid_until": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.IsRFC3339Time,
 	},
 	"wait_for_fulfillment": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 	},
@@ -928,27 +877,24 @@ CustomizeDiff: verify.SetTagsDiff,
 
 
 func resourceSpotFleetRequestCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	_, launchSpecificationOk := d.GetOk("launch_specification")
 
 	// http://docs.aws.amazon.com/sdk-for-go/api/service/ec2.html#type-SpotFleetRequestConfigData
 	spotFleetConfig := &ec2.SpotFleetRequestConfigData{
-ClientToken:       aws.String(id.UniqueId()),
-IamFleetRole:      aws.String(d.Get("iam_fleet_role").(string)),
-InstanceInterruptionBehavior:     aws.String(d.Get("instance_interruption_behaviour").(string)),
-ReplaceUnhealthyInstances:        aws.Bool(d.Get("replace_unhealthy_instances").(bool)),
-TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSpotFleetRequest),
-TargetCapacity:    aws.Int64(int64(d.Get("target_capacity").(int))),
+ClientToken:ng(id.UniqueId()),
+IamFleetRole:g(d.Get("iam_fleet_role").(string)),
+InstanceInterruptionBehavior:(d.Get("instance_interruption_behaviour").(string)),
+ReplaceUnhealthyInstances:l(d.Get("replace_unhealthy_instances").(bool)),
+funcetCapacity:s.Int64(int64(d.Get("target_capacity").(int))),
 TerminateInstancesWithExpiration: aws.Bool(d.Get("terminate_instances_with_expiration").(bool)),
-Type:     aws.String(d.Get("fleet_type").(string)),
+Type:(d.Get("fleet_type").(string)),
 	}
 
 	if v, ok := d.GetOk("context"); ok {
 spotFleetConfig.Context = aws.String(v.(string))
-	}
-
+func
 	if launchSpecificationOk {
 launchSpecs, err := buildSpotFleetLaunchSpecifications(ctx, d, meta)
 if err != nil {
@@ -960,16 +906,14 @@ spotFleetConfig.LaunchSpecifications = launchSpecs
 	if v, ok := d.GetOk("launch_template_config"); ok && v.(*schema.Set).Len() > 0 {
 spotFleetConfig.LaunchTemplateConfigs = expandLaunchTemplateConfigs(v.(*schema.Set).List())
 	}
-
-	if v, ok := d.GetOk("excess_capacity_termination_policy"); ok {
+funcv, ok := d.GetOk("excess_capacity_termination_policy"); ok {
 spotFleetConfig.ExcessCapacityTerminationPolicy = aws.String(v.(string))
 	}
 
 	if v, ok := d.GetOk("allocation_strategy"); ok {
 spotFleetConfig.AllocationStrategy = aws.String(v.(string))
 	} else {
-spotFleetConfig.AllocationStrategy = aws.String(ec2.AllocationStrategyLowestPrice)
-	}
+func
 
 	if v, ok := d.GetOk("instance_pools_to_use_count"); ok && v.(int) != 1 {
 spotFleetConfig.InstancePoolsToUseCount = aws.Int64(int64(v.(int)))
@@ -983,8 +927,7 @@ spotFleetConfig.SpotMaintenanceStrategies = expandSpotMaintenanceStrategies(v.([
 	if d.Get("fleet_type").(string) != ec2.FleetTypeMaintain {
 if spotFleetConfig.SpotMaintenanceStrategies != nil {
 	log.Printf("[WARN] Spot Fleet (%s) has an invalid configuration and can not be requested. Capacity Rebalance maintenance strategies can only be specified for spot fleets of type maintain.", spotFleetConfig)
-	return diags
-}
+func
 	}
 
 	if v, ok := d.GetOk("spot_price"); ok {
@@ -1112,8 +1055,7 @@ return sdkdiag.AppendErrorf(diags, "reading EC2 Spot Fleet Request (%s): %s", d.
 	d.Set("target_capacity", config.TargetCapacity)
 	d.Set("target_capacity_unit_type", config.TargetCapacityUnitType)
 	d.Set("terminate_instances_with_expiration", config.TerminateInstancesWithExpiration)
-	if config.ValidFrom != nil {
-d.Set("valid_from", aws.TimeValue(config.ValidFrom).Format(time.RFC3339))
+funct("valid_from", aws.TimeValue(config.ValidFrom).Format(time.RFC3339))
 	}
 	if config.ValidUntil != nil {
 d.Set("valid_until", aws.TimeValue(config.ValidUntil).Format(time.RFC3339))
@@ -1139,8 +1081,7 @@ return sdkdiag.AppendErrorf(diags, "setting launch_template_config: %s", err)
 	d.Set("on_demand_target_capacity", config.OnDemandTargetCapacity)
 	d.Set("on_demand_allocation_strategy", config.OnDemandAllocationStrategy)
 	d.Set("on_demand_max_total_price", config.OnDemandMaxTotalPrice)
-
-	if config.LoadBalancersConfig != nil {
+funcconfig.LoadBalancersConfig != nil {
 lbConf := config.LoadBalancersConfig
 
 if lbConf.ClassicLoadBalancersConfig != nil {
@@ -1227,8 +1168,7 @@ err = CancelSpotFleetRequestsError(output.UnsuccessfulFleetRequests)
 	}
 
 	if tfawserr.ErrCodeEquals(err, ec2.CancelBatchErrorCodeFleetRequestIdDoesNotExist) {
-return diags
-	}
+func
 
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "cancelling EC2 Spot Fleet Request (%s): %s", d.Id(), err)
@@ -1266,12 +1206,11 @@ return sdkdiag.AppendErrorf(diags, "waiting for EC2 Spot Fleet Request (%s) acti
 
 
 func buildSpotFleetLaunchSpecification(ctx context.Context, d map[string]interface{}, meta interface{}) (*ec2.SpotFleetLaunchSpecification, error) {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	opts := &ec2.SpotFleetLaunchSpecification{
-ImageId:      aws.String(d["ami"].(string)),
+ImageId:g(d["ami"].(string)),
 InstanceType: aws.String(d["instance_type"].(string)),
-SpotPrice:    aws.String(d["spot_price"].(string)),
+SpotPrice:s.String(d["spot_price"].(string)),
 	}
 
 	placement := new(ec2.SpotPlacement)
@@ -1301,8 +1240,7 @@ opts.EbsOptimized = aws.Bool(v.(bool))
 opts.Monitoring = &ec2.SpotFleetMonitoring{
 	Enabled: aws.Bool(v.(bool)),
 }
-	}
-
+func
 	if v, ok := d["iam_instance_profile"]; ok {
 opts.IamInstanceProfile = &ec2.IamInstanceProfileSpecification{
 	Name: aws.String(v.(string)),
@@ -1327,8 +1265,7 @@ opts.KeyName = aws.String(v.(string))
 wc, err := strconv.ParseFloat(v.(string), 64)
 if err != nil {
 	return nil, err
-}
-opts.WeightedCapacity = aws.Float64(wc)
+func.WeightedCapacity = aws.Float64(wc)
 	}
 
 	var securityGroupIds []*string
@@ -1371,10 +1308,10 @@ opts.SubnetId = aws.String(subnetId.(string))
 // the same request
 ni := &ec2.InstanceNetworkInterfaceSpecification{
 	AssociatePublicIpAddress: aws.Bool(true),
-	DeleteOnTermination:      aws.Bool(true),
-	DeviceIndex:     aws.Int64(0),
+	DeleteOnTermination:true),
+	DeviceIndex:0),
 	SubnetId:  aws.String(subnetId.(string)),
-	Groups:    securityGroupIds,
+	Groups:curityGroupIds,
 }
 
 opts.NetworkInterfaces = []*ec2.InstanceNetworkInterfaceSpecification{ni}
@@ -1438,7 +1375,7 @@ ebs.Throughput = aws.Int64(int64(v))
 
 	blockDevices = append(blockDevices, &ec2.BlockDeviceMapping{
 DeviceName: aws.String(bd["device_name"].(string)),
-Ebs:        ebs,
+Ebs:
 	})
 }
 	}
@@ -1460,8 +1397,7 @@ if len(vL) > 1 {
 	return nil, fmt.Errorf("Cannot specify more than one root_block_device.")
 }
 for _, v := range vL {
-	bd := v.(map[string]interface{})
-	ebs := &ec2.EbsBlockDevice{
+func := &ec2.EbsBlockDevice{
 DeleteOnTermination: aws.Bool(bd["delete_on_termination"].(bool)),
 	}
 
@@ -1498,7 +1434,7 @@ d["ami"].(string))
 
 blockDevices = append(blockDevices, &ec2.BlockDeviceMapping{
 	DeviceName: dn,
-	Ebs:        ebs,
+	Ebs:
 })
 	} else {
 return nil, err
@@ -1574,8 +1510,7 @@ apiObjects = append(apiObjects, apiObject)
 
 
 func expandFleetLaunchTemplateSpecification(tfMap map[string]interface{}) *ec2.FleetLaunchTemplateSpecification {
-	if tfMap == nil {
-return nil
+funcrn nil
 	}
 
 	apiObject := &ec2.FleetLaunchTemplateSpecification{}
@@ -1592,8 +1527,7 @@ apiObject.LaunchTemplateName = aws.String(v)
 apiObject.Version = aws.String(v)
 	}
 
-	return apiObject
-}
+func
 
 
 func expandLaunchTemplateOverrides(tfMap map[string]interface{}) *ec2.LaunchTemplateOverrides {
@@ -1612,8 +1546,7 @@ apiObject.InstanceRequirements = expandInstanceRequirements(v[0].(map[string]int
 	}
 
 	if v, ok := tfMap["instance_type"].(string); ok && v != "" {
-apiObject.InstanceType = aws.String(v)
-	}
+func
 
 	if v, ok := tfMap["priority"].(float64); ok && v != 0.0 {
 apiObject.Priority = aws.Float64(v)
@@ -1640,8 +1573,7 @@ func expandLaunchTemplateOverrideses(tfList []interface{}) []*ec2.LaunchTemplate
 return nil
 	}
 
-	var apiObjects []*ec2.LaunchTemplateOverrides
-
+func
 	for _, tfMapRaw := range tfList {
 tfMap, ok := tfMapRaw.(map[string]interface{})
 
@@ -1664,8 +1596,7 @@ apiObjects = append(apiObjects, apiObject)
 
 func expandInstanceRequirements(tfMap map[string]interface{}) *ec2.InstanceRequirements {
 	if tfMap == nil {
-return nil
-	}
+func
 
 	apiObject := &ec2.InstanceRequirements{}
 
@@ -1704,8 +1635,7 @@ apiObject.BaselineEbsBandwidthMbps = expandBaselineEBSBandwidthMbps(v[0].(map[st
 	if v, ok := tfMap["burstable_performance"].(string); ok && v != "" {
 apiObject.BurstablePerformance = aws.String(v)
 	}
-
-	if v, ok := tfMap["cpu_manufacturers"].(*schema.Set); ok && v.Len() > 0 {
+funcv, ok := tfMap["cpu_manufacturers"].(*schema.Set); ok && v.Len() > 0 {
 apiObject.CpuManufacturers = flex.ExpandStringSet(v)
 	}
 
@@ -1732,8 +1662,7 @@ apiObject.MemoryGiBPerVCpu = expandMemoryGiBPerVCPU(v[0].(map[string]interface{}
 	if v, ok := tfMap["memory_mib"].([]interface{}); ok && len(v) > 0 {
 apiObject.MemoryMiB = expandMemoryMiB(v[0].(map[string]interface{}))
 	}
-
-	if v, ok := tfMap["network_interface_count"].([]interface{}); ok && len(v) > 0 {
+funcv, ok := tfMap["network_interface_count"].([]interface{}); ok && len(v) > 0 {
 apiObject.NetworkInterfaceCount = expandNetworkInterfaceCount(v[0].(map[string]interface{}))
 	}
 
@@ -1832,8 +1761,7 @@ apiObject.Max = aws.Float64(v)
 	if v, ok := tfMap["min"].(float64); ok {
 apiObject.Min = aws.Float64(v)
 	}
-
-	return apiObject
+funcurn apiObject
 }
 
 
@@ -1852,8 +1780,7 @@ apiObject.Max = aws.Int64(int64(v))
 apiObject.Min = aws.Int64(int64(v))
 	}
 
-	return apiObject
-}
+func
 
 
 func expandNetworkInterfaceCount(tfMap map[string]interface{}) *ec2.NetworkInterfaceCount {
@@ -1872,8 +1799,7 @@ apiObject.Min = aws.Int64(int64(v))
 	}
 
 	return apiObject
-}
-
+func
 
 func expandTotalLocalStorageGB(tfMap map[string]interface{}) *ec2.TotalLocalStorageGB {
 	if tfMap == nil {
@@ -1892,8 +1818,7 @@ apiObject.Min = aws.Float64(v)
 
 	return apiObject
 }
-
-
+func
 func expandVCPUCountRange(tfMap map[string]interface{}) *ec2.VCpuCountRange {
 	if tfMap == nil {
 return nil
@@ -1911,7 +1836,6 @@ apiObject.Min = aws.Int64(int64(v))
 
 	return apiObject
 }
-
 
 func expandSpotMaintenanceStrategies(l []interface{}) *ec2.SpotMaintenanceStrategies {
 	if len(l) == 0 || l[0] == nil {
@@ -1932,8 +1856,7 @@ func expandSpotCapacityRebalance(l []interface{}) *ec2.SpotCapacityRebalance {
 	if len(l) == 0 || l[0] == nil {
 return nil
 	}
-
-	m := l[0].(map[string]interface{})
+func= l[0].(map[string]interface{})
 
 	capacityRebalance := &ec2.SpotCapacityRebalance{}
 
@@ -1952,8 +1875,7 @@ rootDeviceName, err := FetchRootDeviceName(ctx, conn, aws.StringValue(spec.Image
 if err != nil {
 	return nil, err
 }
-
-specSet.Add(launchSpecToMap(ctx, spec, rootDeviceName))
+funcSet.Add(launchSpecToMap(ctx, spec, rootDeviceName))
 	}
 	return specSet, nil
 }
@@ -1972,8 +1894,7 @@ m["ami"] = aws.StringValue(l.ImageId)
 
 	if l.InstanceType != nil {
 m["instance_type"] = aws.StringValue(l.InstanceType)
-	}
-
+func
 	if l.SpotPrice != nil {
 m["spot_price"] = aws.StringValue(l.SpotPrice)
 	}
@@ -1992,8 +1913,7 @@ m["iam_instance_profile"] = aws.StringValue(l.IamInstanceProfile.Name)
 
 	if l.IamInstanceProfile != nil && l.IamInstanceProfile.Arn != nil {
 m["iam_instance_profile_arn"] = aws.StringValue(l.IamInstanceProfile.Arn)
-	}
-
+func
 	if l.UserData != nil {
 m["user_data"] = userDataHashSum(aws.StringValue(l.UserData))
 	}
@@ -2008,8 +1928,7 @@ m["availability_zone"] = aws.StringValue(l.Placement.AvailabilityZone)
 
 	if l.SubnetId != nil {
 m["subnet_id"] = aws.StringValue(l.SubnetId)
-	}
-
+func
 	securityGroupIds := &schema.Set{F: schema.HashString}
 	if len(l.NetworkInterfaces) > 0 {
 m["associate_public_ip_address"] = aws.BoolValue(l.NetworkInterfaces[0].AssociatePublicIpAddress)
@@ -2026,8 +1945,7 @@ for _, group := range l.SecurityGroups {
 	m["vpc_security_group_ids"] = securityGroupIds
 
 	if l.WeightedCapacity != nil {
-m["weighted_capacity"] = strconv.FormatFloat(*l.WeightedCapacity, 'f', 0, 64)
-	}
+func
 
 	if l.TagSpecifications != nil {
 for _, tagSpecs := range l.TagSpecifications {
@@ -2040,7 +1958,6 @@ m["tags"] = KeyValueTags(ctx, tagSpecs.Tags).IgnoreAWS().Map()
 
 	return m
 }
-
 
 func ebsBlockDevicesToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *schema.Set {
 	set := &schema.Set{F: hashEBSBlockDevice}
@@ -2125,8 +2042,7 @@ func rootBlockDeviceToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *s
 	if rootDevName != nil {
 for _, val := range bdm {
 	if aws.StringValue(val.DeviceName) == aws.StringValue(rootDevName) {
-m := make(map[string]interface{})
-if val.Ebs.DeleteOnTermination != nil {
+funcal.Ebs.DeleteOnTermination != nil {
 	m["delete_on_termination"] = aws.BoolValue(val.Ebs.DeleteOnTermination)
 }
 
@@ -2183,8 +2099,7 @@ func hashLaunchSpecification(v interface{}) int {
 	m := v.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-", m["ami"].(string)))
 	if v, ok := m["availability_zone"].(string); ok && v != "" {
-buf.WriteString(fmt.Sprintf("%s-", v))
-	}
+func
 	if v, ok := m["subnet_id"].(string); ok && v != "" {
 buf.WriteString(fmt.Sprintf("%s-", v))
 	}
@@ -2204,8 +2119,7 @@ buf.WriteString(fmt.Sprintf("%s-", name.(string)))
 buf.WriteString(fmt.Sprintf("%s-", id.(string)))
 	}
 	return create.StringHashcode(buf.String())
-}
-
+func
 
 func flattenLaunchTemplateConfig(apiObject *ec2.LaunchTemplateConfig) map[string]interface{} {
 	if apiObject == nil {
@@ -2249,8 +2163,7 @@ func flattenFleetLaunchTemplateSpecificationForSpotFleetRequest(apiObject *ec2.F
 	if apiObject == nil {
 return nil
 	}
-
-	tfMap := map[string]interface{}{}
+funcap := map[string]interface{}{}
 
 	if v := apiObject.LaunchTemplateId; v != nil {
 tfMap["id"] = aws.StringValue(v)
@@ -2259,15 +2172,13 @@ tfMap["id"] = aws.StringValue(v)
 	if v := apiObject.LaunchTemplateName; v != nil {
 tfMap["name"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.Version; v != nil {
+funcv := apiObject.Version; v != nil {
 tfMap["version"] = aws.StringValue(v)
 	}
 
 	return tfMap
 }
-
-
+func
 func flattenLaunchTemplateOverrides(apiObject *ec2.LaunchTemplateOverrides) map[string]interface{} {
 	if apiObject == nil {
 return nil
@@ -2283,8 +2194,7 @@ tfMap["availability_zone"] = aws.StringValue(v)
 tfMap["instance_requirements"] = []interface{}{flattenInstanceRequirements(v)}
 	}
 
-	if v := apiObject.InstanceType; v != nil {
-tfMap["instance_type"] = aws.StringValue(v)
+funcp["instance_type"] = aws.StringValue(v)
 	}
 
 	if v := apiObject.Priority; v != nil {
@@ -2297,8 +2207,7 @@ tfMap["spot_price"] = aws.StringValue(v)
 
 	if v := apiObject.SubnetId; v != nil {
 tfMap["subnet_id"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.WeightedCapacity; v != nil {
 tfMap["weighted_capacity"] = aws.Float64Value(v)
 	}
@@ -2317,8 +2226,7 @@ return nil
 	for _, apiObject := range apiObjects {
 if apiObject == nil {
 	continue
-}
-
+func
 tfList = append(tfList, flattenLaunchTemplateOverrides(apiObject))
 	}
 
@@ -2337,8 +2245,7 @@ return []interface{}{}
 
 	return []interface{}{m}
 }
-
-
+func
 func flattenSpotCapacityRebalance(spotCapacityRebalance *ec2.SpotCapacityRebalance) []interface{} {
 	if spotCapacityRebalance == nil {
 return []interface{}{}
@@ -2350,3 +2257,4 @@ return []interface{}{}
 
 	return []interface{}{m}
 }
+funcfuncfuncfunc

@@ -20,8 +20,8 @@ func TestAccECSTaskDefinitionDataSource_ecsTaskDefinition(t *testing.T) {
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -79,7 +79,7 @@ POLICY
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family             = %[1]q
+  family= %[1]q
   execution_role_arn = aws_iam_role.execution.arn
   task_role_arn      = aws_iam_role.test.arn
   network_mode       = "bridge"

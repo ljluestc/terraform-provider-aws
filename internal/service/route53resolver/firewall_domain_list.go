@@ -40,18 +40,18 @@ func ResourceFirewallDomainList() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"domains": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validResolverName,
 			},
@@ -85,7 +85,7 @@ func resourceFirewallDomainListCreate(ctx context.Context, d *schema.ResourceDat
 	if v, ok := d.GetOk("domains"); ok && v.(*schema.Set).Len() > 0 {
 		_, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 			FirewallDomainListId: aws.String(d.Id()),
-			Domains:     flex.ExpandStringSet(v.(*schema.Set)),
+			Domains:dStringSet(v.(*schema.Set)),
 			Operation:   aws.String(route53resolver.FirewallDomainUpdateOperationAdd),
 		})
 
@@ -171,7 +171,7 @@ func resourceFirewallDomainListUpdate(ctx context.Context, d *schema.ResourceDat
 
 		_, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 			FirewallDomainListId: aws.String(d.Id()),
-			Domains:     flex.ExpandStringSet(domains),
+			Domains:dStringSet(domains),
 			Operation:   aws.String(operation),
 		})
 

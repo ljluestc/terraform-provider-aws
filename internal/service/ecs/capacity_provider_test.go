@@ -25,10 +25,10 @@ func TestAccECSCapacityProvider_basic(t *testing.T) {
 	resourceName := "aws_ecs_capacity_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityProviderDestroy(ctx),
+		CheckDestroy:testAccCheckCapacityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCapacityProviderConfig_basic(rName),
@@ -64,10 +64,10 @@ func TestAccECSCapacityProvider_disappears(t *testing.T) {
 	resourceName := "aws_ecs_capacity_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityProviderDestroy(ctx),
+		CheckDestroy:testAccCheckCapacityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCapacityProviderConfig_basic(rName),
@@ -88,10 +88,10 @@ func TestAccECSCapacityProvider_managedScaling(t *testing.T) {
 	resourceName := "aws_ecs_capacity_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityProviderDestroy(ctx),
+		CheckDestroy:testAccCheckCapacityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCapacityProviderConfig_managedScaling(rName, ecs.ManagedScalingStatusEnabled, 300, 10, 1, 50),
@@ -152,10 +152,10 @@ func TestAccECSCapacityProvider_managedScalingPartial(t *testing.T) {
 	resourceName := "aws_ecs_capacity_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityProviderDestroy(ctx),
+		CheckDestroy:testAccCheckCapacityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCapacityProviderConfig_managedScalingPartial(rName),
@@ -188,10 +188,10 @@ func TestAccECSCapacityProvider_tags(t *testing.T) {
 	resourceName := "aws_ecs_capacity_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityProviderDestroy(ctx),
+		CheckDestroy:testAccCheckCapacityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCapacityProviderConfig_tags1(rName, "key1", "value1"),
@@ -295,15 +295,15 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name  = %[1]q
 
   launch_template {
     id = aws_launch_template.test.id
   }
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key    = "Name"
+    value  = %[1]q
     propagate_at_launch = true
   }
 
@@ -340,7 +340,7 @@ resource "aws_ecs_capacity_provider" "test" {
       instance_warmup_period    = %[2]d
       maximum_scaling_step_size = %[3]d
       minimum_scaling_step_size = %[4]d
-      status                    = %[5]q
+      status       = %[5]q
       target_capacity           = %[6]d
     }
   }
@@ -358,7 +358,7 @@ resource "aws_ecs_capacity_provider" "test" {
 
     managed_scaling {
       minimum_scaling_step_size = 2
-      status                    = "ENABLED"
+      status       = "ENABLED"
     }
   }
 }

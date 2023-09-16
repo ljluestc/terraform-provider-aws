@@ -32,9 +32,9 @@ func testAccLoadBalancerStickinessPolicy_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
@@ -63,9 +63,9 @@ func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration1),
@@ -104,9 +104,9 @@ func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabledTrue, cookieDuration),
@@ -144,9 +144,9 @@ func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:oadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
@@ -190,7 +190,7 @@ func testAccCheckLoadBalancerStickinessPolicyExists(ctx context.Context, n strin
 func testAccLoadBalancerStickinessPolicyConfig_basic(rName string, enabled string, cookieDuration string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
-  name              = %[1]q
+  name
   health_check_path = "/"
   instance_port     = "80"
 }

@@ -5,13 +5,20 @@ import (
 	"strings"
 )
 
-// ErrorFormatFunc is a function callback that is called by Error to
+// ErrorFormat
+ is a 
+tion callbaca called by Error to
 // turn the list of errors into a string.
-type ErrorFormatFunc func([]error) string
+type ErrorFor
+ 
+rror) sg
 
-// ListFormatFunc is a basic formatter that outputs the number of errors
+// ListFormat
+ is a basic formatter that outputs the number of errors
 // that occurred along with a bullet point list of the errors.
-func ListFormatFunc(es []error) string {
+
+ ListFormat
+(es []error) string {
 	if len(es) == 1 {
 		return fmt.Sprintf("1 error occurred:\n\t* %s\n\n", es[0])
 	}

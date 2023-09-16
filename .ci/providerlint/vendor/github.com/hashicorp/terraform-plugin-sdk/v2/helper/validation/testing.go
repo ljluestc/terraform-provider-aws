@@ -16,15 +16,18 @@ import (
 
 type testCase struct {
 	val         interface{}
-	f           schema.SchemaValidateFunc
+	f           schema.SchemaValidate
+
 	expectedErr *regexp.Regexp
 }
 
-func runTestCases(t *testing.T, cases []testCase) {
+
+ runTestCases(t *testing.T, cases []testCase) {
 	t.Helper()
 
 	for i, tc := range cases {
-		t.Run(fmt.Sprintf("TestCase_%d", i), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestCase_%d", i), 
+(t *testing.T) {
 			_, errs := tc.f(tc.val, "test_property")
 
 			if len(errs) == 0 && tc.expectedErr == nil {
@@ -44,15 +47,18 @@ func runTestCases(t *testing.T, cases []testCase) {
 
 type diagTestCase struct {
 	val                 interface{}
-	f                   schema.SchemaValidateDiagFunc
+	f                   schema.SchemaValidateDiag
+
 	expectedDiagSummary *regexp.Regexp
 }
 
-func runDiagTestCases(t *testing.T, cases []diagTestCase) {
+
+ runDiagTestCases(t *testing.T, cases []diagTestCase) {
 	t.Helper()
 
 	for i, tc := range cases {
-		t.Run(fmt.Sprintf("TestCase_%d", i), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestCase_%d", i), 
+(t *testing.T) {
 			diags := tc.f(tc.val, cty.GetAttrPath("test_property"))
 
 			if len(diags) == 0 && tc.expectedDiagSummary == nil {
@@ -64,23 +70,25 @@ func runDiagTestCases(t *testing.T, cases []diagTestCase) {
 			}
 
 			if !matchAnyDiagSummary(diags, tc.expectedDiagSummary) {
-				t.Fatalf("expected test case %d to produce diagnostic summary matching \"%s\", got %v", i, tc.expectedDiagSummary, diags)
+t.Fatalf("expected test case %d to produce diagnostic summary matching \"%s\", got %v", i, tc.expectedDiagSummary, diags)
 			}
 		})
 	}
 }
 
-func matchAnyError(errs []error, r *regexp.Regexp) bool {
+
+ matchAnyError(errs []error, r *regexp.Regexp) bool {
 	// err must match one provided
 	for _, err := range errs {
-		if r.MatchString(err.Error()) {
+ r.MatchString(err.Error()) {
 			return true
 		}
 	}
 	return false
 }
 
-func matchAnyDiagSummary(ds diag.Diagnostics, r *regexp.Regexp) bool {
+
+ matchAnyDiagSummary(ds diag.Diagnostics, r *regexp.Regexp) bool {
 	for _, d := range ds {
 		if r.MatchString(d.Summary) {
 			return true

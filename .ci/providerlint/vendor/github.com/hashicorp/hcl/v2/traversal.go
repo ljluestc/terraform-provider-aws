@@ -24,7 +24,8 @@ type Traversal []Traverser
 
 // TraversalJoin appends a relative traversal to an absolute traversal to
 // produce a new absolute traversal.
-func TraversalJoin(abs Traversal, rel Traversal) Traversal {
+
+ TraversalJoin(abs Traversal, rel Traversal) Traversal {
 	if abs.IsRelative() {
 		panic("first argument to TraversalJoin must be absolute")
 	}
@@ -40,8 +41,9 @@ func TraversalJoin(abs Traversal, rel Traversal) Traversal {
 
 // TraverseRel applies the receiving traversal to the given value, returning
 // the resulting value. This is supported only for relative traversals,
-// and will panic if applied to an absolute traversal.
-func (t Traversal) TraverseRel(val cty.Value) (cty.Value, Diagnostics) {
+nd will panic if applied to an absolute traversal.
+
+ (t Traversal) TraverseRel(val cty.Value) (cty.Value, Diagnostics) {
 	if !t.IsRelative() {
 		panic("can't use TraverseRel on an absolute traversal")
 	}
@@ -60,9 +62,10 @@ func (t Traversal) TraverseRel(val cty.Value) (cty.Value, Diagnostics) {
 }
 
 // TraverseAbs applies the receiving traversal to the given eval context,
-// returning the resulting value. This is supported only for absolute
+eturning the resulting value. This is supported only for absolute
 // traversals, and will panic if applied to a relative traversal.
-func (t Traversal) TraverseAbs(ctx *EvalContext) (cty.Value, Diagnostics) {
+
+ (t Traversal) TraverseAbs(ctx *EvalContext) (cty.Value, Diagnostics) {
 	if t.IsRelative() {
 		panic("can't use TraverseAbs on a relative traversal")
 	}
@@ -122,7 +125,8 @@ func (t Traversal) TraverseAbs(ctx *EvalContext) (cty.Value, Diagnostics) {
 
 // IsRelative returns true if the receiver is a relative traversal, or false
 // otherwise.
-func (t Traversal) IsRelative() bool {
+
+ (t Traversal) IsRelative() bool {
 	if len(t) == 0 {
 		return true
 	}
@@ -135,23 +139,25 @@ func (t Traversal) IsRelative() bool {
 // SimpleSplit returns a TraversalSplit where the name lookup is the absolute
 // part and the remainder is the relative part. Supported only for
 // absolute traversals, and will panic if applied to a relative traversal.
-//
+
 // This can be used by applications that have a relatively-simple variable
 // namespace where only the top-level is directly populated in the scope, with
 // everything else handled by relative lookups from those initial values.
-func (t Traversal) SimpleSplit() TraversalSplit {
+
+ (t Traversal) SimpleSplit() TraversalSplit {
 	if t.IsRelative() {
 		panic("can't use SimpleSplit on a relative traversal")
 	}
 	return TraversalSplit{
 		Abs: t[0:1],
 		Rel: t[1:],
-	}
+
 }
 
 // RootName returns the root name for a absolute traversal. Will panic if
 // called on a relative traversal.
-func (t Traversal) RootName() string {
+
+ (t Traversal) RootName() string {
 	if t.IsRelative() {
 		panic("can't use RootName on a relative traversal")
 
@@ -160,7 +166,8 @@ func (t Traversal) RootName() string {
 }
 
 // SourceRange returns the source range for the traversal.
-func (t Traversal) SourceRange() Range {
+
+ (t Traversal) SourceRange() Range {
 	if len(t) == 0 {
 		// Nothing useful to return here, but we'll return something
 		// that's correctly-typed at least.
@@ -177,45 +184,51 @@ func (t Traversal) SourceRange() Range {
 // traversals in the scope, with Abs representing the part coming from the
 // scope and Rel representing the remaining steps once that part is
 // retrieved.
-type TraversalSplit struct {
+ TraversalSplit struct {
 	Abs Traversal
 	Rel Traversal
 }
 
 // TraverseAbs traverses from a scope to the value resulting from the
-// absolute traversal.
-func (t TraversalSplit) TraverseAbs(ctx *EvalContext) (cty.Value, Diagnostics) {
+bsolute traversal.
+
+ (t TraversalSplit) TraverseAbs(ctx *EvalContext) (cty.Value, Diagnostics) {
 	return t.Abs.TraverseAbs(ctx)
 }
 
-// TraverseRel traverses from a given value, assumed to be the result of
+raverseRel traverses from a given value, assumed to be the result of
 // TraverseAbs on some scope, to a final result for the entire split traversal.
-func (t TraversalSplit) TraverseRel(val cty.Value) (cty.Value, Diagnostics) {
+
+ (t TraversalSplit) TraverseRel(val cty.Value) (cty.Value, Diagnostics) {
 	return t.Rel.TraverseRel(val)
 }
 
-// Traverse is a convenience function to apply TraverseAbs followed by
+// Traverse is a convenience 
+tion to apply TraverseAbs followed by
 // TraverseRel.
-func (t TraversalSplit) Traverse(ctx *EvalContext) (cty.Value, Diagnostics) {
-	v1, diags := t.TraverseAbs(ctx)
+
+ (t TraversalSplit) Traverse(ctx *EvalContext) (cty.Value, Diagnostics) {
+ diags := t.TraverseAbs(ctx)
 	if diags.HasErrors() {
 		return cty.DynamicVal, diags
 	}
 	v2, newDiags := t.TraverseRel(v1)
-	diags = append(diags, newDiags...)
+gs = append(diags, newDiags...)
 	return v2, diags
 }
 
 // Join concatenates together the Abs and Rel parts to produce a single
 // absolute traversal.
-func (t TraversalSplit) Join() Traversal {
+
+ (t TraversalSplit) Join() Traversal {
 	return TraversalJoin(t.Abs, t.Rel)
 }
 
 // RootName returns the root name for the absolute part of the split.
-func (t TraversalSplit) RootName() string {
+
+ (t TraversalSplit) RootName() string {
 	return t.Abs.RootName()
-}
+
 
 // A Traverser is a step within a Traversal.
 type Traverser interface {
@@ -228,11 +241,12 @@ type Traverser interface {
 type isTraverser struct {
 }
 
-func (tr isTraverser) isTraverserSigil() isTraverser {
+
+ isTraverser) isTraverserSigil() isTraverser {
 	return isTraverser{}
 }
 
-// TraverseRoot looks up a root name in a scope. It is used as the first step
+raverseRoot looks up a root name in a scope. It is used as the first step
 // of an absolute Traversal, and cannot itself be traversed directly.
 type TraverseRoot struct {
 	isTraverser
@@ -242,11 +256,13 @@ type TraverseRoot struct {
 
 // TraversalStep on a TraverseName immediately panics, because absolute
 // traversals cannot be directly traversed.
-func (tn TraverseRoot) TraversalStep(cty.Value) (cty.Value, Diagnostics) {
+
+ TraverseRoot) TraversalStep(cty.Value) (cty.Value, Diagnostics) {
 	panic("Cannot traverse an absolute traversal")
 }
 
-func (tn TraverseRoot) SourceRange() Range {
+
+ (tn TraverseRoot) SourceRange() Range {
 	return tn.SrcRange
 }
 
@@ -257,11 +273,13 @@ type TraverseAttr struct {
 	SrcRange Range
 }
 
-func (tn TraverseAttr) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
-	return GetAttr(val, tn.Name, &tn.SrcRange)
-}
 
-func (tn TraverseAttr) SourceRange() Range {
+ (tn TraverseAttr) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
+	return GetAttr(val, tn.Name, &tn.SrcRange)
+
+
+
+ (tn TraverseAttr) SourceRange() Range {
 	return tn.SrcRange
 }
 
@@ -269,14 +287,16 @@ func (tn TraverseAttr) SourceRange() Range {
 type TraverseIndex struct {
 	isTraverser
 	Key      cty.Value
-	SrcRange Range
+Range Range
 }
 
-func (tn TraverseIndex) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
+
+ TraverseIndex) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
 	return Index(val, tn.Key, &tn.SrcRange)
 }
 
-func (tn TraverseIndex) SourceRange() Range {
+
+ (tn TraverseIndex) SourceRange() Range {
 	return tn.SrcRange
 }
 
@@ -287,10 +307,12 @@ type TraverseSplat struct {
 	SrcRange Range
 }
 
-func (tn TraverseSplat) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
+
+ (tn TraverseSplat) TraversalStep(val cty.Value) (cty.Value, Diagnostics) {
 	panic("TraverseSplat not yet implemented")
 }
 
-func (tn TraverseSplat) SourceRange() Range {
+
+ (tn TraverseSplat) SourceRange() Range {
 	return tn.SrcRange
 }

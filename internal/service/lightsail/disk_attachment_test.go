@@ -37,9 +37,9 @@ func TestAccLightsailDiskAttachment_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDiskAttachmentDestroy(ctx),
+		CheckDestroy:iskAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDiskAttachmentConfig_basic(dName, liName, diskPath),
@@ -71,9 +71,9 @@ func TestAccLightsailDiskAttachment_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDiskAttachmentDestroy(ctx),
+		CheckDestroy:iskAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDiskAttachmentConfig_basic(dName, liName, diskPath),
@@ -151,13 +151,13 @@ data "aws_availability_zones" "available" {
   }
 }
 resource "aws_lightsail_disk" "test" {
-  name              = %[1]q
+  name
   size_in_gb        = 8
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[2]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"

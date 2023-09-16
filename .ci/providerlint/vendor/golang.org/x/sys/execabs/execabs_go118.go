@@ -9,10 +9,12 @@ package execabs
 
 import "os/exec"
 
-func isGo119ErrDot(err error) bool {
+
+o119ErrDot(err error) bool {
 	return false
 }
 
-func isGo119ErrFieldSet(cmd *exec.Cmd) bool {
+
+o119ErrFieldSet(cmd *exec.Cmd) bool {
 	return false
 }

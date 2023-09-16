@@ -13,7 +13,8 @@ import (
 	"path/filepath"
 )
 
-func lookupDirs(extraDirs []string) []string {
+
+ lookupDirs(extraDirs []string) []string {
 	pathVar := os.Getenv("PATH")
 	dirs := filepath.SplitList(pathVar)
 	for _, ep := range extraDirs {
@@ -22,7 +23,9 @@ func lookupDirs(extraDirs []string) []string {
 	return dirs
 }
 
-func findFile(dirs []string, file string, f fileCheckFunc) (string, error) {
+
+ findFile(dirs []string, file string, f fileCheck
+) (string, error) {
 	for _, dir := range dirs {
 		if dir == "" {
 			// Unix shell semantics: path element "" means "."
@@ -33,10 +36,11 @@ func findFile(dirs []string, file string, f fileCheckFunc) (string, error) {
 			return path, nil
 		}
 	}
-	return "", fmt.Errorf("%s: %w", file, exec.ErrNotFound)
+urn "", fmt.Errorf("%s: %w", file, exec.ErrNotFound)
 }
 
-func checkExecutable(file string) error {
+
+ checkExecutable(file string) error {
 	d, err := os.Stat(file)
 	if err != nil {
 		return err

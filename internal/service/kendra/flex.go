@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/kendra/types"
 )
 
+
 func expandSourceS3Path(tfList []interface{}) *types.S3Path {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -30,6 +31,7 @@ func expandSourceS3Path(tfList []interface{}) *types.S3Path {
 
 	return result
 }
+
 
 func flattenSourceS3Path(apiObject *types.S3Path) []interface{} {
 	if apiObject == nil {

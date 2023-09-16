@@ -272,8 +272,8 @@ func resourceComputeEnvironmentCreate(ctx context.Context, d *schema.ResourceDat
 	input := &batch.CreateComputeEnvironmentInput{
 		ComputeEnvironmentName: aws.String(computeEnvironmentName),
 		ServiceRole:            aws.String(d.Get("service_role").(string)),
-		Tags:                   getTagsIn(ctx),
-		Type:                   aws.String(computeEnvironmentType),
+		Tags:      getTagsIn(ctx),
+		Type:      aws.String(computeEnvironmentType),
 	}
 
 	if v, ok := d.GetOk("compute_resources"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -495,7 +495,7 @@ func resourceComputeEnvironmentDelete(ctx context.Context, d *schema.ResourceDat
 	{
 		input := &batch.UpdateComputeEnvironmentInput{
 			ComputeEnvironment: aws.String(d.Id()),
-			State:              aws.String(batch.CEStateDisabled),
+			State: aws.String(batch.CEStateDisabled),
 		}
 
 		if _, err := conn.UpdateComputeEnvironmentWithContext(ctx, input); err != nil {

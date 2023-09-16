@@ -200,10 +200,10 @@ func resourceGameServerGroupCreate(ctx context.Context, d *schema.ResourceData, 
 		GameServerGroupName: aws.String(d.Get("game_server_group_name").(string)),
 		InstanceDefinitions: expandInstanceDefinitions(d.Get("instance_definition").(*schema.Set).List()),
 		LaunchTemplate:      expandLaunchTemplateSpecification(d.Get("launch_template").([]interface{})[0].(map[string]interface{})),
-		MaxSize:             aws.Int64(int64(d.Get("max_size").(int))),
-		MinSize:             aws.Int64(int64(d.Get("min_size").(int))),
-		RoleArn:             aws.String(d.Get("role_arn").(string)),
-		Tags:                getTagsIn(ctx),
+		MaxSize:aws.Int64(int64(d.Get("max_size").(int))),
+		MinSize:aws.Int64(int64(d.Get("min_size").(int))),
+		RoleArn:aws.String(d.Get("role_arn").(string)),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("auto_scaling_policy"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -334,7 +334,7 @@ func resourceGameServerGroupUpdate(ctx context.Context, d *schema.ResourceData, 
 		input := gamelift.UpdateGameServerGroupInput{
 			GameServerGroupName: aws.String(d.Id()),
 			InstanceDefinitions: expandInstanceDefinitions(d.Get("instance_definition").(*schema.Set).List()),
-			RoleArn:             aws.String(d.Get("role_arn").(string)),
+			RoleArn:aws.String(d.Get("role_arn").(string)),
 		}
 
 		if v, ok := d.GetOk("balancing_strategy"); ok {

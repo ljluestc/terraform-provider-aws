@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_object_lock_configuration")
-func ResourceBucketObjectLockConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_object_lock_configuration")func ResourceBucketObjectLockConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketObjectLockConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketObjectLockConfigurationRead,
@@ -91,10 +90,7 @@ func ResourceBucketObjectLockConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketObjectLockConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -131,11 +127,8 @@ func resourceBucketObjectLockConfigurationCreate(ctx context.Context, d *schema.
 	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
 
 	return resourceBucketObjectLockConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketObjectLockConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketObjectLockConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 
 	if err != nil {
@@ -162,12 +155,9 @@ func resourceBucketObjectLockConfigurationRead(ctx context.Context, d *schema.Re
 	}
 
 	return nil
-}
-
-func resourceBucketObjectLockConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketObjectLockConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 
 	if err != nil {
 		return diag.FromErr(err)
@@ -202,13 +192,10 @@ func resourceBucketObjectLockConfigurationUpdate(ctx context.Context, d *schema.
 	}
 
 	return resourceBucketObjectLockConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketObjectLockConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketObjectLockConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-
+	func
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -237,14 +224,11 @@ func resourceBucketObjectLockConfigurationDelete(ctx context.Context, d *schema.
 	}
 
 	return nil
-}
-
-func FindObjectLockConfiguration(ctx context.Context, conn *s3.S3, bucket, expectedBucketOwner string) (*s3.ObjectLockConfiguration, error) {
+}func FindObjectLockConfiguration(ctx context.Context, conn *s3.S3, bucket, expectedBucketOwner string) (*s3.ObjectLockConfiguration, error) {
 	input := &s3.GetObjectLockConfigurationInput{
 		Bucket: aws.String(bucket),
 	}
-	if expectedBucketOwner != "" {
-		input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
+	funcput.ExpectedBucketOwner = aws.String(expectedBucketOwner)
 	}
 
 	output, err := conn.GetObjectLockConfigurationWithContext(ctx, input)
@@ -265,15 +249,12 @@ func FindObjectLockConfiguration(ctx context.Context, conn *s3.S3, bucket, expec
 	}
 
 	return output.ObjectLockConfiguration, nil
-}
-
-func expandBucketObjectLockConfigurationRule(l []interface{}) *s3.ObjectLockRule {
+}func expandBucketObjectLockConfigurationRule(l []interface{}) *s3.ObjectLockRule {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
-	tfMap, ok := l[0].(map[string]interface{})
-	if !ok {
+	func!ok {
 		return nil
 	}
 
@@ -284,16 +265,13 @@ func expandBucketObjectLockConfigurationRule(l []interface{}) *s3.ObjectLockRule
 	}
 
 	return rule
-}
-
-func expandBucketObjectLockConfigurationCorsRuleDefaultRetention(l []interface{}) *s3.DefaultRetention {
+}func expandBucketObjectLockConfigurationCorsRuleDefaultRetention(l []interface{}) *s3.DefaultRetention {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
-	if !ok {
-		return nil
+	functurn nil
 	}
 
 	dr := &s3.DefaultRetention{}
@@ -311,22 +289,17 @@ func expandBucketObjectLockConfigurationCorsRuleDefaultRetention(l []interface{}
 	}
 
 	return dr
-}
-
-func flattenBucketObjectLockConfigurationRule(rule *s3.ObjectLockRule) []interface{} {
+}func flattenBucketObjectLockConfigurationRule(rule *s3.ObjectLockRule) []interface{} {
 	if rule == nil {
 		return []interface{}{}
 	}
 
 	m := make(map[string]interface{})
 
-	if rule.DefaultRetention != nil {
-		m["default_retention"] = flattenBucketObjectLockConfigurationRuleDefaultRetention(rule.DefaultRetention)
+	func"default_retention"] = flattenBucketObjectLockConfigurationRuleDefaultRetention(rule.DefaultRetention)
 	}
 	return []interface{}{m}
-}
-
-func flattenBucketObjectLockConfigurationRuleDefaultRetention(dr *s3.DefaultRetention) []interface{} {
+}func flattenBucketObjectLockConfigurationRuleDefaultRetention(dr *s3.DefaultRetention) []interface{} {
 	if dr == nil {
 		return []interface{}{}
 	}
@@ -334,8 +307,7 @@ func flattenBucketObjectLockConfigurationRuleDefaultRetention(dr *s3.DefaultRete
 	m := make(map[string]interface{})
 
 	if dr.Days != nil {
-		m["days"] = int(aws.Int64Value(dr.Days))
-	}
+	func
 
 	if dr.Mode != nil {
 		m["mode"] = aws.StringValue(dr.Mode)

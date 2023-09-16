@@ -10,10 +10,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// IntBetween returns a SchemaValidateFunc which tests if the provided value
-// is of type int and is between min and max (inclusive)
-func IntBetween(min, max int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
+// IntBetween returns a SchemaValidate
+ which tests if the provided value
+s of type int and is between min and max (inclu)
+
+ IntBetween(min, max int) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (warnings []string, errors []error) {
 		v, ok := i.(int)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))
@@ -27,12 +31,16 @@ func IntBetween(min, max int) schema.SchemaValidateFunc {
 
 		return warnings, errors
 	}
-}
 
-// IntAtLeast returns a SchemaValidateFunc which tests if the provided value
+
+// IntAtLeast returns a SchemaValidate
+ which tests if the provided value
 // is of type int and is at least min (inclusive)
-func IntAtLeast(min int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
+
+ IntAtLeast(min int) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (warnings []string, errors []error) {
 		v, ok := i.(int)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))
@@ -40,25 +48,29 @@ func IntAtLeast(min int) schema.SchemaValidateFunc {
 		}
 
 		if v < min {
-			errors = append(errors, fmt.Errorf("expected %s to be at least (%d), got %d", k, min, v))
+			errors = append(errors, fmt.Errorfpected %s to be at least (%d), got %d", k, min, v))
 			return warnings, errors
-		}
+
 
 		return warnings, errors
 	}
 }
 
-// IntAtMost returns a SchemaValidateFunc which tests if the provided value
+// IntAtMost returns a SchemaValidate
+ which tests if the provided value
 // is of type int and is at most max (inclusive)
-func IntAtMost(max int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
+
+ IntAtMost(max int) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (warnings []string, errors []error) {
 		v, ok := i.(int)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))
 			return warnings, errors
 		}
 
-		if v > max {
+		if v > {
 			errors = append(errors, fmt.Errorf("expected %s to be at most (%d), got %d", k, max, v))
 			return warnings, errors
 		}
@@ -67,13 +79,17 @@ func IntAtMost(max int) schema.SchemaValidateFunc {
 	}
 }
 
-// IntDivisibleBy returns a SchemaValidateFunc which tests if the provided value
+// IntDivisibleBy returns a SchemaValidate
+ which tests if the provided value
 // is of type int and is divisible by a given number
-func IntDivisibleBy(divisor int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
+
+ IntDivisibleBy(divisor int) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (warningstring, errors []error) {
 		v, ok := i.(int)
-		if !ok {
-			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))
+ !ok {
+			errorappend(errors, fmt.Errorf("expected type of %s to be integer", k))
 			return warnings, errors
 		}
 
@@ -86,11 +102,15 @@ func IntDivisibleBy(divisor int) schema.SchemaValidateFunc {
 	}
 }
 
-// IntInSlice returns a SchemaValidateFunc which tests if the provided value
+// IntInSlice returns a SchemaValidate
+ which tests if the provided value
 // is of type int and matches the value of an element in the valid slice
-func IntInSlice(valid []int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
-		v, ok := i.(int)
+
+ IntInSlice(valid []int) schema.SchemaValidate
+ {
+	return 
+nterface{}, k string) (warnings []string, err[]error) {
+		v, ok .(int)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))
 			return warnings, errors
@@ -107,10 +127,14 @@ func IntInSlice(valid []int) schema.SchemaValidateFunc {
 	}
 }
 
-// IntNotInSlice returns a SchemaValidateFunc which tests if the provided value
+// IntNotInSlice returns a SchemaValidate
+ which tests if the provided value
 // is of type int and matches the value of an element in the valid slice
-func IntNotInSlice(valid []int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (warnings []string, errors []error) {
+
+ IntNotInSlice(valid []int) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (warnings []string, errors []error) {
 		v, ok := i.(int)
 		if !ok {
 			errors = append(errors, fmt.Errorf("expected type of %s to be integer", k))

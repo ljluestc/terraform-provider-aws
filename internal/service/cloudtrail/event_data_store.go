@@ -184,12 +184,12 @@ func resourceEventDataStoreCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &cloudtrail.CreateEventDataStoreInput{
-		Name:                         aws.String(name),
+		Name:            aws.String(name),
 		OrganizationEnabled:          aws.Bool(d.Get("organization_enabled").(bool)),
 		MultiRegionEnabled:           aws.Bool(d.Get("multi_region_enabled").(bool)),
 		TerminationProtectionEnabled: aws.Bool(d.Get("termination_protection_enabled").(bool)),
-		RetentionPeriod:              aws.Int64(int64(d.Get("retention_period").(int))),
-		TagsList:                     getTagsIn(ctx),
+		RetentionPeriod: aws.Int64(int64(d.Get("retention_period").(int))),
+		TagsList:        getTagsIn(ctx),
 	}
 
 	if _, ok := d.GetOk("advanced_event_selector"); ok {

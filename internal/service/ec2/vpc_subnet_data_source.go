@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_subnet")
 
-func DataSourceSubnet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceSubnetRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,104 +28,104 @@ func DataSourceSubnet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"assign_ipv6_address_on_creation": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"availability_zone_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"available_ip_address_count": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"customer_owned_ipv4_pool": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"default_for_az": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Computed: true,
 			},
 			"enable_dns64": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"enable_lni_at_device_index": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"enable_resource_name_dns_aaaa_record_on_launch": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"enable_resource_name_dns_a_record_on_launch": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"ipv6_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"ipv6_cidr_block_association_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipv6_native": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"map_customer_owned_ip_on_launch": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"map_public_ip_on_launch": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_dns_hostname_type_on_launch": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -135,8 +134,7 @@ func DataSourceSubnet() *schema.Resource {
 }
 
 func dataSourceSubnetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeSubnetsInput{}
@@ -156,11 +154,11 @@ func dataSourceSubnetRead(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	filters := map[string]string{
-		"availabilityZone":   d.Get("availability_zone").(string),
+		"availabilityZone":et("availability_zone").(string),
 		"availabilityZoneId": d.Get("availability_zone_id").(string),
-		"defaultForAz":       defaultForAzStr,
-		"state":     d.Get("state").(string),
-		"vpc-id":    d.Get("vpc_id").(string),
+		"defaultForAz":orAzStr,
+		"state":te").(string),
+		"vpc-id":Get("vpc_id").(string),
 	}
 
 	if v, ok := d.GetOk("cidr_block"); ok {

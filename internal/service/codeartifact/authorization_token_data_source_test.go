@@ -19,8 +19,8 @@ func testAccAuthorizationTokenDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_codeartifact_authorization_token.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -41,8 +41,8 @@ func testAccAuthorizationTokenDataSource_owner(t *testing.T) {
 	dataSourceName := "data.aws_codeartifact_authorization_token.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -63,8 +63,8 @@ func testAccAuthorizationTokenDataSource_duration(t *testing.T) {
 	dataSourceName := "data.aws_codeartifact_authorization_token.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -83,7 +83,7 @@ func testAccAuthorizationTokenDataSource_duration(t *testing.T) {
 func testAccCheckAuthorizationTokenBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

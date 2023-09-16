@@ -5,7 +5,8 @@ package types
 
 import "testing"
 
-func TestValidateCIDRBlock(t *testing.T) {
+
+tValidateCIDRBlock(t *testing.T) {
 	t.Parallel()
 
 	for _, ts := range []struct {
@@ -31,7 +32,8 @@ if ts.valid && err != nil {
 	}
 }
 
-func TestCIDRBlocksEqual(t *testing.T) {
+
+tCIDRBlocksEqual(t *testing.T) {
 	t.Parallel()
 
 	for _, ts := range []struct {
@@ -54,11 +56,12 @@ if ts.equal != equal {
 	}
 }
 
-func TestCanonicalCIDRBlock(t *testing.T) {
+
+tCanonicalCIDRBlock(t *testing.T) {
 	t.Parallel()
 
 	for _, ts := range []struct {
-cidr     string
+cidr
 expected string
 	}{
 {"10.2.2.0/24", "10.2.2.0/24"},

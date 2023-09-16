@@ -9,10 +9,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// FloatBetween returns a SchemaValidateFunc which tests if the provided value
-// is of type float64 and is between min and max (inclusive).
-func FloatBetween(min, max float64) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (s []string, es []error) {
+// FloatBetween returns a SchemaValidate
+ which tests if the provided value
+s of type float64 and is between min and max (inclusi
+
+ FloatBetween(min, max float64) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (s []string, es []error) {
 		v, ok := i.(float64)
 		if !ok {
 			es = append(es, fmt.Errorf("expected type of %s to be float64", k))
@@ -26,12 +30,16 @@ func FloatBetween(min, max float64) schema.SchemaValidateFunc {
 
 		return
 	}
-}
 
-// FloatAtLeast returns a SchemaValidateFunc which tests if the provided value
+
+// FloatAtLeast returns a SchemaValidate
+ which tests if the provided value
 // is of type float and is at least min (inclusive)
-func FloatAtLeast(min float64) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (s []string, es []error) {
+
+ FloatAtLeast(min float64) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (s []string, es []error) {
 		v, ok := i.(float64)
 		if !ok {
 			es = append(es, fmt.Errorf("expected type of %s to be float", k))
@@ -39,18 +47,22 @@ func FloatAtLeast(min float64) schema.SchemaValidateFunc {
 		}
 
 		if v < min {
-			es = append(es, fmt.Errorf("expected %s to be at least (%f), got %f", k, min, v))
+			es = append(es, fmt.Errorf("expectedto be at least (%f), got %f", k, min, v))
 			return
-		}
+
 
 		return
 	}
 }
 
-// FloatAtMost returns a SchemaValidateFunc which tests if the provided value
+// FloatAtMost returns a SchemaValidate
+ which tests if the provided value
 // is of type float and is at most max (inclusive)
-func FloatAtMost(max float64) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (s []string, es []error) {
+
+ FloatAtMost(max float64) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) (s []string, es []error) {
 		v, ok := i.(float64)
 		if !ok {
 			es = append(es, fmt.Errorf("expected type of %s to be float", k))

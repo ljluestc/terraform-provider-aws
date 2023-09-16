@@ -4,771 +4,771 @@
 package codebuild
 
 import (
-	"bytes"
-	"context"
-	"fmt"
-	"log"
-	"time"
+"bytes"
+"context"
+"fmt"
+"log"
+"time"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/codebuild"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	"github.com/hashicorp/terraform-provider-aws/internal/flex"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/codebuild"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
+"github.com/hashicorp/terraform-provider-aws/internal/flex"
+tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 // @SDKResource("aws_codebuild_project", name="Project")
 // @Tags
 
 func ResourceProject() *schema.Resource {
-	return &schema.Resource{
+return &schema.Resource{
 CreateWithoutTimeout: resourceProjectCreate,
 ReadWithoutTimeout:   resourceProjectRead,
 UpdateWithoutTimeout: resourceProjectUpdate,
 DeleteWithoutTimeout: resourceProjectDelete,
 Importer: &schema.ResourceImporter{
-	StateContext: schema.ImportStatePassthroughContext,
+StateContext: schema.ImportStatePassthroughContext,
 },
 
 Schema: map[string]*schema.Schema{
-	"arn": {
+"arn": {
 Type:     schema.TypeString,
 Computed: true,
-	},
-	"artifacts": {
+},
+"artifacts": {
 Type:     schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "artifact_identifier": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "bucket_owner_access": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+Type:schema.TypeString,
+Optional:     true,
+Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 },
 "name": {
-	Type:     schema.TypeString,
-	Optional: true,
-	DiffSuppress
+Type:     schema.TypeString,
+Optional: true,
+DiffSuppress
 func: 
 func(k, old, new string, d *schema.ResourceData) bool {
 if old == d.Get("name") && new == "" {
-	return true
+return true
 }
 return false
-	},
+},
 },
 "encryption_disabled": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
 },
 "location": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "namespace_type": {
-	Type:     schema.TypeString,
-	Optional: true,
-	DiffSuppress
+Type:     schema.TypeString,
+Optional: true,
+DiffSuppress
 func: 
 func(k, old, new string, d *schema.ResourceData) bool {
 if d.Get("artifacts.0.type") == codebuild.ArtifactsTypeS3 {
-	return old == codebuild.ArtifactNamespaceNone && new == ""
+return old == codebuild.ArtifactNamespaceNone && new == ""
 }
 return false
-	},
-	Validate
+},
+Validate
 func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
 },
 "packaging": {
-	Type:     schema.TypeString,
-	Optional: true,
-	DiffSuppress
+Type:     schema.TypeString,
+Optional: true,
+DiffSuppress
 func: 
 func(k, old, new string, d *schema.ResourceData) bool {
 switch d.Get("artifacts.0.type") {
 case codebuild.ArtifactsTypeCodepipeline:
-	return new == ""
+return new == ""
 case codebuild.ArtifactsTypeS3:
-	return old == codebuild.ArtifactPackagingNone && new == ""
+return old == codebuild.ArtifactPackagingNone && new == ""
 }
 return false
-	},
-	Validate
+},
+Validate
 func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
 },
 "path": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
 },
 "override_artifact_name": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
 },
-	},
 },
-	},
-	"build_batch_config": {
+},
+},
+"build_batch_config": {
 Type:     schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "combine_artifacts": {
-	Type:     schema.TypeBool,
-	Optional: true,
+Type:     schema.TypeBool,
+Optional: true,
 },
 "restrictions": {
-	Type:     schema.TypeList,
-	MaxItems: 1,
-	Optional: true,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+MaxItems: 1,
+Optional: true,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"compute_types_allowed": {
+"compute_types_allowed": {
 Type:     schema.TypeList,
 Optional: true,
 Elem: &schema.Schema{
-	Type:schema.TypeString,
-	Validate
+Type:schema.TypeString,
+Validate
 func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
 },
-	},
-	"maximum_builds_allowed": {
+},
+"maximum_builds_allowed": {
 Type:schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntBetween(1, 100),
-	},
 },
-	},
+},
+},
 },
 "service_role": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: verify.ValidARN,
 },
 "timeout_in_mins": {
-	Type:schema.TypeInt,
-	Optional:     true,
-	Validate
+Type:schema.TypeInt,
+Optional:     true,
+Validate
 func: validation.IntBetween(5, 480),
 },
-	},
 },
-	},
-	"cache": {
+},
+},
+"cache": {
 Type:    schema.TypeList,
 Optional:true,
 MaxItems:1,
 DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "type": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Default:      codebuild.CacheTypeNoCache,
-	Validate
+Type:schema.TypeString,
+Optional:     true,
+Default:      codebuild.CacheTypeNoCache,
+Validate
 func: validation.StringInSlice(codebuild.CacheType_Values(), false),
 },
 "location": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "modes": {
-	Type:     schema.TypeList,
-	Optional: true,
-	Elem: &schema.Schema{
+Type:     schema.TypeList,
+Optional: true,
+Elem: &schema.Schema{
 Type:schema.TypeString,
 Validate
 func: validation.StringInSlice(codebuild.CacheMode_Values(), false),
-	},
 },
-	},
 },
-	},
-	"concurrent_build_limit": {
+},
+},
+},
+"concurrent_build_limit": {
 Type:schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntAtLeast(1),
-	},
-	"description": {
+},
+"description": {
 Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 Validate
 func: validation.StringLenBetween(0, 255),
-	},
-	"encryption_key": {
+},
+"encryption_key": {
 Type:     schema.TypeString,
 Optional: true,
 Computed: true,
-	},
-	"environment": {
+},
+"environment": {
 Type:     schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "compute_type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
 },
 "environment_variable": {
-	Type:     schema.TypeList,
-	Optional: true,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"name": {
+"name": {
 Type:     schema.TypeString,
 Required: true,
-	},
-	"value": {
+},
+"value": {
 Type:     schema.TypeString,
 Required: true,
-	},
-	"type": {
+},
+"type": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringInSlice(codebuild.EnvironmentVariableType_Values(), false),
 Default:      codebuild.EnvironmentVariableTypePlaintext,
-	},
 },
-	},
+},
+},
 },
 "image": {
-	Type:     schema.TypeString,
-	Required: true,
-},
-"type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
-func: validation.StringInSlice(codebuild.EnvironmentType_Values(), false),
-},
-"image_pull_credentials_type": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Default:      codebuild.ImagePullCredentialsTypeCodebuild,
-	Validate
-func: validation.StringInSlice(codebuild.ImagePullCredentialsType_Values(), false),
-},
-"privileged_mode": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
-},
-"certificate": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Validate
-func: validation.StringMatch(regexache.MustCompile(`\.(pem|zip)$`), "must end in .pem or .zip"),
-},
-"registry_credential": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-	"credential": {
 Type:     schema.TypeString,
 Required: true,
-	},
-	"credential_provider": {
+},
+"type": {
 Type:schema.TypeString,
 Required:     true,
 Validate
-func: validation.StringInSlice(codebuild.CredentialProviderType_Values(), false),
-	},
+func: validation.StringInSlice(codebuild.EnvironmentType_Values(), false),
 },
-	},
+"image_pull_credentials_type": {
+Type:schema.TypeString,
+Optional:     true,
+Default:      codebuild.ImagePullCredentialsTypeCodebuild,
+Validate
+func: validation.StringInSlice(codebuild.ImagePullCredentialsType_Values(), false),
 },
-	},
-},
-	},
-	"file_system_locations": {
-Type:     schema.TypeSet,
+"privileged_mode": {
+Type:     schema.TypeBool,
 Optional: true,
-Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
-"identifier": {
-	Type:     schema.TypeString,
-	Optional: true,
+Default:  false,
 },
-"location": {
-	Type:     schema.TypeString,
-	Optional: true,
+"certificate": {
+Type:schema.TypeString,
+Optional:     true,
+Validate
+func: validation.StringMatch(regexache.MustCompile(`\.(pem|zip)$`), "must end in .pem or .zip"),
 },
-"mount_options": {
-	Type:     schema.TypeString,
-	Optional: true,
-},
-"mount_point": {
-	Type:     schema.TypeString,
-	Optional: true,
-},
-"type": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Default:      codebuild.FileSystemTypeEfs,
-	Validate
-func: validation.StringInSlice(codebuild.FileSystemType_Values(), false),
-},
-	},
-},
-	},
-	"logs_config": {
+"registry_credential": {
 Type:     schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
-"cloudwatch_logs": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"status": {
+"credential": {
+Type:     schema.TypeString,
+Required: true,
+},
+"credential_provider": {
+Type:schema.TypeString,
+Required:     true,
+Validate
+func: validation.StringInSlice(codebuild.CredentialProviderType_Values(), false),
+},
+},
+},
+},
+},
+},
+},
+"file_system_locations": {
+Type:     schema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"identifier": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"location": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"mount_options": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"mount_point": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"type": {
+Type:schema.TypeString,
+Optional:     true,
+Default:      codebuild.FileSystemTypeEfs,
+Validate
+func: validation.StringInSlice(codebuild.FileSystemType_Values(), false),
+},
+},
+},
+},
+"logs_config": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"cloudwatch_logs": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"status": {
 Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.LogsConfigStatusTypeEnabled,
 Validate
 func: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
-	},
-	"group_name": {
-Type:     schema.TypeString,
-Optional: true,
-	},
-	"stream_name": {
-Type:     schema.TypeString,
-Optional: true,
-	},
 },
-	},
-	DiffSuppress
+"group_name": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"stream_name": {
+Type:     schema.TypeString,
+Optional: true,
+},
+},
+},
+DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 },
 "s3_logs": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"bucket_owner_access": {
+"bucket_owner_access": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
-	},
-	"status": {
+},
+"status": {
 Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.LogsConfigStatusTypeDisabled,
 Validate
 func: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
-	},
-	"location": {
+},
+"location": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validProjectS3LogsLocation,
-	},
-	"encryption_disabled": {
+},
+"encryption_disabled": {
 Type:     schema.TypeBool,
 Optional: true,
 Default:  false,
-	},
 },
-	},
-	DiffSuppress
-func: verify.SuppressMissingOptionalConfigurationBlock,
 },
-	},
 },
 DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
-	},
-	"name": {
+},
+},
+},
+DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
+},
+"name": {
 Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
 func: ValidProjectName,
-	},
-	"secondary_artifacts": {
+},
+"secondary_artifacts": {
 Type:     schema.TypeSet,
 Optional: true,
 MaxItems: 12,
 Set:      resourceProjectArtifactsHash,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "name": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "bucket_owner_access": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+Type:schema.TypeString,
+Optional:     true,
+Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 },
 "encryption_disabled": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
 },
 "location": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "namespace_type": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+Type:schema.TypeString,
+Optional:     true,
+Validate
 func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
-	Default:      codebuild.ArtifactNamespaceNone,
+Default:      codebuild.ArtifactNamespaceNone,
 },
 "override_artifact_name": {
-	Type:     schema.TypeBool,
-	Optional: true,
-	Default:  false,
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
 },
 "packaging": {
-	Type:schema.TypeString,
-	Optional:     true,
-	Validate
+Type:schema.TypeString,
+Optional:     true,
+Validate
 func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
-	Default:      codebuild.ArtifactPackagingNone,
+Default:      codebuild.ArtifactPackagingNone,
 },
 "path": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "artifact_identifier": {
-	Type:     schema.TypeString,
-	Required: true,
+Type:     schema.TypeString,
+Required: true,
 },
 "type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
 },
-	},
 },
-	},
-	"secondary_sources": {
+},
+},
+"secondary_sources": {
 Type:     schema.TypeSet,
 Optional: true,
 MaxItems: 12,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "buildspec": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "location": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 },
 "git_clone_depth": {
-	Type:schema.TypeInt,
-	Optional:     true,
-	Validate
+Type:schema.TypeInt,
+Optional:     true,
+Validate
 func: validation.IntAtLeast(0),
 },
 "git_submodules_config": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"fetch_submodules": {
+"fetch_submodules": {
 Type:     schema.TypeBool,
 Required: true,
-	},
 },
-	},
+},
+},
 },
 "insecure_ssl": {
-	Type:     schema.TypeBool,
-	Optional: true,
+Type:     schema.TypeBool,
+Optional: true,
 },
 "report_build_status": {
-	Type:     schema.TypeBool,
-	Optional: true,
+Type:     schema.TypeBool,
+Optional: true,
 },
 "source_identifier": {
-	Type:     schema.TypeString,
-	Required: true,
+Type:     schema.TypeString,
+Required: true,
 },
 "build_status_config": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"context": {
+"context": {
 Type:     schema.TypeString,
 Optional: true,
-	},
-	"target_url": {
+},
+"target_url": {
 Type:     schema.TypeString,
 Optional: true,
-	},
 },
-	},
 },
-	},
 },
-	},
-	"secondary_source_version": {
+},
+},
+},
+},
+"secondary_source_version": {
 Type:     schema.TypeSet,
 Optional: true,
 MaxItems: 12,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "source_identifier": {
-	Type:     schema.TypeString,
-	Required: true,
+Type:     schema.TypeString,
+Required: true,
 },
 "source_version": {
-	Type:     schema.TypeString,
-	Required: true,
+Type:     schema.TypeString,
+Required: true,
 },
-	},
 },
-	},
-	"service_role": {
+},
+},
+"service_role": {
 Type:schema.TypeString,
 Required:     true,
 Validate
 func: verify.ValidARN,
-	},
-	"source": {
+},
+"source": {
 Type:     schema.TypeList,
 MaxItems: 1,
 Required: true,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "buildspec": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "location": {
-	Type:     schema.TypeString,
-	Optional: true,
+Type:     schema.TypeString,
+Optional: true,
 },
 "type": {
-	Type:schema.TypeString,
-	Required:     true,
-	Validate
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 },
 "git_clone_depth": {
-	Type:schema.TypeInt,
-	Optional:     true,
-	Validate
+Type:schema.TypeInt,
+Optional:     true,
+Validate
 func: validation.IntAtLeast(0),
 },
 "git_submodules_config": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"fetch_submodules": {
+"fetch_submodules": {
 Type:     schema.TypeBool,
 Required: true,
-	},
 },
-	},
+},
+},
 },
 "insecure_ssl": {
-	Type:     schema.TypeBool,
-	Optional: true,
+Type:     schema.TypeBool,
+Optional: true,
 },
 "report_build_status": {
-	Type:     schema.TypeBool,
-	Optional: true,
+Type:     schema.TypeBool,
+Optional: true,
 },
 "build_status_config": {
-	Type:     schema.TypeList,
-	Optional: true,
-	MaxItems: 1,
-	Elem: &schema.Resource{
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"context": {
+"context": {
 Type:     schema.TypeString,
 Optional: true,
-	},
-	"target_url": {
+},
+"target_url": {
 Type:     schema.TypeString,
 Optional: true,
-	},
 },
-	},
 },
-	},
 },
-	},
-	"source_version": {
+},
+},
+},
+},
+"source_version": {
 Type:     schema.TypeString,
 Optional: true,
-	},
-	"project_visibility": {
+},
+"project_visibility": {
 Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.ProjectVisibilityTypePrivate,
 Validate
 func: validation.StringInSlice(codebuild.ProjectVisibilityType_Values(), false),
-	},
-	"public_project_alias": {
+},
+"public_project_alias": {
 Type:     schema.TypeString,
 Computed: true,
-	},
-	"resource_access_role": {
+},
+"resource_access_role": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
 func: verify.ValidARN,
-	},
-	"build_timeout": {
+},
+"build_timeout": {
 Type:schema.TypeInt,
 Optional:     true,
 Default:      60,
 Validate
 func: validation.IntBetween(5, 480),
-	},
-	"queued_timeout": {
+},
+"queued_timeout": {
 Type:schema.TypeInt,
 Optional:     true,
 Default:      480,
 Validate
 func: validation.IntBetween(5, 480),
-	},
-	"badge_enabled": {
+},
+"badge_enabled": {
 Type:     schema.TypeBool,
 Optional: true,
 Default:  false,
-	},
-	"badge_url": {
+},
+"badge_url": {
 Type:     schema.TypeString,
 Computed: true,
-	},
-	names.AttrTags:    tftags.TagsSchema(),
-	names.AttrTagsAll: tftags.TagsSchemaComputed(),
-	"vpc_config": {
+},
+names.AttrTags:    tftags.TagsSchema(),
+names.AttrTagsAll: tftags.TagsSchemaComputed(),
+"vpc_config": {
 Type:     schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
-	Schema: map[string]*schema.Schema{
+Schema: map[string]*schema.Schema{
 "vpc_id": {
-	Type:     schema.TypeString,
-	Required: true,
+Type:     schema.TypeString,
+Required: true,
 },
 "subnets": {
-	Type:     schema.TypeSet,
-	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
-	MaxItems: 16,
+Type:     schema.TypeSet,
+Required: true,
+Elem:     &schema.Schema{Type: schema.TypeString},
+MaxItems: 16,
 },
 "security_group_ids": {
-	Type:     schema.TypeSet,
-	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
-	MaxItems: 5,
+Type:     schema.TypeSet,
+Required: true,
+Elem:     &schema.Schema{Type: schema.TypeString},
+MaxItems: 5,
 },
-	},
 },
-	},
+},
+},
 },
 
 CustomizeDiff: customdiff.Sequence(
-	
+
 func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 // Plan time validation for cache location
 cacheType, cacheTypeOk := diff.GetOk("cache.0.type")
 if !cacheTypeOk || cacheType.(string) == codebuild.CacheTypeNoCache || cacheType.(string) == codebuild.CacheTypeLocal {
-	return nil
+return nil
 }
 if v, ok := diff.GetOk("cache.0.location"); ok && v.(string) != "" {
-	return nil
+return nil
 }
 if !diff.NewValueKnown("cache.0.location") {
-	// value may be computed - don't assume it isn't set
-	return nil
+// value may be computed - don't assume it isn't set
+return nil
 }
 return fmt.Errorf(`cache location is required when cache type is %q`, cacheType.(string))
-	},
-	verify.SetTagsDiff,
+},
+verify.SetTagsDiff,
 ),
-	}
+}
 }
 
 
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
-	projectEnv := expandProjectEnvironment(d)
-	projectSource := expandProjectSource(d)
-	projectArtifacts := expandProjectArtifacts(d)
-	projectSecondaryArtifacts := expandProjectSecondaryArtifacts(d)
-	projectSecondarySources := expandProjectSecondarySources(d)
-	projectLogsConfig := expandProjectLogsConfig(d)
-	projectBatchConfig := expandBuildBatchConfig(d)
-	projectFileSystemLocations := expandProjectFileSystemLocations(d)
+projectEnv := expandProjectEnvironment(d)
+projectSource := expandProjectSource(d)
+projectArtifacts := expandProjectArtifacts(d)
+projectSecondaryArtifacts := expandProjectSecondaryArtifacts(d)
+projectSecondarySources := expandProjectSecondarySources(d)
+projectLogsConfig := expandProjectLogsConfig(d)
+projectBatchConfig := expandBuildBatchConfig(d)
+projectFileSystemLocations := expandProjectFileSystemLocations(d)
 
-	if aws.StringValue(projectSource.Type) == codebuild.SourceTypeNoSource {
+if aws.StringValue(projectSource.Type) == codebuild.SourceTypeNoSource {
 if aws.StringValue(projectSource.Buildspec) == "" {
-	return sdkdiag.AppendErrorf(diags, "`buildspec` must be set when source's `type` is `NO_SOURCE`")
+return sdkdiag.AppendErrorf(diags, "`buildspec` must be set when source's `type` is `NO_SOURCE`")
 }
 
 if aws.StringValue(projectSource.Location) != "" {
-	return sdkdiag.AppendErrorf(diags, "`location` must be empty when source's `type` is `NO_SOURCE`")
+return sdkdiag.AppendErrorf(diags, "`location` must be empty when source's `type` is `NO_SOURCE`")
 }
-	}
+}
 
-	input := &codebuild.CreateProjectInput{
+input := &codebuild.CreateProjectInput{
 Environment:projectEnv,
 Name: aws.String(d.Get("name").(string)),
 Source:     &projectSource,
@@ -779,802 +779,802 @@ LogsConfig: projectLogsConfig,
 BuildBatchConfig:    projectBatchConfig,
 FileSystemLocations: projectFileSystemLocations,
 Tags: getTagsIn(ctx),
-	}
+}
 
-	if v, ok := d.GetOk("cache"); ok {
+if v, ok := d.GetOk("cache"); ok {
 input.Cache = expandProjectCache(v.([]interface{}))
-	}
+}
 
-	if v, ok := d.GetOk("concurrent_build_limit"); ok {
+if v, ok := d.GetOk("concurrent_build_limit"); ok {
 input.ConcurrentBuildLimit = aws.Int64(int64(v.(int)))
-	}
+}
 
-	if v, ok := d.GetOk("description"); ok {
+if v, ok := d.GetOk("description"); ok {
 input.Description = aws.String(v.(string))
-	}
+}
 
-	if v, ok := d.GetOk("encryption_key"); ok {
+if v, ok := d.GetOk("encryption_key"); ok {
 input.EncryptionKey = aws.String(v.(string))
-	}
+}
 
-	if v, ok := d.GetOk("service_role"); ok {
+if v, ok := d.GetOk("service_role"); ok {
 input.ServiceRole = aws.String(v.(string))
-	}
+}
 
-	if v, ok := d.GetOk("source_version"); ok {
+if v, ok := d.GetOk("source_version"); ok {
 input.SourceVersion = aws.String(v.(string))
-	}
+}
 
-	if v, ok := d.GetOk("build_timeout"); ok {
+if v, ok := d.GetOk("build_timeout"); ok {
 input.TimeoutInMinutes = aws.Int64(int64(v.(int)))
-	}
+}
 
-	if v, ok := d.GetOk("queued_timeout"); ok {
+if v, ok := d.GetOk("queued_timeout"); ok {
 input.QueuedTimeoutInMinutes = aws.Int64(int64(v.(int)))
-	}
+}
 
-	if v, ok := d.GetOk("vpc_config"); ok {
+if v, ok := d.GetOk("vpc_config"); ok {
 input.VpcConfig = expandVPCConfig(v.([]interface{}))
-	}
+}
 
-	if v, ok := d.GetOk("badge_enabled"); ok {
+if v, ok := d.GetOk("badge_enabled"); ok {
 input.BadgeEnabled = aws.Bool(v.(bool))
-	}
+}
 
-	if v, ok := d.GetOk("secondary_source_version"); ok && v.(*schema.Set).Len() > 0 {
+if v, ok := d.GetOk("secondary_source_version"); ok && v.(*schema.Set).Len() > 0 {
 input.SecondarySourceVersions = expandProjectSecondarySourceVersions(v.(*schema.Set))
-	}
+}
 
-	var resp *codebuild.CreateProjectOutput
-	// Handle IAM eventual consistency
-	err := retry.RetryContext(ctx, 5*time.Minute, 
+var resp *codebuild.CreateProjectOutput
+// Handle IAM eventual consistency
+err := retry.RetryContext(ctx, 5*time.Minute, 
 func() *retry.RetryError {
 var err error
 
 resp, err = conn.CreateProjectWithContext(ctx, input)
 if err != nil {
-	// InvalidInputException: CodeBuild is not authorized to perform
-	// InvalidInputException: Not authorized to perform DescribeSecurityGroups
-	if tfawserr.ErrMessageContains(err, codebuild.ErrCodeInvalidInputException, "ot authorized to perform") {
+// InvalidInputException: CodeBuild is not authorized to perform
+// InvalidInputException: Not authorized to perform DescribeSecurityGroups
+if tfawserr.ErrMessageContains(err, codebuild.ErrCodeInvalidInputException, "ot authorized to perform") {
 return retry.RetryableError(err)
-	}
+}
 
-	return retry.NonRetryableError(err)
+return retry.NonRetryableError(err)
 }
 
 return nil
-	})
+})
 
-	if tfresource.TimedOut(err) {
+if tfresource.TimedOut(err) {
 resp, err = conn.CreateProjectWithContext(ctx, input)
-	}
-	if err != nil {
+}
+if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating CodeBuild project: %s", err)
-	}
+}
 
-	d.SetId(aws.StringValue(resp.Project.Arn))
+d.SetId(aws.StringValue(resp.Project.Arn))
 
-	if v, ok := d.GetOk("project_visibility"); ok && v.(string) != codebuild.ProjectVisibilityTypePrivate {
+if v, ok := d.GetOk("project_visibility"); ok && v.(string) != codebuild.ProjectVisibilityTypePrivate {
 visInput := &codebuild.UpdateProjectVisibilityInput{
-	ProjectArn:        aws.String(d.Id()),
-	ProjectVisibility: aws.String(v.(string)),
+ProjectArn:        aws.String(d.Id()),
+ProjectVisibility: aws.String(v.(string)),
 }
 
 if v, ok := d.GetOk("resource_access_role"); ok {
-	visInput.ResourceAccessRole = aws.String(v.(string))
+visInput.ResourceAccessRole = aws.String(v.(string))
 }
 
 _, err = conn.UpdateProjectVisibilityWithContext(ctx, visInput)
 if err != nil {
-	return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s) visibility: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s) visibility: %s", d.Id(), err)
 }
-	}
-	return append(diags, resourceProjectRead(ctx, d, meta)...)
+}
+return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
 
 
 func expandProjectSecondarySourceVersions(ssv *schema.Set) []*codebuild.ProjectSourceVersion {
-	sourceVersions := make([]*codebuild.ProjectSourceVersion, 0)
+sourceVersions := make([]*codebuild.ProjectSourceVersion, 0)
 
-	rawSourceVersions := ssv.List()
-	if len(rawSourceVersions) == 0 {
+rawSourceVersions := ssv.List()
+if len(rawSourceVersions) == 0 {
 return nil
-	}
+}
 
-	for _, config := range rawSourceVersions {
+for _, config := range rawSourceVersions {
 sourceVersion := expandProjectSourceVersion(config.(map[string]interface{}))
 sourceVersions = append(sourceVersions, &sourceVersion)
-	}
+}
 
-	return sourceVersions
+return sourceVersions
 }
 
 
 func expandProjectSourceVersion(data map[string]interface{}) codebuild.ProjectSourceVersion {
-	sourceVersion := codebuild.ProjectSourceVersion{
+sourceVersion := codebuild.ProjectSourceVersion{
 SourceIdentifier: aws.String(data["source_identifier"].(string)),
 SourceVersion:    aws.String(data["source_version"].(string)),
-	}
+}
 
-	return sourceVersion
+return sourceVersion
 }
 
 
 func expandProjectFileSystemLocations(d *schema.ResourceData) []*codebuild.ProjectFileSystemLocation {
-	fileSystemLocations := make([]*codebuild.ProjectFileSystemLocation, 0)
+fileSystemLocations := make([]*codebuild.ProjectFileSystemLocation, 0)
 
-	configsList := d.Get("file_system_locations").(*schema.Set).List()
+configsList := d.Get("file_system_locations").(*schema.Set).List()
 
-	if len(configsList) == 0 {
+if len(configsList) == 0 {
 return nil
-	}
+}
 
-	for _, config := range configsList {
+for _, config := range configsList {
 art := expandProjectFileSystemLocation(config.(map[string]interface{}))
 fileSystemLocations = append(fileSystemLocations, &art)
-	}
+}
 
-	return fileSystemLocations
+return fileSystemLocations
 }
 
 
 func expandProjectFileSystemLocation(data map[string]interface{}) codebuild.ProjectFileSystemLocation {
-	projectFileSystemLocation := codebuild.ProjectFileSystemLocation{
+projectFileSystemLocation := codebuild.ProjectFileSystemLocation{
 Type: aws.String(data["type"].(string)),
-	}
+}
 
-	if data["identifier"].(string) != "" {
+if data["identifier"].(string) != "" {
 projectFileSystemLocation.Identifier = aws.String(data["identifier"].(string))
-	}
+}
 
-	if data["location"].(string) != "" {
+if data["location"].(string) != "" {
 projectFileSystemLocation.Location = aws.String(data["location"].(string))
-	}
+}
 
-	if data["mount_options"].(string) != "" {
+if data["mount_options"].(string) != "" {
 projectFileSystemLocation.MountOptions = aws.String(data["mount_options"].(string))
-	}
+}
 
-	if data["mount_point"].(string) != "" {
+if data["mount_point"].(string) != "" {
 projectFileSystemLocation.MountPoint = aws.String(data["mount_point"].(string))
-	}
+}
 
-	return projectFileSystemLocation
+return projectFileSystemLocation
 }
 
 
 func expandProjectSecondaryArtifacts(d *schema.ResourceData) []*codebuild.ProjectArtifacts {
-	artifacts := make([]*codebuild.ProjectArtifacts, 0)
+artifacts := make([]*codebuild.ProjectArtifacts, 0)
 
-	configsList := d.Get("secondary_artifacts").(*schema.Set).List()
+configsList := d.Get("secondary_artifacts").(*schema.Set).List()
 
-	if len(configsList) == 0 {
+if len(configsList) == 0 {
 return nil
-	}
+}
 
-	for _, config := range configsList {
+for _, config := range configsList {
 art := expandProjectArtifactData(config.(map[string]interface{}))
 artifacts = append(artifacts, &art)
-	}
+}
 
-	return artifacts
+return artifacts
 }
 
 
 func expandProjectArtifacts(d *schema.ResourceData) codebuild.ProjectArtifacts {
-	configs := d.Get("artifacts").([]interface{})
-	data := configs[0].(map[string]interface{})
+configs := d.Get("artifacts").([]interface{})
+data := configs[0].(map[string]interface{})
 
-	return expandProjectArtifactData(data)
+return expandProjectArtifactData(data)
 }
 
 
 func expandProjectArtifactData(data map[string]interface{}) codebuild.ProjectArtifacts {
-	artifactType := data["type"].(string)
+artifactType := data["type"].(string)
 
-	projectArtifacts := codebuild.ProjectArtifacts{
+projectArtifacts := codebuild.ProjectArtifacts{
 Type: aws.String(artifactType),
-	}
+}
 
-	// Only valid for S3 and CODEPIPELINE artifacts types
-	// InvalidInputException: Invalid artifacts: artifact type NO_ARTIFACTS should have null encryptionDisabled
-	if artifactType == codebuild.ArtifactsTypeS3 || artifactType == codebuild.ArtifactsTypeCodepipeline {
+// Only valid for S3 and CODEPIPELINE artifacts types
+// InvalidInputException: Invalid artifacts: artifact type NO_ARTIFACTS should have null encryptionDisabled
+if artifactType == codebuild.ArtifactsTypeS3 || artifactType == codebuild.ArtifactsTypeCodepipeline {
 projectArtifacts.EncryptionDisabled = aws.Bool(data["encryption_disabled"].(bool))
-	}
+}
 
-	if v, ok := data["artifact_identifier"].(string); ok && v != "" {
+if v, ok := data["artifact_identifier"].(string); ok && v != "" {
 projectArtifacts.ArtifactIdentifier = aws.String(v)
-	}
+}
 
-	if v, ok := data["location"].(string); ok && v != "" {
+if v, ok := data["location"].(string); ok && v != "" {
 projectArtifacts.Location = aws.String(v)
-	}
+}
 
-	if v, ok := data["name"].(string); ok && v != "" {
+if v, ok := data["name"].(string); ok && v != "" {
 projectArtifacts.Name = aws.String(v)
-	}
+}
 
-	if v, ok := data["namespace_type"].(string); ok && v != "" {
+if v, ok := data["namespace_type"].(string); ok && v != "" {
 projectArtifacts.NamespaceType = aws.String(v)
-	}
+}
 
-	if v, ok := data["override_artifact_name"]; ok {
+if v, ok := data["override_artifact_name"]; ok {
 projectArtifacts.OverrideArtifactName = aws.Bool(v.(bool))
-	}
+}
 
-	if v, ok := data["packaging"].(string); ok && v != "" {
+if v, ok := data["packaging"].(string); ok && v != "" {
 projectArtifacts.Packaging = aws.String(v)
-	}
+}
 
-	if v, ok := data["path"].(string); ok && v != "" {
+if v, ok := data["path"].(string); ok && v != "" {
 projectArtifacts.Path = aws.String(v)
-	}
+}
 
-	if v, ok := data["bucket_owner_access"].(string); ok && v != "" {
+if v, ok := data["bucket_owner_access"].(string); ok && v != "" {
 projectArtifacts.BucketOwnerAccess = aws.String(v)
-	}
+}
 
-	return projectArtifacts
+return projectArtifacts
 }
 
 
 func expandProjectCache(s []interface{}) *codebuild.ProjectCache {
-	var projectCache *codebuild.ProjectCache
+var projectCache *codebuild.ProjectCache
 
-	data := s[0].(map[string]interface{})
+data := s[0].(map[string]interface{})
 
-	projectCache = &codebuild.ProjectCache{
+projectCache = &codebuild.ProjectCache{
 Type: aws.String(data["type"].(string)),
-	}
-
-	if v, ok := data["location"]; ok {
-projectCache.Location = aws.String(v.(string))
-	}
-
-	if cacheType := data["type"]; cacheType == codebuild.CacheTypeLocal {
-if modes, modesOk := data["modes"]; modesOk {
-	modesStrings := modes.([]interface{})
-	projectCache.Modes = flex.ExpandStringList(modesStrings)
 }
-	}
 
-	return projectCache
+if v, ok := data["location"]; ok {
+projectCache.Location = aws.String(v.(string))
+}
+
+if cacheType := data["type"]; cacheType == codebuild.CacheTypeLocal {
+if modes, modesOk := data["modes"]; modesOk {
+modesStrings := modes.([]interface{})
+projectCache.Modes = flex.ExpandStringList(modesStrings)
+}
+}
+
+return projectCache
 }
 
 
 func expandProjectEnvironment(d *schema.ResourceData) *codebuild.ProjectEnvironment {
-	configs := d.Get("environment").([]interface{})
+configs := d.Get("environment").([]interface{})
 
-	envConfig := configs[0].(map[string]interface{})
+envConfig := configs[0].(map[string]interface{})
 
-	projectEnv := &codebuild.ProjectEnvironment{
+projectEnv := &codebuild.ProjectEnvironment{
 PrivilegedMode: aws.Bool(envConfig["privileged_mode"].(bool)),
-	}
+}
 
-	if v := envConfig["compute_type"]; v != nil {
+if v := envConfig["compute_type"]; v != nil {
 projectEnv.ComputeType = aws.String(v.(string))
-	}
+}
 
-	if v := envConfig["image"]; v != nil {
+if v := envConfig["image"]; v != nil {
 projectEnv.Image = aws.String(v.(string))
-	}
+}
 
-	if v := envConfig["type"]; v != nil {
+if v := envConfig["type"]; v != nil {
 projectEnv.Type = aws.String(v.(string))
-	}
+}
 
-	if v, ok := envConfig["certificate"]; ok && v.(string) != "" {
+if v, ok := envConfig["certificate"]; ok && v.(string) != "" {
 projectEnv.Certificate = aws.String(v.(string))
-	}
+}
 
-	if v := envConfig["image_pull_credentials_type"]; v != nil {
+if v := envConfig["image_pull_credentials_type"]; v != nil {
 projectEnv.ImagePullCredentialsType = aws.String(v.(string))
-	}
+}
 
-	if v, ok := envConfig["registry_credential"]; ok && len(v.([]interface{})) > 0 {
+if v, ok := envConfig["registry_credential"]; ok && len(v.([]interface{})) > 0 {
 config := v.([]interface{})[0].(map[string]interface{})
 
 projectRegistryCredential := &codebuild.RegistryCredential{}
 
 if v, ok := config["credential"]; ok && v.(string) != "" {
-	projectRegistryCredential.Credential = aws.String(v.(string))
+projectRegistryCredential.Credential = aws.String(v.(string))
 }
 
 if v, ok := config["credential_provider"]; ok && v.(string) != "" {
-	projectRegistryCredential.CredentialProvider = aws.String(v.(string))
+projectRegistryCredential.CredentialProvider = aws.String(v.(string))
 }
 
 projectEnv.RegistryCredential = projectRegistryCredential
-	}
+}
 
-	if v := envConfig["environment_variable"]; v != nil {
+if v := envConfig["environment_variable"]; v != nil {
 envVariables := v.([]interface{})
 if len(envVariables) > 0 {
-	projectEnvironmentVariables := make([]*codebuild.EnvironmentVariable, 0, len(envVariables))
+projectEnvironmentVariables := make([]*codebuild.EnvironmentVariable, 0, len(envVariables))
 
-	for _, envVariablesConfig := range envVariables {
+for _, envVariablesConfig := range envVariables {
 config := envVariablesConfig.(map[string]interface{})
 
 projectEnvironmentVar := &codebuild.EnvironmentVariable{}
 
 if v := config["name"].(string); v != "" {
-	projectEnvironmentVar.Name = &v
+projectEnvironmentVar.Name = &v
 }
 
 if v, ok := config["value"].(string); ok {
-	projectEnvironmentVar.Value = &v
+projectEnvironmentVar.Value = &v
 }
 
 if v := config["type"].(string); v != "" {
-	projectEnvironmentVar.Type = &v
+projectEnvironmentVar.Type = &v
 }
 
 projectEnvironmentVariables = append(projectEnvironmentVariables, projectEnvironmentVar)
-	}
-
-	projectEnv.EnvironmentVariables = projectEnvironmentVariables
 }
-	}
 
-	return projectEnv
+projectEnv.EnvironmentVariables = projectEnvironmentVariables
+}
+}
+
+return projectEnv
 }
 
 
 func expandProjectLogsConfig(d *schema.ResourceData) *codebuild.LogsConfig {
-	logsConfig := &codebuild.LogsConfig{}
+logsConfig := &codebuild.LogsConfig{}
 
-	if v, ok := d.GetOk("logs_config"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+if v, ok := d.GetOk("logs_config"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 configList := v.([]interface{})
 data := configList[0].(map[string]interface{})
 
 if v, ok := data["cloudwatch_logs"]; ok {
-	logsConfig.CloudWatchLogs = expandCloudWatchLogsConfig(v.([]interface{}))
+logsConfig.CloudWatchLogs = expandCloudWatchLogsConfig(v.([]interface{}))
 }
 
 if v, ok := data["s3_logs"]; ok {
-	logsConfig.S3Logs = expandS3LogsConfig(v.([]interface{}))
+logsConfig.S3Logs = expandS3LogsConfig(v.([]interface{}))
 }
-	}
+}
 
-	if logsConfig.CloudWatchLogs == nil {
+if logsConfig.CloudWatchLogs == nil {
 logsConfig.CloudWatchLogs = &codebuild.CloudWatchLogsConfig{
-	Status: aws.String(codebuild.LogsConfigStatusTypeEnabled),
+Status: aws.String(codebuild.LogsConfigStatusTypeEnabled),
 }
-	}
+}
 
-	if logsConfig.S3Logs == nil {
+if logsConfig.S3Logs == nil {
 logsConfig.S3Logs = &codebuild.S3LogsConfig{
-	Status: aws.String(codebuild.LogsConfigStatusTypeDisabled),
+Status: aws.String(codebuild.LogsConfigStatusTypeDisabled),
 }
-	}
+}
 
-	return logsConfig
+return logsConfig
 }
 
 
 func expandBuildBatchConfig(d *schema.ResourceData) *codebuild.ProjectBuildBatchConfig {
-	configs, ok := d.Get("build_batch_config").([]interface{})
-	if !ok || len(configs) == 0 || configs[0] == nil {
+configs, ok := d.Get("build_batch_config").([]interface{})
+if !ok || len(configs) == 0 || configs[0] == nil {
 return nil
-	}
+}
 
-	data := configs[0].(map[string]interface{})
+data := configs[0].(map[string]interface{})
 
-	projectBuildBatchConfig := &codebuild.ProjectBuildBatchConfig{
+projectBuildBatchConfig := &codebuild.ProjectBuildBatchConfig{
 Restrictions: expandBatchRestrictions(data),
 ServiceRole:  aws.String(data["service_role"].(string)),
-	}
+}
 
-	if v, ok := data["combine_artifacts"]; ok {
+if v, ok := data["combine_artifacts"]; ok {
 projectBuildBatchConfig.CombineArtifacts = aws.Bool(v.(bool))
-	}
+}
 
-	if v, ok := data["timeout_in_mins"]; ok && v != 0 {
+if v, ok := data["timeout_in_mins"]; ok && v != 0 {
 projectBuildBatchConfig.TimeoutInMins = aws.Int64(int64(v.(int)))
-	}
+}
 
-	return projectBuildBatchConfig
+return projectBuildBatchConfig
 }
 
 
 func expandBatchRestrictions(data map[string]interface{}) *codebuild.BatchRestrictions {
-	if v, ok := data["restrictions"]; !ok || len(v.([]interface{})) == 0 || v.([]interface{})[0] == nil {
+if v, ok := data["restrictions"]; !ok || len(v.([]interface{})) == 0 || v.([]interface{})[0] == nil {
 return nil
-	}
+}
 
-	restrictionsData := data["restrictions"].([]interface{})[0].(map[string]interface{})
+restrictionsData := data["restrictions"].([]interface{})[0].(map[string]interface{})
 
-	restrictions := &codebuild.BatchRestrictions{}
-	if v, ok := restrictionsData["compute_types_allowed"]; ok && len(v.([]interface{})) != 0 {
+restrictions := &codebuild.BatchRestrictions{}
+if v, ok := restrictionsData["compute_types_allowed"]; ok && len(v.([]interface{})) != 0 {
 restrictions.ComputeTypesAllowed = flex.ExpandStringList(v.([]interface{}))
-	}
+}
 
-	if v, ok := restrictionsData["maximum_builds_allowed"]; ok && v != 0 {
+if v, ok := restrictionsData["maximum_builds_allowed"]; ok && v != 0 {
 restrictions.MaximumBuildsAllowed = aws.Int64(int64(v.(int)))
-	}
+}
 
-	return restrictions
+return restrictions
 }
 
 
 func expandCloudWatchLogsConfig(configList []interface{}) *codebuild.CloudWatchLogsConfig {
-	if len(configList) == 0 || configList[0] == nil {
+if len(configList) == 0 || configList[0] == nil {
 return nil
-	}
+}
 
-	data := configList[0].(map[string]interface{})
+data := configList[0].(map[string]interface{})
 
-	status := data["status"].(string)
+status := data["status"].(string)
 
-	cloudWatchLogsConfig := &codebuild.CloudWatchLogsConfig{
+cloudWatchLogsConfig := &codebuild.CloudWatchLogsConfig{
 Status: aws.String(status),
-	}
+}
 
-	if v, ok := data["group_name"]; ok {
+if v, ok := data["group_name"]; ok {
 groupName := v.(string)
 if len(groupName) > 0 {
-	cloudWatchLogsConfig.GroupName = aws.String(groupName)
+cloudWatchLogsConfig.GroupName = aws.String(groupName)
 }
-	}
+}
 
-	if v, ok := data["stream_name"]; ok {
+if v, ok := data["stream_name"]; ok {
 streamName := v.(string)
 if len(streamName) > 0 {
-	cloudWatchLogsConfig.StreamName = aws.String(streamName)
+cloudWatchLogsConfig.StreamName = aws.String(streamName)
 }
-	}
+}
 
-	return cloudWatchLogsConfig
+return cloudWatchLogsConfig
 }
 
 
 func expandS3LogsConfig(configList []interface{}) *codebuild.S3LogsConfig {
-	if len(configList) == 0 || configList[0] == nil {
+if len(configList) == 0 || configList[0] == nil {
 return nil
-	}
+}
 
-	data := configList[0].(map[string]interface{})
+data := configList[0].(map[string]interface{})
 
-	status := data["status"].(string)
+status := data["status"].(string)
 
-	s3LogsConfig := &codebuild.S3LogsConfig{
+s3LogsConfig := &codebuild.S3LogsConfig{
 Status: aws.String(status),
-	}
+}
 
-	if v, ok := data["location"].(string); ok && v != "" {
+if v, ok := data["location"].(string); ok && v != "" {
 s3LogsConfig.Location = aws.String(v)
-	}
+}
 
-	if v, ok := data["bucket_owner_access"].(string); ok && v != "" {
+if v, ok := data["bucket_owner_access"].(string); ok && v != "" {
 s3LogsConfig.BucketOwnerAccess = aws.String(v)
-	}
+}
 
-	s3LogsConfig.EncryptionDisabled = aws.Bool(data["encryption_disabled"].(bool))
+s3LogsConfig.EncryptionDisabled = aws.Bool(data["encryption_disabled"].(bool))
 
-	return s3LogsConfig
+return s3LogsConfig
 }
 
 
 func expandVPCConfig(rawVpcConfig []interface{}) *codebuild.VpcConfig {
-	vpcConfig := codebuild.VpcConfig{}
-	if len(rawVpcConfig) == 0 || rawVpcConfig[0] == nil {
+vpcConfig := codebuild.VpcConfig{}
+if len(rawVpcConfig) == 0 || rawVpcConfig[0] == nil {
 return &vpcConfig
-	}
+}
 
-	data := rawVpcConfig[0].(map[string]interface{})
-	vpcConfig.VpcId = aws.String(data["vpc_id"].(string))
-	vpcConfig.Subnets = flex.ExpandStringSet(data["subnets"].(*schema.Set))
-	vpcConfig.SecurityGroupIds = flex.ExpandStringSet(data["security_group_ids"].(*schema.Set))
+data := rawVpcConfig[0].(map[string]interface{})
+vpcConfig.VpcId = aws.String(data["vpc_id"].(string))
+vpcConfig.Subnets = flex.ExpandStringSet(data["subnets"].(*schema.Set))
+vpcConfig.SecurityGroupIds = flex.ExpandStringSet(data["security_group_ids"].(*schema.Set))
 
-	return &vpcConfig
+return &vpcConfig
 }
 
 
 func expandProjectSecondarySources(d *schema.ResourceData) []*codebuild.ProjectSource {
-	configs := d.Get("secondary_sources").(*schema.Set).List()
+configs := d.Get("secondary_sources").(*schema.Set).List()
 
-	if len(configs) == 0 {
+if len(configs) == 0 {
 return nil
-	}
+}
 
-	sources := make([]*codebuild.ProjectSource, 0)
+sources := make([]*codebuild.ProjectSource, 0)
 
-	for _, config := range configs {
+for _, config := range configs {
 source := expandProjectSourceData(config.(map[string]interface{}))
 sources = append(sources, &source)
-	}
+}
 
-	return sources
+return sources
 }
 
 
 func expandProjectSource(d *schema.ResourceData) codebuild.ProjectSource {
-	configs := d.Get("source").([]interface{})
+configs := d.Get("source").([]interface{})
 
-	data := configs[0].(map[string]interface{})
-	return expandProjectSourceData(data)
+data := configs[0].(map[string]interface{})
+return expandProjectSourceData(data)
 }
 
 
 func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSource {
-	sourceType := data["type"].(string)
+sourceType := data["type"].(string)
 
-	projectSource := codebuild.ProjectSource{
+projectSource := codebuild.ProjectSource{
 Buildspec:     aws.String(data["buildspec"].(string)),
 GitCloneDepth: aws.Int64(int64(data["git_clone_depth"].(int))),
 InsecureSsl:   aws.Bool(data["insecure_ssl"].(bool)),
 Type: aws.String(sourceType),
-	}
+}
 
-	if data["source_identifier"] != nil {
+if data["source_identifier"] != nil {
 projectSource.SourceIdentifier = aws.String(data["source_identifier"].(string))
-	}
+}
 
-	if data["location"].(string) != "" {
+if data["location"].(string) != "" {
 projectSource.Location = aws.String(data["location"].(string))
-	}
+}
 
-	// Only valid for BITBUCKET, GITHUB, and GITHUB_ENTERPRISE source types, e.g.
-	// InvalidInputException: Source type NO_SOURCE does not support ReportBuildStatus
-	if sourceType == codebuild.SourceTypeBitbucket || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise {
+// Only valid for BITBUCKET, GITHUB, and GITHUB_ENTERPRISE source types, e.g.
+// InvalidInputException: Source type NO_SOURCE does not support ReportBuildStatus
+if sourceType == codebuild.SourceTypeBitbucket || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise {
 projectSource.ReportBuildStatus = aws.Bool(data["report_build_status"].(bool))
-	}
+}
 
-	// Only valid for CODECOMMIT, GITHUB, GITHUB_ENTERPRISE, BITBUCKET source types.
-	if sourceType == codebuild.SourceTypeCodecommit || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise || sourceType == codebuild.SourceTypeBitbucket {
+// Only valid for CODECOMMIT, GITHUB, GITHUB_ENTERPRISE, BITBUCKET source types.
+if sourceType == codebuild.SourceTypeCodecommit || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise || sourceType == codebuild.SourceTypeBitbucket {
 if v, ok := data["git_submodules_config"]; ok && len(v.([]interface{})) > 0 {
-	config := v.([]interface{})[0].(map[string]interface{})
+config := v.([]interface{})[0].(map[string]interface{})
 
-	gitSubmodulesConfig := &codebuild.GitSubmodulesConfig{}
+gitSubmodulesConfig := &codebuild.GitSubmodulesConfig{}
 
-	if v, ok := config["fetch_submodules"]; ok {
+if v, ok := config["fetch_submodules"]; ok {
 gitSubmodulesConfig.FetchSubmodules = aws.Bool(v.(bool))
-	}
-
-	projectSource.GitSubmodulesConfig = gitSubmodulesConfig
 }
-	}
 
-	// Only valid for BITBUCKET, GITHUB, GITHUB_ENTERPRISE source types.
-	if sourceType == codebuild.SourceTypeBitbucket || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise {
+projectSource.GitSubmodulesConfig = gitSubmodulesConfig
+}
+}
+
+// Only valid for BITBUCKET, GITHUB, GITHUB_ENTERPRISE source types.
+if sourceType == codebuild.SourceTypeBitbucket || sourceType == codebuild.SourceTypeGithub || sourceType == codebuild.SourceTypeGithubEnterprise {
 if v, ok := data["build_status_config"]; ok && len(v.([]interface{})) > 0 {
-	config := v.([]interface{})[0].(map[string]interface{})
+config := v.([]interface{})[0].(map[string]interface{})
 
-	buildStatusConfig := &codebuild.BuildStatusConfig{}
+buildStatusConfig := &codebuild.BuildStatusConfig{}
 
-	if v, ok := config["context"]; ok {
+if v, ok := config["context"]; ok {
 buildStatusConfig.Context = aws.String(v.(string))
-	}
-	if v, ok := config["target_url"]; ok {
-buildStatusConfig.TargetUrl = aws.String(v.(string))
-	}
-
-	projectSource.BuildStatusConfig = buildStatusConfig
 }
-	}
+if v, ok := config["target_url"]; ok {
+buildStatusConfig.TargetUrl = aws.String(v.(string))
+}
 
-	return projectSource
+projectSource.BuildStatusConfig = buildStatusConfig
+}
+}
+
+return projectSource
 }
 
 
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
-	project, err := FindProjectByARN(ctx, conn, d.Id())
+project, err := FindProjectByARN(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] CodeBuild Project (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
-	}
+}
 
-	if err != nil {
+if err != nil {
 return sdkdiag.AppendErrorf(diags, "Listing CodeBuild Projects: %s", err)
-	}
+}
 
-	if err := d.Set("artifacts", flattenProjectArtifacts(project.Artifacts)); err != nil {
+if err := d.Set("artifacts", flattenProjectArtifacts(project.Artifacts)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting artifacts: %s", err)
-	}
+}
 
-	if err := d.Set("environment", flattenProjectEnvironment(project.Environment)); err != nil {
+if err := d.Set("environment", flattenProjectEnvironment(project.Environment)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting environment: %s", err)
-	}
+}
 
-	if err := d.Set("file_system_locations", flattenProjectFileSystemLocations(project.FileSystemLocations)); err != nil {
+if err := d.Set("file_system_locations", flattenProjectFileSystemLocations(project.FileSystemLocations)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting file_system_locations: %s", err)
-	}
+}
 
-	if err := d.Set("cache", flattenProjectCache(project.Cache)); err != nil {
+if err := d.Set("cache", flattenProjectCache(project.Cache)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting cache: %s", err)
-	}
+}
 
-	if err := d.Set("logs_config", flattenLogsConfig(project.LogsConfig)); err != nil {
+if err := d.Set("logs_config", flattenLogsConfig(project.LogsConfig)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting logs_config: %s", err)
-	}
+}
 
-	if err := d.Set("secondary_artifacts", flattenProjectSecondaryArtifacts(project.SecondaryArtifacts)); err != nil {
+if err := d.Set("secondary_artifacts", flattenProjectSecondaryArtifacts(project.SecondaryArtifacts)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting secondary_artifacts: %s", err)
-	}
+}
 
-	if err := d.Set("secondary_sources", flattenProjectSecondarySources(project.SecondarySources)); err != nil {
+if err := d.Set("secondary_sources", flattenProjectSecondarySources(project.SecondarySources)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting secondary_sources: %s", err)
-	}
+}
 
-	if err := d.Set("secondary_source_version", flattenProjectSecondarySourceVersions(project.SecondarySourceVersions)); err != nil {
+if err := d.Set("secondary_source_version", flattenProjectSecondarySourceVersions(project.SecondarySourceVersions)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting secondary_source_version: %s", err)
-	}
+}
 
-	if err := d.Set("source", flattenProjectSource(project.Source)); err != nil {
+if err := d.Set("source", flattenProjectSource(project.Source)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting source: %s", err)
-	}
+}
 
-	if err := d.Set("vpc_config", flattenVPCConfig(project.VpcConfig)); err != nil {
+if err := d.Set("vpc_config", flattenVPCConfig(project.VpcConfig)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting vpc_config: %s", err)
-	}
+}
 
-	if err := d.Set("build_batch_config", flattenBuildBatchConfig(project.BuildBatchConfig)); err != nil {
+if err := d.Set("build_batch_config", flattenBuildBatchConfig(project.BuildBatchConfig)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting build_batch_config: %s", err)
-	}
+}
 
-	d.Set("arn", project.Arn)
-	d.Set("concurrent_build_limit", project.ConcurrentBuildLimit)
-	d.Set("description", project.Description)
-	d.Set("encryption_key", project.EncryptionKey)
-	d.Set("name", project.Name)
-	d.Set("service_role", project.ServiceRole)
-	d.Set("source_version", project.SourceVersion)
-	d.Set("build_timeout", project.TimeoutInMinutes)
-	d.Set("project_visibility", project.ProjectVisibility)
-	d.Set("public_project_alias", project.PublicProjectAlias)
-	d.Set("resource_access_role", project.ResourceAccessRole)
-	d.Set("queued_timeout", project.QueuedTimeoutInMinutes)
-	if project.Badge != nil {
+d.Set("arn", project.Arn)
+d.Set("concurrent_build_limit", project.ConcurrentBuildLimit)
+d.Set("description", project.Description)
+d.Set("encryption_key", project.EncryptionKey)
+d.Set("name", project.Name)
+d.Set("service_role", project.ServiceRole)
+d.Set("source_version", project.SourceVersion)
+d.Set("build_timeout", project.TimeoutInMinutes)
+d.Set("project_visibility", project.ProjectVisibility)
+d.Set("public_project_alias", project.PublicProjectAlias)
+d.Set("resource_access_role", project.ResourceAccessRole)
+d.Set("queued_timeout", project.QueuedTimeoutInMinutes)
+if project.Badge != nil {
 d.Set("badge_enabled", project.Badge.BadgeEnabled)
 d.Set("badge_url", project.Badge.BadgeRequestUrl)
-	} else {
+} else {
 d.Set("badge_enabled", false)
 d.Set("badge_url", "")
-	}
+}
 
-	setTagsOut(ctx, project.Tags)
+setTagsOut(ctx, project.Tags)
 
-	return diags
+return diags
 }
 
 
 func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
-	if d.HasChanges("project_visibility", "resource_access_role") {
+if d.HasChanges("project_visibility", "resource_access_role") {
 visInput := &codebuild.UpdateProjectVisibilityInput{
-	ProjectArn:        aws.String(d.Id()),
-	ProjectVisibility: aws.String(d.Get("project_visibility").(string)),
+ProjectArn:        aws.String(d.Id()),
+ProjectVisibility: aws.String(d.Get("project_visibility").(string)),
 }
 
 if v, ok := d.GetOk("resource_access_role"); ok {
-	visInput.ResourceAccessRole = aws.String(v.(string))
+visInput.ResourceAccessRole = aws.String(v.(string))
 }
 
 _, err := conn.UpdateProjectVisibilityWithContext(ctx, visInput)
 if err != nil {
-	return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s) visibility: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s) visibility: %s", d.Id(), err)
 }
-	}
+}
 
-	if d.HasChangesExcept("project_visibility", "resource_access_role") {
+if d.HasChangesExcept("project_visibility", "resource_access_role") {
 input := &codebuild.UpdateProjectInput{
-	Name: aws.String(d.Get("name").(string)),
+Name: aws.String(d.Get("name").(string)),
 }
 
 if d.HasChange("environment") {
-	projectEnv := expandProjectEnvironment(d)
-	input.Environment = projectEnv
+projectEnv := expandProjectEnvironment(d)
+input.Environment = projectEnv
 }
 
 if d.HasChange("file_system_locations") {
-	projectFileSystemLocations := expandProjectFileSystemLocations(d)
-	input.FileSystemLocations = projectFileSystemLocations
+projectFileSystemLocations := expandProjectFileSystemLocations(d)
+input.FileSystemLocations = projectFileSystemLocations
 }
 
 if d.HasChange("source") {
-	projectSource := expandProjectSource(d)
-	input.Source = &projectSource
+projectSource := expandProjectSource(d)
+input.Source = &projectSource
 }
 
 if d.HasChange("artifacts") {
-	projectArtifacts := expandProjectArtifacts(d)
-	input.Artifacts = &projectArtifacts
+projectArtifacts := expandProjectArtifacts(d)
+input.Artifacts = &projectArtifacts
 }
 
 if d.HasChange("secondary_sources") {
-	_, n := d.GetChange("secondary_sources")
+_, n := d.GetChange("secondary_sources")
 
-	if n.(*schema.Set).Len() > 0 {
+if n.(*schema.Set).Len() > 0 {
 projectSecondarySources := expandProjectSecondarySources(d)
 input.SecondarySources = projectSecondarySources
-	} else {
+} else {
 input.SecondarySources = []*codebuild.ProjectSource{}
-	}
+}
 }
 
 if d.HasChange("secondary_source_version") {
-	_, n := d.GetChange("secondary_source_version")
+_, n := d.GetChange("secondary_source_version")
 
-	psv := d.Get("secondary_source_version").(*schema.Set)
+psv := d.Get("secondary_source_version").(*schema.Set)
 
-	if n.(*schema.Set).Len() > 0 {
+if n.(*schema.Set).Len() > 0 {
 input.SecondarySourceVersions = expandProjectSecondarySourceVersions(psv)
-	} else {
+} else {
 input.SecondarySourceVersions = []*codebuild.ProjectSourceVersion{}
-	}
+}
 }
 
 if d.HasChange("secondary_artifacts") {
-	_, n := d.GetChange("secondary_artifacts")
+_, n := d.GetChange("secondary_artifacts")
 
-	if n.(*schema.Set).Len() > 0 {
+if n.(*schema.Set).Len() > 0 {
 projectSecondaryArtifacts := expandProjectSecondaryArtifacts(d)
 input.SecondaryArtifacts = projectSecondaryArtifacts
-	} else {
+} else {
 input.SecondaryArtifacts = []*codebuild.ProjectArtifacts{}
-	}
+}
 }
 
 if d.HasChange("vpc_config") {
-	input.VpcConfig = expandVPCConfig(d.Get("vpc_config").([]interface{}))
+input.VpcConfig = expandVPCConfig(d.Get("vpc_config").([]interface{}))
 }
 
 if d.HasChange("logs_config") {
-	logsConfig := expandProjectLogsConfig(d)
-	input.LogsConfig = logsConfig
+logsConfig := expandProjectLogsConfig(d)
+input.LogsConfig = logsConfig
 }
 
 if d.HasChange("build_batch_config") {
-	input.BuildBatchConfig = expandBuildBatchConfig(d)
+input.BuildBatchConfig = expandBuildBatchConfig(d)
 }
 
 if d.HasChange("cache") {
-	if v, ok := d.GetOk("cache"); ok {
+if v, ok := d.GetOk("cache"); ok {
 input.Cache = expandProjectCache(v.([]interface{}))
-	} else {
+} else {
 input.Cache = &codebuild.ProjectCache{
-	Type: aws.String("NO_CACHE"),
+Type: aws.String("NO_CACHE"),
 }
-	}
+}
 }
 
 if d.HasChange("concurrent_build_limit") {
-	input.ConcurrentBuildLimit = aws.Int64(int64(d.Get("concurrent_build_limit").(int)))
+input.ConcurrentBuildLimit = aws.Int64(int64(d.Get("concurrent_build_limit").(int)))
 }
 
 if d.HasChange("description") {
-	input.Description = aws.String(d.Get("description").(string))
+input.Description = aws.String(d.Get("description").(string))
 }
 
 if d.HasChange("encryption_key") {
-	input.EncryptionKey = aws.String(d.Get("encryption_key").(string))
+input.EncryptionKey = aws.String(d.Get("encryption_key").(string))
 }
 
 if d.HasChange("service_role") {
-	input.ServiceRole = aws.String(d.Get("service_role").(string))
+input.ServiceRole = aws.String(d.Get("service_role").(string))
 }
 
 if d.HasChange("source_version") {
-	input.SourceVersion = aws.String(d.Get("source_version").(string))
+input.SourceVersion = aws.String(d.Get("source_version").(string))
 }
 
 if d.HasChange("build_timeout") {
-	input.TimeoutInMinutes = aws.Int64(int64(d.Get("build_timeout").(int)))
+input.TimeoutInMinutes = aws.Int64(int64(d.Get("build_timeout").(int)))
 }
 
 if d.HasChange("queued_timeout") {
-	input.QueuedTimeoutInMinutes = aws.Int64(int64(d.Get("queued_timeout").(int)))
+input.QueuedTimeoutInMinutes = aws.Int64(int64(d.Get("queued_timeout").(int)))
 }
 
 if d.HasChange("badge_enabled") {
-	input.BadgeEnabled = aws.Bool(d.Get("badge_enabled").(bool))
+input.BadgeEnabled = aws.Bool(d.Get("badge_enabled").(bool))
 }
 
 // The documentation clearly says "The replacement set of tags for this build project."
@@ -1584,352 +1584,352 @@ input.Tags = getTagsIn(ctx)
 // Handle IAM eventual consistency
 err := retry.RetryContext(ctx, propagationTimeout, 
 func() *retry.RetryError {
-	_, err := conn.UpdateProjectWithContext(ctx, input)
-	if err != nil {
+_, err := conn.UpdateProjectWithContext(ctx, input)
+if err != nil {
 // InvalidInputException: CodeBuild is not authorized to perform
 // InvalidInputException: Not authorized to perform DescribeSecurityGroups
 if tfawserr.ErrMessageContains(err, codebuild.ErrCodeInvalidInputException, "ot authorized to perform") {
-	return retry.RetryableError(err)
+return retry.RetryableError(err)
 }
 
 return retry.NonRetryableError(err)
-	}
+}
 
-	return nil
+return nil
 })
 
 if tfresource.TimedOut(err) {
-	_, err = conn.UpdateProjectWithContext(ctx, input)
+_, err = conn.UpdateProjectWithContext(ctx, input)
 }
 if err != nil {
-	return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s): %s", d.Id(), err)
 }
-	}
+}
 
-	return append(diags, resourceProjectRead(ctx, d, meta)...)
+return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
 
 
 func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
-	_, err := conn.DeleteProjectWithContext(ctx, &codebuild.DeleteProjectInput{
+_, err := conn.DeleteProjectWithContext(ctx, &codebuild.DeleteProjectInput{
 Name: aws.String(d.Id()),
-	})
-	if err != nil {
+})
+if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting CodeBuild project (%s): %s", d.Id(), err)
-	}
-	return diags
+}
+return diags
 }
 
 
 func flattenProjectFileSystemLocations(apiObjects []*codebuild.ProjectFileSystemLocation) []interface{} {
-	if len(apiObjects) == 0 {
+if len(apiObjects) == 0 {
 return nil
-	}
+}
 
-	var tfList []interface{}
+var tfList []interface{}
 
-	for _, apiObject := range apiObjects {
+for _, apiObject := range apiObjects {
 if apiObject == nil {
-	continue
+continue
 }
 
 tfList = append(tfList, flattenProjectFileSystemLocation(apiObject))
-	}
+}
 
-	return tfList
+return tfList
 }
 
 
 func flattenProjectFileSystemLocation(apiObject *codebuild.ProjectFileSystemLocation) map[string]interface{} {
-	if apiObject == nil {
+if apiObject == nil {
 return nil
-	}
+}
 
-	tfMap := map[string]interface{}{}
+tfMap := map[string]interface{}{}
 
-	if v := apiObject.Identifier; v != nil {
+if v := apiObject.Identifier; v != nil {
 tfMap["identifier"] = aws.StringValue(v)
-	}
+}
 
-	if v := apiObject.Location; v != nil {
+if v := apiObject.Location; v != nil {
 tfMap["location"] = aws.StringValue(v)
-	}
+}
 
-	if v := apiObject.MountOptions; v != nil {
+if v := apiObject.MountOptions; v != nil {
 tfMap["mount_options"] = aws.StringValue(v)
-	}
+}
 
-	if v := apiObject.MountPoint; v != nil {
+if v := apiObject.MountPoint; v != nil {
 tfMap["mount_point"] = aws.StringValue(v)
-	}
+}
 
-	if v := apiObject.Type; v != nil {
+if v := apiObject.Type; v != nil {
 tfMap["type"] = aws.StringValue(v)
-	}
+}
 
-	return tfMap
+return tfMap
 }
 
 
 func flattenLogsConfig(logsConfig *codebuild.LogsConfig) []interface{} {
-	if logsConfig == nil {
+if logsConfig == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	if v := logsConfig.CloudWatchLogs; v != nil {
+if v := logsConfig.CloudWatchLogs; v != nil {
 values["cloudwatch_logs"] = flattenCloudWatchLogs(v)
-	}
+}
 
-	if v := logsConfig.S3Logs; v != nil {
+if v := logsConfig.S3Logs; v != nil {
 values["s3_logs"] = flattenS3Logs(v)
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenCloudWatchLogs(cloudWatchLogsConfig *codebuild.CloudWatchLogsConfig) []interface{} {
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	if cloudWatchLogsConfig == nil {
+if cloudWatchLogsConfig == nil {
 values["status"] = codebuild.LogsConfigStatusTypeDisabled
-	} else {
+} else {
 values["status"] = aws.StringValue(cloudWatchLogsConfig.Status)
 values["group_name"] = aws.StringValue(cloudWatchLogsConfig.GroupName)
 values["stream_name"] = aws.StringValue(cloudWatchLogsConfig.StreamName)
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenS3Logs(s3LogsConfig *codebuild.S3LogsConfig) []interface{} {
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	if s3LogsConfig == nil {
+if s3LogsConfig == nil {
 values["status"] = codebuild.LogsConfigStatusTypeDisabled
-	} else {
+} else {
 values["status"] = aws.StringValue(s3LogsConfig.Status)
 values["location"] = aws.StringValue(s3LogsConfig.Location)
 values["encryption_disabled"] = aws.BoolValue(s3LogsConfig.EncryptionDisabled)
 values["bucket_owner_access"] = aws.StringValue(s3LogsConfig.BucketOwnerAccess)
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenProjectSecondaryArtifacts(artifactsList []*codebuild.ProjectArtifacts) *schema.Set {
-	artifactSet := schema.Set{
+artifactSet := schema.Set{
 F: resourceProjectArtifactsHash,
-	}
+}
 
-	for _, artifacts := range artifactsList {
+for _, artifacts := range artifactsList {
 artifactSet.Add(flattenProjectArtifactsData(*artifacts))
-	}
-	return &artifactSet
+}
+return &artifactSet
 }
 
 
 func flattenProjectArtifacts(artifacts *codebuild.ProjectArtifacts) []interface{} {
-	return []interface{}{flattenProjectArtifactsData(*artifacts)}
+return []interface{}{flattenProjectArtifactsData(*artifacts)}
 }
 
 
 func flattenProjectArtifactsData(artifacts codebuild.ProjectArtifacts) map[string]interface{} {
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	values["type"] = aws.StringValue(artifacts.Type)
+values["type"] = aws.StringValue(artifacts.Type)
 
-	if artifacts.ArtifactIdentifier != nil {
+if artifacts.ArtifactIdentifier != nil {
 values["artifact_identifier"] = aws.StringValue(artifacts.ArtifactIdentifier)
-	}
+}
 
-	if artifacts.EncryptionDisabled != nil {
+if artifacts.EncryptionDisabled != nil {
 values["encryption_disabled"] = aws.BoolValue(artifacts.EncryptionDisabled)
-	}
+}
 
-	if artifacts.OverrideArtifactName != nil {
+if artifacts.OverrideArtifactName != nil {
 values["override_artifact_name"] = aws.BoolValue(artifacts.OverrideArtifactName)
-	}
+}
 
-	if artifacts.Location != nil {
+if artifacts.Location != nil {
 values["location"] = aws.StringValue(artifacts.Location)
-	}
+}
 
-	if artifacts.Name != nil {
+if artifacts.Name != nil {
 values["name"] = aws.StringValue(artifacts.Name)
-	}
+}
 
-	if artifacts.NamespaceType != nil {
+if artifacts.NamespaceType != nil {
 values["namespace_type"] = aws.StringValue(artifacts.NamespaceType)
-	}
+}
 
-	if artifacts.Packaging != nil {
+if artifacts.Packaging != nil {
 values["packaging"] = aws.StringValue(artifacts.Packaging)
-	}
+}
 
-	if artifacts.Path != nil {
+if artifacts.Path != nil {
 values["path"] = aws.StringValue(artifacts.Path)
-	}
+}
 
-	if artifacts.BucketOwnerAccess != nil {
+if artifacts.BucketOwnerAccess != nil {
 values["bucket_owner_access"] = aws.StringValue(artifacts.BucketOwnerAccess)
-	}
-	return values
+}
+return values
 }
 
 
 func flattenProjectCache(cache *codebuild.ProjectCache) []interface{} {
-	if cache == nil {
+if cache == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{
+values := map[string]interface{}{
 "location": aws.StringValue(cache.Location),
 "type":     aws.StringValue(cache.Type),
 "modes":    aws.StringValueSlice(cache.Modes),
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenProjectEnvironment(environment *codebuild.ProjectEnvironment) []interface{} {
-	envConfig := map[string]interface{}{}
+envConfig := map[string]interface{}{}
 
-	envConfig["type"] = aws.StringValue(environment.Type)
-	envConfig["compute_type"] = aws.StringValue(environment.ComputeType)
-	envConfig["image"] = aws.StringValue(environment.Image)
-	envConfig["certificate"] = aws.StringValue(environment.Certificate)
-	envConfig["privileged_mode"] = aws.BoolValue(environment.PrivilegedMode)
-	envConfig["image_pull_credentials_type"] = aws.StringValue(environment.ImagePullCredentialsType)
+envConfig["type"] = aws.StringValue(environment.Type)
+envConfig["compute_type"] = aws.StringValue(environment.ComputeType)
+envConfig["image"] = aws.StringValue(environment.Image)
+envConfig["certificate"] = aws.StringValue(environment.Certificate)
+envConfig["privileged_mode"] = aws.BoolValue(environment.PrivilegedMode)
+envConfig["image_pull_credentials_type"] = aws.StringValue(environment.ImagePullCredentialsType)
 
-	envConfig["registry_credential"] = flattenRegistryCredential(environment.RegistryCredential)
+envConfig["registry_credential"] = flattenRegistryCredential(environment.RegistryCredential)
 
-	if environment.EnvironmentVariables != nil {
+if environment.EnvironmentVariables != nil {
 envConfig["environment_variable"] = environmentVariablesToMap(environment.EnvironmentVariables)
-	}
+}
 
-	return []interface{}{envConfig}
+return []interface{}{envConfig}
 }
 
 
 func flattenRegistryCredential(registryCredential *codebuild.RegistryCredential) []interface{} {
-	if registryCredential == nil {
+if registryCredential == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{
+values := map[string]interface{}{
 "credential": aws.StringValue(registryCredential.Credential),
 "credential_provider": aws.StringValue(registryCredential.CredentialProvider),
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenProjectSecondarySources(sourceList []*codebuild.ProjectSource) []interface{} {
-	l := make([]interface{}, 0)
+l := make([]interface{}, 0)
 
-	for _, source := range sourceList {
+for _, source := range sourceList {
 l = append(l, flattenProjectSourceData(source))
-	}
+}
 
-	return l
+return l
 }
 
 
 func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
-	l := make([]interface{}, 1)
+l := make([]interface{}, 1)
 
-	l[0] = flattenProjectSourceData(source)
+l[0] = flattenProjectSourceData(source)
 
-	return l
+return l
 }
 
 
 func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
-	m := map[string]interface{}{
+m := map[string]interface{}{
 "buildspec":  aws.StringValue(source.Buildspec),
 "location":   aws.StringValue(source.Location),
 "git_clone_depth":     int(aws.Int64Value(source.GitCloneDepth)),
 "insecure_ssl":        aws.BoolValue(source.InsecureSsl),
 "report_build_status": aws.BoolValue(source.ReportBuildStatus),
 "type": aws.StringValue(source.Type),
-	}
+}
 
-	m["git_submodules_config"] = flattenProjectGitSubmodulesConfig(source.GitSubmodulesConfig)
+m["git_submodules_config"] = flattenProjectGitSubmodulesConfig(source.GitSubmodulesConfig)
 
-	m["build_status_config"] = flattenProjectBuildStatusConfig(source.BuildStatusConfig)
+m["build_status_config"] = flattenProjectBuildStatusConfig(source.BuildStatusConfig)
 
-	if source.SourceIdentifier != nil {
+if source.SourceIdentifier != nil {
 m["source_identifier"] = aws.StringValue(source.SourceIdentifier)
-	}
+}
 
-	return m
+return m
 }
 
 
 func flattenProjectSecondarySourceVersions(sourceVersions []*codebuild.ProjectSourceVersion) []interface{} {
-	l := make([]interface{}, 0)
+l := make([]interface{}, 0)
 
-	for _, sourceVersion := range sourceVersions {
+for _, sourceVersion := range sourceVersions {
 l = append(l, flattenProjectSourceVersionsData(sourceVersion))
-	}
-	return l
+}
+return l
 }
 
 
 func flattenProjectSourceVersionsData(sourceVersion *codebuild.ProjectSourceVersion) map[string]interface{} {
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	if sourceVersion.SourceIdentifier != nil {
+if sourceVersion.SourceIdentifier != nil {
 values["source_identifier"] = aws.StringValue(sourceVersion.SourceIdentifier)
-	}
+}
 
-	if sourceVersion.SourceVersion != nil {
+if sourceVersion.SourceVersion != nil {
 values["source_version"] = aws.StringValue(sourceVersion.SourceVersion)
-	}
+}
 
-	return values
+return values
 }
 
 
 func flattenProjectGitSubmodulesConfig(config *codebuild.GitSubmodulesConfig) []interface{} {
-	if config == nil {
+if config == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{
+values := map[string]interface{}{
 "fetch_submodules": aws.BoolValue(config.FetchSubmodules),
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenProjectBuildStatusConfig(config *codebuild.BuildStatusConfig) []interface{} {
-	if config == nil {
+if config == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{
+values := map[string]interface{}{
 "context":    aws.StringValue(config.Context),
 "target_url": aws.StringValue(config.TargetUrl),
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenVPCConfig(vpcConfig *codebuild.VpcConfig) []interface{} {
-	if vpcConfig != nil {
+if vpcConfig != nil {
 values := map[string]interface{}{}
 
 values["vpc_id"] = aws.StringValue(vpcConfig.VpcId)
@@ -1937,147 +1937,147 @@ values["subnets"] = flex.FlattenStringSet(vpcConfig.Subnets)
 values["security_group_ids"] = flex.FlattenStringSet(vpcConfig.SecurityGroupIds)
 
 return []interface{}{values}
-	}
-	return nil
+}
+return nil
 }
 
 
 func flattenBuildBatchConfig(buildBatchConfig *codebuild.ProjectBuildBatchConfig) []interface{} {
-	if buildBatchConfig == nil {
+if buildBatchConfig == nil {
 return nil
-	}
+}
 
-	values := map[string]interface{}{}
+values := map[string]interface{}{}
 
-	values["service_role"] = aws.StringValue(buildBatchConfig.ServiceRole)
+values["service_role"] = aws.StringValue(buildBatchConfig.ServiceRole)
 
-	if buildBatchConfig.CombineArtifacts != nil {
+if buildBatchConfig.CombineArtifacts != nil {
 values["combine_artifacts"] = aws.BoolValue(buildBatchConfig.CombineArtifacts)
-	}
+}
 
-	if buildBatchConfig.Restrictions != nil {
+if buildBatchConfig.Restrictions != nil {
 values["restrictions"] = flattenBuildBatchRestrictionsConfig(buildBatchConfig.Restrictions)
-	}
+}
 
-	if buildBatchConfig.TimeoutInMins != nil {
+if buildBatchConfig.TimeoutInMins != nil {
 values["timeout_in_mins"] = aws.Int64Value(buildBatchConfig.TimeoutInMins)
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func flattenBuildBatchRestrictionsConfig(restrictions *codebuild.BatchRestrictions) []interface{} {
-	if restrictions == nil {
+if restrictions == nil {
 return []interface{}{}
-	}
+}
 
-	values := map[string]interface{}{
+values := map[string]interface{}{
 "compute_types_allowed":  aws.StringValueSlice(restrictions.ComputeTypesAllowed),
 "maximum_builds_allowed": aws.Int64Value(restrictions.MaximumBuildsAllowed),
-	}
+}
 
-	return []interface{}{values}
+return []interface{}{values}
 }
 
 
 func resourceProjectArtifactsHash(v interface{}) int {
-	var buf bytes.Buffer
-	m := v.(map[string]interface{})
+var buf bytes.Buffer
+m := v.(map[string]interface{})
 
-	if v, ok := m["artifact_identifier"]; ok {
+if v, ok := m["artifact_identifier"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["encryption_disabled"]; ok {
+if v, ok := m["encryption_disabled"]; ok {
 buf.WriteString(fmt.Sprintf("%t-", v.(bool)))
-	}
+}
 
-	if v, ok := m["location"]; ok {
+if v, ok := m["location"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["namespace_type"]; ok {
+if v, ok := m["namespace_type"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["override_artifact_name"]; ok {
+if v, ok := m["override_artifact_name"]; ok {
 buf.WriteString(fmt.Sprintf("%t-", v.(bool)))
-	}
+}
 
-	if v, ok := m["packaging"]; ok {
+if v, ok := m["packaging"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["path"]; ok {
+if v, ok := m["path"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["type"]; ok {
+if v, ok := m["type"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	if v, ok := m["bucket_owner_access"]; ok {
+if v, ok := m["bucket_owner_access"]; ok {
 buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	}
+}
 
-	return create.StringHashcode(buf.String())
+return create.StringHashcode(buf.String())
 }
 
 
 func environmentVariablesToMap(environmentVariables []*codebuild.EnvironmentVariable) []interface{} {
-	envVariables := []interface{}{}
-	if len(environmentVariables) > 0 {
+envVariables := []interface{}{}
+if len(environmentVariables) > 0 {
 for _, env := range environmentVariables {
-	item := map[string]interface{}{}
-	item["name"] = aws.StringValue(env.Name)
-	item["value"] = aws.StringValue(env.Value)
-	if env.Type != nil {
+item := map[string]interface{}{}
+item["name"] = aws.StringValue(env.Name)
+item["value"] = aws.StringValue(env.Value)
+if env.Type != nil {
 item["type"] = aws.StringValue(env.Type)
-	}
-	envVariables = append(envVariables, item)
 }
-	}
+envVariables = append(envVariables, item)
+}
+}
 
-	return envVariables
+return envVariables
 }
 
 
 func ValidProjectName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9A-Za-z]`).MatchString(value) {
+value := v.(string)
+if !regexache.MustCompile(`^[0-9A-Za-z]`).MatchString(value) {
 errors = append(errors, fmt.Errorf(
-	"first character of %q must be a letter or number", value))
-	}
+"first character of %q must be a letter or number", value))
+}
 
-	if !regexache.MustCompile(`^[0-9A-Za-z_-]+$`).MatchString(value) {
+if !regexache.MustCompile(`^[0-9A-Za-z_-]+$`).MatchString(value) {
 errors = append(errors, fmt.Errorf(
-	"only alphanumeric characters, hyphens and underscores allowed in %q", value))
-	}
+"only alphanumeric characters, hyphens and underscores allowed in %q", value))
+}
 
-	if len(value) > 255 {
+if len(value) > 255 {
 errors = append(errors, fmt.Errorf(
-	"%q cannot be greater than 255 characters", value))
-	}
+"%q cannot be greater than 255 characters", value))
+}
 
-	return
+return
 }
 
 
 func validProjectS3LogsLocation(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
+value := v.(string)
 
-	if _, errs := verify.ValidARN(v, k); len(errs) == 0 {
+if _, errs := verify.ValidARN(v, k); len(errs) == 0 {
 errors = append(errors, errs...)
 return
-	}
+}
 
-	simplePattern := `^[0-9a-z][^/]*\/(.+)$`
-	if !regexache.MustCompile(simplePattern).MatchString(value) {
+simplePattern := `^[0-9a-z][^/]*\/(.+)$`
+if !regexache.MustCompile(simplePattern).MatchString(value) {
 errors = append(errors, fmt.Errorf(
-	"%q does not match pattern (%q): %q",
-	k, simplePattern, value))
-	}
+"%q does not match pattern (%q): %q",
+k, simplePattern, value))
+}
 
-	return
+return
 }

@@ -142,7 +142,7 @@ func resourceSizeConstraintSetDelete(ctx context.Context, d *schema.ResourceData
 func updateSizeConstraintSetResource(ctx context.Context, conn *waf.WAF, id string, oldS, newS []interface{}) error {
 	input := &waf.UpdateSizeConstraintSetInput{
 		SizeConstraintSetId: aws.String(id),
-		Updates:             DiffSizeConstraints(oldS, newS),
+		Updates:DiffSizeConstraints(oldS, newS),
 	}
 
 	wr := NewRetryer(conn)

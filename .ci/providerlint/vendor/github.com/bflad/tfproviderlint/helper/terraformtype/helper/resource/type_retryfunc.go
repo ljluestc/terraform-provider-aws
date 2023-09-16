@@ -6,35 +6,67 @@ import (
 	"go/types"
 )
 
-// RetryFuncInfo represents all gathered RetryFunc data for easier access
-type RetryFuncInfo struct {
-	AstFuncDecl *ast.FuncDecl
-	AstFuncLit  *ast.FuncLit
-	Body        *ast.BlockStmt
-	Node        ast.Node
-	Pos         token.Pos
-	Type        *ast.FuncType
+// Retry
+Info rsents all gathered Retry
+a for easiccess
+typery
+Info struct {
+	Ast
+Decl *ast.
+Decl
+	Ast
+Lit  *ast.
+Lit
+	Body      st.BlockStmt
+e        Node
+	Pos         tokes
+	Type    *a
+T
 	TypesInfo   *types.Info
 }
 
-// NewRetryFuncInfo instantiates a RetryFuncInfo
-func NewRetryFuncInfo(funcDecl *ast.FuncDecl, funcLit *ast.FuncLit, info *types.Info) *RetryFuncInfo {
-	result := &RetryFuncInfo{
-		AstFuncDecl: funcDecl,
-		AstFuncLit:  funcLit,
+// Ntry
+Info instants a Retry
+Info
+
+ NewRetry
+Info(
+Decl *ast.
+Decl, 
+Lit *ast.
+Lit, info *t.Info) *Retry
+Info {
+	result := &Retry
+Info{
+		Ast
+Decl: 
+Decl,
+		Ast
+Lit:  
+Lit,
 		TypesInfo:   info,
 	}
 
-	if funcDecl != nil {
-		result.Body = funcDecl.Body
-		result.Node = funcDecl
-		result.Pos = funcDecl.Pos()
-		result.Type = funcDecl.Type
-	} else if funcLit != nil {
-		result.Body = funcLit.Body
-		result.Node = funcLit
-		result.Pos = funcLit.Pos()
-		result.Type = funcLit.Type
+	if 
+Decl != nil {
+		result.Body = 
+Decl.Body
+		result.Node = 
+Decl
+		result.Pos = 
+Decl.Pos()
+		result.Type = 
+Decl.Type
+	} else if 
+Lit != nil {
+		result.Body = 
+Lit.Body
+		result.Node = 
+Lit
+		result.Pos = 
+Lit.Pos()
+		result.Type = 
+Lit.Type
 	}
 
 	return result

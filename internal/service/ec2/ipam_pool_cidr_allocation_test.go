@@ -22,8 +22,7 @@ import (
 )
 
 
-func TestAccIPAMPoolCIDRAllocation_ipv4Basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var allocation ec2.IpamPoolAllocation
 	resourceName := "aws_vpc_ipam_pool_cidr_allocation.test"
 	cidr := "172.2.0.0/28"
@@ -31,24 +30,22 @@ func TestAccIPAMPoolCIDRAllocation_ipv4Basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolAllocationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRAllocationConfig_ipv4(cidr),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRAllocationExists(ctx, resourceName, &allocation),
-	resource.TestCheckResourceAttr(resourceName, "cidr", cidr),
-	resource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+_ipam-pool(-[0-9a-f]+)$`)),
+funcource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+_ipam-pool(-[0-9a-f]+)$`)),
 	resource.TestMatchResourceAttr(resourceName, "ipam_pool_allocation_id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+$`)),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -59,17 +56,15 @@ ImportStateVerify: true,
 func TestAccIPAMPoolCIDRAllocation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var allocation ec2.IpamPoolAllocation
-	resourceName := "aws_vpc_ipam_pool_cidr_allocation.test"
-	cidr := "172.2.0.0/28"
+funcr := "172.2.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolAllocationDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
+func
 Config: testAccIPAMPoolCIDRAllocationConfig_ipv4(cidr),
 Check: resource.ComposeTestCheck
 func(
@@ -77,8 +72,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMPoolCIDRAllocation(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -89,26 +83,23 @@ func TestAccIPAMPoolCIDRAllocation_ipv4BasicNetmask(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool_cidr_allocation.test"
 	netmask := "28"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolAllocationDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRAllocationConfig_ipv4Netmask(netmask),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRAllocationExists(ctx, resourceName, &allocation),
 	testAccCheckIPAMCIDRPrefix(&allocation, netmask),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"netmask_length"},
+ResourceName:ourceName,
+ImportState:ue,
+funcrtStateVerifyIgnore: []string{"netmask_length"},
 	},
 },
 	})
@@ -124,19 +115,17 @@ func TestAccIPAMPoolCIDRAllocation_ipv4DisallowedCIDR(t *testing.T) {
 	expectedCidr := "172.2.0.16/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:l,
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRAllocationConfig_ipv4Disallowed(netmaskLength, disallowedCidr),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRAllocationExists(ctx, resourceName, &allocation),
-	resource.TestCheckResourceAttr(resourceName, "cidr", expectedCidr),
-	resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.#", "1"),
+funcource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.0", disallowedCidr),
 	resource.TestCheckResourceAttrSet(resourceName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
@@ -144,8 +133,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccIPAMPoolCIDRAllocation_multiple(t *testing.T) {
@@ -160,8 +148,7 @@ func TestAccIPAMPoolCIDRAllocation_multiple(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolAllocationDestroy(ctx),
+funckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRAllocationConfig_multiple(cidr1, cidr2),
@@ -171,8 +158,7 @@ func(
 	testAccCheckIPAMPoolCIDRAllocationExists(ctx, resourceName2, &allocation2),
 	resource.TestCheckResourceAttr(resourceName, "cidr", cidr1),
 	resource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+_ipam-pool(-[0-9a-f]+)$`)),
-	resource.TestMatchResourceAttr(resourceName, "ipam_pool_allocation_id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+$`)),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 	resource.TestCheckResourceAttr(resourceName2, "cidr", cidr2),
 	resource.TestMatchResourceAttr(resourceName2, "id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+_ipam-pool(-[0-9a-f]+)$`)),
 	resource.TestMatchResourceAttr(resourceName2, "ipam_pool_allocation_id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+$`)),
@@ -180,13 +166,12 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcrtState:
 ImportStateVerify: true,
 	},
 	{
-ResourceName:      resourceName2,
-ImportState:       true,
+ResourceName:ame2,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -209,8 +194,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-CheckDestroy:    testAccCheckIPAMPoolAllocationDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRAllocationConfig_differentRegion(cidr),
 Check: resource.ComposeTestCheck
@@ -219,23 +203,20 @@ func(
 func(acctest.AlternateRegion(), &providers)),
 	resource.TestCheckResourceAttr(resourceName, "cidr", cidr),
 	resource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+_ipam-pool(-[0-9a-f]+)$`)),
-	resource.TestMatchResourceAttr(resourceName, "ipam_pool_allocation_id", regexache.MustCompile(`^ipam-pool-alloc-[0-9a-f]+$`)),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
+func
 func testAccCheckIPAMCIDRPrefix(allocation *ec2.IpamPoolAllocation, expected string) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 if strings.Split(aws.StringValue(allocation.Cidr), "/")[1] != expected {
 	return fmt.Errorf("Bad cidr prefix: %s", aws.StringValue(allocation.Cidr))
@@ -252,13 +233,10 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No IPAM Pool CIDR Allocation ID is set")
-}
-
+func
 allocationID, poolID, err := tfec2.IPAMPoolCIDRAllocationParseResourceID(rs.Primary.ID)
 
 if err != nil {
@@ -268,13 +246,10 @@ if err != nil {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 output, err := tfec2.FindIPAMPoolAllocationByTwoPartKey(ctx, conn, allocationID, poolID)
+funcrr != nil {
+func
 
-if err != nil {
-	return err
-}
-
-*v = *output
-
+func
 return nil
 	}
 }
@@ -305,15 +280,11 @@ conn := providerF().Meta().(*conns.AWSClient).EC2Conn(ctx)
 output, err := tfec2.FindIPAMPoolAllocationByTwoPartKey(ctx, conn, allocationID, poolID)
 
 if err != nil {
-	return err
-}
-
-*v = *output
-
-return nil
+func
+func *output
+funcrn nil
 	}
-}
-
+func
 
 func testAccCheckIPAMPoolAllocationDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -344,17 +315,14 @@ return err
 
 	return fmt.Errorf("IPAM Pool CIDR Allocation still exists: %s", rs.Primary.ID)
 }
+funcrn nil
+func
 
-return nil
-	}
-}
-
-const testAccIPAMPoolCIDRAllocationConfig_base = `
-data "aws_region" "current" {}
+func "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 
@@ -378,7 +346,7 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
   cidr= %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
 }
 `, cidr))
@@ -388,11 +356,11 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
 func testAccIPAMPoolCIDRAllocationConfig_ipv4Netmask(netmask string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.test.id
+  ipam_pool_idws_vpc_ipam_pool.test.id
   netmask_length = %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
 }
 `, netmask))
@@ -402,15 +370,14 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
 func testAccIPAMPoolCIDRAllocationConfig_ipv4Disallowed(netmaskLength, disallowedCidr string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.test.id
-  netmask_length = %[1]q
-
+  ipam_pool_idws_vpc_ipam_pool.test.id
+func
   disallowed_cidrs = [
-    %[2]q
+2]q
   ]
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
 }
 `, netmaskLength, disallowedCidr))
@@ -418,13 +385,12 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
 
 
 func testAccIPAMPoolCIDRAllocationConfig_multiple(cidr1, cidr2 string) string {
-	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
-resource "aws_vpc_ipam_pool_cidr_allocation" "test1" {
+funcurce "aws_vpc_ipam_pool_cidr_allocation" "test1" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
   cidr= %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
 }
 
@@ -433,11 +399,10 @@ resource "aws_vpc_ipam_pool_cidr" "test2" {
   cidr= "10.1.0.0/24"
 }
 
-resource "aws_vpc_ipam_pool_cidr_allocation" "test2" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
+funcam_pool_id = aws_vpc_ipam_pool.test.id
   cidr= %[2]q
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test2
+s_vpc_ipam_pool_cidr.test2
   ]
 }
 `, cidr1, cidr2))
@@ -449,11 +414,10 @@ func testAccIPAMPoolCIDRAllocationConfig_differentRegion(cidr string) string {
 fmt.Sprintf(`
 resource "aws_vpc_ipam" "test" {
   operating_regions {
-    region_name = %[2]q
+gion_name = %[2]q
   }
   operating_regions {
-    region_name = %[3]q
-  }
+func
 }
 
 resource "aws_vpc_ipam_pool" "test" {
@@ -468,13 +432,14 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 }
 
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  provider     = "awsalternate"
+  providerrnate"
   ipam_pool_id = aws_vpc_ipam_pool.test.id
   cidr= %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
 }
 `, cidr, acctest.Region(), acctest.AlternateRegion()))
 }
+func

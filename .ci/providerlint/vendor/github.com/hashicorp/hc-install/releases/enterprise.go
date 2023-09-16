@@ -13,7 +13,8 @@ type EnterpriseOptions struct {
 	Meta string
 }
 
-func enterpriseVersionMetadata(eo *EnterpriseOptions) string {
+
+ enterpriseVersionMetadata(eo *EnterpriseOptions) string {
 	if eo == nil {
 		return ""
 	}
@@ -25,7 +26,8 @@ func enterpriseVersionMetadata(eo *EnterpriseOptions) string {
 	return metadata
 }
 
-func validateEnterpriseOptions(eo *EnterpriseOptions) error {
+
+ validateEnterpriseOptions(eo *EnterpriseOptions) error {
 	if eo == nil {
 		return nil
 	}

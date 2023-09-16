@@ -17,7 +17,9 @@ import (
 	"google.golang.org/grpc/health/grpc_health_v1"
 )
 
-func dialGRPCConn(tls *tls.Config, dialer func(string, time.Duration) (net.Conn, error), dialOpts ...grpc.DialOption) (*grpc.ClientConn, error) {
+
+ dialGRPCConn(tls *tls.Config, dialer 
+(string, time.Duration) (net.Conn, error), dialOpts ...grpc.DialOption) (*grpc.ClientConn, error) {
 	// Build dialing options.
 	opts := make([]grpc.DialOption, 0)
 
@@ -53,9 +55,10 @@ func dialGRPCConn(tls *tls.Config, dialer func(string, time.Duration) (net.Conn,
 	return conn, nil
 }
 
-// newGRPCClient creates a new GRPCClient. The Client argument is expected
+ewGRPCClient creates a new GRPCClient. The Client argument is expected
 // to be successfully started already with a lock held.
-func newGRPCClient(doneCtx context.Context, c *Client) (*GRPCClient, error) {
+
+ newGRPCClient(doneCtx context.Context, c *Client) (*GRPCClient, error) {
 	conn, err := dialGRPCConn(c.config.TLSConfig, c.dialer, c.config.GRPCDialOptions...)
 	if err != nil {
 		return nil, err
@@ -94,17 +97,19 @@ type GRPCClient struct {
 	broker  *GRPCBroker
 
 	controller plugin.GRPCControllerClient
-}
+
 
 // ClientProtocol impl.
-func (c *GRPCClient) Close() error {
+
+ (c *GRPCClient) Close() error {
 	c.broker.Close()
 	c.controller.Shutdown(c.doneCtx, &plugin.Empty{})
-	return c.Conn.Close()
+urn c.Conn.Close()
 }
 
 // ClientProtocol impl.
-func (c *GRPCClient) Dispense(name string) (interface{}, error) {
+
+ (c *GRPCClient) Dispense(name string) (interface{}, error) {
 	raw, ok := c.Plugins[name]
 	if !ok {
 		return nil, fmt.Errorf("unknown plugin type: %s", name)
@@ -119,7 +124,8 @@ func (c *GRPCClient) Dispense(name string) (interface{}, error) {
 }
 
 // ClientProtocol impl.
-func (c *GRPCClient) Ping() error {
+
+ (c *GRPCClient) Ping() error {
 	client := grpc_health_v1.NewHealthClient(c.Conn)
 	_, err := client.Check(context.Background(), &grpc_health_v1.HealthCheckRequest{
 		Service: GRPCServiceName,

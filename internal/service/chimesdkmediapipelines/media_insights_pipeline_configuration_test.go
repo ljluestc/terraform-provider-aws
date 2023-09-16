@@ -37,9 +37,9 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *te
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName),
@@ -55,7 +55,7 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *te
 				),
 			},
 			{
-				Config:             testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName),
+				Config:testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName),
 				PlanOnly:           true,
 				ExpectNonEmptyPlan: false,
 			},
@@ -82,9 +82,9 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_disappears(
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName),
@@ -114,9 +114,9 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_updateAllPr
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMediaInsightsPipelineConfigurationConfig_transcribeCallAnalyticsProcessor(rName, roleName1, streamName1),
@@ -211,9 +211,9 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_tags(t *tes
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, chimesdkmediapipelines.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMediaInsightsPipelineConfigurationConfig_tags1(rName, roleName, streamName, "key1", "value1"),
@@ -345,7 +345,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -361,7 +361,7 @@ func testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, stre
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeCallAnalyticsProcessor"
@@ -385,7 +385,7 @@ func testAccMediaInsightsPipelineConfigurationConfig_transcribeCallAnalyticsProc
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeCallAnalyticsProcessor"
@@ -394,18 +394,18 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
         "category_1",
         "category_2"
       ]
-      content_redaction_type               = "PII"
+      content_redaction_type  = "PII"
       enable_partial_results_stabilization = true
-      filter_partial_results               = true
-      language_code                        = "en-US"
-      language_model_name                  = "MyLanguageModel"
+      filter_partial_results  = true
+      language_code           = "en-US"
+      language_model_name     = "MyLanguageModel"
       partial_results_stability            = "high"
-      pii_entity_types                     = "ADDRESS,BANK_ACCOUNT_NUMBER"
+      pii_entity_types        = "ADDRESS,BANK_ACCOUNT_NUMBER"
       post_call_analytics_settings {
         content_redaction_output     = "redacted"
         data_access_role_arn         = aws_iam_role.test.arn
         output_encryption_kms_key_id = "MyKmsKeyId "
-        output_location              = "s3://MyBucket"
+        output_location = "s3://MyBucket"
       }
       vocabulary_filter_method = "mask"
       vocabulary_filter_name   = "MyVocabularyFilter"
@@ -457,22 +457,22 @@ func testAccMediaInsightsPipelineConfigurationConfig_transcribeProcessor(rName, 
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeProcessor"
     amazon_transcribe_processor_configuration {
       content_identification_type          = "PII"
       enable_partial_results_stabilization = true
-      filter_partial_results               = true
-      language_code                        = "en-US"
-      language_model_name                  = "MyLanguageModel"
+      filter_partial_results  = true
+      language_code           = "en-US"
+      language_model_name     = "MyLanguageModel"
       partial_results_stability            = "high"
-      pii_entity_types                     = "ADDRESS,BANK_ACCOUNT_NUMBER"
-      show_speaker_label                   = true
-      vocabulary_filter_method             = "mask"
-      vocabulary_filter_name               = "MyVocabularyFilter"
-      vocabulary_name                      = "MyVocabulary"
+      pii_entity_types        = "ADDRESS,BANK_ACCOUNT_NUMBER"
+      show_speaker_label      = true
+      vocabulary_filter_method= "mask"
+      vocabulary_filter_name  = "MyVocabularyFilter"
+      vocabulary_name         = "MyVocabulary"
     }
   }
 
@@ -493,7 +493,7 @@ func testAccMediaInsightsPipelineConfigurationConfig_s3RecordingSink(rName, role
 data "aws_partition" "current" {}
 
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "S3RecordingSink"
@@ -516,7 +516,7 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "VoiceAnalyticsProcessor"
@@ -562,7 +562,7 @@ func testAccMediaInsightsPipelineConfigurationConfig_tags1(rName, roleName, stre
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeCallAnalyticsProcessor"
@@ -590,7 +590,7 @@ func testAccMediaInsightsPipelineConfigurationConfig_tags2(rName, roleName, stre
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = %[1]q
+  name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeCallAnalyticsProcessor"

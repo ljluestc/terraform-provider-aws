@@ -127,7 +127,7 @@ func resourceGatewayAssociationCreate(ctx context.Context, d *schema.ResourceDat
 		input := &directconnect.AcceptDirectConnectGatewayAssociationProposalInput{
 			AssociatedGatewayOwnerAccount: aws.String(associatedGatewayOwnerAccount),
 			DirectConnectGatewayId:        aws.String(directConnectGatewayID),
-			ProposalId:                    aws.String(proposalID),
+			ProposalId:       aws.String(proposalID),
 		}
 
 		if v, ok := d.GetOk("allowed_prefixes"); ok && v.(*schema.Set).Len() > 0 {
@@ -148,7 +148,7 @@ func resourceGatewayAssociationCreate(ctx context.Context, d *schema.ResourceDat
 		associatedGatewayID := d.Get("associated_gateway_id").(string)
 		input := &directconnect.CreateDirectConnectGatewayAssociationInput{
 			DirectConnectGatewayId: aws.String(directConnectGatewayID),
-			GatewayId:              aws.String(associatedGatewayID),
+			GatewayId: aws.String(associatedGatewayID),
 		}
 
 		if v, ok := d.GetOk("allowed_prefixes"); ok && v.(*schema.Set).Len() > 0 {

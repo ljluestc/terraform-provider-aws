@@ -37,9 +37,9 @@ func testResponsePlan_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_basic(rName, rTitle, rImpact),
@@ -54,7 +54,7 @@ func testResponsePlan_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -90,9 +90,9 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_basic(iniName, iniTitle, iniImpact),
@@ -107,7 +107,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -124,7 +124,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -141,7 +141,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -181,9 +181,9 @@ func testResponsePlan_updateTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: acctest.ConfigCompose(
@@ -200,7 +200,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -219,7 +219,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -240,7 +240,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -267,9 +267,9 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_oneTag(rName, rTitle, rKey1, ""),
@@ -281,7 +281,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -296,7 +296,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -310,7 +310,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -334,9 +334,9 @@ func testResponsePlan_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_basic(rName, rTitle, impact),
@@ -379,9 +379,9 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_incidentTemplateOptionalFields(rName, rTitle, rDedupeStringIni, rSummaryIni, rTagKeyIni, rTagValIni, snsTopic1, snsTopic2),
@@ -397,7 +397,7 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -415,7 +415,7 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -440,9 +440,9 @@ func testResponsePlan_displayName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_displayName(rName, oldDisplayName),
@@ -453,7 +453,7 @@ func testResponsePlan_displayName(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -466,7 +466,7 @@ func testResponsePlan_displayName(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -491,9 +491,9 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_chatChannel(rName, chatChannelTopic1),
@@ -505,7 +505,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -519,7 +519,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -534,7 +534,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -547,7 +547,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -576,9 +576,9 @@ func testResponsePlan_engagement(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_engagement(rName, contactArn1),
@@ -590,7 +590,7 @@ func testResponsePlan_engagement(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -604,7 +604,7 @@ func testResponsePlan_engagement(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -619,7 +619,7 @@ func testResponsePlan_engagement(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -632,7 +632,7 @@ func testResponsePlan_engagement(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -655,9 +655,9 @@ func testResponsePlan_action(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponsePlanConfig_action1(rName),
@@ -716,7 +716,7 @@ func testResponsePlan_action(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -772,7 +772,7 @@ func testResponsePlan_action(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 			},
@@ -804,9 +804,9 @@ func testResponsePlan_action(t *testing.T) {
 //			acctest.PreCheck(ctx, t)
 //			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 //		},
-//		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+//		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 //		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-//		CheckDestroy:             testAccCheckResponsePlanDestroy(ctx),
+//		CheckDestroy:testAccCheckResponsePlanDestroy(ctx),
 //		Steps: []resource.TestStep{
 //			{
 //				Config: testAccResponsePlanConfig_pagerdutyIntegration(
@@ -838,7 +838,7 @@ func testResponsePlan_action(t *testing.T) {
 //			},
 //			{
 //				ResourceName:            resourceName,
-//				ImportState:             true,
+//				ImportState:true,
 //				ImportStateVerify:       true,
 //				ImportStateVerifyIgnore: []string{"replication_set_arn"},
 //			},

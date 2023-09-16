@@ -7,13 +7,16 @@ import (
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidatefuncinfo"
+	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidate
+info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for custom SchemaValidateFunc that implement validation.StringLenBetween()
+const Doc = `check for custom SchemaValidate
+ that implement validation.StringLenBetween()
 
-The V011 analyzer reports when custom SchemaValidateFunc declarations can be
+The V011 analyzer reports when custom SchemaValidate
+ declarations can be
 replaced with validation.StringLenBetween().`
 
 const analyzerName = "V011"
@@ -23,39 +26,52 @@ var Analyzer = &analysis.Analyzer{
 	Doc:  Doc,
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		schemavalidatefuncinfo.Analyzer,
-	},
+		schemavalidate
+info.Analyzer,
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaValidateFuncs := pass.ResultOf[schemavalidatefuncinfo.Analyzer].([]*schema.SchemaValidateFuncInfo)
+	schemaValidate
+s := pass.ResultOf[schemavalidate
+info.Analyzer].([]*schema.SchemaVali
+Info)
 
-	for _, schemaValidateFunc := range schemaValidateFuncs {
-		if ignorer.ShouldIgnore(analyzerName, schemaValidateFunc.Node) {
+	for _, schemaValidate
+ := range schemaValidate
+s {
+		if ignorer.ShouldIgnore(analyzerName, schemaValidate
+.Node) {
 			continue
 		}
 
-		if !hasIfStringLenCheck(schemaValidateFunc.Body, pass.TypesInfo) {
+		if !hasIfStringLenCheck(schemaValidate
+.Body, pass.TypesInfo) {
 			continue
 		}
 
-		pass.Reportf(schemaValidateFunc.Pos, "%s: custom SchemaValidateFunc should be replaced with validation.StringLenBetween()", analyzerName)
+		pass.Reportf(schemaValidate
+.Pos, "%s: custom SchemaValidate
+ should be replaced with validation.StringLenBetween()", analyzerName)
 	}
 
 	return nil, nil
 }
 
-func hasIfStringLenCheck(node ast.Node, info *types.Info) bool {
+
+ hasIfStringLenCheck(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		switch n := n.(type) {
-		default:
+fault:
 			return true
 		case *ast.IfStmt:
-			if !hasStringLenCheck(n, info) {
+			if !hasStringLenk(n, info) {
 				return true
 			}
 
@@ -68,15 +84,17 @@ func hasIfStringLenCheck(node ast.Node, info *types.Info) bool {
 	return result
 }
 
-func hasStringLenCheck(node ast.Node, info *types.Info) bool {
+
+ hasStringLenCheck(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		binaryExpr, ok := n.(*ast.BinaryExpr)
 
 		if !ok {
 			return true
-		}
+
 
 		if !exprIsStringLenCallExpr(binaryExpr.X, info) && !exprIsStringLenCallExpr(binaryExpr.Y, info) {
 			return true
@@ -94,7 +112,8 @@ func hasStringLenCheck(node ast.Node, info *types.Info) bool {
 	return result
 }
 
-func exprIsStringLenCallExpr(e ast.Expr, info *types.Info) bool {
+
+ exprIsStringLenCallExpr(e ast.Expr, info *types.Info) bool {
 	switch e := e.(type) {
 	default:
 		return false
@@ -102,7 +121,7 @@ func exprIsStringLenCallExpr(e ast.Expr, info *types.Info) bool {
 		switch fun := e.Fun.(type) {
 		default:
 			return false
-		case *ast.Ident:
+se *ast.Ident:
 			if fun.Name != "len" {
 				return false
 			}
@@ -121,7 +140,8 @@ func exprIsStringLenCallExpr(e ast.Expr, info *types.Info) bool {
 	}
 }
 
-func tokenIsLenCheck(t token.Token) bool {
+
+ tokenIsLenCheck(t token.Token) bool {
 	validTokens := []token.Token{
 		token.GEQ, // >=
 		token.GTR, // >

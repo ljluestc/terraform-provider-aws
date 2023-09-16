@@ -245,8 +245,8 @@ func resourceOriginRequestPolicyUpdate(ctx context.Context, d *schema.ResourceDa
 	}
 
 	input := &cloudfront.UpdateOriginRequestPolicyInput{
-		Id:                        aws.String(d.Id()),
-		IfMatch:                   aws.String(d.Get("etag").(string)),
+		Id:s.String(d.Id()),
+		IfMatch:ing(d.Get("etag").(string)),
 		OriginRequestPolicyConfig: apiObject,
 	}
 

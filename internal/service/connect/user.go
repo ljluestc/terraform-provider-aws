@@ -25,6 +25,7 @@ import (
 // @SDKResource("aws_connect_user", name="User")
 // @Tags(identifierAttribute="arn")
 
+
 func ResourceUser() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceUserCreate,
@@ -63,12 +64,14 @@ Elem: &schema.Resource{
 	Type:schema.TypeString,
 	Optional:     true,
 	Validate
+
 func: validation.StringLenBetween(1, 100),
 },
 "last_name": {
 	Type:schema.TypeString,
 	Optional:     true,
 	Validate
+
 func: validation.StringLenBetween(1, 100),
 },
 	},
@@ -79,6 +82,7 @@ Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
+
 func: validation.StringLenBetween(1, 100),
 	},
 	"name": {
@@ -86,6 +90,7 @@ Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
+
 func: validation.StringLenBetween(1, 100),
 	},
 	"password": {
@@ -93,6 +98,7 @@ Type:schema.TypeString,
 Optional:     true,
 Sensitive:    true,
 Validate
+
 func: validation.StringLenBetween(8, 64),
 	},
 	"phone_config": {
@@ -105,6 +111,7 @@ Elem: &schema.Resource{
 	Type:schema.TypeInt,
 	Optional:     true,
 	Validate
+
 func: validation.IntAtLeast(0),
 },
 "auto_accept": {
@@ -115,9 +122,12 @@ func: validation.IntAtLeast(0),
 	Type:schema.TypeString,
 	Optional:     true,
 	Validate
+
 func: validDeskPhoneNumber,
 	DiffSuppress
+
 func: 
+
 func(k, old, new string, d *schema.ResourceData) bool {
 if v := d.Get("phone_config.0.phone_type").(string); v == connect.PhoneTypeDeskPhone {
 	return false
@@ -129,6 +139,7 @@ return true
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
 func: validation.StringInSlice(connect.PhoneType_Values(), false),
 },
 	},
@@ -156,6 +167,7 @@ Computed: true,
 },
 	}
 }
+
 
 
 func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -202,6 +214,7 @@ return diag.Errorf("creating Connect User (%s): empty output", name)
 
 	return resourceUserRead(ctx, d, meta)
 }
+
 
 
 func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -255,6 +268,7 @@ return diag.Errorf("setting phone_config: %s", err)
 
 	return nil
 }
+
 
 
 func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -355,6 +369,7 @@ if err != nil {
 }
 
 
+
 func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -377,6 +392,7 @@ return diag.Errorf("deleting User (%s): %s", d.Id(), err)
 }
 
 
+
 func UserParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -386,6 +402,7 @@ return "", "", fmt.Errorf("unexpected format of ID (%s), expected instanceID:use
 
 	return parts[0], parts[1], nil
 }
+
 
 
 func expandIdentityInfo(identityInfo []interface{}) *connect.UserIdentityInfo {
@@ -414,6 +431,7 @@ result.LastName = aws.String(v)
 
 	return result
 }
+
 
 
 func expandPhoneConfig(phoneConfig []interface{}) *connect.UserPhoneConfig {
@@ -446,6 +464,7 @@ result.DeskPhoneNumber = aws.String(v)
 }
 
 
+
 func flattenIdentityInfo(identityInfo *connect.UserIdentityInfo) []interface{} {
 	if identityInfo == nil {
 return []interface{}{}
@@ -467,6 +486,7 @@ values["last_name"] = aws.StringValue(v)
 
 	return []interface{}{values}
 }
+
 
 
 func flattenPhoneConfig(phoneConfig *connect.UserPhoneConfig) []interface{} {

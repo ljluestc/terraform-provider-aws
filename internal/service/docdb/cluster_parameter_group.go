@@ -120,8 +120,8 @@ func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.Resource
 	input := docdb.CreateDBClusterParameterGroupInput{
 		DBClusterParameterGroupName: aws.String(groupName),
 		DBParameterGroupFamily:      aws.String(d.Get("family").(string)),
-		Description:                 aws.String(d.Get("description").(string)),
-		Tags:                        getTagsIn(ctx),
+		Description:    aws.String(d.Get("description").(string)),
+		Tags:           getTagsIn(ctx),
 	}
 
 	resp, err := conn.CreateDBClusterParameterGroupWithContext(ctx, &input)
@@ -211,7 +211,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 				parameterGroupName := d.Id()
 				modifyOpts := docdb.ModifyDBClusterParameterGroupInput{
 					DBClusterParameterGroupName: aws.String(parameterGroupName),
-					Parameters:                  paramsToModify,
+					Parameters:     paramsToModify,
 				}
 
 				_, err := conn.ModifyDBClusterParameterGroupWithContext(ctx, &modifyOpts)

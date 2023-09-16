@@ -24,10 +24,10 @@ func TestAccRedshiftPartner_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartnerDestroy(ctx),
+		CheckDestroy:testAccCheckPartnerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartnerConfig_basic(rName),
@@ -41,7 +41,7 @@ func TestAccRedshiftPartner_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"account_id", "cluster_identifier"},
 			},
@@ -55,10 +55,10 @@ func TestAccRedshiftPartner_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartnerDestroy(ctx),
+		CheckDestroy:testAccCheckPartnerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartnerConfig_basic(rName),
@@ -78,10 +78,10 @@ func TestAccRedshiftPartner_disappears_cluster(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartnerDestroy(ctx),
+		CheckDestroy:testAccCheckPartnerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartnerConfig_basic(rName),

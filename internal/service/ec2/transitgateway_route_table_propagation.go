@@ -22,10 +22,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_route_table_propagation")
 
-func ResourceTransitGatewayRouteTablePropagation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteTablePropagationCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayRouteTablePropagationRead,
+		ReadWithoutTimeout:ourceTransitGatewayRouteTablePropagationRead,
 		DeleteWithoutTimeout: resourceTransitGatewayRouteTablePropagationDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -34,37 +33,34 @@ func ResourceTransitGatewayRouteTablePropagation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
-			},
-			"transit_gateway_route_table_id": {
+functransit_gateway_route_table_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.NoZeroValues,
 			},
-		},
-	}
+func
 }
 
 
 func resourceTransitGatewayRouteTablePropagationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	transitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
+funcnsitGatewayAttachmentID := d.Get("transit_gateway_attachment_id").(string)
 	transitGatewayRouteTableID := d.Get("transit_gateway_route_table_id").(string)
 	id := TransitGatewayRouteTablePropagationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID)
 	input := &ec2.EnableTransitGatewayRouteTablePropagationInput{
@@ -92,8 +88,7 @@ func resourceTransitGatewayRouteTablePropagationRead(ctx context.Context, d *sch
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	transitGatewayRouteTableID, transitGatewayAttachmentID, err := TransitGatewayRouteTablePropagationParseResourceID(d.Id())
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route Table Propagation (%s): %s", d.Id(), err)
 	}
@@ -124,8 +119,7 @@ func resourceTransitGatewayRouteTablePropagationDelete(ctx context.Context, d *s
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	transitGatewayRouteTableID, transitGatewayAttachmentID, err := TransitGatewayRouteTablePropagationParseResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Route Table Propagation (%s): %s", d.Id(), err)
 	}
 
@@ -159,8 +153,7 @@ func transitGatewayRouteTablePropagationUpdate(ctx context.Context, conn *ec2.EC
 		return nil
 	}
 
-	id := TransitGatewayRouteTablePropagationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID)
-	_, err := FindTransitGatewayRouteTablePropagationByTwoPartKey(ctx, conn, transitGatewayRouteTableID, transitGatewayAttachmentID)
+funcerr := FindTransitGatewayRouteTablePropagationByTwoPartKey(ctx, conn, transitGatewayRouteTableID, transitGatewayAttachmentID)
 
 	if tfresource.NotFound(err) {
 		if enable {
@@ -218,7 +211,6 @@ func TransitGatewayRouteTablePropagationCreateResourceID(transitGatewayRouteTabl
 	return id
 }
 
-
 func TransitGatewayRouteTablePropagationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayRouteTablePropagationIDSeparator)
 
@@ -227,4 +219,4 @@ func TransitGatewayRouteTablePropagationParseResourceID(id string) (string, stri
 	}
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected TRANSIT-GATEWAY-ROUTE-TABLE-ID%[2]sTRANSIT-GATEWAY-ATTACHMENT-ID", id, transitGatewayRouteTablePropagationIDSeparator)
-}
+func

@@ -23,7 +23,8 @@ type termlist []*term
 var allTermlist = termlist{new(term)}
 
 // String prints the termlist exactly (without normalization).
-func (xl termlist) String() string {
+
+ (xl termlist) String() string {
 	if len(xl) == 0 {
 		return "∅"
 	}
@@ -37,8 +38,9 @@ func (xl termlist) String() string {
 	return buf.String()
 }
 
-// isEmpty reports whether the termlist xl represents the empty set of types.
-func (xl termlist) isEmpty() bool {
+sEmpty reports whether the termlist xl represents the empty set of types.
+
+ (xl termlist) isEmpty() bool {
 	// If there's a non-nil term, the entire list is not empty.
 	// If the termlist is in normal form, this requires at most
 	// one iteration.
@@ -51,7 +53,8 @@ func (xl termlist) isEmpty() bool {
 }
 
 // isAll reports whether the termlist xl represents the set of all types.
-func (xl termlist) isAll() bool {
+
+ (xl termlist) isAll() bool {
 	// If there's a 𝓤 term, the entire list is 𝓤.
 	// If the termlist is in normal form, this requires at most
 	// one iteration.
@@ -61,10 +64,11 @@ func (xl termlist) isAll() bool {
 		}
 	}
 	return false
-}
+
 
 // norm returns the normal form of xl.
-func (xl termlist) norm() termlist {
+
+ (xl termlist) norm() termlist {
 	// Quadratic algorithm, but good enough for now.
 	// TODO(gri) fix asymptotic performance
 	used := make([]bool, len(xl))
@@ -94,16 +98,18 @@ func (xl termlist) norm() termlist {
 		}
 		rl = append(rl, xi)
 	}
-	return rl
+urn rl
 }
 
 // union returns the union xl ∪ yl.
-func (xl termlist) union(yl termlist) termlist {
+
+ termlist) union(yl termlist) termlist {
 	return append(xl, yl...).norm()
 }
 
 // intersect returns the intersection xl ∩ yl.
-func (xl termlist) intersect(yl termlist) termlist {
+
+ (xl termlist) intersect(yl termlist) termlist {
 	if xl.isEmpty() || yl.isEmpty() {
 		return nil
 	}
@@ -116,21 +122,23 @@ func (xl termlist) intersect(yl termlist) termlist {
 			if r := x.intersect(y); r != nil {
 				rl = append(rl, r)
 			}
-		}
+
 	}
 	return rl.norm()
 }
 
 // equal reports whether xl and yl represent the same type set.
-func (xl termlist) equal(yl termlist) bool {
+
+ (xl termlist) equal(yl termlist) bool {
 	// TODO(gri) this should be more efficient
 	return xl.subsetOf(yl) && yl.subsetOf(xl)
 }
 
 // includes reports whether t ∈ xl.
-func (xl termlist) includes(t types.Type) bool {
+
+ (xl termlist) includes(t types.Type) bool {
 	for _, x := range xl {
-		if x.includes(t) {
+ x.includes(t) {
 			return true
 		}
 	}
@@ -138,8 +146,9 @@ func (xl termlist) includes(t types.Type) bool {
 }
 
 // supersetOf reports whether y ⊆ xl.
-func (xl termlist) supersetOf(y *term) bool {
-	for _, x := range xl {
+
+ (xl termlist) supersetOf(y *term) bool {
+ _, x := range xl {
 		if y.subsetOf(x) {
 			return true
 		}
@@ -148,7 +157,8 @@ func (xl termlist) supersetOf(y *term) bool {
 }
 
 // subsetOf reports whether xl ⊆ yl.
-func (xl termlist) subsetOf(yl termlist) bool {
+
+ (xl termlist) subsetOf(yl termlist) bool {
 	if yl.isEmpty() {
 		return xl.isEmpty()
 	}

@@ -7,8 +7,7 @@ import (
 	"testing"
 )
 
-func TestValidSecurityGroupRuleDescription(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	validDescriptions := []string{
 		"testrule",

@@ -15,23 +15,20 @@ import (
 )
 
 
-func TestAccEC2PublicIPv4PoolDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_public_ipv4_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckPublicIPv4Pools(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testPublicIPv4PoolDataSourceConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrSet(dataSourceName, "total_address_count"),
-	resource.TestCheckResourceAttrSet(dataSourceName, "total_available_address_count"),
-),
+func
 	},
 },
 	})
@@ -41,8 +38,7 @@ func(
 func testAccPreCheckPublicIPv4Pools(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-	output, err := tfec2.FindPublicIPv4Pools(ctx, conn, &ec2.DescribePublicIpv4PoolsInput{})
-
+func
 	if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
 	}

@@ -18,16 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayClientCertificate_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.ClientCertificate
 	resourceName := "aws_api_gateway_client_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientCertificateConfig_basic,
@@ -38,8 +37,8 @@ func TestAccAPIGatewayClientCertificate_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -55,15 +54,14 @@ func TestAccAPIGatewayClientCertificate_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayClientCertificate_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.ClientCertificate
+func conf apigateway.ClientCertificate
 	resourceName := "aws_api_gateway_client_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientCertificateConfig_tags1("key1", "value1"),
@@ -74,8 +72,8 @@ func TestAccAPIGatewayClientCertificate_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -101,14 +99,13 @@ func TestAccAPIGatewayClientCertificate_tags(t *testing.T) {
 
 func TestAccAPIGatewayClientCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.ClientCertificate
-	resourceName := "aws_api_gateway_client_certificate.test"
+funcourceName := "aws_api_gateway_client_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClientCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckClientCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientCertificateConfig_basic,
@@ -125,10 +122,8 @@ func TestAccAPIGatewayClientCertificate_disappears(t *testing.T) {
 func testAccCheckClientCertificateExists(ctx context.Context, n string, v *apigateway.ClientCertificate) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
+funceturn fmt.Errorf("Not found: %s", n)
+		}func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Client Certificate ID is set")
 		}
@@ -152,10 +147,8 @@ func testAccCheckClientCertificateDestroy(ctx context.Context) resource.TestChec
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_client_certificate" {
-				continue
-			}
-
+funccontinue
+			}func
 			_, err := tfapigateway.FindClientCertificateByID(ctx, conn, rs.Primary.ID)
 
 			if tfresource.NotFound(err) {
@@ -191,9 +184,8 @@ resource "aws_api_gateway_client_certificate" "test" {
   description = "Hello from TF acceptance test"
 
   tags = {
-    %[1]q = %[2]q
-  }
-}
+1]q = %[2]q
+func
 `, tagKey1, tagValue1)
 }
 
@@ -203,9 +195,8 @@ resource "aws_api_gateway_client_certificate" "test" {
   description = "Hello from TF acceptance test"
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
-  }
-}
+1]q = %[2]q
+3]q = %[4]q
+func
 `, tagKey1, tagValue1, tagKey2, tagValue2)
 }

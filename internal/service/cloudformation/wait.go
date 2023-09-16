@@ -19,6 +19,7 @@ const (
 	ChangeSetCreatedTimeout = 5 * time.Minute
 )
 
+
 func WaitChangeSetCreated(ctx context.Context, conn *cloudformation.CloudFormation, stackID, changeSetName string) (*cloudformation.DescribeChangeSetOutput, error) {
 	stateConf := retry.StateChangeConf{
 		Pending: []string{cloudformation.ChangeSetStatusCreateInProgress, cloudformation.ChangeSetStatusCreatePending},
@@ -53,6 +54,7 @@ const (
 	stackSetOperationDelay = 5 * time.Second
 )
 
+
 func WaitStackSetOperationSucceeded(ctx context.Context, conn *cloudformation.CloudFormation, stackSetName, operationID, callAs string, timeout time.Duration) (*cloudformation.StackSetOperation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{cloudformation.StackSetOperationStatusRunning, cloudformation.StackSetOperationStatusQueued},
@@ -73,7 +75,8 @@ func WaitStackSetOperationSucceeded(ctx context.Context, conn *cloudformation.Cl
 			}
 			var summaries []*cloudformation.StackSetOperationResultSummary
 
-			listErr := conn.ListStackSetOperationResultsPagesWithContext(ctx, input, func(page *cloudformation.ListStackSetOperationResultsOutput, lastPage bool) bool {
+			listErr := conn.ListStackSetOperationResultsPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStackSetOperationResultsOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -99,6 +102,7 @@ func WaitStackSetOperationSucceeded(ctx context.Context, conn *cloudformation.Cl
 const (
 	TypeRegistrationTimeout = 5 * time.Minute
 )
+
 
 func WaitTypeRegistrationProgressStatusComplete(ctx context.Context, conn *cloudformation.CloudFormation, registrationToken string) (*cloudformation.DescribeTypeRegistrationOutput, error) {
 	stateConf := &retry.StateChangeConf{

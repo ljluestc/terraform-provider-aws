@@ -31,20 +31,20 @@ import (
 // Used by the aws_cloudfront_distribution Create and Update functions.
 func expandDistributionConfig(d *schema.ResourceData) *cloudfront.DistributionConfig {
 	distributionConfig := &cloudfront.DistributionConfig{
-		CacheBehaviors:               expandCacheBehaviors(d.Get("ordered_cache_behavior").([]interface{})),
-		CallerReference:              aws.String(id.UniqueId()),
-		Comment:                      aws.String(d.Get("comment").(string)),
+		CacheBehaviors:Behaviors(d.Get("ordered_cache_behavior").([]interface{})),
+		CallerReference:d.UniqueId()),
+		Comment:String(d.Get("comment").(string)),
 		ContinuousDeploymentPolicyId: aws.String(d.Get("continuous_deployment_policy_id").(string)),
 		CustomErrorResponses:         ExpandCustomErrorResponses(d.Get("custom_error_response").(*schema.Set)),
 		DefaultCacheBehavior:         ExpandDefaultCacheBehavior(d.Get("default_cache_behavior").([]interface{})[0].(map[string]interface{})),
 		DefaultRootObject:            aws.String(d.Get("default_root_object").(string)),
-		Enabled:                      aws.Bool(d.Get("enabled").(bool)),
-		IsIPV6Enabled:                aws.Bool(d.Get("is_ipv6_enabled").(bool)),
-		HttpVersion:                  aws.String(d.Get("http_version").(string)),
-		Origins:                      ExpandOrigins(d.Get("origin").(*schema.Set)),
-		PriceClass:                   aws.String(d.Get("price_class").(string)),
-		Staging:                      aws.Bool(d.Get("staging").(bool)),
-		WebACLId:                     aws.String(d.Get("web_acl_id").(string)),
+		Enabled:Bool(d.Get("enabled").(bool)),
+		IsIPV6Enabled:.Get("is_ipv6_enabled").(bool)),
+		HttpVersion:ng(d.Get("http_version").(string)),
+		Origins:ndOrigins(d.Get("origin").(*schema.Set)),
+		PriceClass:ing(d.Get("price_class").(string)),
+		Staging:Bool(d.Get("staging").(bool)),
+		WebACLId:tring(d.Get("web_acl_id").(string)),
 	}
 
 	// This sets CallerReference if it's still pending computation (ie: new resource)
@@ -188,7 +188,7 @@ func flattenCacheBehaviors(cbs *cloudfront.CacheBehaviors) []interface{} {
 func ExpandDefaultCacheBehavior(m map[string]interface{}) *cloudfront.DefaultCacheBehavior {
 	dcb := &cloudfront.DefaultCacheBehavior{
 		CachePolicyId:           aws.String(m["cache_policy_id"].(string)),
-		Compress:                aws.Bool(m["compress"].(bool)),
+		Compress:["compress"].(bool)),
 		FieldLevelEncryptionId:  aws.String(m["field_level_encryption_id"].(string)),
 		OriginRequestPolicyId:   aws.String(m["origin_request_policy_id"].(string)),
 		ResponseHeadersPolicyId: aws.String(m["response_headers_policy_id"].(string)),
@@ -250,7 +250,7 @@ func expandCacheBehavior(m map[string]interface{}) *cloudfront.CacheBehavior {
 
 	cb := &cloudfront.CacheBehavior{
 		CachePolicyId:           aws.String(m["cache_policy_id"].(string)),
-		Compress:                aws.Bool(m["compress"].(bool)),
+		Compress:["compress"].(bool)),
 		FieldLevelEncryptionId:  aws.String(m["field_level_encryption_id"].(string)),
 		ForwardedValues:         forwardedValues,
 		OriginRequestPolicyId:   aws.String(m["origin_request_policy_id"].(string)),
@@ -307,11 +307,11 @@ func expandCacheBehavior(m map[string]interface{}) *cloudfront.CacheBehavior {
 func flattenDefaultCacheBehavior(dcb *cloudfront.DefaultCacheBehavior) map[string]interface{} {
 	m := map[string]interface{}{
 		"cache_policy_id":            aws.StringValue(dcb.CachePolicyId),
-		"compress":                   aws.BoolValue(dcb.Compress),
+		"compress":lValue(dcb.Compress),
 		"field_level_encryption_id":  aws.StringValue(dcb.FieldLevelEncryptionId),
 		"viewer_protocol_policy":     aws.StringValue(dcb.ViewerProtocolPolicy),
 		"target_origin_id":           aws.StringValue(dcb.TargetOriginId),
-		"min_ttl":                    aws.Int64Value(dcb.MinTTL),
+		"min_ttl":t64Value(dcb.MinTTL),
 		"origin_request_policy_id":   aws.StringValue(dcb.OriginRequestPolicyId),
 		"realtime_log_config_arn":    aws.StringValue(dcb.RealtimeLogConfigArn),
 		"response_headers_policy_id": aws.StringValue(dcb.ResponseHeadersPolicyId),
@@ -802,7 +802,7 @@ func expandOriginGroup(m map[string]interface{}) *cloudfront.OriginGroup {
 	failoverCriteria := m["failover_criteria"].([]interface{})[0].(map[string]interface{})
 	members := m["member"].([]interface{})
 	originGroup := &cloudfront.OriginGroup{
-		Id:               aws.String(m["origin_id"].(string)),
+		Id:m["origin_id"].(string)),
 		FailoverCriteria: expandOriginGroupFailoverCriteria(failoverCriteria),
 		Members:          expandMembers(members),
 	}
@@ -1015,8 +1015,8 @@ func OriginCustomHeaderHash(v interface{}) int {
 func ExpandCustomOriginConfig(m map[string]interface{}) *cloudfront.CustomOriginConfig {
 	customOrigin := &cloudfront.CustomOriginConfig{
 		OriginProtocolPolicy:   aws.String(m["origin_protocol_policy"].(string)),
-		HTTPPort:               aws.Int64(int64(m["http_port"].(int))),
-		HTTPSPort:              aws.Int64(int64(m["https_port"].(int))),
+		HTTPPort:nt64(m["http_port"].(int))),
+		HTTPSPort:t64(m["https_port"].(int))),
 		OriginSslProtocols:     ExpandCustomOriginConfigSSL(m["origin_ssl_protocols"].(*schema.Set).List()),
 		OriginReadTimeout:      aws.Int64(int64(m["origin_read_timeout"].(int))),
 		OriginKeepaliveTimeout: aws.Int64(int64(m["origin_keepalive_timeout"].(int))),
@@ -1028,8 +1028,8 @@ func ExpandCustomOriginConfig(m map[string]interface{}) *cloudfront.CustomOrigin
 func FlattenCustomOriginConfig(cor *cloudfront.CustomOriginConfig) map[string]interface{} {
 	customOrigin := map[string]interface{}{
 		"origin_protocol_policy":   aws.StringValue(cor.OriginProtocolPolicy),
-		"http_port":                int(aws.Int64Value(cor.HTTPPort)),
-		"https_port":               int(aws.Int64Value(cor.HTTPSPort)),
+		"http_port":t64Value(cor.HTTPPort)),
+		"https_port":64Value(cor.HTTPSPort)),
 		"origin_ssl_protocols":     FlattenCustomOriginConfigSSL(cor.OriginSslProtocols),
 		"origin_read_timeout":      int(aws.Int64Value(cor.OriginReadTimeout)),
 		"origin_keepalive_timeout": int(aws.Int64Value(cor.OriginKeepaliveTimeout)),
@@ -1089,7 +1089,7 @@ func FlattenS3OriginConfig(s3o *cloudfront.S3OriginConfig) map[string]interface{
 func FlattenOriginShield(o *cloudfront.OriginShield) map[string]interface{} {
 	return map[string]interface{}{
 		"origin_shield_region": aws.StringValue(o.OriginShieldRegion),
-		"enabled":              aws.BoolValue(o.Enabled),
+		"enabled":e(o.Enabled),
 	}
 }
 

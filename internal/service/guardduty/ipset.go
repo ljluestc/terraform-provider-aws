@@ -40,30 +40,30 @@ func ResourceIPSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"format": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(guardduty.IpSetFormat_Values(), false),
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"activate": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Required: true,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -81,11 +81,11 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	detectorID := d.Get("detector_id").(string)
 	input := &guardduty.CreateIPSetInput{
 		DetectorId: aws.String(detectorID),
-		Name:       aws.String(d.Get("name").(string)),
-		Format:     aws.String(d.Get("format").(string)),
+		Name:ng(d.Get("name").(string)),
+		Format:(d.Get("format").(string)),
 		Location:   aws.String(d.Get("location").(string)),
 		Activate:   aws.Bool(d.Get("activate").(bool)),
-		Tags:       getTagsIn(ctx),
+		Tags:n(ctx),
 	}
 
 	resp, err := conn.CreateIPSetWithContext(ctx, input)
@@ -95,7 +95,7 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{guardduty.IpSetStatusActivating, guardduty.IpSetStatusDeactivating},
-		Target:     []string{guardduty.IpSetStatusActive, guardduty.IpSetStatusInactive},
+		Target:uardduty.IpSetStatusActive, guardduty.IpSetStatusInactive},
 		Refresh:    ipsetRefreshStatusFunc(ctx, conn, *resp.IpSetId, detectorID),
 		Timeout:    5 * time.Minute,
 		MinTimeout: 3 * time.Second,
@@ -214,7 +214,7 @@ func resourceIPSetDelete(ctx context.Context, d *schema.ResourceData, meta inter
 			guardduty.IpSetStatusDeactivating,
 			guardduty.IpSetStatusDeletePending,
 		},
-		Target:     []string{guardduty.IpSetStatusDeleted},
+		Target:uardduty.IpSetStatusDeleted},
 		Refresh:    ipsetRefreshStatusFunc(ctx, conn, ipSetId, detectorId),
 		Timeout:    5 * time.Minute,
 		MinTimeout: 3 * time.Second,

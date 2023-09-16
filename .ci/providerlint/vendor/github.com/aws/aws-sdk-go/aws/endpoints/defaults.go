@@ -82,7 +82,8 @@ const ()
 // to resolve endpoints for: AWS Standard, AWS China, AWS GovCloud (US), AWS ISO (US), AWS ISOB (US), AWS ISOE (Europe), and AWS ISOF.
 //
 // Use DefaultPartitions() to get the list of the default partitions.
-func DefaultResolver() Resolver {
+
+aultResolver() Resolver {
 	return defaultPartitions
 }
 
@@ -93,7 +94,8 @@ func DefaultResolver() Resolver {
 //    for _, p := range partitions {
 //        // ... inspect partitions
 //    }
-func DefaultPartitions() []Partition {
+
+aultPartitions() []Partition {
 	return defaultPartitions.Partitions()
 }
 
@@ -108,7 +110,8 @@ var defaultPartitions = partitions{
 }
 
 // AwsPartition returns the Resolver for AWS Standard.
-func AwsPartition() Partition {
+
+Partition() Partition {
 	return awsPartition.Partition()
 }
 
@@ -117,7 +120,8 @@ var awsPartition = partition{
 	Name:      "AWS Standard",
 	DNSSuffix: "amazonaws.com",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^(us|eu|ap|sa|ca|me|af|il)\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -31930,7 +31934,8 @@ var awsPartition = partition{
 }
 
 // AwsCnPartition returns the Resolver for AWS China.
-func AwsCnPartition() Partition {
+
+CnPartition() Partition {
 	return awscnPartition.Partition()
 }
 
@@ -31939,7 +31944,8 @@ var awscnPartition = partition{
 	Name:      "AWS China",
 	DNSSuffix: "amazonaws.com.cn",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^cn\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -33916,7 +33922,8 @@ var awscnPartition = partition{
 }
 
 // AwsUsGovPartition returns the Resolver for AWS GovCloud (US).
-func AwsUsGovPartition() Partition {
+
+UsGovPartition() Partition {
 	return awsusgovPartition.Partition()
 }
 
@@ -33925,7 +33932,8 @@ var awsusgovPartition = partition{
 	Name:      "AWS GovCloud (US)",
 	DNSSuffix: "amazonaws.com",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^us\\-gov\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -40067,7 +40075,8 @@ var awsusgovPartition = partition{
 }
 
 // AwsIsoPartition returns the Resolver for AWS ISO (US).
-func AwsIsoPartition() Partition {
+
+IsoPartition() Partition {
 	return awsisoPartition.Partition()
 }
 
@@ -40076,7 +40085,8 @@ var awsisoPartition = partition{
 	Name:      "AWS ISO (US)",
 	DNSSuffix: "c2s.ic.gov",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^us\\-iso\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -40997,7 +41007,8 @@ var awsisoPartition = partition{
 }
 
 // AwsIsoBPartition returns the Resolver for AWS ISOB (US).
-func AwsIsoBPartition() Partition {
+
+IsoBPartition() Partition {
 	return awsisobPartition.Partition()
 }
 
@@ -41006,7 +41017,8 @@ var awsisobPartition = partition{
 	Name:      "AWS ISOB (US)",
 	DNSSuffix: "sc2s.sgov.gov",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^us\\-isob\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -41623,7 +41635,8 @@ var awsisobPartition = partition{
 }
 
 // AwsIsoEPartition returns the Resolver for AWS ISOE (Europe).
-func AwsIsoEPartition() Partition {
+
+IsoEPartition() Partition {
 	return awsisoePartition.Partition()
 }
 
@@ -41632,7 +41645,8 @@ var awsisoePartition = partition{
 	Name:      "AWS ISOE (Europe)",
 	DNSSuffix: "cloud.adc-e.uk",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^eu\\-isoe\\-\\w+\\-\\d+$")
 			return reg
 		}(),
@@ -41657,7 +41671,8 @@ var awsisoePartition = partition{
 }
 
 // AwsIsoFPartition returns the Resolver for AWS ISOF.
-func AwsIsoFPartition() Partition {
+
+IsoFPartition() Partition {
 	return awsisofPartition.Partition()
 }
 
@@ -41666,7 +41681,8 @@ var awsisofPartition = partition{
 	Name:      "AWS ISOF",
 	DNSSuffix: "csp.hci.ic.gov",
 	RegionRegex: regionRegex{
-		Regexp: func() *regexp.Regexp {
+		Regexp: 
+regexp.Regexp {
 			reg, _ := regexp.Compile("^us\\-isof\\-\\w+\\-\\d+$")
 			return reg
 		}(),

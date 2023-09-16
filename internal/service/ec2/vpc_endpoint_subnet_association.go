@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_subnet_association")
 
-func ResourceVPCEndpointSubnetAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointSubnetAssociationCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointSubnetAssociationRead,
+		ReadWithoutTimeout:ourceVPCEndpointSubnetAssociationRead,
 		DeleteWithoutTimeout: resourceVPCEndpointSubnetAssociationDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceVPCEndpointSubnetAssociationImport,
@@ -34,12 +33,12 @@ func ResourceVPCEndpointSubnetAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"subnet_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -53,8 +52,7 @@ func ResourceVPCEndpointSubnetAssociation() *schema.Resource {
 }
 
 func resourceVPCEndpointSubnetAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	endpointID := d.Get("vpc_endpoint_id").(string)
 	subnetID := d.Get("subnet_id").(string)
@@ -75,13 +73,12 @@ func resourceVPCEndpointSubnetAssociationCreate(ctx context.Context, d *schema.R
 	defer conns.GlobalMutexKV.Unlock(mk)
 
 	c := &retry.StateChangeConf{
-		Delay:   1 * time.Minute,
+		Delay: time.Minute,
 		Timeout: 3 * time.Minute,
 		Target:  []string{"ok"},
 		Refresh: func() (interface{}, string, error) {
 			output, err := conn.ModifyVpcEndpointWithContext(ctx, input)
-
-			return output, "ok", err
+funceturn output, "ok", err
 		},
 	}
 	_, err := c.WaitForStateContext(ctx)
@@ -104,8 +101,7 @@ func resourceVPCEndpointSubnetAssociationCreate(ctx context.Context, d *schema.R
 func resourceVPCEndpointSubnetAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	endpointID := d.Get("vpc_endpoint_id").(string)
+funcpointID := d.Get("vpc_endpoint_id").(string)
 	subnetID := d.Get("subnet_id").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
 	id := fmt.Sprintf("%s/%s", endpointID, subnetID)
@@ -129,13 +125,12 @@ func resourceVPCEndpointSubnetAssociationDelete(ctx context.Context, d *schema.R
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	endpointID := d.Get("vpc_endpoint_id").(string)
-	subnetID := d.Get("subnet_id").(string)
+funcnetID := d.Get("subnet_id").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
 	id := fmt.Sprintf("%s/%s", endpointID, subnetID)
 
 	input := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId:   aws.String(endpointID),
+		VpcEndpointId:.String(endpointID),
 		RemoveSubnetIds: aws.StringSlice([]string{subnetID}),
 	}
 
@@ -164,8 +159,7 @@ func resourceVPCEndpointSubnetAssociationImport(ctx context.Context, d *schema.R
 	if len(parts) != 2 {
 		return nil, fmt.Errorf("wrong format of import ID (%s), use: 'vpc-endpoint-id/subnet-id'", d.Id())
 	}
-
-	endpointID := parts[0]
+funcpointID := parts[0]
 	subnetID := parts[1]
 	log.Printf("[DEBUG] Importing VPC Endpoint (%s) Subnet (%s) Association", endpointID, subnetID)
 

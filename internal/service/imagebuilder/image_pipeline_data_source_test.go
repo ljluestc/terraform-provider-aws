@@ -20,10 +20,10 @@ func TestAccImageBuilderImagePipelineDataSource_arn(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineDataSourceConfig_arn(rName),
@@ -59,10 +59,10 @@ func TestAccImageBuilderImagePipelineDataSource_containerRecipeARN(t *testing.T)
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineDataSourceConfig_containerRecipeARN(rName),
@@ -144,7 +144,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 
 data "aws_imagebuilder_image_pipeline" "test" {
@@ -182,9 +182,9 @@ EOF
 }
 
 resource "aws_imagebuilder_image_pipeline" "test" {
-  container_recipe_arn             = aws_imagebuilder_container_recipe.test.arn
+  container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   image_scanning_configuration {
     image_scanning_enabled = true

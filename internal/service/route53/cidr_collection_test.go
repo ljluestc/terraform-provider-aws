@@ -19,17 +19,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRoute53CIDRCollection_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v route53.CollectionSummary
 	resourceName := "aws_route53_cidr_collection.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCIDRCollectionDestroy(ctx),
+ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:CheckCIDRCollectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCIDRCollection_basic(rName),
@@ -40,8 +38,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -50,16 +48,14 @@ ImportStateVerify: true,
 
 func TestAccRoute53CIDRCollection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v route53.CollectionSummary
-	resourceName := "aws_route53_cidr_collection.test"
+funcourceName := "aws_route53_cidr_collection.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCIDRCollectionDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestrofuncs: []resource.TestStep{
 	{
 Config: testAccCIDRCollection_basic(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -76,10 +72,8 @@ func testAccCheckCIDRCollectionDestroy(ctx context.Context) resource.TestCheckFu
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
 
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_route53_cidr_collection" {
-continue
-	}
+funcrs.Type != "aws_route53_cidr_collection" {
+continuefunc
 
 	_, err := tfroute53.FindCIDRCollectionByID(ctx, conn, rs.Primary.ID)
 
@@ -104,10 +98,8 @@ rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
-
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No Route 53 CIDR Collection ID is set")
-}
+funcs.Primary.ID == "" {
+	return func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
 
@@ -130,3 +122,4 @@ resource "aws_route53_cidr_collection" "test" {
 }
 `, rName)
 }
+func

@@ -24,10 +24,10 @@ func TestAccLogsDestinationPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDestinationPolicyConfig_basic(rName),

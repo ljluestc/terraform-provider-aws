@@ -41,9 +41,9 @@ func TestAccDirectConnectHostedPublicVirtualInterface_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckHostedPublicVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckHostedPublicVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedPublicVirtualInterfaceConfig_basic(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
@@ -102,9 +102,9 @@ func TestAccDirectConnectHostedPublicVirtualInterface_accepterTags(t *testing.T)
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckHostedPublicVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckHostedPublicVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedPublicVirtualInterfaceConfig_accepterTags(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
@@ -183,9 +183,9 @@ resource "aws_dx_hosted_public_virtual_interface" "test" {
   bgp_asn          = %[5]d
   connection_id    = %[1]q
   customer_address = %[4]q
-  name             = %[2]q
+  name= %[2]q
   owner_account_id = data.aws_caller_identity.accepter.account_id
-  vlan             = %[6]d
+  vlan= %[6]d
 
   route_filter_prefixes = [
     "175.45.176.0/22",

@@ -10,7 +10,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func ResourceMetadata(in *tfplugin6.GetMetadata_ResourceMetadata) *tfprotov6.ResourceMetadata {
+
+ourceMetadata(in *tfplugin6.GetMetadata_ResourceMetadata) *tfprotov6.ResourceMetadata {
 	if in == nil {
 		return nil
 	}
@@ -20,7 +21,8 @@ func ResourceMetadata(in *tfplugin6.GetMetadata_ResourceMetadata) *tfprotov6.Res
 	}
 }
 
-func ValidateResourceConfigRequest(in *tfplugin6.ValidateResourceConfig_Request) (*tfprotov6.ValidateResourceConfigRequest, error) {
+
+idateResourceConfigRequest(in *tfplugin6.ValidateResourceConfig_Request) (*tfprotov6.ValidateResourceConfigRequest, error) {
 	resp := &tfprotov6.ValidateResourceConfigRequest{
 		TypeName: in.TypeName,
 	}
@@ -30,7 +32,8 @@ func ValidateResourceConfigRequest(in *tfplugin6.ValidateResourceConfig_Request)
 	return resp, nil
 }
 
-func ValidateResourceConfigResponse(in *tfplugin6.ValidateResourceConfig_Response) (*tfprotov6.ValidateResourceConfigResponse, error) {
+
+idateResourceConfigResponse(in *tfplugin6.ValidateResourceConfig_Response) (*tfprotov6.ValidateResourceConfigResponse, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -40,7 +43,8 @@ func ValidateResourceConfigResponse(in *tfplugin6.ValidateResourceConfig_Respons
 	}, nil
 }
 
-func UpgradeResourceStateRequest(in *tfplugin6.UpgradeResourceState_Request) (*tfprotov6.UpgradeResourceStateRequest, error) {
+
+radeResourceStateRequest(in *tfplugin6.UpgradeResourceState_Request) (*tfprotov6.UpgradeResourceStateRequest, error) {
 	resp := &tfprotov6.UpgradeResourceStateRequest{
 		TypeName: in.TypeName,
 		Version:  in.Version,
@@ -51,7 +55,8 @@ func UpgradeResourceStateRequest(in *tfplugin6.UpgradeResourceState_Request) (*t
 	return resp, nil
 }
 
-func UpgradeResourceStateResponse(in *tfplugin6.UpgradeResourceState_Response) (*tfprotov6.UpgradeResourceStateResponse, error) {
+
+radeResourceStateResponse(in *tfplugin6.UpgradeResourceState_Response) (*tfprotov6.UpgradeResourceStateResponse, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -65,7 +70,8 @@ func UpgradeResourceStateResponse(in *tfplugin6.UpgradeResourceState_Response) (
 	return resp, nil
 }
 
-func ReadResourceRequest(in *tfplugin6.ReadResource_Request) (*tfprotov6.ReadResourceRequest, error) {
+
+dResourceRequest(in *tfplugin6.ReadResource_Request) (*tfprotov6.ReadResourceRequest, error) {
 	resp := &tfprotov6.ReadResourceRequest{
 		TypeName: in.TypeName,
 		Private:  in.Private,
@@ -79,7 +85,8 @@ func ReadResourceRequest(in *tfplugin6.ReadResource_Request) (*tfprotov6.ReadRes
 	return resp, nil
 }
 
-func ReadResourceResponse(in *tfplugin6.ReadResource_Response) (*tfprotov6.ReadResourceResponse, error) {
+
+dResourceResponse(in *tfplugin6.ReadResource_Response) (*tfprotov6.ReadResourceResponse, error) {
 	resp := &tfprotov6.ReadResourceResponse{
 		Private: in.Private,
 	}
@@ -94,7 +101,8 @@ func ReadResourceResponse(in *tfplugin6.ReadResource_Response) (*tfprotov6.ReadR
 	return resp, nil
 }
 
-func PlanResourceChangeRequest(in *tfplugin6.PlanResourceChange_Request) (*tfprotov6.PlanResourceChangeRequest, error) {
+
+nResourceChangeRequest(in *tfplugin6.PlanResourceChange_Request) (*tfprotov6.PlanResourceChangeRequest, error) {
 	resp := &tfprotov6.PlanResourceChangeRequest{
 		TypeName:     in.TypeName,
 		PriorPrivate: in.PriorPrivate,
@@ -114,7 +122,8 @@ func PlanResourceChangeRequest(in *tfplugin6.PlanResourceChange_Request) (*tfpro
 	return resp, nil
 }
 
-func PlanResourceChangeResponse(in *tfplugin6.PlanResourceChange_Response) (*tfprotov6.PlanResourceChangeResponse, error) {
+
+nResourceChangeResponse(in *tfplugin6.PlanResourceChange_Response) (*tfprotov6.PlanResourceChangeResponse, error) {
 	resp := &tfprotov6.PlanResourceChangeResponse{
 		PlannedPrivate:              in.PlannedPrivate,
 		UnsafeToUseLegacyTypeSystem: in.LegacyTypeSystem,
@@ -135,7 +144,8 @@ func PlanResourceChangeResponse(in *tfplugin6.PlanResourceChange_Response) (*tfp
 	return resp, nil
 }
 
-func ApplyResourceChangeRequest(in *tfplugin6.ApplyResourceChange_Request) (*tfprotov6.ApplyResourceChangeRequest, error) {
+
+lyResourceChangeRequest(in *tfplugin6.ApplyResourceChange_Request) (*tfprotov6.ApplyResourceChangeRequest, error) {
 	resp := &tfprotov6.ApplyResourceChangeRequest{
 		TypeName:       in.TypeName,
 		PlannedPrivate: in.PlannedPrivate,
@@ -155,7 +165,8 @@ func ApplyResourceChangeRequest(in *tfplugin6.ApplyResourceChange_Request) (*tfp
 	return resp, nil
 }
 
-func ApplyResourceChangeResponse(in *tfplugin6.ApplyResourceChange_Response) (*tfprotov6.ApplyResourceChangeResponse, error) {
+
+lyResourceChangeResponse(in *tfplugin6.ApplyResourceChange_Response) (*tfprotov6.ApplyResourceChangeResponse, error) {
 	resp := &tfprotov6.ApplyResourceChangeResponse{
 		Private:                     in.Private,
 		UnsafeToUseLegacyTypeSystem: in.LegacyTypeSystem,
@@ -171,14 +182,16 @@ func ApplyResourceChangeResponse(in *tfplugin6.ApplyResourceChange_Response) (*t
 	return resp, nil
 }
 
-func ImportResourceStateRequest(in *tfplugin6.ImportResourceState_Request) (*tfprotov6.ImportResourceStateRequest, error) {
+
+ortResourceStateRequest(in *tfplugin6.ImportResourceState_Request) (*tfprotov6.ImportResourceStateRequest, error) {
 	return &tfprotov6.ImportResourceStateRequest{
 		TypeName: in.TypeName,
 		ID:       in.Id,
 	}, nil
 }
 
-func ImportResourceStateResponse(in *tfplugin6.ImportResourceState_Response) (*tfprotov6.ImportResourceStateResponse, error) {
+
+ortResourceStateResponse(in *tfplugin6.ImportResourceState_Response) (*tfprotov6.ImportResourceStateResponse, error) {
 	imported, err := ImportedResources(in.ImportedResources)
 	if err != nil {
 		return nil, err
@@ -193,7 +206,8 @@ func ImportResourceStateResponse(in *tfplugin6.ImportResourceState_Response) (*t
 	}, nil
 }
 
-func ImportedResource(in *tfplugin6.ImportResourceState_ImportedResource) (*tfprotov6.ImportedResource, error) {
+
+ortedResource(in *tfplugin6.ImportResourceState_ImportedResource) (*tfprotov6.ImportedResource, error) {
 	resp := &tfprotov6.ImportedResource{
 		TypeName: in.TypeName,
 		Private:  in.Private,
@@ -204,7 +218,8 @@ func ImportedResource(in *tfplugin6.ImportResourceState_ImportedResource) (*tfpr
 	return resp, nil
 }
 
-func ImportedResources(in []*tfplugin6.ImportResourceState_ImportedResource) ([]*tfprotov6.ImportedResource, error) {
+
+ortedResources(in []*tfplugin6.ImportResourceState_ImportedResource) ([]*tfprotov6.ImportedResource, error) {
 	resp := make([]*tfprotov6.ImportedResource, 0, len(in))
 	for pos, i := range in {
 		if i == nil {

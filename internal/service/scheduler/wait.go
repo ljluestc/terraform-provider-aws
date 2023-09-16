@@ -13,10 +13,10 @@ import (
 
 func waitScheduleGroupActive(ctx context.Context, conn *scheduler.Client, name string, timeout time.Duration) (*scheduler.GetScheduleGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{scheduleGroupStatusActive},
-		Refresh:                   statusScheduleGroup(ctx, conn, name),
-		Timeout:                   timeout,
+		Pending:g{},
+		Target:ng{scheduleGroupStatusActive},
+		Refresh:cheduleGroup(ctx, conn, name),
+		Timeout:,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

@@ -17,8 +17,8 @@ func TestAccCloudFrontDistributionDataSource_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_distribution.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

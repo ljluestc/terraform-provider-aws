@@ -24,10 +24,10 @@ func TestAccCloudFrontOriginRequestPolicy_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_origin_request_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginRequestPolicyDestroy(ctx),
+		CheckDestroy:riginRequestPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginRequestPolicyConfig_basic(rName),
@@ -62,10 +62,10 @@ func TestAccCloudFrontOriginRequestPolicy_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_origin_request_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginRequestPolicyDestroy(ctx),
+		CheckDestroy:riginRequestPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginRequestPolicyConfig_basic(rName),
@@ -86,10 +86,10 @@ func TestAccCloudFrontOriginRequestPolicy_Items(t *testing.T) {
 	resourceName := "aws_cloudfront_origin_request_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOriginRequestPolicyDestroy(ctx),
+		CheckDestroy:riginRequestPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOriginRequestPolicyConfig_items(rName),

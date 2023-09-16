@@ -18,8 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_elasticsearch_domain")
-func DataSourceDomain() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceDomainRead,
 
 		Schema: map[string]*schema.Schema{
@@ -345,8 +344,7 @@ func DataSourceDomain() *schema.Resource {
 }
 
 func dataSourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
+funcn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	ds, err := FindDomainByName(ctx, conn, d.Get("domain_name").(string))

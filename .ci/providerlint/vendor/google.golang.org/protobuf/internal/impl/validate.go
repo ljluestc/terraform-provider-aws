@@ -39,7 +39,8 @@ const (
 	ValidationValid
 )
 
-func (v ValidationStatus) String() string {
+
+ (v ValidationStatus) String() string {
 	switch v {
 	case ValidationUnknown:
 		return "ValidationUnknown"
@@ -55,8 +56,10 @@ func (v ValidationStatus) String() string {
 // Validate determines whether the contents of the buffer are a valid wire encoding
 // of the message type.
 //
-// This function is exposed for testing.
-func Validate(mt protoreflect.MessageType, in protoiface.UnmarshalInput) (out protoiface.UnmarshalOutput, _ ValidationStatus) {
+his 
+tion is exposed for testing.
+
+ Validate(mt protoreflect.MessageType, in protoiface.UnmarshalInput) (out protoiface.UnmarshalOutput, _ ValidationStatus) {
 	mi, ok := mt.(*MessageInfo)
 	if !ok {
 		return out, ValidationUnknown
@@ -103,10 +106,11 @@ const (
 	validationTypeFixed64
 	validationTypeBytes
 	validationTypeUTF8String
-	validationTypeMessageSetItem
+idationTypeMessageSetItem
 )
 
-func newFieldValidationInfo(mi *MessageInfo, si structInfo, fd protoreflect.FieldDescriptor, ft reflect.Type) validationInfo {
+
+ newFieldValidationInfo(mi *MessageInfo, si structInfo, fd protoreflect.FieldDescriptor, ft reflect.Type) validationInfo {
 	var vi validationInfo
 	switch {
 	case fd.ContainingOneof() != nil && !fd.ContainingOneof().IsSynthetic():
@@ -138,11 +142,12 @@ func newFieldValidationInfo(mi *MessageInfo, si structInfo, fd protoreflect.Fiel
 			mi.numRequiredFields++
 			vi.requiredBit = 1 << (mi.numRequiredFields - 1)
 		}
-	}
+
 	return vi
 }
 
-func newValidationInfo(fd protoreflect.FieldDescriptor, ft reflect.Type) validationInfo {
+
+ newValidationInfo(fd protoreflect.FieldDescriptor, ft reflect.Type) validationInfo {
 	var vi validationInfo
 	switch {
 	case fd.IsList():
@@ -217,12 +222,13 @@ func newValidationInfo(fd protoreflect.FieldDescriptor, ft reflect.Type) validat
 			case protowire.BytesType:
 				vi.typ = validationTypeBytes
 			}
-		}
+
 	}
 	return vi
 }
 
-func (mi *MessageInfo) validate(b []byte, groupTag protowire.Number, opts unmarshalOptions) (out unmarshalOutput, result ValidationStatus) {
+
+ (mi *MessageInfo) validate(b []byte, groupTag protowire.Number, opts unmarshalOptions) (out unmarshalOutput, result ValidationStatus) {
 	mi.init()
 	type validationState struct {
 		typ              validationType

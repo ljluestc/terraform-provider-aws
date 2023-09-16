@@ -163,7 +163,7 @@ func (d *dataSourceIPRanges) Read(ctx context.Context, request datasource.ReadRe
 
 type dataSourceIPRangesData struct {
 	CreateDate     types.String `tfsdk:"create_date"`
-	ID             types.String `tfsdk:"id"`
+	IDtypes.String `tfsdk:"id"`
 	IPv4CIDRBlocks types.List   `tfsdk:"cidr_blocks"`
 	IPv6CIDRBlocks types.List   `tfsdk:"ipv6_cidr_blocks"`
 	Regions        types.Set    `tfsdk:"regions"`

@@ -13,7 +13,8 @@ import (
 	"go/types"
 )
 
-func UImportData(fset *token.FileSet, imports map[string]*types.Package, data []byte, path string) (_ int, pkg *types.Package, err error) {
+
+ UImportData(fset *token.FileSet, imports map[string]*types.Package, data []byte, path string) (_ int, pkg *types.Package, err error) {
 	err = fmt.Errorf("go/tools compiled with a Go version earlier than 1.18 cannot read unified IR export data")
 	return
 }

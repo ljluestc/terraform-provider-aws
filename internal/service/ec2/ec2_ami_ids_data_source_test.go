@@ -13,23 +13,20 @@ import (
 )
 
 
-func TestAccEC2AMIIDsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccAMIIDsDataSourceConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue(datasourceName, "ids.#", 0),
-),
-	},
+func
 },
 	})
 }
@@ -38,23 +35,20 @@ func(
 func TestAccEC2AMIIDsDataSource_sorted(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccAMIIDsDataSourceConfig_sorted(false),
+funcig: testAccAMIIDsDataSourceConfig_sorted(false),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(datasourceName, "ids.#", "2"),
 	resource.TestCheckResourceAttrPair(datasourceName, "ids.0", "data.aws_ami.test2", "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "ids.1", "data.aws_ami.test1", "id"),
 ),
-	},
-	{
+func
 Config: testAccAMIIDsDataSourceConfig_sorted(true),
 Check: resource.ComposeTestCheck
 func(
@@ -63,8 +57,7 @@ func(
 	resource.TestCheckResourceAttrPair(datasourceName, "ids.1", "data.aws_ami.test2", "id"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -75,27 +68,24 @@ func TestAccEC2AMIIDsDataSource_includeDeprecated(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccAMIIDsDataSourceConfig_includeDeprecated(true),
 Check: resource.ComposeTestCheck
 func(
-	acctest.CheckResourceAttrGreaterThanValue(datasourceName, "ids.#", 0),
-),
+func
 	},
 },
 	})
 }
 
 const testAccAMIIDsDataSourceConfig_basic = `
-data "aws_ami_ids" "test" {
-  owners = ["099720109477"]
+funcners = ["099720109477"]
 
   filter {
-    name   = "name"
-    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+me= "e"
+lues = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
   }
 }
 `
@@ -107,17 +97,16 @@ data "aws_ami" "test1" {
   owners = ["amazon"]
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-hvm-2018.03.0.20221018.0-x86_64-gp2"]
+me= "e"
+lues = ["amzn-ami-hvm-2018.03.0.20221018.0-x86_64-gp2"]
   }
 }
-
-data "aws_ami" "test2" {
+func "aws_ami" "test2" {
   owners = ["amazon"]
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-hvm-2018.03.0.20221209.1-x86_64-gp2"]
+me= "e"
+lues = ["amzn-ami-hvm-2018.03.0.20221209.1-x86_64-gp2"]
   }
 }
 
@@ -125,8 +114,8 @@ data "aws_ami_ids" "test" {
   owners = ["amazon"]
 
   filter {
-    name   = "name"
-    values = [data.aws_ami.test1.name, data.aws_ami.test2.name]
+me= "e"
+lues = [data.aws_ami.test1.name, data.aws_ami.test2.name]
   }
 
   sort_ascending = %[1]t
@@ -138,13 +127,12 @@ data "aws_ami_ids" "test" {
 func testAccAMIIDsDataSourceConfig_includeDeprecated(includeDeprecated bool) string {
 	return fmt.Sprintf(`
 data "aws_ami_ids" "test" {
-  owners    = ["099720109477"]
+  owners["099720109477"]
   include_deprecated = %[1]t
 
   filter {
-    name   = "name"
-    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+me= "e"
+lues = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
   }
 }
-`, includeDeprecated)
-}
+func

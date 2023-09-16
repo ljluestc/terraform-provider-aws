@@ -5,19 +5,20 @@ package timestamp
 
 import "testing"
 
-func TestValidateOnceADayWindowFormat(t *testing.T) {
+
+tValidateOnceADayWindowFormat(t *testing.T) {
 	t.Parallel()
 	type tc struct {
-value       string
+value
 expectError bool
 	}
 	tests := map[string]tc{
 "invalid hour": {
-	value:       "24:00-25:00",
+	value:5:00",
 	expectError: true,
 },
 "invalid minute": {
-	value:       "04:00-04:60",
+	value:4:60",
 	expectError: true,
 },
 "valid": {
@@ -30,7 +31,8 @@ expectError bool
 
 	for name, test := range tests {
 name, test := name, test
-t.Run(name, func(t *testing.T) {
+t.Run(name, 
+testing.T) {
 	t.Parallel()
 
 	ts := New(test.value)
@@ -47,23 +49,24 @@ t.Fatalf("got unexpected error: %s", err)
 	}
 }
 
-func TestValidateOnceAWeekWindowFormat(t *testing.T) {
+
+tValidateOnceAWeekWindowFormat(t *testing.T) {
 	t.Parallel()
 	type tc struct {
-value       string
+value
 expectError bool
 	}
 	tests := map[string]tc{
 "invalid day of week": {
-	value:       "san:04:00-san:05:00",
+	value:00-san:05:00",
 	expectError: true,
 },
 "invalid hour": {
-	value:       "sun:24:00-san:25:00",
+	value:00-san:25:00",
 	expectError: true,
 },
 "invalid minute": {
-	value:       "sun:04:00-sun:04:60",
+	value:00-sun:04:60",
 	expectError: true,
 },
 "valid": {
@@ -79,7 +82,8 @@ expectError bool
 
 	for name, test := range tests {
 name, test := name, test
-t.Run(name, func(t *testing.T) {
+t.Run(name, 
+testing.T) {
 	t.Parallel()
 
 	ts := New(test.value)
@@ -96,23 +100,24 @@ t.Fatalf("got unexpected error: %s", err)
 	}
 }
 
-func TestValidateUTCFormat(t *testing.T) {
+
+tValidateUTCFormat(t *testing.T) {
 	t.Parallel()
 	type tc struct {
-value       string
+value
 expectError bool
 	}
 	tests := map[string]tc{
 "invalid no TZ": {
-	value:       "2015-03-07 23:45:00",
+	value:-07 23:45:00",
 	expectError: true,
 },
 "invalid date order": {
-	value:       "27-03-2019 23:45:00",
+	value:019 23:45:00",
 	expectError: true,
 },
 "invalid format": {
-	value:       "Mon, 02 Jan 2006 15:04:05 -0700",
+	value: Jan 2006 15:04:05 -0700",
 	expectError: true,
 },
 "valid": {
@@ -122,7 +127,8 @@ expectError bool
 
 	for name, test := range tests {
 name, test := name, test
-t.Run(name, func(t *testing.T) {
+t.Run(name, 
+testing.T) {
 	t.Parallel()
 
 	ts := New(test.value)

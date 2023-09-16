@@ -8,7 +8,8 @@ import (
 	"log"
 )
 
-func copyStream(name string, dst io.Writer, src io.Reader) {
+
+yStream(name string, dst io.Writer, src io.Reader) {
 	if src == nil {
 		panic(name + ": src is nil")
 	}

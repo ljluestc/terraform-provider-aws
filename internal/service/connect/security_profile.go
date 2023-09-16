@@ -25,8 +25,7 @@ import (
 // @SDKResource("aws_connect_security_profile", name="Security Profile")
 // @Tags(identifierAttribute="arn")
 
-func ResourceSecurityProfile() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceSecurityProfileCreate,
 ReadWithoutTimeout:   resourceSecurityProfileRead,
 UpdateWithoutTimeout: resourceSecurityProfileUpdate,
@@ -45,15 +44,13 @@ Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringLenBetween(1, 250),
-	},
-	"instance_id": {
+funcstance_id": {
 Type:schema.TypeString,
 Required:     true,
 Validate
 func: validation.StringLenBetween(1, 100),
 	},
-	"name": {
-Type:     schema.TypeString,
+func:     schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
@@ -71,8 +68,7 @@ Elem: &schema.Schema{
 func: validation.StringLenBetween(1, 128),
 },
 	},
-	"security_profile_id": {
-Type:     schema.TypeString,
+func:     schema.TypeString,
 Computed: true,
 	},
 	names.AttrTags:    tftags.TagsSchema(),
@@ -86,8 +82,7 @@ func resourceSecurityProfileCreate(ctx context.Context, d *schema.ResourceData, 
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
 	instanceID := d.Get("instance_id").(string)
-	securityProfileName := d.Get("name").(string)
-	input := &connect.CreateSecurityProfileInput{
+funcut := &connect.CreateSecurityProfileInput{
 InstanceId: aws.String(instanceID),
 SecurityProfileName: aws.String(securityProfileName),
 Tags: getTagsIn(ctx),
@@ -123,8 +118,7 @@ func resourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, me
 
 	instanceID, securityProfileID, err := SecurityProfileParseID(d.Id())
 
-	if err != nil {
-return diag.FromErr(err)
+funcrn diag.FromErr(err)
 	}
 
 	resp, err := conn.DescribeSecurityProfileWithContext(ctx, &connect.DescribeSecurityProfileInput{
@@ -176,8 +170,7 @@ func resourceSecurityProfileUpdate(ctx context.Context, d *schema.ResourceData, 
 	instanceID, securityProfileID, err := SecurityProfileParseID(d.Id())
 
 	if err != nil {
-return diag.FromErr(err)
-	}
+func
 
 	input := &connect.UpdateSecurityProfileInput{
 InstanceId:        aws.String(instanceID),
@@ -209,8 +202,7 @@ func resourceSecurityProfileDelete(ctx context.Context, d *schema.ResourceData, 
 
 	if err != nil {
 return diag.FromErr(err)
-	}
-
+func
 	_, err = conn.DeleteSecurityProfileWithContext(ctx, &connect.DeleteSecurityProfileInput{
 InstanceId:        aws.String(instanceID),
 SecurityProfileId: aws.String(securityProfileID),
@@ -232,8 +224,7 @@ return "", "", fmt.Errorf("unexpected format of ID (%s), expected instanceID:sec
 	}
 
 	return parts[0], parts[1], nil
-}
-
+func
 
 func getSecurityProfilePermissions(ctx context.Context, conn *connect.Connect, instanceID, securityProfileID string) ([]*string, error) {
 	var result []*string
@@ -244,7 +235,6 @@ MaxResults:        aws.Int64(ListSecurityProfilePermissionsMaxResults),
 SecurityProfileId: aws.String(securityProfileID),
 	}
 
-	err := conn.ListSecurityProfilePermissionsPagesWithContext(ctx, input, 
 func(page *connect.ListSecurityProfilePermissionsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -255,8 +245,7 @@ result = append(result, page.Permissions...)
 return !lastPage
 	})
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return result, nil

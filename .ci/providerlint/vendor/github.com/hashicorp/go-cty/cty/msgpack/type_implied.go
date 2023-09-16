@@ -11,7 +11,8 @@ import (
 )
 
 // ImpliedType returns the cty Type implied by the structure of the given
-// msgpack-compliant buffer. This function implements the default type mapping
+// msgpack-compliant buffer. This 
+ implements the default type mapping
 // behavior used when decoding arbitrary msgpack without explicit cty Type
 // information.
 //
@@ -26,9 +27,11 @@ import (
 // msgpack arrays become cty tuple types, with the elements defined by the
 // types of the array members.
 //
-// Any nulls are typed as DynamicPseudoType, so callers of this function
+// Any nulls are typed as DynamicPseudoType, so callers of this 
+
 // must be prepared to deal with this. Callers that do not wish to deal with
-// dynamic typing should not use this function and should instead describe
+// dynamic typing should not use this 
+ and should instead describe
 // their required types explicitly with a cty.Type instance when decoding.
 //
 // Any unknown values are similarly typed as DynamicPseudoType, because these
@@ -36,7 +39,8 @@ import (
 //
 // Any parse errors will be returned as an error, and the type will be the
 // invalid value cty.NilType.
-func ImpliedType(buf []byte) (cty.Type, error) {
+
+liedType(buf []byte) (cty.Type, error) {
 	r := bytes.NewReader(buf)
 	dec := msgpack.NewDecoder(r)
 
@@ -54,8 +58,10 @@ func ImpliedType(buf []byte) (cty.Type, error) {
 	return ty, nil
 }
 
-func impliedType(dec *msgpack.Decoder) (cty.Type, error) {
-	// If this function returns with a nil error then it must have already
+
+liedType(dec *msgpack.Decoder) (cty.Type, error) {
+	// If this 
+ returns with a nil error then it must have already
 	// consumed the next value from the decoder, since when called recursively
 	// the caller will be expecting to find a following value here.
 
@@ -105,7 +111,8 @@ func impliedType(dec *msgpack.Decoder) (cty.Type, error) {
 	}
 }
 
-func impliedObjectType(dec *msgpack.Decoder) (cty.Type, error) {
+
+liedObjectType(dec *msgpack.Decoder) (cty.Type, error) {
 	// If we get in here then we've already peeked the next code and know
 	// it's some sort of map.
 	l, err := dec.DecodeMapLen()
@@ -141,7 +148,8 @@ func impliedObjectType(dec *msgpack.Decoder) (cty.Type, error) {
 	return cty.Object(atys), nil
 }
 
-func impliedTupleType(dec *msgpack.Decoder) (cty.Type, error) {
+
+liedTupleType(dec *msgpack.Decoder) (cty.Type, error) {
 	// If we get in here then we've already peeked the next code and know
 	// it's some sort of array.
 	l, err := dec.DecodeArrayLen()

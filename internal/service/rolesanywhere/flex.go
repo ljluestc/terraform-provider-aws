@@ -3,8 +3,7 @@
 
 package rolesanywhere
 
-func expandStringList(tfList []interface{}) []string {
-	var result []string
+func result []string
 
 	for _, rawVal := range tfList {
 		if v, ok := rawVal.(string); ok && v != "" {

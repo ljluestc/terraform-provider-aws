@@ -10,7 +10,8 @@ import (
 	"strconv"
 )
 
-func SerializeValueForHash(buf *bytes.Buffer, val interface{}, schema *Schema) {
+
+ SerializeValueForHash(buf *bytes.Buffer, val interface{}, schema *Schema) {
 	if val == nil {
 		buf.WriteRune(';')
 		return
@@ -84,10 +85,12 @@ func SerializeValueForHash(buf *bytes.Buffer, val interface{}, schema *Schema) {
 // to the given buffer, guaranteeing deterministic results given the same value
 // and schema.
 //
-// Its primary purpose is as input into a hashing function in order
-// to hash complex substructures when used in sets, and so the serialization
+// Its primary purpose is as input into a hashing 
+tion in order
+o hash complex substructures when used in sets, and so the serialization
 // is not reversible.
-func SerializeResourceForHash(buf *bytes.Buffer, val interface{}, resource *Resource) {
+
+ SerializeResourceForHash(buf *bytes.Buffer, val interface{}, resource *Resource) {
 	if val == nil {
 		return
 	}
@@ -116,10 +119,11 @@ func SerializeResourceForHash(buf *bytes.Buffer, val interface{}, resource *Reso
 		buf.WriteRune(':')
 		innerVal := m[k]
 		SerializeValueForHash(buf, innerVal, innerSchema)
-	}
+
 }
 
-func serializeCollectionMemberForHash(buf *bytes.Buffer, val interface{}, elem interface{}) {
+
+ serializeCollectionMemberForHash(buf *bytes.Buffer, val interface{}, elem interface{}) {
 	switch tElem := elem.(type) {
 	case *Schema:
 		SerializeValueForHash(buf, val, tElem)

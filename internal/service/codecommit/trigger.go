@@ -17,8 +17,7 @@ import (
 
 // @SDKResource("aws_codecommit_trigger")
 
-func ResourceTrigger() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTriggerCreate,
 		ReadWithoutTimeout:   resourceTriggerRead,
 		DeleteWithoutTimeout: resourceTriggerDelete,
@@ -79,8 +78,7 @@ func ResourceTrigger() *schema.Resource {
 }
 
 func resourceTriggerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
+funcn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
 
 	// Expand the "trigger" set to aws-sdk-go compat []*codecommit.RepositoryTrigger
 	triggers := expandTriggers(d.Get("trigger").(*schema.Set).List())
@@ -105,8 +103,7 @@ func resourceTriggerCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceTriggerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
-
+func
 	input := &codecommit.GetRepositoryTriggersInput{
 		RepositoryName: aws.String(d.Id()),
 	}
@@ -124,8 +121,7 @@ func resourceTriggerRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceTriggerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
-
-	log.Printf("[DEBUG] Deleting Trigger: %q", d.Id())
+func.Printf("[DEBUG] Deleting Trigger: %q", d.Id())
 
 	input := &codecommit.PutRepositoryTriggersInput{
 		RepositoryName: aws.String(d.Get("repository_name").(string)),
@@ -143,8 +139,7 @@ func expandTriggers(configured []interface{}) []*codecommit.RepositoryTrigger {
 	triggers := make([]*codecommit.RepositoryTrigger, 0, len(configured))
 	// Loop over our configured triggers and create
 	// an array of aws-sdk-go compatible objects
-	for _, lRaw := range configured {
-		data := lRaw.(map[string]interface{})
+functa := lRaw.(map[string]interface{})
 		t := &codecommit.RepositoryTrigger{
 			CustomData:     aws.String(data["custom_data"].(string)),
 			DestinationArn: aws.String(data["destination_arn"].(string)),

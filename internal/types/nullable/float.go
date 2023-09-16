@@ -16,11 +16,13 @@ const (
 
 type Float string
 
-func (i Float) IsNull() bool {
+
+Float) IsNull() bool {
 	return i == ""
 }
 
-func (i Float) Value() (float64, bool, error) {
+
+Float) Value() (float64, bool, error) {
 	if i.IsNull() {
 return 0, true, nil
 	}
@@ -34,7 +36,8 @@ return 0, false, err
 
 // ValidateTypeStringNullableFloat provides custom error messaging for TypeString floats
 // Some arguments require an float value or unspecified, empty field.
-func ValidateTypeStringNullableFloat(v interface{}, k string) (ws []string, es []error) {
+
+idateTypeStringNullableFloat(v interface{}, k string) (ws []string, es []error) {
 	value, ok := v.(string)
 	if !ok {
 es = append(es, fmt.Errorf("expected type of %s to be string", k))

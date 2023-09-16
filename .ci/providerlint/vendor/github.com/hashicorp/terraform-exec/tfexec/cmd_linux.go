@@ -12,7 +12,8 @@ import (
 	"syscall"
 )
 
-func (tf *Terraform) runTerraformCmd(ctx context.Context, cmd *exec.Cmd) error {
+
+ (tf *Terraform) runTerraformCmd(ctx context.Context, cmd *exec.Cmd) error {
 	var errBuf strings.Builder
 
 	cmd.SysProcAttr = &syscall.SysProcAttr{
@@ -61,14 +62,16 @@ func (tf *Terraform) runTerraformCmd(ctx context.Context, cmd *exec.Cmd) error {
 
 	var errStdout, errStderr error
 	var wg sync.WaitGroup
-	wg.Add(1)
-	go func() {
+	wg.1)
+	go 
+() {
 		defer wg.Done()
 		errStdout = writeOutput(ctx, stdoutPipe, stdoutWriter)
 	}()
 
 	wg.Add(1)
-	go func() {
+	go 
+() {
 		defer wg.Done()
 		errStderr = writeOutput(ctx, stderrPipe, stderrWriter)
 	}()

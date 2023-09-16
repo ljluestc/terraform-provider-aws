@@ -18,10 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMServerCertificate_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var cert iam.ServerCertificate
 	resourceName := "aws_iam_server_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -29,10 +26,10 @@ func TestAccIAMServerCertificate_basic(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_basic(rName, key, certificate),
@@ -50,27 +47,24 @@ func TestAccIAMServerCertificate_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"private_key"},
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_nameGenerated(t *testing.T) {
-	ctx := acctest.Context(t)
-	var cert iam.ServerCertificate
+}func TestAccIAMServerCertificate_nameGenerated(t *testing.T) {
+	func cert iam.ServerCertificate
 	resourceName := "aws_iam_server_certificate.test"
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_nameGenerated(key, certificate),
@@ -82,20 +76,17 @@ func TestAccIAMServerCertificate_nameGenerated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_namePrefix(t *testing.T) {
+}func TestAccIAMServerCertificate_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
-	var cert iam.ServerCertificate
-	resourceName := "aws_iam_server_certificate.test"
+	funcourceName := "aws_iam_server_certificate.test"
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_namePrefix("tf-acc-test-prefix-", key, certificate),
@@ -107,21 +98,18 @@ func TestAccIAMServerCertificate_namePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_disappears(t *testing.T) {
+}func TestAccIAMServerCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cert iam.ServerCertificate
-	resourceName := "aws_iam_server_certificate.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_basic(rName, key, certificate),
@@ -133,21 +121,18 @@ func TestAccIAMServerCertificate_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_tags(t *testing.T) {
+}func TestAccIAMServerCertificate_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cert iam.ServerCertificate
 	resourceName := "aws_iam_server_certificate.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
+	func := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_tags1(rName, key, certificate, "key1", "value1"),
@@ -159,7 +144,7 @@ func TestAccIAMServerCertificate_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"private_key"},
@@ -183,21 +168,18 @@ func TestAccIAMServerCertificate_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_file(t *testing.T) {
+}func TestAccIAMServerCertificate_file(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cert iam.ServerCertificate
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	unixFile := "test-fixtures/iam-ssl-unix-line-endings.pem"
-	winFile := "test-fixtures/iam-ssl-windows-line-endings.pem.winfile"
-	resourceName := "aws_iam_server_certificate.test"
+	funcourceName := "aws_iam_server_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_file(rName, unixFile),
@@ -207,7 +189,7 @@ func TestAccIAMServerCertificate_file(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"private_key"},
@@ -220,21 +202,18 @@ func TestAccIAMServerCertificate_file(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMServerCertificate_path(t *testing.T) {
+}func TestAccIAMServerCertificate_path(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cert iam.ServerCertificate
 	resourceName := "aws_iam_server_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
-	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerCertificateDestroy(ctx),
+		CheckDestroy:testAccCheckServerCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerCertificateConfig_path(rName, "/test/", key, certificate),
@@ -245,24 +224,21 @@ func TestAccIAMServerCertificate_path(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateId:           rName,
 				ImportStateVerifyIgnore: []string{"private_key"},
 			},
 		},
 	})
-}
-
-func testAccCheckCertExists(ctx context.Context, n string, v *iam.ServerCertificate) resource.TestCheckFunc {
+}func testAccCheckCertExists(ctx context.Context, n string, v *iam.ServerCertificate) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No IAM Server Certificate ID is set")
+	funceturn fmt.Errorf("No IAM Server Certificate ID is set")
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
@@ -277,9 +253,7 @@ func testAccCheckCertExists(ctx context.Context, n string, v *iam.ServerCertific
 
 		return nil
 	}
-}
-
-func testAccCheckServerCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckServerCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
@@ -287,8 +261,7 @@ func testAccCheckServerCertificateDestroy(ctx context.Context) resource.TestChec
 			if rs.Type != "aws_iam_server_certificate" {
 				continue
 			}
-
-			_, err := tfiam.FindServerCertificateByName(ctx, conn, rs.Primary.Attributes["name"])
+func, err := tfiam.FindServerCertificateByName(ctx, conn, rs.Primary.Attributes["name"])
 
 			if tfresource.NotFound(err) {
 				continue
@@ -303,53 +276,40 @@ func testAccCheckServerCertificateDestroy(ctx context.Context) resource.TestChec
 
 		return nil
 	}
-}
-
-func testAccServerCertificateConfig_basic(rName, key, certificate string) string {
+}func testAccServerCertificateConfig_basic(rName, key, certificate string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name= %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
-}
-
-func testAccServerCertificateConfig_nameGenerated(key, certificate string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_server_certificate" "test" {
+}func testAccServerCertificateConfig_nameGenerated(key, certificate string) string {
+	funcurce "aws_iam_server_certificate" "test" {
   certificate_body = "%[1]s"
   private_key      = "%[2]s"
 }
 `, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
-}
-
-func testAccServerCertificateConfig_namePrefix(namePrefix, key, certificate string) string {
+}func testAccServerCertificateConfig_namePrefix(namePrefix, key, certificate string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test" {
-  name_prefix      = %[1]q
-  certificate_body = "%[2]s"
+ funcrtificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 `, namePrefix, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
-}
-
-func testAccServerCertificateConfig_path(rName, path, key, certificate string) string {
+}func testAccServerCertificateConfig_path(rName, path, key, certificate string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
-  path             = %[2]q
+ functh= %[2]q
   certificate_body = "%[3]s"
   private_key      = "%[4]s"
 }
 `, rName, path, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
 }
 
-// iam-ssl-unix-line-endings
-func testAccServerCertificateConfig_file(rName, fName string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+// iam-ssl-unix-line-endingsfunc testAccServerCertificateConfig_file(rName, fName string) string {
+	funcurce "aws_iam_server_certificate" "test" {
+  name= %[1]q
   certificate_body = file(%[2]q)
 
   private_key = <<EOF
@@ -371,12 +331,10 @@ detWVr2WRvgNgQvcRnNPECwfq1RtMJJpavaI3kgeaSxg
 EOF
 }
 `, rName, fName)
-}
-
-func testAccServerCertificateConfig_tags1(rName, key, certificate, tagKey1, tagValue1 string) string {
+}func testAccServerCertificateConfig_tags1(rName, key, certificate, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name= %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 
@@ -385,12 +343,9 @@ resource "aws_iam_server_certificate" "test" {
   }
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key), tagKey1, tagValue1)
-}
-
-func testAccServerCertificateConfig_tags2(rName, key, certificate, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+}func testAccServerCertificateConfig_tags2(rName, key, certificate, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+	funcurce "aws_iam_server_certificate" "test" {
+  name= %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 
@@ -401,3 +356,4 @@ resource "aws_iam_server_certificate" "test" {
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key), tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

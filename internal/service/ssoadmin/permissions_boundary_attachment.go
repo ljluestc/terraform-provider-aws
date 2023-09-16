@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_ssoadmin_permissions_boundary_attachment")
 
-func ResourcePermissionsBoundaryAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourcePermissionsBoundaryAttachmentCreate,
-		ReadWithoutTimeout:   resourcePermissionsBoundaryAttachmentRead,
+		ReadWithoutTimeout:ourcePermissionsBoundaryAttachmentRead,
 		DeleteWithoutTimeout: resourcePermissionsBoundaryAttachmentDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -43,27 +42,25 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"instance_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:rue,
+				ForceNew:rue,
 				Validate
 func: verify.ValidARN,
-			},
-			"permission_set_arn": {
+funcpermission_set_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:rue,
+				ForceNew:rue,
 				Validate
 func: verify.ValidARN,
 			},
-			"permissions_boundary": {
-				Type:     schema.TypeList,
+funcType:chema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"customer_managed_policy_reference": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 1,
@@ -71,35 +68,32 @@ func: verify.ValidARN,
 								Schema: map[string]*schema.Schema{
 									"name": {
 										Type:schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Required:rue,
+										ForceNew:rue,
 										Validate
 func: validation.StringLenBetween(0, 128),
 									},
 									"path": {
-										Type:schema.TypeString,
-										Optional:     true,
-										Default:      "/",
-										ForceNew:     true,
+func						Optional:rue,
+										Default:
+										ForceNew:rue,
 										Validate
 func: validation.StringLenBetween(0, 512),
 									},
 								},
 							},
-						},
-						"managed_policy_arn": {
+func		"managed_policy_arn": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Default:      "",
-							ForceNew:     true,
+							Optional:rue,
+							Default:
+							ForceNew:rue,
 							Validate
 func: validation.StringLenBetween(0, 2048),
 						},
 					},
 				},
 			},
-		},
-	}
+func
 }
 
 
@@ -109,11 +103,10 @@ func resourcePermissionsBoundaryAttachmentCreate(ctx context.Context, d *schema.
 
 	tfMap := d.Get("permissions_boundary").([]interface{})[0].(map[string]interface{})
 	instanceARN := d.Get("instance_arn").(string)
-	permissionSetARN := d.Get("permission_set_arn").(string)
-	id := PermissionsBoundaryAttachmentCreateResourceID(permissionSetARN, instanceARN)
+func:= PermissionsBoundaryAttachmentCreateResourceID(permissionSetARN, instanceARN)
 	input := &ssoadmin.PutPermissionsBoundaryToPermissionSetInput{
 		InstanceArn:aws.String(instanceARN),
-		PermissionSetArn:    aws.String(permissionSetARN),
+		PermissionSetArn:s.String(permissionSetARN),
 		PermissionsBoundary: expandPermissionsBoundary(tfMap),
 	}
 
@@ -141,8 +134,7 @@ func resourcePermissionsBoundaryAttachmentRead(ctx context.Context, d *schema.Re
 	permissionSetARN, instanceARN, err := PermissionsBoundaryAttachmentParseResourceID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
-	}
-
+func
 	policy, err := FindPermissionsBoundary(ctx, conn, permissionSetARN, instanceARN)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -173,9 +165,8 @@ func resourcePermissionsBoundaryAttachmentDelete(ctx context.Context, d *schema.
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
 	}
-
-	input := &ssoadmin.DeletePermissionsBoundaryFromPermissionSetInput{
-		InstanceArn:      aws.String(instanceARN),
+funcut := &ssoadmin.DeletePermissionsBoundaryFromPermissionSetInput{
+		InstanceArn:ring(instanceARN),
 		PermissionSetArn: aws.String(permissionSetARN),
 	}
 
@@ -209,8 +200,7 @@ func PermissionsBoundaryAttachmentCreateResourceID(permissionSetARN, instanceARN
 
 
 func PermissionsBoundaryAttachmentParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, permissionsBoundaryAttachmentIDSeparator)
-
+func
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
 	}
@@ -218,10 +208,9 @@ func PermissionsBoundaryAttachmentParseResourceID(id string) (string, string, er
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected PERMISSION_SET_ARN%[2]sINSTANCE_ARN", id, permissionsBoundaryAttachmentIDSeparator)
 }
 
-
 func FindPermissionsBoundary(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string) (*ssoadmin.PermissionsBoundary, error) {
 	input := &ssoadmin.GetPermissionsBoundaryForPermissionSetInput{
-		InstanceArn:      aws.String(instanceARN),
+		InstanceArn:ring(instanceARN),
 		PermissionSetArn: aws.String(permissionSetARN),
 	}
 
@@ -229,9 +218,8 @@ func FindPermissionsBoundary(ctx context.Context, conn *ssoadmin.SSOAdmin, permi
 
 	if tfawserr.ErrCodeEquals(err, ssoadmin.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+			LastError:,
+func
 	}
 
 	if err != nil {
@@ -258,8 +246,7 @@ func expandPermissionsBoundary(tfMap map[string]interface{}) *ssoadmin.Permissio
 			apiObject.CustomerManagedPolicyReference = expandCustomerManagedPolicyReference(cmpr)
 		}
 	}
-	if v, ok := tfMap["managed_policy_arn"].(string); ok && v != "" {
-		apiObject.ManagedPolicyArn = aws.String(v)
+funciObject.ManagedPolicyArn = aws.String(v)
 	}
 
 	return apiObject
@@ -279,5 +266,4 @@ func flattenPermissionsBoundary(apiObject *ssoadmin.PermissionsBoundary) map[str
 		tfMap["customer_managed_policy_reference"] = []map[string]interface{}{flattenCustomerManagedPolicyReference(v)}
 	}
 
-	return tfMap
-}
+func

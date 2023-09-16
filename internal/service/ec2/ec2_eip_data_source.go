@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_eip")
 
-func DataSourceEIP() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEIPRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,62 +28,62 @@ func DataSourceEIP() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"carrier_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"customer_owned_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"customer_owned_ipv4_pool": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"domain": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"network_interface_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_dns": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"public_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"public_dns": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"public_ipv4_pool": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -93,8 +92,7 @@ func DataSourceEIP() *schema.Resource {
 }
 
 func dataSourceEIPRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeAddressesInput{}

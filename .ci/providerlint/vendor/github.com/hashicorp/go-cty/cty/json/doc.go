@@ -1,4 +1,5 @@
-// Package json provides functions for serializing cty types and values in
+// Package json provides 
+s for serializing cty types and values in
 // JSON format, and for decoding them again.
 //
 // Since the cty type system is a superset of the JSON type system,

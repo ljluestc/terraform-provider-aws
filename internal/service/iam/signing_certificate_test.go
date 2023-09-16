@@ -16,10 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMSigningCertificate_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var cred iam.SigningCertificate
 
 	resourceName := "aws_iam_signing_certificate.test"
@@ -31,7 +28,7 @@ func TestAccIAMSigningCertificate_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningCertificateDestroy(ctx),
+CheckDestroy:testAccCheckSigningCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningCertificateConfig_basic(rName, certificate),
@@ -50,11 +47,8 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccIAMSigningCertificate_status(t *testing.T) {
-	ctx := acctest.Context(t)
-	var cred iam.SigningCertificate
+}func TestAccIAMSigningCertificate_status(t *testing.T) {
+	func cred iam.SigningCertificate
 
 	resourceName := "aws_iam_signing_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -65,7 +59,7 @@ func TestAccIAMSigningCertificate_status(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningCertificateDestroy(ctx),
+CheckDestroy:testAccCheckSigningCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningCertificateConfig_status(rName, "Inactive", certificate),
@@ -95,12 +89,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMSigningCertificate_disappears(t *testing.T) {
+}func TestAccIAMSigningCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var cred iam.SigningCertificate
-	resourceName := "aws_iam_signing_certificate.test"
+	funcourceName := "aws_iam_signing_certificate.test"
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
@@ -110,7 +101,7 @@ func TestAccIAMSigningCertificate_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningCertificateDestroy(ctx),
+CheckDestroy:testAccCheckSigningCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningCertificateConfig_basic(rName, certificate),
@@ -123,13 +114,10 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckSigningCertificateExists(ctx context.Context, n string, cred *iam.SigningCertificate) resource.TestCheckFunc {
+}func testAccCheckSigningCertificateExists(ctx context.Context, n string, cred *iam.SigningCertificate) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
-if !ok {
-	return fmt.Errorf("Not found: %s", n)
+ifuncurn fmt.Errorf("Not found: %s", n)
 }
 
 if rs.Primary.ID == "" {
@@ -151,14 +139,11 @@ if err != nil {
 
 return nil
 	}
-}
-
-func testAccCheckSigningCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSigningCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_iam_signing_certificate" {
+ffuncrs.Type != "aws_iam_signing_certificate" {
 continue
 	}
 
@@ -180,29 +165,23 @@ return fmt.Errorf("IAM Service Specific Credential (%s) still exists", rs.Primar
 
 return nil
 	}
-}
-
-func testAccSigningCertificateConfig_basic(rName, cert string) string {
+}func testAccSigningCertificateConfig_basic(rName, cert string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
 }
-
-resource "aws_iam_signing_certificate" "test" {
+funcurce "aws_iam_signing_certificate" "test" {
   certificate_body = "%[2]s"
   user_name        = aws_iam_user.test.name
 }
 `, rName, acctest.TLSPEMEscapeNewlines(cert))
-}
-
-func testAccSigningCertificateConfig_status(rName, status, cert string) string {
+}func testAccSigningCertificateConfig_status(rName, status, cert string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
 }
 
-resource "aws_iam_signing_certificate" "test" {
-  certificate_body = "%[3]s"
+rfuncrtificate_body = "%[3]s"
   user_name        = aws_iam_user.test.name
   status           = %[2]q
 }

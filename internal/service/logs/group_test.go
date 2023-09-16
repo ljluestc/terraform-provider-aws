@@ -27,7 +27,7 @@ func TestAccLogsGroup_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -44,7 +44,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy"},
 	},
@@ -61,7 +61,7 @@ func TestAccLogsGroup_nameGenerate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_nameGenerated(),
@@ -73,7 +73,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy"},
 	},
@@ -90,7 +90,7 @@ func TestAccLogsGroup_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_namePrefix("tf-acc-test-prefix-"),
@@ -102,7 +102,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy", "name_prefix"},
 	},
@@ -120,7 +120,7 @@ func TestAccLogsGroup_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -144,7 +144,7 @@ func TestAccLogsGroup_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_tags1(rName, "key1", "value1"),
@@ -156,7 +156,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy"},
 	},
@@ -193,7 +193,7 @@ func TestAccLogsGroup_kmsKey(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_kmsKey(rName, 0),
@@ -204,7 +204,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy"},
 	},
@@ -236,7 +236,7 @@ func TestAccLogsGroup_retentionPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_retentionPolicy(rName, 365),
@@ -254,7 +254,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"retention_in_days", "skip_destroy"},
 	},
@@ -281,7 +281,7 @@ func TestAccLogsGroup_multiple(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_multiple(rName),
@@ -305,7 +305,7 @@ func TestAccLogsGroup_skipDestroy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGroupNoDestroy(ctx, t),
+CheckDestroy:testAccCheckGroupNoDestroy(ctx, t),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_skipDestroy(rName),
@@ -439,7 +439,7 @@ func testAccGroupConfig_kmsKey(rName string, idx int) string {
 resource "aws_kms_key" "test" {
   count = 2
 
-  description             = "%[1]s-${count.index}"
+  description= "%[1]s-${count.index}"
   deletion_window_in_days = 7
 
   policy = <<POLICY
@@ -466,7 +466,7 @@ resource "aws_cloudwatch_log_group" "test" {
 func testAccGroupConfig_retentionPolicy(rName string, val int) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[1]q
+  name = %[1]q
   retention_in_days = %[2]d
 }
 `, rName, val)

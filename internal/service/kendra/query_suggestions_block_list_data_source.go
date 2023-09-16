@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_kendra_query_suggestions_block_list")
+
 func DataSourceQuerySuggestionsBlockList() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceQuerySuggestionsBlockListRead,
@@ -99,6 +100,7 @@ func DataSourceQuerySuggestionsBlockList() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceQuerySuggestionsBlockListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)

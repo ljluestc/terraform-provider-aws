@@ -17,35 +17,34 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_route_table_routes")
 
-func DataSourceTransitGatewayRouteTableRoutes() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceTransitGatewayRouteTableRoutesRead,
 
 Schema: map[string]*schema.Schema{
 	"filter": CustomRequiredFiltersSchema(),
 	"routes": {
-Type:     schema.TypeList,
+Type:eList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "destination_cidr_block": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "prefix_list_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "state": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "transit_gateway_route_table_announcement_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
@@ -53,22 +52,20 @@ Elem: &schema.Resource{
 	},
 	"transit_gateway_route_table_id": {
 Type:schema.TypeString,
-Required:     true,
+Required:
 Validate
 func: validation.NoZeroValues,
-	},
-},
+func
 	}
 }
 
 
 func dataSourceTransitGatewayRouteTableRoutesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	tgwRouteTableID := d.Get("transit_gateway_route_table_id").(string)
 	input := &ec2.SearchTransitGatewayRoutesInput{
-Filters:     BuildCustomFilterList(d.Get("filter").(*schema.Set)),
+Filters:mFilterList(d.Get("filter").(*schema.Set)),
 TransitGatewayRouteTableId: aws.String(tgwRouteTableID),
 	}
 
@@ -85,7 +82,7 @@ return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route Table (%s)
 routes = append(routes, map[string]interface{}{
 	"destination_cidr_block": aws.StringValue(route.DestinationCidrBlock),
 	"prefix_list_id":aws.StringValue(route.PrefixListId),
-	"state":   aws.StringValue(route.State),
+	"state":.StringValue(route.State),
 	"transit_gateway_route_table_announcement_id": aws.StringValue(route.TransitGatewayRouteTableAnnouncementId),
 	"type": aws.StringValue(route.Type),
 })

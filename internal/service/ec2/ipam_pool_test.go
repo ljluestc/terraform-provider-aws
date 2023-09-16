@@ -18,25 +18,22 @@ import (
 )
 
 
-func TestAccIPAMPool_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolConfig_basic,
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
-	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-	resource.TestCheckNoResourceAttr(resourceName, "allocation_default_netmask_length"),
+funcource.TestCheckNoResourceAttr(resourceName, "allocation_default_netmask_length"),
 	resource.TestCheckNoResourceAttr(resourceName, "allocation_max_netmask_length"),
 	resource.TestCheckNoResourceAttr(resourceName, "allocation_min_netmask_length"),
 	resource.TestCheckResourceAttr(resourceName, "allocation_resource_tags.%", "0"),
@@ -52,8 +49,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -62,8 +59,7 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-	resource.TestCheckResourceAttr(resourceName, "allocation_default_netmask_length", "32"),
-	resource.TestCheckResourceAttr(resourceName, "allocation_max_netmask_length", "32"),
+funcource.TestCheckResourceAttr(resourceName, "allocation_max_netmask_length", "32"),
 	resource.TestCheckResourceAttr(resourceName, "allocation_min_netmask_length", "32"),
 	resource.TestCheckResourceAttr(resourceName, "allocation_resource_tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "allocation_resource_tags.test", "1"),
@@ -87,16 +83,14 @@ func TestAccIPAMPool_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccIPAMPoolConfig_basic,
+funcig: testAccIPAMPoolConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
@@ -104,8 +98,7 @@ func(
 ),
 ExpectNonEmptyPlan: true,
 	},
-},
-	})
+func
 }
 
 
@@ -116,25 +109,22 @@ func TestAccIPAMPool_ipv6Basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolConfig_ipv6,
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
+functAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv6"),
 	resource.TestCheckResourceAttr(resourceName, "publicly_advertisable", "false"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
-	},
+ResourceName:ame,
+ImportState:
+func
 },
 	})
 }
@@ -150,25 +140,22 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccIPAMPoolConfig_ipv6Contiguous,
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv6"),
-	resource.TestCheckResourceAttr(resourceName, "public_ip_source", "byoip"),
-	resource.TestCheckResourceAttr(resourceName, "publicly_advertisable", "false"),
+funcource.TestCheckResourceAttr(resourceName, "publicly_advertisable", "false"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
-},
-	})
+func
 }
 
 
@@ -182,28 +169,25 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccIPAMPoolConfig_tags("key1", "value1"),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcurceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
 Config: testAccIPAMPoolConfig_tags2("key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+funcource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
@@ -217,8 +201,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -228,8 +211,7 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
+func
 
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No IPAM Pool ID is set")
@@ -240,13 +222,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 output, err := tfec2.FindIPAMPoolByID(ctx, conn, rs.Primary.ID)
 
 if err != nil {
-	return err
-}
+func
+func *output
 
-*v = *output
-
-return nil
-	}
+func
 }
 
 
@@ -271,19 +250,16 @@ continue
 return err
 	}
 
-	return fmt.Errorf("IPAM Pool still exists: %s", rs.Primary.ID)
-}
-
-return nil
+func
+funcrn nil
 	}
-}
-
+func
 const testAccIPAMPoolConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 `
@@ -297,14 +273,14 @@ resource "aws_vpc_ipam_pool" "test" {
 
 var testAccIPAMPoolConfig_updated = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family     = "ipv4"
-  ipam_scope_id      = aws_vpc_ipam.test.private_default_scope_id
-  auto_import        = true
+  address_family
+  ipam_scope_id_ipam.test.private_default_scope_id
+  auto_import
   allocation_default_netmask_length = 32
-  allocation_max_netmask_length     = 32
-  allocation_min_netmask_length     = 32
+  allocation_max_netmask_length
+  allocation_min_netmask_length
   allocation_resource_tags = {
-    test = "1"
+st = "1"
   }
   description = "test"
 }
@@ -312,7 +288,7 @@ resource "aws_vpc_ipam_pool" "test" {
 
 var testAccIPAMPoolConfig_ipv6 = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family        = "ipv6"
+  address_family"
   ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
   locale = data.aws_region.current.name
   publicly_advertisable = false
@@ -321,10 +297,10 @@ resource "aws_vpc_ipam_pool" "test" {
 
 var testAccIPAMPoolConfig_ipv6Contiguous = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family        = "ipv6"
+  address_family"
   ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
   locale = data.aws_region.current.name
-  public_ip_source      = "byoip"
+  public_ip_source
   aws_service  = "ec2"
   publicly_advertisable = false
 }
@@ -338,7 +314,7 @@ resource "aws_vpc_ipam_pool" "test" {
   ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
 
   tags = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -352,9 +328,9 @@ resource "aws_vpc_ipam_pool" "test" {
   ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+1]q = %[2]q
+3]q = %[4]q
   }
+funcagKey1, tagValue1, tagKey2, tagValue2))
 }
-`, tagKey1, tagValue1, tagKey2, tagValue2))
-}
+func

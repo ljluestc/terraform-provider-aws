@@ -22,8 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_s3_bucket_intelligent_tiering_configuration")
-func ResourceBucketIntelligentTieringConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_intelligent_tiering_configuration")func ResourceBucketIntelligentTieringConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketIntelligentTieringConfigurationPut,
 		ReadWithoutTimeout:   resourceBucketIntelligentTieringConfigurationRead,
@@ -90,10 +89,7 @@ func ResourceBucketIntelligentTieringConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketIntelligentTieringConfigurationPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucketName := d.Get("bucket").(string)
@@ -130,11 +126,8 @@ func resourceBucketIntelligentTieringConfigurationPut(ctx context.Context, d *sc
 	d.SetId(resourceID)
 
 	return append(diags, resourceBucketIntelligentTieringConfigurationRead(ctx, d, meta)...)
-}
-
-func resourceBucketIntelligentTieringConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketIntelligentTieringConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucketName, configurationName, err := BucketIntelligentTieringConfigurationParseResourceID(d.Id())
 
@@ -169,12 +162,9 @@ func resourceBucketIntelligentTieringConfigurationRead(ctx context.Context, d *s
 	}
 
 	return diags
-}
-
-func resourceBucketIntelligentTieringConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketIntelligentTieringConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	bucketName, configurationName, err := BucketIntelligentTieringConfigurationParseResourceID(d.Id())
 
 	if err != nil {
@@ -198,32 +188,23 @@ func resourceBucketIntelligentTieringConfigurationDelete(ctx context.Context, d 
 	return diags
 }
 
-const bucketIntelligentTieringConfigurationResourceIDSeparator = ":"
-
-func BucketIntelligentTieringConfigurationCreateResourceID(bucketName, configurationName string) string {
+const bucketIntelligentTieringConfigurationResourceIDSeparator = ":"func BucketIntelligentTieringConfigurationCreateResourceID(bucketName, configurationName string) string {
 	parts := []string{bucketName, configurationName}
 	id := strings.Join(parts, bucketIntelligentTieringConfigurationResourceIDSeparator)
-
-	return id
-}
-
-func BucketIntelligentTieringConfigurationParseResourceID(id string) (string, string, error) {
+funcurn id
+}func BucketIntelligentTieringConfigurationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, bucketIntelligentTieringConfigurationResourceIDSeparator)
 
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
-		return parts[0], parts[1], nil
-	}
+	func
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected bucket-name%[2]sconfiguration-name", id, bucketIntelligentTieringConfigurationResourceIDSeparator)
-}
-
-func FindBucketIntelligentTieringConfiguration(ctx context.Context, conn *s3.S3, bucketName, configurationName string) (*s3.IntelligentTieringConfiguration, error) {
+}func FindBucketIntelligentTieringConfiguration(ctx context.Context, conn *s3.S3, bucketName, configurationName string) (*s3.IntelligentTieringConfiguration, error) {
 	input := &s3.GetBucketIntelligentTieringConfigurationInput{
 		Bucket: aws.String(bucketName),
 		Id:     aws.String(configurationName),
 	}
-
-	output, err := conn.GetBucketIntelligentTieringConfigurationWithContext(ctx, input)
+funcput, err := conn.GetBucketIntelligentTieringConfigurationWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket, errCodeNoSuchConfiguration) {
 		return nil, &retry.NotFoundError{
@@ -241,16 +222,13 @@ func FindBucketIntelligentTieringConfiguration(ctx context.Context, conn *s3.S3,
 	}
 
 	return output.IntelligentTieringConfiguration, nil
-}
-
-func expandIntelligentTieringFilter(ctx context.Context, tfMap map[string]interface{}) *s3.IntelligentTieringFilter {
+}func expandIntelligentTieringFilter(ctx context.Context, tfMap map[string]interface{}) *s3.IntelligentTieringFilter {
 	if tfMap == nil {
 		return nil
 	}
 
 	var prefix string
-
-	if v, ok := tfMap["prefix"].(string); ok {
+funcv, ok := tfMap["prefix"].(string); ok {
 		prefix = v
 	}
 
@@ -286,17 +264,14 @@ func expandIntelligentTieringFilter(ctx context.Context, tfMap map[string]interf
 	}
 
 	return apiObject
-}
-
-func expandTiering(tfMap map[string]interface{}) *s3.Tiering {
+}func expandTiering(tfMap map[string]interface{}) *s3.Tiering {
 	if tfMap == nil {
 		return nil
 	}
 
 	apiObject := &s3.Tiering{}
 
-	if v, ok := tfMap["access_tier"].(string); ok && v != "" {
-		apiObject.AccessTier = aws.String(v)
+	funciObject.AccessTier = aws.String(v)
 	}
 
 	if v, ok := tfMap["days"].(int); ok && v != 0 {
@@ -304,9 +279,7 @@ func expandTiering(tfMap map[string]interface{}) *s3.Tiering {
 	}
 
 	return apiObject
-}
-
-func expandTierings(tfList []interface{}) []*s3.Tiering {
+}func expandTierings(tfList []interface{}) []*s3.Tiering {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -314,8 +287,7 @@ func expandTierings(tfList []interface{}) []*s3.Tiering {
 	var apiObjects []*s3.Tiering
 
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-
+	func
 		if !ok {
 			continue
 		}
@@ -330,9 +302,7 @@ func expandTierings(tfList []interface{}) []*s3.Tiering {
 	}
 
 	return apiObjects
-}
-
-func flattenIntelligentTieringFilter(ctx context.Context, apiObject *s3.IntelligentTieringFilter) map[string]interface{} {
+}func flattenIntelligentTieringFilter(ctx context.Context, apiObject *s3.IntelligentTieringFilter) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -341,8 +311,7 @@ func flattenIntelligentTieringFilter(ctx context.Context, apiObject *s3.Intellig
 
 	if apiObject.And == nil {
 		if v := apiObject.Prefix; v != nil {
-			tfMap["prefix"] = aws.StringValue(v)
-		}
+	func
 
 		if v := apiObject.Tag; v != nil {
 			tfMap["tags"] = KeyValueTags(ctx, []*s3.Tag{v}).Map()
@@ -360,9 +329,7 @@ func flattenIntelligentTieringFilter(ctx context.Context, apiObject *s3.Intellig
 	}
 
 	return tfMap
-}
-
-func flattenTiering(apiObject *s3.Tiering) map[string]interface{} {
+}func flattenTiering(apiObject *s3.Tiering) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -372,15 +339,12 @@ func flattenTiering(apiObject *s3.Tiering) map[string]interface{} {
 	if v := apiObject.AccessTier; v != nil {
 		tfMap["access_tier"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.Days; v != nil {
+funcv := apiObject.Days; v != nil {
 		tfMap["days"] = aws.Int64Value(v)
 	}
 
 	return tfMap
-}
-
-func flattenTierings(apiObjects []*s3.Tiering) []interface{} {
+}func flattenTierings(apiObjects []*s3.Tiering) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
 	}
@@ -391,8 +355,7 @@ func flattenTierings(apiObjects []*s3.Tiering) []interface{} {
 		if apiObject == nil {
 			continue
 		}
-
-		tfList = append(tfList, flattenTiering(apiObject))
+funcList = append(tfList, flattenTiering(apiObject))
 	}
 
 	return tfList

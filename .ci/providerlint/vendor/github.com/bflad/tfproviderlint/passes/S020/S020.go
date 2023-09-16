@@ -1,5 +1,6 @@
 // Package S020 defines an Analyzer that checks for
-// Schema with only Computed enabled and ValidateFunc configured
+// Schema with only Computed enabled and Validate
+ configured
 package S020
 
 import (
@@ -28,7 +29,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
 	for _, schemaInfo := range schemaInfos {

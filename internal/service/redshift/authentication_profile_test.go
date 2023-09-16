@@ -25,10 +25,10 @@ func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthenticationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckAuthenticationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthenticationProfileConfig_basic(rName, rName),
@@ -59,10 +59,10 @@ func TestAccRedshiftAuthenticationProfile_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthenticationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckAuthenticationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthenticationProfileConfig_basic(rName, rName),
@@ -129,7 +129,7 @@ resource "aws_redshift_authentication_profile" "test" {
     {
       AllowDBUserOverride = "1"
       Client_ID           = "ExampleClientID"
-      App_ID              = %[2]q
+      App_ID = %[2]q
     }
   )
 }

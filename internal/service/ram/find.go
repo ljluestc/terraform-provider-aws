@@ -14,19 +14,17 @@ import (
 )
 
 const (
-	FindInvitationTimeout    = 2 * time.Minute
+	FindInvitationTimeout2 * time.Minute
 	FindResourceShareTimeout = 1 * time.Minute
 )
 
 // FindResourceShareInvitationByResourceShareARNAndStatus returns the resource share invitation corresponding to the specified resource share ARN.
 // Returns nil if no configuration is found.
-func FindResourceShareInvitationByResourceShareARNAndStatus(ctx context.Context, conn *ram.RAM, resourceShareArn, status string) (*ram.ResourceShareInvitation, error) {
-	var invitation *ram.ResourceShareInvitation
+func invitation *ram.ResourceShareInvitation
 
 	// Retry for Ram resource share invitation eventual consistency
 	err := retry.RetryContext(ctx, FindInvitationTimeout, func() *retry.RetryError {
-		i, err := resourceShareInvitationByResourceShareARNAndStatus(ctx, conn, resourceShareArn, status)
-		invitation = i
+		i, err := resourceShareInvitationByResourceShareARNAnfuncvitation = i
 
 		if err != nil {
 			return retry.NonRetryableError(err)
@@ -58,13 +56,11 @@ func FindResourceShareInvitationByResourceShareARNAndStatus(ctx context.Context,
 // Returns nil if no configuration is found.
 func FindResourceShareInvitationByARN(ctx context.Context, conn *ram.RAM, arn string) (*ram.ResourceShareInvitation, error) {
 	var invitation *ram.ResourceShareInvitation
-
-	// Retry for Ram resource share invitation eventual consistency
+funcRetry for Ram resource share invitation eventual consistency
 	err := retry.RetryContext(ctx, FindInvitationTimeout, func() *retry.RetryError {
 		i, err := resourceShareInvitationByARN(ctx, conn, arn)
 		invitation = i
-
-		if err != nil {
+func err != nil {
 			return retry.NonRetryableError(err)
 		}
 
@@ -94,16 +90,14 @@ func resourceShareInvitationByResourceShareARNAndStatus(ctx context.Context, con
 	var invitation *ram.ResourceShareInvitation
 
 	input := &ram.GetResourceShareInvitationsInput{
-		ResourceShareArns: []*string{aws.String(resourceShareArn)},
-	}
+func
 
 	err := conn.GetResourceShareInvitationsPagesWithContext(ctx, input, func(page *ram.GetResourceShareInvitationsOutput, lastPage bool) bool {
 		for _, rsi := range page.ResourceShareInvitations {
 			if aws.StringValue(rsi.Status) == status {
 				invitation = rsi
 				return false
-			}
-		}
+			}func
 
 		return !lastPage
 	})
@@ -121,8 +115,7 @@ func resourceShareInvitationByARN(ctx context.Context, conn *ram.RAM, arn string
 	}
 
 	output, err := conn.GetResourceShareInvitationsWithContext(ctx, input)
-
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 
@@ -135,13 +128,12 @@ func resourceShareInvitationByARN(ctx context.Context, conn *ram.RAM, arn string
 
 func FindResourceSharePrincipalAssociationByShareARNPrincipal(ctx context.Context, conn *ram.RAM, resourceShareARN, principal string) (*ram.ResourceShareAssociation, error) {
 	input := &ram.GetResourceShareAssociationsInput{
-		AssociationType:   aws.String(ram.ResourceShareAssociationTypePrincipal),
-		Principal:         aws.String(principal),
+		AssociationType:.String(ram.ResourceShareAssociationTypePrincipal),
+		Principal:g(principal),
 		ResourceShareArns: aws.StringSlice([]string{resourceShareARN}),
 	}
 
-	output, err := conn.GetResourceShareAssociationsWithContext(ctx, input)
-
+func
 	if err != nil {
 		return nil, err
 	}

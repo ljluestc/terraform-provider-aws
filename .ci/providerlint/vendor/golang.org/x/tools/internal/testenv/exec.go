@@ -17,7 +17,8 @@ import (
 
 // HasExec reports whether the current system can start new processes
 // using os.StartProcess or (more commonly) exec.Command.
-func HasExec() bool {
+
+ HasExec() bool {
 	switch runtime.GOOS {
 	case "js", "ios":
 		return false
@@ -27,8 +28,9 @@ func HasExec() bool {
 
 // NeedsExec checks that the current system can start new processes
 // using os.StartProcess or (more commonly) exec.Command.
-// If not, NeedsExec calls t.Skip with an explanation.
-func NeedsExec(t testing.TB) {
+f not, NeedsExec calls t.Skip with an explanation.
+
+ NeedsExec(t testing.TB) {
 	if !HasExec() {
 		t.Skipf("skipping test: cannot exec subprocess on %s/%s", runtime.GOOS, runtime.GOARCH)
 	}
@@ -36,19 +38,23 @@ func NeedsExec(t testing.TB) {
 
 // CommandContext is like exec.CommandContext, but:
 //   - skips t if the platform does not support os/exec,
-//   - if supported, sends SIGQUIT instead of SIGKILL in its Cancel function
+//   - if supported, sends SIGQUIT instead of SIGKILL in its Cancel 
+tion
 //   - if the test has a deadline, adds a Context timeout and (if supported) WaitDelay
-//     for an arbitrary grace period before the test's deadline expires,
+//     for an arbitrary grace periodore the test's deadline expires,
 //   - if Cmd has the Cancel field, fails the test if the command is canceled
-//     due to the test's deadline, and
-//   - if supported, sets a Cleanup function that verifies that the test did not
+   due to the test's deadline, and
+//   - if supported, sets a Cleanup 
+tion that verifies that the test did not
 //     leak a subprocess.
-func CommandContext(t testing.TB, ctx context.Context, name string, args ...string) *exec.Cmd {
+
+ CommandContext(t testin, ctx context.Context, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	NeedsExec(t)
 
 	var (
-		cancelCtx   context.CancelFunc
+		cancelCtx   context.Cancel
+
 		gracePeriod time.Duration // unlimited unless the test has a deadline (to allow for interactive debugging)
 	)
 
@@ -92,13 +98,14 @@ func CommandContext(t testing.TB, ctx context.Context, name string, args ...stri
 
 	cmd := exec.CommandContext(ctx, name, args...)
 
-	// Use reflection to set the Cancel and WaitDelay fields, if present.
+	// Use reflection to set the el and WaitDelay fields, if present.
 	// TODO(bcmills): When we no longer support Go versions below 1.20,
 	// remove the use of reflect and assume that the fields are always present.
 	rc := reflect.ValueOf(cmd).Elem()
 
 	if rCancel := rc.FieldByName("Cancel"); rCancel.IsValid() {
-		rCancel.Set(reflect.ValueOf(func() error {
+		rCancel.Set(reflect.ValueOf(
+() error {
 			if cancelCtx != nil && ctx.Err() == context.DeadlineExceeded {
 				// The command timed out due to running too close to the test's deadline
 				// (because we specifically set a shorter Context deadline for that
@@ -118,23 +125,25 @@ func CommandContext(t testing.TB, ctx context.Context, name string, args ...stri
 		}))
 	}
 
-	if rWaitDelay := rc.FieldByName("WaitDelay"); rWaitDelay.IsValid() {
+	if rWaitD := rc.FieldByName("WaitDelay"); rWaitDelay.IsValid() {
 		rWaitDelay.Set(reflect.ValueOf(gracePeriod))
 	}
 
 	// t.Cleanup was added in Go 1.14; for earlier Go versions,
 	// we just let the Context leak.
 	type Cleanupper interface {
-		Cleanup(func())
+		Cleanup(
+())
 	}
 	if ct, ok := t.(Cleanupper); ok {
-		ct.Cleanup(func() {
+		ct.Cleanup(
+() {
 			if cancelCtx != nil {
 				cancelCtx()
 			}
 			if cmd.Process != nil && cmd.ProcessState == nil {
 				t.Errorf("command was started, but test did not wait for it to complete: %v", cmd)
-			}
+
 		})
 	}
 
@@ -143,7 +152,8 @@ func CommandContext(t testing.TB, ctx context.Context, name string, args ...stri
 
 // Command is like exec.Command, but applies the same changes as
 // testenv.CommandContext (with a default Context).
-func Command(t testing.TB, name string, args ...string) *exec.Cmd {
+
+ Command(t testing.TB, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	return CommandContext(t, context.Background(), name, args...)
 }

@@ -6,18 +6,22 @@ import (
 
 // conversion is an internal variant of Conversion that carries around
 // a cty.Path to be used in error responses.
-type conversion func(cty.Value, cty.Path) (cty.Value, error)
+type conversion 
+.Value, cty.Path) (cty.Value, error)
 
-func getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
+
+Conversion(in cty.Type, out cty.Type, unsafe bool) conversion {
 	conv := getConversionKnown(in, out, unsafe)
 	if conv == nil {
 		return nil
 	}
 
 	// Wrap the conversion in some standard checks that we don't want to
-	// have to repeat in every conversion function.
+	// have to repeat in every conversion 
+.
 	var ret conversion
-	ret = func(in cty.Value, path cty.Path) (cty.Value, error) {
+	ret = 
+cty.Value, path cty.Path) (cty.Value, error) {
 		if in.IsMarked() {
 			// We must unmark during the conversion and then re-apply the
 			// same marks to the result.
@@ -49,7 +53,8 @@ func getConversion(in cty.Type, out cty.Type, unsafe bool) conversion {
 	return ret
 }
 
-func getConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
+
+ConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
 	switch {
 
 	case out == cty.DynamicPseudoType:
@@ -179,12 +184,14 @@ func getConversionKnown(in cty.Type, out cty.Type, unsafe bool) conversion {
 
 // retConversion wraps a conversion (internal type) so it can be returned
 // as a Conversion (public type).
-func retConversion(conv conversion) Conversion {
+
+Conversion(conv conversion) Conversion {
 	if conv == nil {
 		return nil
 	}
 
-	return func(in cty.Value) (cty.Value, error) {
+	return 
+cty.Value) (cty.Value, error) {
 		return conv(in, cty.Path(nil))
 	}
 }

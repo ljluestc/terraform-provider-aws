@@ -204,7 +204,7 @@ func s3ConfigurationElem() *schema.Resource {
 
 func processingConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:             schema.TypeList,
+		Type:schema.TypeList,
 		Optional:         true,
 		MaxItems:         1,
 		DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -272,13 +272,13 @@ func flattenElasticsearchConfiguration(description *firehose.ElasticsearchDestin
 
 	m := map[string]interface{}{
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
-		"role_arn":                   aws.StringValue(description.RoleARN),
-		"type_name":                  aws.StringValue(description.TypeName),
-		"index_name":                 aws.StringValue(description.IndexName),
-		"s3_backup_mode":             aws.StringValue(description.S3BackupMode),
+		"role_arn":      aws.StringValue(description.RoleARN),
+		"type_name":     aws.StringValue(description.TypeName),
+		"index_name":    aws.StringValue(description.IndexName),
+		"s3_backup_mode":aws.StringValue(description.S3BackupMode),
 		"s3_configuration":           flattenS3Configuration(description.S3DestinationDescription),
 		"index_rotation_period":      aws.StringValue(description.IndexRotationPeriod),
-		"vpc_config":                 flattenVPCConfiguration(description.VpcConfigurationDescription),
+		"vpc_config":    flattenVPCConfiguration(description.VpcConfigurationDescription),
 		"processing_configuration":   flattenProcessingConfiguration(description.ProcessingConfiguration, aws.StringValue(description.RoleARN)),
 	}
 
@@ -309,13 +309,13 @@ func flattenOpensearchConfiguration(description *firehose.Amazonopensearchservic
 
 	m := map[string]interface{}{
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
-		"role_arn":                   aws.StringValue(description.RoleARN),
-		"type_name":                  aws.StringValue(description.TypeName),
-		"index_name":                 aws.StringValue(description.IndexName),
-		"s3_backup_mode":             aws.StringValue(description.S3BackupMode),
+		"role_arn":      aws.StringValue(description.RoleARN),
+		"type_name":     aws.StringValue(description.TypeName),
+		"index_name":    aws.StringValue(description.IndexName),
+		"s3_backup_mode":aws.StringValue(description.S3BackupMode),
 		"s3_configuration":           flattenS3Configuration(description.S3DestinationDescription),
 		"index_rotation_period":      aws.StringValue(description.IndexRotationPeriod),
-		"vpc_config":                 flattenVPCConfiguration(description.VpcConfigurationDescription),
+		"vpc_config":    flattenVPCConfiguration(description.VpcConfigurationDescription),
 		"processing_configuration":   flattenProcessingConfiguration(description.ProcessingConfiguration, aws.StringValue(description.RoleARN)),
 	}
 
@@ -345,7 +345,7 @@ func flattenVPCConfiguration(description *firehose.VpcConfigurationDescription) 
 	}
 
 	m := map[string]interface{}{
-		"vpc_id":             aws.StringValue(description.VpcId),
+		"vpc_id":aws.StringValue(description.VpcId),
 		"subnet_ids":         flex.FlattenStringSet(description.SubnetIds),
 		"security_group_ids": flex.FlattenStringSet(description.SecurityGroupIds),
 		"role_arn":           aws.StringValue(description.RoleARN),
@@ -360,17 +360,17 @@ func flattenExtendedS3Configuration(description *firehose.ExtendedS3DestinationD
 	}
 
 	m := map[string]interface{}{
-		"bucket_arn":                           aws.StringValue(description.BucketARN),
+		"bucket_arn": aws.StringValue(description.BucketARN),
 		"cloudwatch_logging_options":           flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
-		"compression_format":                   aws.StringValue(description.CompressionFormat),
+		"compression_format":      aws.StringValue(description.CompressionFormat),
 		"data_format_conversion_configuration": flattenDataFormatConversionConfiguration(description.DataFormatConversionConfiguration),
-		"error_output_prefix":                  aws.StringValue(description.ErrorOutputPrefix),
-		"prefix":                               aws.StringValue(description.Prefix),
-		"processing_configuration":             flattenProcessingConfiguration(description.ProcessingConfiguration, aws.StringValue(description.RoleARN)),
+		"error_output_prefix":     aws.StringValue(description.ErrorOutputPrefix),
+		"prefix":     aws.StringValue(description.Prefix),
+		"processing_configuration":flattenProcessingConfiguration(description.ProcessingConfiguration, aws.StringValue(description.RoleARN)),
 		"dynamic_partitioning_configuration":   flattenDynamicPartitioningConfiguration(description.DynamicPartitioningConfiguration),
-		"role_arn":                             aws.StringValue(description.RoleARN),
-		"s3_backup_configuration":              flattenS3Configuration(description.S3BackupDescription),
-		"s3_backup_mode":                       aws.StringValue(description.S3BackupMode),
+		"role_arn":   aws.StringValue(description.RoleARN),
+		"s3_backup_configuration": flattenS3Configuration(description.S3BackupDescription),
+		"s3_backup_mode":          aws.StringValue(description.S3BackupMode),
 	}
 
 	if description.BufferingHints != nil {
@@ -393,13 +393,13 @@ func flattenRedshiftConfiguration(description *firehose.RedshiftDestinationDescr
 	m := map[string]interface{}{
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
 		"cluster_jdbcurl":            aws.StringValue(description.ClusterJDBCURL),
-		"password":                   configuredPassword,
+		"password":      configuredPassword,
 		"processing_configuration":   flattenProcessingConfiguration(description.ProcessingConfiguration, aws.StringValue(description.RoleARN)),
-		"role_arn":                   aws.StringValue(description.RoleARN),
+		"role_arn":      aws.StringValue(description.RoleARN),
 		"s3_backup_configuration":    flattenS3Configuration(description.S3BackupDescription),
-		"s3_backup_mode":             aws.StringValue(description.S3BackupMode),
+		"s3_backup_mode":aws.StringValue(description.S3BackupMode),
 		"s3_configuration":           flattenS3Configuration(description.S3DestinationDescription),
-		"username":                   aws.StringValue(description.Username),
+		"username":      aws.StringValue(description.Username),
 	}
 
 	if description.CopyCommand != nil {
@@ -423,10 +423,10 @@ func flattenSplunkConfiguration(description *firehose.SplunkDestinationDescripti
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
 		"hec_acknowledgment_timeout": int(aws.Int64Value(description.HECAcknowledgmentTimeoutInSeconds)),
 		"hec_endpoint_type":          aws.StringValue(description.HECEndpointType),
-		"hec_endpoint":               aws.StringValue(description.HECEndpoint),
-		"hec_token":                  aws.StringValue(description.HECToken),
+		"hec_endpoint":  aws.StringValue(description.HECEndpoint),
+		"hec_token":     aws.StringValue(description.HECToken),
 		"processing_configuration":   flattenProcessingConfiguration(description.ProcessingConfiguration, ""),
-		"s3_backup_mode":             aws.StringValue(description.S3BackupMode),
+		"s3_backup_mode":aws.StringValue(description.S3BackupMode),
 		"s3_configuration":           flattenS3Configuration(description.S3DestinationDescription),
 	}
 
@@ -443,12 +443,12 @@ func flattenS3Configuration(description *firehose.S3DestinationDescription) []ma
 	}
 
 	m := map[string]interface{}{
-		"bucket_arn":                 aws.StringValue(description.BucketARN),
+		"bucket_arn":    aws.StringValue(description.BucketARN),
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
 		"compression_format":         aws.StringValue(description.CompressionFormat),
 		"error_output_prefix":        aws.StringValue(description.ErrorOutputPrefix),
-		"prefix":                     aws.StringValue(description.Prefix),
-		"role_arn":                   aws.StringValue(description.RoleARN),
+		"prefix":        aws.StringValue(description.Prefix),
+		"role_arn":      aws.StringValue(description.RoleARN),
 	}
 
 	if description.BufferingHints != nil {
@@ -483,7 +483,7 @@ func flattenDataFormatConversionConfiguration(dfcc *firehose.DataFormatConversio
 	}
 
 	m := map[string]interface{}{
-		"enabled":                     enabled,
+		"enabled":        enabled,
 		"input_format_configuration":  ifc,
 		"output_format_configuration": ofc,
 		"schema_configuration":        sc,
@@ -535,7 +535,7 @@ func flattenOpenXJSONSerDe(oxjsd *firehose.OpenXJsonSerDe) []map[string]interfac
 	}
 
 	m := map[string]interface{}{
-		"column_to_json_key_mappings":              aws.StringValueMap(oxjsd.ColumnToJsonKeyMappings),
+		"column_to_json_key_mappings": aws.StringValueMap(oxjsd.ColumnToJsonKeyMappings),
 		"convert_dots_in_json_keys_to_underscores": aws.BoolValue(oxjsd.ConvertDotsInJsonKeysToUnderscores),
 	}
 
@@ -634,7 +634,7 @@ func flattenParquetSerDe(psd *firehose.ParquetSerDe) []map[string]interface{} {
 
 	m := map[string]interface{}{
 		"enable_dictionary_compression": aws.BoolValue(psd.EnableDictionaryCompression),
-		"max_padding_bytes":             int(aws.Int64Value(psd.MaxPaddingBytes)),
+		"max_padding_bytes":int(aws.Int64Value(psd.MaxPaddingBytes)),
 	}
 
 	// API omits default values
@@ -718,7 +718,7 @@ func flattenProcessingConfiguration(pc *firehose.ProcessingConfiguration, roleAr
 	// to show diffs if any field has drifted
 	defaultLambdaParams := map[string]string{
 		"NumberOfRetries":         "3",
-		"RoleArn":                 roleArn,
+		"RoleArn":    roleArn,
 		"BufferSizeInMBs":         "3",
 		"BufferIntervalInSeconds": "60",
 	}
@@ -865,11 +865,11 @@ func flattenHTTPEndpointConfiguration(description *firehose.HttpEndpointDestinat
 		return []map[string]interface{}{}
 	}
 	m := map[string]interface{}{
-		"access_key":                 configuredAccessKey,
-		"url":                        aws.StringValue(description.EndpointConfiguration.Url),
-		"name":                       aws.StringValue(description.EndpointConfiguration.Name),
-		"role_arn":                   aws.StringValue(description.RoleARN),
-		"s3_backup_mode":             aws.StringValue(description.S3BackupMode),
+		"access_key":    configuredAccessKey,
+		"url":           aws.StringValue(description.EndpointConfiguration.Url),
+		"name":          aws.StringValue(description.EndpointConfiguration.Name),
+		"role_arn":      aws.StringValue(description.RoleARN),
+		"s3_backup_mode":aws.StringValue(description.S3BackupMode),
 		"s3_configuration":           flattenS3Configuration(description.S3DestinationDescription),
 		"request_configuration":      flattenRequestConfiguration(description.RequestConfiguration),
 		"cloudwatch_logging_options": flattenCloudWatchLoggingOptions(description.CloudWatchLoggingOptions),
@@ -936,7 +936,7 @@ func ResourceDeliveryStream() *schema.Resource {
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 			"server_side_encryption": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -1796,7 +1796,7 @@ func createS3Config(tfList []interface{}) *firehose.S3DestinationConfiguration {
 			IntervalInSeconds: aws.Int64(int64(s3["buffering_interval"].(int))),
 			SizeInMBs:         aws.Int64(int64(s3["buffering_size"].(int))),
 		},
-		Prefix:                  extractPrefixConfiguration(s3),
+		Prefix:     extractPrefixConfiguration(s3),
 		CompressionFormat:       aws.String(s3["compression_format"].(string)),
 		EncryptionConfiguration: extractEncryptionConfiguration(s3),
 	}
@@ -1827,7 +1827,7 @@ func expandS3BackupConfig(d map[string]interface{}) *firehose.S3DestinationConfi
 			IntervalInSeconds: aws.Int64(int64(s3["buffering_interval"].(int))),
 			SizeInMBs:         aws.Int64(int64(s3["buffering_size"].(int))),
 		},
-		Prefix:                  extractPrefixConfiguration(s3),
+		Prefix:     extractPrefixConfiguration(s3),
 		CompressionFormat:       aws.String(s3["compression_format"].(string)),
 		EncryptionConfiguration: extractEncryptionConfiguration(s3),
 	}
@@ -1853,8 +1853,8 @@ func createExtendedS3Config(d *schema.ResourceData) *firehose.ExtendedS3Destinat
 			IntervalInSeconds: aws.Int64(int64(s3["buffering_interval"].(int))),
 			SizeInMBs:         aws.Int64(int64(s3["buffering_size"].(int))),
 		},
-		Prefix:                            extractPrefixConfiguration(s3),
-		CompressionFormat:                 aws.String(s3["compression_format"].(string)),
+		Prefix:  extractPrefixConfiguration(s3),
+		CompressionFormat:    aws.String(s3["compression_format"].(string)),
 		DataFormatConversionConfiguration: expandDataFormatConversionConfiguration(s3["data_format_conversion_configuration"].([]interface{})),
 		EncryptionConfiguration:           extractEncryptionConfiguration(s3),
 	}
@@ -1894,7 +1894,7 @@ func updateS3Config(tfList []interface{}) *firehose.S3DestinationUpdate {
 			SizeInMBs:         aws.Int64((int64)(s3["buffering_size"].(int))),
 		},
 		ErrorOutputPrefix:        aws.String(s3["error_output_prefix"].(string)),
-		Prefix:                   extractPrefixConfiguration(s3),
+		Prefix:      extractPrefixConfiguration(s3),
 		CompressionFormat:        aws.String(s3["compression_format"].(string)),
 		EncryptionConfiguration:  extractEncryptionConfiguration(s3),
 		CloudWatchLoggingOptions: extractCloudWatchLoggingConfiguration(s3),
@@ -1923,7 +1923,7 @@ func updateS3BackupConfig(d map[string]interface{}) *firehose.S3DestinationUpdat
 			SizeInMBs:         aws.Int64((int64)(s3["buffering_size"].(int))),
 		},
 		ErrorOutputPrefix:        aws.String(s3["error_output_prefix"].(string)),
-		Prefix:                   extractPrefixConfiguration(s3),
+		Prefix:      extractPrefixConfiguration(s3),
 		CompressionFormat:        aws.String(s3["compression_format"].(string)),
 		EncryptionConfiguration:  extractEncryptionConfiguration(s3),
 		CloudWatchLoggingOptions: extractCloudWatchLoggingConfiguration(s3),
@@ -1946,9 +1946,9 @@ func updateExtendedS3Config(d *schema.ResourceData) *firehose.ExtendedS3Destinat
 			IntervalInSeconds: aws.Int64((int64)(s3["buffering_interval"].(int))),
 			SizeInMBs:         aws.Int64((int64)(s3["buffering_size"].(int))),
 		},
-		ErrorOutputPrefix:                 aws.String(s3["error_output_prefix"].(string)),
-		Prefix:                            extractPrefixConfiguration(s3),
-		CompressionFormat:                 aws.String(s3["compression_format"].(string)),
+		ErrorOutputPrefix:    aws.String(s3["error_output_prefix"].(string)),
+		Prefix:  extractPrefixConfiguration(s3),
+		CompressionFormat:    aws.String(s3["compression_format"].(string)),
 		EncryptionConfiguration:           extractEncryptionConfiguration(s3),
 		DataFormatConversionConfiguration: expandDataFormatConversionConfiguration(s3["data_format_conversion_configuration"].([]interface{})),
 		CloudWatchLoggingOptions:          extractCloudWatchLoggingConfiguration(s3),
@@ -1983,7 +1983,7 @@ func expandDataFormatConversionConfiguration(l []interface{}) *firehose.DataForm
 	m := l[0].(map[string]interface{})
 
 	return &firehose.DataFormatConversionConfiguration{
-		Enabled:                   aws.Bool(m["enabled"].(bool)),
+		Enabled:      aws.Bool(m["enabled"].(bool)),
 		InputFormatConfiguration:  expandInputFormatConfiguration(m["input_format_configuration"].([]interface{})),
 		OutputFormatConfiguration: expandOutputFormatConfiguration(m["output_format_configuration"].([]interface{})),
 		SchemaConfiguration:       expandSchemaConfiguration(m["schema_configuration"].([]interface{})),
@@ -2043,7 +2043,7 @@ func expandOpenXJSONSerDe(l []interface{}) *firehose.OpenXJsonSerDe {
 	m := l[0].(map[string]interface{})
 
 	return &firehose.OpenXJsonSerDe{
-		CaseInsensitive:                    aws.Bool(m["case_insensitive"].(bool)),
+		CaseInsensitive:       aws.Bool(m["case_insensitive"].(bool)),
 		ColumnToJsonKeyMappings:            flex.ExpandStringMap(m["column_to_json_key_mappings"].(map[string]interface{})),
 		ConvertDotsInJsonKeysToUnderscores: aws.Bool(m["convert_dots_in_json_keys_to_underscores"].(bool)),
 	}
@@ -2086,15 +2086,15 @@ func expandOrcSerDe(l []interface{}) *firehose.OrcSerDe {
 	m := l[0].(map[string]interface{})
 
 	orcSerDe := &firehose.OrcSerDe{
-		BlockSizeBytes:                      aws.Int64(int64(m["block_size_bytes"].(int))),
+		BlockSizeBytes:         aws.Int64(int64(m["block_size_bytes"].(int))),
 		BloomFilterFalsePositiveProbability: aws.Float64(m["bloom_filter_false_positive_probability"].(float64)),
-		Compression:                         aws.String(m["compression"].(string)),
-		DictionaryKeyThreshold:              aws.Float64(m["dictionary_key_threshold"].(float64)),
-		EnablePadding:                       aws.Bool(m["enable_padding"].(bool)),
-		FormatVersion:                       aws.String(m["format_version"].(string)),
-		PaddingTolerance:                    aws.Float64(m["padding_tolerance"].(float64)),
-		RowIndexStride:                      aws.Int64(int64(m["row_index_stride"].(int))),
-		StripeSizeBytes:                     aws.Int64(int64(m["stripe_size_bytes"].(int))),
+		Compression:            aws.String(m["compression"].(string)),
+		DictionaryKeyThreshold: aws.Float64(m["dictionary_key_threshold"].(float64)),
+		EnablePadding:          aws.Bool(m["enable_padding"].(bool)),
+		FormatVersion:          aws.String(m["format_version"].(string)),
+		PaddingTolerance:       aws.Float64(m["padding_tolerance"].(float64)),
+		RowIndexStride:         aws.Int64(int64(m["row_index_stride"].(int))),
+		StripeSizeBytes:        aws.Int64(int64(m["stripe_size_bytes"].(int))),
 	}
 
 	if v, ok := m["bloom_filter_columns"].([]interface{}); ok && len(v) > 0 {
@@ -2116,12 +2116,12 @@ func expandParquetSerDe(l []interface{}) *firehose.ParquetSerDe {
 	m := l[0].(map[string]interface{})
 
 	return &firehose.ParquetSerDe{
-		BlockSizeBytes:              aws.Int64(int64(m["block_size_bytes"].(int))),
-		Compression:                 aws.String(m["compression"].(string)),
+		BlockSizeBytes: aws.Int64(int64(m["block_size_bytes"].(int))),
+		Compression:    aws.String(m["compression"].(string)),
 		EnableDictionaryCompression: aws.Bool(m["enable_dictionary_compression"].(bool)),
-		MaxPaddingBytes:             aws.Int64(int64(m["max_padding_bytes"].(int))),
-		PageSizeBytes:               aws.Int64(int64(m["page_size_bytes"].(int))),
-		WriterVersion:               aws.String(m["writer_version"].(string)),
+		MaxPaddingBytes:aws.Int64(int64(m["max_padding_bytes"].(int))),
+		PageSizeBytes:  aws.Int64(int64(m["page_size_bytes"].(int))),
+		WriterVersion:  aws.String(m["writer_version"].(string)),
 	}
 }
 
@@ -2561,12 +2561,12 @@ func createSplunkConfig(d *schema.ResourceData) (*firehose.SplunkDestinationConf
 	splunk := sl[0].(map[string]interface{})
 
 	configuration := &firehose.SplunkDestinationConfiguration{
-		HECToken:                          aws.String(splunk["hec_token"].(string)),
-		HECEndpointType:                   aws.String(splunk["hec_endpoint_type"].(string)),
-		HECEndpoint:                       aws.String(splunk["hec_endpoint"].(string)),
+		HECToken:aws.String(splunk["hec_token"].(string)),
+		HECEndpointType:      aws.String(splunk["hec_endpoint_type"].(string)),
+		HECEndpoint:          aws.String(splunk["hec_endpoint"].(string)),
 		HECAcknowledgmentTimeoutInSeconds: aws.Int64(int64(splunk["hec_acknowledgment_timeout"].(int))),
-		RetryOptions:                      extractSplunkRetryOptions(splunk),
-		S3Configuration:                   createS3Config(splunk["s3_configuration"].([]interface{})),
+		RetryOptions:         extractSplunkRetryOptions(splunk),
+		S3Configuration:      createS3Config(splunk["s3_configuration"].([]interface{})),
 	}
 
 	if _, ok := splunk["processing_configuration"]; ok {
@@ -2593,12 +2593,12 @@ func updateSplunkConfig(d *schema.ResourceData) (*firehose.SplunkDestinationUpda
 	splunk := sl[0].(map[string]interface{})
 
 	configuration := &firehose.SplunkDestinationUpdate{
-		HECToken:                          aws.String(splunk["hec_token"].(string)),
-		HECEndpointType:                   aws.String(splunk["hec_endpoint_type"].(string)),
-		HECEndpoint:                       aws.String(splunk["hec_endpoint"].(string)),
+		HECToken:aws.String(splunk["hec_token"].(string)),
+		HECEndpointType:      aws.String(splunk["hec_endpoint_type"].(string)),
+		HECEndpoint:          aws.String(splunk["hec_endpoint"].(string)),
 		HECAcknowledgmentTimeoutInSeconds: aws.Int64(int64(splunk["hec_acknowledgment_timeout"].(int))),
-		RetryOptions:                      extractSplunkRetryOptions(splunk),
-		S3Update:                          updateS3Config(splunk["s3_configuration"].([]interface{})),
+		RetryOptions:         extractSplunkRetryOptions(splunk),
+		S3Update:updateS3Config(splunk["s3_configuration"].([]interface{})),
 	}
 
 	if _, ok := splunk["processing_configuration"]; ok {
@@ -2860,7 +2860,7 @@ func resourceDeliveryStreamCreate(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).FirehoseConn(ctx)
 	input := &firehose.CreateDeliveryStreamInput{
 		DeliveryStreamName: aws.String(sn),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("kinesis_source_configuration"); ok {
@@ -2956,7 +2956,7 @@ func resourceDeliveryStreamCreate(ctx context.Context, d *schema.ResourceData, m
 
 	if v, ok := d.GetOk("server_side_encryption"); ok && !isDeliveryStreamOptionDisabled(v) {
 		startInput := &firehose.StartDeliveryStreamEncryptionInput{
-			DeliveryStreamName:                         aws.String(sn),
+			DeliveryStreamName:            aws.String(sn),
 			DeliveryStreamEncryptionConfigurationInput: expandDeliveryStreamEncryptionConfigurationInput(v.([]interface{})),
 		}
 
@@ -3001,9 +3001,9 @@ func resourceDeliveryStreamUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		updateInput := &firehose.UpdateDestinationInput{
-			DeliveryStreamName:             aws.String(sn),
+			DeliveryStreamName:aws.String(sn),
 			CurrentDeliveryStreamVersionId: aws.String(d.Get("version_id").(string)),
-			DestinationId:                  aws.String(d.Get("destination_id").(string)),
+			DestinationId:     aws.String(d.Get("destination_id").(string)),
 		}
 
 		if d.Get("destination").(string) == destinationTypeExtendedS3 {
@@ -3099,7 +3099,7 @@ func resourceDeliveryStreamUpdate(ctx context.Context, d *schema.ResourceData, m
 			}
 		} else {
 			startInput := &firehose.StartDeliveryStreamEncryptionInput{
-				DeliveryStreamName:                         aws.String(sn),
+				DeliveryStreamName:            aws.String(sn),
 				DeliveryStreamEncryptionConfigurationInput: expandDeliveryStreamEncryptionConfigurationInput(n.([]interface{})),
 			}
 

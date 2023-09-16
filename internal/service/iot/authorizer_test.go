@@ -25,10 +25,10 @@ func TestAccIoTAuthorizer_basic(t *testing.T) {
 	resourceName := "aws_iot_authorizer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:testAccCheckAuthorizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccIoTAuthorizer_disappears(t *testing.T) {
 	resourceName := "aws_iot_authorizer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:testAccCheckAuthorizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccIoTAuthorizer_signingDisabled(t *testing.T) {
 	resourceName := "aws_iot_authorizer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:testAccCheckAuthorizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_signingDisabled(rName),
@@ -117,10 +117,10 @@ func TestAccIoTAuthorizer_update(t *testing.T) {
 	resourceName := "aws_iot_authorizer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:testAccCheckAuthorizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_basic(rName),
@@ -232,7 +232,7 @@ resource "aws_lambda_function" "test" {
   filename         = "test-fixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
   function_name    = %[1]q
-  role             = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
   handler          = "exports.example"
   runtime          = "nodejs16.x"
 }
@@ -242,7 +242,7 @@ resource "aws_lambda_function" "test" {
 func testAccAuthorizerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccAuthorizerBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_authorizer" "test" {
-  name                    = %[1]q
+  name       = %[1]q
   authorizer_function_arn = aws_lambda_function.test.arn
   token_key_name          = "Token-Header-1"
 
@@ -256,11 +256,11 @@ resource "aws_iot_authorizer" "test" {
 func testAccAuthorizerConfig_updated(rName string) string {
 	return acctest.ConfigCompose(testAccAuthorizerBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_authorizer" "test" {
-  name                    = %[1]q
+  name       = %[1]q
   authorizer_function_arn = aws_lambda_function.test.arn
   signing_disabled        = false
   token_key_name          = "Token-Header-2"
-  status                  = "INACTIVE"
+  status     = "INACTIVE"
   enable_caching_for_http = true
 
   token_signing_public_keys = {
@@ -274,10 +274,10 @@ resource "aws_iot_authorizer" "test" {
 func testAccAuthorizerConfig_signingDisabled(rName string) string {
 	return acctest.ConfigCompose(testAccAuthorizerBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_authorizer" "test" {
-  name                    = %[1]q
+  name       = %[1]q
   authorizer_function_arn = aws_lambda_function.test.arn
   signing_disabled        = true
-  status                  = "INACTIVE"
+  status     = "INACTIVE"
 }
 `, rName))
 }

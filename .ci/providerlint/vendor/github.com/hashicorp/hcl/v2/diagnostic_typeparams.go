@@ -22,7 +22,8 @@ package hcl
 // If a value of type T is found, returns that value and true to indicate
 // success. Otherwise, returns the zero value of T and false to indicate
 // failure.
-func DiagnosticExtra[T any](diag *Diagnostic) (T, bool) {
+
+ DiagnosticExtra[T any](diag *Diagnostic) (T, bool) {
 	extra := diag.Extra
 	var zero T
 

@@ -14,24 +14,21 @@ import (
 )
 
 
-func TestAccVPCRouteTablesDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCRouteTablesDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr("data.aws_route_tables.by_vpc_id", "ids.#", "2"), // Add the default route table.
-	resource.TestCheckResourceAttr("data.aws_route_tables.by_tags", "ids.#", "2"),
-	resource.TestCheckResourceAttr("data.aws_route_tables.by_filter", "ids.#", "6"), // Add the default route tables.
+funcource.TestCheckResourceAttr("data.aws_route_tables.by_filter", "ids.#", "6"), // Add the default route tables.
 	resource.TestCheckResourceAttr("data.aws_route_tables.empty", "ids.#", "0"),
 ),
 	},
@@ -43,10 +40,9 @@ func(
 func testAccVPCRouteTablesDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "172.16.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -54,7 +50,7 @@ resource "aws_vpc" "test2" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -62,9 +58,9 @@ resource "aws_route_table" "test1_public" {
   vpc_id = aws_vpc.test1.id
 
   tags = {
-    Name      = %[1]q
-    Tier      = "Public"
-    Component = "Frontend"
+me
+er"
+mponent = "Frontend"
   }
 }
 
@@ -72,9 +68,9 @@ resource "aws_route_table" "test1_private1" {
   vpc_id = aws_vpc.test1.id
 
   tags = {
-    Name      = %[1]q
-    Tier      = "Private"
-    Component = "Database"
+me
+ere"
+mponent = "Database"
   }
 }
 
@@ -82,9 +78,9 @@ resource "aws_route_table" "test1_private2" {
   vpc_id = aws_vpc.test1.id
 
   tags = {
-    Name      = %[1]q
-    Tier      = "Private"
-    Component = "AppServer"
+me
+ere"
+mponent = "AppServer"
   }
 }
 
@@ -92,9 +88,9 @@ resource "aws_route_table" "test2_public" {
   vpc_id = aws_vpc.test2.id
 
   tags = {
-    Name      = %[1]q
-    Tier      = "Public"
-    Component = "Frontend"
+me
+er"
+mponent = "Frontend"
   }
 }
 
@@ -106,7 +102,7 @@ data "aws_route_tables" "by_vpc_id" {
 
 data "aws_route_tables" "by_tags" {
   tags = {
-    Tier = "Public"
+er = "Public"
   }
 
   depends_on = [aws_route_table.test1_public, aws_route_table.test1_private1, aws_route_table.test1_private2, aws_route_table.test2_public]
@@ -114,8 +110,8 @@ data "aws_route_tables" "by_tags" {
 
 data "aws_route_tables" "by_filter" {
   filter {
-    name   = "vpc-id"
-    values = [aws_vpc.test1.id, aws_vpc.test2.id]
+me= "-id"
+lues = [aws_vpc.test1.id, aws_vpc.test2.id]
   }
 
   depends_on = [aws_route_table.test1_public, aws_route_table.test1_private1, aws_route_table.test1_private2, aws_route_table.test2_public]
@@ -125,7 +121,7 @@ data "aws_route_tables" "empty" {
   vpc_id = aws_vpc.test2.id
 
   tags = {
-    Tier = "Private"
+er = "Private"
   }
 
   depends_on = [aws_route_table.test1_public, aws_route_table.test1_private1, aws_route_table.test1_private2, aws_route_table.test2_public]

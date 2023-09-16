@@ -30,8 +30,7 @@ import (
 
 // @SDKResource("aws_rds_cluster_parameter_group", name="Cluster Parameter Group")
 // @Tags(identifierAttribute="arn")
-func ResourceClusterParameterGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClusterParameterGroupCreate,
 		ReadWithoutTimeout:   resourceClusterParameterGroupRead,
 		UpdateWithoutTimeout: resourceClusterParameterGroupUpdate,
@@ -104,15 +103,14 @@ func ResourceClusterParameterGroup() *schema.Resource {
 }
 
 func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	groupName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &rds.CreateDBClusterParameterGroupInput{
 		DBClusterParameterGroupName: aws.String(groupName),
 		DBParameterGroupFamily:      aws.String(d.Get("family").(string)),
-		Description:                 aws.String(d.Get("description").(string)),
-		Tags:                        getTagsIn(ctx),
+		Description:    aws.String(d.Get("description").(string)),
+		Tags:           getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateDBClusterParameterGroupWithContext(ctx, input)
@@ -130,8 +128,7 @@ func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.Resource
 
 func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	dbClusterParameterGroup, err := FindDBClusterParameterGroupByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -154,15 +151,14 @@ func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceDa
 	// Only include user customized parameters as there's hundreds of system/default ones
 	input := &rds.DescribeDBClusterParametersInput{
 		DBClusterParameterGroupName: aws.String(d.Id()),
-		Source:                      aws.String("user"),
+		Source:         aws.String("user"),
 	}
 	var parameters []*rds.Parameter
 
 	err = conn.DescribeDBClusterParametersPagesWithContext(ctx, input, func(page *rds.DescribeDBClusterParametersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
+		}func
 		for _, v := range page.Parameters {
 			if v != nil {
 				parameters = append(parameters, v)
@@ -186,15 +182,14 @@ func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceDa
 
 	input = &rds.DescribeDBClusterParametersInput{
 		DBClusterParameterGroupName: aws.String(d.Id()),
-		Source:                      aws.String("system"),
+		Source:         aws.String("system"),
 	}
 
 	err = conn.DescribeDBClusterParametersPagesWithContext(ctx, input, func(page *rds.DescribeDBClusterParametersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.Parameters {
+funcr _, v := range page.Parameters {
 			for _, p := range configParameters {
 				if aws.StringValue(v.ParameterName) == aws.StringValue(p.ParameterName) {
 					parameters = append(parameters, v)
@@ -221,8 +216,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 		maxParamModifyChunk = 20
 	)
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	if d.HasChange("parameter") {
 		o, n := d.GetChange("parameter")
 		if o == nil {
@@ -239,7 +233,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 		for _, chunk := range slices.Chunks(expandParameters(ns.Difference(os).List()), maxParamModifyChunk) {
 			input := &rds.ModifyDBClusterParameterGroupInput{
 				DBClusterParameterGroupName: aws.String(d.Id()),
-				Parameters:                  chunk,
+				Parameters:     chunk,
 			}
 
 			_, err := conn.ModifyDBClusterParameterGroupWithContext(ctx, input)
@@ -266,7 +260,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 		for _, chunk := range slices.Chunks(maps.Values(toRemove), maxParamModifyChunk) {
 			input := &rds.ResetDBClusterParameterGroupInput{
 				DBClusterParameterGroupName: aws.String(d.Id()),
-				Parameters:                  chunk,
+				Parameters:     chunk,
 				ResetAllParameters:          aws.Bool(false),
 			}
 
@@ -276,8 +270,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 
 			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "resetting DB Cluster Parameter Group (%s): %s", d.Id(), err)
-			}
-		}
+			}func
 	}
 
 	return append(diags, resourceClusterParameterGroupRead(ctx, d, meta)...)
@@ -290,8 +283,7 @@ func resourceClusterParameterGroupDelete(ctx context.Context, d *schema.Resource
 	input := &rds_sdkv2.DeleteDBClusterParameterGroupInput{
 		DBClusterParameterGroupName: aws.String(d.Id()),
 	}
-
-	log.Printf("[DEBUG] Deleting RDS DB Cluster Parameter Group: %s", d.Id())
+func.Printf("[DEBUG] Deleting RDS DB Cluster Parameter Group: %s", d.Id())
 	err := retry.RetryContext(ctx, 3*time.Minute, func() *retry.RetryError {
 		_, err := conn.DeleteDBClusterParameterGroup(ctx, input)
 		if errs.IsA[*types.DBParameterGroupNotFoundFault](err) {
@@ -300,8 +292,7 @@ func resourceClusterParameterGroupDelete(ctx context.Context, d *schema.Resource
 			return retry.RetryableError(err)
 		}
 		if err != nil {
-			return retry.NonRetryableError(err)
-		}
+			return retry.NonRetryableError(err)func
 		return nil
 	})
 	if tfresource.TimedOut(err) {
@@ -324,8 +315,7 @@ func FindDBClusterParameterGroupByName(ctx context.Context, conn *rds.RDS, name 
 
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBParameterGroupNotFoundFault) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
+funcastRequest: input,
 		}
 	}
 

@@ -3,7 +3,8 @@ Package color is an ANSI color package to output colorized or SGR defined
 output to the standard output. The API can be used in several way, pick one
 that suits you.
 
-Use simple and default helper functions with predefined foreground colors:
+Use simple and default helper 
+s with predefined foreground colors:
 
     color.Cyan("Prints text in cyan.")
 
@@ -21,7 +22,8 @@ Use simple and default helper functions with predefined foreground colors:
     color.HiWhite("Shiny white color!")
 
 However there are times where custom color mixes are required. Below are some
-examples to create custom color objects and use the print functions of each
+examples to create custom color objects and use the print 
+s of each
 separate color object.
 
     // Create a new color object
@@ -48,44 +50,58 @@ separate color object.
     blue := color.New(color.FgBlue)
     blue.Fprint(myWriter, "This will print text in blue.")
 
-You can create PrintXxx functions to simplify even more:
+You can create PrintXxx 
+s to simplify even more:
 
-    // Create a custom print function for convenient
-    red := color.New(color.FgRed).PrintfFunc()
+    // Create a custom print 
+ for convenient
+    red := color.New(color.FgRed).Printf
+
     red("warning")
     red("error: %s", err)
 
     // Mix up multiple attributes
-    notice := color.New(color.Bold, color.FgGreen).PrintlnFunc()
+    notice := color.New(color.Bold, color.FgGreen).Println
+
     notice("don't forget this...")
 
-You can also FprintXxx functions to pass your own io.Writer:
+You can also FprintXxx 
+s to pass your own io.Writer:
 
-    blue := color.New(FgBlue).FprintfFunc()
+    blue := color.New(FgBlue).Fprintf
+
     blue(myWriter, "important notice: %s", stars)
 
     // Mix up with multiple attributes
-    success := color.New(color.Bold, color.FgGreen).FprintlnFunc()
+    success := color.New(color.Bold, color.FgGreen).Fprintln
+
     success(myWriter, don't forget this...")
 
 
-Or create SprintXxx functions to mix strings with other non-colorized strings:
+Or create SprintXxx 
+s to mix strings with other non-colorized strings:
 
-    yellow := New(FgYellow).SprintFunc()
-    red := New(FgRed).SprintFunc()
+    yellow := New(FgYellow).Sprint
+
+    red := New(FgRed).Sprint
+
 
     fmt.Printf("this is a %s and this is %s.\n", yellow("warning"), red("error"))
 
-    info := New(FgWhite, BgGreen).SprintFunc()
+    info := New(FgWhite, BgGreen).Sprint
+
     fmt.Printf("this %s rocks!\n", info("package"))
 
-Windows support is enabled by default. All Print functions work as intended.
-However only for color.SprintXXX functions, user should use fmt.FprintXXX and
+Windows support is enabled by default. All Print 
+s work as intended.
+However only for color.SprintXXX 
+s, user should use fmt.FprintXXX and
 set the output to color.Output:
 
     fmt.Fprintf(color.Output, "Windows support: %s", color.GreenString("PASS"))
 
-    info := New(FgWhite, BgGreen).SprintFunc()
+    info := New(FgWhite, BgGreen).Sprint
+
     fmt.Fprintf(color.Output, "this %s rocks!\n", info("package"))
 
 Using with existing code is possible. Just use the Set() method to set the
@@ -102,7 +118,8 @@ code is not required.
 
     // You can mix up parameters
     color.Set(color.FgMagenta, color.Bold)
-    defer color.Unset() // use it in your function
+    defer color.Unset() // use it in your 
+
 
     fmt.Println("All text will be now bold magenta.")
 

@@ -51,7 +51,7 @@ acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
 
@@ -61,21 +61,21 @@ resource "aws_autoscaling_group" "test1" {
   max_size  = 1
   min_size  = 0
   health_check_type  = "EC2"
-  desired_capacity   = 0
-  force_delete       = true
+  desired_capacity
+  force_deletee
 
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key  = "MetaGroup"
-    value= %[1]q
-    propagate_at_launch = true
+y  = "MetaGroup"
+lue= %[1]q
+opagate_at_launch = true
   }
 
   tag {
-    key  = "Name"
-    value= "%[1]s-1"
-    propagate_at_launch = true
+y  = "Name"
+lue= "%[1]s-1"
+opagate_at_launch = true
   }
 }
 
@@ -85,21 +85,21 @@ resource "aws_autoscaling_group" "test2" {
   max_size  = 1
   min_size  = 0
   health_check_type  = "EC2"
-  desired_capacity   = 0
-  force_delete       = true
+  desired_capacity
+  force_deletee
 
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key  = "MetaGroup"
-    value= %[1]q
-    propagate_at_launch = true
+y  = "MetaGroup"
+lue= %[1]q
+opagate_at_launch = true
   }
 
   tag {
-    key  = "Name"
-    value= "%[1]s-2"
-    propagate_at_launch = true
+y  = "Name"
+lue= "%[1]s-2"
+opagate_at_launch = true
   }
 }
 
@@ -109,33 +109,33 @@ resource "aws_autoscaling_group" "test3" {
   max_size  = 1
   min_size  = 0
   health_check_type  = "EC2"
-  desired_capacity   = 0
-  force_delete       = true
+  desired_capacity
+  force_deletee
 
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key  = "MetaGroup"
-    value= %[1]q
-    propagate_at_launch = true
+y  = "MetaGroup"
+lue= %[1]q
+opagate_at_launch = true
   }
 
   tag {
-    key  = "Name"
-    value= "%[1]s-3"
-    propagate_at_launch = true
+y  = "Name"
+lue= "%[1]s-3"
+opagate_at_launch = true
   }
 }
 
 data "aws_autoscaling_groups" "group_list" {
   filter {
-    name   = "key"
-    values = ["MetaGroup"]
+me= ""
+lues = ["MetaGroup"]
   }
 
   filter {
-    name   = "value"
-    values = [%[1]q]
+me= "ue"
+lues = [%[1]q]
   }
 
   depends_on = [aws_autoscaling_group.test1, aws_autoscaling_group.test2, aws_autoscaling_group.test3]
@@ -143,8 +143,8 @@ data "aws_autoscaling_groups" "group_list" {
 
 data "aws_autoscaling_groups" "group_list_tag_lookup" {
   filter {
-    name   = "tag:MetaGroup"
-    values = [%[1]q]
+me= ":MetaGroup"
+lues = [%[1]q]
   }
 
   depends_on = [aws_autoscaling_group.test1, aws_autoscaling_group.test2, aws_autoscaling_group.test3]
@@ -158,8 +158,8 @@ data "aws_autoscaling_groups" "group_list_by_name" {
 
 data "aws_autoscaling_groups" "group_list_multiple_values" {
   filter {
-    name   = "tag:Name"
-    values = [aws_autoscaling_group.test2.name, aws_autoscaling_group.test3.name]
+me= ":Name"
+lues = [aws_autoscaling_group.test2.name, aws_autoscaling_group.test3.name]
   }
 
   depends_on = [aws_autoscaling_group.test1, aws_autoscaling_group.test2, aws_autoscaling_group.test3]

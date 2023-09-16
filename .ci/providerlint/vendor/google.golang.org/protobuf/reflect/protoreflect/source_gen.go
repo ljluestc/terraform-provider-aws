@@ -6,7 +6,8 @@
 
 package protoreflect
 
-func (p *SourcePath) appendFileDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendFileDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -41,7 +42,8 @@ func (p *SourcePath) appendFileDescriptorProto(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -68,9 +70,10 @@ func (p *SourcePath) appendDescriptorProto(b []byte) []byte {
 		b = p.appendRepeatedField(b, "reserved_name", nil)
 	}
 	return b
-}
 
-func (p *SourcePath) appendEnumDescriptorProto(b []byte) []byte {
+
+
+ (p *SourcePath) appendEnumDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -86,10 +89,11 @@ func (p *SourcePath) appendEnumDescriptorProto(b []byte) []byte {
 	case 5:
 		b = p.appendRepeatedField(b, "reserved_name", nil)
 	}
-	return b
+urn b
 }
 
-func (p *SourcePath) appendServiceDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendServiceDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -100,11 +104,12 @@ func (p *SourcePath) appendServiceDescriptorProto(b []byte) []byte {
 		b = p.appendRepeatedField(b, "method", (*SourcePath).appendMethodDescriptorProto)
 	case 3:
 		b = p.appendSingularField(b, "options", (*SourcePath).appendServiceOptions)
-	}
+
 	return b
 }
 
-func (p *SourcePath) appendFieldDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendFieldDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -130,12 +135,13 @@ func (p *SourcePath) appendFieldDescriptorProto(b []byte) []byte {
 	case 8:
 		b = p.appendSingularField(b, "options", (*SourcePath).appendFieldOptions)
 	case 17:
-		b = p.appendSingularField(b, "proto3_optional", nil)
+= p.appendSingularField(b, "proto3_optional", nil)
 	}
 	return b
 }
 
-func (p *SourcePath) appendFileOptions(b []byte) []byte {
+
+ (p *SourcePath) appendFileOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -180,31 +186,33 @@ func (p *SourcePath) appendFileOptions(b []byte) []byte {
 		b = p.appendSingularField(b, "php_metadata_namespace", nil)
 	case 45:
 		b = p.appendSingularField(b, "ruby_package", nil)
-	case 999:
+e 999:
 		b = p.appendRepeatedField(b, "uninterpreted_option", (*SourcePath).appendUninterpretedOption)
 	}
 	return b
 }
 
-func (p *SourcePath) appendSourceCodeInfo(b []byte) []byte {
+
+ (p *SourcePath) appendSourceCodeInfo(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
-	switch (*p)[0] {
+tch (*p)[0] {
 	case 1:
 		b = p.appendRepeatedField(b, "location", (*SourcePath).appendSourceCodeInfo_Location)
 	}
 	return b
 }
 
-func (p *SourcePath) appendDescriptorProto_ExtensionRange(b []byte) []byte {
+
+ (p *SourcePath) appendDescriptorProto_ExtensionRange(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
 	case 1:
 		b = p.appendSingularField(b, "start", nil)
-	case 2:
+e 2:
 		b = p.appendSingularField(b, "end", nil)
 	case 3:
 		b = p.appendSingularField(b, "options", (*SourcePath).appendExtensionRangeOptions)
@@ -212,11 +220,12 @@ func (p *SourcePath) appendDescriptorProto_ExtensionRange(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendOneofDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendOneofDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
-	switch (*p)[0] {
+tch (*p)[0] {
 	case 1:
 		b = p.appendSingularField(b, "name", nil)
 	case 2:
@@ -225,7 +234,8 @@ func (p *SourcePath) appendOneofDescriptorProto(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendMessageOptions(b []byte) []byte {
+
+ (p *SourcePath) appendMessageOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -236,7 +246,7 @@ func (p *SourcePath) appendMessageOptions(b []byte) []byte {
 		b = p.appendSingularField(b, "no_standard_descriptor_accessor", nil)
 	case 3:
 		b = p.appendSingularField(b, "deprecated", nil)
-	case 7:
+e 7:
 		b = p.appendSingularField(b, "map_entry", nil)
 	case 11:
 		b = p.appendSingularField(b, "deprecated_legacy_json_field_conflicts", nil)
@@ -246,9 +256,10 @@ func (p *SourcePath) appendMessageOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendDescriptorProto_ReservedRange(b []byte) []byte {
+
+ (p *SourcePath) appendDescriptorProto_ReservedRange(b []byte) []byte {
 	if len(*p) == 0 {
-		return b
+turn b
 	}
 	switch (*p)[0] {
 	case 1:
@@ -259,10 +270,11 @@ func (p *SourcePath) appendDescriptorProto_ReservedRange(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendEnumValueDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendEnumValueDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
-	}
+
 	switch (*p)[0] {
 	case 1:
 		b = p.appendSingularField(b, "name", nil)
@@ -274,11 +286,12 @@ func (p *SourcePath) appendEnumValueDescriptorProto(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendEnumOptions(b []byte) []byte {
+
+ (p *SourcePath) appendEnumOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
-	switch (*p)[0] {
+tch (*p)[0] {
 	case 2:
 		b = p.appendSingularField(b, "allow_alias", nil)
 	case 3:
@@ -291,7 +304,8 @@ func (p *SourcePath) appendEnumOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendEnumDescriptorProto_EnumReservedRange(b []byte) []byte {
+
+ (p *SourcePath) appendEnumDescriptorProto_EnumReservedRange(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -304,13 +318,14 @@ func (p *SourcePath) appendEnumDescriptorProto_EnumReservedRange(b []byte) []byt
 	return b
 }
 
-func (p *SourcePath) appendMethodDescriptorProto(b []byte) []byte {
+
+ (p *SourcePath) appendMethodDescriptorProto(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
 	case 1:
-		b = p.appendSingularField(b, "name", nil)
+= p.appendSingularField(b, "name", nil)
 	case 2:
 		b = p.appendSingularField(b, "input_type", nil)
 	case 3:
@@ -323,9 +338,10 @@ func (p *SourcePath) appendMethodDescriptorProto(b []byte) []byte {
 		b = p.appendSingularField(b, "server_streaming", nil)
 	}
 	return b
-}
 
-func (p *SourcePath) appendServiceOptions(b []byte) []byte {
+
+
+ (p *SourcePath) appendServiceOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -338,7 +354,8 @@ func (p *SourcePath) appendServiceOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendFieldOptions(b []byte) []byte {
+
+ (p *SourcePath) appendFieldOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -354,7 +371,7 @@ func (p *SourcePath) appendFieldOptions(b []byte) []byte {
 	case 15:
 		b = p.appendSingularField(b, "unverified_lazy", nil)
 	case 3:
-		b = p.appendSingularField(b, "deprecated", nil)
+= p.appendSingularField(b, "deprecated", nil)
 	case 10:
 		b = p.appendSingularField(b, "weak", nil)
 	case 16:
@@ -371,12 +388,13 @@ func (p *SourcePath) appendFieldOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendUninterpretedOption(b []byte) []byte {
+
+ (p *SourcePath) appendUninterpretedOption(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
-	case 2:
+e 2:
 		b = p.appendRepeatedField(b, "name", (*SourcePath).appendUninterpretedOption_NamePart)
 	case 3:
 		b = p.appendSingularField(b, "identifier_value", nil)
@@ -394,7 +412,8 @@ func (p *SourcePath) appendUninterpretedOption(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendSourceCodeInfo_Location(b []byte) []byte {
+
+*SourcePath) appendSourceCodeInfo_Location(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -409,17 +428,18 @@ func (p *SourcePath) appendSourceCodeInfo_Location(b []byte) []byte {
 		b = p.appendSingularField(b, "trailing_comments", nil)
 	case 6:
 		b = p.appendRepeatedField(b, "leading_detached_comments", nil)
-	}
+
 	return b
 }
 
-func (p *SourcePath) appendExtensionRangeOptions(b []byte) []byte {
+
+ (p *SourcePath) appendExtensionRangeOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
 	case 999:
-		b = p.appendRepeatedField(b, "uninterpreted_option", (*SourcePath).appendUninterpretedOption)
+= p.appendRepeatedField(b, "uninterpreted_option", (*SourcePath).appendUninterpretedOption)
 	case 2:
 		b = p.appendRepeatedField(b, "declaration", (*SourcePath).appendExtensionRangeOptions_Declaration)
 	case 3:
@@ -428,10 +448,11 @@ func (p *SourcePath) appendExtensionRangeOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendOneofOptions(b []byte) []byte {
+
+ (p *SourcePath) appendOneofOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
-	}
+
 	switch (*p)[0] {
 	case 999:
 		b = p.appendRepeatedField(b, "uninterpreted_option", (*SourcePath).appendUninterpretedOption)
@@ -439,25 +460,27 @@ func (p *SourcePath) appendOneofOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendEnumValueOptions(b []byte) []byte {
+
+ (p *SourcePath) appendEnumValueOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
 	case 1:
-		b = p.appendSingularField(b, "deprecated", nil)
+= p.appendSingularField(b, "deprecated", nil)
 	case 999:
 		b = p.appendRepeatedField(b, "uninterpreted_option", (*SourcePath).appendUninterpretedOption)
 	}
 	return b
 }
 
-func (p *SourcePath) appendMethodOptions(b []byte) []byte {
+
+ (p *SourcePath) appendMethodOptions(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	switch (*p)[0] {
-	case 33:
+e 33:
 		b = p.appendSingularField(b, "deprecated", nil)
 	case 34:
 		b = p.appendSingularField(b, "idempotency_level", nil)
@@ -467,7 +490,8 @@ func (p *SourcePath) appendMethodOptions(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendUninterpretedOption_NamePart(b []byte) []byte {
+
+ (p *SourcePath) appendUninterpretedOption_NamePart(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}
@@ -480,7 +504,8 @@ func (p *SourcePath) appendUninterpretedOption_NamePart(b []byte) []byte {
 	return b
 }
 
-func (p *SourcePath) appendExtensionRangeOptions_Declaration(b []byte) []byte {
+
+ (p *SourcePath) appendExtensionRangeOptions_Declaration(b []byte) []byte {
 	if len(*p) == 0 {
 		return b
 	}

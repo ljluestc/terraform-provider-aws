@@ -16,13 +16,21 @@ const (
 	PackagePath       = PackageModule + `/` + PackageModulePath
 )
 
-// IsFunc returns if the function call is in the package
-func IsFunc(e ast.Expr, info *types.Info, funcName string) bool {
-	return astutils.IsModulePackageFunc(e, info, PackageModule, PackageModulePath, funcName)
+// Is
+ if the 
+tion call is in the package
+
+ Is
+(e ast.Expr, info *types.Info, 
+ string) bool {
+	return astutils.IsModulePackage
+(e, info, PackageModule, PackageModulePath, 
+Name)
 }
 
 // PackagePathVersion returns the import path for a module version
-func PackagePathVersion(moduleVersion int) string {
+
+ PackagePathVersion(moduleVersion int) string {
 	switch moduleVersion {
 	case 0, 1:
 		return PackagePath

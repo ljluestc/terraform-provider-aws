@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_ebs_snapshot")
 
-func DataSourceEBSSnapshot() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSSnapshotRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -32,77 +31,77 @@ func DataSourceEBSSnapshot() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"data_encryption_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"most_recent": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_alias": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owners": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"restorable_by_user_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"snapshot_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"snapshot_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"storage_tier": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"volume_size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -110,8 +109,7 @@ func DataSourceEBSSnapshot() *schema.Resource {
 }
 
 func dataSourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeSnapshotsInput{}
@@ -155,16 +153,15 @@ func dataSourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta
 		sort.Slice(snapshots,
 			func(i, j int) bool {
 				return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
-			})
-	}
+			func
 
 	snapshot := snapshots[0]
 
 	d.SetId(aws.StringValue(snapshot.SnapshotId))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("snapshot/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)

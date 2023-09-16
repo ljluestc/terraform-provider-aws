@@ -34,7 +34,7 @@ import (
 
 const (
 provisionedThroughputMinValue = 1
-ResNameTable                  = "Table"
+ResNameTable     = "Table"
 )
 
 // @SDKResource("aws_dynamodb_table", name="Table")
@@ -774,7 +774,7 @@ continue
 idxName := aws.StringValue(gsiUpdate.Delete.IndexName)
 input := &dynamodb.UpdateTableInput{
 GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-TableName:                   aws.String(d.Id()),
+TableName:      aws.String(d.Id()),
 }
 
 if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -898,7 +898,7 @@ idxName := aws.StringValue(gsiUpdate.Create.IndexName)
 input := &dynamodb.UpdateTableInput{
 AttributeDefinitions:        expandAttributes(d.Get("attribute").(*schema.Set).List()),
 GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-TableName:                   aws.String(d.Id()),
+TableName:      aws.String(d.Id()),
 }
 
 if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -1437,8 +1437,8 @@ idxName := m[names.AttrName].(string)
 
 ops = append(ops, &dynamodb.GlobalSecondaryIndexUpdate{
 Create: &dynamodb.CreateGlobalSecondaryIndexAction{
-IndexName:             aws.String(idxName),
-KeySchema:             expandKeySchema(m),
+IndexName:aws.String(idxName),
+KeySchema:expandKeySchema(m),
 ProvisionedThroughput: expandProvisionedThroughput(m, billingMode),
 Projection:            expandProjection(m),
 },
@@ -1484,7 +1484,7 @@ otherAttributesChanged := nonKeyAttributesChanged || !reflect.DeepEqual(oldAttri
 if capacityChanged && !otherAttributesChanged {
 update := &dynamodb.GlobalSecondaryIndexUpdate{
 Update: &dynamodb.UpdateGlobalSecondaryIndexAction{
-IndexName:             aws.String(idxName),
+IndexName:aws.String(idxName),
 ProvisionedThroughput: expandProvisionedThroughput(newMap, billingMode),
 },
 }
@@ -1499,8 +1499,8 @@ IndexName: aws.String(idxName),
 
 ops = append(ops, &dynamodb.GlobalSecondaryIndexUpdate{
 Create: &dynamodb.CreateGlobalSecondaryIndexAction{
-IndexName:             aws.String(idxName),
-KeySchema:             expandKeySchema(newMap),
+IndexName:aws.String(idxName),
+KeySchema:expandKeySchema(newMap),
 ProvisionedThroughput: expandProvisionedThroughput(newMap, billingMode),
 Projection:            expandProjection(newMap),
 },
@@ -2028,8 +2028,8 @@ return indexes
 
 func expandGlobalSecondaryIndex(data map[string]interface{}, billingMode string) *dynamodb.GlobalSecondaryIndex {
 return &dynamodb.GlobalSecondaryIndex{
-IndexName:             aws.String(data[names.AttrName].(string)),
-KeySchema:             expandKeySchema(data),
+IndexName:aws.String(data[names.AttrName].(string)),
+KeySchema:expandKeySchema(data),
 Projection:            expandProjection(data),
 ProvisionedThroughput: expandProvisionedThroughput(data, billingMode),
 }

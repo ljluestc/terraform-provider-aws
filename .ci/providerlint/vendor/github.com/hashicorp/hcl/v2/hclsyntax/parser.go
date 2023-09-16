@@ -24,7 +24,8 @@ type parser struct {
 	recovery bool
 }
 
-func (p *parser) ParseBody(end TokenType) (*Body, hcl.Diagnostics) {
+
+ (p *parser) ParseBody(end TokenType) (*Body, hcl.Diagnostics) {
 	attrs := Attributes{}
 	blocks := Blocks{}
 	var diags hcl.Diagnostics
@@ -138,7 +139,8 @@ Token:
 	}, diags
 }
 
-func (p *parser) ParseBodyItem() (Node, hcl.Diagnostics) {
+
+ (p *parser) ParseBodyItem() (Node, hcl.Diagnostics) {
 	ident := p.Read()
 	if ident.Type != TokenIdent {
 		p.recoverAfterBodyItem()
@@ -174,9 +176,10 @@ func (p *parser) ParseBodyItem() (Node, hcl.Diagnostics) {
 
 // parseSingleAttrBody is a weird variant of ParseBody that deals with the
 // body of a nested block containing only one attribute value all on a single
-// line, like foo { bar = baz } . It expects to find a single attribute item
+ine, like foo { bar = baz } . It expects to find a single attribute item
 // immediately followed by the end token type with no intervening newlines.
-func (p *parser) parseSingleAttrBody(end TokenType) (*Body, hcl.Diagnostics) {
+
+ (p *parser) parseSingleAttrBody(end TokenType) (*Body, hcl.Diagnostics) {
 	ident := p.Read()
 	if ident.Type != TokenIdent {
 		p.recoverAfterBodyItem()
@@ -237,7 +240,8 @@ func (p *parser) parseSingleAttrBody(end TokenType) (*Body, hcl.Diagnostics) {
 
 }
 
-func (p *parser) finishParsingBodyAttribute(ident Token, singleLine bool) (Node, hcl.Diagnostics) {
+
+ (p *parser) finishParsingBodyAttribute(ident Token, singleLine bool) (Node, hcl.Diagnostics) {
 	eqTok := p.Read() // eat equals token
 	if eqTok.Type != TokenEqual {
 		// should never happen if caller behaves
@@ -290,11 +294,12 @@ func (p *parser) finishParsingBodyAttribute(ident Token, singleLine bool) (Node,
 
 		SrcRange:    hcl.RangeBetween(ident.Range, endRange),
 		NameRange:   ident.Range,
-		EqualsRange: eqTok.Range,
+ualsRange: eqTok.Range,
 	}, diags
 }
 
-func (p *parser) finishParsingBodyBlock(ident Token) (Node, hcl.Diagnostics) {
+
+ (p *parser) finishParsingBodyBlock(ident Token) (Node, hcl.Diagnostics) {
 	var blockType = string(ident.Bytes)
 	var diags hcl.Diagnostics
 	var labels []string
@@ -470,16 +475,18 @@ Token:
 
 		TypeRange:       ident.Range,
 		LabelRanges:     labelRanges,
-		OpenBraceRange:  oBrace.Range,
+enBraceRange:  oBrace.Range,
 		CloseBraceRange: cBraceRange,
 	}, diags
 }
 
-func (p *parser) ParseExpression() (Expression, hcl.Diagnostics) {
+
+ (p *parser) ParseExpression() (Expression, hcl.Diagnostics) {
 	return p.parseTernaryConditional()
 }
 
-func (p *parser) parseTernaryConditional() (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseTernaryConditional() (Expression, hcl.Diagnostics) {
 	// The ternary conditional operator (.. ? .. : ..) behaves somewhat
 	// like a binary operator except that the "symbol" is itself
 	// an expression enclosed in two punctuation characters.
@@ -536,14 +543,15 @@ func (p *parser) parseTernaryConditional() (Expression, hcl.Diagnostics) {
 		TrueResult:  trueExpr,
 		FalseResult: falseExpr,
 
-		SrcRange: hcl.RangeBetween(startRange, falseExpr.Range()),
+cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
 	}, diags
 }
 
 // parseBinaryOps calls itself recursively to work through all of the
 // operator precedence groups, and then eventually calls parseExpressionTerm
 // for each operand.
-func (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl.Diagnostics) {
 	if len(ops) == 0 {
 		// We've run out of operators, so now we'll just try to parse a term.
 		return p.parseExpressionWithTraversals()
@@ -607,7 +615,7 @@ func (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl
 	}
 
 	return &BinaryOpExpr{
-		LHS: lhs,
+S: lhs,
 		Op:  operation,
 		RHS: rhs,
 
@@ -615,14 +623,16 @@ func (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl
 	}, diags
 }
 
-func (p *parser) parseExpressionWithTraversals() (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseExpressionWithTraversals() (Expression, hcl.Diagnostics) {
 	term, diags := p.parseExpressionTerm()
 	ret, moreDiags := p.parseExpressionTraversals(term)
 	diags = append(diags, moreDiags...)
 	return ret, diags
 }
 
-func (p *parser) parseExpressionTraversals(from Expression) (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseExpressionTraversals(from Expression) (Expression, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 	ret := from
 
@@ -827,14 +837,15 @@ Traversal:
 			case TokenStar:
 				// This is a full splat expression, like foo[*], which consumes
 				// the rest of the traversal steps after it using a recursive
-				// call to this function.
+				// call to this 
+tion.
 				p.Read() // consume star
 				close := p.Read()
 				if close.Type != TokenCBrack && !p.recovery {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
 						Summary:  "Missing close bracket on splat index",
-						Detail:   "The star for a full splat operator must be immediately followed by a closing bracket (\"]\").",
+						Detail:   "The star for a full splat otor must be immediately followed by a closing bracket (\"]\").",
 						Subject:  &close.Range,
 					})
 					close = p.recover(TokenCBrack)
@@ -845,7 +856,8 @@ Traversal:
 				itemExpr := &AnonSymbolExpr{
 					SrcRange: hcl.RangeBetween(open.Range, close.Range),
 				}
-				// Now we'll recursively call this same function to eat any
+				// Now we'll recursively call this same 
+tion to eat any
 				// remaining traversal steps against the anonymous symbol.
 				travExpr, nestedDiags := p.parseExpressionTraversals(itemExpr)
 				diags = append(diags, nestedDiags...)
@@ -910,7 +922,7 @@ Traversal:
 				}
 			}
 
-		default:
+fault:
 			break Traversal
 		}
 	}
@@ -922,13 +934,14 @@ Traversal:
 // a traversal expression that combines the two. If the given expression
 // is already a traversal, it is extended in place (mutating it) and
 // returned. If it isn't, a new RelativeTraversalExpr is created and returned.
-func makeRelativeTraversal(expr Expression, next hcl.Traverser, rng hcl.Range) Expression {
+
+ makeRelativeTraversal(expr Expression, next hcl.Traverser, rng hcl.Range) Expression {
 	switch texpr := expr.(type) {
 	case *ScopeTraversalExpr:
 		texpr.Traversal = append(texpr.Traversal, next)
 		texpr.SrcRange = hcl.RangeBetween(texpr.SrcRange, rng)
 		return texpr
-	case *RelativeTraversalExpr:
+e *RelativeTraversalExpr:
 		texpr.Traversal = append(texpr.Traversal, next)
 		texpr.SrcRange = hcl.RangeBetween(texpr.SrcRange, rng)
 		return texpr
@@ -941,7 +954,8 @@ func makeRelativeTraversal(expr Expression, next hcl.Traverser, rng hcl.Range) E
 	}
 }
 
-func (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
 	start := p.Peek()
 
 	switch start.Type {
@@ -1000,7 +1014,8 @@ func (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
 		tok := p.Read() // eat identifier token
 
 		if p.Peek().Type == TokenOParen {
-			return p.finishParsingFunctionCall(tok)
+			return p.finishParsing
+tionCall(tok)
 		}
 
 		name := string(tok.Bytes)
@@ -1107,7 +1122,7 @@ func (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
 					Severity: hcl.DiagError,
 					Summary:  "Invalid expression",
 					Detail:   "Expected the start of an expression, but found an invalid expression token.",
-					Subject:  &start.Range,
+	Subject:  &start.Range,
 				})
 			}
 		}
@@ -1122,7 +1137,8 @@ func (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
 	}
 }
 
-func (p *parser) numberLitValue(tok Token) (cty.Value, hcl.Diagnostics) {
+
+ (p *parser) numberLitValue(tok Token) (cty.Value, hcl.Diagnostics) {
 	// The cty.ParseNumberVal is always the same behavior as converting a
 	// string to a number, ensuring we always interpret decimal numbers in
 	// the same way.
@@ -1130,11 +1146,11 @@ func (p *parser) numberLitValue(tok Token) (cty.Value, hcl.Diagnostics) {
 	if err != nil {
 		ret := cty.UnknownVal(cty.Number)
 		return ret, hcl.Diagnostics{
-			{
+
 				Severity: hcl.DiagError,
 				Summary:  "Invalid number literal",
 				// FIXME: not a very good error message, but convert only
-				// gives us "a number is required", so not much help either.
+				// gives us "a numis required", so not much help either.
 				Detail:  "Failed to recognize the value of this number literal.",
 				Subject: &tok.Range,
 			},
@@ -1143,14 +1159,20 @@ func (p *parser) numberLitValue(tok Token) (cty.Value, hcl.Diagnostics) {
 	return numVal, nil
 }
 
-// finishParsingFunctionCall parses a function call assuming that the function
+// finishParsing
+tionCall parses a 
+tion call assuming that the 
+tion
 // name was already read, and so the peeker should be pointing at the opening
 // parenthesis after the name.
-func (p *parser) finishParsingFunctionCall(name Token) (Expression, hcl.Diagnostics) {
+
+ (p *parser) finishParsing
+tionCall(name Token) (Expression, hcl.Diagnostics) {
 	openTok := p.Read()
 	if openTok.Type != TokenOParen {
 		// should never happen if callers behave
-		panic("finishParsingFunctionCall called with non-parenthesis as next token")
+		panic("finishParsing
+tionCall called with non-parenthesis as next token")
 	}
 
 	var args []Expression
@@ -1158,7 +1180,8 @@ func (p *parser) finishParsingFunctionCall(name Token) (Expression, hcl.Diagnost
 	var expandFinal bool
 	var closeTok Token
 
-	// Arbitrary newlines are allowed inside the function call parentheses.
+	// Arbitrary newlines are allowed inside the 
+tion call parentheses.
 	p.PushIncludeNewlines(false)
 
 Token:
@@ -1177,7 +1200,7 @@ Token:
 			// if there was a parse error in the argument then we've
 			// probably been left in a weird place in the token stream,
 			// so we'll bail out with a partial argument list.
-			recoveredTok := p.recover(TokenCParen)
+			recoveredTok := p.recover(nCParen)
 
 			// record the recovered token, if one was found
 			if recoveredTok.Type == TokenCParen {
@@ -1200,7 +1223,8 @@ Token:
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
 						Summary:  "Missing closing parenthesis",
-						Detail:   "An expanded function argument (with ...) must be immediately followed by closing parentheses.",
+						Detail:   "An expanded 
+tion argument (with ...) must be immediately followed by closing parentheses.",
 						Subject:  &sep.Range,
 						Context:  hcl.RangeBetween(name.Range, sep.Range).Ptr(),
 					})
@@ -1217,19 +1241,22 @@ Token:
 			case TokenEOF:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
-					Summary:  "Unterminated function call",
-					Detail:   "There is no closing parenthesis for this function call before the end of the file. This may be caused by incorrect parethesis nesting elsewhere in this file.",
+					Summary:  "Unterminated 
+tion call",
+					Detail:   "There is no closing parenthesis for this 
+tion  before the end of the file. This may be caused by incorrect parethesis nesting elsewhere in this file.",
 					Subject:  hcl.RangeBetween(name.Range, openTok.Range).Ptr(),
 				})
 			default:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Missing argument separator",
-					Detail:   "A comma is required to separate each function argument from the next.",
+					Detail:   "A comma is required to separate each 
+tion argument from the next.",
 					Subject:  &sep.Range,
 					Context:  hcl.RangeBetween(name.Range, sep.Range).Ptr(),
 				})
-			}
+
 			closeTok = p.recover(TokenCParen)
 			break Token
 		}
@@ -1244,7 +1271,8 @@ Token:
 
 	p.PopIncludeNewlines()
 
-	return &FunctionCallExpr{
+	return &
+tionCallExpr{
 		Name: string(name.Bytes),
 		Args: args,
 
@@ -1256,7 +1284,8 @@ Token:
 	}, diags
 }
 
-func (p *parser) parseTupleCons() (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseTupleCons() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	if open.Type != TokenOBrack {
 		// Should never happen if callers are behaving
@@ -1307,7 +1336,7 @@ func (p *parser) parseTupleCons() (Expression, hcl.Diagnostics) {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
 						Summary:  "Unterminated tuple constructor expression",
-						Detail:   "There is no corresponding closing bracket before the end of the file. This may be caused by incorrect bracket nesting elsewhere in this file.",
+		Detail:   "There is no corresponding closing bracket before the end of the file. This may be caused by incorrect bracket nesting elsewhere in this file.",
 						Subject:  open.Range.Ptr(),
 					})
 				default:
@@ -1336,7 +1365,8 @@ func (p *parser) parseTupleCons() (Expression, hcl.Diagnostics) {
 	}, diags
 }
 
-func (p *parser) parseObjectCons() (Expression, hcl.Diagnostics) {
+
+ (p *parser) parseObjectCons() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	if open.Type != TokenOBrace {
 		// Should never happen if callers are behaving
@@ -1480,7 +1510,7 @@ func (p *parser) parseObjectCons() (Expression, hcl.Diagnostics) {
 				case TokenEOF:
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
-						Summary:  "Unterminated object constructor expression",
+		Summary:  "Unterminated object constructor expression",
 						Detail:   "There is no corresponding closing brace before the end of the file. This may be caused by incorrect brace nesting elsewhere in this file.",
 						Subject:  open.Range.Ptr(),
 					})
@@ -1510,7 +1540,8 @@ func (p *parser) parseObjectCons() (Expression, hcl.Diagnostics) {
 	}, diags
 }
 
-func (p *parser) finishParsingForExpr(open Token) (Expression, hcl.Diagnostics) {
+
+ (p *parser) finishParsingForExpr(open Token) (Expression, hcl.Diagnostics) {
 	p.PushIncludeNewlines(false)
 	defer p.PopIncludeNewlines()
 	introducer := p.Read()
@@ -1702,7 +1733,7 @@ func (p *parser) finishParsingForExpr(open Token) (Expression, hcl.Diagnostics) 
 				Detail:   "Grouping ellipsis (...) cannot be used when building a tuple.",
 				Subject:  &ellipsis.Range,
 				Context:  hcl.RangeBetween(open.Range, close.Range).Ptr(),
-			})
+)
 		}
 	} else {
 		if keyExpr == nil {
@@ -1733,7 +1764,8 @@ func (p *parser) finishParsingForExpr(open Token) (Expression, hcl.Diagnostics) 
 
 // parseQuotedStringLiteral is a helper for parsing quoted strings that
 // aren't allowed to contain any interpolations, such as block labels.
-func (p *parser) parseQuotedStringLiteral() (string, hcl.Range, hcl.Diagnostics) {
+
+ (p *parser) parseQuotedStringLiteral() (string, hcl.Range, hcl.Diagnostics) {
 	oQuote := p.Read()
 	if oQuote.Type != TokenOQuote {
 		return "", oQuote.Range, hcl.Diagnostics{
@@ -1796,7 +1828,7 @@ Token:
 				Severity: hcl.DiagError,
 				Summary:  "Unterminated string literal",
 				Detail:   "Unable to find the closing quote mark before the end of the file.",
-				Subject:  &tok.Range,
+Subject:  &tok.Range,
 				Context:  hcl.RangeBetween(oQuote.Range, tok.Range).Ptr(),
 			})
 			endRange = tok.Range
@@ -1828,7 +1860,8 @@ Token:
 //
 // If any error diagnostics are returned, the returned string may be incomplete
 // or otherwise invalid.
-func ParseStringLiteralToken(tok Token) (string, hcl.Diagnostics) {
+
+ ParseStringLiteralToken(tok Token) (string, hcl.Diagnostics) {
 	var quoted bool
 	switch tok.Type {
 	case TokenQuotedLit:
@@ -1959,7 +1992,7 @@ Slices:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Invalid escape sequence",
-					Detail:   fmt.Sprintf("The symbol %q is not a valid escape sequence selector.", slice[1:]),
+	Detail:   fmt.Sprintf("The symbol %q is not a valid escape sequence selector.", slice[1:]),
 					Subject:  rng.Ptr(),
 				})
 				ret = append(ret, slice[1:]...)
@@ -1992,19 +2025,22 @@ Slices:
 // setRecovery turns on recovery mode without actually doing any recovery.
 // This can be used when a parser knowingly leaves the peeker in a useless
 // place and wants to suppress errors that might result from that decision.
-func (p *parser) setRecovery() {
+
+ (p *parser) setRecovery() {
 	p.recovery = true
 }
 
 // recover seeks forward in the token stream until it finds TokenType "end",
 // then returns with the peeker pointed at the following token.
 //
-// If the given token type is a bracketer, this function will additionally
+// If the given token type is a bracketer, this 
+tion will additionally
 // count nested instances of the brackets to try to leave the peeker at
 // the end of the _current_ instance of that bracketer, skipping over any
 // nested instances. This is a best-effort operation and may have
 // unpredictable results on input with bad bracketer nesting.
-func (p *parser) recover(end TokenType) Token {
+
+ (p *parser) recover(end TokenType) Token {
 	start := p.oppositeBracket(end)
 	p.recovery = true
 
@@ -2025,7 +2061,7 @@ func (p *parser) recover(end TokenType) Token {
 			nest++
 		case end:
 			if nest < 1 {
-				return tok
+return tok
 			}
 
 			nest--
@@ -2043,7 +2079,8 @@ func (p *parser) recover(end TokenType) Token {
 // start token is TokenOBrace then the parser will be left at the _end_ of
 // the next brace-delimited block encountered, or at EOF if no such block
 // is found or it is unclosed.
-func (p *parser) recoverOver(start TokenType) {
+
+ (p *parser) recoverOver(start TokenType) {
 	end := p.oppositeBracket(start)
 
 	// find the opening bracket first
@@ -2056,12 +2093,14 @@ Token:
 		}
 	}
 
-	// Now use our existing recover function to locate the _end_ of the
+	// Now use our existing recover 
+tion to locate the _end_ of the
 	// container we've found.
 	p.recover(end)
 }
 
-func (p *parser) recoverAfterBodyItem() {
+
+ (p *parser) recoverAfterBodyItem() {
 	p.recovery = true
 	var open []TokenType
 
@@ -2069,7 +2108,7 @@ Token:
 	for {
 		tok := p.Read()
 
-		switch tok.Type {
+itch tok.Type {
 
 		case TokenNewline:
 			if len(open) == 0 {
@@ -2106,9 +2145,11 @@ Token:
 // oppositeBracket finds the bracket that opposes the given bracketer, or
 // NilToken if the given token isn't a bracketer.
 //
-// "Bracketer", for the sake of this function, is one end of a matching
-// open/close set of tokens that establish a bracketing context.
-func (p *parser) oppositeBracket(ty TokenType) TokenType {
+// "Bracketer", for the sake of this 
+tion, is one end of a matching
+pen/close set of tokens that establish a bracketing context.
+
+ (p *parser) oppositeBracket(ty TokenType) TokenType {
 	switch ty {
 
 	case TokenOBrace:
@@ -2147,7 +2188,8 @@ func (p *parser) oppositeBracket(ty TokenType) TokenType {
 	}
 }
 
-func errPlaceholderExpr(rng hcl.Range) Expression {
+
+ errPlaceholderExpr(rng hcl.Range) Expression {
 	return &LiteralValueExpr{
 		Val:      cty.DynamicVal,
 		SrcRange: rng,

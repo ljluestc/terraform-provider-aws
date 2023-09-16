@@ -6,7 +6,8 @@ package cty
 // expressions are to be evaluated, since the precence of nulls creates a
 // much higher chance of evaluation errors that can't be caught by a type
 // checker.
-func NullVal(t Type) Value {
+
+lVal(t Type) Value {
 	return Value{
 		ty: t,
 		v:  nil,

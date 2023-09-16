@@ -12,7 +12,8 @@ import (
 	"unsafe"
 )
 
-func seek(fd int, offset int64, whence int) (int64, syscall.Errno) {
+
+ seek(fd int, offset int64, whence int) (int64, syscall.Errno) {
 	var newoffset int64
 	offsetLow := uint32(offset & 0xffffffff)
 	offsetHigh := uint32((offset >> 32) & 0xffffffff)

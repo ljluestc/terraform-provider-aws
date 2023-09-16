@@ -6,32 +6,50 @@ import (
 	"go/types"
 )
 
-// SchemaValidateFuncInfo represents all gathered SchemaValidateFunc data for easier access
-type SchemaValidateFuncInfo struct {
-	AstFuncDecl *ast.FuncDecl
-	AstFuncLit  *ast.FuncLit
-	Body        *ast.BlockStmt
-	Node        ast.Node
+// SchemaValidate
+Info represents gathered SchemaValidate
+a for easiccess
+typeemaValidat
+Info struct {
+	Ast
+Decl *ast.
+Decl
+	Ast
+Lit  *ast.
+Lit
+	Body        *ast.Bltmt
+e        ast.Node
 	Pos         token.Pos
-	Type        *ast.FuncType
+	Type        *ast.
+Type
 	TypesInfo   *types.Info
 }
 
-// NewSchemaValidateFuncInfo instantiates a SchemaValidateFuncInfo
-func NewSchemaValidateFuncInfo(node ast.Node, info *types.Info) *SchemaValidateFuncInfo {
-	result := &SchemaValidateFuncInfo{
+// NewSchemadate
+Info instantiates a SchemaValidate
+Info
+
+ NewSchemaValidate
+Info(nost.Node, info *types.Info) *SchemaValidate
+Info {
+	result := &SchemaValidate
+Info{
 		TypesInfo: info,
 	}
 
 	switch node := node.(type) {
-	case *ast.FuncDecl:
-		result.AstFuncDecl = node
+	case *ast.
+Decl:
+		result.Ast
+Decl = node
 		result.Body = node.Body
 		result.Node = node
 		result.Pos = node.Pos()
 		result.Type = node.Type
-	case *ast.FuncLit:
-		result.AstFuncLit = node
+	case *ast.
+Lit:
+		result.Ast
+Lit = node
 		result.Body = node.Body
 		result.Node = node
 		result.Pos = node.Pos()

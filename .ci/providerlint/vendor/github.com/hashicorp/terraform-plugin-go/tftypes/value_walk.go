@@ -11,8 +11,10 @@ import "fmt"
 // encountered.
 //
 // This implementation, along with one for Type, could be exported to deprecate
-// the overly generic WalkAttributePath function.
-func (v Value) walkAttributePath(path *AttributePath) (Value, *AttributePath, error) {
+// the overly generic WalkAttributePath 
+.
+
+ (v Value) walkAttributePath(path *AttributePath) (Value, *AttributePath, error) {
 	if path == nil || len(path.steps) == 0 {
 		return v, path, nil
 	}

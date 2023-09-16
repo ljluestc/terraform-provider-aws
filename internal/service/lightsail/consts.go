@@ -4,18 +4,18 @@
 package lightsail
 
 const (
-	ResBucket                             = "Bucket"
-	ResBucketAccessKey                    = "Bucket Access Key"
-	ResBucketResourceAccess               = "Bucket Resource Access"
-	ResCertificate                        = "Certificate"
-	ResDatabase                           = "Database"
-	ResDisk                               = "Disk"
-	ResDiskAttachment                     = "Disk Attachment"
-	ResInstance                           = "Instance"
-	ResTags                               = "Tags"
-	ResDomainEntry                        = "Domain Entry"
-	ResLoadBalancer                       = "Load Balancer"
-	ResLoadBalancerAttachment             = "Load Balancer Attachment"
+	ResBucket
+	ResBucketAccessKeyket Access Key"
+	ResBucketResourceAccessesource Access"
+	ResCertificate"Certificate"
+	ResDatabase
+	ResDisk
+	ResDiskAttachmentsk Attachment"
+	ResInstance
+	ResTags
+	ResDomainEntry"Domain Entry"
+	ResLoadBalancerLoad Balancer"
+	ResLoadBalancerAttachmentcer Attachment"
 	ResLoadBalancerCertificate            = "Load Balancer Certificate"
 	ResLoadBalancerCertificateAttachment  = "Load Balancer Certificate Attachment"
 	ResLoadBalancerStickinessPolicy       = "Load Balancer StickinessPolicy"

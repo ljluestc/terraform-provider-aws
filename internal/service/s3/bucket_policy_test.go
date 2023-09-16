@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_policy.bucket"
 	bucketResourceName := "aws_s3_bucket.bucket"
@@ -28,26 +25,26 @@ func TestAccS3BucketPolicy_basic(t *testing.T) {
 	expectedPolicyTemplate := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_basic(name),
@@ -57,43 +54,40 @@ func TestAccS3BucketPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-
-func TestAccS3BucketPolicy_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketPolicy_disappears(t *testing.T) {
+	funce := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_policy.bucket"
 	bucketResourceName := "aws_s3_bucket.bucket"
 
 	expectedPolicyTemplate := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_basic(name),
@@ -106,36 +100,33 @@ func TestAccS3BucketPolicy_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketPolicy_disappears_bucket(t *testing.T) {
+}func TestAccS3BucketPolicy_disappears_bucket(t *testing.T) {
 	ctx := acctest.Context(t)
-	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	bucketResourceName := "aws_s3_bucket.bucket"
+	funcketResourceName := "aws_s3_bucket.bucket"
 
 	expectedPolicyTemplate := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_basic(name),
@@ -148,59 +139,56 @@ func TestAccS3BucketPolicy_disappears_bucket(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketPolicy_policyUpdate(t *testing.T) {
+}func TestAccS3BucketPolicy_policyUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_policy.bucket"
-	bucketResourceName := "aws_s3_bucket.bucket"
+	funcketResourceName := "aws_s3_bucket.bucket"
 
 	expectedPolicyTemplate1 := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	expectedPolicyTemplate2 := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": [
-        "s3:DeleteBucket",
-        "s3:ListBucket",
-        "s3:ListBucketVersions"
-      ],
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": [
+DeleteBucket",
+ListBucket",
+ListBucketVersions"
+
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_basic(name),
@@ -219,25 +207,24 @@ func TestAccS3BucketPolicy_policyUpdate(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
 
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/11801
-func TestAccS3BucketPolicy_IAMRoleOrder_policyDoc(t *testing.T) {
+// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/11801func TestAccS3BucketPolicy_IAMRoleOrder_policyDoc(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
@@ -246,15 +233,15 @@ func TestAccS3BucketPolicy_IAMRoleOrder_policyDoc(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
 				PlanOnly: true,
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
 				PlanOnly: true,
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName),
 				PlanOnly: true,
 			},
 		},
@@ -262,17 +249,16 @@ func TestAccS3BucketPolicy_IAMRoleOrder_policyDoc(t *testing.T) {
 }
 
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13144
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/20456
-func TestAccS3BucketPolicy_IAMRoleOrder_policyDocNotPrincipal(t *testing.T) {
+// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/20456func TestAccS3BucketPolicy_IAMRoleOrder_policyDocNotPrincipal(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName),
@@ -287,19 +273,18 @@ func TestAccS3BucketPolicy_IAMRoleOrder_policyDocNotPrincipal(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName),
 				PlanOnly: true,
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName),
 				PlanOnly: true,
 			},
 		},
 	})
 }
 
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/11801
-func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
+// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/11801func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -307,10 +292,10 @@ func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName),
@@ -319,7 +304,7 @@ func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName),
+				Config:tAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName),
 				PlanOnly: true,
 			},
 			{
@@ -329,7 +314,7 @@ func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName2),
+				Config:tAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName2),
 				PlanOnly: true,
 			},
 			{
@@ -339,41 +324,38 @@ func TestAccS3BucketPolicy_IAMRoleOrder_jsonEncode(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName3),
+				Config:tAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName3),
 				PlanOnly: true,
 			},
 		},
 	})
-}
-
-func TestAccS3BucketPolicy_migrate_noChange(t *testing.T) {
+}func TestAccS3BucketPolicy_migrate_noChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
-
-	expectedPolicyTemplate := `{
+funcectedPolicyTemplate := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_policy(rName),
@@ -391,58 +373,55 @@ func TestAccS3BucketPolicy_migrate_noChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketPolicy_migrate_withChange(t *testing.T) {
+}func TestAccS3BucketPolicy_migrate_withChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
 
-	expectedPolicyTemplate1 := `{
-  "Version": "2012-10-17",
+	funcersion": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": "s3:*",
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": "s3:*",
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	expectedPolicyTemplate2 := `{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[2]s:iam::%[1]s:root"
-      },
-      "Action": [
-        "s3:DeleteBucket",
-        "s3:ListBucket",
-        "s3:ListBucketVersions"
-      ],
-      "Resource": [
-        "arn:%[2]s:s3:::%[3]s/*",
-        "arn:%[2]s:s3:::%[3]s"
-      ]
-    }
+
+ "",
+t": "Allow",
+ipal": {
+": "arn:%[2]s:iam::%[1]s:root"
+
+n": [
+DeleteBucket",
+ListBucket",
+ListBucketVersions"
+
+rce": [
+:%[2]s:s3:::%[3]s/*",
+:%[2]s:s3:::%[3]s"
+
+
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:kBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_policy(rName),
@@ -460,16 +439,13 @@ func TestAccS3BucketPolicy_migrate_withChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketHasPolicy(ctx context.Context, n string, expectedPolicyTemplate string, bucketName string) resource.TestCheckFunc {
+}func testAccCheckBucketHasPolicy(ctx context.Context, n string, expectedPolicyTemplate string, bucketName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("No S3 Bucket ID is set")
 		}
 
@@ -492,24 +468,21 @@ func testAccCheckBucketHasPolicy(ctx context.Context, n string, expectedPolicyTe
 			return fmt.Errorf("Error testing policy equivalence: %s", err)
 		}
 		if !equivalent {
-			return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\n     got: %s\n",
+			return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\not: %s\n",
 				expectedPolicyTemplate, actualPolicyText)
 		}
 
 		return nil
 	}
-}
-
-func testAccBucketPolicyConfig_basic(bucketName string) string {
+}func testAccBucketPolicyConfig_basic(bucketName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "bucket" {
   bucket = %[1]q
-
-  tags = {
-    TestName = "TestAccS3BucketPolicy_basic"
+funcgs = {
+stName = "TestAccS3BucketPolicy_basic"
   }
 }
 
@@ -520,27 +493,25 @@ resource "aws_s3_bucket_policy" "bucket" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "s3:*",
-    ]
+tions = [
+,
 
-    resources = [
-      aws_s3_bucket.bucket.arn,
-      "${aws_s3_bucket.bucket.arn}/*",
-    ]
 
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+sources = [
+_bucket.bucket.arn,
+_s3_bucket.bucket.arn}/*",
+
+
+incipals {
+= "A
+fiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
   }
 }
 `, bucketName)
-}
-
-func testAccBucketPolicyConfig_updated(bucketName string) string {
+}func testAccBucketPolicyConfig_updated(bucketName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -548,8 +519,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "bucket" {
   bucket = %[1]q
 
-  tags = {
-    TestName = "TestAccS3BucketPolicy_basic"
+ funcme = "TestAccS3BucketPolicy_basic"
   }
 }
 
@@ -560,29 +530,27 @@ resource "aws_s3_bucket_policy" "bucket" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "s3:DeleteBucket",
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
-    ]
+tions = [
+leteBucket",
+stBucket",
+stBucketVersions",
 
-    resources = [
-      aws_s3_bucket.bucket.arn,
-      "${aws_s3_bucket.bucket.arn}/*",
-    ]
 
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+sources = [
+_bucket.bucket.arn,
+_s3_bucket.bucket.arn}/*",
+
+
+incipals {
+= "A
+fiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
   }
 }
 `, bucketName)
-}
-
-func testAccBucketPolicyIAMRoleOrderBaseConfig(rName string) string {
+}func testAccBucketPolicyIAMRoleOrderBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 
@@ -590,14 +558,13 @@ resource "aws_iam_role" "test1" {
   name = "%[1]s-sultan"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "s3.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+atement = [{
+ funcAllow"
+pal = {
+ice = "s3.${data.aws_partition.current.dns_suffix}"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -605,14 +572,14 @@ resource "aws_iam_role" "test2" {
   name = "%[1]s-shepard"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "s3.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+atement = [{
+ = "sts:AssumeRole"
+ = "Allow"
+pal = {
+ice = "s3.${data.aws_partition.current.dns_suffix}"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -620,14 +587,14 @@ resource "aws_iam_role" "test3" {
   name = "%[1]s-tritonal"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "s3.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+atement = [{
+ = "sts:AssumeRole"
+ = "Allow"
+pal = {
+ice = "s3.${data.aws_partition.current.dns_suffix}"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -635,14 +602,14 @@ resource "aws_iam_role" "test4" {
   name = "%[1]s-artlec"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "s3.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+atement = [{
+ = "sts:AssumeRole"
+ = "Allow"
+pal = {
+ice = "s3.${data.aws_partition.current.dns_suffix}"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -650,14 +617,14 @@ resource "aws_iam_role" "test5" {
   name = "%[1]s-cazzette"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "s3.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+atement = [{
+ = "sts:AssumeRole"
+ = "Allow"
+pal = {
+ice = "s3.${data.aws_partition.current.dns_suffix}"
+
+
+rsion = "2012-10-17"
   })
 }
 
@@ -665,13 +632,11 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 
   tags = {
-    TestName = %[1]q
+stName = %[1]q
   }
 }
 `, rName)
-}
-
-func testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName string) string {
+}func testAccBucketPolicyConfig_iamRoleOrderIAMDoc(rName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketPolicyIAMRoleOrderBaseConfig(rName),
 		fmt.Sprintf(`
@@ -679,26 +644,25 @@ data "aws_iam_policy_document" "test" {
   policy_id = %[1]q
 
   statement {
-    actions = [
-      "s3:DeleteBucket",
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
-    ]
-    effect = "Allow"
-    principals {
-      identifiers = [
-        aws_iam_role.test2.arn,
-        aws_iam_role.test1.arn,
-        aws_iam_role.test4.arn,
-        aws_iam_role.test3.arn,
-        aws_iam_role.test5.arn,
-      ]
-      type = "AWS"
-    }
-    resources = [
-      aws_s3_bucket.test.arn,
-      "${aws_s3_bucket.test.arn}/*",
-    ]
+tions = [
+leteBucket",
+sfunccketVersions",
+
+fect = "Allow"
+incipals {
+fiers = [
+iam_role.test2.arn,
+iam_role.test1.arn,
+iam_role.test4.arn,
+iam_role.test3.arn,
+iam_role.test5.arn,
+
+ "AWS"
+
+sources = [
+_bucket.test.arn,
+_s3_bucket.test.arn}/*",
+
   }
 }
 
@@ -707,9 +671,7 @@ resource "aws_s3_bucket_policy" "bucket" {
   policy = data.aws_iam_policy_document.test.json
 }
 `, rName))
-}
-
-func testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName string) string {
+}func testAccBucketPolicyConfig_iamRoleOrderJSONEncode(rName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketPolicyIAMRoleOrderBaseConfig(rName),
 		fmt.Sprintf(`
@@ -717,36 +679,33 @@ resource "aws_s3_bucket_policy" "bucket" {
   bucket = aws_s3_bucket.test.bucket
 
   policy = jsonencode({
-    Id = %[1]q
-    Statement = [{
-      Action = [
-        "s3:DeleteBucket",
-        "s3:ListBucket",
-        "s3:ListBucketVersions",
-      ]
-      Effect = "Allow"
-      Principal = {
-        AWS = [
-          aws_iam_role.test2.arn,
-          aws_iam_role.test1.arn,
-          aws_iam_role.test4.arn,
-          aws_iam_role.test3.arn,
-          aws_iam_role.test5.arn,
-        ]
-      }
+ = %[1]q
+atement = [{
+ = [
+DfuncBucket",
+ListBucketVersions",
 
-      Resource = [
-        aws_s3_bucket.test.arn,
-        "${aws_s3_bucket.test.arn}/*",
-      ]
-    }]
-    Version = "2012-10-17"
+ = "Allow"
+pal = {
+= [
+role.test2.arn,
+role.test1.arn,
+role.test4.arn,
+role.test3.arn,
+role.test5.arn,
+
+
+
+ce = [
+s3_bucket.test.arn,
+ws_s3_bucket.test.arn}/*",
+
+
+rsion = "2012-10-17"
   })
 }
 `, rName))
-}
-
-func testAccBucketPolicyConfig_iamRoleOrderJSONEncodeOrder2(rName string) string {
+}func testAccBucketPolicyConfig_iamRoleOrderJSONEncodeOrder2(rName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketPolicyIAMRoleOrderBaseConfig(rName),
 		fmt.Sprintf(`
@@ -754,36 +713,33 @@ resource "aws_s3_bucket_policy" "bucket" {
   bucket = aws_s3_bucket.test.bucket
 
   policy = jsonencode({
-    Id = %[1]q
-    Statement = [{
-      Action = [
-        "s3:DeleteBucket",
-        "s3:ListBucket",
-        "s3:ListBucketVersions",
-      ]
-      Effect = "Allow"
-      Principal = {
-        AWS = [
-          aws_iam_role.test2.arn,
-          aws_iam_role.test3.arn,
-          aws_iam_role.test5.arn,
-          aws_iam_role.test1.arn,
-          aws_iam_role.test4.arn,
-        ]
-      }
+ = %[1]q
+atement = [{
+ = [
+DeleteBucket",
+LfuncBucketVersions",
 
-      Resource = [
-        aws_s3_bucket.test.arn,
-        "${aws_s3_bucket.test.arn}/*",
-      ]
-    }]
-    Version = "2012-10-17"
+ = "Allow"
+pal = {
+= [
+role.test2.arn,
+role.test3.arn,
+role.test5.arn,
+role.test1.arn,
+role.test4.arn,
+
+
+
+ce = [
+s3_bucket.test.arn,
+ws_s3_bucket.test.arn}/*",
+
+
+rsion = "2012-10-17"
   })
 }
 `, rName))
-}
-
-func testAccBucketPolicyConfig_iamRoleOrderJSONEncodeOrder3(rName string) string {
+}func testAccBucketPolicyConfig_iamRoleOrderJSONEncodeOrder3(rName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketPolicyIAMRoleOrderBaseConfig(rName),
 		fmt.Sprintf(`
@@ -791,36 +747,33 @@ resource "aws_s3_bucket_policy" "bucket" {
   bucket = aws_s3_bucket.test.bucket
 
   policy = jsonencode({
-    Id = %[1]q
-    Statement = [{
-      Action = [
-        "s3:DeleteBucket",
-        "s3:ListBucket",
-        "s3:ListBucketVersions",
-      ]
-      Effect = "Allow"
-      Principal = {
-        AWS = [
-          aws_iam_role.test4.arn,
-          aws_iam_role.test1.arn,
-          aws_iam_role.test3.arn,
-          aws_iam_role.test5.arn,
-          aws_iam_role.test2.arn,
-        ]
-      }
+ = %[1]q
+atement = [{
+ = [
+DeleteBucket",
+ListBucket",
+Lfunc
+ = "Allow"
+pal = {
+= [
+role.test4.arn,
+role.test1.arn,
+role.test3.arn,
+role.test5.arn,
+role.test2.arn,
 
-      Resource = [
-        aws_s3_bucket.test.arn,
-        "${aws_s3_bucket.test.arn}/*",
-      ]
-    }]
-    Version = "2012-10-17"
+
+
+ce = [
+s3_bucket.test.arn,
+ws_s3_bucket.test.arn}/*",
+
+
+rsion = "2012-10-17"
   })
 }
 `, rName))
-}
-
-func testAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName string) string {
+}func testAccBucketPolicyConfig_iamRoleOrderIAMDocNotPrincipal(rName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketPolicyIAMRoleOrderBaseConfig(rName),
 		`
@@ -828,31 +781,30 @@ data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "test" {
   statement {
-    sid = "DenyInfected"
-    actions = [
-      "s3:GetObject",
-      "s3:PutObjectTagging",
-    ]
-    effect = "Deny"
-    not_principals {
-      identifiers = [
-        aws_iam_role.test2.arn,
-        aws_iam_role.test3.arn,
-        aws_iam_role.test4.arn,
-        aws_iam_role.test1.arn,
-        aws_iam_role.test5.arn,
-        data.aws_caller_identity.current.arn,
-      ]
-      type = "AWS"
-    }
-    resources = [
-      "${aws_s3_bucket.test.arn}/*",
-    ]
-    condition {
-      test     = "StringEquals"
-      variable = "s3:ExistingObjectTag/av-status"
-      values   = ["INFECTED"]
-    }
+d = "DenyInfected"
+tions = [
+tObject",
+tObjectTagging",
+
+fect = "Deny"
+tfuncs = [
+iam_role.test2.arn,
+iam_role.test3.arn,
+iam_role.test4.arn,
+iam_role.test1.arn,
+iam_role.test5.arn,
+.aws_caller_identity.current.arn,
+
+ "AWS"
+
+sources = [
+_s3_bucket.test.arn}/*",
+
+ndition {
+= "SngEquals"
+le = "s3:ExistingObjectTag/av-status"
+= ["INTED"]
+
   }
 }
 
@@ -861,9 +813,7 @@ resource "aws_s3_bucket_policy" "bucket" {
   policy = data.aws_iam_policy_document.test.json
 }
 `)
-}
-
-func testAccBucketPolicyConfig_migrateNoChange(bucketName string) string {
+}func testAccBucketPolicyConfig_migrateNoChange(bucketName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -874,21 +824,20 @@ resource "aws_s3_bucket" "test" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "s3:*",
-    ]
+tions = [
+,
+func
+sources = [
+_bucket.test.arn,
+_s3_bucket.test.arn}/*",
 
-    resources = [
-      aws_s3_bucket.test.arn,
-      "${aws_s3_bucket.test.arn}/*",
-    ]
 
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+incipals {
+= "A
+fiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
   }
 }
 
@@ -897,9 +846,7 @@ resource "aws_s3_bucket_policy" "test" {
   policy = data.aws_iam_policy_document.policy.json
 }
 `, bucketName)
-}
-
-func testAccBucketPolicyConfig_migrateChange(bucketName string) string {
+}func testAccBucketPolicyConfig_migrateChange(bucketName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -910,23 +857,22 @@ resource "aws_s3_bucket" "test" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "s3:DeleteBucket",
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
-    ]
+tions = [
+leteBucket",
+stBucket",
+sfunc
 
-    resources = [
-      aws_s3_bucket.test.arn,
-      "${aws_s3_bucket.test.arn}/*",
-    ]
+sources = [
+_bucket.test.arn,
+_s3_bucket.test.arn}/*",
 
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+
+incipals {
+= "A
+fiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+
   }
 }
 

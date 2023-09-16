@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_request_payment_configuration")
-func ResourceBucketRequestPaymentConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_request_payment_configuration")func ResourceBucketRequestPaymentConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketRequestPaymentConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketRequestPaymentConfigurationRead,
@@ -50,10 +49,7 @@ func ResourceBucketRequestPaymentConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketRequestPaymentConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -80,11 +76,8 @@ func resourceBucketRequestPaymentConfigurationCreate(ctx context.Context, d *sch
 	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
 
 	return resourceBucketRequestPaymentConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketRequestPaymentConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketRequestPaymentConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -115,12 +108,9 @@ func resourceBucketRequestPaymentConfigurationRead(ctx context.Context, d *schem
 	d.Set("payer", output.Payer)
 
 	return nil
-}
-
-func resourceBucketRequestPaymentConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketRequestPaymentConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -143,13 +133,10 @@ func resourceBucketRequestPaymentConfigurationUpdate(ctx context.Context, d *sch
 	}
 
 	return resourceBucketRequestPaymentConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketRequestPaymentConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketRequestPaymentConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-	if err != nil {
+	funcerr != nil {
 		return diag.FromErr(err)
 	}
 

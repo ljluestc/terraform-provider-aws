@@ -26,13 +26,15 @@ genuine problems, but it can find errors not caught by the compilers.
 // Help implements the help subcommand for a multichecker or unitchecker
 // style command. The optional args specify the analyzers to describe.
 // Help calls log.Fatal if no such analyzer exists.
-func Help(progname string, analyzers []*analysis.Analyzer, args []string) {
+
+ Help(progname string, analyzers []*analysis.Analyzer, args []string) {
 	// No args: show summary of all analyzers.
 	if len(args) == 0 {
 		fmt.Println(strings.Replace(help, "PROGNAME", progname, -1))
 		fmt.Println("Registered analyzers:")
 		fmt.Println()
-		sort.Slice(analyzers, func(i, j int) bool {
+		sort.Slice(analyzers, 
+(i, j int) bool {
 			return analyzers[i].Name < analyzers[j].Name
 		})
 		for _, a := range analyzers {
@@ -47,7 +49,8 @@ func Help(progname string, analyzers []*analysis.Analyzer, args []string) {
 		fmt.Println("\nCore flags:")
 		fmt.Println()
 		fs := flag.NewFlagSet("", flag.ExitOnError)
-		flag.VisitAll(func(f *flag.Flag) {
+		flag.VisitAll(
+(f *flag.Flag) {
 			if !strings.Contains(f.Name, ".") {
 				fs.Var(f.Value, f.Name, f.Usage)
 			}
@@ -70,10 +73,11 @@ outer:
 				fmt.Printf("%s: %s\n", a.Name, title)
 
 				// Show only the flags relating to this analysis,
-				// properly prefixed.
+				// properly prefi
 				first := true
 				fs := flag.NewFlagSet(a.Name, flag.ExitOnError)
-				a.Flags.VisitAll(func(f *flag.Flag) {
+				a.Flags.VisitAll(
+(f *flag.Flag) {
 					if first {
 						first = false
 						fmt.Println("\nAnalyzer flags:")

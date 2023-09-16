@@ -42,7 +42,8 @@ type muxBrokerPending struct {
 	doneCh chan struct{}
 }
 
-func newMuxBroker(s *yamux.Session) *MuxBroker {
+
+ newMuxBroker(s *yamux.Session) *MuxBroker {
 	return &MuxBroker{
 		session: s,
 		streams: make(map[uint32]*muxBrokerPending),
@@ -51,8 +52,9 @@ func newMuxBroker(s *yamux.Session) *MuxBroker {
 
 // Accept accepts a connection by ID.
 //
-// This should not be called multiple times with the same ID at one time.
-func (m *MuxBroker) Accept(id uint32) (net.Conn, error) {
+his should not be called multiple times with the same ID at one time.
+
+ (m *MuxBroker) Accept(id uint32) (net.Conn, error) {
 	var c net.Conn
 	p := m.getStream(id)
 	select {
@@ -78,9 +80,10 @@ func (m *MuxBroker) Accept(id uint32) (net.Conn, error) {
 // AcceptAndServe is used to accept a specific stream ID and immediately
 // serve an RPC server on that stream ID. This is used to easily serve
 // complex arguments.
-//
+
 // The served interface is always registered to the "Plugin" name.
-func (m *MuxBroker) AcceptAndServe(id uint32, v interface{}) {
+
+ (m *MuxBroker) AcceptAndServe(id uint32, v interface{}) {
 	conn, err := m.Accept(id)
 	if err != nil {
 		log.Printf("[ERR] plugin: plugin acceptAndServe error: %s", err)
@@ -88,15 +91,17 @@ func (m *MuxBroker) AcceptAndServe(id uint32, v interface{}) {
 	}
 
 	serve(conn, "Plugin", v)
-}
+
 
 // Close closes the connection and all sub-connections.
-func (m *MuxBroker) Close() error {
-	return m.session.Close()
+
+ (m *MuxBroker) Close() error {
+urn m.session.Close()
 }
 
 // Dial opens a connection by ID.
-func (m *MuxBroker) Dial(id uint32) (net.Conn, error) {
+
+ (m *MuxBroker) Dial(id uint32) (net.Conn, error) {
 	// Open the stream
 	stream, err := m.session.OpenStream()
 	if err != nil {
@@ -123,12 +128,13 @@ func (m *MuxBroker) Dial(id uint32) (net.Conn, error) {
 	return stream, nil
 }
 
-// NextId returns a unique ID to use next.
+extId returns a unique ID to use next.
 //
 // It is possible for very long-running plugin hosts to wrap this value,
 // though it would require a very large amount of RPC calls. In practice
 // we've never seen it happen.
-func (m *MuxBroker) NextId() uint32 {
+
+ (m *MuxBroker) NextId() uint32 {
 	return atomic.AddUint32(&m.nextId, 1)
 }
 
@@ -137,7 +143,8 @@ func (m *MuxBroker) NextId() uint32 {
 //
 // Uses of MuxBroker never need to call this. It is called internally by
 // the plugin host/client.
-func (m *MuxBroker) Run() {
+
+ (m *MuxBroker) Run() {
 	for {
 		stream, err := m.session.AcceptStream()
 		if err != nil {
@@ -157,14 +164,15 @@ func (m *MuxBroker) Run() {
 		select {
 		case p.ch <- stream:
 		default:
-		}
+
 
 		// Wait for a timeout
 		go m.timeoutWait(id, p)
 	}
 }
 
-func (m *MuxBroker) getStream(id uint32) *muxBrokerPending {
+
+ (m *MuxBroker) getStream(id uint32) *muxBrokerPending {
 	m.Lock()
 	defer m.Unlock()
 
@@ -180,7 +188,8 @@ func (m *MuxBroker) getStream(id uint32) *muxBrokerPending {
 	return m.streams[id]
 }
 
-func (m *MuxBroker) timeoutWait(id uint32, p *muxBrokerPending) {
+
+ (m *MuxBroker) timeoutWait(id uint32, p *muxBrokerPending) {
 	// Wait for the stream to either be picked up and connected, or
 	// for a timeout.
 	timeout := false

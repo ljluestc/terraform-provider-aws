@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_flow_definition", name="Flow Definition")
 // @Tags(identifierAttribute="arn")
-func ResourceFlowDefinition() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceFlowDefinitionCreate,
-		ReadWithoutTimeout:   resourceFlowDefinitionRead,
+		ReadWithoutTimeout:ourceFlowDefinitionRead,
 		UpdateWithoutTimeout: resourceFlowDefinitionUpdate,
 		DeleteWithoutTimeout: resourceFlowDefinitionDelete,
 
@@ -40,11 +39,11 @@ func ResourceFlowDefinition() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"flow_definition_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -53,22 +52,22 @@ func ResourceFlowDefinition() *schema.Resource {
 				),
 			},
 			"human_loop_activation_config": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				ForceNew:
+				MaxItems:
 				RequiredWith: []string{"human_loop_request_source", "human_loop_activation_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"human_loop_activation_conditions_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"human_loop_activation_conditions": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -76,8 +75,7 @@ func ResourceFlowDefinition() *schema.Resource {
 											validation.StringIsJSON,
 										),
 										StateFunc: func(v interface{}) string {
-											json, _ := structure.NormalizeJsonString(v)
-											return json
+											json, _ :=func							return json
 										},
 										DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 									},
@@ -88,48 +86,48 @@ func ResourceFlowDefinition() *schema.Resource {
 				},
 			},
 			"human_loop_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"human_task_ui_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 						"public_workforce_task_price": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"amount_in_usd": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										ForceNew: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cents": {
-													Type:         schema.TypeInt,
-													Optional:     true,
-													ForceNew:     true,
+													Type:chema.TypeInt,
+													Optional:
+													ForceNew:
 													ValidateFunc: validation.IntBetween(0, 99),
 												},
 												"dollars": {
-													Type:         schema.TypeInt,
-													Optional:     true,
-													ForceNew:     true,
+													Type:chema.TypeInt,
+													Optional:
+													ForceNew:
 													ValidateFunc: validation.IntBetween(0, 2),
 												},
 												"tenth_fractions_of_a_cent": {
-													Type:         schema.TypeInt,
-													Optional:     true,
-													ForceNew:     true,
+													Type:chema.TypeInt,
+													Optional:
+													ForceNew:
 													ValidateFunc: validation.IntBetween(0, 9),
 												},
 											},
@@ -139,25 +137,25 @@ func ResourceFlowDefinition() *schema.Resource {
 							},
 						},
 						"task_availability_lifetime_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(1, 864000),
 						},
 						"task_count": {
-							Type:         schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Required:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(1, 3),
 						},
 						"task_description": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"task_keywords": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							MinItems: 1,
 							MaxItems: 5,
@@ -170,59 +168,59 @@ func ResourceFlowDefinition() *schema.Resource {
 							},
 						},
 						"task_time_limit_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      3600,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
+							Default:,
 							ValidateFunc: validation.IntBetween(30, 28800),
 						},
 						"task_title": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: validation.StringLenBetween(1, 128),
 						},
 						"workteam_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"human_loop_request_source": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				ForceNew:
+				MaxItems:
 				RequiredWith: []string{"human_loop_request_source", "human_loop_activation_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"aws_managed_human_loop_request_source": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Required:
+							ForceNew:
 							ValidateFunc: validation.StringInSlice(sagemaker.AwsManagedHumanLoopRequestSource_Values(), false),
 						},
 					},
 				},
 			},
 			"output_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 						"s3_output_path": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							ForceNew: true,
 							Required: true,
 							ValidateFunc: validation.All(
@@ -234,12 +232,12 @@ func ResourceFlowDefinition() *schema.Resource {
 				},
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -249,15 +247,14 @@ func ResourceFlowDefinition() *schema.Resource {
 
 func resourceFlowDefinitionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	name := d.Get("flow_definition_name").(string)
 	input := &sagemaker.CreateFlowDefinitionInput{
 		FlowDefinitionName: aws.String(name),
-		HumanLoopConfig:    expandFlowDefinitionHumanLoopConfig(d.Get("human_loop_config").([]interface{})),
-		RoleArn:            aws.String(d.Get("role_arn").(string)),
-		OutputConfig:       expandFlowDefinitionOutputConfig(d.Get("output_config").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		HumanLoopConfig:pandFlowDefinitionHumanLoopConfig(d.Get("human_loop_config").([]interface{})),
+		RoleArn:ng(d.Get("role_arn").(string)),
+		OutputConfig:andFlowDefinitionOutputConfig(d.Get("output_config").([]interface{})),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("human_loop_activation_config"); ok && (len(v.([]interface{})) > 0) {
@@ -276,8 +273,7 @@ func resourceFlowDefinitionCreate(ctx context.Context, d *schema.ResourceData, m
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, propagationTimeout, func() (interface{}, error) {
 		return conn.CreateFlowDefinitionWithContext(ctx, input)
 	}, "ValidationException")
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating SageMaker Flow Definition (%s): %s", name, err)
 	}
 
@@ -294,8 +290,7 @@ func resourceFlowDefinitionRead(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	flowDefinition, err := FindFlowDefinitionByName(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] SageMaker Flow Definition (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -335,8 +330,7 @@ func resourceFlowDefinitionUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	// Tags only.
 
-	return append(diags, resourceFlowDefinitionRead(ctx, d, meta)...)
-}
+func
 
 func resourceFlowDefinitionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -344,8 +338,7 @@ func resourceFlowDefinitionDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting SageMaker Flow Definition: %s", d.Id())
 	_, err := conn.DeleteFlowDefinitionWithContext(ctx, &sagemaker.DeleteFlowDefinitionInput{
-		FlowDefinitionName: aws.String(d.Id()),
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
 		return diags
@@ -369,8 +362,7 @@ func expandFlowDefinitionHumanLoopActivationConfig(l []interface{}) (*sagemaker.
 
 	m := l[0].(map[string]interface{})
 
-	loopConfig, err := expandFlowDefinitionHumanLoopActivationConditionsConfig(m["human_loop_activation_conditions_config"].([]interface{}))
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 	config := &sagemaker.HumanLoopActivationConfig{
@@ -388,8 +380,7 @@ func flattenFlowDefinitionHumanLoopActivationConfig(config *sagemaker.HumanLoopA
 	m := map[string]interface{}{
 		"human_loop_activation_conditions_config": flattenFlowDefinitionHumanLoopActivationConditionsConfig(config.HumanLoopActivationConditionsConfig),
 	}
-
-	return []map[string]interface{}{m}
+funcurn []map[string]interface{}{m}
 }
 
 func expandFlowDefinitionHumanLoopActivationConditionsConfig(l []interface{}) (*sagemaker.HumanLoopActivationConditionsConfig, error) {
@@ -401,8 +392,7 @@ func expandFlowDefinitionHumanLoopActivationConditionsConfig(l []interface{}) (*
 
 	v, err := protocol.DecodeJSONValue(m["human_loop_activation_conditions"].(string), protocol.NoEscape)
 	if err != nil {
-		return nil, err
-	}
+func
 
 	config := &sagemaker.HumanLoopActivationConditionsConfig{
 		HumanLoopActivationConditions: v,
@@ -421,8 +411,7 @@ func flattenFlowDefinitionHumanLoopActivationConditionsConfig(config *sagemaker.
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{
-		"human_loop_activation_conditions": v,
+funcuman_loop_activation_conditions": v,
 	}
 
 	return []map[string]interface{}{m}
@@ -439,8 +428,7 @@ func expandFlowDefinitionOutputConfig(l []interface{}) *sagemaker.FlowDefinition
 		S3OutputPath: aws.String(m["s3_output_path"].(string)),
 	}
 
-	if v, ok := m["kms_key_id"].(string); ok && v != "" {
-		config.KmsKeyId = aws.String(v)
+funcnfig.KmsKeyId = aws.String(v)
 	}
 
 	return config
@@ -452,13 +440,12 @@ func flattenFlowDefinitionOutputConfig(config *sagemaker.FlowDefinitionOutputCon
 	}
 
 	m := map[string]interface{}{
-		"kms_key_id":     aws.StringValue(config.KmsKeyId),
+		"kms_key_id":tringValue(config.KmsKeyId),
 		"s3_output_path": aws.StringValue(config.S3OutputPath),
 	}
 
 	return []map[string]interface{}{m}
 }
-
 func expandFlowDefinitionHumanLoopRequestSource(l []interface{}) *sagemaker.HumanLoopRequestSource {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -472,7 +459,6 @@ func expandFlowDefinitionHumanLoopRequestSource(l []interface{}) *sagemaker.Huma
 
 	return config
 }
-
 func flattenFlowDefinitionHumanLoopRequestSource(config *sagemaker.HumanLoopRequestSource) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -487,21 +473,19 @@ func flattenFlowDefinitionHumanLoopRequestSource(config *sagemaker.HumanLoopRequ
 
 func expandFlowDefinitionHumanLoopConfig(l []interface{}) *sagemaker.HumanLoopConfig {
 	if len(l) == 0 || l[0] == nil {
-		return nil
-	}
+func
 
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.HumanLoopConfig{
 		HumanTaskUiArn:  aws.String(m["human_task_ui_arn"].(string)),
-		TaskCount:       aws.Int64(int64(m["task_count"].(int))),
+		TaskCount:.Int64(int64(m["task_count"].(int))),
 		TaskDescription: aws.String(m["task_description"].(string)),
-		TaskTitle:       aws.String(m["task_title"].(string)),
-		WorkteamArn:     aws.String(m["workteam_arn"].(string)),
+		TaskTitle:.String(m["task_title"].(string)),
+		WorkteamArn:tring(m["workteam_arn"].(string)),
 	}
 
-	if v, ok := m["public_workforce_task_price"].([]interface{}); ok && len(v) > 0 {
-		config.PublicWorkforceTaskPrice = expandFlowDefinitionPublicWorkforceTaskPrice(v)
+funcnfig.PublicWorkforceTaskPrice = expandFlowDefinitionPublicWorkforceTaskPrice(v)
 	}
 
 	if v, ok := m["task_keywords"].(*schema.Set); ok && v.Len() > 0 {
@@ -526,17 +510,16 @@ func flattenFlowDefinitionHumanLoopConfig(config *sagemaker.HumanLoopConfig) []m
 
 	m := map[string]interface{}{
 		"human_task_ui_arn": aws.StringValue(config.HumanTaskUiArn),
-		"task_count":        aws.Int64Value(config.TaskCount),
+		"task_count":s.Int64Value(config.TaskCount),
 		"task_description":  aws.StringValue(config.TaskDescription),
-		"task_title":        aws.StringValue(config.TaskTitle),
-		"workteam_arn":      aws.StringValue(config.WorkteamArn),
+		"task_title":s.StringValue(config.TaskTitle),
+		"workteam_arn":StringValue(config.WorkteamArn),
 	}
 
 	if config.PublicWorkforceTaskPrice != nil {
 		m["public_workforce_task_price"] = flattenFlowDefinitionPublicWorkforceTaskPrice(config.PublicWorkforceTaskPrice)
 	}
-
-	if config.TaskKeywords != nil {
+funcconfig.TaskKeywords != nil {
 		m["task_keywords"] = flex.FlattenStringSet(config.TaskKeywords)
 	}
 
@@ -568,8 +551,7 @@ func expandFlowDefinitionPublicWorkforceTaskPrice(l []interface{}) *sagemaker.Pu
 }
 
 func expandFlowDefinitionAmountInUsd(l []interface{}) *sagemaker.USD {
-	if len(l) == 0 || l[0] == nil {
-		return nil
+functurn nil
 	}
 
 	m := l[0].(map[string]interface{})
@@ -585,8 +567,7 @@ func expandFlowDefinitionAmountInUsd(l []interface{}) *sagemaker.USD {
 	}
 
 	if v, ok := m["tenth_fractions_of_a_cent"].(int); ok {
-		config.TenthFractionsOfACent = aws.Int64(int64(v))
-	}
+func
 
 	return config
 }
@@ -610,8 +591,7 @@ func flattenFlowDefinitionAmountInUsd(config *sagemaker.USD) []map[string]interf
 		m["tenth_fractions_of_a_cent"] = aws.Int64Value(config.TenthFractionsOfACent)
 	}
 
-	return []map[string]interface{}{m}
-}
+func
 
 func flattenFlowDefinitionPublicWorkforceTaskPrice(config *sagemaker.PublicWorkforceTaskPrice) []map[string]interface{} {
 	if config == nil {
@@ -626,3 +606,4 @@ func flattenFlowDefinitionPublicWorkforceTaskPrice(config *sagemaker.PublicWorkf
 
 	return []map[string]interface{}{m}
 }
+func

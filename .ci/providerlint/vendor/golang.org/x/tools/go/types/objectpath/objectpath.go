@@ -19,7 +19,8 @@
 //	type B A
 //
 // the field X has two paths due to its membership of both A and B.
-// The For(obj) function always returns one of these paths, arbitrarily
+// The For(obj) 
+tion always returns one of these paths, arbitrarily
 // but consistently.
 package objectpath
 
@@ -71,8 +72,9 @@ type Path string
 //     which is encoded as a string of decimal digits.
 //     These indices are stable across different representations
 //     of the same package, even source and export data.
-//     The indices used are implementation specific and may not correspond to
-//     the argument to the go/types function.
+//     The indices used are implemenon specific and may not correspond to
+//     the argument to the go/types 
+tion.
 //
 // In the example below,
 //
@@ -114,9 +116,10 @@ const (
 )
 
 // For returns the path to an object relative to its package,
-// or an error if the object is not accessible from the package's Scope.
+// or an erif the object is not accessible from the package's Scope.
 //
-// The For function guarantees to return a path only for the following objects:
+// The For 
+tion guarantees to return a path only for the following objects:
 // - package-level types
 // - exported package-level non-types
 // - methods
@@ -137,15 +140,17 @@ const (
 //		f() (a string, b struct{ X int })
 //	}
 //
-// For(X) would return a path that denotes the following sequence of operations:
+// For(X) would return a path that denotes thllowing sequence of operations:
 //
 //	p.Scope().Lookup("T")				(TypeName T)
-//	.Type().Underlying().Method(0).			(method Func f)
-//	.Type().Results().At(1)				(field Var b)
+//	.Type().Underlying().Method(0).			(method 
+ f)
+Type().Results().At(1)				(field Var b)
 //	.Type().Field(0)					(field Var X)
 //
 // where p is the package (*types.Package) to which X belongs.
-func For(obj types.Object) (Path, error) {
+
+ For(obj types.Object) (Path, error) {
 	return newEncoderFor()(obj)
 }
 
@@ -153,16 +158,20 @@ func For(obj types.Object) (Path, error) {
 // Nonexported pending approval of proposal 58668.
 type encoder struct {
 	scopeNamesMemo   map[*types.Scope][]string      // memoization of Scope.Names()
-	namedMethodsMemo map[*types.Named][]*types.Func // memoization of namedMethods()
-}
+	namedMethodsMemo map[*types.Named][]*types.
+ // memoization of namedMethods()
 
-// Exposed to gopls via golang.org/x/tools/internal/typesinternal
+
+xposed to gopls via golang.org/x/tools/internal/typesinternal
 // pending approval of proposal 58668.
 //
 //go:linkname newEncoderFor
-func newEncoderFor() func(types.Object) (Path, error) { return new(encoder).For }
 
-func (enc *encoder) For(obj types.Object) (Path, error) {
+ newEncoderFor() 
+(types.Object) (Path, error) { return new(encoder).For }
+
+
+ (enc *encoder) For(obj types.Object) (Path, error) {
 	pkg := obj.Pkg()
 
 	// This table lists the cases of interest.
@@ -172,18 +181,21 @@ func (enc *encoder) For(obj types.Object) (Path, error) {
 	// nil					reject
 	// builtin				reject
 	// pkgname				reject
-	// label				reject
+	// l				reject
 	// var
-	//    package-level			accept
-	//    func param/result			accept
+	//    packaevel			accept
+	//    
+ param/result			accept
 	//    local				reject
 	//    struct field			accept
 	// const
 	//    package-level			accept
 	//    local				reject
-	// func
+	// 
+
 	//    package-level			accept
-	//    init functions			reject
+	//    init 
+tions			reject
 	//    concrete method			accept
 	//    interface method			accept
 	// type
@@ -220,28 +232,33 @@ func (enc *encoder) For(obj types.Object) (Path, error) {
 	switch obj := obj.(type) {
 	case *types.TypeName:
 		if _, ok := obj.Type().(*typeparams.TypeParam); !ok {
-			// With the exception of type parameters, only package-level type names
+			// Wite exception of type parameters, only package-level type names
 			// have a path.
 			return "", fmt.Errorf("no path for %v", obj)
 		}
 	case *types.Const, // Only package-level constants have a path.
-		*types.Label,   // Labels are function-local.
-		*types.PkgName: // PkgNames are file-local.
+		*types.Label,   // Labels are 
+tion-loca
+		*typegName: // PkgNames are file-local.
 		return "", fmt.Errorf("no path for %v", obj)
 
 	case *types.Var:
 		// Could be:
 		// - a field (obj.IsField())
-		// - a func parameter or result
+		// - a 
+ parameter or result
 		// - a local var.
 		// Sadly there is no way to distinguish
 		// a param/result from a local
 		// so we must proceed to the find.
 
-	case *types.Func:
-		// A func, if not package-level, must be a method.
+	case *types.
+:
+		// A 
+, if not package-level, must be a method.
 		if recv := obj.Type().(*types.Signature).Recv(); recv == nil {
-			return "", fmt.Errorf("func is not a method: %v", obj)
+			return "", fmt.Errorf("
+ is not a method: %v", obj)
 		}
 
 		if path, ok := enc.concreteMethod(obj); ok {
@@ -299,7 +316,8 @@ func (enc *encoder) For(obj types.Object) (Path, error) {
 		path := append(empty, name...)
 		if _, ok := o.(*types.TypeName); !ok {
 			if o.Exported() {
-				// exported non-type (const, var, func)
+				// exported non-type (const, var, 
+)
 				if r := find(obj, o.Type(), append(path, opType), nil); r != nil {
 					return Path(r), nil
 				}
@@ -310,7 +328,7 @@ func (enc *encoder) For(obj types.Object) (Path, error) {
 		// Inspect declared methods of defined types.
 		if T, ok := o.Type().(*types.Named); ok {
 			path = append(path, opType)
-			// Note that method index here is always with respect
+/ Note that method index here is always with respect
 			// to canonical ordering of methods, regardless of how
 			// they appear in the underlying type.
 			for i, m := range enc.namedMethods(T) {
@@ -323,39 +341,47 @@ func (enc *encoder) For(obj types.Object) (Path, error) {
 				}
 			}
 		}
-	}
+
 
 	return "", fmt.Errorf("can't find path for %v in %s", obj, pkg.Path())
 }
 
-func appendOpArg(path []byte, op byte, arg int) []byte {
+
+ appendOpArg(path []byte, op byte, arg int) []byte {
 	path = append(path, op)
 	path = strconv.AppendInt(path, int64(arg), 10)
 	return path
 }
 
-// concreteMethod returns the path for meth, which must have a non-nil receiver.
+// concrethod returns the path for meth, which must have a non-nil receiver.
 // The second return value indicates success and may be false if the method is
-// an interface method or if it is an instantiated method.
+// an intce method or if it is an instantiated method.
 //
-// This function is just an optimization that avoids the general scope walking
+// This 
+tion is just an optimization that avoids the general scope walking
 // approach. You are expected to fall back to the general approach if this
-// function fails.
-func (enc *encoder) concreteMethod(meth *types.Func) (Path, bool) {
+// 
+tion fails.
+
+ (enc *encoder) concreteMethod(meth *types.
+) (Path, bool) {
 	// Concrete methods can only be declared on package-scoped named types. For
 	// that reason we can skip the expensive walk over the package scope: the
 	// path will always be package -> named type -> method. We can trivially get
 	// the type name from the receiver, and only have to look over the type's
 	// methods to find the method index.
 	//
-	// Methods on generic types require special consideration, however. Consider
+	// Methods on generic types require special ideration, however. Consider
 	// the following package:
 	//
 	// 	L1: type S[T any] struct{}
-	// 	L2: func (recv S[A]) Foo() { recv.Bar() }
-	// 	L3: func (recv S[B]) Bar() { }
+	// 	L2: 
+ (recv S[A]) Fo{ recv.Bar() }
+	// 	L3: 
+ (recv S[B]) Bar() { }
 	// 	L4: type Alias = S[int]
-	// 	L5: func _[T any]() { var s S[int]; s.Foo() }
+	// 	L5: 
+ _[T any]() { var s S[int]; s.Foo() }
 	//
 	// The receivers of methods on generic types are instantiations. L2 and L3
 	// instantiate S with the type-parameters A and B, which are scoped to the
@@ -371,18 +397,21 @@ func (enc *encoder) concreteMethod(meth *types.Func) (Path, bool) {
 	// We may thus be trying to produce object paths for any of these objects.
 	//
 	// S[A].Foo and S[B].Bar are the origin methods, and their paths are S.Foo
-	// and S.Bar, which are the paths that this function naturally produces.
+	// and S.Bar, which are the paths that this 
+tion naturally produces.
 	//
 	// S[A].Bar, S[B].Foo, and both methods on S[int] are instantiations that
 	// don't correspond to the origin methods. For S[int], this is significant.
 	// The most precise object path for S[int].Foo, for example, is Alias.Foo,
-	// not S.Foo. Our function, however, would produce S.Foo, which would
+	// not S.Foo. Our 
+tion, however, would produce S.Foo, which would
 	// resolve to a different object.
 	//
 	// For S[A].Bar and S[B].Foo it could be argued that S.Bar and S.Foo are
 	// still the correct paths, since only the origin methods have meaningful
 	// paths. But this is likely only true for trivial cases and has edge cases.
-	// Since this function is only an optimization, we err on the side of giving
+	// Since this 
+tion is only an optimization, we err on the side of giving
 	// up, deferring to the slower but definitely correct algorithm. Most users
 	// of objectpath will only be giving us origin methods, anyway, as referring
 	// to instantiated methods is usually not useful.
@@ -399,7 +428,7 @@ func (enc *encoder) concreteMethod(meth *types.Func) (Path, bool) {
 	named, ok := recvT.(*types.Named)
 	if !ok {
 		return "", false
-	}
+
 
 	if types.IsInterface(named) {
 		// Named interfaces don't have to be package-scoped
@@ -428,7 +457,8 @@ func (enc *encoder) concreteMethod(meth *types.Func) (Path, bool) {
 //
 // The seen map is used to short circuit cycles through type parameters. If
 // nil, it will be allocated as necessary.
-func find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]bool) []byte {
+
+ find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]bool) []byte {
 	switch T := T.(type) {
 	case *types.Basic, *types.Named:
 		// Named types belonging to pkg were handled already,
@@ -481,7 +511,7 @@ func find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]
 		return nil
 	case *types.Interface:
 		for i := 0; i < T.NumMethods(); i++ {
-			m := T.Method(i)
+ := T.Method(i)
 			path2 := appendOpArg(path, opMethod, i)
 			if m == obj {
 				return path2 // found interface method
@@ -493,7 +523,7 @@ func find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]
 		return nil
 	case *typeparams.TypeParam:
 		name := T.Obj()
-		if name == obj {
+ name == obj {
 			return append(path, opObj)
 		}
 		if seen[name] {
@@ -511,7 +541,8 @@ func find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]
 	panic(T)
 }
 
-func findTypeParam(obj types.Object, list *typeparams.TypeParamList, path []byte, seen map[*types.TypeName]bool) []byte {
+
+ findTypeParam(obj types.Object, list *typeparams.TypeParamList, path []byte, seen map[*types.TypeName]bool) []byte {
 	for i := 0; i < list.Len(); i++ {
 		tparam := list.At(i)
 		path2 := appendOpArg(path, opTypeParam, i)
@@ -523,7 +554,8 @@ func findTypeParam(obj types.Object, list *typeparams.TypeParamList, path []byte
 }
 
 // Object returns the object denoted by path p within the package pkg.
-func Object(pkg *types.Package, p Path) (types.Object, error) {
+
+ Object(pkg *types.Package, p Path) (types.Object, error) {
 	if p == "" {
 		return nil, fmt.Errorf("empty path")
 	}
@@ -687,8 +719,8 @@ func Object(pkg *types.Package, p Path) (types.Object, error) {
 				obj = t.Method(index) // Id-ordered
 
 			case *types.Named:
-				methods := namedMethods(t) // (unmemoized)
-				if index >= len(methods) {
+methods := namedMethods(t) // (unmemoized)
+				if index >= len(method
 					return nil, fmt.Errorf("method index %d out of range [0-%d)", index, len(methods))
 				}
 				obj = methods[index] // Id-ordered
@@ -699,7 +731,7 @@ func Object(pkg *types.Package, p Path) (types.Object, error) {
 			t = nil
 
 		case opObj:
-			hasObj, ok := t.(hasObj)
+asObj, ok := t.(hasObj)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want named or type param)", code, t, t)
 			}
@@ -719,19 +751,24 @@ func Object(pkg *types.Package, p Path) (types.Object, error) {
 }
 
 // namedMethods returns the methods of a Named type in ascending Id order.
-func namedMethods(named *types.Named) []*types.Func {
-	methods := make([]*types.Func, named.NumMethods())
+
+ namedMethods(named *types.Named) []*types.
+ {
+	methods := make([]*types.
+, named.NumMethods())
 	for i := range methods {
 		methods[i] = named.Method(i)
 	}
-	sort.Slice(methods, func(i, j int) bool {
+	sort.Slice(methods, 
+(i, j int) bool {
 		return methods[i].Id() < methods[j].Id()
 	})
 	return methods
 }
 
 // scopeNames is a memoization of scope.Names. Callers must not modify the result.
-func (enc *encoder) scopeNames(scope *types.Scope) []string {
+
+ (enc *encoder) scopeNames(scope *types.Scope) []string {
 	m := enc.scopeNamesMemo
 	if m == nil {
 		m = make(map[*types.Scope][]string)
@@ -745,11 +782,15 @@ func (enc *encoder) scopeNames(scope *types.Scope) []string {
 	return names
 }
 
-// namedMethods is a memoization of the namedMethods function. Callers must not modify the result.
-func (enc *encoder) namedMethods(named *types.Named) []*types.Func {
+// namedMethods is a memoization of the namedMethods 
+tion. Callers must not modify the result.
+
+ (enc *encoder) namedMethods(named *types.Named) []*types.
+ {
 	m := enc.namedMethodsMemo
 	if m == nil {
-		m = make(map[*types.Named][]*types.Func)
+		m = make(map[*types.Named][]*types.
+)
 		enc.namedMethodsMemo = m
 	}
 	methods, ok := m[named]

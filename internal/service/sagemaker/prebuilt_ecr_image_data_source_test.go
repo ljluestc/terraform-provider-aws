@@ -12,15 +12,14 @@ import (
 	tfsagemaker "github.com/hashicorp/terraform-provider-aws/internal/service/sagemaker"
 )
 
-func TestAccSageMakerPrebuiltECRImageDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	expectedID := tfsagemaker.PrebuiltECRImageIDByRegion_factorMachines[acctest.Region()]
 
 	dataSourceName := "data.aws_sagemaker_prebuilt_ecr_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -36,14 +35,13 @@ func TestAccSageMakerPrebuiltECRImageDataSource_basic(t *testing.T) {
 }
 
 func TestAccSageMakerPrebuiltECRImageDataSource_region(t *testing.T) {
-	ctx := acctest.Context(t)
-	expectedID := tfsagemaker.PrebuiltECRImageIDByRegion_sparkML[acctest.Region()]
+funcectedID := tfsagemaker.PrebuiltECRImageIDByRegion_sparkML[acctest.Region()]
 
 	dataSourceName := "data.aws_sagemaker_prebuilt_ecr_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -69,7 +67,7 @@ data "aws_region" "current" {}
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
   repository_name = "sagemaker-scikit-learn"
-  image_tag       = "2.2-1.0.11.0"
-  region          = data.aws_region.current.name
+  image_tag2.2-1.0.11.0"
+  region_region.current.name
 }
 `

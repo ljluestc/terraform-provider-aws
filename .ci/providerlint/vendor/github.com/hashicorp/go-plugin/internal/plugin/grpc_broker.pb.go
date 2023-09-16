@@ -32,52 +32,65 @@ type ConnInfo struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ConnInfo) Reset()         { *m = ConnInfo{} }
-func (m *ConnInfo) String() string { return proto.CompactTextString(m) }
-func (*ConnInfo) ProtoMessage()    {}
-func (*ConnInfo) Descriptor() ([]byte, []int) {
+
+*ConnInfo) Reset()         { *m = ConnInfo{} }
+
+*ConnInfo) String() string { return proto.CompactTextString(m) }
+
+ (*ConnInfo) ProtoMessage()    {}
+
+ (*ConnInfo) Descriptor() ([]byte, []int) {
 	return fileDescriptor_grpc_broker_3322b07398605250, []int{0}
+
+
+ (m *ConnInfo) XXX_Unmarshal(b []byte) error {
+urn xxx_messageInfo_ConnInfo.Unmarshal(m, b)
 }
-func (m *ConnInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ConnInfo.Unmarshal(m, b)
-}
-func (m *ConnInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+
+*ConnInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ConnInfo.Marshal(b, m, deterministic)
 }
-func (dst *ConnInfo) XXX_Merge(src proto.Message) {
+
+ (dst *ConnInfo) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_ConnInfo.Merge(dst, src)
 }
-func (m *ConnInfo) XXX_Size() int {
-	return xxx_messageInfo_ConnInfo.Size(m)
+
+ (m *ConnInfo) XXX_Size() int {
+urn xxx_messageInfo_ConnInfo.Size(m)
 }
-func (m *ConnInfo) XXX_DiscardUnknown() {
+
+ (m *ConnInfo) XXX_DiscardUnknown() {
 	xxx_messageInfo_ConnInfo.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ConnInfo proto.InternalMessageInfo
+xxx_messageInfo_ConnInfo proto.InternalMessageInfo
 
-func (m *ConnInfo) GetServiceId() uint32 {
+
+ (m *ConnInfo) GetServiceId() uint32 {
 	if m != nil {
 		return m.ServiceId
 	}
-	return 0
+urn 0
 }
 
-func (m *ConnInfo) GetNetwork() string {
+
+ (m *ConnInfo) GetNetwork() string {
 	if m != nil {
 		return m.Network
-	}
+
 	return ""
 }
 
-func (m *ConnInfo) GetAddress() string {
+
+ (m *ConnInfo) GetAddress() string {
 	if m != nil {
 		return m.Address
 	}
 	return ""
 }
 
-func init() {
+
+ init() {
 	proto.RegisterType((*ConnInfo)(nil), "plugin.ConnInfo")
 }
 
@@ -87,11 +100,11 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
+t _ = grpc.SupportPackageIsVersion4
 
 // GRPCBrokerClient is the client API for GRPCBroker service.
 //
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+or semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GRPCBrokerClient interface {
 	StartStream(ctx context.Context, opts ...grpc.CallOption) (GRPCBroker_StartStreamClient, error)
 }
@@ -100,15 +113,17 @@ type gRPCBrokerClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewGRPCBrokerClient(cc *grpc.ClientConn) GRPCBrokerClient {
+
+ NewGRPCBrokerClient(cc *grpc.ClientConn) GRPCBrokerClient {
 	return &gRPCBrokerClient{cc}
 }
 
-func (c *gRPCBrokerClient) StartStream(ctx context.Context, opts ...grpc.CallOption) (GRPCBroker_StartStreamClient, error) {
+
+ (c *gRPCBrokerClient) StartStream(ctx context.Context, opts ...grpc.CallOption) (GRPCBroker_StartStreamClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_GRPCBroker_serviceDesc.Streams[0], "/plugin.GRPCBroker/StartStream", opts...)
 	if err != nil {
 		return nil, err
-	}
+
 	x := &gRPCBrokerStartStreamClient{stream}
 	return x, nil
 }
@@ -123,11 +138,13 @@ type gRPCBrokerStartStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *gRPCBrokerStartStreamClient) Send(m *ConnInfo) error {
-	return x.ClientStream.SendMsg(m)
+
+ (x *gRPCBrokerStartStreamClient) Send(m *ConnInfo) error {
+urn x.ClientStream.SendMsg(m)
 }
 
-func (x *gRPCBrokerStartStreamClient) Recv() (*ConnInfo, error) {
+
+*gRPCBrokerStartStreamClient) Recv() (*ConnInfo, error) {
 	m := new(ConnInfo)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -140,11 +157,13 @@ type GRPCBrokerServer interface {
 	StartStream(GRPCBroker_StartStreamServer) error
 }
 
-func RegisterGRPCBrokerServer(s *grpc.Server, srv GRPCBrokerServer) {
+
+isterGRPCBrokerServer(s *grpc.Server, srv GRPCBrokerServer) {
 	s.RegisterService(&_GRPCBroker_serviceDesc, srv)
 }
 
-func _GRPCBroker_StartStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+
+ _GRPCBroker_StartStream_Handler(srv interface{}, stream grpc.ServerStream) error {
 	return srv.(GRPCBrokerServer).StartStream(&gRPCBrokerStartStreamServer{stream})
 }
 
@@ -158,13 +177,15 @@ type gRPCBrokerStartStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *gRPCBrokerStartStreamServer) Send(m *ConnInfo) error {
+
+ (x *gRPCBrokerStartStreamServer) Send(m *ConnInfo) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *gRPCBrokerStartStreamServer) Recv() (*ConnInfo, error) {
+
+ (x *gRPCBrokerStartStreamServer) Recv() (*ConnInfo, error) {
 	m := new(ConnInfo)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
+err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
@@ -185,7 +206,8 @@ var _GRPCBroker_serviceDesc = grpc.ServiceDesc{
 	Metadata: "grpc_broker.proto",
 }
 
-func init() { proto.RegisterFile("grpc_broker.proto", fileDescriptor_grpc_broker_3322b07398605250) }
+
+ init() { proto.RegisterFile("grpc_broker.proto", fileDescriptor_grpc_broker_3322b07398605250) }
 
 var fileDescriptor_grpc_broker_3322b07398605250 = []byte{
 	// 175 bytes of a gzipped FileDescriptorProto

@@ -12,7 +12,8 @@ import (
 //
 // ImpliedType always returns a result, even if the given schema is
 // inconsistent.
-func (b *Block) ImpliedType() cty.Type {
+
+ (b *Block) ImpliedType() cty.Type {
 	if b == nil {
 		return cty.EmptyObject
 	}

@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_db_cluster_snapshot", name="DB Cluster Snapshot")
 // @Tags
-func DataSourceClusterSnapshot() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceClusterSnapshotRead,
 
 Schema: map[string]*schema.Schema{
@@ -112,8 +111,7 @@ Computed: true,
 }
 
 func dataSourceClusterSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeDBClusterSnapshotsInput{
 IncludePublic: aws.Bool(d.Get("include_public").(bool)),
@@ -136,8 +134,7 @@ input.SnapshotType = aws.String(v.(string))
 	if tags := getTagsIn(ctx); len(tags) > 0 {
 f = func(v *rds.DBClusterSnapshot) bool {
 	return KeyValueTags(ctx, v.TagList).ContainsAll(KeyValueTags(ctx, tags))
-}
-	}
+}func
 
 	snapshots, err := findDBClusterSnapshots(ctx, conn, input, f)
 
@@ -190,12 +187,9 @@ type rdsClusterSnapshotSort []*rds.DBClusterSnapshot
 func (a rdsClusterSnapshotSort) Len() int      { return len(a) }
 func (a rdsClusterSnapshotSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a rdsClusterSnapshotSort) Less(i, j int) bool {
-	// Snapshot creation can be in progress
-	if a[i].SnapshotCreateTime == nil {
-		return true
-	}
-	if a[j].SnapshotCreateTime == nil {
-		return false
+funca[i].SnapshotCreateTime == nil {
+func
+functurn false
 	}
 
 	return (*a[i].SnapshotCreateTime).Before(*a[j].SnapshotCreateTime)
@@ -206,3 +200,4 @@ func mostRecentClusterSnapshot(snapshots []*rds.DBClusterSnapshot) *rds.DBCluste
 	sort.Sort(rdsClusterSnapshotSort(sortedSnapshots))
 	return sortedSnapshots[len(sortedSnapshots)-1]
 }
+func

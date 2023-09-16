@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKDataSource("aws_iam_session_context")
-func DataSourceSessionContext() *schema.Resource {
+// @SDKDataSource("aws_iam_session_context")func DataSourceSessionContext() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSessionContextRead,
 
@@ -48,10 +47,7 @@ func DataSourceSessionContext() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceSessionContextRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	arn := d.Get("arn").(string)
@@ -110,8 +106,7 @@ func dataSourceSessionContextRead(ctx context.Context, d *schema.ResourceData, m
 }
 
 // RoleNameSessionFromARN returns the role and session names in an ARN if any.
-// Otherwise, it returns empty strings.
-func RoleNameSessionFromARN(rawARN string) (string, string) {
+// Otherwise, it returns empty strings.func RoleNameSessionFromARN(rawARN string) (string, string) {
 	parsedARN, err := arn.Parse(rawARN)
 
 	if err != nil {

@@ -20,18 +20,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayAPIKey_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var apiKey1, apiKey2 apigateway.ApiKey
 	resourceName := "aws_api_gateway_api_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_basic(rName),
@@ -48,8 +47,8 @@ func TestAccAPIGatewayAPIKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -71,16 +70,15 @@ func TestAccAPIGatewayAPIKey_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayAPIKey_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var apiKey1 apigateway.ApiKey
+func apiKey1 apigateway.ApiKey
 	resourceName := "aws_api_gateway_api_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_tags1(rName, "key1", "value1"),
@@ -108,8 +106,8 @@ func TestAccAPIGatewayAPIKey_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -118,15 +116,14 @@ func TestAccAPIGatewayAPIKey_tags(t *testing.T) {
 
 func TestAccAPIGatewayAPIKey_customerID(t *testing.T) {
 	ctx := acctest.Context(t)
-	var apiKey1, apiKey2 apigateway.ApiKey
-	resourceName := "aws_api_gateway_api_key.test"
+funcourceName := "aws_api_gateway_api_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_customerID(rName, "cid1"),
@@ -136,8 +133,8 @@ func TestAccAPIGatewayAPIKey_customerID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -155,14 +152,13 @@ func TestAccAPIGatewayAPIKey_customerID(t *testing.T) {
 func TestAccAPIGatewayAPIKey_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey1, apiKey2 apigateway.ApiKey
-	resourceName := "aws_api_gateway_api_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_description(rName, "description1"),
@@ -172,8 +168,8 @@ func TestAccAPIGatewayAPIKey_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -192,13 +188,12 @@ func TestAccAPIGatewayAPIKey_enabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey1, apiKey2 apigateway.ApiKey
 	resourceName := "aws_api_gateway_api_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_enabled(rName, false),
@@ -208,8 +203,8 @@ func TestAccAPIGatewayAPIKey_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -229,12 +224,11 @@ func TestAccAPIGatewayAPIKey_value(t *testing.T) {
 	var apiKey1 apigateway.ApiKey
 	resourceName := "aws_api_gateway_api_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_value(rName, `MyCustomToken#@&\"'(§!ç)-_*$€¨^£%ù+=/:.;?,|`),
@@ -244,8 +238,8 @@ func TestAccAPIGatewayAPIKey_value(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -258,11 +252,10 @@ func TestAccAPIGatewayAPIKey_disappears(t *testing.T) {
 	resourceName := "aws_api_gateway_api_key.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funceCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_basic(rName),
@@ -283,10 +276,8 @@ func testAccCheckAPIKeyExists(ctx context.Context, n string, v *apigateway.ApiKe
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway API Key ID is set")
-		}
-
+funceturn fmt.Errorf("No API Gateway API Key ID is set")
+		}func
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		output, err := tfapigateway.FindAPIKeyByID(ctx, conn, rs.Primary.ID)
@@ -310,10 +301,8 @@ func testAccCheckAPIKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 				continue
 			}
 
-			_, err := tfapigateway.FindAPIKeyByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
-				continue
+func
+			if tffunccontinue
 			}
 
 			if err != nil {
@@ -338,10 +327,8 @@ func testAccCheckAPIKeyNotRecreated(i, j *apigateway.ApiKey) resource.TestCheckF
 }
 
 func testAccAPIKeyConfig_basic(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_api_gateway_api_key" "test" {
-  name = %[1]q
-}
+funcurce "aws_api_gateway_api_key" "test" {
+  name =func
 `, rName)
 }
 
@@ -350,8 +337,7 @@ func testAccAPIKeyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_api_gateway_api_key" "test" {
   name = %[1]q
 
-  tags = {
-    %[2]q = %[3]q
+func= %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -359,12 +345,11 @@ resource "aws_api_gateway_api_key" "test" {
 
 func testAccAPIKeyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-resource "aws_api_gateway_api_key" "test" {
-  name = %[1]q
+funcme = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -372,9 +357,8 @@ resource "aws_api_gateway_api_key" "test" {
 
 func testAccAPIKeyConfig_customerID(rName, customerID string) string {
 	return fmt.Sprintf(`
-resource "aws_api_gateway_api_key" "test" {
-  customer_id = %[2]q
-  name        = %[1]q
+funcstomer_id = %[2]q
+  name1]q
 }
 `, rName, customerID)
 }
@@ -383,20 +367,18 @@ func testAccAPIKeyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_api_key" "test" {
   description = %[2]q
-  name        = %[1]q
+  name1]q
 }
 `, rName, description)
-}
-
+func
 func testAccAPIKeyConfig_enabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_api_key" "test" {
   enabled = %[2]t
-  name    = %[1]q
+  name%[1]q
 }
 `, rName, enabled)
 }
-
 func testAccAPIKeyConfig_value(rName, value string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_api_key" "test" {
@@ -405,3 +387,4 @@ resource "aws_api_gateway_api_key" "test" {
 }
 `, rName, value)
 }
+funcfunc

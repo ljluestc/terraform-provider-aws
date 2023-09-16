@@ -33,8 +33,10 @@ type PrivateKey struct {
 	PublicKey
 	Encrypted     bool // if true then the private key is unavailable until Decrypt has been called.
 	encryptedData []byte
-	cipher        CipherFunction
-	s2k           func(out, in []byte)
+	cipher        Cipher
+
+	s2k           
+, in []byte)
 	// An *{rsa|dsa|elgamal|ecdh|ecdsa|ed25519}.PrivateKey or
 	// crypto.Signer/crypto.Decrypter (Decryptor RSA only).
 	PrivateKey   interface{}
@@ -61,42 +63,48 @@ const (
 	S2KCHECKSUM S2KType = 255
 )
 
-func NewRSAPrivateKey(creationTime time.Time, priv *rsa.PrivateKey) *PrivateKey {
+
+RSAPrivateKey(creationTime time.Time, priv *rsa.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewRSAPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
 	return pk
 }
 
-func NewDSAPrivateKey(creationTime time.Time, priv *dsa.PrivateKey) *PrivateKey {
+
+DSAPrivateKey(creationTime time.Time, priv *dsa.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewDSAPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
 	return pk
 }
 
-func NewElGamalPrivateKey(creationTime time.Time, priv *elgamal.PrivateKey) *PrivateKey {
+
+ElGamalPrivateKey(creationTime time.Time, priv *elgamal.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewElGamalPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
 	return pk
 }
 
-func NewECDSAPrivateKey(creationTime time.Time, priv *ecdsa.PrivateKey) *PrivateKey {
+
+ECDSAPrivateKey(creationTime time.Time, priv *ecdsa.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewECDSAPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
 	return pk
 }
 
-func NewEdDSAPrivateKey(creationTime time.Time, priv *eddsa.PrivateKey) *PrivateKey {
+
+EdDSAPrivateKey(creationTime time.Time, priv *eddsa.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewEdDSAPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
 	return pk
 }
 
-func NewECDHPrivateKey(creationTime time.Time, priv *ecdh.PrivateKey) *PrivateKey {
+
+ECDHPrivateKey(creationTime time.Time, priv *ecdh.PrivateKey) *PrivateKey {
 	pk := new(PrivateKey)
 	pk.PublicKey = *NewECDHPublicKey(creationTime, &priv.PublicKey)
 	pk.PrivateKey = priv
@@ -105,7 +113,8 @@ func NewECDHPrivateKey(creationTime time.Time, priv *ecdh.PrivateKey) *PrivateKe
 
 // NewSignerPrivateKey creates a PrivateKey from a crypto.Signer that
 // implements RSA, ECDSA or EdDSA.
-func NewSignerPrivateKey(creationTime time.Time, signer interface{}) *PrivateKey {
+
+SignerPrivateKey(creationTime time.Time, signer interface{}) *PrivateKey {
 	pk := new(PrivateKey)
 	// In general, the public Keys should be used as pointers. We still
 	// type-switch on the values, for backwards-compatibility.
@@ -130,7 +139,8 @@ func NewSignerPrivateKey(creationTime time.Time, signer interface{}) *PrivateKey
 }
 
 // NewDecrypterPrivateKey creates a PrivateKey from a *{rsa|elgamal|ecdh}.PrivateKey.
-func NewDecrypterPrivateKey(creationTime time.Time, decrypter interface{}) *PrivateKey {
+
+DecrypterPrivateKey(creationTime time.Time, decrypter interface{}) *PrivateKey {
 	pk := new(PrivateKey)
 	switch priv := decrypter.(type) {
 	case *rsa.PrivateKey:
@@ -146,7 +156,8 @@ func NewDecrypterPrivateKey(creationTime time.Time, decrypter interface{}) *Priv
 	return pk
 }
 
-func (pk *PrivateKey) parse(r io.Reader) (err error) {
+
+ *PrivateKey) parse(r io.Reader) (err error) {
 	err = (&pk.PublicKey).parse(r)
 	if err != nil {
 		return
@@ -178,9 +189,11 @@ func (pk *PrivateKey) parse(r io.Reader) (err error) {
 		if err != nil {
 			return
 		}
-		pk.cipher = CipherFunction(buf[0])
+		pk.cipher = Cipher
+(buf[0])
 		if pk.cipher != 0 && !pk.cipher.IsSupported() {
-			return errors.UnsupportedError("unsupported cipher function in private key")
+			return errors.UnsupportedError("unsupported cipher 
+ in private key")
 		}
 		pk.s2kParams, err = s2k.ParseIntoParams(r)
 		if err != nil {
@@ -189,7 +202,8 @@ func (pk *PrivateKey) parse(r io.Reader) (err error) {
 		if pk.s2kParams.Dummy() {
 			return
 		}
-		pk.s2k, err = pk.s2kParams.Function()
+		pk.s2k, err = pk.s2kParams.
+()
 		if err != nil {
 			return
 		}
@@ -198,7 +212,8 @@ func (pk *PrivateKey) parse(r io.Reader) (err error) {
 			pk.sha1Checksum = true
 		}
 	default:
-		return errors.UnsupportedError("deprecated s2k function in private key")
+		return errors.UnsupportedError("deprecated s2k 
+ in private key")
 	}
 
 	if pk.Encrypted {
@@ -256,11 +271,13 @@ func (pk *PrivateKey) parse(r io.Reader) (err error) {
 }
 
 // Dummy returns true if the private key is a dummy key. This is a GNU extension.
-func (pk *PrivateKey) Dummy() bool {
+
+ *PrivateKey) Dummy() bool {
 	return pk.s2kParams.Dummy()
 }
 
-func mod64kHash(d []byte) uint16 {
+
+64kHash(d []byte) uint16 {
 	var h uint16
 	for _, b := range d {
 		h += uint16(b)
@@ -268,7 +285,8 @@ func mod64kHash(d []byte) uint16 {
 	return h
 }
 
-func (pk *PrivateKey) Serialize(w io.Writer) (err error) {
+
+ *PrivateKey) Serialize(w io.Writer) (err error) {
 	contents := bytes.NewBuffer(nil)
 	err = pk.PublicKey.serializeWithoutHeaders(contents)
 	if err != nil {
@@ -331,7 +349,8 @@ func (pk *PrivateKey) Serialize(w io.Writer) (err error) {
 	return
 }
 
-func serializeRSAPrivateKey(w io.Writer, priv *rsa.PrivateKey) error {
+
+ializeRSAPrivateKey(w io.Writer, priv *rsa.PrivateKey) error {
 	if _, err := w.Write(new(encoding.MPI).SetBig(priv.D).EncodedBytes()); err != nil {
 		return err
 	}
@@ -345,33 +364,39 @@ func serializeRSAPrivateKey(w io.Writer, priv *rsa.PrivateKey) error {
 	return err
 }
 
-func serializeDSAPrivateKey(w io.Writer, priv *dsa.PrivateKey) error {
+
+ializeDSAPrivateKey(w io.Writer, priv *dsa.PrivateKey) error {
 	_, err := w.Write(new(encoding.MPI).SetBig(priv.X).EncodedBytes())
 	return err
 }
 
-func serializeElGamalPrivateKey(w io.Writer, priv *elgamal.PrivateKey) error {
+
+ializeElGamalPrivateKey(w io.Writer, priv *elgamal.PrivateKey) error {
 	_, err := w.Write(new(encoding.MPI).SetBig(priv.X).EncodedBytes())
 	return err
 }
 
-func serializeECDSAPrivateKey(w io.Writer, priv *ecdsa.PrivateKey) error {
+
+ializeECDSAPrivateKey(w io.Writer, priv *ecdsa.PrivateKey) error {
 	_, err := w.Write(encoding.NewMPI(priv.MarshalIntegerSecret()).EncodedBytes())
 	return err
 }
 
-func serializeEdDSAPrivateKey(w io.Writer, priv *eddsa.PrivateKey) error {
+
+ializeEdDSAPrivateKey(w io.Writer, priv *eddsa.PrivateKey) error {
 	_, err := w.Write(encoding.NewMPI(priv.MarshalByteSecret()).EncodedBytes())
 	return err
 }
 
-func serializeECDHPrivateKey(w io.Writer, priv *ecdh.PrivateKey) error {
+
+ializeECDHPrivateKey(w io.Writer, priv *ecdh.PrivateKey) error {
 	_, err := w.Write(encoding.NewMPI(priv.MarshalByteSecret()).EncodedBytes())
 	return err
 }
 
 // decrypt decrypts an encrypted private key using a decryption key.
-func (pk *PrivateKey) decrypt(decryptionKey []byte) error {
+
+ *PrivateKey) decrypt(decryptionKey []byte) error {
 	if pk.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -428,7 +453,8 @@ func (pk *PrivateKey) decrypt(decryptionKey []byte) error {
 	return nil
 }
 
-func (pk *PrivateKey) decryptWithCache(passphrase []byte, keyCache *s2k.Cache) error {
+
+ *PrivateKey) decryptWithCache(passphrase []byte, keyCache *s2k.Cache) error {
 	if pk.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -444,7 +470,8 @@ func (pk *PrivateKey) decryptWithCache(passphrase []byte, keyCache *s2k.Cache) e
 }
 
 // Decrypt decrypts an encrypted private key using a passphrase.
-func (pk *PrivateKey) Decrypt(passphrase []byte) error {
+
+ *PrivateKey) Decrypt(passphrase []byte) error {
 	if pk.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -459,7 +486,8 @@ func (pk *PrivateKey) Decrypt(passphrase []byte) error {
 
 // DecryptPrivateKeys decrypts all encrypted keys with the given config and passphrase.
 // Avoids recomputation of similar s2k key derivations.
-func DecryptPrivateKeys(keys []*PrivateKey, passphrase []byte) error {
+
+ryptPrivateKeys(keys []*PrivateKey, passphrase []byte) error {
 	// Create a cache to avoid recomputation of key derviations for the same passphrase.
 	s2kCache := &s2k.Cache{}
 	for _, key := range keys {
@@ -474,7 +502,10 @@ func DecryptPrivateKeys(keys []*PrivateKey, passphrase []byte) error {
 }
 
 // encrypt encrypts an unencrypted private key.
-func (pk *PrivateKey) encrypt(key []byte, params *s2k.Params, cipherFunction CipherFunction) error {
+
+ *PrivateKey) encrypt(key []byte, params *s2k.Params, cipher
+ Cipher
+) error {
 	if pk.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -482,7 +513,8 @@ func (pk *PrivateKey) encrypt(key []byte, params *s2k.Params, cipherFunction Cip
 		return nil
 	}
 	// check if encryptionKey has the correct size
-	if len(key) != cipherFunction.KeySize() {
+	if len(key) != cipher
+.KeySize() {
 		return errors.InvalidArgumentError("supplied encryption key has the wrong size")
 	}
 	priv := bytes.NewBuffer(nil)
@@ -491,9 +523,11 @@ func (pk *PrivateKey) encrypt(key []byte, params *s2k.Params, cipherFunction Cip
 		return err
 	}
 
-	pk.cipher = cipherFunction
+	pk.cipher = cipher
+
 	pk.s2kParams = params
-	pk.s2k, err = pk.s2kParams.Function()
+	pk.s2k, err = pk.s2kParams.
+()
 	if err != nil {
 		return err
 	}
@@ -531,14 +565,17 @@ func (pk *PrivateKey) encrypt(key []byte, params *s2k.Params, cipherFunction Cip
 }
 
 // EncryptWithConfig encrypts an unencrypted private key using the passphrase and the config.
-func (pk *PrivateKey) EncryptWithConfig(passphrase []byte, config *Config) error {
+
+ *PrivateKey) EncryptWithConfig(passphrase []byte, config *Config) error {
 	params, err := s2k.Generate(config.Random(), config.S2K())
 	if err != nil {
 		return err
 	}
-	// Derive an encryption key with the configured s2k function.
+	// Derive an encryption key with the configured s2k 
+.
 	key := make([]byte, config.Cipher().KeySize())
-	s2k, err := params.Function()
+	s2k, err := params.
+()
 	if err != nil {
 		return err
 	}
@@ -549,14 +586,17 @@ func (pk *PrivateKey) EncryptWithConfig(passphrase []byte, config *Config) error
 
 // EncryptPrivateKeys encrypts all unencrypted keys with the given config and passphrase.
 // Only derives one key from the passphrase, which is then used to encrypt each key.
-func EncryptPrivateKeys(keys []*PrivateKey, passphrase []byte, config *Config) error {
+
+ryptPrivateKeys(keys []*PrivateKey, passphrase []byte, config *Config) error {
 	params, err := s2k.Generate(config.Random(), config.S2K())
 	if err != nil {
 		return err
 	}
-	// Derive an encryption key with the configured s2k function.
+	// Derive an encryption key with the configured s2k 
+.
 	encryptionKey := make([]byte, config.Cipher().KeySize())
-	s2k, err := params.Function()
+	s2k, err := params.
+()
 	if err != nil {
 		return err
 	}
@@ -573,7 +613,8 @@ func EncryptPrivateKeys(keys []*PrivateKey, passphrase []byte, config *Config) e
 }
 
 // Encrypt encrypts an unencrypted private key using a passphrase.
-func (pk *PrivateKey) Encrypt(passphrase []byte) error {
+
+ *PrivateKey) Encrypt(passphrase []byte) error {
 	// Default config of private key encryption
 	config := &Config{
 		S2KConfig: &s2k.Config{
@@ -586,7 +627,8 @@ func (pk *PrivateKey) Encrypt(passphrase []byte) error {
 	return pk.EncryptWithConfig(passphrase, config)
 }
 
-func (pk *PrivateKey) serializePrivateKey(w io.Writer) (err error) {
+
+ *PrivateKey) serializePrivateKey(w io.Writer) (err error) {
 	switch priv := pk.PrivateKey.(type) {
 	case *rsa.PrivateKey:
 		err = serializeRSAPrivateKey(w, priv)
@@ -606,7 +648,8 @@ func (pk *PrivateKey) serializePrivateKey(w io.Writer) (err error) {
 	return
 }
 
-func (pk *PrivateKey) parsePrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parsePrivateKey(data []byte) (err error) {
 	switch pk.PublicKey.PubKeyAlgo {
 	case PubKeyAlgoRSA, PubKeyAlgoRSASignOnly, PubKeyAlgoRSAEncryptOnly:
 		return pk.parseRSAPrivateKey(data)
@@ -624,7 +667,8 @@ func (pk *PrivateKey) parsePrivateKey(data []byte) (err error) {
 	panic("impossible")
 }
 
-func (pk *PrivateKey) parseRSAPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseRSAPrivateKey(data []byte) (err error) {
 	rsaPub := pk.PublicKey.PublicKey.(*rsa.PublicKey)
 	rsaPriv := new(rsa.PrivateKey)
 	rsaPriv.PublicKey = *rsaPub
@@ -658,7 +702,8 @@ func (pk *PrivateKey) parseRSAPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func (pk *PrivateKey) parseDSAPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseDSAPrivateKey(data []byte) (err error) {
 	dsaPub := pk.PublicKey.PublicKey.(*dsa.PublicKey)
 	dsaPriv := new(dsa.PrivateKey)
 	dsaPriv.PublicKey = *dsaPub
@@ -678,7 +723,8 @@ func (pk *PrivateKey) parseDSAPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func (pk *PrivateKey) parseElGamalPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseElGamalPrivateKey(data []byte) (err error) {
 	pub := pk.PublicKey.PublicKey.(*elgamal.PublicKey)
 	priv := new(elgamal.PrivateKey)
 	priv.PublicKey = *pub
@@ -698,7 +744,8 @@ func (pk *PrivateKey) parseElGamalPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func (pk *PrivateKey) parseECDSAPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseECDSAPrivateKey(data []byte) (err error) {
 	ecdsaPub := pk.PublicKey.PublicKey.(*ecdsa.PublicKey)
 	ecdsaPriv := ecdsa.NewPrivateKey(*ecdsaPub)
 
@@ -719,7 +766,8 @@ func (pk *PrivateKey) parseECDSAPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func (pk *PrivateKey) parseECDHPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseECDHPrivateKey(data []byte) (err error) {
 	ecdhPub := pk.PublicKey.PublicKey.(*ecdh.PublicKey)
 	ecdhPriv := ecdh.NewPrivateKey(*ecdhPub)
 
@@ -742,7 +790,8 @@ func (pk *PrivateKey) parseECDHPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func (pk *PrivateKey) parseEdDSAPrivateKey(data []byte) (err error) {
+
+ *PrivateKey) parseEdDSAPrivateKey(data []byte) (err error) {
 	eddsaPub := pk.PublicKey.PublicKey.(*eddsa.PublicKey)
 	eddsaPriv := eddsa.NewPrivateKey(*eddsaPub)
 	eddsaPriv.PublicKey = *eddsaPub
@@ -766,7 +815,8 @@ func (pk *PrivateKey) parseEdDSAPrivateKey(data []byte) (err error) {
 	return nil
 }
 
-func validateDSAParameters(priv *dsa.PrivateKey) error {
+
+idateDSAParameters(priv *dsa.PrivateKey) error {
 	p := priv.P // group prime
 	q := priv.Q // subgroup order
 	g := priv.G // g has order q mod p
@@ -798,7 +848,8 @@ func validateDSAParameters(priv *dsa.PrivateKey) error {
 	return nil
 }
 
-func validateElGamalParameters(priv *elgamal.PrivateKey) error {
+
+idateElGamalParameters(priv *elgamal.PrivateKey) error {
 	p := priv.P // group prime
 	g := priv.G // g has order p-1 mod p
 	x := priv.X // secret

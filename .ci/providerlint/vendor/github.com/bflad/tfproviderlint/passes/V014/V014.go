@@ -8,13 +8,16 @@ import (
 	"github.com/bflad/tfproviderlint/helper/astutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidatefuncinfo"
+	"github.com/bflad/tfproviderlint/passes/helper/schema/schemavalidate
+info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for custom SchemaValidateFunc that implement validation.IntInSlice() or validation.IntNotInSlice()
+const Doc = `check for custom SchemaValidate
+ that implement validation.IntInSlice() or validn.IntNotInSlice()
 
-The V014 analyzer reports when custom SchemaValidateFunc declarations can be
+The V014 analyzer reports when custom SchemaValidate
+ declarations can be
 replaced with validation.IntInSlice() or validation.IntNotInSlice().`
 
 const analyzerName = "V014"
@@ -24,39 +27,53 @@ var Analyzer = &analysis.Analyzer{
 	Doc:  Doc,
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		schemavalidatefuncinfo.Analyzer,
-	},
+		schemavalidate
+info.Analyzer,
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaValidateFuncs := pass.ResultOf[schemavalidatefuncinfo.Analyzer].([]*schema.SchemaValidateFuncInfo)
+	schemaValidate
+s := pass.ResultOf[schemavalidate
+info.Analyzer].([]*schema.SchemaValida
+Info)
 
-	for _, schemaValidateFunc := range schemaValidateFuncs {
-		if ignorer.ShouldIgnore(analyzerName, schemaValidateFunc.Node) {
+	for _, schemaValidate
+ := range schemaValidate
+s {
+		if ignorer.ShouldIgnore(analyzerName, schemaValidate
+.Node) {
 			continue
 		}
 
-		if hasStrconvAtoiCallExpr(schemaValidateFunc.Body, pass.TypesInfo) {
+		if hasStrconvAtoiCallExpr(schemaValidate
+.Body, pass.TypesInfo) {
+			continue
+
+
+		if !hasIfIntEquality(schemaValidate
+.Body, pass.Typfo) {
 			continue
 		}
 
-		if !hasIfIntEquality(schemaValidateFunc.Body, pass.TypesInfo) {
-			continue
-		}
-
-		pass.Reportf(schemaValidateFunc.Pos, "%s: custom SchemaValidateFunc should be replaced with validation.IntInSlice() or validation.IntNotInSlice()", analyzerName)
+		pass.Reportf(schemaValidate
+.Pos, "%s: custom SchemaValidate
+ should be replaced with validation.IntInSlice() or validation.IntNotInSlice()", analyzerName)
 	}
 
 	return nil, nil
 }
 
-func hasIfIntEquality(node ast.Node, info *types.Info) bool {
+
+ hasIfIntEquality(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
-		switch n := n.(type) {
+	ast.Inspect(node, 
+(n ast.Node) bool {
+itch n := n.(type) {
 		default:
 			return true
 		case *ast.IfStmt:
@@ -73,17 +90,19 @@ func hasIfIntEquality(node ast.Node, info *types.Info) bool {
 	return result
 }
 
-func hasIntEquality(node ast.Node, info *types.Info) bool {
+
+ hasIntEquality(node ast.Node, info *types.Info) bool {
 	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		binaryExpr, ok := n.(*ast.BinaryExpr)
 
 		if !ok {
-			return true
+eturn true
 		}
 
-		if !exprIsInt(binaryExpr.X, info) || !exprIsInt(binaryExpr.Y, info) {
+		if !exprIsInt(binxpr.X, info) || !exprIsInt(binaryExpr.Y, info) {
 			return true
 		}
 
@@ -99,28 +118,32 @@ func hasIntEquality(node ast.Node, info *types.Info) bool {
 	return result
 }
 
-func hasStrconvAtoiCallExpr(node ast.Node, info *types.Info) bool {
-	result := false
 
-	ast.Inspect(node, func(n ast.Node) bool {
+ hasStrconvAtoiCallExpr(node ast.Node, info *types.Info) bool {
+ult := false
+
+	ast.Inspect(node, 
+(n ast.Node) bool {
 		switch n := n.(type) {
 		default:
 			return true
 		case *ast.CallExpr:
-			if !astutils.IsStdlibPackageFunc(n.Fun, info, "strconv", "Atoi") {
+			if !astutils.IsStdlibPackage
+(n.Fun, info, "strconv", "Atoi") {
 				return true
 			}
 
 			result = true
 
 			return false
-		}
+
 	})
 
 	return result
 }
 
-func exprIsInt(e ast.Expr, info *types.Info) bool {
+
+ exprIsInt(e ast.Expr, info *types.Info) bool {
 	switch e := e.(type) {
 	default:
 		return false
@@ -136,7 +159,8 @@ func exprIsInt(e ast.Expr, info *types.Info) bool {
 	}
 }
 
-func tokenIsEquality(t token.Token) bool {
+
+ tokenIsEquality(t token.Token) bool {
 	validTokens := []token.Token{
 		token.EQL, // ==
 		token.NEQ, // !=

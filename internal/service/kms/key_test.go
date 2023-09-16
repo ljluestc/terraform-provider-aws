@@ -27,10 +27,10 @@ func TestAccKMSKey_basic(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_basic(),
@@ -44,7 +44,7 @@ func TestAccKMSKey_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -66,10 +66,10 @@ func TestAccKMSKey_disappears(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_name(rName),
@@ -90,10 +90,10 @@ func TestAccKMSKey_multiRegion(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_multiRegion(rName),
@@ -104,7 +104,7 @@ func TestAccKMSKey_multiRegion(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -119,10 +119,10 @@ func TestAccKMSKey_asymmetricKey(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_asymmetric(rName),
@@ -143,10 +143,10 @@ func TestAccKMSKey_hmacKey(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_hmac(rName),
@@ -168,10 +168,10 @@ func TestAccKMSKey_Policy_basic(t *testing.T) {
 	expectedPolicyText := fmt.Sprintf(`{"Version":"2012-10-17","Id":%[1]q,"Statement":[{"Sid":"Enable IAM User Permissions","Effect":"Allow","Principal":{"AWS":"*"},"Action":"kms:*","Resource":"*"}]}`, rName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policy(rName),
@@ -182,7 +182,7 @@ func TestAccKMSKey_Policy_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -203,10 +203,10 @@ func TestAccKMSKey_Policy_bypass(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccKeyConfig_policyBypass(rName, false),
@@ -221,7 +221,7 @@ func TestAccKMSKey_Policy_bypass(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -236,10 +236,10 @@ func TestAccKMSKey_Policy_bypassUpdate(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_name(rName),
@@ -266,10 +266,10 @@ func TestAccKMSKey_Policy_iamRole(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policyIAMRole(rName),
@@ -279,7 +279,7 @@ func TestAccKMSKey_Policy_iamRole(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -294,10 +294,10 @@ func TestAccKMSKey_Policy_iamRoleUpdate(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policy(rName),
@@ -323,10 +323,10 @@ func TestAccKMSKey_Policy_iamRoleOrder(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policyIAMMultiRole(rName),
@@ -367,10 +367,10 @@ func TestAccKMSKey_Policy_iamServiceLinkedRole(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policyIAMServiceLinkedRole(rName),
@@ -380,7 +380,7 @@ func TestAccKMSKey_Policy_iamServiceLinkedRole(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -395,10 +395,10 @@ func TestAccKMSKey_Policy_booleanCondition(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_policyBooleanCondition(rName),
@@ -417,10 +417,10 @@ func TestAccKMSKey_isEnabled(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_enabledRotation(rName),
@@ -432,7 +432,7 @@ func TestAccKMSKey_isEnabled(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -463,10 +463,10 @@ func TestAccKMSKey_tags(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_tags1(rName, "key1", "value1"),
@@ -478,7 +478,7 @@ func TestAccKMSKey_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -508,7 +508,7 @@ func TestAccKMSKey_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -524,10 +524,10 @@ func TestAccKMSKey_ignoreTags(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_ignoreTags(rName, "key1", "value1", "key2", "value2"),
@@ -566,10 +566,10 @@ func TestAccKMSKey_updateTagsEmptyValue(t *testing.T) {
 	resourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyConfig_tags2(rName, "key1", "value1", "key2", "value2"),

@@ -22,8 +22,7 @@ import (
 )
 
 
-func FindAvailabilityZones(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAvailabilityZonesInput) ([]*ec2.AvailabilityZone, error) {
-	output, err := conn.DescribeAvailabilityZonesWithContext(ctx, input)
+funcput, err := conn.DescribeAvailabilityZonesWithContext(ctx, input)
 
 	if err != nil {
 return nil, err
@@ -38,8 +37,7 @@ return nil, tfresource.NewEmptyResultError(input)
 
 
 func FindAvailabilityZone(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAvailabilityZonesInput) (*ec2.AvailabilityZone, error) {
-	output, err := FindAvailabilityZones(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
@@ -58,8 +56,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 func FindAvailabilityZoneGroupByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.AvailabilityZone, error) {
 	input := &ec2.DescribeAvailabilityZonesInput{
-AllAvailabilityZones: aws.Bool(true),
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"group-name": name,
 }),
 	}
@@ -91,8 +88,7 @@ return nil, &retry.NotFoundError{
 func FindCapacityReservation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCapacityReservationsInput) (*ec2.CapacityReservation, error) {
 	output, err := FindCapacityReservations(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -111,13 +107,11 @@ func FindCapacityReservations(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	var output []*ec2.CapacityReservation
 
 	err := conn.DescribeCapacityReservationsPagesWithContext(ctx, input, 
-func(page *ec2.DescribeCapacityReservationsOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
-for _, v := range page.CapacityReservations {
-	if v != nil {
+funcv != nil {
 output = append(output, v)
 	}
 }
@@ -127,7 +121,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidCapacityReservationIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -146,15 +140,14 @@ CapacityReservationIds: aws.StringSlice([]string{id}),
 	}
 
 	output, err := FindCapacityReservation(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
 	// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/capacity-reservations-using.html#capacity-reservations-view.
 	if state := aws.StringValue(output.State); state == ec2.CapacityReservationStateCancelled || state == ec2.CapacityReservationStateExpired {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -177,8 +170,7 @@ func FindCarrierGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeC
 return nil, err
 	}
 
-	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
+funcrn nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
@@ -197,19 +189,17 @@ func(page *ec2.DescribeCarrierGatewaysOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
-
-for _, v := range page.CarrierGateways {
+func_, v := range page.CarrierGateways {
 	if v != nil {
 output = append(output, v)
 	}
-}
-
+func
 return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidCarrierGatewayIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -232,10 +222,9 @@ CarrierGatewayIds: aws.StringSlice([]string{id}),
 	if err != nil {
 return nil, err
 	}
-
-	if state := aws.StringValue(output.State); state == ec2.CarrierGatewayStateDeleted {
+funcstate := aws.StringValue(output.State); state == ec2.CarrierGatewayStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -262,8 +251,7 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+funcrn nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
@@ -282,17 +270,15 @@ if page == nil {
 for _, v := range page.ClientVpnEndpoints {
 	if v == nil {
 continue
-	}
-
+func
 	output = append(output, v)
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidClientVPNEndpointIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -318,9 +304,8 @@ return nil, err
 
 	if state := aws.StringValue(output.Status.Code); state == ec2.ClientVpnEndpointStatusCodeDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
-	LastRequest: input,
-}
+	Message:
+func
 	}
 
 	// Eventual consistency check.
@@ -349,8 +334,7 @@ return nil, tfresource.NewEmptyResultError(id)
 }
 
 
-func FindClientVPNAuthorizationRule(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnAuthorizationRulesInput) (*ec2.AuthorizationRule, error) {
-	output, err := FindClientVPNAuthorizationRules(ctx, conn, input)
+funcput, err := FindClientVPNAuthorizationRules(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -365,8 +349,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
-}
-
+func
 
 func FindClientVPNAuthorizationRules(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnAuthorizationRulesInput) ([]*ec2.AuthorizationRule, error) {
 	var output []*ec2.AuthorizationRule
@@ -385,13 +368,11 @@ continue
 	output = append(output, v)
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidClientVPNEndpointIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -412,7 +393,7 @@ filters["group-id"] = accessGroupID
 	}
 	input := &ec2.DescribeClientVpnAuthorizationRulesInput{
 ClientVpnEndpointId: aws.String(endpointID),
-Filters:    BuildAttributeFilterList(filters),
+Filters:ildAttributeFilterList(filters),
 	}
 
 	return FindClientVPNAuthorizationRule(ctx, conn, input)
@@ -422,8 +403,7 @@ Filters:    BuildAttributeFilterList(filters),
 func FindClientVPNNetworkAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnTargetNetworksInput) (*ec2.TargetNetwork, error) {
 	output, err := FindClientVPNNetworkAssociations(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil || output[0].Status == nil {
@@ -439,8 +419,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 
 func FindClientVPNNetworkAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnTargetNetworksInput) ([]*ec2.TargetNetwork, error) {
-	var output []*ec2.TargetNetwork
-
+func
 	err := conn.DescribeClientVpnTargetNetworksPagesWithContext(ctx, input, 
 func(page *ec2.DescribeClientVpnTargetNetworksOutput, lastPage bool) bool {
 if page == nil {
@@ -459,13 +438,11 @@ return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidClientVPNEndpointIdNotFound, errCodeInvalidClientVPNAssociationIdNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:,
 	LastRequest: input,
 }
 	}
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -475,7 +452,7 @@ return nil, err
 
 func FindClientVPNNetworkAssociationByIDs(ctx context.Context, conn *ec2.EC2, associationID, endpointID string) (*ec2.TargetNetwork, error) {
 	input := &ec2.DescribeClientVpnTargetNetworksInput{
-AssociationIds:      aws.StringSlice([]string{associationID}),
+AssociationIds:gSlice([]string{associationID}),
 ClientVpnEndpointId: aws.String(endpointID),
 	}
 
@@ -487,7 +464,7 @@ return nil, err
 
 	if state := aws.StringValue(output.Status.Code); state == ec2.AssociationStatusCodeDisassociated {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -496,8 +473,7 @@ return nil, &retry.NotFoundError{
 	if aws.StringValue(output.ClientVpnEndpointId) != endpointID || aws.StringValue(output.AssociationId) != associationID {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
-}
-	}
+func
 
 	return output, nil
 }
@@ -527,8 +503,7 @@ func FindClientVPNRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 
 	err := conn.DescribeClientVpnRoutesPagesWithContext(ctx, input, 
 func(page *ec2.DescribeClientVpnRoutesOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+funcurn !lastPage
 }
 
 for _, v := range page.Routes {
@@ -544,16 +519,14 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidClientVPNEndpointIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
-	}
-
+func
 	if err != nil {
 return nil, err
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
@@ -562,7 +535,7 @@ func FindClientVPNRouteByThreePartKey(ctx context.Context, conn *ec2.EC2, endpoi
 ClientVpnEndpointId: aws.String(endpointID),
 Filters: BuildAttributeFilterList(map[string]string{
 	"destination-cidr": destinationCIDR,
-	"target-subnet":    targetSubnetID,
+	"target-subnet":rgetSubnetID,
 }),
 	}
 
@@ -584,13 +557,12 @@ for _, v := range page.CoipPools {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPoolIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -598,13 +570,11 @@ return nil, &retry.NotFoundError{
 	if err != nil {
 return nil, err
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
-func FindCOIPPool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCoipPoolsInput) (*ec2.CoipPool, error) {
-	output, err := FindCOIPPools(ctx, conn, input)
+funcput, err := FindCOIPPools(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -633,8 +603,7 @@ if page == nil {
 
 for _, v := range page.Volumes {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -642,7 +611,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVolumeNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -653,13 +622,11 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindEBSVolume(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesInput) (*ec2.Volume, error) {
 	output, err := FindEBSVolumes(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -687,9 +654,8 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.VolumeStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
-	LastRequest: input,
-}
+	Message:
+func
 	}
 
 	// Eventual consistency check.
@@ -706,10 +672,9 @@ return nil, &retry.NotFoundError{
 func FindEBSVolumeAttachment(ctx context.Context, conn *ec2.EC2, volumeID, instanceID, deviceName string) (*ec2.VolumeAttachment, error) {
 	input := &ec2.DescribeVolumesInput{
 Filters: BuildAttributeFilterList(map[string]string{
-	"attachment.device":      deviceName,
+	"attachment.device":e,
 	"attachment.instance-id": instanceID,
-}),
-VolumeIds: aws.StringSlice([]string{volumeID}),
+funcmeIds: aws.StringSlice([]string{volumeID}),
 	}
 
 	output, err := FindEBSVolume(ctx, conn, input)
@@ -720,7 +685,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.VolumeStateAvailable || state == ec2.VolumeStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -738,8 +703,7 @@ if aws.StringValue(v.State) == ec2.VolumeAttachmentStateDetached {
 }
 
 if aws.StringValue(v.Device) == deviceName && aws.StringValue(v.InstanceId) == instanceID {
-	return v, nil
-}
+func
 	}
 
 	return nil, &retry.NotFoundError{}
@@ -754,7 +718,7 @@ func FindEIPs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAddressesIn
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidAddressNotFound, errCodeInvalidAllocationIDNotFound) ||
 tfawserr.ErrMessageContains(err, errCodeAuthFailure, "does not belong to you") {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -782,8 +746,7 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -810,8 +773,7 @@ return nil, &retry.NotFoundError{
 }
 	}
 
-	return output, nil
-}
+func
 
 
 func FindEIPByAssociationID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Address, error) {
@@ -830,8 +792,7 @@ return nil, err
 	// Eventual consistency check.
 	if aws.StringValue(output.AssociationId) != id {
 return nil, &retry.NotFoundError{
-	LastRequest: input,
-}
+func
 	}
 
 	return output, nil
@@ -851,10 +812,9 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.AllocationStateReleased || state == ec2.AllocationStateReleasedPermanentFailure {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
-}
-	}
+func
 
 	// Eventual consistency check.
 	if aws.StringValue(output.HostId) != id {
@@ -878,8 +838,7 @@ if page == nil {
 
 for _, v := range page.Hosts {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -887,7 +846,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidHostIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -908,13 +867,11 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil || output[0].HostProperties == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
-	}
-
+func
 	return output[0], nil
 }
 
@@ -939,12 +896,11 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidAMIIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -963,13 +919,11 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+funcrn nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
-}
-
+func
 
 func FindImageByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Image, error) {
 	input := &ec2.DescribeImagesInput{
@@ -984,7 +938,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.ImageStateDeregistered {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -998,14 +952,13 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
-
+func
 func FindImageAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImageAttributeInput) (*ec2.DescribeImageAttributeOutput, error) {
 	output, err := conn.DescribeImageAttributeWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidAMIIDNotFound, errCodeInvalidAMIIDUnavailable) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -1018,14 +971,13 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	return output, nil
-}
+func
 
 
 func FindImageLaunchPermissionsByID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.LaunchPermission, error) {
 	input := &ec2.DescribeImageAttributeInput{
 Attribute: aws.String(ec2.ImageAttributeNameLaunchPermission),
-ImageId:   aws.String(id),
+ImageId:.String(id),
 	}
 
 	output, err := FindImageAttribute(ctx, conn, input)
@@ -1048,8 +1000,7 @@ func FindImageLaunchPermission(ctx context.Context, conn *ec2.EC2, imageID, acco
 	if err != nil {
 return nil, err
 	}
-
-	for _, v := range output {
+func _, v := range output {
 if (accountID != "" && aws.StringValue(v.UserId) == accountID) ||
 	(group != "" && aws.StringValue(v.Group) == group) ||
 	(organizationARN != "" && aws.StringValue(v.OrganizationArn) == organizationARN) ||
@@ -1071,8 +1022,7 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.Reservations {
-	if v != nil {
+funcv != nil {
 for _, v := range v.Instances {
 	if v != nil {
 output = append(output, v)
@@ -1086,14 +1036,13 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidInstanceIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	return output, nil
 }
@@ -1113,13 +1062,11 @@ return nil, tfresource.NewEmptyResultError(input)
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
-
-	return output[0], nil
+funcurn output[0], nil
 }
 
 
-func FindInstanceByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Instance, error) {
-	input := &ec2.DescribeInstancesInput{
+funcut := &ec2.DescribeInstancesInput{
 InstanceIds: aws.StringSlice([]string{id}),
 	}
 
@@ -1131,7 +1078,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State.Name); state == ec2.InstanceStateNameTerminated {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -1152,8 +1099,7 @@ func FindInstanceCreditSpecifications(ctx context.Context, conn *ec2.EC2, input 
 
 	err := conn.DescribeInstanceCreditSpecificationsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeInstanceCreditSpecificationsOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+funcurn !lastPage
 }
 
 for _, v := range page.InstanceCreditSpecifications {
@@ -1167,13 +1113,12 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidInstanceIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return output, nil
@@ -1202,13 +1147,11 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 func FindInstanceCreditSpecificationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.InstanceCreditSpecification, error) {
 	input := &ec2.DescribeInstanceCreditSpecificationsInput{
 InstanceIds: aws.StringSlice([]string{id}),
-	}
-
+func
 	output, err := FindInstanceCreditSpecification(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	// Eventual consistency check.
 	if aws.StringValue(output.InstanceId) != id {
@@ -1237,8 +1180,7 @@ output = append(output, v)
 }
 
 return !lastPage
-	})
-
+func
 	if err != nil {
 return nil, err
 	}
@@ -1257,8 +1199,7 @@ return nil, err
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
-
-	if count := len(output); count > 1 {
+funccount := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
@@ -1280,13 +1221,11 @@ return nil, err
 	return output, nil
 }
 
-
 func FindInstanceTypeOfferings(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceTypeOfferingsInput) ([]*ec2.InstanceTypeOffering, error) {
 	var output []*ec2.InstanceTypeOffering
 
 	err := conn.DescribeInstanceTypeOfferingsPagesWithContext(ctx, input, 
-func(page *ec2.DescribeInstanceTypeOfferingsOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
@@ -1308,8 +1247,7 @@ return nil, err
 
 
 func FindPublicIPv4Pool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePublicIpv4PoolsInput) (*ec2.PublicIpv4Pool, error) {
-	output, err := FindPublicIPv4Pools(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
@@ -1328,8 +1266,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 func FindPublicIPv4Pools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePublicIpv4PoolsInput) ([]*ec2.PublicIpv4Pool, error) {
 	var output []*ec2.PublicIpv4Pool
-
-	err := conn.DescribePublicIpv4PoolsPagesWithContext(ctx, input, 
+func := conn.DescribePublicIpv4PoolsPagesWithContext(ctx, input, 
 func(page *ec2.DescribePublicIpv4PoolsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -1344,13 +1281,11 @@ continue
 }
 
 return !lastPage
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPublicIpv4PoolIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
-}
+	LastError:,
+func
 	}
 
 	if err != nil {
@@ -1372,8 +1307,7 @@ PoolIds: aws.StringSlice([]string{id}),
 return nil, err
 	}
 
-	// Eventual consistency check.
-	if aws.StringValue(output.PoolId) != id {
+funcaws.StringValue(output.PoolId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
@@ -1392,13 +1326,11 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.LocalGatewayRouteTables {
-	if v != nil {
+funcv != nil {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if err != nil {
@@ -1429,8 +1361,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 
 func FindLocalGatewayVirtualInterfaceGroups(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayVirtualInterfaceGroupsInput) ([]*ec2.LocalGatewayVirtualInterfaceGroup, error) {
-	var output []*ec2.LocalGatewayVirtualInterfaceGroup
-
+func
 	err := conn.DescribeLocalGatewayVirtualInterfaceGroupsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeLocalGatewayVirtualInterfaceGroupsOutput, lastPage bool) bool {
 if page == nil {
@@ -1452,13 +1383,11 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindLocalGatewayVirtualInterfaceGroup(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayVirtualInterfaceGroupsInput) (*ec2.LocalGatewayVirtualInterfaceGroup, error) {
 	output, err := FindLocalGatewayVirtualInterfaceGroups(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -1480,8 +1409,7 @@ func FindLocalGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLo
 func(page *ec2.DescribeLocalGatewaysOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
-}
-
+func
 for _, v := range page.LocalGateways {
 	if v != nil {
 output = append(output, v)
@@ -1500,13 +1428,11 @@ return nil, err
 
 
 func FindLocalGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewaysInput) (*ec2.LocalGateway, error) {
-	output, err := FindLocalGateways(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
-
-	if len(output) == 0 || output[0] == nil {
+funclen(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
@@ -1528,8 +1454,7 @@ return nil, err
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
-
-	if count := len(output); count > 1 {
+funccount := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
@@ -1548,18 +1473,16 @@ if page == nil {
 
 for _, v := range page.NetworkAcls {
 	if v == nil {
-continue
-	}
+func
 
 	output = append(output, v)
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkACLIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -1576,8 +1499,7 @@ func FindNetworkACLByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Net
 	input := &ec2.DescribeNetworkAclsInput{
 NetworkAclIds: aws.StringSlice([]string{id}),
 	}
-
-	output, err := FindNetworkACL(ctx, conn, input)
+funcput, err := FindNetworkACL(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -1596,8 +1518,7 @@ return nil, &retry.NotFoundError{
 
 func FindNetworkACLAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.NetworkAclAssociation, error) {
 	input := &ec2.DescribeNetworkAclsInput{
-Filters: BuildAttributeFilterList(map[string]string{
-	"association.association-id": associationID,
+funcsociation.association-id": associationID,
 }),
 	}
 
@@ -1616,13 +1537,11 @@ if aws.StringValue(v.NetworkAclAssociationId) == associationID {
 	return nil, &retry.NotFoundError{}
 }
 
-
 func FindNetworkACLAssociationBySubnetID(ctx context.Context, conn *ec2.EC2, subnetID string) (*ec2.NetworkAclAssociation, error) {
 	input := &ec2.DescribeNetworkAclsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"association.subnet-id": subnetID,
-}),
-	}
+func
 
 	output, err := FindNetworkACL(ctx, conn, input)
 
@@ -1643,7 +1562,7 @@ if aws.StringValue(v.SubnetId) == subnetID {
 func FindNetworkACLEntryByThreePartKey(ctx context.Context, conn *ec2.EC2, naclID string, egress bool, ruleNumber int) (*ec2.NetworkAclEntry, error) {
 	input := &ec2.DescribeNetworkAclsInput{
 Filters: BuildAttributeFilterList(map[string]string{
-	"entry.egress":      strconv.FormatBool(egress),
+	"entry.egress":ormatBool(egress),
 	"entry.rule-number": strconv.Itoa(ruleNumber),
 }),
 NetworkAclIds: aws.StringSlice([]string{naclID}),
@@ -1653,8 +1572,7 @@ NetworkAclIds: aws.StringSlice([]string{naclID}),
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	for _, v := range output.Entries {
 if aws.BoolValue(v.Egress) == egress && aws.Int64Value(v.RuleNumber) == int64(ruleNumber) {
 	return v, nil
@@ -1676,8 +1594,7 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+funcrn nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
@@ -1700,11 +1617,10 @@ output = append(output, v)
 }
 
 return !lastPage
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkInterfaceIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -1724,8 +1640,7 @@ NetworkInterfaceIds: aws.StringSlice([]string{id}),
 
 	output, err := FindNetworkInterface(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	// Eventual consistency check.
@@ -1743,13 +1658,12 @@ func FindNetworkInterfacesByAttachmentInstanceOwnerIDAndDescription(ctx context.
 	input := &ec2.DescribeNetworkInterfacesInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"attachment.instance-owner-id": attachmentInstanceOwnerID,
-	"description":   description,
+	"description":cription,
 }),
 	}
 
 	return FindNetworkInterfaces(ctx, conn, input)
 }
-
 
 func FindNetworkInterfaceByAttachmentID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInterface, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
@@ -1770,13 +1684,11 @@ return nil, tfresource.NewEmptyResultError(input)
 
 	return networkInterface, nil
 }
-
-
+func
 func FindNetworkInterfaceAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInterfaceAttachment, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
 Filters: BuildAttributeFilterList(map[string]string{
-	"attachment.attachment-id": id,
-}),
+func
 	}
 
 	networkInterface, err := FindNetworkInterface(ctx, conn, input)
@@ -1805,8 +1717,7 @@ if aws.StringValue(groupIdentifier.GroupId) == securityGroupID {
 	return groupIdentifier, nil
 }
 	}
-
-	return nil, &retry.NotFoundError{
+funcurn nil, &retry.NotFoundError{
 LastError: fmt.Errorf("Network Interface (%s) Security Group (%s) not found", networkInterfaceID, securityGroupID),
 	}
 }
@@ -1828,8 +1739,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
-}
-
+func
 
 func FindNetworkInsightsAnalyses(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsAnalysesInput) ([]*ec2.NetworkInsightsAnalysis, error) {
 	var output []*ec2.NetworkInsightsAnalysis
@@ -1841,8 +1751,7 @@ if page == nil {
 }
 
 for _, v := range page.NetworkInsightsAnalyses {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
@@ -1851,7 +1760,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkInsightsAnalysisIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -1862,7 +1771,6 @@ return nil, err
 
 	return output, nil
 }
-
 
 func FindNetworkInsightsAnalysisByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInsightsAnalysis, error) {
 	input := &ec2.DescribeNetworkInsightsAnalysesInput{
@@ -1885,7 +1793,6 @@ return nil, &retry.NotFoundError{
 	return output, nil
 }
 
-
 func FindNetworkInsightsPath(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsPathsInput) (*ec2.NetworkInsightsPath, error) {
 	output, err := FindNetworkInsightsPaths(ctx, conn, input)
 
@@ -1905,8 +1812,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 }
 
 
-func FindNetworkInsightsPaths(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsPathsInput) ([]*ec2.NetworkInsightsPath, error) {
-	var output []*ec2.NetworkInsightsPath
+func output []*ec2.NetworkInsightsPath
 
 	err := conn.DescribeNetworkInsightsPathsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeNetworkInsightsPathsOutput, lastPage bool) bool {
@@ -1925,13 +1831,11 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkInsightsPathIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return output, nil
@@ -1960,8 +1864,7 @@ return nil, &retry.NotFoundError{
 }
 
 // FindMainRouteTableAssociationByID returns the main route table association corresponding to the specified identifier.
-// Returns NotFoundError if no route table association is found.
-
+func
 func FindMainRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.RouteTableAssociation, error) {
 	association, err := FindRouteTableAssociationByID(ctx, conn, associationID)
 
@@ -1983,8 +1886,7 @@ return nil, &retry.NotFoundError{
 
 func FindMainRouteTableAssociationByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string) (*ec2.RouteTableAssociation, error) {
 	routeTable, err := FindMainRouteTableByVPCID(ctx, conn, vpcID)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -2003,13 +1905,11 @@ if state := aws.StringValue(association.AssociationState.State); state == ec2.Ro
 	return nil, &retry.NotFoundError{}
 }
 
-// FindRouteTableAssociationByID returns the route table association corresponding to the specified identifier.
-// Returns NotFoundError if no route table association is found.
+funceturns NotFoundError if no route table association is found.
 
 func FindRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.RouteTableAssociation, error) {
 	input := &ec2.DescribeRouteTablesInput{
-Filters: BuildAttributeFilterList(map[string]string{
-	"association.route-table-association-id": associationID,
+funcsociation.route-table-association-id": associationID,
 }),
 	}
 
@@ -2038,8 +1938,7 @@ if state := aws.StringValue(association.AssociationState.State); state == ec2.Ro
 // Returns NotFoundError if no route table is found.
 
 func FindMainRouteTableByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string) (*ec2.RouteTable, error) {
-	input := &ec2.DescribeRouteTablesInput{
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"association.main": "true",
 	"vpc-id":  vpcID,
 }),
@@ -2063,8 +1962,7 @@ RouteTableIds: aws.StringSlice([]string{routeTableID}),
 func FindRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRouteTablesInput) (*ec2.RouteTable, error) {
 	output, err := FindRouteTables(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -2083,8 +1981,7 @@ func FindRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRout
 	var output []*ec2.RouteTable
 
 	err := conn.DescribeRouteTablesPagesWithContext(ctx, input, 
-func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
@@ -2101,7 +1998,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2109,8 +2006,7 @@ return nil, &retry.NotFoundError{
 	if err != nil {
 return nil, err
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 // RouteFinder returns the route corresponding to the specified destination.
@@ -2141,7 +2037,6 @@ LastError: fmt.Errorf("Route in Route Table (%s) with IPv4 destination (%s) not 
 
 // FindRouteByIPv6Destination returns the route corresponding to the specified IPv6 destination.
 // Returns NotFoundError if no route is found.
-
 func FindRouteByIPv6Destination(ctx context.Context, conn *ec2.EC2, routeTableID, destinationIpv6Cidr string) (*ec2.Route, error) {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -2156,8 +2051,7 @@ if types.CIDRBlocksEqual(aws.StringValue(route.DestinationIpv6CidrBlock), destin
 	}
 
 	return nil, &retry.NotFoundError{
-LastError: fmt.Errorf("Route in Route Table (%s) with IPv6 destination (%s) not found", routeTableID, destinationIpv6Cidr),
-	}
+func
 }
 
 // FindRouteByPrefixListIDDestination returns the route corresponding to the specified prefix list destination.
@@ -2166,8 +2060,7 @@ LastError: fmt.Errorf("Route in Route Table (%s) with IPv6 destination (%s) not 
 func FindRouteByPrefixListIDDestination(ctx context.Context, conn *ec2.EC2, routeTableID, prefixListID string) (*ec2.Route, error) {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 	if err != nil {
-return nil, err
-	}
+func
 
 	for _, route := range routeTable.Routes {
 if aws.StringValue(route.DestinationPrefixListId) == prefixListID {
@@ -2186,13 +2079,11 @@ func FindSecurityGroupByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 GroupIds: aws.StringSlice([]string{id}),
 	}
 
-	output, err := FindSecurityGroup(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
-
-	// Eventual consistency check.
+funcEventual consistency check.
 	if aws.StringValue(output.GroupId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
@@ -2209,7 +2100,7 @@ func FindSecurityGroupByNameAndVPCID(ctx context.Context, conn *ec2.EC2, name, v
 Filters: BuildAttributeFilterList(
 	map[string]string{
 "group-name": name,
-"vpc-id":     vpcID,
+"vpc-id":
 	},
 ),
 	}
@@ -2223,16 +2114,14 @@ func FindSecurityGroupByNameAndVPCIDAndOwnerID(ctx context.Context, conn *ec2.EC
 Filters: BuildAttributeFilterList(
 	map[string]string{
 "group-name": name,
-"vpc-id":     vpcID,
-"owner-id":   ownerID,
-	},
-),
+"vpc-id":
+"owner-id":erID,
+func
 	}
 	return FindSecurityGroup(ctx, conn, input)
 }
 
-// FindSecurityGroup looks up a security group using an ec2.DescribeSecurityGroupsInput. Returns a retry.NotFoundError if not found.
-
+func
 func FindSecurityGroup(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupsInput) (*ec2.SecurityGroup, error) {
 	output, err := FindSecurityGroups(ctx, conn, input)
 
@@ -2253,8 +2142,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 
 func FindSecurityGroups(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupsInput) ([]*ec2.SecurityGroup, error) {
-	var output []*ec2.SecurityGroup
-
+func
 	err := conn.DescribeSecurityGroupsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
 if page == nil {
@@ -2274,9 +2162,8 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidGroupNotFound, errCodeInvalidSecurityGroupIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
-}
+	LastError:,
+func
 	}
 
 	if err != nil {
@@ -2294,8 +2181,7 @@ func FindSecurityGroupRule(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 return nil, err
 	}
 
-	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
+funcrn nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
@@ -2318,8 +2204,7 @@ if page == nil {
 for _, v := range page.SecurityGroupRules {
 	if v == nil {
 continue
-	}
-
+func
 	output = append(output, v)
 }
 
@@ -2328,13 +2213,12 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSecurityGroupRuleIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return output, nil
@@ -2349,8 +2233,7 @@ SecurityGroupRuleIds: aws.StringSlice([]string{id}),
 	output, err := FindSecurityGroupRule(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	// Eventual consistency check.
 	if aws.StringValue(output.SecurityGroupRuleId) != id {
@@ -2369,13 +2252,11 @@ func FindSecurityGroupEgressRuleByID(ctx context.Context, conn *ec2.EC2, id stri
 	if err != nil {
 return nil, err
 	}
-
-	if !aws.BoolValue(output.IsEgress) {
+func!aws.BoolValue(output.IsEgress) {
 return nil, &retry.NotFoundError{}
 	}
 
-	return output, nil
-}
+func
 
 
 func FindSecurityGroupIngressRuleByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroupRule, error) {
@@ -2406,12 +2287,11 @@ Filters: BuildAttributeFilterList(map[string]string{
 
 func FindSpotDatafeedSubscription(ctx context.Context, conn *ec2.EC2) (*ec2.SpotDatafeedSubscription, error) {
 	input := &ec2.DescribeSpotDatafeedSubscriptionInput{}
-
-	output, err := conn.DescribeSpotDatafeedSubscriptionWithContext(ctx, input)
+funcput, err := conn.DescribeSpotDatafeedSubscriptionWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, ErrCodeInvalidSpotDatafeedNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2426,12 +2306,10 @@ return nil, tfresource.NewEmptyResultError(input)
 
 	return output.SpotDatafeedSubscription, nil
 }
-
-
+func
 func FindSpotFleetInstances(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetInstancesInput) ([]*ec2.ActiveInstance, error) {
 	var output []*ec2.ActiveInstance
 
-	err := describeSpotFleetInstancesPages(ctx, conn, input, 
 func(page *ec2.DescribeSpotFleetInstancesOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -2448,7 +2326,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSpotFleetRequestIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2463,8 +2341,7 @@ return nil, err
 
 func FindSpotFleetRequests(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetRequestsInput) ([]*ec2.SpotFleetRequestConfig, error) {
 	var output []*ec2.SpotFleetRequestConfig
-
-	err := conn.DescribeSpotFleetRequestsPagesWithContext(ctx, input, 
+func := conn.DescribeSpotFleetRequestsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeSpotFleetRequestsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -2481,13 +2358,12 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSpotFleetRequestIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return output, nil
@@ -2502,8 +2378,7 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil || output[0].SpotFleetRequestConfig == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
@@ -2518,20 +2393,18 @@ func FindSpotFleetRequestByID(ctx context.Context, conn *ec2.EC2, id string) (*e
 SpotFleetRequestIds: aws.StringSlice([]string{id}),
 	}
 
-	output, err := FindSpotFleetRequest(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
 
 	if state := aws.StringValue(output.SpotFleetRequestState); state == ec2.BatchStateCancelled || state == ec2.BatchStateCancelledRunning || state == ec2.BatchStateCancelledTerminating {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
-
-	// Eventual consistency check.
+funcEventual consistency check.
 	if aws.StringValue(output.SpotFleetRequestId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
@@ -2555,14 +2428,12 @@ for _, v := range page.HistoryRecords {
 	if v != nil {
 output = append(output, v)
 	}
-}
-
+func
 return !lastPage
 	})
 
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidSpotFleetRequestIdNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+funcrn nil, &retry.NotFoundError{
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2590,13 +2461,11 @@ output = append(output, v)
 	}
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSpotInstanceRequestIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -2625,8 +2494,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 	return output[0], nil
 }
-
-
+func
 func FindSpotInstanceRequestByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SpotInstanceRequest, error) {
 	input := &ec2.DescribeSpotInstanceRequestsInput{
 SpotInstanceRequestIds: aws.StringSlice([]string{id}),
@@ -2640,13 +2508,12 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.SpotInstanceStateCancelled || state == ec2.SpotInstanceStateClosed {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
 
-	// Eventual consistency check.
-	if aws.StringValue(output.SpotInstanceRequestId) != id {
+funcaws.StringValue(output.SpotInstanceRequestId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
@@ -2675,13 +2542,11 @@ return nil, &retry.NotFoundError{
 	}
 
 	return output, nil
-}
-
+func
 
 func FindSubnet(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSubnetsInput) (*ec2.Subnet, error) {
 	output, err := FindSubnets(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -2710,14 +2575,12 @@ for _, v := range page.Subnets {
 	if v != nil {
 output = append(output, v)
 	}
-}
-
+func
 return !lastPage
 	})
 
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidSubnetIDNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+funcrn nil, &retry.NotFoundError{
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2745,8 +2608,7 @@ return nil, &retry.NotFoundError{
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	if output == nil || (len(output.SubnetIpv4CidrReservations) == 0 && len(output.SubnetIpv6CidrReservations) == 0) {
 return nil, tfresource.NewEmptyResultError(input)
 	}
@@ -2763,10 +2625,9 @@ if aws.StringValue(r.SubnetCidrReservationId) == reservationID {
 	}
 
 	return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:,
 LastRequest: input,
-	}
-}
+func
 
 
 func FindSubnetIPv6CIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.SubnetIpv6CidrBlockAssociation, error) {
@@ -2795,7 +2656,6 @@ return nil, &retry.NotFoundError{Message: state}
 	return nil, &retry.NotFoundError{}
 }
 
-
 func FindVolumeModifications(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesModificationsInput) ([]*ec2.VolumeModification, error) {
 	var output []*ec2.VolumeModification
 
@@ -2816,10 +2676,9 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVolumeNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
-}
-	}
+func
 
 	if err != nil {
 return nil, err
@@ -2838,13 +2697,11 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
-
-	return output[0], nil
+funcurn output[0], nil
 }
 
 
@@ -2873,14 +2730,13 @@ return nil, &retry.NotFoundError{
 func FindVPCAttribute(ctx context.Context, conn *ec2.EC2, vpcID string, attribute string) (bool, error) {
 	input := &ec2.DescribeVpcAttributeInput{
 Attribute: aws.String(attribute),
-VpcId:     aws.String(vpcID),
-	}
+func
 
 	output, err := conn.DescribeVpcAttributeWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {
 return false, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2913,8 +2769,7 @@ return false, tfresource.NewEmptyResultError(input)
 }
 
 
-func FindVPC(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcsInput) (*ec2.Vpc, error) {
-	output, err := FindVPCs(ctx, conn, input)
+funcput, err := FindVPCs(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -2941,18 +2796,16 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.Vpcs {
-	if v != nil {
+funcv != nil {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -2976,8 +2829,7 @@ VpcIds: aws.StringSlice([]string{id}),
 return nil, err
 	}
 
-	// Eventual consistency check.
-	if aws.StringValue(output.VpcId) != id {
+funcaws.StringValue(output.VpcId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
@@ -2996,8 +2848,7 @@ return err
 
 	if aws.StringValue(vpc.DhcpOptionsId) != dhcpOptionsID {
 return &retry.NotFoundError{
-	LastError: fmt.Errorf("EC2 VPC (%s) DHCP Options Set (%s) Association not found", vpcID, dhcpOptionsID),
-}
+func
 	}
 
 	return nil
@@ -3019,8 +2870,7 @@ return nil, nil, err
 
 	for _, association := range vpc.CidrBlockAssociationSet {
 if aws.StringValue(association.AssociationId) == id {
-	if state := aws.StringValue(association.CidrBlockState.State); state == ec2.VpcCidrBlockStateCodeDisassociated {
-return nil, nil, &retry.NotFoundError{Message: state}
+funcrn nil, nil, &retry.NotFoundError{Message: state}
 	}
 
 	return association, vpc, nil
@@ -3063,8 +2913,7 @@ func FindVPCDefaultNetworkACL(ctx context.Context, conn *ec2.EC2, id string) (*e
 Filters: BuildAttributeFilterList(map[string]string{
 	"default": "true",
 	"vpc-id":  id,
-}),
-	}
+func
 
 	return FindNetworkACL(ctx, conn, input)
 }
@@ -3074,7 +2923,7 @@ func FindVPCDefaultSecurityGroup(ctx context.Context, conn *ec2.EC2, id string) 
 	input := &ec2.DescribeSecurityGroupsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"group-name": DefaultSecurityGroupName,
-	"vpc-id":     id,
+	"vpc-id":
 }),
 	}
 
@@ -3083,13 +2932,11 @@ Filters: BuildAttributeFilterList(map[string]string{
 
 
 func FindVPCMainRouteTable(ctx context.Context, conn *ec2.EC2, id string) (*ec2.RouteTable, error) {
-	input := &ec2.DescribeRouteTablesInput{
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"association.main": "true",
 	"vpc-id":  id,
 }),
-	}
-
+func
 	return FindRouteTable(ctx, conn, input)
 }
 
@@ -3118,8 +2965,7 @@ func FindVPCEndpoints(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpc
 
 	err := conn.DescribeVpcEndpointsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeVpcEndpointsOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+funcurn !lastPage
 }
 
 for _, v := range page.VpcEndpoints {
@@ -3133,7 +2979,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCEndpointIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -3141,8 +2987,7 @@ return nil, &retry.NotFoundError{
 	if err != nil {
 return nil, err
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
@@ -3159,8 +3004,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == vpcEndpointStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -3187,8 +3031,7 @@ return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
-	}
+func
 
 	return output[0], nil
 }
@@ -3214,9 +3057,8 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidConnectionNotification) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
-}
+	LastError:,
+func
 	}
 
 	if err != nil {
@@ -3228,8 +3070,7 @@ return nil, err
 
 
 func FindVPCConnectionNotificationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ConnectionNotification, error) {
-	input := &ec2.DescribeVpcEndpointConnectionNotificationsInput{
-ConnectionNotificationId: aws.String(id),
+funcectionNotificationId: aws.String(id),
 	}
 
 	output, err := FindVPCConnectionNotification(ctx, conn, input)
@@ -3241,8 +3082,7 @@ return nil, err
 	// Eventual consistency check.
 	if aws.StringValue(output.ConnectionNotificationId) != id {
 return nil, &retry.NotFoundError{
-	LastRequest: input,
-}
+func
 	}
 
 	return output, nil
@@ -3254,8 +3094,7 @@ func FindVPCEndpointServiceConfiguration(ctx context.Context, conn *ec2.EC2, inp
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
@@ -3274,13 +3113,11 @@ func FindVPCEndpointServiceConfigurations(ctx context.Context, conn *ec2.EC2, in
 	err := conn.DescribeVpcEndpointServiceConfigurationsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeVpcEndpointServiceConfigurationsOutput, lastPage bool) bool {
 if page == nil {
-	return !lastPage
-}
+func
 
 for _, v := range page.ServiceConfigurations {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -3288,7 +3125,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCEndpointServiceIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -3309,8 +3146,7 @@ Filters: BuildAttributeFilterList(map[string]string{
 	}
 
 	return FindVPCEndpointServiceConfiguration(ctx, conn, input)
-}
-
+func
 
 func FindVPCEndpointServices(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointServicesInput) ([]*ec2.ServiceDetail, []string, error) {
 	var serviceDetails []*ec2.ServiceDetail
@@ -3337,10 +3173,9 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidServiceName) {
 return nil, nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
-}
-	}
+func
 
 	if err != nil {
 return nil, nil, err
@@ -3359,13 +3194,11 @@ ServiceIds: aws.StringSlice([]string{id}),
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	if state := aws.StringValue(output.ServiceState); state == ec2.ServiceStateDeleted || state == ec2.ServiceStateFailed {
 return nil, &retry.NotFoundError{
-	Message:     state,
-	LastRequest: input,
-}
+	Message:
+func
 	}
 
 	// Eventual consistency check.
@@ -3394,12 +3227,11 @@ output = append(output, v)
 	}
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCEndpointServiceIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -3417,8 +3249,7 @@ func FindVPCEndpointServicePermissionsByServiceID(ctx context.Context, conn *ec2
 ServiceId: aws.String(id),
 	}
 
-	return FindVPCEndpointServicePermissions(ctx, conn, input)
-}
+func
 
 
 func FindVPCEndpointServicePermission(ctx context.Context, conn *ec2.EC2, serviceID, principalARN string) (*ec2.AllowedPrincipal, error) {
@@ -3437,13 +3268,11 @@ return nil, err
 
 	allowedPrincipals = slices.Filter(allowedPrincipals, 
 func(v *ec2.AllowedPrincipal) bool {
-return aws.StringValue(v.Principal) == principalARN
-	})
+func
 
 	return tfresource.AssertSinglePtrResult(allowedPrincipals)
 }
-
-// FindVPCEndpointRouteTableAssociationExists returns NotFoundError if no association for the specified VPC endpoint and route table IDs is found.
+funcindVPCEndpointRouteTableAssociationExists returns NotFoundError if no association for the specified VPC endpoint and route table IDs is found.
 
 func FindVPCEndpointRouteTableAssociationExists(ctx context.Context, conn *ec2.EC2, vpcEndpointID string, routeTableID string) error {
 	vpcEndpoint, err := FindVPCEndpointByID(ctx, conn, vpcEndpointID)
@@ -3472,8 +3301,7 @@ func FindVPCEndpointSecurityGroupAssociationExists(ctx context.Context, conn *ec
 return err
 	}
 
-	for _, group := range vpcEndpoint.Groups {
-if aws.StringValue(group.GroupId) == securityGroupID {
+funcws.StringValue(group.GroupId) == securityGroupID {
 	return nil
 }
 	}
@@ -3484,14 +3312,12 @@ LastError: fmt.Errorf("VPC Endpoint (%s) Security Group (%s) Association not fou
 }
 
 // FindVPCEndpointSubnetAssociationExists returns NotFoundError if no association for the specified VPC endpoint and subnet IDs is found.
-
 func FindVPCEndpointSubnetAssociationExists(ctx context.Context, conn *ec2.EC2, vpcEndpointID string, subnetID string) error {
 	vpcEndpoint, err := FindVPCEndpointByID(ctx, conn, vpcEndpointID)
 
 	if err != nil {
 return err
-	}
-
+func
 	for _, vpcEndpointSubnetID := range vpcEndpoint.SubnetIds {
 if aws.StringValue(vpcEndpointSubnetID) == subnetID {
 	return nil
@@ -3524,8 +3350,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 
 func FindVPCPeeringConnections(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcPeeringConnectionsInput) ([]*ec2.VpcPeeringConnection, error) {
-	var output []*ec2.VpcPeeringConnection
-
+func
 	err := conn.DescribeVpcPeeringConnectionsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeVpcPeeringConnectionsOutput, lastPage bool) bool {
 if page == nil {
@@ -3543,7 +3368,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCPeeringConnectionIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -3554,13 +3379,11 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindVPCPeeringConnectionByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpcPeeringConnection, error) {
 	input := &ec2.DescribeVpcPeeringConnectionsInput{
 VpcPeeringConnectionIds: aws.StringSlice([]string{id}),
-	}
-
+func
 	output, err := FindVPCPeeringConnection(ctx, conn, input)
 
 	if err != nil {
@@ -3574,7 +3397,7 @@ ec2.VpcPeeringConnectionStateReasonCodeExpired,
 ec2.VpcPeeringConnectionStateReasonCodeFailed,
 ec2.VpcPeeringConnectionStateReasonCodeRejected:
 return nil, &retry.NotFoundError{
-	Message:     statusCode,
+	Message:,
 	LastRequest: input,
 }
 	}
@@ -3589,8 +3412,7 @@ return nil, &retry.NotFoundError{
 	return output, nil
 }
 
-// FindVPNGatewayRoutePropagationExists returns NotFoundError if no route propagation for the specified VPN gateway is found.
-
+func
 func FindVPNGatewayRoutePropagationExists(ctx context.Context, conn *ec2.EC2, routeTableID, gatewayID string) error {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -3599,8 +3421,7 @@ return err
 	}
 
 	for _, v := range routeTable.PropagatingVgws {
-if aws.StringValue(v.GatewayId) == gatewayID {
-	return nil
+funcurn nil
 }
 	}
 
@@ -3615,18 +3436,16 @@ func FindVPNGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, vpnGatewayI
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	for _, vpcAttachment := range vpnGateway.VpcAttachments {
 if aws.StringValue(vpcAttachment.VpcId) == vpcID {
 	if state := aws.StringValue(vpcAttachment.State); state == ec2.AttachmentStatusDetached {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: vpcID,
 }
 	}
-
-	return vpcAttachment, nil
+funcurn vpcAttachment, nil
 }
 	}
 
@@ -3646,8 +3465,7 @@ return nil, err
 	}
 
 	if state := aws.StringValue(output.State); state == ec2.VpnStateDeleted {
-return nil, &retry.NotFoundError{
-	Message:     state,
+funcsage:
 	LastRequest: input,
 }
 	}
@@ -3667,8 +3485,7 @@ func FindVPNGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpnGa
 	output, err := conn.DescribeVpnGatewaysWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPNGatewayIDNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:,
 	LastRequest: input,
 }
 	}
@@ -3687,8 +3504,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 	return output.VpnGateways[0], nil
 }
-
-
+func
 func FindCustomerGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCustomerGatewaysInput) (*ec2.CustomerGateway, error) {
 	output, err := FindCustomerGateways(ctx, conn, input)
 
@@ -3707,13 +3523,11 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	return output[0], nil
 }
 
-
 func FindCustomerGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCustomerGatewaysInput) ([]*ec2.CustomerGateway, error) {
 	output, err := conn.DescribeCustomerGatewaysWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidCustomerGatewayIDNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:,
 	LastRequest: input,
 }
 	}
@@ -3742,8 +3556,7 @@ return nil, err
 	}
 
 	if state := aws.StringValue(output.State); state == CustomerGatewayStateDeleted {
-return nil, &retry.NotFoundError{
-	Message:     state,
+funcsage:
 	LastRequest: input,
 }
 	}
@@ -3772,14 +3585,13 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.VpnStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
 
 	// Eventual consistency check.
-	if aws.StringValue(output.VpnConnectionId) != id {
-return nil, &retry.NotFoundError{
+funcrn nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
@@ -3793,13 +3605,12 @@ func FindVPNConnections(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeV
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPNConnectionIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	return output.VpnConnections, nil
@@ -3823,13 +3634,12 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 	return output[0], nil
 }
-
-
+func
 func FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx context.Context, conn *ec2.EC2, vpnConnectionID, cidrBlock string) (*ec2.VpnStaticRoute, error) {
 	input := &ec2.DescribeVpnConnectionsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"route.destination-cidr-block": cidrBlock,
-	"vpn-connection-id":   vpnConnectionID,
+	"vpn-connection-id":ConnectionID,
 }),
 	}
 
@@ -3853,8 +3663,7 @@ LastError: fmt.Errorf("EC2 VPN Connection (%s) Route (%s) not found", vpnConnect
 
 func FindTrafficMirrorFilter(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorFiltersInput) (*ec2.TrafficMirrorFilter, error) {
 	output, err := FindTrafficMirrorFilters(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -3880,8 +3689,7 @@ if page == nil {
 }
 
 for _, v := range page.TrafficMirrorFilters {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
@@ -3890,7 +3698,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorFilterIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -3900,8 +3708,7 @@ return nil, err
 	}
 
 	return output, nil
-}
-
+func
 
 func FindTrafficMirrorFilterByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TrafficMirrorFilter, error) {
 	input := &ec2.DescribeTrafficMirrorFiltersInput{
@@ -3923,8 +3730,7 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
-
+func
 func FindTrafficMirrorFilterRuleByTwoPartKey(ctx context.Context, conn *ec2.EC2, filterID, ruleID string) (*ec2.TrafficMirrorFilterRule, error) {
 	output, err := FindTrafficMirrorFilterByID(ctx, conn, filterID)
 
@@ -3953,8 +3759,7 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -3983,8 +3788,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorSessionIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -4002,8 +3806,7 @@ TrafficMirrorSessionIds: aws.StringSlice([]string{id}),
 	}
 
 	output, err := FindTrafficMirrorSession(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -4022,8 +3825,7 @@ func FindTrafficMirrorTarget(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	output, err := FindTrafficMirrorTargets(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
@@ -4049,15 +3851,14 @@ if page == nil {
 for _, v := range page.TrafficMirrorTargets {
 	if v != nil {
 output = append(output, v)
-	}
-}
+func
 
 return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorTargetIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4069,13 +3870,11 @@ return nil, err
 	return output, nil
 }
 
-
 func FindTrafficMirrorTargetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TrafficMirrorTarget, error) {
 	input := &ec2.DescribeTrafficMirrorTargetsInput{
 TrafficMirrorTargetIds: aws.StringSlice([]string{id}),
 	}
-
-	output, err := FindTrafficMirrorTarget(ctx, conn, input)
+funcput, err := FindTrafficMirrorTarget(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4104,8 +3903,7 @@ return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
-	}
+func
 
 	return output[0], nil
 }
@@ -4127,11 +3925,10 @@ output = append(output, v)
 }
 
 return !lastPage
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4147,8 +3944,7 @@ return nil, err
 func FindTransitGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGateway, error) {
 	input := &ec2.DescribeTransitGatewaysInput{
 TransitGatewayIds: aws.StringSlice([]string{id}),
-	}
-
+func
 	output, err := FindTransitGateway(ctx, conn, input)
 
 	if err != nil {
@@ -4157,7 +3953,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4167,11 +3963,9 @@ return nil, &retry.NotFoundError{
 return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
-	}
-
+func
 	return output, nil
 }
-
 
 func FindTransitGatewayAttachment(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayAttachmentsInput) (*ec2.TransitGatewayAttachment, error) {
 	output, err := FindTransitGatewayAttachments(ctx, conn, input)
@@ -4202,8 +3996,7 @@ if page == nil {
 }
 
 for _, v := range page.TransitGatewayAttachments {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
@@ -4212,7 +4005,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4225,8 +4018,7 @@ return nil, err
 }
 
 
-func FindTransitGatewayAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayAttachment, error) {
-	input := &ec2.DescribeTransitGatewayAttachmentsInput{
+funcut := &ec2.DescribeTransitGatewayAttachmentsInput{
 TransitGatewayAttachmentIds: aws.StringSlice([]string{id}),
 	}
 
@@ -4245,13 +4037,11 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
-
+func
 func FindTransitGatewayConnect(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectsInput) (*ec2.TransitGatewayConnect, error) {
 	output, err := FindTransitGatewayConnects(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil || output[0].Options == nil {
@@ -4280,13 +4070,12 @@ for _, v := range page.TransitGatewayConnects {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4303,8 +4092,7 @@ func FindTransitGatewayConnectByID(ctx context.Context, conn *ec2.EC2, id string
 	input := &ec2.DescribeTransitGatewayConnectsInput{
 TransitGatewayAttachmentIds: aws.StringSlice([]string{id}),
 	}
-
-	output, err := FindTransitGatewayConnect(ctx, conn, input)
+funcput, err := FindTransitGatewayConnect(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4312,7 +4100,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayAttachmentStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4323,13 +4111,11 @@ return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
-func FindTransitGatewayConnectPeer(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectPeersInput) (*ec2.TransitGatewayConnectPeer, error) {
-	output, err := FindTransitGatewayConnectPeers(ctx, conn, input)
+funcput, err := FindTransitGatewayConnectPeers(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4358,8 +4144,7 @@ if page == nil {
 }
 
 for _, v := range page.TransitGatewayConnectPeers {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
@@ -4368,7 +4153,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayConnectPeerIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4388,13 +4173,12 @@ TransitGatewayConnectPeerIds: aws.StringSlice([]string{id}),
 
 	output, err := FindTransitGatewayConnectPeer(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayConnectPeerStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4408,13 +4192,11 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
-
+func
 func FindTransitGatewayMulticastDomain(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayMulticastDomainsInput) (*ec2.TransitGatewayMulticastDomain, error) {
 	output, err := FindTransitGatewayMulticastDomains(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil || output[0].Options == nil {
@@ -4443,13 +4225,12 @@ for _, v := range page.TransitGatewayMulticastDomains {
 output = append(output, v)
 	}
 }
-
-return !lastPage
+funcrn !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayMulticastDomainIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4466,8 +4247,7 @@ func FindTransitGatewayMulticastDomainByID(ctx context.Context, conn *ec2.EC2, i
 	input := &ec2.DescribeTransitGatewayMulticastDomainsInput{
 TransitGatewayMulticastDomainIds: aws.StringSlice([]string{id}),
 	}
-
-	output, err := FindTransitGatewayMulticastDomain(ctx, conn, input)
+funcput, err := FindTransitGatewayMulticastDomain(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4475,7 +4255,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayMulticastDomainStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4486,13 +4266,11 @@ return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
-func FindTransitGatewayMulticastDomainAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayMulticastDomainAssociationsInput) (*ec2.TransitGatewayMulticastDomainAssociation, error) {
-	output, err := FindTransitGatewayMulticastDomainAssociations(ctx, conn, input)
+funcput, err := FindTransitGatewayMulticastDomainAssociations(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4521,8 +4299,7 @@ if page == nil {
 
 for _, v := range page.MulticastDomainAssociations {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -4530,7 +4307,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayMulticastDomainIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4546,13 +4323,12 @@ return nil, err
 func FindTransitGatewayMulticastDomainAssociationByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, attachmentID, subnetID string) (*ec2.TransitGatewayMulticastDomainAssociation, error) {
 	input := &ec2.GetTransitGatewayMulticastDomainAssociationsInput{
 Filters: BuildAttributeFilterList(map[string]string{
-	"subnet-id":      subnetID,
+	"subnet-id":
 	"transit-gateway-attachment-id": attachmentID,
 }),
 TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	}
-
-	output, err := FindTransitGatewayMulticastDomainAssociation(ctx, conn, input)
+funcput, err := FindTransitGatewayMulticastDomainAssociation(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -4560,7 +4336,7 @@ return nil, err
 
 	if state := aws.StringValue(output.Subnet.State); state == ec2.TransitGatewayMulitcastDomainAssociationStateDisassociated {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4572,13 +4348,11 @@ return nil, &retry.NotFoundError{
 }
 	}
 
-	return output, nil
-}
+func
 
 
 func FindTransitGatewayMulticastGroups(ctx context.Context, conn *ec2.EC2, input *ec2.SearchTransitGatewayMulticastGroupsInput) ([]*ec2.TransitGatewayMulticastGroup, error) {
-	var output []*ec2.TransitGatewayMulticastGroup
-
+func
 	err := conn.SearchTransitGatewayMulticastGroupsPagesWithContext(ctx, input, 
 func(page *ec2.SearchTransitGatewayMulticastGroupsOutput, lastPage bool) bool {
 if page == nil {
@@ -4596,7 +4370,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayMulticastDomainIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4607,8 +4381,7 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindTransitGatewayMulticastGroupMemberByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, groupIPAddress, eniID string) (*ec2.TransitGatewayMulticastGroup, error) {
 	input := &ec2.SearchTransitGatewayMulticastGroupsInput{
 Filters: BuildAttributeFilterList(map[string]string{
@@ -4637,8 +4410,7 @@ return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
-
-	return v, nil
+funcurn v, nil
 }
 	}
 
@@ -4657,13 +4429,11 @@ TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	}
 
 	output, err := FindTransitGatewayMulticastGroups(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
-	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
+funcrn nil, tfresource.NewEmptyResultError(input)
 	}
 
 	for _, v := range output {
@@ -4692,8 +4462,7 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil || output[0].AccepterTgwInfo == nil || output[0].RequesterTgwInfo == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -4722,8 +4491,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -4742,17 +4510,15 @@ TransitGatewayAttachmentIds: aws.StringSlice([]string{id}),
 
 	output, err := FindTransitGatewayPeeringAttachment(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	// See https://docs.aws.amazon.com/vpc/latest/tgw/tgw-vpc-attachments.html#vpc-attachment-lifecycle.
-	switch state := aws.StringValue(output.State); state {
-	case ec2.TransitGatewayAttachmentStateDeleted,
+funce ec2.TransitGatewayAttachmentStateDeleted,
 ec2.TransitGatewayAttachmentStateFailed,
 ec2.TransitGatewayAttachmentStateRejected:
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4777,8 +4543,7 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -4807,17 +4572,15 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
-	return output, nil
-}
+func
 
 
 func FindTransitGatewayPrefixListReferenceByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, prefixListID string) (*ec2.TransitGatewayPrefixListReference, error) {
@@ -4846,8 +4609,7 @@ return nil, &retry.NotFoundError{
 
 
 func FindTransitGatewayStaticRoute(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, destination string) (*ec2.TransitGatewayRoute, error) {
-	input := &ec2.SearchTransitGatewayRoutesInput{
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"type": ec2.TransitGatewayRouteTypeStatic,
 }),
 TransitGatewayRouteTableId: aws.String(transitGatewayRouteTableID),
@@ -4867,7 +4629,7 @@ if route == nil {
 if v := aws.StringValue(route.DestinationCidrBlock); types.CIDRBlocksEqual(v, destination) {
 	if state := aws.StringValue(route.State); state == ec2.TransitGatewayRouteStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -4884,10 +4646,9 @@ return nil, &retry.NotFoundError{
 
 func FindTransitGatewayRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.SearchTransitGatewayRoutesInput) ([]*ec2.TransitGatewayRoute, error) {
 	output, err := conn.SearchTransitGatewayRoutesWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
+functfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4922,7 +4683,6 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	return output[0], nil
 }
 
-
 func FindTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayRouteTablesInput) (*ec2.TransitGatewayRouteTable, error) {
 	output, err := FindTransitGatewayRouteTables(ctx, conn, input)
 
@@ -4942,13 +4702,11 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 }
 
 
-func FindTransitGatewayPolicyTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayPolicyTablesInput) ([]*ec2.TransitGatewayPolicyTable, error) {
-	var output []*ec2.TransitGatewayPolicyTable
+func output []*ec2.TransitGatewayPolicyTable
 
 	err := conn.DescribeTransitGatewayPolicyTablesPagesWithContext(ctx, input, 
 func(page *ec2.DescribeTransitGatewayPolicyTablesOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+funcurn !lastPage
 }
 
 for _, v := range page.TransitGatewayPolicyTables {
@@ -4962,7 +4720,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayPolicyTableIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -4977,8 +4735,7 @@ return nil, err
 
 func FindTransitGatewayRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayRouteTablesInput) ([]*ec2.TransitGatewayRouteTable, error) {
 	var output []*ec2.TransitGatewayRouteTable
-
-	err := conn.DescribeTransitGatewayRouteTablesPagesWithContext(ctx, input, 
+func := conn.DescribeTransitGatewayRouteTablesPagesWithContext(ctx, input, 
 func(page *ec2.DescribeTransitGatewayRouteTablesOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -4995,7 +4752,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5011,8 +4768,7 @@ return nil, err
 func FindTransitGatewayPolicyTableByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayPolicyTable, error) {
 	input := &ec2.DescribeTransitGatewayPolicyTablesInput{
 TransitGatewayPolicyTableIds: aws.StringSlice([]string{id}),
-	}
-
+func
 	output, err := FindTransitGatewayPolicyTable(ctx, conn, input)
 
 	if err != nil {
@@ -5031,19 +4787,17 @@ return nil, &retry.NotFoundError{
 
 
 func FindTransitGatewayRouteTableByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayRouteTable, error) {
-	input := &ec2.DescribeTransitGatewayRouteTablesInput{
-TransitGatewayRouteTableIds: aws.StringSlice([]string{id}),
+funcsitGatewayRouteTableIds: aws.StringSlice([]string{id}),
 	}
 
 	output, err := FindTransitGatewayRouteTable(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayRouteTableStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -5066,8 +4820,7 @@ Filters: BuildAttributeFilterList(map[string]string{
 }),
 TransitGatewayPolicyTableId: aws.String(transitGatewayPolicyTableID),
 	}
-
-	output, err := FindTransitGatewayPolicyTableAssociation(ctx, conn, input)
+funcput, err := FindTransitGatewayPolicyTableAssociation(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -5075,7 +4828,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayAssociationStateDisassociated {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -5092,8 +4845,7 @@ return nil, &retry.NotFoundError{
 
 
 func FindTransitGatewayRouteTableAssociationByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string) (*ec2.TransitGatewayRouteTableAssociation, error) {
-	input := &ec2.GetTransitGatewayRouteTableAssociationsInput{
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"transit-gateway-attachment-id": transitGatewayAttachmentID,
 }),
 TransitGatewayRouteTableId: aws.String(transitGatewayRouteTableID),
@@ -5107,7 +4859,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayAssociationStateDisassociated {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -5130,8 +4882,7 @@ func FindTransitGatewayRouteTableAssociation(ctx context.Context, conn *ec2.EC2,
 return nil, err
 	}
 
-	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
+funcrn nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
@@ -5153,8 +4904,7 @@ if page == nil {
 
 for _, v := range page.Associations {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -5162,7 +4912,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayPolicyTableIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5173,8 +4923,7 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindTransitGatewayPolicyTableAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayPolicyTableAssociationsInput) (*ec2.TransitGatewayPolicyTableAssociation, error) {
 	output, err := FindTransitGatewayPolicyTableAssociations(ctx, conn, input)
 
@@ -5193,13 +4942,11 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	return output[0], nil
 }
 
-
 func FindTransitGatewayRouteTableAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayRouteTableAssociationsInput) ([]*ec2.TransitGatewayRouteTableAssociation, error) {
 	var output []*ec2.TransitGatewayRouteTableAssociation
 
 	err := conn.GetTransitGatewayRouteTableAssociationsPagesWithContext(ctx, input, 
-func(page *ec2.GetTransitGatewayRouteTableAssociationsOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
@@ -5214,7 +4961,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5228,13 +4975,11 @@ return nil, err
 
 
 func FindTransitGatewayRouteTablePropagationByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID string, transitGatewayAttachmentID string) (*ec2.TransitGatewayRouteTablePropagation, error) {
-	input := &ec2.GetTransitGatewayRouteTablePropagationsInput{
-Filters: BuildAttributeFilterList(map[string]string{
+funcers: BuildAttributeFilterList(map[string]string{
 	"transit-gateway-attachment-id": transitGatewayAttachmentID,
 }),
 TransitGatewayRouteTableId: aws.String(transitGatewayRouteTableID),
-	}
-
+func
 	output, err := FindTransitGatewayRouteTablePropagation(ctx, conn, input)
 
 	if err != nil {
@@ -5243,7 +4988,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.TransitGatewayPropagationStateDisabled {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -5263,8 +5008,7 @@ func FindTransitGatewayRouteTablePropagation(ctx context.Context, conn *ec2.EC2,
 	output, err := FindTransitGatewayRouteTablePropagations(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
@@ -5286,8 +5030,7 @@ func(page *ec2.GetTransitGatewayRouteTablePropagationsOutput, lastPage bool) boo
 if page == nil {
 	return !lastPage
 }
-
-for _, v := range page.TransitGatewayRouteTablePropagations {
+func_, v := range page.TransitGatewayRouteTablePropagations {
 	if v != nil {
 output = append(output, v)
 	}
@@ -5298,7 +5041,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidRouteTableIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5316,8 +5059,7 @@ func FindTransitGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, input *
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	if len(output) == 0 || output[0] == nil || output[0].Options == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
@@ -5349,8 +5091,7 @@ return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:,
 	LastRequest: input,
 }
 	}
@@ -5380,10 +5121,9 @@ return nil, err
 ec2.TransitGatewayAttachmentStateFailed,
 ec2.TransitGatewayAttachmentStateRejected:
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
-}
-	}
+func
 
 	// Eventual consistency check.
 	if aws.StringValue(output.TransitGatewayAttachmentId) != id {
@@ -5402,13 +5142,11 @@ func FindDHCPOptions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeDhcp
 	if err != nil {
 return nil, err
 	}
-
-	if len(output) == 0 || output[0] == nil {
+funclen(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+funcrn nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
@@ -5435,10 +5173,9 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidDHCPOptionIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
-}
-	}
+func
 
 	if err != nil {
 return nil, err
@@ -5457,13 +5194,11 @@ DhcpOptionsIds: aws.StringSlice([]string{id}),
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	// Eventual consistency check.
 	if aws.StringValue(output.DhcpOptionsId) != id {
 return nil, &retry.NotFoundError{
-	LastRequest: input,
-}
+func
 	}
 
 	return output, nil
@@ -5492,7 +5227,6 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 func FindEgressOnlyInternetGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeEgressOnlyInternetGatewaysInput) ([]*ec2.EgressOnlyInternetGateway, error) {
 	var output []*ec2.EgressOnlyInternetGateway
 
-	err := conn.DescribeEgressOnlyInternetGatewaysPagesWithContext(ctx, input, 
 func(page *ec2.DescribeEgressOnlyInternetGatewaysOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
@@ -5525,8 +5259,7 @@ EgressOnlyInternetGatewayIds: aws.StringSlice([]string{id}),
 	if err != nil {
 return nil, err
 	}
-
-	// Eventual consistency check.
+funcEventual consistency check.
 	if aws.StringValue(output.EgressOnlyInternetGatewayId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
@@ -5545,13 +5278,11 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
-	}
-
+func
 	return output[0], nil
 }
 
@@ -5576,12 +5307,11 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidFleetIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
@@ -5600,13 +5330,11 @@ FleetIds: aws.StringSlice([]string{id}),
 return nil, err
 	}
 
-	if state := aws.StringValue(output.FleetState); state == ec2.FleetStateCodeDeleted || state == ec2.FleetStateCodeDeletedRunning || state == ec2.FleetStateCodeDeletedTerminating {
-return nil, &retry.NotFoundError{
-	Message:     state,
+funcrn nil, &retry.NotFoundError{
+	Message:
 	LastRequest: input,
 }
-	}
-
+func
 	// Eventual consistency check.
 	if aws.StringValue(output.FleetId) != id {
 return nil, &retry.NotFoundError{
@@ -5635,8 +5363,7 @@ return nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
@@ -5669,8 +5396,7 @@ return nil, err
 func FindFlowLog(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFlowLogsInput) (*ec2.FlowLog, error) {
 	output, err := FindFlowLogs(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -5689,13 +5415,11 @@ func FindInternetGateway(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 	output, err := FindInternetGateways(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -5724,8 +5448,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidInternetGatewayIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -5747,8 +5470,7 @@ InternetGatewayIds: aws.StringSlice([]string{id}),
 	if err != nil {
 return nil, err
 	}
-
-	// Eventual consistency check.
+funcEventual consistency check.
 	if aws.StringValue(output.InternetGatewayId) != id {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
@@ -5767,13 +5489,11 @@ return nil, err
 	}
 
 	if len(internetGateway.Attachments) == 0 || internetGateway.Attachments[0] == nil {
-return nil, tfresource.NewEmptyResultError(internetGatewayID)
-	}
+func
 
 	if count := len(internetGateway.Attachments); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, internetGatewayID)
-	}
-
+func
 	attachment := internetGateway.Attachments[0]
 
 	if aws.StringValue(attachment.VpcId) != vpcID {
@@ -5795,8 +5515,7 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
-	if count := len(output); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+funcrn nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
@@ -5818,12 +5537,11 @@ output = append(output, v)
 	}
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5838,18 +5556,16 @@ return nil, err
 
 func FindIPAMByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Ipam, error) {
 	input := &ec2.DescribeIpamsInput{
-IpamIds: aws.StringSlice([]string{id}),
-	}
+func
 
 	output, err := FindIPAM(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if state := aws.StringValue(output.State); state == ec2.IpamStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -5873,8 +5589,7 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
@@ -5903,8 +5618,7 @@ return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMPoolIdNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:,
 	LastRequest: input,
 }
 	}
@@ -5926,13 +5640,11 @@ IpamPoolIds: aws.StringSlice([]string{id}),
 
 	if err != nil {
 return nil, err
-	}
-
+func
 	if state := aws.StringValue(output.State); state == ec2.IpamPoolStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
-	LastRequest: input,
-}
+	Message:
+func
 	}
 
 	// Eventual consistency check.
@@ -5954,8 +5666,7 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
@@ -5974,8 +5685,7 @@ if page == nil {
 	return !lastPage
 }
 
-for _, v := range page.IpamPoolAllocations {
-	if v != nil {
+funcv != nil {
 output = append(output, v)
 	}
 }
@@ -5985,7 +5695,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMPoolAllocationIdNotFound, errCodeInvalidIPAMPoolIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -5994,13 +5704,11 @@ return nil, &retry.NotFoundError{
 return nil, err
 	}
 
-	return output, nil
-}
+func
 
 
 func FindIPAMPoolAllocationByTwoPartKey(ctx context.Context, conn *ec2.EC2, allocationID, poolID string) (*ec2.IpamPoolAllocation, error) {
-	input := &ec2.GetIpamPoolAllocationsInput{
-IpamPoolAllocationId: aws.String(allocationID),
+funcPoolAllocationId: aws.String(allocationID),
 IpamPoolId:  aws.String(poolID),
 	}
 
@@ -6029,8 +5737,7 @@ return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
@@ -6052,15 +5759,14 @@ if page == nil {
 for _, v := range page.IpamPoolCidrs {
 	if v != nil {
 output = append(output, v)
-	}
-}
+func
 
 return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMPoolIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6078,8 +5784,7 @@ func FindIPAMPoolCIDRByTwoPartKey(ctx context.Context, conn *ec2.EC2, cidrBlock,
 Filters: BuildAttributeFilterList(map[string]string{
 	"cidr": cidrBlock,
 }),
-IpamPoolId: aws.String(poolID),
-	}
+func
 
 	output, err := FindIPAMPoolCIDR(ctx, conn, input)
 
@@ -6089,7 +5794,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.IpamPoolCidrStateDeprovisioned {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6098,13 +5803,11 @@ return nil, &retry.NotFoundError{
 	if aws.StringValue(output.Cidr) != cidrBlock {
 return nil, &retry.NotFoundError{
 	LastRequest: input,
-}
-	}
+func
 
 	return output, nil
 }
-
-
+func
 func FindIPAMPoolCIDRByPoolCIDRId(ctx context.Context, conn *ec2.EC2, poolCidrId, poolID string) (*ec2.IpamPoolCidr, error) {
 	input := &ec2.GetIpamPoolCidrsInput{
 Filters: BuildAttributeFilterList(map[string]string{
@@ -6129,12 +5832,11 @@ return nil, &retry.NotFoundError{
 
 	if state := aws.StringValue(output.State); state == ec2.IpamPoolCidrStateDeprovisioned {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
@@ -6163,8 +5865,7 @@ func FindIPAMResourceDiscoveries(ctx context.Context, conn *ec2.EC2, input *ec2.
 	err := conn.DescribeIpamResourceDiscoveriesPagesWithContext(ctx, input, 
 func(page *ec2.DescribeIpamResourceDiscoveriesOutput, lastPage bool) bool {
 if page == nil {
-	return !lastPage
-}
+func
 
 for _, v := range page.IpamResourceDiscoveries {
 	if v != nil {
@@ -6177,19 +5878,17 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMResourceDiscoveryIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	return output, nil
 }
-
-
+func
 func FindIPAMResourceDiscoveryByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamResourceDiscovery, error) {
 	input := &ec2.DescribeIpamResourceDiscoveriesInput{
 IpamResourceDiscoveryIds: aws.StringSlice([]string{id}),
@@ -6203,7 +5902,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.IpamResourceDiscoveryStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6217,7 +5916,6 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
 
 func FindIPAMResourceDiscoveryAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamResourceDiscoveryAssociationsInput) (*ec2.IpamResourceDiscoveryAssociation, error) {
 	output, err := FindIPAMResourceDiscoveryAssociations(ctx, conn, input)
@@ -6248,8 +5946,7 @@ if page == nil {
 }
 
 for _, v := range page.IpamResourceDiscoveryAssociations {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
@@ -6258,7 +5955,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMResourceDiscoveryAssociationIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6268,13 +5965,11 @@ return nil, err
 	}
 
 	return output, nil
-}
-
+func
 
 func FindIPAMResourceDiscoveryAssociationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamResourceDiscoveryAssociation, error) {
 	input := &ec2.DescribeIpamResourceDiscoveryAssociationsInput{
-IpamResourceDiscoveryAssociationIds: aws.StringSlice([]string{id}),
-	}
+func
 
 	output, err := FindIPAMResourceDiscoveryAssociation(ctx, conn, input)
 
@@ -6284,7 +5979,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.IpamResourceDiscoveryAssociationStateDisassociateComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6303,8 +5998,7 @@ return nil, &retry.NotFoundError{
 func FindIPAMScope(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamScopesInput) (*ec2.IpamScope, error) {
 	output, err := FindIPAMScopes(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
@@ -6327,8 +6021,7 @@ func(page *ec2.DescribeIpamScopesOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
-
-for _, v := range page.IpamScopes {
+func_, v := range page.IpamScopes {
 	if v != nil {
 output = append(output, v)
 	}
@@ -6339,7 +6032,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMScopeIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6347,13 +6040,11 @@ return nil, &retry.NotFoundError{
 	if err != nil {
 return nil, err
 	}
-
-	return output, nil
+funcurn output, nil
 }
 
 
-func FindIPAMScopeByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamScope, error) {
-	input := &ec2.DescribeIpamScopesInput{
+funcut := &ec2.DescribeIpamScopesInput{
 IpamScopeIds: aws.StringSlice([]string{id}),
 	}
 
@@ -6365,7 +6056,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.IpamScopeStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6382,8 +6073,7 @@ return nil, &retry.NotFoundError{
 
 
 func FindKeyPair(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPairsInput) (*ec2.KeyPairInfo, error) {
-	output, err := FindKeyPairs(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
@@ -6405,7 +6095,7 @@ func FindKeyPairs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPair
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidKeyPairNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6415,8 +6105,7 @@ return nil, err
 	}
 
 	return output.KeyPairs, nil
-}
-
+func
 
 func FindKeyPairByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.KeyPairInfo, error) {
 	input := &ec2.DescribeKeyPairsInput{
@@ -6449,8 +6138,7 @@ return nil, err
 
 	if len(output) == 0 || output[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
@@ -6469,17 +6157,15 @@ if page == nil {
 }
 
 for _, v := range page.LaunchTemplates {
-	if v != nil {
-output = append(output, v)
+funcut = append(output, v)
 	}
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidLaunchTemplateIdMalformed, errCodeInvalidLaunchTemplateIdNotFound, errCodeInvalidLaunchTemplateNameNotFoundException) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6504,8 +6190,7 @@ return nil, err
 	}
 
 	// Eventual consistency check.
-	if aws.StringValue(output.LaunchTemplateId) != id {
-return nil, &retry.NotFoundError{
+funcrn nil, &retry.NotFoundError{
 	LastRequest: input,
 }
 	}
@@ -6534,8 +6219,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 
 func FindLaunchTemplateVersions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLaunchTemplateVersionsInput) ([]*ec2.LaunchTemplateVersion, error) {
-	var output []*ec2.LaunchTemplateVersion
-
+func
 	err := conn.DescribeLaunchTemplateVersionsPagesWithContext(ctx, input, 
 func(page *ec2.DescribeLaunchTemplateVersionsOutput, lastPage bool) bool {
 if page == nil {
@@ -6553,14 +6237,12 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidLaunchTemplateIdNotFound, errCodeInvalidLaunchTemplateNameNotFoundException, errCodeInvalidLaunchTemplateIdVersionNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
-}
+	LastError:,
+func
 	}
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	return output, nil
 }
@@ -6589,8 +6271,7 @@ return nil, &retry.NotFoundError{
 }
 
 
-func FindManagedPrefixList(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeManagedPrefixListsInput) (*ec2.ManagedPrefixList, error) {
-	output, err := FindManagedPrefixLists(ctx, conn, input)
+funcput, err := FindManagedPrefixLists(ctx, conn, input)
 
 	if err != nil {
 return nil, err
@@ -6619,8 +6300,7 @@ if page == nil {
 
 for _, v := range page.PrefixLists {
 	if v != nil {
-output = append(output, v)
-	}
+func
 }
 
 return !lastPage
@@ -6628,7 +6308,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPrefixListIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6639,13 +6319,11 @@ return nil, err
 
 	return output, nil
 }
-
-
+func
 func FindManagedPrefixListByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ManagedPrefixList, error) {
 	input := &ec2.DescribeManagedPrefixListsInput{
 PrefixListIds: aws.StringSlice([]string{id}),
-	}
-
+func
 	output, err := FindManagedPrefixList(ctx, conn, input)
 
 	if err != nil {
@@ -6654,7 +6332,7 @@ return nil, err
 
 	if state := aws.StringValue(output.State); state == ec2.PrefixListStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6674,8 +6352,7 @@ func FindManagedPrefixListEntries(ctx context.Context, conn *ec2.EC2, input *ec2
 	var output []*ec2.PrefixListEntry
 
 	err := conn.GetManagedPrefixListEntriesPagesWithContext(ctx, input, 
-func(page *ec2.GetManagedPrefixListEntriesOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
@@ -6690,7 +6367,7 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPrefixListIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6704,8 +6381,7 @@ return nil, err
 
 
 func FindManagedPrefixListEntriesByID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.PrefixListEntry, error) {
-	input := &ec2.GetManagedPrefixListEntriesInput{
-PrefixListId: aws.String(id),
+funcixListId: aws.String(id),
 	}
 
 	return FindManagedPrefixListEntries(ctx, conn, input)
@@ -6724,8 +6400,7 @@ if aws.StringValue(v.Cidr) == cidr {
 	return v, nil
 }
 	}
-
-	return nil, &retry.NotFoundError{}
+funcurn nil, &retry.NotFoundError{}
 }
 
 
@@ -6743,8 +6418,7 @@ return nil, tfresource.NewEmptyResultError(input)
 	if count := len(output); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
-
-	return output[0], nil
+funcurn output[0], nil
 }
 
 
@@ -6766,9 +6440,8 @@ output = append(output, v)
 return !lastPage
 	})
 
-	if tfawserr.ErrCodeEquals(err, errCodeNatGatewayNotFound) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+funcrn nil, &retry.NotFoundError{
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6786,15 +6459,13 @@ func FindNATGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Nat
 NatGatewayIds: aws.StringSlice([]string{id}),
 	}
 
-	output, err := FindNATGateway(ctx, conn, input)
-
+func
 	if err != nil {
 return nil, err
 	}
-
-	if state := aws.StringValue(output.State); state == ec2.NatGatewayStateDeleted {
+funcstate := aws.StringValue(output.State); state == ec2.NatGatewayStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6821,8 +6492,7 @@ return nil, err
 if aws.StringValue(v.AllocationId) == allocationID {
 	return v, nil
 }
-	}
-
+func
 	return nil, &retry.NotFoundError{}
 }
 
@@ -6844,8 +6514,7 @@ if aws.StringValue(v.PrivateIp) == privateIP {
 }
 
 
-func FindPlacementGroupByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.PlacementGroup, error) {
-	input := &ec2.DescribePlacementGroupsInput{
+funcut := &ec2.DescribePlacementGroupsInput{
 GroupNames: aws.StringSlice([]string{name}),
 	}
 
@@ -6853,7 +6522,7 @@ GroupNames: aws.StringSlice([]string{name}),
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPlacementGroupUnknown) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -6864,17 +6533,15 @@ return nil, err
 
 	if output == nil || len(output.PlacementGroups) == 0 || output.PlacementGroups[0] == nil {
 return nil, tfresource.NewEmptyResultError(input)
-	}
-
+func
 	if count := len(output.PlacementGroups); count > 1 {
 return nil, tfresource.NewTooManyResultsError(count, input)
 	}
-
-	placementGroup := output.PlacementGroups[0]
+funccementGroup := output.PlacementGroups[0]
 
 	if state := aws.StringValue(placementGroup.State); state == ec2.PlacementGroupStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     state,
+	Message:
 	LastRequest: input,
 }
 	}
@@ -6899,8 +6566,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil
-}
-
+func
 
 func FindPrefixLists(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePrefixListsInput) ([]*ec2.PrefixList, error) {
 	var output []*ec2.PrefixList
@@ -6922,9 +6588,8 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidPrefixListIdNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
-}
+	LastError:,
+func
 	}
 
 	if err != nil {
@@ -6943,13 +6608,11 @@ Filters: BuildAttributeFilterList(map[string]string{
 	}
 
 	return FindPrefixList(ctx, conn, input)
-}
-
+func
 
 func FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx context.Context, conn *ec2.EC2, serviceID, vpcEndpointID string) (*ec2.VpcEndpointConnection, error) {
 	input := &ec2.DescribeVpcEndpointConnectionsInput{
-Filters: BuildAttributeFilterList(map[string]string{
-	"service-id": serviceID,
+funcrvice-id": serviceID,
 	// "InvalidFilter: The filter vpc-endpoint-id  is invalid"
 	// "vpc-endpoint-id ": vpcEndpointID,
 }),
@@ -6978,13 +6641,12 @@ return !lastPage
 return nil, err
 	}
 
-	if output == nil {
-return nil, tfresource.NewEmptyResultError(input)
+funcrn nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if vpcEndpointState := aws.StringValue(output.VpcEndpointState); vpcEndpointState == vpcEndpointStateDeleted {
 return nil, &retry.NotFoundError{
-	Message:     vpcEndpointState,
+	Message:tState,
 	LastRequest: input,
 }
 	}
@@ -7008,13 +6670,11 @@ output = append(output, v)
 	}
 }
 
-return !lastPage
-	})
+func
 
 	if tfawserr.ErrMessageContains(err, errCodeInvalidConversionTaskIdMalformed, "not found") {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 
@@ -7043,8 +6703,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 	return output[0], nil
 }
-
-
+func
 func FindImportSnapshotTaskByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ImportSnapshotTask, error) {
 	input := &ec2.DescribeImportSnapshotTasksInput{
 ImportTaskIds: aws.StringSlice([]string{id}),
@@ -7053,8 +6712,7 @@ ImportTaskIds: aws.StringSlice([]string{id}),
 	output, err := FindImportSnapshotTask(ctx, conn, input)
 
 	if err != nil {
-return nil, err
-	}
+func
 
 	// Eventual consistency check.
 	if aws.StringValue(output.ImportTaskId) != id {
@@ -7071,8 +6729,7 @@ func FindSnapshots(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapsh
 	var output []*ec2.Snapshot
 
 	err := conn.DescribeSnapshotsPagesWithContext(ctx, input, 
-func(page *ec2.DescribeSnapshotsOutput, lastPage bool) bool {
-if page == nil {
+funcage == nil {
 	return !lastPage
 }
 
@@ -7087,17 +6744,15 @@ return !lastPage
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSnapshotNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
-
-	if err != nil {
+funcerr != nil {
 return nil, err
 	}
 
-	return output, nil
-}
+func
 
 
 func FindSnapshot(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotsInput) (*ec2.Snapshot, error) {
@@ -7126,8 +6781,7 @@ SnapshotIds: aws.StringSlice([]string{id}),
 
 	output, err := FindSnapshot(ctx, conn, input)
 
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	// Eventual consistency check.
@@ -7146,7 +6800,7 @@ func FindSnapshotAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSnapshotNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -7156,8 +6810,7 @@ return nil, err
 	}
 
 	if output == nil {
-return nil, tfresource.NewEmptyResultError(input)
-	}
+func
 
 	return output, nil
 }
@@ -7174,8 +6827,7 @@ SnapshotId: aws.String(snapshotID),
 	if err != nil {
 return nil, err
 	}
-
-	for _, v := range output.CreateVolumePermissions {
+func _, v := range output.CreateVolumePermissions {
 if aws.StringValue(v.UserId) == accountID {
 	return v, nil
 }
@@ -7192,8 +6844,7 @@ func FindFindSnapshotTierStatuses(ctx context.Context, conn *ec2.EC2, input *ec2
 func(page *ec2.DescribeSnapshotTierStatusOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
-}
-
+func
 for _, v := range page.SnapshotTierStatuses {
 	if v != nil {
 output = append(output, v)
@@ -7232,8 +6883,7 @@ return nil, tfresource.NewTooManyResultsError(count, input)
 
 func FindSnapshotTierStatusBySnapshotID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SnapshotTierStatus, error) {
 	input := &ec2.DescribeSnapshotTierStatusInput{
-Filters: BuildAttributeFilterList(map[string]string{
-	"snapshot-id": id,
+funcapshot-id": id,
 }),
 	}
 
@@ -7252,13 +6902,11 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
-
-
+func
 func FindNetworkPerformanceMetricSubscriptions(ctx context.Context, conn *ec2_sdkv2.Client, input *ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsInput) ([]awstypes.Subscription, error) {
 	var output []awstypes.Subscription
 	paginator := ec2_sdkv2.NewDescribeAwsNetworkPerformanceMetricSubscriptionsPaginator(conn, input, 
-func(o *ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsPaginatorOptions) {
-o.Limit = 100
+funcmit = 100
 	})
 
 	for paginator.HasMorePages() {
@@ -7287,8 +6935,7 @@ return nil, err
 	for _, v := range output {
 if aws_sdkv2.ToString(v.Source) == source && aws_sdkv2.ToString(v.Destination) == destination && string(v.Metric) == metric && string(v.Statistic) == statistic {
 	return &v, nil
-}
-	}
+func
 
 	return nil, &retry.NotFoundError{}
 }
@@ -7299,12 +6946,11 @@ func FindInstanceStateByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 InstanceIds:aws.StringSlice([]string{id}),
 IncludeAllInstances: aws.Bool(true),
 	}
-
-	output, err := conn.DescribeInstanceStatusWithContext(ctx, input)
+funcput, err := conn.DescribeInstanceStatusWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidInstanceIDNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:,
 	LastRequest: input,
 }
 	}
@@ -7312,8 +6958,7 @@ return nil, &retry.NotFoundError{
 	if err != nil {
 return nil, err
 	}
-
-	if output == nil || len(output.InstanceStatuses) == 0 {
+funcoutput == nil || len(output.InstanceStatuses) == 0 {
 return nil, tfresource.NewEmptyResultError(input)
 	}
 
@@ -7348,13 +6993,11 @@ return nil, err
 func FindInstanceConnectEndpoints(ctx context.Context, conn *ec2_sdkv2.Client, input *ec2_sdkv2.DescribeInstanceConnectEndpointsInput) ([]awstypes.Ec2InstanceConnectEndpoint, error) {
 	var output []awstypes.Ec2InstanceConnectEndpoint
 	paginator := ec2_sdkv2.NewDescribeInstanceConnectEndpointsPaginator(conn, input)
-
-	for paginator.HasMorePages() {
+func paginator.HasMorePages() {
 page, err := paginator.NextPage(ctx)
 
 if tfawserr_sdkv2.ErrCodeEquals(err, errCodeInvalidInstanceConnectEndpointIdNotFound) {
-	return nil, &retry.NotFoundError{
-LastError:   err,
+funcError:,
 LastRequest: input,
 	}
 }
@@ -7382,9 +7025,8 @@ return nil, err
 
 	if state := output.State; state == awstypes.Ec2InstanceConnectEndpointStateDeleteComplete {
 return nil, &retry.NotFoundError{
-	Message:     string(state),
-	LastRequest: input,
-}
+	Message:te),
+func
 	}
 
 	// Eventual consistency check.
@@ -7396,3 +7038,4 @@ return nil, &retry.NotFoundError{
 
 	return output, nil
 }
+funcfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfunc

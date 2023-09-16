@@ -14,23 +14,20 @@ import (
 )
 
 
-func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-	resource.TestCheckResourceAttr(dataSourceName, "local_gateway_virtual_interface_ids.#", "2"),
-),
+func
 	},
 },
 	})
@@ -40,23 +37,20 @@ func(
 func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_groups.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_filter(),
+funcig: testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_filter(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "local_gateway_virtual_interface_ids.#", "2"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -66,7 +60,6 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupsDataSource_tags(t *test
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,16 +67,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_tags(rName),
 Check: resource.ComposeTestCheck
-func(
-	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+funcource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "local_gateway_virtual_interface_ids.#", "2"),
 ),
 	},
 },
 	})
 }
-
-
+func
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_basic() string {
 	return `
 data "aws_ec2_local_gateway_virtual_interface_groups" "test" {}
@@ -93,16 +84,14 @@ data "aws_ec2_local_gateway_virtual_interface_groups" "test" {}
 
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_filter() string {
 	return `
-data "aws_ec2_local_gateways" "test" {}
-
+func
 data "aws_ec2_local_gateway_virtual_interface_groups" "test" {
   filter {
-    name   = "local-gateway-id"
-    values = [tolist(data.aws_ec2_local_gateways.test.ids)[0]]
+me= "al-gateway-id"
+lues = [tolist(data.aws_ec2_local_gateways.test.ids)[0]]
   }
 }
-`
-}
+func
 
 
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupsDataSourceConfig_tags(rName string) string {
@@ -111,20 +100,19 @@ data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_virtual_interface_groups" "source" {
   filter {
-    name   = "local-gateway-id"
-    values = [tolist(data.aws_ec2_local_gateways.test.ids)[0]]
+me= "al-gateway-id"
+lues = [tolist(data.aws_ec2_local_gateways.test.ids)[0]]
   }
 }
 
-resource "aws_ec2_tag" "test" {
-  key         = "TerraformAccTest-aws_ec2_local_gateway_virtual_interface_groups"
+funcyraformAccTest-aws_ec2_local_gateway_virtual_interface_groups"
   resource_id = tolist(data.aws_ec2_local_gateway_virtual_interface_groups.source.ids)[0]
-  value       = %[1]q
+  value
 }
 
 data "aws_ec2_local_gateway_virtual_interface_groups" "test" {
   tags = {
-    (aws_ec2_tag.test.key) = aws_ec2_tag.test.value
+ws_ec2_tag.test.key) = aws_ec2_tag.test.value
   }
 }
 `, rName)

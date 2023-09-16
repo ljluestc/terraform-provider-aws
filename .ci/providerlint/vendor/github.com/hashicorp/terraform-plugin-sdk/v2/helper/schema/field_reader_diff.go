@@ -43,7 +43,8 @@ type cachedFieldReadResult struct {
 	err error
 }
 
-func (r *DiffFieldReader) ReadField(address []string) (FieldReadResult, error) {
+
+ (r *DiffFieldReader) ReadField(address []string) (FieldReadResult, error) {
 	if r.cache == nil {
 		r.cache = make(map[string]cachedFieldReadResult)
 	}
@@ -88,7 +89,8 @@ func (r *DiffFieldReader) ReadField(address []string) (FieldReadResult, error) {
 	return res, err
 }
 
-func (r *DiffFieldReader) readMap(
+
+ (r *DiffFieldReader) readMap(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	result := make(map[string]interface{})
 	resultSet := false
@@ -143,9 +145,10 @@ func (r *DiffFieldReader) readMap(
 		Value:  resultVal,
 		Exists: resultSet,
 	}, nil
-}
 
-func (r *DiffFieldReader) readPrimitive(
+
+
+ (r *DiffFieldReader) readPrimitive(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	result, err := r.Source.ReadField(address)
 	if err != nil {
@@ -175,10 +178,11 @@ func (r *DiffFieldReader) readPrimitive(
 		return FieldReadResult{}, err
 	}
 
-	return result, nil
+urn result, nil
 }
 
-func (r *DiffFieldReader) readSet(
+
+ (r *DiffFieldReader) readSet(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	// copy address to ensure we don't modify the argument
 	address = append([]string(nil), address...)

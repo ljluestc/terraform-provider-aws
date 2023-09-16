@@ -13,10 +13,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// MapKeyLenBetween returns a SchemaValidateDiagFunc which tests if the provided value
-// is of type map and the length of all keys are between min and max (inclusive)
-func MapKeyLenBetween(min, max int) schema.SchemaValidateDiagFunc {
-	return func(v interface{}, path cty.Path) diag.Diagnostics {
+// MapKeyLenBetween returns a SchemaValidateDiag
+ which tests if the provided value
+s of type map and the length of all keys are between min max (inclusive)
+
+ MapKeyLenBetween(min, max int) schema.SchemaValidateDiag
+ {
+	return 
+(v interface{}, path cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 
 		for _, key := range sortedKeys(v.(map[string]interface{})) {
@@ -33,12 +37,16 @@ func MapKeyLenBetween(min, max int) schema.SchemaValidateDiagFunc {
 
 		return diags
 	}
-}
 
-// MapValueLenBetween returns a SchemaValidateDiagFunc which tests if the provided value
+
+// MapValueLenBetween returns a SchemaValidateDiag
+ which tests if the provided value
 // is of type map and the length of all values are between min and max (inclusive)
-func MapValueLenBetween(min, max int) schema.SchemaValidateDiagFunc {
-	return func(v interface{}, path cty.Path) diag.Diagnostics {
+
+ MapValueLenBetween(min, max int) schema.SchemaValidateDiag
+ {
+	return 
+(v interface{}, path cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 
 		m := v.(map[string]interface{})
@@ -67,15 +75,19 @@ func MapValueLenBetween(min, max int) schema.SchemaValidateDiagFunc {
 			}
 		}
 
-		return diags
+		returngs
 	}
 }
 
-// MapKeyMatch returns a SchemaValidateDiagFunc which tests if the provided value
+// MapKeyMatch returns a SchemaValidateDiag
+ which tests if the provided value
 // is of type map and all keys match a given regexp. Optionally an error message
 // can be provided to return something friendlier than "expected to match some globby regexp".
-func MapKeyMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFunc {
-	return func(v interface{}, path cty.Path) diag.Diagnostics {
+
+ MapKeyMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiag
+ {
+	return 
+(v interface{}, path cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 
 		for _, key := range sortedKeys(v.(map[string]interface{})) {
@@ -91,7 +103,7 @@ func MapKeyMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFunc
 					Severity:      diag.Error,
 					Summary:       "Invalid map key",
 					Detail:        detail,
-					AttributePath: append(path, cty.IndexStep{Key: cty.StringVal(key)}),
+	AttributePath: append(path, cty.IndexStep{Key: cty.StringVal(key)}),
 				})
 			}
 		}
@@ -100,11 +112,15 @@ func MapKeyMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFunc
 	}
 }
 
-// MapValueMatch returns a SchemaValidateDiagFunc which tests if the provided value
+// MapValueMatch returns a SchemaValidateDiag
+ which tests if the provided value
 // is of type map and all values match a given regexp. Optionally an error message
 // can be provided to return something friendlier than "expected to match some globby regexp".
-func MapValueMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFunc {
-	return func(v interface{}, path cty.Path) diag.Diagnostics {
+
+ MapValueMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiag
+ {
+	return 
+(v interface{}, path cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 
 		m := v.(map[string]interface{})
@@ -127,7 +143,7 @@ func MapValueMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFu
 				if message == "" {
 					detail = fmt.Sprintf("Map value expected to match regular expression %q: %s => %v", r, key, val)
 				} else {
-					detail = fmt.Sprintf("%s: %s => %v", message, key, val)
+	detail = fmt.Sprintf("%s: %s => %v", message, key, val)
 				}
 
 				diags = append(diags, diag.Diagnostic{
@@ -143,7 +159,8 @@ func MapValueMatch(r *regexp.Regexp, message string) schema.SchemaValidateDiagFu
 	}
 }
 
-func sortedKeys(m map[string]interface{}) []string {
+
+ sortedKeys(m map[string]interface{}) []string {
 	keys := make([]string, len(m))
 
 	i := 0

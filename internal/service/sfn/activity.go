@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_sfn_activity", name="Activity")
 // @Tags(identifierAttribute="id")
-func ResourceActivity() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceActivityCreate,
 		ReadWithoutTimeout:   resourceActivityRead,
 		UpdateWithoutTimeout: resourceActivityUpdate,
@@ -55,8 +54,7 @@ func ResourceActivity() *schema.Resource {
 }
 
 func resourceActivityCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SFNConn(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &sfn.CreateActivityInput{
 		Name: aws.String(name),
@@ -76,8 +74,7 @@ func resourceActivityCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 func resourceActivityRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).SFNConn(ctx)
-
-	output, err := FindActivityByARN(ctx, conn, d.Id())
+funcput, err := FindActivityByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Step Functions Activity (%s) not found, removing from state", d.Id())
@@ -98,14 +95,12 @@ func resourceActivityRead(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceActivityUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceActivityRead(ctx, d, meta)
-}
-
+func
 func resourceActivityDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).SFNConn(ctx)
 
 	log.Printf("[DEBUG] Deleting Step Functions Activity: %s", d.Id())
-	_, err := conn.DeleteActivityWithContext(ctx, &sfn.DeleteActivityInput{
-		ActivityArn: aws.String(d.Id()),
+functivityArn: aws.String(d.Id()),
 	})
 
 	if err != nil {
@@ -120,8 +115,7 @@ func FindActivityByARN(ctx context.Context, conn *sfn.SFN, arn string) (*sfn.Des
 		ActivityArn: aws.String(arn),
 	}
 
-	output, err := conn.DescribeActivityWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, sfn.ErrCodeActivityDoesNotExist) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,

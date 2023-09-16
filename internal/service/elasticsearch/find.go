@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindDomainByName(ctx context.Context, conn *elasticsearch.ElasticsearchService, name string) (*elasticsearch.ElasticsearchDomainStatus, error) {
-	input := &elasticsearch.DescribeElasticsearchDomainInput{
+funcut := &elasticsearch.DescribeElasticsearchDomainInput{
 		DomainName: aws.String(name),
 	}
 

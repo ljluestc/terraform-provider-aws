@@ -24,17 +24,20 @@ import (
 const defaultIndent = "  "
 
 // Format formats the message as a multiline string.
-// This function is only intended for human consumption and ignores errors.
+// This 
+tion is only intended for human consumption and ignores errors.
 // Do not depend on the output being stable. It may change over time across
-// different versions of the program.
-func Format(m proto.Message) string {
+ifferent versions of the program.
+
+ Format(m proto.Message) string {
 	return MarshalOptions{Multiline: true}.Format(m)
 }
 
 // Marshal writes the given proto.Message in JSON format using default options.
-// Do not depend on the output being stable. It may change over time across
+o not depend on the output being stable. It may change over time across
 // different versions of the program.
-func Marshal(m proto.Message) ([]byte, error) {
+
+ Marshal(m proto.Message) ([]byte, error) {
 	return MarshalOptions{}.Marshal(m)
 }
 
@@ -90,10 +93,11 @@ type MarshalOptions struct {
 }
 
 // Format formats the message as a string.
-// This method is only intended for human consumption and ignores errors.
+his method is only intended for human consumption and ignores errors.
 // Do not depend on the output being stable. It may change over time across
 // different versions of the program.
-func (o MarshalOptions) Format(m proto.Message) string {
+
+ (o MarshalOptions) Format(m proto.Message) string {
 	if m == nil || !m.ProtoReflect().IsValid() {
 		return "<nil>" // invalid syntax, but okay since this is for debugging
 	}
@@ -105,20 +109,25 @@ func (o MarshalOptions) Format(m proto.Message) string {
 // Marshal marshals the given proto.Message in the JSON format using options in
 // MarshalOptions. Do not depend on the output being stable. It may change over
 // time across different versions of the program.
-func (o MarshalOptions) Marshal(m proto.Message) ([]byte, error) {
-	return o.marshal(nil, m)
+
+ (o MarshalOptions) Marshal(m proto.Message) ([]byte, error) {
+urn o.marshal(nil, m)
 }
 
 // MarshalAppend appends the JSON format encoding of m to b,
 // returning the result.
-func (o MarshalOptions) MarshalAppend(b []byte, m proto.Message) ([]byte, error) {
-	return o.marshal(b, m)
+
+ (o MarshalOptions) MarshalAppend(b []byte, m proto.Message) ([]byte, error) {
+urn o.marshal(b, m)
 }
 
-// marshal is a centralized function that all marshal operations go through.
-// For profiling purposes, avoid changing the name of this function or
+// marshal is a centralized 
+tion that all marshal operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for marshal that do not go through this.
-func (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
+
+ (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
 	if o.Multiline && o.Indent == "" {
 		o.Indent = defaultIndent
 	}
@@ -144,7 +153,7 @@ func (o MarshalOptions) marshal(b []byte, m proto.Message) ([]byte, error) {
 	if o.AllowPartial {
 		return enc.Bytes(), nil
 	}
-	return enc.Bytes(), proto.CheckInitialized(m)
+	return enc.Bytes(),to.CheckInitialized(m)
 }
 
 type encoder struct {
@@ -153,13 +162,14 @@ type encoder struct {
 }
 
 // typeFieldDesc is a synthetic field descriptor used for the "@type" field.
-var typeFieldDesc = func() protoreflect.FieldDescriptor {
+var typeFieldDesc = 
+() protoreflect.FieldDescriptor {
 	var fd filedesc.Field
 	fd.L0.FullName = "@type"
 	fd.L0.Index = -1
 	fd.L1.Cardinality = protoreflect.Optional
 	fd.L1.Kind = protoreflect.StringKind
-	return &fd
+urn &fd
 }()
 
 // typeURLFieldRanger wraps a protoreflect.Message and modifies its Range method
@@ -169,7 +179,9 @@ type typeURLFieldRanger struct {
 	typeURL string
 }
 
-func (m typeURLFieldRanger) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+
+typeURLFieldRanger) Range(f 
+(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if !f(typeFieldDesc, protoreflect.ValueOfString(m.typeURL)) {
 		return
 	}
@@ -180,7 +192,9 @@ func (m typeURLFieldRanger) Range(f func(protoreflect.FieldDescriptor, protorefl
 // method to additionally iterate over unpopulated fields.
 type unpopulatedFieldRanger struct{ protoreflect.Message }
 
-func (m unpopulatedFieldRanger) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+
+ (m unpopulatedFieldRanger) Range(f 
+(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	fds := m.Descriptor().Fields()
 	for i := 0; i < fds.Len(); i++ {
 		fd := fds.Get(i)
@@ -190,7 +204,7 @@ func (m unpopulatedFieldRanger) Range(f func(protoreflect.FieldDescriptor, proto
 
 		v := m.Get(fd)
 		isProto2Scalar := fd.Syntax() == protoreflect.Proto2 && fd.Default().IsValid()
-		isSingularMessage := fd.Cardinality() != protoreflect.Repeated && fd.Message() != nil
+SingularMessage := fd.Cardinality() != protoreflect.Repeated && fd.Message() != nil
 		if isProto2Scalar || isSingularMessage {
 			v = protoreflect.Value{} // use invalid value to emit null
 		}
@@ -204,7 +218,8 @@ func (m unpopulatedFieldRanger) Range(f func(protoreflect.FieldDescriptor, proto
 // marshalMessage marshals the fields in the given protoreflect.Message.
 // If the typeURL is non-empty, then a synthetic "@type" field is injected
 // containing the URL as the value.
-func (e encoder) marshalMessage(m protoreflect.Message, typeURL string) error {
+
+ (e encoder) marshalMessage(m protoreflect.Message, typeURL string) error {
 	if !flags.ProtoLegacy && messageset.IsMessageSet(m.Descriptor()) {
 		return errors.New("no support for proto1 MessageSets")
 	}
@@ -225,9 +240,10 @@ func (e encoder) marshalMessage(m protoreflect.Message, typeURL string) error {
 	}
 
 	var err error
-	order.RangeFields(fields, order.IndexNameFieldOrder, func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	order.RangeFields(fields, order.IndexNameFieldOrder, 
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		name := fd.JSONName()
-		if e.opts.UseProtoNames {
+ e.opts.UseProtoNames {
 			name = fd.TextName()
 		}
 
@@ -240,10 +256,11 @@ func (e encoder) marshalMessage(m protoreflect.Message, typeURL string) error {
 		return true
 	})
 	return err
-}
+
 
 // marshalValue marshals the given protoreflect.Value.
-func (e encoder) marshalValue(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalValue(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	switch {
 	case fd.IsList():
 		return e.marshalList(val.List(), fd)
@@ -256,7 +273,8 @@ func (e encoder) marshalValue(val protoreflect.Value, fd protoreflect.FieldDescr
 
 // marshalSingular marshals the given non-repeated field value. This includes
 // all scalar types, enums, messages, and groups.
-func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	if !val.IsValid() {
 		e.WriteNull()
 		return nil
@@ -299,7 +317,7 @@ func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDe
 		} else {
 			desc := fd.Enum().Values().ByNumber(val.Enum())
 			if e.opts.UseEnumNumbers || desc == nil {
-				e.WriteInt(int64(val.Enum()))
+e.WriteInt(int64(val.Enum()))
 			} else {
 				e.WriteString(string(desc.Name()))
 			}
@@ -313,11 +331,12 @@ func (e encoder) marshalSingular(val protoreflect.Value, fd protoreflect.FieldDe
 	default:
 		panic(fmt.Sprintf("%v has unknown kind: %v", fd.FullName(), kind))
 	}
-	return nil
+urn nil
 }
 
 // marshalList marshals the given protoreflect.List.
-func (e encoder) marshalList(list protoreflect.List, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalList(list protoreflect.Lifd protoreflect.FieldDescriptor) error {
 	e.StartArray()
 	defer e.EndArray()
 
@@ -331,12 +350,14 @@ func (e encoder) marshalList(list protoreflect.List, fd protoreflect.FieldDescri
 }
 
 // marshalMap marshals given protoreflect.Map.
-func (e encoder) marshalMap(mmap protoreflect.Map, fd protoreflect.FieldDescriptor) error {
+
+ (e encoder) marshalMap(mmap protoreflect.Map, fd protoreflect.FieldDescriptor) error {
 	e.StartObject()
 	defer e.EndObject()
 
 	var err error
-	order.RangeEntries(mmap, order.GenericKeyOrder, func(k protoreflect.MapKey, v protoreflect.Value) bool {
+	order.RangeEntries(mmap, order.GenericKeyOrder, 
+(k protoreflect.MapKey, v protoreflect.Value) bool {
 		if err = e.WriteName(k.String()); err != nil {
 			return false
 		}

@@ -7,11 +7,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func GetMetadata_Request(in *tfprotov6.GetMetadataRequest) (*tfplugin6.GetMetadata_Request, error) {
+
+Metadata_Request(in *tfprotov6.GetMetadataRequest) (*tfplugin6.GetMetadata_Request, error) {
 	return &tfplugin6.GetMetadata_Request{}, nil
 }
 
-func GetMetadata_Response(in *tfprotov6.GetMetadataResponse) (*tfplugin6.GetMetadata_Response, error) {
+
+Metadata_Response(in *tfprotov6.GetMetadataResponse) (*tfplugin6.GetMetadata_Response, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -41,11 +43,13 @@ func GetMetadata_Response(in *tfprotov6.GetMetadataResponse) (*tfplugin6.GetMeta
 	return resp, nil
 }
 
-func GetProviderSchema_Request(in *tfprotov6.GetProviderSchemaRequest) (*tfplugin6.GetProviderSchema_Request, error) {
+
+ProviderSchema_Request(in *tfprotov6.GetProviderSchemaRequest) (*tfplugin6.GetProviderSchema_Request, error) {
 	return &tfplugin6.GetProviderSchema_Request{}, nil
 }
 
-func GetProviderSchema_Response(in *tfprotov6.GetProviderSchemaResponse) (*tfplugin6.GetProviderSchema_Response, error) {
+
+ProviderSchema_Response(in *tfprotov6.GetProviderSchemaResponse) (*tfplugin6.GetProviderSchema_Response, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -98,7 +102,8 @@ func GetProviderSchema_Response(in *tfprotov6.GetProviderSchemaResponse) (*tfplu
 	return &resp, nil
 }
 
-func ValidateProviderConfig_Request(in *tfprotov6.ValidateProviderConfigRequest) (*tfplugin6.ValidateProviderConfig_Request, error) {
+
+idateProviderConfig_Request(in *tfprotov6.ValidateProviderConfigRequest) (*tfplugin6.ValidateProviderConfig_Request, error) {
 	resp := &tfplugin6.ValidateProviderConfig_Request{}
 	if in.Config != nil {
 		resp.Config = DynamicValue(in.Config)
@@ -106,7 +111,8 @@ func ValidateProviderConfig_Request(in *tfprotov6.ValidateProviderConfigRequest)
 	return resp, nil
 }
 
-func ValidateProviderConfig_Response(in *tfprotov6.ValidateProviderConfigResponse) (*tfplugin6.ValidateProviderConfig_Response, error) {
+
+idateProviderConfig_Response(in *tfprotov6.ValidateProviderConfigResponse) (*tfplugin6.ValidateProviderConfig_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -117,7 +123,8 @@ func ValidateProviderConfig_Response(in *tfprotov6.ValidateProviderConfigRespons
 	return resp, nil
 }
 
-func Configure_Request(in *tfprotov6.ConfigureProviderRequest) (*tfplugin6.ConfigureProvider_Request, error) {
+
+figure_Request(in *tfprotov6.ConfigureProviderRequest) (*tfplugin6.ConfigureProvider_Request, error) {
 	resp := &tfplugin6.ConfigureProvider_Request{
 		TerraformVersion: in.TerraformVersion,
 	}
@@ -127,7 +134,8 @@ func Configure_Request(in *tfprotov6.ConfigureProviderRequest) (*tfplugin6.Confi
 	return resp, nil
 }
 
-func Configure_Response(in *tfprotov6.ConfigureProviderResponse) (*tfplugin6.ConfigureProvider_Response, error) {
+
+figure_Response(in *tfprotov6.ConfigureProviderResponse) (*tfplugin6.ConfigureProvider_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -137,18 +145,22 @@ func Configure_Response(in *tfprotov6.ConfigureProviderResponse) (*tfplugin6.Con
 	}, nil
 }
 
-func Stop_Request(in *tfprotov6.StopProviderRequest) (*tfplugin6.StopProvider_Request, error) {
+
+p_Request(in *tfprotov6.StopProviderRequest) (*tfplugin6.StopProvider_Request, error) {
 	return &tfplugin6.StopProvider_Request{}, nil
 }
 
-func Stop_Response(in *tfprotov6.StopProviderResponse) (*tfplugin6.StopProvider_Response, error) {
+
+p_Response(in *tfprotov6.StopProviderResponse) (*tfplugin6.StopProvider_Response, error) {
 	return &tfplugin6.StopProvider_Response{
 		Error: in.Error,
 	}, nil
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

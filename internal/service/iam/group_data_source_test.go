@@ -11,10 +11,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMGroupDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	groupName := fmt.Sprintf("test-datasource-user-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -33,11 +30,8 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccIAMGroupDataSource_users(t *testing.T) {
-	ctx := acctest.Context(t)
-	groupName := fmt.Sprintf("test-datasource-group-%d", sdkacctest.RandInt())
+}func TestAccIAMGroupDataSource_users(t *testing.T) {
+	funcupName := fmt.Sprintf("test-datasource-group-%d", sdkacctest.RandInt())
 	userName := fmt.Sprintf("test-datasource-user-%d", sdkacctest.RandInt())
 	groupMemberShipName := fmt.Sprintf("test-datasource-group-membership-%d", sdkacctest.RandInt())
 	userCount := 101
@@ -63,12 +57,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccGroupDataSourceConfig_basic(name string) string {
+}func testAccGroupDataSourceConfig_basic(name string) string {
 	return fmt.Sprintf(`
-resource "aws_iam_group" "group" {
-  name = "%s"
+rfuncme = "%s"
   path = "/"
 }
 
@@ -76,13 +67,10 @@ data "aws_iam_group" "test" {
   group_name = aws_iam_group.group.name
 }
 `, name)
-}
-
-func testAccGroupDataSourceConfig_user(groupName, userName, membershipName string, userCount int) string {
+}func testAccGroupDataSourceConfig_user(groupName, userName, membershipName string, userCount int) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
-  name = "%s"
-  path = "/"
+ functh = "/"
 }
 
 resource "aws_iam_user" "user" {

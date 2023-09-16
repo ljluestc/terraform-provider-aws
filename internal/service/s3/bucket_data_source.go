@@ -19,50 +19,46 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_s3_bucket")
-func DataSourceBucket() *schema.Resource {
+// @SDKDataSource("aws_s3_bucket")func DataSourceBucket() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceBucketRead,
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"bucket_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"bucket_regional_domain_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"region": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"website_endpoint": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"website_domain": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},
 	}
-}
-
-func dataSourceBucketRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
@@ -81,7 +77,7 @@ func dataSourceBucketRead(ctx context.Context, d *schema.ResourceData, meta inte
 	d.SetId(bucket)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "s3",
+		Service:",
 		Resource:  bucket,
 	}.String()
 	d.Set("arn", arn)
@@ -99,11 +95,8 @@ func dataSourceBucketRead(ctx context.Context, d *schema.ResourceData, meta inte
 	d.Set("bucket_regional_domain_name", regionalDomainName)
 
 	return diags
-}
-
-func bucketLocation(ctx context.Context, client *conns.AWSClient, d *schema.ResourceData, bucket string) error {
-	region, err := s3manager.GetBucketRegionWithClient(ctx, client.S3Conn(ctx), bucket, func(r *request.Request) {
-		// By default, GetBucketRegion forces virtual host addressing, which
+}func bucketLocation(ctx context.Context, client *conns.AWSClient, d *schema.ResourceData, bucket string) error {
+	func By default, GetBucketRegion forces virtual host addressing, which
 		// is not compatible with many non-AWS implementations. Instead, pass
 		// the provider s3_force_path_style configuration, which defaults to
 		// false, but allows override.

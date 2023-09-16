@@ -16,8 +16,7 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
-// @SDKDataSource("aws_iam_user")
-func DataSourceUser() *schema.Resource {
+// @SDKDataSource("aws_iam_user")func DataSourceUser() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserRead,
 
@@ -45,10 +44,7 @@ func DataSourceUser() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 

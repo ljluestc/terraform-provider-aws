@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayMethodResponse_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.MethodResponse
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method_response.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodResponseDestroy(ctx),
+		CheckDestroy:testAccCheckMethodResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodResponseConfig_basic(rName),
@@ -43,8 +42,8 @@ func TestAccAPIGatewayMethodResponse_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodResponseImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -65,16 +64,15 @@ func TestAccAPIGatewayMethodResponse_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayMethodResponse_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.MethodResponse
+func conf apigateway.MethodResponse
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method_response.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodResponseDestroy(ctx),
+		CheckDestroy:testAccCheckMethodResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodResponseConfig_basic(rName),
@@ -90,10 +88,8 @@ func TestAccAPIGatewayMethodResponse_disappears(t *testing.T) {
 
 func testAccCheckMethodResponseExists(ctx context.Context, n string, v *apigateway.MethodResponse) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+func !ok {
+			returfunc
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Method Response ID is set")
@@ -117,10 +113,8 @@ func testAccCheckMethodResponseDestroy(ctx context.Context) resource.TestCheckFu
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_method_response" {
-				continue
-			}
+funcf rs.Type != "aws_api_gateway_method_response" {
+				contfunc
 
 			_, err := tfapigateway.FindMethodResponseByFourPartKey(ctx, conn, rs.Primary.Attributes["http_method"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["status_code"])
 
@@ -145,10 +139,8 @@ func testAccMethodResponseImportStateIdFunc(resourceName string) resource.Import
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
-
-		return fmt.Sprintf("%s/%s/%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["http_method"], rs.Primary.Attributes["status_code"]), nil
-	}
-}
+functurn fmt.Sprintf("%s/%s/%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["http_method"], rs.Primary.Attributes["status_code"]), nil
+	}func
 
 func testAccMethodResponseConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -158,18 +150,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+functh_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -180,11 +171,11 @@ resource "aws_api_gateway_method_response" "test" {
   status_code = "400"
 
   response_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   response_parameters = {
-    "method.response.header.Content-Type" = true
+ethod.response.header.Content-Type" = true
   }
 }
 `, rName)
@@ -198,18 +189,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
-}
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+func
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -220,11 +210,11 @@ resource "aws_api_gateway_method_response" "test" {
   status_code = "400"
 
   response_models = {
-    "application/json" = "Empty"
+pplication/json" = "Empty"
   }
 
   response_parameters = {
-    "method.response.header.Host" = false
+ethod.response.header.Host" = false
   }
 }
 `, rName)

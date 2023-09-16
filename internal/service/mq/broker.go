@@ -109,7 +109,7 @@ func ResourceBroker() *schema.Resource {
 				ValidateFunc: validation.StringInSlice(mq.DeploymentMode_Values(), true),
 			},
 			"encryption_options": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				ForceNew:         true,
 				MaxItems:         1,
@@ -224,14 +224,14 @@ func ResourceBroker() *schema.Resource {
 				},
 			},
 			"logs": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"audit": {
-							Type:             nullable.TypeNullableBool,
+							Type:nullable.TypeNullableBool,
 							Optional:         true,
 							ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 							DiffSuppressFunc: nullable.DiffSuppressNullableBoolFalseAsNull,
@@ -368,14 +368,14 @@ func resourceBrokerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	engineType := d.Get("engine_type").(string)
 	input := &mq.CreateBrokerRequest{
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-		BrokerName:              aws.String(name),
+		BrokerName: aws.String(name),
 		CreatorRequestId:        aws.String(id.PrefixedUniqueId(fmt.Sprintf("tf-%s", name))),
-		EngineType:              aws.String(engineType),
+		EngineType: aws.String(engineType),
 		EngineVersion:           aws.String(d.Get("engine_version").(string)),
 		HostInstanceType:        aws.String(d.Get("host_instance_type").(string)),
 		PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
-		Tags:                    getTagsIn(ctx),
-		Users:                   expandUsers(d.Get("user").(*schema.Set).List()),
+		Tags:       getTagsIn(ctx),
+		Users:      expandUsers(d.Get("user").(*schema.Set).List()),
 	}
 
 	if v, ok := d.GetOk("authentication_strategy"); ok {
@@ -557,7 +557,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("auto_minor_version_upgrade") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:                aws.String(d.Id()),
+			BrokerId:   aws.String(d.Id()),
 			AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		})
 
@@ -570,7 +570,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("maintenance_window_start_time") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:                   aws.String(d.Id()),
+			BrokerId:      aws.String(d.Id()),
 			MaintenanceWindowStartTime: expandWeeklyStartTime(d.Get("maintenance_window_start_time").([]interface{})),
 		})
 

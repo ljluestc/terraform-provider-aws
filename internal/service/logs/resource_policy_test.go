@@ -25,10 +25,10 @@ func TestAccLogsResourcePolicy_basic(t *testing.T) {
 	var resourcePolicy cloudwatchlogs.ResourcePolicy
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic1(rName),
@@ -62,10 +62,10 @@ func TestAccLogsResourcePolicy_ignoreEquivalent(t *testing.T) {
 	var resourcePolicy cloudwatchlogs.ResourcePolicy
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_order(rName),

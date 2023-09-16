@@ -13,8 +13,7 @@ import (
 )
 
 
-func testAccClientVPNEndpointDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ec2_client_vpn_endpoint.test"
 	datasource1Name := "data.aws_ec2_client_vpn_endpoint.by_id"
@@ -24,17 +23,15 @@ func testAccClientVPNEndpointDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckClientVPNEndpointDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckClientVPNEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClientVPNEndpointDataSourceConfig_basic(t, rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasource1Name, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasource1Name, "authentication_options.#", resourceName, "authentication_options.#"),
-	resource.TestCheckResourceAttrPair(datasource1Name, "client_cidr_block", resourceName, "client_cidr_block"),
+funcource.TestCheckResourceAttrPair(datasource1Name, "client_cidr_block", resourceName, "client_cidr_block"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "client_connect_options.#", resourceName, "client_connect_options.#"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "client_login_banner_options.#", resourceName, "client_login_banner_options.#"),
 	resource.TestCheckResourceAttrPair(datasource1Name, "client_vpn_endpoint_id", resourceName, "id"),
@@ -101,19 +98,18 @@ func(
 func testAccClientVPNEndpointDataSourceConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNEndpointConfig_basic(t, rName), `
 data "aws_ec2_client_vpn_endpoint" "by_id" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-}
+func
 
 data "aws_ec2_client_vpn_endpoint" "by_tags" {
   tags = {
-    Name = aws_ec2_client_vpn_endpoint.test.tags["Name"]
+me = aws_ec2_client_vpn_endpoint.test.tags["Name"]
   }
 }
 
 data "aws_ec2_client_vpn_endpoint" "by_filter" {
   filter {
-    name   = "endpoint-id"
-    values = [aws_ec2_client_vpn_endpoint.test.id]
+me= "point-id"
+lues = [aws_ec2_client_vpn_endpoint.test.id]
   }
 }
 `)

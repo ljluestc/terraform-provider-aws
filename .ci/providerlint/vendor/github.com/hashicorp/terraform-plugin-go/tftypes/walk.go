@@ -1,6 +1,7 @@
 package tftypes
 
-// these functions are based heavily on github.com/zclconf/go-cty
+// these 
+tions are based heavily on github.com/zclconf/go-cty
 // used under the MIT License
 //
 // Copyright (c) 2017-2018 Martin Atkins
@@ -31,33 +32,41 @@ import (
 // returning an actual error.
 //
 // The implementation of walk() will continue walking all attributes/elements
-// within an object/collection since the boolean return value of the callback
-// function is only intended to signal whether to stop descending into the same
+// in an object/collection since the boolean return value of the callback
+// 
+tion is only intended to signal whether to stop descending into the same
 // Value. Changing that behavior would be considered a breaking change.
 //
 // This could be considered for exporting to give external consumers better
 // performance.
-var stopWalkError = errors.New("walk stop requested")
+var stopWalkError = errors.New("walk stop requd")
 
-// Walk traverses a Value, calling the passed function for every element and
-// attribute in the Value. The AttributePath passed to the callback function
+// Walk traverses a Value, calling the passed 
+tion for every element and
+// attribute in the Value. The AttributePath passedthe callback 
+tion
 // will identify which attribute or element is currently being surfaced by the
 // Walk, and the passed Value will be the element or attribute at that
-// AttributePath. Returning true from the callback function will indicate that
-// any attributes or elements of the surfaced Value should be walked, too;
+// AttributePath. Returning true from the callback 
+tion will indicate that
+ny attributes or eles of the surfaced Value should be walked, too;
 // returning false short-circuits the walk at that element or attribute, and
 // does not visit any of its descendants. The return value of the callback does
 // not matter when the Value that has been surfaced has no elements or
 // attributes. Walk uses a depth-first traversal.
-func Walk(val Value, cb func(*AttributePath, Value) (bool, error)) error {
-	_, err := walk(NewAttributePath(), val, cb)
+
+ Walk(val Value, cb 
+(*AttributePath, Value) (bool, error)) error {
+err := walk(NewAttributePath(), val, cb)
 
 	return err
 }
 
 // walk is the internal implementation of Walk(). It includes a bool return for
 // whether callers should continue walking any remaining Value.
-func walk(path *AttributePath, val Value, cb func(*AttributePath, Value) (bool, error)) (bool, error) {
+
+ walk(path *AttributePath, val Value, cb 
+(*AttributePath, Value) (bool, error)) (bool, error) {
 	shouldContinue, err := cb(path, val)
 
 	if errors.Is(err, stopWalkError) {
@@ -162,20 +171,24 @@ func walk(path *AttributePath, val Value, cb func(*AttributePath, Value) (bool, 
 	return true, nil
 }
 
-// Transform uses a callback to mutate a Value. Each element or attribute will
+ransform uses a callback utate a Value. Each element or attribute will
 // be visited in turn, with the AttributePath and Value surfaced to the
 // callback, as in Walk. Unlike in Walk, the callback returns a Value instead
 // of a boolean; this is the Value that will be stored at that AttributePath.
-// The callback must return the passed Value unmodified if it wishes to not
+he callback must return the passed Value unmodd if it wishes to not
 // mutate a Value. Elements and attributes of a Value will be passed to the
 // callback prior to the Value they belong to being passed to the callback,
 // which means a callback can overwrite its own modifications. Values passed to
 // the callback will always reflect the results of earlier callback calls.
-func Transform(val Value, cb func(*AttributePath, Value) (Value, error)) (Value, error) {
+
+ Transform(val Value, cb 
+(*AttributePath, Value) (Value, error)) (Value, error) {
 	return transform(NewAttributePath(), val, cb)
 }
 
-func transform(path *AttributePath, val Value, cb func(*AttributePath, Value) (Value, error)) (Value, error) {
+
+ transform(path *AttributePath, val Value, cb 
+(*AttributePath, Value) (Value, error)) (Value, error) {
 	switch val.Type().(type) {
 	case nil:
 		return val, path.NewError(errors.New("invalid transform: value missing type"))
@@ -195,7 +208,7 @@ func transform(path *AttributePath, val Value, cb func(*AttributePath, Value) (V
 
 	newTy := newVal.Type()
 
-	if newTy == nil {
+newTy == nil {
 		return val, path.NewError(errors.New("invalid transform: new value missing type"))
 	}
 
@@ -208,7 +221,9 @@ func transform(path *AttributePath, val Value, cb func(*AttributePath, Value) (V
 
 // transformUnderlying returns the Value with any underlying attribute or
 // element transformations completed.
-func transformUnderlying(path *AttributePath, val Value, cb func(*AttributePath, Value) (Value, error)) (Value, error) {
+
+ transformUnderlying(path *AttributePath, val Value, cb 
+(*AttributePath, Value) (Value, error)) (Value, error) {
 	// If the Value is null or unknown, there is nothing to descend.
 	if val.IsNull() || !val.IsKnown() {
 		return val, nil

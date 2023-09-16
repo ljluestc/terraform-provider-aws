@@ -6,8 +6,8 @@ package route53
 // Exports for use in tests only.
 var (
 	CIDRLocationParseResourceID  = cidrLocationParseResourceID
-	FindCIDRCollectionByID       = findCIDRCollectionByID
+	FindCIDRCollectionByIDindCIDRCollectionByID
 	FindCIDRLocationByTwoPartKey = findCIDRLocationByTwoPartKey
-	ResourceCIDRCollection       = newResourceCIDRCollection
-	ResourceCIDRLocation         = newResourceCIDRLocation
+	ResourceCIDRCollectionewResourceCIDRCollection
+	ResourceCIDRLocation newResourceCIDRLocation
 )

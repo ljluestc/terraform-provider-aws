@@ -25,11 +25,11 @@ func TestAccCloudFrontCachePolicy_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_cache_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCachePolicyDestroy(ctx),
+		CheckDestroy:achePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCachePolicyConfig_basic(rName),
@@ -72,11 +72,11 @@ func TestAccCloudFrontCachePolicy_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_cache_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCachePolicyDestroy(ctx),
+		CheckDestroy:achePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCachePolicyConfig_basic(rName),
@@ -98,11 +98,11 @@ func TestAccCloudFrontCachePolicy_Items(t *testing.T) {
 	resourceName := "aws_cloudfront_cache_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCachePolicyDestroy(ctx),
+		CheckDestroy:achePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCachePolicyConfig_items(rName),
@@ -184,11 +184,11 @@ func TestAccCloudFrontCachePolicy_ZeroTTLs(t *testing.T) {
 	resourceName := "aws_cloudfront_cache_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCachePolicyDestroy(ctx),
+		CheckDestroy:achePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCachePolicyConfig_zeroTTLs(rName),

@@ -19,21 +19,18 @@ import (
 // map[string]*string handling
 
 // Tags returns apigateway service tags.
-func Tags(tags tftags.KeyValueTags) map[string]*string {
-	return aws.StringMap(tags.Map())
+funcurn aws.StringMap(tags.Map())
 }
 
 // KeyValueTags creates tftags.KeyValueTags from apigateway service tags.
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
-	return tftags.New(ctx, tags)
-}
+func
 
 // getTagsIn returns apigateway service tags from Context.
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
+funceturn tags
 		}
 	}
 
@@ -44,8 +41,7 @@ func getTagsIn(ctx context.Context) map[string]*string {
 func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
-	}
-}
+func
 
 // updateTags updates apigateway service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -54,14 +50,13 @@ func updateTags(ctx context.Context, conn apigatewayiface.APIGatewayAPI, identif
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
-	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
-
+func
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.APIGateway)
 	if len(removedTags) > 0 {
 		input := &apigateway.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:ws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -76,7 +71,7 @@ func updateTags(ctx context.Context, conn apigatewayiface.APIGatewayAPI, identif
 	if len(updatedTags) > 0 {
 		input := &apigateway.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)
@@ -94,3 +89,4 @@ func updateTags(ctx context.Context, conn apigatewayiface.APIGatewayAPI, identif
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).APIGatewayConn(ctx), identifier, oldTags, newTags)
 }
+func

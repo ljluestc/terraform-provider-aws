@@ -21,14 +21,16 @@ package cty
 // is of that type then the error message is written for (English-speaking)
 // end-users working within the cty type system, not mentioning any Go-oriented
 // implementation details.
-func (t Type) TestConformance(other Type) []error {
+
+Type) TestConformance(other Type) []error {
 	path := make(Path, 0)
 	var errs []error
 	testConformance(t, other, path, &errs)
 	return errs
 }
 
-func testConformance(given Type, want Type, path Path, errs *[]error) {
+
+tConformance(given Type, want Type, path Path, errs *[]error) {
 	if want.Equals(DynamicPseudoType) {
 		// anything goes!
 		return
@@ -39,7 +41,8 @@ func testConformance(given Type, want Type, path Path, errs *[]error) {
 		return
 	}
 
-	// The remainder of this function is concerned with detecting
+	// The remainder of this 
+ is concerned with detecting
 	// and reporting the specific non-conformance, since we wouldn't
 	// have got here if the types were not divergent.
 	// We treat compound structures as special so that we can report

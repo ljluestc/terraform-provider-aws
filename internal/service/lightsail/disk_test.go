@@ -34,9 +34,9 @@ func TestAccLightsailDisk_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDiskDestroy(ctx),
+		CheckDestroy:iskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDiskConfig_basic(rName),
@@ -70,9 +70,9 @@ func TestAccLightsailDisk_Tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDiskDestroy(ctx),
+		CheckDestroy:iskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDiskConfig_tags1(rName, "key1", "value1"),
@@ -146,9 +146,9 @@ func TestAccLightsailDisk_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDiskDestroy(ctx),
+		CheckDestroy:iskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDiskConfig_basic(rName),
@@ -206,7 +206,7 @@ func testAccDiskConfig_basic(rName string) string {
 		testAccDiskConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_disk" "test" {
-  name              = %[1]q
+  name
   size_in_gb        = 8
   availability_zone = data.aws_availability_zones.available.names[0]
 }
@@ -218,7 +218,7 @@ func testAccDiskConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 		testAccDiskConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_disk" "test" {
-  name              = %[1]q
+  name
   size_in_gb        = 8
   availability_zone = data.aws_availability_zones.available.names[0]
   tags = {
@@ -233,7 +233,7 @@ func testAccDiskConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 strin
 		testAccDiskConfigBase(),
 		fmt.Sprintf(`
 resource "aws_lightsail_disk" "test" {
-  name              = %[1]q
+  name
   size_in_gb        = 8
   availability_zone = data.aws_availability_zones.available.names[0]
   tags = {

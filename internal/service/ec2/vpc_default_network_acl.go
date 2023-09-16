@@ -28,40 +28,38 @@ const (
 // @SDKResource("aws_default_network_acl", name="Network ACL")
 // @Tags(identifierAttribute="id")
 
-func ResourceDefaultNetworkACL() *schema.Resource {
-	networkACLRuleSetNestedBlock := &schema.Schema{
-		Type:     schema.TypeSet,
+funcworkACLRuleSetNestedBlock := &schema.Schema{
+		Type:eSet,
 		Optional: true,
-		Elem:     networkACLRuleNestedBlock,
-		Set:      networkACLRuleHash,
+		Elem:RuleNestedBlock,
+		Set:LRuleHash,
 	}
 
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDefaultNetworkACLCreate,
-		ReadWithoutTimeout:   resourceNetworkACLRead,
+		ReadWithoutTimeout:ourceNetworkACLRead,
 		UpdateWithoutTimeout: resourceDefaultNetworkACLUpdate,
 		DeleteWithoutTimeout: resourceDefaultNetworkACLDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				d.Set("default_network_acl_id", d.Id())
-
+				d.Set("defaulfunc
 				return []*schema.ResourceData{d}, nil
 			},
 		},
 
 		// Keep in sync with aws_network_acl's schema with the following changes:
-		//    - egress and ingress are not Computed and don't have "Attributes as Blocks" processing mode set
-		//    - subnet_ids is not Computed
+		//egress and ingress are not Computed and don't have "Attributes as Blocks" processing mode set
+		//subnet_ids is not Computed
 		// and additions:
-		//   - default_network_acl_id Required/ForceNew
+		//efault_network_acl_id Required/ForceNew
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"default_network_acl_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -71,7 +69,7 @@ func ResourceDefaultNetworkACL() *schema.Resource {
 			"egress":  networkACLRuleSetNestedBlock,
 			"ingress": networkACLRuleSetNestedBlock,
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			// We want explicit management of Subnets here, so we do not allow them to be
@@ -81,14 +79,14 @@ func ResourceDefaultNetworkACL() *schema.Resource {
 			// Subnets are themselves destroyed or reassigned to a different Network
 			// ACL
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -99,8 +97,7 @@ func ResourceDefaultNetworkACL() *schema.Resource {
 
 func resourceDefaultNetworkACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics { // nosemgrep:ci.semgrep.tags.calling-UpdateTags-in-resource-create
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	naclID := d.Get("default_network_acl_id").(string)
 	nacl, err := FindNetworkACLByID(ctx, conn, naclID)
 
@@ -140,8 +137,7 @@ func resourceDefaultNetworkACLCreate(ctx context.Context, d *schema.ResourceData
 func resourceDefaultNetworkACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	// Subnets *must* belong to a Network ACL. Subnets are not "removed" from
+funcSubnets *must* belong to a Network ACL. Subnets are not "removed" from
 	// Network ACLs, instead their association is replaced. In a normal
 	// Network ACL, any removal of a Subnet is done by replacing the
 	// Subnet/ACL association with an association between the Subnet and the
@@ -159,3 +155,4 @@ func resourceDefaultNetworkACLUpdate(ctx context.Context, d *schema.ResourceData
 func resourceDefaultNetworkACLDelete(_ context.Context, d *schema.ResourceData, meta interface{}) (diags diag.Diagnostics) {
 	return sdkdiag.AppendWarningf(diags, "EC2 Default Network ACL (%s) not deleted, removing from state", d.Id())
 }
+func

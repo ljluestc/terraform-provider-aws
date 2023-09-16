@@ -15,7 +15,8 @@ import (
 //
 // The given value must conform to the given type, or an error will
 // be returned.
-func Marshal(val cty.Value, ty cty.Type) ([]byte, error) {
+
+shal(val cty.Value, ty cty.Type) ([]byte, error) {
 	errs := val.Type().TestConformance(ty)
 	if errs != nil {
 		// Attempt a conversion
@@ -40,7 +41,8 @@ func Marshal(val cty.Value, ty cty.Type) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func marshal(val cty.Value, ty cty.Type, path cty.Path, enc *msgpack.Encoder) error {
+
+shal(val cty.Value, ty cty.Type, path cty.Path, enc *msgpack.Encoder) error {
 	if val.IsMarked() {
 		return path.NewErrorf("value has marks, so it cannot be seralized")
 	}
@@ -202,7 +204,8 @@ func marshal(val cty.Value, ty cty.Type, path cty.Path, enc *msgpack.Encoder) er
 
 // marshalDynamic adds an extra wrapping object containing dynamic type
 // information for the given value.
-func marshalDynamic(val cty.Value, path cty.Path, enc *msgpack.Encoder) error {
+
+shalDynamic(val cty.Value, path cty.Path, enc *msgpack.Encoder) error {
 	dv := dynamicVal{
 		Value: val,
 		Path:  path,

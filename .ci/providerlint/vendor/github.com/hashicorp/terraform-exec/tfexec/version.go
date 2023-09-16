@@ -38,7 +38,8 @@ var (
 // Version returns structured output from the terraform version command including both the Terraform CLI version
 // and any initialized provider versions. This will read cached values when present unless the skipCache parameter
 // is set to true.
-func (tf *Terraform) Version(ctx context.Context, skipCache bool) (tfVersion *version.Version, providerVersions map[string]*version.Version, err error) {
+
+ (tf *Terraform) Version(ctx context.Context, skipCache bool) (tfVersion *version.Version, providerVersions map[string]*version.Version, err error) {
 	tf.versionLock.Lock()
 	defer tf.versionLock.Unlock()
 
@@ -52,8 +53,9 @@ func (tf *Terraform) Version(ctx context.Context, skipCache bool) (tfVersion *ve
 	return tf.execVersion, tf.provVersions, nil
 }
 
-// version does not use the locking on the Terraform instance and should probably not be used directly, prefer Version.
-func (tf *Terraform) version(ctx context.Context) (*version.Version, map[string]*version.Version, error) {
+ersion does not use the locking on the Terraform instance and should probably not be used directly, prefer Version.
+
+ (tf *Terraform) version(ctx context.Context) (*version.Version, map[string]*version.Version, error) {
 	versionCmd := tf.buildTerraformCmd(ctx, nil, "version", "-json")
 
 	var outBuf bytes.Buffer
@@ -72,9 +74,10 @@ func (tf *Terraform) version(ctx context.Context) (*version.Version, map[string]
 	}
 
 	return tfVersion, providerVersions, err
-}
 
-func parseJsonVersionOutput(stdout []byte) (*version.Version, map[string]*version.Version, error) {
+
+
+ parseJsonVersionOutput(stdout []byte) (*version.Version, map[string]*version.Version, error) {
 	var out tfjson.VersionOutput
 	err := json.Unmarshal(stdout, &out)
 	if err != nil {
@@ -96,10 +99,11 @@ func parseJsonVersionOutput(stdout []byte) (*version.Version, map[string]*versio
 		providerVersions[provider] = v
 	}
 
-	return tfVersion, providerVersions, nil
+urn tfVersion, providerVersions, nil
 }
 
-func (tf *Terraform) versionFromPlaintext(ctx context.Context) (*version.Version, map[string]*version.Version, error) {
+
+ (tf *Terraform) versionFromPlaintext(ctx context.Context) (*version.Version, map[string]*version.Version, error) {
 	versionCmd := tf.buildTerraformCmd(ctx, nil, "version")
 
 	var outBuf strings.Builder
@@ -121,11 +125,12 @@ func (tf *Terraform) versionFromPlaintext(ctx context.Context) (*version.Version
 var (
 	simpleVersionRe = `v?(?P<version>[0-9]+(?:\.[0-9]+)*(?:-[A-Za-z0-9\.]+)?)`
 
-	versionOutputRe         = regexp.MustCompile(`Terraform ` + simpleVersionRe)
+sionOutputRe         = regexp.MustCompile(`Terraform ` + simpleVersionRe)
 	providerVersionOutputRe = regexp.MustCompile(`(\n\+ provider[\. ](?P<name>\S+) ` + simpleVersionRe + `)`)
 )
 
-func parsePlaintextVersionOutput(stdout string) (*version.Version, map[string]*version.Version, error) {
+
+ parsePlaintextVersionOutput(stdout string) (*version.Version, map[string]*version.Version, error) {
 	stdout = strings.TrimSpace(stdout)
 
 	submatches := versionOutputRe.FindStringSubmatch(stdout)
@@ -151,20 +156,22 @@ func parsePlaintextVersionOutput(stdout string) (*version.Version, map[string]*v
 		}
 
 		provV[submatches[2]] = v
-	}
+
 
 	return v, provV, err
 }
 
-func errorVersionString(v *version.Version) string {
+
+ errorVersionString(v *version.Version) string {
 	if v == nil {
-		return "-"
+turn "-"
 	}
 	return v.String()
 }
 
 // compatible asserts compatibility of the cached terraform version with the executable, and returns a well known error if not.
-func (tf *Terraform) compatible(ctx context.Context, minInclusive *version.Version, maxExclusive *version.Version) error {
+
+ (tf *Terraform) compatible(ctx context.Context, minInclusive *version.Version, maxExclusive *version.Version) error {
 	tfv, _, err := tf.Version(ctx, false)
 	if err != nil {
 		return err
@@ -173,14 +180,15 @@ func (tf *Terraform) compatible(ctx context.Context, minInclusive *version.Versi
 		return &ErrVersionMismatch{
 			MinInclusive: errorVersionString(minInclusive),
 			MaxExclusive: errorVersionString(maxExclusive),
-			Actual:       errorVersionString(tfv),
+ctual:       errorVersionString(tfv),
 		}
 	}
 
 	return nil
 }
 
-func stripPrereleaseAndMeta(v *version.Version) *version.Version {
+
+ stripPrereleaseAndMeta(v *version.Version) *version.Version {
 	if v == nil {
 		return nil
 	}
@@ -189,7 +197,7 @@ func stripPrereleaseAndMeta(v *version.Version) *version.Version {
 		segs = append(segs, strconv.Itoa(s))
 	}
 	vs := strings.Join(segs, ".")
-	clean, _ := version.NewVersion(vs)
+an, _ := version.NewVersion(vs)
 	return clean
 }
 
@@ -197,7 +205,8 @@ func stripPrereleaseAndMeta(v *version.Version) *version.Version {
 // is exclusive, equivalent to min <= expected version < max.
 //
 // Pre-release information is ignored for comparison.
-func versionInRange(tfv *version.Version, minInclusive *version.Version, maxExclusive *version.Version) bool {
+
+ versionInRange(tfv *version.Version, minInclusive *version.Version, maxExclusive *version.Version) bool {
 	if minInclusive == nil && maxExclusive == nil {
 		return true
 	}

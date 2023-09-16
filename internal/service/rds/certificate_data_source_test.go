@@ -14,15 +14,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-func TestAccRDSCertificateDataSource_id(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_rds_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateDataSourceConfig_id(),
@@ -36,14 +34,12 @@ func TestAccRDSCertificateDataSource_id(t *testing.T) {
 
 func TestAccRDSCertificateDataSource_latestValidTill(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_rds_certificate.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
+		CheckDestroy:funceps: []resource.TestStep{
 			{
 				Config: testAccCertificateDataSourceConfig_latestValidTill(),
 				Check: resource.ComposeTestCheckFunc(
@@ -65,8 +61,7 @@ func testAccCertificatePreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeCertificatesInput{}
-
-	_, err := conn.DescribeCertificatesWithContext(ctx, input)
+funcerr := conn.DescribeCertificatesWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
@@ -82,8 +77,7 @@ func testAccCertificateDataSourceConfig_id() string {
 data "aws_rds_certificate" "latest" {
   latest_valid_till = true
 }
-
-data "aws_rds_certificate" "test" {
+func "aws_rds_certificate" "test" {
   id = data.aws_rds_certificate.latest.id
 }
 `
@@ -95,4 +89,4 @@ data "aws_rds_certificate" "test" {
   latest_valid_till = true
 }
 `
-}
+func

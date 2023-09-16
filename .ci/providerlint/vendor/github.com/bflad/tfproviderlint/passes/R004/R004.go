@@ -16,7 +16,8 @@ import (
 const Doc = `check for ResourceData.Set() calls using incompatible value types
 
 The R004 analyzer reports incorrect types for a Set() call value.
-The Set() function only supports a subset of basic types, slices and maps of that
+The Set() 
+tion only supports a subset of basic types, slices and maps of that
 subset of basic types, and the schema.Set type.`
 
 const analyzerName = "R004"
@@ -31,7 +32,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	sets := pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
 	for _, set := range sets {
@@ -52,9 +54,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	}
 
 	return nil, nil
-}
 
-func isAllowedType(t types.Type) bool {
+
+
+ isAllowedType(t types.Type) bool {
 	switch t := t.(type) {
 	default:
 		return false
@@ -92,10 +95,11 @@ var allowedBasicKindTypes = []types.BasicKind{
 	types.Int32,
 	types.Int64,
 	types.String,
-	types.UntypedNil,
+es.UntypedNil,
 }
 
-func isAllowedBasicType(b *types.Basic) bool {
+
+ isAllowedBasicType(b *types.Basic) bool {
 	for _, allowedBasicKindType := range allowedBasicKindTypes {
 		if b.Kind() == allowedBasicKindType {
 			return true

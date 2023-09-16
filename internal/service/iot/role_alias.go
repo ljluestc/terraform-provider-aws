@@ -59,8 +59,8 @@ func resourceRoleAliasCreate(ctx context.Context, d *schema.ResourceData, meta i
 	credentialDuration := d.Get("credential_duration").(int)
 
 	_, err := conn.CreateRoleAliasWithContext(ctx, &iot.CreateRoleAliasInput{
-		RoleAlias:                 aws.String(roleAlias),
-		RoleArn:                   aws.String(roleArn),
+		RoleAlias:    aws.String(roleAlias),
+		RoleArn:      aws.String(roleArn),
 		CredentialDurationSeconds: aws.Int64(int64(credentialDuration)),
 	})
 
@@ -137,7 +137,7 @@ func resourceRoleAliasUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChange("credential_duration") {
 		roleAliasInput := &iot.UpdateRoleAliasInput{
-			RoleAlias:                 aws.String(d.Id()),
+			RoleAlias:    aws.String(d.Id()),
 			CredentialDurationSeconds: aws.Int64(int64(d.Get("credential_duration").(int))),
 		}
 		_, err := conn.UpdateRoleAliasWithContext(ctx, roleAliasInput)

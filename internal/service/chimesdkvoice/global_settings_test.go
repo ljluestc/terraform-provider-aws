@@ -22,12 +22,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccChimeSDKVoiceGlobalSettings_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":      testAccGlobalSettings_basic,
-		"disappears": testAccGlobalSettings_disappears,
+		"basic":      testAccGlfuncisappears": testAccGlobalSettings_disappears,
 		"update":     testAccGlobalSettings_update,
 	}
 
@@ -36,16 +34,14 @@ func TestAccChimeSDKVoiceGlobalSettings_serial(t *testing.T) {
 
 func testAccGlobalSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkvoice_global_settings.test"
+funcourceName := "aws_chimesdkvoice_global_settings.test"
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckGlobalSettingsDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:    funceps: []resource.TestStep{
 			{
 				Config: testAccGlobalSettingsConfig_basic(rName),
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -65,15 +61,13 @@ func testAccGlobalSettings_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_chimesdkvoice_global_settings.test"
-
-	resource.Test(t, resource.TestCase{
+funcource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGlobalSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccGlobalSettingsConfig_basic(rName),
+			{funcConfig: testAccGlobalSettingsConfig_basic(rName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfchimesdkvoice.ResourceGlobalSettings(), resourceName),
 				),
@@ -89,8 +83,7 @@ func testAccGlobalSettings_update(t *testing.T) {
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_chimesdkvoice_global_settings.test"
 	bucketResourceName := "aws_s3_bucket.test"
-
-	resource.Test(t, resource.TestCase{
+funcource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) // run test in us-east-1 only since eventual consistency causes intermittent failures in other regions.
@@ -98,8 +91,7 @@ func testAccGlobalSettings_update(t *testing.T) {
 		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGlobalSettingsDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+		Steps: []rfunc
 				Config: testAccGlobalSettingsConfig_basic(rName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttrPair(resourceName, "voice_connector.0.cdr_bucket", bucketResourceName, "id"),
@@ -126,10 +118,8 @@ func testAccCheckGlobalSettingsDestroy(ctx context.Context) resource.TestCheckFu
 			}
 
 			conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-			input := &chimesdkvoice.GetGlobalSettingsInput{}
-
-			const retryTimeout = 10 * time.Second
-			response := &chimesdkvoice.GetGlobalSettingsOutput{}
+func
+			constfuncesponse := &chimesdkvoice.GetGlobalSettingsOutput{}
 
 			err := tfresource.Retry(ctx, retryTimeout, func() *retry.RetryError {
 				var err error
@@ -141,8 +131,7 @@ func testAccCheckGlobalSettingsDestroy(ctx context.Context) resource.TestCheckFu
 			})
 
 			if err != nil {
-				return fmt.Errorf("error Chime Voice Connector Global settings still exists")
-			}
+				return fmt.Errorf("error Chime Voice Connefunc
 		}
 		return nil
 	}
@@ -159,5 +148,4 @@ resource "aws_chimesdkvoice_global_settings" "test" {
     cdr_bucket = aws_s3_bucket.test.id
   }
 }
-`, rName)
-}
+func

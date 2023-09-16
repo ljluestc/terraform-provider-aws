@@ -62,17 +62,20 @@ var (
 	_ PathStep = Transform{}
 )
 
-func (pa *Path) push(s PathStep) {
+
+ *Path) push(s PathStep) {
 	*pa = append(*pa, s)
 }
 
-func (pa *Path) pop() {
+
+ *Path) pop() {
 	*pa = (*pa)[:len(*pa)-1]
 }
 
 // Last returns the last PathStep in the Path.
 // If the path is empty, this returns a non-nil PathStep that reports a nil Type.
-func (pa Path) Last() PathStep {
+
+ Path) Last() PathStep {
 	return pa.Index(-1)
 }
 
@@ -80,7 +83,8 @@ func (pa Path) Last() PathStep {
 // A negative index starts counting from the tail of the Path such that -1
 // refers to the last step, -2 refers to the second-to-last step, and so on.
 // If index is invalid, this returns a non-nil PathStep that reports a nil Type.
-func (pa Path) Index(i int) PathStep {
+
+ Path) Index(i int) PathStep {
 	if i < 0 {
 		i = len(pa) + i
 	}
@@ -96,7 +100,8 @@ func (pa Path) Index(i int) PathStep {
 // For example:
 //
 //	MyMap.MySlices.MyField
-func (pa Path) String() string {
+
+ Path) String() string {
 	var ss []string
 	for _, s := range pa {
 		if _, ok := s.(StructField); ok {
@@ -111,7 +116,8 @@ func (pa Path) String() string {
 // For example:
 //
 //	(*root.MyMap["key"].(*mypkg.MyStruct).MySlices)[2][3].MyField
-func (pa Path) GoString() string {
+
+ Path) GoString() string {
 	var ssPre, ssPost []string
 	var numIndirect int
 	for i, s := range pa {
@@ -155,9 +161,12 @@ type pathStep struct {
 	vx, vy reflect.Value
 }
 
-func (ps pathStep) Type() reflect.Type             { return ps.typ }
-func (ps pathStep) Values() (vx, vy reflect.Value) { return ps.vx, ps.vy }
-func (ps pathStep) String() string {
+
+ pathStep) Type() reflect.Type             { return ps.typ }
+
+ pathStep) Values() (vx, vy reflect.Value) { return ps.vx, ps.vy }
+
+ pathStep) String() string {
 	if ps.typ == nil {
 		return "<nil>"
 	}
@@ -184,8 +193,10 @@ type structField struct {
 	field      reflect.StructField // Field information
 }
 
-func (sf StructField) Type() reflect.Type { return sf.typ }
-func (sf StructField) Values() (vx, vy reflect.Value) {
+
+ StructField) Type() reflect.Type { return sf.typ }
+
+ StructField) Values() (vx, vy reflect.Value) {
 	if !sf.unexported {
 		return sf.vx, sf.vy // CanInterface reports true
 	}
@@ -198,14 +209,17 @@ func (sf StructField) Values() (vx, vy reflect.Value) {
 	}
 	return sf.vx, sf.vy // CanInterface reports false
 }
-func (sf StructField) String() string { return fmt.Sprintf(".%s", sf.name) }
+
+ StructField) String() string { return fmt.Sprintf(".%s", sf.name) }
 
 // Name is the field name.
-func (sf StructField) Name() string { return sf.name }
+
+ StructField) Name() string { return sf.name }
 
 // Index is the index of the field in the parent struct type.
 // See reflect.Type.Field.
-func (sf StructField) Index() int { return sf.idx }
+
+ StructField) Index() int { return sf.idx }
 
 // SliceIndex is an index operation on a slice or array at some index Key.
 type SliceIndex struct{ *sliceIndex }
@@ -215,9 +229,12 @@ type sliceIndex struct {
 	isSlice    bool // False for reflect.Array
 }
 
-func (si SliceIndex) Type() reflect.Type             { return si.typ }
-func (si SliceIndex) Values() (vx, vy reflect.Value) { return si.vx, si.vy }
-func (si SliceIndex) String() string {
+
+ SliceIndex) Type() reflect.Type             { return si.typ }
+
+ SliceIndex) Values() (vx, vy reflect.Value) { return si.vx, si.vy }
+
+ SliceIndex) String() string {
 	switch {
 	case si.xkey == si.ykey:
 		return fmt.Sprintf("[%d]", si.xkey)
@@ -234,7 +251,8 @@ func (si SliceIndex) String() string {
 }
 
 // Key is the index key; it may return -1 if in a split state
-func (si SliceIndex) Key() int {
+
+ SliceIndex) Key() int {
 	if si.xkey != si.ykey {
 		return -1
 	}
@@ -250,7 +268,8 @@ func (si SliceIndex) Key() int {
 // Key is guaranteed to return -1 if and only if the indexes returned
 // by SplitKeys are not the same. SplitKeys will never return -1 for
 // both indexes.
-func (si SliceIndex) SplitKeys() (ix, iy int) { return si.xkey, si.ykey }
+
+ SliceIndex) SplitKeys() (ix, iy int) { return si.xkey, si.ykey }
 
 // MapIndex is an index operation on a map at some index Key.
 type MapIndex struct{ *mapIndex }
@@ -259,12 +278,16 @@ type mapIndex struct {
 	key reflect.Value
 }
 
-func (mi MapIndex) Type() reflect.Type             { return mi.typ }
-func (mi MapIndex) Values() (vx, vy reflect.Value) { return mi.vx, mi.vy }
-func (mi MapIndex) String() string                 { return fmt.Sprintf("[%#v]", mi.key) }
+
+ MapIndex) Type() reflect.Type             { return mi.typ }
+
+ MapIndex) Values() (vx, vy reflect.Value) { return mi.vx, mi.vy }
+
+ MapIndex) String() string                 { return fmt.Sprintf("[%#v]", mi.key) }
 
 // Key is the value of the map key.
-func (mi MapIndex) Key() reflect.Value { return mi.key }
+
+ MapIndex) Key() reflect.Value { return mi.key }
 
 // Indirect represents pointer indirection on the parent type.
 type Indirect struct{ *indirect }
@@ -272,9 +295,12 @@ type indirect struct {
 	pathStep
 }
 
-func (in Indirect) Type() reflect.Type             { return in.typ }
-func (in Indirect) Values() (vx, vy reflect.Value) { return in.vx, in.vy }
-func (in Indirect) String() string                 { return "*" }
+
+ Indirect) Type() reflect.Type             { return in.typ }
+
+ Indirect) Values() (vx, vy reflect.Value) { return in.vx, in.vy }
+
+ Indirect) String() string                 { return "*" }
 
 // TypeAssertion represents a type assertion on an interface.
 type TypeAssertion struct{ *typeAssertion }
@@ -282,9 +308,12 @@ type typeAssertion struct {
 	pathStep
 }
 
-func (ta TypeAssertion) Type() reflect.Type             { return ta.typ }
-func (ta TypeAssertion) Values() (vx, vy reflect.Value) { return ta.vx, ta.vy }
-func (ta TypeAssertion) String() string                 { return fmt.Sprintf(".(%v)", value.TypeString(ta.typ, false)) }
+
+ TypeAssertion) Type() reflect.Type             { return ta.typ }
+
+ TypeAssertion) Values() (vx, vy reflect.Value) { return ta.vx, ta.vy }
+
+ TypeAssertion) String() string                 { return fmt.Sprintf(".(%v)", value.TypeString(ta.typ, false)) }
 
 // Transform is a transformation from the parent type to the current type.
 type Transform struct{ *transform }
@@ -293,19 +322,29 @@ type transform struct {
 	trans *transformer
 }
 
-func (tf Transform) Type() reflect.Type             { return tf.typ }
-func (tf Transform) Values() (vx, vy reflect.Value) { return tf.vx, tf.vy }
-func (tf Transform) String() string                 { return fmt.Sprintf("%s()", tf.trans.name) }
+
+ Transform) Type() reflect.Type             { return tf.typ }
+
+ Transform) Values() (vx, vy reflect.Value) { return tf.vx, tf.vy }
+
+ Transform) String() string                 { return fmt.Sprintf("%s()", tf.trans.name) }
 
 // Name is the name of the Transformer.
-func (tf Transform) Name() string { return tf.trans.name }
 
-// Func is the function pointer to the transformer function.
-func (tf Transform) Func() reflect.Value { return tf.trans.fnc }
+ Transform) Name() string { return tf.trans.name }
+
+// 
+the 
+ pointer to the transformer 
+.
+
+ Transform) 
+eflect.Value { return tf.trans.fnc }
 
 // Option returns the originally constructed Transformer option.
 // The == operator can be used to detect the exact option used.
-func (tf Transform) Option() Option { return tf.trans }
+
+ Transform) Option() Option { return tf.trans }
 
 // pointerPath represents a dual-stack of pointers encountered when
 // recursively traversing the x and y values. This data structure supports
@@ -341,7 +380,8 @@ type pointerPath struct {
 	my map[value.Pointer]value.Pointer
 }
 
-func (p *pointerPath) Init() {
+
+*pointerPath) Init() {
 	p.mx = make(map[value.Pointer]value.Pointer)
 	p.my = make(map[value.Pointer]value.Pointer)
 }
@@ -353,7 +393,8 @@ func (p *pointerPath) Init() {
 //
 // The pointers vx and vy must be a reflect.Ptr, reflect.Slice, or reflect.Map
 // and be non-nil.
-func (p pointerPath) Push(vx, vy reflect.Value) (equal, visited bool) {
+
+pointerPath) Push(vx, vy reflect.Value) (equal, visited bool) {
 	px := value.PointerOf(vx)
 	py := value.PointerOf(vy)
 	_, ok1 := p.mx[px]
@@ -368,13 +409,15 @@ func (p pointerPath) Push(vx, vy reflect.Value) (equal, visited bool) {
 }
 
 // Pop ascends from pointers vx and vy.
-func (p pointerPath) Pop(vx, vy reflect.Value) {
+
+pointerPath) Pop(vx, vy reflect.Value) {
 	delete(p.mx, value.PointerOf(vx))
 	delete(p.my, value.PointerOf(vy))
 }
 
 // isExported reports whether the identifier is exported.
-func isExported(id string) bool {
+
+xported(id string) bool {
 	r, _ := utf8.DecodeRuneInString(id)
 	return unicode.IsUpper(r)
 }

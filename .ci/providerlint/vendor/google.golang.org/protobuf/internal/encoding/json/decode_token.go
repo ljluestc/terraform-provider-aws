@@ -31,7 +31,8 @@ const (
 	comma
 )
 
-func (k Kind) String() string {
+
+ (k Kind) String() string {
 	switch k {
 	case EOF:
 		return "eof"
@@ -79,54 +80,61 @@ type Token struct {
 	str string
 }
 
-// Kind returns the token kind.
-func (t Token) Kind() Kind {
+ind returns the token kind.
+
+ (t Token) Kind() Kind {
 	return t.kind
 }
 
 // RawString returns the read value in string.
-func (t Token) RawString() string {
+
+ (t Token) RawString() string {
 	return string(t.raw)
-}
+
 
 // Pos returns the token position from the input.
-func (t Token) Pos() int {
-	return t.pos
+
+ (t Token) Pos() int {
+urn t.pos
 }
 
 // Name returns the object name if token is Name, else it panics.
-func (t Token) Name() string {
+
+ (t Token) Name() string {
 	if t.kind == Name {
 		return t.str
-	}
+
 	panic(fmt.Sprintf("Token is not a Name: %v", t.RawString()))
 }
 
 // Bool returns the bool value if token kind is Bool, else it panics.
-func (t Token) Bool() bool {
+
+ (t Token) Bool() bool {
 	if t.kind == Bool {
 		return t.boo
-	}
+
 	panic(fmt.Sprintf("Token is not a Bool: %v", t.RawString()))
 }
 
 // ParsedString returns the string value for a JSON string token or the read
 // value in string if token is not a string.
-func (t Token) ParsedString() string {
+
+ (t Token) ParsedString() string {
 	if t.kind == String {
 		return t.str
 	}
 	panic(fmt.Sprintf("Token is not a String: %v", t.RawString()))
 }
 
-// Float returns the floating-point number if token kind is Number.
+loat returns the floating-point number if token kind is Number.
 //
 // The floating-point precision is specified by the bitSize parameter: 32 for
 // float32 or 64 for float64. If bitSize=32, the result still has type float64,
 // but it will be convertible to float32 without changing its value. It will
 // return false if the number exceeds the floating point limits for given
 // bitSize.
-func (t Token) Float(bitSize int) (float64, bool) {
+
+ (t Token) Float(bitSize int) (float64, bool) {
 	if t.kind != Number {
 		return 0, false
 	}
@@ -134,7 +142,7 @@ func (t Token) Float(bitSize int) (float64, bool) {
 	if err != nil {
 		return 0, false
 	}
-	return f, true
+urn f, true
 }
 
 // Int returns the signed integer number if token is Number.
@@ -142,7 +150,8 @@ func (t Token) Float(bitSize int) (float64, bool) {
 // The given bitSize specifies the integer type that the result must fit into.
 // It returns false if the number is not an integer value or if the result
 // exceeds the limits for given bitSize.
-func (t Token) Int(bitSize int) (int64, bool) {
+
+ (t Token) Int(bitSize int) (int64, bool) {
 	s, ok := t.getIntStr()
 	if !ok {
 		return 0, false
@@ -150,7 +159,7 @@ func (t Token) Int(bitSize int) (int64, bool) {
 	n, err := strconv.ParseInt(s, 10, bitSize)
 	if err != nil {
 		return 0, false
-	}
+
 	return n, true
 }
 
@@ -159,9 +168,10 @@ func (t Token) Int(bitSize int) (int64, bool) {
 // The given bitSize specifies the unsigned integer type that the result must
 // fit into. It returns false if the number is not an unsigned integer value
 // or if the result exceeds the limits for given bitSize.
-func (t Token) Uint(bitSize int) (uint64, bool) {
+
+ (t Token) Uint(bitSize int) (uint64, bool) {
 	s, ok := t.getIntStr()
-	if !ok {
+!ok {
 		return 0, false
 	}
 	n, err := strconv.ParseUint(s, 10, bitSize)
@@ -171,8 +181,9 @@ func (t Token) Uint(bitSize int) (uint64, bool) {
 	return n, true
 }
 
-func (t Token) getIntStr() (string, bool) {
-	if t.kind != Number {
+
+ (t Token) getIntStr() (string, bool) {
+t.kind != Number {
 		return "", false
 	}
 	parts, ok := parseNumberParts(t.raw)
@@ -183,7 +194,8 @@ func (t Token) getIntStr() (string, bool) {
 }
 
 // TokenEquals returns true if given Tokens are equal, else false.
-func TokenEquals(x, y Token) bool {
+
+ TokenEquals(x, y Token) bool {
 	return x.kind == y.kind &&
 		x.pos == y.pos &&
 		bytes.Equal(x.raw, y.raw) &&

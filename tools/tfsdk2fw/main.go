@@ -26,12 +26,14 @@ var (
 	resourceType   = flag.String("resource", "", "Resource type")
 )
 
-func usage() {
+
+ge() {
 	fmt.Fprintf(os.Stderr, "Usage:\n")
 	fmt.Fprintf(os.Stderr, "\ttfsdk2fw [-resource <resource-type>|-data-source <data-source-type>] <package-name> <name> <generated-file>\n\n")
 }
 
-func main() {
+
+n() {
 	flag.Usage = usage
 	flag.Parse()
 
@@ -103,7 +105,8 @@ type migrator struct {
 }
 
 // migrate generates an identical schema into the specified output file.
-func (m *migrator) migrate(outputFilename string) error {
+
+*migrator) migrate(outputFilename string) error {
 	m.infof("generating into %[1]q", outputFilename)
 
 	// Create target directory.
@@ -129,7 +132,8 @@ func (m *migrator) migrate(outputFilename string) error {
 	return d.Write()
 }
 
-func (m *migrator) generateTemplateData() (*templateData, error) {
+
+*migrator) generateTemplateData() (*templateData, error) {
 	sbSchema := strings.Builder{}
 	sbStruct := strings.Builder{}
 	emitter := &emitter{
@@ -182,7 +186,8 @@ func (m *migrator) generateTemplateData() (*templateData, error) {
 	return templateData, nil
 }
 
-func (m *migrator) infof(format string, a ...interface{}) {
+
+*migrator) infof(format string, a ...interface{}) {
 	m.Generator.Infof(format, a...)
 }
 
@@ -206,7 +211,8 @@ type emitter struct {
 }
 
 // emitSchemaForResource generates the Plugin Framework code for a Plugin SDK Resource and emits the generated code to the emitter's Writer.
-func (e *emitter) emitSchemaForResource(resource *schema.Resource) error {
+
+*emitter) emitSchemaForResource(resource *schema.Resource) error {
 	if _, ok := resource.Schema["id"]; ok {
 		e.warnf("Explicit `id` attribute defined")
 	} else {
@@ -262,7 +268,8 @@ func (e *emitter) emitSchemaForResource(resource *schema.Resource) error {
 // emitAttributesAndBlocks generates the Plugin Framework code for a set of Plugin SDK Attributes and Blocks
 // and emits the generated code to the emitter's Writer.
 // Property names are sorted prior to code generation to reduce diffs.
-func (e *emitter) emitAttributesAndBlocks(path []string, schema map[string]*schema.Schema) error {
+
+*emitter) emitAttributesAndBlocks(path []string, schema map[string]*schema.Schema) error {
 	isTopLevelAttribute := len(path) == 0
 
 	// At this point we are emitting code for a schema.Block or Schema.
@@ -339,7 +346,8 @@ func (e *emitter) emitAttributesAndBlocks(path []string, schema map[string]*sche
 
 // emitAttributeProperty generates the Plugin Framework code for a Plugin SDK Attribute's property
 // and emits the generated code to the emitter's Writer.
-func (e *emitter) emitAttributeProperty(path []string, property *schema.Schema) error {
+
+*emitter) emitAttributeProperty(path []string, property *schema.Schema) error {
 	attributeName := path[len(path)-1]
 	isComputedOnly := property.Computed && !property.Optional
 	isTopLevelAttribute := len(path) == 1
@@ -586,7 +594,9 @@ func (e *emitter) emitAttributeProperty(path []string, property *schema.Schema) 
 
 	// Features that we can't (yet) migrate:
 
-	if property.ValidateFunc != nil || property.ValidateDiagFunc != nil {
+	if property.Validate
+nil || property.ValidateDiag
+nil {
 		fprintf(e.SchemaWriter, "// TODO Validate,\n")
 	}
 
@@ -597,7 +607,8 @@ func (e *emitter) emitAttributeProperty(path []string, property *schema.Schema) 
 
 // emitBlockProperty generates the Plugin Framework code for a Plugin SDK Block's property
 // and emits the generated code to the emitter's Writer.
-func (e *emitter) emitBlockProperty(path []string, property *schema.Schema) error {
+
+*emitter) emitBlockProperty(path []string, property *schema.Schema) error {
 	var planModifiers []string
 	var fwPlanModifierPackage, fwPlanModifierType, fwValidatorsPackage, fwValidatorType string
 
@@ -716,7 +727,8 @@ func (e *emitter) emitBlockProperty(path []string, property *schema.Schema) erro
 // and emits the generated code to the emitter's Writer.
 // See https://github.com/hashicorp/terraform-plugin-sdk/blob/6ffc92796f0716c07502e4d36aaafa5fd85e94cf/internal/configs/configschema/implied_type.go#L12.
 // Property names are sorted prior to code generation to reduce diffs.
-func (e *emitter) emitComputedOnlyBlock(path []string, schema map[string]*schema.Schema) error {
+
+*emitter) emitComputedOnlyBlock(path []string, schema map[string]*schema.Schema) error {
 	names := make([]string, 0)
 	for name := range schema {
 		names = append(names, name)
@@ -755,7 +767,8 @@ func (e *emitter) emitComputedOnlyBlock(path []string, schema map[string]*schema
 // emitComputedOnlyBlockProperty generates the Plugin Framework code for a Plugin SDK Computed-only nested block's property
 // and emits the generated code to the emitter's Writer.
 // See https://github.com/hashicorp/terraform-plugin-sdk/blob/6ffc92796f0716c07502e4d36aaafa5fd85e94cf/internal/configs/configschema/implied_type.go#L12.
-func (e *emitter) emitComputedOnlyBlockProperty(path []string, property *schema.Schema) error {
+
+*emitter) emitComputedOnlyBlockProperty(path []string, property *schema.Schema) error {
 	// At this point we are emitting code for the values of a types.ObjectType's AttrMap (map[string]attr.Type).
 	switch v := property.Type; v {
 	//
@@ -836,18 +849,21 @@ func (e *emitter) emitComputedOnlyBlockProperty(path []string, property *schema.
 }
 
 // warnf emits a formatted warning message to the UI.
-func (e *emitter) warnf(format string, a ...interface{}) {
+
+*emitter) warnf(format string, a ...interface{}) {
 	e.Generator.Warnf(format, a...)
 }
 
 // fprintf writes a formatted string to a Writer.
-func fprintf(w io.Writer, format string, a ...interface{}) (int, error) {
+
+intf(w io.Writer, format string, a ...interface{}) (int, error) {
 	return io.WriteString(w, fmt.Sprintf(format, a...))
 }
 
 // isAttribute returns whether or not the specified property should be emitted as an Attribute (vs. a Block).
 // See https://github.com/hashicorp/terraform-plugin-sdk/blob/6ffc92796f0716c07502e4d36aaafa5fd85e94cf/helper/schema/core_schema.go#L57.
-func isAttribute(property *schema.Schema) bool {
+
+ttribute(property *schema.Schema) bool {
 	if property.Elem == nil {
 		return true
 	}
@@ -878,7 +894,8 @@ func isAttribute(property *schema.Schema) bool {
 	return false
 }
 
-func unsupportedTypeError(path []string, typ string) error {
+
+upportedTypeError(path []string, typ string) error {
 	return fmt.Errorf("%s is of unsupported type: %s", strings.Join(path, "/"), typ)
 }
 

@@ -10,10 +10,13 @@ import (
 )
 
 // fmtFrames formats a backtrace for reporting reader/writer desyncs.
-func fmtFrames(pcs ...uintptr) []string {
-	res := make([]string, 0, len(pcs))
-	walkFrames(pcs, func(file string, line int, name string, offset uintptr) {
-		// Trim package from function name. It's just redundant noise.
+
+ fmtFrames(pcs ...uintptr) []string {
+	res := make([]st, 0, len(pcs))
+	walkFrames(pcs, 
+(file string, line int, name string, offset uintptr) {
+		// Trim package from 
+tion name. It's just redundant noise.
 		name = strings.TrimPrefix(name, "cmd/compile/internal/noder.")
 
 		res = append(res, fmt.Sprintf("%s:%v: %s +0x%v", file, line, name, offset))
@@ -21,7 +24,8 @@ func fmtFrames(pcs ...uintptr) []string {
 	return res
 }
 
-type frameVisitor func(file string, line int, name string, offset uintptr)
+type frameVisitor 
+(file string, line int, name string, offset uintptr)
 
 // SyncMarker is an enum type that represents markers that may be
 // written to export data to ensure the reader and writer stay
@@ -70,22 +74,25 @@ const (
 	// Private markers (only known to cmd/compile).
 	SyncPrivate
 
-	SyncFuncExt
+	Sync
+Ext
 	SyncVarExt
 	SyncTypeExt
 	SyncPragma
 
 	SyncExprList
-	SyncExprs
+	Syncs
 	SyncExpr
 	SyncExprType
 	SyncAssign
-	SyncOp
-	SyncFuncLit
+	Sync
+	Sync
+Lit
 	SyncCompLit
 
 	SyncDecl
-	SyncFuncBody
+	Sync
+Body
 	SyncOpenScope
 	SyncCloseScope
 	SyncCloseAnotherScope

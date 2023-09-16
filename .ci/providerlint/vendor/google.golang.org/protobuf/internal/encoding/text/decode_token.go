@@ -37,7 +37,8 @@ const (
 	bof = Invalid
 )
 
-func (t Kind) String() string {
+
+ (t Kind) String() string {
 	switch t {
 	case Invalid:
 		return "<invalid>"
@@ -74,7 +75,8 @@ const (
 	FieldNumber
 )
 
-func (t NameKind) String() string {
+
+ (t NameKind) String() string {
 	switch t {
 	case IdentName:
 		return "IdentName"
@@ -130,40 +132,46 @@ type Token struct {
 }
 
 // Kind returns the token kind.
-func (t Token) Kind() Kind {
+
+ (t Token) Kind() Kind {
 	return t.kind
-}
+
 
 // RawString returns the read value in string.
-func (t Token) RawString() string {
-	return string(t.raw)
+
+ (t Token) RawString() string {
+urn string(t.raw)
 }
 
 // Pos returns the token position from the input.
-func (t Token) Pos() int {
-	return t.pos
+
+ (t Token) Pos() int {
+urn t.pos
 }
 
 // NameKind returns IdentName, TypeName or FieldNumber.
 // It panics if type is not Name.
-func (t Token) NameKind() NameKind {
+
+ (t Token) NameKind() NameKind {
 	if t.kind == Name {
 		return NameKind(t.attrs &^ hasSeparator)
-	}
+
 	panic(fmt.Sprintf("Token is not a Name type: %s", t.kind))
 }
 
 // HasSeparator returns true if the field name is followed by the separator char
 // ':', else false. It panics if type is not Name.
-func (t Token) HasSeparator() bool {
-	if t.kind == Name {
+
+ (t Token) HasSeparator() bool {
+t.kind == Name {
 		return t.attrs&hasSeparator != 0
 	}
 	panic(fmt.Sprintf("Token is not a Name type: %s", t.kind))
 }
 
 // IdentName returns the value for IdentName type.
-func (t Token) IdentName() string {
+
+Token) IdentName() string {
 	if t.kind == Name && t.attrs&uint8(IdentName) != 0 {
 		return string(t.raw)
 	}
@@ -171,8 +179,9 @@ func (t Token) IdentName() string {
 }
 
 // TypeName returns the value for TypeName type.
-func (t Token) TypeName() string {
-	if t.kind == Name && t.attrs&uint8(TypeName) != 0 {
+
+ (t Token) TypeName() string {
+t.kind == Name && t.attrs&uint8(TypeName) != 0 {
 		return t.str
 	}
 	panic(fmt.Sprintf("Token is not a TypeName: %s:%s", t.kind, NameKind(t.attrs&^hasSeparator)))
@@ -181,8 +190,9 @@ func (t Token) TypeName() string {
 // FieldNumber returns the value for FieldNumber type. It returns a
 // non-negative int32 value. Caller will still need to validate for the correct
 // field number range.
-func (t Token) FieldNumber() int32 {
-	if t.kind != Name || t.attrs&uint8(FieldNumber) == 0 {
+
+ (t Token) FieldNumber() int32 {
+t.kind != Name || t.attrs&uint8(FieldNumber) == 0 {
 		panic(fmt.Sprintf("Token is not a FieldNumber: %s:%s", t.kind, NameKind(t.attrs&^hasSeparator)))
 	}
 	// Following should not return an error as it had already been called right
@@ -192,15 +202,17 @@ func (t Token) FieldNumber() int32 {
 }
 
 // String returns the string value for a Scalar type.
-func (t Token) String() (string, bool) {
+
+ (t Token) String() (string, bool) {
 	if t.kind != Scalar || t.attrs != stringValue {
 		return "", false
 	}
 	return t.str, true
-}
+
 
 // Enum returns the literal value for a Scalar type for use as enum literals.
-func (t Token) Enum() (string, bool) {
+
+ (t Token) Enum() (string, bool) {
 	if t.kind != Scalar || t.attrs != literalValue || (len(t.raw) > 0 && t.raw[0] == '-') {
 		return "", false
 	}
@@ -208,7 +220,8 @@ func (t Token) Enum() (string, bool) {
 }
 
 // Bool returns the bool value for a Scalar type.
-func (t Token) Bool() (bool, bool) {
+
+ (t Token) Bool() (bool, bool) {
 	if t.kind != Scalar {
 		return false, false
 	}
@@ -231,7 +244,7 @@ func (t Token) Bool() (bool, bool) {
 		}
 	}
 	return false, false
-}
+
 
 // These exact boolean literals are the ones supported in C++.
 var boolLits = map[string]bool{
@@ -244,7 +257,8 @@ var boolLits = map[string]bool{
 }
 
 // Uint64 returns the uint64 value for a Scalar type.
-func (t Token) Uint64() (uint64, bool) {
+
+ (t Token) Uint64() (uint64, bool) {
 	if t.kind != Scalar || t.attrs != numberValue ||
 		t.numAttrs&isNegative > 0 || t.numAttrs&numFloat > 0 {
 		return 0, false
@@ -256,8 +270,9 @@ func (t Token) Uint64() (uint64, bool) {
 	return n, true
 }
 
-// Uint32 returns the uint32 value for a Scalar type.
-func (t Token) Uint32() (uint32, bool) {
+int32 returns the uint32 value for a Scalar type.
+
+ (t Token) Uint32() (uint32, bool) {
 	if t.kind != Scalar || t.attrs != numberValue ||
 		t.numAttrs&isNegative > 0 || t.numAttrs&numFloat > 0 {
 		return 0, false
@@ -270,9 +285,10 @@ func (t Token) Uint32() (uint32, bool) {
 }
 
 // Int64 returns the int64 value for a Scalar type.
-func (t Token) Int64() (int64, bool) {
+
+ (t Token) Int64() (int64, bool) {
 	if t.kind != Scalar || t.attrs != numberValue || t.numAttrs&numFloat > 0 {
-		return 0, false
+turn 0, false
 	}
 	if n, err := strconv.ParseInt(t.str, 0, 64); err == nil {
 		return n, true
@@ -288,8 +304,9 @@ func (t Token) Int64() (int64, bool) {
 }
 
 // Int32 returns the int32 value for a Scalar type.
-func (t Token) Int32() (int32, bool) {
-	if t.kind != Scalar || t.attrs != numberValue || t.numAttrs&numFloat > 0 {
+
+ (t Token) Int32() (int32, bool) {
+t.kind != Scalar || t.attrs != numberValue || t.numAttrs&numFloat > 0 {
 		return 0, false
 	}
 	if n, err := strconv.ParseInt(t.str, 0, 32); err == nil {
@@ -306,12 +323,13 @@ func (t Token) Int32() (int32, bool) {
 }
 
 // Float64 returns the float64 value for a Scalar type.
-func (t Token) Float64() (float64, bool) {
+
+ (t Token) Float64() (float64, bool) {
 	if t.kind != Scalar {
 		return 0, false
 	}
 	switch t.attrs {
-	case literalValue:
+e literalValue:
 		if f, ok := floatLits[strings.ToLower(string(t.raw))]; ok {
 			return f, true
 		}
@@ -329,7 +347,8 @@ func (t Token) Float64() (float64, bool) {
 }
 
 // Float32 returns the float32 value for a Scalar type.
-func (t Token) Float32() (float32, bool) {
+
+ (t Token) Float32() (float32, bool) {
 	if t.kind != Scalar {
 		return 0, false
 	}
@@ -344,7 +363,7 @@ func (t Token) Float32() (float32, bool) {
 			// Overflows are treated as (-)infinity.
 			return float32(n), true
 		}
-		nerr := err.(*strconv.NumError)
+rr := err.(*strconv.NumError)
 		if nerr.Err == strconv.ErrRange {
 			return float32(n), true
 		}
@@ -363,7 +382,8 @@ var floatLits = map[string]float64{
 }
 
 // TokenEquals returns true if given Tokens are equal, else false.
-func TokenEquals(x, y Token) bool {
+
+ TokenEquals(x, y Token) bool {
 	return x.kind == y.kind &&
 		x.attrs == y.attrs &&
 		x.numAttrs == y.numAttrs &&

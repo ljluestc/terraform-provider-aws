@@ -22,37 +22,47 @@ type customDecoderImpl int
 // expression.
 //
 // When a cooperating capsule type is asked for ExtensionData with this key,
-// it must return a non-nil CustomExpressionDecoderFunc value.
+// it must return a non-nil CustomExpressionDecoder
+ value.
 //
 // This mechanism is not universally supported; instead, it's handled in a few
 // specific places where expressions are evaluated with the intent of producing
 // a cty.Value of a type given by the calling application.
 //
 // Specifically, this currently works for type constraints given in
-// hcldec.AttrSpec and hcldec.BlockAttrsSpec, and it works for arguments to
-// function calls in the HCL native syntax. HCL extensions implemented outside
+// ec.AttrSpec and hcldec.BlockAttrsSpec, and it works for arguments to
+// 
+tion calls in the HCL native syntax. HCL extensions implemented outside
 // of the main HCL module may also implement this; consult their own
 // documentation for details.
-const CustomExpressionDecoder = customDecoderImpl(1)
+const CustomExpressionDeco= customDecoderImpl(1)
 
-// CustomExpressionDecoderFunc is the type of value that must be returned by
+// CustomExpressionDecoder
+ is the type of value that must be returned by
 // a capsule type handling the key CustomExpressionDecoder in its ExtensionData
 // implementation.
 //
-// If no error diagnostics are returned, the result value MUST be of the
-// capsule type that the decoder function was derived from. If the returned
+// If no error diagnostics aeed, the result value MUST be of the
+// capsule type that the decoder 
+tion was derived from. If the returned
 // error diagnostics prevent producing a value at all, return cty.NilVal.
-type CustomExpressionDecoderFunc func(expr hcl.Expression, ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics)
+type CustomExpressionDecoder
+
+r hcl.Expression, ctx *hcl.EvalContext) (cty.Value, hcl.Diagnost
 
 // CustomExpressionDecoderForType takes any cty type and returns its
 // custom expression decoder implementation if it has one. If it is not a
 // capsule type or it does not implement a custom expression decoder, this
-// function returns nil.
-func CustomExpressionDecoderForType(ty cty.Type) CustomExpressionDecoderFunc {
+// 
+tion returns nil.
+
+ CustomExpressionDecoderForType(ty cty.Type) CustomExpressionDecoder
+ {
 	if !ty.IsCapsuleType() {
 		return nil
 	}
-	if fn, ok := ty.CapsuleExtensionData(CustomExpressionDecoder).(CustomExpressionDecoderFunc); ok {
+	if fn, ok := ty.CapsuleExtensionData(CustomExpressionDecoder).(CustomExpressionDecoder
+); ok {
 		return fn
 	}
 	return nil

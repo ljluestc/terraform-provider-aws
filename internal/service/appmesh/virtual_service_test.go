@@ -28,10 +28,10 @@ func testAccVirtualService_virtualNode(t *testing.T) {
 	vsName := fmt.Sprintf("tf-acc-test-%d.mesh.local", sdkacctest.RandInt())
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualServiceDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualServiceConfig_virtualNode(meshName, vnName1, vnName2, vsName, "aws_appmesh_virtual_node.test1"),
@@ -83,10 +83,10 @@ func testAccVirtualService_virtualRouter(t *testing.T) {
 	vsName := fmt.Sprintf("tf-acc-test-%d.mesh.local", sdkacctest.RandInt())
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualServiceDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualServiceConfig_virtualRouter(meshName, vrName1, vrName2, vsName, "aws_appmesh_virtual_router.test1"),
@@ -131,10 +131,10 @@ func testAccVirtualService_tags(t *testing.T) {
 	vsName := fmt.Sprintf("tf-acc-test-%d.mesh.local", sdkacctest.RandInt())
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualServiceDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualServiceConfig_tags1(meshName, vnName1, vnName2, vsName, "aws_appmesh_virtual_node.test1", "key1", "value1"),
@@ -181,10 +181,10 @@ func testAccVirtualService_disappears(t *testing.T) {
 	vsName := fmt.Sprintf("tf-acc-test-%d.mesh.local", sdkacctest.RandInt())
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualServiceDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualServiceConfig_virtualNode(meshName, vnName1, vnName2, vsName, "aws_appmesh_virtual_node.test1"),

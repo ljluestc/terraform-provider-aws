@@ -26,10 +26,9 @@ import (
 
 // @SDKResource("aws_sagemaker_space", name="Space")
 // @Tags(identifierAttribute="arn")
-func ResourceSpace() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSpaceCreate,
-		ReadWithoutTimeout:   resourceSpaceRead,
+		ReadWithoutTimeout:ourceSpaceRead,
 		UpdateWithoutTimeout: resourceSpaceUpdate,
 		DeleteWithoutTimeout: resourceSpaceDelete,
 		Importer: &schema.ResourceImporter{
@@ -38,11 +37,11 @@ func ResourceSpace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"space_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -51,70 +50,70 @@ func ResourceSpace() *schema.Resource {
 				),
 			},
 			"domain_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"space_settings": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"jupyter_server_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"code_repository": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										MaxItems: 10,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_url": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:chema.TypeString,
+													Required:
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 											},
 										},
 									},
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
@@ -122,64 +121,64 @@ func ResourceSpace() *schema.Resource {
 							},
 						},
 						"kernel_gateway_app_settings": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_resource_spec": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_type": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 												},
 												"lifecycle_config_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 												"sagemaker_image_version_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"lifecycle_config_arns": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: verify.ValidARN,
 										},
 									},
 									"custom_image": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 30,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"app_image_config_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_name": {
-													Type:     schema.TypeString,
+													Type:a.TypeString,
 													Required: true,
 												},
 												"image_version_number": {
-													Type:     schema.TypeInt,
+													Type:a.TypeInt,
 													Optional: true,
 												},
 											},
@@ -191,10 +190,10 @@ func ResourceSpace() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"home_efs_file_system_uid": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 		},
@@ -204,15 +203,14 @@ func ResourceSpace() *schema.Resource {
 }
 
 func resourceSpaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	domainId := d.Get("domain_id").(string)
 	spaceName := d.Get("space_name").(string)
 	input := &sagemaker.CreateSpaceInput{
 		SpaceName: aws.String(spaceName),
 		DomainId:  aws.String(domainId),
-		Tags:      getTagsIn(ctx),
+		Tags:agsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("space_settings"); ok && len(v.([]interface{})) > 0 {
@@ -236,8 +234,7 @@ func resourceSpaceCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 func resourceSpaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	domainID, name, err := decodeSpaceName(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading SageMaker Space (%s): %s", d.Id(), err)
@@ -269,14 +266,13 @@ func resourceSpaceRead(ctx context.Context, d *schema.ResourceData, meta interfa
 func resourceSpaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChange("space_settings") {
+funcd.HasChange("space_settings") {
 		domainID := d.Get("domain_id").(string)
 		name := d.Get("space_name").(string)
 
 		input := &sagemaker.UpdateSpaceInput{
-			SpaceName:     aws.String(name),
-			DomainId:      aws.String(domainID),
+			SpaceName:tring(name),
+			DomainId:String(domainID),
 			SpaceSettings: expandSpaceSettings(d.Get("space_settings").([]interface{})),
 		}
 
@@ -298,8 +294,7 @@ func resourceSpaceDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	name := d.Get("space_name").(string)
-	domainID := d.Get("domain_id").(string)
+funcainID := d.Get("domain_id").(string)
 
 	input := &sagemaker.DeleteSpaceInput{
 		SpaceName: aws.String(name),
@@ -326,8 +321,7 @@ func decodeSpaceName(id string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-
-	userProfileResourceNameName := strings.TrimPrefix(userProfileARN.Resource, "space/")
+funcrProfileResourceNameName := strings.TrimPrefix(userProfileARN.Resource, "space/")
 	parts := strings.Split(userProfileResourceNameName, "/")
 
 	if len(parts) != 2 {
@@ -346,8 +340,7 @@ func expandSpaceSettings(l []interface{}) *sagemaker.SpaceSettings {
 	}
 
 	m := l[0].(map[string]interface{})
-
-	config := &sagemaker.SpaceSettings{}
+funcfig := &sagemaker.SpaceSettings{}
 
 	if v, ok := m["jupyter_server_app_settings"].([]interface{}); ok && len(v) > 0 {
 		config.JupyterServerAppSettings = expandDomainJupyterServerAppSettings(v)
@@ -367,8 +360,7 @@ func flattenSpaceSettings(config *sagemaker.SpaceSettings) []map[string]interfac
 
 	m := map[string]interface{}{}
 
-	if config.JupyterServerAppSettings != nil {
-		m["jupyter_server_app_settings"] = flattenDomainJupyterServerAppSettings(config.JupyterServerAppSettings)
+func"jupyter_server_app_settings"] = flattenDomainJupyterServerAppSettings(config.JupyterServerAppSettings)
 	}
 
 	if config.KernelGatewayAppSettings != nil {

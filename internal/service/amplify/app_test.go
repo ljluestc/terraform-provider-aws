@@ -33,7 +33,7 @@ func testAccApp_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_name(rName),
@@ -81,7 +81,7 @@ func testAccApp_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_name(rName),
@@ -105,7 +105,7 @@ func testAccApp_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_tags1(rName, "key1", "value1"),
@@ -153,7 +153,7 @@ func testAccApp_AutoBranchCreationConfig(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_autoBranchCreationNoAutoBranchCreation(rName),
@@ -250,7 +250,7 @@ func testAccApp_BasicAuthCredentials(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_basicAuthCredentials(rName, credentials1),
@@ -296,7 +296,7 @@ func testAccApp_BuildSpec(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_buildSpec(rName, "version: 0.1"),
@@ -339,7 +339,7 @@ func testAccApp_CustomRules(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_customRules(rName),
@@ -390,7 +390,7 @@ func testAccApp_Description(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_description(rName, "description 1"),
@@ -434,7 +434,7 @@ func testAccApp_EnvironmentVariables(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_environmentVariables(rName),
@@ -481,7 +481,7 @@ func testAccApp_IAMServiceRole(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_iamServiceRoleARN(rName),
@@ -525,7 +525,7 @@ func testAccApp_Name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_name(rName1),
@@ -572,7 +572,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAppDestroy(ctx),
+CheckDestroy:testAccCheckAppDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAppConfig_repository(rName, repository, accessToken),
@@ -736,7 +736,7 @@ resource "aws_amplify_app" "test" {
     enable_basic_auth      = true
     basic_auth_credentials = %[2]q
 
-    enable_auto_build             = true
+    enable_auto_build= true
     enable_pull_request_preview   = true
     pull_request_environment_name = "test1"
 

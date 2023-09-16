@@ -29,10 +29,10 @@ func TestAccKeyspacesTable_basic(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName1, rName2),
@@ -84,10 +84,10 @@ func TestAccKeyspacesTable_disappears(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName1, rName2),
@@ -109,10 +109,10 @@ func TestAccKeyspacesTable_tags(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_tags1(rName1, rName2, "key1", "value1"),
@@ -156,10 +156,10 @@ func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_clientSideTimestamps(rName1, rName2),
@@ -186,10 +186,10 @@ func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_multipleColumns(rName1, rName2),
@@ -281,10 +281,10 @@ func TestAccKeyspacesTable_update(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_allAttributes(rName1, rName2),
@@ -354,10 +354,10 @@ func TestAccKeyspacesTable_addColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName1, rName2),
@@ -421,10 +421,10 @@ func TestAccKeyspacesTable_delColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_newColumns(rName1, rName2),
@@ -803,7 +803,7 @@ resource "aws_keyspaces_table" "test" {
 
   encryption_specification {
     kms_key_identifier = aws_kms_key.test.arn
-    type               = "CUSTOMER_MANAGED_KMS_KEY"
+    type  = "CUSTOMER_MANAGED_KMS_KEY"
   }
 
   point_in_time_recovery {

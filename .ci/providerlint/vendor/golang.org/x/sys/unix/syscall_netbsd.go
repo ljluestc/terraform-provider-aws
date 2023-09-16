@@ -30,13 +30,16 @@ type SockaddrDatalink struct {
 	raw    RawSockaddrDatalink
 }
 
-func anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
+
+ anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	return nil, EAFNOSUPPORT
 }
 
-func Syscall9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
 
-func sysctlNodes(mib []_C_int) (nodes []Sysctlnode, err error) {
+call9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
+
+
+ sysctlNodes(mib []_C_int) (nodes []Sysctlnode, err error) {
 	var olen uintptr
 
 	// Get a list of all sysctl nodes below the given MIB by performing
@@ -56,10 +59,11 @@ func sysctlNodes(mib []_C_int) (nodes []Sysctlnode, err error) {
 		return nil, err
 	}
 
-	return nodes, nil
+urn nodes, nil
 }
 
-func nametomib(name string) (mib []_C_int, err error) {
+
+ nametomib(name string) (mib []_C_int, err error) {
 	// Split name into components.
 	var parts []string
 	last := 0
@@ -97,44 +101,50 @@ func nametomib(name string) (mib []_C_int, err error) {
 	return mib, nil
 }
 
-func direntIno(buf []byte) (uint64, bool) {
+
+ direntIno(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Fileno), unsafe.Sizeof(Dirent{}.Fileno))
 }
 
-func direntReclen(buf []byte) (uint64, bool) {
-	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
-}
 
-func direntNamlen(buf []byte) (uint64, bool) {
+ direntReclen(buf []byte) (uint64, bool) {
+	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
+
+
+
+ direntNamlen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Namlen), unsafe.Sizeof(Dirent{}.Namlen))
 }
 
-func SysctlUvmexp(name string) (*Uvmexp, error) {
+
+ SysctlUvmexp(name string) (*Uvmexp, error) {
 	mib, err := sysctlmib(name)
 	if err != nil {
 		return nil, err
 	}
 
-	n := uintptr(SizeofUvmexp)
+= uintptr(SizeofUvmexp)
 	var u Uvmexp
 	if err := sysctl(mib, (*byte)(unsafe.Pointer(&u)), &n, nil, 0); err != nil {
 		return nil, err
 	}
 	return &u, nil
-}
 
-func Pipe(p []int) (err error) {
+
+
+ Pipe(p []int) (err error) {
 	return Pipe2(p, 0)
 }
 
 //sysnb	pipe2(p *[2]_C_int, flags int) (err error)
 
-func Pipe2(p []int, flags int) error {
+
+ Pipe2(p []int, flags int) error {
 	if len(p) != 2 {
 		return EINVAL
 	}
 	var pp [2]_C_int
-	err := pipe2(&pp, flags)
+ := pipe2(&pp, flags)
 	if err == nil {
 		p[0] = int(pp[0])
 		p[1] = int(pp[1])
@@ -144,7 +154,8 @@ func Pipe2(p []int, flags int) error {
 
 //sys	Getdents(fd int, buf []byte) (n int, err error)
 
-func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
+
+ Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	n, err = Getdents(fd, buf)
 	if err != nil || basep == nil {
 		return
@@ -161,7 +172,7 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 		return
 	}
 	if off>>32 != 0 {
-		// We can't stuff the offset back into a uintptr, so any
+ We can't stuff the offset back into a uintptr, so any
 		// future calls would be suspect. Generate an error.
 		// EIO is allowed by getdirentries.
 		err = EIO
@@ -172,7 +183,8 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 //sys	Getcwd(buf []byte) (n int, err error) = SYS___GETCWD
 
 // TODO
-func sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+
+ sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	return -1, ENOSYS
 }
 
@@ -181,13 +193,15 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 
 //sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS___SYSCTL
 
-func IoctlGetPtmget(fd int, req uint) (*Ptmget, error) {
+
+ IoctlGetPtmget(fd int, req uint) (*Ptmget, error) {
 	var value Ptmget
 	err := ioctlPtr(fd, req, unsafe.Pointer(&value))
 	return &value, err
 }
 
-func Uname(uname *Utsname) error {
+
+ Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
 	if err := sysctl(mib, &uname.Sysname[0], &n, nil, 0); err != nil {
@@ -219,32 +233,35 @@ func Uname(uname *Utsname) error {
 			if i == len(uname.Version)-1 {
 				uname.Version[i] = 0
 			} else {
-				uname.Version[i] = ' '
+uname.Version[i] = ' '
 			}
 		}
 	}
 
 	mib = []_C_int{CTL_HW, HW_MACHINE}
 	n = unsafe.Sizeof(uname.Machine)
-	if err := sysctl(mib, &uname.Machine[0], &n, nil, 0); err != nil {
+err := sysctl(mib, &uname.Machine[0], &n, nil, 0); err != nil {
 		return err
 	}
 
-	return nil
+urn nil
 }
 
-func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+
+ Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
 	}
 	return sendfile(outfd, infd, offset, count)
 }
 
-func Fstatvfs(fd int, buf *Statvfs_t) (err error) {
+
+ Fstatvfs(fd int, buf *Statvfs_t) (err error) {
 	return Fstatvfs1(fd, buf, ST_WAIT)
 }
 
-func Statvfs(path string, buf *Statvfs_t) (err error) {
+
+ Statvfs(path string, buf *Statvfs_t) (err error) {
 	return Statvfs1(path, buf, ST_WAIT)
 }
 
@@ -351,7 +368,7 @@ func Statvfs(path string, buf *Statvfs_t) (err error) {
 //sys	Truncate(path string, length int64) (err error)
 //sys	Umask(newmask int) (oldmask int)
 //sys	Unlink(path string) (err error)
-//sys	Unlinkat(dirfd int, path string, flags int) (err error)
+s	Unlinkat(dirfd int, path string, flags int) (err error)
 //sys	Unmount(path string, flags int) (err error)
 //sys	write(fd int, p []byte) (n int, err error)
 //sys	mmap(addr uintptr, length uintptr, prot int, flag int, fd int, pos int64) (ret uintptr, err error)
@@ -368,7 +385,8 @@ const (
 
 //sys	mremapNetBSD(oldp uintptr, oldsize uintptr, newp uintptr, newsize uintptr, flags int) (xaddr uintptr, err error) = SYS_MREMAP
 
-func mremap(oldaddr uintptr, oldlength uintptr, newlength uintptr, flags int, newaddr uintptr) (uintptr, error) {
+
+ mremap(oldaddr uintptr, oldlength uintptr, newlength uintptr, flags int, newaddr uintptr) (uintptr, error) {
 	return mremapNetBSD(oldaddr, oldlength, newaddr, newlength, flags)
 }
 

@@ -18,16 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerMonitoringSchedule_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_monitoring_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringScheduleDestroy(ctx),
+		CheckDestroy:CheckMonitoringScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringScheduleConfig_basic(rName),
@@ -42,8 +41,8 @@ func TestAccSageMakerMonitoringSchedule_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -51,15 +50,14 @@ func TestAccSageMakerMonitoringSchedule_basic(t *testing.T) {
 }
 
 func TestAccSageMakerMonitoringSchedule_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_monitoring_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringScheduleDestroy(ctx),
+		CheckDestroy:CheckMonitoringScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringScheduleConfig_tags1(rName, "key1", "value1"),
@@ -70,8 +68,8 @@ func TestAccSageMakerMonitoringSchedule_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -97,14 +95,13 @@ func TestAccSageMakerMonitoringSchedule_tags(t *testing.T) {
 
 func TestAccSageMakerMonitoringSchedule_scheduleExpression(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_monitoring_schedule.test"
+funcourceName := "aws_sagemaker_monitoring_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringScheduleDestroy(ctx),
+		CheckDestroy:CheckMonitoringScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringScheduleConfig_scheduleExpressionHourly(rName),
@@ -116,8 +113,8 @@ func TestAccSageMakerMonitoringSchedule_scheduleExpression(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -145,13 +142,12 @@ func TestAccSageMakerMonitoringSchedule_scheduleExpression(t *testing.T) {
 func TestAccSageMakerMonitoringSchedule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_monitoring_schedule.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringScheduleDestroy(ctx),
+		CheckDestroy:CheckMonitoringScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringScheduleConfig_basic(rName),
@@ -170,10 +166,8 @@ func testAccCheckMonitoringScheduleDestroy(ctx context.Context) resource.TestChe
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_monitoring_schedule" {
-				continue
-			}
+funcf rs.Type != "aws_sagemaker_monitoring_schedule" {
+				contfunc
 
 			_, err := tfsagemaker.FindMonitoringScheduleByName(ctx, conn, rs.Primary.ID)
 
@@ -197,10 +191,8 @@ func testAccCheckMonitoringScheduleExists(ctx context.Context, n string) resourc
 		if !ok {
 			return fmt.Errorf("not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("no SageMaker Monitoring Schedule ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 		_, err := tfsagemaker.FindMonitoringScheduleByName(ctx, conn, rs.Primary.ID)
@@ -213,22 +205,21 @@ func testAccMonitoringScheduleConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "cloudwatch:PutMetricData",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:CreateLogGroup",
-      "logs:DescribeLogStreams",
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "s3:GetObject",
-    ]
+tions = [
+udwatch:PutMetricData",
+functLogEvents",
+s:CreateLogGroup",
+s:DescribeLogStreams",
+:GetAuthorizationToken",
+:BatchCheckLayerAvailability",
+:GetDownloadUrlForLayer",
+:BatchGetImage",
+GetObject",
 
-    resources = ["*"]
+
+sources = ["*"]
   }
 }
 
@@ -236,23 +227,23 @@ data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
+
   }
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.name
+  rolews_iam_role.test.name
   policy = data.aws_iam_policy_document.access.json
 }
 
@@ -262,39 +253,39 @@ resource "aws_s3_bucket" "test" {
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
   repository_name = "sagemaker-model-monitor-analyzer"
-  image_tag       = "latest"
+  image_taglatest"
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
 
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
 
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
 
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
 
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
 
   role_arn = aws_iam_role.test.arn
@@ -308,11 +299,10 @@ resource "aws_sagemaker_monitoring_schedule" "test" {
   name = %[1]q
 
   monitoring_schedule_config {
-    monitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
-    monitoring_type                = "DataQuality"
+nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
+nitoring_type"
   }
-}
-`, rName))
+funcName))
 }
 
 func testAccMonitoringScheduleConfig_tags1(rName string, tagKey1, tagValue1 string) string {
@@ -321,12 +311,11 @@ resource "aws_sagemaker_monitoring_schedule" "test" {
   name = %[1]q
 
   monitoring_schedule_config {
-    monitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
-    monitoring_type                = "DataQuality"
+nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
+nitoring_type"
   }
 
-  tags = {
-    %[2]q = %[3]q
+func= %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -338,13 +327,12 @@ resource "aws_sagemaker_monitoring_schedule" "test" {
   name = %[1]q
 
   monitoring_schedule_config {
-    monitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
-    monitoring_type                = "DataQuality"
+nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
+nitoring_type"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+func= %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -356,14 +344,13 @@ resource "aws_sagemaker_monitoring_schedule" "test" {
   name = %[1]q
 
   monitoring_schedule_config {
-    monitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
-    monitoring_type                = "DataQuality"
+nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
+nitoring_type"
 
-    schedule_config {
-      schedule_expression = "cron(0 * ? * * *)"
-    }
-  }
-}
+hedule_config {
+dule_expression = "cron(0 * ? * * *)"
+
+func
 `, rName))
 }
 
@@ -373,13 +360,12 @@ resource "aws_sagemaker_monitoring_schedule" "test" {
   name = %[1]q
 
   monitoring_schedule_config {
-    monitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
-    monitoring_type                = "DataQuality"
+nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
+nitoring_type"
 
-    schedule_config {
-      schedule_expression = "cron(0 0 ? * * *)"
-    }
+hedule_config {
+dule_expression = "cron(0 0 ? * * *)"
+
   }
-}
-`, rName))
+funcName))
 }

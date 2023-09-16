@@ -41,9 +41,9 @@ func testAccAccountRegistration_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountRegistrationDestroy(ctx),
+		CheckDestroy:testAccCheckAccountRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountRegistrationConfig_basic(),
@@ -73,9 +73,9 @@ func testAccAccountRegistration_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountRegistrationDestroy(ctx),
+		CheckDestroy:testAccCheckAccountRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				// deregister_on_destroy must be enabled for the disappears helper to disable
@@ -103,9 +103,9 @@ func testAccAccountRegistration_optionalKMSKey(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountRegistrationDestroy(ctx),
+		CheckDestroy:testAccCheckAccountRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountRegistrationConfig_KMSKey(),

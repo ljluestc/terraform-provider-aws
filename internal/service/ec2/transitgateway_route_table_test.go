@@ -22,8 +22,7 @@ import (
 )
 
 
-func testAccTransitGatewayRouteTable_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var transitGatewayRouteTable1 ec2.TransitGatewayRouteTable
 	resourceName := "aws_ec2_transit_gateway_route_table.test"
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
@@ -32,25 +31,23 @@ func testAccTransitGatewayRouteTable_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayRouteTableDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayRouteTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayRouteTableConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayRouteTableExists(ctx, resourceName, &transitGatewayRouteTable1),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`transit-gateway-route-table/tgw-rtb-.+`)),
-	resource.TestCheckResourceAttr(resourceName, "default_association_route_table", "false"),
+funcource.TestCheckResourceAttr(resourceName, "default_association_route_table", "false"),
 	resource.TestCheckResourceAttr(resourceName, "default_propagation_route_table", "false"),
 	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -61,17 +58,15 @@ ImportStateVerify: true,
 func testAccTransitGatewayRouteTable_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayRouteTable1 ec2.TransitGatewayRouteTable
-	resourceName := "aws_ec2_transit_gateway_route_table.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayRouteTableDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckTransitGatewayRouteTableDestroy(ctx),
+func
 Config: testAccTransitGatewayRouteTableConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -79,8 +74,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayRouteTable(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -91,18 +85,16 @@ func testAccTransitGatewayRouteTable_disappears_TransitGateway(t *testing.T) {
 	var transitGatewayRouteTable1 ec2.TransitGatewayRouteTable
 	resourceName := "aws_ec2_transit_gateway_route_table.test"
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayRouteTableDestroy(ctx),
+CheckDestroy:stAccCheckTransitGatewayRouteTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayRouteTableConfig_basic(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway1),
 	testAccCheckTransitGatewayRouteTableExists(ctx, resourceName, &transitGatewayRouteTable1),
@@ -111,8 +103,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func testAccTransitGatewayRouteTable_tags(t *testing.T) {
@@ -124,26 +115,23 @@ func testAccTransitGatewayRouteTable_tags(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayRouteTableDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayRouteTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayRouteTableConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayRouteTableExists(ctx, resourceName, &transitGatewayRouteTable1),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
-	{
-Config: testAccTransitGatewayRouteTableConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+funcig: testAccTransitGatewayRouteTableConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayRouteTableExists(ctx, resourceName, &transitGatewayRouteTable2),
@@ -157,8 +145,7 @@ func(
 Config: testAccTransitGatewayRouteTableConfig_tags1(rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckTransitGatewayRouteTableExists(ctx, resourceName, &transitGatewayRouteTable3),
-	testAccCheckTransitGatewayRouteTableNotRecreated(&transitGatewayRouteTable2, &transitGatewayRouteTable3),
+functAccCheckTransitGatewayRouteTableNotRecreated(&transitGatewayRouteTable2, &transitGatewayRouteTable3),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
@@ -169,8 +156,7 @@ func(
 
 
 func testAccCheckTransitGatewayRouteTableExists(ctx context.Context, n string, v *ec2.TransitGatewayRouteTable) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -182,13 +168,10 @@ if rs.Primary.ID == "" {
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-output, err := tfec2.FindTransitGatewayRouteTableByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+funcut, err := tfec2.FindTransitGatewayRouteTableByID(ctx, conn, rs.Primary.ID)
+funcrr != nil {
 	return err
-}
-
+func
 *v = *output
 
 return nil
@@ -213,13 +196,10 @@ continue
 continue
 	}
 
-	if err != nil {
-return err
-	}
-
+funcrn err
+func
 	return fmt.Errorf("EC2 Transit Gateway Route Table %s still exists", rs.Primary.ID)
-}
-
+func
 return nil
 	}
 }
@@ -242,30 +222,26 @@ func testAccTransitGatewayRouteTableConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-}
+funcurce "aws_ec2_transit_gateway_route_table" "test" {
+func
 `, rName)
-}
-
+func
 
 func testAccTransitGatewayRouteTableConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+funcansit_gateway_id = aws_ec2_transit_gateway.test.id
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -276,17 +252,17 @@ func testAccTransitGatewayRouteTableConfig_tags2(rName, tagKey1, tagValue1, tagK
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_ec2_transit_gateway_route_table" "test" {
   transit_gateway_id = aws_ec2_transit_gateway.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

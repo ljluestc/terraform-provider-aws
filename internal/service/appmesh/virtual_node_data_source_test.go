@@ -21,8 +21,8 @@ func testAccVirtualNodeDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_appmesh_virtual_node.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -65,9 +65,9 @@ resource "aws_appmesh_virtual_node" "test" {
 
           validation {
             trust {
-              file {
-                certificate_chain = "/cert_chain.pem"
-              }
+ file {
+   certificate_chain = "/cert_chain.pem"
+ }
             }
           }
         }

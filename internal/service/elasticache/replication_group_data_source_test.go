@@ -14,6 +14,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
+
 func TestAccElastiCacheReplicationGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -25,8 +27,10 @@ func TestAccElastiCacheReplicationGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elasticache_replication_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -51,6 +55,8 @@ func TestAccElastiCacheReplicationGroupDataSource_basic(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheReplicationGroupDataSource_clusterMode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -62,8 +68,10 @@ func TestAccElastiCacheReplicationGroupDataSource_clusterMode(t *testing.T) {
 	dataSourceName := "data.aws_elasticache_replication_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -85,6 +93,8 @@ func TestAccElastiCacheReplicationGroupDataSource_clusterMode(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheReplicationGroupDataSource_multiAZ(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -96,8 +106,10 @@ func TestAccElastiCacheReplicationGroupDataSource_multiAZ(t *testing.T) {
 	dataSourceName := "data.aws_elasticache_replication_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -111,11 +123,15 @@ func TestAccElastiCacheReplicationGroupDataSource_multiAZ(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheReplicationGroupDataSource_nonExistent(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -125,6 +141,8 @@ func TestAccElastiCacheReplicationGroupDataSource_nonExistent(t *testing.T) {
 		},
 	})
 }
+
+
 
 func TestAccElastiCacheReplicationGroupDataSource_Engine_Redis_LogDeliveryConfigurations(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -136,8 +154,10 @@ func TestAccElastiCacheReplicationGroupDataSource_Engine_Redis_LogDeliveryConfig
 	dataSourceName := "data.aws_elasticache_replication_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -157,17 +177,19 @@ func TestAccElastiCacheReplicationGroupDataSource_Engine_Redis_LogDeliveryConfig
 	})
 }
 
+
+
 func testAccReplicationGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigAvailableAZsNoOptIn() + fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
   replication_group_id        = %[1]q
-  description                 = "test description"
-  node_type                   = "cache.t3.small"
+  description    = "test description"
+  node_type      = "cache.t3.small"
   num_cache_clusters          = 2
-  port                        = 6379
+  port           = 6379
   preferred_cache_cluster_azs = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   automatic_failover_enabled  = true
-  snapshot_window             = "01:00-02:00"
+  snapshot_window= "01:00-02:00"
 }
 
 data "aws_elasticache_replication_group" "test" {
@@ -176,13 +198,15 @@ data "aws_elasticache_replication_group" "test" {
 `, rName)
 }
 
+
+
 func testAccReplicationGroupDataSourceConfig_clusterMode(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
   replication_group_id       = %[1]q
-  description                = "test description"
-  node_type                  = "cache.t3.small"
-  port                       = 6379
+  description   = "test description"
+  node_type     = "cache.t3.small"
+  port          = 6379
   automatic_failover_enabled = true
 
   replicas_per_node_group = 1
@@ -195,12 +219,14 @@ data "aws_elasticache_replication_group" "test" {
 `, rName)
 }
 
+
+
 func testAccReplicationGroupDataSourceConfig_multiAZ(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
   replication_group_id       = %[1]q
-  description                = "test description"
-  node_type                  = "cache.t3.small"
+  description   = "test description"
+  node_type     = "cache.t3.small"
   num_cache_clusters         = 2
   automatic_failover_enabled = true
   multi_az_enabled           = true

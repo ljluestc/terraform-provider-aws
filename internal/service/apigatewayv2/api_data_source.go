@@ -23,88 +23,88 @@ func DataSourceAPI() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_endpoint": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"api_key_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"cors_configuration": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allow_credentials": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"allow_headers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"allow_methods": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"allow_origins": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"expose_headers": {
-							Type:     schema.TypeSet,
+							Type:eSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Set:      hashStringCaseInsensitive,
+							Elem:hema{Type: schema.TypeString},
+							Set:gCaseInsensitive,
 						},
 						"max_age": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"disable_execute_api_endpoint": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"execution_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"protocol_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"route_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"version": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},

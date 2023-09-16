@@ -19,8 +19,7 @@ import (
 // listTags lists transcribe service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn *transcribe.Client, identifier string) (tftags.KeyValueTags, error) {
-	input := &transcribe.ListTagsForResourceInput{
+funcut := &transcribe.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn *transcribe.Client, identifier string) (
 // ListTags lists transcribe service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).TranscribeClient(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,8 +52,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns transcribe service tags.
 func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 	result := make([]awstypes.Tag, 0, len(tags))
-
-	for k, v := range tags.Map() {
+func k, v := range tags.Map() {
 		tag := awstypes.Tag{
 			Key:   aws.String(k),
 			Value: aws.String(v),
@@ -71,8 +68,7 @@ func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 func KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
-	for _, tag := range tags {
-		m[aws.ToString(tag.Key)] = tag.Value
+funcaws.ToString(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -84,8 +80,7 @@ func getTagsIn(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -96,8 +91,7 @@ func setTagsOut(ctx context.Context, tags []awstypes.Tag) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// updateTags updates transcribe service tags.
+funcpdateTags updates transcribe service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
 func updateTags(ctx context.Context, conn *transcribe.Client, identifier string, oldTagsMap, newTagsMap any) error {
@@ -106,8 +100,7 @@ func updateTags(ctx context.Context, conn *transcribe.Client, identifier string,
 
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
-	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.Transcribe)
+funcovedTags = removedTags.IgnoreSystem(names.Transcribe)
 	if len(removedTags) > 0 {
 		input := &transcribe.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
@@ -144,3 +137,4 @@ func updateTags(ctx context.Context, conn *transcribe.Client, identifier string,
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).TranscribeClient(ctx), identifier, oldTags, newTags)
 }
+func

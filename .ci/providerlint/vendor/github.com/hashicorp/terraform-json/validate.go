@@ -109,7 +109,8 @@ type ValidateOutput struct {
 
 // Validate checks to ensure that data is present, and the
 // version matches the version supported by this library.
-func (vo *ValidateOutput) Validate() error {
+
+ (vo *ValidateOutput) Validate() error {
 	if vo == nil {
 		return errors.New("validation output is nil")
 	}
@@ -137,7 +138,8 @@ func (vo *ValidateOutput) Validate() error {
 	return nil
 }
 
-func (vo *ValidateOutput) UnmarshalJSON(b []byte) error {
+
+ (vo *ValidateOutput) UnmarshalJSON(b []byte) error {
 	type rawOutput ValidateOutput
 	var schemas rawOutput
 

@@ -23,8 +23,7 @@ import (
 
 // @SDKDataSource("aws_vpc_endpoint_service")
 
-func DataSourceVPCEndpointService() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCEndpointServiceRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -33,66 +32,65 @@ func DataSourceVPCEndpointService() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"acceptance_required": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zones": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"base_endpoint_dns_names": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"manages_vpc_endpoints": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"owner": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"private_dns_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"service": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional:
 				ConflictsWith: []string{"service_name"},
 			},
 			"service_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"service_name": {
 				Type: schema.TypeString,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"service"},
 			},
 			"service_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.StringInSlice(ec2.ServiceType_Values(), false),
-			},
-			"supported_ip_address_types": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+funcsupported_ip_address_types": {
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_endpoint_policy_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 		},
@@ -102,8 +100,7 @@ func: validation.StringInSlice(ec2.ServiceType_Values(), false),
 
 func dataSourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeVpcEndpointServicesInput{
 		Filters: BuildAttributeFilterList(
@@ -178,8 +175,8 @@ func dataSourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceDat
 	d.Set("acceptance_required", sd.AcceptanceRequired)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("vpc-endpoint-service/%s", serviceID),
 	}.String()

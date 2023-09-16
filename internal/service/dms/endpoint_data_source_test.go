@@ -20,10 +20,10 @@ func TestAccDMSEndpointDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_dms_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointDataSourceConfig_basic(rName),

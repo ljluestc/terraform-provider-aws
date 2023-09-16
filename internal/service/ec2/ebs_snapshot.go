@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_ebs_snapshot", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
 
-func ResourceEBSSnapshot() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotCreate,
-		ReadWithoutTimeout:   resourceEBSSnapshotRead,
+		ReadWithoutTimeout:ourceEBSSnapshotRead,
 		UpdateWithoutTimeout: resourceEBSSnapshotUpdate,
 		DeleteWithoutTimeout: resourceEBSSnapshotDelete,
 
@@ -47,65 +46,63 @@ func ResourceEBSSnapshot() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"data_encryption_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"outpost_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
-			},
-			"owner_alias": {
-				Type:     schema.TypeString,
+funcowner_alias": {
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"permanent_restore": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"storage_tier": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
+funcames.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"temporary_restore_days": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 			},
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"volume_size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -116,8 +113,7 @@ func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStor
 func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	volumeID := d.Get("volume_id").(string)
+funcumeID := d.Get("volume_id").(string)
 	input := &ec2.CreateSnapshotInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSnapshot),
 		VolumeId: aws.String(volumeID),
@@ -138,8 +134,7 @@ func() (interface{}, error) {
 			return conn.CreateSnapshotWithContext(ctx, input)
 		},
 		errCodeSnapshotCreationPerVolumeRateExceeded, "The maximum per volume CreateSnapshot request rate has been exceeded")
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating EBS Snapshot (%s): %s", volumeID, err)
 	}
 
@@ -152,8 +147,7 @@ func() (interface{}, error) {
 				SnapshotIds: aws.StringSlice([]string{d.Id()}),
 			})
 		},
-		errCodeResourceNotReady)
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot (%s) create: %s", d.Id(), err)
 	}
@@ -183,8 +177,7 @@ func resourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	snapshot, err := FindSnapshotByID(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EBS Snapshot %s not found, removing from state", d.Id())
+funcg.Printf("[WARN] EBS Snapshot %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
 	}
@@ -195,8 +188,8 @@ func resourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("snapshot/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -224,8 +217,7 @@ func resourceEBSSnapshotUpdate(ctx context.Context, d *schema.ResourceData, meta
 	if d.HasChange("storage_tier") {
 		if tier := d.Get("storage_tier").(string); tier == ec2.TargetStorageTierArchive {
 			_, err := conn.ModifySnapshotTierWithContext(ctx, &ec2.ModifySnapshotTierInput{
-				SnapshotId:  aws.String(d.Id()),
-				StorageTier: aws.String(tier),
+funcStorageTier: aws.String(tier),
 			})
 
 			if err != nil {
@@ -269,15 +261,13 @@ func resourceEBSSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), 
 func() (interface{}, error) {
 		return conn.DeleteSnapshotWithContext(ctx, &ec2.DeleteSnapshotInput{
-			SnapshotId: aws.String(d.Id()),
-		})
+func
 	}, errCodeInvalidSnapshotInUse)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidSnapshotNotFound) {
 		return diags
 	}
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EBS Snapshot (%s): %s", d.Id(), err)
 	}
 

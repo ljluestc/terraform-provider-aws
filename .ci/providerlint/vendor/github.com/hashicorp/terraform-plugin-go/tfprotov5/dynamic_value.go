@@ -31,7 +31,8 @@ var ErrUnknownDynamicValueType = errors.New("DynamicValue had no JSON or msgpack
 // specify the tftype.Type you want to send the value as, and it must be a type
 // that is compatible with the Type of the Value. Usually it should just be the
 // Type of the Value, but it can also be the DynamicPseudoType.
-func NewDynamicValue(t tftypes.Type, v tftypes.Value) (DynamicValue, error) {
+
+DynamicValue(t tftypes.Type, v tftypes.Value) (DynamicValue, error) {
 	b, err := v.MarshalMsgPack(t) //nolint:staticcheck
 	if err != nil {
 		return DynamicValue{}, err
@@ -54,7 +55,8 @@ type DynamicValue struct {
 
 // IsNull returns true if the DynamicValue represents a null value based on the
 // underlying JSON or MessagePack data.
-func (d DynamicValue) IsNull() (bool, error) {
+
+DynamicValue) IsNull() (bool, error) {
 	if d.JSON != nil {
 		decoder := json.NewDecoder(bytes.NewReader(d.JSON))
 		token, err := decoder.Token()
@@ -121,7 +123,8 @@ func (d DynamicValue) IsNull() (bool, error) {
 // unsupported way, or has created one from scratch, and should treat it as
 // opaque and not modify it, only calling `Unmarshal` on `DynamicValue`s
 // received from RPC requests.
-func (d DynamicValue) Unmarshal(typ tftypes.Type) (tftypes.Value, error) {
+
+DynamicValue) Unmarshal(typ tftypes.Type) (tftypes.Value, error) {
 	if d.JSON != nil {
 		return tftypes.ValueFromJSON(d.JSON, typ) //nolint:staticcheck
 	}

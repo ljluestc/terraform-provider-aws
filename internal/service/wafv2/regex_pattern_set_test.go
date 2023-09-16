@@ -26,10 +26,10 @@ func TestAccWAFV2RegexPatternSet_basic(t *testing.T) {
 	resourceName := "aws_wafv2_regex_pattern_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegexPatternSetDestroy(ctx),
+		CheckDestroy:testAccCheckRegexPatternSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegexPatternSetConfig_basic(rName),
@@ -87,10 +87,10 @@ func TestAccWAFV2RegexPatternSet_disappears(t *testing.T) {
 	resourceName := "aws_wafv2_regex_pattern_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegexPatternSetDestroy(ctx),
+		CheckDestroy:testAccCheckRegexPatternSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegexPatternSetConfig_minimal(rName),
@@ -111,10 +111,10 @@ func TestAccWAFV2RegexPatternSet_minimal(t *testing.T) {
 	resourceName := "aws_wafv2_regex_pattern_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegexPatternSetDestroy(ctx),
+		CheckDestroy:testAccCheckRegexPatternSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegexPatternSetConfig_minimal(rName),
@@ -139,10 +139,10 @@ func TestAccWAFV2RegexPatternSet_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafv2_regex_pattern_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegexPatternSetDestroy(ctx),
+		CheckDestroy:testAccCheckRegexPatternSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegexPatternSetConfig_basic(rName),
@@ -177,10 +177,10 @@ func TestAccWAFV2RegexPatternSet_tags(t *testing.T) {
 	resourceName := "aws_wafv2_regex_pattern_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegexPatternSetDestroy(ctx),
+		CheckDestroy:testAccCheckRegexPatternSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegexPatternSetConfig_oneTag(rName, "Tag1", "Value1"),

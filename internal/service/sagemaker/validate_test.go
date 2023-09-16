@@ -8,8 +8,7 @@ import (
 	"testing"
 )
 
-func TestValidName(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	validNames := []string{
 		"ValidSageMakerName",
@@ -26,9 +25,9 @@ func TestValidName(t *testing.T) {
 	}
 
 	invalidNames := []string{
-		"Invalid name",          // blanks are not allowed
-		"1#{}nook",              // other non-alphanumeric chars
-		"-nook",                 // cannot start with hyphen
+		"Invalid name",are not allowed
+		"1#{}nook",er non-alphanumeric chars
+		"-nook",rt with hyphen
 		strings.Repeat("W", 64), // length > 63
 	}
 	for _, v := range invalidNames {
@@ -40,8 +39,7 @@ func TestValidName(t *testing.T) {
 }
 
 func TestValidPrefix(t *testing.T) {
-	t.Parallel()
-
+func
 	maxLength := 37
 	validPrefixes := []string{
 		"ValidSageMakerName",
@@ -58,9 +56,9 @@ func TestValidPrefix(t *testing.T) {
 	}
 
 	invalidPrefixes := []string{
-		"Invalid prefix",                 // blanks are not allowed
-		"1#{}nook",                       // other non-alphanumeric chars
-		"-nook",                          // cannot start with hyphen
+		"Invalid prefix", not allowed
+		"1#{}nook",anumeric chars
+		"-nook",hen
 		strings.Repeat("W", maxLength+1), // length > maxLength
 	}
 	for _, v := range invalidPrefixes {

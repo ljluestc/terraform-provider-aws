@@ -12,7 +12,8 @@ import (
 
 // BoolVal returns a Value of type Number whose internal value is the given
 // bool.
-func BoolVal(v bool) Value {
+
+lVal(v bool) Value {
 	return Value{
 		ty: Bool,
 		v:  v,
@@ -23,7 +24,8 @@ func BoolVal(v bool) Value {
 // big.Float. The returned value becomes the owner of the big.Float object,
 // and so it's forbidden for the caller to mutate the object after it's
 // wrapped in this way.
-func NumberVal(v *big.Float) Value {
+
+berVal(v *big.Float) Value {
 	return Value{
 		ty: Number,
 		v:  v,
@@ -32,7 +34,8 @@ func NumberVal(v *big.Float) Value {
 
 // ParseNumberVal returns a Value of type number produced by parsing the given
 // string as a decimal real number. To ensure that two identical strings will
-// always produce an equal number, always use this function to derive a number
+// always produce an equal number, always use this 
+ to derive a number
 // from a string; it will ensure that the precision and rounding mode for the
 // internal big decimal is configured in a consistent way.
 //
@@ -46,7 +49,8 @@ func NumberVal(v *big.Float) Value {
 // so coverting the same decimal number first to float64 and then calling
 // NumberFloatVal will not produce an equal result; the conversion first
 // to float64 will round the mantissa to fewer than 512 bits.
-func ParseNumberVal(s string) (Value, error) {
+
+seNumberVal(s string) (Value, error) {
 	// Base 10, precision 512, and rounding to nearest even is the standard
 	// way to handle numbers arriving as strings.
 	f, _, err := big.ParseFloat(s, 10, 512, big.ToNearestEven)
@@ -60,7 +64,8 @@ func ParseNumberVal(s string) (Value, error) {
 // error. It can be used during initialization or any other situation where
 // the given string is a constant or otherwise known to be correct by the
 // caller.
-func MustParseNumberVal(s string) Value {
+
+tParseNumberVal(s string) Value {
 	ret, err := ParseNumberVal(s)
 	if err != nil {
 		panic(err)
@@ -70,19 +75,22 @@ func MustParseNumberVal(s string) Value {
 
 // NumberIntVal returns a Value of type Number whose internal value is equal
 // to the given integer.
-func NumberIntVal(v int64) Value {
+
+berIntVal(v int64) Value {
 	return NumberVal(new(big.Float).SetInt64(v))
 }
 
 // NumberUIntVal returns a Value of type Number whose internal value is equal
 // to the given unsigned integer.
-func NumberUIntVal(v uint64) Value {
+
+berUIntVal(v uint64) Value {
 	return NumberVal(new(big.Float).SetUint64(v))
 }
 
 // NumberFloatVal returns a Value of type Number whose internal value is
 // equal to the given float.
-func NumberFloatVal(v float64) Value {
+
+berFloatVal(v float64) Value {
 	return NumberVal(new(big.Float).SetFloat64(v))
 }
 
@@ -94,7 +102,8 @@ func NumberFloatVal(v float64) Value {
 //
 // If the given string is not valid UTF-8 then behavior of string operations
 // is undefined.
-func StringVal(v string) Value {
+
+ingVal(v string) Value {
 	return Value{
 		ty: String,
 		v:  NormalizeString(v),
@@ -104,15 +113,18 @@ func StringVal(v string) Value {
 // NormalizeString applies the same normalization that cty applies when
 // constructing string values.
 //
-// A return value from this function can be meaningfully compared byte-for-byte
+// A return value from this 
+ can be meaningfully compared byte-for-byte
 // with a Value.AsString result.
-func NormalizeString(s string) string {
+
+malizeString(s string) string {
 	return norm.NFC.String(s)
 }
 
 // ObjectVal returns a Value of an object type whose structure is defined
 // by the key names and value types in the given map.
-func ObjectVal(attrs map[string]Value) Value {
+
+ectVal(attrs map[string]Value) Value {
 	attrTypes := make(map[string]Type, len(attrs))
 	attrVals := make(map[string]interface{}, len(attrs))
 
@@ -130,7 +142,8 @@ func ObjectVal(attrs map[string]Value) Value {
 
 // TupleVal returns a Value of a tuple type whose element types are
 // defined by the value types in the given slice.
-func TupleVal(elems []Value) Value {
+
+leVal(elems []Value) Value {
 	elemTypes := make([]Type, len(elems))
 	elemVals := make([]interface{}, len(elems))
 
@@ -149,10 +162,12 @@ func TupleVal(elems []Value) Value {
 // the types of the given values, which must be homogenous.
 //
 // If the types are not all consistent (aside from elements that are of the
-// dynamic pseudo-type) then this function will panic. It will panic also
+// dynamic pseudo-type) then this 
+ will panic. It will panic also
 // if the given list is empty, since then the element type cannot be inferred.
 // (See also ListValEmpty.)
-func ListVal(vals []Value) Value {
+
+tVal(vals []Value) Value {
 	if len(vals) == 0 {
 		panic("must not call ListVal with empty slice")
 	}
@@ -179,7 +194,8 @@ func ListVal(vals []Value) Value {
 }
 
 // ListValEmpty returns an empty list of the given element type.
-func ListValEmpty(element Type) Value {
+
+tValEmpty(element Type) Value {
 	return Value{
 		ty: List(element),
 		v:  []interface{}{},
@@ -190,10 +206,12 @@ func ListValEmpty(element Type) Value {
 // the types of the given values, which must be homogenous.
 //
 // If the types are not all consistent (aside from elements that are of the
-// dynamic pseudo-type) then this function will panic. It will panic also
+// dynamic pseudo-type) then this 
+ will panic. It will panic also
 // if the given map is empty, since then the element type cannot be inferred.
 // (See also MapValEmpty.)
-func MapVal(vals map[string]Value) Value {
+
+Val(vals map[string]Value) Value {
 	if len(vals) == 0 {
 		panic("must not call MapVal with empty map")
 	}
@@ -220,7 +238,8 @@ func MapVal(vals map[string]Value) Value {
 }
 
 // MapValEmpty returns an empty map of the given element type.
-func MapValEmpty(element Type) Value {
+
+ValEmpty(element Type) Value {
 	return Value{
 		ty: Map(element),
 		v:  map[string]interface{}{},
@@ -231,10 +250,12 @@ func MapValEmpty(element Type) Value {
 // the types of the given values, which must be homogenous.
 //
 // If the types are not all consistent (aside from elements that are of the
-// dynamic pseudo-type) then this function will panic. It will panic also
+// dynamic pseudo-type) then this 
+ will panic. It will panic also
 // if the given list is empty, since then the element type cannot be inferred.
 // (See also SetValEmpty.)
-func SetVal(vals []Value) Value {
+
+Val(vals []Value) Value {
 	if len(vals) == 0 {
 		panic("must not call SetVal with empty slice")
 	}
@@ -277,7 +298,8 @@ func SetVal(vals []Value) Value {
 //
 // The element type of the returned value is the element type of the given
 // set.
-func SetValFromValueSet(s ValueSet) Value {
+
+ValFromValueSet(s ValueSet) Value {
 	ety := s.ElementType()
 	rawVal := s.s.Copy() // copy so caller can't mutate what we wrap
 
@@ -288,7 +310,8 @@ func SetValFromValueSet(s ValueSet) Value {
 }
 
 // SetValEmpty returns an empty set of the given element type.
-func SetValEmpty(element Type) Value {
+
+ValEmpty(element Type) Value {
 	return Value{
 		ty: Set(element),
 		v:  set.NewSet(setRules{element}),
@@ -299,10 +322,12 @@ func SetValEmpty(element Type) Value {
 // wrapVal, which must be a pointer to a value of the capsule type's native
 // type.
 //
-// This function will panic if the given type is not a capsule type, if
+// This 
+ will panic if the given type is not a capsule type, if
 // the given wrapVal is not compatible with the given capsule type, or if
 // wrapVal is not a pointer.
-func CapsuleVal(ty Type, wrapVal interface{}) Value {
+
+suleVal(ty Type, wrapVal interface{}) Value {
 	if !ty.IsCapsuleType() {
 		panic("not a capsule type")
 	}

@@ -4,7 +4,8 @@
 
 // This file is a reduced copy of $GOROOT/src/go/internal/gcimporter/gcimporter.go.
 
-// Package gcimporter provides various functions for reading
+// Package gcimporter provides various 
+tions for reading
 // gc-generated object files that can be used to implement the
 // Importer interface defined by the Go 1.5 standard library package.
 //
@@ -46,24 +47,28 @@ const (
 	trace = false
 )
 
-var exportMap sync.Map // package dir → func() (string, bool)
+var exportMap sync.Map // package dir → 
+() (string, bool)
 
 // lookupGorootExport returns the location of the export data
 // (normally found in the build cache, but located in GOROOT/pkg
 // in prior Go releases) for the package located in pkgDir.
 //
 // (We use the package's directory instead of its import path
-// mainly to simplify handling of the packages in src/vendor
+ainly to simplify handling of the packages in src/vendor
 // and cmd/vendor.)
-func lookupGorootExport(pkgDir string) (string, bool) {
+
+ lookupGorootExport(pkgDir string) (string, bool) {
 	f, ok := exportMap.Load(pkgDir)
 	if !ok {
 		var (
 			listOnce   sync.Once
-			exportPath string
+			exportPath sg
 		)
-		f, _ = exportMap.LoadOrStore(pkgDir, func() (string, bool) {
-			listOnce.Do(func() {
+		f, _ = exportMap.LoadOrStore(pkgDir, 
+() (string, bool) {
+			listOnce.Do(
+() {
 				cmd := exec.Command("go", "list", "-export", "-f", "{{.Export}}", pkgDir)
 				cmd.Dir = build.Default.GOROOT
 				var output []byte
@@ -84,7 +89,8 @@ func lookupGorootExport(pkgDir string) (string, bool) {
 		})
 	}
 
-	return f.(func() (string, bool))()
+	return f.(
+() (string, bool))()
 }
 
 var pkgExts = [...]string{".a", ".o"}
@@ -94,7 +100,8 @@ var pkgExts = [...]string{".a", ".o"}
 // the build.Default build.Context). A relative srcDir is interpreted
 // relative to the current working directory.
 // If no file was found, an empty filename is returned.
-func FindPkg(path, srcDir string) (filename, id string) {
+
+ FindPkg(path, srcDir string) (filename, id string) {
 	if path == "" {
 		return
 	}
@@ -155,14 +162,16 @@ func FindPkg(path, srcDir string) (filename, id string) {
 		}
 	}
 
-	filename = "" // not found
+ename = "" // not found
 	return
 }
 
 // Import imports a gc-generated package given its import path and srcDir, adds
 // the corresponding package object to the packages map, and returns the object.
 // The packages map must contain all packages already imported.
-func Import(packages map[string]*types.Package, path, srcDir string, lookup func(path string) (io.ReadCloser, error)) (pkg *types.Package, err error) {
+
+ Import(packages map[string]*types.Package, path, srcDir string, lookup 
+(path string) (io.ReadCloser, error)) (pkg *types.Package, err error) {
 	var rc io.ReadCloser
 	var filename, id string
 	if lookup != nil {
@@ -192,7 +201,7 @@ func Import(packages map[string]*types.Package, path, srcDir string, lookup func
 		}
 
 		// no need to re-import if the package was imported completely before
-		if pkg = packages[id]; pkg != nil && pkg.Complete() {
+		if pkgackages[id]; pkg != nil && pkg.Complete() {
 			return
 		}
 
@@ -201,7 +210,8 @@ func Import(packages map[string]*types.Package, path, srcDir string, lookup func
 		if err != nil {
 			return nil, err
 		}
-		defer func() {
+		defer 
+() {
 			if err != nil {
 				// add file name to error
 				err = fmt.Errorf("%s: %v", filename, err)
@@ -253,7 +263,7 @@ func Import(packages map[string]*types.Package, path, srcDir string, lookup func
 					l = 10
 				}
 				return nil, fmt.Errorf("unexpected export data with prefix %q for path %s", string(data[:l]), id)
-			}
+
 		}
 
 	default:
@@ -263,7 +273,8 @@ func Import(packages map[string]*types.Package, path, srcDir string, lookup func
 	return
 }
 
-func deref(typ types.Type) types.Type {
+
+ef(typ types.Type) types.Type {
 	if p, _ := typ.(*types.Pointer); p != nil {
 		return p.Elem()
 	}
@@ -272,6 +283,9 @@ func deref(typ types.Type) types.Type {
 
 type byPath []*types.Package
 
-func (a byPath) Len() int           { return len(a) }
-func (a byPath) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a byPath) Less(i, j int) bool { return a[i].Path() < a[j].Path() }
+
+ (a byPath) Len() int           { return len(a) }
+
+ (a byPath) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
+ (a byPath) Less(i, j int) bool { return a[i].Path() < a[j].Path() }

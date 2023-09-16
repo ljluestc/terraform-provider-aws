@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_vpc_ipam_resource_discovery_association", name="IPAM Resource Discovery Association")
 // @Tags(identifierAttribute="id")
 
-func ResourceIPAMResourceDiscoveryAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMResourceDiscoveryAssociationCreate,
-		ReadWithoutTimeout:   resourceIPAMResourceDiscoveryAssociationRead,
+		ReadWithoutTimeout:ourceIPAMResourceDiscoveryAssociationRead,
 		UpdateWithoutTimeout: resourceIPAMResourceDiscoveryAssociationUpdate,
 		DeleteWithoutTimeout: resourceIPAMResourceDiscoveryAssociationDelete,
 
@@ -47,54 +46,53 @@ func ResourceIPAMResourceDiscoveryAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipam_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipam_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"ipam_region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipam_resource_discovery_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"is_default": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
 
 func resourceIPAMResourceDiscoveryAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	ipamID := d.Get("ipam_id").(string)
 	ipamResourceDiscoveryID := d.Get("ipam_resource_discovery_id").(string)
 	input := &ec2.AssociateIpamResourceDiscoveryInput{
-		ClientToken:    aws.String(id.UniqueId()),
+		ClientToken:s.String(id.UniqueId()),
 		IpamId:aws.String(ipamID),
 		IpamResourceDiscoveryId: aws.String(ipamResourceDiscoveryID),
-		TagSpecifications:       getTagSpecificationsIn(ctx, ec2.ResourceTypeIpamResourceDiscoveryAssociation),
+		TagSpecifications:ecificationsIn(ctx, ec2.ResourceTypeIpamResourceDiscoveryAssociation),
 	}
 
 	output, err := conn.AssociateIpamResourceDiscoveryWithContext(ctx, input)
@@ -114,8 +112,7 @@ func resourceIPAMResourceDiscoveryAssociationCreate(ctx context.Context, d *sche
 
 func resourceIPAMResourceDiscoveryAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	rda, err := FindIPAMResourceDiscoveryAssociationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -145,8 +142,7 @@ func resourceIPAMResourceDiscoveryAssociationRead(ctx context.Context, d *schema
 func resourceIPAMResourceDiscoveryAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceIPAMResourceDiscoveryAssociationRead(ctx, d, meta)...)
 }
 
@@ -154,8 +150,7 @@ func resourceIPAMResourceDiscoveryAssociationDelete(ctx context.Context, d *sche
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	log.Printf("[DEBUG] Deleting IPAM Resource Discovery Association: %s", d.Id())
-	_, err := conn.DisassociateIpamResourceDiscoveryWithContext(ctx, &ec2.DisassociateIpamResourceDiscoveryInput{
+funcerr := conn.DisassociateIpamResourceDiscoveryWithContext(ctx, &ec2.DisassociateIpamResourceDiscoveryInput{
 		IpamResourceDiscoveryAssociationId: aws.String(d.Id()),
 	})
 

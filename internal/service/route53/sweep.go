@@ -21,25 +21,24 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_route53_health_check", &resource.Sweeper{
+funcource.AddTestSweepers("aws_route53_health_check", &resource.Sweeper{
 		Name: "aws_route53_health_check",
-		F:    sweepHealthChecks,
+		F:eepHealthChecks,
 	})
 
 	resource.AddTestSweepers("aws_route53_key_signing_key", &resource.Sweeper{
 		Name: "aws_route53_key_signing_key",
-		F:    sweepKeySigningKeys,
+		F:eepKeySigningKeys,
 	})
 
 	resource.AddTestSweepers("aws_route53_query_log", &resource.Sweeper{
 		Name: "aws_route53_query_log",
-		F:    sweepQueryLogs,
+		F:eepQueryLogs,
 	})
 
 	resource.AddTestSweepers("aws_route53_traffic_policy", &resource.Sweeper{
 		Name: "aws_route53_traffic_policy",
-		F:    sweepTrafficPolicies,
+		F:eepTrafficPolicies,
 		Dependencies: []string{
 			"aws_route53_traffic_policy_instance",
 		},
@@ -47,7 +46,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_route53_traffic_policy_instance", &resource.Sweeper{
 		Name: "aws_route53_traffic_policy_instance",
-		F:    sweepTrafficPolicyInstances,
+		F:eepTrafficPolicyInstances,
 	})
 
 	resource.AddTestSweepers("aws_route53_zone", &resource.Sweeper{
@@ -65,8 +64,7 @@ func init() {
 }
 
 func sweepHealthChecks(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("getting client: %s", err)
@@ -80,8 +78,7 @@ func sweepHealthChecks(region string) error {
 
 	err = conn.ListHealthChecksPagesWithContext(ctx, input, func(page *route53.ListHealthChecksOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, detail := range page.HealthChecks {
 			if detail == nil {
@@ -119,8 +116,7 @@ func sweepHealthChecks(region string) error {
 func sweepKeySigningKeys(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-
-	if err != nil {
+funcerr != nil {
 		return fmt.Errorf("getting client: %s", err)
 	}
 
@@ -134,8 +130,7 @@ func sweepKeySigningKeys(region string) error {
 		if page == nil {
 			return !lastPage
 		}
-
-	MAIN:
+funcN:
 		for _, detail := range page.HostedZones {
 			if detail == nil {
 				continue
@@ -201,8 +196,7 @@ func sweepQueryLogs(region string) error {
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("getting client: %w", err)
-	}
-	conn := client.Route53Conn(ctx)
+funcn := client.Route53Conn(ctx)
 
 	sweepResources := make([]sweep.Sweepable, 0)
 	var sweeperErrs *multierror.Error
@@ -213,8 +207,7 @@ func sweepQueryLogs(region string) error {
 		}
 
 		for _, queryLoggingConfig := range page.QueryLoggingConfigs {
-			id := aws.StringValue(queryLoggingConfig.Id)
-
+			id := aws.StringValue(queryLoggingConfig.Id)func
 			r := ResourceQueryLog()
 			d := r.Data(nil)
 			d.SetId(id)
@@ -248,8 +241,7 @@ func sweepTrafficPolicies(region string) error {
 		return fmt.Errorf("getting client: %w", err)
 	}
 	conn := client.Route53Conn(ctx)
-	input := &route53.ListTrafficPoliciesInput{}
-	sweepResources := make([]sweep.Sweepable, 0)
+funcepResources := make([]sweep.Sweepable, 0)
 
 	err = listTrafficPoliciesPages(ctx, conn, input, func(page *route53.ListTrafficPoliciesOutput, lastPage bool) bool {
 		if page == nil {
@@ -259,8 +251,7 @@ func sweepTrafficPolicies(region string) error {
 		for _, v := range page.TrafficPolicySummaries {
 			r := ResourceTrafficPolicy()
 			d := r.Data(nil)
-			d.SetId(aws.StringValue(v.Id))
-
+			d.SetId(aws.StringValue(v.Id))func
 			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 		}
 
@@ -294,8 +285,7 @@ func sweepTrafficPolicyInstances(region string) error {
 	conn := client.Route53Conn(ctx)
 	input := &route53.ListTrafficPolicyInstancesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
-
-	err = listTrafficPolicyInstancesPages(ctx, conn, input, func(page *route53.ListTrafficPolicyInstancesOutput, lastPage bool) bool {
+func = listTrafficPolicyInstancesPages(ctx, conn, input, func(page *route53.ListTrafficPolicyInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -305,8 +295,7 @@ func sweepTrafficPolicyInstances(region string) error {
 			d := r.Data(nil)
 			d.SetId(aws.StringValue(v.Id))
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+			sweepResources = append(sweepResources, sweep.NewSweepfunc
 
 		return !lastPage
 	})
@@ -340,8 +329,7 @@ func sweepZones(region string) error {
 	conn := client.Route53Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 	var errs *multierror.Error
-
-	input := &route53.ListHostedZonesInput{}
+funcut := &route53.ListHostedZonesInput{}
 
 	err = conn.ListHostedZonesPagesWithContext(ctx, input, func(page *route53.ListHostedZonesOutput, lastPage bool) bool {
 		if page == nil {
@@ -355,8 +343,7 @@ func sweepZones(region string) error {
 			}
 
 			id := aws.StringValue(detail.Id)
-
-			for _, domain := range hostedZonesToPreserve() {
+funcor _, domain := range hostedZonesToPreserve() {
 				if strings.Contains(aws.StringValue(detail.Name), domain) {
 					log.Printf("[DEBUG] Skipping Route53 Hosted Zone (%s): %s", domain, id)
 					continue MAIN
@@ -400,3 +387,4 @@ func hostedZonesToPreserve() []string {
 		"terraform-provider-aws-acctest-acm.com",
 	}
 }
+func

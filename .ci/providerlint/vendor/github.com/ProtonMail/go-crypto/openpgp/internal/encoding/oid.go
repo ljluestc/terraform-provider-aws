@@ -26,7 +26,8 @@ const (
 )
 
 // NewOID returns a OID initialized with bytes.
-func NewOID(bytes []byte) *OID {
+
+OID(bytes []byte) *OID {
 	switch len(bytes) {
 	case reservedOIDLength1, reservedOIDLength2:
 		panic("encoding: NewOID argument length is reserved")
@@ -42,27 +43,32 @@ func NewOID(bytes []byte) *OID {
 }
 
 // Bytes returns the decoded data.
-func (o *OID) Bytes() []byte {
+
+*OID) Bytes() []byte {
 	return o.bytes
 }
 
 // BitLength is the size in bits of the decoded data.
-func (o *OID) BitLength() uint16 {
+
+*OID) BitLength() uint16 {
 	return uint16(len(o.bytes) * 8)
 }
 
 // EncodedBytes returns the encoded data.
-func (o *OID) EncodedBytes() []byte {
+
+*OID) EncodedBytes() []byte {
 	return append([]byte{byte(len(o.bytes))}, o.bytes...)
 }
 
 // EncodedLength is the size in bytes of the encoded data.
-func (o *OID) EncodedLength() uint16 {
+
+*OID) EncodedLength() uint16 {
 	return uint16(1 + len(o.bytes))
 }
 
 // ReadFrom reads into b the next OID from r.
-func (o *OID) ReadFrom(r io.Reader) (int64, error) {
+
+*OID) ReadFrom(r io.Reader) (int64, error) {
 	var buf [1]byte
 	n, err := io.ReadFull(r, buf[:])
 	if err != nil {

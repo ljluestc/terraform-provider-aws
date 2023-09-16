@@ -17,7 +17,8 @@ const (
 )
 
 // _pidAlive tests whether a process is alive or not
-func _pidAlive(pid int) bool {
+
+ _pidAlive(pid int) bool {
 	h, err := syscall.OpenProcess(processDesiredAccess, false, uint32(pid))
 	if err != nil {
 		return false

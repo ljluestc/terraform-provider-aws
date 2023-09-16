@@ -89,7 +89,7 @@ const (
 	requestPresignParam = 60
 	// The actual token expiration (presigned STS urls are valid for 15 minutes after timestamp in x-amz-date).
 	presignedURLExpiration = 15 * time.Minute
-	v1Prefix               = "k8s-aws-v1."
+	v1Prefix  = "k8s-aws-v1."
 	maxTokenLenBytes       = 1024 * 4
 	clusterIDHeader        = "x-k8s-aws-id"
 	// Format of the X-Amz-Date header used for expiration
@@ -131,8 +131,8 @@ func NewSTSError(m string) STSError {
 }
 
 var parameterWhitelist = map[string]bool{
-	"action":               true,
-	"version":              true,
+	"action":  true,
+	"version": true,
 	"x-amz-algorithm":      true,
 	"x-amz-credential":     true,
 	"x-amz-date":           true,
@@ -164,14 +164,14 @@ type Generator interface {
 
 type generator struct {
 	forwardSessionName bool
-	cache              bool
+	cache bool
 }
 
 // NewGenerator creates a Generator and returns it.
 func NewGenerator(forwardSessionName bool, cache bool) (Generator, error) {
 	return generator{
 		forwardSessionName: forwardSessionName,
-		cache:              cache,
+		cache: cache,
 	}, nil
 }
 

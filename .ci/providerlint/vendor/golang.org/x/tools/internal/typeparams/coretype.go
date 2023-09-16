@@ -11,7 +11,8 @@ import (
 // CoreType returns the core type of T or nil if T does not have a core type.
 //
 // See https://go.dev/ref/spec#Core_types for the definition of a core type.
-func CoreType(T types.Type) types.Type {
+
+ CoreType(T types.Type) types.Type {
 	U := T.Underlying()
 	if _, ok := U.(*types.Interface); !ok {
 		return U // for non-interface types,
@@ -107,8 +108,9 @@ func CoreType(T types.Type) types.Type {
 // case, _NormalTerms returns ErrEmptyTypeSet.
 //
 // _NormalTerms makes no guarantees about the order of terms, except that it
-// is deterministic.
-func _NormalTerms(typ types.Type) ([]*Term, error) {
+s deterministic.
+
+ _NormalTerms(typ types.Type) ([]*Term, error) {
 	switch typ := typ.(type) {
 	case *TypeParam:
 		return StructuralTerms(typ)

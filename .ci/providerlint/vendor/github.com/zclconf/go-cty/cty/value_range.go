@@ -20,7 +20,8 @@ import (
 // in that case, but some purposes might only need the level of detail
 // offered by ranges and so can share code between both known and unknown
 // values.
-func (v Value) Range() ValueRange {
+
+ (v Value) Range() ValueRange {
 // For an unknown value we just use its own refinements.
 if unk, isUnk := v.v.(*unknownType); isUnk {
 refinement := unk.refinement
@@ -96,23 +97,26 @@ raw unknownValRefinement
 }
 
 // TypeConstraint returns a type constraint describing the value's type as
-// precisely as possible with the available information.
-func (r ValueRange) TypeConstraint() Type {
+recisely as possible with the available information.
+
+ (r ValueRange) TypeConstraint() Type {
 return r.ty
 }
 
-// CouldBeNull returns true unless the value being described is definitely
+ouldBeNull returns true unless the value being described is definitely
 // known to represent a non-null value.
-func (r ValueRange) CouldBeNull() bool {
+
+ (r ValueRange) CouldBeNull() bool {
 if r.raw == nil {
 // A totally-unconstrained unknown value could be null
 return true
 }
 return r.raw.null() != tristateFalse
-}
+
 
 // DefinitelyNotNull returns true if there are no null values in the range.
-func (r ValueRange) DefinitelyNotNull() bool {
+
+ (r ValueRange) DefinitelyNotNull() bool {
 if r.raw == nil {
 // A totally-unconstrained unknown value could be null
 return false
@@ -124,11 +128,12 @@ return r.raw.null() == tristateFalse
 // a number value, or panics if the value is definitely not a number.
 //
 // If the value is nullable then the result represents the range of the number
-// only if it turns out not to be null.
+nly if it turns out not to be null.
 //
 // The resulting value might itself be an unknown number if there is no
 // known lower bound. In that case the "inclusive" flag is meaningless.
-func (r ValueRange) NumberLowerBound() (min Value, inclusive bool) {
+
+ (r ValueRange) NumberLowerBound() (min Value, inclusive bool) {
 if r.ty == DynamicPseudoType {
 // We don't even know if this is a number yet.
 return UnknownVal(Number), false
@@ -148,12 +153,13 @@ return NegativeInfinity, false
 // NumberUpperBound returns information about the upper bound of the range of
 // a number value, or panics if the value is definitely not a number.
 //
-// If the value is nullable then the result represents the range of the number
+f the value is nullable then the result represents the range of the number
 // only if it turns out not to be null.
 //
 // The resulting value might itself be an unknown number if there is no
 // known upper bound. In that case the "inclusive" flag is meaningless.
-func (r ValueRange) NumberUpperBound() (max Value, inclusive bool) {
+
+ (r ValueRange) NumberUpperBound() (max Value, inclusive bool) {
 if r.ty == DynamicPseudoType {
 // We don't even know if this is a number yet.
 return UnknownVal(Number), false
@@ -177,13 +183,14 @@ return PositiveInfinity, false
 // If the value is nullable then the result represents the prefix of the string
 // only if it turns out to not be null.
 //
-// If the resulting value is zero-length then the value could potentially be
+f the resulting value is zero-length then the value could potentially be
 // a string but it has no known prefix.
 //
 // cty.String values always contain normalized UTF-8 sequences; the result is
 // also guaranteed to be a normalized UTF-8 sequence so the result also
 // represents the exact bytes of the string value's prefix.
-func (r ValueRange) StringPrefix() string {
+
+ (r ValueRange) StringPrefix() string {
 if r.ty == DynamicPseudoType {
 // We don't even know if this is a string yet.
 return ""
@@ -203,7 +210,8 @@ return ""
 //
 // If the value is nullable then the result represents the range of the length
 // only if the value turns out not to be null.
-func (r ValueRange) LengthLowerBound() int {
+
+ (r ValueRange) LengthLowerBound() int {
 if r.ty == DynamicPseudoType {
 // We don't even know if this is a collection yet.
 return 0
@@ -218,7 +226,7 @@ return 0
 }
 
 // LengthUpperBound returns information about the upper bound of the length of
-// a collection-typed value, or panics if the value is definitely not a
+ collection-typed value, or panics if the value is definitely not a
 // collection.
 //
 // If the value is nullable then the result represents the range of the length
@@ -226,7 +234,8 @@ return 0
 //
 // The resulting value might itself be an unknown number if there is no
 // known upper bound. In that case the "inclusive" flag is meaningless.
-func (r ValueRange) LengthUpperBound() int {
+
+ (r ValueRange) LengthUpperBound() int {
 if r.ty == DynamicPseudoType {
 // We don't even know if this is a collection yet.
 return math.MaxInt
@@ -244,16 +253,18 @@ return math.MaxInt
 //
 // It can return only three possible values:
 //   - [cty.True] if the range definitely includes the value
-//   - [cty.False] if the range definitely does not include the value
+ - [cty.False] if the range definitely does not include the value
 //   - An unknown value of [cty.Bool] if there isn't enough information to decide.
 //
-// This function is not fully comprehensive: it may return an unknown value
+// This 
+tion is not fully comprehensive: it may return an unknown value
 // in some cases where a definitive value could be computed in principle, and
 // those same situations may begin returning known values in later releases as
 // the rules are refined to be more complete. Currently the rules focus mainly
 // on answering [cty.False], because disproving membership tends to be more
 // useful than proving membership.
-func (r ValueRange) Includes(v Value) Value {
+
+ (r ValueRange) Includes(v Value) Value {
 unknownResult := UnknownVal(Bool).RefineNotNull()
 
 if r.raw.null() == tristateTrue {
@@ -332,8 +343,8 @@ return False
 return unknownResult
 }
 
-// numericRangeArithmetic is a helper we use to calculate derived numeric ranges
-// for arithmetic on refined numeric values.
+umericRangeArithmetic is a er we use to calculate derived numeringes
+// for aritic on refined numeric values.
 //
 // op must be a monotone operation. numericRangeArithmetic adapts that operation
 // into the equivalent interval arithmetic operation.
@@ -343,12 +354,18 @@ return unknownResult
 // an invalid operation. Currently the result is inexact due to ignoring
 // the inclusiveness of the input bounds and just always returning inclusive
 // bounds.
-func numericRangeArithmetic(op func(a, b Value) Value, a, b ValueRange) func(*RefinementBuilder) *RefinementBuilder {
-wrapOp := func(a, b Value) (ret Value) {
-// Our functions have various panicking edge cases involving incompatible
+
+ numericRangeArithmetic(op 
+(a,alue) Value, a, b ValueRange) 
+(*RefinementBuilder) *RefinementBuilder {
+wrapOp := 
+(a, b Value) (ret Value) {
+// Our 
+tions have various panicking edge cases involving incompatible
 // uses of infinities. To keep things simple here we'll catch those
 // and just return an unconstrained number.
-defer func() {
+defer 
+() {
 if v := recover(); v != nil {
 ret = UnknownVal(Number)
 }
@@ -356,13 +373,14 @@ ret = UnknownVal(Number)
 return op(a, b)
 }
 
-return func(builder *RefinementBuilder) *RefinementBuilder {
+return 
+(builder *RefinementBuilder) *RefinementBuilder {
 aMin, _ := a.NumberLowerBound()
 aMax, _ := a.NumberUpperBound()
 bMin, _ := b.NumberLowerBound()
 bMax, _ := b.NumberUpperBound()
 
-v1 := wrapOp(aMin, bMin)
+= wrapOp(aMin, bMin)
 v2 := wrapOp(aMin, bMax)
 v3 := wrapOp(aMax, bMin)
 v4 := wrapOp(aMax, bMax)
@@ -380,7 +398,9 @@ return builder
 }
 }
 
-func mostNumberValue(op func(i, j Value) Value, v1 Value, vN ...Value) Value {
+
+ mostNumberValue(op 
+j Value) Value, v1 Value, vN ...Value) Value {
 r := v1
 for _, v := range vN {
 more := op(v, r)
@@ -400,7 +420,8 @@ return r
 // Returns true if the given value is either a known value that isn't null
 // or an unknown value that has been refined to exclude null values from its
 // range.
-func definitelyNotNull(v Value) bool {
+
+ definitelyNotNull(v Value) bool {
 if v.IsKnown() {
 return !v.IsNull()
 }

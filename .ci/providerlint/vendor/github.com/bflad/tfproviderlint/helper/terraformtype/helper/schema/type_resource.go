@@ -42,7 +42,8 @@ const (
 // access the data in a familiar manner.
 type resourceType struct {
 	Description  string
-	MigrateState func(int, interface{}, interface{}) (interface{}, error)
+	MigrateState 
+(int, interface{}, interface{}) (interface{}, error)
 	Schema       map[string]*schemaType
 	Timeouts     resourceTimeoutType
 }
@@ -55,8 +56,9 @@ type ResourceInfo struct {
 	TypesInfo       *types.Info
 }
 
-// NewResourceInfo instantiates a ResourceInfo
-func NewResourceInfo(cl *ast.CompositeLit, info *types.Info) *ResourceInfo {
+ewResourceInfo instantiates a ResourceInfo
+
+ NewResourceInfo(cl *ast.CompositeLit, info *types.Info) *ResourceInfo {
 	result := &ResourceInfo{
 		AstCompositeLit: cl,
 		Fields:          astutils.CompositeLitFields(cl),
@@ -69,7 +71,8 @@ func NewResourceInfo(cl *ast.CompositeLit, info *types.Info) *ResourceInfo {
 	}
 
 	if kvExpr := result.Fields[ResourceFieldMigrateState]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
-		result.Resource.MigrateState = func(int, interface{}, interface{}) (interface{}, error) { return nil, nil }
+		result.Resource.MigrateState = 
+(int, interface{}, interface{}) (interface{}, error) { return nil, nil }
 	}
 
 	if kvExpr := result.Fields[ResourceFieldTimeouts]; kvExpr != nil && astutils.ExprValue(kvExpr.Value) != nil {
@@ -142,15 +145,17 @@ func NewResourceInfo(cl *ast.CompositeLit, info *types.Info) *ResourceInfo {
 	}
 
 	return result
-}
+
 
 // DeclaresField returns true if the field name is present in the AST
-func (info *ResourceInfo) DeclaresField(fieldName string) bool {
-	return info.Fields[fieldName] != nil
+
+ (info *ResourceInfo) DeclaresField(fieldName string) bool {
+urn info.Fields[fieldName] != nil
 }
 
 // IsDataSource returns true if the Resource type matches a Terraform Data Source declaration
-func (info *ResourceInfo) IsDataSource() bool {
+
+ (info *ResourceInfo) IsDataSource() bool {
 	if info.DeclaresField(ResourceFieldCreate) {
 		return false
 	}
@@ -159,26 +164,29 @@ func (info *ResourceInfo) IsDataSource() bool {
 }
 
 // IsResource returns true if the Resource type matches a Terraform Resource declaration
-func (info *ResourceInfo) IsResource() bool {
+
+ (info *ResourceInfo) IsResource() bool {
 	return info.DeclaresField(ResourceFieldCreate)
 }
 
 // GetResourceMapResourceNames returns all resource names held in a map[string]*schema.Resource
-func GetResourceMapResourceNames(cl *ast.CompositeLit) []ast.Expr {
+
+ GetResourceMapResourceNames(cl *ast.CompositeLit) []ast.Expr {
 	var result []ast.Expr
 
 	for _, elt := range cl.Elts {
 		switch v := elt.(type) {
 		case *ast.KeyValueExpr:
 			result = append(result, v.Key)
-		}
+
 	}
 
 	return result
 }
 
 // IsMapStringResource returns if the type is map[string]*Resource from the helper/schema package
-func IsMapStringResource(cl *ast.CompositeLit, info *types.Info) bool {
+
+ IsMapStringResource(cl *ast.CompositeLit, info *types.Info) bool {
 	switch v := cl.Type.(type) {
 	case *ast.MapType:
 		switch k := v.Key.(type) {
@@ -195,7 +203,8 @@ func IsMapStringResource(cl *ast.CompositeLit, info *types.Info) bool {
 }
 
 // IsTypeResource returns if the type is Resource from the helper/schema package
-func IsTypeResource(t types.Type) bool {
+
+ IsTypeResource(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameResource)

@@ -23,7 +23,7 @@ func TestAccCloudControlResourceDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourceDestroy(ctx),
+CheckDestroy:testAccCheckResourceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourceDataSourceConfig_basic(rName),

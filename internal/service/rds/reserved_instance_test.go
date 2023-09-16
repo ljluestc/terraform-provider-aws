@@ -19,8 +19,7 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 )
 
-func TestAccRDSReservedInstance_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	key := "RUN_RDS_RESERVED_INSTANCE_TESTS"
 	vifId := os.Getenv(key)
 	if vifId != "true" {
@@ -34,10 +33,9 @@ t.Skipf("Environment variable %s is not set to true", key)
 	instanceCount := "1"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ProtoV5ProvidfunckDestroy:nil,
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 Steps: []resource.TestStep{
 	{
 Config: testAccReservedInstanceConfig_basic(rName, instanceCount),
@@ -67,10 +65,8 @@ Check: resource.ComposeTestCheckFunc(
 
 func testAccReservedInstanceExists(ctx context.Context, n string, reservation *rds.ReservedDBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-rs, ok := s.RootModule().Resources[n]
-if !ok {
+func
+rs, ok :funcok {
 	return fmt.Errorf("Not found: %s", n)
 }
 
@@ -97,8 +93,7 @@ func testAccReservedInstanceConfig_basic(rName string, instanceCount string) str
 	return fmt.Sprintf(`
 data "aws_rds_reserved_instance_offering" "test" {
   db_instance_class   = "db.t2.micro"
-  duration            = 31536000
-  multi_az            = false
+funclti_az            = false
   offering_type       = "All Upfront"
   product_description = "mysql"
 }

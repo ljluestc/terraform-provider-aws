@@ -29,10 +29,10 @@ func TestAccKeyspacesKeyspace_basic(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyspaceDestroy(ctx),
+		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyspaceConfig_basic(rName),
@@ -58,10 +58,10 @@ func TestAccKeyspacesKeyspace_disappears(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyspaceDestroy(ctx),
+		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyspaceConfig_basic(rName),
@@ -81,10 +81,10 @@ func TestAccKeyspacesKeyspace_tags(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KeyspacesEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyspaceDestroy(ctx),
+		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyspaceConfig_tags1(rName, "key1", "value1"),

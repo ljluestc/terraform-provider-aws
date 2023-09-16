@@ -8,13 +8,16 @@ import (
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/testfuncdecl"
+	"github.com/bflad/tfproviderlint/passes/test
+decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance test function names missing TestAcc prefix
+const Doc = `check for acceptance test 
+tion names missing TestAcc px
 
-The AT005 analyzer reports test function names (Test prefix) that contain
+The AT005 analyzer reports test 
+tion names (Test prefix) that contain
 resource.Test() or resource.ParallelTest(), which should be named with
 the TestAcc prefix.`
 
@@ -22,42 +25,59 @@ const analyzerName = "AT005"
 
 var Analyzer = &analysis.Analyzer{
 	Name: analyzerName,
-	Doc:  Doc,
+	Doc: ,
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		testfuncdecl.Analyzer,
-	},
+		test
+decl.Analyzer,
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, r) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	testFuncs := pass.ResultOf[testfuncdecl.Analyzer].([]*ast.FuncDecl)
+	test
+s := pass.ResultOf[test
+decl.Analyzer].([]*ast.
+Decl)
 
-	for _, testFunc := range testFuncs {
-		if ignorer.ShouldIgnore(analyzerName, testFunc) {
+	for _, test
+ := range test
+s {
+		if ignorer.ShouldIgnore(analyzerName, test
+) {
 			continue
 		}
 
-		if strings.HasPrefix(testFunc.Name.Name, "TestAcc") {
+		if strings.HasPrefix(test
+.Name.Name, "TestAcc") {
 			continue
 		}
 
-		ast.Inspect(testFunc.Body, func(n ast.Node) bool {
+		ast.Inspect(test
+.Body, 
+(n ast.Node) boo
 			callExpr, ok := n.(*ast.CallExpr)
 
 			if !ok {
 				return true
 			}
 
-			isResourceTest := resource.IsFunc(callExpr.Fun, pass.TypesInfo, resource.FuncNameTest)
-			isResourceParallelTest := resource.IsFunc(callExpr.Fun, pass.TypesInfo, resource.FuncNameParallelTest)
+			isResourceTest := resource.Is
+(callExpr.Fun, pass.TypesInfo, resource.
+NameTest)
+			isResourceParallelTest := resource.Is
+(callExpr.Fun, pass.TypesInfo, resource.
+NameParallelTest)
 
 			if !isResourceTest && !isResourceParallelTest {
 				return true
 			}
 
-			pass.Reportf(testFunc.Pos(), "%s: acceptance test function name should begin with TestAcc", analyzerName)
+			pass.Reportf(test
+.Pos(), "%s: acceptance test 
+tion name should begin with TestAcc", analyzerName)
 			return true
 		})
 

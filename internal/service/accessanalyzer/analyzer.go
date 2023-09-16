@@ -65,7 +65,7 @@ func resourceAnalyzer() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ForceNew:         true,
 				Default:          types.TypeAccount,

@@ -84,8 +84,8 @@ func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &neptune.CreateDBSubnetGroupInput{
 		DBSubnetGroupName:        aws.String(name),
 		DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
-		SubnetIds:                flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:                     getTagsIn(ctx),
+		SubnetIds:   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:        getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateDBSubnetGroupWithContext(ctx, input)
@@ -137,7 +137,7 @@ func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 		input := &neptune.ModifyDBSubnetGroupInput{
 			DBSubnetGroupName:        aws.String(d.Id()),
 			DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
-			SubnetIds:                flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+			SubnetIds:   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		}
 
 		_, err := conn.ModifyDBSubnetGroupWithContext(ctx, input)

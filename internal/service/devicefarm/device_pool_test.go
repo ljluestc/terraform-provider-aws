@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDeviceFarmDevicePool_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var pool devicefarm.DevicePool
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
@@ -29,15 +28,14 @@ func TestAccDeviceFarmDevicePool_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+			acctest.Pfunccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevicePoolDestroy(ctx),
+		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevicePoolConfig_basic(rName),
@@ -69,21 +67,19 @@ func TestAccDeviceFarmDevicePool_basic(t *testing.T) {
 
 func TestAccDeviceFarmDevicePool_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var pool devicefarm.DevicePool
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_device_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currently, DeviceFarm is only supported in us-west-2
-			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+			// Currenfunc/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevicePoolDestroy(ctx),
+		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevicePoolConfig_tags1(rName, "key1", "value1"),
@@ -123,19 +119,17 @@ func TestAccDeviceFarmDevicePool_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool devicefarm.DevicePool
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_device_pool.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+			acctest.Pfunc
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevicePoolDestroy(ctx),
+		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevicePoolConfig_basic(rName),
@@ -156,17 +150,15 @@ func TestAccDeviceFarmDevicePool_disappears_project(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_device_pool.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+funceCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevicePoolDestroy(ctx),
+		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevicePoolConfig_basic(rName),
@@ -189,10 +181,8 @@ func testAccCheckDevicePoolExists(ctx context.Context, n string, v *devicefarm.D
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		resp, err := tfdevicefarm.FindDevicePoolByARN(ctx, conn, rs.Primary.ID)
 		if err != nil {
 			return err
@@ -217,10 +207,8 @@ func testAccCheckDevicePoolDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 
 			// Try to find the resource
-			_, err := tfdevicefarm.FindDevicePoolByARN(ctx, conn, rs.Primary.ID)
-			if tfresource.NotFound(err) {
-				continue
-			}
+funcf tfresource.NotFound(err) {
+				contfunc
 
 			if err != nil {
 				return err
@@ -245,8 +233,7 @@ resource "aws_devicefarm_device_pool" "test" {
   }
 }
 `, rName)
-}
-
+func
 func testAccDevicePoolConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccProjectConfig_basic(rName) + fmt.Sprintf(`
 resource "aws_devicefarm_device_pool" "test" {
@@ -260,8 +247,7 @@ resource "aws_devicefarm_device_pool" "test" {
   tags = {
     %[2]q = %[3]q
   }
-}
-`, rName, tagKey1, tagValue1)
+funcName, tagKey1, tagValue1)
 }
 
 func testAccDevicePoolConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
@@ -278,6 +264,5 @@ resource "aws_devicefarm_device_pool" "test" {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
-}
-`, rName, tagKey1, tagValue1, tagKey2, tagValue2)
+funcName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

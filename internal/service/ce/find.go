@@ -12,9 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-func FindAnomalyMonitorByARN(ctx context.Context, conn *costexplorer.CostExplorer, arn string) (*costexplorer.AnomalyMonitor, error) {
-	in := &costexplorer.GetAnomalyMonitorsInput{
+func:= &costexplorer.GetAnomalyMonitorsInput{
 		MonitorArnList: aws.StringSlice([]string{arn}),
 		MaxResults:     aws.Int64(1),
 	}
@@ -38,10 +36,8 @@ func FindAnomalyMonitorByARN(ctx context.Context, conn *costexplorer.CostExplore
 
 	return out.AnomalyMonitors[0], nil
 }
-
 func FindAnomalySubscriptionByARN(ctx context.Context, conn *costexplorer.CostExplorer, arn string) (*costexplorer.AnomalySubscription, error) {
-	in := &costexplorer.GetAnomalySubscriptionsInput{
-		SubscriptionArnList: aws.StringSlice([]string{arn}),
+funcbscriptionArnList: aws.StringSlice([]string{arn}),
 		MaxResults:          aws.Int64(1),
 	}
 
@@ -64,11 +60,9 @@ func FindAnomalySubscriptionByARN(ctx context.Context, conn *costexplorer.CostEx
 
 	return out.AnomalySubscriptions[0], nil
 }
-
 func FindCostAllocationTagByKey(ctx context.Context, conn *costexplorer.CostExplorer, key string) (*costexplorer.CostAllocationTag, error) {
 	in := &costexplorer.ListCostAllocationTagsInput{
-		TagKeys:    aws.StringSlice([]string{key}),
-		MaxResults: aws.Int64(1),
+funcxResults: aws.Int64(1),
 	}
 
 	out, err := conn.ListCostAllocationTagsWithContext(ctx, in)
@@ -90,12 +84,10 @@ func FindCostAllocationTagByKey(ctx context.Context, conn *costexplorer.CostExpl
 
 	return out.CostAllocationTags[0], nil
 }
-
 func FindCostCategoryByARN(ctx context.Context, conn *costexplorer.CostExplorer, arn string) (*costexplorer.CostCategory, error) {
 	in := &costexplorer.DescribeCostCategoryDefinitionInput{
 		CostCategoryArn: aws.String(arn),
-	}
-
+func
 	out, err := conn.DescribeCostCategoryDefinitionWithContext(ctx, in)
 
 	if tfawserr.ErrCodeEquals(err, costexplorer.ErrCodeResourceNotFoundException) {

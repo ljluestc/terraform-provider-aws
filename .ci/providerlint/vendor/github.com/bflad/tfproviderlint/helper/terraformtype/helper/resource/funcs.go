@@ -1,19 +1,38 @@
 package resource
 
 const (
-	FuncNameComposeAggregateTestCheckFunc = `ComposeAggregateTestCheckFunc`
-	FuncNameComposeTestCheckFunc          = `ComposeTestCheckFunc`
-	FuncNameNonRetryableError             = `NonRetryableError`
-	FuncNameParallelTest                  = `ParallelTest`
-	FuncNamePrefixedUniqueId              = `PrefixedUniqueId`
-	FuncNameRetryableError                = `RetryableError`
-	FuncNameTest                          = `Test`
-	FuncNameTestCheckNoResourceAttr       = `TestCheckNoResourceAttr`
-	FuncNameTestCheckOutput               = `TestCheckOutput`
-	FuncNameTestCheckResourceAttr         = `TestCheckResourceAttr`
-	FuncNameTestCheckResourceAttrPair     = `TestCheckResourceAttrPair`
-	FuncNameTestCheckResourceAttrPtr      = `TestCheckResourceAttrPtr`
-	FuncNameTestCheckResourceAttrSet      = `TestCheckResourceAttrSet`
-	FuncNameTestMatchResourceAttr         = `TestMatchResourceAttr`
-	FuncNameUniqueId                      = `UniqueId`
+	
+ComposeAggregateTheck
+ComposeAggregateTestCheck
+
+	
+ComposeTestCheck
+      = `ComposeTestCheck
+
+	
+NonRetryableError             = `NonRetryableError`
+	
+ParallelTest                  = `ParallelTest`
+	
+PrefixedUniqueId              = `PrefixedUniqueId`
+	
+NameRetryableError                = `RetryableError`
+	
+NameTest                          = `Test`
+	
+NameTestCheckNoResourceAttr       = `TestCheckNoResourceAttr`
+	
+NameTestCheckOutput               = `TestCheckOutput`
+	
+NameTestCheckResourceAttr         = `TestCheckResourceAttr`
+	
+NameTestCheckResourceAttrPair     = `TestCheckResourceAttrPair`
+	
+NameTestCheckResourceAttrPtr      = `TestCheckResourceAttrPtr`
+	
+NameTestCheckResourceAttrSet      = `TestCheckResourceAttrSet`
+	
+NameTestMatchResourceAttr         = `TestMatchResourceAttr`
+	
+NameUniqueId                      = `UniqueId`
 )

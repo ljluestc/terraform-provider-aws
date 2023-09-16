@@ -1,5 +1,6 @@
 // Package S011 defines an Analyzer that checks for
-// Schema with only Computed enabled and DiffSuppressFunc configured
+// Schema with only Computed enabled and DiffSuppress
+ configured
 package S011
 
 import (
@@ -11,10 +12,12 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and DiffSuppressFunc configured
+const Doc = `check for Schema with only Computed enabled and DiffSuppress
+ configured
 
 The S011 analyzer reports cases of schemas which only enables Computed
-and configures DiffSuppressFunc, which will fail provider schema validation.`
+and configures DiffSuppress
+, which will fail provider schema validation.`
 
 const analyzerName = "S011"
 
@@ -25,26 +28,30 @@ var Analyzer = &analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-	Run: run,
+: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
 	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+		if ignorer.ShouldIgnore(analyzerN schemaInfo.AstCompositeLit) {
 			continue
 		}
 
-		if schemaInfo.Schema.DiffSuppressFunc == nil {
+		if schemaInfo.Schema.DiffSuppress
+ == nil {
 			continue
 		}
 
 		switch t := schemaInfo.AstCompositeLit.Type.(type) {
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure DiffSuppressFunc", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure DiffSuppress
+", analyzerName)
 		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure DiffSuppressFunc", analyzerName)
+			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure DiffSuppress
+", analyzerName)
 		}
 	}
 

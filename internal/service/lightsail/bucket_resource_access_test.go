@@ -34,9 +34,9 @@ func TestAccLightsailBucketResourceAccess_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketResourceAccessDestroy(ctx),
+		CheckDestroy:ucketResourceAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketResourceAccessConfig_basic(rName, bucketName),
@@ -67,9 +67,9 @@ func TestAccLightsailBucketResourceAccess_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketResourceAccessDestroy(ctx),
+		CheckDestroy:ucketResourceAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketResourceAccessConfig_basic(rName, bucketName),
@@ -157,7 +157,7 @@ data "aws_availability_zones" "available" {
 func testAccBucketResourceAccessConfig_basic(rName string, bucketName string) string {
 	return acctest.ConfigCompose(testAccBucketResourceAccessConfig_base(bucketName), fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"

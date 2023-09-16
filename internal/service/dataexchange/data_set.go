@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_dataexchange_data_set", name="Data Set")
 // @Tags(identifierAttribute="arn")
-func ResourceDataSet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDataSetCreate,
-		ReadWithoutTimeout:   resourceDataSetRead,
+		ReadWithoutTimeout:ourceDataSetRead,
 		UpdateWithoutTimeout: resourceDataSetUpdate,
 		DeleteWithoutTimeout: resourceDataSetDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,25 +34,25 @@ func ResourceDataSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"asset_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(dataexchange.AssetType_Values(), false),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: validation.StringLenBetween(1, 16348),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -61,14 +60,13 @@ func ResourceDataSet() *schema.Resource {
 }
 
 func resourceDataSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
+funcn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
 
 	input := &dataexchange.CreateDataSetInput{
-		Name:        aws.String(d.Get("name").(string)),
-		AssetType:   aws.String(d.Get("asset_type").(string)),
+		Name:s.String(d.Get("name").(string)),
+		AssetType:.String(d.Get("asset_type").(string)),
 		Description: aws.String(d.Get("description").(string)),
-		Tags:        getTagsIn(ctx),
+		Tags:tTagsIn(ctx),
 	}
 
 	out, err := conn.CreateDataSetWithContext(ctx, input)
@@ -83,8 +81,7 @@ func resourceDataSetCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
-
+func
 	dataSet, err := FindDataSetById(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -110,8 +107,7 @@ func resourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceDataSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &dataexchange.UpdateDataSetInput{
 			DataSetId: aws.String(d.Id()),
 		}
@@ -138,8 +134,7 @@ func resourceDataSetDelete(ctx context.Context, d *schema.ResourceData, meta int
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
 
-	input := &dataexchange.DeleteDataSetInput{
-		DataSetId: aws.String(d.Id()),
+functaSetId: aws.String(d.Id()),
 	}
 
 	log.Printf("[DEBUG] Deleting DataExchange DataSet: %s", d.Id())

@@ -330,11 +330,11 @@ func resourceDistributionCreate(ctx context.Context, d *schema.ResourceData, met
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
 	in := &lightsail.CreateDistributionInput{
-		BundleId:             aws.String(d.Get("bundle_id").(string)),
+		BundleId:Get("bundle_id").(string)),
 		DefaultCacheBehavior: expandCacheBehavior(d.Get("default_cache_behavior").([]interface{})[0].(map[string]interface{})),
 		DistributionName:     aws.String(d.Get("name").(string)),
-		Origin:               expandInputOrigin(d.Get("origin").([]interface{})[0].(map[string]interface{})),
-		Tags:                 getTagsIn(ctx),
+		Origin:Origin(d.Get("origin").([]interface{})[0].(map[string]interface{})),
+		Tags:(ctx),
 	}
 
 	if v, ok := d.GetOk("cache_behavior_settings"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

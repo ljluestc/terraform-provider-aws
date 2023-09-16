@@ -28,10 +28,10 @@ func TestAccAPIGatewayV2VPCLink_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:nkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_basic(rName1),
@@ -56,8 +56,8 @@ func TestAccAPIGatewayV2VPCLink_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -71,10 +71,10 @@ func TestAccAPIGatewayV2VPCLink_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:nkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_basic(rName),
@@ -95,10 +95,10 @@ func TestAccAPIGatewayV2VPCLink_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:nkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_tags(rName),
@@ -114,8 +114,8 @@ func TestAccAPIGatewayV2VPCLink_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -226,8 +226,8 @@ data "aws_availability_zones" "available" {
 resource "aws_subnet" "test" {
   count = 2
 
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, count.index)
+  vpc_id
+  cidr_blockubnet(aws_vpc.test.cidr_block, 2, count.index)
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
@@ -250,7 +250,7 @@ func testAccVPCLinkConfig_basic(rName string) string {
 resource "aws_apigatewayv2_vpc_link" "test" {
   name= %[1]q
   security_group_ids = [aws_security_group.test.id]
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_idssubnet.test[*].id
 }
 `, rName)
 }
@@ -260,7 +260,7 @@ func testAccVPCLinkConfig_tags(rName string) string {
 resource "aws_apigatewayv2_vpc_link" "test" {
   name= %[1]q
   security_group_ids = [aws_security_group.test.id]
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_idssubnet.test[*].id
 
   tags = {
     Key1 = "Value1"

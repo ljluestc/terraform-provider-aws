@@ -19,7 +19,8 @@ type NoUnkeyedLiterals struct{}
 type DoNotImplement interface{ ProtoInternal(DoNotImplement) }
 
 // DoNotCompare can be embedded in a struct to prevent comparability.
-type DoNotCompare [0]func()
+type DoNotCompare [0]
+()
 
 // DoNotCopy can be embedded in a struct to help prevent shallow copies.
 // This does not rely on a Go language feature, but rather a special case

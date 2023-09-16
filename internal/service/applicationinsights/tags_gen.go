@@ -18,8 +18,7 @@ import (
 
 // listTags lists applicationinsights service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
-// it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn applicationinsightsiface.ApplicationInsightsAPI, identifier string) (tftags.KeyValueTags, error) {
+// it may also be a different identifier depending on the service.func listTags(ctx context.Context, conn applicationinsightsiface.ApplicationInsightsAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &applicationinsights.ListTagsForResourceInput{
 		ResourceARN: aws.String(identifier),
 	}
@@ -34,8 +33,7 @@ func listTags(ctx context.Context, conn applicationinsightsiface.ApplicationInsi
 }
 
 // ListTags lists applicationinsights service tags and set them in Context.
-// It is called from outside this package.
-func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
+// It is called from outside this package.func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).ApplicationInsightsConn(ctx), identifier)
 
 	if err != nil {
@@ -51,8 +49,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 
 // []*SERVICE.Tag handling
 
-// Tags returns applicationinsights service tags.
-func Tags(tags tftags.KeyValueTags) []*applicationinsights.Tag {
+// Tags returns applicationinsights service tags.func Tags(tags tftags.KeyValueTags) []*applicationinsights.Tag {
 	result := make([]*applicationinsights.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
@@ -67,8 +64,7 @@ func Tags(tags tftags.KeyValueTags) []*applicationinsights.Tag {
 	return result
 }
 
-// KeyValueTags creates tftags.KeyValueTags from applicationinsights service tags.
-func KeyValueTags(ctx context.Context, tags []*applicationinsights.Tag) tftags.KeyValueTags {
+// KeyValueTags creates tftags.KeyValueTags from applicationinsights service tags.func KeyValueTags(ctx context.Context, tags []*applicationinsights.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
@@ -79,8 +75,7 @@ func KeyValueTags(ctx context.Context, tags []*applicationinsights.Tag) tftags.K
 }
 
 // getTagsIn returns applicationinsights service tags from Context.
-// nil is returned if there are no input tags.
-func getTagsIn(ctx context.Context) []*applicationinsights.Tag {
+// nil is returned if there are no input tags.func getTagsIn(ctx context.Context) []*applicationinsights.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
@@ -90,8 +85,7 @@ func getTagsIn(ctx context.Context) []*applicationinsights.Tag {
 	return nil
 }
 
-// setTagsOut sets applicationinsights service tags in Context.
-func setTagsOut(ctx context.Context, tags []*applicationinsights.Tag) {
+// setTagsOut sets applicationinsights service tags in Context.func setTagsOut(ctx context.Context, tags []*applicationinsights.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
@@ -99,8 +93,7 @@ func setTagsOut(ctx context.Context, tags []*applicationinsights.Tag) {
 
 // updateTags updates applicationinsights service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
-// it may also be a different identifier depending on the service.
-func updateTags(ctx context.Context, conn applicationinsightsiface.ApplicationInsightsAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// it may also be a different identifier depending on the service.func updateTags(ctx context.Context, conn applicationinsightsiface.ApplicationInsightsAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -140,7 +133,6 @@ func updateTags(ctx context.Context, conn applicationinsightsiface.ApplicationIn
 }
 
 // UpdateTags updates applicationinsights service tags.
-// It is called from outside this package.
-func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
+// It is called from outside this package.func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).ApplicationInsightsConn(ctx), identifier, oldTags, newTags)
 }

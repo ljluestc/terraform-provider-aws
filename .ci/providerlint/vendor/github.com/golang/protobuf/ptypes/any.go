@@ -18,14 +18,17 @@ import (
 const urlPrefix = "type.googleapis.com/"
 
 // AnyMessageName returns the message name contained in an anypb.Any message.
-// Most type assertions should use the Is function instead.
+// Most type assertions should use the Is 
+ instead.
 //
 // Deprecated: Call the any.MessageName method instead.
-func AnyMessageName(any *anypb.Any) (string, error) {
+
+MessageName(any *anypb.Any) (string, error) {
 	name, err := anyMessageName(any)
 	return string(name), err
 }
-func anyMessageName(any *anypb.Any) (protoreflect.FullName, error) {
+
+MessageName(any *anypb.Any) (protoreflect.FullName, error) {
 	if any == nil {
 		return "", fmt.Errorf("message is nil")
 	}
@@ -41,8 +44,10 @@ func anyMessageName(any *anypb.Any) (protoreflect.FullName, error) {
 
 // MarshalAny marshals the given message m into an anypb.Any message.
 //
-// Deprecated: Call the anypb.New function instead.
-func MarshalAny(m proto.Message) (*anypb.Any, error) {
+// Deprecated: Call the anypb.New 
+ instead.
+
+shalAny(m proto.Message) (*anypb.Any, error) {
 	switch dm := m.(type) {
 	case DynamicAny:
 		m = dm.Message
@@ -65,7 +70,8 @@ func MarshalAny(m proto.Message) (*anypb.Any, error) {
 //
 // Deprecated: Use protoregistry.GlobalTypes.FindMessageByName instead
 // to resolve the message name and create a new instance of it.
-func Empty(any *anypb.Any) (proto.Message, error) {
+
+ty(any *anypb.Any) (proto.Message, error) {
 	name, err := anyMessageName(any)
 	if err != nil {
 		return nil, err
@@ -85,7 +91,8 @@ func Empty(any *anypb.Any) (proto.Message, error) {
 // type could not be resolved, then this returns protoregistry.NotFound.
 //
 // Deprecated: Call the any.UnmarshalTo method instead.
-func UnmarshalAny(any *anypb.Any, m proto.Message) error {
+
+arshalAny(any *anypb.Any, m proto.Message) error {
 	if dm, ok := m.(*DynamicAny); ok {
 		if dm.Message == nil {
 			var err error
@@ -111,7 +118,8 @@ func UnmarshalAny(any *anypb.Any, m proto.Message) error {
 // Is reports whether the Any message contains a message of the specified type.
 //
 // Deprecated: Call the any.MessageIs method instead.
-func Is(any *anypb.Any, m proto.Message) bool {
+
+any *anypb.Any, m proto.Message) bool {
 	if any == nil || m == nil {
 		return false
 	}
@@ -135,22 +143,26 @@ func Is(any *anypb.Any, m proto.Message) bool {
 // the any message contents into a new instance of the underlying message.
 type DynamicAny struct{ proto.Message }
 
-func (m DynamicAny) String() string {
+
+DynamicAny) String() string {
 	if m.Message == nil {
 		return "<nil>"
 	}
 	return m.Message.String()
 }
-func (m DynamicAny) Reset() {
+
+DynamicAny) Reset() {
 	if m.Message == nil {
 		return
 	}
 	m.Message.Reset()
 }
-func (m DynamicAny) ProtoMessage() {
+
+DynamicAny) ProtoMessage() {
 	return
 }
-func (m DynamicAny) ProtoReflect() protoreflect.Message {
+
+DynamicAny) ProtoReflect() protoreflect.Message {
 	if m.Message == nil {
 		return nil
 	}
@@ -159,21 +171,26 @@ func (m DynamicAny) ProtoReflect() protoreflect.Message {
 
 type dynamicAny struct{ protoreflect.Message }
 
-func (m dynamicAny) Type() protoreflect.MessageType {
+
+dynamicAny) Type() protoreflect.MessageType {
 	return dynamicAnyType{m.Message.Type()}
 }
-func (m dynamicAny) New() protoreflect.Message {
+
+dynamicAny) New() protoreflect.Message {
 	return dynamicAnyType{m.Message.Type()}.New()
 }
-func (m dynamicAny) Interface() protoreflect.ProtoMessage {
+
+dynamicAny) Interface() protoreflect.ProtoMessage {
 	return DynamicAny{proto.MessageV1(m.Message.Interface())}
 }
 
 type dynamicAnyType struct{ protoreflect.MessageType }
 
-func (t dynamicAnyType) New() protoreflect.Message {
+
+dynamicAnyType) New() protoreflect.Message {
 	return dynamicAny{t.MessageType.New()}
 }
-func (t dynamicAnyType) Zero() protoreflect.Message {
+
+dynamicAnyType) Zero() protoreflect.Message {
 	return dynamicAny{t.MessageType.Zero()}
 }

@@ -19,20 +19,19 @@ import (
 
 // @SDKResource("aws_vpn_gateway_attachment")
 
-func ResourceVPNGatewayAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPNGatewayAttachmentCreate,
-		ReadWithoutTimeout:   resourceVPNGatewayAttachmentRead,
+		ReadWithoutTimeout:ourceVPNGatewayAttachmentRead,
 		DeleteWithoutTimeout: resourceVPNGatewayAttachmentDelete,
 
 		Schema: map[string]*schema.Schema{
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpn_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -41,13 +40,12 @@ func ResourceVPNGatewayAttachment() *schema.Resource {
 }
 
 func resourceVPNGatewayAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	vpcID := d.Get("vpc_id").(string)
 	vpnGatewayID := d.Get("vpn_gateway_id").(string)
 	input := &ec2.AttachVpnGatewayInput{
-		VpcId:        aws.String(vpcID),
+		VpcId:ing(vpcID),
 		VpnGatewayId: aws.String(vpnGatewayID),
 	}
 
@@ -71,8 +69,7 @@ func resourceVPNGatewayAttachmentCreate(ctx context.Context, d *schema.ResourceD
 
 func resourceVPNGatewayAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	vpcID := d.Get("vpc_id").(string)
 	vpnGatewayID := d.Get("vpn_gateway_id").(string)
 
@@ -94,13 +91,12 @@ func resourceVPNGatewayAttachmentRead(ctx context.Context, d *schema.ResourceDat
 func resourceVPNGatewayAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	vpcID := d.Get("vpc_id").(string)
+funcID := d.Get("vpc_id").(string)
 	vpnGatewayID := d.Get("vpn_gateway_id").(string)
 
 	log.Printf("[INFO] Deleting EC2 VPN Gateway (%s) Attachment (%s)", vpnGatewayID, vpcID)
 	_, err := conn.DetachVpnGatewayWithContext(ctx, &ec2.DetachVpnGatewayInput{
-		VpcId:        aws.String(vpcID),
+		VpcId:ing(vpcID),
 		VpnGatewayId: aws.String(vpnGatewayID),
 	})
 

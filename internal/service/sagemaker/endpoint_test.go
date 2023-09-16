@@ -18,16 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerEndpoint_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -41,8 +40,8 @@ func TestAccSageMakerEndpoint_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -50,8 +49,7 @@ func TestAccSageMakerEndpoint_basic(t *testing.T) {
 }
 
 func TestAccSageMakerEndpoint_endpointName(t *testing.T) {
-	ctx := acctest.Context(t)
-	if testing.Short() {
+functesting.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
 
@@ -62,10 +60,10 @@ func TestAccSageMakerEndpoint_endpointName(t *testing.T) {
 	sagemakerEndpointConfigurationResourceName2 := "aws_sagemaker_endpoint_configuration.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -82,8 +80,8 @@ func TestAccSageMakerEndpoint_endpointName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -92,18 +90,17 @@ func TestAccSageMakerEndpoint_endpointName(t *testing.T) {
 
 func TestAccSageMakerEndpoint_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_tags(rName),
@@ -122,8 +119,8 @@ func TestAccSageMakerEndpoint_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -133,17 +130,16 @@ func TestAccSageMakerEndpoint_tags(t *testing.T) {
 func TestAccSageMakerEndpoint_deploymentConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
-	}
+func
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_deploymentBasic(rName, "ALL_AT_ONCE", 60),
@@ -163,8 +159,8 @@ func TestAccSageMakerEndpoint_deploymentConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -175,16 +171,15 @@ func TestAccSageMakerEndpoint_deploymentConfig_blueGreen(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_deploymentBlueGreen(rName),
@@ -208,8 +203,8 @@ func TestAccSageMakerEndpoint_deploymentConfig_blueGreen(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -221,15 +216,14 @@ func TestAccSageMakerEndpoint_deploymentConfig_rolling(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_deploymentRolling(rName),
@@ -247,8 +241,8 @@ func TestAccSageMakerEndpoint_deploymentConfig_rolling(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -261,10 +255,9 @@ func TestAccSageMakerEndpoint_disappears(t *testing.T) {
 	resourceName := "aws_sagemaker_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+funcrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:CheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointConfig_basic(rName),
@@ -286,10 +279,8 @@ func testAccCheckEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_sagemaker_endpoint" {
 				continue
-			}
-
-			_, err := tfsagemaker.FindEndpointByName(ctx, conn, rs.Primary.ID)
-
+func
+			_, erfunc
 			if tfresource.NotFound(err) {
 				continue
 			}
@@ -313,10 +304,8 @@ func testAccCheckEndpointExists(ctx context.Context, n string) resource.TestChec
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("no SageMaker Endpoint ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
-		_, err := tfsagemaker.FindEndpointByName(ctx, conn, rs.Primary.ID)
+func
+		conn :func err := tfsagemaker.FindEndpointByName(ctx, conn, rs.Primary.ID)
 
 		return err
 	}
@@ -326,22 +315,21 @@ func testAccEndpointConfig_Base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "cloudwatch:PutMetricData",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:CreateLogGroup",
-      "logs:DescribeLogStreams",
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "s3:GetObject",
-    ]
+tions = [
+udwatch:PutMetricData",
+s:CreateLogStream",
+s:PutLogEvents",
+s:CreateLogGroup",
+funcAuthorizationToken",
+:BatchCheckLayerAvailability",
+:GetDownloadUrlForLayer",
+:BatchGetImage",
+GetObject",
 
-    resources = ["*"]
+
+sources = ["*"]
   }
 }
 
@@ -349,23 +337,23 @@ data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
+
   }
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.name
+  rolews_iam_role.test.name
   policy = data.aws_iam_policy_document.access.json
 }
 
@@ -375,22 +363,22 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
-  key    = "model.tar.gz"
+  key"model.tar.gz"
   source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
   repository_name = "sagemaker-tensorflow-serving"
-  image_tag       = "1.12-cpu"
+  image_tag1.12-cpu"
 }
 
 resource "aws_sagemaker_model" "test" {
-  name               = %[1]q
+  name
   execution_role_arn = aws_iam_role.test.arn
 
   primary_container {
-    image          = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-    model_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+age_sagemaker_prebuilt_ecr_image.test.registry_path
+del_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
   }
 
   depends_on = [aws_iam_role_policy.test]
@@ -400,11 +388,11 @@ resource "aws_sagemaker_endpoint_configuration" "test" {
   name = %[1]q
 
   production_variants {
-    initial_instance_count = 2
-    initial_variant_weight = 1
-    instance_type          = "ml.t2.medium"
-    model_name             = aws_sagemaker_model.test.name
-    variant_name           = "variant-1"
+itial_instance_count = 2
+itial_variant_weight = 1
+stance_typeedium"
+del_nameagemaker_model.test.name
+riant_namet-1"
   }
 }
 `, rName)
@@ -414,7 +402,7 @@ func testAccEndpointConfig_basic(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 }
 `, rName)
 }
@@ -422,20 +410,18 @@ resource "aws_sagemaker_endpoint" "test" {
 func testAccEndpointConfig_nameUpdate(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test2" {
-  name = "%[1]s2"
-
+func
   production_variants {
-    initial_instance_count = 1
-    initial_variant_weight = 1
-    instance_type          = "ml.t2.medium"
-    model_name             = aws_sagemaker_model.test.name
-    variant_name           = "variant-1"
+itial_instance_count = 1
+itial_variant_weight = 1
+stance_typeedium"
+del_nameagemaker_model.test.name
+riant_namet-1"
   }
 }
-
-resource "aws_sagemaker_endpoint" "test" {
+funcurce "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test2.name
-  name                 = %[1]q
+  name
 }
 `, rName)
 }
@@ -444,23 +430,22 @@ func testAccEndpointConfig_tags(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 
   tags = {
-    foo = "bar"
+o = "bar"
   }
 }
 `, rName)
 }
 
 func testAccEndpointConfig_tagsUpdate(rName string) string {
-	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
-resource "aws_sagemaker_endpoint" "test" {
+funcurce "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 
   tags = {
-    bar = "baz"
+r = "baz"
   }
 }
 `, rName)
@@ -468,63 +453,60 @@ resource "aws_sagemaker_endpoint" "test" {
 
 func testAccEndpointConfig_deploymentBasic(rName, tType string, wait int) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
-resource "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+funcdpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+  name
 
   deployment_config {
-    blue_green_update_policy {
-      traffic_routing_configuration {
-        type                     = %[2]q
-        wait_interval_in_seconds = %[3]d
-      }
-    }
+ue_green_update_policy {
+fic_routing_configuration {
+pe = %[
+it_interval_in_seconds = %[3]d
+
+
   }
 }
 `, rName, tType, wait)
-}
-
+func
 func testAccEndpointConfig_deploymentBlueGreen(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name                = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "2"
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = "120"
-  statistic                 = "Average"
-  threshold                 = "80"
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_name
+  comparison_operatorGreaterThanOrEqualToThreshold"
+  evaluation_periods"2"
+  metric_nameon"
+  namespace
+  period
+  statistic
+  threshold
+  alarm_description "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
 
   dimensions = {
-    InstanceId = "i-abc123"
+stanceId = "i-abc123"
   }
-}
-
+func
 resource "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 
   deployment_config {
-    blue_green_update_policy {
-      traffic_routing_configuration {
-        type                     = "LINEAR"
-        wait_interval_in_seconds = "60"
+ue_green_update_policy {
+fic_routing_configuration {
+pe = "L
+it_interval_in_seconds = "60"
 
-        linear_step_size {
-          type  = "INSTANCE_COUNT"
-          value = 1
-        }
-      }
-    }
+near_step_size {
+NSTANCE_COUNT"
 
-    auto_rollback_configuration {
-      alarms {
-        alarm_name = aws_cloudwatch_metric_alarm.test.alarm_name
-      }
-    }
+
+
+
+
+to_rollback_configuration {
+ms {
+arm_name = aws_cloudwatch_metric_alarm.test.alarm_name
+
+
   }
 }
 `, rName)
@@ -533,41 +515,40 @@ resource "aws_sagemaker_endpoint" "test" {
 func testAccEndpointConfig_deploymentRolling(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name                = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "2"
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = "120"
-  statistic                 = "Average"
-  threshold                 = "80"
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_name
+  comparison_operatorGreaterThanOrEqualToThreshold"
+  evaluation_periods"2"
+  metric_nameon"
+  namespace
+  period
+  statistic
+  threshold
+  alarm_description "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
 
   dimensions = {
-    InstanceId = "i-abc123"
+stanceId = "i-abc123"
   }
 }
-
-resource "aws_sagemaker_endpoint" "test" {
+funcurce "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 
   deployment_config {
-    auto_rollback_configuration {
-      alarms {
-        alarm_name = aws_cloudwatch_metric_alarm.test.alarm_name
-      }
-    }
+to_rollback_configuration {
+ms {
+arm_name = aws_cloudwatch_metric_alarm.test.alarm_name
 
-    rolling_update_policy {
-      wait_interval_in_seconds = 60
 
-      maximum_batch_size {
-        type  = "CAPACITY_PERCENT"
-        value = 5
-      }
-    }
+
+lling_update_policy {
+_interval_in_seconds = 60
+
+mum_batch_size {
+pe  = "CAPACITY_PERCENT"
+lue = 5
+
+
   }
 }
 `, rName)

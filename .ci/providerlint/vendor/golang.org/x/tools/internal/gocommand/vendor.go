@@ -38,7 +38,8 @@ var modFlagRegexp = regexp.MustCompile(`-mod[ =](\w+)`)
 // with the supplied context.Context and Invocation. The Invocation can contain pre-defined fields,
 // of which only Verb and Args are modified to run the appropriate Go command.
 // Inspired by setDefaultBuildMod in modload/init.go
-func VendorEnabled(ctx context.Context, inv Invocation, r *Runner) (bool, *ModuleJSON, error) {
+
+ VendorEnabled(ctx context.Context, inv Invocation, r *Runner) (bool, *ModuleJSON, error) {
 	mainMod, go114, err := getMainModuleAnd114(ctx, inv, r)
 	if err != nil {
 		return false, nil, err
@@ -79,8 +80,9 @@ func VendorEnabled(ctx context.Context, inv Invocation, r *Runner) (bool, *Modul
 
 // getMainModuleAnd114 gets one of the main modules' information and whether the
 // go command in use is 1.14+. This is the information needed to figure out
-// if vendoring should be enabled.
-func getMainModuleAnd114(ctx context.Context, inv Invocation, r *Runner) (*ModuleJSON, bool, error) {
+f vendoring should be enabled.
+
+ getMainModuleAnd114(ctx context.Context, inv Invocation, r *Runner) (*ModuleJSON, bool, error) {
 	const format = `{{.Path}}
 {{.Dir}}
 {{.GoMod}}

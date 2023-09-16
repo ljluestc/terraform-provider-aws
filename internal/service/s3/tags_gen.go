@@ -12,8 +12,7 @@ import (
 
 // []*SERVICE.Tag handling
 
-// Tags returns s3 service tags.
-func Tags(tags tftags.KeyValueTags) []*s3.Tag {
+// Tags returns s3 service tags.func Tags(tags tftags.KeyValueTags) []*s3.Tag {
 	result := make([]*s3.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
@@ -28,8 +27,7 @@ func Tags(tags tftags.KeyValueTags) []*s3.Tag {
 	return result
 }
 
-// KeyValueTags creates tftags.KeyValueTags from s3 service tags.
-func KeyValueTags(ctx context.Context, tags []*s3.Tag) tftags.KeyValueTags {
+// KeyValueTags creates tftags.KeyValueTags from s3 service tags.func KeyValueTags(ctx context.Context, tags []*s3.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
@@ -40,8 +38,7 @@ func KeyValueTags(ctx context.Context, tags []*s3.Tag) tftags.KeyValueTags {
 }
 
 // getTagsIn returns s3 service tags from Context.
-// nil is returned if there are no input tags.
-func getTagsIn(ctx context.Context) []*s3.Tag {
+// nil is returned if there are no input tags.func getTagsIn(ctx context.Context) []*s3.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
@@ -51,8 +48,7 @@ func getTagsIn(ctx context.Context) []*s3.Tag {
 	return nil
 }
 
-// setTagsOut sets s3 service tags in Context.
-func setTagsOut(ctx context.Context, tags []*s3.Tag) {
+// setTagsOut sets s3 service tags in Context.func setTagsOut(ctx context.Context, tags []*s3.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}

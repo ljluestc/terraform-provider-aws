@@ -61,14 +61,14 @@ func ResourceImageRecipe() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"delete_on_termination": {
-										Type:             nullable.TypeNullableBool,
+										Type:NullableBool,
 										Optional:         true,
 										ForceNew:         true,
 										DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 										ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 									},
 									"encrypted": {
-										Type:             nullable.TypeNullableBool,
+										Type:NullableBool,
 										Optional:         true,
 										ForceNew:         true,
 										DiffSuppressFunc: nullable.DiffSuppressNullableBool,

@@ -14,7 +14,8 @@ import (
 const Doc = `check for ResourceData.Set() calls using * dereferences
 
 The R002 analyzer reports likely extraneous uses of
-star (*) dereferences for a Set() call. The Set() function automatically
+star (*) dereferences for a Set() call. The Set() 
+tion automatically
 handles pointers and * dereferences without nil checks can panic.`
 
 const analyzerName = "R002"
@@ -29,7 +30,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	sets := pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
 	for _, set := range sets {

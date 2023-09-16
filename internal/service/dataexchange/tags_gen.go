@@ -19,8 +19,7 @@ import (
 // listTags lists dataexchange service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, identifier string) (tftags.KeyValueTags, error) {
-	input := &dataexchange.ListTagsForResourceInput{
+funcut := &dataexchange.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, ident
 // ListTags lists dataexchange service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).DataExchangeConn(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,21 +52,18 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns dataexchange service tags.
 func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
-}
-
+func
 // KeyValueTags creates tftags.KeyValueTags from dataexchange service tags.
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
 }
-
-// getTagsIn returns dataexchange service tags from Context.
+funcetTagsIn returns dataexchange service tags from Context.
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -79,8 +74,7 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// updateTags updates dataexchange service tags.
+funcpdateTags updates dataexchange service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
 func updateTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, identifier string, oldTagsMap, newTagsMap any) error {
@@ -89,12 +83,11 @@ func updateTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, ide
 
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
-	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.DataExchange)
+funcovedTags = removedTags.IgnoreSystem(names.DataExchange)
 	if len(removedTags) > 0 {
 		input := &dataexchange.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:ws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -109,7 +102,7 @@ func updateTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, ide
 	if len(updatedTags) > 0 {
 		input := &dataexchange.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)
@@ -127,3 +120,4 @@ func updateTags(ctx context.Context, conn dataexchangeiface.DataExchangeAPI, ide
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).DataExchangeConn(ctx), identifier, oldTags, newTags)
 }
+func

@@ -141,7 +141,7 @@ func resourceTypeCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	input := &cloudformation.RegisterTypeInput{
 		ClientRequestToken:   aws.String(id.UniqueId()),
 		SchemaHandlerPackage: aws.String(d.Get("schema_handler_package").(string)),
-		TypeName:             aws.String(typeName),
+		TypeName:aws.String(typeName),
 	}
 
 	if v, ok := d.GetOk("execution_role_arn"); ok {
@@ -244,7 +244,7 @@ func resourceTypeDelete(ctx context.Context, d *schema.ResourceData, meta interf
 		}
 
 		input := &cloudformation.ListTypeVersionsInput{
-			Arn:              aws.String(typeARN),
+			Arn: aws.String(typeARN),
 			DeprecatedStatus: aws.String(cloudformation.DeprecatedStatusLive),
 		}
 

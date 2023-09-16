@@ -27,10 +27,10 @@ func TestAccDirectConnectLag_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLagDestroy(ctx),
+		CheckDestroy:testAccCheckLagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLagConfig_basic(rName1),
@@ -68,7 +68,7 @@ func TestAccDirectConnectLag_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
@@ -83,10 +83,10 @@ func TestAccDirectConnectLag_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLagDestroy(ctx),
+		CheckDestroy:testAccCheckLagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLagConfig_basic(rName),
@@ -108,10 +108,10 @@ func TestAccDirectConnectLag_connectionID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLagDestroy(ctx),
+		CheckDestroy:testAccCheckLagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLagConfig_connectionID(rName),
@@ -132,7 +132,7 @@ func TestAccDirectConnectLag_connectionID(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"connection_id", "force_destroy"},
 			},
@@ -147,10 +147,10 @@ func TestAccDirectConnectLag_providerName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLagDestroy(ctx),
+		CheckDestroy:testAccCheckLagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLagConfig_providerName(rName),
@@ -171,7 +171,7 @@ func TestAccDirectConnectLag_providerName(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
@@ -186,10 +186,10 @@ func TestAccDirectConnectLag_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLagDestroy(ctx),
+		CheckDestroy:testAccCheckLagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLagConfig_tags1(rName, "key1", "value1"),
@@ -202,7 +202,7 @@ func TestAccDirectConnectLag_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
@@ -285,9 +285,9 @@ func testAccLagConfig_basic(rName string) string {
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = tolist(data.aws_dx_locations.test.location_codes)[0]
+  location = tolist(data.aws_dx_locations.test.location_codes)[0]
 }
 `, rName)
 }
@@ -297,10 +297,10 @@ func testAccLagConfig_connectionID(rName string) string {
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connection_id         = aws_dx_connection.test.id
   connections_bandwidth = aws_dx_connection.test.bandwidth
-  location              = aws_dx_connection.test.location
+  location = aws_dx_connection.test.location
 }
 
 resource "aws_dx_connection" "test" {
@@ -320,9 +320,9 @@ data "aws_dx_location" "test" {
 }
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = data.aws_dx_location.test.location_code
+  location = data.aws_dx_location.test.location_code
 
   provider_name = data.aws_dx_location.test.available_providers[0]
 }
@@ -334,9 +334,9 @@ func testAccLagConfig_tags1(rName, tagKey1, tagValue1 string) string {
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = tolist(data.aws_dx_locations.test.location_codes)[0]
+  location = tolist(data.aws_dx_locations.test.location_codes)[0]
   force_destroy         = true
 
   tags = {
@@ -351,9 +351,9 @@ func testAccLagConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   connections_bandwidth = "1Gbps"
-  location              = tolist(data.aws_dx_locations.test.location_codes)[0]
+  location = tolist(data.aws_dx_locations.test.location_codes)[0]
   force_destroy         = true
 
   tags = {

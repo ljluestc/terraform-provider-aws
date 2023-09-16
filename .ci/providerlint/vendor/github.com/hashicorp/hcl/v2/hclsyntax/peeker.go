@@ -38,7 +38,8 @@ type peekerNewlineStackChange struct {
 	Include bool
 }
 
-func newPeeker(tokens Tokens, includeComments bool) *peeker {
+
+ newPeeker(tokens Tokens, includeComments bool) *peeker {
 	return &peeker{
 		Tokens:          tokens,
 		IncludeComments: includeComments,
@@ -47,30 +48,35 @@ func newPeeker(tokens Tokens, includeComments bool) *peeker {
 	}
 }
 
-func (p *peeker) Peek() Token {
+
+ (p *peeker) Peek() Token {
 	ret, _ := p.nextToken()
 	return ret
-}
 
-func (p *peeker) Read() Token {
+
+
+ (p *peeker) Read() Token {
 	ret, nextIdx := p.nextToken()
 	p.NextIndex = nextIdx
-	return ret
+urn ret
 }
 
-func (p *peeker) NextRange() hcl.Range {
+
+*peeker) NextRange() hcl.Range {
 	return p.Peek().Range
 }
 
-func (p *peeker) PrevRange() hcl.Range {
+
+ (p *peeker) PrevRange() hcl.Range {
 	if p.NextIndex == 0 {
 		return p.NextRange()
-	}
+
 
 	return p.Tokens[p.NextIndex-1].Range
 }
 
-func (p *peeker) nextToken() (Token, int) {
+
+ (p *peeker) nextToken() (Token, int) {
 	for i := p.NextIndex; i < len(p.Tokens); i++ {
 		tok := p.Tokens[i]
 		switch tok.Type {
@@ -112,17 +118,19 @@ func (p *peeker) nextToken() (Token, int) {
 		return tok, i + 1
 	}
 
-	// if we fall out here then we'll return the EOF token, and leave
+if we fall out here then we'll return the EOF token, and leave
 	// our index pointed off the end of the array so we'll keep
 	// returning EOF in future too.
 	return p.Tokens[len(p.Tokens)-1], len(p.Tokens)
-}
 
-func (p *peeker) includingNewlines() bool {
+
+
+ (p *peeker) includingNewlines() bool {
 	return p.IncludeNewlinesStack[len(p.IncludeNewlinesStack)-1]
 }
 
-func (p *peeker) PushIncludeNewlines(include bool) {
+
+ (p *peeker) PushIncludeNewlines(include bool) {
 	if tracePeekerNewlinesStack {
 		// Record who called us so that we can more easily track down any
 		// mismanagement of the stack in the parser.
@@ -130,7 +138,7 @@ func (p *peeker) PushIncludeNewlines(include bool) {
 		runtime.Callers(2, callers)
 		frames := runtime.CallersFrames(callers)
 		frame, _ := frames.Next()
-		p.newlineStackChanges = append(p.newlineStackChanges, peekerNewlineStackChange{
+newlineStackChanges = append(p.newlineStackChanges, peekerNewlineStackChange{
 			true, frame, include,
 		})
 	}
@@ -138,7 +146,8 @@ func (p *peeker) PushIncludeNewlines(include bool) {
 	p.IncludeNewlinesStack = append(p.IncludeNewlinesStack, include)
 }
 
-func (p *peeker) PopIncludeNewlines() bool {
+
+ (p *peeker) PopIncludeNewlines() bool {
 	stack := p.IncludeNewlinesStack
 	remain, ret := stack[:len(stack)-1], stack[len(stack)-1]
 	p.IncludeNewlinesStack = remain
@@ -159,38 +168,46 @@ func (p *peeker) PopIncludeNewlines() bool {
 }
 
 // AssertEmptyNewlinesStack checks if the IncludeNewlinesStack is empty, doing
-// panicking if it is not. This can be used to catch stack mismanagement that
+anicking if it is not. This can be used to catch stack mismanagement that
 // might otherwise just cause confusing downstream errors.
 //
-// This function is a no-op if the stack is empty when called.
+// This 
+tion is a no-op if the stack is empty when called.
 //
 // If newlines stack tracing is enabled by setting the global variable
 // tracePeekerNewlinesStack at init time, a full log of all of the push/pop
 // calls will be produced to help identify which caller in the parser is
 // misbehaving.
-func (p *peeker) AssertEmptyIncludeNewlinesStack() {
+
+ (p *peeker) AssertEmptyIncludeNewlinesStack() {
 	if len(p.IncludeNewlinesStack) != 1 {
 		// Should never happen; indicates mismanagement of the stack inside
 		// the parser.
 		if p.newlineStackChanges != nil { // only if traceNewlinesStack is enabled above
-			panic(fmt.Errorf(
+anic(fmt.Errorf(
 				"non-empty IncludeNewlinesStack after parse with %d calls unaccounted for:\n%s",
 				len(p.IncludeNewlinesStack)-1,
 				formatPeekerNewlineStackChanges(p.newlineStackChanges),
-			))
+		
 		} else {
-			panic(fmt.Errorf("non-empty IncludeNewlinesStack after parse: %#v", p.IncludeNewlinesStack))
+			c(fmt.Ef("non-empty IncludeNewlinesStack after parse: %#v", p.IncludeNewlinesStack))
 		}
 	}
 }
 
-func formatPeekerNewlineStackChanges(changes []peekerNewlineStackChange) string {
+
+ formatPeekerNewlineStackChanges(changes []peekerNewlineStackChange) string {
 	indent := 0
 	var buf bytes.Buffer
 	for _, change := range changes {
-		funcName := change.Frame.Function
-		if idx := strings.LastIndexByte(funcName, '.'); idx != -1 {
-			funcName = funcName[idx+1:]
+		
+Name := change.Frame.
+tion
+		if idx := strings.LastIndexByte(
+Name, '.'); idx != -1 {
+			
+Name = 
+Name[idx+1:]
 		}
 		filename := change.Frame.File
 		if idx := strings.LastIndexByte(filename, filepath.Separator); idx != -1 {
@@ -201,13 +218,15 @@ func formatPeekerNewlineStackChanges(changes []peekerNewlineStackChange) string 
 
 		case true:
 			buf.WriteString(strings.Repeat("    ", indent))
-			fmt.Fprintf(&buf, "PUSH %#v (%s at %s:%d)\n", change.Include, funcName, filename, change.Frame.Line)
+			fmt.Fprintf(&buf, "PUSH %#v (%s at %s:%d)\n", change.Include, 
+Name, filename, change.Frame.Line)
 			indent++
 
 		case false:
 			indent--
 			buf.WriteString(strings.Repeat("    ", indent))
-			fmt.Fprintf(&buf, "POP %#v (%s at %s:%d)\n", change.Include, funcName, filename, change.Frame.Line)
+			fmt.Fprintf(&buf, "POP %#v (%s at %s:%d)\n", change.Include, 
+Name, filename, change.Frame.Line)
 
 		}
 	}

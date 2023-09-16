@@ -31,7 +31,8 @@ import (
 // placeholder for a value about which we knkow absolutely nothing. A value
 // must at least have a known root type before it can support further
 // refinement.
-func (v Value) Refine() *RefinementBuilder {
+
+ (v Value) Refine() *RefinementBuilder {
 	v, marks := v.Unmark()
 	if unk, isUnk := v.v.(*unknownType); isUnk && unk.refinement != nil {
 		// We're refining a value that's already been refined before, so
@@ -84,7 +85,8 @@ func (v Value) Refine() *RefinementBuilder {
 	return &RefinementBuilder{v, marks, wip}
 }
 
-// RefineWith is a variant of Refine which uses callback functions instead of
+// RefineWith is a variant of Refine which uses callback 
+tions instead of
 // the builder pattern.
 //
 // The result is equivalent to passing the return value of [Value.Refine] to the
@@ -99,9 +101,11 @@ func (v Value) Refine() *RefinementBuilder {
 // they will apply to.
 //
 // Each refiner callback should return the same pointer that it was given,
-// typically after having mutated it using the [RefinementBuilder] methods.
+ypically after having mutated it u the [RefinementBuilder] methods.
 // It's invalid to return a different builder.
-func (v Value) RefineWith(refiners ...func(*RefinementBuilder) *RefinementBuilder) Value {
+
+ (v Value) RefineWith(refiners ...
+(*RefinementBuilder) *RefinementBuilder) Value {
 	if len(refiners) == 0 {
 		return v
 	}
@@ -119,7 +123,8 @@ func (v Value) RefineWith(refiners ...func(*RefinementBuilder) *RefinementBuilde
 // RefineNotNull is a shorthand for Value.Refine().NotNull().NewValue(), because
 // declaring that a unknown value isn't null is by far the most common use of
 // refinements.
-func (v Value) RefineNotNull() Value {
+
+ (v Value) RefineNotNull() Value {
 	return v.Refine().NotNull().NewValue()
 }
 
@@ -131,12 +136,13 @@ func (v Value) RefineNotNull() Value {
 // for method call chaining. End call chains with a call to
 // [RefinementBuilder.NewValue] to obtain the newly-refined value.
 type RefinementBuilder struct {
-	orig  Value
+g  Value
 	marks ValueMarks
 	wip   unknownValRefinement
 }
 
-func (b *RefinementBuilder) assertRefineable() {
+
+ (b *RefinementBuilder) assertRefineable() {
 	if b.wip == nil {
 		panic(fmt.Sprintf("cannot refine a %#v value", b.orig.Type()))
 	}
@@ -145,18 +151,20 @@ func (b *RefinementBuilder) assertRefineable() {
 // NotNull constrains the value as definitely not being null.
 //
 // NotNull is valid when refining values of the following types:
-//   - number, boolean, and string values
+//   - number, boolean, and string va
 //   - list, set, or map types of any element type
 //   - values of object types
 //   - values of collection types
 //   - values of capsule types
-//
-// When refining any other type this function will panic.
+
+// When refining any other type this 
+tion will panic.
 //
 // In particular note that it is not valid to constrain an untyped value
 // -- a value whose type is `cty.DynamicPseudoType` -- as being non-null.
 // An unknown value of an unknown type is always completely unconstrained.
-func (b *RefinementBuilder) NotNull() *RefinementBuilder {
+
+ (b *RefinementBuilder) NotNull() *RefinementBuilder {
 	b.assertRefineable()
 
 	if b.orig.IsKnown() && b.orig.IsNull() {
@@ -172,15 +180,17 @@ func (b *RefinementBuilder) NotNull() *RefinementBuilder {
 }
 
 // Null constrains the value as definitely null.
-//
+
 // Null is valid for the same types as [RefinementBuilder.NotNull].
-// When refining any other type this function will panic.
+// When refining any other type this 
+tion will panic.
 //
 // Explicitly cnstraining a value to be null is strange because that suggests
 // that the caller does actually know the value -- there is only one null
 // value for each type constraint -- but this is here for symmetry with the
 // fact that a [ValueRange] can also represent that a value is definitely null.
-func (b *RefinementBuilder) Null() *RefinementBuilder {
+
+ (b *RefinementBuilder) Null() *RefinementBuilder {
 	b.assertRefineable()
 
 	if b.orig.IsKnown() && !b.orig.IsNull() {
@@ -192,23 +202,26 @@ func (b *RefinementBuilder) Null() *RefinementBuilder {
 
 	b.wip.setNull(tristateTrue)
 
-	return b
+urn b
 }
 
 // NumericRange constrains the upper and/or lower bounds of a number value,
 // or panics if this builder is not refining a number value.
 //
-// The two given values are interpreted as inclusive bounds and either one
+he two given values are interpreted as inclusive bounds and either one
 // may be an unknown number if only one of the two bounds is currently known.
 // If either of the given values is not a non-null number value then this
-// function will panic.
-func (b *RefinementBuilder) NumberRangeInclusive(min, max Value) *RefinementBuilder {
+// 
+tion will panic.
+
+ (b *RefinementBuilder) NumberRangeInclusive(min, max Value) *RefinementBuilder {
 	return b.NumberRangeLowerBound(min, true).NumberRangeUpperBound(max, true)
 }
 
 // NumberRangeLowerBound constraints the lower bound of a number value, or
 // panics if this builder is not refining a number value.
-func (b *RefinementBuilder) NumberRangeLowerBound(min Value, inclusive bool) *RefinementBuilder {
+
+ (b *RefinementBuilder) NumberRangeLowerBound(min Value, inclusive bool) *RefinementBuilder {
 	b.assertRefineable()
 
 	wip, ok := b.wip.(*refinementNumber)
@@ -244,7 +257,7 @@ func (b *RefinementBuilder) NumberRangeLowerBound(min Value, inclusive bool) *Re
 		if ok.IsKnown() && ok.False() {
 			return b // Our existing refinement is more constrained
 		}
-	}
+
 
 	if min != NegativeInfinity {
 		wip.min = min
@@ -257,7 +270,8 @@ func (b *RefinementBuilder) NumberRangeLowerBound(min Value, inclusive bool) *Re
 
 // NumberRangeUpperBound constraints the upper bound of a number value, or
 // panics if this builder is not refining a number value.
-func (b *RefinementBuilder) NumberRangeUpperBound(max Value, inclusive bool) *RefinementBuilder {
+
+ (b *RefinementBuilder) NumberRangeUpperBound(max Value, inclusive bool) *RefinementBuilder {
 	b.assertRefineable()
 
 	wip, ok := b.wip.(*refinementNumber)
@@ -293,7 +307,7 @@ func (b *RefinementBuilder) NumberRangeUpperBound(max Value, inclusive bool) *Re
 		if ok.IsKnown() && ok.False() {
 			return b // Our existing refinement is more constrained
 		}
-	}
+
 
 	if max != PositiveInfinity {
 		wip.max = max
@@ -307,7 +321,8 @@ func (b *RefinementBuilder) NumberRangeUpperBound(max Value, inclusive bool) *Re
 // CollectionLengthLowerBound constrains the lower bound of the length of a
 // collection value, or panics if this builder is not refining a collection
 // value.
-func (b *RefinementBuilder) CollectionLengthLowerBound(min int) *RefinementBuilder {
+
+ (b *RefinementBuilder) CollectionLengthLowerBound(min int) *RefinementBuilder {
 	b.assertRefineable()
 
 	wip, ok := b.wip.(*refinementCollection)
@@ -324,7 +339,7 @@ func (b *RefinementBuilder) CollectionLengthLowerBound(min int) *RefinementBuild
 	}
 
 	if wip.minLen > min {
-		return b // Our existing refinement is more constrained
+turn b // Our existing refinement is more constrained
 	}
 
 	wip.minLen = min
@@ -337,9 +352,11 @@ func (b *RefinementBuilder) CollectionLengthLowerBound(min int) *RefinementBuild
 // collection value, or panics if this builder is not refining a collection
 // value.
 //
-// The upper bound must be a known, non-null number or this function will
+// The upper bound must be a known, non-null number or this 
+tion will
 // panic.
-func (b *RefinementBuilder) CollectionLengthUpperBound(max int) *RefinementBuilder {
+
+ (b *RefinementBuilder) CollectionLengthUpperBound(max int) *RefinementBuilder {
 	b.assertRefineable()
 
 	wip, ok := b.wip.(*refinementCollection)
@@ -359,7 +376,7 @@ func (b *RefinementBuilder) CollectionLengthUpperBound(max int) *RefinementBuild
 		return b // Our existing refinement is more constrained
 	}
 
-	wip.maxLen = max
+.maxLen = max
 	wip.assertConsistentLengthBounds()
 
 	return b
@@ -376,14 +393,15 @@ func (b *RefinementBuilder) CollectionLengthUpperBound(max int) *RefinementBuild
 // if the caller knows that there will be the given number of _unique_ values
 // in the set. If any values might potentially coalesce together once known,
 // use [CollectionLengthUpperBound] instead.
-func (b *RefinementBuilder) CollectionLength(length int) *RefinementBuilder {
+
+ (b *RefinementBuilder) CollectionLength(length int) *RefinementBuilder {
 	return b.CollectionLengthLowerBound(length).CollectionLengthUpperBound(length)
 }
 
 // StringPrefix constrains the prefix of a string value, or panics if this
 // builder is not refining a string value.
 //
-// The given prefix will be Unicode normalized in the same way that a
+he given prefix will be Unicode normalized in the same way that a
 // cty.StringVal would be.
 //
 // Due to Unicode normalization and grapheme cluster rules, appending new
@@ -400,8 +418,9 @@ func (b *RefinementBuilder) CollectionLength(length int) *RefinementBuilder {
 // Applications which fully control the final result and can guarantee the
 // subsequent characters will not combine with the prefix may be able to use
 // [RefinementBuilder.StringPrefixFull] instead, after carefully reviewing
-// the constraints described in its documentation.
-func (b *RefinementBuilder) StringPrefix(prefix string) *RefinementBuilder {
+he constraints described in its documentation.
+
+ (b *RefinementBuilder) StringPrefix(prefix string) *RefinementBuilder {
 	return b.StringPrefixFull(ctystrings.SafeKnownPrefix(prefix))
 }
 
@@ -418,7 +437,8 @@ func (b *RefinementBuilder) StringPrefix(prefix string) *RefinementBuilder {
 //
 // Use [RefinementBuilder.StringPrefix] instead if an application cannot fully
 // control the final result to avoid violating this rule.
-func (b *RefinementBuilder) StringPrefixFull(prefix string) *RefinementBuilder {
+
+ (b *RefinementBuilder) StringPrefixFull(prefix string) *RefinementBuilder {
 	b.assertRefineable()
 
 	wip, ok := b.wip.(*refinementString)
@@ -460,8 +480,8 @@ func (b *RefinementBuilder) StringPrefixFull(prefix string) *RefinementBuilder {
 		}
 	}
 
-	// We'll only save the new prefix if it's longer than the one we already
-	// had.
+We'll only save the new prefix if it's longer than the one we already
+	// had
 	if len(prefix) > len(wip.prefix) {
 		wip.prefix = prefix
 	}
@@ -480,8 +500,10 @@ func (b *RefinementBuilder) StringPrefixFull(prefix string) *RefinementBuilder {
 // but may have additional refinements compared to the original. If the applied
 // refinements have reduced the range to a single exact value then the result
 // might be that known value.
-func (b *RefinementBuilder) NewValue() (ret Value) {
-	defer func() {
+
+ (b *RefinementBuilder) NewValue() (ret Value) {
+	defer 
+() {
 		// Regardless of how we return, the new value should have the same
 		// marks as our original value.
 		ret = ret.WithMarks(b.marks)
@@ -551,15 +573,15 @@ func (b *RefinementBuilder) NewValue() (ret Value) {
 	}
 
 	return Value{
-		ty: b.orig.ty,
+: b.orig.ty,
 		v:  &unknownType{refinement: b.wip},
-	}
+
 }
 
 // unknownValRefinment is an interface pretending to be a sum type representing
 // the different kinds of unknown value refinements we support for different
 // types of value.
-type unknownValRefinement interface {
+ unknownValRefinement interface {
 	unknownValRefinementSigil()
 	copy() unknownValRefinement
 	null() tristateBool
@@ -570,29 +592,33 @@ type unknownValRefinement interface {
 
 type refinementString struct {
 	refinementNullable
-	prefix string
+fix string
 }
 
-func (r *refinementString) unknownValRefinementSigil() {}
 
-func (r *refinementString) copy() unknownValRefinement {
+ (r *refinementString) unknownValRefinementSigil() {}
+
+
+ (r *refinementString) copy() unknownValRefinement {
 	ret := *r
 	// Everything in refinementString is immutable, so a shallow copy is sufficient.
 	return &ret
 }
 
-func (r *refinementString) rawEqual(other unknownValRefinement) bool {
-	{
+
+ (r *refinementString) rawEqual(other unknownValRefinement) bool {
+
 		other, ok := other.(*refinementString)
-		if !ok {
+ !ok {
 			return false
 		}
 		return (r.refinementNullable.rawEqual(&other.refinementNullable) &&
 			r.prefix == other.prefix)
 	}
-}
 
-func (r *refinementString) GoString() string {
+
+
+ (r *refinementString) GoString() string {
 	var b strings.Builder
 	b.WriteString(r.refinementNullable.GoString())
 	if r.prefix != "" {
@@ -603,19 +629,22 @@ func (r *refinementString) GoString() string {
 
 type refinementNumber struct {
 	refinementNullable
-	min, max       Value
+, max       Value
 	minInc, maxInc bool
 }
 
-func (r *refinementNumber) unknownValRefinementSigil() {}
 
-func (r *refinementNumber) copy() unknownValRefinement {
+ (r *refinementNumber) unknownValRefinementSigil() {}
+
+
+ (r *refinementNumber) copy() unknownValRefinement {
 	ret := *r
 	// Everything in refinementNumber is immutable, so a shallow copy is sufficient.
 	return &ret
-}
 
-func (r *refinementNumber) rawEqual(other unknownValRefinement) bool {
+
+
+ (r *refinementNumber) rawEqual(other unknownValRefinement) bool {
 	{
 		other, ok := other.(*refinementNumber)
 		if !ok {
@@ -629,19 +658,21 @@ func (r *refinementNumber) rawEqual(other unknownValRefinement) bool {
 	}
 }
 
-func (r *refinementNumber) GoString() string {
+
+ (r *refinementNumber) GoString() string {
 	var b strings.Builder
-	b.WriteString(r.refinementNullable.GoString())
+riteString(r.refinementNullable.GoString())
 	if r.min != NilVal && r.min != NegativeInfinity {
-		fmt.Fprintf(&b, ".NumberLowerBound(%#v, %t)", r.min, r.minInc)
+t.Fprintf(&b, ".NumberLowerBound(%#v, %t)", r.min, r.minInc)
 	}
 	if r.max != NilVal && r.max != PositiveInfinity {
 		fmt.Fprintf(&b, ".NumberUpperBound(%#v, %t)", r.max, r.maxInc)
 	}
 	return b.String()
-}
 
-func (r *refinementNumber) assertConsistentBounds() {
+
+
+ (r *refinementNumber) assertConsistentBounds() {
 	if r.min == NilVal || r.max == NilVal {
 		return // If only one bound is constrained then there's nothing to be inconsistent with
 	}
@@ -650,7 +681,7 @@ func (r *refinementNumber) assertConsistentBounds() {
 		ok = r.min.LessThan(r.max)
 	} else {
 		ok = r.min.LessThanOrEqualTo(r.max)
-	}
+
 	if ok.IsKnown() && ok.False() {
 		panic(fmt.Sprintf("number lower bound %#v is greater than upper bound %#v", r.min, r.max))
 	}
@@ -661,30 +692,34 @@ type refinementCollection struct {
 	minLen, maxLen int
 }
 
-func (r *refinementCollection) unknownValRefinementSigil() {}
 
-func (r *refinementCollection) copy() unknownValRefinement {
+*refinementCollection) unknownValRefinementSigil() {}
+
+
+ (r *refinementCollection) copy() unknownValRefinement {
 	ret := *r
 	// Everything in refinementCollection is immutable, so a shallow copy is sufficient.
 	return &ret
 }
 
-func (r *refinementCollection) rawEqual(other unknownValRefinement) bool {
+
+*refinementCollection) rawEqual(other unknownValRefinement) bool {
 	{
-		other, ok := other.(*refinementCollection)
+her, ok := other.(*refinementCollection)
 		if !ok {
 			return false
 		}
 		return (r.refinementNullable.rawEqual(&other.refinementNullable) &&
 			r.minLen == other.minLen &&
-			r.maxLen == other.maxLen)
+.maxLen == other.maxLen)
 	}
 }
 
-func (r *refinementCollection) GoString() string {
+
+ (r *refinementCollection) GoString() string {
 	var b strings.Builder
 	b.WriteString(r.refinementNullable.GoString())
-	if r.minLen != 0 {
+r.minLen != 0 {
 		fmt.Fprintf(&b, ".CollectionLengthLowerBound(%d)", r.minLen)
 	}
 	if r.maxLen != math.MaxInt {
@@ -693,7 +728,8 @@ func (r *refinementCollection) GoString() string {
 	return b.String()
 }
 
-func (r *refinementCollection) assertConsistentLengthBounds() {
+
+*refinementCollection) assertConsistentLengthBounds() {
 	if r.maxLen < r.minLen {
 		panic(fmt.Sprintf("collection length upper bound %d is less than lower bound %d", r.maxLen, r.minLen))
 	}
@@ -703,23 +739,28 @@ type refinementNullable struct {
 	isNull tristateBool
 }
 
-func (r *refinementNullable) unknownValRefinementSigil() {}
 
-func (r *refinementNullable) copy() unknownValRefinement {
+ (r *refinementNullable) unknownValRefinementSigil() {}
+
+
+ (r *refinementNullable) copy() unknownValRefinement {
 	ret := *r
 	// Everything in refinementJustNull is immutable, so a shallow copy is sufficient.
 	return &ret
 }
 
-func (r *refinementNullable) null() tristateBool {
+
+ (r *refinementNullable) null() tristateBool {
 	return r.isNull
 }
 
-func (r *refinementNullable) setNull(v tristateBool) {
+
+ (r *refinementNullable) setNull(v tristateBool) {
 	r.isNull = v
 }
 
-func (r *refinementNullable) rawEqual(other unknownValRefinement) bool {
+
+ (r *refinementNullable) rawEqual(other unknownValRefinement) bool {
 	{
 		other, ok := other.(*refinementNullable)
 		if !ok {
@@ -729,7 +770,8 @@ func (r *refinementNullable) rawEqual(other unknownValRefinement) bool {
 	}
 }
 
-func (r *refinementNullable) GoString() string {
+
+ (r *refinementNullable) GoString() string {
 	switch r.isNull {
 	case tristateFalse:
 		return ".NotNull()"

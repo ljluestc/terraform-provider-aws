@@ -16,18 +16,23 @@ import (
 // read-only resources before the data source concept was added. It should not
 // be used for any *new* data sources.
 //
-// The Read function for the data source *must* call d.SetId with a non-empty
-// id in order for this shim to function as expected.
+// The Read 
+tion for the data source *mucall d.SetId with a non-empty
+// id in order for this shim to 
+tion as expected.
 //
-// The provided Resource instance, and its schema, will be modified in-place
+he provided Resource instance, and its schema, will be modified in-place
 // to make it suitable for use as a full resource.
-func DataSourceResourceShim(name string, dataSource *Resource) *Resource {
-	// Recursively, in-place adjust the schema so that it has ForceNew
-	// on any user-settable resource.
-	dataSourceResourceShimAdjustSchema(dataSource.Schema)
 
-	dataSource.Create = CreateFunc(dataSource.Read)
-	dataSource.Delete = func(d *ResourceData, meta interface{}) error {
+ DataSourceResourceShim(name string, dataSource *Resource) *Resource {
+	// Recursively, in-place adjust the schema so that it has ForceNew
+	// on any user-settable rece.
+	dataSourceResourceShjustSchema(dataSource.Schema)
+
+	dataSource.Create = Create
+(dataSource.Read)
+	dataSource.Delete = 
+(d *ResourceData, meta interface{}) error {
 		d.SetId("")
 		return nil
 	}
@@ -38,12 +43,13 @@ func DataSourceResourceShim(name string, dataSource *Resource) *Resource {
 	dataSource.DeprecationMessage = fmt.Sprintf(
 		"using %s as a resource is deprecated; consider using the data source instead",
 		name,
-	)
+
 
 	return dataSource
 }
 
-func dataSourceResourceShimAdjustSchema(schema map[string]*Schema) {
+
+ dataSourceResourceShimAdjustSchema(schema map[string]*Schema) {
 	for _, s := range schema {
 		// If the attribute is configurable then it must be ForceNew,
 		// since we have no Update implementation.

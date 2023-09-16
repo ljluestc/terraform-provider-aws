@@ -29,10 +29,10 @@ func TestAccDocDBClusterInstance_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_basic(rName),
@@ -80,10 +80,10 @@ func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_performanceInsights(rName),
@@ -117,10 +117,10 @@ func TestAccDocDBClusterInstance_az(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_az(rName),
@@ -152,10 +152,10 @@ func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix),
@@ -187,10 +187,10 @@ func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_generatedName(rName),
@@ -221,10 +221,10 @@ func TestAccDocDBClusterInstance_kmsKey(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_kmsKey(rName),
@@ -255,10 +255,10 @@ func TestAccDocDBClusterInstance_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterInstanceConfig_basic(rName),
@@ -357,7 +357,7 @@ resource "aws_docdb_cluster" "default" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
@@ -381,16 +381,16 @@ resource "aws_docdb_cluster" "default" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier                 = %[1]q
+  identifier    = %[1]q
   cluster_identifier         = aws_docdb_cluster.default.id
-  instance_class             = data.aws_docdb_orderable_db_instance.test.instance_class
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
   auto_minor_version_upgrade = false
-  promotion_tier             = "3"
+  promotion_tier= "3"
 }
 `, rName))
 }
@@ -427,15 +427,15 @@ resource "aws_docdb_cluster" "default" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "test" {
-  identifier                      = %[1]q
-  cluster_identifier              = aws_docdb_cluster.default.id
-  instance_class                  = data.aws_docdb_orderable_db_instance.test.instance_class
-  promotion_tier                  = "3"
+  identifier         = %[1]q
+  cluster_identifier = aws_docdb_cluster.default.id
+  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
+  promotion_tier     = "3"
   enable_performance_insights     = true
   performance_insights_kms_key_id = aws_kms_key.test.arn
 }
@@ -453,7 +453,7 @@ resource "aws_docdb_cluster" "default" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
@@ -470,7 +470,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 func testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
@@ -526,7 +526,7 @@ resource "aws_docdb_subnet_group" "test" {
 func testAccClusterInstanceConfig_generatedName(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
@@ -613,7 +613,7 @@ resource "aws_docdb_cluster" "default" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 

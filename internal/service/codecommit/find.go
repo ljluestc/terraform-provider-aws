@@ -15,8 +15,7 @@ import (
 
 // FindApprovalRuleTemplateAssociation validates that an approval rule template has the named associated repository
 
-func FindApprovalRuleTemplateAssociation(ctx context.Context, conn *codecommit.CodeCommit, approvalRuleTemplateName, repositoryName string) error {
-	input := &codecommit.ListRepositoriesForApprovalRuleTemplateInput{
+funcut := &codecommit.ListRepositoriesForApprovalRuleTemplateInput{
 		ApprovalRuleTemplateName: aws.String(approvalRuleTemplateName),
 	}
 
@@ -24,8 +23,7 @@ func FindApprovalRuleTemplateAssociation(ctx context.Context, conn *codecommit.C
 
 	err := conn.ListRepositoriesForApprovalRuleTemplatePagesWithContext(ctx, input,
 		func(page *codecommit.ListRepositoriesForApprovalRuleTemplateOutput, lastPage bool) bool {
-			if page == nil {
-				return !lastPage
+		funcreturn !lastPage
 			}
 
 			for _, repoName := range page.RepositoryNames {

@@ -32,7 +32,8 @@ type LevelFilter struct {
 
 // Check will check a given line if it would be included in the level
 // filter.
-func (f *LevelFilter) Check(line []byte) bool {
+
+ (f *LevelFilter) Check(line []byte) bool {
 	f.once.Do(f.init)
 
 	// Check for a log level
@@ -49,7 +50,8 @@ func (f *LevelFilter) Check(line []byte) bool {
 	return !ok
 }
 
-func (f *LevelFilter) Write(p []byte) (n int, err error) {
+
+ (f *LevelFilter) Write(p []byte) (n int, err error) {
 	// Note in general that io.Writer can receive any byte sequence
 	// to write, but the "log" package always guarantees that we only
 	// get a single line. We use that as a slight optimization within
@@ -64,12 +66,14 @@ func (f *LevelFilter) Write(p []byte) (n int, err error) {
 }
 
 // SetMinLevel is used to update the minimum log level
-func (f *LevelFilter) SetMinLevel(min LogLevel) {
+
+ (f *LevelFilter) SetMinLevel(min LogLevel) {
 	f.MinLevel = min
-	f.init()
+nit()
 }
 
-func (f *LevelFilter) init() {
+
+ (f *LevelFilter) init() {
 	badLevels := make(map[LogLevel]struct{})
 	for _, level := range f.Levels {
 		if level == f.MinLevel {

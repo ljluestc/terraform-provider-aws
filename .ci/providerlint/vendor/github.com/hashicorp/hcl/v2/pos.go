@@ -58,7 +58,8 @@ type Range struct {
 //
 // The result is meaningless if the two ranges do not belong to the same
 // source file or if the end range appears before the start range.
-func RangeBetween(start, end Range) Range {
+
+ RangeBetween(start, end Range) Range {
 	return Range{
 		Filename: start.Filename,
 		Start:    start.Start,
@@ -73,8 +74,9 @@ func RangeBetween(start, end Range) Range {
 // given ranges are empty.
 //
 // The result is meaningless if the two ranges to not belong to the same
-// source file.
-func RangeOver(a, b Range) Range {
+ource file.
+
+ RangeOver(a, b Range) Range {
 	if a.Empty() {
 		return b
 	}
@@ -104,30 +106,35 @@ func RangeOver(a, b Range) Range {
 // the receiving range.
 //
 // In the unlikely case that the line/column information disagree with the byte
-// offset information in the given position or receiving range, the byte
+ffset information in the given position or receiving range, the byte
 // offsets are given priority.
-func (r Range) ContainsPos(pos Pos) bool {
+
+ (r Range) ContainsPos(pos Pos) bool {
 	return r.ContainsOffset(pos.Byte)
 }
 
 // ContainsOffset returns true if and only if the given byte offset is within
 // the receiving Range.
-func (r Range) ContainsOffset(offset int) bool {
+
+ (r Range) ContainsOffset(offset int) bool {
 	return offset >= r.Start.Byte && offset < r.End.Byte
 }
 
-// Ptr returns a pointer to a copy of the receiver. This is a convenience when
+tr returns a pointer to a copy of the receiver. This is a convenience when
 // ranges in places where pointers are required, such as in Diagnostic, but
 // the range in question is returned from a method. Go would otherwise not
-// allow one to take the address of a function call.
-func (r Range) Ptr() *Range {
-	return &r
+// allow one to take the address of a 
+tion call.
+
+ (r Range) Ptr() *Range {
+urn &r
 }
 
 // String returns a compact string representation of the receiver.
 // Callers should generally prefer to present a range more visually,
 // e.g. via markers directly on the relevant portion of source code.
-func (r Range) String() string {
+
+ (r Range) String() string {
 	if r.Start.Line == r.End.Line {
 		return fmt.Sprintf(
 			"%s:%d,%d-%d",
@@ -138,16 +145,17 @@ func (r Range) String() string {
 	} else {
 		return fmt.Sprintf(
 			"%s:%d,%d-%d,%d",
-			r.Filename,
+.Filename,
 			r.Start.Line, r.Start.Column,
 			r.End.Line, r.End.Column,
 		)
 	}
 }
 
-func (r Range) Empty() bool {
+
+ (r Range) Empty() bool {
 	return r.Start.Byte == r.End.Byte
-}
+
 
 // CanSliceBytes returns true if SliceBytes could return an accurate
 // sub-slice of the given slice.
@@ -155,7 +163,8 @@ func (r Range) Empty() bool {
 // This effectively tests whether the start and end offsets of the range
 // are within the bounds of the slice, and thus whether SliceBytes can be
 // trusted to produce an accurate start and end position within that slice.
-func (r Range) CanSliceBytes(b []byte) bool {
+
+ (r Range) CanSliceBytes(b []byte) bool {
 	switch {
 	case r.Start.Byte < 0 || r.Start.Byte > len(b):
 		return false
@@ -176,7 +185,8 @@ func (r Range) CanSliceBytes(b []byte) bool {
 // then the result is constrained to the overlapping portion only, to avoid
 // a panic. Use CanSliceBytes to determine if the result is guaranteed to
 // be an accurate span of the requested range.
-func (r Range) SliceBytes(b []byte) []byte {
+
+ (r Range) SliceBytes(b []byte) []byte {
 	start := r.Start.Byte
 	end := r.End.Byte
 	if start < 0 {
@@ -187,7 +197,7 @@ func (r Range) SliceBytes(b []byte) []byte {
 	if end < 0 {
 		end = 0
 	} else if end > len(b) {
-		end = len(b)
+d = len(b)
 	}
 	if end < start {
 		end = start
@@ -197,7 +207,8 @@ func (r Range) SliceBytes(b []byte) []byte {
 
 // Overlaps returns true if the receiver and the other given range share any
 // characters in common.
-func (r Range) Overlaps(other Range) bool {
+
+ (r Range) Overlaps(other Range) bool {
 	switch {
 	case r.Filename != other.Filename:
 		// If the ranges are in different files then they can't possibly overlap
@@ -208,7 +219,7 @@ func (r Range) Overlaps(other Range) bool {
 	case r.ContainsOffset(other.Start.Byte) || r.ContainsOffset(other.End.Byte):
 		return true
 	case other.ContainsOffset(r.Start.Byte) || other.ContainsOffset(r.End.Byte):
-		return true
+turn true
 	default:
 		return false
 	}
@@ -219,7 +230,8 @@ func (r Range) Overlaps(other Range) bool {
 // within the receiver if there is no overlap between the two ranges.
 //
 // A non-empty result is either identical to or a subset of the receiver.
-func (r Range) Overlap(other Range) Range {
+
+ (r Range) Overlap(other Range) Range {
 	if !r.Overlaps(other) {
 		// Start == End indicates an empty range
 		return Range{
@@ -245,7 +257,7 @@ func (r Range) Overlap(other Range) Range {
 		Filename: r.Filename,
 		Start:    start,
 		End:      end,
-	}
+
 }
 
 // PartitionAround finds the portion of the given range that overlaps with
@@ -257,7 +269,8 @@ func (r Range) Overlap(other Range) Range {
 //
 // If the given range aligns with or extends beyond either extent of the
 // reciever then the corresponding outer range will be empty.
-func (r Range) PartitionAround(other Range) (before, overlap, after Range) {
+
+ (r Range) PartitionAround(other Range) (before, overlap, after Range) {
 	overlap = r.Overlap(other)
 	if overlap.Empty() {
 		return overlap, overlap, overlap

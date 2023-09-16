@@ -13,17 +13,20 @@ import (
 type testCase struct {
 	val             interface{}
 	f               schema.SchemaValidate
-func
+
+
 	expectedErr     *regexp.Regexp
 	expectedWarning *regexp.Regexp
 }
 
 
-func runValidationTestCases(t *testing.T, cases []testCase) {
+
+ValidationTestCases(t *testing.T, cases []testCase) {
 	t.Helper()
 
 	matchErr := 
-func(errs []error, r *regexp.Regexp) bool {
+
+s []error, r *regexp.Regexp) bool {
 // err must match one provided
 for _, err := range errs {
 	if r.MatchString(err.Error()) {
@@ -35,7 +38,8 @@ return false
 	}
 
 	matchWarning := 
-func(warnings []string, r *regexp.Regexp) bool {
+
+nings []string, r *regexp.Regexp) bool {
 // warning must match one provided
 for _, warning := range warnings {
 	if r.MatchString(warning) {

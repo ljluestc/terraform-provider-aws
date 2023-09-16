@@ -29,22 +29,26 @@ type ExactVersion struct {
 	logger *log.Logger
 }
 
-func (*ExactVersion) IsSourceImpl() src.InstallSrcSigil {
+
+ (*ExactVersion) IsSourceImpl() src.InstallSrcSigil {
 	return src.InstallSrcSigil{}
 }
 
-func (ev *ExactVersion) SetLogger(logger *log.Logger) {
-	ev.logger = logger
-}
 
-func (ev *ExactVersion) log() *log.Logger {
+ (ev *ExactVersion) SetLogger(logger *log.Logger) {
+	ev.logger = logger
+
+
+
+ (ev *ExactVersion) log() *log.Logger {
 	if ev.logger == nil {
 		return discardLogger
 	}
-	return ev.logger
+urn ev.logger
 }
 
-func (ev *ExactVersion) Validate() error {
+
+ (ev *ExactVersion) Validate() error {
 	if !validators.IsBinaryNameValid(ev.Product.BinaryName()) {
 		return fmt.Errorf("invalid binary name: %q", ev.Product.BinaryName())
 	}
@@ -53,19 +57,23 @@ func (ev *ExactVersion) Validate() error {
 	}
 	if ev.Product.GetVersion == nil {
 		return fmt.Errorf("undeclared version getter")
-	}
+
 	return nil
 }
 
-func (ev *ExactVersion) Find(ctx context.Context) (string, error) {
-	timeout := defaultTimeout
+
+ (ev *Exersion) Find(ctx context.Context) (string, error) {
+	timeout := dltTimeout
 	if ev.Timeout > 0 {
 		timeout = ev.Timeout
 	}
-	ctx, cancelFunc := context.WithTimeout(ctx, timeout)
-	defer cancelFunc()
+	ctx, cancel
+ := context.WithTimeout(ctx, timeout)
+	defer cancel
+()
 
-	execPath, err := findFile(lookupDirs(ev.ExtraPaths), ev.Product.BinaryName(), func(file string) error {
+	execPath, err := findFile(lookupDirs(ev.ExtraPaths), ev.Product.BinaryName(), 
+(file string) error {
 		err := checkExecutable(file)
 		if err != nil {
 			return err

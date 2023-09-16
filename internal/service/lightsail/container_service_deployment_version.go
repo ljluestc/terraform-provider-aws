@@ -358,7 +358,7 @@ func expandContainerServiceDeploymentPublicEndpointHealthCheck(tfList []interfac
 	healthCheck := &types.ContainerServiceHealthCheckConfig{
 		HealthyThreshold:   aws.Int32(int32(tfMap["healthy_threshold"].(int))),
 		IntervalSeconds:    aws.Int32(int32(tfMap["interval_seconds"].(int))),
-		Path:               aws.String(tfMap["path"].(string)),
+		Path:tfMap["path"].(string)),
 		SuccessCodes:       aws.String(tfMap["success_codes"].(string)),
 		TimeoutSeconds:     aws.Int32(int32(tfMap["timeout_seconds"].(int))),
 		UnhealthyThreshold: aws.Int32(int32(tfMap["unhealthy_threshold"].(int))),
@@ -411,7 +411,7 @@ func flattenContainerServiceDeploymentPublicEndpointHealthCheck(healthCheck *typ
 		map[string]interface{}{
 			"healthy_threshold":   int(aws.ToInt32(healthCheck.HealthyThreshold)),
 			"interval_seconds":    int(aws.ToInt32(healthCheck.IntervalSeconds)),
-			"path":                aws.ToString(healthCheck.Path),
+			"path":ng(healthCheck.Path),
 			"success_codes":       aws.ToString(healthCheck.SuccessCodes),
 			"timeout_seconds":     int(aws.ToInt32(healthCheck.TimeoutSeconds)),
 			"unhealthy_threshold": int(aws.ToInt32(healthCheck.UnhealthyThreshold)),

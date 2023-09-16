@@ -29,9 +29,9 @@ func TestAccMQConfiguration_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_basic(rName),
@@ -78,9 +78,9 @@ func TestAccMQConfiguration_withData(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_data(rName),
@@ -114,9 +114,9 @@ func TestAccMQConfiguration_withLdapData(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_ldapData(rName),
@@ -151,9 +151,9 @@ func TestAccMQConfiguration_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_tags1(rName, "key1", "value1"),
@@ -211,9 +211,9 @@ func testAccCheckConfigurationExists(ctx context.Context, n string) resource.Tes
 func testAccConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description             = "TfAccTest MQ Configuration"
+  description= "TfAccTest MQ Configuration"
   name     = %[1]q
-  engine_type             = "ActiveMQ"
+  engine_type= "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"
 
@@ -281,9 +281,9 @@ DATA
 func testAccConfigurationConfig_ldapData(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description             = "TfAccTest MQ Configuration"
+  description= "TfAccTest MQ Configuration"
   name     = %[1]q
-  engine_type             = "ActiveMQ"
+  engine_type= "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "ldap"
 
@@ -309,9 +309,9 @@ DATA
 func testAccConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description             = "TfAccTest MQ Configuration"
+  description= "TfAccTest MQ Configuration"
   name     = %[1]q
-  engine_type             = "ActiveMQ"
+  engine_type= "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"
 
@@ -331,9 +331,9 @@ DATA
 func testAccConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description             = "TfAccTest MQ Configuration"
+  description= "TfAccTest MQ Configuration"
   name     = %[1]q
-  engine_type             = "ActiveMQ"
+  engine_type= "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"
 

@@ -14,7 +14,8 @@ import (
 // Unlike value slices and value maps, ValueSet instances have a single
 // homogenous element type because that is a requirement of the underlying
 // set implementation, which uses the element type to select a suitable
-// hashing function.
+// hashing 
+.
 //
 // Set mutations are not concurrency-safe.
 type ValueSet struct {
@@ -25,55 +26,64 @@ type ValueSet struct {
 }
 
 // NewValueSet creates and returns a new ValueSet with the given element type.
-func NewValueSet(ety Type) ValueSet {
+
+ValueSet(ety Type) ValueSet {
 	return newValueSet(set.NewSet(setRules{Type: ety}))
 }
 
-func newValueSet(s set.Set) ValueSet {
+
+ValueSet(s set.Set) ValueSet {
 	return ValueSet{
 		s: s,
 	}
 }
 
 // ElementType returns the element type for the receiving ValueSet.
-func (s ValueSet) ElementType() Type {
+
+ValueSet) ElementType() Type {
 	return s.s.Rules().(setRules).Type
 }
 
 // Add inserts the given value into the receiving set.
-func (s ValueSet) Add(v Value) {
+
+ValueSet) Add(v Value) {
 	s.requireElementType(v)
 	s.s.Add(v.v)
 }
 
 // Remove deletes the given value from the receiving set, if indeed it was
 // there in the first place. If the value is not present, this is a no-op.
-func (s ValueSet) Remove(v Value) {
+
+ValueSet) Remove(v Value) {
 	s.requireElementType(v)
 	s.s.Remove(v.v)
 }
 
 // Has returns true if the given value is in the receiving set, or false if
 // it is not.
-func (s ValueSet) Has(v Value) bool {
+
+ValueSet) Has(v Value) bool {
 	s.requireElementType(v)
 	return s.s.Has(v.v)
 }
 
 // Copy performs a shallow copy of the receiving set, returning a new set
 // with the same rules and elements.
-func (s ValueSet) Copy() ValueSet {
+
+ValueSet) Copy() ValueSet {
 	return newValueSet(s.s.Copy())
 }
 
 // Length returns the number of values in the set.
-func (s ValueSet) Length() int {
+
+ValueSet) Length() int {
 	return s.s.Length()
 }
 
 // Values returns a slice of all of the values in the set in no particular
 // order.
-func (s ValueSet) Values() []Value {
+
+ValueSet) Values() []Value {
 	l := s.s.Length()
 	if l == 0 {
 		return nil
@@ -91,30 +101,38 @@ func (s ValueSet) Values() []Value {
 
 // Union returns a new set that contains all of the members of both the
 // receiving set and the given set. Both sets must have the same element type,
-// or else this function will panic.
-func (s ValueSet) Union(other ValueSet) ValueSet {
+// or else this 
+ will panic.
+
+ValueSet) Union(other ValueSet) ValueSet {
 	return newValueSet(s.s.Union(other.s))
 }
 
 // Intersection returns a new set that contains the values that both the
 // receiver and given sets have in common. Both sets must have the same element
-// type, or else this function will panic.
-func (s ValueSet) Intersection(other ValueSet) ValueSet {
+// type, or else this 
+ will panic.
+
+ValueSet) Intersection(other ValueSet) ValueSet {
 	return newValueSet(s.s.Intersection(other.s))
 }
 
 // Subtract returns a new set that contains all of the values from the receiver
 // that are not also in the given set. Both sets must have the same element
-// type, or else this function will panic.
-func (s ValueSet) Subtract(other ValueSet) ValueSet {
+// type, or else this 
+ will panic.
+
+ValueSet) Subtract(other ValueSet) ValueSet {
 	return newValueSet(s.s.Subtract(other.s))
 }
 
 // SymmetricDifference returns a new set that contains all of the values from
 // both the receiver and given sets, except those that both sets have in
-// common. Both sets must have the same element type, or else this function
+// common. Both sets must have the same element type, or else this 
+
 // will panic.
-func (s ValueSet) SymmetricDifference(other ValueSet) ValueSet {
+
+ValueSet) SymmetricDifference(other ValueSet) ValueSet {
 	return newValueSet(s.s.SymmetricDifference(other.s))
 }
 
@@ -122,7 +140,8 @@ func (s ValueSet) SymmetricDifference(other ValueSet) ValueSet {
 //
 // It also panics if the given value is marked, because marked values cannot
 // be stored in sets.
-func (s ValueSet) requireElementType(v Value) {
+
+ValueSet) requireElementType(v Value) {
 	if v.IsMarked() {
 		panic("cannot store marked value directly in a set (make the set itself unknown instead)")
 	}

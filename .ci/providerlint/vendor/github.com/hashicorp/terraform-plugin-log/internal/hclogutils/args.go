@@ -6,7 +6,8 @@ import (
 
 // FieldMapsToArgs will shallow merge field maps into a slice of key/value pairs
 // arguments (i.e. `[k1, v1, k2, v2, ...]`) expected by hc-log.Logger methods.
-func FieldMapsToArgs(maps ...map[string]interface{}) []interface{} {
+
+ FieldMapsToArgs(maps ...map[string]interface{}) []interface{} {
 	switch len(maps) {
 	case 0:
 		return nil
@@ -19,8 +20,9 @@ func FieldMapsToArgs(maps ...map[string]interface{}) []interface{} {
 
 		return result
 	default:
-		// As we merge all maps into one, we can use this
-		// same function recursively, falling back on the `switch case 1`.
+		// As wege all maps into one, we can use this
+		// same 
+tion recursively, falling back on the `switch case 1`.
 		return FieldMapsToArgs(fieldutils.MergeFieldMaps(maps...))
 	}
 }

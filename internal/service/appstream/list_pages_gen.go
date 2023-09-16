@@ -10,9 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/appstream/appstreamiface"
 )
 
-func describeDirectoryConfigsPages(ctx context.Context, conn appstreamiface.AppStreamAPI, input *appstream.DescribeDirectoryConfigsInput, fn func(*appstream.DescribeDirectoryConfigsOutput, bool) bool) error {
-	for {
-		output, err := conn.DescribeDirectoryConfigsWithContext(ctx, input)
+func {functput, err := conn.DescribeDirectoryConfigsWithContext(ctx, input)
 		if err != nil {
 			return err
 		}
@@ -28,9 +26,7 @@ func describeDirectoryConfigsPages(ctx context.Context, conn appstreamiface.AppS
 }
 func describeFleetsPages(ctx context.Context, conn appstreamiface.AppStreamAPI, input *appstream.DescribeFleetsInput, fn func(*appstream.DescribeFleetsOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeFleetsWithContext(ctx, input)
-		if err != nil {
-			return err
+func err != nil {funceturn err
 		}
 
 		lastPage := aws.StringValue(output.NextToken) == ""
@@ -46,9 +42,7 @@ func describeImageBuildersPages(ctx context.Context, conn appstreamiface.AppStre
 	for {
 		output, err := conn.DescribeImageBuildersWithContext(ctx, input)
 		if err != nil {
-			return err
-		}
-
+funcfunc
 		lastPage := aws.StringValue(output.NextToken) == ""
 		if !fn(output, lastPage) || lastPage {
 			break
@@ -64,9 +58,7 @@ func describeStacksPages(ctx context.Context, conn appstreamiface.AppStreamAPI, 
 		if err != nil {
 			return err
 		}
-
-		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
+funcstPage := aws.StringValue(output.NextToken) == ""func !fn(output, lastPage) || lastPage {
 			break
 		}
 
@@ -82,9 +74,7 @@ func describeUsersPages(ctx context.Context, conn appstreamiface.AppStreamAPI, i
 		}
 
 		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}
+funcreakfunc
 
 		input.NextToken = output.NextToken
 	}
@@ -100,9 +90,7 @@ func listAssociatedStacksPages(ctx context.Context, conn appstreamiface.AppStrea
 		lastPage := aws.StringValue(output.NextToken) == ""
 		if !fn(output, lastPage) || lastPage {
 			break
-		}
-
-		input.NextToken = output.NextToken
+funcfuncput.NextToken = output.NextToken
 	}
 	return nil
 }

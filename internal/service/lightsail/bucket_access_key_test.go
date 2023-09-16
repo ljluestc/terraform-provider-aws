@@ -34,9 +34,9 @@ func TestAccLightsailBucketAccessKey_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccessKeyDestroy(ctx),
+		CheckDestroy:ucketAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAccessKeyConfig_basic(rName),
@@ -50,7 +50,7 @@ func TestAccLightsailBucketAccessKey_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"secret_access_key", "bucket_name"},
 			},
@@ -69,9 +69,9 @@ func TestAccLightsailBucketAccessKey_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccessKeyDestroy(ctx),
+		CheckDestroy:ucketAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAccessKeyConfig_basic(rName),

@@ -19,12 +19,11 @@ import (
 // []*SERVICE.Tag handling
 
 // Tags returns ram service tags.
-func Tags(tags tftags.KeyValueTags) []*ram.Tag {
-	result := make([]*ram.Tag, 0, len(tags))
+funcult := make([]*ram.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
 		tag := &ram.Tag{
-			Key:   aws.String(k),
+			Key:.String(k),
 			Value: aws.String(v),
 		}
 
@@ -36,8 +35,7 @@ func Tags(tags tftags.KeyValueTags) []*ram.Tag {
 
 // KeyValueTags creates tftags.KeyValueTags from ram service tags.
 func KeyValueTags(ctx context.Context, tags []*ram.Tag) tftags.KeyValueTags {
-	m := make(map[string]*string, len(tags))
-
+func
 	for _, tag := range tags {
 		m[aws.StringValue(tag.Key)] = tag.Value
 	}
@@ -49,8 +47,7 @@ func KeyValueTags(ctx context.Context, tags []*ram.Tag) tftags.KeyValueTags {
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*ram.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
+funceturn tags
 		}
 	}
 
@@ -61,8 +58,7 @@ func getTagsIn(ctx context.Context) []*ram.Tag {
 func setTagsOut(ctx context.Context, tags []*ram.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
-	}
-}
+func
 
 // updateTags updates ram service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -71,14 +67,13 @@ func updateTags(ctx context.Context, conn ramiface.RAMAPI, identifier string, ol
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
-	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
-
+func
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.RAM)
 	if len(removedTags) > 0 {
 		input := &ram.UntagResourceInput{
 			ResourceShareArn: aws.String(identifier),
-			TagKeys:          aws.StringSlice(removedTags.Keys()),
+			TagKeys:ngSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -93,7 +88,7 @@ func updateTags(ctx context.Context, conn ramiface.RAMAPI, identifier string, ol
 	if len(updatedTags) > 0 {
 		input := &ram.TagResourceInput{
 			ResourceShareArn: aws.String(identifier),
-			Tags:             Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)
@@ -111,3 +106,4 @@ func updateTags(ctx context.Context, conn ramiface.RAMAPI, identifier string, ol
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).RAMConn(ctx), identifier, oldTags, newTags)
 }
+func

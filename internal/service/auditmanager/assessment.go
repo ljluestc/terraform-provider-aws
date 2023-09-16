@@ -188,11 +188,11 @@ func (r *resourceAssessment) Create(ctx context.Context, req resource.CreateRequ
 
 	in := auditmanager.CreateAssessmentInput{
 		AssessmentReportsDestination: expandAssessmentReportsDestination(reportsDestination),
-		FrameworkId:                  aws.String(plan.FrameworkID.ValueString()),
-		Name:                         aws.String(plan.Name.ValueString()),
-		Roles:                        expandAssessmentRoles(roles),
-		Scope:                        scopeInput,
-		Tags:                         getTagsIn(ctx),
+		FrameworkId:     aws.String(plan.FrameworkID.ValueString()),
+		Name:            aws.String(plan.Name.ValueString()),
+		Roles:           expandAssessmentRoles(roles),
+		Scope:           scopeInput,
+		Tags:            getTagsIn(ctx),
 	}
 
 	if !plan.Description.IsNull() {
@@ -306,11 +306,11 @@ func (r *resourceAssessment) Update(ctx context.Context, req resource.UpdateRequ
 		}
 
 		in := &auditmanager.UpdateAssessmentInput{
-			AssessmentId:                 aws.String(plan.ID.ValueString()),
-			AssessmentName:               aws.String(plan.Name.ValueString()),
+			AssessmentId:    aws.String(plan.ID.ValueString()),
+			AssessmentName:  aws.String(plan.Name.ValueString()),
 			AssessmentReportsDestination: expandAssessmentReportsDestination(reportsDestination),
-			Roles:                        expandAssessmentRoles(roles),
-			Scope:                        scopeInput,
+			Roles:           expandAssessmentRoles(roles),
+			Scope:           scopeInput,
 		}
 
 		if !plan.Description.IsNull() {
@@ -423,18 +423,18 @@ var (
 )
 
 type resourceAssessmentData struct {
-	ARN                          types.String `tfsdk:"arn"`
+	ARNtypes.String `tfsdk:"arn"`
 	AssessmentReportsDestination types.List   `tfsdk:"assessment_reports_destination"`
-	Description                  types.String `tfsdk:"description"`
-	ID                           types.String `tfsdk:"id"`
-	FrameworkID                  types.String `tfsdk:"framework_id"`
-	Name                         types.String `tfsdk:"name"`
-	Roles                        types.Set    `tfsdk:"roles"`
-	RolesAll                     types.Set    `tfsdk:"roles_all"`
-	Scope                        types.List   `tfsdk:"scope"`
-	Status                       types.String `tfsdk:"status"`
-	Tags                         types.Map    `tfsdk:"tags"`
-	TagsAll                      types.Map    `tfsdk:"tags_all"`
+	Description     types.String `tfsdk:"description"`
+	ID types.String `tfsdk:"id"`
+	FrameworkID     types.String `tfsdk:"framework_id"`
+	Name            types.String `tfsdk:"name"`
+	Roles           types.Set    `tfsdk:"roles"`
+	RolesAll        types.Set    `tfsdk:"roles_all"`
+	Scope           types.List   `tfsdk:"scope"`
+	Status          types.String `tfsdk:"status"`
+	Tags            types.Map    `tfsdk:"tags"`
+	TagsAll         types.Map    `tfsdk:"tags_all"`
 }
 
 type assessmentReportsDestinationData struct {

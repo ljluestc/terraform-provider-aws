@@ -33,12 +33,12 @@ func ResourceIntegrationResponse() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"content_handling_strategy": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ValidateFunc: validation.StringInSlice([]string{
 					apigatewayv2.ContentHandlingStrategyConvertToBinary,
@@ -46,21 +46,21 @@ func ResourceIntegrationResponse() *schema.Resource {
 				}, false),
 			},
 			"integration_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"integration_response_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"response_templates": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"template_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -72,8 +72,8 @@ func resourceIntegrationResponseCreate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateIntegrationResponseInput{
-		ApiId:                  aws.String(d.Get("api_id").(string)),
-		IntegrationId:          aws.String(d.Get("integration_id").(string)),
+		ApiId:(string)),
+		IntegrationId:tegration_id").(string)),
 		IntegrationResponseKey: aws.String(d.Get("integration_response_key").(string)),
 	}
 	if v, ok := d.GetOk("content_handling_strategy"); ok {
@@ -102,8 +102,8 @@ func resourceIntegrationResponseRead(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
-		ApiId:                 aws.String(d.Get("api_id").(string)),
-		IntegrationId:         aws.String(d.Get("integration_id").(string)),
+		ApiId:string)),
+		IntegrationId:ring(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) && !d.IsNewResource() {
@@ -131,8 +131,8 @@ func resourceIntegrationResponseUpdate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateIntegrationResponseInput{
-		ApiId:                 aws.String(d.Get("api_id").(string)),
-		IntegrationId:         aws.String(d.Get("integration_id").(string)),
+		ApiId:string)),
+		IntegrationId:ring(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	}
 	if d.HasChange("content_handling_strategy") {
@@ -163,8 +163,8 @@ func resourceIntegrationResponseDelete(ctx context.Context, d *schema.ResourceDa
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 integration response (%s)", d.Id())
 	_, err := conn.DeleteIntegrationResponseWithContext(ctx, &apigatewayv2.DeleteIntegrationResponseInput{
-		ApiId:                 aws.String(d.Get("api_id").(string)),
-		IntegrationId:         aws.String(d.Get("integration_id").(string)),
+		ApiId:string)),
+		IntegrationId:ring(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {

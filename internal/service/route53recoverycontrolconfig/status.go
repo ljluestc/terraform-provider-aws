@@ -11,8 +11,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
 
+
 func statusCluster(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, clusterArn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		input := &r53rcc.DescribeClusterInput{
 			ClusterArn: aws.String(clusterArn),
 		}
@@ -27,8 +29,10 @@ func statusCluster(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfi
 	}
 }
 
+
 func statusRoutingControl(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, routingControlArn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		input := &r53rcc.DescribeRoutingControlInput{
 			RoutingControlArn: aws.String(routingControlArn),
 		}
@@ -43,8 +47,10 @@ func statusRoutingControl(ctx context.Context, conn *r53rcc.Route53RecoveryContr
 	}
 }
 
+
 func statusControlPanel(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, controlPanelArn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		input := &r53rcc.DescribeControlPanelInput{
 			ControlPanelArn: aws.String(controlPanelArn),
 		}
@@ -59,8 +65,10 @@ func statusControlPanel(ctx context.Context, conn *r53rcc.Route53RecoveryControl
 	}
 }
 
+
 func statusSafetyRule(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, safetyRuleArn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		input := &r53rcc.DescribeSafetyRuleInput{
 			SafetyRuleArn: aws.String(safetyRuleArn),
 		}

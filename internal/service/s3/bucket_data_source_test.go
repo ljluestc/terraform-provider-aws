@@ -12,10 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix("tf-test-bucket")
 	region := acctest.Region()
 	hostedZoneID, _ := tfs3.HostedZoneIDForRegion(region)
@@ -39,11 +36,8 @@ func TestAccS3BucketDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketDataSource_website(t *testing.T) {
-	ctx := acctest.Context(t)
-	bucketName := sdkacctest.RandomWithPrefix("tf-test-bucket")
+}func TestAccS3BucketDataSource_website(t *testing.T) {
+	funcketName := sdkacctest.RandomWithPrefix("tf-test-bucket")
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -61,25 +55,19 @@ func TestAccS3BucketDataSource_website(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBucketDataSourceConfig_basic(bucketName string) string {
+}func testAccBucketDataSourceConfig_basic(bucketName string) string {
 	return fmt.Sprintf(`
-resource "aws_s3_bucket" "bucket" {
-  bucket = %[1]q
+rfunccket = %[1]q
 }
 
 data "aws_s3_bucket" "bucket" {
   bucket = aws_s3_bucket.bucket.id
 }
 `, bucketName)
-}
-
-func testAccBucketDataSourceConfig_website(bucketName string) string {
+}func testAccBucketDataSourceConfig_website(bucketName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "bucket" {
-  bucket = %[1]q
-}
+ func
 
 resource "aws_s3_bucket_website_configuration" "test" {
   bucket = aws_s3_bucket.bucket.id

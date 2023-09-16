@@ -10,7 +10,9 @@ var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V005",
 	validatejsonstringselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameValidateJsonString,
+	validation.
+ValidateJsonString,
 	validation.PackagePath,
-	validation.FuncNameStringIsJSON,
+	validation.
+StringIsJSON,
 )

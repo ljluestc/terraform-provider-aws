@@ -9,25 +9,30 @@
 package cpu
 
 //extern gccgoGetCpuidCount
-func gccgoGetCpuidCount(eaxArg, ecxArg uint32, eax, ebx, ecx, edx *uint32)
 
-func cpuid(eaxArg, ecxArg uint32) (eax, ebx, ecx, edx uint32) {
+ gccgoGetCpuidCount(eaxArg, ecxArg uint32, eax, ebx, ecx, edx *uint32)
+
+
+ cpuid(eaxArg, ecxArg uint32) (eax, ebx, ecx, edx uint32) {
 	var a, b, c, d uint32
 	gccgoGetCpuidCount(eaxArg, ecxArg, &a, &b, &c, &d)
 	return a, b, c, d
 }
 
 //extern gccgoXgetbv
-func gccgoXgetbv(eax, edx *uint32)
 
-func xgetbv() (eax, edx uint32) {
+ gccgoXgetbv(eax, edx *uint32)
+
+
+ xgetbv() (eax, edx uint32) {
 	var a, d uint32
 	gccgoXgetbv(&a, &d)
 	return a, d
-}
+
 
 // gccgo doesn't build on Darwin, per:
 // https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/gcc.rb#L76
-func darwinSupportsAVX512() bool {
+
+ darwinSupportsAVX512() bool {
 	return false
 }

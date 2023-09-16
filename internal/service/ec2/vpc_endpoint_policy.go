@@ -22,11 +22,10 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_policy")
 
-func ResourceVPCEndpointPolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceVPCEndpointPolicyPut,
 UpdateWithoutTimeout: resourceVPCEndpointPolicyPut,
-ReadWithoutTimeout:   resourceVPCEndpointPolicyRead,
+ReadWithoutTimeout:ourceVPCEndpointPolicyRead,
 DeleteWithoutTimeout: resourceVPCEndpointPolicyDelete,
 Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
@@ -34,23 +33,19 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"policy": {
-Type:   schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:ema.TypeString,
+Optional:
+Computed:
 Validate
 func: validation.StringIsJSON,
-DiffSuppress
-func:      verify.SuppressEquivalentPolicyDiffs,
+func:ppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
-State
 func: 
 func(v interface{}) string {
 	json, _ := structure.NormalizeJsonString(v)
-	return json
-},
-	},
-	"vpc_endpoint_id": {
-Type:     schema.TypeString,
+func
+funcc_endpoint_id": {
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
@@ -69,8 +64,7 @@ func resourceVPCEndpointPolicyPut(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	endpointID := d.Get("vpc_endpoint_id").(string)
-	req := &ec2.ModifyVpcEndpointInput{
-VpcEndpointId: aws.String(endpointID),
+funcndpointId: aws.String(endpointID),
 	}
 
 	policy, err := structure.NormalizeJsonString(d.Get("policy"))
@@ -106,8 +100,7 @@ func resourceVPCEndpointPolicyRead(ctx context.Context, d *schema.ResourceData, 
 
 	vpce, err := FindVPCEndpointByID(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] VPC Endpoint Policy (%s) not found, removing from state", d.Id())
+funcPrintf("[WARN] VPC Endpoint Policy (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
 	}
@@ -141,9 +134,8 @@ func resourceVPCEndpointPolicyDelete(ctx context.Context, d *schema.ResourceData
 
 	req := &ec2.ModifyVpcEndpointInput{
 VpcEndpointId: aws.String(d.Id()),
-ResetPolicy:   aws.Bool(true),
-	}
-
+ResetPolicy:.Bool(true),
+func
 	log.Printf("[DEBUG] Resetting VPC Endpoint Policy: %#v", req)
 	if _, err := conn.ModifyVpcEndpointWithContext(ctx, req); err != nil {
 return sdkdiag.AppendErrorf(diags, "Resetting VPC Endpoint Policy: %s", err)

@@ -28,6 +28,8 @@ import (
 
 // @SDKResource("aws_elasticache_parameter_group", name="Parameter Group")
 // @Tags(identifierAttribute="arn")
+
+
 func ResourceParameterGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceParameterGroupCreate,
@@ -59,7 +61,9 @@ func ResourceParameterGroup() *schema.Resource {
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Required: true,
-				StateFunc: func(val interface{}) string {
+				StateFunc: 
+
+func(val interface{}) string {
 					return strings.ToLower(val.(string))
 				},
 			},
@@ -88,6 +92,8 @@ func ResourceParameterGroup() *schema.Resource {
 	}
 }
 
+
+
 func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -96,8 +102,8 @@ func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, m
 	input := &elasticache.CreateCacheParameterGroupInput{
 		CacheParameterGroupName:   aws.String(name),
 		CacheParameterGroupFamily: aws.String(d.Get("family").(string)),
-		Description:               aws.String(d.Get("description").(string)),
-		Tags:                      getTagsIn(ctx),
+		Description:  aws.String(d.Get("description").(string)),
+		Tags:         getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateCacheParameterGroupWithContext(ctx, input)
@@ -118,6 +124,8 @@ func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceParameterGroupUpdate(ctx, d, meta)...)
 }
+
+
 
 func resourceParameterGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -143,7 +151,7 @@ func resourceParameterGroupRead(ctx context.Context, d *schema.ResourceData, met
 	// Only include user customized parameters as there's hundreds of system/default ones.
 	input := &elasticache.DescribeCacheParametersInput{
 		CacheParameterGroupName: aws.String(d.Id()),
-		Source:                  aws.String("user"),
+		Source:     aws.String("user"),
 	}
 
 	output, err := conn.DescribeCacheParametersWithContext(ctx, input)
@@ -156,6 +164,8 @@ func resourceParameterGroupRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
+
+
 
 func resourceParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -279,6 +289,8 @@ func resourceParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceParameterGroupRead(ctx, d, meta)...)
 }
 
+
+
 func resourceParameterGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -293,11 +305,15 @@ func resourceParameterGroupDelete(ctx context.Context, d *schema.ResourceData, m
 	return diags
 }
 
+
+
 func deleteParameterGroup(ctx context.Context, conn *elasticache.ElastiCache, name string) error {
 	deleteOpts := elasticache.DeleteCacheParameterGroupInput{
 		CacheParameterGroupName: aws.String(name),
 	}
-	err := retry.RetryContext(ctx, 3*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 3*time.Minute, 
+
+func() *retry.RetryError {
 		_, err := conn.DeleteCacheParameterGroupWithContext(ctx, &deleteOpts)
 		if err != nil {
 			if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeCacheParameterGroupNotFoundFault) {
@@ -317,6 +333,8 @@ func deleteParameterGroup(ctx context.Context, conn *elasticache.ElastiCache, na
 	return err
 }
 
+
+
 func ParameterHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -325,6 +343,8 @@ func ParameterHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
+
+
 
 func ParameterChanges(o, n interface{}) (remove, addOrUpdate []*elasticache.ParameterNameValue) {
 	if o == nil {
@@ -368,12 +388,16 @@ func ParameterChanges(o, n interface{}) (remove, addOrUpdate []*elasticache.Para
 	return remove, addOrUpdate
 }
 
+
+
 func resourceResetParameterGroup(ctx context.Context, conn *elasticache.ElastiCache, name string, parameters []*elasticache.ParameterNameValue) error {
 	input := elasticache.ResetCacheParameterGroupInput{
 		CacheParameterGroupName: aws.String(name),
 		ParameterNameValues:     parameters,
 	}
-	return retry.RetryContext(ctx, 30*time.Second, func() *retry.RetryError {
+	return retry.RetryContext(ctx, 30*time.Second, 
+
+func() *retry.RetryError {
 		_, err := conn.ResetCacheParameterGroupWithContext(ctx, &input)
 		if err != nil {
 			if tfawserr.ErrMessageContains(err, elasticache.ErrCodeInvalidCacheParameterGroupStateFault, " has pending changes") {
@@ -385,6 +409,8 @@ func resourceResetParameterGroup(ctx context.Context, conn *elasticache.ElastiCa
 	})
 }
 
+
+
 func resourceModifyParameterGroup(ctx context.Context, conn *elasticache.ElastiCache, name string, parameters []*elasticache.ParameterNameValue) error {
 	input := elasticache.ModifyCacheParameterGroupInput{
 		CacheParameterGroupName: aws.String(name),
@@ -395,6 +421,8 @@ func resourceModifyParameterGroup(ctx context.Context, conn *elasticache.ElastiC
 }
 
 // Flattens an array of Parameters into a []map[string]interface{}
+
+
 func FlattenParameters(list []*elasticache.Parameter) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, len(list))
 	for _, i := range list {
@@ -410,6 +438,8 @@ func FlattenParameters(list []*elasticache.Parameter) []map[string]interface{} {
 
 // Takes the result of flatmap.Expand for an array of parameters and
 // returns Parameter API compatible objects
+
+
 func ExpandParameters(configured []interface{}) []*elasticache.ParameterNameValue {
 	parameters := make([]*elasticache.ParameterNameValue, len(configured))
 
@@ -421,6 +451,8 @@ func ExpandParameters(configured []interface{}) []*elasticache.ParameterNameValu
 
 	return parameters
 }
+
+
 
 func expandParameter(param map[string]interface{}) *elasticache.ParameterNameValue {
 	return &elasticache.ParameterNameValue{

@@ -7,7 +7,8 @@ package set
 type Rules interface {
 	// Hash returns an int that somewhat-uniquely identifies the given value.
 	//
-	// A good hash function will minimize collisions for values that will be
+	// A good hash 
+ will minimize collisions for values that will be
 	// added to the set, though collisions *are* permitted. Collisions will
 	// simply reduce the efficiency of operations on the set.
 	Hash(interface{}) int

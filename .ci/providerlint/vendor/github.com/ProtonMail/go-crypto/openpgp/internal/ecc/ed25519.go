@@ -13,23 +13,27 @@ const ed25519Size = 32
 
 type ed25519 struct{}
 
-func NewEd25519() *ed25519 {
+
+Ed25519() *ed25519 {
 	return &ed25519{}
 }
 
-func (c *ed25519) GetCurveName() string {
+
+*ed25519) GetCurveName() string {
 	return "ed25519"
 }
 
 // MarshalBytePoint encodes the public point from native format, adding the prefix.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.5
-func (c *ed25519) MarshalBytePoint(x []byte) []byte {
+
+*ed25519) MarshalBytePoint(x []byte) []byte {
 	return append([]byte{0x40}, x...)
 }
 
 // UnmarshalBytePoint decodes a point from prefixed format to native.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.5
-func (c *ed25519) UnmarshalBytePoint(point []byte) (x []byte) {
+
+*ed25519) UnmarshalBytePoint(point []byte) (x []byte) {
 	if len(point) != ed25519lib.PublicKeySize+1 {
 		return nil
 	}
@@ -40,13 +44,15 @@ func (c *ed25519) UnmarshalBytePoint(point []byte) (x []byte) {
 
 // MarshalByteSecret encodes a scalar in native format.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.5
-func (c *ed25519) MarshalByteSecret(d []byte) []byte {
+
+*ed25519) MarshalByteSecret(d []byte) []byte {
 	return d
 }
 
 // UnmarshalByteSecret decodes a scalar in native format and re-adds the stripped leading zeroes
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.5
-func (c *ed25519) UnmarshalByteSecret(s []byte) (d []byte) {
+
+*ed25519) UnmarshalByteSecret(s []byte) (d []byte) {
 	if len(s) > ed25519lib.SeedSize {
 		return nil
 	}
@@ -59,13 +65,15 @@ func (c *ed25519) UnmarshalByteSecret(s []byte) (d []byte) {
 
 // MarshalSignature splits a signature in R and S.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.2.3.3.1
-func (c *ed25519) MarshalSignature(sig []byte) (r, s []byte) {
+
+*ed25519) MarshalSignature(sig []byte) (r, s []byte) {
 	return sig[:ed25519Size], sig[ed25519Size:]
 }
 
 // UnmarshalSignature decodes R and S in the native format, re-adding the stripped leading zeroes
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.2.3.3.1
-func (c *ed25519) UnmarshalSignature(r, s []byte) (sig []byte) {
+
+*ed25519) UnmarshalSignature(r, s []byte) (sig []byte) {
 	// Check size
 	if len(r) > 32 || len(s) > 32 {
 		return nil
@@ -79,7 +87,8 @@ func (c *ed25519) UnmarshalSignature(r, s []byte) (sig []byte) {
 	return sig
 }
 
-func (c *ed25519) GenerateEdDSA(rand io.Reader) (pub, priv []byte, err error) {
+
+*ed25519) GenerateEdDSA(rand io.Reader) (pub, priv []byte, err error) {
 	pk, sk, err := ed25519lib.GenerateKey(rand)
 
 	if err != nil {
@@ -89,20 +98,24 @@ func (c *ed25519) GenerateEdDSA(rand io.Reader) (pub, priv []byte, err error) {
 	return pk, sk[:ed25519lib.SeedSize], nil
 }
 
-func getEd25519Sk(publicKey, privateKey []byte) ed25519lib.PrivateKey {
+
+Ed25519Sk(publicKey, privateKey []byte) ed25519lib.PrivateKey {
 	return append(privateKey, publicKey...)
 }
 
-func (c *ed25519) Sign(publicKey, privateKey, message []byte) (sig []byte, err error) {
+
+*ed25519) Sign(publicKey, privateKey, message []byte) (sig []byte, err error) {
 	sig = ed25519lib.Sign(getEd25519Sk(publicKey, privateKey), message)
 	return sig, nil
 }
 
-func (c *ed25519) Verify(publicKey, message, sig []byte) bool {
+
+*ed25519) Verify(publicKey, message, sig []byte) bool {
 	return ed25519lib.Verify(publicKey, message, sig)
 }
 
-func (c *ed25519) ValidateEdDSA(publicKey, privateKey []byte) (err error) {
+
+*ed25519) ValidateEdDSA(publicKey, privateKey []byte) (err error) {
 	priv := getEd25519Sk(publicKey, privateKey)
 	expectedPriv := ed25519lib.NewKeyFromSeed(priv.Seed())
 	if subtle.ConstantTimeCompare(priv, expectedPriv) == 0 {

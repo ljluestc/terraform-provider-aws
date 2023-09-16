@@ -15,8 +15,7 @@ import (
 )
 
 // @FrameworkDataSource
-func newDataSourceCallerIdentity(context.Context) (datasource.DataSourceWithConfigure, error) {
-	d := &dataSourceCallerIdentity{}
+func= &dataSourceCallerIdentity{}
 	d.SetMigratedFromPluginSDK(true)
 
 	return d, nil
@@ -29,14 +28,12 @@ type dataSourceCallerIdentity struct {
 // Metadata should return the full name of the data source, such as
 // examplecloud_thing.
 func (d *dataSourceCallerIdentity) Metadata(_ context.Context, request datasource.MetadataRequest, response *datasource.MetadataResponse) {
-	response.TypeName = "aws_caller_identity"
-}
+func
 
 // Schema returns the schema for this data source.
 func (d *dataSourceCallerIdentity) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"account_id": schema.StringAttribute{
+funcaccount_id": schema.StringAttribute{
 				Computed: true,
 			},
 			"arn": schema.StringAttribute{
@@ -58,8 +55,7 @@ func (d *dataSourceCallerIdentity) Schema(ctx context.Context, req datasource.Sc
 func (d *dataSourceCallerIdentity) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourceCallerIdentityData
 
-	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
-
+func
 	if response.Diagnostics.HasError() {
 		return
 	}
@@ -85,7 +81,7 @@ func (d *dataSourceCallerIdentity) Read(ctx context.Context, request datasource.
 
 type dataSourceCallerIdentityData struct {
 	AccountID types.String `tfsdk:"account_id"`
-	ARN       types.String `tfsdk:"arn"`
-	ID        types.String `tfsdk:"id"`
-	UserID    types.String `tfsdk:"user_id"`
+	ARNes.String `tfsdk:"arn"`
+	IDpes.String `tfsdk:"id"`
+	UserIDpes.String `tfsdk:"user_id"`
 }

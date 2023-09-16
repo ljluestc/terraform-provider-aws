@@ -6,13 +6,15 @@ import (
 	"github.com/hashicorp/errwrap"
 )
 
-// Prefix is a helper function that will prefix some text
+// Prefix is a helper 
+tion that will prefix some text
 // to the given error. If the error is a multierror.Error, then
 // it will be prefixed to each wrapped error.
 //
 // This is useful to use when appending multiple multierrors
-// together in order to give better scoping.
-func Prefix(err error, prefix string) error {
+ogether in order to give better scoping.
+
+ Prefix(err error, prefix string) error {
 	if err == nil {
 		return nil
 	}

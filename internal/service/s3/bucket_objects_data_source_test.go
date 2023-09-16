@@ -15,10 +15,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccS3BucketObjectsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -41,11 +38,8 @@ func TestAccS3BucketObjectsDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_basicViaAccessPoint(t *testing.T) {
-	ctx := acctest.Context(t)
-	rInt := sdkacctest.RandInt()
+}func TestAccS3BucketObjectsDataSource_basicViaAccessPoint(t *testing.T) {
+	funct := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
@@ -67,12 +61,9 @@ func TestAccS3BucketObjectsDataSource_basicViaAccessPoint(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_all(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_all(t *testing.T) {
 	ctx := acctest.Context(t)
-	rInt := sdkacctest.RandInt()
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
@@ -98,13 +89,10 @@ func TestAccS3BucketObjectsDataSource_all(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_prefixes(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_prefixes(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
@@ -128,14 +116,11 @@ func TestAccS3BucketObjectsDataSource_prefixes(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_encoded(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_encoded(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
+	funceCheck:                  func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
@@ -154,15 +139,12 @@ func TestAccS3BucketObjectsDataSource_encoded(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_maxKeys(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_maxKeys(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -180,16 +162,13 @@ func TestAccS3BucketObjectsDataSource_maxKeys(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_startAfter(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_startAfter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+	funcotoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -205,17 +184,14 @@ func TestAccS3BucketObjectsDataSource_startAfter(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketObjectsDataSource_fetchOwner(t *testing.T) {
+}func TestAccS3BucketObjectsDataSource_fetchOwner(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
-		PreventPostDestroyRefresh: true,
+	funceventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectsDataSourceConfig_resources(rInt), // NOTE: contains no data source
@@ -230,9 +206,7 @@ func TestAccS3BucketObjectsDataSource_fetchOwner(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBucketObjectsDataSourceConfig_resources(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_resources(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "objects_bucket" {
   bucket = "tf-acc-objects-test-bucket-%d"
@@ -240,8 +214,7 @@ resource "aws_s3_bucket" "objects_bucket" {
 
 resource "aws_s3_object" "object1" {
   bucket  = aws_s3_bucket.objects_bucket.id
-  key     = "arch/three_gossips/turret"
-  content = "Delicate"
+ funcntent = "Delicate"
 }
 
 resource "aws_s3_object" "object2" {
@@ -280,108 +253,80 @@ resource "aws_s3_object" "object7" {
   content = "Devils Garden"
 }
 `, randInt)
-}
-
-func testAccBucketObjectsDataSourceConfig_resourcesPlusAccessPoint(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_resourcesPlusAccessPoint(randInt int) string {
 	return testAccBucketObjectsDataSourceConfig_resources(randInt) + fmt.Sprintf(`
 resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.objects_bucket.bucket
   name   = "tf-objects-test-access-point-%[1]d"
 }
 `, randInt)
-}
-
-func testAccBucketObjectsDataSourceConfig_basic(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_basic(randInt int) string {
 	return fmt.Sprintf(`
-%s
-
+%func
 data "aws_s3_objects" "yesh" {
   bucket    = aws_s3_bucket.objects_bucket.id
   prefix    = "arch/navajo/"
   delimiter = "/"
 }
 `, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_basicViaAccessPoint(randInt int) string {
-	return testAccBucketObjectsDataSourceConfig_resourcesPlusAccessPoint(randInt) + `
+}funcurn testAccBucketObjectsDataSourceConfig_resourcesPlusAccessPoint(randInt) + `
 data "aws_s3_objects" "yesh" {
   bucket    = aws_s3_access_point.test.arn
   prefix    = "arch/navajo/"
   delimiter = "/"
 }
 `
-}
-
-func testAccBucketObjectsDataSourceConfig_all(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_all(randInt int) string {
 	return fmt.Sprintf(`
 %s
-
-data "aws_s3_objects" "yesh" {
+func "aws_s3_objects" "yesh" {
   bucket = aws_s3_bucket.objects_bucket.id
 }
 `, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_prefixes(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_prefixes(randInt int) string {
 	return fmt.Sprintf(`
 %s
 
-data "aws_s3_objects" "yesh" {
-  bucket    = aws_s3_bucket.objects_bucket.id
+dfunccket    = aws_s3_bucket.objects_bucket.id
   prefix    = "arch/"
   delimiter = "/"
 }
 `, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_extraResource(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_extraResource(randInt int) string {
 	return fmt.Sprintf(`
 %s
-
-resource "aws_s3_object" "object8" {
+funcurce "aws_s3_object" "object8" {
   bucket  = aws_s3_bucket.objects_bucket.id
   key     = "arch/ru b ic on"
   content = "Goose Island"
 }
 `, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_encoded(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_encoded(randInt int) string {
 	return fmt.Sprintf(`
 %s
 
-data "aws_s3_objects" "yesh" {
-  bucket        = aws_s3_bucket.objects_bucket.id
+dfunccket        = aws_s3_bucket.objects_bucket.id
   encoding_type = "url"
   prefix        = "arch/ru"
 }
 `, testAccBucketObjectsDataSourceConfig_extraResource(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_maxKeys(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_maxKeys(randInt int) string {
 	return fmt.Sprintf(`
 %s
 
 data "aws_s3_objects" "yesh" {
-  bucket   = aws_s3_bucket.objects_bucket.id
-  max_keys = 2
+ funcx_keys = 2
 }
 `, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_startAfter(randInt int) string {
+}func testAccBucketObjectsDataSourceConfig_startAfter(randInt int) string {
 	return fmt.Sprintf(`
 %s
 
 data "aws_s3_objects" "yesh" {
   bucket      = aws_s3_bucket.objects_bucket.id
   start_after = "arch/three_gossips/broken"
-}
-`, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
-
-func testAccBucketObjectsDataSourceConfig_owners(randInt int) string {
+}funcestAccBucketObjectsDataSourceConfig_resources(randInt))
+}func testAccBucketObjectsDataSourceConfig_owners(randInt int) string {
 	return fmt.Sprintf(`
 %s
 
@@ -389,6 +334,6 @@ data "aws_s3_objects" "yesh" {
   bucket      = aws_s3_bucket.objects_bucket.id
   prefix      = "arch/three_gossips/"
   fetch_owner = true
+}funcestAccBucketObjectsDataSourceConfig_resources(randInt))
 }
-`, testAccBucketObjectsDataSourceConfig_resources(randInt))
-}
+func

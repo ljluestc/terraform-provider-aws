@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccVPCEndpointSubnetAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var vpce ec2.VpcEndpoint
 	resourceName := "aws_vpc_endpoint_subnet_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,28 +27,24 @@ func TestAccVPCEndpointSubnetAssociation_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointSubnetAssociationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName, &vpce),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccVPCEndpointSubnetAssociationImportStateId
 func(resourceName),
 ImportStateVerify: true,
-	},
-},
-	})
-}
+func
+func
 
 
 func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
@@ -57,17 +52,15 @@ func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
 	var vpce ec2.VpcEndpoint
 	resourceName := "aws_vpc_endpoint_subnet_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCEndpointSubnetAssociationConfig_basic(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName, &vpce),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointSubnetAssociation(), resourceName),
@@ -75,8 +68,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
@@ -87,26 +79,23 @@ func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
 	resourceName2 := "aws_vpc_endpoint_subnet_association.test.2"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointSubnetAssociationConfig_multiple(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName0, &vpce),
-	testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName1, &vpce),
+functAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName1, &vpce),
 	testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName2, &vpce),
 ),
 	},
 },
 	})
 }
-
 
 func testAccCheckVPCEndpointSubnetAssociationDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -119,13 +108,10 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	err := tfec2.FindVPCEndpointSubnetAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["subnet_id"])
-
-	if tfresource.NotFound(err) {
-continue
+func
+funcinue
 	}
-
-	if err != nil {
+funcerr != nil {
 return err
 	}
 
@@ -151,13 +137,10 @@ if rs.Primary.ID == "" {
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-out, err := tfec2.FindVPCEndpointByID(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"])
-
-if err != nil {
+func err := tfec2.FindVPCEndpointByID(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"])
+funcrr != nil {
 	return err
-}
-
+func
 err = tfec2.FindVPCEndpointSubnetAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["subnet_id"])
 
 if err != nil {
@@ -179,38 +162,37 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-  name   = "default"
+  namedefault"
 }
 
-data "aws_region" "current" {}
-
+func
 resource "aws_vpc_endpoint" "test" {
-  vpc_id     = aws_vpc.test.id
-  vpc_endpoint_type   = "Interface"
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ec2"
+  vpc_idtest.id
+  vpc_endpoint_typeInterface"
+  service_nameamazonaws.${data.aws_region.current.name}.ec2"
   security_group_ids  = [data.aws_security_group.test.id]
   private_dns_enabled = false
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   count = 3
 
-  vpc_id   = aws_vpc.test.id
+  vpc_idws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, count.index)
+  cidr_blockubnet(aws_vpc.test.cidr_block, 2, count.index)
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -223,7 +205,7 @@ testAccVPCEndpointSubnetAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_subnet_association" "test" {
   vpc_endpoint_id = aws_vpc_endpoint.test.id
-  subnet_id       = aws_subnet.test[0].id
+  subnet_idbnet.test[0].id
 }
 `)
 }
@@ -235,9 +217,8 @@ testAccVPCEndpointSubnetAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_subnet_association" "test" {
   count = 3
-
-  vpc_endpoint_id = aws_vpc_endpoint.test.id
-  subnet_id       = aws_subnet.test[count.index].id
+funcc_endpoint_id = aws_vpc_endpoint.test.id
+  subnet_idbnet.test[count.index].id
 }
 `)
 }
@@ -248,8 +229,7 @@ func(n string) resource.ImportStateId
 func {
 	return 
 func(s *terraform.State) (string, error) {
-rs, ok := s.RootModule().Resources[n]
-if !ok {
+funcok {
 	return "", fmt.Errorf("Not found: %s", n)
 }
 
@@ -257,3 +237,4 @@ id := fmt.Sprintf("%s/%s", rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.
 return id, nil
 	}
 }
+funcfuncfuncfunc

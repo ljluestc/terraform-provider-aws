@@ -11,10 +11,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMAccessKeysDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_access_keys.test"
 	resourceName := "aws_iam_access_key.test"
@@ -24,9 +21,9 @@ func TestAccIAMAccessKeysDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, iam.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessKeysDataSourceConfig_basic(rName),
@@ -39,11 +36,8 @@ func TestAccIAMAccessKeysDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMAccessKeysDataSource_twoKeys(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccIAMAccessKeysDataSource_twoKeys(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_iam_access_keys.test"
 	resourceName1 := "aws_iam_access_key.test.0"
 	resourceName2 := "aws_iam_access_key.test.1"
@@ -53,9 +47,9 @@ func TestAccIAMAccessKeysDataSource_twoKeys(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, iam.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessKeysDataSourceConfig_twoKeys(rName),
@@ -67,12 +61,9 @@ func TestAccIAMAccessKeysDataSource_twoKeys(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccAccessKeysDataSourceConfig_basic(rName string) string {
+}func testAccAccessKeysDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-resource "aws_iam_user" "test" {
-  name = %[1]q
+rfuncme = %[1]q
 }
 
 resource "aws_iam_access_key" "test" {
@@ -83,13 +74,10 @@ data "aws_iam_access_keys" "test" {
   user = aws_iam_access_key.test.user
 }
 `, rName)
-}
-
-func testAccAccessKeysDataSourceConfig_twoKeys(rName string) string {
+}func testAccAccessKeysDataSourceConfig_twoKeys(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
-  name = %[1]q
-}
+ func
 
 resource "aws_iam_access_key" "test" {
   count = 2

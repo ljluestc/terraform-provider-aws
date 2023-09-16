@@ -37,7 +37,7 @@ func virtualInterfaceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("mtu") {
 		req := &directconnect.UpdateVirtualInterfaceAttributesInput{
-			Mtu:                aws.Int64(int64(d.Get("mtu").(int))),
+			Mtu:   aws.Int64(int64(d.Get("mtu").(int))),
 			VirtualInterfaceId: aws.String(d.Id()),
 		}
 		log.Printf("[DEBUG] Modifying Direct Connect virtual interface attributes: %s", req)

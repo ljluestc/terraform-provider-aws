@@ -26,10 +26,10 @@ func testAccClassificationJob_basic(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_nameGenerated(bucketName, macie2.JobTypeOneTime),
@@ -57,10 +57,10 @@ func testAccClassificationJob_Name_Generated(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_nameGenerated(bucketName, macie2.JobTypeOneTime),
@@ -87,10 +87,10 @@ func testAccClassificationJob_NamePrefix(t *testing.T) {
 	namePrefix := "tf-acc-test-prefix-"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_namePrefix(bucketName, namePrefix, macie2.JobTypeOneTime),
@@ -116,10 +116,10 @@ func testAccClassificationJob_disappears(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_nameGenerated(bucketName, macie2.JobTypeOneTime),
@@ -139,10 +139,10 @@ func testAccClassificationJob_Status(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_status(bucketName, macie2.JobStatusRunning),
@@ -183,10 +183,10 @@ func testAccClassificationJob_complete(t *testing.T) {
 	descriptionUpdated := "Updated Description of a test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_complete(bucketName, macie2.JobStatusRunning, description),
@@ -265,10 +265,10 @@ func testAccClassificationJob_WithTags(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_completeTags(bucketName, macie2.JobStatusRunning),
@@ -314,10 +314,10 @@ func testAccClassificationJob_BucketCriteria(t *testing.T) {
 	descriptionUpdated := "Updated Description of a test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationJobDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationJobConfig_bucketCriteria(macie2.JobStatusRunning, description),
@@ -534,12 +534,12 @@ resource "aws_macie2_classification_job" "test" {
             comparator = "EQ"
             key        = "TAG"
             tag_values {
-              key   = "test"
-              value = "test"
+ key   = "test"
+ value = "test"
             }
             tag_values {
-              key   = "test2"
-              value = "test2"
+ key   = "test2"
+ value = "test2"
             }
             target = "S3_OBJECT"
           }
@@ -558,12 +558,12 @@ resource "aws_macie2_classification_job" "test" {
             comparator = "EQ"
             key        = "TAG"
             tag_values {
-              key   = "test"
-              value = "test"
+ key   = "test"
+ value = "test"
             }
             tag_values {
-              key   = "test2"
-              value = "test2"
+ key   = "test2"
+ value = "test2"
             }
             target = "S3_OBJECT"
           }
@@ -704,10 +704,10 @@ resource "aws_macie2_classification_job" "test" {
             comparator = "NE"
             key        = "S3_BUCKET_SHARED_ACCESS"
             values = [
-              "EXTERNAL",
-              "INTERNAL",
-              "NOT_SHARED",
-              "UNKNOWN"
+ "EXTERNAL",
+ "INTERNAL",
+ "NOT_SHARED",
+ "UNKNOWN"
             ]
           }
         }
@@ -715,12 +715,12 @@ resource "aws_macie2_classification_job" "test" {
           tag_criterion {
             comparator = "NE"
             tag_values {
-              key   = "test"
-              value = "test"
+ key   = "test"
+ value = "test"
             }
             tag_values {
-              key   = "test2"
-              value = "test2"
+ key   = "test2"
+ value = "test2"
             }
           }
         }
@@ -732,7 +732,7 @@ resource "aws_macie2_classification_job" "test" {
             comparator = "EQ"
             key        = "ACCOUNT_ID"
             values = [
-              data.aws_caller_identity.current.account_id,
+ data.aws_caller_identity.current.account_id,
             ]
           }
         }
@@ -740,12 +740,12 @@ resource "aws_macie2_classification_job" "test" {
           tag_criterion {
             comparator = "EQ"
             tag_values {
-              key   = "test"
-              value = "test"
+ key   = "test"
+ value = "test"
             }
             tag_values {
-              key   = "test2"
-              value = "test2"
+ key   = "test2"
+ value = "test2"
             }
           }
         }

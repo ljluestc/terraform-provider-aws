@@ -102,7 +102,8 @@ type Schema struct {
 // ValueType returns the tftypes.Type for a Schema.
 //
 // If Schema is missing, an empty Object is returned.
-func (s *Schema) ValueType() tftypes.Type {
+
+*Schema) ValueType() tftypes.Type {
 	if s == nil {
 		return tftypes.Object{
 			AttributeTypes: map[string]tftypes.Type{},
@@ -152,7 +153,8 @@ type SchemaBlock struct {
 // ValueType returns the tftypes.Type for a SchemaBlock.
 //
 // If SchemaBlock is missing, an empty Object is returned.
-func (s *SchemaBlock) ValueType() tftypes.Type {
+
+*SchemaBlock) ValueType() tftypes.Type {
 	if s == nil {
 		return tftypes.Object{
 			AttributeTypes: map[string]tftypes.Type{},
@@ -258,7 +260,8 @@ type SchemaAttribute struct {
 // ValueType returns the tftypes.Type for a SchemaAttribute.
 //
 // If SchemaAttribute is missing, nil is returned.
-func (s *SchemaAttribute) ValueType() tftypes.Type {
+
+*SchemaAttribute) ValueType() tftypes.Type {
 	if s == nil {
 		return nil
 	}
@@ -311,7 +314,8 @@ type SchemaNestedBlock struct {
 //
 // If SchemaNestedBlock is missing or the Nesting mode is invalid, nil is
 // returned.
-func (s *SchemaNestedBlock) ValueType() tftypes.Type {
+
+*SchemaNestedBlock) ValueType() tftypes.Type {
 	if s == nil {
 		return nil
 	}
@@ -346,7 +350,8 @@ func (s *SchemaNestedBlock) ValueType() tftypes.Type {
 // used for the block in config and state values.
 type SchemaNestedBlockNestingMode int32
 
-func (s SchemaNestedBlockNestingMode) String() string {
+
+SchemaNestedBlockNestingMode) String() string {
 	switch s {
 	case 0:
 		return "INVALID"
@@ -375,7 +380,8 @@ type SchemaObject struct {
 // ValueType returns the tftypes.Type for a SchemaObject.
 //
 // If SchemaObject is missing or the Nesting mode is invalid, nil is returned.
-func (s *SchemaObject) ValueType() tftypes.Type {
+
+*SchemaObject) ValueType() tftypes.Type {
 	if s == nil {
 		return nil
 	}
@@ -426,7 +432,8 @@ func (s *SchemaObject) ValueType() tftypes.Type {
 // and state values.
 type SchemaObjectNestingMode int32
 
-func (s SchemaObjectNestingMode) String() string {
+
+SchemaObjectNestingMode) String() string {
 	switch s {
 	case 0:
 		return "INVALID"

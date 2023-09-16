@@ -153,7 +153,7 @@ func resourceSchedulingPolicyUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChange("fair_share_policy") {
 		input := &batch.UpdateSchedulingPolicyInput{
-			Arn:             aws.String(d.Id()),
+			Arn:aws.String(d.Id()),
 			FairsharePolicy: expandFairsharePolicy(d.Get("fair_share_policy").([]interface{})),
 		}
 

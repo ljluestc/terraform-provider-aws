@@ -97,7 +97,7 @@ func TestAccAppAutoScalingPolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_basic(rName),
@@ -139,7 +139,7 @@ func TestAccAppAutoScalingPolicy_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_basic(rName),
@@ -164,7 +164,7 @@ func TestAccAppAutoScalingPolicy_scaleOutAndIn(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_scaleOutAndIn(randClusterName, randPolicyNamePrefix),
@@ -246,7 +246,7 @@ func TestAccAppAutoScalingPolicy_spotFleetRequest(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_spotFleetRequest(randPolicyName, validUntil),
@@ -279,7 +279,7 @@ func TestAccAppAutoScalingPolicy_DynamoDB_table(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_dynamoDB(randPolicyName),
@@ -312,7 +312,7 @@ func TestAccAppAutoScalingPolicy_DynamoDB_index(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_dynamoDBIndex(rName),
@@ -347,7 +347,7 @@ func TestAccAppAutoScalingPolicy_multiplePoliciesSameName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_multiplePoliciesSameName(tableName1, tableName2, namePrefix),
@@ -381,7 +381,7 @@ func TestAccAppAutoScalingPolicy_multiplePoliciesSameResource(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_multiplePoliciesSameResource(tableName, namePrefix),
@@ -427,7 +427,7 @@ func TestAccAppAutoScalingPolicy_ResourceID_forceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_resourceIDForceNew1(rName),
@@ -462,7 +462,7 @@ func TestAccAppAutoScalingPolicy_TargetTrack_metricMath(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPolicyConfig_targetTrackingMetricMath(rName),
@@ -519,12 +519,12 @@ resource "aws_appautoscaling_policy" "metric_math_test" {
             namespace   = "foo"
             metric_name = "bar"
             dimensions {
-              name  = "x"
-              value = "y"
+ name  = "x"
+ value = "y"
             }
             dimensions {
-              name  = "y"
-              value = "x"
+ name  = "y"
+ value = "x"
             }
           }
           unit = "Percent"
@@ -619,7 +619,7 @@ EOF
 }
 
 resource "aws_ecs_service" "test" {
-  cluster             = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
   desired_count       = 0
@@ -1026,7 +1026,7 @@ EOF
 
 resource "aws_ecs_service" "service" {
   name = "foobar"
-  cluster             = aws_ecs_cluster.foo.id
+  cluster= aws_ecs_cluster.foo.id
   task_definition     = aws_ecs_task_definition.task.arn
   desired_count       = 1
   deployment_maximum_percent         = 200
@@ -1130,7 +1130,7 @@ EOF
 }
 
 resource "aws_ecs_service" "test1" {
-  cluster             = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
   desired_count       = 0
@@ -1139,7 +1139,7 @@ resource "aws_ecs_service" "test1" {
 }
 
 resource "aws_ecs_service" "test2" {
-  cluster             = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
   desired_count       = 0
@@ -1187,7 +1187,7 @@ resource "aws_cloudwatch_metric_alarm" "test" {
   evaluation_periods  = "5"
   metric_name         = "CPUReservation"
   namespace           = "AWS/ECS"
-  period              = "60"
+  period = "60"
   statistic           = "Average"
   threshold           = "0"
 
@@ -1236,7 +1236,7 @@ resource "aws_cloudwatch_metric_alarm" "test" {
   evaluation_periods  = "5"
   metric_name         = "CPUReservation"
   namespace           = "AWS/ECS"
-  period              = "60"
+  period = "60"
   statistic           = "Average"
   threshold           = "0"
 

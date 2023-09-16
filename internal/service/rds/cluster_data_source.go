@@ -15,8 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_rds_cluster")
-func DataSourceCluster() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceClusterRead,
 
 		Schema: map[string]*schema.Schema{
@@ -171,8 +170,7 @@ func DataSourceCluster() *schema.Resource {
 }
 
 func dataSourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	dbClusterID := d.Get("cluster_identifier").(string)

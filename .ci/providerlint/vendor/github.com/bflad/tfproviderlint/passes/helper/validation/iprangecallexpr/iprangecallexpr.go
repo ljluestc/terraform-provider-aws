@@ -5,9 +5,12 @@ import (
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 )
 
-var Analyzer = analysisutils.FunctionCallExprAnalyzer(
+var Analyzer = analysisutils.
+CallExprAnalyzer(
 	"iprangecallexpr",
-	validation.IsFunc,
+	validation.Is
+
 	validation.PackagePath,
-	validation.FuncNameIPRange,
+	validation.
+IPRange,
 )

@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSSnapshotDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -25,9 +24,8 @@ func TestAccRDSSnapshotDataSource_basic(t *testing.T) {
 	ds2Name := "data.aws_db_snapshot.by_tags"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotDataSourceConfig_basic(rName),
@@ -51,8 +49,7 @@ func TestAccRDSSnapshotDataSource_basic(t *testing.T) {
 
 func testAccSnapshotDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccSnapshotConfig_base(rName), fmt.Sprintf(`
-resource "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
+func_instance_identifier = aws_db_instance.test.identifier
   db_snapshot_identifier = %[1]q
 
   tags = {

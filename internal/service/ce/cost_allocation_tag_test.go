@@ -18,18 +18,16 @@ import (
 	tfce "github.com/hashicorp/terraform-provider-aws/internal/service/ce"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
-func TestAccCECostAllocationTag_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var output costexplorer.CostAllocationTag
 	resourceName := "aws_ce_cost_allocation_tag.test"
 	rName := "Tag01"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		CheckDestroy:nil,
+		ErrorCheck:  acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCostAllocationTagConfig_basic(rName, "Active"),
@@ -65,10 +63,8 @@ func TestAccCECostAllocationTag_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckCostAllocationTagExists(ctx context.Context, resourceName string, output *costexplorer.CostAllocationTag) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
+func, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return create.Error(names.CE, create.ErrActionCheckingExistence, tfce.ResNameCostAllocationTag, resourceName, errors.New("not found in state"))
 		}
@@ -85,11 +81,9 @@ func testAccCheckCostAllocationTagExists(ctx context.Context, resourceName strin
 		return nil
 	}
 }
-
 func testAccCostAllocationTagConfig_basic(rName, status string) string {
 	return fmt.Sprintf(`
-resource "aws_ce_cost_allocation_tag" "test" {
-  tag_key = %[1]q
+funcg_key = %[1]q
   status  = %[2]q
 }
 `, rName, status)

@@ -30,7 +30,7 @@ func testAccAnalyzer_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAnalyzerDestroy(ctx),
+CheckDestroy:nalyzerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAnalyzerConfig_name(rName),
@@ -62,7 +62,7 @@ func testAccAnalyzer_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAnalyzerDestroy(ctx),
+CheckDestroy:nalyzerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAnalyzerConfig_name(rName),
@@ -87,7 +87,7 @@ func testAccAnalyzer_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAnalyzerDestroy(ctx),
+CheckDestroy:nalyzerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAnalyzerConfig_tags1(rName, "key1", "value1"),
@@ -138,7 +138,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAnalyzerDestroy(ctx),
+CheckDestroy:nalyzerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAnalyzerConfig_typeOrganization(rName),

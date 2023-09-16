@@ -20,18 +20,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayDeployment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var deployment apigateway.Deployment
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_deployment.test"
 	restApiResourceName := "aws_api_gateway_rest_api.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_required(rName),
@@ -48,9 +47,9 @@ func TestAccAPIGatewayDeployment_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ceName,
 				ImportStateIdFunc: testAccDeploymentImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -58,8 +57,7 @@ func TestAccAPIGatewayDeployment_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayDeployment_Disappears_restAPI(t *testing.T) {
-	ctx := acctest.Context(t)
-	var deployment apigateway.Deployment
+func deployment apigateway.Deployment
 	var restApi apigateway.RestApi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_deployment.test"
@@ -67,10 +65,10 @@ func TestAccAPIGatewayDeployment_Disappears_restAPI(t *testing.T) {
 	stageName := sdkacctest.RandomWithPrefix("tf-acc-test-deployment")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_stageName(rName, stageName),
@@ -87,16 +85,15 @@ func TestAccAPIGatewayDeployment_Disappears_restAPI(t *testing.T) {
 
 func TestAccAPIGatewayDeployment_triggers(t *testing.T) {
 	ctx := acctest.Context(t)
-	var deployment1, deployment2, deployment3, deployment4 apigateway.Deployment
-	var stage apigateway.Stage
+func stage apigateway.Stage
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_deployment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_triggers(rName, "description1", "https://example.com"),
@@ -147,14 +144,13 @@ func TestAccAPIGatewayDeployment_triggers(t *testing.T) {
 func TestAccAPIGatewayDeployment_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var deployment apigateway.Deployment
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_deployment.test"
+funcourceName := "aws_api_gateway_deployment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_description(rName, "description1"),
@@ -178,14 +174,13 @@ func TestAccAPIGatewayDeployment_stageDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var deployment apigateway.Deployment
 	var stage apigateway.Stage
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_deployment.test"
+funcourceName := "aws_api_gateway_deployment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_stageDescription(rName, "description1"),
@@ -204,14 +199,13 @@ func TestAccAPIGatewayDeployment_stageName(t *testing.T) {
 	var deployment apigateway.Deployment
 	var stage apigateway.Stage
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_deployment.test"
-	stageName := sdkacctest.RandomWithPrefix("tf-acc-test-deployment")
+funcgeName := sdkacctest.RandomWithPrefix("tf-acc-test-deployment")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_stageName(rName, stageName),
@@ -241,11 +235,10 @@ func TestAccAPIGatewayDeployment_StageName_emptyString(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_deployment.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funceCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_stageName(rName, ""),
@@ -265,10 +258,9 @@ func TestAccAPIGatewayDeployment_variables(t *testing.T) {
 	resourceName := "aws_api_gateway_deployment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funcrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_variables(rName, "key1", "value1"),
@@ -290,10 +282,9 @@ func TestAccAPIGatewayDeployment_conflictingConnectionType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckDeploymentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_conflictingConnectionType(rName),
@@ -315,10 +306,8 @@ func testAccCheckDeploymentExists(ctx context.Context, n string, v *apigateway.D
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Deployment ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
+		conn :func
 		output, err := tfapigateway.FindDeploymentByTwoPartKey(ctx, conn, rs.Primary.Attributes["rest_api_id"], rs.Primary.ID)
 
 		if err != nil {
@@ -342,10 +331,8 @@ func testAccCheckDeploymentDestroy(ctx context.Context) resource.TestCheckFunc {
 
 			_, err := tfapigateway.FindDeploymentByTwoPartKey(ctx, conn, rs.Primary.Attributes["rest_api_id"], rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
-
+funccontinue
+			}func
 			if err != nil {
 				return err
 			}
@@ -370,10 +357,8 @@ func testAccCheckDeploymentNotRecreated(i, j *apigateway.Deployment) resource.Te
 func testAccCheckDeploymentRecreated(i, j *apigateway.Deployment) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.TimeValue(i.CreatedDate).Equal(aws.TimeValue(j.CreatedDate)) {
-			return fmt.Errorf("API Gateway Deployment not recreated")
-		}
-
-		return nil
+func
+functurn nil
 	}
 }
 
@@ -382,10 +367,8 @@ func testAccDeploymentImportStateIdFunc(resourceName string) resource.ImportStat
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not Found: %s", resourceName)
-		}
-
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.ID), nil
-	}
+func
+		returnfunc
 }
 
 func testAccDeploymentConfig_base(rName, uri string) string {
@@ -394,21 +377,18 @@ resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 }
 
-resource "aws_api_gateway_resource" "test" {
-  rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+funcst_api_id = aws_api_gateway_rest_api.test.id
+  parentfuncth_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 }
 
-resource "aws_api_gateway_method_response" "test" {
-  rest_api_id = aws_api_gateway_rest_api.test.id
+funcst_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
   status_code = "400"
@@ -419,8 +399,8 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = %[2]q
+  typeTP"
+  uri2]q
   integration_http_method = "GET"
 }
 
@@ -436,25 +416,24 @@ resource "aws_api_gateway_integration_response" "test" {
 func testAccDeploymentConfig_triggers(rName, description, url string) string {
 	return acctest.ConfigCompose(testAccDeploymentConfig_base(rName, url), fmt.Sprintf(`
 resource "aws_api_gateway_deployment" "test" {
-  description       = %[1]q
-  rest_api_id       = aws_api_gateway_rest_api.test.id
+  description]q
+  rest_api_id_api_gateway_rest_api.test.id
   stage_description = %[1]q
-  stage_name        = "tf-acc-test"
+  stage_namef-acc-test"
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_integration.test))
+deployment = sha1(jsonencode(aws_api_gateway_integration.test))
   }
 
   lifecycle {
-    create_before_destroy = true
+eate_before_destroy = true
   }
 }
 `, description))
 }
 
 func testAccDeploymentConfig_description(rName, description string) string {
-	return acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
-resource "aws_api_gateway_deployment" "test" {
+funcurce "aws_api_gateway_deployment" "test" {
   depends_on = [aws_api_gateway_integration.test]
 
   description = %[1]q
@@ -473,20 +452,18 @@ resource "aws_api_gateway_deployment" "test" {
 `)
 }
 
-func testAccDeploymentConfig_stageDescription(rName, stageDescription string) string {
-	return acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
 resource "aws_api_gateway_deployment" "test" {
   depends_on = [aws_api_gateway_integration.test]
 
-  rest_api_id       = aws_api_gateway_rest_api.test.id
+  rest_api_id_api_gateway_rest_api.test.id
   stage_description = %[1]q
-  stage_name        = "tf-acc-test"
+  stage_namef-acc-test"
 }
 `, stageDescription))
 }
 
-func testAccDeploymentConfig_stageName(rName, stageName string) string {
-	return acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
 resource "aws_api_gateway_deployment" "test" {
   depends_on = [aws_api_gateway_integration.test]
 
@@ -496,20 +473,18 @@ resource "aws_api_gateway_deployment" "test" {
 `, stageName))
 }
 
-func testAccDeploymentConfig_variables(rName, key1, value1 string) string {
-	return acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccDeploymentConfig_base(rName, "http://example.com"), fmt.Sprintf(`
 resource "aws_api_gateway_deployment" "test" {
   depends_on = [aws_api_gateway_integration.test]
 
   rest_api_id = aws_api_gateway_rest_api.test.id
 
   variables = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, key1, value1))
 }
-
 func testAccDeploymentConfig_conflictingConnectionType(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLambdaBase(rName, rName, rName), fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
@@ -518,27 +493,25 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
-
-resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+funcurce "aws_api_gateway_method" "test" {
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 }
 resource "aws_api_gateway_deployment" "test" {
   description = "The deployment"
   rest_api_id = aws_api_gateway_rest_api.test.id
   triggers = {
-    redeployment = sha1(join(",", tolist([
-      jsonencode(aws_api_gateway_integration.test),
-    ])))
+deployment = sha1(join(",", tolist([
+code(aws_api_gateway_integration.test),
+))
   }
-
-  lifecycle {
-    create_before_destroy = true
+funcfecycle {
+eate_before_destroy = true
   }
 }
 
@@ -548,16 +521,17 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.test.invoke_arn
+  typeS_PROXY"
+  uris_lambda_function.test.invoke_arn
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filenamet-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.handler"
-  runtime       = "nodejs16.x"
+  rolem_role.iam_for_lambda.arn
+  handlerdex.handler"
+  runtimedejs16.x"
 }
 `, rName))
 }
+funcfuncfunc

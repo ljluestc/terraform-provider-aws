@@ -27,10 +27,10 @@ func TestAccLightsailDomain_basic(t *testing.T) {
 	resourceName := "aws_lightsail_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:omainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_basic(lightsailDomainName),
@@ -48,10 +48,10 @@ func TestAccLightsailDomain_disappears(t *testing.T) {
 	resourceName := "aws_lightsail_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		CheckDestroy:omainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainConfig_basic(lightsailDomainName),

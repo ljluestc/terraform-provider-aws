@@ -37,7 +37,7 @@ func TestAccLogsQueryDefinition_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueryDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckQueryDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueryDefinitionConfig_basic(queryName),
@@ -83,7 +83,7 @@ func TestAccLogsQueryDefinition_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueryDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckQueryDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueryDefinitionConfig_basic(queryName),
@@ -108,7 +108,7 @@ func TestAccLogsQueryDefinition_rename(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueryDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckQueryDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueryDefinitionConfig_basic(queryName),
@@ -144,7 +144,7 @@ func TestAccLogsQueryDefinition_logGroups(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueryDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckQueryDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueryDefinitionConfig_logGroups(queryName, 1),

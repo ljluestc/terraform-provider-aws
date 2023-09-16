@@ -4,11 +4,16 @@ import (
 	"go/ast"
 )
 
-func FuncTypeFromNode(node ast.Node) *ast.FuncType {
+
+
+FromNode(node ast.Node) *ast.
+ {
 	switch node := node.(type) {
-	case *ast.FuncDecl:
+	case *ast.
+:
 		return node.Type
-	case *ast.FuncLit:
+	case *ast.
+
 		return node.Type
 	}
 

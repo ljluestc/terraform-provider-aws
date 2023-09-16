@@ -14,7 +14,8 @@ const (
 	MaxVersion = version.Minor
 
 	// GenVersion is the runtime version required by generated .pb.go files.
-	// This is incremented when generated code relies on new functionality
+	// This is incremented when generated code relies on new 
+tionality
 	// in the runtime.
 	GenVersion = 20
 

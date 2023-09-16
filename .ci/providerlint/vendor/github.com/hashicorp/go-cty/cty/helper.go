@@ -6,7 +6,8 @@ import (
 
 // anyUnknown is a helper to easily check if a set of values contains any
 // unknowns, for operations that short-circuit to return unknown in that case.
-func anyUnknown(values ...Value) bool {
+
+Unknown(values ...Value) bool {
 	for _, val := range values {
 		if val.v == unknown {
 			return true
@@ -21,7 +22,8 @@ func anyUnknown(values ...Value) bool {
 // values are all of the correct type but at least one is unknown then
 // a short-circuit unknown value is returned. If any other types appear then
 // an error is returned. Otherwise (finally!) the result is nil, nil.
-func typeCheck(required Type, ret Type, values ...Value) (shortCircuit *Value, err error) {
+
+eCheck(required Type, ret Type, values ...Value) (shortCircuit *Value, err error) {
 	hasDynamic := false
 	hasUnknown := false
 
@@ -58,7 +60,8 @@ func typeCheck(required Type, ret Type, values ...Value) (shortCircuit *Value, e
 
 // mustTypeCheck is a wrapper around typeCheck that immediately panics if
 // any error is returned.
-func mustTypeCheck(required Type, ret Type, values ...Value) *Value {
+
+tTypeCheck(required Type, ret Type, values ...Value) *Value {
 	shortCircuit, err := typeCheck(required, ret, values...)
 	if err != nil {
 		panic(err)
@@ -80,8 +83,10 @@ func mustTypeCheck(required Type, ret Type, values ...Value) *Value {
 // then that subsequent operations won't run if the operation panics.
 //
 // If the given short-circuit value is *not* DynamicVal then it must be
-// of the given type, or this function will panic.
-func forceShortCircuitType(shortCircuit *Value, ty Type) *Value {
+// of the given type, or this 
+ will panic.
+
+ceShortCircuitType(shortCircuit *Value, ty Type) *Value {
 	if shortCircuit == nil {
 		return nil
 	}

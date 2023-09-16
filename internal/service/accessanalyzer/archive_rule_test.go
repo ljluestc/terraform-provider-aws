@@ -30,9 +30,9 @@ func testAccAnalyzerArchiveRule_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AccessAnalyzerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
+		ErrorCheck:orCheck(t, names.AccessAnalyzerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckArchiveRuleDestroy(ctx),
+		CheckDestroy:rchiveRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccArchiveRuleConfig_basic(rName),
@@ -86,9 +86,9 @@ filter {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AccessAnalyzerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
+		ErrorCheck:orCheck(t, names.AccessAnalyzerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckArchiveRuleDestroy(ctx),
+		CheckDestroy:rchiveRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccArchiveRuleConfig_updateFilters(rName, filters),
@@ -134,9 +134,9 @@ func testAccAnalyzerArchiveRule_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AccessAnalyzerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
+		ErrorCheck:orCheck(t, names.AccessAnalyzerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckArchiveRuleDestroy(ctx),
+		CheckDestroy:rchiveRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccArchiveRuleConfig_basic(rName),

@@ -156,8 +156,8 @@ func resourceScheduledActionCreate(ctx context.Context, d *schema.ResourceData, 
 
 	name := d.Get("name").(string)
 	input := &redshift.CreateScheduledActionInput{
-		Enable:              aws.Bool(d.Get("enable").(bool)),
-		IamRole:             aws.String(d.Get("iam_role").(string)),
+		Enable: aws.Bool(d.Get("enable").(bool)),
+		IamRole:aws.String(d.Get("iam_role").(string)),
 		Schedule:            aws.String(d.Get("schedule").(string)),
 		ScheduledActionName: aws.String(name),
 		TargetAction:        expandScheduledActionType(d.Get("target_action").([]interface{})[0].(map[string]interface{})),

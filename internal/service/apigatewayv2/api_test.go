@@ -30,7 +30,7 @@ func TestAccAPIGatewayV2API_basicWebSocket(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_basicWebSocket(rName),
@@ -51,8 +51,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -69,7 +69,7 @@ func TestAccAPIGatewayV2API_basicHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_basicHTTP(rName),
@@ -90,8 +90,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -108,7 +108,7 @@ func TestAccAPIGatewayV2API_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_basicWebSocket(rName),
@@ -133,7 +133,7 @@ func TestAccAPIGatewayV2API_allAttributesWebSocket(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_allAttributesWebSocket(rName1),
@@ -197,8 +197,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -216,7 +216,7 @@ func TestAccAPIGatewayV2API_allAttributesHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_allAttributesHTTP(rName1),
@@ -280,8 +280,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -298,7 +298,7 @@ func TestAccAPIGatewayV2API_openAPI(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_open(rName),
@@ -316,9 +316,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body"},
 	},
 	{
@@ -348,7 +348,7 @@ func TestAccAPIGatewayV2API_OpenAPI_withTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_openYAMLTags(rName),
@@ -360,9 +360,9 @@ Check: resource.ComposeTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body"},
 	},
 	{
@@ -389,7 +389,7 @@ func TestAccAPIGatewayV2API_OpenAPI_withCors(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_openYAMLCorsConfiguration(rName),
@@ -406,9 +406,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body"},
 	},
 	{
@@ -449,7 +449,7 @@ func TestAccAPIGatewayV2API_OpenAPI_withMoreFields(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_openYAML(rName),
@@ -468,9 +468,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body"},
 	},
 	{
@@ -488,9 +488,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body"},
 	},
 },
@@ -507,11 +507,11 @@ func TestAccAPIGatewayV2API_OpenAPI_failOnWarnings(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	// Invalid body should not be accepted when fail_on_warnings is enabled
 	{
-Config:      testAccAPIConfig_failOnWarnings(rName, "fail_on_warnings = true"),
+Config:IConfig_failOnWarnings(rName, "fail_on_warnings = true"),
 ExpectError: regexache.MustCompile(`BadRequestException: Warnings found during import`),
 	},
 	// Warnings do not break the deployment when fail_on_warnings is disabled
@@ -527,9 +527,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
 	},
 	// fail_on_warnings should be optional and false by default
@@ -543,9 +543,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
 	},
 },
@@ -593,7 +593,7 @@ func TestAccAPIGatewayV2API_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_tags(rName),
@@ -615,8 +615,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -647,7 +647,7 @@ func TestAccAPIGatewayV2API_cors(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_corsConfiguration(rName),
@@ -677,8 +677,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -739,7 +739,7 @@ func TestAccAPIGatewayV2API_quickCreate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAPIDestroy(ctx),
+CheckDestroy:stroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIConfig_quickCreate(rName),
@@ -764,8 +764,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"route_key",
@@ -929,8 +929,8 @@ return nil
 func testAccAPIConfig_basicWebSocket(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 }
 `, rName)
@@ -939,7 +939,7 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_basicHTTP(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 }
 `, rName)
@@ -951,10 +951,10 @@ resource "aws_apigatewayv2_api" "test" {
   api_key_selection_expression = "$context.authorizer.usageIdentifierKey"
   description   = "test description"
   disable_execute_api_endpoint = true
-  name          = %[1]q
+  name
   protocol_type = "WEBSOCKET"
   route_selection_expression   = "$request.body.service"
-  version       = "v1"
+  version
 }
 `, rName)
 }
@@ -964,9 +964,9 @@ func testAccAPIConfig_allAttributesHTTP(rName string) string {
 resource "aws_apigatewayv2_api" "test" {
   description   = "test description"
   disable_execute_api_endpoint = true
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  version       = "v1"
+  version
 }
 `, rName)
 }
@@ -974,8 +974,8 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 
   tags = {
@@ -989,7 +989,7 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_corsConfiguration(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 
   cors_configuration {
@@ -1004,15 +1004,15 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_corsConfigurationUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 
   cors_configuration {
     allow_credentials = true
-    allow_methods     = ["*"]
-    allow_origins     = ["HTTP://WWW.EXAMPLE.ORG", "https://example.io"]
+    allow_methods
+    allow_origins/WWW.EXAMPLE.ORG", "https://example.io"]
     expose_headers    = ["X-Api-Id"]
-    max_age           = 500
+    max_age
   }
 }
 `, rName)
@@ -1021,10 +1021,10 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_quickCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  target        = "http://www.example.com/"
-  route_key     = "GET /pets"
+  target://www.example.com/"
+  route_keyts"
 }
 `, rName)
 }
@@ -1032,9 +1032,9 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAPIConfig_open(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  body          = <<EOF
+  body
 {
   "openapi": "3.0.1",
   "info": {
@@ -1043,14 +1043,14 @@ resource "aws_apigatewayv2_api" "test" {
   },
   "paths": {
     "/test": {
-      "get": {
-        "x-amazon-apigateway-integration": {
-          "type": "HTTP_PROXY",
-          "httpMethod": "GET",
-          "payloadFormatVersion": "1.0",
-          "uri": "https://www.google.de"
-        }
-      }
+
+on-apigateway-integration": {
+,
+
+n": "1.0",
+google.de"
+
+
     }
   }
 }
@@ -1062,9 +1062,9 @@ EOF
 func testAccAPIConfig_openYAML(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  body          = <<EOF
+  body
 ---
 openapi: 3.0.1
 info:
@@ -1073,11 +1073,11 @@ info:
 paths:
   "/test":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: '1.0'
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: '1.0'
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1086,7 +1086,7 @@ EOF
 func testAccAPIConfig_openYAMLCorsConfiguration(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
   cors_configuration {
     allow_methods = ["delete"]
@@ -1106,11 +1106,11 @@ x-amazon-apigateway-cors:
 paths:
   "/test":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: '1.0'
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: '1.0'
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1119,9 +1119,9 @@ EOF
 func testAccAPIConfig_openYAMLCorsConfigurationUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  body          = <<EOF
+  body
 ---
 openapi: 3.0.1
 info:
@@ -1135,11 +1135,11 @@ x-amazon-apigateway-cors:
 paths:
   "/update":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: 1.0
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: 1.0
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1148,7 +1148,7 @@ EOF
 func testAccAPIConfig_openYAMLCorsConfigurationUpdated2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
   cors_configuration {
     allow_methods = ["put", "get"]
@@ -1168,11 +1168,11 @@ x-amazon-apigateway-cors:
 paths:
   "/update":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: 1.0
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: 1.0
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1181,7 +1181,7 @@ EOF
 func testAccAPIConfig_openYAMLTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
   tags = {
     Key1 = "Value1"
@@ -1199,11 +1199,11 @@ tags:
 paths:
   "/test":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: '1.0'
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: '1.0'
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1212,7 +1212,7 @@ EOF
 func testAccAPIConfig_openYAMLTagsUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
   tags = {
     Key1 = "Value1U"
@@ -1232,11 +1232,11 @@ tags:
 paths:
   "/update":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: 1.0
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: 1.0
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1245,9 +1245,9 @@ EOF
 func testAccAPIConfig_updatedOpenYAML(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  body          = <<EOF
+  body
 ---
 openapi: 3.0.1
 info:
@@ -1256,11 +1256,11 @@ info:
 paths:
   "/update":
     get:
-      x-amazon-apigateway-integration:
-        type: HTTP_PROXY
-        httpMethod: GET
-        payloadFormatVersion: 1.0
-        uri: https://www.google.de
+apigateway-integration:
+TTP_PROXY
+hod: GET
+FormatVersion: 1.0
+tps://www.google.de
 EOF
 }
 `, rName)
@@ -1269,11 +1269,11 @@ EOF
 func testAccAPIConfig_updatedOpen2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  version       = "2017-04-21T04:08:08Z"
+  version04-21T04:08:08Z"
   description   = "description test"
-  body          = <<EOF
+  body
 {
   "openapi": "3.0.1",
   "info": {
@@ -1283,14 +1283,14 @@ resource "aws_apigatewayv2_api" "test" {
   },
   "paths": {
     "/update": {
-      "get": {
-        "x-amazon-apigateway-integration": {
-          "type": "HTTP_PROXY",
-          "httpMethod": "GET",
-          "payloadFormatVersion": "1.0",
-          "uri": "https://www.google.de"
-        }
-      }
+
+on-apigateway-integration": {
+,
+
+n": "1.0",
+google.de"
+
+
     }
   }
 }
@@ -1302,9 +1302,9 @@ EOF
 func testAccAPIConfig_failOnWarnings(rName string, failOnWarnings string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
-  body          = <<EOF
+  body
 {
   "openapi": "3.0.1",
   "info": {
@@ -1314,26 +1314,26 @@ resource "aws_apigatewayv2_api" "test" {
   },
   "paths": {
     "/update": {
-      "get": {
-        "x-amazon-apigateway-integration": {
-          "type": "HTTP_PROXY",
-          "httpMethod": "GET",
-          "payloadFormatVersion": "1.0",
-          "uri": "https://www.google.de"
-        },
-        "responses": {
-          "200": {
-            "description": "Response description",
-            "content": {
-              "application/json": {
+
+on-apigateway-integration": {
+,
+
+n": "1.0",
+google.de"
+
+ses": {
+
+sponse description",
+
+n": {
  "schema": {
    "$ref": "#/components/schemas/ModelThatDoesNotExist"
  }
-              }
-            }
-          }
-        }
-      }
+
+
+
+
+
     }
   }
 }

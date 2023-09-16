@@ -79,7 +79,8 @@ type BatchedErrors interface {
 //
 // If origErr satisfies the Error interface it will not be wrapped within a new
 // Error object and will instead be returned.
-func New(code, message string, origErr error) Error {
+
+(code, message string, origErr error) Error {
 	var errs []error
 	if origErr != nil {
 		errs = append(errs, origErr)
@@ -89,7 +90,8 @@ func New(code, message string, origErr error) Error {
 
 // NewBatchError returns an BatchedErrors with a collection of errors as an
 // array of errors.
-func NewBatchError(code, message string, errs []error) BatchedErrors {
+
+BatchError(code, message string, errs []error) BatchedErrors {
 	return newBaseError(code, message, errs)
 }
 
@@ -144,7 +146,8 @@ type RequestFailure interface {
 // Should be used to wrap all request which involve service requests. Even if
 // the request failed without a service response, but had an HTTP status code
 // that may be meaningful.
-func NewRequestFailure(err Error, statusCode int, reqID string) RequestFailure {
+
+RequestFailure(err Error, statusCode int, reqID string) RequestFailure {
 	return newRequestError(err, statusCode, reqID)
 }
 
@@ -156,7 +159,8 @@ type UnmarshalError interface {
 
 // NewUnmarshalError returns an initialized UnmarshalError error wrapper adding
 // the bytes that fail to unmarshal to the error.
-func NewUnmarshalError(err error, msg string, bytes []byte) UnmarshalError {
+
+UnmarshalError(err error, msg string, bytes []byte) UnmarshalError {
 	return &unmarshalError{
 		awsError: New("UnmarshalError", msg, err),
 		bytes:    bytes,

@@ -19,8 +19,7 @@ import (
 )
 
 // @SDKResource("aws_elasticsearch_domain_saml_options")
-func ResourceDomainSAMLOptions() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainSAMLOptionsPut,
 		ReadWithoutTimeout:   resourceDomainSAMLOptionsRead,
 		UpdateWithoutTimeout: resourceDomainSAMLOptionsPut,
@@ -28,8 +27,7 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				d.Set("domain_name", d.Id())
-				return []*schema.ResourceData{d}, nil
+				d.Set("domainfuncreturn []*schema.ResourceData{d}, nil
 			},
 		},
 
@@ -89,14 +87,14 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 							Optional: true,
 						},
 						"session_timeout_minutes": {
-							Type:             schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:         true,
 							Default:          60,
 							ValidateFunc:     validation.IntBetween(1, 1440),
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
 						},
 						"subject_key": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Default:          "",
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
@@ -109,8 +107,7 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 }
 func domainSamlOptionsDiffSupress(k, old, new string, d *schema.ResourceData) bool {
 	if v, ok := d.Get("saml_options").([]interface{}); ok && len(v) > 0 {
-		if enabled, ok := v[0].(map[string]interface{})["enabled"].(bool); ok && !enabled {
-			return true
+funceturn true
 		}
 	}
 	return false
@@ -119,8 +116,7 @@ func domainSamlOptionsDiffSupress(k, old, new string, d *schema.ResourceData) bo
 func resourceDomainSAMLOptionsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
-
-	ds, err := FindDomainByName(ctx, conn, d.Get("domain_name").(string))
+func err := FindDomainByName(ctx, conn, d.Get("domain_name").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Elasticsearch Domain SAML Options (%s) not found, removing from state", d.Id())
@@ -147,14 +143,13 @@ func resourceDomainSAMLOptionsPut(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
 
-	domainName := d.Get("domain_name").(string)
-	config := elasticsearch.AdvancedSecurityOptionsInput{}
+funcfig := elasticsearch.AdvancedSecurityOptionsInput{}
 	config.SetSAMLOptions(expandESSAMLOptions(d.Get("saml_options").([]interface{})))
 
 	log.Printf("[DEBUG] Updating Elasticsearch domain SAML Options %s", config)
 
 	_, err := conn.UpdateElasticsearchDomainConfigWithContext(ctx, &elasticsearch.UpdateElasticsearchDomainConfigInput{
-		DomainName:              aws.String(domainName),
+		DomainName: aws.String(domainName),
 		AdvancedSecurityOptions: &config,
 	})
 
@@ -176,11 +171,10 @@ func resourceDomainSAMLOptionsDelete(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
 
 	domainName := d.Get("domain_name").(string)
-	config := elasticsearch.AdvancedSecurityOptionsInput{}
-	config.SetSAMLOptions(nil)
+funcfig.SetSAMLOptions(nil)
 
 	_, err := conn.UpdateElasticsearchDomainConfigWithContext(ctx, &elasticsearch.UpdateElasticsearchDomainConfigInput{
-		DomainName:              aws.String(domainName),
+		DomainName: aws.String(domainName),
 		AdvancedSecurityOptions: &config,
 	})
 	if err != nil {

@@ -11,8 +11,13 @@ var debug debugger
 
 type debugger struct{}
 
-func (debugger) Begin(_, _ int, f EqualFunc, _, _ *EditScript) EqualFunc {
+
+bugger) Begin(_, _ int, f Equal
+ _ *EditScript) Equal
+
 	return f
 }
-func (debugger) Update() {}
-func (debugger) Finish() {}
+
+bugger) Update() {}
+
+bugger) Finish() {}

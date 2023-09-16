@@ -27,8 +27,7 @@ import (
 
 // @SDKDataSource("aws_ami")
 
-func DataSourceAMI() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceAMIRead,
 
 Timeouts: &schema.ResourceTimeout{
@@ -37,119 +36,118 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"architecture": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"block_device_mappings": {
-Type:     schema.TypeSet,
+Type:eSet,
 Computed: true,
-Set:      amiBlockDeviceMappingHash,
+Set:eviceMappingHash,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "device_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "ebs": {
-	Type:     schema.TypeMap,
+	Type:eMap,
 	Computed: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem:hema{Type: schema.TypeString},
 },
 "no_device": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "virtual_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
 },
 	},
 	"boot_mode": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"creation_date": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"deprecation_time": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"description": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"ena_support": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"executable_users": {
-Type:     schema.TypeList,
+Type:eList,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:hema{Type: schema.TypeString},
 	},
 	"filter": CustomFiltersSchema(),
 	"hypervisor": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_location": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_owner_alias": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"imds_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"include_deprecated": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 	},
 	"kernel_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"most_recent": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 	},
 	"name": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"name_regex": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: validation.StringIsValidRegExp,
-	},
-	"owner_id": {
-Type:     schema.TypeString,
+funcner_id": {
+Type:eString,
 Computed: true,
 	},
 	"owners": {
-Type:     schema.TypeList,
+Type:eList,
 Optional: true,
 MinItems: 1,
 Elem: &schema.Schema{
@@ -157,76 +155,75 @@ Elem: &schema.Schema{
 	Validate
 func: validation.NoZeroValues,
 },
-	},
-	"platform": {
-Type:     schema.TypeString,
+funcatform": {
+Type:eString,
 Computed: true,
 	},
 	"platform_details": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"product_codes": {
-Type:     schema.TypeSet,
+Type:eSet,
 Computed: true,
-Set:      amiProductCodesHash,
+Set:tCodesHash,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "product_code_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "product_code_type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
 },
 	},
 	"public": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"ramdisk_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"root_device_name": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"root_device_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"root_snapshot_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"sriov_net_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"state": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"state_reason": {
-Type:     schema.TypeMap,
+Type:eMap,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:hema{Type: schema.TypeString},
 	},
 	"tags": tftags.TagsSchemaComputed(),
 	"tpm_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"usage_operation": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"virtualization_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 },
@@ -237,8 +234,7 @@ Computed: true,
 func dataSourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
+func
 	input := &ec2.DescribeImagesInput{
 IncludeDeprecated: aws.Bool(d.Get("include_deprecated").(bool)),
 	}
@@ -296,8 +292,7 @@ func(i, j int) bool {
 	itime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[i].CreationDate))
 	jtime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[j].CreationDate))
 	return itime.Unix() > jtime.Unix()
-})
-	}
+func
 
 	image := filteredImages[0]
 
@@ -305,8 +300,8 @@ func(i, j int) bool {
 	d.Set("architecture", image.Architecture)
 	imageArn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
-Service:   ec2.ServiceName,
+Region:ta.(*conns.AWSClient).Region,
+Service:.ServiceName,
 Resource:  fmt.Sprintf("image/%s", d.Id()),
 	}.String()
 	d.Set("arn", imageArn)
@@ -359,17 +354,16 @@ func flattenAMIBlockDeviceMappings(m []*ec2.BlockDeviceMapping) *schema.Set {
 F: amiBlockDeviceMappingHash,
 	}
 	for _, v := range m {
-mapping := map[string]interface{}{
-	"device_name":  aws.StringValue(v.DeviceName),
+funcvice_name":  aws.StringValue(v.DeviceName),
 	"virtual_name": aws.StringValue(v.VirtualName),
 }
 
 if v.Ebs != nil {
 	ebs := map[string]interface{}{
 "delete_on_termination": fmt.Sprintf("%t", aws.BoolValue(v.Ebs.DeleteOnTermination)),
-"encrypted":    fmt.Sprintf("%t", aws.BoolValue(v.Ebs.Encrypted)),
-"iops":   fmt.Sprintf("%d", aws.Int64Value(v.Ebs.Iops)),
-"throughput":   fmt.Sprintf("%d", aws.Int64Value(v.Ebs.Throughput)),
+"encrypted":t.Sprintf("%t", aws.BoolValue(v.Ebs.Encrypted)),
+"iops":.Sprintf("%d", aws.Int64Value(v.Ebs.Iops)),
+"throughput":.Sprintf("%d", aws.Int64Value(v.Ebs.Throughput)),
 "volume_size":  fmt.Sprintf("%d", aws.Int64Value(v.Ebs.VolumeSize)),
 "snapshot_id":  aws.StringValue(v.Ebs.SnapshotId),
 "volume_type":  aws.StringValue(v.Ebs.VolumeType),
@@ -391,8 +385,7 @@ F: amiProductCodesHash,
 	}
 	for _, v := range m {
 code := map[string]interface{}{
-	"product_code_id":   aws.StringValue(v.ProductCodeId),
-	"product_code_type": aws.StringValue(v.ProductCodeType),
+funcoduct_code_type": aws.StringValue(v.ProductCodeType),
 }
 s.Add(code)
 	}
@@ -407,8 +400,7 @@ return ""
 	for _, bdm := range image.BlockDeviceMappings {
 if bdm.DeviceName == nil ||
 	aws.StringValue(bdm.DeviceName) != aws.StringValue(image.RootDeviceName) {
-	continue
-}
+func
 if bdm.Ebs != nil && bdm.Ebs.SnapshotId != nil {
 	return aws.StringValue(bdm.Ebs.SnapshotId)
 }
@@ -425,8 +417,7 @@ s["message"] = aws.StringValue(m.Message)
 	} else {
 s["code"] = "UNSET"
 s["message"] = "UNSET"
-	}
-	return s
+funcurn s
 }
 
 
@@ -439,8 +430,7 @@ func amiBlockDeviceMappingHash(v interface{}) int {
 if len(d.(map[string]interface{})) > 0 {
 	e := d.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-", e["delete_on_termination"].(string)))
-	buf.WriteString(fmt.Sprintf("%s-", e["encrypted"].(string)))
-	buf.WriteString(fmt.Sprintf("%s-", e["iops"].(string)))
+func.WriteString(fmt.Sprintf("%s-", e["iops"].(string)))
 	buf.WriteString(fmt.Sprintf("%s-", e["volume_size"].(string)))
 	buf.WriteString(fmt.Sprintf("%s-", e["volume_type"].(string)))
 }
@@ -466,3 +456,4 @@ func amiProductCodesHash(v interface{}) int {
 	buf.WriteString(fmt.Sprintf("%s-", m["product_code_type"].(string)))
 	return create.StringHashcode(buf.String())
 }
+func

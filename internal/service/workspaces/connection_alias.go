@@ -105,7 +105,7 @@ return
 
 in := &workspaces.CreateConnectionAliasInput{
 ConnectionString: aws.String(plan.ConnectionString.ValueString()),
-Tags:             getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }
 
 out, err := conn.CreateConnectionAlias(ctx, in)
@@ -230,10 +230,10 @@ data.State = flex.StringValueToFramework(ctx, in.State)
 
 func waitConnectionAliasCreated(ctx context.Context, conn *workspaces.Client, id string, timeout time.Duration) (*awstypes.ConnectionAlias, error) {
 stateConf := &retry.StateChangeConf{
-Pending:                   enum.Slice(awstypes.ConnectionAliasStateCreating),
-Target:                    enum.Slice(awstypes.ConnectionAliasStateCreated),
-Refresh:                   statusConnectionAlias(ctx, conn, id),
-Timeout:                   timeout,
+Pending:      enum.Slice(awstypes.ConnectionAliasStateCreating),
+Target:       enum.Slice(awstypes.ConnectionAliasStateCreated),
+Refresh:      statusConnectionAlias(ctx, conn, id),
+Timeout:      timeout,
 NotFoundChecks:            20,
 ContinuousTargetOccurence: 2,
 }
@@ -303,11 +303,11 @@ return &out.ConnectionAliases[0], nil
 }
 
 type resourceConnectionAliasData struct {
-ID               types.String   `tfsdk:"id"`
+ID  types.String   `tfsdk:"id"`
 ConnectionString types.String   `tfsdk:"connection_string"`
 OwnerAccountId   types.String   `tfsdk:"owner_account_id"`
 State            types.String   `tfsdk:"state"`
-Tags             types.Map      `tfsdk:"tags"`
+Tagstypes.Map      `tfsdk:"tags"`
 TagsAll          types.Map      `tfsdk:"tags_all"`
 Timeouts         timeouts.Value `tfsdk:"timeouts"`
 }

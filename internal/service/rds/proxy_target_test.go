@@ -18,8 +18,7 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 )
 
-func TestAccRDSProxyTarget_instance(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
@@ -29,10 +28,9 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProxyTargetDestroy(ctx),
+PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
+ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProxyTargetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProxyTargetConfig_instance(rName),
@@ -57,8 +55,7 @@ ImportStateVerify: true,
 
 func TestAccRDSProxyTarget_cluster(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-t.Skip("skipping long-running test in short mode")
+funcip("skipping long-running test in short mode")
 	}
 
 	var dbProxyTarget rds.DBProxyTarget
@@ -66,11 +63,10 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProxyTargetDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestroy:funcs: []resource.TestStep{
 	{
 Config: testAccProxyTargetConfig_cluster(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -96,20 +92,18 @@ func TestAccRDSProxyTarget_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var dbProxyTarget rds.DBProxyTarget
 	resourceName := "aws_db_proxy_target.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyPreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProxyTargetDestroy(ctx),
+CheckDestroy:testAccCheckProxyTargetDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccProxyTargetConfig_instance(rName),
+	{funcig: testAccProxyTargetConfig_instance(rName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckProxyTargetExists(ctx, resourceName, &dbProxyTarget),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceProxyTarget(), resourceName),
@@ -126,10 +120,8 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_db_proxy_target" {
-continue
-	}
-
-	dbProxyName, targetGroupName, targetType, rdsResourceId, err := tfrds.ProxyTargetParseID(rs.Primary.ID)
+func
+funcroxyName, targetGroupName, targetType, rdsResourceId, err := tfrds.ProxyTargetParseID(rs.Primary.ID)
 	if err != nil {
 return err
 	}
@@ -169,10 +161,8 @@ if !ok {
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No DB Proxy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+func
+func := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 dbProxyName, targetGroupName, targetType, rdsResourceId, err := tfrds.ProxyTargetParseID(rs.Primary.ID)
 if err != nil {
@@ -202,12 +192,11 @@ resource "aws_db_proxy" "test" {
     aws_iam_role_policy.test
   ]
 
-  name                   = %[1]q
+  name      = %[1]q
   debug_logging          = false
-  engine_family          = "MYSQL"
-  idle_client_timeout    = 1800
+funcle_client_timeout    = 1800
   require_tls            = true
-  role_arn               = aws_iam_role.test.arn
+  role_arn  = aws_iam_role.test.arn
   vpc_security_group_ids = [aws_security_group.test.id]
   vpc_subnet_ids         = aws_subnet.test[*].id
 
@@ -235,7 +224,7 @@ resource "aws_db_subnet_group" "test" {
 # Secrets Manager setup
 
 resource "aws_secretsmanager_secret" "test" {
-  name                    = %[1]q
+  name       = %[1]q
   recovery_window_in_days = 0
 }
 
@@ -247,7 +236,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 # IAM setup
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume.json
 }
 
@@ -305,26 +294,25 @@ resource "aws_security_group" "test" {
 func testAccProxyTargetConfig_instance(rName string) string {
 	return acctest.ConfigCompose(testAccProxyTargetBaseConfig(rName), fmt.Sprintf(`
 data "aws_rds_engine_version" "test" {
-  engine             = "mysql"
+  engine= "mysql"
   preferred_versions = ["8.0.33", "8.0.32", "8.0.31"]
 }
 
 data "aws_rds_orderable_db_instance" "test" {
-  engine                     = data.aws_rds_engine_version.test.engine
-  engine_version             = data.aws_rds_engine_version.test.version
+  engine        = data.aws_rds_engine_version.test.engine
+  engine_version= data.aws_rds_engine_version.test.version
   preferred_instance_classes = ["db.t3.micro", "db.t2.micro", "db.t3.small"]
-}
-
+func
 resource "aws_db_instance" "test" {
   allocated_storage      = 20
   db_subnet_group_name   = aws_db_subnet_group.test.id
-  engine                 = data.aws_rds_orderable_db_instance.test.engine
+  engine    = data.aws_rds_orderable_db_instance.test.engine
   engine_version         = data.aws_rds_orderable_db_instance.test.engine_version
-  identifier             = %[1]q
+  identifier= %[1]q
   instance_class         = data.aws_rds_orderable_db_instance.test.instance_class
-  password               = "testtest"
+  password  = "testtest"
   skip_final_snapshot    = true
-  username               = "test"
+  username  = "test"
   vpc_security_group_ids = [aws_security_group.test.id]
 
   tags = {
@@ -349,11 +337,10 @@ data "aws_rds_engine_version" "test" {
 resource "aws_rds_cluster" "test" {
   cluster_identifier     = %[1]q
   db_subnet_group_name   = aws_db_subnet_group.test.id
-  engine                 = data.aws_rds_engine_version.test.engine
+  engine    = data.aws_rds_engine_version.test.engine
   engine_version         = data.aws_rds_engine_version.test.version
   master_username        = "test"
-  master_password        = "testtest"
-  skip_final_snapshot    = true
+funcip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.test.id]
 
   tags = {

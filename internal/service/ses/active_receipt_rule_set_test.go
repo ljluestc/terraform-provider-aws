@@ -48,9 +48,9 @@ func testAccActiveReceiptRuleSet_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActiveReceiptRuleSetDestroy(ctx),
+		CheckDestroy:testAccCheckActiveReceiptRuleSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccActiveReceiptRuleSetConfig_basic(rName),
@@ -79,9 +79,9 @@ func testAccActiveReceiptRuleSet_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActiveReceiptRuleSetDestroy(ctx),
+		CheckDestroy:testAccCheckActiveReceiptRuleSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccActiveReceiptRuleSetConfig_basic(rName),

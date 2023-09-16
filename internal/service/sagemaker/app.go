@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_app", name="App")
 // @Tags(identifierAttribute="arn")
-func ResourceApp() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceAppCreate,
-		ReadWithoutTimeout:   resourceAppRead,
+		ReadWithoutTimeout:ourceAppRead,
 		UpdateWithoutTimeout: resourceAppUpdate,
 		DeleteWithoutTimeout: resourceAppDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,11 +38,11 @@ func ResourceApp() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"app_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -52,18 +51,18 @@ func ResourceApp() *schema.Resource {
 				),
 			},
 			"app_type": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Required:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Required:
 				ValidateFunc: validation.StringInSlice(sagemaker.AppType_Values(), false),
 			},
 			"domain_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				ForceNew: true,
 				Required: true,
 			},
 			"resource_spec": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -71,41 +70,41 @@ func ResourceApp() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"instance_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: validation.StringInSlice(sagemaker.AppInstanceType_Values(), false),
 						},
 						"lifecycle_config_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: verify.ValidARN,
 						},
 						"sagemaker_image_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:chema.TypeString,
+							Optional:
+							Computed:
 							ValidateFunc: verify.ValidARN,
 						},
 						"sagemaker_image_version_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"space_name": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Optional:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Optional:
 				ExactlyOneOf: []string{"space_name", "user_profile_name"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user_profile_name": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Optional:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Optional:
 				ExactlyOneOf: []string{"space_name", "user_profile_name"},
 			},
 		},
@@ -115,14 +114,13 @@ func ResourceApp() *schema.Resource {
 }
 
 func resourceAppCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.CreateAppInput{
 		AppName:  aws.String(d.Get("app_name").(string)),
 		AppType:  aws.String(d.Get("app_type").(string)),
 		DomainId: aws.String(d.Get("domain_id").(string)),
-		Tags:     getTagsIn(ctx),
+		Tags:gsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("user_profile_name"); ok {
@@ -160,8 +158,7 @@ func resourceAppCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 func resourceAppRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	domainID, userProfileOrSpaceName, appType, appName, err := decodeAppID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading SageMaker App (%s): %s", d.Id(), err)
@@ -195,8 +192,7 @@ func resourceAppRead(ctx context.Context, d *schema.ResourceData, meta interface
 func resourceAppUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceAppRead(ctx, d, meta)...)
 }
 
@@ -204,8 +200,7 @@ func resourceAppDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	appName := d.Get("app_name").(string)
-	appType := d.Get("app_type").(string)
+funcType := d.Get("app_type").(string)
 	domainID := d.Get("domain_id").(string)
 	userProfileOrSpaceName := ""
 
@@ -250,8 +245,7 @@ func decodeAppID(id string) (string, string, string, string, error) {
 	if err != nil {
 		return "", "", "", "", err
 	}
-
-	appResourceName := strings.TrimPrefix(appArn.Resource, "app/")
+funcResourceName := strings.TrimPrefix(appArn.Resource, "app/")
 	parts := strings.Split(appResourceName, "/")
 
 	if len(parts) != 4 {

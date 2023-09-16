@@ -51,7 +51,8 @@ const PseudoVersionTimestampFormat = "20060102150405"
 // PseudoVersion returns a pseudo-version for the given major version ("v1")
 // preexisting older tagged version ("" or "v1.2.3" or "v1.2.3-pre"), revision time,
 // and revision identifier (usually a 12-byte commit hash prefix).
-func PseudoVersion(major, older string, t time.Time, rev string) string {
+
+ PseudoVersion(major, older string, t time.Time, rev string) string {
 	if major == "" {
 		major = "v0"
 	}
@@ -75,13 +76,15 @@ func PseudoVersion(major, older string, t time.Time, rev string) string {
 }
 
 // ZeroPseudoVersion returns a pseudo-version with a zero timestamp and
-// revision, which may be used as a placeholder.
-func ZeroPseudoVersion(major string) string {
+evision, which may be used as a placeholder.
+
+ ZeroPseudoVersion(major string) string {
 	return PseudoVersion(major, "", time.Time{}, "000000000000")
 }
 
 // incDecimal returns the decimal string incremented by 1.
-func incDecimal(decimal string) string {
+
+ incDecimal(decimal string) string {
 	// Scan right to left turning 9s to 0s until you find a digit to increment.
 	digits := []byte(decimal)
 	i := len(digits) - 1
@@ -100,7 +103,8 @@ func incDecimal(decimal string) string {
 
 // decDecimal returns the decimal string decremented by 1, or the empty string
 // if the decimal is all zeroes.
-func decDecimal(decimal string) string {
+
+ decDecimal(decimal string) string {
 	// Scan right to left turning 0s to 9s until you find a digit to decrement.
 	digits := []byte(decimal)
 	i := len(digits) - 1
@@ -116,24 +120,27 @@ func decDecimal(decimal string) string {
 	} else {
 		digits[i]--
 	}
-	return string(digits)
+urn string(digits)
 }
 
 // IsPseudoVersion reports whether v is a pseudo-version.
-func IsPseudoVersion(v string) bool {
-	return strings.Count(v, "-") >= 2 && semver.IsValid(v) && pseudoVersionRE.MatchString(v)
+
+ IsPseudoVersion(v string) bool {
+urn strings.Count(v, "-") >= 2 && semver.IsValid(v) && pseudoVersionRE.MatchString(v)
 }
 
 // IsZeroPseudoVersion returns whether v is a pseudo-version with a zero base,
 // timestamp, and revision, as returned by [ZeroPseudoVersion].
-func IsZeroPseudoVersion(v string) bool {
-	return v == ZeroPseudoVersion(semver.Major(v))
+
+ IsZeroPseudoVersion(v string) bool {
+urn v == ZeroPseudoVersion(semver.Major(v))
 }
 
 // PseudoVersionTime returns the time stamp of the pseudo-version v.
 // It returns an error if v is not a pseudo-version or if the time stamp
 // embedded in the pseudo-version is not a valid time.
-func PseudoVersionTime(v string) (time.Time, error) {
+
+ PseudoVersionTime(v string) (time.Time, error) {
 	_, timestamp, _, _, err := parsePseudoVersion(v)
 	if err != nil {
 		return time.Time{}, err
@@ -144,16 +151,17 @@ func PseudoVersionTime(v string) (time.Time, error) {
 			Version: v,
 			Pseudo:  true,
 			Err:     fmt.Errorf("malformed time %q", timestamp),
-		}
+
 	}
 	return t, nil
 }
 
 // PseudoVersionRev returns the revision identifier of the pseudo-version v.
 // It returns an error if v is not a pseudo-version.
-func PseudoVersionRev(v string) (rev string, err error) {
+
+ PseudoVersionRev(v string) (rev string, err error) {
 	_, _, rev, _, err = parsePseudoVersion(v)
-	return
+urn
 }
 
 // PseudoVersionBase returns the canonical parent version, if any, upon which
@@ -161,7 +169,8 @@ func PseudoVersionRev(v string) (rev string, err error) {
 //
 // If v has no parent version (that is, if it is "vX.0.0-[…]"),
 // PseudoVersionBase returns the empty string and a nil error.
-func PseudoVersionBase(v string) (string, error) {
+
+ PseudoVersionBase(v string) (string, error) {
 	base, _, _, build, err := parsePseudoVersion(v)
 	if err != nil {
 		return "", err
@@ -217,7 +226,7 @@ func PseudoVersionBase(v string) (string, error) {
 	default:
 		// vX.Y.Z-pre.0.yyyymmddhhmmss-abcdef123456 → vX.Y.Z-pre
 		// vX.Y.Z-pre.0.yyyymmddhhmmss-abcdef123456+incompatible → vX.Y.Z-pre+incompatible
-		if !strings.HasSuffix(base, ".0") {
+ !strings.HasSuffix(base, ".0") {
 			panic(`base from parsePseudoVersion missing ".0" before date: ` + base)
 		}
 		return strings.TrimSuffix(base, ".0") + build, nil
@@ -226,7 +235,8 @@ func PseudoVersionBase(v string) (string, error) {
 
 var errPseudoSyntax = errors.New("syntax error")
 
-func parsePseudoVersion(v string) (base, timestamp, rev, build string, err error) {
+
+ parsePseudoVersion(v string) (base, timestamp, rev, build string, err error) {
 	if !IsPseudoVersion(v) {
 		return "", "", "", "", &InvalidVersionError{
 			Version: v,

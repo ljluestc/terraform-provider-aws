@@ -8,7 +8,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func DataSourceMetadata(in *tfplugin5.GetMetadata_DataSourceMetadata) *tfprotov5.DataSourceMetadata {
+
+aSourceMetadata(in *tfplugin5.GetMetadata_DataSourceMetadata) *tfprotov5.DataSourceMetadata {
 	if in == nil {
 		return nil
 	}
@@ -18,7 +19,8 @@ func DataSourceMetadata(in *tfplugin5.GetMetadata_DataSourceMetadata) *tfprotov5
 	}
 }
 
-func ValidateDataSourceConfigRequest(in *tfplugin5.ValidateDataSourceConfig_Request) (*tfprotov5.ValidateDataSourceConfigRequest, error) {
+
+idateDataSourceConfigRequest(in *tfplugin5.ValidateDataSourceConfig_Request) (*tfprotov5.ValidateDataSourceConfigRequest, error) {
 	resp := &tfprotov5.ValidateDataSourceConfigRequest{
 		TypeName: in.TypeName,
 	}
@@ -28,7 +30,8 @@ func ValidateDataSourceConfigRequest(in *tfplugin5.ValidateDataSourceConfig_Requ
 	return resp, nil
 }
 
-func ValidateDataSourceConfigResponse(in *tfplugin5.ValidateDataSourceConfig_Response) (*tfprotov5.ValidateDataSourceConfigResponse, error) {
+
+idateDataSourceConfigResponse(in *tfplugin5.ValidateDataSourceConfig_Response) (*tfprotov5.ValidateDataSourceConfigResponse, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -38,7 +41,8 @@ func ValidateDataSourceConfigResponse(in *tfplugin5.ValidateDataSourceConfig_Res
 	}, nil
 }
 
-func ReadDataSourceRequest(in *tfplugin5.ReadDataSource_Request) (*tfprotov5.ReadDataSourceRequest, error) {
+
+dDataSourceRequest(in *tfplugin5.ReadDataSource_Request) (*tfprotov5.ReadDataSourceRequest, error) {
 	resp := &tfprotov5.ReadDataSourceRequest{
 		TypeName: in.TypeName,
 	}
@@ -51,7 +55,8 @@ func ReadDataSourceRequest(in *tfplugin5.ReadDataSource_Request) (*tfprotov5.Rea
 	return resp, nil
 }
 
-func ReadDataSourceResponse(in *tfplugin5.ReadDataSource_Response) (*tfprotov5.ReadDataSourceResponse, error) {
+
+dDataSourceResponse(in *tfplugin5.ReadDataSource_Response) (*tfprotov5.ReadDataSourceResponse, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err

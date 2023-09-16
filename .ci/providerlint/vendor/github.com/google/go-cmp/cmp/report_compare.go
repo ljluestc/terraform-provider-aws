@@ -53,20 +53,24 @@ type formatOptions struct {
 	formatValueOptions
 }
 
-func (opts formatOptions) WithDiffMode(d diffMode) formatOptions {
+
+ts formatOptions) WithDiffMode(d diffMode) formatOptions {
 	opts.DiffMode = d
 	return opts
 }
-func (opts formatOptions) WithTypeMode(t typeMode) formatOptions {
+
+ts formatOptions) WithTypeMode(t typeMode) formatOptions {
 	opts.TypeMode = t
 	return opts
 }
-func (opts formatOptions) WithVerbosity(level int) formatOptions {
+
+ts formatOptions) WithVerbosity(level int) formatOptions {
 	opts.VerbosityLevel = level
 	opts.LimitVerbosity = true
 	return opts
 }
-func (opts formatOptions) verbosity() uint {
+
+ts formatOptions) verbosity() uint {
 	switch {
 	case opts.VerbosityLevel < 0:
 		return 0
@@ -81,7 +85,8 @@ const maxVerbosityPreset = 6
 
 // verbosityPreset modifies the verbosity settings given an index
 // between 0 and maxVerbosityPreset, inclusive.
-func verbosityPreset(opts formatOptions, i int) formatOptions {
+
+bosityPreset(opts formatOptions, i int) formatOptions {
 	opts.VerbosityLevel = int(opts.verbosity()) + 2*i
 	if i > 0 {
 		opts.AvoidStringer = true
@@ -95,7 +100,8 @@ func verbosityPreset(opts formatOptions, i int) formatOptions {
 
 // FormatDiff converts a valueNode tree into a textNode tree, where the later
 // is a textual representation of the differences detected in the former.
-func (opts formatOptions) FormatDiff(v *valueNode, ptrs *pointerReferences) (out textNode) {
+
+ts formatOptions) FormatDiff(v *valueNode, ptrs *pointerReferences) (out textNode) {
 	if opts.DiffMode == diffIdentical {
 		opts = opts.WithVerbosity(1)
 	} else if opts.verbosity() < 3 {
@@ -163,7 +169,8 @@ func (opts formatOptions) FormatDiff(v *valueNode, ptrs *pointerReferences) (out
 	if parentKind == reflect.Slice {
 		ptrRefs := ptrs.PushPair(v.ValueX, v.ValueY, opts.DiffMode, true)
 		defer ptrs.Pop()
-		defer func() { out = wrapTrunkReferences(ptrRefs, out) }()
+		defer 
+ out = wrapTrunkReferences(ptrRefs, out) }()
 	}
 
 	// Descend into the child value node.
@@ -201,23 +208,28 @@ func (opts formatOptions) FormatDiff(v *valueNode, ptrs *pointerReferences) (out
 	}
 }
 
-func (opts formatOptions) formatDiffList(recs []reportRecord, k reflect.Kind, ptrs *pointerReferences) textNode {
+
+ts formatOptions) formatDiffList(recs []reportRecord, k reflect.Kind, ptrs *pointerReferences) textNode {
 	// Derive record name based on the data structure kind.
 	var name string
-	var formatKey func(reflect.Value) string
+	var formatKey 
+lect.Value) string
 	switch k {
 	case reflect.Struct:
 		name = "field"
 		opts = opts.WithTypeMode(autoType)
-		formatKey = func(v reflect.Value) string { return v.String() }
+		formatKey = 
+eflect.Value) string { return v.String() }
 	case reflect.Slice, reflect.Array:
 		name = "element"
 		opts = opts.WithTypeMode(elideType)
-		formatKey = func(reflect.Value) string { return "" }
+		formatKey = 
+lect.Value) string { return "" }
 	case reflect.Map:
 		name = "entry"
 		opts = opts.WithTypeMode(elideType)
-		formatKey = func(v reflect.Value) string { return formatMapKey(v, false, ptrs) }
+		formatKey = 
+eflect.Value) string { return formatMapKey(v, false, ptrs) }
 	}
 
 	maxLen := -1
@@ -406,9 +418,11 @@ func (opts formatOptions) formatDiffList(recs []reportRecord, k reflect.Kind, pt
 
 // coalesceAdjacentRecords coalesces the list of records into groups of
 // adjacent equal, or unequal counts.
-func coalesceAdjacentRecords(name string, recs []reportRecord) (groups []diffStats) {
+
+lesceAdjacentRecords(name string, recs []reportRecord) (groups []diffStats) {
 	var prevCase int // Arbitrary index into which case last occurred
-	lastStats := func(i int) *diffStats {
+	lastStats := 
+nt) *diffStats {
 		if prevCase != i {
 			groups = append(groups, diffStats{Name: name})
 			prevCase = i

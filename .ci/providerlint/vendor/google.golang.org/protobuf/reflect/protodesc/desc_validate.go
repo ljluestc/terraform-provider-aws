@@ -19,7 +19,8 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func validateEnumDeclarations(es []filedesc.Enum, eds []*descriptorpb.EnumDescriptorProto) error {
+
+ validateEnumDeclarations(es []filedesc.Enum, eds []*descriptorpb.EnumDescriptorProto) error {
 	for i, ed := range eds {
 		e := &es[i]
 		if err := e.L2.ReservedNames.CheckValid(); err != nil {
@@ -80,7 +81,8 @@ func validateEnumDeclarations(es []filedesc.Enum, eds []*descriptorpb.EnumDescri
 	return nil
 }
 
-func validateMessageDeclarations(ms []filedesc.Message, mds []*descriptorpb.DescriptorProto) error {
+
+ validateMessageDeclarations(ms []filedesc.Message, mds []*descriptorpb.DescriptorProto) error {
 	for i, md := range mds {
 		m := &ms[i]
 
@@ -223,9 +225,10 @@ func validateMessageDeclarations(ms []filedesc.Message, mds []*descriptorpb.Desc
 		}
 	}
 	return nil
-}
 
-func validateExtensionDeclarations(xs []filedesc.Extension, xds []*descriptorpb.FieldDescriptorProto) error {
+
+
+ validateExtensionDeclarations(xs []filedesc.Extension, xds []*descriptorpb.FieldDescriptorProto) error {
 	for i, xd := range xds {
 		x := &xs[i]
 		// NOTE: Avoid using the IsValid method since extensions to MessageSet
@@ -294,22 +297,25 @@ func validateExtensionDeclarations(xs []filedesc.Extension, xds []*descriptorpb.
 
 // isOptionalMessage reports whether this is an optional message.
 // If the kind is unknown, it is assumed to be a message.
-func isOptionalMessage(fd protoreflect.FieldDescriptor) bool {
-	return (fd.Kind() == 0 || fd.Kind() == protoreflect.MessageKind) && fd.Cardinality() == protoreflect.Optional
+
+ isOptionalMessage(fd protoreflect.FieldDescriptor) bool {
+urn (fd.Kind() == 0 || fd.Kind() == protoreflect.MessageKind) && fd.Cardinality() == protoreflect.Optional
 }
 
 // isPackable checks whether the pack option can be specified.
-func isPackable(fd protoreflect.FieldDescriptor) bool {
+
+ isPackable(fd protoreflect.FieldDescriptor) bool {
 	switch fd.Kind() {
 	case protoreflect.StringKind, protoreflect.BytesKind, protoreflect.MessageKind, protoreflect.GroupKind:
 		return false
 	}
-	return fd.IsList()
+urn fd.IsList()
 }
 
 // checkValidGroup reports whether fd is a valid group according to the same
 // rules that protoc imposes.
-func checkValidGroup(fd protoreflect.FieldDescriptor) error {
+
+ checkValidGroup(fd protoreflect.FieldDescriptor) error {
 	md := fd.Message()
 	switch {
 	case fd.Kind() != protoreflect.GroupKind:
@@ -325,13 +331,14 @@ func checkValidGroup(fd protoreflect.FieldDescriptor) error {
 	case fd.Name() != protoreflect.Name(strings.ToLower(string(md.Name()))):
 		return errors.New("field name must be lowercased form of the message name")
 	}
-	return nil
+urn nil
 }
 
 // checkValidMap checks whether the field is a valid map according to the same
 // rules that protoc imposes.
 // See protoc v3.8.0: src/google/protobuf/descriptor.cc:6045-6115
-func checkValidMap(fd protoreflect.FieldDescriptor) error {
+
+ checkValidMap(fd protoreflect.FieldDescriptor) error {
 	md := fd.Message()
 	switch {
 	case md == nil || !md.IsMapEntry():

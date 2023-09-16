@@ -18,12 +18,14 @@ import (
 // conversions, such as populating a set from a slice rather than having to
 // first explicitly instantiate a set.Set.
 //
-// The audience of this function is assumed to be the developers of Go code
+// The audience of this 
+ is assumed to be the developers of Go code
 // that is integrating with cty, and thus the error messages it returns are
 // presented from Go's perspective. These messages are thus not appropriate
 // for display to end-users. An error returned from ToCtyValue represents a
 // bug in the calling program, not user error.
-func ToCtyValue(val interface{}, ty cty.Type) (cty.Value, error) {
+
+tyValue(val interface{}, ty cty.Type) (cty.Value, error) {
 	// 'path' starts off as empty but will grow for each level of recursive
 	// call we make, so by the time toCtyValue returns it is likely to have
 	// unused capacity on the end of it, depending on how deeply-recursive
@@ -32,7 +34,8 @@ func ToCtyValue(val interface{}, ty cty.Type) (cty.Value, error) {
 	return toCtyValue(reflect.ValueOf(val), ty, path)
 }
 
-func toCtyValue(val reflect.Value, ty cty.Type, path cty.Path) (cty.Value, error) {
+
+tyValue(val reflect.Value, ty cty.Type, path cty.Path) (cty.Value, error) {
 	if val != (reflect.Value{}) && val.Type().AssignableTo(valueType) {
 		// If the source value is a cty.Value then we'll try to just pass
 		// through to the target type directly.
@@ -69,7 +72,8 @@ func toCtyValue(val reflect.Value, ty cty.Type, path cty.Path) (cty.Value, error
 	return cty.NilVal, path.NewErrorf("unsupported target type %#v", ty)
 }
 
-func toCtyBool(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+tyBool(val reflect.Value, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Bool), nil
 	}
@@ -86,7 +90,8 @@ func toCtyBool(val reflect.Value, path cty.Path) (cty.Value, error) {
 
 }
 
-func toCtyNumber(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+tyNumber(val reflect.Value, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Number), nil
 	}
@@ -122,7 +127,8 @@ func toCtyNumber(val reflect.Value, path cty.Path) (cty.Value, error) {
 
 }
 
-func toCtyString(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+tyString(val reflect.Value, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.String), nil
 	}
@@ -139,7 +145,8 @@ func toCtyString(val reflect.Value, path cty.Path) (cty.Value, error) {
 
 }
 
-func toCtyList(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+tyList(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.List(ety)), nil
 	}
@@ -184,7 +191,8 @@ func toCtyList(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error
 	}
 }
 
-func toCtyMap(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+tyMap(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Map(ety)), nil
 	}
@@ -234,7 +242,8 @@ func toCtyMap(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error)
 	}
 }
 
-func toCtySet(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+tySet(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Set(ety)), nil
 	}
@@ -292,7 +301,8 @@ func toCtySet(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error)
 	return cty.SetVal(vals), nil
 }
 
-func toCtyObject(val reflect.Value, attrTypes map[string]cty.Type, path cty.Path) (cty.Value, error) {
+
+tyObject(val reflect.Value, attrTypes map[string]cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Object(attrTypes)), nil
 	}
@@ -386,7 +396,8 @@ func toCtyObject(val reflect.Value, attrTypes map[string]cty.Type, path cty.Path
 	}
 }
 
-func toCtyTuple(val reflect.Value, elemTypes []cty.Type, path cty.Path) (cty.Value, error) {
+
+tyTuple(val reflect.Value, elemTypes []cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.Tuple(elemTypes)), nil
 	}
@@ -470,7 +481,8 @@ func toCtyTuple(val reflect.Value, elemTypes []cty.Type, path cty.Path) (cty.Val
 	}
 }
 
-func toCtyCapsule(val reflect.Value, capsuleType cty.Type, path cty.Path) (cty.Value, error) {
+
+tyCapsule(val reflect.Value, capsuleType cty.Type, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(capsuleType), nil
 	}
@@ -490,7 +502,8 @@ func toCtyCapsule(val reflect.Value, capsuleType cty.Type, path cty.Path) (cty.V
 	return cty.CapsuleVal(capsuleType, val.Interface()), nil
 }
 
-func toCtyDynamic(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+tyDynamic(val reflect.Value, path cty.Path) (cty.Value, error) {
 	if val = toCtyUnwrapPointer(val); !val.IsValid() {
 		return cty.NullVal(cty.DynamicPseudoType), nil
 	}
@@ -511,7 +524,8 @@ func toCtyDynamic(val reflect.Value, path cty.Path) (cty.Value, error) {
 
 }
 
-func toCtyPassthrough(wrappedVal reflect.Value, wantTy cty.Type, path cty.Path) (cty.Value, error) {
+
+tyPassthrough(wrappedVal reflect.Value, wantTy cty.Type, path cty.Path) (cty.Value, error) {
 	if wrappedVal = toCtyUnwrapPointer(wrappedVal); !wrappedVal.IsValid() {
 		return cty.NullVal(wantTy), nil
 	}
@@ -535,7 +549,8 @@ func toCtyPassthrough(wrappedVal reflect.Value, wantTy cty.Type, path cty.Path) 
 //
 // For nested pointer types, like **int, they are all dereferenced in turn
 // until a non-pointer value is found, or until a nil pointer is encountered.
-func toCtyUnwrapPointer(val reflect.Value) reflect.Value {
+
+tyUnwrapPointer(val reflect.Value) reflect.Value {
 	for val.Kind() == reflect.Ptr || val.Kind() == reflect.Interface {
 		if val.IsNil() {
 			return reflect.Value{}

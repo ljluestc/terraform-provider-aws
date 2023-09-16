@@ -25,10 +25,10 @@ func TestAccRedshiftServerlessNamespace_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_basic(rName),
@@ -71,10 +71,10 @@ func TestAccRedshiftServerlessNamespace_defaultIAMRole(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_defaultIAMRole(rName),
@@ -99,10 +99,10 @@ func TestAccRedshiftServerlessNamespace_user(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_basic(rName),
@@ -132,10 +132,10 @@ func TestAccRedshiftServerlessNamespace_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_tags1(rName, "key1", "value1"),
@@ -176,10 +176,10 @@ func TestAccRedshiftServerlessNamespace_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_basic(rName),
@@ -199,10 +199,10 @@ func TestAccRedshiftServerlessNamespace_withWorkgroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
+		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNamespaceConfig_withWorkgroup(rName),
@@ -277,11 +277,11 @@ resource "aws_iam_role" "test" {
         {
             "Effect": "Allow",
             "Principal": {
-                "Service": [
-                    "redshift-serverless.amazonaws.com",
-                    "redshift.amazonaws.com",
-                    "sagemaker.amazonaws.com"
-                ]
+   "Service": [
+       "redshift-serverless.amazonaws.com",
+       "redshift.amazonaws.com",
+       "sagemaker.amazonaws.com"
+   ]
             },
             "Action": "sts:AssumeRole"
         }

@@ -29,10 +29,10 @@ func TestAccDirectConnectBGPPeer_basic(t *testing.T) {
 	bgpAsn := sdkacctest.RandIntRange(64512, 65534)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBGPPeerDestroy(ctx),
+		CheckDestroy:testAccCheckBGPPeerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBGPPeerConfig_basic(vifId, bgpAsn),

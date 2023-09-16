@@ -4,7 +4,8 @@ package pkgbits
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -36,8 +37,9 @@ func _() {
 	_ = x[SyncSym-26]
 	_ = x[SyncLocalIdent-27]
 	_ = x[SyncSelector-28]
-	_ = x[SyncPrivate-29]
-	_ = x[SyncFuncExt-30]
+	_ = x[Syncate-29]
+	_ = x[Sync
+Ext-30]
 	_ = x[SyncVarExt-31]
 	_ = x[SyncTypeExt-32]
 	_ = x[SyncPragma-33]
@@ -45,12 +47,14 @@ func _() {
 	_ = x[SyncExprs-35]
 	_ = x[SyncExpr-36]
 	_ = x[SyncExprType-37]
-	_ = x[SyncAssign-38]
+	_ = x[Syncgn-38]
 	_ = x[SyncOp-39]
-	_ = x[SyncFuncLit-40]
+	_ = x[Sync
+Lit-40]
 	_ = x[SyncCompLit-41]
 	_ = x[SyncDecl-42]
-	_ = x[SyncFuncBody-43]
+	_ = x[Sync
+Body-43]
 	_ = x[SyncOpenScope-44]
 	_ = x[SyncCloseScope-45]
 	_ = x[SyncCloseAnotherScope-46]
@@ -76,11 +80,15 @@ func _() {
 	_ = x[SyncOptLabel-66]
 }
 
-const _SyncMarker_name = "EOFBoolInt64Uint64StringValueValRelocsRelocUseRelocPublicPosPosBaseObjectObject1PkgPkgDefMethodTypeTypeIdxTypeParamNamesSignatureParamsParamCodeObjSymLocalIdentSelectorPrivateFuncExtVarExtTypeExtPragmaExprListExprsExprExprTypeAssignOpFuncLitCompLitDeclFuncBodyOpenScopeCloseScopeCloseAnotherScopeDeclNamesDeclNameStmtsBlockStmtIfStmtForStmtSwitchStmtRangeStmtCaseClauseCommClauseSelectStmtDeclsLabeledStmtUseObjLocalAddLocalLinknameStmt1StmtsEndLabelOptLabel"
+t _SyncMarker_name = "EOFBoolInt64Uint64StringValueValRelocsRelocUseRelocPublicPosPosBaseObjectObject1PkgPkgDefMethodTypeTypeIdxTypeParamNamesSignatureParamsParamCodeObjSymLocalIdentSelectorPrivate
+ExtVarExtTypeExtPragmaExprListExprsExprExprTypeAssignOp
+LitCompLitDecl
+BodyOpenScopeCloseScopeCloseAnotherScopeDeclNamesDeclNameStmtsBlockStmtIfStmtForStmtSwitchStmtRangeStmtCaseClauseCommClauseSelectStmtDeclsLabeledStmtUseObjLocalAddLocalLinknameStmt1StmtsEndLabelOptLabel"
 
 var _SyncMarker_index = [...]uint16{0, 3, 7, 12, 18, 24, 29, 32, 38, 43, 51, 57, 60, 67, 73, 80, 83, 89, 95, 99, 106, 120, 129, 135, 140, 147, 150, 160, 168, 175, 182, 188, 195, 201, 209, 214, 218, 226, 232, 234, 241, 248, 252, 260, 269, 279, 296, 305, 313, 318, 327, 333, 340, 350, 359, 369, 379, 389, 394, 405, 416, 424, 432, 437, 445, 450, 458}
 
-func (i SyncMarker) String() string {
+
+ (i SyncMarker) String() string {
 	i -= 1
 	if i < 0 || i >= SyncMarker(len(_SyncMarker_index)-1) {
 		return "SyncMarker(" + strconv.FormatInt(int64(i+1), 10) + ")"

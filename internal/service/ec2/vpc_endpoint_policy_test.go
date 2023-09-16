@@ -15,8 +15,7 @@ import (
 )
 
 
-func TestAccVPCEndpointPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var endpoint ec2.VpcEndpoint
 
 	resourceName := "aws_vpc_endpoint_policy.test"
@@ -25,20 +24,18 @@ func TestAccVPCEndpointPolicy_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -47,8 +44,7 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 ),
-	},
-},
+func
 	})
 }
 
@@ -57,17 +53,15 @@ func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var endpoint ec2.VpcEndpoint
 	resourceName := "aws_vpc_endpoint_policy.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
+funcig: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
@@ -75,8 +69,7 @@ func(
 ),
 ExpectNonEmptyPlan: true,
 	},
-},
-	})
+func
 }
 
 
@@ -87,17 +80,15 @@ func TestAccVPCEndpointPolicy_disappears_endpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
+functAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpoint(), "aws_vpc_endpoint.test"),
 ),
 ExpectNonEmptyPlan: true,
@@ -105,21 +96,20 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-const policy1 = `
+funct policy1 = `
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "ReadOnly",
-      "Principal": "*",
-      "Action": [
-        "dynamodb:DescribeTable",
-        "dynamodb:ListTables"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+
+eadOnly",
+l": "*",
+ [
+db:DescribeTable",
+db:ListTables"
+
+ "Allow",
+": "*"
+
   ]
 }
 `
@@ -128,15 +118,15 @@ const policy2 = `
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowAll",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+
+llowAll",
+ "Allow",
+l": {
+"*"
+
+ "*",
+": "*"
+
   ]
 }
 `
@@ -152,16 +142,15 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_vpc_endpoint" "test" {
   service_name = data.aws_vpc_endpoint_service.test.service_name
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

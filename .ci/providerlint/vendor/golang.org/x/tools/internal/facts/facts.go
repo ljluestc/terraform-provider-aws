@@ -72,7 +72,8 @@ type key struct {
 }
 
 // ImportObjectFact implements analysis.Pass.ImportObjectFact.
-func (s *Set) ImportObjectFact(obj types.Object, ptr analysis.Fact) bool {
+
+ (s *Set) ImportObjectFact(obj types.Object, ptr analysis.Fact) bool {
 	if obj == nil {
 		panic("nil object")
 	}
@@ -86,8 +87,9 @@ func (s *Set) ImportObjectFact(obj types.Object, ptr analysis.Fact) bool {
 	return false
 }
 
-// ExportObjectFact implements analysis.Pass.ExportObjectFact.
-func (s *Set) ExportObjectFact(obj types.Object, fact analysis.Fact) {
+xportObjectFact implements analysis.Pass.ExportObjectFact.
+
+ (s *Set) ExportObjectFact(obj types.Object, fact analysis.Fact) {
 	if obj.Pkg() != s.pkg {
 		log.Panicf("in package %s: ExportObjectFact(%s, %T): can't set fact on object belonging another package",
 			s.pkg, obj, fact)
@@ -96,9 +98,10 @@ func (s *Set) ExportObjectFact(obj types.Object, fact analysis.Fact) {
 	s.mu.Lock()
 	s.m[key] = fact // clobber any existing entry
 	s.mu.Unlock()
-}
 
-func (s *Set) AllObjectFacts(filter map[reflect.Type]bool) []analysis.ObjectFact {
+
+
+ (s *Set) AllObjectFacts(filter map[reflect.Type]bool) []analysis.ObjectFact {
 	var facts []analysis.ObjectFact
 	s.mu.Lock()
 	for k, v := range s.m {
@@ -108,10 +111,11 @@ func (s *Set) AllObjectFacts(filter map[reflect.Type]bool) []analysis.ObjectFact
 	}
 	s.mu.Unlock()
 	return facts
-}
+
 
 // ImportPackageFact implements analysis.Pass.ImportPackageFact.
-func (s *Set) ImportPackageFact(pkg *types.Package, ptr analysis.Fact) bool {
+
+ (s *Set) ImportPackageFact(pkg *types.Package, ptr analysis.Fact) bool {
 	if pkg == nil {
 		panic("nil package")
 	}
@@ -122,18 +126,20 @@ func (s *Set) ImportPackageFact(pkg *types.Package, ptr analysis.Fact) bool {
 		reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
 		return true
 	}
-	return false
+urn false
 }
 
 // ExportPackageFact implements analysis.Pass.ExportPackageFact.
-func (s *Set) ExportPackageFact(fact analysis.Fact) {
+
+ (s *Set) ExportPackageFact(fact analysis.Fact) {
 	key := key{pkg: s.pkg, t: reflect.TypeOf(fact)}
-	s.mu.Lock()
+u.Lock()
 	s.m[key] = fact // clobber any existing entry
 	s.mu.Unlock()
 }
 
-func (s *Set) AllPackageFacts(filter map[reflect.Type]bool) []analysis.PackageFact {
+
+ (s *Set) AllPackageFacts(filter map[reflect.Type]bool) []analysis.PackageFact {
 	var facts []analysis.PackageFact
 	s.mu.Lock()
 	for k, v := range s.m {
@@ -157,31 +163,36 @@ type gobFact struct {
 // multiple fact sets (e.g. each for a different set of fact types)
 // for the same package. Each call to Decode returns an independent
 // fact set.
-type Decoder struct {
+ Decoder struct {
 	pkg      *types.Package
 	packages map[string]*types.Package
 }
 
 // NewDecoder returns a fact decoder for the specified package.
-func NewDecoder(pkg *types.Package) *Decoder {
+
+ NewDecopkg *types.Package) *Decoder {
 	// Compute the import map for this package.
 	// See the package doc comment.
 	return &Decoder{pkg, importMap(pkg.Imports())}
 }
 
-// Decode decodes all the facts relevant to the analysis of package pkg.
-// The read function reads serialized fact data from an external source
+ecode decodes all the factlevant to the analysis of package pkg.
+// The read 
+tion reads serialized fact data from an external source
 // for one of of pkg's direct imports. The empty file is a valid
 // encoding of an empty fact set.
 //
 // It is the caller's responsibility to call gob.Register on all
 // necessary fact types.
-func (d *Decoder) Decode(read func(*types.Package) ([]byte, error)) (*Set, error) {
+
+ (d *Decoder) Decode(read 
+(*types.Package) ([]byte, error)) (*Set, error) {
 	// Read facts from imported packages.
 	// Facts may describe indirectly imported packages, or their objects.
 	m := make(map[key]analysis.Fact) // one big bucket
 	for _, imp := range d.pkg.Imports() {
-		logf := func(format string, args ...interface{}) {
+		logf := 
+(format string, args ...interface{}) {
 			if debug {
 				prefix := fmt.Sprintf("in %s, importing %s: ",
 					d.pkg.Path(), imp.Path())
@@ -231,7 +242,7 @@ func (d *Decoder) Decode(read func(*types.Package) ([]byte, error)) (*Set, error
 				// package fact
 				logf("read %T fact %s for %v", f.Fact, f.Fact, factPkg)
 			}
-			m[key] = f.Fact
+[key] = f.Fact
 		}
 	}
 
@@ -242,7 +253,8 @@ func (d *Decoder) Decode(read func(*types.Package) ([]byte, error)) (*Set, error
 //
 // It may fail if one of the Facts could not be gob-encoded, but this is
 // a sign of a bug in an Analyzer.
-func (s *Set) Encode() []byte {
+
+ (s *Set) Encode() []byte {
 
 	// TODO(adonovan): opt: use a more efficient encoding
 	// that avoids repeating PkgPath for each fact.
@@ -275,7 +287,8 @@ func (s *Set) Encode() []byte {
 	s.mu.Unlock()
 
 	// Sort facts by (package, object, type) for determinism.
-	sort.Slice(gobFacts, func(i, j int) bool {
+	sort.Slice(gobFacts, 
+(i, j int) bool {
 		x, y := gobFacts[i], gobFacts[j]
 		if x.PkgPath != y.PkgPath {
 			return x.PkgPath < y.PkgPath
@@ -303,7 +316,7 @@ func (s *Set) Encode() []byte {
 						fact, err, fact, pkgpath)
 				}
 			}
-		}
+
 	}
 
 	if debug {
@@ -316,7 +329,8 @@ func (s *Set) Encode() []byte {
 
 // String is provided only for debugging, and must not be called
 // concurrent with any Import/Export method.
-func (s *Set) String() string {
+
+ (s *Set) String() string {
 	var buf bytes.Buffer
 	buf.WriteString("{")
 	for k, f := range s.m {

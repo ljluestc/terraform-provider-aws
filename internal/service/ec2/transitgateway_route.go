@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_route")
 
-func ResourceTransitGatewayRoute() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceTransitGatewayRouteCreate,
-ReadWithoutTimeout:   resourceTransitGatewayRouteRead,
+ReadWithoutTimeout:ourceTransitGatewayRouteRead,
 DeleteWithoutTimeout: resourceTransitGatewayRouteDelete,
 Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
@@ -34,49 +33,44 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"blackhole": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 ForceNew: true,
 Default:  false,
 	},
 	"destination_cidr_block": {
-Type:    schema.TypeString,
+Type:hema.TypeString,
 Required:true,
 ForceNew:true,
 Validate
-func:     verify.ValidCIDRNetworkAddress,
-DiffSuppress
+func:idCIDRNetworkAddress,
 func: suppressEqualCIDRBlockDiffs,
 	},
-	"transit_gateway_attachment_id": {
-Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+func:schema.TypeString,
+Optional:
+ForceNew:
 Validate
 func: validation.NoZeroValues,
 	},
 	"transit_gateway_route_table_id": {
-Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+funcired:
+ForceNew:
 Validate
 func: validation.NoZeroValues,
 	},
 },
 	}
-}
-
+func
 
 func resourceTransitGatewayRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	destination := d.Get("destination_cidr_block").(string)
-	transitGatewayRouteTableID := d.Get("transit_gateway_route_table_id").(string)
-	id := TransitGatewayRouteCreateResourceID(transitGatewayRouteTableID, destination)
+func:= TransitGatewayRouteCreateResourceID(transitGatewayRouteTableID, destination)
 	input := &ec2.CreateTransitGatewayRouteInput{
-Blackhole:   aws.Bool(d.Get("blackhole").(bool)),
-DestinationCidrBlock:       aws.String(destination),
+Blackhole:.Bool(d.Get("blackhole").(bool)),
+DestinationCidrBlock:ng(destination),
 TransitGatewayAttachmentId: aws.String(d.Get("transit_gateway_attachment_id").(string)),
 TransitGatewayRouteTableId: aws.String(transitGatewayRouteTableID),
 	}
@@ -104,8 +98,7 @@ func resourceTransitGatewayRouteRead(ctx context.Context, d *schema.ResourceData
 
 	transitGatewayRouteTableID, destination, err := TransitGatewayRouteParseResourceID(d.Id())
 
-	if err != nil {
-return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route (%s): %s", d.Id(), err)
+funcrn sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route (%s): %s", d.Id(), err)
 	}
 
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
@@ -116,8 +109,7 @@ return FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, dest
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] EC2 Transit Gateway Route %s not found, removing from state", d.Id())
 d.SetId("")
-return diags
-	}
+func
 
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route (%s): %s", d.Id(), err)
@@ -147,11 +139,10 @@ func resourceTransitGatewayRouteDelete(ctx context.Context, d *schema.ResourceDa
 
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting EC2 Transit Gateway Route (%s): %s", d.Id(), err)
-	}
-
+func
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Route: %s", d.Id())
 	_, err = conn.DeleteTransitGatewayRouteWithContext(ctx, &ec2.DeleteTransitGatewayRouteInput{
-DestinationCidrBlock:       aws.String(destination),
+DestinationCidrBlock:ng(destination),
 TransitGatewayRouteTableId: aws.String(transitGatewayRouteTableID),
 	})
 
@@ -182,11 +173,11 @@ func TransitGatewayRouteCreateResourceID(transitGatewayRouteTableID, destination
 
 
 func TransitGatewayRouteParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, transitGatewayRouteIDSeparator)
-
+func
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 return parts[0], parts[1], nil
 	}
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected TRANSIT-GATEWAY-ROUTE-TABLE-ID%[2]sDESTINATION", id, transitGatewayRouteIDSeparator)
 }
+func

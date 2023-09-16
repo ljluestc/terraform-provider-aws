@@ -11,6 +11,7 @@ package unix
 
 import "syscall"
 
-func Getpagesize() int {
+
+pagesize() int {
 	return syscall.Getpagesize()
 }

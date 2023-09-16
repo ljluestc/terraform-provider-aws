@@ -14,7 +14,8 @@ type typeList struct {
 // List creates a map type with the given element Type.
 //
 // List types are CollectionType implementations.
-func List(elem Type) Type {
+
+t(elem Type) Type {
 	return Type{
 		typeList{
 			ElementTypeT: elem,
@@ -24,7 +25,8 @@ func List(elem Type) Type {
 
 // Equals returns true if the other Type is a list whose element type is
 // equal to that of the receiver.
-func (t typeList) Equals(other Type) bool {
+
+typeList) Equals(other Type) bool {
 	ot, isList := other.typeImpl.(typeList)
 	if !isList {
 		return false
@@ -33,7 +35,8 @@ func (t typeList) Equals(other Type) bool {
 	return t.ElementTypeT.Equals(ot.ElementTypeT)
 }
 
-func (t typeList) FriendlyName(mode friendlyTypeNameMode) string {
+
+typeList) FriendlyName(mode friendlyTypeNameMode) string {
 	elemName := t.ElementTypeT.friendlyNameMode(mode)
 	if mode == friendlyTypeConstraintName {
 		if t.ElementTypeT == DynamicPseudoType {
@@ -43,17 +46,20 @@ func (t typeList) FriendlyName(mode friendlyTypeNameMode) string {
 	return "list of " + elemName
 }
 
-func (t typeList) ElementType() Type {
+
+typeList) ElementType() Type {
 	return t.ElementTypeT
 }
 
-func (t typeList) GoString() string {
+
+typeList) GoString() string {
 	return fmt.Sprintf("cty.List(%#v)", t.ElementTypeT)
 }
 
 // IsListType returns true if the given type is a list type, regardless of its
 // element type.
-func (t Type) IsListType() bool {
+
+Type) IsListType() bool {
 	_, ok := t.typeImpl.(typeList)
 	return ok
 }
@@ -66,7 +72,8 @@ func (t Type) IsListType() bool {
 //     if et := t.ListElementType(); et != nil {
 //         // Do something with *et
 //     }
-func (t Type) ListElementType() *Type {
+
+Type) ListElementType() *Type {
 	if lt, ok := t.typeImpl.(typeList); ok {
 		return &lt.ElementTypeT
 	}

@@ -12,14 +12,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayRestAPIDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
 	dataSourceName := "data.aws_api_gateway_rest_api.test"
 	resourceName := "aws_api_gateway_rest_api.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -43,13 +42,12 @@ func TestAccAPIGatewayRestAPIDataSource_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayRestAPIDataSource_Endpoint_vpcEndpointIDs(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandString(8)
+funcme := sdkacctest.RandString(8)
 	dataSourceName := "data.aws_api_gateway_rest_api.test"
 	resourceName := "aws_api_gateway_rest_api.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -75,8 +73,7 @@ func TestAccAPIGatewayRestAPIDataSource_Endpoint_vpcEndpointIDs(t *testing.T) {
 
 func testAccRestAPIDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		testAccRestAPIConfig_name(rName),
-		`
+func
 data "aws_api_gateway_rest_api" "test" {
   name = aws_api_gateway_rest_api.test.name
 }
@@ -87,8 +84,7 @@ data "aws_api_gateway_rest_api" "test" {
 func testAccRestAPIDataSourceConfig_Endpoint_vpcEndpointIDs(rName string) string {
 	return acctest.ConfigCompose(
 		testAccRestAPIConfig_vpcEndpointIDs1(rName),
-		`
-data "aws_api_gateway_rest_api" "test" {
+func "aws_api_gateway_rest_api" "test" {
   name = aws_api_gateway_rest_api.test.name
 }
 `,

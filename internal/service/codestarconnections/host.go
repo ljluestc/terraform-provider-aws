@@ -55,7 +55,7 @@ func resourceHost() *schema.Resource {
 				Required: true,
 			},
 			"provider_type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				ValidateDiagFunc: enum.Validate[types.ProviderType](),
@@ -103,7 +103,7 @@ func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	name := d.Get("name").(string)
 	input := &codestarconnections.CreateHostInput{
-		Name:             aws.String(name),
+		Name:aws.String(name),
 		ProviderEndpoint: aws.String(d.Get("provider_endpoint").(string)),
 		ProviderType:     types.ProviderType(d.Get("provider_type").(string)),
 		VpcConfiguration: expandHostVPCConfiguration(d.Get("vpc_configuration").([]interface{})),
@@ -225,7 +225,7 @@ func flattenHostVPCConfiguration(vpcConfig *types.VpcConfiguration) []interface{
 	m := map[string]interface{}{
 		"security_group_ids": vpcConfig.SecurityGroupIds,
 		"subnet_ids":         vpcConfig.SubnetIds,
-		"vpc_id":             aws.ToString(vpcConfig.VpcId),
+		"vpc_id":aws.ToString(vpcConfig.VpcId),
 	}
 
 	if vpcConfig.TlsCertificate != nil {
@@ -279,7 +279,7 @@ func statusHost(ctx context.Context, conn *codestarconnections.Client, arn strin
 const (
 	hostStatusAvailable = "AVAILABLE"
 	hostStatusPending   = "PENDING"
-	// hostStatusVPCConfigDeleting             = "VPC_CONFIG_DELETING"
+	// hostStatusVPCConfigDeleting= "VPC_CONFIG_DELETING"
 	// hostStatusVPCConfigFailedInitialization = "VPC_CONFIG_FAILED_INITIALIZATION"
 	hostStatusVPCConfigInitializing = "VPC_CONFIG_INITIALIZING"
 )

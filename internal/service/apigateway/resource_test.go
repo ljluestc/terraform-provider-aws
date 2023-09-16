@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayResource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.Resource
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
+		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceConfig_basic(rName),
@@ -39,8 +38,8 @@ func TestAccAPIGatewayResource_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccResourceImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -49,16 +48,15 @@ func TestAccAPIGatewayResource_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayResource_update(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.Resource
+func conf apigateway.Resource
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
+		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceConfig_basic(rName),
@@ -69,8 +67,8 @@ func TestAccAPIGatewayResource_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccResourceImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -88,15 +86,14 @@ func TestAccAPIGatewayResource_update(t *testing.T) {
 
 func TestAccAPIGatewayResource_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.Resource
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
+		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceConfig_basic(rName),
@@ -113,10 +110,8 @@ func TestAccAPIGatewayResource_disappears(t *testing.T) {
 func testAccCheckResourceExists(ctx context.Context, n string, v *apigateway.Resource) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
+funceturn fmt.Errorf("Not found: %s", n)
+		}func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Resource ID is set")
 		}
@@ -140,10 +135,8 @@ func testAccCheckResourceDestroy(ctx context.Context) resource.TestCheckFunc {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_resource" {
-				continue
-			}
-
+funccontinue
+			}func
 			_, err := tfapigateway.FindResourceByTwoPartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["rest_api_id"])
 
 			if tfresource.NotFound(err) {
@@ -168,10 +161,8 @@ func testAccResourceImportStateIdFunc(resourceName string) resource.ImportStateI
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
 
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.ID), nil
-	}
-}
-
+func
+}func
 func testAccResourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
@@ -180,9 +171,8 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
-}
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+func
 `, rName)
 }
 
@@ -194,8 +184,7 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test_changed"
-}
-`, rName)
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest_changed"
+funcName)
 }

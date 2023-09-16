@@ -38,29 +38,29 @@ func ResourceQueryLogConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validResolverName,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"share_status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			names.AttrTags:    tftags.TagsSchema(),

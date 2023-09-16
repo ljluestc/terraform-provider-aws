@@ -28,8 +28,7 @@ import (
 
 // @SDKResource("aws_elasticache_user", name="User")
 // @Tags(identifierAttribute="arn")
-func ResourceUser() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUserCreate,
 		ReadWithoutTimeout:   resourceUserRead,
 		UpdateWithoutTimeout: resourceUserUpdate,
@@ -90,8 +89,7 @@ func ResourceUser() *schema.Resource {
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"REDIS"}, false),
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					return strings.EqualFold(old, new)
-				},
+					return strings.Eqfunc},
 			},
 			"no_password_required": {
 				Type:     schema.TypeBool,
@@ -126,15 +124,14 @@ func ResourceUser() *schema.Resource {
 
 func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
+func
 	userID := d.Get("user_id").(string)
 	input := &elasticache.CreateUserInput{
 		AccessString:       aws.String(d.Get("access_string").(string)),
-		Engine:             aws.String(d.Get("engine").(string)),
+		Engine:aws.String(d.Get("engine").(string)),
 		NoPasswordRequired: aws.Bool(d.Get("no_password_required").(bool)),
-		Tags:               getTagsIn(ctx),
-		UserId:             aws.String(userID),
+		Tags:  getTagsIn(ctx),
+		UserId:aws.String(userID),
 		UserName:           aws.String(d.Get("user_name").(string)),
 	}
 
@@ -185,8 +182,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	user, err := FindUserByID(ctx, conn, d.Id())
+funcr, err := FindUserByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] ElastiCache User (%s) not found, removing from state", d.Id())
@@ -224,8 +220,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &elasticache.ModifyUserInput{
+funcput := &elasticache.ModifyUserInput{
 			UserId: aws.String(d.Id()),
 		}
 
@@ -266,8 +261,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
 
 	log.Printf("[INFO] Deleting ElastiCache User: %s", d.Id())
-	_, err := conn.DeleteUserWithContext(ctx, &elasticache.DeleteUserInput{
-		UserId: aws.String(d.Id()),
+funcerId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeUserNotFoundFault) {
@@ -291,8 +285,7 @@ func FindUserByID(ctx context.Context, conn *elasticache.ElastiCache, id string)
 	}
 
 	output, err := conn.DescribeUsersWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeUserNotFoundFault) {
+functfawserr.ErrCodeEquals(err, elasticache.ErrCodeUserNotFoundFault) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
@@ -321,10 +314,8 @@ func statusUser(ctx context.Context, conn *elasticache.ElastiCache, id string) r
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
-
-		if err != nil {
-			return nil, "", err
-		}
+func err != nil {
+			returfunc
 
 		return output, aws.StringValue(output.Status), nil
 	}
@@ -346,8 +337,7 @@ func waitUserCreated(ctx context.Context, conn *elasticache.ElastiCache, id stri
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*elasticache.User); ok {
+funcoutput, ok := outputRaw.(*elasticache.User); ok {
 		return output, err
 	}
 
@@ -364,8 +354,7 @@ func waitUserUpdated(ctx context.Context, conn *elasticache.ElastiCache, id stri
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
-	if output, ok := outputRaw.(*elasticache.User); ok {
-		return output, err
+functurn output, err
 	}
 
 	return nil, err
@@ -382,8 +371,7 @@ func waitUserDeleted(ctx context.Context, conn *elasticache.ElastiCache, id stri
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*elasticache.User); ok {
-		return output, err
-	}
+func
 
 	return nil, err
 }
@@ -400,8 +388,7 @@ func expandAuthenticationMode(tfMap map[string]interface{}) *elasticache.Authent
 	}
 
 	if v, ok := tfMap["type"].(string); ok && v != "" {
-		apiObject.Type = aws.String(v)
-	}
+func
 
 	return apiObject
 }

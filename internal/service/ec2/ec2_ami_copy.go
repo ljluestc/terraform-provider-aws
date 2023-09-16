@@ -26,12 +26,11 @@ import (
 // @SDKResource("aws_ami_copy", name="AMI")
 // @Tags(identifierAttribute="id")
 
-func ResourceAMICopy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceAMICopyCreate,
 // The remaining operations are shared with the generic aws_ami resource,
 // since the aws_ami_copy resource only differs in how it's created.
-ReadWithoutTimeout:   resourceAMIRead,
+ReadWithoutTimeout:ourceAMIRead,
 UpdateWithoutTimeout: resourceAMIUpdate,
 DeleteWithoutTimeout: resourceAMIDelete,
 
@@ -44,82 +43,79 @@ Timeouts: &schema.ResourceTimeout{
 // Keep in sync with aws_ami's schema.
 Schema: map[string]*schema.Schema{
 	"architecture": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"boot_mode": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"deprecation_time": {
-Type:   schema.TypeString,
-Optional:     true,
+Type:ema.TypeString,
+Optional:
 Validate
 func: validation.IsRFC3339Time,
-DiffSuppress
-func:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
+func:ppressEquivalentRoundedTime(time.RFC3339, time.Minute),
 DiffSuppressOnRefresh: true,
-	},
-	"description": {
-Type:     schema.TypeString,
+funcscription": {
+Type:eString,
 Optional: true,
 	},
 	"destination_outpost_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:
 Validate
 func: verify.ValidARN,
 	},
 	// The following block device attributes intentionally mimick the
-	// corresponding attributes on aws_instance, since they have the
-	// same meaning.
+funcsame meaning.
 	// However, we don't use root_block_device here because the constraint
 	// on which root device attributes can be overridden for an instance to
 	// not apply when registering an AMI.
 	"ebs_block_device": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "delete_on_termination": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Computed: true,
 },
 "device_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "encrypted": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Computed: true,
 },
 "iops": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Computed: true,
 },
 "outpost_arn": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "snapshot_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "throughput": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Computed: true,
 },
 "volume_size": {
-	Type:     schema.TypeInt,
+	Type:eInt,
 	Computed: true,
 },
 "volume_type": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
@@ -129,33 +125,32 @@ func(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
-	buf.WriteString(fmt.Sprintf("%s-", m["snapshot_id"].(string)))
-	return create.StringHashcode(buf.String())
+funcurn create.StringHashcode(buf.String())
 },
 	},
 	"ena_support": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"encrypted": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  false,
 ForceNew: true,
 	},
 	"ephemeral_block_device": {
-Type:     schema.TypeSet,
+Type:eSet,
 Optional: true,
 Computed: true,
 ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "device_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 "virtual_name": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
@@ -166,38 +161,37 @@ func(v interface{}) int {
 	m := v.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
 	buf.WriteString(fmt.Sprintf("%s-", m["virtual_name"].(string)))
-	return create.StringHashcode(buf.String())
-},
+func
 	},
 	"hypervisor": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_location": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_owner_alias": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"image_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"imds_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"kernel_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"kms_key_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:
+Computed:
+ForceNew:
 Validate
 func: verify.ValidARN,
 	},
@@ -205,69 +199,68 @@ func: verify.ValidARN,
 	// resources record that they implicitly created new EBS snapshots that we should
 	// now manage. Not set by aws_ami, since the snapshots used there are presumed to
 	// be independently managed.
-	"manage_ebs_snapshots": {
-Type:     schema.TypeBool,
+func:eBool,
 Computed: true,
 	},
 	"name": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"owner_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"platform": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"platform_details": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"public": {
-Type:     schema.TypeBool,
+Type:eBool,
 Computed: true,
 	},
 	"ramdisk_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"root_device_name": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"root_snapshot_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"source_ami_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"source_ami_region": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"sriov_net_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"tpm_support": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"usage_operation": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"virtualization_type": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 },
@@ -284,9 +277,8 @@ func resourceAMICopyCreate(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	sourceImageID := d.Get("source_ami_id").(string)
 	input := &ec2.CopyImageInput{
-ClientToken:   aws.String(id.UniqueId()),
-Description:   aws.String(d.Get("description").(string)),
-Encrypted:     aws.Bool(d.Get("encrypted").(bool)),
+funcription:.String(d.Get("description").(string)),
+Encrypted:.Get("encrypted").(bool)),
 Name: aws.String(name),
 SourceImageId: aws.String(sourceImageID),
 SourceRegion:  aws.String(d.Get("source_ami_region").(string)),

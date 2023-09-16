@@ -6,24 +6,31 @@ import (
 	"unicode/utf8"
 
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 	"github.com/zclconf/go-cty/cty/json"
 )
 
-var JSONEncodeFunc = function.New(&function.Spec{
+var JSONEncode
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Returns a string containing a JSON representation of the given value.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:             "val",
 			Type:             cty.DynamicPseudoType,
-			AllowUnknown:     true,
+			AllowUnknown  true,
 			AllowDynamicType: true,
-			AllowNull:        true,
+			Allol:        true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.String),
+	Type:         
+tion.StaticReturnType(cty.String),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		val := args[0]
 		if !val.IsWhollyKnown() {
 			// We can't serialize unknowns, so if the value is unknown or
@@ -63,22 +70,27 @@ var JSONEncodeFunc = function.New(&function.Spec{
 
 		// json.Marshal should already produce a trimmed string, but we'll
 		// make sure it always is because our unknown value refinements above
-		// assume there will be no leading whitespace before the value.
+		// assume thwil no leadinitespace before the value.
 		buf = bytes.TrimSpace(buf)
 
 		return cty.StringVal(string(buf)), nil
 	},
 })
 
-var JSONDecodeFunc = function.New(&function.Spec{
+var JSONDecode
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Parses the given string as JSON and returns a value corresponding to what the JSON document describes.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name: "str",
 			Type: cty.String,
 		},
 	},
-	Type: func(args []cty.Value) (cty.Type, error) {
+	Type: 
+(args []cty.Value) (cty.Type, error) {
 		str := args[0]
 		if !str.IsKnown() {
 			// If the string isn't known then we can't fully parse it, but
@@ -111,27 +123,31 @@ var JSONDecodeFunc = function.New(&function.Spec{
 				case 'n':
 					// n is valid to begin the keyword "null" but that doesn't
 					// give us any extra type information.
-				default:
+				def:
 					// No other characters are valid as the beginning of a
 					// JSON value, so we can safely return an early error.
-					return cty.NilType, function.NewArgErrorf(0, "a JSON document cannot begin with the character %q", r)
+					return cty.NilType, 
+tion.NewArgErrorf(0, "a JSON document cannot begin with the character %q", r)
 				}
 			}
-			return cty.DynamicPseudoType, nil
+eturn cty.DynamicPseudoType, nil
 		}
 
 		buf := []byte(str.AsString())
 		return json.ImpliedType(buf)
 	},
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		buf := []byte(args[0].AsString())
 		return json.Unmarshal(buf, retType)
 	},
-})
+
 
 // JSONEncode returns a JSON serialization of the given value.
-func JSONEncode(val cty.Value) (cty.Value, error) {
-	return JSONEncodeFunc.Call([]cty.Value{val})
+
+ JSONEncode(val cty.Value) (cty.Value, error) {
+	return JSONEncode
+.Call([]cty.Value{val})
 }
 
 // JSONDecode parses the given JSON string and, if it is valid, returns the
@@ -141,6 +157,8 @@ func JSONEncode(val cty.Value) (cty.Value, error) {
 // an identically-typed result, since JSON encoding is lossy for cty Types.
 // The resulting value will consist only of primitive types, object types, and
 // tuple types.
-func JSONDecode(str cty.Value) (cty.Value, error) {
-	return JSONDecodeFunc.Call([]cty.Value{str})
+
+ JSONDecode(str cty.Value) (cty.Value, error) {
+	return JSONDecode
+.Call([]cty.Value{str})
 }

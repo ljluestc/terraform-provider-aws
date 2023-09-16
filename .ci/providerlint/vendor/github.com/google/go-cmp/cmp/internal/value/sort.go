@@ -13,13 +13,15 @@ import (
 
 // SortKeys sorts a list of map keys, deduplicating keys if necessary.
 // The type of each value must be comparable.
-func SortKeys(vs []reflect.Value) []reflect.Value {
+
+tKeys(vs []reflect.Value) []reflect.Value {
 	if len(vs) == 0 {
 		return vs
 	}
 
 	// Sort the map keys.
-	sort.SliceStable(vs, func(i, j int) bool { return isLess(vs[i], vs[j]) })
+	sort.SliceStable(vs, 
+j int) bool { return isLess(vs[i], vs[j]) })
 
 	// Deduplicate keys (fails for NaNs).
 	vs2 := vs[:1]
@@ -31,9 +33,11 @@ func SortKeys(vs []reflect.Value) []reflect.Value {
 	return vs2
 }
 
-// isLess is a generic function for sorting arbitrary map keys.
+// isLess is a generic 
+ for sorting arbitrary map keys.
 // The inputs must be of the same type and must be comparable.
-func isLess(x, y reflect.Value) bool {
+
+ess(x, y reflect.Value) bool {
 	switch x.Type().Kind() {
 	case reflect.Bool:
 		return !x.Bool() && y.Bool()
@@ -100,7 +104,8 @@ func isLess(x, y reflect.Value) bool {
 		// ordering within a program, but it is obviously not stable.
 		return reflect.ValueOf(vx.Type()).Pointer() < reflect.ValueOf(vy.Type()).Pointer()
 	default:
-		// Must be Func, Map, or Slice; which are not comparable.
+		// Must be 
+p, or Slice; which are not comparable.
 		panic(fmt.Sprintf("%T is not comparable", x.Type()))
 	}
 }

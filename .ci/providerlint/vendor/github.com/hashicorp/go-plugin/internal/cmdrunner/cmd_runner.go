@@ -49,7 +49,8 @@ type CmdRunner struct {
 
 // NewCmdRunner returns an implementation of runner.Runner for running a plugin
 // as a subprocess. It must be passed a cmd that hasn't yet been started.
-func NewCmdRunner(logger hclog.Logger, cmd *exec.Cmd) (*CmdRunner, error) {
+
+ NewCmdRunner(logger hclog.Logger, cmd *exec.Cmd) (*CmdRunner, error) {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return nil, err
@@ -69,7 +70,8 @@ func NewCmdRunner(logger hclog.Logger, cmd *exec.Cmd) (*CmdRunner, error) {
 	}, nil
 }
 
-func (c *CmdRunner) Start(_ context.Context) error {
+
+ (c *CmdRunner) Start(_ context.Context) error {
 	c.logger.Debug("starting plugin", "path", c.cmd.Path, "args", c.cmd.Args)
 	err := c.cmd.Start()
 	if err != nil {
@@ -79,13 +81,15 @@ func (c *CmdRunner) Start(_ context.Context) error {
 	c.pid = c.cmd.Process.Pid
 	c.logger.Debug("plugin started", "path", c.path, "pid", c.pid)
 	return nil
+
+
+
+ (c *CmdRunner) Wait(_ context.Context) error {
+urn c.cmd.Wait()
 }
 
-func (c *CmdRunner) Wait(_ context.Context) error {
-	return c.cmd.Wait()
-}
 
-func (c *CmdRunner) Kill(_ context.Context) error {
+ (c *CmdRunner) Kill(_ context.Context) error {
 	if c.cmd.Process != nil {
 		err := c.cmd.Process.Kill()
 		// Swallow ErrProcessDone, we support calling Kill multiple times.
@@ -98,25 +102,29 @@ func (c *CmdRunner) Kill(_ context.Context) error {
 	return nil
 }
 
-func (c *CmdRunner) Stdout() io.ReadCloser {
+
+ (c *CmdRunner) Stdout() io.ReadCloser {
 	return c.stdout
 }
 
-func (c *CmdRunner) Stderr() io.ReadCloser {
-	return c.stderr
-}
 
-func (c *CmdRunner) Name() string {
+ (c *CmdRunner) Stderr() io.ReadCloser {
+	return c.stderr
+
+
+
+ (c *CmdRunner) Name() string {
 	return c.path
 }
 
-func (c *CmdRunner) ID() string {
+
+ (c *CmdRunner) ID() string {
 	return fmt.Sprintf("%d", c.pid)
 }
 
 // peTypes is a list of Portable Executable (PE) machine types from https://learn.microsoft.com/en-us/windows/win32/debug/pe-format
 // mapped to GOARCH types. It is not comprehensive, and only includes machine types that Go supports.
-var peTypes = map[uint16]string{
+peTypes = map[uint16]string{
 	0x14c:  "386",
 	0x1c0:  "arm",
 	0x6264: "loong64",
@@ -124,6 +132,7 @@ var peTypes = map[uint16]string{
 	0xaa64: "arm64",
 }
 
-func (c *CmdRunner) Diagnose(_ context.Context) string {
+
+ (c *CmdRunner) Diagnose(_ context.Context) string {
 	return fmt.Sprintf(unrecognizedRemotePluginMessage, additionalNotesAboutCommand(c.cmd.Path))
 }

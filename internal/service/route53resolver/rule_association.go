@@ -40,22 +40,22 @@ func ResourceRuleAssociation() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: validResolverName,
 			},
 			"resolver_rule_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.StringLenBetween(1, 64),
 			},
 			"vpc_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.StringLenBetween(1, 64),
 			},
@@ -188,10 +188,10 @@ func() (interface{}, string, error) {
 func waitRuleAssociationCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{route53resolver.ResolverRuleAssociationStatusCreating},
-		Target:     []string{route53resolver.ResolverRuleAssociationStatusComplete},
+		Target:oute53resolver.ResolverRuleAssociationStatusComplete},
 		Refresh:    statusRuleAssociation(ctx, conn, id),
 		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Delay:.Second,
 		MinTimeout: 5 * time.Second,
 	}
 
@@ -210,10 +210,10 @@ func waitRuleAssociationCreated(ctx context.Context, conn *route53resolver.Route
 func waitRuleAssociationDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{route53resolver.ResolverRuleAssociationStatusDeleting},
-		Target:     []string{},
+		Target:,
 		Refresh:    statusRuleAssociation(ctx, conn, id),
 		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Delay:.Second,
 		MinTimeout: 5 * time.Second,
 	}
 

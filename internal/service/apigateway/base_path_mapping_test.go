@@ -18,40 +18,39 @@ import (
 	tfapigateway "github.com/hashicorp/terraform-provider-aws/internal/service/apigateway"
 )
 
-func TestDecodeBasePathMappingID(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	var testCases = []struct {
-		Input      string
+		Input
 		DomainName string
-		BasePath   string
-		ErrCount   int
+		BasePathing
+		ErrCount
 	}{
 		{
-			Input:    "no-slash",
+			Input:o-slash",
 			ErrCount: 1,
 		},
 		{
-			Input:    "/missing-domain-name",
+			Input:missing-domain-name",
 			ErrCount: 1,
 		},
 		{
-			Input:      "domain-name/base-path",
+			Input:n-name/base-path",
 			DomainName: "domain-name",
-			BasePath:   "base-path",
-			ErrCount:   0,
+			BasePath:se-path",
+			ErrCount:
 		},
 		{
-			Input:      "domain-name/base/path",
+			Input:n-name/base/path",
 			DomainName: "domain-name",
-			BasePath:   "base/path",
-			ErrCount:   0,
+			BasePath:se/path",
+			ErrCount:
 		},
 		{
-			Input:      "domain-name/",
+			Input:n-name/",
 			DomainName: "domain-name",
-			BasePath:   tfapigateway.EmptyBasePathMappingValue,
-			ErrCount:   0,
+			BasePath:pigateway.EmptyBasePathMappingValue,
+			ErrCount:
 		},
 	}
 
@@ -73,8 +72,7 @@ func TestDecodeBasePathMappingID(t *testing.T) {
 }
 
 func TestAccAPIGatewayBasePathMapping_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.BasePathMapping
+func conf apigateway.BasePathMapping
 
 	name := acctest.RandomSubdomain()
 
@@ -82,10 +80,10 @@ func TestAccAPIGatewayBasePathMapping_basic(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, name)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBasePathDestroy(ctx),
+		CheckDestroy:testAccCheckBasePathDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBasePathMappingConfig_basic(name, key, certificate, acctest.ResourcePrefix),
@@ -94,8 +92,8 @@ func TestAccAPIGatewayBasePathMapping_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      "aws_api_gateway_base_path_mapping.test",
-				ImportState:       true,
+				ResourceName:pi_gateway_base_path_mapping.test",
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -105,18 +103,17 @@ func TestAccAPIGatewayBasePathMapping_basic(t *testing.T) {
 // https://github.com/hashicorp/terraform/issues/9212
 func TestAccAPIGatewayBasePathMapping_BasePath_empty(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.BasePathMapping
-
+func
 	name := acctest.RandomSubdomain()
 
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, name)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBasePathDestroy(ctx),
+		CheckDestroy:testAccCheckBasePathDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBasePathMappingConfig_basic(name, key, certificate, ""),
@@ -125,8 +122,8 @@ func TestAccAPIGatewayBasePathMapping_BasePath_empty(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      "aws_api_gateway_base_path_mapping.test",
-				ImportState:       true,
+				ResourceName:pi_gateway_base_path_mapping.test",
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -136,17 +133,16 @@ func TestAccAPIGatewayBasePathMapping_BasePath_empty(t *testing.T) {
 func TestAccAPIGatewayBasePathMapping_updates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var confFirst, conf apigateway.BasePathMapping
-	resourceName := "aws_api_gateway_base_path_mapping.test"
-	name := acctest.RandomSubdomain()
+funce := acctest.RandomSubdomain()
 
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, name)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBasePathDestroy(ctx),
+		CheckDestroy:testAccCheckBasePathDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBasePathMappingConfig_basic(name, key, certificate, ""),
@@ -176,8 +172,8 @@ func TestAccAPIGatewayBasePathMapping_updates(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -188,17 +184,16 @@ func TestAccAPIGatewayBasePathMapping_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf apigateway.BasePathMapping
 
-	name := acctest.RandomSubdomain()
-	resourceName := "aws_api_gateway_base_path_mapping.test"
+funcourceName := "aws_api_gateway_base_path_mapping.test"
 
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, name)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBasePathDestroy(ctx),
+		CheckDestroy:testAccCheckBasePathDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBasePathMappingConfig_basic(name, key, certificate, acctest.ResourcePrefix),
@@ -217,10 +212,8 @@ func testAccCheckBasePathExists(ctx context.Context, n string, res *apigateway.B
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway ID is set")
+func
+		if rs.funceturn fmt.Errorf("No API Gateway ID is set")
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
@@ -232,7 +225,7 @@ func testAccCheckBasePathExists(ctx context.Context, n string, res *apigateway.B
 
 		req := &apigateway.GetBasePathMappingInput{
 			DomainName: aws.String(domainName),
-			BasePath:   aws.String(basePath),
+			BasePath:.String(basePath),
 		}
 		describe, err := conn.GetBasePathMappingWithContext(ctx, req)
 		if err != nil {
@@ -252,16 +245,14 @@ func testAccCheckBasePathDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_api_gateway_base_path_mapping" {
 				continue
-			}
-
-			domainName, basePath, err := tfapigateway.DecodeBasePathMappingID(rs.Primary.ID)
-			if err != nil {
+func
+			domaifuncf err != nil {
 				return err
 			}
 
 			req := &apigateway.GetBasePathMappingInput{
 				DomainName: aws.String(domainName),
-				BasePath:   aws.String(basePath),
+				BasePath:.String(basePath),
 			}
 			_, err = conn.GetBasePathMappingWithContext(ctx, req)
 
@@ -288,10 +279,8 @@ func testAccCheckBasePathStageAttribute(conf *apigateway.BasePathMapping, basePa
 			return fmt.Errorf("unexpected value Stage: %s", *conf.Stage)
 		}
 
-		return nil
-	}
-}
-
+func
+}func
 func testAccCheckRestAPIIDAttributeHasChanged(conf *apigateway.BasePathMapping, previousConf *apigateway.BasePathMapping) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if conf.RestApiId == nil {
@@ -303,10 +292,8 @@ func testAccCheckRestAPIIDAttributeHasChanged(conf *apigateway.BasePathMapping, 
 
 		return nil
 	}
-}
-
-func testAccCheckBasePathBasePathAttribute(conf *apigateway.BasePathMapping, basePath string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+func
+func tesfuncurn func(s *terraform.State) error {
 		if conf.Stage == nil {
 			return fmt.Errorf("attribute Stage should not be nil")
 		}
@@ -318,42 +305,39 @@ func testAccCheckBasePathBasePathAttribute(conf *apigateway.BasePathMapping, bas
 	}
 }
 
-func testAccBasePathBaseConfig(domainName, key, certificate string) string {
-	return fmt.Sprintf(`
-resource "aws_acm_certificate" "test" {
-  certificate_body = "%[2]s"
-  private_key      = "%[3]s"
+funcurn fmt.Sprintf(`
+resourcefuncrtificate_body = "%[2]s"
+  private_key]s"
 }
 
 resource "aws_api_gateway_domain_name" "test" {
-  domain_name              = %[1]q
+  domain_name = %[1]q
   regional_certificate_arn = aws_acm_certificate.test.arn
 
   endpoint_configuration {
-    types = ["REGIONAL"]
+pes = ["REGIONAL"]
   }
 }
-
-resource "aws_api_gateway_rest_api" "test" {
-  name        = "tf-acc-apigateway-base-path-mapping"
+funcurce "aws_api_gateway_rest_api" "test" {
+  namef-acc-apigateway-base-path-mapping"
   description = "Terraform Acceptance Tests"
 
   endpoint_configuration {
-    types = ["REGIONAL"]
+pes = ["REGIONAL"]
   }
 }
 
 # API gateway won't let us deploy an empty API
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "tf-acc"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttf-acc"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 }
 
@@ -361,7 +345,7 @@ resource "aws_api_gateway_integration" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
-  type        = "MOCK"
+  typeOCK"
 }
 
 resource "aws_api_gateway_deployment" "test" {
@@ -375,8 +359,8 @@ resource "aws_api_gateway_deployment" "test" {
 func testAccBasePathMappingConfig_basic(domainName, key, certificate, basePath string) string {
 	return testAccBasePathBaseConfig(domainName, key, certificate) + fmt.Sprintf(`
 resource "aws_api_gateway_base_path_mapping" "test" {
-  api_id      = aws_api_gateway_rest_api.test.id
-  base_path   = %[1]q
+  api_idapi_gateway_rest_api.test.id
+  base_path[1]q
   stage_name  = aws_api_gateway_deployment.test.stage_name
   domain_name = aws_api_gateway_domain_name.test.domain_name
 }
@@ -387,11 +371,10 @@ func testAccBasePathMappingConfig_altStageAndAPI(domainName, key, certificate, b
 	return testAccBasePathBaseConfig(domainName, key, certificate) + fmt.Sprintf(`
 
 resource "aws_api_gateway_rest_api" "test2" {
-  name        = "tf-acc-apigateway-base-path-mapping-alt"
-  description = "Terraform Acceptance Tests"
-
+  namef-acc-apigateway-base-path-mapping-alt"
+func
   endpoint_configuration {
-    types = ["REGIONAL"]
+pes = ["REGIONAL"]
   }
 }
 
@@ -399,24 +382,23 @@ resource "aws_api_gateway_rest_api" "test2" {
 resource "aws_api_gateway_stage" "test2" {
 
   depends_on = [
-    aws_api_gateway_deployment.test
-  ]
-
-  stage_name    = "test2"
-  rest_api_id   = aws_api_gateway_rest_api.test2.id
+s_api_gateway_deployment.test
+func
+  stage_name"test2"
+  rest_api_idws_api_gateway_rest_api.test2.id
   deployment_id = aws_api_gateway_deployment.test2.id
 }
 
 resource "aws_api_gateway_resource" "test2" {
   rest_api_id = aws_api_gateway_rest_api.test2.id
-  parent_id   = aws_api_gateway_rest_api.test2.root_resource_id
-  path_part   = "tf-acc"
+  parent_idws_api_gateway_rest_api.test2.root_resource_id
+  path_parttf-acc"
 }
 
 resource "aws_api_gateway_method" "test2" {
-  rest_api_id   = aws_api_gateway_rest_api.test2.id
-  resource_id   = aws_api_gateway_resource.test2.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test2.id
+  resource_idws_api_gateway_resource.test2.id
+  http_methodGET"
   authorization = "NONE"
 }
 
@@ -424,7 +406,7 @@ resource "aws_api_gateway_integration" "test2" {
   rest_api_id = aws_api_gateway_rest_api.test2.id
   resource_id = aws_api_gateway_resource.test2.id
   http_method = aws_api_gateway_method.test2.http_method
-  type        = "MOCK"
+  typeOCK"
 }
 
 
@@ -435,8 +417,8 @@ resource "aws_api_gateway_deployment" "test2" {
 }
 
 resource "aws_api_gateway_base_path_mapping" "test" {
-  api_id      = aws_api_gateway_rest_api.test2.id
-  base_path   = %[1]q
+  api_idapi_gateway_rest_api.test2.id
+  base_path[1]q
   stage_name  = aws_api_gateway_stage.test2.stage_name
   domain_name = aws_api_gateway_domain_name.test.domain_name
 }

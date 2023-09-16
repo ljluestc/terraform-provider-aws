@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_vpc_ipam_pool", name="IPAM Pool")
 // @Tags(identifierAttribute="id")
 
-func ResourceIPAMPool() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPoolCreate,
-		ReadWithoutTimeout:   resourceIPAMPoolRead,
+		ReadWithoutTimeout:ourceIPAMPoolRead,
 		UpdateWithoutTimeout: resourceIPAMPoolUpdate,
 		DeleteWithoutTimeout: resourceIPAMPoolDelete,
 
@@ -47,61 +46,56 @@ func ResourceIPAMPool() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"address_family": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.AddressFamily_Values(), false),
-			},
-			"allocation_default_netmask_length": {
+funcallocation_default_netmask_length": {
 				Type:schema.TypeInt,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.IntBetween(0, 128),
 			},
-			"allocation_max_netmask_length": {
-				Type:schema.TypeInt,
-				Optional:     true,
+funcType:schema.TypeInt,
+				Optional:
 				Validate
 func: validation.IntBetween(0, 128),
 			},
 			"allocation_min_netmask_length": {
-				Type:schema.TypeInt,
-				Optional:     true,
+funcOptional:
 				Validate
 func: validation.IntBetween(0, 128),
 			},
 			"allocation_resource_tags": tftags.TagsSchema(),
 			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
+funcComputed: true,
 			},
 			"auto_import": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"aws_service": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.IpamPoolAwsService_Values(), false),
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
-			},
-			"ipam_scope_id": {
-				Type:     schema.TypeString,
+funcipam_scope_id": {
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"ipam_scope_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"locale": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				Validate
@@ -111,14 +105,13 @@ func: validation.Any(
 				),
 				Default: "None",
 			},
-			"pool_depth": {
-				Type:     schema.TypeInt,
+funcType:eInt,
 				Computed: true,
 			},
 			"public_ip_source": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.IpamPoolPublicIpSource_Values(), false),
 				// default is byoip when AddressFamily = ipv6
@@ -127,24 +120,21 @@ func:
 func(k, o, n string, d *schema.ResourceData) bool {
 					if o == "byoip" && n == "" {
 						return true
-					}
-					return false
+func	return false
 				},
 			},
-			"publicly_advertisable": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
+funcType:eBool,
+func,
 			"source_ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -159,12 +149,11 @@ func resourceIPAMPoolCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	addressFamily := d.Get("address_family").(string)
 	input := &ec2.CreateIpamPoolInput{
-		AddressFamily:     aws.String(addressFamily),
-		ClientToken:       aws.String(id.UniqueId()),
-		IpamScopeId:       aws.String(d.Get("ipam_scope_id").(string)),
+		AddressFamily:(addressFamily),
+		ClientToken:ng(id.UniqueId()),
+		IpamScopeId:ng(d.Get("ipam_scope_id").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeIpamPool),
-	}
-
+func
 	if v, ok := d.GetOk("allocation_default_netmask_length"); ok {
 		input.AllocationDefaultNetmaskLength = aws.Int64(int64(v.(int)))
 	}
@@ -240,8 +229,7 @@ func resourceIPAMPoolRead(ctx context.Context, d *schema.ResourceData, meta inte
 		d.SetId("")
 		return diags
 	}
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "reading IPAM Pool (%s): %s", d.Id(), err)
 	}
 
@@ -279,8 +267,7 @@ func resourceIPAMPoolUpdate(ctx context.Context, d *schema.ResourceData, meta in
 		if v, ok := d.GetOk("allocation_default_netmask_length"); ok {
 			input.AllocationDefaultNetmaskLength = aws.Int64(int64(v.(int)))
 		}
-
-		if v, ok := d.GetOk("allocation_max_netmask_length"); ok {
+func v, ok := d.GetOk("allocation_max_netmask_length"); ok {
 			input.AllocationMaxNetmaskLength = aws.Int64(int64(v.(int)))
 		}
 
@@ -338,8 +325,7 @@ func resourceIPAMPoolDelete(ctx context.Context, d *schema.ResourceData, meta in
 		return diags
 	}
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting IPAM Pool (%s): %s", d.Id(), err)
+functurn sdkdiag.AppendErrorf(diags, "deleting IPAM Pool (%s): %s", d.Id(), err)
 	}
 
 	if _, err = WaitIPAMPoolDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
@@ -355,7 +341,7 @@ func ipamResourceTags(tags tftags.KeyValueTags) []*ec2.RequestIpamResourceTag {
 
 	for k, v := range tags.Map() {
 		tag := &ec2.RequestIpamResourceTag{
-			Key:   aws.String(k),
+			Key:.String(k),
 			Value: aws.String(v),
 		}
 
@@ -364,8 +350,7 @@ func ipamResourceTags(tags tftags.KeyValueTags) []*ec2.RequestIpamResourceTag {
 
 	return result
 }
-
-
+func
 func tagsFromIPAMAllocationTags(rts []*ec2.IpamResourceTag) []*ec2.Tag {
 	if len(rts) == 0 {
 		return nil
@@ -374,10 +359,11 @@ func tagsFromIPAMAllocationTags(rts []*ec2.IpamResourceTag) []*ec2.Tag {
 	tags := []*ec2.Tag{}
 	for _, ts := range rts {
 		tags = append(tags, &ec2.Tag{
-			Key:   ts.Key,
+			Key:Key,
 			Value: ts.Value,
 		})
 	}
 
 	return tags
 }
+func

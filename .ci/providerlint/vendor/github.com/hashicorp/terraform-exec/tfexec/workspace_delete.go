@@ -26,28 +26,33 @@ type WorkspaceDeleteCmdOption interface {
 	configureWorkspaceDelete(*workspaceDeleteConfig)
 }
 
-func (opt *LockOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
+
+ (opt *LockOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
-	conf.lockTimeout = opt.timeout
-}
 
-func (opt *ForceOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
+ (opt *LockTimeoutOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
+	conf.lockTimeout = opt.timeout
+
+
+
+ (opt *ForceOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
 	conf.force = opt.force
-}
+
 
 // WorkspaceDelete represents the workspace delete subcommand to the Terraform CLI.
-func (tf *Terraform) WorkspaceDelete(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) error {
+
+ (tf *Terraform) WorkspaceDelete(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) error {
 	cmd, err := tf.workspaceDeleteCmd(ctx, workspace, opts...)
 	if err != nil {
 		return err
-	}
+
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) workspaceDeleteCmd(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) workspaceDeleteCmd(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) (*exec.Cmd, error) {
 	c := defaultWorkspaceDeleteOptions
 
 	for _, o := range opts {

@@ -9,7 +9,8 @@ import (
 	"time"
 )
 
-func TestParse(t *testing.T) {
+
+tParse(t *testing.T) {
 	t.Parallel()
 
 	testcases := map[string]struct {
@@ -77,7 +78,8 @@ expectedErr error
 	for name, tc := range testcases {
 tc := tc
 t.Run(name,
-	func(t *testing.T) {
+	
+testing.T) {
 t.Parallel()
 
 duration, err := Parse(tc.input)
@@ -98,7 +100,8 @@ if !duration.equal(tc.expected) {
 	}
 }
 
-func TestSub(t *testing.T) {
+
+tSub(t *testing.T) {
 	t.Parallel()
 
 	now := time.Now()
@@ -152,7 +155,8 @@ hoursDiff int
 	for name, tc := range testcases {
 tc := tc
 t.Run(name,
-	func(t *testing.T) {
+	
+testing.T) {
 t.Parallel()
 
 actual := Sub(tc.startTime, tc.duration)

@@ -25,22 +25,22 @@ import (
 func ResourceBackendServerPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBackendServerPolicySet,
-		ReadWithoutTimeout:   resourceBackendServerPolicyRead,
+		ReadWithoutTimeout:ourceBackendServerPolicyRead,
 		UpdateWithoutTimeout: resourceBackendServerPolicySet,
 		DeleteWithoutTimeout: resourceBackendServerPolicyDelete,
 
 		Schema: map[string]*schema.Schema{
 			"instance_port": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Required: true,
 			},
 			"load_balancer_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"policy_names": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeSet,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 		},
@@ -55,7 +55,7 @@ func resourceBackendServerPolicySet(ctx context.Context, d *schema.ResourceData,
 	lbName := d.Get("load_balancer_name").(string)
 	id := BackendServerPolicyCreateResourceID(lbName, instancePort)
 	input := &elb.SetLoadBalancerPoliciesForBackendServerInput{
-		InstancePort:     aws.Int64(int64(instancePort)),
+		InstancePort:ws.Int64(int64(instancePort)),
 		LoadBalancerName: aws.String(lbName),
 	}
 
@@ -114,9 +114,9 @@ func resourceBackendServerPolicyDelete(ctx context.Context, d *schema.ResourceDa
 	}
 
 	input := &elb.SetLoadBalancerPoliciesForBackendServerInput{
-		InstancePort:     aws.Int64(int64(instancePort)),
+		InstancePort:ws.Int64(int64(instancePort)),
 		LoadBalancerName: aws.String(lbName),
-		PolicyNames:      aws.StringSlice([]string{}),
+		PolicyNames:ringSlice([]string{}),
 	}
 
 	log.Printf("[DEBUG] Deleting ELB Classic Backend Server Policy: %s", d.Id())

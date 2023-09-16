@@ -12,23 +12,20 @@ import (
 )
 
 
-func TestAccEC2InstanceTypeDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceTypeDataSourceConfig_basic,
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "auto_recovery_supported", "true"),
-	resource.TestCheckResourceAttr(dataSourceName, "bare_metal", "false"),
-	resource.TestCheckResourceAttr(dataSourceName, "burstable_performance_supported", "false"),
+funcource.TestCheckResourceAttr(dataSourceName, "burstable_performance_supported", "false"),
 	resource.TestCheckResourceAttr(dataSourceName, "current_generation", "true"),
 	resource.TestCheckResourceAttr(dataSourceName, "dedicated_hosts_supported", "true"),
 	resource.TestCheckResourceAttr(dataSourceName, "default_cores", "1"),
@@ -80,23 +77,20 @@ func(
 func TestAccEC2InstanceTypeDataSource_metal(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_type.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccInstanceTypeDataSourceConfig_metal,
+funcig: testAccInstanceTypeDataSourceConfig_metal,
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_baseline_bandwidth", "19000"),
 	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_baseline_throughput", "2375"),
 	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_baseline_iops", "80000"),
 	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_maximum_bandwidth", "19000"),
-	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_maximum_throughput", "2375"),
-	resource.TestCheckResourceAttr(dataSourceName, "ebs_performance_maximum_iops", "80000"),
+funcource.TestCheckResourceAttr(dataSourceName, "ebs_performance_maximum_iops", "80000"),
 	resource.TestCheckResourceAttr(dataSourceName, "instance_disks.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "instance_disks.0.count", "8"),
 	resource.TestCheckResourceAttr(dataSourceName, "instance_disks.0.size", "7500"),
@@ -115,23 +109,20 @@ func TestAccEC2InstanceTypeDataSource_gpu(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceTypeDataSourceConfig_gpu,
 Check: resource.ComposeTestCheck
-func(
-	resource.TestCheckResourceAttr(dataSourceName, "gpus.#", "1"),
+funcource.TestCheckResourceAttr(dataSourceName, "gpus.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "gpus.0.count", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "gpus.0.manufacturer", "NVIDIA"),
 	resource.TestCheckResourceAttr(dataSourceName, "gpus.0.memory_size", "8192"),
 	resource.TestCheckResourceAttr(dataSourceName, "gpus.0.name", "M60"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -144,23 +135,20 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccInstanceTypeDataSourceConfig_fgpa,
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(dataSourceName, "fpgas.#", "1"),
 	resource.TestCheckResourceAttr(dataSourceName, "fpgas.0.count", "1"),
-	resource.TestCheckResourceAttr(dataSourceName, "fpgas.0.manufacturer", "Xilinx"),
-	resource.TestCheckResourceAttr(dataSourceName, "fpgas.0.memory_size", "65536"),
+funcource.TestCheckResourceAttr(dataSourceName, "fpgas.0.memory_size", "65536"),
 	resource.TestCheckResourceAttr(dataSourceName, "fpgas.0.name", "Virtex UltraScale (VU9P)"),
 	resource.TestCheckResourceAttr(dataSourceName, "total_fpga_memory", "65536"),
 ),
 	},
 },
 	})
-}
-
+func
 const testAccInstanceTypeDataSourceConfig_basic = `
 data "aws_ec2_instance_type" "test" {
   instance_type = "m5.large"

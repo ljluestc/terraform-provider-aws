@@ -26,10 +26,10 @@ func TestAccRedshiftClusterSnapshot_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_basic(rName),
@@ -70,10 +70,10 @@ func TestAccRedshiftClusterSnapshot_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_tags1(rName, "key1", "value1"),
@@ -116,10 +116,10 @@ func TestAccRedshiftClusterSnapshot_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_basic(rName),
@@ -196,8 +196,8 @@ resource "aws_redshift_cluster_snapshot" "test" {
 func testAccClusterSnapshotConfig_retention(rName string, retention int) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_cluster_snapshot" "test" {
-  cluster_identifier               = aws_redshift_cluster.test.cluster_identifier
-  snapshot_identifier              = %[1]q
+  cluster_identifier  = aws_redshift_cluster.test.cluster_identifier
+  snapshot_identifier = %[1]q
   manual_snapshot_retention_period = %[2]d
 }
 `, rName, retention))

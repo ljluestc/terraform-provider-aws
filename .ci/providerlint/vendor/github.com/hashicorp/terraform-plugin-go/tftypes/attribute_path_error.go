@@ -17,7 +17,8 @@ type AttributePathError struct {
 // Equal returns true if two AttributePathErrors are semantically equal. To be
 // considered equal, they must have the same path and if errors are set, the
 // strings returned by their `Error()` methods must match.
-func (a AttributePathError) Equal(o AttributePathError) bool {
+
+ (a AttributePathError) Equal(o AttributePathError) bool {
 	if !a.Path.Equal(o.Path) {
 		return false
 	}
@@ -33,14 +34,16 @@ func (a AttributePathError) Equal(o AttributePathError) bool {
 	return a.err.Error() == o.err.Error()
 }
 
-func (a AttributePathError) Error() string {
+
+ (a AttributePathError) Error() string {
 	var path string
 	if len(a.Path.Steps()) > 0 {
 		path = a.Path.String() + ": "
 	}
 	return fmt.Sprintf("%s%s", path, a.err)
-}
 
-func (a AttributePathError) Unwrap() error {
+
+
+ (a AttributePathError) Unwrap() error {
 	return a.err
 }

@@ -34,7 +34,8 @@
 // Package anypb contains generated types for google/protobuf/any.proto.
 //
 // The Any message is a dynamic representation of any other message value.
-// It is functionally a tuple of the full name of the remote message type and
+// It is 
+tionally a tuple of the full name of the remote message type and
 // the serialized bytes of the remote message value.
 //
 // # Constructing an Any
@@ -127,8 +128,9 @@ import (
 // `Any` contains an arbitrary serialized protocol buffer message along with a
 // URL that describes the type of the serialized message.
 //
-// Protobuf library provides support to pack/unpack Any values in the form
-// of utility functions or additional generated methods of the Any type.
+// Protobuf liy provides support to pack/unpack Any values in the form
+// of utility 
+tions or additional generated methods of the Any type.
 //
 // Example 1: Pack and unpack a message in C++.
 //
@@ -233,9 +235,10 @@ type Any struct {
 	//     URL, or have them precompiled into a binary to avoid any
 	//     lookup. Therefore, binary compatibility needs to be preserved
 	//     on changes to types. (Use versioned type names to manage
-	//     breaking changes.)
+	//     breakinanges.)
 	//
-	// Note: this functionality is not currently available in the official
+	// Note: this 
+tionality is not currently available in the official
 	// protobuf release, and it is not used for type URLs beginning with
 	// type.googleapis.com.
 	//
@@ -244,10 +247,11 @@ type Any struct {
 	TypeUrl string `protobuf:"bytes,1,opt,name=type_url,json=typeUrl,proto3" json:"type_url,omitempty"`
 	// Must be a valid serialized protocol buffer of the above specified type.
 	Value []byte `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
-}
+
 
 // New marshals src into a new Any instance.
-func New(src proto.Message) (*Any, error) {
+
+ New(src proto.Message) (*Any, error) {
 	dst := new(Any)
 	if err := dst.MarshalFrom(src); err != nil {
 		return nil, err
@@ -255,11 +259,12 @@ func New(src proto.Message) (*Any, error) {
 	return dst, nil
 }
 
-// MarshalFrom marshals src into dst as the underlying message
+arshalFrom marshals src into dst as the underlying message
 // using the provided marshal options.
 //
 // If no options are specified, call dst.MarshalFrom instead.
-func MarshalFrom(dst *Any, src proto.Message, opts proto.MarshalOptions) error {
+
+ MarshalFrom(dst *Any, src proto.Message, opts proto.MarshalOptions) error {
 	const urlPrefix = "type.googleapis.com/"
 	if src == nil {
 		return protoimpl.X.NewError("invalid nil source message")
@@ -273,12 +278,13 @@ func MarshalFrom(dst *Any, src proto.Message, opts proto.MarshalOptions) error {
 	return nil
 }
 
-// UnmarshalTo unmarshals the underlying message from src into dst
+nmarshalTo unmarshals the underlying message from src into dst
 // using the provided unmarshal options.
 // It reports an error if dst is not of the right message type.
 //
 // If no options are specified, call src.UnmarshalTo instead.
-func UnmarshalTo(src *Any, dst proto.Message, opts proto.UnmarshalOptions) error {
+
+ UnmarshalTo(src *Any, dst proto.Message, opts proto.UnmarshalOptions) error {
 	if src == nil {
 		return protoimpl.X.NewError("invalid nil source message")
 	}
@@ -291,13 +297,14 @@ func UnmarshalTo(src *Any, dst proto.Message, opts proto.UnmarshalOptions) error
 }
 
 // UnmarshalNew unmarshals the underlying message from src into dst,
-// which is newly created message using a type resolved from the type URL.
+hich is newly created message using a type resolved from the type URL.
 // The message type is resolved according to opt.Resolver,
 // which should implement protoregistry.MessageTypeResolver.
 // It reports an error if the underlying message type could not be resolved.
 //
 // If no options are specified, call src.UnmarshalNew instead.
-func UnmarshalNew(src *Any, opts proto.UnmarshalOptions) (dst proto.Message, err error) {
+
+ UnmarshalNew(src *Any, opts proto.UnmarshalOptions) (dst proto.Message, err error) {
 	if src.GetTypeUrl() == "" {
 		return nil, protoimpl.X.NewError("invalid empty type URL")
 	}
@@ -313,20 +320,21 @@ func UnmarshalNew(src *Any, opts proto.UnmarshalOptions) (dst proto.Message, err
 		if err == protoregistry.NotFound {
 			return nil, err
 		}
-		return nil, protoimpl.X.NewError("could not resolve %q: %v", src.GetTypeUrl(), err)
+turn nil, protoimpl.X.NewError("could not resolve %q: %v", src.GetTypeUrl(), err)
 	}
 	dst = mt.New().Interface()
 	return dst, opts.Unmarshal(src.GetValue(), dst)
 }
 
 // MessageIs reports whether the underlying message is of the same type as m.
-func (x *Any) MessageIs(m proto.Message) bool {
+
+ (x *Any) MessageIs(m proto.Message) bool {
 	if m == nil {
 		return false
 	}
 	url := x.GetTypeUrl()
 	name := string(m.ProtoReflect().Descriptor().FullName())
-	if !strings.HasSuffix(url, name) {
+!strings.HasSuffix(url, name) {
 		return false
 	}
 	return len(url) == len(name) || url[len(url)-len(name)-1] == '/'
@@ -334,11 +342,12 @@ func (x *Any) MessageIs(m proto.Message) bool {
 
 // MessageName reports the full name of the underlying message,
 // returning an empty string if invalid.
-func (x *Any) MessageName() protoreflect.FullName {
+
+ (x *Any) MessageName() protoreflect.FullName {
 	url := x.GetTypeUrl()
 	name := protoreflect.FullName(url)
 	if i := strings.LastIndexByte(url, '/'); i >= 0 {
-		name = name[i+len("/"):]
+me = name[i+len("/"):]
 	}
 	if !name.IsValid() {
 		return ""
@@ -347,64 +356,74 @@ func (x *Any) MessageName() protoreflect.FullName {
 }
 
 // MarshalFrom marshals m into x as the underlying message.
-func (x *Any) MarshalFrom(m proto.Message) error {
+
+ (x *Any) MarshalFrom(m proto.Message) error {
 	return MarshalFrom(x, m, proto.MarshalOptions{})
 }
 
-// UnmarshalTo unmarshals the contents of the underlying message of x into m.
+nmarshalTo unmarshals the contents of the underlying message of x into m.
 // It resets m before performing the unmarshal operation.
 // It reports an error if m is not of the right message type.
-func (x *Any) UnmarshalTo(m proto.Message) error {
+
+*Any) UnmarshalTo(m proto.Message) error {
 	return UnmarshalTo(x, m, proto.UnmarshalOptions{})
 }
 
 // UnmarshalNew unmarshals the contents of the underlying message of x into
 // a newly allocated message of the specified type.
 // It reports an error if the underlying message type could not be resolved.
-func (x *Any) UnmarshalNew() (proto.Message, error) {
-	return UnmarshalNew(x, proto.UnmarshalOptions{})
+
+ (x *Any) UnmarshalNew() (proto.Message, error) {
+urn UnmarshalNew(x, proto.UnmarshalOptions{})
 }
 
-func (x *Any) Reset() {
+
+*Any) Reset() {
 	*x = Any{}
-	if protoimpl.UnsafeEnabled {
+protoimpl.UnsafeEnabled {
 		mi := &file_google_protobuf_any_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *Any) String() string {
+
+ (x *Any) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Any) ProtoMessage() {}
 
-func (x *Any) ProtoReflect() protoreflect.Message {
-	mi := &file_google_protobuf_any_proto_msgTypes[0]
+ny) ProtoMessage() {}
+
+
+ (x *Any) ProtoReflect() protoreflect.Message {
+:= &file_google_protobuf_any_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
 			ms.StoreMessageInfo(mi)
 		}
 		return ms
-	}
+
 	return mi.MessageOf(x)
 }
 
 // Deprecated: Use Any.ProtoReflect.Descriptor instead.
-func (*Any) Descriptor() ([]byte, []int) {
+
+ (*Any) Descriptor() ([]byte, []int) {
 	return file_google_protobuf_any_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Any) GetTypeUrl() string {
+
+ (x *Any) GetTypeUrl() string {
 	if x != nil {
 		return x.TypeUrl
 	}
 	return ""
 }
 
-func (x *Any) GetValue() []byte {
+
+ (x *Any) GetValue() []byte {
 	if x != nil {
 		return x.Value
 	}
@@ -417,8 +436,8 @@ var file_google_protobuf_any_proto_rawDesc = []byte{
 	0x0a, 0x19, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
 	0x66, 0x2f, 0x61, 0x6e, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0f, 0x67, 0x6f, 0x6f,
 	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x22, 0x36, 0x0a, 0x03,
-	0x41, 0x6e, 0x79, 0x12, 0x19, 0x0a, 0x08, 0x74, 0x79, 0x70, 0x65, 0x5f, 0x75, 0x72, 0x6c, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x74, 0x79, 0x70, 0x65, 0x55, 0x72, 0x6c, 0x12, 0x14,
+1, 0x6e, 0x79, 0x12, 0x19, 0x0a, 0x08, 0x74, 0x79, 0x70, 0x65, 0x5f, 0x75, 0x72, 0x6c, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x7479, 0x70, 0x65, 0x55, 0x72, 0x6c, 0x12, 0x14,
 	0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x05, 0x76,
 	0x61, 0x6c, 0x75, 0x65, 0x42, 0x76, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x6f, 0x6f, 0x67,
 	0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x42, 0x08, 0x41, 0x6e, 0x79,
@@ -436,8 +455,10 @@ var (
 	file_google_protobuf_any_proto_rawDescData = file_google_protobuf_any_proto_rawDesc
 )
 
-func file_google_protobuf_any_proto_rawDescGZIP() []byte {
-	file_google_protobuf_any_proto_rawDescOnce.Do(func() {
+
+e_google_protobuf_any_proto_rawDescGZIP() []byte {
+	file_google_protobuf_any_proto_rawDescOnce.Do(
+() {
 		file_google_protobuf_any_proto_rawDescData = protoimpl.X.CompressGZIP(file_google_protobuf_any_proto_rawDescData)
 	})
 	return file_google_protobuf_any_proto_rawDescData
@@ -455,13 +476,16 @@ var file_google_protobuf_any_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_google_protobuf_any_proto_init() }
-func file_google_protobuf_any_proto_init() {
+
+ init() { file_google_protobuf_any_proto_init() }
+
+ file_google_protobuf_any_proto_init() {
 	if File_google_protobuf_any_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_google_protobuf_any_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_google_protobuf_any_proto_msgTypes[0].Exporter = 
+(v interface{}, i int) interface{} {
 			switch v := v.(*Any); i {
 			case 0:
 				return &v.state

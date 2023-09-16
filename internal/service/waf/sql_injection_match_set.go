@@ -172,7 +172,7 @@ func updateSQLInjectionMatchSetResource(ctx context.Context, id string, oldT, ne
 		req := &waf.UpdateSqlInjectionMatchSetInput{
 			ChangeToken:            token,
 			SqlInjectionMatchSetId: aws.String(id),
-			Updates:                diffSQLInjectionMatchTuples(oldT, newT),
+			Updates:   diffSQLInjectionMatchTuples(oldT, newT),
 		}
 
 		log.Printf("[INFO] Updating SqlInjectionMatchSet: %s", req)

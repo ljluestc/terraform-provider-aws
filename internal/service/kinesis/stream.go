@@ -504,7 +504,7 @@ name := d.Get("name").(string)
 log.Printf("[DEBUG] Deleting Kinesis Stream: (%s)", name)
 _, err := conn.DeleteStreamWithContext(ctx, &kinesis.DeleteStreamInput{
 EnforceConsumerDeletion: aws.Bool(d.Get("enforce_consumer_deletion").(bool)),
-StreamName:              aws.String(name),
+StreamName: aws.String(name),
 })
 
 if tfawserr.ErrCodeEquals(err, kinesis.ErrCodeResourceNotFoundException) {

@@ -94,7 +94,7 @@ func updateTags(ctx context.Context, conn apigatewayv2iface.ApiGatewayV2API, ide
 	if len(removedTags) > 0 {
 		input := &apigatewayv2.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:Slice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -109,7 +109,7 @@ func updateTags(ctx context.Context, conn apigatewayv2iface.ApiGatewayV2API, ide
 	if len(updatedTags) > 0 {
 		input := &apigatewayv2.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:datedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

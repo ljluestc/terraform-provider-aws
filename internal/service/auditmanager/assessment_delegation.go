@@ -119,7 +119,7 @@ func (r *resourceAssessmentDelegation) Create(ctx context.Context, req resource.
 		delegationIn.Comment = aws.String(plan.Comment.ValueString())
 	}
 	in := auditmanager.BatchCreateDelegationByAssessmentInput{
-		AssessmentId:             aws.String(plan.AssessmentID.ValueString()),
+		AssessmentId:aws.String(plan.AssessmentID.ValueString()),
 		CreateDelegationRequests: []awstypes.CreateDelegationRequest{delegationIn},
 	}
 

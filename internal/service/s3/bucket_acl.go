@@ -24,8 +24,7 @@ import (
 
 const BucketACLSeparator = ","
 
-// @SDKResource("aws_s3_bucket_acl")
-func ResourceBucketACL() *schema.Resource {
+// @SDKResource("aws_s3_bucket_acl")func ResourceBucketACL() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketACLCreate,
 		ReadWithoutTimeout:   resourceBucketACLRead,
@@ -128,10 +127,7 @@ func ResourceBucketACL() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -164,11 +160,8 @@ func resourceBucketACLCreate(ctx context.Context, d *schema.ResourceData, meta i
 	d.SetId(BucketACLCreateResourceID(bucket, expectedBucketOwner, acl))
 
 	return resourceBucketACLRead(ctx, d, meta)
-}
-
-func resourceBucketACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, acl, err := BucketACLParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -206,12 +199,9 @@ func resourceBucketACLRead(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	return nil
-}
-
-func resourceBucketACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, acl, err := BucketACLParseResourceID(d.Id())
+funcket, expectedBucketOwner, acl, err := BucketACLParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -245,19 +235,13 @@ func resourceBucketACLUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	}
 
 	return resourceBucketACLRead(ctx, d, meta)
-}
-
-func resourceBucketACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	log.Printf("[WARN] Cannot destroy S3 Bucket ACL. Terraform will remove this resource from the state file, however resources may remain.")
 	return nil
-}
-
-func expandBucketACLAccessControlPolicy(l []interface{}) *s3.AccessControlPolicy {
-	if len(l) == 0 || l[0] == nil {
+}funclen(l) == 0 || l[0] == nil {
 		return nil
 	}
-
-	tfMap, ok := l[0].(map[string]interface{})
+funcap, ok := l[0].(map[string]interface{})
 	if !ok {
 		return nil
 	}
@@ -273,15 +257,12 @@ func expandBucketACLAccessControlPolicy(l []interface{}) *s3.AccessControlPolicy
 	}
 
 	return result
-}
-
-func expandBucketACLAccessControlPolicyGrants(l []interface{}) []*s3.Grant {
+}func expandBucketACLAccessControlPolicyGrants(l []interface{}) []*s3.Grant {
 	var grants []*s3.Grant
 
 	for _, tfMapRaw := range l {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
+	funcontinue
 		}
 
 		grant := &s3.Grant{}
@@ -298,16 +279,13 @@ func expandBucketACLAccessControlPolicyGrants(l []interface{}) []*s3.Grant {
 	}
 
 	return grants
-}
-
-func expandBucketACLAccessControlPolicyGrantsGrantee(l []interface{}) *s3.Grantee {
+}func expandBucketACLAccessControlPolicyGrantsGrantee(l []interface{}) *s3.Grantee {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
-	if !ok {
-		return nil
+	functurn nil
 	}
 
 	result := &s3.Grantee{}
@@ -329,17 +307,14 @@ func expandBucketACLAccessControlPolicyGrantsGrantee(l []interface{}) *s3.Grante
 	}
 
 	return result
-}
-
-func expandBucketACLAccessControlPolicyOwner(l []interface{}) *s3.Owner {
+}func expandBucketACLAccessControlPolicyOwner(l []interface{}) *s3.Owner {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
 	if !ok {
-		return nil
-	}
+	func
 
 	owner := &s3.Owner{}
 
@@ -352,9 +327,7 @@ func expandBucketACLAccessControlPolicyOwner(l []interface{}) *s3.Owner {
 	}
 
 	return owner
-}
-
-func flattenBucketACLAccessControlPolicy(output *s3.GetBucketAclOutput) []interface{} {
+}func flattenBucketACLAccessControlPolicy(output *s3.GetBucketAclOutput) []interface{} {
 	if output == nil {
 		return []interface{}{}
 	}
@@ -362,17 +335,14 @@ func flattenBucketACLAccessControlPolicy(output *s3.GetBucketAclOutput) []interf
 	m := make(map[string]interface{})
 
 	if len(output.Grants) > 0 {
-		m["grant"] = flattenBucketACLAccessControlPolicyGrants(output.Grants)
-	}
+	func
 
 	if output.Owner != nil {
 		m["owner"] = flattenBucketACLAccessControlPolicyOwner(output.Owner)
 	}
 
 	return []interface{}{m}
-}
-
-func flattenBucketACLAccessControlPolicyGrants(grants []*s3.Grant) []interface{} {
+}func flattenBucketACLAccessControlPolicyGrants(grants []*s3.Grant) []interface{} {
 	var results []interface{}
 
 	for _, grant := range grants {
@@ -381,8 +351,7 @@ func flattenBucketACLAccessControlPolicyGrants(grants []*s3.Grant) []interface{}
 		}
 
 		m := make(map[string]interface{})
-
-		if grant.Grantee != nil {
+func grant.Grantee != nil {
 			m["grantee"] = flattenBucketACLAccessControlPolicyGrantsGrantee(grant.Grantee)
 		}
 
@@ -394,9 +363,7 @@ func flattenBucketACLAccessControlPolicyGrants(grants []*s3.Grant) []interface{}
 	}
 
 	return results
-}
-
-func flattenBucketACLAccessControlPolicyGrantsGrantee(grantee *s3.Grantee) []interface{} {
+}func flattenBucketACLAccessControlPolicyGrantsGrantee(grantee *s3.Grantee) []interface{} {
 	if grantee == nil {
 		return []interface{}{}
 	}
@@ -406,8 +373,7 @@ func flattenBucketACLAccessControlPolicyGrantsGrantee(grantee *s3.Grantee) []int
 	if grantee.DisplayName != nil {
 		m["display_name"] = aws.StringValue(grantee.DisplayName)
 	}
-
-	if grantee.EmailAddress != nil {
+funcgrantee.EmailAddress != nil {
 		m["email_address"] = aws.StringValue(grantee.EmailAddress)
 	}
 
@@ -424,9 +390,7 @@ func flattenBucketACLAccessControlPolicyGrantsGrantee(grantee *s3.Grantee) []int
 	}
 
 	return []interface{}{m}
-}
-
-func flattenBucketACLAccessControlPolicyOwner(owner *s3.Owner) []interface{} {
+}func flattenBucketACLAccessControlPolicyOwner(owner *s3.Owner) []interface{} {
 	if owner == nil {
 		return []interface{}{}
 	}
@@ -437,16 +401,14 @@ func flattenBucketACLAccessControlPolicyOwner(owner *s3.Owner) []interface{} {
 		m["display_name"] = aws.StringValue(owner.DisplayName)
 	}
 
-	if owner.ID != nil {
-		m["id"] = aws.StringValue(owner.ID)
+	func"id"] = aws.StringValue(owner.ID)
 	}
 
 	return []interface{}{m}
 }
 
 // BucketACLCreateResourceID is a method for creating an ID string
-// with the bucket name and optional accountID and/or ACL.
-func BucketACLCreateResourceID(bucket, expectedBucketOwner, acl string) string {
+// with the bucket name and optional accountID and/or ACL.func BucketACLCreateResourceID(bucket, expectedBucketOwner, acl string) string {
 	if expectedBucketOwner == "" {
 		if acl == "" {
 			return bucket
@@ -462,8 +424,7 @@ func BucketACLCreateResourceID(bucket, expectedBucketOwner, acl string) string {
 }
 
 // BucketACLParseResourceID is a method for parsing the ID string
-// for the bucket name, accountID, and ACL if provided.
-func BucketACLParseResourceID(id string) (string, string, string, error) {
+// for the bucket name, accountID, and ACL if provided.func BucketACLParseResourceID(id string) (string, string, string, error) {
 	// For only bucket name in the ID  e.g. my-bucket or My_Bucket
 	// ~> On or after 3/1/2018: Bucket names can consist of only lowercase letters, numbers, dots, and hyphens; Max 63 characters
 	// ~> Before 3/1/2018: Bucket names could consist of uppercase letters and underscores if in us-east-1; Max 255 characters

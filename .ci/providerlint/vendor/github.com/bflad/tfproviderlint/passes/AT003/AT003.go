@@ -9,37 +9,51 @@ import (
 	"golang.org/x/tools/go/analysis"
 
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/testaccfuncdecl"
+	"github.com/bflad/tfproviderlint/passes/testacc
+decl"
 )
 
-const Doc = `check for acceptance test function names missing an underscore
+const Doc = `check for acceptance test 
+tion names missing an underscore
 
 The AT003 analyzer reports where an underscore is not
-present in the function name, which could make per-resource testing harder to
+present in the 
+tion name, which could make per-resource testing harder to
 execute in larger providers or those with overlapping resource names.`
 
 const analyzerName = "AT003"
 
 var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
+	Name: anerName,
 	Doc:  Doc,
 	Requires: []*analysis.Analyzer{
-		testaccfuncdecl.Analyzer,
+		testacc
+decl.Analyzer,
 		commentignore.Analyzer,
-	},
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	testAccFuncs := pass.ResultOf[testaccfuncdecl.Analyzer].([]*ast.FuncDecl)
-	for _, testAccFunc := range testAccFuncs {
-		if ignorer.ShouldIgnore(analyzerName, testAccFunc) {
+	testAcc
+s := pass.ResultOf[testacc
+decl.Analyzer].([]*
+Decl)
+	for _, testAcc
+ := range testAcc
+s {
+		if ignorer.ShouldIgnore(analyzerName, testAcc
+) {
 			continue
 		}
 
-		if !strings.Contains(testAccFunc.Name.Name, "_") {
-			pass.Reportf(testAccFunc.Name.NamePos, "%s: acceptance test function name should include underscore", analyzerName)
+		if !strings.Contains(testAcc
+.Name.Name, "_") {
+			pass.Reportf(testAcc
+.Name.NamePos, "%s: acceptance test 
+tion name should include underscore", analyzerName)
 		}
 	}
 

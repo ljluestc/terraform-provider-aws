@@ -14,9 +14,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
+
 func testAccPreCheck(t *testing.T) {
 	acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 }
+
+
 
 func TestAccElastiCacheSubnetGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -25,8 +29,10 @@ func TestAccElastiCacheSubnetGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elasticache_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -42,6 +48,8 @@ func TestAccElastiCacheSubnetGroupDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
+
 
 func testAccSubnetGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`

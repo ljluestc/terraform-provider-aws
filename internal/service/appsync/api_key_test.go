@@ -29,10 +29,10 @@ func testAccAPIKey_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_required(rName),
@@ -59,10 +59,10 @@ func testAccAPIKey_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_description(rName, "description1"),
@@ -96,10 +96,10 @@ func testAccAPIKey_expires(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIKeyDestroy(ctx),
+		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPIKeyConfig_expires(rName, dateAfterTenDays.Format(time.RFC3339)),
@@ -198,7 +198,7 @@ func testAccAPIKeyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %q
+  name   = %q
 }
 
 resource "aws_appsync_api_key" "test" {
@@ -212,7 +212,7 @@ func testAccAPIKeyConfig_expires(rName, expires string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %q
+  name   = %q
 }
 
 resource "aws_appsync_api_key" "test" {
@@ -226,7 +226,7 @@ func testAccAPIKeyConfig_required(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %q
+  name   = %q
 }
 
 resource "aws_appsync_api_key" "test" {

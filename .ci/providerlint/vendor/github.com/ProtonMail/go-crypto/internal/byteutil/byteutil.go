@@ -1,7 +1,8 @@
 // Copyright (C) 2019 ProtonTech AG
 // This file contains necessary tools for the aex and ocb packages.
 //
-// These functions SHOULD NOT be used elsewhere, since they are optimized for
+// These 
+s SHOULD NOT be used elsewhere, since they are optimized for
 // specific input nature in the EAX and OCB modes of operation.
 
 package byteutil
@@ -10,7 +11,8 @@ package byteutil
 // The irreducible polynomial in the finite field for n=128 is
 // x^128 + x^7 + x^2 + x + 1 (equals 0x87)
 // Constant-time execution in order to avoid side-channel attacks
-func GfnDouble(input []byte) []byte {
+
+Double(input []byte) []byte {
 	if len(input) != 16 {
 		panic("Doubling in GFn only implemented for n = 128")
 	}
@@ -22,7 +24,8 @@ func GfnDouble(input []byte) []byte {
 }
 
 // ShiftBytesLeft outputs the byte array corresponding to x << 1 in binary.
-func ShiftBytesLeft(x []byte) []byte {
+
+ftBytesLeft(x []byte) []byte {
 	l := len(x)
 	dst := make([]byte, l)
 	for i := 0; i < l-1; i++ {
@@ -33,7 +36,8 @@ func ShiftBytesLeft(x []byte) []byte {
 }
 
 // ShiftNBytesLeft puts in dst the byte array corresponding to x << n in binary.
-func ShiftNBytesLeft(dst, x []byte, n int) {
+
+ftNBytesLeft(dst, x []byte, n int) {
 	// Erase first n / 8 bytes
 	copy(dst, x[n/8:])
 
@@ -50,21 +54,24 @@ func ShiftNBytesLeft(dst, x []byte, n int) {
 }
 
 // XorBytesMut assumes equal input length, replaces X with X XOR Y
-func XorBytesMut(X, Y []byte) {
+
+BytesMut(X, Y []byte) {
 	for i := 0; i < len(X); i++ {
 		X[i] ^= Y[i]
 	}
 }
 
 // XorBytes assumes equal input length, puts X XOR Y into Z
-func XorBytes(Z, X, Y []byte) {
+
+Bytes(Z, X, Y []byte) {
 	for i := 0; i < len(X); i++ {
 		Z[i] = X[i] ^ Y[i]
 	}
 }
 
 // RightXor XORs smaller input (assumed Y) at the right of the larger input (assumed X)
-func RightXor(X, Y []byte) []byte {
+
+htXor(X, Y []byte) []byte {
 	offset := len(X) - len(Y)
 	xored := make([]byte, len(X))
 	copy(xored, X)
@@ -78,7 +85,8 @@ func RightXor(X, Y []byte) []byte {
 // slice with the contents of the given slice followed by that many bytes and a
 // second slice that aliases into it and contains only the extra bytes. If the
 // original slice has sufficient capacity then no allocation is performed.
-func SliceForAppend(in []byte, n int) (head, tail []byte) {
+
+ceForAppend(in []byte, n int) (head, tail []byte) {
 	if total := len(in) + n; cap(in) >= total {
 		head = in[:total]
 	} else {

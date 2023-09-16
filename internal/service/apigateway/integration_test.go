@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayIntegration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.Integration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_integration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_basic(rName),
@@ -52,8 +51,8 @@ func TestAccAPIGatewayIntegration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -133,16 +132,15 @@ func TestAccAPIGatewayIntegration_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayIntegration_contentHandling(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.Integration
+func conf apigateway.Integration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_integration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_basic(rName),
@@ -200,8 +198,8 @@ func TestAccAPIGatewayIntegration_contentHandling(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -211,15 +209,14 @@ func TestAccAPIGatewayIntegration_contentHandling(t *testing.T) {
 
 func TestAccAPIGatewayIntegration_CacheKey_parameters(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.Integration
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_integration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_cacheKeyParameters(rName),
@@ -244,8 +241,8 @@ func TestAccAPIGatewayIntegration_CacheKey_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -256,14 +253,13 @@ func TestAccAPIGatewayIntegration_CacheKey_parameters(t *testing.T) {
 func TestAccAPIGatewayIntegration_CacheKeyUpdate_parameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf apigateway.Integration
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_integration.test"
+funcourceName := "aws_api_gateway_integration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_cacheKeyParameters(rName),
@@ -311,8 +307,8 @@ func TestAccAPIGatewayIntegration_CacheKeyUpdate_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -324,13 +320,12 @@ func TestAccAPIGatewayIntegration_integrationType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf apigateway.Integration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_integration.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_typeInternet(rName),
@@ -357,8 +352,8 @@ func TestAccAPIGatewayIntegration_integrationType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -371,12 +366,11 @@ func TestAccAPIGatewayIntegration_TLS_insecureSkipVerification(t *testing.T) {
 	var conf apigateway.Integration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_integration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_tlsInsecureSkipVerification(rName, true),
@@ -387,8 +381,8 @@ func TestAccAPIGatewayIntegration_TLS_insecureSkipVerification(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -410,11 +404,10 @@ func TestAccAPIGatewayIntegration_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_integration.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funceCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+		CheckDestroy:testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIntegrationConfig_basic(rName),
@@ -435,10 +428,8 @@ func testAccCheckIntegrationExists(ctx context.Context, n string, v *apigateway.
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway Integration ID is set")
-		}
-
+funceturn fmt.Errorf("No API Gateway Integration ID is set")
+		}func
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		output, err := tfapigateway.FindIntegrationByThreePartKey(ctx, conn, rs.Primary.Attributes["http_method"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["rest_api_id"])
@@ -462,10 +453,8 @@ func testAccCheckIntegrationDestroy(ctx context.Context) resource.TestCheckFunc 
 				continue
 			}
 
-			_, err := tfapigateway.FindIntegrationByThreePartKey(ctx, conn, rs.Primary.Attributes["http_method"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["rest_api_id"])
-
-			if tfresource.NotFound(err) {
-				continue
+func
+			if tffunccontinue
 			}
 
 			if err != nil {
@@ -490,26 +479,23 @@ func testAccIntegrationImportStateIdFunc(resourceName string) resource.ImportSta
 	}
 }
 
-func testAccIntegrationConfig_basic(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_api_gateway_rest_api" "test" {
-  name = %[1]q
+funcurn fmt.Sprintf(`
+resourcefuncme = %[1]q
 }
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+funcsource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -519,20 +505,20 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
   }
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
 }
 `, rName)
 }
@@ -545,18 +531,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+functp_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -566,21 +551,21 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = "{'foobar': 'bar}"
-    "text/html"        = "<html>Foo</html>"
+pplication/json" = "{'foobar': 'bar}"
+ext/html"  =l>Foo</html>"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'updated'"
-    "integration.request.header.X-FooBar"        = "'Baz'"
+ntegration.request.header.X-Authorization" = "'updated'"
+ntegration.request.header.X-FooBar"  ='"
   }
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -593,18 +578,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
-  authorization = "NONE"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+functhorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -614,21 +598,21 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
   }
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de/updated"
+  typeTP"
+  urittps://www.google.de/updated"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -641,18 +625,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
-  authorization = "NONE"
-
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
+func
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 }
 
@@ -662,21 +645,21 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
   }
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_BINARY"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_BINARY"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -689,18 +672,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
-
-  request_models = {
-    "application/json" = "Error"
+funcquest_models = {
+pplication/json" = "Error"
   }
 }
 
@@ -710,20 +692,20 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
   }
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -736,18 +718,17 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
-  request_models = {
-    "application/json" = "Error"
+funccation/json" = "Error"
   }
 }
 
@@ -756,12 +737,12 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -774,22 +755,21 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "{param}"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_part{param}"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
-  }
+func
 
   request_parameters = {
-    "method.request.path.param" = true
+ethod.request.path.param" = true
   }
 }
 
@@ -799,25 +779,25 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
-    "integration.request.path.param"             = "method.request.path.param"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
+ntegration.request.path.param"= "method.request.path.param"
   }
 
   cache_key_parameters = ["method.request.path.param"]
-  cache_namespace      = "foobar"
+  cache_namespacebar"
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -830,23 +810,22 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "{param}"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_part{param}"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
-  }
-
+pplication/json" = "Error"
+func
   request_parameters = {
-    "method.request.path.param"        = false
-    "method.request.querystring.test1" = true
+ethod.request.path.param"  =
+ethod.request.querystring.test1" = true
   }
 }
 
@@ -856,25 +835,25 @@ resource "aws_api_gateway_integration" "test" {
   http_method = aws_api_gateway_method.test.http_method
 
   request_templates = {
-    "application/json" = ""
-    "application/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
+pplication/json" = ""
+pplication/xml"  = "#set($inputRoot = $input.path('$'))\n{ }"
   }
 
   request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-    "integration.request.header.X-Foo"           = "'Bar'"
-    "integration.request.path.param"             = "method.request.path.param"
+ntegration.request.header.X-Authorization" = "'static'"
+ntegration.request.header.X-Foo"  =
+ntegration.request.path.param"= "method.request.path.param"
   }
 
   cache_key_parameters = ["method.request.path.param", "method.request.querystring.test1"]
-  cache_namespace      = "foobar"
+  cache_namespacebar"
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
-  timeout_milliseconds    = 2000
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
+  timeout_milliseconds2000
 }
 `, rName)
 }
@@ -887,30 +866,29 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
-}
-
+func
 resource "aws_lb" "test" {
-  name               = %[1]q
-  internal           = true
+  name  = %[1]q
+  internal
   load_balancer_type = "network"
-  subnets            = aws_subnet.test[*].id
+  subnets.test[*].id
 }
 
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = %[1]q
+  name1]q
   target_arns = [aws_lb.test.arn]
 }
 `, rName))
@@ -923,14 +901,14 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
 
   connection_type = "VPC_LINK"
-  connection_id   = aws_api_gateway_vpc_link.test.id
+  connection_idws_api_gateway_vpc_link.test.id
 }
 `)
 }
@@ -938,15 +916,14 @@ resource "aws_api_gateway_integration" "test" {
 func testAccIntegrationConfig_typeInternet(rName string) string {
 	return acctest.ConfigCompose(testAccIntegrationConfig_IntegrationTypeBase(rName), `
 resource "aws_api_gateway_integration" "test" {
-  rest_api_id = aws_api_gateway_rest_api.test.id
-  resource_id = aws_api_gateway_resource.test.id
+funcsource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
 }
 `)
 }
@@ -958,39 +935,37 @@ resource "aws_api_gateway_rest_api" "test" {
 }
 
 resource "aws_api_gateway_resource" "test" {
-  rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+funcrent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.path.param" = true
-  }
-}
+ethod.request.path.param" = true
+func
 
 resource "aws_api_gateway_integration" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  content_handling        = "CONVERT_TO_TEXT"
+  passthrough_behavior"WHEN_NO_MATCH"
+  content_handlingONVERT_TO_TEXT"
 
   tls_config {
-    insecure_skip_verification = %[2]t
+secure_skip_verification = %[2]t
   }
 }
 `, rName, insecureSkipVerification)

@@ -14,6 +14,8 @@ import (
 )
 
 
+
+
 func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -22,6 +24,8 @@ func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -29,6 +33,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationDataSourceConfig_id(rName, resourceName),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
@@ -43,6 +49,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccHoursOfOperationDataSource_name(t *testing.T) {
@@ -54,6 +62,8 @@ func testAccHoursOfOperationDataSource_name(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -61,6 +71,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationDataSourceConfig_name(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
@@ -75,6 +87,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccHoursOfOperationBaseDataSourceConfig(rName, rName2 string) string {
@@ -128,6 +142,8 @@ resource "aws_connect_hours_of_operation" "test" {
 }
 
 
+
+
 func testAccHoursOfOperationDataSourceConfig_id(rName, rName2 string) string {
 	return fmt.Sprintf(testAccHoursOfOperationBaseDataSourceConfig(rName, rName2) + `
 data "aws_connect_hours_of_operation" "test" {
@@ -136,6 +152,8 @@ data "aws_connect_hours_of_operation" "test" {
 }
 `)
 }
+
+
 
 
 func testAccHoursOfOperationDataSourceConfig_name(rName, rName2 string) string {

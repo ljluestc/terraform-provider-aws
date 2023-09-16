@@ -29,7 +29,7 @@ func TestAccLogsDataProtectionPolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.CloudWatchLogsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDataProtectionPolicy_basic(name),
@@ -92,7 +92,7 @@ func TestAccLogsDataProtectionPolicy_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.CloudWatchLogsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDataProtectionPolicy_basic(name),
@@ -116,7 +116,7 @@ func TestAccLogsDataProtectionPolicy_policyDocument(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.CloudWatchLogsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDataProtectionPolicy_policyDocument1(name),
@@ -289,9 +289,9 @@ resource "aws_cloudwatch_log_data_protection_policy" "test" {
         Operation = {
           Audit = {
             FindingsDestination = {
-              S3 = {
+ S3 = {
  Bucket = aws_s3_bucket.test.bucket
-              }
+ }
             }
           }
         }
@@ -379,9 +379,9 @@ resource "aws_cloudwatch_log_data_protection_policy" "test" {
         Operation = {
           Audit = {
             FindingsDestination = {
-              S3 = {
+ S3 = {
  Bucket = aws_s3_bucket.test.bucket
-              }
+ }
             }
           }
         }

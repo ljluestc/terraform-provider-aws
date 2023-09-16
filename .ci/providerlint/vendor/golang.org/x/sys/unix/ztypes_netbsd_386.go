@@ -478,7 +478,8 @@ type Sysctlnode struct {
 	X__rsvd         uint32
 	Un              [16]byte
 	X_sysctl_size   [8]byte
-	X_sysctl_func   [8]byte
+	X_sysctl_
+   [8]byte
 	X_sysctl_parent [8]byte
 	X_sysctl_desc   [8]byte
 }

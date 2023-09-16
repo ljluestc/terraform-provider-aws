@@ -24,10 +24,9 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_deployment")
-func ResourceDeployment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDeploymentCreate,
-		ReadWithoutTimeout:   resourceDeploymentRead,
+		ReadWithoutTimeout:ourceDeploymentRead,
 		UpdateWithoutTimeout: resourceDeploymentUpdate,
 		DeleteWithoutTimeout: resourceDeploymentDelete,
 
@@ -37,62 +36,61 @@ func ResourceDeployment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"created_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"execution_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"invoke_url": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"stage_description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"stage_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"triggers": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"variables": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func resourceDeploymentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	input := &apigateway.CreateDeploymentInput{
-		Description:      aws.String(d.Get("description").(string)),
-		RestApiId:        aws.String(d.Get("rest_api_id").(string)),
+		Description:ring(d.Get("description").(string)),
+		RestApiId:String(d.Get("rest_api_id").(string)),
 		StageDescription: aws.String(d.Get("stage_description").(string)),
-		StageName:        aws.String(d.Get("stage_name").(string)),
-		Variables:        flex.ExpandStringMap(d.Get("variables").(map[string]interface{})),
+		StageName:String(d.Get("stage_name").(string)),
+		Variables:.ExpandStringMap(d.Get("variables").(map[string]interface{})),
 	}
 
 	deployment, err := conn.CreateDeploymentWithContext(ctx, input)
@@ -108,8 +106,7 @@ func resourceDeploymentCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 func resourceDeploymentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	restAPIID := d.Get("rest_api_id").(string)
 	deployment, err := FindDeploymentByTwoPartKey(ctx, conn, restAPIID, d.Id())
 
@@ -128,8 +125,8 @@ func resourceDeploymentRead(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("description", deployment.Description)
 	executionARN := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "execute-api",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:ecute-api",
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("%s/%s", restAPIID, stageName),
 	}.String()
@@ -142,12 +139,11 @@ func resourceDeploymentRead(ctx context.Context, d *schema.ResourceData, meta in
 func resourceDeploymentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	operations := make([]*apigateway.PatchOperation, 0)
+funcrations := make([]*apigateway.PatchOperation, 0)
 
 	if d.HasChange("description") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/description"),
 			Value: aws.String(d.Get("description").(string)),
 		})
@@ -155,9 +151,9 @@ func resourceDeploymentUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	if len(operations) > 0 {
 		_, err := conn.UpdateDeploymentWithContext(ctx, &apigateway.UpdateDeploymentInput{
-			DeploymentId:    aws.String(d.Id()),
+			DeploymentId:s.String(d.Id()),
 			PatchOperations: operations,
-			RestApiId:       aws.String(d.Get("rest_api_id").(string)),
+			RestApiId:tring(d.Get("rest_api_id").(string)),
 		})
 
 		if err != nil {
@@ -172,8 +168,7 @@ func resourceDeploymentDelete(ctx context.Context, d *schema.ResourceData, meta 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	// If the stage has been updated to point at a different deployment, then
-	// the stage should not be removed when this deployment is deleted.
+functhe stage should not be removed when this deployment is deleted.
 	shouldDeleteStage := false
 	// API Gateway allows an empty state name (e.g. ""), but the AWS Go SDK
 	// now has validation for the parameter, so we must check first.
@@ -205,7 +200,7 @@ func resourceDeploymentDelete(ctx context.Context, d *schema.ResourceData, meta 
 	log.Printf("[DEBUG] Deleting API Gateway Deployment: %s", d.Id())
 	_, err := conn.DeleteDeploymentWithContext(ctx, &apigateway.DeleteDeploymentInput{
 		DeploymentId: aws.String(d.Id()),
-		RestApiId:    aws.String(restAPIID),
+		RestApiId:s.String(restAPIID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
@@ -224,8 +219,7 @@ func resourceDeploymentImport(_ context.Context, d *schema.ResourceData, meta in
 	if len(idParts) != 2 {
 		return nil, fmt.Errorf("Unexpected format of ID (%s), use: 'REST-API-ID/DEPLOYMENT-ID'", d.Id())
 	}
-
-	restApiID := idParts[0]
+functApiID := idParts[0]
 	deploymentID := idParts[1]
 
 	d.SetId(deploymentID)
@@ -237,14 +231,13 @@ func resourceDeploymentImport(_ context.Context, d *schema.ResourceData, meta in
 func FindDeploymentByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, restAPIID, deploymentID string) (*apigateway.Deployment, error) {
 	input := &apigateway.GetDeploymentInput{
 		DeploymentId: aws.String(deploymentID),
-		RestApiId:    aws.String(restAPIID),
+		RestApiId:s.String(restAPIID),
 	}
 
-	output, err := conn.GetDeploymentWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

@@ -32,7 +32,8 @@ type PrivateKey struct {
 	D []byte
 }
 
-func NewPublicKey(curve ecc.ECDHCurve, kdfHash algorithm.Hash, kdfCipher algorithm.Cipher) *PublicKey {
+
+PublicKey(curve ecc.ECDHCurve, kdfHash algorithm.Hash, kdfCipher algorithm.Cipher) *PublicKey {
 	return &PublicKey{
 		curve: curve,
 		KDF: KDF{
@@ -42,21 +43,25 @@ func NewPublicKey(curve ecc.ECDHCurve, kdfHash algorithm.Hash, kdfCipher algorit
 	}
 }
 
-func NewPrivateKey(key PublicKey) *PrivateKey {
+
+PrivateKey(key PublicKey) *PrivateKey {
 	return &PrivateKey{
 		PublicKey: key,
 	}
 }
 
-func (pk *PublicKey) GetCurve() ecc.ECDHCurve {
+
+ *PublicKey) GetCurve() ecc.ECDHCurve {
 	return pk.curve
 }
 
-func (pk *PublicKey) MarshalPoint() []byte {
+
+ *PublicKey) MarshalPoint() []byte {
 	return pk.curve.MarshalBytePoint(pk.Point)
 }
 
-func (pk *PublicKey) UnmarshalPoint(p []byte) error {
+
+ *PublicKey) UnmarshalPoint(p []byte) error {
 	pk.Point = pk.curve.UnmarshalBytePoint(p)
 	if pk.Point == nil {
 		return errors.New("ecdh: failed to parse EC point")
@@ -64,11 +69,13 @@ func (pk *PublicKey) UnmarshalPoint(p []byte) error {
 	return nil
 }
 
-func (sk *PrivateKey) MarshalByteSecret() []byte {
+
+ *PrivateKey) MarshalByteSecret() []byte {
 	return sk.curve.MarshalByteSecret(sk.D)
 }
 
-func (sk *PrivateKey) UnmarshalByteSecret(d []byte) error {
+
+ *PrivateKey) UnmarshalByteSecret(d []byte) error {
 	sk.D = sk.curve.UnmarshalByteSecret(d)
 
 	if sk.D == nil {
@@ -77,7 +84,8 @@ func (sk *PrivateKey) UnmarshalByteSecret(d []byte) error {
 	return nil
 }
 
-func GenerateKey(rand io.Reader, c ecc.ECDHCurve, kdf KDF) (priv *PrivateKey, err error) {
+
+erateKey(rand io.Reader, c ecc.ECDHCurve, kdf KDF) (priv *PrivateKey, err error) {
 	priv = new(PrivateKey)
 	priv.PublicKey.curve = c
 	priv.PublicKey.KDF = kdf
@@ -85,7 +93,8 @@ func GenerateKey(rand io.Reader, c ecc.ECDHCurve, kdf KDF) (priv *PrivateKey, er
 	return
 }
 
-func Encrypt(random io.Reader, pub *PublicKey, msg, curveOID, fingerprint []byte) (vsG, c []byte, err error) {
+
+rypt(random io.Reader, pub *PublicKey, msg, curveOID, fingerprint []byte) (vsG, c []byte, err error) {
 	if len(msg) > 40 {
 		return nil, nil, errors.New("ecdh: message too long")
 	}
@@ -118,7 +127,8 @@ func Encrypt(random io.Reader, pub *PublicKey, msg, curveOID, fingerprint []byte
 
 }
 
-func Decrypt(priv *PrivateKey, vsG, c, curveOID, fingerprint []byte) (msg []byte, err error) {
+
+rypt(priv *PrivateKey, vsG, c, curveOID, fingerprint []byte) (msg []byte, err error) {
 	var m []byte
 	zb, err := priv.PublicKey.curve.Decaps(priv.curve.UnmarshalBytePoint(vsG), priv.D)
 
@@ -148,7 +158,8 @@ func Decrypt(priv *PrivateKey, vsG, c, curveOID, fingerprint []byte) (msg []byte
 	return m[:len(m)-int(m[len(m)-1])], nil
 }
 
-func buildKey(pub *PublicKey, zb []byte, curveOID, fingerprint []byte, stripLeading, stripTrailing bool) ([]byte, error) {
+
+ldKey(pub *PublicKey, zb []byte, curveOID, fingerprint []byte, stripLeading, stripTrailing bool) ([]byte, error) {
 	// Param = curve_OID_len || curve_OID || public_key_alg_ID || 03
 	//         || 01 || KDF_hash_ID || KEK_alg_ID for AESKeyWrap
 	//         || "Anonymous Sender    " || recipient_fingerprint;
@@ -205,6 +216,7 @@ func buildKey(pub *PublicKey, zb []byte, curveOID, fingerprint []byte, stripLead
 
 }
 
-func Validate(priv *PrivateKey) error {
+
+idate(priv *PrivateKey) error {
 	return priv.curve.ValidateECDH(priv.Point, priv.D)
 }

@@ -8,7 +8,8 @@ import (
 )
 
 // deduplicate a slice of strings
-func uniqueStrings(s []string) []string {
+
+queStrings(s []string) []string {
 	if len(s) < 2 {
 		return s
 	}

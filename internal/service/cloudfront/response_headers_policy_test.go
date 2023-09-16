@@ -25,10 +25,10 @@ func TestAccCloudFrontResponseHeadersPolicy_cors(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_cors(rName1),
@@ -61,7 +61,7 @@ func TestAccCloudFrontResponseHeadersPolicy_cors(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 			},
@@ -105,10 +105,10 @@ func TestAccCloudFrontResponseHeadersPolicy_customHeaders(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_custom(rName),
@@ -137,7 +137,7 @@ func TestAccCloudFrontResponseHeadersPolicy_customHeaders(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 			},
@@ -151,10 +151,10 @@ func TestAccCloudFrontResponseHeadersPolicy_RemoveHeadersConfig(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_remove(rName),
@@ -185,7 +185,7 @@ func TestAccCloudFrontResponseHeadersPolicy_RemoveHeadersConfig(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 			},
@@ -199,10 +199,10 @@ func TestAccCloudFrontResponseHeadersPolicy_securityHeaders(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_security(rName),
@@ -244,7 +244,7 @@ func TestAccCloudFrontResponseHeadersPolicy_securityHeaders(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 			},
@@ -285,10 +285,10 @@ func TestAccCloudFrontResponseHeadersPolicy_serverTimingHeaders(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_serverTiming(rName, true, 10),
@@ -308,7 +308,7 @@ func TestAccCloudFrontResponseHeadersPolicy_serverTimingHeaders(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{},
 			},
@@ -369,10 +369,10 @@ func TestAccCloudFrontResponseHeadersPolicy_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResponseHeadersPolicyDestroy(ctx),
+		CheckDestroy:esponseHeadersPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyConfig_cors(rName),
@@ -561,7 +561,7 @@ resource "aws_cloudfront_response_headers_policy" "test" {
   security_headers_config {
     content_security_policy {
       content_security_policy = "policy1"
-      override                = true
+      override
     }
 
     frame_options {
@@ -571,8 +571,8 @@ resource "aws_cloudfront_response_headers_policy" "test" {
 
     strict_transport_security {
       access_control_max_age_sec = 90
-      override                   = true
-      preload                    = true
+      override
+      preload
     }
   }
 }

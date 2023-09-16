@@ -17,9 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKDataSource("aws_ce_tags")
-func DataSourceTags() *schema.Resource {
-	return &schema.Resource{
+// @SDKDataSource("aws_ce_tags")funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTagsRead,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -90,10 +88,8 @@ func DataSourceTags() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
+func
 	input := &costexplorer.GetTagsInput{
 		TimePeriod: expandTagsTimePeriod(d.Get("time_period").([]interface{})[0].(map[string]interface{})),
 	}
@@ -126,11 +122,9 @@ func dataSourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
-
 func expandTagsSortBys(tfList []interface{}) []*costexplorer.SortDefinition {
 	if len(tfList) == 0 {
-		return nil
-	}
+func
 
 	var apiObjects []*costexplorer.SortDefinition
 
@@ -148,12 +142,10 @@ func expandTagsSortBys(tfList []interface{}) []*costexplorer.SortDefinition {
 
 	return apiObjects
 }
-
 func expandTagsSortBy(tfMap map[string]interface{}) *costexplorer.SortDefinition {
 	if tfMap == nil {
 		return nil
-	}
-
+func
 	apiObject := &costexplorer.SortDefinition{}
 	apiObject.Key = aws.String(tfMap["key"].(string))
 	if v, ok := tfMap["sort_order"]; ok {
@@ -162,13 +154,11 @@ func expandTagsSortBy(tfMap map[string]interface{}) *costexplorer.SortDefinition
 
 	return apiObject
 }
-
 func expandTagsTimePeriod(tfMap map[string]interface{}) *costexplorer.DateInterval {
 	if tfMap == nil {
 		return nil
 	}
-
-	apiObject := &costexplorer.DateInterval{}
+funcObject := &costexplorer.DateInterval{}
 	apiObject.Start = aws.String(tfMap["start"].(string))
 	apiObject.End = aws.String(tfMap["end"].(string))
 

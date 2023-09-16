@@ -4,16 +4,33 @@ import (
 	"github.com/bflad/tfproviderlint/helper/astutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/crudfuncinfo"
+	"github.com/bflad/tfproviderlint/passes/helper/schema/crud
+info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for CreateFunc, CreateContextFunc, DeleteFunc, DeleteContextFunc, ReadFunc, ReadContextFunc, UpdateFunc, and UpdateContextFunc parameter naming
+const Doc = `check for Create
+, CreateContext
+, Delete
+, DeleteContext
+, Read
+, ReadContext
+, Update
+, and UpdateContext
+ parameter naming
 
-The R014 analyzer reports when CreateFunc, CreateContextFunc, DeleteFunc,
-DeleteContextFunc, ReadFunc, ReadContextFunc, UpdateFunc, and UpdateContextFunc
+The R014 analyzer reports when Create
+, CreateContext
+, Delete
+,
+Deleteext
+, Read
+, ReadContext
+, Update
+, and UpdateContext
+
 declarations do not use d as the name for the *schema.ResourceData parameter
-or meta as the name for the interface{} parameter. This parameter naming is the
+or mes the name for the intee{} parameter. This parameter ng is the
 standard convention for resources.`
 
 const analyzerName = "R014"
@@ -23,39 +40,64 @@ var Analyzer = &analysis.Analyzer{
 	Doc:  Doc,
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		crudfuncinfo.Analyzer,
+		crud
+info.Analyzer,
 	},
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	crudFuncs := pass.ResultOf[crudfuncinfo.Analyzer].([]*schema.CRUDFuncInfo)
 
-	for _, crudFunc := range crudFuncs {
-		if ignorer.ShouldIgnore(analyzerName, crudFunc.Node) {
+ run(pass *analysis.Pass) (interface{}, error) {
+	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	crud
+s := pass.ResultOf[crud
+info.Analyzer].([]*schema.CRUD
+Info)
+
+	for _, crud
+ := range crud
+s {
+		if ignorer.ShouldIgnore(analyzerName, crud
+.Node) {
 			continue
 		}
 
-		params := crudFunc.Type.Params
+		params := crud
+.Type.Params
 		paramCount := len(params.List)
 
 		switch paramCount {
 		case 2:
 			if name := astutils.FieldListName(params, 0, 0); name != nil && *name != "_" && *name != "d" {
-				pass.Reportf(params.List[0].Pos(), "%s: *schema.ResourceData parameter of CreateFunc, ReadFunc, UpdateFunc, or DeleteFunc should be named d", analyzerName)
+				pass.Reportf(params.List[0].Pos(), "%s: *schema.ResourceData parameter of Create
+, Read
+, Update
+, or Delete
+ should be named d", analyzerName)
 			}
 
 			if name := astutils.FieldListName(params, 1, 0); name != nil && *name != "_" && *name != "meta" {
-				pass.Reportf(params.List[1].Pos(), "%s: interface{} parameter of CreateFunc, ReadFunc, UpdateFunc, or DeleteFunc should be named meta", analyzerName)
+				pass.Reportf(params.List[1].Pos(), "%s: interface{} parameter of Create
+, Read
+, Update
+, or Delete
+ should be named meta", analyzerName)
 			}
 		case 3:
 			if name := astutils.FieldListName(params, 1, 0); name != nil && *name != "_" && *name != "d" {
-				pass.Reportf(params.List[1].Pos(), "%s: *schema.ResourceData parameter of CreateContextFunc, ReadContextFunc, UpdateContextFunc, or DeleteContextFunc should be named d", analyzerName)
+				pass.Reportf(params.List[1].Pos(), "%s: *schema.ResourceData parameter of CreateContext
+, ReadContext
+, UpdateContext
+, or DeleteContext
+ should be named d", analyzerName)
 			}
 
 			if name := astutils.FieldListName(params, 2, 0); name != nil && *name != "_" && *name != "meta" {
-				pass.Reportf(params.List[2].Pos(), "%s: interface{} parameter of CreateContextFunc, ReadContextFunc, UpdateContextFunc, or DeleteContextFunc should be named meta", analyzerName)
+				pass.Reportf(params.List[2].Pos(), "%s: interface{} parameter of CreateContext
+, ReadContext
+, UpdateContext
+, or DeleteContext
+ should be named meta", analyzerName)
 			}
 		}
 	}

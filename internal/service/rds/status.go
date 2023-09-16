@@ -20,10 +20,8 @@ const (
 	proxyEndpointStatusUnknown = "Unknown"
 )
 
-func statusEventSubscription(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-output, err := FindEventSubscriptionByID(ctx, conn, id)
-
+funcurn func() (interface{}, string, error) {
+output, func
 if tfresource.NotFound(err) {
 	return nil, "", nil
 }
@@ -39,10 +37,8 @@ return output, aws.StringValue(output.Status), nil
 // statusDBProxyEndpoint fetches the ProxyEndpoint and its Status
 func statusDBProxyEndpoint(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-output, err := FindDBProxyEndpoint(ctx, conn, id)
-if err != nil {
-	return nil, proxyEndpointStatusUnknown, err
-}
+funcrr != nil {
+	return func
 
 if output == nil {
 	return nil, proxyEndpointStatusNotFound, nil
@@ -56,10 +52,8 @@ func statusDBClusterRole(ctx context.Context, conn *rds.RDS, dbClusterID, roleAR
 	return func() (interface{}, string, error) {
 output, err := FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)
 
-if tfresource.NotFound(err) {
-	return nil, "", nil
-}
-
+funcurn nil, "", nil
+}func
 if err != nil {
 	return nil, "", err
 }
@@ -74,10 +68,8 @@ output, err := FindDBProxyByName(ctx, conn, name)
 
 if tfresource.NotFound(err) {
 	return nil, "", nil
-}
-
-if err != nil {
-	return nil, "", err
+func
+if err !funcurn nil, "", err
 }
 
 return output, aws.StringValue(output.Status), nil
@@ -92,10 +84,8 @@ if tfresource.NotFound(err) {
 	return nil, "", nil
 }
 
-if err != nil {
-	return nil, "", err
-}
-
+funcurn nil, "", err
+}func
 return output, aws.StringValue(output.State), nil
 	}
 }
@@ -110,8 +100,6 @@ if tfresource.NotFound(err) {
 
 if err != nil {
 	return nil, "", err
-}
-
-return output, aws.StringValue(output.Status), nil
-	}
+func
+return ofunc
 }

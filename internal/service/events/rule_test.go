@@ -76,10 +76,10 @@ func TestAccEventsRule_basic(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_basic(rName1),
@@ -148,10 +148,10 @@ func TestAccEventsRule_eventBusName(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_busName(rName1, busName1, "description 1"),
@@ -198,10 +198,10 @@ func TestAccEventsRule_role(t *testing.T) {
 	iamRoleResourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_role(rName),
@@ -227,10 +227,10 @@ func TestAccEventsRule_description(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_description(rName, "description1"),
@@ -264,10 +264,10 @@ func TestAccEventsRule_pattern(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_pattern(rName, "{\"source\":[\"aws.ec2\"]}"),
@@ -302,10 +302,10 @@ func TestAccEventsRule_patternJSONEncoder(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_patternJSONEncoder(rName),
@@ -327,10 +327,10 @@ func TestAccEventsRule_scheduleAndPattern(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_scheduleAndPattern(rName, "{\"source\":[\"aws.ec2\"]}"),
@@ -357,10 +357,10 @@ func TestAccEventsRule_namePrefix(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_namePrefix(rName),
@@ -385,10 +385,10 @@ func TestAccEventsRule_Name_generated(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_nameGenerated,
@@ -414,10 +414,10 @@ func TestAccEventsRule_tags(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_tags1(rName, "key1", "value1"),
@@ -460,10 +460,10 @@ func TestAccEventsRule_isEnabled(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_isEnabled(rName, false),
@@ -511,10 +511,10 @@ func TestAccEventsRule_partnerEventBus(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_partnerBus(rName, busName),
@@ -548,10 +548,10 @@ func TestAccEventsRule_eventBusARN(t *testing.T) {
 	eventBusName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_busARN(rName, eventBusName),
@@ -701,7 +701,7 @@ func testAccRuleNoBusNameImportStateIdFunc(resourceName string) resource.ImportS
 func testAccRuleConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
 }
 `, rName)
@@ -710,7 +710,7 @@ resource "aws_cloudwatch_event_rule" "test" {
 func testAccRuleConfig_defaultBusName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
   event_bus_name      = "default"
 }
@@ -761,7 +761,7 @@ resource "aws_cloudwatch_event_rule" "test" {
 func testAccRuleConfig_scheduleAndPattern(rName, pattern string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
   event_pattern       = <<PATTERN
 	%[2]s
@@ -773,7 +773,7 @@ PATTERN
 func testAccRuleConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   description         = %[2]q
   schedule_expression = "rate(1 hour)"
 }
@@ -783,7 +783,7 @@ resource "aws_cloudwatch_event_rule" "test" {
 func testAccRuleConfig_isEnabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
   is_enabled          = %[2]t
 }
@@ -808,7 +808,7 @@ resource "aws_cloudwatch_event_rule" "test" {
 func testAccRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
 
   tags = {
@@ -821,7 +821,7 @@ resource "aws_cloudwatch_event_rule" "test" {
 func testAccRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
 
   tags = {
@@ -855,7 +855,7 @@ POLICY
 }
 
 resource "aws_cloudwatch_event_rule" "test" {
-  name                = %[1]q
+  name   = %[1]q
   schedule_expression = "rate(1 hour)"
   role_arn            = aws_iam_role.test.arn
 }

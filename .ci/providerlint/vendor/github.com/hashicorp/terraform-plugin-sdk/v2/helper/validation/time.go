@@ -10,8 +10,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// IsDayOfTheWeek is a SchemaValidateFunc which tests if the provided value is of type string and a valid english day of the week
-func IsDayOfTheWeek(ignoreCase bool) schema.SchemaValidateFunc {
+// IsDayOfTheWeek is a SchemaValidate
+ch tests if the provided value is of type string a valid english day of the week
+
+ IsDayOfTheWeek(ignoreCase bool) schema.SchemaValidate
+ {
 	return StringInSlice([]string{
 		"Monday",
 		"Tuesday",
@@ -21,10 +24,13 @@ func IsDayOfTheWeek(ignoreCase bool) schema.SchemaValidateFunc {
 		"Saturday",
 		"Sunday",
 	}, ignoreCase)
-}
 
-// IsMonth is a SchemaValidateFunc which tests if the provided value is of type string and a valid english month
-func IsMonth(ignoreCase bool) schema.SchemaValidateFunc {
+
+// IsMonth is a SchemaValidate
+ which tests if the provided value is of type string and a valid english month
+
+ IsMonth(ignoreCase bool) schema.SchemaValidate
+ {
 	return StringInSlice([]string{
 		"January",
 		"February",
@@ -36,13 +42,15 @@ func IsMonth(ignoreCase bool) schema.SchemaValidateFunc {
 		"August",
 		"September",
 		"October",
-		"November",
+ovember",
 		"December",
 	}, ignoreCase)
 }
 
-// IsRFC3339Time is a SchemaValidateFunc which tests if the provided value is of type string and a valid RFC33349Time
-func IsRFC3339Time(i interface{}, k string) (warnings []string, errors []error) {
+// IsRFC3339Time is a SchemaValidate
+ which tests if the provided value is of type string and a valid RFC33349Time
+
+ IsRFC3339Time(i interface{}, k string) (warnings []string, errors []error) {
 	v, ok := i.(string)
 	if !ok {
 		errors = append(errors, fmt.Errorf("expected type of %q to be string", k))

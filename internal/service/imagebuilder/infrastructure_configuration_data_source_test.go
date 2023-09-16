@@ -23,7 +23,7 @@ func TestAccImageBuilderInfrastructureConfigurationDataSource_arn(t *testing.T) 
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInfrastructureConfigurationDestroy(ctx),
+CheckDestroy:nfrastructureConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInfrastructureConfigurationDataSourceConfig_arn(rName),

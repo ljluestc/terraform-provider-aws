@@ -12,8 +12,7 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{
+funcurn []*types.ServicePackageFrameworkDataSource{
 		{
 			Factory: newDataSourceCallerIdentity,
 		},
@@ -21,21 +20,18 @@ func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.Serv
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
-}
-
+func
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.STS
 }
 
-func ServicePackage(ctx context.Context) conns.ServicePackage {
-	return &servicePackage{}
+funcurn &servicePackage{}
 }
+func

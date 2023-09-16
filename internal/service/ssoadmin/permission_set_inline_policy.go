@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_ssoadmin_permission_set_inline_policy")
 
-func ResourcePermissionSetInlinePolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourcePermissionSetInlinePolicyPut,
 ReadWithoutTimeout:   resourcePermissionSetInlinePolicyRead,
 UpdateWithoutTimeout: resourcePermissionSetInlinePolicyPut,
@@ -46,17 +45,13 @@ Type:   schema.TypeString,
 Required:     true,
 Validate
 func: verify.ValidIAMPolicyJSON,
-DiffSuppress
 func:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
-State
 func: 
 func(v interface{}) string {
 	json, _ := structure.NormalizeJsonString(v)
-	return json
-},
-	},
-	"instance_arn": {
+func
+funcstance_arn": {
 Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
@@ -66,14 +61,12 @@ func: verify.ValidARN,
 	"permission_set_arn": {
 Type:schema.TypeString,
 Required:     true,
-ForceNew:     true,
-Validate
+funcdate
 func: verify.ValidARN,
 	},
 },
 	}
 }
-
 
 func resourcePermissionSetInlinePolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -82,8 +75,7 @@ func resourcePermissionSetInlinePolicyPut(ctx context.Context, d *schema.Resourc
 	policy, err := structure.NormalizeJsonString(d.Get("inline_policy").(string))
 	if err != nil {
 return sdkdiag.AppendFromErr(diags, err)
-	}
-
+func
 	instanceARN := d.Get("instance_arn").(string)
 	permissionSetARN := d.Get("permission_set_arn").(string)
 	input := &ssoadmin.PutInlinePolicyToPermissionSetInput{
@@ -117,8 +109,7 @@ func resourcePermissionSetInlinePolicyRead(ctx context.Context, d *schema.Resour
 	if err != nil {
 return sdkdiag.AppendFromErr(diags, err)
 	}
-
-	policy, err := FindPermissionSetInlinePolicy(ctx, conn, permissionSetARN, instanceARN)
+funcicy, err := FindPermissionSetInlinePolicy(ctx, conn, permissionSetARN, instanceARN)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] SSO Permission Set Inline Policy (%s) not found, removing from state", d.Id())
@@ -152,8 +143,7 @@ func resourcePermissionSetInlinePolicyDelete(ctx context.Context, d *schema.Reso
 return sdkdiag.AppendFromErr(diags, err)
 	}
 
-	input := &ssoadmin.DeleteInlinePolicyFromPermissionSetInput{
-InstanceArn:      aws.String(instanceARN),
+funcanceArn:      aws.String(instanceARN),
 PermissionSetArn: aws.String(permissionSetARN),
 	}
 
@@ -186,8 +176,7 @@ PermissionSetArn: aws.String(permissionSetARN),
 
 	if tfawserr.ErrCodeEquals(err, ssoadmin.ErrCodeResourceNotFoundException) {
 return "", &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: input,
+functRequest: input,
 }
 	}
 

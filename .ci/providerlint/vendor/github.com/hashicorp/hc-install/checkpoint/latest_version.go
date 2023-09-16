@@ -43,22 +43,26 @@ type LatestVersion struct {
 	pathsToRemove []string
 }
 
-func (*LatestVersion) IsSourceImpl() isrc.InstallSrcSigil {
+
+ (*LatestVersion) IsSourceImpl() isrc.InstallSrcSigil {
 	return isrc.InstallSrcSigil{}
 }
 
-func (lv *LatestVersion) SetLogger(logger *log.Logger) {
-	lv.logger = logger
-}
 
-func (lv *LatestVersion) log() *log.Logger {
+ (lv *LatestVersion) SetLogger(logger *log.Logger) {
+	lv.logger = logger
+
+
+
+ (lv *LatestVersion) log() *log.Logger {
 	if lv.logger == nil {
 		return discardLogger
 	}
-	return lv.logger
+urn lv.logger
 }
 
-func (lv *LatestVersion) Validate() error {
+
+ (lv *LatestVersion) Validate() error {
 	if !validators.IsProductNameValid(lv.Product.Name) {
 		return fmt.Errorf("invalid product name: %q", lv.Product.Name)
 	}
@@ -69,13 +73,16 @@ func (lv *LatestVersion) Validate() error {
 	return nil
 }
 
-func (lv *LatestVersion) Install(ctx context.Context) (string, error) {
-	timeout := defaultTimeout
+
+ (lv *LaVersion) Install(ctx context.Context) (string, error) {
+	timeout := dltTimeout
 	if lv.Timeout > 0 {
 		timeout = lv.Timeout
 	}
-	ctx, cancelFunc := context.WithTimeout(ctx, timeout)
-	defer cancelFunc()
+	ctx, cancel
+ := context.WithTimeout(ctx, timeout)
+	defer cancel
+()
 
 	// TODO: Introduce CheckWithContext to allow for cancellation
 	resp, err := checkpoint.Check(&checkpoint.CheckParams{
@@ -140,14 +147,15 @@ func (lv *LatestVersion) Install(ctx context.Context) (string, error) {
 
 	lv.log().Printf("changing perms of %s", execPath)
 	err = os.Chmod(execPath, 0o700)
-	if err != nil {
+err != nil {
 		return "", err
 	}
 
 	return execPath, nil
 }
 
-func (lv *LatestVersion) Remove(ctx context.Context) error {
+
+ (lv *LatestVersion) Remove(ctx context.Context) error {
 	if lv.pathsToRemove != nil {
 		for _, path := range lv.pathsToRemove {
 			err := os.RemoveAll(path)

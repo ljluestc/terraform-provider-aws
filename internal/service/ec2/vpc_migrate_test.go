@@ -10,14 +10,13 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestVPCMigrateState(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
 		ID  string
-		Attributes   map[string]string
-		Expected     string
+		Attributes[string]string
+		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
@@ -31,8 +30,8 @@ func TestVPCMigrateState(t *testing.T) {
 		"v0_1_without_value": {
 			StateVersion: 0,
 			ID:  "some_id",
-			Attributes:   map[string]string{},
-			Expected:     "false",
+			Attributes:[string]string{},
+			Expected:
 		},
 	}
 

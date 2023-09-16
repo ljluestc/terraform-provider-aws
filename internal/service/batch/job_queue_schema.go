@@ -72,15 +72,15 @@ func jobQueueSchema0(ctx context.Context) schema.Schema {
 
 func upgradeJobQueueResourceStateV0toV1(ctx context.Context, req resource.UpgradeStateRequest, resp *resource.UpgradeStateResponse) {
 	type resourceJobQueueDataV0 struct {
-		ARN                 types.String   `tfsdk:"arn"`
+		ARN    types.String   `tfsdk:"arn"`
 		ComputeEnvironments types.List     `tfsdk:"compute_environments"`
-		ID                  types.String   `tfsdk:"id"`
-		Name                types.String   `tfsdk:"name"`
+		ID     types.String   `tfsdk:"id"`
+		Name   types.String   `tfsdk:"name"`
 		Priority            types.Int64    `tfsdk:"priority"`
 		SchedulingPolicyARN types.String   `tfsdk:"scheduling_policy_arn"`
-		State               types.String   `tfsdk:"state"`
-		Tags                types.Map      `tfsdk:"tags"`
-		TagsAll             types.Map      `tfsdk:"tags_all"`
+		State  types.String   `tfsdk:"state"`
+		Tags   types.Map      `tfsdk:"tags"`
+		TagsAlltypes.Map      `tfsdk:"tags_all"`
 		Timeouts            timeouts.Value `tfsdk:"timeouts"`
 	}
 
@@ -93,12 +93,12 @@ func upgradeJobQueueResourceStateV0toV1(ctx context.Context, req resource.Upgrad
 
 	jobQueueDataV2 := resourceJobQueueData{
 		ComputeEnvironments: jobQueueDataV0.ComputeEnvironments,
-		ID:                  jobQueueDataV0.ID,
-		Name:                jobQueueDataV0.Name,
+		ID:     jobQueueDataV0.ID,
+		Name:   jobQueueDataV0.Name,
 		Priority:            jobQueueDataV0.Priority,
-		State:               jobQueueDataV0.State,
-		Tags:                jobQueueDataV0.Tags,
-		TagsAll:             jobQueueDataV0.TagsAll,
+		State:  jobQueueDataV0.State,
+		Tags:   jobQueueDataV0.Tags,
+		TagsAll:jobQueueDataV0.TagsAll,
 		Timeouts:            jobQueueDataV0.Timeouts,
 	}
 

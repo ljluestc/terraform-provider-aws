@@ -26,8 +26,7 @@ import (
 
 // @SDKResource("aws_devicefarm_device_pool", name="Device Pool")
 // @Tags(identifierAttribute="arn")
-func ResourceDevicePool() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDevicePoolCreate,
 		ReadWithoutTimeout:   resourceDevicePoolRead,
 		UpdateWithoutTimeout: resourceDevicePoolUpdate,
@@ -95,8 +94,7 @@ func ResourceDevicePool() *schema.Resource {
 }
 
 func resourceDevicePoolCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &devicefarm.CreateDevicePoolInput{
@@ -130,8 +128,7 @@ func resourceDevicePoolCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 func resourceDevicePoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	devicePool, err := FindDevicePoolByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -167,8 +164,7 @@ func resourceDevicePoolRead(ctx context.Context, d *schema.ResourceData, meta in
 func resourceDevicePoolUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateDevicePoolInput{
 			Arn: aws.String(d.Id()),
 		}
@@ -207,8 +203,7 @@ func resourceDevicePoolDelete(ctx context.Context, d *schema.ResourceData, meta 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	log.Printf("[DEBUG] Deleting DeviceFarm Device Pool: %s", d.Id())
-	_, err := conn.DeleteDevicePoolWithContext(ctx, &devicefarm.DeleteDevicePoolInput{
+funcerr := conn.DeleteDevicePoolWithContext(ctx, &devicefarm.DeleteDevicePoolInput{
 		Arn: aws.String(d.Id()),
 	})
 
@@ -228,8 +223,7 @@ func expandDevicePoolRules(s *schema.Set) []*devicefarm.Rule {
 
 	for _, r := range s.List() {
 		rule := &devicefarm.Rule{}
-		tfMap := r.(map[string]interface{})
-
+func
 		if v, ok := tfMap["attribute"].(string); ok && v != "" {
 			rule.Attribute = aws.String(v)
 		}
@@ -253,8 +247,7 @@ func flattenDevicePoolRules(list []*devicefarm.Rule) []map[string]interface{} {
 	}
 
 	result := make([]map[string]interface{}, 0, len(list))
-	for _, setting := range list {
-		l := map[string]interface{}{}
+func:= map[string]interface{}{}
 
 		if setting.Attribute != nil {
 			l["attribute"] = aws.StringValue(setting.Attribute)
@@ -280,8 +273,7 @@ func decodeProjectARN(id, typ string, meta interface{}) (string, error) {
 	}
 
 	poolArnResouce := poolArn.Resource
-	parts := strings.Split(strings.TrimPrefix(poolArnResouce, fmt.Sprintf("%s:", typ)), "/")
-	if len(parts) != 2 {
+funclen(parts) != 2 {
 		return "", fmt.Errorf("Unexpected format of ID (%q), expected project-id/%q-id", poolArnResouce, typ)
 	}
 

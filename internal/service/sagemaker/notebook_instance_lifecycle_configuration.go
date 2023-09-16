@@ -19,10 +19,9 @@ import (
 )
 
 // @SDKResource("aws_sagemaker_notebook_instance_lifecycle_configuration")
-func ResourceNotebookInstanceLifeCycleConfiguration() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNotebookInstanceLifeCycleConfigurationCreate,
-		ReadWithoutTimeout:   resourceNotebookInstanceLifeCycleConfigurationRead,
+		ReadWithoutTimeout:ourceNotebookInstanceLifeCycleConfigurationRead,
 		UpdateWithoutTimeout: resourceNotebookInstanceLifeCycleConfigurationUpdate,
 		DeleteWithoutTimeout: resourceNotebookInstanceLifeCycleConfigurationDelete,
 		Importer: &schema.ResourceImporter{
@@ -31,26 +30,26 @@ func ResourceNotebookInstanceLifeCycleConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: validName,
 			},
 
 			"on_create": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 16384),
 			},
 
 			"on_start": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 16384),
 			},
 		},
@@ -58,8 +57,7 @@ func ResourceNotebookInstanceLifeCycleConfiguration() *schema.Resource {
 }
 
 func resourceNotebookInstanceLifeCycleConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	var name string
 	if v, ok := d.GetOk("name"); ok {
@@ -96,8 +94,7 @@ func resourceNotebookInstanceLifeCycleConfigurationCreate(ctx context.Context, d
 
 func resourceNotebookInstanceLifeCycleConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	request := &sagemaker.DescribeNotebookInstanceLifecycleConfigInput{
 		NotebookInstanceLifecycleConfigName: aws.String(d.Id()),
 	}
@@ -138,8 +135,7 @@ func resourceNotebookInstanceLifeCycleConfigurationRead(ctx context.Context, d *
 func resourceNotebookInstanceLifeCycleConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	updateOpts := &sagemaker.UpdateNotebookInstanceLifecycleConfigInput{
+funcateOpts := &sagemaker.UpdateNotebookInstanceLifecycleConfigInput{
 		NotebookInstanceLifecycleConfigName: aws.String(d.Get("name").(string)),
 	}
 
@@ -164,8 +160,7 @@ func resourceNotebookInstanceLifeCycleConfigurationDelete(ctx context.Context, d
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	deleteOpts := &sagemaker.DeleteNotebookInstanceLifecycleConfigInput{
-		NotebookInstanceLifecycleConfigName: aws.String(d.Id()),
+functebookInstanceLifecycleConfigName: aws.String(d.Id()),
 	}
 	log.Printf("[INFO] Deleting SageMaker Notebook Instance Lifecycle Configuration: %s", d.Id())
 

@@ -4,13 +4,17 @@ import (
 	"github.com/hashicorp/go-cty/cty"
 )
 
-func conversionToCapsule(inTy, outTy cty.Type, fn func(inTy cty.Type) func(cty.Value, cty.Path) (interface{}, error)) conversion {
+
+versionToCapsule(inTy, outTy cty.Type, fn 
+y cty.Type) 
+.Value, cty.Path) (interface{}, error)) conversion {
 	rawConv := fn(inTy)
 	if rawConv == nil {
 		return nil
 	}
 
-	return func(in cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+cty.Value, path cty.Path) (cty.Value, error) {
 		rawV, err := rawConv(in, path)
 		if err != nil {
 			return cty.NilVal, err
@@ -19,13 +23,17 @@ func conversionToCapsule(inTy, outTy cty.Type, fn func(inTy cty.Type) func(cty.V
 	}
 }
 
-func conversionFromCapsule(inTy, outTy cty.Type, fn func(outTy cty.Type) func(interface{}, cty.Path) (cty.Value, error)) conversion {
+
+versionFromCapsule(inTy, outTy cty.Type, fn 
+Ty cty.Type) 
+erface{}, cty.Path) (cty.Value, error)) conversion {
 	rawConv := fn(outTy)
 	if rawConv == nil {
 		return nil
 	}
 
-	return func(in cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+cty.Value, path cty.Path) (cty.Value, error) {
 		return rawConv(in.EncapsulatedValue(), path)
 	}
 }

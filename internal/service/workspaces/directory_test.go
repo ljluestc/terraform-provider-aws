@@ -40,9 +40,9 @@ func testAccDirectory_basic(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_basic(rName, domain),
@@ -108,9 +108,9 @@ func testAccDirectory_disappears(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_basic(rName, domain),
@@ -140,9 +140,9 @@ func testAccDirectory_subnetIDs(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_subnetIDs(rName, domain),
@@ -176,9 +176,9 @@ func testAccDirectory_tags(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_tags1(rName, domain, "key1", "value1"),
@@ -230,9 +230,9 @@ func testAccDirectory_selfServicePermissions(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_selfServicePermissions(rName, domain),
@@ -266,9 +266,9 @@ func testAccDirectory_workspaceAccessProperties(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_workspaceAccessProperties(rName, domain),
@@ -306,9 +306,9 @@ func testAccDirectory_workspaceCreationProperties(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_workspaceCreationProperties(rName, domain),
@@ -343,9 +343,9 @@ func testAccDirectory_workspaceCreationProperties_customSecurityGroupId_defaultO
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_creationPropertiesCustomSecurityGroupIdDefaultOUAbsent(rName, domain),
@@ -389,10 +389,10 @@ func testAccDirectory_ipGroupIDs(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole") },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole") },
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_ipGroupIdsCreate(rName, domain),
@@ -618,15 +618,15 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 			input: []interface{}{
 				map[string]interface{}{
 					"custom_security_group_id":            "sg-123456789012",
-					"default_ou":                          "OU=AWS,DC=Workgroup,DC=Example,DC=com",
-					"enable_internet_access":              true,
-					"enable_maintenance_mode":             true,
+					"default_ou":"OU=AWS,DC=Workgroup,DC=Example,DC=com",
+					"enable_internet_access": true,
+					"enable_maintenance_mode":true,
 					"user_enabled_as_local_administrator": true,
 				},
 			},
 			expected: &types.WorkspaceCreationProperties{
 				CustomSecurityGroupId:           aws.String("sg-123456789012"),
-				DefaultOu:                       aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
+				DefaultOu:          aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
 				EnableInternetAccess:            aws.Bool(true),
 				EnableMaintenanceMode:           aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
@@ -637,15 +637,15 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 			input: []interface{}{
 				map[string]interface{}{
 					"custom_security_group_id":            "",
-					"default_ou":                          "",
-					"enable_internet_access":              true,
-					"enable_maintenance_mode":             true,
+					"default_ou":"",
+					"enable_internet_access": true,
+					"enable_maintenance_mode":true,
 					"user_enabled_as_local_administrator": true,
 				},
 			},
 			expected: &types.WorkspaceCreationProperties{
 				CustomSecurityGroupId:           nil,
-				DefaultOu:                       nil,
+				DefaultOu:          nil,
 				EnableInternetAccess:            aws.Bool(true),
 				EnableMaintenanceMode:           aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
@@ -677,7 +677,7 @@ func TestFlattenWorkspaceCreationProperties(t *testing.T) {
 		{
 			input: &types.DefaultWorkspaceCreationProperties{
 				CustomSecurityGroupId:           aws.String("sg-123456789012"),
-				DefaultOu:                       aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
+				DefaultOu:          aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
 				EnableInternetAccess:            aws.Bool(true),
 				EnableMaintenanceMode:           aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
@@ -685,9 +685,9 @@ func TestFlattenWorkspaceCreationProperties(t *testing.T) {
 			expected: []interface{}{
 				map[string]interface{}{
 					"custom_security_group_id":            "sg-123456789012",
-					"default_ou":                          "OU=AWS,DC=Workgroup,DC=Example,DC=com",
-					"enable_internet_access":              true,
-					"enable_maintenance_mode":             true,
+					"default_ou":"OU=AWS,DC=Workgroup,DC=Example,DC=com",
+					"enable_internet_access": true,
+					"enable_maintenance_mode":true,
 					"user_enabled_as_local_administrator": true,
 				},
 			},
@@ -793,7 +793,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "primary" {
-  vpc_id               = aws_vpc.main.id
+  vpc_id  = aws_vpc.main.id
   availability_zone_id = local.workspaces_az_ids[0]
   cidr_block           = "10.0.1.0/24"
 
@@ -803,7 +803,7 @@ resource "aws_subnet" "primary" {
 }
 
 resource "aws_subnet" "secondary" {
-  vpc_id               = aws_vpc.main.id
+  vpc_id  = aws_vpc.main.id
   availability_zone_id = local.workspaces_az_ids[1]
   cidr_block           = "10.0.2.0/24"
 
@@ -952,9 +952,9 @@ resource "aws_workspaces_directory" "main" {
 
   workspace_creation_properties {
     custom_security_group_id            = aws_security_group.test.id
-    default_ou                          = "OU=AWS,DC=Workgroup,DC=Example,DC=com"
-    enable_internet_access              = true
-    enable_maintenance_mode             = false
+    default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
+    enable_internet_access = true
+    enable_maintenance_mode= false
     user_enabled_as_local_administrator = false
   }
 
@@ -973,8 +973,8 @@ resource "aws_workspaces_directory" "main" {
   directory_id = aws_directory_service_directory.main.id
 
   workspace_creation_properties {
-    enable_internet_access              = true
-    enable_maintenance_mode             = false
+    enable_internet_access = true
+    enable_maintenance_mode= false
     user_enabled_as_local_administrator = false
   }
 
@@ -999,9 +999,9 @@ resource "aws_workspaces_directory" "main" {
 
   workspace_creation_properties {
     custom_security_group_id            = aws_security_group.test.id
-    default_ou                          = "OU=AWS,DC=Workgroup,DC=Example,DC=com"
-    enable_internet_access              = true
-    enable_maintenance_mode             = false
+    default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
+    enable_internet_access = true
+    enable_maintenance_mode= false
     user_enabled_as_local_administrator = false
   }
 

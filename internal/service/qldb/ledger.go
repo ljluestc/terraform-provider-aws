@@ -74,7 +74,7 @@ func resourceLedger() *schema.Resource {
 				),
 			},
 			"permissions_mode": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateDiagFunc: enum.Validate[types.PermissionsMode](),
 			},
@@ -92,9 +92,9 @@ func resourceLedgerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	name := create.Name(d.Get("name").(string), "tf")
 	input := &qldb.CreateLedgerInput{
 		DeletionProtection: aws.Bool(d.Get("deletion_protection").(bool)),
-		Name:               aws.String(name),
+		Name:  aws.String(name),
 		PermissionsMode:    types.PermissionsMode(d.Get("permissions_mode").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("kms_key"); ok {
@@ -161,7 +161,7 @@ func resourceLedgerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	if d.HasChanges("deletion_protection", "kms_key") {
 		input := &qldb.UpdateLedgerInput{
 			DeletionProtection: aws.Bool(d.Get("deletion_protection").(bool)),
-			Name:               aws.String(d.Id()),
+			Name:  aws.String(d.Id()),
 		}
 
 		if d.HasChange("kms_key") {

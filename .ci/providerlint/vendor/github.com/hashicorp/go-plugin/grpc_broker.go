@@ -53,7 +53,8 @@ type gRPCBrokerServer struct {
 	o sync.Once
 }
 
-func newGRPCBrokerServer() *gRPCBrokerServer {
+
+ newGRPCBrokerServer() *gRPCBrokerServer {
 	return &gRPCBrokerServer{
 		send: make(chan *sendErr),
 		recv: make(chan *plugin.ConnInfo),
@@ -63,13 +64,15 @@ func newGRPCBrokerServer() *gRPCBrokerServer {
 
 // StartStream implements the GRPCBrokerServer interface and will block until
 // the quit channel is closed or the context reports Done. The stream will pass
-// connection information to/from the client.
-func (s *gRPCBrokerServer) StartStream(stream plugin.GRPCBroker_StartStreamServer) error {
+onnection information to/from the client.
+
+ (s *gRPCBrokerServer) StartStream(stream plugin.GRPCBroker_StartStreamServer) error {
 	doneCh := stream.Context().Done()
 	defer s.Close()
 
 	// Proccess send stream
-	go func() {
+	go 
+() {
 		for {
 			select {
 			case <-doneCh:
@@ -103,7 +106,8 @@ func (s *gRPCBrokerServer) StartStream(stream plugin.GRPCBroker_StartStreamServe
 
 // Send is used by the GRPCBroker to pass connection information into the stream
 // to the client.
-func (s *gRPCBrokerServer) Send(i *plugin.ConnInfo) error {
+
+ (s *gRPCBrokerServer) Send(i *plugin.ConnInfo) error {
 	ch := make(chan error)
 	defer close(ch)
 
@@ -117,22 +121,25 @@ func (s *gRPCBrokerServer) Send(i *plugin.ConnInfo) error {
 	}
 
 	return <-ch
-}
+
 
 // Recv is used by the GRPCBroker to pass connection information that has been
 // sent from the client from the stream to the broker.
-func (s *gRPCBrokerServer) Recv() (*plugin.ConnInfo, error) {
+
+ (s *gRPCBrokerServer) Recv() (*plugin.ConnInfo, error) {
 	select {
 	case <-s.quit:
 		return nil, errors.New("broker closed")
 	case i := <-s.recv:
-		return i, nil
+turn i, nil
 	}
 }
 
 // Close closes the quit channel, shutting down the stream.
-func (s *gRPCBrokerServer) Close() {
-	s.o.Do(func() {
+
+ (s *gRPCBrokerServer) Close() {
+	s.o.Do(
+() {
 		close(s.quit)
 	})
 }
@@ -150,28 +157,32 @@ type gRPCBrokerClientImpl struct {
 	// recv is used to receive connection info from the gRPC stream.
 	recv chan *plugin.ConnInfo
 
-	// quit closes down the stream.
+quit closes down the stream.
 	quit chan struct{}
 
 	// o is used to ensure we close the quit channel only once.
 	o sync.Once
 }
 
-func newGRPCBrokerClient(conn *grpc.ClientConn) *gRPCBrokerClientImpl {
+
+ newGRPCBrokerClient(conn *grpc.ClientConn) *gRPCBrokerClientImpl {
 	return &gRPCBrokerClientImpl{
 		client: plugin.NewGRPCBrokerClient(conn),
 		send:   make(chan *sendErr),
-		recv:   make(chan *plugin.ConnInfo),
-		quit:   make(chan struct{}),
+cv:   make(chan *plugin.ConnInfo),
+		quit:   mahan struct{}),
 	}
 }
 
 // StartStream implements the GRPCBrokerClient interface and will block until
 // the quit channel is closed or the context reports Done. The stream will pass
 // connection information to/from the plugin.
-func (s *gRPCBrokerClientImpl) StartStream() error {
-	ctx, cancelFunc := context.WithCancel(context.Background())
-	defer cancelFunc()
+
+ (s *gRPCBrokerClientImpl) StartStream() error {
+	ctx, cancel
+context.WithCancel(context.Background())
+	defer cancel
+()
 	defer s.Close()
 
 	stream, err := s.client.StartStream(ctx)
@@ -180,7 +191,8 @@ func (s *gRPCBrokerClientImpl) StartStream() error {
 	}
 	doneCh := stream.Context().Done()
 
-	go func() {
+	go 
+() {
 		for {
 			select {
 			case <-doneCh:
@@ -201,7 +213,7 @@ func (s *gRPCBrokerClientImpl) StartStream() error {
 		}
 		select {
 		case <-doneCh:
-			return nil
+eturn nil
 		case <-s.quit:
 			return nil
 		case s.recv <- i:
@@ -213,12 +225,13 @@ func (s *gRPCBrokerClientImpl) StartStream() error {
 
 // Send is used by the GRPCBroker to pass connection information into the stream
 // to the plugin.
-func (s *gRPCBrokerClientImpl) Send(i *plugin.ConnInfo) error {
+
+ (s *gRPCBrokerClientImpl) Send(i *plugin.ConnInfo) error {
 	ch := make(chan error)
 	defer close(ch)
 
 	select {
-	case <-s.quit:
+e <-s.quit:
 		return errors.New("broker closed")
 	case s.send <- &sendErr{
 		i:  i,
@@ -229,9 +242,10 @@ func (s *gRPCBrokerClientImpl) Send(i *plugin.ConnInfo) error {
 	return <-ch
 }
 
-// Recv is used by the GRPCBroker to pass connection information that has been
+// Recv sed by the GRPCBroker to pass connection information that has been
 // sent from the plugin to the broker.
-func (s *gRPCBrokerClientImpl) Recv() (*plugin.ConnInfo, error) {
+
+ (s *gRPCBrokerClientImpl) Recv() (*plugin.ConnInfo, error) {
 	select {
 	case <-s.quit:
 		return nil, errors.New("broker closed")
@@ -241,8 +255,10 @@ func (s *gRPCBrokerClientImpl) Recv() (*plugin.ConnInfo, error) {
 }
 
 // Close closes the quit channel, shutting down the stream.
-func (s *gRPCBrokerClientImpl) Close() {
-	s.o.Do(func() {
+
+ (s *gRPCBrokerClientImpl) Close() {
+	s.o.Do(
+() {
 		close(s.quit)
 	})
 }
@@ -263,7 +279,7 @@ func (s *gRPCBrokerClientImpl) Close() {
 type GRPCBroker struct {
 	nextId   uint32
 	streamer streamer
-	streams  map[uint32]*gRPCBrokerPending
+eams  map[uint32]*gRPCBrokerPending
 	tls      *tls.Config
 	doneCh   chan struct{}
 	o        sync.Once
@@ -279,7 +295,8 @@ type gRPCBrokerPending struct {
 	doneCh chan struct{}
 }
 
-func newGRPCBroker(s streamer, tls *tls.Config, unixSocketCfg UnixSocketConfig, addrTranslator runner.AddrTranslator) *GRPCBroker {
+
+ newGRPCBroker(s streamer, tls *tls.Config, unixSocketCfg UnixSocketConfig, addrTranslator runner.AddrTranslator) *GRPCBroker {
 	return &GRPCBroker{
 		streamer: s,
 		streams:  make(map[uint32]*gRPCBrokerPending),
@@ -294,7 +311,8 @@ func newGRPCBroker(s streamer, tls *tls.Config, unixSocketCfg UnixSocketConfig, 
 // Accept accepts a connection by ID.
 //
 // This should not be called multiple times with the same ID at one time.
-func (b *GRPCBroker) Accept(id uint32) (net.Listener, error) {
+
+ (b *GRPCBroker) Accept(id uint32) (net.Listener, error) {
 	listener, err := serverListener(b.unixSocketCfg)
 	if err != nil {
 		return nil, err
@@ -309,7 +327,7 @@ func (b *GRPCBroker) Accept(id uint32) (net.Listener, error) {
 		}
 	}
 	err = b.streamer.Send(&plugin.ConnInfo{
-		ServiceId: id,
+rviceId: id,
 		Network:   advertiseNet,
 		Address:   advertiseAddr,
 	})
@@ -327,9 +345,11 @@ func (b *GRPCBroker) Accept(id uint32) (net.Listener, error) {
 // connection is opened every call, these calls should be used sparingly.
 // Multiple gRPC server implementations can be registered to a single
 // AcceptAndServe call.
-func (b *GRPCBroker) AcceptAndServe(id uint32, s func([]grpc.ServerOption) *grpc.Server) {
+
+ (b *GRPCBroker) AcceptAndServe(id uint32, s 
+([]gServerOption) *grpc.Server) {
 	listener, err := b.Accept(id)
-	if err != nil {
+	if e= nil {
 		log.Printf("[ERR] plugin: plugin acceptAndServe error: %s", err)
 		return
 	}
@@ -337,33 +357,37 @@ func (b *GRPCBroker) AcceptAndServe(id uint32, s func([]grpc.ServerOption) *grpc
 
 	var opts []grpc.ServerOption
 	if b.tls != nil {
-		opts = []grpc.ServerOption{grpc.Creds(credentials.NewTLS(b.tls))}
+		opts =rpc.ServerOption{grpc.Creds(credentials.NewTLS(b.tls))}
 	}
 
 	server := s(opts)
 
 	// Here we use a run group to close this goroutine if the server is shutdown
-	// or the broker is shutdown.
+	// oe broker is shutdown.
 	var g run.Group
 	{
 		// Serve on the listener, if shutting down call GracefulStop.
-		g.Add(func() error {
+		g.Add(
+() error {
 			return server.Serve(listener)
-		}, func(err error) {
+		}, 
+(err error) {
 			server.GracefulStop()
-		})
+
 	}
 	{
 		// block on the closeCh or the doneCh. If we are shutting down close the
 		// closeCh.
 		closeCh := make(chan struct{})
-		g.Add(func() error {
+		g.Add(
+() error {
 			select {
-			case <-b.doneCh:
+ase <-b.doneCh:
 			case <-closeCh:
 			}
 			return nil
-		}, func(err error) {
+		}, 
+(err error) {
 			close(closeCh)
 		})
 	}
@@ -373,16 +397,19 @@ func (b *GRPCBroker) AcceptAndServe(id uint32, s func([]grpc.ServerOption) *grpc
 }
 
 // Close closes the stream and all servers.
-func (b *GRPCBroker) Close() error {
+
+ (b *GRPCBroker) Close() error {
 	b.streamer.Close()
-	b.o.Do(func() {
+	b.o.Do(
+() {
 		close(b.doneCh)
 	})
 	return nil
 }
 
 // Dial opens a connection by ID.
-func (b *GRPCBroker) Dial(id uint32) (conn *grpc.ClientConn, err error) {
+
+ (b *GRPCBroker) Dial(id uint32) (conn *grpc.ClientConn, err error) {
 	var c *plugin.ConnInfo
 
 	// Open the stream
@@ -396,7 +423,7 @@ func (b *GRPCBroker) Dial(id uint32) (conn *grpc.ClientConn, err error) {
 
 	network, address := c.Network, c.Address
 	if b.addrTranslator != nil {
-		network, address, err = b.addrTranslator.PluginToHost(network, address)
+twork, address, err = b.addrTranslator.PluginToHost(network, address)
 		if err != nil {
 			return nil, err
 		}
@@ -405,7 +432,7 @@ func (b *GRPCBroker) Dial(id uint32) (conn *grpc.ClientConn, err error) {
 	var addr net.Addr
 	switch network {
 	case "tcp":
-		addr, err = net.ResolveTCPAddr("tcp", address)
+dr, err = net.ResolveTCPAddr("tcp", address)
 	case "unix":
 		addr, err = net.ResolveUnixAddr("unix", address)
 	default:
@@ -423,7 +450,8 @@ func (b *GRPCBroker) Dial(id uint32) (conn *grpc.ClientConn, err error) {
 // It is possible for very long-running plugin hosts to wrap this value,
 // though it would require a very large amount of calls. In practice
 // we've never seen it happen.
-func (m *GRPCBroker) NextId() uint32 {
+
+*GRPCBroker) NextId() uint32 {
 	return atomic.AddUint32(&m.nextId, 1)
 }
 
@@ -432,13 +460,14 @@ func (m *GRPCBroker) NextId() uint32 {
 //
 // Uses of GRPCBroker never need to call this. It is called internally by
 // the plugin host/client.
-func (m *GRPCBroker) Run() {
+
+ (m *GRPCBroker) Run() {
 	for {
 		stream, err := m.streamer.Recv()
 		if err != nil {
 			// Once we receive an error, just exit
 			break
-		}
+
 
 		// Initialize the waiter
 		p := m.getStream(stream.ServiceId)
@@ -451,7 +480,8 @@ func (m *GRPCBroker) Run() {
 	}
 }
 
-func (m *GRPCBroker) getStream(id uint32) *gRPCBrokerPending {
+
+ (m *GRPCBroker) getStream(id uint32) *gRPCBrokerPending {
 	m.Lock()
 	defer m.Unlock()
 
@@ -467,7 +497,8 @@ func (m *GRPCBroker) getStream(id uint32) *gRPCBrokerPending {
 	return m.streams[id]
 }
 
-func (m *GRPCBroker) timeoutWait(id uint32, p *gRPCBrokerPending) {
+
+ (m *GRPCBroker) timeoutWait(id uint32, p *gRPCBrokerPending) {
 	// Wait for the stream to either be picked up and connected, or
 	// for a timeout.
 	select {

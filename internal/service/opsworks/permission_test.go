@@ -29,7 +29,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+CheckDestroy:ctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_create(rName, true, true, "iam_only"),
@@ -88,7 +88,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+CheckDestroy:ctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_self(rName, true, true),
@@ -150,12 +150,12 @@ resource "aws_opsworks_permission" "test" {
 
   allow_ssh  = %[1]t
   allow_sudo = %[2]t
-  user_arn   = aws_opsworks_user_profile.user.user_arn
-  level      = %[3]q
+  user_arnws_opsworks_user_profile.user.user_arn
+  levelq
 }
 
 resource "aws_opsworks_user_profile" "user" {
-  user_arn     = aws_iam_user.user.arn
+  user_arn aws_iam_user.user.arn
   ssh_username = aws_iam_user.user.name
 }
 
@@ -176,8 +176,8 @@ data "aws_caller_identity" "current" {}
 resource "aws_opsworks_permission" "test" {
   allow_ssh  = %[1]t
   allow_sudo = %[2]t
-  stack_id   = aws_opsworks_stack.test.id
-  user_arn   = data.aws_caller_identity.current.arn
+  stack_idws_opsworks_stack.test.id
+  user_arnata.aws_caller_identity.current.arn
 }
 `, allowSSH, allowSudo))
 }

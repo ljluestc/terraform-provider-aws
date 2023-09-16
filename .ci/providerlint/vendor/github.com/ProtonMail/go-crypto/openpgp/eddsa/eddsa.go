@@ -18,27 +18,32 @@ type PrivateKey struct {
 	D []byte
 }
 
-func NewPublicKey(curve ecc.EdDSACurve) *PublicKey {
+
+PublicKey(curve ecc.EdDSACurve) *PublicKey {
 	return &PublicKey{
 		curve: curve,
 	}
 }
 
-func NewPrivateKey(key PublicKey) *PrivateKey {
+
+PrivateKey(key PublicKey) *PrivateKey {
 	return &PrivateKey{
 		PublicKey: key,
 	}
 }
 
-func (pk *PublicKey) GetCurve() ecc.EdDSACurve {
+
+ *PublicKey) GetCurve() ecc.EdDSACurve {
 	return pk.curve
 }
 
-func (pk *PublicKey) MarshalPoint() []byte {
+
+ *PublicKey) MarshalPoint() []byte {
 	return pk.curve.MarshalBytePoint(pk.X)
 }
 
-func (pk *PublicKey) UnmarshalPoint(x []byte) error {
+
+ *PublicKey) UnmarshalPoint(x []byte) error {
 	pk.X = pk.curve.UnmarshalBytePoint(x)
 
 	if pk.X == nil {
@@ -47,11 +52,13 @@ func (pk *PublicKey) UnmarshalPoint(x []byte) error {
 	return nil
 }
 
-func (sk *PrivateKey) MarshalByteSecret() []byte {
+
+ *PrivateKey) MarshalByteSecret() []byte {
 	return sk.curve.MarshalByteSecret(sk.D)
 }
 
-func (sk *PrivateKey) UnmarshalByteSecret(d []byte) error {
+
+ *PrivateKey) UnmarshalByteSecret(d []byte) error {
 	sk.D = sk.curve.UnmarshalByteSecret(d)
 
 	if sk.D == nil {
@@ -60,14 +67,16 @@ func (sk *PrivateKey) UnmarshalByteSecret(d []byte) error {
 	return nil
 }
 
-func GenerateKey(rand io.Reader, c ecc.EdDSACurve) (priv *PrivateKey, err error) {
+
+erateKey(rand io.Reader, c ecc.EdDSACurve) (priv *PrivateKey, err error) {
 	priv = new(PrivateKey)
 	priv.PublicKey.curve = c
 	priv.PublicKey.X, priv.D, err = c.GenerateEdDSA(rand)
 	return
 }
 
-func Sign(priv *PrivateKey, message []byte) (r, s []byte, err error) {
+
+n(priv *PrivateKey, message []byte) (r, s []byte, err error) {
 	sig, err := priv.PublicKey.curve.Sign(priv.PublicKey.X, priv.D, message)
 	if err != nil {
 		return nil, nil, err
@@ -77,7 +86,8 @@ func Sign(priv *PrivateKey, message []byte) (r, s []byte, err error) {
 	return
 }
 
-func Verify(pub *PublicKey, message, r, s []byte) bool {
+
+ify(pub *PublicKey, message, r, s []byte) bool {
 	sig := pub.curve.UnmarshalSignature(r, s)
 	if sig == nil {
 		return false
@@ -86,6 +96,7 @@ func Verify(pub *PublicKey, message, r, s []byte) bool {
 	return pub.curve.Verify(pub.X, message, sig)
 }
 
-func Validate(priv *PrivateKey) error {
+
+idate(priv *PrivateKey) error {
 	return priv.curve.ValidateEdDSA(priv.PublicKey.X, priv.D)
 }

@@ -28,10 +28,10 @@ func TestAccFSxOntapStorageVirtualMachine_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_basic(rName),
@@ -68,10 +68,10 @@ func TestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rName),
@@ -91,7 +91,7 @@ func TestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"root_volume_security_style"},
 			},
@@ -108,10 +108,10 @@ func TestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t *testing.T) {
 	pass2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName, pass1),
@@ -122,7 +122,7 @@ func TestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"svm_admin_password"},
 			},
@@ -145,10 +145,10 @@ func TestAccFSxOntapStorageVirtualMachine_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_basic(rName),
@@ -170,10 +170,10 @@ func TestAccFSxOntapStorageVirtualMachine_name(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_basic(rName),
@@ -206,10 +206,10 @@ func TestAccFSxOntapStorageVirtualMachine_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_tags1(rName, "key1", "value1"),
@@ -258,10 +258,10 @@ func TestAccFSxOntapStorageVirtualMachine_activeDirectory(t *testing.T) {
 	domainPassword1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(rName, netBiosName, domainNetbiosName, domainName, domainPassword1),
@@ -429,7 +429,7 @@ resource "aws_fsx_ontap_storage_virtual_machine" "test" {
 func testAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rName string) string {
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
-  file_system_id             = aws_fsx_ontap_file_system.test.id
+  file_system_id= aws_fsx_ontap_file_system.test.id
   name        = %[1]q
   root_volume_security_style = "NTFS"
 }
@@ -484,7 +484,7 @@ resource "aws_fsx_ontap_storage_virtual_machine" "test" {
     netbios_name = %[2]q
     self_managed_active_directory_configuration {
       dns_ips  = aws_directory_service_directory.test.dns_ip_addresses
-      domain_name             = %[3]q
+      domain_name= %[3]q
       password = %[4]q
       username = "Admin"
       organizational_unit_distinguished_name = "OU=computers,OU=%[5]s"

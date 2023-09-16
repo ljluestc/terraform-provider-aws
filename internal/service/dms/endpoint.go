@@ -59,7 +59,7 @@ func ResourceEndpoint() *schema.Resource {
 				Optional: true,
 			},
 			"elasticsearch_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -122,13 +122,13 @@ func ResourceEndpoint() *schema.Resource {
 				ValidateFunc: validation.StringInSlice(engineName_Values(), false),
 			},
 			"extra_connection_attributes": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Computed:         true,
 				Optional:         true,
 				DiffSuppressFunc: suppressExtraConnectionAttributesDiffs,
 			},
 			"kafka_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -227,7 +227,7 @@ func ResourceEndpoint() *schema.Resource {
 				},
 			},
 			"kinesis_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -291,7 +291,7 @@ func ResourceEndpoint() *schema.Resource {
 				ValidateFunc: verify.ValidARN,
 			},
 			"mongodb_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -345,7 +345,7 @@ func ResourceEndpoint() *schema.Resource {
 				ConflictsWith: []string{"secrets_manager_access_role_arn", "secrets_manager_arn"},
 			},
 			"redis_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -388,7 +388,7 @@ func ResourceEndpoint() *schema.Resource {
 				},
 			},
 			"redshift_settings": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				Computed:         true,
 				MaxItems:         1,
@@ -410,7 +410,7 @@ func ResourceEndpoint() *schema.Resource {
 							ValidateFunc: validation.StringInSlice(encryptionMode_Values(), false),
 						},
 						"server_side_encryption_kms_key_id": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							DiffSuppressFunc: tfkms.DiffSuppressKey,
 							ValidateFunc:     tfkms.ValidateKey,
@@ -425,7 +425,7 @@ func ResourceEndpoint() *schema.Resource {
 			},
 			"s3_settings": {
 				Description:      "This argument is deprecated and will be removed in a future version; use aws_dms_s3_endpoint instead",
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -616,7 +616,7 @@ func ResourceEndpoint() *schema.Resource {
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 						"server_side_encryption_kms_key_id": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							DiffSuppressFunc: tfkms.DiffSuppressKey,
 							ValidateFunc:     tfkms.ValidateKey,
@@ -702,7 +702,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 		EndpointIdentifier: aws.String(endpointID),
 		EndpointType:       aws.String(d.Get("endpoint_type").(string)),
 		EngineName:         aws.String(d.Get("engine_name").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_arn"); ok {
@@ -747,7 +747,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 			input.PostgreSQLSettings = &dms.PostgreSQLSettings{
 				SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 				SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-				DatabaseName:                aws.String(d.Get("database_name").(string)),
+				DatabaseName:   aws.String(d.Get("database_name").(string)),
 			}
 		} else {
 			input.PostgreSQLSettings = &dms.PostgreSQLSettings{
@@ -768,7 +768,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 	case engineNameElasticsearch, engineNameOpenSearch:
 		input.ElasticsearchSettings = &dms.ElasticsearchSettings{
 			ServiceAccessRoleArn:    aws.String(d.Get("elasticsearch_settings.0.service_access_role_arn").(string)),
-			EndpointUri:             aws.String(d.Get("elasticsearch_settings.0.endpoint_uri").(string)),
+			EndpointUri:aws.String(d.Get("elasticsearch_settings.0.endpoint_uri").(string)),
 			ErrorRetryDuration:      aws.Int64(int64(d.Get("elasticsearch_settings.0.error_retry_duration").(int))),
 			FullLoadErrorPercentage: aws.Int64(int64(d.Get("elasticsearch_settings.0.full_load_error_percentage").(int))),
 		}
@@ -807,7 +807,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 			input.OracleSettings = &dms.OracleSettings{
 				SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 				SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-				DatabaseName:                aws.String(d.Get("database_name").(string)),
+				DatabaseName:   aws.String(d.Get("database_name").(string)),
 			}
 		} else {
 			input.OracleSettings = &dms.OracleSettings{
@@ -871,7 +871,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 			input.MicrosoftSQLServerSettings = &dms.MicrosoftSQLServerSettings{
 				SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 				SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-				DatabaseName:                aws.String(d.Get("database_name").(string)),
+				DatabaseName:   aws.String(d.Get("database_name").(string)),
 			}
 		} else {
 			input.MicrosoftSQLServerSettings = &dms.MicrosoftSQLServerSettings{
@@ -890,7 +890,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 			input.SybaseSettings = &dms.SybaseSettings{
 				SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 				SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-				DatabaseName:                aws.String(d.Get("database_name").(string)),
+				DatabaseName:   aws.String(d.Get("database_name").(string)),
 			}
 		} else {
 			input.SybaseSettings = &dms.SybaseSettings{
@@ -909,7 +909,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 			input.IBMDb2Settings = &dms.IBMDb2Settings{
 				SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 				SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-				DatabaseName:                aws.String(d.Get("database_name").(string)),
+				DatabaseName:   aws.String(d.Get("database_name").(string)),
 			}
 		} else {
 			input.IBMDb2Settings = &dms.IBMDb2Settings{
@@ -1032,7 +1032,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.PostgreSQLSettings = &dms.PostgreSQLSettings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1064,7 +1064,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"elasticsearch_settings.0.service_access_role_arn") {
 				input.ElasticsearchSettings = &dms.ElasticsearchSettings{
 					ServiceAccessRoleArn:    aws.String(d.Get("elasticsearch_settings.0.service_access_role_arn").(string)),
-					EndpointUri:             aws.String(d.Get("elasticsearch_settings.0.endpoint_uri").(string)),
+					EndpointUri:aws.String(d.Get("elasticsearch_settings.0.endpoint_uri").(string)),
 					ErrorRetryDuration:      aws.Int64(int64(d.Get("elasticsearch_settings.0.error_retry_duration").(int))),
 					FullLoadErrorPercentage: aws.Int64(int64(d.Get("elasticsearch_settings.0.full_load_error_percentage").(int))),
 				}
@@ -1090,8 +1090,8 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 					input.MongoDbSettings = &dms.MongoDbSettings{
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
-						KmsKeyId:                    aws.String(d.Get("kms_key_arn").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
+						KmsKeyId:       aws.String(d.Get("kms_key_arn").(string)),
 
 						AuthType:          aws.String(d.Get("mongodb_settings.0.auth_type").(string)),
 						AuthMechanism:     aws.String(d.Get("mongodb_settings.0.auth_mechanism").(string)),
@@ -1128,7 +1128,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.OracleSettings = &dms.OracleSettings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1158,7 +1158,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.RedshiftSettings = &dms.RedshiftSettings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1206,7 +1206,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.MicrosoftSQLServerSettings = &dms.MicrosoftSQLServerSettings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1230,7 +1230,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.SybaseSettings = &dms.SybaseSettings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1254,7 +1254,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				"secrets_manager_arn") {
 				if _, ok := d.GetOk("secrets_manager_arn"); ok {
 					input.IBMDb2Settings = &dms.IBMDb2Settings{
-						DatabaseName:                aws.String(d.Get("database_name").(string)),
+						DatabaseName:   aws.String(d.Get("database_name").(string)),
 						SecretsManagerAccessRoleArn: aws.String(d.Get("secrets_manager_access_role_arn").(string)),
 						SecretsManagerSecretId:      aws.String(d.Get("secrets_manager_arn").(string)),
 					}
@@ -1582,7 +1582,7 @@ func flattenOpenSearchSettings(settings *dms.ElasticsearchSettings) []map[string
 	}
 
 	m := map[string]interface{}{
-		"endpoint_uri":               aws.StringValue(settings.EndpointUri),
+		"endpoint_uri":  aws.StringValue(settings.EndpointUri),
 		"error_retry_duration":       aws.Int64Value(settings.ErrorRetryDuration),
 		"full_load_error_percentage": aws.Int64Value(settings.FullLoadErrorPercentage),
 		"service_access_role_arn":    aws.StringValue(settings.ServiceAccessRoleArn),
@@ -1934,9 +1934,9 @@ func flattenRedshiftSettings(settings *dms.RedshiftSettings) []map[string]interf
 	}
 
 	m := map[string]interface{}{
-		"bucket_folder":                     aws.StringValue(settings.BucketFolder),
-		"bucket_name":                       aws.StringValue(settings.BucketName),
-		"encryption_mode":                   aws.StringValue(settings.EncryptionMode),
+		"bucket_folder":        aws.StringValue(settings.BucketFolder),
+		"bucket_name":          aws.StringValue(settings.BucketName),
+		"encryption_mode":      aws.StringValue(settings.EncryptionMode),
 		"server_side_encryption_kms_key_id": aws.StringValue(settings.ServerSideEncryptionKmsKeyId),
 		"service_access_role_arn":           aws.StringValue(settings.ServiceAccessRoleArn),
 	}

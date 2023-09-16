@@ -25,10 +25,10 @@ func testAccAPICache_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPICacheDestroy(ctx),
+		CheckDestroy:testAccCheckAPICacheDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPICacheConfig_basic(rName),
@@ -55,10 +55,10 @@ func testAccAPICache_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPICacheDestroy(ctx),
+		CheckDestroy:testAccCheckAPICacheDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAPICacheConfig_basic(rName),
@@ -117,14 +117,14 @@ func testAccAPICacheConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[1]q
+  name   = %[1]q
 }
 
 resource "aws_appsync_api_cache" "test" {
-  api_id               = aws_appsync_graphql_api.test.id
-  type                 = "SMALL"
+  api_id  = aws_appsync_graphql_api.test.id
+  type    = "SMALL"
   api_caching_behavior = "FULL_REQUEST_CACHING"
-  ttl                  = 60
+  ttl     = 60
 }
 `, rName)
 }

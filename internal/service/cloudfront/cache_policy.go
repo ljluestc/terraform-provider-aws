@@ -257,7 +257,7 @@ func resourceCachePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &cloudfront.UpdateCachePolicyInput{
 		CachePolicyConfig: apiObject,
-		Id:                aws.String(d.Id()),
+		Id:(d.Id()),
 		IfMatch:           aws.String(d.Get("etag").(string)),
 	}
 

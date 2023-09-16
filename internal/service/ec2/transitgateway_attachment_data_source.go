@@ -20,52 +20,51 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_attachment")
 
-func DataSourceTransitGatewayAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayAttachmentRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"association_state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"association_transit_gateway_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transit_gateway_attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -73,8 +72,7 @@ func DataSourceTransitGatewayAttachment() *schema.Resource {
 }
 
 func dataSourceTransitGatewayAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayAttachmentsInput{}
@@ -104,8 +102,8 @@ func dataSourceTransitGatewayAttachmentRead(ctx context.Context, d *schema.Resou
 	resourceOwnerID := aws.StringValue(transitGatewayAttachment.ResourceOwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: resourceOwnerID,
 		Resource:  fmt.Sprintf("transit-gateway-attachment/%s", d.Id()),
 	}.String()

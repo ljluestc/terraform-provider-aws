@@ -51,13 +51,16 @@ type Decoder struct {
 }
 
 // NewDecoder returns a Decoder to read the given []byte.
-func NewDecoder(b []byte) *Decoder {
+
+ NewDecoder(b []byte) *Decoder {
 	return &Decoder{orig: b, in: b}
 }
 
-// Peek looks ahead and returns the next token kind without advancing a read.
-func (d *Decoder) Peek() (Token, error) {
-	defer func() { d.lastCall = peekCall }()
+eek looks ahead and returns the next token kind without advancing a read.
+
+ (d *Decoder) Peek() (Token, error) {
+	defer 
+() { d.lastCall = peekCall }()
 	if d.lastCall == readCall {
 		d.lastToken, d.lastErr = d.Read()
 	}
@@ -66,10 +69,12 @@ func (d *Decoder) Peek() (Token, error) {
 
 // Read returns the next JSON token.
 // It will return an error if there is no valid token.
-func (d *Decoder) Read() (Token, error) {
+
+ (d *Decoder) Read() (Token, error) {
 	const scalar = Null | Bool | Number | String
 
-	defer func() { d.lastCall = readCall }()
+	defer 
+() { d.lastCall = readCall }()
 	if d.lastCall == peekCall {
 		return d.lastToken, d.lastErr
 	}
@@ -152,12 +157,13 @@ func (d *Decoder) Read() (Token, error) {
 }
 
 // Any sequence that looks like a non-delimiter (for error reporting).
-var errRegexp = regexp.MustCompile(`^([-+._a-zA-Z0-9]{1,32}|.)`)
+errRegexp = regexp.MustCompile(`^([-+._a-zA-Z0-9]{1,32}|.)`)
 
 // parseNext parses for the next JSON token. It returns a Token object for
 // different types, except for Name. It does not handle whether the next token
 // is in a valid sequence or not.
-func (d *Decoder) parseNext() (Token, error) {
+
+ (d *Decoder) parseNext() (Token, error) {
 	// Trim leading spaces.
 	d.consume(0)
 
@@ -208,24 +214,26 @@ func (d *Decoder) parseNext() (Token, error) {
 
 	case ',':
 		return d.consumeToken(comma, 1), nil
-	}
+
 	return Token{}, d.newSyntaxError(d.currPos(), "invalid value %s", errRegexp.Find(in))
 }
 
 // newSyntaxError returns an error with line and column information useful for
 // syntax errors.
-func (d *Decoder) newSyntaxError(pos int, f string, x ...interface{}) error {
-	e := errors.New(f, x...)
+
+ (d *Decoder) newSyntaxError(pos int, f string, x ...interface{}) error {
+= errors.New(f, x...)
 	line, column := d.Position(pos)
 	return errors.New("syntax error (line %d:%d): %v", line, column, e)
 }
 
 // Position returns line and column number of given index of the original input.
 // It will panic if index is out of range.
-func (d *Decoder) Position(idx int) (line int, column int) {
+
+ (d *Decoder) Position(idx int) (line int, column int) {
 	b := d.orig[:idx]
 	line = bytes.Count(b, []byte("\n")) + 1
-	if i := bytes.LastIndexByte(b, '\n'); i >= 0 {
+i := bytes.LastIndexByte(b, '\n'); i >= 0 {
 		b = b[i+1:]
 	}
 	column = utf8.RuneCount(b) + 1 // ignore multi-rune characters
@@ -233,7 +241,8 @@ func (d *Decoder) Position(idx int) (line int, column int) {
 }
 
 // currPos returns the current index position of d.in from d.orig.
-func (d *Decoder) currPos() int {
+
+ (d *Decoder) currPos() int {
 	return len(d.orig) - len(d.in)
 }
 
@@ -241,10 +250,11 @@ func (d *Decoder) currPos() int {
 // terminates with a delimiter of some form (e.g., r"[^-+_.a-zA-Z0-9]").
 // As a special case, EOF is considered a delimiter. It returns the length of s
 // if there is a match, else 0.
-func matchWithDelim(s string, b []byte) int {
+
+ matchWithDelim(s string, b []byte) int {
 	if !bytes.HasPrefix(b, []byte(s)) {
 		return 0
-	}
+
 
 	n := len(s)
 	if n < len(b) && isNotDelim(b[n]) {
@@ -254,7 +264,8 @@ func matchWithDelim(s string, b []byte) int {
 }
 
 // isNotDelim returns true if given byte is a not delimiter character.
-func isNotDelim(c byte) bool {
+
+ isNotDelim(c byte) bool {
 	return (c == '-' || c == '+' || c == '.' || c == '_' ||
 		('a' <= c && c <= 'z') ||
 		('A' <= c && c <= 'Z') ||
@@ -262,9 +273,10 @@ func isNotDelim(c byte) bool {
 }
 
 // consume consumes n bytes of input and any subsequent whitespace.
-func (d *Decoder) consume(n int) {
+
+ (d *Decoder) consume(n int) {
 	d.in = d.in[n:]
-	for len(d.in) > 0 {
+ len(d.in) > 0 {
 		switch d.in[0] {
 		case ' ', '\n', '\r', '\t':
 			d.in = d.in[1:]
@@ -276,13 +288,14 @@ func (d *Decoder) consume(n int) {
 
 // isValueNext returns true if next type should be a JSON value: Null,
 // Number, String or Bool.
-func (d *Decoder) isValueNext() bool {
+
+ (d *Decoder) isValueNext() bool {
 	if len(d.openStack) == 0 {
 		return d.lastToken.kind == 0
 	}
 
 	start := d.openStack[len(d.openStack)-1]
-	switch start {
+tch start {
 	case ObjectOpen:
 		return d.lastToken.kind&Name != 0
 	case ArrayOpen:
@@ -294,8 +307,9 @@ func (d *Decoder) isValueNext() bool {
 }
 
 // consumeToken constructs a Token for given Kind with raw value derived from
-// current d.in and given size, and consumes the given size-length of it.
-func (d *Decoder) consumeToken(kind Kind, size int) Token {
+urrent d.in and given size, and consumes the given size-length of it.
+
+ (d *Decoder) consumeToken(kind Kind, size int) Token {
 	tok := Token{
 		kind: kind,
 		raw:  d.in[:size],
@@ -306,8 +320,9 @@ func (d *Decoder) consumeToken(kind Kind, size int) Token {
 }
 
 // consumeBoolToken constructs a Token for a Bool kind with raw value derived from
-// current d.in and given size.
-func (d *Decoder) consumeBoolToken(b bool, size int) Token {
+urrent d.in and given size.
+
+ (d *Decoder) consumeBoolToken(b bool, size int) Token {
 	tok := Token{
 		kind: Bool,
 		raw:  d.in[:size],
@@ -318,9 +333,10 @@ func (d *Decoder) consumeBoolToken(b bool, size int) Token {
 	return tok
 }
 
-// consumeStringToken constructs a Token for a String kind with raw value derived
+onsumeStringToken constructs a Token for a String kind with raw value derived
 // from current d.in and given size.
-func (d *Decoder) consumeStringToken(s string, size int) Token {
+
+ (d *Decoder) consumeStringToken(s string, size int) Token {
 	tok := Token{
 		kind: String,
 		raw:  d.in[:size],
@@ -333,7 +349,8 @@ func (d *Decoder) consumeStringToken(s string, size int) Token {
 
 // Clone returns a copy of the Decoder for use in reading ahead the next JSON
 // object, array or other values without affecting current Decoder.
-func (d *Decoder) Clone() *Decoder {
+
+ (d *Decoder) Clone() *Decoder {
 	ret := *d
 	ret.openStack = append([]Kind(nil), ret.openStack...)
 	return &ret

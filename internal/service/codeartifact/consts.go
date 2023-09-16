@@ -4,8 +4,8 @@
 package codeartifact
 
 const (
-	ResNameDomain                      = "Domain"
+	ResNameDomain         = "Domain"
 	ResNameDomainPermissionsPolicy     = "Domain Permissions Policy"
-	ResNameRepository                  = "Repository"
+	ResNameRepository     = "Repository"
 	ResNameRepositoryPermissionsPolicy = "Repository Permissions Policy"
 )

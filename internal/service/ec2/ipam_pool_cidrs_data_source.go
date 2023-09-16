@@ -17,8 +17,7 @@ import (
 
 // @SDKDataSource("aws_vpc_ipam_pool_cidrs")
 
-func DataSourceIPAMPoolCIDRs() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPAMPoolCIDRsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,20 +27,20 @@ func DataSourceIPAMPoolCIDRs() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"ipam_pool_cidrs": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
@@ -52,8 +51,7 @@ func DataSourceIPAMPoolCIDRs() *schema.Resource {
 }
 
 func dataSourceIPAMPoolCIDRsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	poolID := d.Get("ipam_pool_id").(string)
 	input := &ec2.GetIpamPoolCidrsInput{
@@ -82,8 +80,7 @@ func dataSourceIPAMPoolCIDRsRead(ctx context.Context, d *schema.ResourceData, me
 
 func flattenIPAMPoolCIDRs(c []*ec2.IpamPoolCidr) []interface{} {
 	cidrs := []interface{}{}
-	for _, cidr := range c {
-		cidrs = append(cidrs, flattenIPAMPoolCIDR(cidr))
+funcdrs = append(cidrs, flattenIPAMPoolCIDR(cidr))
 	}
 	return cidrs
 }
@@ -91,6 +88,5 @@ func flattenIPAMPoolCIDRs(c []*ec2.IpamPoolCidr) []interface{} {
 func flattenIPAMPoolCIDR(c *ec2.IpamPoolCidr) map[string]interface{} {
 	cidr := make(map[string]interface{})
 	cidr["cidr"] = aws.StringValue(c.Cidr)
-	cidr["state"] = aws.StringValue(c.State)
-	return cidr
+funcurn cidr
 }

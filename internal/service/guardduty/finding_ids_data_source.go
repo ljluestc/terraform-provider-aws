@@ -108,5 +108,5 @@ type dataSourceFindingIdsData struct {
 	DetectorID  types.String `tfsdk:"detector_id"`
 	HasFindings types.Bool   `tfsdk:"has_findings"`
 	FindingIDs  types.List   `tfsdk:"finding_ids"`
-	ID          types.String `tfsdk:"id"`
+	ID"id"`
 }

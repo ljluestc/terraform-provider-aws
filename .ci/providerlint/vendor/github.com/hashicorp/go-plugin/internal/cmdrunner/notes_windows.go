@@ -17,7 +17,8 @@ import (
 
 // additionalNotesAboutCommand tries to get additional information about a command that might help diagnose
 // why it won't run correctly. It runs as a best effort only.
-func additionalNotesAboutCommand(path string) string {
+
+ additionalNotesAboutCommand(path string) string {
 	notes := ""
 	stat, err := os.Stat(path)
 	if err != nil {

@@ -27,10 +27,10 @@ func TestAccFSxOntapFileSystem_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_basic(rName),
@@ -67,7 +67,7 @@ func TestAccFSxOntapFileSystem_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -82,10 +82,10 @@ func TestAccFSxOntapFileSystem_fsxSingleAz(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_singleAz(rName),
@@ -97,7 +97,7 @@ func TestAccFSxOntapFileSystem_fsxSingleAz(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -114,10 +114,10 @@ func TestAccFSxOntapFileSystem_fsxAdminPassword(t *testing.T) {
 	pass2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_adminPassword(rName, pass1),
@@ -128,7 +128,7 @@ func TestAccFSxOntapFileSystem_fsxAdminPassword(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids", "fsx_admin_password"},
 			},
@@ -151,10 +151,10 @@ func TestAccFSxOntapFileSystem_endpointIPAddressRange(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_endpointIPAddressRange(rName),
@@ -165,7 +165,7 @@ func TestAccFSxOntapFileSystem_endpointIPAddressRange(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -180,10 +180,10 @@ func TestAccFSxOntapFileSystem_diskIops(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_diskIOPSConfiguration(rName, 3072),
@@ -196,7 +196,7 @@ func TestAccFSxOntapFileSystem_diskIops(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -220,10 +220,10 @@ func TestAccFSxOntapFileSystem_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_basic(rName),
@@ -244,10 +244,10 @@ func TestAccFSxOntapFileSystem_securityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_securityGroupIDs1(rName),
@@ -258,7 +258,7 @@ func TestAccFSxOntapFileSystem_securityGroupIDs(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -281,10 +281,10 @@ func TestAccFSxOntapFileSystem_routeTableIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_routeTable(rName, 1),
@@ -296,7 +296,7 @@ func TestAccFSxOntapFileSystem_routeTableIDs(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -328,10 +328,10 @@ func TestAccFSxOntapFileSystem_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_tags1(rName, "key1", "value1"),
@@ -343,7 +343,7 @@ func TestAccFSxOntapFileSystem_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -377,10 +377,10 @@ func TestAccFSxOntapFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_weeklyMaintenanceStartTime(rName, "1:01:01"),
@@ -391,7 +391,7 @@ func TestAccFSxOntapFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -414,10 +414,10 @@ func TestAccFSxOntapFileSystem_automaticBackupRetentionDays(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_automaticBackupRetentionDays(rName, 90),
@@ -428,7 +428,7 @@ func TestAccFSxOntapFileSystem_automaticBackupRetentionDays(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -458,10 +458,10 @@ func TestAccFSxOntapFileSystem_kmsKeyID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_kmsKeyID(rName),
@@ -472,7 +472,7 @@ func TestAccFSxOntapFileSystem_kmsKeyID(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -487,10 +487,10 @@ func TestAccFSxOntapFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLustreFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckLustreFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_dailyAutomaticBackupStartTime(rName, "01:01"),
@@ -501,7 +501,7 @@ func TestAccFSxOntapFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -524,10 +524,10 @@ func TestAccFSxOntapFileSystem_throughputCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_basic(rName),
@@ -538,7 +538,7 @@ func TestAccFSxOntapFileSystem_throughputCapacity(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -561,10 +561,10 @@ func TestAccFSxOntapFileSystem_storageCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOntapFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccONTAPFileSystemConfig_basic(rName),
@@ -575,7 +575,7 @@ func TestAccFSxOntapFileSystem_storageCapacity(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
@@ -949,7 +949,7 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_weeklyMaintenanceStartTime(rName, weeklyMaintenanceStartTime string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity              = 1024
+  storage_capacity = 1024
   subnet_ids     = [aws_subnet.test1.id, aws_subnet.test2.id]
   deployment_type= "MULTI_AZ_1"
   throughput_capacity           = 128
@@ -987,8 +987,8 @@ resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity = 1024
   subnet_ids       = [aws_subnet.test1.id, aws_subnet.test2.id]
   deployment_type  = "MULTI_AZ_1"
-  throughput_capacity             = 128
-  preferred_subnet_id             = aws_subnet.test1.id
+  throughput_capacity= 128
+  preferred_subnet_id= aws_subnet.test1.id
   automatic_backup_retention_days = %[2]d
 
   tags = {
@@ -1001,7 +1001,7 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_kmsKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

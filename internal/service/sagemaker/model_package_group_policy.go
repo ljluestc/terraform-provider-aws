@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_sagemaker_model_package_group_policy")
-func ResourceModelPackageGroupPolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceModelPackageGroupPolicyPut,
-		ReadWithoutTimeout:   resourceModelPackageGroupPolicyRead,
+		ReadWithoutTimeout:ourceModelPackageGroupPolicyRead,
 		UpdateWithoutTimeout: resourceModelPackageGroupPolicyPut,
 		DeleteWithoutTimeout: resourceModelPackageGroupPolicyDelete,
 		Importer: &schema.ResourceImporter{
@@ -33,19 +32,18 @@ func ResourceModelPackageGroupPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"model_package_group_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"resource_policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Type:tring,
+				Required:
+				ValidateFunc:.StringIsJSON,
+				DiffSuppressFunc:fy.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
+					json, _ :=func	return json
 				},
 			},
 		},
@@ -54,8 +52,7 @@ func ResourceModelPackageGroupPolicy() *schema.Resource {
 
 func resourceModelPackageGroupPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	policy, err := structure.NormalizeJsonString(d.Get("resource_policy").(string))
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", d.Get("resource_policy").(string), err)
@@ -64,7 +61,7 @@ func resourceModelPackageGroupPolicyPut(ctx context.Context, d *schema.ResourceD
 	name := d.Get("model_package_group_name").(string)
 	input := &sagemaker.PutModelPackageGroupPolicyInput{
 		ModelPackageGroupName: aws.String(name),
-		ResourcePolicy:        aws.String(policy),
+		ResourcePolicy:s.String(policy),
 	}
 
 	_, err = conn.PutModelPackageGroupPolicyWithContext(ctx, input)
@@ -80,8 +77,7 @@ func resourceModelPackageGroupPolicyPut(ctx context.Context, d *schema.ResourceD
 func resourceModelPackageGroupPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	mpg, err := FindModelPackageGroupPolicyByName(ctx, conn, d.Id())
+func, err := FindModelPackageGroupPolicyByName(ctx, conn, d.Id())
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Unable to find SageMaker Model Package Group Policy (%s); removing from state", d.Id())
 		d.SetId("")
@@ -108,8 +104,7 @@ func resourceModelPackageGroupPolicyDelete(ctx context.Context, d *schema.Resour
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteModelPackageGroupPolicyInput{
-		ModelPackageGroupName: aws.String(d.Id()),
+funcdelPackageGroupName: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteModelPackageGroupPolicyWithContext(ctx, input); err != nil {

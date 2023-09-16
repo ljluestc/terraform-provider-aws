@@ -21,11 +21,14 @@
 // referring to the element type.
 //
 // Go constructs may be composed as a constellation of multiple
-// elements. For example, a declared function may have one element to
-// describe the object (e.g., its name, type, position), and a
-// separate element to describe its function body. This allows readers
+// elements. For example, a declared 
+tion may have one element to
+// describe the object (e.g., its natype, position), and a
+// separate element to describe its 
+tion body. This allows readers
 // some flexibility in efficiently seeking or re-reading data (e.g.,
-// inlining requires re-reading the function body for each inlined
+// inlining requires re-reading the 
+tion body for each inlined
 // call, without needing to re-read the object-level details).
 //
 // This is a copy of internal/pkgbits in the Go implementation.

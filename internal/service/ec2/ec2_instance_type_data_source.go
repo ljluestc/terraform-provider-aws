@@ -17,8 +17,7 @@ import (
 
 // @SDKDataSource("aws_ec2_instance_type")
 
-func DataSourceInstanceType() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceTypeRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -27,275 +26,274 @@ func DataSourceInstanceType() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"auto_recovery_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"bare_metal": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"burstable_performance_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"current_generation": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"dedicated_hosts_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"default_cores": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"default_threads_per_core": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"default_vcpus": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"ebs_encryption_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ebs_nvme_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ebs_optimized_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ebs_performance_baseline_bandwidth": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"ebs_performance_baseline_throughput": {
-				Type:     schema.TypeFloat,
+				Type:eFloat,
 				Computed: true,
 			},
 			"ebs_performance_baseline_iops": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"ebs_performance_maximum_bandwidth": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"ebs_performance_maximum_throughput": {
-				Type:     schema.TypeFloat,
+				Type:eFloat,
 				Computed: true,
 			},
 			"ebs_performance_maximum_iops": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"efa_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"ena_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"encryption_in_transit_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"fpgas": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"manufacturer": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"memory_size": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"free_tier_eligible": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"gpus": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"manufacturer": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"memory_size": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"hibernation_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"hypervisor": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"inference_accelerators": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"manufacturer": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"instance_disks": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"size": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"instance_storage_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"ipv6_supported": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"maximum_ipv4_addresses_per_interface": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"maximum_ipv6_addresses_per_interface": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"maximum_network_interfaces": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"memory_size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"network_performance": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"supported_architectures": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"supported_placement_strategies": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"supported_root_device_types": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"supported_usages_classes": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"supported_virtualization_types": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"sustained_clock_speed": {
-				Type:     schema.TypeFloat,
+				Type:eFloat,
 				Computed: true,
 			},
 			"total_fpga_memory": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"total_gpu_memory": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"total_instance_storage": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"valid_cores": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeInt},
+				Elem:hema{Type: schema.TypeInt},
 			},
 			"valid_threads_per_core": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeInt},
+				Elem:hema{Type: schema.TypeInt},
 			},
 		},
 	}
 }
 
 func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	v, err := FindInstanceTypeByName(ctx, conn, d.Get("instance_type").(string))
 
@@ -330,7 +328,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 		fpgaList := make([]interface{}, len(v.FpgaInfo.Fpgas))
 		for i, fpg := range v.FpgaInfo.Fpgas {
 			fpga := map[string]interface{}{
-				"count":        aws.Int64Value(fpg.Count),
+				"count":64Value(fpg.Count),
 				"manufacturer": aws.StringValue(fpg.Manufacturer),
 				"memory_size":  aws.Int64Value(fpg.MemoryInfo.SizeInMiB),
 				"name":aws.StringValue(fpg.Name),
@@ -345,7 +343,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 		gpuList := make([]interface{}, len(v.GpuInfo.Gpus))
 		for i, gp := range v.GpuInfo.Gpus {
 			gpu := map[string]interface{}{
-				"count":        aws.Int64Value(gp.Count),
+				"count":64Value(gp.Count),
 				"manufacturer": aws.StringValue(gp.Manufacturer),
 				"memory_size":  aws.Int64Value(gp.MemoryInfo.SizeInMiB),
 				"name":aws.StringValue(gp.Name),
@@ -361,7 +359,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 		acceleratorList := make([]interface{}, len(v.InferenceAcceleratorInfo.Accelerators))
 		for i, accl := range v.InferenceAcceleratorInfo.Accelerators {
 			accelerator := map[string]interface{}{
-				"count":        aws.Int64Value(accl.Count),
+				"count":64Value(accl.Count),
 				"manufacturer": aws.StringValue(accl.Manufacturer),
 				"name":aws.StringValue(accl.Name),
 			}

@@ -19,8 +19,7 @@ import (
 )
 
 
-func testAccTransitGatewayConnectPeer_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v ec2.TransitGatewayConnectPeer
 	resourceName := "aws_ec2_transit_gateway_connect_peer.test"
 	transitGatewayConnectResourceName := "aws_ec2_transit_gateway_connect.test"
@@ -29,17 +28,15 @@ func testAccTransitGatewayConnectPeer_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayConnectPeerConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "bgp_asn", "64512"),
-	resource.TestCheckResourceAttrSet(resourceName, "bgp_peer_address"),
+funcource.TestCheckResourceAttrSet(resourceName, "bgp_peer_address"),
 	acctest.CheckResourceAttrGreaterThanValue(resourceName, "bgp_transit_gateway_addresses.#", 0),
 	resource.TestCheckResourceAttr(resourceName, "inside_cidr_blocks.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "peer_address", "1.1.1.1"),
@@ -49,8 +46,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -61,17 +58,15 @@ ImportStateVerify: true,
 func testAccTransitGatewayConnectPeer_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayConnectPeer
-	resourceName := "aws_ec2_transit_gateway_connect_peer.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
+func
 Config: testAccTransitGatewayConnectPeerConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -79,8 +74,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayConnectPeer(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -91,16 +85,14 @@ func testAccTransitGatewayConnectPeer_bgpASN(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_connect_peer.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayConnectPeerConfig_bgpASN2(rName, "4294967294"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "bgp_asn", "4294967294"),
@@ -109,8 +101,7 @@ func(
 },
 	})
 }
-
-
+func
 func testAccTransitGatewayConnectPeer_insideCIDRBlocks(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayConnectPeer
@@ -120,26 +111,23 @@ func testAccTransitGatewayConnectPeer_insideCIDRBlocks(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayConnectPeerConfig_insideCIDRBlocks2(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "inside_cidr_blocks.#", "2"),
-	resource.TestCheckTypeSetElemAttr(resourceName, "inside_cidr_blocks.*", "169.254.200.0/29"),
+funcource.TestCheckTypeSetElemAttr(resourceName, "inside_cidr_blocks.*", "169.254.200.0/29"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "inside_cidr_blocks.*", "fd00::/125"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
-	},
-},
+func
 	})
 }
 
@@ -155,9 +143,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
+func
 Config: testAccTransitGatewayConnectPeerConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
@@ -165,17 +152,15 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+func
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
 Config: testAccTransitGatewayConnectPeerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
+functAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -189,8 +174,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -200,20 +184,18 @@ func testAccTransitGatewayConnectPeer_TransitGatewayAddress(t *testing.T) {
 	var v ec2.TransitGatewayConnectPeer
 	resourceName := "aws_ec2_transit_gateway_connect_peer.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+funcource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayConnectPeerDestroy(ctx),
+CheckDestroy:stAccCheckTransitGatewayConnectPeerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayConnectPeerConfig_address(rName, "10.20.30.200"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckTransitGatewayConnectPeerExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "transit_gateway_address", "10.20.30.200"),
+funcource.TestCheckResourceAttr(resourceName, "transit_gateway_address", "10.20.30.200"),
 ),
 	},
 },
@@ -221,7 +203,6 @@ func(
 }
 
 
-func testAccCheckTransitGatewayConnectPeerExists(ctx context.Context, n string, v *ec2.TransitGatewayConnectPeer) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -230,8 +211,7 @@ if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
 
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 Transit Gateway Connect Peer ID is set")
+funcurn fmt.Errorf("No EC2 Transit Gateway Connect Peer ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
@@ -241,13 +221,10 @@ output, err := tfec2.FindTransitGatewayConnectPeerByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
 }
-
-*v = *output
-
-return nil
+func *output
+funcrn nil
 	}
-}
-
+func
 
 func testAccCheckTransitGatewayConnectPeerDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -272,11 +249,8 @@ return err
 
 	return fmt.Errorf("EC2 Transit Gateway Connect Peer %s still exists", rs.Primary.ID)
 }
-
-return nil
-	}
-}
-
+funcrn nil
+func
 
 func testAccTransitGatewayConnectPeerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -284,17 +258,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -302,32 +276,31 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+  vpc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  inside_cidr_blocks   = ["169.254.200.0/29"]
-  peer_address   = "1.1.1.1"
+  inside_cidr_blocks"169.254.200.0/29"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 }
 `, rName))
@@ -340,17 +313,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -358,37 +331,36 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
+funcurce "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+  vpc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  bgp_asn        = %[2]q
-  inside_cidr_blocks   = ["169.254.200.0/29"]
-  peer_address   = "1.1.1.1"
+  bgp_asn
+  inside_cidr_blocks"169.254.200.0/29"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName, bgpAsn))
@@ -401,17 +373,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -419,36 +391,35 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
+funcbnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+  vpc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  inside_cidr_blocks   = ["169.254.200.0/29"]
-  peer_address   = "1.1.1.1"
+  inside_cidr_blocks"169.254.200.0/29"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -461,17 +432,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -479,37 +450,36 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+funcansit_gateway_id = aws_ec2_transit_gateway.test.id
+  vpc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  inside_cidr_blocks   = ["169.254.200.0/29"]
-  peer_address   = "1.1.1.1"
+  inside_cidr_blocks"169.254.200.0/29"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -522,17 +492,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -540,36 +510,35 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+funcc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  inside_cidr_blocks   = ["169.254.200.0/29", "fd00::/125"]
-  peer_address   = "1.1.1.1"
+  inside_cidr_blocks"169.254.200.0/29", "fd00::/125"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -582,17 +551,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -600,37 +569,36 @@ resource "aws_ec2_transit_gateway" "test" {
   transit_gateway_cidr_blocks = ["10.20.30.0/24"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id      = aws_ec2_transit_gateway.test.id
+  transit_gateway_id_transit_gateway.test.id
   transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  transit_gateway_address       = %[2]q
-  inside_cidr_blocks   = ["169.254.200.0/29"]
-  peer_address   = "1.1.1.1"
+  transit_gateway_address
+  inside_cidr_blocks"169.254.200.0/29"]
+  peer_address1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName, transitGatewayAddress))

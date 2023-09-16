@@ -25,7 +25,8 @@ type stateFilter struct {
 // Filter takes the addresses specified by fs and finds all the matches.
 // The values of fs are resource addressing syntax that can be parsed by
 // parseResourceAddress.
-func (f *stateFilter) filter(fs ...string) ([]*stateFilterResult, error) {
+
+ (f *stateFilter) filter(fs ...string) ([]*stateFilterResult, error) {
 	// Parse all the addresses
 	var as []*resourceAddress
 
@@ -65,7 +66,8 @@ func (f *stateFilter) filter(fs ...string) ([]*stateFilterResult, error) {
 	return results, nil
 }
 
-func (f *stateFilter) filterSingle(a *resourceAddress) []*stateFilterResult {
+
+ (f *stateFilter) filterSingle(a *resourceAddress) []*stateFilterResult {
 	// The slice to keep track of results
 	var results []*stateFilterResult
 
@@ -171,7 +173,8 @@ func (f *stateFilter) filterSingle(a *resourceAddress) []*stateFilterResult {
 }
 
 // relevant checks for relevance of this address against the given value.
-func (f *stateFilter) relevant(addr *resourceAddress, raw interface{}) bool {
+
+ (f *stateFilter) relevant(addr *resourceAddress, raw interface{}) bool {
 	switch v := raw.(type) {
 	case *ModuleState:
 		path := v.Path[1:]
@@ -226,14 +229,16 @@ type stateFilterResult struct {
 	// Value is the actual value. This must be type switched on. It can be
 	// any data structures that `State` can hold: `ModuleState`,
 	// `ResourceState`, `InstanceState`.
-	Value interface{}
+ue interface{}
 }
 
-func (r *stateFilterResult) String() string {
+
+*stateFilterResult) String() string {
 	return fmt.Sprintf("%T: %s", r.Value, r.Address)
 }
 
-func (r *stateFilterResult) sortedType() int {
+
+ (r *stateFilterResult) sortedType() int {
 	switch r.Value.(type) {
 	case *ModuleState:
 		return 0
@@ -246,14 +251,17 @@ func (r *stateFilterResult) sortedType() int {
 	}
 }
 
-// stateFilterResultSlice is a slice of results that implements
-// sort.Interface. The sorting goal is what is most appealing to
-// human output.
+tateFilterResultSlice is a slice of results that implements
+ort.Interface. The sorting goal is what is most appealing to
+uman output.
 type stateFilterResultSlice []*stateFilterResult
 
-func (s stateFilterResultSlice) Len() int      { return len(s) }
-func (s stateFilterResultSlice) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
-func (s stateFilterResultSlice) Less(i, j int) bool {
+
+ (s stateFilterResultSlice) Len() int      { return len(s) }
+
+ (s stateFilterResultSlice) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
+
+ (s stateFilterResultSlice) Less(i, j int) bool {
 	a, b := s[i], s[j]
 
 	// if these address contain an index, we want to sort by index rather than name

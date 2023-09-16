@@ -28,60 +28,58 @@ import (
 )
 
 
-func TestProtocolState
 func(t *testing.T) {
-	t.Parallel()
-
+func
 	cases := []struct {
-input    interface{}
+inputterface{}
 expected string
 	}{
 {
-	input:    "tcp",
+	input:cp",
 	expected: "tcp",
 },
 {
-	input:    6,
+	input:
 	expected: "",
 },
 {
-	input:    "17",
+	input:7",
 	expected: "udp",
 },
 {
-	input:    "all",
+	input:ll",
 	expected: "-1",
 },
 {
-	input:    "-1",
+	input:1",
 	expected: "-1",
 },
 {
-	input:    -1,
+	input:,
 	expected: "",
 },
 {
-	input:    "1",
+	input:",
 	expected: "icmp",
 },
 {
-	input:    "icmp",
+	input:cmp",
 	expected: "icmp",
 },
 {
-	input:    1,
+	input:
 	expected: "",
 },
 {
-	input:    "icmpv6",
+	input:cmpv6",
 	expected: "icmpv6",
 },
 {
-	input:    "58",
+	input:8",
 	expected: "icmpv6",
 },
 {
-	input:    58,
+	input:,
 	expected: "",
 },
 	}
@@ -89,8 +87,7 @@ expected string
 result := tfec2.ProtocolState
 func(c.input)
 if result != c.expected {
-	t.Errorf("Error matching protocol, expected (%s), got (%s)", c.expected, result)
-}
+func
 	}
 }
 
@@ -98,68 +95,67 @@ if result != c.expected {
 func TestProtocolForValue(t *testing.T) {
 	t.Parallel()
 
-	cases := []struct {
-input    string
+functring
 expected string
 	}{
 {
-	input:    "tcp",
+	input:cp",
 	expected: "tcp",
 },
 {
-	input:    "6",
+	input:",
 	expected: "tcp",
 },
 {
-	input:    "udp",
+	input:dp",
 	expected: "udp",
 },
 {
-	input:    "17",
+	input:7",
 	expected: "udp",
 },
 {
-	input:    "all",
+	input:ll",
 	expected: "-1",
 },
 {
-	input:    "-1",
+	input:1",
 	expected: "-1",
 },
 {
-	input:    "tCp",
+	input:Cp",
 	expected: "tcp",
 },
 {
-	input:    "6",
+	input:",
 	expected: "tcp",
 },
 {
-	input:    "UDp",
+	input:Dp",
 	expected: "udp",
 },
 {
-	input:    "17",
+	input:7",
 	expected: "udp",
 },
 {
-	input:    "ALL",
+	input:LL",
 	expected: "-1",
 },
 {
-	input:    "icMp",
+	input:cMp",
 	expected: "icmp",
 },
 {
-	input:    "1",
+	input:",
 	expected: "icmp",
 },
 {
-	input:    "icMpv6",
+	input:cMpv6",
 	expected: "icmpv6",
 },
 {
-	input:    "58",
+	input:8",
 	expected: "icmpv6",
 },
 	}
@@ -177,8 +173,7 @@ func calcSecurityGroupChecksum(rules []interface{}) int {
 	sum := 0
 	for _, rule := range rules {
 sum += tfec2.SecurityGroupRuleHash(rule)
-	}
-	return sum
+funcurn sum
 }
 
 
@@ -187,11 +182,10 @@ func TestSecurityGroupExpandCollapseRules(t *testing.T) {
 
 	expected_compact_list := []interface{}{
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+funcom_port":(443),
+	"to_port":
 	"description": "block with description",
-	"self":        true,
+	"self":
 	"cidr_blocks": []interface{}{
 "10.0.0.1/32",
 "10.0.0.2/32",
@@ -199,22 +193,22 @@ map[string]interface{}{
 	},
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with another description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "192.168.0.1/32",
 "192.168.0.2/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"ipv6_cidr_blocks": []interface{}{
 "fd00::1/128",
 "fd00::2/128",
@@ -226,11 +220,11 @@ map[string]interface{}{
 	}),
 },
 map[string]interface{}{
-	"protocol":    "udp",
-	"from_port":   int(10000),
-	"to_port":     int(10000),
+	"protocol":dp",
+	"from_port":(10000),
+	"to_port":,
 	"description": "",
-	"self":        false,
+	"self":
 	"prefix_list_ids": []interface{}{
 "pl-111111",
 "pl-222222",
@@ -240,128 +234,128 @@ map[string]interface{}{
 
 	expected_expanded_list := []interface{}{
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with description",
-	"self":        true,
+	"self":
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "10.0.0.1/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "10.0.0.2/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "10.0.0.3/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with another description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "192.168.0.1/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "tcp",
-	"from_port":   int(443),
-	"to_port":     int(443),
+	"protocol":cp",
+	"from_port":(443),
+	"to_port":
 	"description": "block with another description",
-	"self":        false,
+	"self":
 	"cidr_blocks": []interface{}{
 "192.168.0.2/32",
 	},
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"ipv6_cidr_blocks": []interface{}{
 "fd00::1/128",
 	},
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"ipv6_cidr_blocks": []interface{}{
 "fd00::2/128",
 	},
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"security_groups": schema.NewSet(schema.HashString, []interface{}{
 "sg-11111",
 	}),
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"security_groups": schema.NewSet(schema.HashString, []interface{}{
 "sg-22222",
 	}),
 },
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   int(8000),
-	"to_port":     int(8080),
+	"protocol":1",
+	"from_port":(8000),
+	"to_port":
 	"description": "",
-	"self":        false,
+	"self":
 	"security_groups": schema.NewSet(schema.HashString, []interface{}{
 "sg-33333",
 	}),
 },
 map[string]interface{}{
-	"protocol":    "udp",
-	"from_port":   int(10000),
-	"to_port":     int(10000),
+	"protocol":dp",
+	"from_port":(10000),
+	"to_port":,
 	"description": "",
-	"self":        false,
+	"self":
 	"prefix_list_ids": []interface{}{
 "pl-111111",
 	},
 },
 map[string]interface{}{
-	"protocol":    "udp",
-	"from_port":   int(10000),
-	"to_port":     int(10000),
+	"protocol":dp",
+	"from_port":(10000),
+	"to_port":,
 	"description": "",
-	"self":        false,
+	"self":
 	"prefix_list_ids": []interface{}{
 "pl-222222",
 	},
@@ -389,20 +383,19 @@ func TestSecurityGroupIPPermGather(t *testing.T) {
 	raw := []*ec2.IpPermission{
 {
 	IpProtocol: aws.String("tcp"),
-	FromPort:   aws.Int64(1),
-	ToPort:     aws.Int64(int64(-1)),
-	IpRanges:   []*ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
+funcort:int64(-1)),
+	IpRanges:ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
-	GroupId:     aws.String("sg-11111"),
+	GroupId:("sg-11111"),
 	Description: aws.String("desc"),
 },
 	},
 },
 {
 	IpProtocol: aws.String("tcp"),
-	FromPort:   aws.Int64(80),
-	ToPort:     aws.Int64(80),
+	FromPort:.Int64(80),
+	ToPort:80),
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 // VPC
 {
@@ -412,20 +405,20 @@ func TestSecurityGroupIPPermGather(t *testing.T) {
 },
 {
 	IpProtocol: aws.String("tcp"),
-	FromPort:   aws.Int64(443),
-	ToPort:     aws.Int64(443),
+	FromPort:.Int64(443),
+	ToPort:443),
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
-	UserId:    aws.String("amazon-elb"),
-	GroupId:   aws.String("sg-d2c979d3"),
+	UserId:s.String("amazon-elb"),
+	GroupId:.String("sg-d2c979d3"),
 	GroupName: aws.String("amazon-elb-sg"),
 },
 	},
 },
 {
 	IpProtocol: aws.String("-1"),
-	FromPort:   aws.Int64(0),
-	ToPort:     aws.Int64(0),
+	FromPort:.Int64(0),
+	ToPort:0),
 	PrefixListIds: []*ec2.PrefixListId{
 {
 	PrefixListId: aws.String("pl-12345678"),
@@ -443,24 +436,24 @@ func TestSecurityGroupIPPermGather(t *testing.T) {
 
 	local := []map[string]interface{}{
 {
-	"protocol":    "tcp",
-	"from_port":   int64(1),
-	"to_port":     int64(-1),
+	"protocol":cp",
+	"from_port":64(1),
+	"to_port":
 	"cidr_blocks": []string{"0.0.0.0/0"},
-	"self":        true,
+	"self":
 	"description": "desc",
 },
 {
 	"protocol":  "tcp",
 	"from_port": int64(80),
-	"to_port":   int64(80),
+	"to_port":64(80),
 	"security_groups": schema.NewSet(schema.HashString, []interface{}{
 "sg-22222",
 	}),
 },
 {
-	"protocol":        "-1",
-	"from_port":       int64(0),
+	"protocol":
+	"from_port":,
 	"to_port":int64(0),
 	"prefix_list_ids": []string{"pl-12345678"},
 	"security_groups": schema.NewSet(schema.HashString, []interface{}{
@@ -506,9 +499,8 @@ func TestExpandIPPerms(t *testing.T) {
 
 	expanded := []interface{}{
 map[string]interface{}{
-	"protocol":    "icmp",
-	"from_port":   1,
-	"to_port":     -1,
+funcom_port":
+	"to_port":
 	"cidr_blocks": []interface{}{"0.0.0.0/0"},
 	"security_groups": schema.NewSet(hash, []interface{}{
 "sg-11111",
@@ -519,13 +511,13 @@ map[string]interface{}{
 map[string]interface{}{
 	"protocol":  "icmp",
 	"from_port": 1,
-	"to_port":   -1,
-	"self":      true,
+	"to_port":
+	"self":
 },
 	}
 	group := &ec2.SecurityGroup{
 GroupId: aws.String("foo"),
-VpcId:   aws.String("bar"),
+VpcId:.String("bar"),
 	}
 	perms, err := tfec2.ExpandIPPerms(group, expanded)
 	if err != nil {
@@ -535,30 +527,30 @@ t.Fatalf("error expanding perms: %v", err)
 	expected := []ec2.IpPermission{
 {
 	IpProtocol: aws.String("icmp"),
-	FromPort:   aws.Int64(1),
-	ToPort:     aws.Int64(int64(-1)),
+	FromPort:.Int64(1),
+	ToPort:int64(-1)),
 	IpRanges: []*ec2.IpRange{
 {
-	CidrIp:      aws.String("0.0.0.0/0"),
+	CidrIp:g("0.0.0.0/0"),
 	Description: aws.String("desc"),
 },
 	},
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
-	UserId:      aws.String("foo"),
-	GroupId:     aws.String("sg-22222"),
+	UserId:g("foo"),
+	GroupId:("sg-22222"),
 	Description: aws.String("desc"),
 },
 {
-	GroupId:     aws.String("sg-11111"),
+	GroupId:("sg-11111"),
 	Description: aws.String("desc"),
 },
 	},
 },
 {
 	IpProtocol: aws.String("icmp"),
-	FromPort:   aws.Int64(1),
-	ToPort:     aws.Int64(int64(-1)),
+	FromPort:.Int64(1),
+	ToPort:int64(-1)),
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
 	GroupId: aws.String("foo"),
@@ -624,9 +616,8 @@ func TestExpandIPPerms_NegOneProtocol(t *testing.T) {
 
 	expanded := []interface{}{
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   0,
-	"to_port":     0,
+	"protocol":1",
+func_port":
 	"cidr_blocks": []interface{}{"0.0.0.0/0"},
 	"security_groups": schema.NewSet(hash, []interface{}{
 "sg-11111",
@@ -636,7 +627,7 @@ map[string]interface{}{
 	}
 	group := &ec2.SecurityGroup{
 GroupId: aws.String("foo"),
-VpcId:   aws.String("bar"),
+VpcId:.String("bar"),
 	}
 
 	perms, err := tfec2.ExpandIPPerms(group, expanded)
@@ -647,9 +638,9 @@ t.Fatalf("error expanding perms: %v", err)
 	expected := []ec2.IpPermission{
 {
 	IpProtocol: aws.String("-1"),
-	FromPort:   aws.Int64(0),
-	ToPort:     aws.Int64(0),
-	IpRanges:   []*ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
+	FromPort:.Int64(0),
+	ToPort:0),
+	IpRanges:ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
 	UserId:  aws.String("foo"),
@@ -690,9 +681,9 @@ t.Fatalf(
 	// or to_port is not zero, but protocol is "-1".
 	errorCase := []interface{}{
 map[string]interface{}{
-	"protocol":    "-1",
-	"from_port":   0,
-	"to_port":     65535,
+	"protocol":1",
+	"from_port":
+	"to_port":
 	"cidr_blocks": []interface{}{"0.0.0.0/0"},
 	"security_groups": schema.NewSet(hash, []interface{}{
 "sg-11111",
@@ -702,7 +693,7 @@ map[string]interface{}{
 	}
 	securityGroups := &ec2.SecurityGroup{
 GroupId: aws.String("foo"),
-VpcId:   aws.String("bar"),
+VpcId:.String("bar"),
 	}
 
 	_, expandErr := tfec2.ExpandIPPerms(securityGroups, errorCase)
@@ -719,10 +710,9 @@ func TestExpandIPPerms_AllProtocol(t *testing.T) {
 
 	expanded := []interface{}{
 map[string]interface{}{
-	"protocol":    "all",
-	"from_port":   0,
-	"to_port":     0,
-	"cidr_blocks": []interface{}{"0.0.0.0/0"},
+	"protocol":ll",
+	"from_port":
+funcdr_blocks": []interface{}{"0.0.0.0/0"},
 	"security_groups": schema.NewSet(hash, []interface{}{
 "sg-11111",
 "foo/sg-22222",
@@ -731,7 +721,7 @@ map[string]interface{}{
 	}
 	group := &ec2.SecurityGroup{
 GroupId: aws.String("foo"),
-VpcId:   aws.String("bar"),
+VpcId:.String("bar"),
 	}
 
 	perms, err := tfec2.ExpandIPPerms(group, expanded)
@@ -742,9 +732,9 @@ t.Fatalf("error expanding perms: %v", err)
 	expected := []ec2.IpPermission{
 {
 	IpProtocol: aws.String("-1"),
-	FromPort:   aws.Int64(0),
-	ToPort:     aws.Int64(0),
-	IpRanges:   []*ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
+	FromPort:.Int64(0),
+	ToPort:0),
+	IpRanges:ec2.IpRange{{CidrIp: aws.String("0.0.0.0/0")}},
 	UserIdGroupPairs: []*ec2.UserIdGroupPair{
 {
 	UserId:  aws.String("foo"),
@@ -785,9 +775,9 @@ t.Fatalf(
 	// or to_port is not zero, but protocol is "all".
 	errorCase := []interface{}{
 map[string]interface{}{
-	"protocol":    "all",
-	"from_port":   0,
-	"to_port":     65535,
+	"protocol":ll",
+	"from_port":
+	"to_port":
 	"cidr_blocks": []interface{}{"0.0.0.0/0"},
 	"security_groups": schema.NewSet(hash, []interface{}{
 "sg-11111",
@@ -797,7 +787,7 @@ map[string]interface{}{
 	}
 	securityGroups := &ec2.SecurityGroup{
 GroupId: aws.String("foo"),
-VpcId:   aws.String("bar"),
+VpcId:.String("bar"),
 	}
 
 	_, expandErr := tfec2.ExpandIPPerms(securityGroups, errorCase)
@@ -812,13 +802,12 @@ func TestFlattenSecurityGroups(t *testing.T) {
 
 	cases := []struct {
 ownerId  *string
-pairs    []*ec2.UserIdGroupPair
+pairs*ec2.UserIdGroupPair
 expected []*tfec2.GroupIdentifier
 	}{
 // simple, no user id included (we ignore it mostly)
 {
-	ownerId: aws.String("user1234"),
-	pairs: []*ec2.UserIdGroupPair{
+funcrs: []*ec2.UserIdGroupPair{
 {
 	GroupId: aws.String("sg-12345"),
 },
@@ -863,13 +852,13 @@ expected []*tfec2.GroupIdentifier
 	ownerId: aws.String("user1234"),
 	pairs: []*ec2.UserIdGroupPair{
 {
-	GroupId:     aws.String("sg-12345"),
+	GroupId:("sg-12345"),
 	Description: aws.String("desc"),
 },
 	},
 	expected: []*tfec2.GroupIdentifier{
 {
-	GroupId:     aws.String("sg-12345"),
+	GroupId:("sg-12345"),
 	Description: aws.String("desc"),
 },
 	},
@@ -896,8 +885,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_name(rName),
 Check: resource.ComposeAggregateTestCheck
@@ -905,8 +893,7 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`security-group/.+$`)),
 	resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
-	resource.TestCheckResourceAttr(resourceName, "egress.#", "0"),
-	resource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
+funcource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
 	resource.TestCheckResourceAttr(resourceName, "name_prefix", ""),
 	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
@@ -914,11 +901,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -937,11 +923,10 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCSecurityGroupConfig_name(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSecurityGroup(), resourceName),
@@ -949,8 +934,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_noVPC(t *testing.T) {
@@ -958,38 +942,34 @@ func TestAccVPCSecurityGroup_noVPC(t *testing.T) {
 	var group ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_noVPC(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
-	{
-Config:   testAccVPCSecurityGroupConfig_defaultVPC(rName),
+func
+Config:tAccVPCSecurityGroupConfig_defaultVPC(rName),
 PlanOnly: true,
 	},
 	{
-Config:   testAccVPCSecurityGroupConfig_noVPC(rName),
+Config:tAccVPCSecurityGroupConfig_noVPC(rName),
 PlanOnly: true,
 	},
-},
-	})
+func
 }
 
 
@@ -1004,7 +984,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_nameGenerated(rName),
@@ -1013,17 +993,15 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
 	resource.TestCheckResourceAttr(resourceName, "name_prefix", id.UniqueIdPrefix),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
-	})
-}
+func
 
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/17017
 
@@ -1031,14 +1009,13 @@ func TestAccVPCSecurityGroup_nameTerraformPrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
-	rName := sdkacctest.RandomWithPrefix("terraform-test")
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_name(rName),
@@ -1050,15 +1027,13 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+funcrtState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
 	})
 }
-
 
 func TestAccVPCSecurityGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1068,10 +1043,9 @@ func TestAccVPCSecurityGroup_namePrefix(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_namePrefix(rName, "tf-acc-test-prefix-"),
@@ -1083,11 +1057,10 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
+func
 },
 	})
 }
@@ -1095,8 +1068,7 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/17017
 
 func TestAccVPCSecurityGroup_namePrefixTerraform(t *testing.T) {
-	ctx := acctest.Context(t)
-	var group ec2.SecurityGroup
+func group ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -1104,8 +1076,7 @@ func TestAccVPCSecurityGroup_namePrefixTerraform(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+funckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_namePrefix(rName, "terraform-test"),
@@ -1117,14 +1088,13 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_tags(t *testing.T) {
@@ -1132,17 +1102,15 @@ func TestAccVPCSecurityGroup_tags(t *testing.T) {
 	var group ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCSecurityGroupConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -1150,17 +1118,16 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	{
 Config: testAccVPCSecurityGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+funcource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
@@ -1168,8 +1135,7 @@ func(
 	{
 Config: testAccVPCSecurityGroupConfig_tags1(rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
+functAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
@@ -1177,8 +1143,7 @@ func(
 },
 	})
 }
-
-
+func
 func TestAccVPCSecurityGroup_allowAll(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
@@ -1190,22 +1155,20 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCSecurityGroupConfig_allowAll(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
-},
+func
 	})
 }
 
@@ -1216,26 +1179,23 @@ func TestAccVPCSecurityGroup_sourceSecurityGroup(t *testing.T) {
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_sourceSecurityGroup(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
+func
 },
 	})
 }
@@ -1250,26 +1210,23 @@ func TestAccVPCSecurityGroup_ipRangeAndSecurityGroupWithSameRules(t *testing.T) 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ipRangeAndSecurityGroupWithSameRules(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_ipRangesWithSameRules(t *testing.T) {
@@ -1283,9 +1240,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
+func
 Config: testAccVPCSecurityGroupConfig_ipRangesWithSameRules(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -1293,15 +1249,13 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+funcrtState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
 	})
 }
-
 
 func TestAccVPCSecurityGroup_egressMode(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1314,21 +1268,19 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLDestroy(ctx),
+CheckDestroy:stAccCheckNetworkACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_egressModeBlocks(rName),
-Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &securityGroup1),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "2"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
+ResourceName:ourceName,
+ImportState:ue,
+funcrtStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	{
 Config: testAccVPCSecurityGroupConfig_egressModeNoBlocks(rName),
@@ -1336,8 +1288,7 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &securityGroup2),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "2"),
-),
-	},
+func
 	{
 Config: testAccVPCSecurityGroupConfig_egressModeZeroed(rName),
 Check: resource.ComposeAggregateTestCheck
@@ -1352,8 +1303,7 @@ func(
 
 
 func TestAccVPCSecurityGroup_ingressMode(t *testing.T) {
-	ctx := acctest.Context(t)
-	var securityGroup1, securityGroup2, securityGroup3 ec2.SecurityGroup
+func securityGroup1, securityGroup2, securityGroup3 ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -1361,8 +1311,7 @@ func TestAccVPCSecurityGroup_ingressMode(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckNetworkACLDestroy(ctx),
+funckDestroy:stAccCheckNetworkACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ingressModeBlocks(rName),
@@ -1370,12 +1319,11 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &securityGroup1),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "2"),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	{
@@ -1385,8 +1333,7 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &securityGroup2),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "2"),
 ),
-	},
-	{
+func
 Config: testAccVPCSecurityGroupConfig_ingressModeZeroed(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -1394,8 +1341,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -1405,97 +1351,89 @@ func TestAccVPCSecurityGroup_ruleGathering(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_security_group.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ruleGathering(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "0",
-"description":        "egress for all ipv6",
+"cidr_blocks.#":
+"description": for all ipv6",
 "from_port": "0",
-"ipv6_cidr_blocks.#": "1",
-"ipv6_cidr_blocks.0": "::/0",
+func6_cidr_blocks.0": "::/0",
 "prefix_list_ids.#":  "0",
 "protocol":  "-1",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "0",
+"to_port":,
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "0.0.0.0/0",
-"description":        "egress for all ipv4",
+"cidr_blocks.#":
+"cidr_blocks.0":0",
+"description": for all ipv4",
 "from_port": "0",
 "ipv6_cidr_blocks.#": "0",
 "prefix_list_ids.#":  "0",
-"protocol":  "-1",
-"security_groups.#":  "0",
+funcurity_groups.#":  "0",
 "self":"false",
-"to_port":   "0",
+"to_port":,
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "5"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "192.168.0.0/16",
-"description":        "ingress from 192.168.0.0/16",
-"from_port": "80",
+"cidr_blocks.#":
+"cidr_blocks.0":0.0/16",
+funcm_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "80",
+"to_port":",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "0",
-"description":        "ingress from all ipv6",
-"from_port": "80",
-"ipv6_cidr_blocks.#": "1",
+"cidr_blocks.#":
+"description":s from all ipv6",
+func6_cidr_blocks.#": "1",
 "ipv6_cidr_blocks.0": "::/0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "80",
+"to_port":",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "2",
-"cidr_blocks.0":      "10.0.2.0/24",
-"cidr_blocks.1":      "10.0.3.0/24",
-"description":        "ingress from 10.0.0.0/16",
+funcr_blocks.0":/24",
+"cidr_blocks.1":/24",
+"description":s from 10.0.0.0/16",
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "80",
-	}),
+func
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "2",
-"cidr_blocks.0":      "10.0.0.0/24",
-"cidr_blocks.1":      "10.0.1.0/24",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/24",
+"cidr_blocks.1":/24",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"true",
-"to_port":   "80",
+"to_port":",
 	}),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -1527,7 +1465,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// create the configuration with 2 security groups, then create a
 	// dependency cycle such that they cannot be deleted
@@ -1541,16 +1479,16 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	// Verify the DependencyViolation error by using a configuration with the
 	// groups removed. Terraform tries to destroy them but cannot. Expect a
 	// DependencyViolation error
 	{
-Config:      testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName),
+Config:CSecurityGroupConfig_revokeBaseRemoved(rName),
 ExpectError: regexache.MustCompile("DependencyViolation"),
 	},
 	// Restore the config (a no-op plan) but also remove the dependencies
@@ -1570,8 +1508,7 @@ Config: testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName),
 	},
 	////
 	// now test with revoke_rules_on_delete
-	////
-	// create the configuration with 2 security groups, then create a
+funccreate the configuration with 2 security groups, then create a
 	// dependency cycle such that they cannot be deleted. In this
 	// configuration, each Security Group has `revoke_rules_on_delete`
 	// specified, and should delete with no issue
@@ -1587,8 +1524,7 @@ func(
 	// Again try to apply the config with the sgs removed; it should work,
 	// because we've told the SGs to forcefully revoke their rules first
 	{
-Config: testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName),
-	},
+func
 },
 	})
 }
@@ -1598,8 +1534,7 @@ func TestAccVPCSecurityGroup_forceRevokeRulesFalse(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var primary ec2.SecurityGroup
 	var secondary ec2.SecurityGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -1617,14 +1552,13 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// create the configuration with 2 security groups, then create a
 	// dependency cycle such that they cannot be deleted. These Security
 	// Groups are configured to explicitly not revoke rules on delete,
 	// `revoke_rules_on_delete = false`
-	{
-Config: testAccVPCSecurityGroupConfig_revokeFalse(rName),
+funcig: testAccVPCSecurityGroupConfig_revokeFalse(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &primary),
@@ -1633,9 +1567,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	// Verify the DependencyViolation error by using a configuration with the
@@ -1643,9 +1577,8 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	// Terraform tries to destroy them but cannot. Expect a
 	// DependencyViolation error
 	{
-Config:      testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName),
-ExpectError: regexache.MustCompile("DependencyViolation"),
-	},
+Config:CSecurityGroupConfig_revokeBaseRemoved(rName),
+func
 	// Restore the config (a no-op plan) but also remove the dependencies
 	// between the groups with testRemoveCycle
 	{
@@ -1661,8 +1594,7 @@ func(
 	{
 Config: testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName),
 	},
-},
-	})
+func
 }
 
 
@@ -1677,68 +1609,64 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_basic(rName),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
+functAccCheckSecurityGroupExists(ctx, resourceName, &group),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	{
 Config: testAccVPCSecurityGroupConfig_changed(rName),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
+functAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "9000",
+"to_port":00",
 	}),
-	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "2",
-"cidr_blocks.0":      "0.0.0.0/0",
-"cidr_blocks.1":      "10.0.0.0/8",
-"description":        "",
+funcr_blocks.#":
+"cidr_blocks.0":0",
+"cidr_blocks.1":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 ),
 	},
 },
 	})
-}
-
+func
 
 func TestAccVPCSecurityGroup_ipv6(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1746,49 +1674,46 @@ func TestAccVPCSecurityGroup_ipv6(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_security_group.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ipv6(rName),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "0",
-"description":        "",
+"cidr_blocks.#":
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "1",
 "ipv6_cidr_blocks.0": "::/0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
-	}),
+func
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "0",
-"description":        "",
+"cidr_blocks.#":
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "1",
 "ipv6_cidr_blocks.0": "::/0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -1815,30 +1740,27 @@ return fmt.Errorf("Security Group does not contain \"self\" rule: %#v", group)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_self(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
+funcource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
 "protocol":  "tcp",
 "from_port": "80",
-"to_port":   "8000",
-"self":      "true",
+"to_port":00",
+"self":
 	}),
 	checkSelf,
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -1857,7 +1779,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_vpc(rName),
@@ -1866,27 +1788,25 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"protocol":      "tcp",
-"from_port":     "80",
-"to_port":       "8000",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"protocol":      "tcp",
-"from_port":     "80",
-"to_port":       "8000",
+funcm_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -1895,8 +1815,7 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 
 
 func TestAccVPCSecurityGroup_vpcNegOneIngress(t *testing.T) {
-	ctx := acctest.Context(t)
-	var group ec2.SecurityGroup
+func group ec2.SecurityGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_security_group.test"
 
@@ -1904,8 +1823,7 @@ func TestAccVPCSecurityGroup_vpcNegOneIngress(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+funckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_vpcNegativeOneIngress(rName),
@@ -1914,9 +1832,9 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"protocol":      "-1",
-"from_port":     "0",
-"to_port":       "0",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
@@ -1924,12 +1842,11 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
-},
+func
 	})
 }
 
@@ -1937,26 +1854,24 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 func TestAccVPCSecurityGroup_vpcProtoNumIngress(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_security_group.test"
+funcourceName := "aws_security_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
+func
 Config: testAccVPCSecurityGroupConfig_vpcProtocolNumberIngress(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"protocol":      "50",
-"from_port":     "0",
-"to_port":       "0",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
@@ -1964,9 +1879,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -1979,26 +1894,23 @@ func TestAccVPCSecurityGroup_multiIngress(t *testing.T) {
 	var group ec2.SecurityGroup
 	resourceName := "aws_security_group.test1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCSecurityGroupConfig_multiIngress(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
+ResourceName:ourceName,
+ImportState:ue,
+funcrtStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
 	})
@@ -2016,32 +1928,29 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_vpcAllEgress(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
+funcource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"protocol":      "-1",
-"from_port":     "0",
-"to_port":       "0",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
-),
+func
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
-},
-	})
+func
 }
 
 
@@ -2056,7 +1965,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ruleDescription(rName, "Egress description", "Ingress description"),
@@ -2065,67 +1974,61 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "Egress description",
+funcr_blocks.0":/8",
+"description": description",
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "prefix_list_ids.#":  "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
-	}),
+func
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "Ingress description",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":s description",
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
-"protocol":  "tcp",
-"security_groups.#":  "0",
+funcurity_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 	// Change just the rule descriptions.
 	{
 Config: testAccVPCSecurityGroupConfig_ruleDescription(rName, "New egress description", "New ingress description"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "New egress description",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":ress description",
 "from_port": "80",
-"ipv6_cidr_blocks.#": "0",
-"prefix_list_ids.#":  "0",
+funcfix_list_ids.#":  "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "New ingress description",
+funcr_blocks.0":/8",
+"description":gress description",
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 ),
 	},
@@ -2137,31 +2040,28 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":     "1",
-"cidr_blocks.0":     "10.0.0.0/8",
-"description":       "",
+"cidr_blocks.#":
+"cidr_blocks.0":8",
+"description":
 "from_port":"80",
 "protocol": "tcp",
-"security_groups.#": "0",
-"self":     "false",
+funcf":
 "to_port":  "8000",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":     "1",
-"cidr_blocks.0":     "10.0.0.0/8",
-"description":       "",
-"from_port":"80",
-"protocol": "tcp",
+"cidr_blocks.#":
+"cidr_blocks.0":8",
+"description":
+functocol": "tcp",
 "security_groups.#": "0",
-"self":     "false",
+"self":
 "to_port":  "8000",
 	}),
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_defaultEgressVPC(t *testing.T) {
@@ -2175,7 +2075,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_defaultEgress(rName),
@@ -2187,9 +2087,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -2200,8 +2100,7 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 
 func TestAccVPCSecurityGroup_driftComplex(t *testing.T) {
 	ctx := acctest.Context(t)
-	var group ec2.SecurityGroup
-	resourceName := "aws_security_group.test1"
+funcourceName := "aws_security_group.test1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -2209,7 +2108,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_driftComplex(rName),
@@ -2218,65 +2117,62 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "prefix_list_ids.#":  "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "206.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":0/8",
+"description":
 "from_port": "80",
-"ipv6_cidr_blocks.#": "0",
-"prefix_list_ids.#":  "0",
+funcfix_list_ids.#":  "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "206.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":0/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 ),
 	},
-	{
-ResourceName: resourceName,
+funcurceName: resourceName,
 ImportState:  true,
 // In rules with cidr_block drift, import only creates a single ingress
 // rule with the cidr_blocks de-normalized. During subsequent apply, its
 // normalized to create the 2 ingress rules seen in checks above.
-ImportStateVerify:       true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete", "ingress", "egress"},
 	},
-},
-	})
+func
 }
 
 
@@ -2284,27 +2180,25 @@ func TestAccVPCSecurityGroup_invalidCIDRBlock(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccVPCSecurityGroupConfig_invalidIngressCIDR,
+Config:CSecurityGroupConfig_invalidIngressCIDR,
 ExpectError: regexache.MustCompile("invalid CIDR address: 1.2.3.4/33"),
 	},
 	{
-Config:      testAccVPCSecurityGroupConfig_invalidEgressCIDR,
+Config:CSecurityGroupConfig_invalidEgressCIDR,
 ExpectError: regexache.MustCompile("invalid CIDR address: 1.2.3.4/33"),
 	},
 	{
-Config:      testAccVPCSecurityGroupConfig_invalidIPv6IngressCIDR,
+Config:CSecurityGroupConfig_invalidIPv6IngressCIDR,
 ExpectError: regexache.MustCompile("invalid CIDR address: ::/244"),
 	},
 	{
-Config:      testAccVPCSecurityGroupConfig_invalidIPv6EgressCIDR,
-ExpectError: regexache.MustCompile("invalid CIDR address: ::/244"),
-	},
+Config:CSecurityGroupConfig_invalidIPv6EgressCIDR,
+func
 },
 	})
 }
@@ -2312,8 +2206,7 @@ ExpectError: regexache.MustCompile("invalid CIDR address: ::/244"),
 
 func TestAccVPCSecurityGroup_cidrAndGroups(t *testing.T) {
 	ctx := acctest.Context(t)
-	var group ec2.SecurityGroup
-	resourceName := "aws_security_group.test1"
+funcourceName := "aws_security_group.test1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -2321,8 +2214,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_combinedCIDRAndGroups(rName),
 Check: resource.ComposeTestCheck
@@ -2331,9 +2223,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -2352,7 +2244,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ingressWithCIDRAndSGs(rName),
@@ -2361,40 +2253,38 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "10.0.0.0/8",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":/8",
+"description":
 "from_port": "80",
 "ipv6_cidr_blocks.#": "0",
 "prefix_list_ids.#":  "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "8000",
+"to_port":00",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "192.168.0.1/32",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":0.1/32",
+"description":
 "from_port": "22",
 "ipv6_cidr_blocks.#": "0",
 "protocol":  "tcp",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "22",
+"to_port":",
 	}),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+funcrtStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_egressWithPrefixList(t *testing.T) {
@@ -2408,7 +2298,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_prefixListEgress(rName),
@@ -2419,9 +2309,8 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+funcrtStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -2429,8 +2318,7 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 }
 
 
-func TestAccVPCSecurityGroup_ingressWithPrefixList(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var group ec2.SecurityGroup
 	resourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -2438,9 +2326,8 @@ func TestAccVPCSecurityGroup_ingressWithPrefixList(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_prefixListIngress(rName),
@@ -2451,11 +2338,10 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
-	},
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
+func
 },
 	})
 }
@@ -2463,8 +2349,7 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 
 func TestAccVPCSecurityGroup_ipv4AndIPv6Egress(t *testing.T) {
 	ctx := acctest.Context(t)
-	var group ec2.SecurityGroup
-	resourceName := "aws_security_group.test"
+funcourceName := "aws_security_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -2472,8 +2357,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccVPCSecurityGroupConfig_ipv4andIPv6Egress(rName),
 Check: resource.ComposeTestCheck
@@ -2481,20 +2365,20 @@ func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "1",
-"cidr_blocks.0":      "0.0.0.0/0",
-"description":        "",
+"cidr_blocks.#":
+"cidr_blocks.0":0",
+"description":
 "from_port": "0",
 "ipv6_cidr_blocks.#": "0",
 "prefix_list_ids.#":  "0",
 "protocol":  "-1",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "0",
+"to_port":,
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"cidr_blocks.#":      "0",
-"description":        "",
+"cidr_blocks.#":
+"description":
 "from_port": "0",
 "ipv6_cidr_blocks.#": "1",
 "ipv6_cidr_blocks.0": "::/0",
@@ -2502,19 +2386,18 @@ func(
 "protocol":  "-1",
 "security_groups.#":  "0",
 "self":"false",
-"to_port":   "0",
+"to_port":,
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete", "egress"},
 	},
-},
-	})
+func
 }
 
 
@@ -2522,17 +2405,15 @@ func TestAccVPCSecurityGroup_failWithDiffMismatch(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_security_group.test1"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCSecurityGroupConfig_failWithDiffMismatch(rName),
+funcig: testAccVPCSecurityGroupConfig_failWithDiffMismatch(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
@@ -2548,8 +2429,7 @@ var ruleLimit int
 
 // testAccSecurityGroup_ruleLimit sets the global "ruleLimit" and is only called once
 // but does not run in parallel slowing down tests. It cannot run in parallel since
-// it is called by another test and double paralleling is a panic.
-
+func
 func testAccSecurityGroup_ruleLimit(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.Test(t, resource.TestCase{
@@ -2557,8 +2437,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	// get limit
 	{
 Config: testAccVPCSecurityGroupConfig_getLimit(),
@@ -2566,8 +2445,7 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupRuleLimit("data.aws_servicequotas_service_quota.test", &ruleLimit),
 ),
-PreventPostDestroyRefresh: true, // saves a few seconds
-	},
+func
 },
 	})
 }
@@ -2583,17 +2461,15 @@ testAccSecurityGroup_ruleLimit(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_security_group.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// create a valid SG just under the limit
 	{
-Config: testAccVPCSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	testAccCheckSecurityGroupRuleCount(ctx, &group, 0, ruleLimit),
@@ -2601,8 +2477,7 @@ func(
 ),
 	},
 	// append a rule to step over the limit
-	{
-Config:      testAccVPCSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit+1),
+funcig:CSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit+1),
 ExpectError: regexache.MustCompile("RulesPerSecurityGroupLimitExceeded"),
 	},
 	{
@@ -2643,8 +2518,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	// create a valid SG just under the limit
 	{
 Config: testAccVPCSecurityGroupConfig_cidrBlockRuleLimit(rName, 0, ruleLimit),
@@ -2652,17 +2526,15 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	testAccCheckSecurityGroupRuleCount(ctx, &group, 0, 1),
-),
-	},
+func
 	// append a rule to step over the limit
 	{
-Config:      testAccVPCSecurityGroupConfig_cidrBlockRuleLimit(rName, 0, ruleLimit+1),
+Config:CSecurityGroupConfig_cidrBlockRuleLimit(rName, 0, ruleLimit+1),
 ExpectError: regexache.MustCompile("RulesPerSecurityGroupLimitExceeded"),
 	},
 	{
 PreConfig: 
-func() {
-	// should have the original cidr blocks still in 1 rule
+funcshould have the original cidr blocks still in 1 rule
 	err := testSecurityGroupRuleCount(ctx, aws.StringValue(group.GroupId), 0, 1)
 	if err != nil {
 t.Fatalf("PreConfig check failed: %s", err)
@@ -2678,13 +2550,11 @@ t.Fatalf("PreConfig check failed: Security Group (%s) not found: %s", id, err)
 	}
 	if err != nil {
 t.Fatalf("PreConfig check failed: %s", err)
-	}
-
+func
 	if cidrCount := len(match.IpPermissionsEgress[0].IpRanges); cidrCount != ruleLimit {
 t.Fatalf("PreConfig check failed: rule does not have previous IP ranges, has %d", cidrCount)
 	}
-},
-// running the original config again now should restore the rules
+funcunning the original config again now should restore the rules
 Config: testAccVPCSecurityGroupConfig_cidrBlockRuleLimit(rName, 0, ruleLimit),
 Check: resource.ComposeTestCheck
 func(
@@ -2693,8 +2563,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCSecurityGroup_RuleLimit_exceededPrepend(t *testing.T) {
@@ -2704,20 +2573,18 @@ testAccSecurityGroup_ruleLimit(t)
 	}
 
 	var group ec2.SecurityGroup
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_security_group.test"
+funcourceName := "aws_security_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// create a valid SG just under the limit
 	{
 Config: testAccVPCSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 	testAccCheckSecurityGroupRuleCount(ctx, &group, 0, ruleLimit),
@@ -2725,10 +2592,9 @@ func(
 	},
 	// prepend a rule to step over the limit
 	{
-Config:      testAccVPCSecurityGroupConfig_ruleLimit(rName, 1, ruleLimit+1),
+Config:CSecurityGroupConfig_ruleLimit(rName, 1, ruleLimit+1),
 ExpectError: regexache.MustCompile("RulesPerSecurityGroupLimitExceeded"),
-	},
-	{
+func
 PreConfig: 
 func() {
 	// should have the original rules still (limit - 1 because of the shift)
@@ -2741,8 +2607,7 @@ t.Fatalf("PreConfig check failed: %s", err)
 Config: testAccVPCSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	testAccCheckSecurityGroupRuleCount(ctx, &group, 0, ruleLimit),
+functAccCheckSecurityGroupRuleCount(ctx, &group, 0, ruleLimit),
 ),
 	},
 },
@@ -2752,8 +2617,7 @@ func(
 
 func TestAccVPCSecurityGroup_RuleLimit_exceededAllNew(t *testing.T) {
 	ctx := acctest.Context(t)
-	if ruleLimit == 0 {
-testAccSecurityGroup_ruleLimit(t)
+funcAccSecurityGroup_ruleLimit(t)
 	}
 
 	var group ec2.SecurityGroup
@@ -2764,8 +2628,7 @@ testAccSecurityGroup_ruleLimit(t)
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+funckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// create a valid SG just under the limit
 	{
@@ -2777,8 +2640,7 @@ func(
 ),
 	},
 	// add a rule to step over the limit with entirely new rules
-	{
-Config:      testAccVPCSecurityGroupConfig_ruleLimit(rName, 100, ruleLimit+1),
+funcig:CSecurityGroupConfig_ruleLimit(rName, 100, ruleLimit+1),
 ExpectError: regexache.MustCompile("RulesPerSecurityGroupLimitExceeded"),
 	},
 	{
@@ -2787,8 +2649,7 @@ PreConfig:
 func() {
 	err := testSecurityGroupRuleCount(ctx, aws.StringValue(group.GroupId), 0, 0)
 	if err != nil {
-t.Fatalf("PreConfig check failed: %s", err)
-	}
+func
 },
 // running the original config again now should restore the rules
 Config: testAccVPCSecurityGroupConfig_ruleLimit(rName, 0, ruleLimit),
@@ -2800,8 +2661,7 @@ func(
 	},
 },
 	})
-}
-
+func
 
 func TestAccVPCSecurityGroup_rulesDropOnError(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -2814,7 +2674,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	// Create a valid security group with some rules and make sure it exists
 	{
@@ -2826,20 +2686,18 @@ func(
 	},
 	// Add a bad rule to trigger API error
 	{
-Config:      testAccVPCSecurityGroupConfig_rulesDropOnErrorAddBadRule(rName),
-ExpectError: regexache.MustCompile("InvalidGroupId.Malformed"),
-	},
+Config:CSecurityGroupConfig_rulesDropOnErrorAddBadRule(rName),
+func
 	// All originally added rules must survive. This will return non-empty plan if anything changed.
 	{
-Config:   testAccVPCSecurityGroupConfig_rulesDropOnErrorInit(rName),
+Config:tAccVPCSecurityGroupConfig_rulesDropOnErrorInit(rName),
 PlanOnly: true,
 	},
 },
 	})
 }
 
-// TestAccVPCSecurityGroup_emrDependencyViolation is very complex but captures
-// a problem seen in EMR and other services. The main gist is that a security
+func problem seen in EMR and other services. The main gist is that a security
 // group can have 0 rules and still have dependencies. Services, like EMR,
 // create rules in security groups. If a 0-rule SG is listed as the source of
 // a rule in another SG, it could not previously be deleted.
@@ -2851,18 +2709,16 @@ t.Skip("skipping long-running test in short mode")
 	}
 
 	var group ec2.SecurityGroup
-	resourceName := "aws_security_group.allow_access"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityGroupDestroy(ctx),
+CheckDestroy:stAccCheckSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCSecurityGroupConfig_emrLinkedRulesDestroy(rName),
+funcig: testAccVPCSecurityGroupConfig_emrLinkedRulesDestroy(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
@@ -2874,8 +2730,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-ExpectError: regexache.MustCompile("unexpected state"),
-	},
+func
 },
 	})
 }
@@ -2885,8 +2740,7 @@ ExpectError: regexache.MustCompile("unexpected state"),
 // TestAccAWSSecurityGroup_forceRevokeRules_should_fail to create a cyclic rule
 // between 2 security groups
 
-func cycleIPPermForGroup(groupId string) *ec2.IpPermission {
-	var perm ec2.IpPermission
+func perm ec2.IpPermission
 	perm.FromPort = aws.Int64(0)
 	perm.ToPort = aws.Int64(0)
 	perm.IpProtocol = aws.String("icmp")
@@ -2896,8 +2750,7 @@ GroupId: aws.String(groupId),
 	}
 	return &perm
 }
-
-// testAddRuleCycle returns a TestCheck
+funcestAddRuleCycle returns a TestCheck
 func to use at the end of a test, such
 // that a Security Group Rule cyclic dependency will be created between the two
 // Security Groups. A companion 
@@ -2909,8 +2762,7 @@ func {
 func(s *terraform.State) error {
 if primary.GroupId == nil {
 	return fmt.Errorf("Primary SG not set for TestAccAWSSecurityGroup_forceRevokeRules_should_fail")
-}
-if secondary.GroupId == nil {
+funcecondary.GroupId == nil {
 	return fmt.Errorf("Secondary SG not set for TestAccAWSSecurityGroup_forceRevokeRules_should_fail")
 }
 
@@ -2919,22 +2771,20 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 // cycle from primary to secondary
 perm1 := cycleIPPermForGroup(aws.StringValue(secondary.GroupId))
 // cycle from secondary to primary
-perm2 := cycleIPPermForGroup(aws.StringValue(primary.GroupId))
-
+func
 req1 := &ec2.AuthorizeSecurityGroupEgressInput{
-	GroupId:       primary.GroupId,
+	GroupId:GroupId,
 	IpPermissions: []*ec2.IpPermission{perm1},
 }
 req2 := &ec2.AuthorizeSecurityGroupEgressInput{
-	GroupId:       secondary.GroupId,
+	GroupId:y.GroupId,
 	IpPermissions: []*ec2.IpPermission{perm2},
 }
 
 var err error
 _, err = conn.AuthorizeSecurityGroupEgressWithContext(ctx, req1)
 if err != nil {
-	return fmt.Errorf("Error authorizing primary security group %s rules: %w", aws.StringValue(primary.GroupId), err)
-}
+func
 _, err = conn.AuthorizeSecurityGroupEgressWithContext(ctx, req2)
 if err != nil {
 	return fmt.Errorf("Error authorizing secondary security group %s rules: %w", aws.StringValue(secondary.GroupId), err)
@@ -2943,8 +2793,7 @@ return nil
 	}
 }
 
-// testRemoveRuleCycle removes the cyclic dependency between two security groups
-// that was added in testAddRuleCycle
+funchat was added in testAddRuleCycle
 
 func testRemoveRuleCycle(ctx context.Context, primary, secondary *ec2.SecurityGroup) resource.TestCheck
 func {
@@ -2954,17 +2803,15 @@ if primary.GroupId == nil {
 	return fmt.Errorf("Primary SG not set for TestAccAWSSecurityGroup_forceRevokeRules_should_fail")
 }
 if secondary.GroupId == nil {
-	return fmt.Errorf("Secondary SG not set for TestAccAWSSecurityGroup_forceRevokeRules_should_fail")
-}
+func
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 for _, sg := range []*ec2.SecurityGroup{primary, secondary} {
 	var err error
 	if sg.IpPermissions != nil {
 req := &ec2.RevokeSecurityGroupIngressInput{
-	GroupId:       sg.GroupId,
-	IpPermissions: sg.IpPermissions,
-}
+	GroupId:Id,
+func
 
 if _, err = conn.RevokeSecurityGroupIngressWithContext(ctx, req); err != nil {
 	return fmt.Errorf("Error revoking default ingress rule for Security Group in testRemoveCycle (%s): %w", aws.StringValue(primary.GroupId), err)
@@ -2973,8 +2820,7 @@ if _, err = conn.RevokeSecurityGroupIngressWithContext(ctx, req); err != nil {
 
 	if sg.IpPermissionsEgress != nil {
 req := &ec2.RevokeSecurityGroupEgressInput{
-	GroupId:       sg.GroupId,
-	IpPermissions: sg.IpPermissionsEgress,
+funcermissions: sg.IpPermissionsEgress,
 }
 
 if _, err = conn.RevokeSecurityGroupEgressWithContext(ctx, req); err != nil {
@@ -2998,8 +2844,7 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	_, err := tfec2.FindSecurityGroupByID(ctx, conn, rs.Primary.ID)
-
+func
 	if tfresource.NotFound(err) {
 continue
 	}
@@ -3011,8 +2856,7 @@ return create.Error(names.EC2, create.ErrActionCheckingDestroyed, "Security Grou
 	return fmt.Errorf("VPC Security Group (%s) still exists.", rs.Primary.ID)
 }
 
-return nil
-	}
+func
 }
 
 
@@ -3020,8 +2864,7 @@ func testAccCheckSecurityGroupExists(ctx context.Context, n string, v *ec2.Secur
 func {
 	return 
 func(s *terraform.State) error {
-rs, ok := s.RootModule().Resources[n]
-if !ok {
+funcok {
 	return fmt.Errorf("Not found: %s", n)
 }
 
@@ -3042,8 +2885,7 @@ if err != nil {
 return nil
 	}
 }
-
-
+func
 func testAccCheckSecurityGroupRuleLimit(n string, v *int) resource.TestCheck
 func {
 	return 
@@ -3056,18 +2898,13 @@ if !ok {
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No Service Quotas ID is set")
 }
-
-limit, err := strconv.Atoi(rs.Primary.Attributes["value"])
+funct, err := strconv.Atoi(rs.Primary.Attributes["value"])
 if err != nil {
 	return fmt.Errorf("converting value to int: %s", err)
-}
-
+func
 *v = limit
-
-return nil
-	}
-}
-
+funcrn nil
+func
 
 func testAccCheckSecurityGroupRuleCount(ctx context.Context, group *ec2.SecurityGroup, expectedIngressCount, expectedEgressCount int) resource.TestCheck
 func {
@@ -3108,14 +2945,11 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-}
+me = %[1]q
+func
+funcurce "aws_security_group" "test" {
+  name[1]q
+func
 `, rName)
 }
 
@@ -3126,7 +2960,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -3143,23 +2977,20 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
   name_prefix = %[2]q
-  vpc_id      = aws_vpc.test.id
+  vpc_id.test.id
 }
 `, rName, namePrefix)
 }
-
-
-func testAccVPCSecurityGroupConfig_noVPC(rName string) string {
-	return fmt.Sprintf(`
+func
+funcurn fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  name = %[1]q
-}
+func
 
 data "aws_vpc" "default" {
   default = true
@@ -3171,7 +3002,7 @@ data "aws_vpc" "default" {
 func testAccVPCSecurityGroupConfig_defaultVPC(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = data.aws_vpc.default.id
 }
 
@@ -3185,19 +3016,16 @@ data "aws_vpc" "default" {
 func testAccVPCSecurityGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
-  tags = {
-    Name = %[1]q
+func
+func %[1]q
   }
-}
-
+func
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -3210,19 +3038,16 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
-}
+  name[1]q
+func
+func= %[3]q
+4]q = %[5]q
+func
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
@@ -3230,7 +3055,7 @@ resource "aws_security_group" "test" {
 func testAccVPCSecurityGroupConfig_getLimit() string {
 	return `
 data "aws_servicequotas_service_quota" "test" {
-  quota_name   = "Inbound or outbound rules per security group"
+  quota_nameInbound or outbound rules per security group"
   service_code = "vpc"
 }
 `
@@ -3242,28 +3067,24 @@ func testAccVPCSecurityGroupConfig_ruleLimit(rName string, egressStartIndex, egr
 	for i := egressStartIndex; i < egressRulesCount+egressStartIndex; i++ {
 fmt.Fprintf(&egressRules, `
   egress {
-    protocol    = "tcp"
-    from_port   = "${80 + %[1]d}"
-    to_port     = "${80 + %[1]d}"
-    cidr_blocks = ["${cidrhost("10.1.0.0/16", %[1]d)}/32"]
-  }
-`, i)
+otocol = p"
+om_port= "0 + %[1]d}"
+funclocks = ["${cidrhost("10.1.0.0/16", %[1]d)}/32"]
+func)
 	}
-	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
+funcurce "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
+funcurce "aws_security_group" "test" {
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   # egress rules to exhaust the limit
@@ -3281,31 +3102,29 @@ fmt.Fprintf(&cidrBlocks, `
 `, i)
 	}
 
-	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
+funcurce "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   egress {
-    protocol  = "tcp"
-    from_port = "80"
-    to_port   = "80"
-    # cidr_blocks to exhaust the limit
-    cidr_blocks = [
+otocol  = "tcp"
+funct= "
+cidr_blocks to exhaust the limit
+dr_blocks = [
 %[2]s
-    ]
+
   }
 }
 `, rName, cidrBlocks.String())
@@ -3318,32 +3137,30 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "6"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
-    description = ""
+otocol = 
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
+scription = ""
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
-    description = ""
+otocol = p"
+om_port= 8
+funclocks = ["10.0.0.0/8"]
+scription = ""
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3351,35 +3168,33 @@ resource "aws_security_group" "test" {
 
 
 func testAccVPCSecurityGroupConfig_ipv6(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
+funcurce "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol= "6"
-    from_port        = 80
-    to_port = 8000
-    ipv6_cidr_blocks = ["::/0"]
+otocol= "6"
+funct = 8000
+v6_cidr_blocks = ["::/0"]
   }
 
   egress {
-    protocol= "tcp"
-    from_port        = 80
-    to_port = 8000
-    ipv6_cidr_blocks = ["::/0"]
+otocol= "tcp"
+om_port
+_port = 8000
+v6_cidr_blocks = ["::/0"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3389,43 +3204,40 @@ resource "aws_security_group" "test" {
 func testAccVPCSecurityGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "6"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = 
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
 }
-
-
+func
 func testAccVPCSecurityGroupConfig_revokeBaseRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-`, rName)
-}
+func
 
 
 func testAccVPCSecurityGroupConfig_revokeBase(rName string) string {
@@ -3434,35 +3246,34 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "primary" {
-  name   = "%[1]s-primary"
+  name%[1]s-primary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   timeouts {
-    delete = "2m"
+lete = "2m"
   }
 }
 
 resource "aws_security_group" "secondary" {
-  name   = "%[1]s-secondary"
+  name%[1]s-secondary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   timeouts {
-    delete = "2m"
-  }
-}
+lete = "2m"
+func
 `, rName)
 }
 
@@ -3473,27 +3284,27 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "primary" {
-  name   = "%[1]s-primary"
+  name%[1]s-primary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   revoke_rules_on_delete = false
 }
 
 resource "aws_security_group" "secondary" {
-  name   = "%[1]s-secondary"
+  name%[1]s-secondary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   revoke_rules_on_delete = false
@@ -3501,34 +3312,33 @@ resource "aws_security_group" "secondary" {
 `, rName)
 }
 
-
 func testAccVPCSecurityGroupConfig_revokeTrue(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "primary" {
-  name   = "%[1]s-primary"
+  name%[1]s-primary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   revoke_rules_on_delete = true
 }
 
 resource "aws_security_group" "secondary" {
-  name   = "%[1]s-secondary"
+  name%[1]s-secondary"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   revoke_rules_on_delete = true
@@ -3540,45 +3350,43 @@ resource "aws_security_group" "secondary" {
 func testAccVPCSecurityGroupConfig_changed(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 9000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["0.0.0.0/0", "10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["0.0.0.0/0", "10.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
-}
-
+func
 
 func testAccVPCSecurityGroupConfig_ruleDescription(rName, egressDescription, ingressDescription string) string {
 	return fmt.Sprintf(`
@@ -3586,32 +3394,31 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "6"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
-    description = %[2]q
+otocol = 
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
+scription = %[2]q
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
-    description = %[3]q
-  }
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
+func
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName, ingressDescription, egressDescription)
@@ -3621,33 +3428,32 @@ resource "aws_security_group" "test" {
 func testAccVPCSecurityGroupConfig_self(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol  = "tcp"
-    from_port = 80
-    to_port   = 8000
-    self      = true
+otocol  = "tcp"
+om_port = 80
+_port= 8
+lf
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3660,30 +3466,29 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3696,23 +3501,22 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = "
+om_port= 0
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3725,23 +3529,22 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
-  ingress {
-    protocol    = "50"
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["10.0.0.0/8"]
+funcol = "
+om_port= 0
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3754,70 +3557,68 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test1" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
+  name%[1]s-2"
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 2
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 800
-    to_port     = 800
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
-    protocol        = "tcp"
-    from_port       = 80
-    to_port= 8000
-    security_groups = [aws_security_group.test1.id]
+otocol
+om_port
+_port= 8000
+curity_groups = [aws_security_group.test1.id]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-`, rName)
+funcName)
 }
 
 
@@ -3827,23 +3628,23 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   egress {
-    protocol    = "all"
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = l"
+om_port= 0
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3853,26 +3654,25 @@ resource "aws_security_group" "test" {
 func testAccVPCSecurityGroupConfig_defaultEgress(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -3885,79 +3685,76 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
-  vpc_id = aws_vpc.test.id
+funcc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test1" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["206.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["206.0.0.0/8"]
   }
 
   ingress {
-    protocol        = "tcp"
-    from_port       = 22
-    to_port= 22
-    security_groups = [aws_security_group.test2.id]
+otocol
+om_port
+_port= 22
+func
+
+  egress {
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["206.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["206.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
-  }
-
-  egress {
-    protocol        = "tcp"
-    from_port       = 22
-    to_port= 22
-    security_groups = [aws_security_group.test2.id]
+otocol
+om_port
+_port= 22
+curity_groups = [aws_security_group.test2.id]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
 }
-
-const testAccVPCSecurityGroupConfig_invalidIngressCIDR = `
+funct testAccVPCSecurityGroupConfig_invalidIngressCIDR = `
 resource "aws_security_group" "test" {
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["1.2.3.4/33"]
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["1.2.3.4/33"]
   }
 }
 `
@@ -3965,10 +3762,10 @@ resource "aws_security_group" "test" {
 const testAccVPCSecurityGroupConfig_invalidEgressCIDR = `
 resource "aws_security_group" "test" {
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["1.2.3.4/33"]
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["1.2.3.4/33"]
   }
 }
 `
@@ -3976,10 +3773,10 @@ resource "aws_security_group" "test" {
 const testAccVPCSecurityGroupConfig_invalidIPv6IngressCIDR = `
 resource "aws_security_group" "test" {
   ingress {
-    from_port        = 0
-    to_port = 0
-    protocol= "-1"
-    ipv6_cidr_blocks = ["::/244"]
+om_port
+_port = 0
+otocol= "-1"
+v6_cidr_blocks = ["::/244"]
   }
 }
 `
@@ -3987,10 +3784,10 @@ resource "aws_security_group" "test" {
 const testAccVPCSecurityGroupConfig_invalidIPv6EgressCIDR = `
 resource "aws_security_group" "test" {
   egress {
-    from_port        = 0
-    to_port = 0
-    protocol= "-1"
-    ipv6_cidr_blocks = ["::/244"]
+om_port
+_port = 0
+otocol= "-1"
+v6_cidr_blocks = ["::/244"]
   }
 }
 `
@@ -4002,60 +3799,58 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
+  name%[1]s-2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test3" {
-  name   = "%[1]s-3"
+  name%[1]s-3"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_security_group" "test4" {
-  name   = "%[1]s-4"
+funcme%[1]s-4"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test1" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16", "10.1.0.0/16", "10.7.0.0/16"]
+om_port= 8
+_port
+otocol = p"
+dr_blocks = ["10.0.0.0/16", "10.1.0.0/16", "10.7.0.0/16"]
 
-    security_groups = [
-      aws_security_group.test2.id,
-      aws_security_group.test3.id,
-      aws_security_group.test4.id,
-    ]
+curity_groups = [
+ity_group.test2.id,
+ity_group.test3.id,
+ity_group.test4.id,
+
   }
 }
-`, rName)
-}
+func
 
 
 func testAccVPCSecurityGroupConfig_ingressWithCIDRAndSGs(rName string) string {
@@ -4064,50 +3859,49 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
+  name%[1]s-2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test1" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
+  }
+funcgress {
+otocol  = "tcp"
+om_port = "22"
+_port= "
+
+dr_blocks = [
+0.1/32",
+
   }
 
   ingress {
-    protocol  = "tcp"
-    from_port = "22"
-    to_port   = "22"
-
-    cidr_blocks = [
-      "192.168.0.1/32",
-    ]
-  }
-
-  ingress {
-    protocol        = "tcp"
-    from_port       = 80
-    to_port= 8000
-    cidr_blocks     = ["10.0.0.0/8"]
-    security_groups = [aws_security_group.test2.id]
+otocol
+om_port
+_port= 8000
+dr_blocks.0/8"]
+curity_groups = [aws_security_group.test2.id]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 }
 `, rName)
@@ -4122,48 +3916,48 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test3" {
   vpc_id = aws_vpc.main.id
-  name   = "%[1]s-3"
+  name%[1]s-3"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.main.id
-  name   = "%[1]s-2"
+  name%[1]s-2"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test1" {
   vpc_id = aws_vpc.main.id
-  name   = "%[1]s-1"
+  name%[1]s-1"
 
   ingress {
-    from_port       = 22
-    to_port= 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.test2.id]
+om_port
+_port= 22
+otocol
+curity_groups = [aws_security_group.test2.id]
   }
 
   ingress {
-    from_port       = 22
-    to_port= 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.test3.id]
+om_port
+_port= 22
+otocol
+curity_groups = [aws_security_group.test3.id]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -4176,36 +3970,35 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group_rule" "allow_all-1" {
-  type        = "ingress"
-  from_port   = 0
-  to_port     = 65535
-  protocol    = "tcp"
+  typeess"
+  from_port
+  to_port
+  protocol"tcp"
   cidr_blocks = ["0.0.0.0/0"]
 
   security_group_id = aws_security_group.test.id
 }
 
 resource "aws_security_group_rule" "allow_all-2" {
-  type      = "ingress"
+  types"
   from_port = 65534
-  to_port   = 65535
-  protocol  = "tcp"
+funcotocol  = "tcp"
 
-  self     = true
+  self
   security_group_id = aws_security_group.test.id
 }
 `, rName)
@@ -4218,55 +4011,54 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
+  name%[1]s-2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test3" {
-  name   = "%[1]s-3"
+  name%[1]s-3"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group_rule" "allow_test2" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
   source_security_group_id = aws_security_group.test.id
-  security_group_id        = aws_security_group.test2.id
+  security_group_idecurity_group.test2.id
 }
 
 resource "aws_security_group_rule" "allow_test3" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
-  source_security_group_id = aws_security_group.test.id
-  security_group_id        = aws_security_group.test3.id
+funccurity_group_idecurity_group.test3.id
 }
 `, rName)
 }
@@ -4278,54 +4070,53 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = "%[1]s-1"
+  name%[1]s-1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
-  name   = "%[1]s-2"
+  name%[1]s-2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group_rule" "allow_security_group" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
   source_security_group_id = aws_security_group.test2.id
-  security_group_id        = aws_security_group.test.id
+  security_group_idecurity_group.test.id
 }
 
 resource "aws_security_group_rule" "allow_cidr_block" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
-  cidr_blocks       = ["10.0.0.0/32"]
+  cidr_blocks.0.0/32"]
   security_group_id = aws_security_group.test.id
 }
 
 resource "aws_security_group_rule" "allow_ipv6_cidr_block" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
-  protocol  = "tcp"
-
+  to_port
+func
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.test.id
 }
@@ -4339,33 +4130,33 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group_rule" "allow_cidr_block" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
-  cidr_blocks       = ["10.0.0.0/32"]
+  cidr_blocks.0.0/32"]
   security_group_id = aws_security_group.test.id
 }
 
 resource "aws_security_group_rule" "allow_ipv6_cidr_block" {
-  type      = "ingress"
+  types"
   from_port = 0
-  to_port   = 0
+  to_port
   protocol  = "tcp"
 
   ipv6_cidr_blocks  = ["::/0"]
@@ -4378,34 +4169,33 @@ resource "aws_security_group_rule" "allow_ipv6_cidr_block" {
 func testAccVPCSecurityGroupConfig_ipv4andIPv6Egress(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block        = "10.1.0.0/16"
-  assign_generated_ipv6_cidr_block = true
-
+  cidr_block.0.0/16"
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port        = 0
-    to_port = 0
-    protocol= "-1"
-    ipv6_cidr_blocks = ["::/0"]
+om_port
+_port = 0
+otocol= "-1"
+v6_cidr_blocks = ["::/0"]
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)
@@ -4420,56 +4210,55 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   vpc_id = aws_vpc.test.id
-  service_name    = "com.amazonaws.${data.aws_region.current.name}.s3"
+  service_name"com.amazonaws.${data.aws_region.current.name}.s3"
   route_table_ids = [aws_route_table.test.id]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowAll",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "*",
-      "Resource": "*"
-    }
+
+llowAll",
+ "Allow",
+l": "*",
+ "*",
+": "*"
+
   ]
 }
 POLICY
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   egress {
-    protocol        = "-1"
-    from_port       = 0
-    to_port= 0
-    prefix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
+otocol
+om_port
+_port= 0
+efix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
   }
 }
 `, rName)
@@ -4483,8 +4272,7 @@ data "aws_region" "current" {}
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
@@ -4492,48 +4280,48 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   vpc_id = aws_vpc.test.id
-  service_name    = "com.amazonaws.${data.aws_region.current.name}.s3"
+  service_name"com.amazonaws.${data.aws_region.current.name}.s3"
   route_table_ids = [aws_route_table.test.id]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowAll",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "*",
-      "Resource": "*"
-    }
+
+llowAll",
+ "Allow",
+l": "*",
+ "*",
+": "*"
+
   ]
 }
 POLICY
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress {
-    protocol        = "-1"
-    from_port       = 0
-    to_port= 0
-    prefix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
+otocol
+om_port
+_port= 0
+efix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
   }
 }
 `, rName)
@@ -4545,10 +4333,9 @@ func testAccVPCSecurityGroupConfig_ruleGathering(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4556,123 +4343,121 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_endpoint" "test" {
   vpc_id = aws_vpc.test.id
-  service_name    = "com.amazonaws.${data.aws_region.current.name}.s3"
+  service_name"com.amazonaws.${data.aws_region.current.name}.s3"
   route_table_ids = [aws_route_table.test.id]
 
   policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowAll",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "*",
-      "Resource": "*"
-    }
+
+llowAll",
+ "Allow",
+l": "*",
+ "*",
+": "*"
+
   ]
 }
 POLICY
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "source1" {
-  name   = "%[1]s-source1"
+  name%[1]s-source1"
   vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "source2" {
-  name   = "%[1]s-source2"
+  name%[1]s-source2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
-    cidr_blocks = ["10.0.0.0/24", "10.0.1.0/24"]
-    self        = true
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/24", "10.0.1.0/24"]
+lf
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
-    cidr_blocks = ["10.0.2.0/24", "10.0.3.0/24"]
-    description = "ingress from 10.0.0.0/16"
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.2.0/24", "10.0.3.0/24"]
+scription = "ingress from 10.0.0.0/16"
+  }
+funcgress {
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["192.168.0.0/16"]
+scription = "ingress from 192.168.0.0/16"
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
-    cidr_blocks = ["192.168.0.0/16"]
-    description = "ingress from 192.168.0.0/16"
+otocol= "tcp"
+om_port
+_port = 80
+v6_cidr_blocks = ["::/0"]
+scriptions from all ipv6"
   }
 
   ingress {
-    protocol= "tcp"
-    from_port        = 80
-    to_port = 80
-    ipv6_cidr_blocks = ["::/0"]
-    description      = "ingress from all ipv6"
-  }
-
-  ingress {
-    protocol        = "tcp"
-    from_port       = 80
-    to_port= 80
-    security_groups = [aws_security_group.source1.id, aws_security_group.source2.id]
-    description     = "ingress from other security groups"
+otocol
+om_port
+_port= 80
+curity_groups = [aws_security_group.source1.id, aws_security_group.source2.id]
+scription from other security groups"
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "egress for all ipv4"
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["0.0.0.0/0"]
+scription = "egress for all ipv4"
   }
 
   egress {
-    from_port        = 0
-    to_port = 0
-    protocol= "-1"
-    ipv6_cidr_blocks = ["::/0"]
-    description      = "egress for all ipv6"
+om_port
+_port = 0
+otocol= "-1"
+v6_cidr_blocks = ["::/0"]
+scription for all ipv6"
   }
 
   egress {
-    from_port       = 0
-    to_port= 0
-    protocol        = "-1"
-    prefix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
-    description     = "egress for vpc endpoints"
+om_port
+_port= 0
+otocol
+efix_list_ids = [aws_vpc_endpoint.test.prefix_list_id]
+scriptionfor vpc endpoints"
   }
 }
 `, rName)
@@ -4685,44 +4470,43 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test_ref0" {
-  name   = "%[1]s-ref0"
-  vpc_id = aws_vpc.test.id
-
+  name%[1]s-ref0"
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test_ref1" {
-  name   = "%[1]s-ref1"
+  name%[1]s-ref1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress {
-    protocol  = "tcp"
-    from_port = "80"
-    to_port   = "80"
-    security_groups = [
-      aws_security_group.test_ref0.id,
-      aws_security_group.test_ref1.id,
-    ]
+otocol  = "tcp"
+om_port = "80"
+_port= "
+curity_groups = [
+ity_group.test_ref0.id,
+ity_group.test_ref1.id,
+
   }
 }
 `, rName)
@@ -4735,45 +4519,44 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test_ref0" {
-  name   = "%[1]s-ref0"
+  name%[1]s-ref0"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test_ref1" {
-  name   = "%[1]s-ref1"
+  name%[1]s-ref1"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
+funcurce "aws_security_group" "test" {
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress {
-    protocol  = "tcp"
-    from_port = "80"
-    to_port   = "80"
-    security_groups = [
-      aws_security_group.test_ref0.id,
-      aws_security_group.test_ref1.id,
-      "sg-malformed", # non-existent rule to trigger API error
-    ]
+otocol  = "tcp"
+om_port = "80"
+_port= "
+curity_groups = [
+ity_group.test_ref0.id,
+ity_group.test_ref1.id,
+rmed", # non-existent rule to trigger API error
+
   }
 }
 `, rName)
@@ -4786,7 +4569,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4794,23 +4577,23 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   vpc_id = aws_vpc.test.id
 
   egress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = "tcp"
-    to_port     = 0
+dr_blocks = [aws_vpc.test.cidr_block]
+om_port= 0
+otocol = p"
+_port
   }
 
   egress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = "udp"
-    to_port     = 0
+dr_blocks = [aws_vpc.test.cidr_block]
+om_port= 0
+otocol = p"
+_port
   }
 }
 `, rName)
@@ -4823,7 +4606,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4831,7 +4614,7 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   vpc_id = aws_vpc.test.id
@@ -4846,7 +4629,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4854,7 +4637,7 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   egress = []
@@ -4871,7 +4654,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4879,25 +4662,24 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   vpc_id = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = "tcp"
-    to_port     = 0
+dr_blocks = [aws_vpc.test.cidr_block]
+om_port= 0
+otocol = p"
+_port
   }
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = "udp"
-    to_port     = 0
-  }
-}
+dr_blocks = [aws_vpc.test.cidr_block]
+om_port= 0
+otocol = p"
+_port
+func
 `, rName)
 }
 
@@ -4908,7 +4690,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4916,7 +4698,7 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   vpc_id = aws_vpc.test.id
@@ -4931,7 +4713,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4939,7 +4721,7 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   ingress = []
@@ -4947,8 +4729,7 @@ resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
 }
 `, rName)
-}
-
+func
 // testAccVPCSecurityGroupConfig_emrLinkedRulesDestroy is very involved but captures
 // a problem seen in EMR and other contexts.
 
@@ -4960,28 +4741,28 @@ fmt.Sprintf(`
 resource "aws_vpc" "main" {
   cidr_block = "10.1.0.0/16"
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 # subnets
 resource "aws_subnet" "private" {
-  vpc_id   = aws_vpc.main.id
-  cidr_block        = "10.1.0.0/24"
+  vpc_idws_vpc.main.id
+  cidr_block.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "%[1]s-ssh"
+  names-ssh"
   description = "ssh"
-  vpc_id      = aws_vpc.main.id
+  vpc_id.main.id
 
   tags = {
-    Name = "%[1]s-ssh"
+me = "%[1]s-ssh"
   }
 }
 
@@ -4990,7 +4771,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -4998,17 +4779,16 @@ resource "aws_internet_gateway" "gw" {
 resource "aws_eip" "nat" {
   domain = "vpc"
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 # NAT gateway
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.private.id
+  subnet_idet.private.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
@@ -5022,12 +4802,12 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
+dr_block = "0.0.0.0/0"
+teway_id = aws_internet_gateway.gw.id
   }
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -5036,98 +4816,94 @@ resource "aws_route_table" "nat" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
-  }
+dr_block/0"
+func
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 # associate nat route table with subnet
 resource "aws_route_table_association" "nat" {
-  subnet_id      = aws_subnet.private.id
+  subnet_idnet.private.id
   route_table_id = aws_route_table.nat.id
 }
 
 resource "aws_security_group" "allow_access" {
-  name    = "%[1]s-allow-access"
-  description   = "Allow inbound traffic"
+  name"%[1]s-allow-access"
+  descriptionAllow inbound traffic"
   vpc_id  = aws_vpc.main.id
   revoke_rules_on_delete = true
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [aws_vpc.main.cidr_block]
-  }
+om_port= 0
+_port
+otocol = "
+func
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["0.0.0.0/0"]
   }
 
   lifecycle {
-    ignore_changes = [
-      ingress,
-      egress,
-    ]
+nore_changes = [
+
+
+
   }
 
   tags = {
-    name = "%[1]s-allow-access"
+me = "%[1]s-allow-access"
   }
 }
 
 resource "aws_security_group" "service_access" {
-  name    = "%[1]s-service-access"
-  description   = "Allow inbound traffic"
+  name"%[1]s-service-access"
+  descriptionAllow inbound traffic"
   vpc_id  = aws_vpc.main.id
-  revoke_rules_on_delete = true
-
+func
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [aws_vpc.main.cidr_block]
+om_port= 0
+_port
+otocol = "
+dr_blocks = [aws_vpc.main.cidr_block]
   }
 
   ingress {
-    from_port       = 8443
-    to_port= 8443
-    protocol        = "tcp"
-    cidr_blocks     = [aws_vpc.main.cidr_block]
-    security_groups = [aws_security_group.allow_access.id]
+om_port
+_port= 8443
+otocol
+dr_blocks.main.cidr_block]
+curity_groups = [aws_security_group.allow_access.id]
   }
 
   ingress {
-    from_port       = 9443
-    to_port= 9443
-    protocol        = "tcp"
-    cidr_blocks     = [aws_vpc.main.cidr_block]
-    security_groups = [aws_security_group.allow_access.id]
+om_port
+_port= 9443
+otocol
+dr_blocks.main.cidr_block]
+curity_groups = [aws_security_group.allow_access.id]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+om_port= 0
+_port
+otocol = "
+dr_blocks = ["0.0.0.0/0"]
   }
 
   lifecycle {
-    ignore_changes = [
-      ingress,
-      egress,
-    ]
-  }
+nore_changes = [
 
-  tags = {
-    name = "%[1]s-service-access"
+
+
+  }
+funcgs = {
+me = "%[1]s-service-access"
   }
 }
 
@@ -5139,18 +4915,17 @@ resource "aws_iam_role" "iam_emr_service_role" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "elasticmapreduce.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
+
+,
+ "Allow",
+l": {
+e": "elasticmapreduce.amazonaws.com"
+
+ "sts:AssumeRole"
+
   ]
 }
-EOF
-}
+func
 
 resource "aws_iam_role_policy" "iam_emr_service_policy" {
   name = "%[1]s-service-policy"
@@ -5158,66 +4933,65 @@ resource "aws_iam_role_policy" "iam_emr_service_policy" {
 
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Resource": "*",
-        "Action": [
-   "ec2:AuthorizeSecurityGroupEgress",
-   "ec2:AuthorizeSecurityGroupIngress",
-   "ec2:CancelSpotInstanceRequests",
-   "ec2:CreateNetworkInterface",
-   "ec2:CreateSecurityGroup",
-   "ec2:CreateTags",
-   "ec2:DeleteNetworkInterface",
-   "ec2:DeleteSecurityGroup",
-   "ec2:DeleteTags",
-   "ec2:DescribeAvailabilityZones",
-   "ec2:DescribeAccountAttributes",
-   "ec2:DescribeDhcpOptions",
-   "ec2:DescribeInstanceStatus",
-   "ec2:DescribeInstances",
-   "ec2:DescribeKeyPairs",
-   "ec2:DescribeNetworkAcls",
-   "ec2:DescribeNetworkInterfaces",
-   "ec2:DescribePrefixLists",
-   "ec2:DescribeRouteTables",
-   "ec2:DescribeSecurityGroups",
-   "ec2:DescribeSpotInstanceRequests",
-   "ec2:DescribeSpotPriceHistory",
-   "ec2:DescribeSubnets",
-   "ec2:DescribeVpcAttribute",
-   "ec2:DescribeVpcEndpoints",
-   "ec2:DescribeVpcEndpointServices",
-   "ec2:DescribeVpcs",
-   "ec2:DetachNetworkInterface",
-   "ec2:ModifyImageAttribute",
-   "ec2:ModifyInstanceAttribute",
-   "ec2:RequestSpotInstances",
-   "ec2:RevokeSecurityGroupEgress",
-   "ec2:RunInstances",
-   "ec2:TerminateInstances",
-   "ec2:DeleteVolume",
-   "ec2:DescribeVolumeStatus",
-   "ec2:DescribeVolumes",
-   "ec2:DetachVolume",
-   "iam:GetRole",
-   "iam:GetRolePolicy",
-   "iam:ListInstanceProfiles",
-   "iam:ListRolePolicies",
-   "iam:PassRole",
-   "s3:CreateBucket",
-   "s3:Get*",
-   "s3:List*",
-   "sdb:BatchPutAttributes",
-   "sdb:Select",
-   "sqs:CreateQueue",
-   "sqs:Delete*",
-   "sqs:GetQueue*",
-   "sqs:PurgeQueue",
-   "sqs:ReceiveMessage"
-        ]
-    }]
+ersion": "2012-10-17",
+tatement": [{
+": "Allow",
+ce": "*",
+": [
+2:AuthorizeSecurityGroupEgress",
+2:AuthorizeSecurityGroupIngress",
+2:CancelSpotInstanceRequests",
+2:CreateNetworkInterface",
+2:CreateSecurityGroup",
+2:CreateTags",
+2:DeleteNetworkInterface",
+2:DeleteSecurityGroup",
+2:DeleteTags",
+2:DescribeAvailabilityZones",
+2:DescribeAccountAttributes",
+2:DescribeDhcpOptions",
+2:DescribeInstanceStatus",
+2:DescribeInstances",
+funcscribeNetworkAcls",
+2:DescribeNetworkInterfaces",
+2:DescribePrefixLists",
+2:DescribeRouteTables",
+2:DescribeSecurityGroups",
+2:DescribeSpotInstanceRequests",
+2:DescribeSpotPriceHistory",
+2:DescribeSubnets",
+2:DescribeVpcAttribute",
+2:DescribeVpcEndpoints",
+2:DescribeVpcEndpointServices",
+2:DescribeVpcs",
+2:DetachNetworkInterface",
+2:ModifyImageAttribute",
+2:ModifyInstanceAttribute",
+2:RequestSpotInstances",
+2:RevokeSecurityGroupEgress",
+2:RunInstances",
+2:TerminateInstances",
+2:DeleteVolume",
+2:DescribeVolumeStatus",
+2:DescribeVolumes",
+2:DetachVolume",
+m:GetRole",
+m:GetRolePolicy",
+m:ListInstanceProfiles",
+m:ListRolePolicies",
+m:PassRole",
+:CreateBucket",
+:Get*",
+:List*",
+b:BatchPutAttributes",
+b:Select",
+s:CreateQueue",
+s:Delete*",
+s:GetQueue*",
+s:PurgeQueue",
+s:ReceiveMessage"
+
+
 }
 EOF
 }
@@ -5230,14 +5004,14 @@ resource "aws_iam_role" "iam_emr_profile_role" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
+
+,
+ "Allow",
+l": {
+e": "ec2.amazonaws.com"
+
+ "sts:AssumeRole"
+
   ]
 }
 EOF
@@ -5254,35 +5028,35 @@ resource "aws_iam_role_policy" "iam_emr_profile_policy" {
 
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Resource": "*",
-        "Action": [
-   "cloudwatch:*",
-   "dynamodb:*",
-   "ec2:Describe*",
-   "elasticmapreduce:Describe*",
-   "elasticmapreduce:ListBootstrapActions",
-   "elasticmapreduce:ListClusters",
-   "elasticmapreduce:ListInstanceGroups",
-   "elasticmapreduce:ListInstances",
-   "elasticmapreduce:ListSteps",
-   "kinesis:CreateStream",
-   "kinesis:DeleteStream",
-   "kinesis:DescribeStream",
-   "kinesis:GetRecords",
-   "kinesis:GetShardIterator",
-   "kinesis:MergeShards",
-   "kinesis:PutRecord",
-   "kinesis:SplitShard",
-   "rds:Describe*",
-   "s3:*",
-   "sdb:*",
-   "sns:*",
-   "sqs:*"
-        ]
-    }]
+ersion": "2012-10-17",
+tatement": [{
+": "Allow",
+ce": "*",
+": [
+oudwatch:*",
+namodb:*",
+2:Describe*",
+asticmapreduce:Describe*",
+asticmapreduce:ListBootstrapActions",
+asticmapreduce:ListClusters",
+asticmapreduce:ListInstanceGroups",
+asticmapreduce:ListInstances",
+asticmapreduce:ListSteps",
+nesis:CreateStream",
+nesis:DeleteStream",
+nesis:DescribeStream",
+nesis:GetRecords",
+nesis:GetShardIterator",
+nesis:MergeShards",
+nesis:PutRecord",
+nesis:SplitShard",
+s:Describe*",
+:*",
+b:*",
+s:*",
+s:*"
+
+
 }
 EOF
 }
@@ -5295,88 +5069,88 @@ resource "aws_emr_cluster" "cluster" {
   additional_info = <<EOF
 {
   "instanceAwsClientConfiguration": {
-    "proxyPort": 8099,
-    "proxyHost": "myproxy.example.com"
+roxyPort": 8099,
+roxyHost": "myproxy.example.com"
   }
 }
 EOF
 
-  termination_protection   = false
+  termination_protectionalse
   keep_job_flow_alive_when_no_steps = true
 
   ec2_attributes {
-    subnet_id = aws_subnet.private.id
-    instance_profile   = aws_iam_instance_profile.emr_profile.arn
-    emr_managed_master_security_group = aws_security_group.allow_access.id
-    emr_managed_slave_security_group  = aws_security_group.allow_access.id
-    additional_master_security_groups = aws_security_group.allow_ssh.id
-    additional_slave_security_groups  = aws_security_group.allow_ssh.id
-    service_access_security_group     = aws_security_group.service_access.id
+bnet_id = aws_subnet.private.id
+stance_profile= aiam_instance_profile.emr_profile.arn
+r_managed_master_security_group = aws_security_group.allow_access.id
+r_managed_slave_security_group  = aws_security_group.allow_access.id
+ditional_master_security_groups = aws_security_group.allow_ssh.id
+ditional_slave_security_groups  = aws_security_group.allow_ssh.id
+rvice_access_security_grouprity_group.service_access.id
   }
 
   master_instance_group {
-    instance_type = "c4.large"
+stance_type = "c4.large"
   }
 
   core_instance_group {
-    instance_type  = "c4.large"
-    instance_count = 1
+stance_type  = "c4.large"
+stance_count = 1
 
-    ebs_config {
-      size  = "40"
-      type  = "gp2"
-      volumes_per_instance = 1
-    }
+s_config {
+40"
+gp2"
+er_instance = 1
+
   }
 
   ebs_root_volume_size = 100
 
   tags = {
-    role = "rolename"
-    env  = "env"
+le = "rolename"
+v  = "env"
   }
 
   bootstrap_action {
-    path = "s3://elasticmapreduce/bootstrap-actions/run-if"
-    name = "runif"
-    args = ["instance.isMaster=true", "echo running on master node"]
+th = "s3://elasticmapreduce/bootstrap-actions/run-if"
+me = "runif"
+gs = ["instance.isMaster=true", "echo running on master node"]
   }
 
   configurations_json = <<EOF
   [
-    {
-      "Classification": "hadoop-env",
-      "Configurations": [
-        {
+
+cation": "hadoop-env",
+ations": [
+
  "Classification": "export",
  "Properties": {
-   "JAVA_HOME": "/usr/lib/jvm/java-1.8.0"
+VA_HOME": "/usr/lib/jvm/java-1.8.0"
  }
-        }
-      ],
-      "Properties": {}
-    },
-    {
-      "Classification": "spark-env",
-      "Configurations": [
-        {
+
+
+es": {}
+
+
+cation": "spark-env",
+ations": [
+
  "Classification": "export",
  "Properties": {
-   "JAVA_HOME": "/usr/lib/jvm/java-1.8.0"
+VA_HOME": "/usr/lib/jvm/java-1.8.0"
  }
-        }
-      ],
-      "Properties": {}
-    }
+
+
+es": {}
+
   ]
 EOF
 
   service_role = aws_iam_role.iam_emr_service_role.arn
 
   depends_on = [
-    aws_route_table_association.nat,
-    aws_iam_role_policy.iam_emr_service_policy,
-    aws_iam_role_policy.iam_emr_profile_policy
+s_route_table_association.nat,
+s_iam_role_policy.iam_emr_service_policy,
+s_iam_role_policy.iam_emr_profile_policy
   ]
 }
 `, rName))

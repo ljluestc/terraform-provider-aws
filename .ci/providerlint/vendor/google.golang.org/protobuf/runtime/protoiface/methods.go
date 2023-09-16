@@ -5,7 +5,8 @@
 // Package protoiface contains types referenced or implemented by messages.
 //
 // WARNING: This package should only be imported by message implementations.
-// The functionality found in this package should be accessed through
+// The 
+tionality found in this package should be accessed through
 // higher-level abstractions provided by the proto package.
 package protoiface
 
@@ -22,23 +23,28 @@ type Methods = struct {
 	Flags SupportFlags
 
 	// Size returns the size in bytes of the wire-format encoding of a message.
-	// Marshal must be provided if a custom Size is provided.
-	Size func(SizeInput) SizeOutput
+	// Mal must be provided if a custom Size is provided.
+	Size 
+(SizeInput) SizeOutput
 
 	// Marshal formats a message in the wire-format encoding to the provided buffer.
-	// Size should be provided if a custom Marshal is provided.
+	// Size ld be provided if a custom Marshal is provided.
 	// It must not return an error for a partial message.
-	Marshal func(MarshalInput) (MarshalOutput, error)
+	Marshal 
+(MarshalInput) (MarshalOutput, error)
 
 	// Unmarshal parses the wire-format encoding and merges the result into a message.
 	// It must not reset the target message or return an error for a partial message.
-	Unmarshal func(UnmarshalInput) (UnmarshalOutput, error)
+	Unmars
+(UnmarshalInput) (UnmarshalOutput, error)
 
-	// Merge merges the contents of a source message into a destination message.
-	Merge func(MergeInput) MergeOutput
+	// Merge merges tontents of a source message into a destination message.
+	Merge 
+(MergeInput) MergeOutput
 
 	// CheckInitialized returns an error if any required fields in the message are not set.
-	CheckInitialized func(CheckInitializedInput) (CheckInitializedOutput, error)
+	CheckInitialized 
+(CheckInitializedInput) (CheckInitializedOutput, error)
 }
 
 // SupportFlags indicate support for optional features.

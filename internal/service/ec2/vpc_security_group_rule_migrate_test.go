@@ -10,27 +10,26 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestSecurityGroupRuleMigrateState(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
 		ID  string
-		Attributes   map[string]string
-		Expected     string
+		Attributes[string]string
+		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
 			ID:  "sg-4235098228",
 			Attributes: map[string]string{
-				"self":   "false",
+				"self":lse",
 				"to_port":"0",
-				"security_group_id":        "sg-13877277",
-				"cidr_blocks.#":   "0",
-				"type":   "ingress",
-				"protocol":        "-1",
-				"from_port":       "0",
+				"security_group_id":77277",
+				"cidr_blocks.#":,
+				"type":gress",
+				"protocol":
+				"from_port":
 				"source_security_group_id": "sg-11877275",
 			},
 			Expected: "sgrule-2889201120",
@@ -42,14 +41,14 @@ func TestSecurityGroupRuleMigrateState(t *testing.T) {
 				"security_group_id": "sg-0981746d",
 				"from_port":"0",
 				"to_port":  "0",
-				"type":     "ingress",
-				"self":     "false",
+				"type":
+				"self":
 				"protocol": "-1",
-				"cidr_blocks.0":     "172.16.1.0/24",
-				"cidr_blocks.1":     "172.16.2.0/24",
-				"cidr_blocks.2":     "172.16.3.0/24",
-				"cidr_blocks.3":     "172.16.4.0/24",
-				"cidr_blocks.#":     "4"},
+				"cidr_blocks.0":0/24",
+				"cidr_blocks.1":0/24",
+				"cidr_blocks.2":0/24",
+				"cidr_blocks.3":0/24",
+				"cidr_blocks.#":
 			Expected: "sgrule-1826358977",
 		},
 	}

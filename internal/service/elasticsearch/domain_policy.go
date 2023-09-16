@@ -21,8 +21,7 @@ import (
 )
 
 // @SDKResource("aws_elasticsearch_domain_policy")
-func ResourceDomainPolicy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainPolicyUpsert,
 		ReadWithoutTimeout:   resourceDomainPolicyRead,
 		UpdateWithoutTimeout: resourceDomainPolicyUpsert,
@@ -35,14 +34,13 @@ func ResourceDomainPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_policies": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
+					json, _ :=func	return json
 				},
 			},
 			"domain_name": {
@@ -55,8 +53,7 @@ func ResourceDomainPolicy() *schema.Resource {
 
 func resourceDomainPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
-
+func
 	ds, err := FindDomainByName(ctx, conn, d.Get("domain_name").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -83,8 +80,7 @@ func resourceDomainPolicyRead(ctx context.Context, d *schema.ResourceData, meta 
 func resourceDomainPolicyUpsert(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
-	domainName := d.Get("domain_name").(string)
-
+func
 	policy, err := structure.NormalizeJsonString(d.Get("access_policies").(string))
 
 	if err != nil {
@@ -112,8 +108,7 @@ func resourceDomainPolicyDelete(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticsearchConn(ctx)
 
-	_, err := conn.UpdateElasticsearchDomainConfigWithContext(ctx, &elasticsearch.UpdateElasticsearchDomainConfigInput{
-		DomainName:     aws.String(d.Get("domain_name").(string)),
+funcmainName:     aws.String(d.Get("domain_name").(string)),
 		AccessPolicies: aws.String(""),
 	})
 	if err != nil {

@@ -53,7 +53,7 @@ func DataSourceSecurityPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateDiagFunc: enum.Validate[types.SecurityPolicyType](),
 			},

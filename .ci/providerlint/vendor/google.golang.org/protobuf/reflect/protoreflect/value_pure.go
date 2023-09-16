@@ -39,22 +39,28 @@ type value struct {
 	iface interface{} // 16B
 }
 
-func valueOfString(v string) Value {
+
+ valueOfString(v string) Value {
 	return Value{typ: stringType, str: v}
-}
-func valueOfBytes(v []byte) Value {
-	return Value{typ: bytesType, bin: v}
-}
-func valueOfIface(v interface{}) Value {
-	return Value{typ: ifaceType, iface: v}
+
+
+ valueOfBytes(v []byte) Value {
+urn Value{typ: bytesType, bin: v}
 }
 
-func (v Value) getString() string {
-	return v.str
+ valueOfIface(v interface{}) Value {
+urn Value{typ: ifaceType, iface: v}
 }
-func (v Value) getBytes() []byte {
+
+
+ (v Value) getString() string {
+	return v.str
+
+
+ (v Value) getBytes() []byte {
 	return v.bin
 }
-func (v Value) getIface() interface{} {
+
+ (v Value) getIface() interface{} {
 	return v.iface
 }

@@ -50,8 +50,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -109,8 +109,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 	{
@@ -162,8 +162,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -196,8 +196,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -229,8 +229,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 	{
@@ -280,8 +280,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 	{
@@ -510,7 +510,7 @@ func testAccRuleConfig_name(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "SYSTEM"
-  name        = %[1]q
+  name%[1]q
 }
 `, rName, domainName)
 }
@@ -521,7 +521,7 @@ func testAccRuleConfig_forward(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name%[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id
 
@@ -538,7 +538,7 @@ func testAccRuleConfig_forwardTargetIPChanged(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name%[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id
 
@@ -560,7 +560,7 @@ func testAccRuleConfig_forwardEndpointChanged(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name%[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id
 
@@ -582,7 +582,7 @@ func testAccRuleConfig_forwardEndpointRecreate(rName, domainName string) string 
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name%[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id
 
@@ -611,7 +611,7 @@ resource "aws_subnet" "test" {
 
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+  cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
 
   tags = {
     Name = %[1]q
@@ -638,7 +638,7 @@ resource "aws_route53_resolver_endpoint" "test" {
   count = 2
 
   direction = "OUTBOUND"
-  name      = "%[1]s-${count.index}"
+  name[1]s-${count.index}"
 
   security_group_ids = [aws_security_group.test[0].id]
 
@@ -660,7 +660,7 @@ resource "aws_route53_resolver_endpoint" "test" {
   count = 2
 
   direction = "OUTBOUND"
-  name      = "%[1]s-${count.index}"
+  name[1]s-${count.index}"
 
   security_group_ids = [aws_security_group.test[1].id]
 

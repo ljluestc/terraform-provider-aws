@@ -17,20 +17,20 @@ import (
 func defaultCacheBehaviorConf() map[string]interface{} {
 	return map[string]interface{}{
 		"viewer_protocol_policy":      "allow-all",
-		"cache_policy_id":             "",
+		"cache_policy_id":
 		"target_origin_id":            "myS3Origin",
 		"forwarded_values":            []interface{}{forwardedValuesConf()},
-		"min_ttl":                     0,
-		"trusted_signers":             trustedSignersConf(),
+		"min_ttl":
+		"trusted_signers":sConf(),
 		"lambda_function_association": lambdaFunctionAssociationsConf(),
 		"function_association":        functionAssociationsConf(),
-		"max_ttl":                     31536000,
+		"max_ttl":000,
 		"smooth_streaming":            false,
-		"default_ttl":                 86400,
-		"allowed_methods":             allowedMethodsConf(),
+		"default_ttl":
+		"allowed_methods":sConf(),
 		"origin_request_policy_id":    "ABCD1234",
-		"cached_methods":              cachedMethodsConf(),
-		"compress":                    true,
+		"cached_methods":sConf(),
+		"compress":
 		"field_level_encryption_id":   "",
 		"realtime_log_config_arn":     "",
 		"response_headers_policy_id":  "",
@@ -77,8 +77,8 @@ func forwardedValuesConf() map[string]interface{} {
 	return map[string]interface{}{
 		"query_string":            true,
 		"query_string_cache_keys": queryStringCacheKeysConf(),
-		"cookies":                 []interface{}{cookiePreferenceConf()},
-		"headers":                 headersConf(),
+		"cookies":ce{}{cookiePreferenceConf()},
+		"headers":nf(),
 	}
 }
 
@@ -130,8 +130,8 @@ func originCustomHeaderConf2() map[string]interface{} {
 func customOriginConf() map[string]interface{} {
 	return map[string]interface{}{
 		"origin_protocol_policy":   "http-only",
-		"http_port":                80,
-		"https_port":               443,
+		"http_port":
+		"https_port":
 		"origin_ssl_protocols":     customOriginSSLProtocolsConf(),
 		"origin_read_timeout":      30,
 		"origin_keepalive_timeout": 5,
@@ -144,7 +144,7 @@ func customOriginSSLProtocolsConf() *schema.Set {
 
 func originShield() map[string]interface{} {
 	return map[string]interface{}{
-		"enabled":              true,
+		"enabled":
 		"origin_shield_region": "testRegion",
 	}
 }
@@ -272,9 +272,9 @@ func viewerCertificateConfSetDefault() map[string]interface{} {
 	return map[string]interface{}{
 		"acm_certificate_arn":            "",
 		"cloudfront_default_certificate": true,
-		"iam_certificate_id":             "",
+		"iam_certificate_id":
 		"minimum_protocol_version":       "",
-		"ssl_support_method":             "",
+		"ssl_support_method":
 	}
 }
 
@@ -282,8 +282,8 @@ func viewerCertificateConfSetIAM() map[string]interface{} {
 	return map[string]interface{}{
 		"acm_certificate_arn":            "",
 		"cloudfront_default_certificate": false,
-		"iam_certificate_id":             "iamcert-01234567",
-		"ssl_support_method":             "vip",
+		"iam_certificate_id":4567",
+		"ssl_support_method":
 		"minimum_protocol_version":       "TLSv1",
 	}
 }
@@ -292,8 +292,8 @@ func viewerCertificateConfSetACM() map[string]interface{} {
 	return map[string]interface{}{
 		"acm_certificate_arn":            "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012", //lintignore:AWSAT003,AWSAT005
 		"cloudfront_default_certificate": false,
-		"iam_certificate_id":             "",
-		"ssl_support_method":             "sni-only",
+		"iam_certificate_id":
+		"ssl_support_method":
 		"minimum_protocol_version":       "TLSv1",
 	}
 }

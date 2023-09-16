@@ -25,10 +25,9 @@ import (
 // @SDKResource("aws_ec2_carrier_gateway, name="Carrier Gateway")
 // @Tags(identifierAttribute="id")
 
-func ResourceCarrierGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCarrierGatewayCreate,
-		ReadWithoutTimeout:   resourceCarrierGatewayRead,
+		ReadWithoutTimeout:ourceCarrierGatewayRead,
 		UpdateWithoutTimeout: resourceCarrierGatewayUpdate,
 		DeleteWithoutTimeout: resourceCarrierGatewayDelete,
 
@@ -40,17 +39,17 @@ func ResourceCarrierGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -59,12 +58,11 @@ func ResourceCarrierGateway() *schema.Resource {
 }
 
 func resourceCarrierGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateCarrierGatewayInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeCarrierGateway),
-		VpcId:    aws.String(d.Get("vpc_id").(string)),
+		VpcId:s.String(d.Get("vpc_id").(string)),
 	}
 
 	output, err := conn.CreateCarrierGatewayWithContext(ctx, input)
@@ -86,8 +84,7 @@ func resourceCarrierGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 
 func resourceCarrierGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	carrierGateway, err := FindCarrierGatewayByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -103,8 +100,8 @@ func resourceCarrierGatewayRead(ctx context.Context, d *schema.ResourceData, met
 	ownerID := aws.StringValue(carrierGateway.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("carrier-gateway/%s", d.Id()),
 	}.String()
@@ -120,8 +117,7 @@ func resourceCarrierGatewayRead(ctx context.Context, d *schema.ResourceData, met
 func resourceCarrierGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceCarrierGatewayRead(ctx, d, meta)...)
 }
 
@@ -129,8 +125,7 @@ func resourceCarrierGatewayDelete(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	log.Printf("[INFO] Deleting EC2 Carrier Gateway (%s)", d.Id())
-	_, err := conn.DeleteCarrierGatewayWithContext(ctx, &ec2.DeleteCarrierGatewayInput{
+funcerr := conn.DeleteCarrierGatewayWithContext(ctx, &ec2.DeleteCarrierGatewayInput{
 		CarrierGatewayId: aws.String(d.Id()),
 	})
 

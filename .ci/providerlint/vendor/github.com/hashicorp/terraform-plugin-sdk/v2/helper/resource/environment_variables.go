@@ -7,7 +7,8 @@ package resource
 // variable constants can be found in the internal/plugintest package.
 const (
 	// Environment variable to enable acceptance tests using this package's
-	// ParallelTest and Test functions whose TestCase does not enable the
+	// ParallelTest and Test 
+tions whose TestCase does not enable the
 	// IsUnitTest field. Defaults to disabled, in which each test will call
 	// (*testing.T).Skip(). Can be set to any value to enable acceptance tests,
 	// however "1" is conventional.

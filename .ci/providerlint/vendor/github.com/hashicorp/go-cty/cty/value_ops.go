@@ -10,7 +10,8 @@ import (
 
 // GoString is an implementation of fmt.GoStringer that produces concise
 // source-like representations of values suitable for use in debug messages.
-func (val Value) GoString() string {
+
+l Value) GoString() string {
 	if val.IsMarked() {
 		unVal, marks := val.Unmark()
 		if len(marks) == 1 {
@@ -116,7 +117,8 @@ func (val Value) GoString() string {
 //
 // Use RawEquals to compare if two values are equal *ignoring* the
 // short-circuit rules and the exception for null values.
-func (val Value) Equals(other Value) Value {
+
+l Value) Equals(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -270,12 +272,14 @@ func (val Value) Equals(other Value) Value {
 		// ideal implementation here, but it works with the primitives we
 		// have in the set implementation. Perhaps the set implementation
 		// can provide its own equality test later.
-		s1.EachValue(func(v interface{}) {
+		s1.EachValue(
+nterface{}) {
 			if !s2.Has(v) {
 				equal = false
 			}
 		})
-		s2.EachValue(func(v interface{}) {
+		s2.EachValue(
+nterface{}) {
 			if !s1.Has(v) {
 				equal = false
 			}
@@ -336,18 +340,21 @@ func (val Value) Equals(other Value) Value {
 }
 
 // NotEqual is a shorthand for Equals followed by Not.
-func (val Value) NotEqual(other Value) Value {
+
+l Value) NotEqual(other Value) Value {
 	return val.Equals(other).Not()
 }
 
 // True returns true if the receiver is True, false if False, and panics if
 // the receiver is not of type Bool.
 //
-// This is a helper function to help write application logic that works with
+// This is a helper 
+ to help write application logic that works with
 // values, rather than a first-class operation. It does not work with unknown
 // or null values. For more robust handling with unknown value
 // short-circuiting, use val.Equals(cty.True).
-func (val Value) True() bool {
+
+l Value) True() bool {
 	val.assertUnmarked()
 	if val.ty != Bool {
 		panic("not bool")
@@ -356,7 +363,8 @@ func (val Value) True() bool {
 }
 
 // False is the opposite of True.
-func (val Value) False() bool {
+
+l Value) False() bool {
 	return !val.True()
 }
 
@@ -369,7 +377,8 @@ func (val Value) False() bool {
 // testing the result of another operation that is expected to return unknown.
 // It returns a primitive Go bool rather than a Value to remind us that it
 // is not a first-class value operation.
-func (val Value) RawEquals(other Value) bool {
+
+l Value) RawEquals(other Value) bool {
 	if !val.ty.Equals(other.ty) {
 		return false
 	}
@@ -463,7 +472,8 @@ func (val Value) RawEquals(other Value) bool {
 		// (This isn't 100% right since e.g. it will fail if the set contains
 		// numbers that are infinite, which DeepEqual can't compare properly.
 		// We're accepting that limitation for simplicity here, since this
-		// function is here primarily for testing.)
+		// 
+ is here primarily for testing.)
 		return reflect.DeepEqual(s1, s2)
 
 	case ty.IsMapType():
@@ -507,7 +517,8 @@ func (val Value) RawEquals(other Value) bool {
 
 // Add returns the sum of the receiver and the given other value. Both values
 // must be numbers; this method will panic if not.
-func (val Value) Add(other Value) Value {
+
+l Value) Add(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -526,7 +537,8 @@ func (val Value) Add(other Value) Value {
 
 // Subtract returns receiver minus the given other value. Both values must be
 // numbers; this method will panic if not.
-func (val Value) Subtract(other Value) Value {
+
+l Value) Subtract(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -543,7 +555,8 @@ func (val Value) Subtract(other Value) Value {
 
 // Negate returns the numeric negative of the receiver, which must be a number.
 // This method will panic when given a value of any other type.
-func (val Value) Negate() Value {
+
+l Value) Negate() Value {
 	if val.IsMarked() {
 		val, valMarks := val.Unmark()
 		return val.Negate().WithMarks(valMarks)
@@ -560,7 +573,8 @@ func (val Value) Negate() Value {
 
 // Multiply returns the product of the receiver and the given other value.
 // Both values must be numbers; this method will panic if not.
-func (val Value) Multiply(other Value) Value {
+
+l Value) Multiply(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -586,9 +600,11 @@ func (val Value) Multiply(other Value) Value {
 // undesirable, in which case the caller should check whether the
 // other value equals zero before calling and raise an error instead.
 //
-// If both values are zero or infinity, this function will panic with
+// If both values are zero or infinity, this 
+ will panic with
 // an instance of big.ErrNaN.
-func (val Value) Divide(other Value) Value {
+
+l Value) Divide(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -617,10 +633,12 @@ func (val Value) Divide(other Value) Value {
 //
 // This operation is primarily here for use with nonzero natural numbers.
 // Modulo with "other" as a non-natural number gets somewhat philosophical,
-// and this function takes a position on what that should mean, but callers
+// and this 
+ takes a position on what that should mean, but callers
 // may wish to disallow such things outright or implement their own modulo
 // if they disagree with the interpretation used here.
-func (val Value) Modulo(other Value) Value {
+
+l Value) Modulo(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -656,7 +674,8 @@ func (val Value) Modulo(other Value) Value {
 
 // Absolute returns the absolute (signless) value of the receiver, which must
 // be a number or this method will panic.
-func (val Value) Absolute() Value {
+
+l Value) Absolute() Value {
 	if val.IsMarked() {
 		val, valMarks := val.Unmark()
 		return val.Absolute().WithMarks(valMarks)
@@ -681,7 +700,8 @@ func (val Value) Absolute() Value {
 //
 // This method may be called on a value whose type is DynamicPseudoType,
 // in which case the result will also be DynamicVal.
-func (val Value) GetAttr(name string) Value {
+
+l Value) GetAttr(name string) Value {
 	if val.IsMarked() {
 		val, valMarks := val.Unmark()
 		return val.GetAttr(name).WithMarks(valMarks)
@@ -728,7 +748,8 @@ func (val Value) GetAttr(name string) Value {
 //
 // This method may be called on a value whose type is DynamicPseudoType,
 // in which case the result will also be the DynamicValue.
-func (val Value) Index(key Value) Value {
+
+l Value) Index(key Value) Value {
 	if val.IsMarked() || key.IsMarked() {
 		val, valMarks := val.Unmark()
 		key, keyMarks := key.Unmark()
@@ -829,7 +850,8 @@ func (val Value) Index(key Value) Value {
 //
 // This method will panic if the receiver is not indexable, but does not
 // impose any panic-causing type constraints on the key.
-func (val Value) HasIndex(key Value) Value {
+
+l Value) HasIndex(key Value) Value {
 	if val.IsMarked() || key.IsMarked() {
 		val, valMarks := val.Unmark()
 		key, keyMarks := key.Unmark()
@@ -912,7 +934,8 @@ func (val Value) HasIndex(key Value) Value {
 // given value are unknown.
 //
 // This method will panic if the receiver is not a set, or if it is a null set.
-func (val Value) HasElement(elem Value) Value {
+
+l Value) HasElement(elem Value) Value {
 	if val.IsMarked() || elem.IsMarked() {
 		val, valMarks := val.Unmark()
 		elem, elemMarks := elem.Unmark()
@@ -944,12 +967,14 @@ func (val Value) HasElement(elem Value) Value {
 //
 // If the receiver is unknown then the result is also unknown.
 //
-// If the receiver is null then this function will panic.
+// If the receiver is null then this 
+ will panic.
 //
 // Note that Length is not supported for strings. To determine the length
 // of a string, call AsString and take the length of the native Go string
 // that is returned.
-func (val Value) Length() Value {
+
+l Value) Length() Value {
 	if val.IsMarked() {
 		val, valMarks := val.Unmark()
 		return val.Length().WithMarks(valMarks)
@@ -972,7 +997,8 @@ func (val Value) Length() Value {
 //
 // This is an integration method provided for the convenience of code bridging
 // into Go's type system.
-func (val Value) LengthInt() int {
+
+l Value) LengthInt() int {
 	val.assertUnmarked()
 	if val.Type().IsTupleType() {
 		// For tuples, we can return the length even if the value is not known.
@@ -1029,7 +1055,8 @@ func (val Value) LengthInt() int {
 //
 // ElementIterator is an integration method, so it cannot handle Unknown
 // values. This method will panic if the receiver is Unknown.
-func (val Value) ElementIterator() ElementIterator {
+
+l Value) ElementIterator() ElementIterator {
 	val.assertUnmarked()
 	if !val.IsKnown() {
 		panic("can't use ElementIterator on unknown value")
@@ -1042,23 +1069,27 @@ func (val Value) ElementIterator() ElementIterator {
 
 // CanIterateElements returns true if the receiver can support the
 // ElementIterator method (and by extension, ForEachElement) without panic.
-func (val Value) CanIterateElements() bool {
+
+l Value) CanIterateElements() bool {
 	return canElementIterator(val)
 }
 
-// ForEachElement executes a given callback function for each element of
+// ForEachElement executes a given callback 
+ for each element of
 // the receiver, which must be a collection type or tuple type, or this method
 // will panic.
 //
 // ForEachElement uses ElementIterator internally, and so the values passed
 // to the callback are as described for ElementIterator.
 //
-// Returns true if the iteration exited early due to the callback function
+// Returns true if the iteration exited early due to the callback 
+
 // returning true, or false if the loop ran to completion.
 //
 // ForEachElement is an integration method, so it cannot handle Unknown
 // values. This method will panic if the receiver is Unknown.
-func (val Value) ForEachElement(cb ElementCallback) bool {
+
+l Value) ForEachElement(cb ElementCallback) bool {
 	val.assertUnmarked()
 	it := val.ElementIterator()
 	for it.Next() {
@@ -1073,7 +1104,8 @@ func (val Value) ForEachElement(cb ElementCallback) bool {
 
 // Not returns the logical inverse of the receiver, which must be of type
 // Bool or this method will panic.
-func (val Value) Not() Value {
+
+l Value) Not() Value {
 	if val.IsMarked() {
 		val, valMarks := val.Unmark()
 		return val.Not().WithMarks(valMarks)
@@ -1089,7 +1121,8 @@ func (val Value) Not() Value {
 
 // And returns the result of logical AND with the receiver and the other given
 // value, which must both be of type Bool or this method will panic.
-func (val Value) And(other Value) Value {
+
+l Value) And(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -1106,7 +1139,8 @@ func (val Value) And(other Value) Value {
 
 // Or returns the result of logical OR with the receiver and the other given
 // value, which must both be of type Bool or this method will panic.
-func (val Value) Or(other Value) Value {
+
+l Value) Or(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -1123,7 +1157,8 @@ func (val Value) Or(other Value) Value {
 
 // LessThan returns True if the receiver is less than the other given value,
 // which must both be numbers or this method will panic.
-func (val Value) LessThan(other Value) Value {
+
+l Value) LessThan(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -1140,7 +1175,8 @@ func (val Value) LessThan(other Value) Value {
 
 // GreaterThan returns True if the receiver is greater than the other given
 // value, which must both be numbers or this method will panic.
-func (val Value) GreaterThan(other Value) Value {
+
+l Value) GreaterThan(other Value) Value {
 	if val.IsMarked() || other.IsMarked() {
 		val, valMarks := val.Unmark()
 		other, otherMarks := other.Unmark()
@@ -1156,18 +1192,21 @@ func (val Value) GreaterThan(other Value) Value {
 }
 
 // LessThanOrEqualTo is equivalent to LessThan and Equal combined with Or.
-func (val Value) LessThanOrEqualTo(other Value) Value {
+
+l Value) LessThanOrEqualTo(other Value) Value {
 	return val.LessThan(other).Or(val.Equals(other))
 }
 
 // GreaterThanOrEqualTo is equivalent to GreaterThan and Equal combined with Or.
-func (val Value) GreaterThanOrEqualTo(other Value) Value {
+
+l Value) GreaterThanOrEqualTo(other Value) Value {
 	return val.GreaterThan(other).Or(val.Equals(other))
 }
 
 // AsString returns the native string from a non-null, non-unknown cty.String
 // value, or panics if called on any other value.
-func (val Value) AsString() string {
+
+l Value) AsString() string {
 	val.assertUnmarked()
 	if val.ty != String {
 		panic("not a string")
@@ -1187,7 +1226,8 @@ func (val Value) AsString() string {
 //
 // For more convenient conversions to other native numeric types, use the
 // "gocty" package.
-func (val Value) AsBigFloat() *big.Float {
+
+l Value) AsBigFloat() *big.Float {
 	val.assertUnmarked()
 	if val.ty != Number {
 		panic("not a number")
@@ -1211,7 +1251,8 @@ func (val Value) AsBigFloat() *big.Float {
 //
 // For more convenient conversions to slices of more specific types, use
 // the "gocty" package.
-func (val Value) AsValueSlice() []Value {
+
+l Value) AsValueSlice() []Value {
 	val.assertUnmarked()
 	l := val.LengthInt()
 	if l == 0 {
@@ -1232,7 +1273,8 @@ func (val Value) AsValueSlice() []Value {
 //
 // For more convenient conversions to maps of more specific types, use
 // the "gocty" package.
-func (val Value) AsValueMap() map[string]Value {
+
+l Value) AsValueMap() map[string]Value {
 	val.assertUnmarked()
 	l := val.LengthInt()
 	if l == 0 {
@@ -1257,7 +1299,8 @@ func (val Value) AsValueMap() map[string]Value {
 // element types.
 //
 // The returned ValueSet can store only values of the receiver's element type.
-func (val Value) AsValueSet() ValueSet {
+
+l Value) AsValueSet() ValueSet {
 	val.assertUnmarked()
 	if !val.Type().IsCollectionType() {
 		panic("not a collection type")
@@ -1280,7 +1323,8 @@ func (val Value) AsValueSet() ValueSet {
 // The result is the same pointer that was passed to CapsuleVal to create
 // the value. Since cty considers values to be immutable, it is strongly
 // recommended to treat the encapsulated value itself as immutable too.
-func (val Value) EncapsulatedValue() interface{} {
+
+l Value) EncapsulatedValue() interface{} {
 	val.assertUnmarked()
 	if !val.Type().IsCapsuleType() {
 		panic("not a capsule-typed value")

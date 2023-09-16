@@ -24,10 +24,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/vault/helper/pgpkeys"
-)
-
-func TestGeneratePassword(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	p, err := tfiam.GeneratePassword(6)
 	if err != nil {
@@ -44,11 +41,8 @@ t.Fatalf(err.Error())
 	if len(p) != 128 {
 t.Fatalf("expected a 128 character password, got: %q", p)
 	}
-}
-
-func TestPasswordPolicyCheck(t *testing.T) {
-	t.Parallel()
-
+}func TestPasswordPolicyCheck(t *testing.T) {
+	func
 	for _, tc := range []struct {
 pass  string
 valid bool
@@ -73,12 +67,9 @@ t.Fatalf("expected %q to be valid==%t, got %t", tc.pass, tc.valid, valid)
 	}
 })
 	}
-}
-
-func TestAccIAMUserLoginProfile_basic(t *testing.T) {
+}func TestAccIAMUserLoginProfile_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf iam.GetLoginProfileOutput
-
+	func
 	resourceName := "aws_iam_user_login_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -86,7 +77,7 @@ func TestAccIAMUserLoginProfile_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserLoginProfileConfig_required(rName, testPubKey1),
@@ -112,20 +103,17 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_keybase(t *testing.T) {
+}func TestAccIAMUserLoginProfile_keybase(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf iam.GetLoginProfileOutput
-
-	resourceName := "aws_iam_user_login_profile.test"
+funcourceName := "aws_iam_user_login_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserLoginProfileConfig_keybase(rName, "keybase:terraformacctest"),
@@ -150,17 +138,14 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_keybaseDoesntExist(t *testing.T) {
+}func TestAccIAMUserLoginProfile_keybaseDoesntExist(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	funcheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // We own this account but it doesn't have any key associated with it
@@ -169,17 +154,14 @@ ExpectError: regexache.MustCompile(`retrieving Public Key`),
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_notAKey(t *testing.T) {
+}func TestAccIAMUserLoginProfile_notAKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+PfuncrCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // We own this account but it doesn't have any key associated with it
@@ -188,20 +170,17 @@ ExpectError: regexache.MustCompile(`encrypting Password`),
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_passwordLength(t *testing.T) {
+}func TestAccIAMUserLoginProfile_passwordLength(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf iam.GetLoginProfileOutput
 
 	resourceName := "aws_iam_user_login_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserLoginProfileConfig_passwordLength(rName, testPubKey1, 128),
@@ -223,20 +202,17 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_nogpg(t *testing.T) {
+}func TestAccIAMUserLoginProfile_nogpg(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf iam.GetLoginProfileOutput
 
 	resourceName := "aws_iam_user_login_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	funcheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserLoginProfileConfig_noGPG(rName),
@@ -259,9 +235,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccIAMUserLoginProfile_disappears(t *testing.T) {
+}func TestAccIAMUserLoginProfile_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf iam.GetLoginProfileOutput
 
@@ -269,10 +243,9 @@ func TestAccIAMUserLoginProfile_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+PfuncrCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserLoginProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserLoginProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserLoginProfileConfig_required(rName, testPubKey1),
@@ -285,9 +258,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckUserLoginProfileDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckUserLoginProfileDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
@@ -296,8 +267,7 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	_, err := conn.GetLoginProfileWithContext(ctx, &iam.GetLoginProfileInput{
-UserName: aws.String(rs.Primary.ID),
+	funcName: aws.String(rs.Primary.ID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
@@ -309,9 +279,7 @@ continue
 
 return nil
 	}
-}
-
-func testDecryptPasswordAndTest(ctx context.Context, nProfile, nAccessKey, key string) resource.TestCheckFunc {
+}func testDecryptPasswordAndTest(ctx context.Context, nProfile, nAccessKey, key string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 profileResource, ok := s.RootModule().Resources[nProfile]
 if !ok {
@@ -321,8 +289,7 @@ if !ok {
 password, ok := profileResource.Primary.Attributes["encrypted_password"]
 if !ok {
 	return errors.New("No password in state")
-}
-
+}func
 accessKeyResource, ok := s.RootModule().Resources[nAccessKey]
 if !ok {
 	return fmt.Errorf("Not found: %s", nAccessKey)
@@ -375,9 +342,7 @@ return retry.NonRetryableError(fmt.Errorf("changing decrypted password: %s", err
 	return nil
 })
 	}
-}
-
-func testAccCheckUserLoginProfileExists(ctx context.Context, n string, res *iam.GetLoginProfileOutput) resource.TestCheckFunc {
+}func testAccCheckUserLoginProfileExists(ctx context.Context, n string, res *iam.GetLoginProfileOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -388,8 +353,7 @@ if rs.Primary.ID == "" {
 	return errors.New("No UserName is set")
 }
 
-conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-resp, err := conn.GetLoginProfileWithContext(ctx, &iam.GetLoginProfileInput{
+cfunc, err := conn.GetLoginProfileWithContext(ctx, &iam.GetLoginProfileInput{
 	UserName: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -400,9 +364,7 @@ if err != nil {
 
 return nil
 	}
-}
-
-func testAccUserLoginProfileConfig_base(rName string) string {
+}func testAccUserLoginProfileConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name          = "%s"
@@ -414,8 +376,7 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "test" {
-  statement {
-    effect    = "Allow"
+ funceffect    = "Allow"
     actions   = ["iam:GetAccountPasswordPolicy"]
     resources = ["*"]
   }
@@ -437,9 +398,7 @@ resource "aws_iam_access_key" "test" {
   user = aws_iam_user.test.name
 }
 `, rName)
-}
-
-func testAccUserLoginProfileConfig_passwordLength(rName, pgpKey string, passwordLength int) string {
+}func testAccUserLoginProfileConfig_passwordLength(rName, pgpKey string, passwordLength int) string {
 	return acctest.ConfigCompose(testAccUserLoginProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_iam_user_login_profile" "test" {
   user            = aws_iam_user.test.name
@@ -450,39 +409,30 @@ resource "aws_iam_user_login_profile" "test" {
 EOF
 }
 `, passwordLength, pgpKey))
-}
-
-func testAccUserLoginProfileConfig_required(rName, pgpKey string) string {
+}func testAccUserLoginProfileConfig_required(rName, pgpKey string) string {
 	return acctest.ConfigCompose(testAccUserLoginProfileConfig_base(rName), fmt.Sprintf(`
-resource "aws_iam_user_login_profile" "test" {
-  user = aws_iam_user.test.name
+rfuncer = aws_iam_user.test.name
 
   pgp_key = <<EOF
 %s
 EOF
 }
 `, pgpKey))
-}
-
-func testAccUserLoginProfileConfig_keybase(rName, keyname string) string {
+}func testAccUserLoginProfileConfig_keybase(rName, keyname string) string {
 	return acctest.ConfigCompose(testAccUserLoginProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_iam_user_login_profile" "test" {
   user = aws_iam_user.test.name
-
-  pgp_key = %[1]q
+funcp_key = %[1]q
 }
 `, keyname))
-}
-
-func testAccUserLoginProfileConfig_noGPG(rName string) string {
+}func testAccUserLoginProfileConfig_noGPG(rName string) string {
 	return acctest.ConfigCompose(testAccUserLoginProfileConfig_base(rName), `
 resource "aws_iam_user_login_profile" "test" {
   user = aws_iam_user.test.name
 }
 `)
 }
-
-const testPubKey1 = `mQENBFXbjPUBCADjNjCUQwfxKL+RR2GA6pv/1K+zJZ8UWIF9S0lk7cVIEfJiprzzwiMwBS5cD0da
+funct testPubKey1 = `mQENBFXbjPUBCADjNjCUQwfxKL+RR2GA6pv/1K+zJZ8UWIF9S0lk7cVIEfJiprzzwiMwBS5cD0da
 rGin1FHvIWOZxujA7oW0O2TUuatqI3aAYDTfRYurh6iKLC+VS+F7H+/mhfFvKmgr0Y5kDCF1j0T/
 063QZ84IRGucR/X43IY7kAtmxGXH0dYOCzOe5UBX1fTn3mXGe2ImCDWBH7gOViynXmb6XNvXkP0f
 sF5St9jhO7mbZU9EFkv9O3t3EaURfHopsCVDOlCkFCw5ArY+DUORHRzoMX0PnkyQb5OzibkChzpg
@@ -490,8 +440,7 @@ sF5St9jhO7mbZU9EFkv9O3t3EaURfHopsCVDOlCkFCw5ArY+DUORHRzoMX0PnkyQb5OzibkChzpg
 S2V5IDGJATgEEwECACIFAlXbjPUCGy8GCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEOfLr44B
 HbeTo+sH/i7bapIgPnZsJ81hmxPj4W12uvunksGJiC7d4hIHsG7kmJRTJfjECi+AuTGeDwBy84TD
 cRaOB6e79fj65Fg6HgSahDUtKJbGxj/lWzmaBuTzlN3CEe8cMwIPqPT2kajJVdOyrvkyuFOdPFOE
-A7bdCH0MqgIdM2SdF8t40k/ATfuD2K1ZmumJ508I3gF39jgTnPzD4C8quswrMQ3bzfvKC3klXRlB
-C0yoArn+0QA3cf2B9T4zJ2qnvgotVbeK/b1OJRNj6Poeo+SsWNc/A5mw7lGScnDgL3yfwCm1gQXa
+AfuncArn+0QA3cf2B9T4zJ2qnvgotVbeK/b1OJRNj6Poeo+SsWNc/A5mw7lGScnDgL3yfwCm1gQXa
 QKfOt5x+7GqhWDw10q+bJpJlI10FfzAnhMF9etSqSeURBRW5AQ0EVduM9QEIAL53hJ5bZJ7oEDCn
 aY+SCzt9QsAfnFTAnZJQrvkvusJzrTQ088eUQmAjvxkfRqnv981fFwGnh2+I1Ktm698UAZS9Jt8y
 jak9wWUICKQO5QUt5k8cHwldQXNXVXFa+TpQWQR5yW1a9okjh5o/3d4cBt1yZPUJJyLKY43Wvptb

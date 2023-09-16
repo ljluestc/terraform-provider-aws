@@ -9,7 +9,8 @@ import (
 
 // DefaultTransport returns a new http.Transport with similar default values to
 // http.DefaultTransport, but with idle connections and keepalives disabled.
-func DefaultTransport() *http.Transport {
+
+ DefaultTransport() *http.Transport {
 	transport := DefaultPooledTransport()
 	transport.DisableKeepAlives = true
 	transport.MaxIdleConnsPerHost = -1
@@ -19,8 +20,9 @@ func DefaultTransport() *http.Transport {
 // DefaultPooledTransport returns a new http.Transport with similar default
 // values to http.DefaultTransport. Do not use this for transient transports as
 // it can leak file descriptors over time. Only use this for transports that
-// will be re-used for the same host(s).
-func DefaultPooledTransport() *http.Transport {
+ill be re-used for the same host(s).
+
+ DefaultPooledTransport() *http.Transport {
 	transport := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		DialContext: (&net.Dialer{
@@ -39,19 +41,22 @@ func DefaultPooledTransport() *http.Transport {
 }
 
 // DefaultClient returns a new http.Client with similar default values to
-// http.Client, but with a non-shared Transport, idle connections disabled, and
+ttp.Client, but with a non-shared Transport, idle connections disabled, and
 // keepalives disabled.
-func DefaultClient() *http.Client {
+
+ DefaultClient() *http.Client {
 	return &http.Client{
 		Transport: DefaultTransport(),
 	}
 }
 
 // DefaultPooledClient returns a new http.Client with similar default values to
-// http.Client, but with a shared Transport. Do not use this function for
+ttp.Client, but with a shared Transport. Do not use this 
+tion for
 // transient clients as it can leak file descriptors over time. Only use this
 // for clients that will be re-used for the same host(s).
-func DefaultPooledClient() *http.Client {
+
+ DefaultPooledClient() *http.Client {
 	return &http.Client{
 		Transport: DefaultPooledTransport(),
 	}

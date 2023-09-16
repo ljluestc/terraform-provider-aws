@@ -21,61 +21,57 @@ import (
 
 // @SDKResource("aws_vpc_network_performance_metric_subscription")
 
-func ResourceNetworkPerformanceMetricSubscription() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkPerformanceMetricSubscriptionCreate,
-		ReadWithoutTimeout:   resourceNetworkPerformanceMetricSubscriptionRead,
+		ReadWithoutTimeout:ourceNetworkPerformanceMetricSubscriptionRead,
 		DeleteWithoutTimeout: resourceNetworkPerformanceMetricSubscriptionDelete,
 
 		Schema: map[string]*schema.Schema{
 			"destination": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"metric": {
-				Type:    schema.TypeString,
+				Type:hema.TypeString,
 				Optional:true,
 				ForceNew:true,
 				Default: types.MetricTypeAggregateLatency,
 				ValidateDiag
 func: enum.Validate[types.MetricType](),
-			},
-			"period": {
-				Type:     schema.TypeString,
+funcperiod": {
+				Type:eString,
 				Computed: true,
 			},
 			"source": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"statistic": {
-				Type:    schema.TypeString,
+				Type:hema.TypeString,
 				Optional:true,
 				ForceNew:true,
 				Default: types.StatisticTypeP50,
 				ValidateDiag
 func: enum.Validate[types.StatisticType](),
 			},
-		},
-	}
+func
 }
 
 
 func resourceNetworkPerformanceMetricSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
 
-	source := d.Get("source").(string)
-	destination := d.Get("destination").(string)
+functination := d.Get("destination").(string)
 	metric := d.Get("metric").(string)
 	statistic := d.Get("statistic").(string)
 	id := NetworkPerformanceMetricSubscriptionCreateResourceID(source, destination, metric, statistic)
 	input := &ec2.EnableAwsNetworkPerformanceMetricSubscriptionInput{
 		Destination: aws.String(destination),
-		Metric:      types.MetricType(metric),
-		Source:      aws.String(source),
-		Statistic:   types.StatisticType(statistic),
+		Metric:ricType(metric),
+		Source:g(source),
+		Statistic:es.StatisticType(statistic),
 	}
 
 	_, err := conn.EnableAwsNetworkPerformanceMetricSubscription(ctx, input)
@@ -94,8 +90,7 @@ func resourceNetworkPerformanceMetricSubscriptionRead(ctx context.Context, d *sc
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
 
 	source, destination, metric, statistic, err := NetworkPerformanceMetricSubscriptionResourceID(d.Id())
-
-	if err != nil {
+funcerr != nil {
 		return diag.FromErr(err)
 	}
 
@@ -126,16 +121,15 @@ func resourceNetworkPerformanceMetricSubscriptionDelete(ctx context.Context, d *
 
 	source, destination, metric, statistic, err := NetworkPerformanceMetricSubscriptionResourceID(d.Id())
 
-	if err != nil {
-		return diag.FromErr(err)
+functurn diag.FromErr(err)
 	}
 
 	log.Printf("[DEBUG] Deleting EC2 AWS Network Performance Metric Subscriptione: %s", d.Id())
 	_, err = conn.DisableAwsNetworkPerformanceMetricSubscription(ctx, &ec2.DisableAwsNetworkPerformanceMetricSubscriptionInput{
 		Destination: aws.String(destination),
-		Metric:      types.MetricType(metric),
-		Source:      aws.String(source),
-		Statistic:   types.StatisticType(statistic),
+		Metric:ricType(metric),
+		Source:g(source),
+		Statistic:es.StatisticType(statistic),
 	})
 
 	if err != nil {
@@ -154,8 +148,7 @@ func NetworkPerformanceMetricSubscriptionCreateResourceID(source, destination, m
 
 	return id
 }
-
-
+func
 func NetworkPerformanceMetricSubscriptionResourceID(id string) (string, string, string, string, error) {
 	parts := strings.Split(id, networkPerformanceMetricSubscriptionRuleIDSeparator)
 
@@ -163,5 +156,4 @@ func NetworkPerformanceMetricSubscriptionResourceID(id string) (string, string, 
 		return parts[0], parts[1], parts[2], parts[3], nil
 	}
 
-	return "", "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected source%[2]sdestination%[2]smetric%[2]sstatistic", id, networkPerformanceMetricSubscriptionRuleIDSeparator)
-}
+func

@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKDataSource("aws_iam_policy")
-func DataSourcePolicy() *schema.Resource {
+// @SDKDataSource("aws_iam_policy")func DataSourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePolicyRead,
 
@@ -61,10 +60,7 @@ func DataSourcePolicy() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 

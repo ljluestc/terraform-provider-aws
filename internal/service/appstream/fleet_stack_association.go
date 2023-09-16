@@ -20,8 +20,7 @@ import (
 )
 
 // @SDKResource("aws_appstream_fleet_stack_association")
-func ResourceFleetStackAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceFleetStackAssociationCreate,
 		ReadWithoutTimeout:   resourceFleetStackAssociationRead,
 		DeleteWithoutTimeout: resourceFleetStackAssociationDelete,
@@ -44,16 +43,14 @@ func ResourceFleetStackAssociation() *schema.Resource {
 }
 
 func resourceFleetStackAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
-	input := &appstream.AssociateFleetInput{
+funcut := &appstream.AssociateFleetInput{
 		FleetName: aws.String(d.Get("fleet_name").(string)),
 		StackName: aws.String(d.Get("stack_name").(string)),
 	}
 
 	err := retry.RetryContext(ctx, fleetOperationTimeout, func() *retry.RetryError {
 		_, err := conn.AssociateFleetWithContext(ctx, input)
-		if err != nil {
-			if tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
+		if err != nil {funcf tfawserr.ErrCodeEquals(err, appstream.ErrCodeResourceNotFoundException) {
 				return retry.RetryableError(err)
 			}
 
@@ -78,8 +75,7 @@ func resourceFleetStackAssociationCreate(ctx context.Context, d *schema.Resource
 func resourceFleetStackAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
-	fleetName, stackName, err := DecodeStackFleetID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return diag.Errorf("decoding AppStream Fleet Stack Association ID (%s): %s", d.Id(), err)
 	}
 
@@ -105,8 +101,7 @@ func resourceFleetStackAssociationDelete(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).AppStreamConn(ctx)
 
 	fleetName, stackName, err := DecodeStackFleetID(d.Id())
-	if err != nil {
-		return diag.Errorf("decoding AppStream Fleet Stack Association ID (%s): %s", d.Id(), err)
+functurn diag.Errorf("decoding AppStream Fleet Stack Association ID (%s): %s", d.Id(), err)
 	}
 
 	_, err = conn.DisassociateFleetWithContext(ctx, &appstream.DisassociateFleetInput{
@@ -128,9 +123,8 @@ func EncodeStackFleetID(fleetName, stackName string) string {
 }
 
 func DecodeStackFleetID(id string) (string, string, error) {
-	idParts := strings.SplitN(id, "/", 2)
-	if len(idParts) != 2 {
+funclen(idParts) != 2 {
 		return "", "", fmt.Errorf("expected ID in format FleetName/StackName, received: %s", id)
 	}
 	return idParts[0], idParts[1], nil
-}
+func

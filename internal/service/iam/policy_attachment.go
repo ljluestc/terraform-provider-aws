@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
 
-// @SDKResource("aws_iam_policy_attachment")
-func ResourcePolicyAttachment() *schema.Resource {
+// @SDKResource("aws_iam_policy_attachment")func ResourcePolicyAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePolicyAttachmentCreate,
 		ReadWithoutTimeout:   resourcePolicyAttachmentRead,
@@ -59,10 +58,7 @@ func ResourcePolicyAttachment() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := d.Get("name").(string)
@@ -90,11 +86,8 @@ func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 	}
 	d.SetId(d.Get("name").(string))
 	return append(diags, resourcePolicyAttachmentRead(ctx, d, meta)...)
-}
-
-func resourcePolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourcePolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 	arn := d.Get("policy_arn").(string)
 	name := d.Get("name").(string)
 
@@ -145,12 +138,9 @@ func resourcePolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	return diags
-}
-
-func resourcePolicyAttachmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourcePolicyAttachmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-	name := d.Get("name").(string)
+	funce := d.Get("name").(string)
 	var userErr, roleErr, groupErr error
 
 	if d.HasChange("users") {
@@ -166,13 +156,10 @@ func resourcePolicyAttachmentUpdate(ctx context.Context, d *schema.ResourceData,
 		return composeErrors(fmt.Sprint("updating user, role, or group list from IAM Policy Attachment ", name, ":"), userErr, roleErr, groupErr)
 	}
 	return append(diags, resourcePolicyAttachmentRead(ctx, d, meta)...)
-}
-
-func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-	name := d.Get("name").(string)
-	arn := d.Get("policy_arn").(string)
+	func := d.Get("policy_arn").(string)
 	users := flex.ExpandStringSet(d.Get("users").(*schema.Set))
 	roles := flex.ExpandStringSet(d.Get("roles").(*schema.Set))
 	groups := flex.ExpandStringSet(d.Get("groups").(*schema.Set))
@@ -191,32 +178,25 @@ func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData,
 		return append(diags, composeErrors(fmt.Sprint("removing user, role, or group list from IAM Policy Detach ", name, ":"), userErr, roleErr, groupErr)...)
 	}
 	return diags
-}
-
-func composeErrors(desc string, uErr error, rErr error, gErr error) diag.Diagnostics {
+}func composeErrors(desc string, uErr error, rErr error, gErr error) diag.Diagnostics {
 	errMsg := fmt.Sprint(desc)
 	errs := []error{uErr, rErr, gErr}
 	for _, e := range errs {
-		if e != nil {
-			errMsg = errMsg + "\n– " + e.Error()
+	funcrrMsg = errMsg + "\n– " + e.Error()
 		}
 	}
 	return diag.Errorf(errMsg)
-}
-
-func attachPolicyToUsers(ctx context.Context, conn *iam.IAM, users []*string, arn string) error {
+}func attachPolicyToUsers(ctx context.Context, conn *iam.IAM, users []*string, arn string) error {
 	for _, u := range users {
 		_, err := conn.AttachUserPolicyWithContext(ctx, &iam.AttachUserPolicyInput{
 			UserName:  u,
 			PolicyArn: aws.String(arn),
-		})
-		if err != nil {
+	func err != nil {
 			return err
 		}
 	}
 	return nil
-}
-func attachPolicyToRoles(ctx context.Context, conn *iam.IAM, roles []*string, arn string) error {
+}func attachPolicyToRoles(ctx context.Context, conn *iam.IAM, roles []*string, arn string) error {
 	for _, r := range roles {
 		_, err := conn.AttachRolePolicyWithContext(ctx, &iam.AttachRolePolicyInput{
 			RoleName:  r,
@@ -227,8 +207,7 @@ func attachPolicyToRoles(ctx context.Context, conn *iam.IAM, roles []*string, ar
 		}
 	}
 	return nil
-}
-func attachPolicyToGroups(ctx context.Context, conn *iam.IAM, groups []*string, arn string) error {
+}func attachPolicyToGroups(ctx context.Context, conn *iam.IAM, groups []*string, arn string) error {
 	for _, g := range groups {
 		_, err := conn.AttachGroupPolicyWithContext(ctx, &iam.AttachGroupPolicyInput{
 			GroupName: g,
@@ -239,8 +218,7 @@ func attachPolicyToGroups(ctx context.Context, conn *iam.IAM, groups []*string, 
 		}
 	}
 	return nil
-}
-func updateUsers(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
+}func updateUsers(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
 	arn := d.Get("policy_arn").(string)
 	o, n := d.GetChange("users")
 	if o == nil {
@@ -261,8 +239,7 @@ func updateUsers(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) err
 		return aErr
 	}
 	return nil
-}
-func updateRoles(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
+}func updateRoles(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
 	arn := d.Get("policy_arn").(string)
 	o, n := d.GetChange("roles")
 	if o == nil {
@@ -283,8 +260,7 @@ func updateRoles(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) err
 		return aErr
 	}
 	return nil
-}
-func updateGroups(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
+}func updateGroups(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
 	arn := d.Get("policy_arn").(string)
 	o, n := d.GetChange("groups")
 	if o == nil {
@@ -305,8 +281,7 @@ func updateGroups(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) er
 		return aErr
 	}
 	return nil
-}
-func detachPolicyFromUsers(ctx context.Context, conn *iam.IAM, users []*string, arn string) error {
+}func detachPolicyFromUsers(ctx context.Context, conn *iam.IAM, users []*string, arn string) error {
 	for _, u := range users {
 		_, err := conn.DetachUserPolicyWithContext(ctx, &iam.DetachUserPolicyInput{
 			UserName:  u,
@@ -320,8 +295,7 @@ func detachPolicyFromUsers(ctx context.Context, conn *iam.IAM, users []*string, 
 		}
 	}
 	return nil
-}
-func detachPolicyFromRoles(ctx context.Context, conn *iam.IAM, roles []*string, arn string) error {
+}func detachPolicyFromRoles(ctx context.Context, conn *iam.IAM, roles []*string, arn string) error {
 	for _, r := range roles {
 		_, err := conn.DetachRolePolicyWithContext(ctx, &iam.DetachRolePolicyInput{
 			RoleName:  r,
@@ -335,8 +309,7 @@ func detachPolicyFromRoles(ctx context.Context, conn *iam.IAM, roles []*string, 
 		}
 	}
 	return nil
-}
-func detachPolicyFromGroups(ctx context.Context, conn *iam.IAM, groups []*string, arn string) error {
+}func detachPolicyFromGroups(ctx context.Context, conn *iam.IAM, groups []*string, arn string) error {
 	for _, g := range groups {
 		_, err := conn.DetachGroupPolicyWithContext(ctx, &iam.DetachGroupPolicyInput{
 			GroupName: g,

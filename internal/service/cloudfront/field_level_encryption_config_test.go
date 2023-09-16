@@ -25,10 +25,10 @@ func TestAccCloudFrontFieldLevelEncryptionConfig_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
-		CheckDestroy:             testAccCheckFieldLevelEncryptionConfigDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:ieldLevelEncryptionConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFieldLevelEncryptionConfigConfig_basic(rName),
@@ -90,10 +90,10 @@ func TestAccCloudFrontFieldLevelEncryptionConfig_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
-		CheckDestroy:             testAccCheckFieldLevelEncryptionConfigDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:ieldLevelEncryptionConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFieldLevelEncryptionConfigConfig_basic(rName),

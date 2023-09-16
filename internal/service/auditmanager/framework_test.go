@@ -32,9 +32,9 @@ func TestAccAuditManagerFramework_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName),
@@ -67,9 +67,9 @@ func TestAccAuditManagerFramework_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName),
@@ -94,9 +94,9 @@ func TestAccAuditManagerFramework_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_tags1(rName, "key1", "value1"),
@@ -146,9 +146,9 @@ func TestAccAuditManagerFramework_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_optional(rName, "text1", "text1"),

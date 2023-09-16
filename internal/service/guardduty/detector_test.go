@@ -26,7 +26,7 @@ func testAccDetector_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_basic,
@@ -43,8 +43,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -80,7 +80,7 @@ func testAccDetector_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_tags1("key1", "value1"),
@@ -91,8 +91,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -124,7 +124,7 @@ func testAccDetector_datasources_s3logs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_datasourcesS3Logs(true),
@@ -136,8 +136,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -161,7 +161,7 @@ func testAccDetector_datasources_kubernetes_audit_logs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_datasourcesKubernetesAuditLogs(true),
@@ -173,8 +173,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -198,7 +198,7 @@ func testAccDetector_datasources_malware_protection(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_datasourcesMalwareProtection(true),
@@ -212,8 +212,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -238,7 +238,7 @@ func testAccDetector_datasources_all(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDetectorConfig_datasourcesAll(true, false, true),
@@ -254,8 +254,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -406,7 +406,7 @@ func testAccDetectorConfig_datasourcesS3Logs(enable bool) string {
 resource "aws_guardduty_detector" "test" {
   datasources {
     s3_logs {
-      enable = %[1]t
+%[1]t
     }
   }
 }
@@ -418,9 +418,9 @@ func testAccDetectorConfig_datasourcesKubernetesAuditLogs(enable bool) string {
 resource "aws_guardduty_detector" "test" {
   datasources {
     kubernetes {
-      audit_logs {
-        enable = %[1]t
-      }
+s {
+= %[1]t
+
     }
   }
 }
@@ -432,11 +432,11 @@ func testAccDetectorConfig_datasourcesMalwareProtection(enable bool) string {
 resource "aws_guardduty_detector" "test" {
   datasources {
     malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          enable = %[1]t
-        }
-      }
+instance_with_findings {
+umes {
+
+
+
     }
   }
 }
@@ -448,20 +448,20 @@ func testAccDetectorConfig_datasourcesAll(enableK8s, enableS3, enableMalware boo
 resource "aws_guardduty_detector" "test" {
   datasources {
     kubernetes {
-      audit_logs {
-        enable = %[1]t
-      }
+s {
+= %[1]t
+
     }
     s3_logs {
-      enable = %[2]t
+%[2]t
     }
 
     malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          enable = %[3]t
-        }
-      }
+instance_with_findings {
+umes {
+
+
+
     }
   }
 }

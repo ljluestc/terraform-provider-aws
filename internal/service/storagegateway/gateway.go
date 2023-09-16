@@ -546,7 +546,7 @@ func resourceGatewayRead(ctx context.Context, d *schema.ResourceData, meta inter
 		}
 	} else {
 		m := map[string]interface{}{
-			"domain_name":             aws.StringValue(smbSettingsOutput.DomainName),
+			"domain_name":aws.StringValue(smbSettingsOutput.DomainName),
 			"active_directory_status": aws.StringValue(smbSettingsOutput.ActiveDirectoryStatus),
 			// The Storage Gateway API currently provides no way to read these values
 			// "password": ...,

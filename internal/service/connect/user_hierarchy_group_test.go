@@ -20,6 +20,8 @@ import (
 )
 
 
+
+
 func testAccUserHierarchyGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserHierarchyGroupOutput
@@ -30,6 +32,8 @@ func testAccUserHierarchyGroup_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -38,6 +42,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -62,6 +68,8 @@ ImportStateVerify: true,
 // Update name
 Config: testAccUserHierarchyGroupConfig_basic(rName, rName3),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -82,6 +90,8 @@ func(
 }
 
 
+
+
 func testAccUserHierarchyGroup_parentGroupId(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserHierarchyGroupOutput
@@ -92,6 +102,8 @@ func testAccUserHierarchyGroup_parentGroupId(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,6 +112,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyGroupConfig_parentID(rName, rName2, rName3),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -124,6 +138,8 @@ func(
 }
 
 
+
+
 func testAccUserHierarchyGroup_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserHierarchyGroupOutput
@@ -133,6 +149,8 @@ func testAccUserHierarchyGroup_updateTags(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -141,6 +159,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -155,6 +175,8 @@ ImportStateVerify: true,
 	{
 Config: testAccUserHierarchyGroupConfig_tags(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
@@ -165,6 +187,8 @@ func(
 	{
 Config: testAccUserHierarchyGroupConfig_tagsUpdated(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
@@ -178,6 +202,8 @@ func(
 }
 
 
+
+
 func testAccUserHierarchyGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserHierarchyGroupOutput
@@ -187,6 +213,8 @@ func testAccUserHierarchyGroup_disappears(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,6 +223,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceUserHierarchyGroup(), resourceName),
@@ -206,10 +236,18 @@ ExpectNonEmptyPlan: true,
 }
 
 
+
+
 func testAccCheckUserHierarchyGroupExists(ctx context.Context, resourceName string, 
+
+
 function *connect.DescribeUserHierarchyGroupOutput) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
@@ -233,13 +271,19 @@ params := &connect.DescribeUserHierarchyGroupInput{
 }
 
 get
+
+
 function, err := conn.DescribeUserHierarchyGroupWithContext(ctx, params)
 if err != nil {
 	return err
 }
 
 *
+
+
 function = *get
+
+
 function
 
 return nil
@@ -247,9 +291,15 @@ return nil
 }
 
 
+
+
 func testAccCheckUserHierarchyGroupDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_user_hierarchy_group" {
@@ -282,6 +332,8 @@ return err
 return nil
 	}
 }
+
+
 
 
 func testAccUserHierarchyGroupConfig_base(rName string) string {
@@ -322,6 +374,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 }
 
 
+
+
 func testAccUserHierarchyGroupConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccUserHierarchyGroupConfig_base(rName),
@@ -340,6 +394,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 }
 `, rName2))
 }
+
+
 
 
 func testAccUserHierarchyGroupConfig_parentID(rName, rName2, rName3 string) string {
@@ -372,6 +428,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 }
 
 
+
+
 func testAccUserHierarchyGroupConfig_tags(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccUserHierarchyGroupConfig_base(rName),
@@ -391,6 +449,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 }
 `, rName2))
 }
+
+
 
 
 func testAccUserHierarchyGroupConfig_tagsUpdated(rName, rName2 string) string {

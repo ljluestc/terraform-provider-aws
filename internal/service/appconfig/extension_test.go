@@ -29,7 +29,7 @@ func TestAccAppConfigExtension_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_name(rName),
@@ -60,7 +60,7 @@ func TestAccAppConfigExtension_ActionPoint(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_name(rName),
@@ -131,7 +131,7 @@ func TestAccAppConfigExtension_Parameter(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_parameter1(rName, pName1, pDescription1, pRequiredTrue),
@@ -193,7 +193,7 @@ func TestAccAppConfigExtension_Name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_name(rName),
@@ -230,7 +230,7 @@ func TestAccAppConfigExtension_Description(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_description(rName, rDescription),
@@ -264,7 +264,7 @@ func TestAccAppConfigExtension_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_tags1(rName, "key1", "value1"),
@@ -309,7 +309,7 @@ func TestAccAppConfigExtension_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExtensionDestroy(ctx),
+CheckDestroy:testAccCheckExtensionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExtensionConfig_name(rName),

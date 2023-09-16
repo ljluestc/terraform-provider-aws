@@ -35,7 +35,7 @@ func resourceResourcePolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy_document": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateFunc:     validResourcePolicyDocument,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,

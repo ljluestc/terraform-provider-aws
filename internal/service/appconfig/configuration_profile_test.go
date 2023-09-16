@@ -27,10 +27,10 @@ func TestAccAppConfigConfigurationProfile_basic(t *testing.T) {
 	appResourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_name(rName),
@@ -61,10 +61,10 @@ func TestAccAppConfigConfigurationProfile_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_name(rName),
@@ -84,10 +84,10 @@ func TestAccAppConfigConfigurationProfile_Validators_json(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_validatorJSON(rName),
@@ -138,10 +138,10 @@ func TestAccAppConfigConfigurationProfile_Validators_lambda(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_validatorLambda(rName),
@@ -177,10 +177,10 @@ func TestAccAppConfigConfigurationProfile_Validators_multiple(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_validatorMultiple(rName),
@@ -213,10 +213,10 @@ func TestAccAppConfigConfigurationProfile_updateName(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_name(rName),
@@ -248,10 +248,10 @@ func TestAccAppConfigConfigurationProfile_updateDescription(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_description(rName, rName),
@@ -287,10 +287,10 @@ func TestAccAppConfigConfigurationProfile_tags(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationProfileConfig_tags1(rName, "key1", "value1"),

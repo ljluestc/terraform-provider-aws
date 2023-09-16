@@ -17,8 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_rds_clusters")
-func DataSourceClusters() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceClustersRead,
 
 		Schema: map[string]*schema.Schema{
@@ -42,8 +41,7 @@ const (
 )
 
 func dataSourceClustersRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	input := &rds.DescribeDBClustersInput{}
 
 	if v, ok := d.GetOk("filter"); ok {
@@ -55,8 +53,7 @@ func dataSourceClustersRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	err := conn.DescribeDBClustersPagesWithContext(ctx, input, func(page *rds.DescribeDBClustersOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, dbCluster := range page.DBClusters {
 			if dbCluster == nil {

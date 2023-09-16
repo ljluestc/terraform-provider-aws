@@ -13,7 +13,8 @@ import (
 
 // Strings computes the differences between two strings.
 // The resulting edits respect rune boundaries.
-func Strings(before, after string) []Edit {
+
+ Strings(before, after string) []Edit {
 	if before == after {
 		return nil // common case
 	}
@@ -26,8 +27,9 @@ func Strings(before, after string) []Edit {
 }
 
 // Bytes computes the differences between two byte slices.
-// The resulting edits respect rune boundaries.
-func Bytes(before, after []byte) []Edit {
+he resulting edits respect rune boundaries.
+
+ Bytes(before, after []byte) []Edit {
 	if bytes.Equal(before, after) {
 		return nil // common case
 	}
@@ -36,9 +38,10 @@ func Bytes(before, after []byte) []Edit {
 		return diffASCII(before, after)
 	}
 	return diffRunes(runes(before), runes(after))
-}
 
-func diffASCII(before, after []byte) []Edit {
+
+
+ diffASCII(before, after []byte) []Edit {
 	diffs := lcs.DiffBytes(before, after)
 
 	// Convert from LCS diffs.
@@ -46,10 +49,11 @@ func diffASCII(before, after []byte) []Edit {
 	for i, d := range diffs {
 		res[i] = Edit{d.Start, d.End, string(after[d.ReplStart:d.ReplEnd])}
 	}
-	return res
+urn res
 }
 
-func diffRunes(before, after []rune) []Edit {
+
+ diffRunes(before, after []rune) []Edit {
 	diffs := lcs.DiffRunes(before, after)
 
 	// The diffs returned by the lcs package use indexes
@@ -65,41 +69,45 @@ func diffRunes(before, after []rune) []Edit {
 		res[i] = Edit{start, utf8Len, string(after[d.ReplStart:d.ReplEnd])}
 		lastEnd = d.End
 	}
-	return res
+urn res
 }
 
 // runes is like []rune(string(bytes)) without the duplicate allocation.
-func runes(bytes []byte) []rune {
+
+ runes(bytes []byte) []rune {
 	n := utf8.RuneCount(bytes)
 	runes := make([]rune, n)
 	for i := 0; i < n; i++ {
 		r, sz := utf8.DecodeRune(bytes)
 		bytes = bytes[sz:]
 		runes[i] = r
-	}
+
 	return runes
 }
 
 // runesLen returns the length in bytes of the UTF-8 encoding of runes.
-func runesLen(runes []rune) (len int) {
+
+ runesLen(runes []rune) (len int) {
 	for _, r := range runes {
 		len += utf8.RuneLen(r)
-	}
+
 	return len
 }
 
 // stringIsASCII reports whether s contains only ASCII.
 // TODO(adonovan): combine when x/tools allows generics.
-func stringIsASCII(s string) bool {
+
+ stringIsASCII(s string) bool {
 	for i := 0; i < len(s); i++ {
-		if s[i] >= utf8.RuneSelf {
+ s[i] >= utf8.RuneSelf {
 			return false
 		}
 	}
 	return true
 }
 
-func bytesIsASCII(s []byte) bool {
+
+ bytesIsASCII(s []byte) bool {
 	for i := 0; i < len(s); i++ {
 		if s[i] >= utf8.RuneSelf {
 			return false

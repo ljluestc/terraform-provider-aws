@@ -144,11 +144,11 @@ func waitForDomainDelete(ctx context.Context, conn *opensearchservice.OpenSearch
 	// to clear before it is really deleted - otherwise, requesting information about domain immediately
 	// after delete will return info about just deleted domain
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{ConfigStatusUnknown, ConfigStatusExists},
-		Target:                    []string{ConfigStatusNotFound},
-		Refresh:                   domainConfigStatus(ctx, conn, domainName),
-		Timeout:                   timeout,
-		MinTimeout:                10 * time.Second,
+		Pending:g{ConfigStatusUnknown, ConfigStatusExists},
+		Target:ng{ConfigStatusNotFound},
+		Refresh:onfigStatus(ctx, conn, domainName),
+		Timeout:,
+		MinTimeout:Second,
 		ContinuousTargetOccurence: 3,
 	}
 

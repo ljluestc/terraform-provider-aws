@@ -16,7 +16,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, step TestStep, providers *providerFactories) error {
+
+ testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugintest.WorkingDir, step TestStep, providers *providerFactories) error {
 	t.Helper()
 
 	err := wd.SetConfig(ctx, step.mergedConfig(ctx, c))
@@ -25,8 +26,9 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	}
 
 	// require a refresh before applying
-	// failing to do this will result in data sources not being updated
-	err = runProviderCommand(ctx, t, func() error {
+	// failing to do this will resultdata sources not being updated
+	err = runProviderCommand(ctx, t, 
+() error {
 		return wd.Refresh(ctx)
 	}, wd, providers)
 	if err != nil {
@@ -40,7 +42,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 		logging.HelperResourceDebug(ctx, "Running Terraform CLI plan and apply")
 
 		// Plan!
-		err := runProviderCommand(ctx, t, func() error {
+		err := runProviderCommand(ctx, t, 
+() error {
 			if step.Destroy {
 				return wd.CreateDestroyPlan(ctx)
 			}
@@ -51,10 +54,12 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 		}
 
 		// We need to keep a copy of the state prior to destroying such
-		// that the destroy steps can verify their behavior in the
-		// check function
+		// that the destroy steps can vertheir behavior in the
+		// check 
+tion
 		var stateBeforeApplication *terraform.State
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			stateBeforeApplication, err = getState(ctx, t, wd)
 			if err != nil {
 				return err
@@ -66,7 +71,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 		}
 
 		// Apply the diff, creating real resources
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			return wd.Apply(ctx)
 		}, wd, providers)
 		if err != nil {
@@ -78,7 +84,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 
 		// Get the new state
 		var state *terraform.State
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			state, err = getState(ctx, t, wd)
 			if err != nil {
 				return err
@@ -110,7 +117,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	logging.HelperResourceDebug(ctx, "Running Terraform CLI plan to check for perpetual differences")
 
 	// do a plan
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		if step.Destroy {
 			return wd.CreateDestroyPlan(ctx)
 		}
@@ -121,7 +129,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	}
 
 	var plan *tfjson.Plan
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		var err error
 		plan, err = wd.SavedPlan(ctx)
 		return err
@@ -132,7 +141,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 
 	if !planIsEmpty(plan) && !step.ExpectNonEmptyPlan {
 		var stdout string
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			var err error
 			stdout, err = wd.SavedPlanRawStdout(ctx)
 			return err
@@ -144,8 +154,9 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	}
 
 	// do a refresh
-	if !step.Destroy || (step.Destroy && !step.PreventPostDestroyRefresh) {
-		err := runProviderCommand(ctx, t, func() error {
+	if !step.Destroy || (step.Destroy!step.PreventPostDestroyRefresh) {
+		err := runProviderCommand(ctx, t, 
+() error {
 			return wd.Refresh(ctx)
 		}, wd, providers)
 		if err != nil {
@@ -154,7 +165,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	}
 
 	// do another plan
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		if step.Destroy {
 			return wd.CreateDestroyPlan(ctx)
 		}
@@ -164,7 +176,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 		return fmt.Errorf("Error running second post-apply plan: %w", err)
 	}
 
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		var err error
 		plan, err = wd.SavedPlan(ctx)
 		return err
@@ -176,7 +189,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 	// check if plan is empty
 	if !planIsEmpty(plan) && !step.ExpectNonEmptyPlan {
 		var stdout string
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			var err error
 			stdout, err = wd.SavedPlanRawStdout(ctx)
 			return err
@@ -197,7 +211,8 @@ func testStepNewConfig(ctx context.Context, t testing.T, c TestCase, wd *plugint
 
 		var state *terraform.State
 
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			state, err = getState(ctx, t, wd)
 			if err != nil {
 				return err

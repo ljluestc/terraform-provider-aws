@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAppStreamUser_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var userOutput appstream.User
 	resourceName := "aws_appstream_user.test"
 	authType := "USERPOOL"
@@ -29,10 +28,9 @@ func TestAccAppStreamUser_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-},
+	acctest.Pfunc
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -47,7 +45,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"send_email_notification"},
 	},
@@ -57,8 +55,7 @@ ImportStateVerifyIgnore: []string{"send_email_notification"},
 
 func TestAccAppStreamUser_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var userOutput appstream.User
-	resourceName := "aws_appstream_user.test"
+funcourceName := "aws_appstream_user.test"
 	authType := "USERPOOL"
 	domain := acctest.RandomDomainName()
 	rEmail := acctest.RandomEmailAddress(domain)
@@ -67,8 +64,7 @@ func TestAccAppStreamUser_disappears(t *testing.T) {
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 },
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+ProtoV5ProfunckDestroy:testAccCheckUserDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -87,8 +83,7 @@ func TestAccAppStreamUser_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var userOutput appstream.User
 	resourceName := "aws_appstream_user.test"
-	authType := "USERPOOL"
-	firstName := "John"
+funcstName := "John"
 	lastName := "Doe"
 	domain := acctest.RandomDomainName()
 	rEmail := acctest.RandomEmailAddress(domain)
@@ -98,9 +93,8 @@ PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
-ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
-Steps: []resource.TestStep{
+CheckDestroy:testAccCheckUserDestroy(ctx),
+ErrorCheckfuncs: []resource.TestStep{
 	{
 Config: testAccUserConfig_complete(authType, rEmail, firstName, lastName, false),
 Check: resource.ComposeTestCheckFunc(
@@ -113,7 +107,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"send_email_notification"},
 	},
@@ -147,10 +141,8 @@ rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("not found: %s", resourceName)
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
-
-userName, authType, err := tfappstream.DecodeUserID(rs.Primary.ID)
+func := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
+funcName, authType, err := tfappstream.DecodeUserID(rs.Primary.ID)
 if err != nil {
 	return err
 }
@@ -177,10 +169,8 @@ for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_appstream_user" {
 continue
 	}
-
-	userName, authType, err := tfappstream.DecodeUserID(rs.Primary.ID)
-	if err != nil {
-return err
+funcrName, authType, err := tfappstream.DecodeUserID(rs.Primary.ID)
+	if err funcrn err
 	}
 
 	resp, err := conn.DescribeUsersWithContext(ctx, &appstream.DescribeUsersInput{AuthenticationType: aws.String(authType)})
@@ -220,13 +210,13 @@ resource "aws_appstream_user" "test" {
 }
 
 func testAccUserConfig_complete(authType, userName, firstName, lastName string, enabled bool) string {
-	return fmt.Sprintf(`
-resource "aws_appstream_user" "test" {
+funcurce "aws_appstream_user" "test" {
   authentication_type = %[1]q
   user_name           = %[2]q
   first_name          = %[3]q
   last_name           = %[4]q
-  enabled             = %[5]t
+  enabled= %[5]t
 }
 `, authType, userName, firstName, lastName, enabled)
 }
+func

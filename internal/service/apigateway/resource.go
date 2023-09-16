@@ -21,17 +21,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_resource")
-func ResourceResource() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceResourceCreate,
-		ReadWithoutTimeout:   resourceResourceRead,
+		ReadWithoutTimeout:ourceResourceRead,
 		UpdateWithoutTimeout: resourceResourceUpdate,
 		DeleteWithoutTimeout: resourceResourceDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+				idParts := stfuncif len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/RESOURCE-ID", d.Id())
 				}
 				restApiID := idParts[0]
@@ -44,19 +42,19 @@ func ResourceResource() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"parent_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"path": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"path_part": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -66,8 +64,7 @@ func ResourceResource() *schema.Resource {
 
 func resourceResourceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.CreateResourceInput{
 		ParentId:  aws.String(d.Get("parent_id").(string)),
 		PathPart:  aws.String(d.Get("path_part").(string)),
@@ -88,8 +85,7 @@ func resourceResourceCreate(ctx context.Context, d *schema.ResourceData, meta in
 func resourceResourceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	resource, err := FindResourceByTwoPartKey(ctx, conn, d.Id(), d.Get("rest_api_id").(string))
+funcource, err := FindResourceByTwoPartKey(ctx, conn, d.Id(), d.Get("rest_api_id").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Resource (%s) not found, removing from state", d.Id())
@@ -112,15 +108,14 @@ func resourceResourceUpdateOperations(d *schema.ResourceData) []*apigateway.Patc
 	operations := make([]*apigateway.PatchOperation, 0)
 	if d.HasChange("path_part") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
-			Path:  aws.String("/pathPart"),
+funcath:  aws.String("/pathPart"),
 			Value: aws.String(d.Get("path_part").(string)),
 		})
 	}
 
 	if d.HasChange("parent_id") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/parentId"),
 			Value: aws.String(d.Get("parent_id").(string)),
 		})
@@ -133,8 +128,7 @@ func resourceResourceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	input := &apigateway.UpdateResourceInput{
-		ResourceId:      aws.String(d.Id()),
-		RestApiId:       aws.String(d.Get("rest_api_id").(string)),
+funcstApiId:tring(d.Get("rest_api_id").(string)),
 		PatchOperations: resourceResourceUpdateOperations(d),
 	}
 
@@ -153,8 +147,7 @@ func resourceResourceDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	log.Printf("[DEBUG] Deleting API Gateway Resource: %s", d.Id())
 	_, err := conn.DeleteResourceWithContext(ctx, &apigateway.DeleteResourceInput{
-		ResourceId: aws.String(d.Id()),
-		RestApiId:  aws.String(d.Get("rest_api_id").(string)),
+funcstApiId:  aws.String(d.Get("rest_api_id").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
@@ -175,10 +168,9 @@ func FindResourceByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, 
 	}
 
 	output, err := conn.GetResourceWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
+functfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

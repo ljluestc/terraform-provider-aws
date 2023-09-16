@@ -11,7 +11,8 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
-func TestNullableInt(t *testing.T) {
+
+tNullableInt(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
@@ -63,7 +64,8 @@ t.Fatalf("expected test case %d to have error matching \"%s\", got %s", i, tc.ex
 	}
 }
 
-func TestValidationInt(t *testing.T) {
+
+tValidationInt(t *testing.T) {
 	t.Parallel()
 
 	runValidationTestCases(t, []testCase{
@@ -84,7 +86,8 @@ func TestValidationInt(t *testing.T) {
 	})
 }
 
-func TestValidationIntAtLeast(t *testing.T) {
+
+tValidationIntAtLeast(t *testing.T) {
 	t.Parallel()
 
 	runValidationTestCases(t, []testCase{

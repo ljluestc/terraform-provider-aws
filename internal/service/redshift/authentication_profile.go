@@ -39,7 +39,7 @@ func ResourceAuthenticationProfile() *schema.Resource {
 				ForceNew: true,
 			},
 			"authentication_profile_content": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,

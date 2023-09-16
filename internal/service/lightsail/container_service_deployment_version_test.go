@@ -30,45 +30,45 @@ func TestContainerServiceDeploymentVersionParseResourceID(t *testing.T) {
 
 	testCases := []struct {
 		TestName            string
-		Input               string
+		Input
 		ExpectedServiceName string
 		ExpectedVersion     int
-		Error               bool
+		Error
 	}{
 		{
 			TestName:            "empty",
-			Input:               "",
+			Input:
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
-			Error:               true,
+			Error:
 		},
 		{
 			TestName:            "Invalid ID",
-			Input:               "abcdefg12345678/",
+			Input:45678/",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
-			Error:               true,
+			Error:
 		},
 		{
 			TestName:            "Invalid ID separator",
-			Input:               "abcdefg12345678:1",
+			Input:45678:1",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
-			Error:               true,
+			Error:
 		},
 		{
 			TestName:            "Invalid ID with more than 1 separator",
-			Input:               "abcdefg12345678/qwerty09876/1",
+			Input:45678/qwerty09876/1",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
-			Error:               true,
+			Error:
 		},
 		{
 			TestName:            "Valid ID",
-			Input:               "abcdefg12345678/1",
+			Input:45678/1",
 			ExpectedServiceName: "abcdefg12345678",
 			ExpectedVersion:     1,
-			Error:               false,
+			Error:
 		},
 	}
 
@@ -110,9 +110,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_basic(t *testin
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceDeploymentVersionConfig_Container_basic(rName, containerName, helloWorldImage),
@@ -152,9 +152,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_multiple(t *tes
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceDeploymentVersionConfig_Container_multiple(rName, containerName1, helloWorldImage, containerName2, redisImage),
@@ -190,9 +190,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_environment(t *
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceDeploymentVersionConfig_Container_environment1(rName, containerName, "A", "a"),
@@ -269,9 +269,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_ports(t *testin
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceDeploymentVersionConfig_Container_ports1(rName, containerName, "80", string(types.ContainerServiceProtocolHttp)),
@@ -345,9 +345,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_publicEndpoint(
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceDeploymentVersionConfig_Container_publicEndpoint(rName, containerName1),
@@ -456,9 +456,9 @@ func TestAccLightsailContainerServiceDeploymentVersion_Container_enableService(t
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccContainerServiceDeploymentVersionConfig_Container_withDisabledService(rName, containerName, true),
@@ -668,7 +668,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     health_check {
       healthy_threshold   = 3
       interval_seconds    = 6
-      path                = "/."
+      path
       success_codes       = "200"
       timeout_seconds     = 3
       unhealthy_threshold = 3

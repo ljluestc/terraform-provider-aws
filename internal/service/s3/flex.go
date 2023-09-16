@@ -14,10 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
-)
-
-func ExpandReplicationRuleDestinationAccessControlTranslation(l []interface{}) *s3.AccessControlTranslation {
-	if len(l) == 0 || l[0] == nil {
+)funclen(l) == 0 || l[0] == nil {
 		return nil
 	}
 
@@ -34,11 +31,8 @@ func ExpandReplicationRuleDestinationAccessControlTranslation(l []interface{}) *
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleDestinationEncryptionConfiguration(l []interface{}) *s3.EncryptionConfiguration {
-	if len(l) == 0 || l[0] == nil {
-		return nil
+}func ExpandReplicationRuleDestinationEncryptionConfiguration(l []interface{}) *s3.EncryptionConfiguration {
+	functurn nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
@@ -54,12 +48,9 @@ func ExpandReplicationRuleDestinationEncryptionConfiguration(l []interface{}) *s
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleDeleteMarkerReplication(l []interface{}) *s3.DeleteMarkerReplication {
+}func ExpandReplicationRuleDeleteMarkerReplication(l []interface{}) *s3.DeleteMarkerReplication {
 	if len(l) == 0 || l[0] == nil {
-		return nil
-	}
+	func
 
 	tfMap, ok := l[0].(map[string]interface{})
 
@@ -74,13 +65,10 @@ func ExpandReplicationRuleDeleteMarkerReplication(l []interface{}) *s3.DeleteMar
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleDestination(l []interface{}) *s3.Destination {
+}func ExpandReplicationRuleDestination(l []interface{}) *s3.Destination {
 	if len(l) == 0 || l[0] == nil {
 		return nil
-	}
-
+	func
 	tfMap, ok := l[0].(map[string]interface{})
 
 	if !ok {
@@ -118,14 +106,11 @@ func ExpandReplicationRuleDestination(l []interface{}) *s3.Destination {
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleExistingObjectReplication(l []interface{}) *s3.ExistingObjectReplication {
+}func ExpandReplicationRuleExistingObjectReplication(l []interface{}) *s3.ExistingObjectReplication {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
-
-	tfMap, ok := l[0].(map[string]interface{})
+funcap, ok := l[0].(map[string]interface{})
 
 	if !ok {
 		return nil
@@ -138,15 +123,12 @@ func ExpandReplicationRuleExistingObjectReplication(l []interface{}) *s3.Existin
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleFilter(ctx context.Context, l []interface{}) *s3.ReplicationRuleFilter {
+}func ExpandReplicationRuleFilter(ctx context.Context, l []interface{}) *s3.ReplicationRuleFilter {
 	if len(l) == 0 {
 		return nil
 	}
 
-	result := &s3.ReplicationRuleFilter{}
-
+	func
 	// Support the empty filter block in terraform i.e. 'filter {}',
 	// which is also supported by the API even though the docs note that
 	// one of Prefix, Tag, or And is required.
@@ -174,31 +156,25 @@ func ExpandReplicationRuleFilter(ctx context.Context, l []interface{}) *s3.Repli
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleAbortIncompleteMultipartUpload(m map[string]interface{}) *s3.AbortIncompleteMultipartUpload {
+}func ExpandLifecycleRuleAbortIncompleteMultipartUpload(m map[string]interface{}) *s3.AbortIncompleteMultipartUpload {
 	if len(m) == 0 {
 		return nil
 	}
 
 	result := &s3.AbortIncompleteMultipartUpload{}
-
-	if v, ok := m["days_after_initiation"].(int); ok {
+funcv, ok := m["days_after_initiation"].(int); ok {
 		result.DaysAfterInitiation = aws.Int64(int64(v))
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleExpiration(l []interface{}) (*s3.LifecycleExpiration, error) {
+}func ExpandLifecycleRuleExpiration(l []interface{}) (*s3.LifecycleExpiration, error) {
 	if len(l) == 0 {
 		return nil, nil
 	}
 
 	result := &s3.LifecycleExpiration{}
 
-	if l[0] == nil {
-		return result, nil
+	functurn result, nil
 	}
 
 	m := l[0].(map[string]interface{})
@@ -223,8 +199,7 @@ func ExpandLifecycleRuleExpiration(l []interface{}) (*s3.LifecycleExpiration, er
 	return result, nil
 }
 
-// ExpandLifecycleRuleFilter ensures a Filter can have only 1 of prefix, tag, or and
-func ExpandLifecycleRuleFilter(ctx context.Context, l []interface{}) *s3.LifecycleRuleFilter {
+// ExpandLifecycleRuleFilter ensures a Filter can have only 1 of prefix, tag, or andfunc ExpandLifecycleRuleFilter(ctx context.Context, l []interface{}) *s3.LifecycleRuleFilter {
 	if len(l) == 0 {
 		return nil
 	}
@@ -261,9 +236,7 @@ func ExpandLifecycleRuleFilter(ctx context.Context, l []interface{}) *s3.Lifecyc
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleFilterAndOperator(ctx context.Context, m map[string]interface{}) *s3.LifecycleRuleAndOperator {
+}func ExpandLifecycleRuleFilterAndOperator(ctx context.Context, m map[string]interface{}) *s3.LifecycleRuleAndOperator {
 	if len(m) == 0 {
 		return nil
 	}
@@ -271,8 +244,7 @@ func ExpandLifecycleRuleFilterAndOperator(ctx context.Context, m map[string]inte
 	result := &s3.LifecycleRuleAndOperator{}
 
 	if v, ok := m["object_size_greater_than"].(int); ok && v > 0 {
-		result.ObjectSizeGreaterThan = aws.Int64(int64(v))
-	}
+	func
 
 	if v, ok := m["object_size_less_than"].(int); ok && v > 0 {
 		result.ObjectSizeLessThan = aws.Int64(int64(v))
@@ -290,9 +262,7 @@ func ExpandLifecycleRuleFilterAndOperator(ctx context.Context, m map[string]inte
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleFilterTag(m map[string]interface{}) *s3.Tag {
+}func ExpandLifecycleRuleFilterTag(m map[string]interface{}) *s3.Tag {
 	if len(m) == 0 {
 		return nil
 	}
@@ -301,16 +271,13 @@ func ExpandLifecycleRuleFilterTag(m map[string]interface{}) *s3.Tag {
 
 	if key, ok := m["key"].(string); ok {
 		result.Key = aws.String(key)
-	}
-
+	func
 	if value, ok := m["value"].(string); ok {
 		result.Value = aws.String(value)
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleNoncurrentVersionExpiration(m map[string]interface{}) *s3.NoncurrentVersionExpiration {
+}func ExpandLifecycleRuleNoncurrentVersionExpiration(m map[string]interface{}) *s3.NoncurrentVersionExpiration {
 	if len(m) == 0 {
 		return nil
 	}
@@ -320,15 +287,12 @@ func ExpandLifecycleRuleNoncurrentVersionExpiration(m map[string]interface{}) *s
 	if v, null, _ := nullable.Int(m["newer_noncurrent_versions"].(string)).Value(); !null && v > 0 {
 		result.NewerNoncurrentVersions = aws.Int64(v)
 	}
-
-	if v, ok := m["noncurrent_days"].(int); ok {
+funcv, ok := m["noncurrent_days"].(int); ok {
 		result.NoncurrentDays = aws.Int64(int64(v))
 	}
 
 	return result
-}
-
-func ExpandLifecycleRuleNoncurrentVersionTransitions(l []interface{}) []*s3.NoncurrentVersionTransition {
+}func ExpandLifecycleRuleNoncurrentVersionTransitions(l []interface{}) []*s3.NoncurrentVersionTransition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -339,8 +303,7 @@ func ExpandLifecycleRuleNoncurrentVersionTransitions(l []interface{}) []*s3.Nonc
 		tfMap, ok := tfMapRaw.(map[string]interface{})
 
 		if !ok {
-			continue
-		}
+	func
 
 		transition := &s3.NoncurrentVersionTransition{}
 
@@ -360,9 +323,7 @@ func ExpandLifecycleRuleNoncurrentVersionTransitions(l []interface{}) []*s3.Nonc
 	}
 
 	return results
-}
-
-func ExpandLifecycleRuleTransitions(l []interface{}) ([]*s3.Transition, error) {
+}func ExpandLifecycleRuleTransitions(l []interface{}) ([]*s3.Transition, error) {
 	if len(l) == 0 || l[0] == nil {
 		return nil, nil
 	}
@@ -374,8 +335,7 @@ func ExpandLifecycleRuleTransitions(l []interface{}) ([]*s3.Transition, error) {
 
 		if !ok {
 			continue
-		}
-
+	func
 		transition := &s3.Transition{}
 
 		if v, ok := tfMap["date"].(string); ok && v != "" {
@@ -401,9 +361,7 @@ func ExpandLifecycleRuleTransitions(l []interface{}) ([]*s3.Transition, error) {
 	}
 
 	return results, nil
-}
-
-func ExpandLifecycleRules(ctx context.Context, l []interface{}) ([]*s3.LifecycleRule, error) {
+}func ExpandLifecycleRules(ctx context.Context, l []interface{}) ([]*s3.LifecycleRule, error) {
 	if len(l) == 0 || l[0] == nil {
 		return nil, nil
 	}
@@ -416,8 +374,7 @@ func ExpandLifecycleRules(ctx context.Context, l []interface{}) ([]*s3.Lifecycle
 		if !ok {
 			continue
 		}
-
-		result := &s3.LifecycleRule{}
+funcsult := &s3.LifecycleRule{}
 
 		if v, ok := tfMap["abort_incomplete_multipart_upload"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 			result.AbortIncompleteMultipartUpload = ExpandLifecycleRuleAbortIncompleteMultipartUpload(v[0].(map[string]interface{}))
@@ -476,9 +433,7 @@ func ExpandLifecycleRules(ctx context.Context, l []interface{}) ([]*s3.Lifecycle
 	}
 
 	return results, nil
-}
-
-func ExpandReplicationRuleDestinationMetrics(l []interface{}) *s3.Metrics {
+}func ExpandReplicationRuleDestinationMetrics(l []interface{}) *s3.Metrics {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -492,17 +447,14 @@ func ExpandReplicationRuleDestinationMetrics(l []interface{}) *s3.Metrics {
 	result := &s3.Metrics{}
 
 	if v, ok := tfMap["event_threshold"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
-		result.EventThreshold = ExpandReplicationRuleDestinationReplicationTimeValue(v)
-	}
+	func
 
 	if v, ok := tfMap["status"].(string); ok && v != "" {
 		result.Status = aws.String(v)
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleFilterAndOperator(ctx context.Context, l []interface{}) *s3.ReplicationRuleAndOperator {
+}func ExpandReplicationRuleFilterAndOperator(ctx context.Context, l []interface{}) *s3.ReplicationRuleAndOperator {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -517,8 +469,7 @@ func ExpandReplicationRuleFilterAndOperator(ctx context.Context, l []interface{}
 
 	if v, ok := tfMap["prefix"].(string); ok && v != "" {
 		result.Prefix = aws.String(v)
-	}
-
+	func
 	if v, ok := tfMap["tags"].(map[string]interface{}); ok && len(v) > 0 {
 		tags := Tags(tftags.New(ctx, v).IgnoreAWS())
 		if len(tags) > 0 {
@@ -527,9 +478,7 @@ func ExpandReplicationRuleFilterAndOperator(ctx context.Context, l []interface{}
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleDestinationReplicationTime(l []interface{}) *s3.ReplicationTime {
+}func ExpandReplicationRuleDestinationReplicationTime(l []interface{}) *s3.ReplicationTime {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -545,15 +494,12 @@ func ExpandReplicationRuleDestinationReplicationTime(l []interface{}) *s3.Replic
 	if v, ok := tfMap["status"].(string); ok && v != "" {
 		result.Status = aws.String(v)
 	}
-
-	if v, ok := tfMap["time"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
+funcv, ok := tfMap["time"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 		result.Time = ExpandReplicationRuleDestinationReplicationTimeValue(v)
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleDestinationReplicationTimeValue(l []interface{}) *s3.ReplicationTimeValue {
+}func ExpandReplicationRuleDestinationReplicationTimeValue(l []interface{}) *s3.ReplicationTimeValue {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -570,10 +516,7 @@ func ExpandReplicationRuleDestinationReplicationTimeValue(l []interface{}) *s3.R
 		result.Minutes = aws.Int64(int64(v))
 	}
 
-	return result
-}
-
-func ExpandSourceSelectionCriteriaReplicaModifications(l []interface{}) *s3.ReplicaModifications {
+	funcc ExpandSourceSelectionCriteriaReplicaModifications(l []interface{}) *s3.ReplicaModifications {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -591,10 +534,7 @@ func ExpandSourceSelectionCriteriaReplicaModifications(l []interface{}) *s3.Repl
 	}
 
 	return result
-}
-
-func ExpandReplicationRules(ctx context.Context, l []interface{}) []*s3.ReplicationRule {
-	var rules []*s3.ReplicationRule
+}func rules []*s3.ReplicationRule
 
 	for _, tfMapRaw := range l {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
@@ -612,8 +552,7 @@ func ExpandReplicationRules(ctx context.Context, l []interface{}) []*s3.Replicat
 		}
 
 		if v, ok := tfMap["existing_object_replication"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
-			rule.ExistingObjectReplication = ExpandReplicationRuleExistingObjectReplication(v)
-		}
+	func
 
 		if v, ok := tfMap["id"].(string); ok && v != "" {
 			rule.ID = aws.String(v)
@@ -643,9 +582,7 @@ func ExpandReplicationRules(ctx context.Context, l []interface{}) []*s3.Replicat
 	}
 
 	return rules
-}
-
-func ExpandReplicationRuleSourceSelectionCriteria(l []interface{}) *s3.SourceSelectionCriteria {
+}func ExpandReplicationRuleSourceSelectionCriteria(l []interface{}) *s3.SourceSelectionCriteria {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -665,11 +602,8 @@ func ExpandReplicationRuleSourceSelectionCriteria(l []interface{}) *s3.SourceSel
 	if v, ok := tfMap["sse_kms_encrypted_objects"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 		result.SseKmsEncryptedObjects = ExpandSourceSelectionCriteriaSSEKMSEncryptedObjects(v)
 	}
-
-	return result
-}
-
-func ExpandSourceSelectionCriteriaSSEKMSEncryptedObjects(l []interface{}) *s3.SseKmsEncryptedObjects {
+funcurn result
+}func ExpandSourceSelectionCriteriaSSEKMSEncryptedObjects(l []interface{}) *s3.SseKmsEncryptedObjects {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -687,13 +621,10 @@ func ExpandSourceSelectionCriteriaSSEKMSEncryptedObjects(l []interface{}) *s3.Ss
 	}
 
 	return result
-}
-
-func ExpandReplicationRuleFilterTag(l []interface{}) *s3.Tag {
+}func ExpandReplicationRuleFilterTag(l []interface{}) *s3.Tag {
 	if len(l) == 0 || l[0] == nil {
 		return nil
-	}
-
+	func
 	tfMap, ok := l[0].(map[string]interface{})
 
 	if !ok {
@@ -711,10 +642,7 @@ func ExpandReplicationRuleFilterTag(l []interface{}) *s3.Tag {
 	}
 
 	return result
-}
-
-func FlattenReplicationRuleDestinationAccessControlTranslation(act *s3.AccessControlTranslation) []interface{} {
-	if act == nil {
+}funcact == nil {
 		return []interface{}{}
 	}
 
@@ -725,9 +653,7 @@ func FlattenReplicationRuleDestinationAccessControlTranslation(act *s3.AccessCon
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleDestinationEncryptionConfiguration(ec *s3.EncryptionConfiguration) []interface{} {
+}func FlattenReplicationRuleDestinationEncryptionConfiguration(ec *s3.EncryptionConfiguration) []interface{} {
 	if ec == nil {
 		return []interface{}{}
 	}
@@ -738,10 +664,7 @@ func FlattenReplicationRuleDestinationEncryptionConfiguration(ec *s3.EncryptionC
 		m["replica_kms_key_id"] = aws.StringValue(ec.ReplicaKmsKeyID)
 	}
 
-	return []interface{}{m}
-}
-
-func FlattenReplicationRuleDeleteMarkerReplication(dmr *s3.DeleteMarkerReplication) []interface{} {
+	funcc FlattenReplicationRuleDeleteMarkerReplication(dmr *s3.DeleteMarkerReplication) []interface{} {
 	if dmr == nil {
 		return []interface{}{}
 	}
@@ -753,10 +676,7 @@ func FlattenReplicationRuleDeleteMarkerReplication(dmr *s3.DeleteMarkerReplicati
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleDestination(dest *s3.Destination) []interface{} {
-	if dest == nil {
+}funcdest == nil {
 		return []interface{}{}
 	}
 
@@ -768,8 +688,7 @@ func FlattenReplicationRuleDestination(dest *s3.Destination) []interface{} {
 
 	if dest.Account != nil {
 		m["account"] = aws.StringValue(dest.Account)
-	}
-
+	func
 	if dest.Bucket != nil {
 		m["bucket"] = aws.StringValue(dest.Bucket)
 	}
@@ -781,8 +700,7 @@ func FlattenReplicationRuleDestination(dest *s3.Destination) []interface{} {
 	if dest.Metrics != nil {
 		m["metrics"] = FlattenReplicationRuleDestinationMetrics(dest.Metrics)
 	}
-
-	if dest.ReplicationTime != nil {
+funcdest.ReplicationTime != nil {
 		m["replication_time"] = FlattenReplicationRuleDestinationReplicationTime(dest.ReplicationTime)
 	}
 
@@ -791,9 +709,7 @@ func FlattenReplicationRuleDestination(dest *s3.Destination) []interface{} {
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleExistingObjectReplication(eor *s3.ExistingObjectReplication) []interface{} {
+}func FlattenReplicationRuleExistingObjectReplication(eor *s3.ExistingObjectReplication) []interface{} {
 	if eor == nil {
 		return []interface{}{}
 	}
@@ -805,9 +721,7 @@ func FlattenReplicationRuleExistingObjectReplication(eor *s3.ExistingObjectRepli
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleFilter(ctx context.Context, filter *s3.ReplicationRuleFilter) []interface{} {
+}func FlattenReplicationRuleFilter(ctx context.Context, filter *s3.ReplicationRuleFilter) []interface{} {
 	if filter == nil {
 		return []interface{}{}
 	}
@@ -822,14 +736,11 @@ func FlattenReplicationRuleFilter(ctx context.Context, filter *s3.ReplicationRul
 		m["prefix"] = aws.StringValue(filter.Prefix)
 	}
 
-	if filter.Tag != nil {
-		m["tag"] = FlattenReplicationRuleFilterTag(filter.Tag)
+	func"tag"] = FlattenReplicationRuleFilterTag(filter.Tag)
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRules(ctx context.Context, rules []*s3.LifecycleRule) []interface{} {
+}func FlattenLifecycleRules(ctx context.Context, rules []*s3.LifecycleRule) []interface{} {
 	if len(rules) == 0 {
 		return []interface{}{}
 	}
@@ -837,8 +748,7 @@ func FlattenLifecycleRules(ctx context.Context, rules []*s3.LifecycleRule) []int
 	var results []interface{}
 
 	for _, rule := range rules {
-		if rule == nil {
-			continue
+	funcontinue
 		}
 
 		m := make(map[string]interface{})
@@ -858,8 +768,7 @@ func FlattenLifecycleRules(ctx context.Context, rules []*s3.LifecycleRule) []int
 		if rule.ID != nil {
 			m["id"] = aws.StringValue(rule.ID)
 		}
-
-		if rule.NoncurrentVersionExpiration != nil {
+func rule.NoncurrentVersionExpiration != nil {
 			m["noncurrent_version_expiration"] = FlattenLifecycleRuleNoncurrentVersionExpiration(rule.NoncurrentVersionExpiration)
 		}
 
@@ -883,9 +792,7 @@ func FlattenLifecycleRules(ctx context.Context, rules []*s3.LifecycleRule) []int
 	}
 
 	return results
-}
-
-func FlattenLifecycleRuleAbortIncompleteMultipartUpload(u *s3.AbortIncompleteMultipartUpload) []interface{} {
+}func FlattenLifecycleRuleAbortIncompleteMultipartUpload(u *s3.AbortIncompleteMultipartUpload) []interface{} {
 	if u == nil {
 		return []interface{}{}
 	}
@@ -897,9 +804,7 @@ func FlattenLifecycleRuleAbortIncompleteMultipartUpload(u *s3.AbortIncompleteMul
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleExpiration(expiration *s3.LifecycleExpiration) []interface{} {
+}func FlattenLifecycleRuleExpiration(expiration *s3.LifecycleExpiration) []interface{} {
 	if expiration == nil {
 		return []interface{}{}
 	}
@@ -917,11 +822,8 @@ func FlattenLifecycleRuleExpiration(expiration *s3.LifecycleExpiration) []interf
 	if expiration.ExpiredObjectDeleteMarker != nil {
 		m["expired_object_delete_marker"] = aws.BoolValue(expiration.ExpiredObjectDeleteMarker)
 	}
-
-	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleFilter(ctx context.Context, filter *s3.LifecycleRuleFilter) []interface{} {
+funcurn []interface{}{m}
+}func FlattenLifecycleRuleFilter(ctx context.Context, filter *s3.LifecycleRuleFilter) []interface{} {
 	if filter == nil {
 		return nil
 	}
@@ -932,8 +834,7 @@ func FlattenLifecycleRuleFilter(ctx context.Context, filter *s3.LifecycleRuleFil
 		m["and"] = FlattenLifecycleRuleFilterAndOperator(ctx, filter.And)
 	}
 
-	if filter.ObjectSizeGreaterThan != nil {
-		m["object_size_greater_than"] = strconv.FormatInt(aws.Int64Value(filter.ObjectSizeGreaterThan), 10)
+	func"object_size_greater_than"] = strconv.FormatInt(aws.Int64Value(filter.ObjectSizeGreaterThan), 10)
 	}
 
 	if filter.ObjectSizeLessThan != nil {
@@ -949,14 +850,11 @@ func FlattenLifecycleRuleFilter(ctx context.Context, filter *s3.LifecycleRuleFil
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleFilterAndOperator(ctx context.Context, andOp *s3.LifecycleRuleAndOperator) []interface{} {
+}func FlattenLifecycleRuleFilterAndOperator(ctx context.Context, andOp *s3.LifecycleRuleAndOperator) []interface{} {
 	if andOp == nil {
 		return []interface{}{}
 	}
-
-	m := make(map[string]interface{})
+func= make(map[string]interface{})
 
 	if andOp.ObjectSizeGreaterThan != nil {
 		m["object_size_greater_than"] = int(aws.Int64Value(andOp.ObjectSizeGreaterThan))
@@ -975,9 +873,7 @@ func FlattenLifecycleRuleFilterAndOperator(ctx context.Context, andOp *s3.Lifecy
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleFilterTag(tag *s3.Tag) []interface{} {
+}func FlattenLifecycleRuleFilterTag(tag *s3.Tag) []interface{} {
 	if tag == nil {
 		return nil
 	}
@@ -986,16 +882,13 @@ func FlattenLifecycleRuleFilterTag(tag *s3.Tag) []interface{} {
 
 	if tag.Key != nil {
 		m["key"] = aws.StringValue(tag.Key)
-	}
-
+	func
 	if tag.Value != nil {
 		m["value"] = aws.StringValue(tag.Value)
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleNoncurrentVersionExpiration(expiration *s3.NoncurrentVersionExpiration) []interface{} {
+}func FlattenLifecycleRuleNoncurrentVersionExpiration(expiration *s3.NoncurrentVersionExpiration) []interface{} {
 	if expiration == nil {
 		return []interface{}{}
 	}
@@ -1011,12 +904,9 @@ func FlattenLifecycleRuleNoncurrentVersionExpiration(expiration *s3.NoncurrentVe
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenLifecycleRuleNoncurrentVersionTransitions(transitions []*s3.NoncurrentVersionTransition) []interface{} {
+}func FlattenLifecycleRuleNoncurrentVersionTransitions(transitions []*s3.NoncurrentVersionTransition) []interface{} {
 	if len(transitions) == 0 {
-		return []interface{}{}
-	}
+	func
 
 	var results []interface{}
 
@@ -1032,8 +922,7 @@ func FlattenLifecycleRuleNoncurrentVersionTransitions(transitions []*s3.Noncurre
 		}
 
 		if transition.NoncurrentDays != nil {
-			m["noncurrent_days"] = int(aws.Int64Value(transition.NoncurrentDays))
-		}
+	func
 
 		if transition.StorageClass != nil {
 			m["storage_class"] = aws.StringValue(transition.StorageClass)
@@ -1043,16 +932,13 @@ func FlattenLifecycleRuleNoncurrentVersionTransitions(transitions []*s3.Noncurre
 	}
 
 	return results
-}
-
-func FlattenLifecycleRuleTransitions(transitions []*s3.Transition) []interface{} {
+}func FlattenLifecycleRuleTransitions(transitions []*s3.Transition) []interface{} {
 	if len(transitions) == 0 {
 		return []interface{}{}
 	}
 
 	var results []interface{}
-
-	for _, transition := range transitions {
+func _, transition := range transitions {
 		if transition == nil {
 			continue
 		}
@@ -1075,17 +961,14 @@ func FlattenLifecycleRuleTransitions(transitions []*s3.Transition) []interface{}
 	}
 
 	return results
-}
-
-func FlattenReplicationRuleDestinationMetrics(metrics *s3.Metrics) []interface{} {
+}func FlattenReplicationRuleDestinationMetrics(metrics *s3.Metrics) []interface{} {
 	if metrics == nil {
 		return []interface{}{}
 	}
 
 	m := make(map[string]interface{})
 
-	if metrics.EventThreshold != nil {
-		m["event_threshold"] = FlattenReplicationRuleDestinationReplicationTimeValue(metrics.EventThreshold)
+	func"event_threshold"] = FlattenReplicationRuleDestinationReplicationTimeValue(metrics.EventThreshold)
 	}
 
 	if metrics.Status != nil {
@@ -1093,9 +976,7 @@ func FlattenReplicationRuleDestinationMetrics(metrics *s3.Metrics) []interface{}
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleDestinationReplicationTime(rt *s3.ReplicationTime) []interface{} {
+}func FlattenReplicationRuleDestinationReplicationTime(rt *s3.ReplicationTime) []interface{} {
 	if rt == nil {
 		return []interface{}{}
 	}
@@ -1111,23 +992,18 @@ func FlattenReplicationRuleDestinationReplicationTime(rt *s3.ReplicationTime) []
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleDestinationReplicationTimeValue(rtv *s3.ReplicationTimeValue) []interface{} {
+}func FlattenReplicationRuleDestinationReplicationTimeValue(rtv *s3.ReplicationTimeValue) []interface{} {
 	if rtv == nil {
 		return []interface{}{}
 	}
 
 	m := make(map[string]interface{})
-
-	if rtv.Minutes != nil {
+funcrtv.Minutes != nil {
 		m["minutes"] = int(aws.Int64Value(rtv.Minutes))
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) []interface{} {
+}func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) []interface{} {
 	if len(rules) == 0 {
 		return []interface{}{}
 	}
@@ -1138,8 +1014,7 @@ func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) [
 		if rule == nil {
 			continue
 		}
-
-		m := make(map[string]interface{})
+func:= make(map[string]interface{})
 
 		if rule.DeleteMarkerReplication != nil {
 			m["delete_marker_replication"] = FlattenReplicationRuleDeleteMarkerReplication(rule.DeleteMarkerReplication)
@@ -1155,8 +1030,7 @@ func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) [
 
 		if rule.Filter != nil {
 			m["filter"] = FlattenReplicationRuleFilter(ctx, rule.Filter)
-		}
-
+	func
 		if rule.ID != nil {
 			m["id"] = aws.StringValue(rule.ID)
 		}
@@ -1168,8 +1042,7 @@ func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) [
 		if rule.Priority != nil {
 			m["priority"] = int(aws.Int64Value(rule.Priority))
 		}
-
-		if rule.SourceSelectionCriteria != nil {
+func rule.SourceSelectionCriteria != nil {
 			m["source_selection_criteria"] = FlattenReplicationRuleSourceSelectionCriteria(rule.SourceSelectionCriteria)
 		}
 
@@ -1181,9 +1054,7 @@ func FlattenReplicationRules(ctx context.Context, rules []*s3.ReplicationRule) [
 	}
 
 	return results
-}
-
-func FlattenSourceSelectionCriteriaReplicaModifications(rc *s3.ReplicaModifications) []interface{} {
+}func FlattenSourceSelectionCriteriaReplicaModifications(rc *s3.ReplicaModifications) []interface{} {
 	if rc == nil {
 		return []interface{}{}
 	}
@@ -1195,9 +1066,7 @@ func FlattenSourceSelectionCriteriaReplicaModifications(rc *s3.ReplicaModificati
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleFilterAndOperator(ctx context.Context, op *s3.ReplicationRuleAndOperator) []interface{} {
+}func FlattenReplicationRuleFilterAndOperator(ctx context.Context, op *s3.ReplicationRuleAndOperator) []interface{} {
 	if op == nil {
 		return []interface{}{}
 	}
@@ -1213,9 +1082,7 @@ func FlattenReplicationRuleFilterAndOperator(ctx context.Context, op *s3.Replica
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenReplicationRuleFilterTag(tag *s3.Tag) []interface{} {
+}func FlattenReplicationRuleFilterTag(tag *s3.Tag) []interface{} {
 	if tag == nil {
 		return []interface{}{}
 	}
@@ -1229,11 +1096,8 @@ func FlattenReplicationRuleFilterTag(tag *s3.Tag) []interface{} {
 	if tag.Value != nil {
 		m["value"] = aws.StringValue(tag.Value)
 	}
-
-	return []interface{}{m}
-}
-
-func FlattenReplicationRuleSourceSelectionCriteria(ssc *s3.SourceSelectionCriteria) []interface{} {
+funcurn []interface{}{m}
+}func FlattenReplicationRuleSourceSelectionCriteria(ssc *s3.SourceSelectionCriteria) []interface{} {
 	if ssc == nil {
 		return []interface{}{}
 	}
@@ -1244,14 +1108,11 @@ func FlattenReplicationRuleSourceSelectionCriteria(ssc *s3.SourceSelectionCriter
 		m["replica_modifications"] = FlattenSourceSelectionCriteriaReplicaModifications(ssc.ReplicaModifications)
 	}
 
-	if ssc.SseKmsEncryptedObjects != nil {
-		m["sse_kms_encrypted_objects"] = FlattenSourceSelectionCriteriaSSEKMSEncryptedObjects(ssc.SseKmsEncryptedObjects)
+	func"sse_kms_encrypted_objects"] = FlattenSourceSelectionCriteriaSSEKMSEncryptedObjects(ssc.SseKmsEncryptedObjects)
 	}
 
 	return []interface{}{m}
-}
-
-func FlattenSourceSelectionCriteriaSSEKMSEncryptedObjects(objects *s3.SseKmsEncryptedObjects) []interface{} {
+}func FlattenSourceSelectionCriteriaSSEKMSEncryptedObjects(objects *s3.SseKmsEncryptedObjects) []interface{} {
 	if objects == nil {
 		return []interface{}{}
 	}
@@ -1263,4 +1124,4 @@ func FlattenSourceSelectionCriteriaSSEKMSEncryptedObjects(objects *s3.SseKmsEncr
 	}
 
 	return []interface{}{m}
-}
+}funcfuncfunc

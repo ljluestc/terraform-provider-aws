@@ -18,72 +18,68 @@ import (
 
 const keyRequestPageSize = 1000
 
-// @SDKDataSource("aws_s3_objects")
-func DataSourceObjects() *schema.Resource {
+// @SDKDataSource("aws_s3_objects")func DataSourceObjects() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceObjectsRead,
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"common_prefixes": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"delimiter": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"encoding_type": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:String,
+				Optional:
 				ValidateDiagFunc: enum.Validate[types.EncodingType](),
 			},
 			"fetch_owner": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 			},
 			"keys": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"max_keys": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Default:  1000,
 			},
 			"owners": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"prefix": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"request_charged": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"request_payer": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:String,
+				Optional:
 				ValidateDiagFunc: enum.Validate[types.RequestPayer](),
 			},
 			"start_after": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 		},
 	}
-}
-
-func dataSourceObjectsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Client(ctx)
 
 	bucket := d.Get("bucket").(string)

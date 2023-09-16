@@ -13,7 +13,7 @@ import (
 
 const (
 	apiCacheAvailableTimeout           = 60 * time.Minute
-	apiCacheDeletedTimeout             = 60 * time.Minute
+	apiCacheDeletedTimeout= 60 * time.Minute
 	domainNameAPIAssociationTimeout    = 60 * time.Minute
 	domainNameAPIDisassociationTimeout = 60 * time.Minute
 )

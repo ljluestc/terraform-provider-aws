@@ -260,7 +260,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -304,7 +304,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -331,7 +331,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_namePrefix,
@@ -357,7 +357,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_nameGenerated,
@@ -383,7 +383,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_tags1(rName, "key1", "value1"),
@@ -437,7 +437,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_fullRangeOfCharacters(rName),
@@ -463,7 +463,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -509,7 +509,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -553,7 +553,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_zeroValueName,
@@ -579,7 +579,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -626,7 +626,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, "tcp"),
@@ -660,7 +660,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_subnets(rName),
@@ -714,7 +714,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -749,7 +749,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -888,7 +888,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_healthCheck(rName),
@@ -921,7 +921,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_idleTimeout(rName),
@@ -952,7 +952,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_connectionDraining(rName),
@@ -992,7 +992,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_basic(rName),
@@ -1025,7 +1025,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_desyncMitigationMode(rName),
@@ -1054,7 +1054,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+CheckDestroy:testAccCheckLoadBalancerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateDefault(rName),
@@ -1460,9 +1460,9 @@ resource "aws_elb" "test" {
   health_check {
     healthy_threshold   = 5
     unhealthy_threshold = 5
-    target              = "HTTP:8000/"
+    target = "HTTP:8000/"
     interval            = 60
-    timeout             = 30
+    timeout= 30
   }
 }
 `, rName))
@@ -1486,9 +1486,9 @@ resource "aws_elb" "test" {
   health_check {
     healthy_threshold   = 10
     unhealthy_threshold = 5
-    target              = "HTTP:8000/"
+    target = "HTTP:8000/"
     interval            = 60
-    timeout             = 30
+    timeout= 30
   }
 }
 `, rName))
@@ -1678,7 +1678,7 @@ resource "aws_security_group" "test" {
 func testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, lbProtocol string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test_cert" {
-  name             = %[1]q
+  name= %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
@@ -1703,7 +1703,7 @@ resource "aws_elb" "test" {
 func testAccLoadBalancerConfig_listenerIAMServerCertificateAddInvalidListener(rName, certificate, key string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test_cert" {
-  name             = %[1]q
+  name= %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }

@@ -35,9 +35,9 @@ func TestAccGameLiftScript_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScriptDestroy(ctx),
+		CheckDestroy:testAccCheckScriptDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScriptConfig_basic(rName),
@@ -53,7 +53,7 @@ func TestAccGameLiftScript_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"zip_file"},
 			},
@@ -84,9 +84,9 @@ func TestAccGameLiftScript_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScriptDestroy(ctx),
+		CheckDestroy:testAccCheckScriptDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScriptConfig_basicTags1(rName, "key1", "value1"),
@@ -98,7 +98,7 @@ func TestAccGameLiftScript_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"zip_file"},
 			},
@@ -136,9 +136,9 @@ func TestAccGameLiftScript_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScriptDestroy(ctx),
+		CheckDestroy:testAccCheckScriptDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScriptConfig_basic(rName),

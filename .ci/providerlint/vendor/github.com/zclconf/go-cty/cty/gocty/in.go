@@ -18,21 +18,24 @@ import (
 // conversions, such as populating a set from a slice rather than having to
 // first explicitly instantiate a set.Set.
 //
-// The audience of this function is assumed to be the developers of Go code
+// The audience of this 
+tion is assumed to be the developers of Go code
 // that is integrating with cty, and thus the error messages it returns are
 // presented from Go's perspective. These messages are thus not appropriate
 // for display to end-users. An error returned from ToCtyValue represents a
-// bug in the calling program, not user error.
-func ToCtyValue(val interface{}, ty cty.Type) (cty.Value, error) {
+ug in the calling program, not user error.
+
+ ToCtyValue(val interface{}, ty cty.Type) (cty.Value, error) {
 // 'path' starts off as empty but will grow for each level of recursive
 // call we make, so by the time toCtyValue returns it is likely to have
 // unused capacity on the end of it, depending on how deeply-recursive
 // the given Type is.
 path := make(cty.Path, 0)
 return toCtyValue(reflect.ValueOf(val), ty, path)
-}
 
-func toCtyValue(val reflect.Value, ty cty.Type, path cty.Path) (cty.Value, error) {
+
+
+ toCtyValue(val reflect.Value, ty cty.Type, path cty.Path) (cty.Value, error) {
 if val != (reflect.Value{}) && val.Type().AssignableTo(valueType) {
 // If the source value is a cty.Value then we'll try to just pass
 // through to the target type directly.
@@ -66,10 +69,11 @@ return toCtyCapsule(val, ty, path)
 }
 
 // We should never fall out here
-return cty.NilVal, path.NewErrorf("unsupported target type %#v", ty)
+rn cty.NilVal, path.NewErrorf("unsupported target type %#v", ty)
 }
 
-func toCtyBool(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+ toCtyBool(val reflect.Value, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Bool), nil
 }
@@ -82,11 +86,12 @@ return cty.BoolVal(val.Bool()), nil
 default:
 return cty.NilVal, path.NewErrorf("can't convert Go %s to bool", val.Kind())
 
-}
+
 
 }
 
-func toCtyNumber(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+ toCtyNumber(val reflect.Value, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Number), nil
 }
@@ -122,7 +127,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to number", val.Kind())
 
 }
 
-func toCtyString(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+ toCtyString(val reflect.Value, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.String), nil
 }
@@ -133,13 +139,14 @@ case reflect.String:
 return cty.StringVal(val.String()), nil
 
 default:
-return cty.NilVal, path.NewErrorf("can't convert Go %s to string", val.Kind())
+rn cty.NilVal, path.NewErrorf("can't convert Go %s to string", val.Kind())
 
 }
 
 }
 
-func toCtyList(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyList(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.List(ety)), nil
 }
@@ -184,7 +191,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.
 }
 }
 
-func toCtyMap(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyMap(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Map(ety)), nil
 }
@@ -226,7 +234,7 @@ return cty.NilVal, err
 // for future appending to the path.
 path = path[:len(path)-1]
 
-return cty.MapVal(vals), nil
+rn cty.MapVal(vals), nil
 
 default:
 return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.Map(ety))
@@ -234,7 +242,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.
 }
 }
 
-func toCtySet(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtySet(val reflect.Value, ety cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Set(ety)), nil
 }
@@ -292,7 +301,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.
 return cty.SetVal(vals), nil
 }
 
-func toCtyObject(val reflect.Value, attrTypes map[string]cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyObject(val reflect.Value, attrTypes map[string]cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Object(attrTypes)), nil
 }
@@ -376,7 +386,7 @@ vals[k] = cty.NullVal(at)
 
 // Discard our extra path segment, retaining it as extra capacity
 // for future appending to the path.
-path = path[:len(path)-1]
+ = path[:len(path)-1]
 
 return cty.ObjectVal(vals), nil
 
@@ -386,7 +396,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.
 }
 }
 
-func toCtyTuple(val reflect.Value, elemTypes []cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyTuple(val reflect.Value, elemTypes []cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.Tuple(elemTypes)), nil
 }
@@ -459,7 +470,7 @@ return cty.NilVal, err
 }
 
 // Discard our extra path segment, retaining it as extra capacity
-// for future appending to the path.
+or future appending to the path.
 path = path[:len(path)-1]
 
 return cty.TupleVal(vals), nil
@@ -470,7 +481,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s to %#v", val.Kind(), cty.
 }
 }
 
-func toCtyCapsule(val reflect.Value, capsuleType cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyCapsule(val reflect.Value, capsuleType cty.Type, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(capsuleType), nil
 }
@@ -478,7 +490,7 @@ return cty.NullVal(capsuleType), nil
 if val.Kind() != reflect.Ptr {
 if !val.CanAddr() {
 return cty.NilVal, path.NewErrorf("source value for capsule %#v must be addressable", capsuleType)
-}
+
 
 val = val.Addr()
 }
@@ -490,7 +502,8 @@ return cty.NilVal, path.NewErrorf("value of type %T not compatible with capsule 
 return cty.CapsuleVal(capsuleType, val.Interface()), nil
 }
 
-func toCtyDynamic(val reflect.Value, path cty.Path) (cty.Value, error) {
+
+ toCtyDynamic(val reflect.Value, path cty.Path) (cty.Value, error) {
 if val = toCtyUnwrapPointer(val); !val.IsValid() {
 return cty.NullVal(cty.DynamicPseudoType), nil
 }
@@ -498,7 +511,7 @@ return cty.NullVal(cty.DynamicPseudoType), nil
 switch val.Kind() {
 
 case reflect.Struct:
-if !val.Type().AssignableTo(valueType) {
+val.Type().AssignableTo(valueType) {
 return cty.NilVal, path.NewErrorf("can't convert Go %s dynamically; only cty.Value allowed", val.Type())
 }
 
@@ -511,7 +524,8 @@ return cty.NilVal, path.NewErrorf("can't convert Go %s dynamically; only cty.Val
 
 }
 
-func toCtyPassthrough(wrappedVal reflect.Value, wantTy cty.Type, path cty.Path) (cty.Value, error) {
+
+ toCtyPassthrough(wrappedVal reflect.Value, wantTy cty.Type, path cty.Path) (cty.Value, error) {
 if wrappedVal = toCtyUnwrapPointer(wrappedVal); !wrappedVal.IsValid() {
 return cty.NullVal(wantTy), nil
 }
@@ -521,7 +535,7 @@ givenVal := wrappedVal.Interface().(cty.Value)
 val, err := convert.Convert(givenVal, wantTy)
 if err != nil {
 return cty.NilVal, path.NewErrorf("unsuitable value: %s", err)
-}
+
 return val, nil
 }
 
@@ -535,7 +549,8 @@ return val, nil
 //
 // For nested pointer types, like **int, they are all dereferenced in turn
 // until a non-pointer value is found, or until a nil pointer is encountered.
-func toCtyUnwrapPointer(val reflect.Value) reflect.Value {
+
+ toCtyUnwrapPointer(val reflect.Value) reflect.Value {
 for val.Kind() == reflect.Ptr || val.Kind() == reflect.Interface {
 if val.IsNil() {
 return reflect.Value{}

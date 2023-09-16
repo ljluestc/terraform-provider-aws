@@ -42,62 +42,62 @@ func ResourceStage() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_log_settings": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				MinItems: 0,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:.TypeString,
+							Required:
 							ValidateFunc: verify.ValidARN,
 						},
 						"format": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"auto_deploy": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"client_certificate_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"default_route_settings": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MinItems:         0,
-				MaxItems:         1,
+				Type:
+				Optional:
+				MinItems:
+				MaxItems:
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"data_trace_enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Default:  false,
 						},
 						"detailed_metrics_enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Default:  false,
 						},
 						"logging_level": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							Computed: true,
 							ValidateFunc: validation.StringInSlice([]string{
@@ -107,58 +107,58 @@ func ResourceStage() *schema.Resource {
 							}, false),
 						},
 						"throttling_burst_limit": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Optional: true,
 						},
 						"throttling_rate_limit": {
-							Type:     schema.TypeFloat,
+							Type:eFloat,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"deployment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"execution_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"invoke_url": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"route_settings": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 0,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"data_trace_enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Default:  false,
 						},
 						"detailed_metrics_enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Optional: true,
 							Default:  false,
 						},
 						"logging_level": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							Computed: true,
 							ValidateFunc: validation.StringInSlice([]string{
@@ -168,24 +168,24 @@ func ResourceStage() *schema.Resource {
 							}, false),
 						},
 						"route_key": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 						"throttling_burst_limit": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Optional: true,
 						},
 						"throttling_rate_limit": {
-							Type:     schema.TypeFloat,
+							Type:eFloat,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"stage_variables": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -211,10 +211,10 @@ func resourceStageCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	protocolType := aws.StringValue(apiOutput.ProtocolType)
 
 	req := &apigatewayv2.CreateStageInput{
-		ApiId:      aws.String(apiId),
+		ApiId:g(apiId),
 		AutoDeploy: aws.Bool(d.Get("auto_deploy").(bool)),
 		StageName:  aws.String(d.Get("name").(string)),
-		Tags:       getTagsIn(ctx),
+		Tags:n(ctx),
 	}
 	if v, ok := d.GetOk("access_log_settings"); ok {
 		req.AccessLogSettings = expandAccessLogSettings(v.([]interface{}))
@@ -255,7 +255,7 @@ func resourceStageRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	apiId := d.Get("api_id").(string)
 	resp, err := conn.GetStageWithContext(ctx, &apigatewayv2.GetStageInput{
-		ApiId:     aws.String(apiId),
+		ApiId:(apiId),
 		StageName: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) && !d.IsNewResource() {
@@ -348,7 +348,7 @@ func resourceStageUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		protocolType := aws.StringValue(apiOutput.ProtocolType)
 
 		req := &apigatewayv2.UpdateStageInput{
-			ApiId:     aws.String(apiId),
+			ApiId:(apiId),
 			StageName: aws.String(d.Id()),
 		}
 		if d.HasChange("access_log_settings") {
@@ -379,7 +379,7 @@ func resourceStageUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 				log.Printf("[DEBUG] Deleting API Gateway v2 stage (%s) route settings (%s)", d.Id(), routeKey)
 				_, err := conn.DeleteRouteSettingsWithContext(ctx, &apigatewayv2.DeleteRouteSettingsInput{
-					ApiId:     aws.String(d.Get("api_id").(string)),
+					ApiId:(d.Get("api_id").(string)),
 					RouteKey:  aws.String(routeKey),
 					StageName: aws.String(d.Id()),
 				})
@@ -423,7 +423,7 @@ func resourceStageDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 stage (%s)", d.Id())
 	_, err := conn.DeleteStageWithContext(ctx, &apigatewayv2.DeleteStageInput{
-		ApiId:     aws.String(d.Get("api_id").(string)),
+		ApiId:(d.Get("api_id").(string)),
 		StageName: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -448,7 +448,7 @@ func resourceStageImport(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetStageWithContext(ctx, &apigatewayv2.GetStageInput{
-		ApiId:     aws.String(apiId),
+		ApiId:(apiId),
 		StageName: aws.String(stageName),
 	})
 	if err != nil {
@@ -490,7 +490,7 @@ func flattenAccessLogSettings(settings *apigatewayv2.AccessLogSettings) []interf
 
 	return []interface{}{map[string]interface{}{
 		"destination_arn": aws.StringValue(settings.DestinationArn),
-		"format":          aws.StringValue(settings.Format),
+		"format":ings.Format),
 	}}
 }
 
@@ -527,9 +527,9 @@ func flattenDefaultRouteSettings(routeSettings *apigatewayv2.RouteSettings) []in
 	}
 
 	return []interface{}{map[string]interface{}{
-		"data_trace_enabled":       aws.BoolValue(routeSettings.DataTraceEnabled),
+		"data_trace_enabled":Value(routeSettings.DataTraceEnabled),
 		"detailed_metrics_enabled": aws.BoolValue(routeSettings.DetailedMetricsEnabled),
-		"logging_level":            aws.StringValue(routeSettings.LoggingLevel),
+		"logging_level":uteSettings.LoggingLevel),
 		"throttling_burst_limit":   int(aws.Int64Value(routeSettings.ThrottlingBurstLimit)),
 		"throttling_rate_limit":    aws.Float64Value(routeSettings.ThrottlingRateLimit),
 	}}
@@ -570,10 +570,10 @@ func flattenRouteSettings(settings map[string]*apigatewayv2.RouteSettings) []int
 
 	for k, routeSetting := range settings {
 		vSettings = append(vSettings, map[string]interface{}{
-			"data_trace_enabled":       aws.BoolValue(routeSetting.DataTraceEnabled),
+			"data_trace_enabled":Value(routeSetting.DataTraceEnabled),
 			"detailed_metrics_enabled": aws.BoolValue(routeSetting.DetailedMetricsEnabled),
-			"logging_level":            aws.StringValue(routeSetting.LoggingLevel),
-			"route_key":                k,
+			"logging_level":uteSetting.LoggingLevel),
+			"route_key":
 			"throttling_burst_limit":   int(aws.Int64Value(routeSetting.ThrottlingBurstLimit)),
 			"throttling_rate_limit":    aws.Float64Value(routeSetting.ThrottlingRateLimit),
 		})

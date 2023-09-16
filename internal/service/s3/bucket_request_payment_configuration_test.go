@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketRequestPaymentConfiguration_Basic_BucketOwner(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_request_payment_configuration.test"
 
@@ -45,11 +42,8 @@ func TestAccS3BucketRequestPaymentConfiguration_Basic_BucketOwner(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccS3BucketRequestPaymentConfiguration_Basic_Requester(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketRequestPaymentConfiguration_Basic_Requester(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_request_payment_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -73,12 +67,9 @@ func TestAccS3BucketRequestPaymentConfiguration_Basic_Requester(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketRequestPaymentConfiguration_update(t *testing.T) {
+}func TestAccS3BucketRequestPaymentConfiguration_update(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_request_payment_configuration.test"
+	funcourceName := "aws_s3_bucket_request_payment_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -111,13 +102,10 @@ func TestAccS3BucketRequestPaymentConfiguration_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketRequestPaymentConfiguration_migrate_noChange(t *testing.T) {
+}func TestAccS3BucketRequestPaymentConfiguration_migrate_noChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	bucketResourceName := "aws_s3_bucket.test"
-	resourceName := "aws_s3_bucket_request_payment_configuration.test"
+	funcourceName := "aws_s3_bucket_request_payment_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -141,14 +129,11 @@ func TestAccS3BucketRequestPaymentConfiguration_migrate_noChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketRequestPaymentConfiguration_migrate_withChange(t *testing.T) {
+}func TestAccS3BucketRequestPaymentConfiguration_migrate_withChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
-	resourceName := "aws_s3_bucket_request_payment_configuration.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -171,15 +156,12 @@ func TestAccS3BucketRequestPaymentConfiguration_migrate_withChange(t *testing.T)
 			},
 		},
 	})
-}
-
-func testAccCheckBucketRequestPaymentConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketRequestPaymentConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_s3_bucket_request_payment_configuration" {
-				continue
+	funccontinue
 			}
 
 			bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
@@ -212,16 +194,13 @@ func testAccCheckBucketRequestPaymentConfigurationDestroy(ctx context.Context) r
 
 		return nil
 	}
-}
-
-func testAccCheckBucketRequestPaymentConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckBucketRequestPaymentConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("Resource (%s) ID not set", resourceName)
 		}
 
@@ -252,17 +231,14 @@ func testAccCheckBucketRequestPaymentConfigurationExists(ctx context.Context, re
 
 		return nil
 	}
-}
-
-func testAccBucketRequestPaymentConfigurationConfig_basic(rName, payer string) string {
+}func testAccBucketRequestPaymentConfigurationConfig_basic(rName, payer string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 
 resource "aws_s3_bucket_request_payment_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-  payer  = %[2]q
+ funcyer  = %[2]q
 }
 `, rName, payer)
 }

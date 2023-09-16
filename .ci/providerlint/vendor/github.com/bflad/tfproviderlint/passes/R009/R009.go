@@ -33,7 +33,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	logPanicCallExprs := pass.ResultOf[logpaniccallexpr.Analyzer].([]*ast.CallExpr)
 	logPanicfCallExprs := pass.ResultOf[logpanicfcallexpr.Analyzer].([]*ast.CallExpr)

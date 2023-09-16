@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_route_table")
 
-func DataSourceRouteTable() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceRouteTableRead,
 
 Timeouts: &schema.ResourceTimeout{
@@ -32,29 +31,29 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"subnet_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 	},
 	"gateway_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 	},
 	"route_table_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 	},
 	"vpc_id": {
-Type:     schema.TypeString,
+Type:eString,
 Optional: true,
 Computed: true,
 	},
 	"filter": CustomFiltersSchema(),
-	"tags":   tftags.TagsSchemaComputed(),
+	"tags":ags.TagsSchemaComputed(),
 	"routes": {
-Type:     schema.TypeList,
+Type:eList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
@@ -62,17 +61,17 @@ Elem: &schema.Resource{
 // Destinations.
 ///
 "cidr_block": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "ipv6_cidr_block": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "destination_prefix_list_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
@@ -80,57 +79,57 @@ Elem: &schema.Resource{
 // Targets.
 ///
 "carrier_gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "core_network_arn": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "egress_only_gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "instance_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "local_gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "nat_gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "network_interface_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "transit_gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "vpc_endpoint_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "vpc_peering_connection_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 	},
@@ -138,32 +137,32 @@ Elem: &schema.Resource{
 	},
 
 	"associations": {
-Type:     schema.TypeList,
+Type:eList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "route_table_association_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "route_table_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "subnet_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "gateway_id": {
-	Type:     schema.TypeString,
+	Type:eString,
 	Computed: true,
 },
 
 "main": {
-	Type:     schema.TypeBool,
+	Type:eBool,
 	Computed: true,
 },
 	},
@@ -171,12 +170,12 @@ Elem: &schema.Resource{
 	},
 
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 
 	"owner_id": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 },
@@ -184,8 +183,7 @@ Computed: true,
 }
 
 func dataSourceRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	req := &ec2.DescribeRouteTablesInput{}
@@ -232,8 +230,8 @@ return sdkdiag.AppendErrorf(diags, "multiple Route Tables matched; use additiona
 	ownerID := aws.StringValue(rt.OwnerId)
 	arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   ec2.ServiceName,
-Region:    meta.(*conns.AWSClient).Region,
+Service:.ServiceName,
+Region:ta.(*conns.AWSClient).Region,
 AccountID: ownerID,
 Resource:  fmt.Sprintf("route-table/%s", d.Id()),
 	}.String()
@@ -261,8 +259,7 @@ return sdkdiag.AppendErrorf(diags, "reading EC2 VPC Route Table: %s", err)
 
 func dataSourceRoutesRead(ctx context.Context, conn *ec2.EC2, ec2Routes []*ec2.Route) []map[string]interface{} {
 	routes := make([]map[string]interface{}, 0, len(ec2Routes))
-	// Loop through the routes and add them to the set
-	for _, r := range ec2Routes {
+func _, r := range ec2Routes {
 if gatewayID := aws.StringValue(r.GatewayId); gatewayID == gatewayIDLocal || gatewayID == gatewayIDVPCLattice {
 	continue
 }
@@ -343,8 +340,7 @@ routes = append(routes, m)
 func dataSourceAssociationsRead(ec2Assocations []*ec2.RouteTableAssociation) []map[string]interface{} {
 	associations := make([]map[string]interface{}, 0, len(ec2Assocations))
 	// Loop through the routes and add them to the set
-	for _, a := range ec2Assocations {
-m := make(map[string]interface{})
+func make(map[string]interface{})
 m["route_table_id"] = aws.StringValue(a.RouteTableId)
 m["route_table_association_id"] = aws.StringValue(a.RouteTableAssociationId)
 // GH[11134]

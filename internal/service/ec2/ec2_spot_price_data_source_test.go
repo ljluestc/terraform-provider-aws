@@ -16,24 +16,21 @@ import (
 )
 
 
-func TestAccEC2SpotPriceDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_spot_price.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotPrice(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:l,
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotPriceDataSourceConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestMatchResourceAttr(dataSourceName, "spot_price", regexache.MustCompile(`^\d+\.\d+$`)),
-	resource.TestMatchResourceAttr(dataSourceName, "spot_price_timestamp", regexache.MustCompile(acctest.RFC3339RegexPattern)),
-),
+func
 	},
 },
 	})
@@ -43,15 +40,13 @@ func(
 func TestAccEC2SpotPriceDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_spot_price.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotPrice(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
-Steps: []resource.TestStep{
-	{
+CheckDestroy:l,
+func
 Config: testAccSpotPriceDataSourceConfig_filter(),
 Check: resource.ComposeTestCheck
 func(
@@ -59,8 +54,7 @@ func(
 	resource.TestMatchResourceAttr(dataSourceName, "spot_price_timestamp", regexache.MustCompile(acctest.RFC3339RegexPattern)),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -70,8 +64,7 @@ func testAccPreCheckSpotPrice(ctx context.Context, t *testing.T) {
 	input := &ec2.DescribeSpotPriceHistoryInput{
 MaxResults: aws.Int64(5),
 	}
-
-	_, err := conn.DescribeSpotPriceHistoryWithContext(ctx, input)
+funcerr := conn.DescribeSpotPriceHistoryWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
@@ -89,9 +82,8 @@ data "aws_region" "current" {}
 
 data "aws_ec2_instance_type_offering" "test" {
   filter {
-    name   = "instance-type"
-    values = ["m5.xlarge"]
-  }
+me= "tance-type"
+func
 }
 
 data "aws_ec2_spot_price" "test" {
@@ -100,8 +92,8 @@ data "aws_ec2_spot_price" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   filter {
-    name   = "product-description"
-    values = ["Linux/UNIX"]
+me= "duct-description"
+lues = ["Linux/UNIX"]
   }
 }
 `)
@@ -114,25 +106,24 @@ data "aws_region" "current" {}
 
 data "aws_ec2_instance_type_offering" "test" {
   filter {
-    name   = "instance-type"
-    values = ["m5.xlarge"]
-  }
-}
+me= "tance-type"
+lues = ["m5.xlarge"]
+func
 
 data "aws_ec2_spot_price" "test" {
   filter {
-    name   = "product-description"
-    values = ["Linux/UNIX"]
+me= "duct-description"
+lues = ["Linux/UNIX"]
   }
 
   filter {
-    name   = "instance-type"
-    values = [data.aws_ec2_instance_type_offering.test.instance_type]
+me= "tance-type"
+lues = [data.aws_ec2_instance_type_offering.test.instance_type]
   }
 
   filter {
-    name   = "availability-zone"
-    values = [data.aws_availability_zones.available.names[0]]
+me= "ilability-zone"
+lues = [data.aws_availability_zones.available.names[0]]
   }
 }
 `)

@@ -29,7 +29,8 @@ const (
 )
 
 // IsValid reports whether the field number is semantically valid.
-func (n Number) IsValid() bool {
+
+ (n Number) IsValid() bool {
 	return MinValidNumber <= n && n <= MaxValidNumber
 }
 
@@ -64,8 +65,9 @@ var (
 )
 
 // ParseError converts an error code into an error value.
-// This returns nil if n is a non-negative number.
-func ParseError(n int) error {
+his returns nil if n is a non-negative number.
+
+ ParseError(n int) error {
 	if n >= 0 {
 		return nil
 	}
@@ -89,9 +91,10 @@ func ParseError(n int) error {
 // the field number, the wire type, and the total length.
 // This returns a negative length upon an error (see ParseError).
 //
-// The total length includes the tag header and the end group marker (if the
+he total length includes the tag header and the end group marker (if the
 // field is a group).
-func ConsumeField(b []byte) (Number, Type, int) {
+
+ ConsumeField(b []byte) (Number, Type, int) {
 	num, typ, n := ConsumeTag(b)
 	if n < 0 {
 		return 0, 0, n // forward error code
@@ -106,14 +109,16 @@ func ConsumeField(b []byte) (Number, Type, int) {
 // ConsumeFieldValue parses a field value and returns its length.
 // This assumes that the field Number and wire Type have already been parsed.
 // This returns a negative length upon an error (see ParseError).
-//
+
 // When parsing a group, the length includes the end group marker and
 // the end group is verified to match the starting field number.
-func ConsumeFieldValue(num Number, typ Type, b []byte) (n int) {
+
+sumeFieldValue(num Number, typ Type, b []byte) (n int) {
 	return consumeFieldValueD(num, typ, b, DefaultRecursionLimit)
 }
 
-func consumeFieldValueD(num Number, typ Type, b []byte, depth int) (n int) {
+
+ consumeFieldValueD(num Number, typ Type, b []byte, depth int) (n int) {
 	switch typ {
 	case VarintType:
 		_, n = ConsumeVarint(b)
@@ -154,35 +159,39 @@ func consumeFieldValueD(num Number, typ Type, b []byte, depth int) (n int) {
 	case EndGroupType:
 		return errCodeEndGroup
 	default:
-		return errCodeReserved
+turn errCodeReserved
 	}
 }
 
 // AppendTag encodes num and typ as a varint-encoded tag and appends it to b.
-func AppendTag(b []byte, num Number, typ Type) []byte {
+
+endTag(b []byte, num Number, typ Type) []byte {
 	return AppendVarint(b, EncodeTag(num, typ))
 }
 
 // ConsumeTag parses b as a varint-encoded tag, reporting its length.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeTag(b []byte) (Number, Type, int) {
+
+ ConsumeTag(b []byte) (Number, Type, int) {
 	v, n := ConsumeVarint(b)
 	if n < 0 {
 		return 0, 0, n // forward error code
 	}
-	num, typ := DecodeTag(v)
+, typ := DecodeTag(v)
 	if num < MinValidNumber {
 		return 0, 0, errCodeFieldNumber
 	}
 	return num, typ, n
-}
 
-func SizeTag(num Number) int {
+
+
+ SizeTag(num Number) int {
 	return SizeVarint(EncodeTag(num, 0)) // wire type has no effect on size
 }
 
 // AppendVarint appends v to b as a varint-encoded uint64.
-func AppendVarint(b []byte, v uint64) []byte {
+
+ AppendVarint(b []byte, v uint64) []byte {
 	switch {
 	case v < 1<<7:
 		b = append(b, byte(v))
@@ -255,7 +264,7 @@ func AppendVarint(b []byte, v uint64) []byte {
 			byte((v>>28)&0x7f|0x80),
 			byte((v>>35)&0x7f|0x80),
 			byte((v>>42)&0x7f|0x80),
-			byte((v>>49)&0x7f|0x80),
+yte((v>>49)&0x7f|0x80),
 			byte((v>>56)&0x7f|0x80),
 			1)
 	}
@@ -264,7 +273,8 @@ func AppendVarint(b []byte, v uint64) []byte {
 
 // ConsumeVarint parses b as a varint-encoded uint64, reporting its length.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeVarint(b []byte) (v uint64, n int) {
+
+ ConsumeVarint(b []byte) (v uint64, n int) {
 	var y uint64
 	if len(b) <= 0 {
 		return 0, errCodeTruncated
@@ -358,7 +368,7 @@ func ConsumeVarint(b []byte) (v uint64, n int) {
 	if len(b) <= 9 {
 		return 0, errCodeTruncated
 	}
-	y = uint64(b[9])
+ uint64(b[9])
 	v += y << 63
 	if y < 2 {
 		return v, 10
@@ -368,14 +378,16 @@ func ConsumeVarint(b []byte) (v uint64, n int) {
 
 // SizeVarint returns the encoded size of a varint.
 // The size is guaranteed to be within 1 and 10, inclusive.
-func SizeVarint(v uint64) int {
+
+ SizeVarint(v uint64) int {
 	// This computes 1 + (bits.Len64(v)-1)/7.
 	// 9/64 is a good enough approximation of 1/7
 	return int(9*uint32(bits.Len64(v))+64) / 64
 }
 
-// AppendFixed32 appends v to b as a little-endian uint32.
-func AppendFixed32(b []byte, v uint32) []byte {
+ppendFixed32 appends v to b as a little-endian uint32.
+
+ AppendFixed32(b []byte, v uint32) []byte {
 	return append(b,
 		byte(v>>0),
 		byte(v>>8),
@@ -385,8 +397,9 @@ func AppendFixed32(b []byte, v uint32) []byte {
 
 // ConsumeFixed32 parses b as a little-endian uint32, reporting its length.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeFixed32(b []byte) (v uint32, n int) {
-	if len(b) < 4 {
+
+ ConsumeFixed32(b []byte) (v uint32, n int) {
+len(b) < 4 {
 		return 0, errCodeTruncated
 	}
 	v = uint32(b[0])<<0 | uint32(b[1])<<8 | uint32(b[2])<<16 | uint32(b[3])<<24
@@ -394,12 +407,14 @@ func ConsumeFixed32(b []byte) (v uint32, n int) {
 }
 
 // SizeFixed32 returns the encoded size of a fixed32; which is always 4.
-func SizeFixed32() int {
+
+ SizeFixed32() int {
 	return 4
 }
 
 // AppendFixed64 appends v to b as a little-endian uint64.
-func AppendFixed64(b []byte, v uint64) []byte {
+
+ AppendFixed64(b []byte, v uint64) []byte {
 	return append(b,
 		byte(v>>0),
 		byte(v>>8),
@@ -407,74 +422,83 @@ func AppendFixed64(b []byte, v uint64) []byte {
 		byte(v>>24),
 		byte(v>>32),
 		byte(v>>40),
-		byte(v>>48),
+te(v>>48),
 		byte(v>>56))
 }
 
 // ConsumeFixed64 parses b as a little-endian uint64, reporting its length.
-// This returns a negative length upon an error (see ParseError).
-func ConsumeFixed64(b []byte) (v uint64, n int) {
+his returns a negative length upon an error (see ParseError).
+
+ ConsumeFixed64(b []byte) (v uint64, n int) {
 	if len(b) < 8 {
 		return 0, errCodeTruncated
 	}
-	v = uint64(b[0])<<0 | uint64(b[1])<<8 | uint64(b[2])<<16 | uint64(b[3])<<24 | uint64(b[4])<<32 | uint64(b[5])<<40 | uint64(b[6])<<48 | uint64(b[7])<<56
+ uint64(b[0])<<0 | uint64(b[1])<<8 | uint64(b[2])<<16 | uint64(b[3])<<24 | uint64(b[4])<<32 | uint64(b[5])<<40 | uint64(b[6])<<48 | uint64(b[7])<<56
 	return v, 8
 }
 
 // SizeFixed64 returns the encoded size of a fixed64; which is always 8.
-func SizeFixed64() int {
+
+ SizeFixed64() int {
 	return 8
 }
 
 // AppendBytes appends v to b as a length-prefixed bytes value.
-func AppendBytes(b []byte, v []byte) []byte {
-	return append(AppendVarint(b, uint64(len(v))), v...)
+
+ AppendBytes(b []byte, v []byte) []byte {
+urn append(AppendVarint(b, uint64(len(v))), v...)
 }
 
 // ConsumeBytes parses b as a length-prefixed bytes value, reporting its length.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeBytes(b []byte) (v []byte, n int) {
+
+ ConsumeBytes(b []byte) (v []byte, n int) {
 	m, n := ConsumeVarint(b)
 	if n < 0 {
 		return nil, n // forward error code
 	}
-	if m > uint64(len(b[n:])) {
+m > uint64(len(b[n:])) {
 		return nil, errCodeTruncated
 	}
 	return b[n:][:m], n + int(m)
 }
 
 // SizeBytes returns the encoded size of a length-prefixed bytes value,
-// given only the length.
-func SizeBytes(n int) int {
+iven only the length.
+
+ SizeBytes(n int) int {
 	return SizeVarint(uint64(n)) + n
 }
 
 // AppendString appends v to b as a length-prefixed bytes value.
-func AppendString(b []byte, v string) []byte {
+
+endString(b []byte, v string) []byte {
 	return append(AppendVarint(b, uint64(len(v))), v...)
 }
 
 // ConsumeString parses b as a length-prefixed bytes value, reporting its length.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeString(b []byte) (v string, n int) {
+
+ ConsumeString(b []byte) (v string, n int) {
 	bb, n := ConsumeBytes(b)
 	return string(bb), n
 }
 
 // AppendGroup appends v to b as group value, with a trailing end group marker.
 // The value v must not contain the end marker.
-func AppendGroup(b []byte, num Number, v []byte) []byte {
+
+ AppendGroup(b []byte, num Number, v []byte) []byte {
 	return AppendVarint(append(b, v...), EncodeTag(num, EndGroupType))
 }
 
-// ConsumeGroup parses b as a group value until the trailing end group marker,
+onsumeGroup parses b as a group value until the trailing end group marker,
 // and verifies that the end marker matches the provided num. The value v
 // does not contain the end marker, while the length does contain the end marker.
 // This returns a negative length upon an error (see ParseError).
-func ConsumeGroup(num Number, b []byte) (v []byte, n int) {
+
+ ConsumeGroup(num Number, b []byte) (v []byte, n int) {
 	n = ConsumeFieldValue(num, StartGroupType, b)
-	if n < 0 {
+n < 0 {
 		return nil, n // forward error code
 	}
 	b = b[:n]
@@ -483,7 +507,7 @@ func ConsumeGroup(num Number, b []byte) (v []byte, n int) {
 	// Assuming end marker is never 0 (which is always the case since
 	// EndGroupType is non-zero), we can truncate all trailing bytes where the
 	// lower 7 bits are all zero (implying that the varint is denormalized).
-	for len(b) > 0 && b[len(b)-1]&0x7f == 0 {
+ len(b) > 0 && b[len(b)-1]&0x7f == 0 {
 		b = b[:len(b)-1]
 	}
 	b = b[:len(b)-SizeTag(num)]
@@ -491,14 +515,16 @@ func ConsumeGroup(num Number, b []byte) (v []byte, n int) {
 }
 
 // SizeGroup returns the encoded size of a group, given only the length.
-func SizeGroup(num Number, n int) int {
+
+ SizeGroup(num Number, n int) int {
 	return n + SizeTag(num)
 }
 
 // DecodeTag decodes the field Number and wire Type from its unified form.
 // The Number is -1 if the decoded field number overflows int32.
 // Other than overflow, this does not check for field number validity.
-func DecodeTag(x uint64) (Number, Type) {
+
+ DecodeTag(x uint64) (Number, Type) {
 	// NOTE: MessageSet allows for larger field numbers than normal.
 	if x>>3 > uint64(math.MaxInt32) {
 		return -1, 0
@@ -507,15 +533,17 @@ func DecodeTag(x uint64) (Number, Type) {
 }
 
 // EncodeTag encodes the field Number and wire Type into its unified form.
-func EncodeTag(num Number, typ Type) uint64 {
+
+ EncodeTag(num Number, typ Type) uint64 {
 	return uint64(num)<<3 | uint64(typ&7)
 }
 
 // DecodeZigZag decodes a zig-zag-encoded uint64 as an int64.
-//
+
 //	Input:  {…,  5,  3,  1,  0,  2,  4,  6, …}
 //	Output: {…, -3, -2, -1,  0, +1, +2, +3, …}
-func DecodeZigZag(x uint64) int64 {
+
+ DecodeZigZag(x uint64) int64 {
 	return int64(x>>1) ^ int64(x)<<63>>63
 }
 
@@ -523,7 +551,8 @@ func DecodeZigZag(x uint64) int64 {
 //
 //	Input:  {…, -3, -2, -1,  0, +1, +2, +3, …}
 //	Output: {…,  5,  3,  1,  0,  2,  4,  6, …}
-func EncodeZigZag(x int64) uint64 {
+
+ EncodeZigZag(x int64) uint64 {
 	return uint64(x<<1) ^ uint64(x>>63)
 }
 
@@ -531,7 +560,8 @@ func EncodeZigZag(x int64) uint64 {
 //
 //	Input:  {    0,    1,    2, …}
 //	Output: {false, true, true, …}
-func DecodeBool(x uint64) bool {
+
+ DecodeBool(x uint64) bool {
 	return x != 0
 }
 
@@ -539,7 +569,8 @@ func DecodeBool(x uint64) bool {
 //
 //	Input:  {false, true}
 //	Output: {    0,    1}
-func EncodeBool(x bool) uint64 {
+
+ EncodeBool(x bool) uint64 {
 	if x {
 		return 1
 	}

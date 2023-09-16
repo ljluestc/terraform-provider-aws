@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIAMUserPolicyAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var out iam.ListAttachedUserPoliciesOutput
 	rName := sdkacctest.RandString(10)
 	policyName1 := fmt.Sprintf("test-policy-%s", sdkacctest.RandString(10))
@@ -28,10 +25,10 @@ func TestAccIAMUserPolicyAttachment_basic(t *testing.T) {
 	policyName3 := fmt.Sprintf("test-policy-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckUserPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPolicyAttachmentConfig_attach(rName, policyName1),
@@ -70,16 +67,10 @@ func TestAccIAMUserPolicyAttachment_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckUserPolicyAttachmentDestroy(s *terraform.State) error {
-	return nil
-}
-
-func testAccCheckUserPolicyAttachmentExists(ctx context.Context, n string, c int, out *iam.ListAttachedUserPoliciesOutput) resource.TestCheckFunc {
+}func testAccCheckUserPolicyAttachmentDestroy(s *terraform.State) error {
+	funcc testAccCheckUserPolicyAttachmentExists(ctx context.Context, n string, c int, out *iam.ListAttachedUserPoliciesOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
+	func !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
 
@@ -103,13 +94,10 @@ func testAccCheckUserPolicyAttachmentExists(ctx context.Context, n string, c int
 		*out = *attachedPolicies
 		return nil
 	}
-}
-
-func testAccCheckUserPolicyAttachmentAttributes(policies []string, out *iam.ListAttachedUserPoliciesOutput) resource.TestCheckFunc {
+}func testAccCheckUserPolicyAttachmentAttributes(policies []string, out *iam.ListAttachedUserPoliciesOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		matched := 0
-
-		for _, p := range policies {
+funcr _, p := range policies {
 			for _, ap := range out.AttachedPolicies {
 				// *ap.PolicyArn like arn:aws:iam::111111111111:policy/test-policy
 				parts := strings.Split(*ap.PolicyArn, "/")
@@ -123,26 +111,20 @@ func testAccCheckUserPolicyAttachmentAttributes(policies []string, out *iam.List
 		}
 		return nil
 	}
-}
-
-func testAccUserPolicyAttachmentImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
+}func testAccUserPolicyAttachmentImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
+	func
 
 		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["user"], rs.Primary.Attributes["policy_arn"]), nil
 	}
-}
-
-func testAccUserPolicyAttachmentConfig_attach(rName, policyName string) string {
+}func testAccUserPolicyAttachmentConfig_attach(rName, policyName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   name = "test-user-%s"
 }
-
-resource "aws_iam_policy" "policy" {
+funcurce "aws_iam_policy" "policy" {
   name        = "%s"
   description = "A test policy"
 
@@ -167,16 +149,13 @@ resource "aws_iam_user_policy_attachment" "test-attach" {
   policy_arn = aws_iam_policy.policy.arn
 }
 `, rName, policyName)
-}
-
-func testAccUserPolicyAttachmentConfig_attachUpdate(rName, policyName1, policyName2, policyName3 string) string {
+}func testAccUserPolicyAttachmentConfig_attachUpdate(rName, policyName1, policyName2, policyName3 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   name = "test-user-%s"
 }
 
-resource "aws_iam_policy" "policy" {
-  name        = "%s"
+rfuncme        = "%s"
   description = "A test policy"
 
   policy = <<EOF

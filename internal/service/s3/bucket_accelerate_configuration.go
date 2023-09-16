@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_accelerate_configuration")
-func ResourceBucketAccelerateConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_accelerate_configuration")func ResourceBucketAccelerateConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketAccelerateConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketAccelerateConfigurationRead,
@@ -50,10 +49,7 @@ func ResourceBucketAccelerateConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketAccelerateConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -80,11 +76,8 @@ func resourceBucketAccelerateConfigurationCreate(ctx context.Context, d *schema.
 	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
 
 	return resourceBucketAccelerateConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketAccelerateConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketAccelerateConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -124,12 +117,9 @@ func resourceBucketAccelerateConfigurationRead(ctx context.Context, d *schema.Re
 	d.Set("status", output.Status)
 
 	return nil
-}
-
-func resourceBucketAccelerateConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketAccelerateConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -152,13 +142,10 @@ func resourceBucketAccelerateConfigurationUpdate(ctx context.Context, d *schema.
 	}
 
 	return resourceBucketAccelerateConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketAccelerateConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketAccelerateConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-	if err != nil {
+	funcerr != nil {
 		return diag.FromErr(err)
 	}
 

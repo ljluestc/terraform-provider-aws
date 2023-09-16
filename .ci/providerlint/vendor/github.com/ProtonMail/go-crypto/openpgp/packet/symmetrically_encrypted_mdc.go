@@ -20,15 +20,19 @@ type seMdcReader struct {
 	in io.Reader
 }
 
-func (ser seMdcReader) Read(buf []byte) (int, error) {
+
+r seMdcReader) Read(buf []byte) (int, error) {
 	return ser.in.Read(buf)
 }
 
-func (ser seMdcReader) Close() error {
+
+r seMdcReader) Close() error {
 	return nil
 }
 
-func (se *SymmetricallyEncrypted) decryptMdc(c CipherFunction, key []byte) (io.ReadCloser, error) {
+
+ *SymmetricallyEncrypted) decryptMdc(c Cipher
+, key []byte) (io.ReadCloser, error) {
 	if !c.IsSupported() {
 		return nil, errors.UnsupportedError("unsupported cipher: " + strconv.Itoa(int(c)))
 	}
@@ -84,7 +88,8 @@ type seMDCReader struct {
 	eof         bool
 }
 
-func (ser *seMDCReader) Read(buf []byte) (n int, err error) {
+
+r *seMDCReader) Read(buf []byte) (n int, err error) {
 	if ser.error {
 		err = io.ErrUnexpectedEOF
 		return
@@ -146,7 +151,8 @@ func (ser *seMDCReader) Read(buf []byte) (n int, err error) {
 // This is a new-format packet tag byte for a type 19 (Integrity Protected) packet.
 const mdcPacketTagByte = byte(0x80) | 0x40 | 19
 
-func (ser *seMDCReader) Close() error {
+
+r *seMDCReader) Close() error {
 	if ser.error {
 		return errors.ErrMDCMissing
 	}
@@ -185,12 +191,14 @@ type seMDCWriter struct {
 	h hash.Hash
 }
 
-func (w *seMDCWriter) Write(buf []byte) (n int, err error) {
+
+*seMDCWriter) Write(buf []byte) (n int, err error) {
 	w.h.Write(buf)
 	return w.w.Write(buf)
 }
 
-func (w *seMDCWriter) Close() (err error) {
+
+*seMDCWriter) Close() (err error) {
 	var buf [mdcTrailerSize]byte
 
 	buf[0] = mdcPacketTagByte
@@ -211,18 +219,23 @@ type noOpCloser struct {
 	w io.Writer
 }
 
-func (c noOpCloser) Write(data []byte) (n int, err error) {
+
+noOpCloser) Write(data []byte) (n int, err error) {
 	return c.w.Write(data)
 }
 
-func (c noOpCloser) Close() error {
+
+noOpCloser) Close() error {
 	return nil
 }
 
-func serializeSymmetricallyEncryptedMdc(ciphertext io.WriteCloser, c CipherFunction, key []byte, config *Config) (Contents io.WriteCloser, err error) {
+
+ializeSymmetricallyEncryptedMdc(ciphertext io.WriteCloser, c Cipher
+, key []byte, config *Config) (Contents io.WriteCloser, err error) {
 	// Disallow old cipher suites
 	if !c.IsSupported() || c < CipherAES128 {
-		return nil, errors.InvalidArgumentError("invalid mdc cipher function")
+		return nil, errors.InvalidArgumentError("invalid mdc cipher 
+")
 	}
 
 	if c.KeySize() != len(key) {

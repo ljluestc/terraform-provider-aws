@@ -26,10 +26,10 @@ func TestAccImageBuilderComponent_basic(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_name(rName),
@@ -53,7 +53,7 @@ func TestAccImageBuilderComponent_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -67,10 +67,10 @@ func TestAccImageBuilderComponent_disappears(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_name(rName),
@@ -90,10 +90,10 @@ func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_changeDescription(rName, "description1"),
@@ -104,7 +104,7 @@ func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -118,10 +118,10 @@ func TestAccImageBuilderComponent_description(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_description(rName, "description1"),
@@ -132,7 +132,7 @@ func TestAccImageBuilderComponent_description(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -147,10 +147,10 @@ func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_kmsKeyID(rName),
@@ -161,7 +161,7 @@ func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -175,10 +175,10 @@ func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_platformWindows(rName),
@@ -189,7 +189,7 @@ func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -203,10 +203,10 @@ func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_supportedOsVersions(rName),
@@ -217,7 +217,7 @@ func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -231,10 +231,10 @@ func TestAccImageBuilderComponent_tags(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_tags1(rName, "key1", "value1"),
@@ -246,7 +246,7 @@ func TestAccImageBuilderComponent_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
 			},
@@ -277,10 +277,10 @@ func TestAccImageBuilderComponent_uri(t *testing.T) {
 	resourceName := "aws_imagebuilder_component.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckComponentDestroy(ctx),
+		CheckDestroy:omponentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccComponentConfig_uri(rName),
@@ -290,7 +290,7 @@ func TestAccImageBuilderComponent_uri(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy", "uri"},
 			},
@@ -498,7 +498,7 @@ resource "aws_imagebuilder_component" "test" {
     schemaVersion = 1.0
   })
   name   = %[1]q
-  platform              = "Linux"
+  platform
   supported_os_versions = ["Amazon Linux 2"]
   version= "1.0.0"
 }

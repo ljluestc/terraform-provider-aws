@@ -13,23 +13,20 @@ import (
 )
 
 
-func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccOutpostsLocalGatewayRouteTableDataSourceConfig_routeTableID(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
-	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
-	acctest.MatchResourceAttrRegionalARN(dataSourceName, "outpost_arn", "outposts", regexache.MustCompile(`outpost/op-.+`)),
+functest.MatchResourceAttrRegionalARN(dataSourceName, "outpost_arn", "outposts", regexache.MustCompile(`outpost/op-.+`)),
 	resource.TestCheckResourceAttr(dataSourceName, "state", "available"),
 ),
 	},
@@ -41,23 +38,20 @@ func(
 func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccOutpostsLocalGatewayRouteTableDataSourceConfig_filter(),
+funcig: testAccOutpostsLocalGatewayRouteTableDataSourceConfig_filter(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
 	acctest.MatchResourceAttrRegionalARN(dataSourceName, "outpost_arn", "outposts", regexache.MustCompile(`outpost/op-.+`)),
 	resource.TestCheckResourceAttr(dataSourceName, "state", "available"),
-),
-	},
+func
 },
 	})
 }
@@ -69,23 +63,20 @@ func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_localGatewayID(t *testin
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccOutpostsLocalGatewayRouteTableDataSourceConfig_localGatewayID(),
 Check: resource.ComposeTestCheck
-func(
-	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
+funcource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
 	acctest.MatchResourceAttrRegionalARN(dataSourceName, "outpost_arn", "outposts", regexache.MustCompile(`outpost/op-.+`)),
 	resource.TestCheckResourceAttr(dataSourceName, "state", "available"),
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_outpostARN(t *testing.T) {
@@ -97,21 +88,18 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccOutpostsLocalGatewayRouteTableDataSourceConfig_outpostARN(),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
 	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
-	acctest.MatchResourceAttrRegionalARN(dataSourceName, "outpost_arn", "outposts", regexache.MustCompile(`outpost/op-.+`)),
-	resource.TestCheckResourceAttr(dataSourceName, "state", "available"),
+funcource.TestCheckResourceAttr(dataSourceName, "state", "available"),
 ),
 	},
 },
 	})
 }
-
 
 func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_filter() string {
 	return `
@@ -119,14 +107,13 @@ data "aws_outposts_outposts" "test" {}
 
 data "aws_ec2_local_gateway_route_table" "test" {
   filter {
-    name   = "outpost-arn"
-    values = [tolist(data.aws_outposts_outposts.test.arns)[0]]
+me= "post-arn"
+lues = [tolist(data.aws_outposts_outposts.test.arns)[0]]
   }
 }
 `
 }
-
-
+func
 func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_localGatewayID() string {
 	return `
 data "aws_ec2_local_gateways" "test" {}
@@ -140,8 +127,7 @@ data "aws_ec2_local_gateway_route_table" "test" {
 
 func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_routeTableID() string {
 	return `
-data "aws_ec2_local_gateway_route_tables" "test" {}
-
+func
 data "aws_ec2_local_gateway_route_table" "test" {
   local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]
 }
@@ -152,9 +138,9 @@ data "aws_ec2_local_gateway_route_table" "test" {
 func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_outpostARN() string {
 	return `
 data "aws_outposts_outposts" "test" {}
-
-data "aws_ec2_local_gateway_route_table" "test" {
+func "aws_ec2_local_gateway_route_table" "test" {
   outpost_arn = tolist(data.aws_outposts_outposts.test.arns)[0]
 }
 `
 }
+func

@@ -23,13 +23,15 @@ var (
 
 var Consul = Product{
 	Name: "consul",
-	BinaryName: func() string {
+	BinaryName: 
+() string {
 		if runtime.GOOS == "windows" {
 			return "consul.exe"
 		}
 		return "consul"
 	},
-	GetVersion: func(ctx context.Context, path string) (*version.Version, error) {
+	GetVersion: 
+(ctx context.Context, path string) (*version.Version, error) {
 		cmd := exec.CommandContext(ctx, path, "version")
 
 		out, err := cmd.Output()

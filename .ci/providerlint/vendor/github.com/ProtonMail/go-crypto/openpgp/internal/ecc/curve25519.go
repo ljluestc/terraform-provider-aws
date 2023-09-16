@@ -11,23 +11,27 @@ import (
 
 type curve25519 struct{}
 
-func NewCurve25519() *curve25519 {
+
+Curve25519() *curve25519 {
 	return &curve25519{}
 }
 
-func (c *curve25519) GetCurveName() string {
+
+*curve25519) GetCurveName() string {
 	return "curve25519"
 }
 
 // MarshalBytePoint encodes the public point from native format, adding the prefix.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.6
-func (c *curve25519) MarshalBytePoint(point []byte) []byte {
+
+*curve25519) MarshalBytePoint(point []byte) []byte {
 	return append([]byte{0x40}, point...)
 }
 
 // UnmarshalBytePoint decodes the public point to native format, removing the prefix.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.6
-func (c *curve25519) UnmarshalBytePoint(point []byte) []byte {
+
+*curve25519) UnmarshalBytePoint(point []byte) []byte {
 	if len(point) != x25519lib.Size+1 {
 		return nil
 	}
@@ -43,7 +47,8 @@ func (c *curve25519) UnmarshalBytePoint(point []byte) []byte {
 // leading zeros are truncated.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.6.1.1
 // Note that leading zero bytes are stripped later when encoding as an MPI.
-func (c *curve25519) MarshalByteSecret(secret []byte) []byte {
+
+*curve25519) MarshalByteSecret(secret []byte) []byte {
 	d := make([]byte, x25519lib.Size)
 	copyReversed(d, secret)
 
@@ -67,7 +72,8 @@ func (c *curve25519) MarshalByteSecret(secret []byte) []byte {
 // more uniform with how big integers are represented in OpenPGP, and (2) the
 // leading zeros are truncated.
 // See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-06#section-5.5.5.6.1.1
-func (c *curve25519) UnmarshalByteSecret(d []byte) []byte {
+
+*curve25519) UnmarshalByteSecret(d []byte) []byte {
 	if len(d) > x25519lib.Size {
 		return nil
 	}
@@ -84,7 +90,8 @@ func (c *curve25519) UnmarshalByteSecret(d []byte) []byte {
 // 2^{254} + 8 * [0, 2^{251}), in order to avoid the small subgroup of the
 // curve. 'pub' is simply 'priv' * G where G is the base point.
 // See https://cr.yp.to/ecdh.html and RFC7748, sec 5.
-func (c *curve25519) generateKeyPairBytes(rand io.Reader) (priv, pub x25519lib.Key, err error) {
+
+*curve25519) generateKeyPairBytes(rand io.Reader) (priv, pub x25519lib.Key, err error) {
 	_, err = io.ReadFull(rand, priv[:])
 	if err != nil {
 		return
@@ -94,7 +101,8 @@ func (c *curve25519) generateKeyPairBytes(rand io.Reader) (priv, pub x25519lib.K
 	return
 }
 
-func (c *curve25519) GenerateECDH(rand io.Reader) (point []byte, secret []byte, err error) {
+
+*curve25519) GenerateECDH(rand io.Reader) (point []byte, secret []byte, err error) {
 	priv, pub, err := c.generateKeyPairBytes(rand)
 	if err != nil {
 		return
@@ -103,11 +111,13 @@ func (c *curve25519) GenerateECDH(rand io.Reader) (point []byte, secret []byte, 
 	return pub[:], priv[:], nil
 }
 
-func (c *genericCurve) MaskSecret(secret []byte) []byte {
+
+*genericCurve) MaskSecret(secret []byte) []byte {
 	return secret
 }
 
-func (c *curve25519) Encaps(rand io.Reader, point []byte) (ephemeral, sharedSecret []byte, err error) {
+
+*curve25519) Encaps(rand io.Reader, point []byte) (ephemeral, sharedSecret []byte, err error) {
 	// RFC6637 §8: "Generate an ephemeral key pair {v, V=vG}"
 	// ephemeralPrivate corresponds to `v`.
 	// ephemeralPublic corresponds to `V`.
@@ -130,7 +140,8 @@ func (c *curve25519) Encaps(rand io.Reader, point []byte) (ephemeral, sharedSecr
 	return ephemeralPublic[:], sharedPoint[:], nil
 }
 
-func (c *curve25519) Decaps(vsG, secret []byte) (sharedSecret []byte, err error) {
+
+*curve25519) Decaps(vsG, secret []byte) (sharedSecret []byte, err error) {
 	var ephemeralPublic, decodedPrivate, sharedPoint x25519lib.Key
 	// RFC6637 §8: "The decryption is the inverse of the method given."
 	// All quoted descriptions in comments below describe encryption, and
@@ -151,7 +162,8 @@ func (c *curve25519) Decaps(vsG, secret []byte) (sharedSecret []byte, err error)
 	return sharedPoint[:], nil
 }
 
-func (c *curve25519) ValidateECDH(point []byte, secret []byte) (err error) {
+
+*curve25519) ValidateECDH(point []byte, secret []byte) (err error) {
 	var pk, sk x25519lib.Key
 	copy(sk[:], secret)
 	x25519lib.KeyGen(&pk, &sk)
@@ -163,7 +175,8 @@ func (c *curve25519) ValidateECDH(point []byte, secret []byte) (err error) {
 	return nil
 }
 
-func copyReversed(out []byte, in []byte) {
+
+yReversed(out []byte, in []byte) {
 	l := len(in)
 	for i := 0; i < l; i++ {
 		out[i] = in[l-i-1]

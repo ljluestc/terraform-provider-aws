@@ -25,10 +25,10 @@ func TestAccRedshiftEndpointAccess_basic(t *testing.T) {
 	resourceName := "aws_redshift_endpoint_access.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointAccessDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAccessConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccRedshiftEndpointAccess_sgs(t *testing.T) {
 	resourceName := "aws_redshift_endpoint_access.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointAccessDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAccessConfig_sgs(rName),
@@ -95,10 +95,10 @@ func TestAccRedshiftEndpointAccess_disappears(t *testing.T) {
 	resourceName := "aws_redshift_endpoint_access.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointAccessDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAccessConfig_basic(rName),
@@ -119,10 +119,10 @@ func TestAccRedshiftEndpointAccess_disappears_cluster(t *testing.T) {
 	resourceName := "aws_redshift_endpoint_access.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointAccessDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointAccessConfig_basic(rName),
@@ -195,17 +195,17 @@ resource "aws_redshift_subnet_group" "test" {
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier                   = %[1]q
-  availability_zone                    = data.aws_availability_zones.available.names[0]
-  database_name                        = "mydb"
-  master_username                      = "foo_test"
-  master_password                      = "Mustbe8characters"
-  node_type                            = "ra3.xlplus"
+  cluster_identifier      = %[1]q
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  database_name           = "mydb"
+  master_username         = "foo_test"
+  master_password         = "Mustbe8characters"
+  node_type  = "ra3.xlplus"
   automated_snapshot_retention_period  = 1
-  allow_version_upgrade                = false
-  skip_final_snapshot                  = true
+  allow_version_upgrade   = false
+  skip_final_snapshot     = true
   availability_zone_relocation_enabled = true
-  publicly_accessible                  = false
+  publicly_accessible     = false
 }
 `, rName))
 }

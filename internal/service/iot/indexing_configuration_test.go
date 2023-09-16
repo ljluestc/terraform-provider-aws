@@ -27,10 +27,10 @@ func testAccIndexingConfiguration_basic(t *testing.T) {
 	resourceName := "aws_iot_indexing_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexingConfigurationConfig_basic,
@@ -62,10 +62,10 @@ func testAccIndexingConfiguration_allAttributes(t *testing.T) {
 	resourceName := "aws_iot_indexing_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexingConfigurationConfig_allAttributes,
@@ -123,7 +123,7 @@ resource "aws_iot_indexing_configuration" "test" {
   }
 
   thing_indexing_configuration {
-    thing_indexing_mode              = "REGISTRY_AND_SHADOW"
+    thing_indexing_mode = "REGISTRY_AND_SHADOW"
     thing_connectivity_indexing_mode = "STATUS"
     device_defender_indexing_mode    = "VIOLATIONS"
     named_shadow_indexing_mode       = "ON"

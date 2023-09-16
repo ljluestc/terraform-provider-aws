@@ -25,8 +25,7 @@ import (
 
 // @SDKResource("aws_db_subnet_group", name="DB Subnet Group")
 // @Tags(identifierAttribute="arn")
-func ResourceSubnetGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSubnetGroupCreate,
 		ReadWithoutTimeout:   resourceSubnetGroupRead,
 		UpdateWithoutTimeout: resourceSubnetGroupUpdate,
@@ -84,15 +83,14 @@ func ResourceSubnetGroup() *schema.Resource {
 }
 
 func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &rds.CreateDBSubnetGroupInput{
 		DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
 		DBSubnetGroupName:        aws.String(name),
-		SubnetIds:                flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:                     getTagsIn(ctx),
+		SubnetIds:   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:        getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Creating RDS DB Subnet Group: %s", input)
@@ -108,8 +106,7 @@ func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 
 func resourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	v, err := FindDBSubnetGroupByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -141,12 +138,11 @@ func resourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta i
 func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	if d.HasChanges("description", "subnet_ids") {
+funcd.HasChanges("description", "subnet_ids") {
 		input := &rds.ModifyDBSubnetGroupInput{
 			DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
 			DBSubnetGroupName:        aws.String(d.Id()),
-			SubnetIds:                flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+			SubnetIds:   flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		}
 
 		log.Printf("[DEBUG] Modifying RDS DB Subnet Group: %s", input)
@@ -163,8 +159,7 @@ func resourceSubnetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS DB Subnet Group: %s", d.Id())
-	_, err := conn.DeleteDBSubnetGroupWithContext(ctx, &rds.DeleteDBSubnetGroupInput{
+funcerr := conn.DeleteDBSubnetGroupWithContext(ctx, &rds.DeleteDBSubnetGroupInput{
 		DBSubnetGroupName: aws.String(d.Id()),
 	})
 
@@ -181,8 +176,7 @@ func resourceSubnetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 	})
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for RDS Subnet Group (%s) delete: %s", d.Id(), err)
-	}
+		return sdkdiag.AppendErrorf(diags, "waiting for RDS Subnetfunc
 
 	return diags
 }

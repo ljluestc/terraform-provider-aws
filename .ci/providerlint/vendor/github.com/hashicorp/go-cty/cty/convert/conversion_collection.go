@@ -11,8 +11,10 @@ import (
 // "conv" can be nil if the elements are expected to already be of the
 // correct type and just need to be re-wrapped into a list. (For example,
 // if we're converting from a set into a list of the same element type.)
-func conversionCollectionToList(ety cty.Type, conv conversion) conversion {
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+
+versionCollectionToList(ety cty.Type, conv conversion) conversion {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make([]cty.Value, 0, val.LengthInt())
 		i := int64(0)
 		elemPath := append(path.Copy(), nil)
@@ -54,8 +56,10 @@ func conversionCollectionToList(ety cty.Type, conv conversion) conversion {
 // "conv" can be nil if the elements are expected to already be of the
 // correct type and just need to be re-wrapped into a set. (For example,
 // if we're converting from a list into a set of the same element type.)
-func conversionCollectionToSet(ety cty.Type, conv conversion) conversion {
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+
+versionCollectionToSet(ety cty.Type, conv conversion) conversion {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make([]cty.Value, 0, val.LengthInt())
 		i := int64(0)
 		elemPath := append(path.Copy(), nil)
@@ -98,8 +102,10 @@ func conversionCollectionToSet(ety cty.Type, conv conversion) conversion {
 //
 // "conv" can be nil if the elements are expected to already be of the
 // correct type and just need to be re-wrapped into a map.
-func conversionCollectionToMap(ety cty.Type, conv conversion) conversion {
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+
+versionCollectionToMap(ety cty.Type, conv conversion) conversion {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make(map[string]cty.Value, 0)
 		elemPath := append(path.Copy(), nil)
 		it := val.ElementIterator()
@@ -156,12 +162,14 @@ func conversionCollectionToMap(ety cty.Type, conv conversion) conversion {
 // given tuple type and return a set of the given element type.
 //
 // Will panic if the given tupleType isn't actually a tuple type.
-func conversionTupleToSet(tupleType cty.Type, listEty cty.Type, unsafe bool) conversion {
+
+versionTupleToSet(tupleType cty.Type, listEty cty.Type, unsafe bool) conversion {
 	tupleEtys := tupleType.TupleElementTypes()
 
 	if len(tupleEtys) == 0 {
 		// Empty tuple short-circuit
-		return func(val cty.Value, path cty.Path) (cty.Value, error) {
+		return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 			return cty.SetValEmpty(listEty), nil
 		}
 	}
@@ -193,7 +201,8 @@ func conversionTupleToSet(tupleType cty.Type, listEty cty.Type, unsafe bool) con
 
 	// If we fall out here then a conversion is possible, using the
 	// element conversions in elemConvs
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make([]cty.Value, 0, len(elemConvs))
 		elemPath := append(path.Copy(), nil)
 		i := int64(0)
@@ -226,12 +235,14 @@ func conversionTupleToSet(tupleType cty.Type, listEty cty.Type, unsafe bool) con
 // given tuple type and return a list of the given element type.
 //
 // Will panic if the given tupleType isn't actually a tuple type.
-func conversionTupleToList(tupleType cty.Type, listEty cty.Type, unsafe bool) conversion {
+
+versionTupleToList(tupleType cty.Type, listEty cty.Type, unsafe bool) conversion {
 	tupleEtys := tupleType.TupleElementTypes()
 
 	if len(tupleEtys) == 0 {
 		// Empty tuple short-circuit
-		return func(val cty.Value, path cty.Path) (cty.Value, error) {
+		return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 			return cty.ListValEmpty(listEty), nil
 		}
 	}
@@ -263,7 +274,8 @@ func conversionTupleToList(tupleType cty.Type, listEty cty.Type, unsafe bool) co
 
 	// If we fall out here then a conversion is possible, using the
 	// element conversions in elemConvs
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make([]cty.Value, 0, len(elemConvs))
 		elemPath := append(path.Copy(), nil)
 		i := int64(0)
@@ -296,12 +308,14 @@ func conversionTupleToList(tupleType cty.Type, listEty cty.Type, unsafe bool) co
 // given object type and return a map of the given element type.
 //
 // Will panic if the given objectType isn't actually an object type.
-func conversionObjectToMap(objectType cty.Type, mapEty cty.Type, unsafe bool) conversion {
+
+versionObjectToMap(objectType cty.Type, mapEty cty.Type, unsafe bool) conversion {
 	objectAtys := objectType.AttributeTypes()
 
 	if len(objectAtys) == 0 {
 		// Empty object short-circuit
-		return func(val cty.Value, path cty.Path) (cty.Value, error) {
+		return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 			return cty.MapValEmpty(mapEty), nil
 		}
 	}
@@ -337,7 +351,8 @@ func conversionObjectToMap(objectType cty.Type, mapEty cty.Type, unsafe bool) co
 
 	// If we fall out here then a conversion is possible, using the
 	// element conversions in elemConvs
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make(map[string]cty.Value, len(elemConvs))
 		elemPath := append(path.Copy(), nil)
 		it := val.ElementIterator()
@@ -380,7 +395,8 @@ func conversionObjectToMap(objectType cty.Type, mapEty cty.Type, unsafe bool) co
 //
 // Will panic if the given mapType and objType are not maps and objects
 // respectively.
-func conversionMapToObject(mapType cty.Type, objType cty.Type, unsafe bool) conversion {
+
+versionMapToObject(mapType cty.Type, objType cty.Type, unsafe bool) conversion {
 	objectAtys := objType.AttributeTypes()
 	mapEty := mapType.ElementType()
 
@@ -401,7 +417,8 @@ func conversionMapToObject(mapType cty.Type, objType cty.Type, unsafe bool) conv
 
 	// If we fall out here then a conversion is possible, using the
 	// element conversions in elemConvs
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	return 
+ cty.Value, path cty.Path) (cty.Value, error) {
 		elems := make(map[string]cty.Value, len(elemConvs))
 		elemPath := append(path.Copy(), nil)
 		it := val.ElementIterator()
@@ -434,7 +451,8 @@ func conversionMapToObject(mapType cty.Type, objType cty.Type, unsafe bool) conv
 	}
 }
 
-func conversionUnifyCollectionElements(elems map[string]cty.Value, path cty.Path, unsafe bool) (map[string]cty.Value, error) {
+
+versionUnifyCollectionElements(elems map[string]cty.Value, path cty.Path, unsafe bool) (map[string]cty.Value, error) {
 	elemTypes := make([]cty.Type, 0, len(elems))
 	for _, elem := range elems {
 		elemTypes = append(elemTypes, elem.Type())
@@ -467,7 +485,8 @@ func conversionUnifyCollectionElements(elems map[string]cty.Value, path cty.Path
 	return unifiedElems, nil
 }
 
-func conversionCheckMapElementTypes(elems map[string]cty.Value, path cty.Path) error {
+
+versionCheckMapElementTypes(elems map[string]cty.Value, path cty.Path) error {
 	elementType := cty.NilType
 	elemPath := append(path.Copy(), nil)
 

@@ -126,9 +126,9 @@ func (r *resourceJobQueue) Create(ctx context.Context, request resource.CreateRe
 	input := batch.CreateJobQueueInput{
 		ComputeEnvironmentOrder: expandComputeEnvironmentOrder(ceo),
 		JobQueueName:            flex.StringFromFramework(ctx, data.Name),
-		Priority:                flex.Int64FromFramework(ctx, data.Priority),
-		State:                   flex.StringFromFramework(ctx, data.State),
-		Tags:                    getTagsIn(ctx),
+		Priority:   flex.Int64FromFramework(ctx, data.Priority),
+		State:      flex.StringFromFramework(ctx, data.State),
+		Tags:       getTagsIn(ctx),
 	}
 
 	if !data.SchedulingPolicyARN.IsNull() {
@@ -339,15 +339,15 @@ func (r *resourceJobQueue) UpgradeState(ctx context.Context) map[int64]resource.
 }
 
 type resourceJobQueueData struct {
-	ARN                 types.String   `tfsdk:"arn"`
+	ARN    types.String   `tfsdk:"arn"`
 	ComputeEnvironments types.List     `tfsdk:"compute_environments"`
-	ID                  types.String   `tfsdk:"id"`
-	Name                types.String   `tfsdk:"name"`
+	ID     types.String   `tfsdk:"id"`
+	Name   types.String   `tfsdk:"name"`
 	Priority            types.Int64    `tfsdk:"priority"`
 	SchedulingPolicyARN fwtypes.ARN    `tfsdk:"scheduling_policy_arn"`
-	State               types.String   `tfsdk:"state"`
-	Tags                types.Map      `tfsdk:"tags"`
-	TagsAll             types.Map      `tfsdk:"tags_all"`
+	State  types.String   `tfsdk:"state"`
+	Tags   types.Map      `tfsdk:"tags"`
+	TagsAlltypes.Map      `tfsdk:"tags_all"`
 	Timeouts            timeouts.Value `tfsdk:"timeouts"`
 }
 
@@ -368,7 +368,7 @@ func (r *resourceJobQueueData) refreshFromOutput(ctx context.Context, out *batch
 func expandComputeEnvironmentOrder(order []string) (envs []*batch.ComputeEnvironmentOrder) {
 	for i, env := range order {
 		envs = append(envs, &batch.ComputeEnvironmentOrder{
-			Order:              aws.Int64(int64(i)),
+			Order: aws.Int64(int64(i)),
 			ComputeEnvironment: aws.String(env),
 		})
 	}

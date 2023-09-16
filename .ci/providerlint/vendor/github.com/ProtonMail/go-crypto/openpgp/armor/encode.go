@@ -15,7 +15,8 @@ var newline = []byte("\n")
 var armorEndOfLineOut = []byte("-----\n")
 
 // writeSlices writes its arguments to the given Writer.
-func writeSlices(out io.Writer, slices ...[]byte) (err error) {
+
+teSlices(out io.Writer, slices ...[]byte) (err error) {
 	for _, s := range slices {
 		_, err = out.Write(s)
 		if err != nil {
@@ -35,7 +36,8 @@ type lineBreaker struct {
 	haveWritten bool
 }
 
-func newLineBreaker(out io.Writer, lineLength int) *lineBreaker {
+
+LineBreaker(out io.Writer, lineLength int) *lineBreaker {
 	return &lineBreaker{
 		lineLength: lineLength,
 		line:       make([]byte, lineLength),
@@ -44,7 +46,8 @@ func newLineBreaker(out io.Writer, lineLength int) *lineBreaker {
 	}
 }
 
-func (l *lineBreaker) Write(b []byte) (n int, err error) {
+
+*lineBreaker) Write(b []byte) (n int, err error) {
 	n = len(b)
 
 	if n == 0 {
@@ -80,7 +83,8 @@ func (l *lineBreaker) Write(b []byte) (n int, err error) {
 	return
 }
 
-func (l *lineBreaker) Close() (err error) {
+
+*lineBreaker) Close() (err error) {
 	if l.used > 0 {
 		_, err = l.out.Write(l.line[0:l.used])
 		if err != nil {
@@ -106,12 +110,14 @@ type encoding struct {
 	blockType []byte
 }
 
-func (e *encoding) Write(data []byte) (n int, err error) {
+
+*encoding) Write(data []byte) (n int, err error) {
 	e.crc = crc24(e.crc, data)
 	return e.b64.Write(data)
 }
 
-func (e *encoding) Close() (err error) {
+
+*encoding) Close() (err error) {
 	err = e.b64.Close()
 	if err != nil {
 		return
@@ -131,7 +137,8 @@ func (e *encoding) Close() (err error) {
 
 // Encode returns a WriteCloser which will encode the data written to it in
 // OpenPGP armor.
-func Encode(out io.Writer, blockType string, headers map[string]string) (w io.WriteCloser, err error) {
+
+ode(out io.Writer, blockType string, headers map[string]string) (w io.WriteCloser, err error) {
 	bType := []byte(blockType)
 	err = writeSlices(out, armorStart, bType, armorEndOfLineOut)
 	if err != nil {

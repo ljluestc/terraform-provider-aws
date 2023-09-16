@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccSSOAdminCustomerManagedPolicyAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ssoadmin_customer_managed_policy_attachment.test"
 	permissionSetResourceName := "aws_ssoadmin_permission_set.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -30,8 +29,7 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -39,8 +37,7 @@ Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, 
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy1),
-	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
+funcource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
 ),
 	},
@@ -57,8 +54,7 @@ ImportStateVerify: true,
 func TestAccSSOAdminCustomerManagedPolicyAttachment_forceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_customer_managed_policy_attachment.test"
-	permissionSetResourceName := "aws_ssoadmin_permission_set.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -68,8 +64,7 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
 Check: resource.ComposeTestCheck
 func(
@@ -77,16 +72,14 @@ func(
 ),
 	},
 	{
-Config: testAccCustomerManagedPolicyAttachmentConfig_forceNew(rName, rNamePolicy1, rNamePolicy2),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy2),
 	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
 ),
-	},
-	{
+func
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,
@@ -103,8 +96,7 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_disappears(t *testing.T) {
 	rNamePolicy1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -113,8 +105,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+functAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourceCustomerManagedPolicyAttachment(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
@@ -122,8 +113,7 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-
+func
 func TestAccSSOAdminCustomerManagedPolicyAttachment_Disappears_permissionSet(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_customer_managed_policy_attachment.test"
@@ -134,8 +124,7 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_Disappears_permissionSet(t *
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
@@ -145,8 +134,7 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourcePermissionSet(), permissionSetResourceName),
-),
-ExpectNonEmptyPlan: true,
+funcctNonEmptyPlan: true,
 	},
 },
 	})
@@ -154,8 +142,7 @@ ExpectNonEmptyPlan: true,
 
 
 func TestAccSSOAdminCustomerManagedPolicyAttachment_multipleManagedPolicies(t *testing.T) {
-	ctx := acctest.Context(t)
-	resource1Name := "aws_ssoadmin_customer_managed_policy_attachment.test"
+funcource1Name := "aws_ssoadmin_customer_managed_policy_attachment.test"
 	resource2Name := "aws_ssoadmin_customer_managed_policy_attachment.test2"
 	permissionSetResourceName := "aws_ssoadmin_permission_set.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -166,8 +153,7 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_multipleManagedPolicies(t *t
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -179,7 +165,6 @@ func(
 	},
 	{
 Config: testAccCustomerManagedPolicyAttachmentConfig_multiple(rName, rNamePolicy1, rNamePolicy2, rNamePolicy3),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource1Name),
 	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource2Name),
@@ -188,16 +173,14 @@ func(
 	resource.TestCheckResourceAttrPair(resource2Name, "permission_set_arn", permissionSetResourceName, "arn"),
 ),
 	},
-	{
-ResourceName:      resource2Name,
+funcurceName:      resource2Name,
 ImportState:       true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
+func
 func testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
@@ -215,13 +198,10 @@ return err
 	}
 
 	_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
+functfresource.NotFound(err) {
+func
 
-	if tfresource.NotFound(err) {
-continue
-	}
-
-	if err != nil {
-return err
+funcrn err
 	}
 
 	return fmt.Errorf("SSO Customer Managed Policy Attachment %s still exists", rs.Primary.ID)
@@ -252,13 +232,10 @@ if err != nil {
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
-_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
-
-return err
-	}
+func
+func
 }
-
-
+func
 func testAccCustomerManagedPolicyAttachmentConfig_base(rName, rNamePolicy1, rNamePolicy2 string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -282,8 +259,7 @@ resource "aws_iam_policy" "test1" {
  "ec2:Describe*",
         ]
         Effect   = "Allow"
-        Resource = "*"
-      },
+func  },
     ]
   })
 }
@@ -333,8 +309,7 @@ resource "aws_ssoadmin_customer_managed_policy_attachment" "test" {
   customer_managed_policy_reference {
     name = aws_iam_policy.test2.name
     path = "/"
-  }
-}
+func
 `)
 }
 
@@ -349,8 +324,7 @@ resource "aws_ssoadmin_customer_managed_policy_attachment" "test2" {
     path = "/"
   }
 }
-
-resource "aws_iam_policy" "test3" {
+funcurce "aws_iam_policy" "test3" {
   name        = %[1]q
   path        = "/"
   description = "My other test policy"
@@ -365,7 +339,6 @@ resource "aws_iam_policy" "test3" {
         Resource = "*"
       },
     ]
-  })
-}
+func
 `, rNamePolicy3))
 }

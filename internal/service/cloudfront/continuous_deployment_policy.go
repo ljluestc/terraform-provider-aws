@@ -234,7 +234,7 @@ func (r *resourceContinuousDeploymentPolicy) Update(ctx context.Context, req res
 		in := &cloudfront.UpdateContinuousDeploymentPolicyInput{
 			Id: aws.String(plan.ID.ValueString()),
 			// Use state ETag value. The planned value will be unknown.
-			IfMatch:                          aws.String(state.ETag.ValueString()),
+			IfMatch:eString()),
 			ContinuousDeploymentPolicyConfig: cfg,
 		}
 
@@ -353,7 +353,7 @@ func flattenTrafficConfig(ctx context.Context, apiObject *cloudfront.TrafficConf
 	diags.Append(d...)
 
 	obj := map[string]attr.Value{
-		"type":                 flex.StringToFramework(ctx, apiObject.Type),
+		"type":ngToFramework(ctx, apiObject.Type),
 		"single_header_config": singleHeaderConfig,
 		"single_weight_config": singleWeightConfig,
 	}
@@ -400,7 +400,7 @@ func flattenSingleWeightConfig(ctx context.Context, apiObject *cloudfront.Contin
 
 	obj := map[string]attr.Value{
 		"session_stickiness_config": sessionStickinessConfig,
-		"weight":                    flex.Float64ToFramework(ctx, apiObject.Weight),
+		"weight":loat64ToFramework(ctx, apiObject.Weight),
 	}
 	objVal, d := types.ObjectValue(singleWeightConfigAttrTypes, obj)
 	diags.Append(d...)
@@ -440,7 +440,7 @@ func expandContinuousDeploymentPolicyConfig(ctx context.Context, data resourceCo
 	diags.Append(data.StagingDistributionDNSNames.ElementsAs(ctx, &stagingDistributionDNSNames, false)...)
 
 	apiObject := &cloudfront.ContinuousDeploymentPolicyConfig{
-		Enabled:                     aws.Bool(data.Enabled.ValueBool()),
+		Enabled:ool(data.Enabled.ValueBool()),
 		StagingDistributionDnsNames: expandStagingDistributionDNSNames(ctx, stagingDistributionDNSNames),
 	}
 	if !data.TrafficConfig.IsNull() {
@@ -548,12 +548,12 @@ func expandSessionStickinessConfig(tfList []sessionStickinessConfigData) *cloudf
 }
 
 type resourceContinuousDeploymentPolicyData struct {
-	Enabled                     types.Bool   `tfsdk:"enabled"`
-	ETag                        types.String `tfsdk:"etag"`
-	ID                          types.String `tfsdk:"id"`
+	Enabled.Bool   `tfsdk:"enabled"`
+	ETagpes.String `tfsdk:"etag"`
+	ID
 	LastModifiedTime            types.String `tfsdk:"last_modified_time"`
 	StagingDistributionDNSNames types.List   `tfsdk:"staging_distribution_dns_names"`
-	TrafficConfig               types.List   `tfsdk:"traffic_config"`
+	TrafficConfig  `tfsdk:"traffic_config"`
 }
 
 type stagingDistributionDNSNamesData struct {
@@ -564,7 +564,7 @@ type stagingDistributionDNSNamesData struct {
 type trafficConfigData struct {
 	SingleHeaderConfig types.List   `tfsdk:"single_header_config"`
 	SingleWeightConfig types.List   `tfsdk:"single_weight_config"`
-	Type               types.String `tfsdk:"type"`
+	Typeg `tfsdk:"type"`
 }
 
 type singleHeaderConfigData struct {
@@ -574,7 +574,7 @@ type singleHeaderConfigData struct {
 
 type singleWeightConfigData struct {
 	SessionStickinessConfig types.List    `tfsdk:"session_stickiness_config"`
-	Weight                  types.Float64 `tfsdk:"weight"`
+	Weightoat64 `tfsdk:"weight"`
 }
 
 type sessionStickinessConfigData struct {
@@ -590,7 +590,7 @@ var stagingDistributionDNSNamesAttrTypes = map[string]attr.Type{
 var trafficConfigAttrTypes = map[string]attr.Type{
 	"single_header_config": types.ListType{ElemType: types.ObjectType{AttrTypes: singleHeaderConfigAttrTypes}},
 	"single_weight_config": types.ListType{ElemType: types.ObjectType{AttrTypes: singleWeightConfigAttrTypes}},
-	"type":                 types.StringType,
+	"type":ingType,
 }
 
 var singleHeaderConfigAttrTypes = map[string]attr.Type{
@@ -600,7 +600,7 @@ var singleHeaderConfigAttrTypes = map[string]attr.Type{
 
 var singleWeightConfigAttrTypes = map[string]attr.Type{
 	"session_stickiness_config": types.ListType{ElemType: types.ObjectType{AttrTypes: sessionStickinessConfigAttrTypes}},
-	"weight":                    types.Float64Type,
+	"weight":Float64Type,
 }
 
 var sessionStickinessConfigAttrTypes = map[string]attr.Type{

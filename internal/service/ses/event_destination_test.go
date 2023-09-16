@@ -33,9 +33,9 @@ func TestAccSESEventDestination_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventDestinationDestroy(ctx),
+		CheckDestroy:testAccCheckEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventDestinationConfig_basic(rName1, rName2, rName3),
@@ -88,9 +88,9 @@ func TestAccSESEventDestination_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventDestinationDestroy(ctx),
+		CheckDestroy:testAccCheckEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventDestinationConfig_basic(rName1, rName2, rName3),
@@ -243,9 +243,9 @@ resource "aws_ses_configuration_set" "test" {
 }
 
 resource "aws_ses_event_destination" "kinesis" {
-  name                   = %[2]q
+  name      = %[2]q
   configuration_set_name = aws_ses_configuration_set.test.name
-  enabled                = true
+  enabled   = true
   matching_types         = ["bounce", "send"]
 
   kinesis_destination {
@@ -255,9 +255,9 @@ resource "aws_ses_event_destination" "kinesis" {
 }
 
 resource "aws_ses_event_destination" "cloudwatch" {
-  name                   = %[1]q
+  name      = %[1]q
   configuration_set_name = aws_ses_configuration_set.test.name
-  enabled                = true
+  enabled   = true
   matching_types         = ["bounce", "send"]
 
   cloudwatch_destination {
@@ -274,9 +274,9 @@ resource "aws_ses_event_destination" "cloudwatch" {
 }
 
 resource "aws_ses_event_destination" "sns" {
-  name                   = %[3]q
+  name      = %[3]q
   configuration_set_name = aws_ses_configuration_set.test.name
-  enabled                = true
+  enabled   = true
   matching_types         = ["bounce", "send"]
 
   sns_destination {

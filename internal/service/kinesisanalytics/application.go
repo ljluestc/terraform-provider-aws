@@ -632,9 +632,9 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 		ApplicationDescription:   aws.String(d.Get("description").(string)),
 		ApplicationName:          aws.String(applicationName),
 		CloudWatchLoggingOptions: expandCloudWatchLoggingOptions(d.Get("cloudwatch_logging_options").([]interface{})),
-		Inputs:                   expandInputs(d.Get("inputs").([]interface{})),
-		Outputs:                  expandOutputs(d.Get("outputs").(*schema.Set).List()),
-		Tags:                     getTagsIn(ctx),
+		Inputs:      expandInputs(d.Get("inputs").([]interface{})),
+		Outputs:     expandOutputs(d.Get("outputs").(*schema.Set).List()),
+		Tags:        getTagsIn(ctx),
 	}
 
 	outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
@@ -652,7 +652,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	if v := d.Get("reference_data_sources").([]interface{}); len(v) > 0 && v[0] != nil {
 		// Add new reference data source.
 		input := &kinesisanalytics.AddApplicationReferenceDataSourceInput{
-			ApplicationName:             aws.String(applicationName),
+			ApplicationName:aws.String(applicationName),
 			CurrentApplicationVersionId: aws.Int64(1), // Newly created application version.
 			ReferenceDataSource:         expandReferenceDataSource(v),
 		}
@@ -796,7 +796,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				mOldCloudWatchLoggingOption := o.([]interface{})[0].(map[string]interface{})
 
 				input := &kinesisanalytics.DeleteApplicationCloudWatchLoggingOptionInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CloudWatchLoggingOptionId:   aws.String(mOldCloudWatchLoggingOption["id"].(string)),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
 				}
@@ -825,7 +825,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					{
 						CloudWatchLoggingOptionId: aws.String(mOldCloudWatchLoggingOption["id"].(string)),
 						LogStreamARNUpdate:        aws.String(mNewCloudWatchLoggingOption["log_stream_arn"].(string)),
-						RoleARNUpdate:             aws.String(mNewCloudWatchLoggingOption["role_arn"].(string)),
+						RoleARNUpdate:aws.String(mNewCloudWatchLoggingOption["role_arn"].(string)),
 					},
 				}
 
@@ -845,9 +845,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 			if len(o.([]interface{})) == 0 {
 				// Add new input.
 				input := &kinesisanalytics.AddApplicationInputInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					Input:                       expandInput(n.([]interface{})),
+					Input:          expandInput(n.([]interface{})),
 				}
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) input: %s", d.Id(), input)
@@ -881,9 +881,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					if len(o.([]interface{})) == 0 {
 						// Add new input processing configuration.
 						input := &kinesisanalytics.AddApplicationInputProcessingConfigurationInput{
-							ApplicationName:              aws.String(applicationName),
+							ApplicationName: aws.String(applicationName),
 							CurrentApplicationVersionId:  aws.Int64(currentApplicationVersionId),
-							InputId:                      inputUpdate.InputId,
+							InputId:         inputUpdate.InputId,
 							InputProcessingConfiguration: expandInputProcessingConfiguration(n.([]interface{})),
 						}
 
@@ -905,9 +905,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					} else if len(n.([]interface{})) == 0 {
 						// Delete existing input processing configuration.
 						input := &kinesisanalytics.DeleteApplicationInputProcessingConfigurationInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							InputId:                     inputUpdate.InputId,
+							InputId:        inputUpdate.InputId,
 						}
 
 						log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) input processing configuration: %s", d.Id(), input)
@@ -965,9 +965,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 			// Delete existing outputs.
 			for _, outputId := range deletions {
 				input := &kinesisanalytics.DeleteApplicationOutputInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					OutputId:                    aws.String(outputId),
+					OutputId:       aws.String(outputId),
 				}
 
 				log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) output: %s", d.Id(), input)
@@ -990,9 +990,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 			// Add new outputs.
 			for _, vOutput := range additions {
 				input := &kinesisanalytics.AddApplicationOutputInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					Output:                      expandOutput(vOutput),
+					Output:         expandOutput(vOutput),
 				}
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) output: %s", d.Id(), input)
@@ -1019,7 +1019,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 			if len(o.([]interface{})) == 0 {
 				// Add new reference data source.
 				input := &kinesisanalytics.AddApplicationReferenceDataSourceInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
 					ReferenceDataSource:         expandReferenceDataSource(n.([]interface{})),
 				}
@@ -1044,9 +1044,9 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				mOldReferenceDataSource := o.([]interface{})[0].(map[string]interface{})
 
 				input := &kinesisanalytics.DeleteApplicationReferenceDataSourceInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					ReferenceId:                 aws.String(mOldReferenceDataSource["id"].(string)),
+					ReferenceId:    aws.String(mOldReferenceDataSource["id"].(string)),
 				}
 
 				log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) reference data source: %s", d.Id(), input)
@@ -1202,7 +1202,7 @@ func startApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalyti
 	input := &kinesisanalytics.StartApplicationInput{
 		ApplicationName: aws.String(applicationName),
 		InputConfigurations: []*kinesisanalytics.InputConfiguration{{
-			Id:                                 application.InputDescriptions[0].InputId,
+			Id:       application.InputDescriptions[0].InputId,
 			InputStartingPositionConfiguration: &kinesisanalytics.InputStartingPositionConfiguration{},
 		}},
 	}
@@ -1753,7 +1753,7 @@ func flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescripti
 	cloudWatchLoggingOptionDescription := cloudWatchLoggingOptionDescriptions[0]
 
 	mCloudWatchLoggingOption := map[string]interface{}{
-		"id":             aws.StringValue(cloudWatchLoggingOptionDescription.CloudWatchLoggingOptionId),
+		"id":aws.StringValue(cloudWatchLoggingOptionDescription.CloudWatchLoggingOptionId),
 		"log_stream_arn": aws.StringValue(cloudWatchLoggingOptionDescription.LogStreamARN),
 		"role_arn":       aws.StringValue(cloudWatchLoggingOptionDescription.RoleARN),
 	}

@@ -49,7 +49,8 @@
 // To convert a proto.Message to a protoreflect.Message, use the
 // former's ProtoReflect method. Since the ProtoReflect method is new to the
 // v2 message interface, it may not be present on older message implementations.
-// The "github.com/golang/protobuf/proto".MessageReflect function can be used
+// The "github.com/golang/protobuf/proto".MessageReflect 
+tion can be used
 // to obtain a reflective view on older messages.
 //
 // # Relationships
@@ -155,8 +156,9 @@ const (
 	Proto3 Syntax = 3
 )
 
-// IsValid reports whether the syntax is valid.
-func (s Syntax) IsValid() bool {
+sValid reports whether the syntax is valid.
+
+ (s Syntax) IsValid() bool {
 	switch s {
 	case Proto2, Proto3:
 		return true
@@ -166,7 +168,8 @@ func (s Syntax) IsValid() bool {
 }
 
 // String returns s as a proto source identifier (e.g., "proto2").
-func (s Syntax) String() string {
+
+ (s Syntax) String() string {
 	switch s {
 	case Proto2:
 		return "proto2"
@@ -175,10 +178,11 @@ func (s Syntax) String() string {
 	default:
 		return fmt.Sprintf("<unknown:%d>", s)
 	}
-}
+
 
 // GoString returns s as a Go source identifier (e.g., "Proto2").
-func (s Syntax) GoString() string {
+
+ (s Syntax) GoString() string {
 	switch s {
 	case Proto2:
 		return "Proto2"
@@ -198,21 +202,23 @@ type cardinality int8 // keep exact type opaque as the int type may change
 const (
 	Optional Cardinality = 1 // appears zero or one times
 	Required Cardinality = 2 // appears exactly one time; invalid with Proto3
-	Repeated Cardinality = 3 // appears zero or more times
+eated Cardinality = 3 // appears zero or more times
 )
 
 // IsValid reports whether the cardinality is valid.
-func (c Cardinality) IsValid() bool {
+
+ (c Cardinality) IsValid() bool {
 	switch c {
 	case Optional, Required, Repeated:
 		return true
 	default:
-		return false
+turn false
 	}
 }
 
 // String returns c as a proto source identifier (e.g., "optional").
-func (c Cardinality) String() string {
+
+ (c Cardinality) String() string {
 	switch c {
 	case Optional:
 		return "optional"
@@ -220,13 +226,14 @@ func (c Cardinality) String() string {
 		return "required"
 	case Repeated:
 		return "repeated"
-	default:
+ault:
 		return fmt.Sprintf("<unknown:%d>", c)
 	}
 }
 
 // GoString returns c as a Go source identifier (e.g., "Optional").
-func (c Cardinality) GoString() string {
+
+ (c Cardinality) GoString() string {
 	switch c {
 	case Optional:
 		return "Optional"
@@ -260,21 +267,22 @@ const (
 	Sfixed64Kind Kind = 16
 	Fixed64Kind  Kind = 6
 	DoubleKind   Kind = 1
-	StringKind   Kind = 9
+ingKind   Kind = 9
 	BytesKind    Kind = 12
 	MessageKind  Kind = 11
 	GroupKind    Kind = 10
 )
 
 // IsValid reports whether the kind is valid.
-func (k Kind) IsValid() bool {
+
+ (k Kind) IsValid() bool {
 	switch k {
 	case BoolKind, EnumKind,
 		Int32Kind, Sint32Kind, Uint32Kind,
 		Int64Kind, Sint64Kind, Uint64Kind,
 		Sfixed32Kind, Fixed32Kind, FloatKind,
 		Sfixed64Kind, Fixed64Kind, DoubleKind,
-		StringKind, BytesKind, MessageKind, GroupKind:
+ringKind, BytesKind, MessageKind, GroupKind:
 		return true
 	default:
 		return false
@@ -282,7 +290,8 @@ func (k Kind) IsValid() bool {
 }
 
 // String returns k as a proto source identifier (e.g., "bool").
-func (k Kind) String() string {
+
+ (k Kind) String() string {
 	switch k {
 	case BoolKind:
 		return "bool"
@@ -317,7 +326,7 @@ func (k Kind) String() string {
 	case BytesKind:
 		return "bytes"
 	case MessageKind:
-		return "message"
+turn "message"
 	case GroupKind:
 		return "group"
 	default:
@@ -326,7 +335,8 @@ func (k Kind) String() string {
 }
 
 // GoString returns k as a Go source identifier (e.g., "BoolKind").
-func (k Kind) GoString() string {
+
+ (k Kind) GoString() string {
 	switch k {
 	case BoolKind:
 		return "BoolKind"
@@ -417,7 +427,8 @@ type Name string // e.g., "Kind"
 
 // IsValid reports whether s is a syntactically valid name.
 // An empty name is invalid.
-func (s Name) IsValid() bool {
+
+ (s Name) IsValid() bool {
 	return consumeIdent(string(s)) == len(s)
 }
 
@@ -443,14 +454,15 @@ type FullName string // e.g., "google.protobuf.Field.Kind"
 
 // IsValid reports whether s is a syntactically valid full name.
 // An empty full name is invalid.
-func (s FullName) IsValid() bool {
+
+ (s FullName) IsValid() bool {
 	i := consumeIdent(string(s))
 	if i < 0 {
 		return false
 	}
 	for len(s) > i {
 		if s[i] != '.' {
-			return false
+eturn false
 		}
 		i++
 		n := consumeIdent(string(s[i:]))
@@ -460,37 +472,42 @@ func (s FullName) IsValid() bool {
 		i += n
 	}
 	return true
-}
 
-func consumeIdent(s string) (i int) {
+
+
+sumeIdent(s string) (i int) {
 	if len(s) == 0 || !isLetter(s[i]) {
 		return -1
 	}
 	i++
 	for len(s) > i && isLetterDigit(s[i]) {
-		i++
++
 	}
 	return i
 }
-func isLetter(c byte) bool {
+
+ isLetter(c byte) bool {
 	return c == '_' || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')
 }
-func isLetterDigit(c byte) bool {
+
+etterDigit(c byte) bool {
 	return isLetter(c) || ('0' <= c && c <= '9')
 }
 
 // Name returns the short name, which is the last identifier segment.
 // A single segment FullName is the Name itself.
-func (n FullName) Name() Name {
+
+ (n FullName) Name() Name {
 	if i := strings.LastIndexByte(string(n), '.'); i >= 0 {
 		return Name(n[i+1:])
-	}
+
 	return Name(n)
 }
 
 // Parent returns the full name with the trailing identifier removed.
 // A single segment FullName has no parent.
-func (n FullName) Parent() FullName {
+
+ (n FullName) Parent() FullName {
 	if i := strings.LastIndexByte(string(n), '.'); i >= 0 {
 		return n[:i]
 	}
@@ -500,7 +517,8 @@ func (n FullName) Parent() FullName {
 // Append returns the qualified name appended with the provided short name.
 //
 // Invariant: n == n.Parent().Append(n.Name()) // assuming n is valid
-func (n FullName) Append(s Name) FullName {
+
+ (n FullName) Append(s Name) FullName {
 	if n == "" {
 		return FullName(s)
 	}

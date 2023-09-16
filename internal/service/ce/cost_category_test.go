@@ -18,9 +18,7 @@ import (
 	tfce "github.com/hashicorp/terraform-provider-aws/internal/service/ce"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-func TestAccCECostCategory_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,7 +26,7 @@ func TestAccCECostCategory_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -48,17 +46,15 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccCECostCategory_effectiveStart(t *testing.T) {
-	ctx := acctest.Context(t)
-	var output costexplorer.CostCategory
+func output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -85,17 +81,15 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccCECostCategory_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var output costexplorer.CostCategory
-	resourceName := "aws_ce_cost_category.test"
+funcourceName := "aws_ce_cost_category.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -109,17 +103,15 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccCECostCategory_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var output costexplorer.CostCategory
-	resourceName := "aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -144,17 +136,15 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccCECostCategory_splitCharge(t *testing.T) {
 	ctx := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -179,17 +169,15 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccCECostCategory_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCostCategoryDestroy(ctx),
+CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -225,15 +213,13 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckCostCategoryExists(ctx context.Context, n string, v *costexplorer.CostCategory) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
-
-if rs.Primary.ID == "" {
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No CE Cost Category ID is set")
 }
 
@@ -250,7 +236,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccCheckCostCategoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
@@ -258,8 +243,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_ce_cost_category" {
 continue
-	}
-
+func
 	_, err := tfce.FindCostCategoryByARN(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
@@ -276,7 +260,6 @@ return err
 return nil
 	}
 }
-
 func testAccCostCategoryConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
@@ -285,8 +268,7 @@ resource "aws_ce_cost_category" "test" {
   rule {
     value = "production"
     rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
+func    key           = "LINKED_ACCOUNT_NAME"
         values        = ["-prod"]
         match_options = ["ENDS_WITH"]
       }
@@ -318,7 +300,6 @@ resource "aws_ce_cost_category" "test" {
 }
 `, rName)
 }
-
 func testAccCostCategoryConfig_operandAnd(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
@@ -328,8 +309,7 @@ resource "aws_ce_cost_category" "test" {
     value = "production"
     rule {
       and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
+func      key           = "LINKED_ACCOUNT_NAME"
           values        = ["-prod"]
           match_options = ["ENDS_WITH"]
         }
@@ -354,7 +334,6 @@ resource "aws_ce_cost_category" "test" {
 }
 `, rName)
 }
-
 func testAccCostCategoryConfig_splitCharges(rName, method string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test1" {
@@ -365,8 +344,7 @@ resource "aws_ce_cost_category" "test1" {
     value = "production"
 
     rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
+func    key           = "LINKED_ACCOUNT_NAME"
         values        = ["-prod"]
         match_options = ["ENDS_WITH"]
       }
@@ -466,7 +444,6 @@ resource "aws_ce_cost_category" "test" {
 }
 `, rName, method)
 }
-
 func testAccCostCategoryConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
@@ -478,8 +455,7 @@ resource "aws_ce_cost_category" "test" {
 
     rule {
       dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
+func    values        = ["-prod"]
         match_options = ["ENDS_WITH"]
       }
     }
@@ -493,7 +469,6 @@ resource "aws_ce_cost_category" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccCostCategoryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
@@ -506,8 +481,7 @@ resource "aws_ce_cost_category" "test" {
     rule {
       dimension {
         key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
+func    match_options = ["ENDS_WITH"]
       }
     }
 
@@ -521,7 +495,6 @@ resource "aws_ce_cost_category" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccCostCategoryConfig_effectiveStart(rName, date string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
@@ -535,8 +508,7 @@ resource "aws_ce_cost_category" "test" {
         key           = "LINKED_ACCOUNT_NAME"
         values        = ["-prod"]
         match_options = ["ENDS_WITH"]
-      }
-    }
+func}
     type = "REGULAR"
   }
   rule {

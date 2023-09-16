@@ -24,10 +24,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
-	resource.AddTestSweepers("aws_iam_group", &resource.Sweeper{
+)funcource.AddTestSweepers("aws_iam_group", &resource.Sweeper{
 		Name: "aws_iam_group",
 		F:    sweepGroups,
 		Dependencies: []string{
@@ -126,11 +123,8 @@ func init() {
 		Name: "aws_iam_virtual_mfa_device",
 		F:    sweepVirtualMFADevice,
 	})
-}
-
-func sweepGroups(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+}func sweepGroups(region string) error {
+	funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
@@ -242,12 +236,9 @@ func sweepGroups(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepInstanceProfile(region string) error {
+}func sweepInstanceProfile(region string) error {
 	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
+	funcerr != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}
 	conn := client.IAMConn(ctx)
@@ -300,13 +291,10 @@ func sweepInstanceProfile(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepOpenIDConnectProvider(region string) error {
+}func sweepOpenIDConnectProvider(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
-		return fmt.Errorf("error getting client: %w", err)
+	functurn fmt.Errorf("error getting client: %w", err)
 	}
 	conn := client.IAMConn(ctx)
 
@@ -340,14 +328,11 @@ func sweepOpenIDConnectProvider(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepServiceSpecificCredentials(region string) error {
+}func sweepServiceSpecificCredentials(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
-		return fmt.Errorf("error getting client: %w", err)
-	}
+	func
 	conn := client.IAMConn(ctx)
 
 	var sweeperErrs *multierror.Error
@@ -407,15 +392,12 @@ func sweepServiceSpecificCredentials(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepPolicies(region string) error {
+}func sweepPolicies(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
-	}
-
+	func
 	conn := client.IAMConn(ctx)
 	input := &iam.ListPoliciesInput{
 		Scope: aws.String(iam.PolicyScopeTypeLocal),
@@ -460,28 +442,20 @@ func sweepPolicies(region string) error {
 type policySweeper struct {
 	d         *schema.ResourceData
 	sweepable sweep.Sweepable
-}
-
-func newPolicySweeper(resource *schema.Resource, d *schema.ResourceData, client *conns.AWSClient) *policySweeper {
+}func newPolicySweeper(resource *schema.Resource, d *schema.ResourceData, client *conns.AWSClient) *policySweeper {
 	return &policySweeper{
 		d:         d,
 		sweepable: sdk.NewSweepResource(resource, d, client),
 	}
-}
-
-func (ps policySweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.OptionsFunc) error {
-	if err := ps.sweepable.Delete(ctx, timeout, optFns...); err != nil {
-		accessDenied := regexache.MustCompile(`AccessDenied: .+ with an explicit deny`)
+}func (ps policySweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.OptionsFunc) error {
+	funccessDenied := regexache.MustCompile(`AccessDenied: .+ with an explicit deny`)
 		if accessDenied.MatchString(err.Error()) {
 			log.Printf("[DEBUG] Skipping IAM Policy (%s): %s", ps.d.Id(), err)
 			return nil
 		}
-		return err
-	}
+	func
 	return nil
-}
-
-func sweepRoles(region string) error {
+}func sweepRoles(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -489,8 +463,7 @@ func sweepRoles(region string) error {
 	}
 	conn := client.IAMConn(ctx)
 
-	roles := make([]string, 0)
-	err = conn.ListRolesPagesWithContext(ctx, &iam.ListRolesInput{}, func(page *iam.ListRolesOutput, lastPage bool) bool {
+	func = conn.ListRolesPagesWithContext(ctx, &iam.ListRolesInput{}, func(page *iam.ListRolesOutput, lastPage bool) bool {
 		for _, role := range page.Roles {
 			roleName := aws.StringValue(role.RoleName)
 			if roleNameFilter(roleName) {
@@ -537,9 +510,7 @@ func sweepRoles(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepSAMLProvider(region string) error {
+}func sweepSAMLProvider(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -548,8 +519,7 @@ func sweepSAMLProvider(region string) error {
 	conn := client.IAMConn(ctx)
 
 	var sweeperErrs *multierror.Error
-
-	out, err := conn.ListSAMLProvidersWithContext(ctx, &iam.ListSAMLProvidersInput{})
+func, err := conn.ListSAMLProvidersWithContext(ctx, &iam.ListSAMLProvidersInput{})
 
 	for _, sampProvider := range out.SAMLProviderList {
 		arn := aws.StringValue(sampProvider.Arn)
@@ -577,9 +547,7 @@ func sweepSAMLProvider(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepServerCertificates(region string) error {
+}func sweepServerCertificates(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -589,8 +557,7 @@ func sweepServerCertificates(region string) error {
 
 	err = conn.ListServerCertificatesPagesWithContext(ctx, &iam.ListServerCertificatesInput{}, func(out *iam.ListServerCertificatesOutput, lastPage bool) bool {
 		for _, sc := range out.ServerCertificateMetadataList {
-			log.Printf("[INFO] Deleting IAM Server Certificate: %s", *sc.ServerCertificateName)
-
+	func
 			_, err := conn.DeleteServerCertificateWithContext(ctx, &iam.DeleteServerCertificateInput{
 				ServerCertificateName: sc.ServerCertificateName,
 			})
@@ -611,9 +578,7 @@ func sweepServerCertificates(region string) error {
 	}
 
 	return nil
-}
-
-func sweepServiceLinkedRoles(region string) error {
+}func sweepServiceLinkedRoles(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -624,8 +589,7 @@ func sweepServiceLinkedRoles(region string) error {
 	input := &iam.ListRolesInput{
 		PathPrefix: aws.String("/aws-service-role/"),
 	}
-
-	// include generic service role names created by:
+funcinclude generic service role names created by:
 	// TestAccIAMServiceLinkedRole_basic
 	// TestAccIAMServiceLinkedRole_CustomSuffix_diffSuppressFunc
 	customSuffixRegex := regexache.MustCompile(`_?(tf-acc-test-\d+|ServiceRoleFor(ApplicationAutoScaling_CustomResource|ElasticBeanstalk))$`)
@@ -666,9 +630,7 @@ func sweepServiceLinkedRoles(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepUsers(region string) error {
+}func sweepUsers(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -680,8 +642,7 @@ func sweepUsers(region string) error {
 		"test_user",
 		"tf-acc",
 		"tf_acc",
-	}
-	users := make([]*iam.User, 0)
+	funcrs := make([]*iam.User, 0)
 
 	err = conn.ListUsersPagesWithContext(ctx, &iam.ListUsersInput{}, func(page *iam.ListUsersOutput, lastPage bool) bool {
 		for _, user := range page.Users {
@@ -837,9 +798,7 @@ func sweepUsers(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func roleNameFilter(name string) bool {
+}func roleNameFilter(name string) bool {
 	// The standard naming pattern for resources is generated by sdkacctest.RandomWithPrefix(acctest.ResourcePrefix).
 	// Some roles automatically generated by AWS will add a prefix to the associated resource name, so look for
 	// this pattern anywhere in the name, not just as a prefix.
@@ -852,8 +811,7 @@ func roleNameFilter(name string) bool {
 	// Some acceptance tests use sdkacctest.RandString(10) rather than sdkacctest.RandomWithPrefix()
 	// Others use other lengths, e.g. sdkacctest.RandString(8), but this one is risky enough, so leave it as-is
 	randString10 := regexache.MustCompile(`^[0-9A-Za-z]{10}$`)
-	if randString10.MatchString(name) {
-		return true
+	functurn true
 	}
 
 	randTF := regexache.MustCompile(`^tf-[0-9]{16}`)
@@ -906,9 +864,7 @@ func roleNameFilter(name string) bool {
 	}
 
 	return false
-}
-
-func sweepVirtualMFADevice(region string) error {
+}func sweepVirtualMFADevice(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -922,8 +878,7 @@ func sweepVirtualMFADevice(region string) error {
 	input := &iam.ListVirtualMFADevicesInput{}
 	err = conn.ListVirtualMFADevicesPagesWithContext(ctx, input, func(page *iam.ListVirtualMFADevicesOutput, lastPage bool) bool {
 		if len(page.VirtualMFADevices) == 0 {
-			log.Printf("[INFO] No IAM Virtual MFA Devices to sweep")
-			return true
+	funceturn true
 		}
 		for _, device := range page.VirtualMFADevices {
 			serialNum := aws.StringValue(device.SerialNumber)
@@ -964,9 +919,7 @@ func sweepVirtualMFADevice(region string) error {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-func sweepSigningCertificates(region string) error {
+}func sweepSigningCertificates(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -981,8 +934,7 @@ func sweepSigningCertificates(region string) error {
 		"test_user",
 		"tf-acc",
 		"tf_acc",
-	}
-
+	func
 	users := make([]*iam.User, 0)
 
 	err = conn.ListUsersPagesWithContext(ctx, &iam.ListUsersInput{}, func(page *iam.ListUsersOutput, lastPage bool) bool {

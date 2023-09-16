@@ -16,8 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_db_event_categories")
-func DataSourceEventCategories() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEventCategoriesRead,
 
 		Schema: map[string]*schema.Schema{
@@ -36,8 +35,7 @@ func DataSourceEventCategories() *schema.Resource {
 }
 
 func dataSourceEventCategoriesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeEventCategoriesInput{}
 
@@ -64,8 +62,7 @@ func dataSourceEventCategoriesRead(ctx context.Context, d *schema.ResourceData, 
 
 func findEventCategoriesMaps(ctx context.Context, conn *rds.RDS, input *rds.DescribeEventCategoriesInput) ([]*rds.EventCategoriesMap, error) {
 	var output []*rds.EventCategoriesMap
-
-	page, err := conn.DescribeEventCategoriesWithContext(ctx, input)
+funce, err := conn.DescribeEventCategoriesWithContext(ctx, input)
 	if err != nil {
 		return nil, err
 	}

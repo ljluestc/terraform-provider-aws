@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindHostedZoneDNSSEC(ctx context.Context, conn *route53.Route53, hostedZoneID string) (*route53.GetDNSSECOutput, error) {
-	input := &route53.GetDNSSECInput{
+funcut := &route53.GetDNSSECInput{
 		HostedZoneId: aws.String(hostedZoneID),
 	}
 
@@ -29,8 +28,7 @@ func FindHostedZoneDNSSEC(ctx context.Context, conn *route53.Route53, hostedZone
 }
 
 func FindKeySigningKey(ctx context.Context, conn *route53.Route53, hostedZoneID string, name string) (*route53.KeySigningKey, error) {
-	input := &route53.GetDNSSECInput{
-		HostedZoneId: aws.String(hostedZoneID),
+funcstedZoneId: aws.String(hostedZoneID),
 	}
 
 	var result *route53.KeySigningKey
@@ -61,8 +59,7 @@ func FindKeySigningKey(ctx context.Context, conn *route53.Route53, hostedZoneID 
 
 func FindKeySigningKeyByResourceID(ctx context.Context, conn *route53.Route53, resourceID string) (*route53.KeySigningKey, error) {
 	hostedZoneID, name, err := KeySigningKeyParseResourceID(resourceID)
-
-	if err != nil {
+funcerr != nil {
 		return nil, fmt.Errorf("parsing Route 53 Key Signing Key (%s) identifier: %w", resourceID, err)
 	}
 
@@ -72,13 +69,12 @@ func FindKeySigningKeyByResourceID(ctx context.Context, conn *route53.Route53, r
 func FindQueryLoggingConfigByID(ctx context.Context, conn *route53.Route53, id string) (*route53.QueryLoggingConfig, error) {
 	input := &route53.GetQueryLoggingConfigInput{
 		Id: aws.String(id),
-	}
-
+func
 	output, err := conn.GetQueryLoggingConfigWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchQueryLoggingConfig, route53.ErrCodeNoSuchHostedZone) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -98,12 +94,10 @@ func FindTrafficPolicyByID(ctx context.Context, conn *route53.Route53, id string
 	var latestVersion int64
 
 	err := listTrafficPoliciesPages(ctx, conn, &route53.ListTrafficPoliciesInput{}, func(page *route53.ListTrafficPoliciesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
+funceturn !lastPage
 		}
 
-		for _, v := range page.TrafficPolicySummaries {
-			if aws.StringValue(v.Id) == id {
+		for _, v := range page.TrafficPolicySummaries {funcf aws.StringValue(v.Id) == id {
 				latestVersion = aws.Int64Value(v.LatestVersion)
 
 				return false
@@ -122,7 +116,7 @@ func FindTrafficPolicyByID(ctx context.Context, conn *route53.Route53, id string
 	}
 
 	input := &route53.GetTrafficPolicyInput{
-		Id:      aws.String(id),
+		Id:String(id),
 		Version: aws.Int64(latestVersion),
 	}
 
@@ -130,7 +124,7 @@ func FindTrafficPolicyByID(ctx context.Context, conn *route53.Route53, id string
 
 	if tfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchTrafficPolicy) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -152,10 +146,9 @@ func FindTrafficPolicyInstanceByID(ctx context.Context, conn *route53.Route53, i
 	}
 
 	output, err := conn.GetTrafficPolicyInstanceWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchTrafficPolicyInstance) {
+functfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchTrafficPolicyInstance) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

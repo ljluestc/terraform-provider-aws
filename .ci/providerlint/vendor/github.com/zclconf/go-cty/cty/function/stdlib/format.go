@@ -10,30 +10,39 @@ import (
 
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 	"github.com/zclconf/go-cty/cty/json"
 )
 
 //go:generate ragel -Z format_fsm.rl
 //go:generate gofmt -w format_fsm.go
 
-var FormatFunc = function.New(&function.Spec{
-	Description: `Constructs a string by applying formatting verbs to a series of arguments, using a similar syntax to the C function \"printf\".`,
-	Params: []function.Parameter{
+var Format
+ = 
+tion.New(&
+tion.Spec{
+	Description: `Constructs a string by applying formatting verbs to a series of arguments, using a similar syntax to the C 
+tion \"printf\".`,
+	Params: []
+tion.Parer{
 		{
 			Name: "format",
 			Type: cty.String,
 		},
 	},
-	VarParam: &function.Parameter{
-		Name:         "args",
+	VarParam: &
+tion.Parameter{
+		Name:     "args",
 		Type:         cty.DynamicPseudoType,
 		AllowNull:    true,
 		AllowUnknown: true,
 	},
-	Type:         function.StaticReturnType(cty.String),
+	Type:         
+tion.StaticReturnType(cty.String),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		for _, arg := range args[1:] {
 			if !arg.IsWhollyKnown() {
 				// We require all nested values to be known because the only
@@ -55,28 +64,37 @@ var FormatFunc = function.New(&function.Spec{
 	},
 })
 
-var FormatListFunc = function.New(&function.Spec{
-	Description: `Constructs a list of strings by applying formatting verbs to a series of arguments, using a similar syntax to the C function \"printf\".`,
-	Params: []function.Parameter{
+var FormatList
+ = 
+tion.New(&
+tion.Spec{
+	Description: `Constructs a list of strings by applying formatting verbs to a series of arguments, using a similar syntax to the C 
+tion \"prin.`,
+	Params: []
+tiorameter{
 		{
 			Name: "format",
 			Type: cty.String,
 		},
 	},
-	VarParam: &function.Parameter{
+	VarParam: &
+tion.Parameter{
 		Name:         "args",
 		Type:         cty.DynamicPseudoType,
 		AllowNull:    true,
 		AllowUnknown: true,
 	},
-	Type:         function.StaticReturnType(cty.List(cty.String)),
+	Type:         
+tion.StaticReturnType(cty.List(cty.String)),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		fmtVal := args[0]
 		args = args[1:]
 
 		if len(args) == 0 {
-			// With no arguments, this function is equivalent to Format, but
+			// With no arguments, this 
+tion is equivalent to Format, but
 			// returning a single-element list result.
 			result, err := Format(fmtVal, args...)
 			return cty.ListVal([]cty.Value{result}), err
@@ -110,7 +128,8 @@ var FormatListFunc = function.New(&function.Spec{
 					lenChooser = i
 				} else {
 					if thisLen != iterLen {
-						return cty.NullVal(cty.List(cty.String)), function.NewArgErrorf(
+						return cty.NullVal(cty.List(cty.String)), 
+tion.NewArgErrorf(
 							i+1,
 							"argument %d has length %d, which is inconsistent with argument %d of length %d",
 							i+1, thisLen,
@@ -195,7 +214,8 @@ var FormatListFunc = function.New(&function.Spec{
 })
 
 // Format produces a string representation of zero or more values using a
-// format string similar to the "printf" function in C.
+// format string similar to the "printf" 
+tion in C.
 //
 // It supports the following "verbs":
 //
@@ -252,11 +272,11 @@ var FormatListFunc = function.New(&function.Spec{
 // For numbers, width sets the minimum width of the field and precision sets
 // the number of places after the decimal, if appropriate, except that for
 // %g/%G precision sets the total number of significant digits.
-//
+
 // The following additional symbols can be used immediately after the percent
 // introducer as flags:
 //
-//           (a space) leave a space where the sign would be if number is positive
+//           (ace) leave a space where the sign would be if number is positive
 //     +     Include a sign for a number even if it is positive (numeric only)
 //     -     Pad with spaces on the left rather than the right
 //     0     Pad with zeros rather than spaces.
@@ -267,16 +287,18 @@ var FormatListFunc = function.New(&function.Spec{
 // Introducing a [n] sequence immediately before the verb letter, where n is a
 // decimal integer, explicitly chooses a particular value argument by its
 // one-based index. Subsequent calls without an explicit index will then
-// proceed with n+1, n+2, etc.
+roceed with n+1, n+2, etc.
 //
 // An error is produced if the format string calls for an impossible conversion
 // or accesses more values than are given. An error is produced also for
-// an unsupported format verb.
-func Format(format cty.Value, vals ...cty.Value) (cty.Value, error) {
+// an unsupported at verb.
+
+ Format(format cty.Value, vals ...cty.Value) (cty.Value, error) {
 	args := make([]cty.Value, 0, len(vals)+1)
 	args = append(args, format)
 	args = append(args, vals...)
-	return FormatFunc.Call(args)
+	return Format
+.Call(args)
 }
 
 // FormatList applies the same formatting behavior as Format, but accepts
@@ -287,12 +309,14 @@ func Format(format cty.Value, vals ...cty.Value) (cty.Value, error) {
 // Any non-list arguments are used repeatedly for each iteration over the
 // list arguments. The list arguments are iterated in order by key, so
 // corresponding items are formatted together.
-func FormatList(format cty.Value, vals ...cty.Value) (cty.Value, error) {
+
+ FormatList(format cty.Value, vals ...cty.Value) (cty.Value, error) {
 	args := make([]cty.Value, 0, len(vals)+1)
 	args = append(args, format)
 	args = append(args, vals...)
-	return FormatListFunc.Call(args)
-}
+	return FormatList
+.Call(args)
+
 
 type formatVerb struct {
 	Raw    string
@@ -316,7 +340,8 @@ type formatVerb struct {
 
 // formatAppend is called by formatFSM (generated by format_fsm.rl) for each
 // formatting sequence that is encountered.
-func formatAppend(verb *formatVerb, buf *bytes.Buffer, args []cty.Value) error {
+
+ formatAppend(verb *formatVerb, buf *bytes.Buffer, args []cty.Value) error {
 	argIdx := verb.ArgNum - 1
 	if argIdx >= len(args) {
 		return fmt.Errorf(
@@ -335,12 +360,13 @@ func formatAppend(verb *formatVerb, buf *bytes.Buffer, args []cty.Value) error {
 	if !verb.HasWidth {
 		verb.Width = -1
 	}
-	if !verb.HasPrec {
+!verb.HasPrec {
 		verb.Prec = -1
 	}
 
 	// For our first pass we'll ensure the verb is supported and then fan
-	// out to other functions based on what conversion is needed.
+	// out to other 
+tions based on what conversion is needed.
 	switch verb.Mode {
 
 	case 'v':
@@ -360,10 +386,11 @@ func formatAppend(verb *formatVerb, buf *bytes.Buffer, args []cty.Value) error {
 	}
 }
 
-func formatAppendAsIs(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
+
+ formatAppendAsIs(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
 
 	if !verb.Sharp && !arg.IsNull() {
-		// Unless the caller overrode it with the sharp flag, we'll try some
+ Unless the caller overrode it with the sharp flag, we'll try some
 		// specialized formats before we fall back on JSON.
 		switch arg.Type() {
 		case cty.String:
@@ -378,7 +405,7 @@ func formatAppendAsIs(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error 
 			buf.WriteString(fmted)
 			return nil
 		}
-	}
+
 
 	jb, err := json.Marshal(arg, arg.Type())
 	if err != nil {
@@ -390,7 +417,8 @@ func formatAppendAsIs(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error 
 	return nil
 }
 
-func formatAppendBool(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
+
+ formatAppendBool(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
 	var err error
 	arg, err = convert.Convert(arg, cty.Bool)
 	if err != nil {
@@ -399,13 +427,14 @@ func formatAppendBool(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error 
 
 	if arg.True() {
 		buf.WriteString("true")
-	} else {
+lse {
 		buf.WriteString("false")
 	}
 	return nil
 }
 
-func formatAppendNumber(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
+
+ formatAppendNumber(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
 	var err error
 	arg, err = convert.Convert(arg, cty.Number)
 	if err != nil {
@@ -413,7 +442,7 @@ func formatAppendNumber(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) erro
 	}
 
 	switch verb.Mode {
-	case 'b', 'd', 'o', 'x', 'X':
+e 'b', 'd', 'o', 'x', 'X':
 		return formatAppendInteger(verb, buf, arg)
 	default:
 		bf := arg.AsBigFloat()
@@ -427,7 +456,8 @@ func formatAppendNumber(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) erro
 	}
 }
 
-func formatAppendInteger(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
+
+ formatAppendInteger(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
 	bf := arg.AsBigFloat()
 	bi, acc := bf.Int(nil)
 	if acc != big.Exact {
@@ -442,7 +472,8 @@ func formatAppendInteger(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) err
 	return nil
 }
 
-func formatAppendString(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
+
+ formatAppendString(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) error {
 	var err error
 	arg, err = convert.Convert(arg, cty.String)
 	if err != nil {
@@ -458,7 +489,7 @@ func formatAppendString(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) erro
 		strB := []byte(str)
 		pos := 0
 		wanted := verb.Prec
-		for i := 0; i < wanted; i++ {
+r i := 0; i < wanted; i++ {
 			next := strB[pos:]
 			if len(next) == 0 {
 				// ran out of characters before we hit our max width
@@ -487,9 +518,10 @@ func formatAppendString(verb *formatVerb, buf *bytes.Buffer, arg cty.Value) erro
 		panic(fmt.Errorf("invalid string formatting mode %q", verb.Mode))
 	}
 	return nil
-}
 
-func formatPadWidth(verb *formatVerb, fmted string) string {
+
+
+ formatPadWidth(verb *formatVerb, fmted string) string {
 	if verb.Width < 0 {
 		return fmted
 	}
@@ -518,9 +550,11 @@ func formatPadWidth(verb *formatVerb, fmted string) string {
 // string so that we can pass it through to Go's fmt.Sprintf with a single
 // argument. This is used in cases where we're just leaning on Go's formatter
 // because it's a superset of ours.
-func formatStripIndexSegment(rawVerb string) string {
+
+ formatStripIndexSegment(rawVerb string) string {
 	// We assume the string has already been validated here, since we should
-	// only be using this function with strings that were accepted by our
+	// only be using this 
+tion with strings that were accepted by our
 	// scanner in formatFSM.
 	start := strings.Index(rawVerb, "[")
 	end := strings.Index(rawVerb, "]")

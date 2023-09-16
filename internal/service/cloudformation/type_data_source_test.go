@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccCloudFormationTypeDataSource_ARN_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,10 +24,11 @@ func TestAccCloudFormationTypeDataSource_ARN_private(t *testing.T) {
 	dataSourceName := "data.aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeDataSourceConfig_arnPrivate(rName, zipPath, typeName),
@@ -50,15 +52,17 @@ func TestAccCloudFormationTypeDataSource_ARN_private(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationTypeDataSource_ARN_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeDataSourceConfig_arnPublic(),
@@ -81,6 +85,7 @@ func TestAccCloudFormationTypeDataSource_ARN_public(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationTypeDataSource_TypeName_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -90,10 +95,11 @@ func TestAccCloudFormationTypeDataSource_TypeName_private(t *testing.T) {
 	dataSourceName := "data.aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeDataSourceConfig_namePrivate(rName, zipPath, typeName),
@@ -117,15 +123,17 @@ func TestAccCloudFormationTypeDataSource_TypeName_private(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationTypeDataSource_TypeName_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeDataSourceConfig_namePublic(),
@@ -148,6 +156,7 @@ func TestAccCloudFormationTypeDataSource_TypeName_public(t *testing.T) {
 	})
 }
 
+
 func testAccTypeConfig_privateBase(rName string, zipPath string, typeName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -165,11 +174,12 @@ resource "aws_s3_object" "test" {
 
 resource "aws_cloudformation_type" "test" {
   schema_handler_package = "s3://${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  type                   = "RESOURCE"
-  type_name              = %[3]q
+  type      = "RESOURCE"
+  type_name = %[3]q
 }
 `, rName, zipPath, typeName)
 }
+
 
 func testAccTypeDataSourceConfig_arnPrivate(rName string, zipPath string, typeName string) string {
 	return acctest.ConfigCompose(
@@ -180,6 +190,7 @@ data "aws_cloudformation_type" "test" {
 }
 `)
 }
+
 
 func testAccTypeDataSourceConfig_arnPublic() string {
 	return `
@@ -193,6 +204,7 @@ data "aws_cloudformation_type" "test" {
 `
 }
 
+
 func testAccTypeDataSourceConfig_namePrivate(rName string, zipPath string, typeName string) string {
 	return acctest.ConfigCompose(
 		testAccTypeConfig_privateBase(rName, zipPath, typeName),
@@ -203,6 +215,7 @@ data "aws_cloudformation_type" "test" {
 }
 `)
 }
+
 
 func testAccTypeDataSourceConfig_namePublic() string {
 	return `

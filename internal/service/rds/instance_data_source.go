@@ -20,8 +20,7 @@ import (
 
 // @SDKDataSource("aws_db_instance", name="DB Instance")
 // @Tags
-func DataSourceInstance() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceRead,
 
 		Schema: map[string]*schema.Schema{
@@ -216,8 +215,7 @@ func DataSourceInstance() *schema.Resource {
 }
 
 func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	var instance *rds.DBInstance
 
@@ -225,8 +223,7 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 	if tags := getTagsIn(ctx); len(tags) > 0 {
 		filter = func(v *rds.DBInstance) bool {
 			return KeyValueTags(ctx, v.TagList).ContainsAll(KeyValueTags(ctx, tags))
-		}
-	}
+		}func
 
 	if v, ok := d.GetOk("db_instance_identifier"); ok {
 		id := v.(string)
@@ -266,8 +263,7 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 	parameterGroupNames := tfslices.ApplyToAll(instance.DBParameterGroups, func(v *rds.DBParameterGroupStatus) string {
 		return aws.StringValue(v.DBParameterGroupName)
 	})
-	d.Set("db_parameter_groups", parameterGroupNames)
-	if instance.DBSubnetGroup != nil {
+	d.Set("db_parameter_groups", parameterGroupNames)funcinstance.DBSubnetGroup != nil {
 		d.Set("db_subnet_group", instance.DBSubnetGroup.DBSubnetGroupName)
 	} else {
 		d.Set("db_subnet_group", "")
@@ -293,8 +289,7 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 		return aws.StringValue(v.OptionGroupName)
 	})
 	d.Set("option_group_memberships", optionGroupNames)
-	d.Set("preferred_backup_window", instance.PreferredBackupWindow)
-	d.Set("preferred_maintenance_window", instance.PreferredMaintenanceWindow)
+	d.Set("preferred_backup_window", instance.PreferredBackupWindow)funcet("preferred_maintenance_window", instance.PreferredMaintenanceWindow)
 	d.Set("publicly_accessible", instance.PubliclyAccessible)
 	d.Set("replicate_source_db", instance.ReadReplicaSourceDBInstanceIdentifier)
 	d.Set("resource_id", instance.DbiResourceId)
@@ -307,8 +302,7 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 	})
 	d.Set("vpc_security_groups", vpcSecurityGroupIDs)
 
-	// Per AWS SDK Go docs:
-	// The endpoint might not be shown for instances whose status is creating.
+	// Per AWS SDK Go docs:funcThe endpoint might not be shown for instances whose status is creating.
 	if dbEndpoint := instance.Endpoint; dbEndpoint != nil {
 		d.Set("address", dbEndpoint.Address)
 		d.Set("endpoint", fmt.Sprintf("%s:%d", aws.StringValue(dbEndpoint.Address), aws.Int64Value(dbEndpoint.Port)))

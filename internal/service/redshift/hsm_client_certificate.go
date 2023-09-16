@@ -65,7 +65,7 @@ func resourceHSMClientCertificateCreate(ctx context.Context, d *schema.ResourceD
 
 	input := redshift.CreateHsmClientCertificateInput{
 		HsmClientCertificateIdentifier: aws.String(certIdentifier),
-		Tags:                           getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateHsmClientCertificateWithContext(ctx, &input)

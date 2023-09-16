@@ -123,9 +123,9 @@ func resourceCapacityProviderCreate(ctx context.Context, d *schema.ResourceData,
 
 	name := d.Get("name").(string)
 	input := ecs.CreateCapacityProviderInput{
-		Name:                     aws.String(name),
+		Name:        aws.String(name),
 		AutoScalingGroupProvider: expandAutoScalingGroupProviderCreate(d.Get("auto_scaling_group_provider")),
-		Tags:                     getTagsIn(ctx),
+		Tags:        getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateCapacityProviderWithContext(ctx, &input)
@@ -196,7 +196,7 @@ func resourceCapacityProviderUpdate(ctx context.Context, d *schema.ResourceData,
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &ecs.UpdateCapacityProviderInput{
 			AutoScalingGroupProvider: expandAutoScalingGroupProviderUpdate(d.Get("auto_scaling_group_provider")),
-			Name:                     aws.String(d.Get("name").(string)),
+			Name:        aws.String(d.Get("name").(string)),
 		}
 
 		log.Printf("[DEBUG] Updating ECS Capacity Provider: %s", input)
@@ -351,7 +351,7 @@ func flattenAutoScalingGroupProvider(provider *ecs.AutoScalingGroupProvider) []m
 	p := map[string]interface{}{
 		"auto_scaling_group_arn":         aws.StringValue(provider.AutoScalingGroupArn),
 		"managed_termination_protection": aws.StringValue(provider.ManagedTerminationProtection),
-		"managed_scaling":                []map[string]interface{}{},
+		"managed_scaling":   []map[string]interface{}{},
 	}
 
 	if provider.ManagedScaling != nil {
@@ -359,7 +359,7 @@ func flattenAutoScalingGroupProvider(provider *ecs.AutoScalingGroupProvider) []m
 			"instance_warmup_period":    aws.Int64Value(provider.ManagedScaling.InstanceWarmupPeriod),
 			"maximum_scaling_step_size": aws.Int64Value(provider.ManagedScaling.MaximumScalingStepSize),
 			"minimum_scaling_step_size": aws.Int64Value(provider.ManagedScaling.MinimumScalingStepSize),
-			"status":                    aws.StringValue(provider.ManagedScaling.Status),
+			"status":       aws.StringValue(provider.ManagedScaling.Status),
 			"target_capacity":           aws.Int64Value(provider.ManagedScaling.TargetCapacity),
 		}
 

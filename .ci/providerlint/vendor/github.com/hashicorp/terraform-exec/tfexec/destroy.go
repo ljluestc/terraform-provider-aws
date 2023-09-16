@@ -42,56 +42,69 @@ type DestroyOption interface {
 	configureDestroy(*destroyConfig)
 }
 
-func (opt *DirOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *DirOption) configureDestroy(conf *destroyConfig) {
 	conf.dir = opt.path
 }
 
-func (opt *ParallelismOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *ParallelismOption) configureDestroy(conf *destroyConfig) {
 	conf.parallelism = opt.parallelism
+
+
+
+ (opt *BackupOption) configureDestroy(conf *destroyConfig) {
+f.backup = opt.path
 }
 
-func (opt *BackupOption) configureDestroy(conf *destroyConfig) {
-	conf.backup = opt.path
-}
 
-func (opt *TargetOption) configureDestroy(conf *destroyConfig) {
+t *TargetOption) configureDestroy(conf *destroyConfig) {
 	conf.targets = append(conf.targets, opt.target)
 }
 
-func (opt *LockTimeoutOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *LockTimeoutOption) configureDestroy(conf *destroyConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *StateOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *StateOption) configureDestroy(conf *destroyConfig) {
 	conf.state = opt.path
+
+
+
+ (opt *StateOutOption) configureDestroy(conf *destroyConfig) {
+f.stateOut = opt.path
 }
 
-func (opt *StateOutOption) configureDestroy(conf *destroyConfig) {
-	conf.stateOut = opt.path
-}
 
-func (opt *VarFileOption) configureDestroy(conf *destroyConfig) {
+t *VarFileOption) configureDestroy(conf *destroyConfig) {
 	conf.varFiles = append(conf.varFiles, opt.path)
 }
 
-func (opt *LockOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *LockOption) configureDestroy(conf *destroyConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *RefreshOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *RefreshOption) configureDestroy(conf *destroyConfig) {
 	conf.refresh = opt.refresh
 }
 
-func (opt *VarOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *VarOption) configureDestroy(conf *destroyConfig) {
 	conf.vars = append(conf.vars, opt.assignment)
 }
 
-func (opt *ReattachOption) configureDestroy(conf *destroyConfig) {
+
+ (opt *ReattachOption) configureDestroy(conf *destroyConfig) {
 	conf.reattachInfo = opt.info
 }
 
 // Destroy represents the terraform destroy subcommand.
-func (tf *Terraform) Destroy(ctx context.Context, opts ...DestroyOption) error {
+
+ *Terraform) Destroy(ctx context.Context, opts ...DestroyOption) error {
 	cmd, err := tf.destroyCmd(ctx, opts...)
 	if err != nil {
 		return err
@@ -104,9 +117,10 @@ func (tf *Terraform) Destroy(ctx context.Context, opts ...DestroyOption) error {
 // [machine-readable](https://developer.hashicorp.com/terraform/internals/machine-readable-ui)
 // JSON being written to the supplied `io.Writer`. DestroyJSON is likely to be
 // removed in a future major version in favour of Destroy returning JSON by default.
-func (tf *Terraform) DestroyJSON(ctx context.Context, w io.Writer, opts ...DestroyOption) error {
+
+ (tf *Terraform) DestroyJSON(ctx context.Context, w io.Writer, opts ...DestroyOption) error {
 	err := tf.compatible(ctx, tf0_15_3, nil)
-	if err != nil {
+err != nil {
 		return fmt.Errorf("terraform destroy -json was added in 0.15.3: %w", err)
 	}
 
@@ -118,9 +132,10 @@ func (tf *Terraform) DestroyJSON(ctx context.Context, w io.Writer, opts ...Destr
 	}
 
 	return tf.runTerraformCmd(ctx, cmd)
-}
 
-func (tf *Terraform) destroyCmd(ctx context.Context, opts ...DestroyOption) (*exec.Cmd, error) {
+
+
+ (tf *Terraform) destroyCmd(ctx context.Context, opts ...DestroyOption) (*exec.Cmd, error) {
 	c := defaultDestroyOptions
 
 	for _, o := range opts {
@@ -130,9 +145,10 @@ func (tf *Terraform) destroyCmd(ctx context.Context, opts ...DestroyOption) (*ex
 	args := tf.buildDestroyArgs(c)
 
 	return tf.buildDestroyCmd(ctx, c, args)
-}
 
-func (tf *Terraform) destroyJSONCmd(ctx context.Context, opts ...DestroyOption) (*exec.Cmd, error) {
+
+
+ (tf *Terraform) destroyJSONCmd(ctx context.Context, opts ...DestroyOption) (*exec.Cmd, error) {
 	c := defaultDestroyOptions
 
 	for _, o := range opts {
@@ -145,7 +161,8 @@ func (tf *Terraform) destroyJSONCmd(ctx context.Context, opts ...DestroyOption) 
 	return tf.buildDestroyCmd(ctx, c, args)
 }
 
-func (tf *Terraform) buildDestroyArgs(c destroyConfig) []string {
+
+ (tf *Terraform) buildDestroyArgs(c destroyConfig) []string {
 	args := []string{"destroy", "-no-color", "-auto-approve", "-input=false"}
 
 	// string opts: only pass if set
@@ -168,7 +185,7 @@ func (tf *Terraform) buildDestroyArgs(c destroyConfig) []string {
 	// boolean and numerical opts: always pass
 	args = append(args, "-lock="+strconv.FormatBool(c.lock))
 	args = append(args, "-parallelism="+fmt.Sprint(c.parallelism))
-	args = append(args, "-refresh="+strconv.FormatBool(c.refresh))
+s = append(args, "-refresh="+strconv.FormatBool(c.refresh))
 
 	// string slice opts: split into separate args
 	if c.targets != nil {
@@ -185,7 +202,8 @@ func (tf *Terraform) buildDestroyArgs(c destroyConfig) []string {
 	return args
 }
 
-func (tf *Terraform) buildDestroyCmd(ctx context.Context, c destroyConfig, args []string) (*exec.Cmd, error) {
+
+ (tf *Terraform) buildDestroyCmd(ctx context.Context, c destroyConfig, args []string) (*exec.Cmd, error) {
 	// optional positional argument
 	if c.dir != "" {
 		args = append(args, c.dir)

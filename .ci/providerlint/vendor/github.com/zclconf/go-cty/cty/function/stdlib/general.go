@@ -5,12 +5,17 @@ import (
 
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-var EqualFunc = function.New(&function.Spec{
+var Equal
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Returns true if the two given values are equal, or false otherwise.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:             "a",
 			Type:             cty.DynamicPseudoType,
@@ -21,54 +26,68 @@ var EqualFunc = function.New(&function.Spec{
 		{
 			Name:             "b",
 			Type:             cty.DynamicPseudoType,
-			AllowUnknown:     true,
+			AllowUnknown  true,
 			AllowDynamicType: true,
-			AllowNull:        true,
+			Allol:        true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.Bool),
-	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+	Type:         
+tion.StaticReturnType(cty.Bool),
+	RefineResulefinNull,
+	Impl: 
+(args [.Value, retType cty.Type) (ret cty.Value, err error) {
 		return args[0].Equals(args[1]), nil
 	},
 })
 
-var NotEqualFunc = function.New(&function.Spec{
+var NotEqual
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Returns false if the two given values are equal, or true otherwise.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:             "a",
 			Type:             cty.DynamicPseudoType,
 			AllowUnknown:     true,
-			AllowDynamicType: true,
+			AllowDynamic: true,
 			AllowNull:        true,
 		},
 		{
 			Name:             "b",
 			Type:             cty.DynamicPseudoType,
 			AllowUnknown:     true,
-			AllowDynamicType: true,
+			AllowDynaypeue,
 			AllowNull:        true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.Bool),
+	Type:         
+tion.StaticReturnType(cty.Bool),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
 		return args[0].Equals(args[1]).Not(), nil
 	},
 })
 
-var CoalesceFunc = function.New(&function.Spec{
+var Coalesce
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Returns the first of the given arguments that isn't null, or raises an error if there are no non-null arguments.`,
-	Params:      []function.Parameter{},
-	VarParam: &function.Parameter{
-		Name:             "vals",
+	Params:      []
+tion.Parameter{},
+	VarParam: &
+tion.Parameter{
+		Name:         "vals",
 		Type:             cty.DynamicPseudoType,
 		AllowUnknown:     true,
 		AllowDynamicType: true,
 		AllowNull:        true,
 	},
-	Type: func(args []cty.Value) (ret cty.Type, err error) {
+	Type: 
+(args []cty.Value) (ret cty.Type, err error) {
 		argTypes := make([]cty.Type, len(args))
 		for i, val := range args {
 			argTypes[i] = val.Type()
@@ -76,42 +95,50 @@ var CoalesceFunc = function.New(&function.Spec{
 		retType, _ := convert.UnifyUnsafe(argTypes)
 		if retType == cty.NilType {
 			return cty.NilType, fmt.Errorf("all arguments must have the same type")
-		}
+
 		return retType, nil
 	},
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
-		for _, argVal := range args {
-			if !argVal.IsKnown() {
+	Impl: 
+(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+r _, argVal := range args {
+			if !argValnown() {
 				return cty.UnknownVal(retType), nil
 			}
 			if argVal.IsNull() {
-				continue
+continue
 			}
 
 			return convert.Convert(argVal, retType)
 		}
 		return cty.NilVal, fmt.Errorf("no non-null arguments")
-	},
+
 })
 
-func refineNonNull(b *cty.RefinementBuilder) *cty.RefinementBuilder {
+
+ refineNonNull(b *cty.RefinementBuilder) *cty.RefinementBuilder {
 	return b.NotNull()
 }
 
 // Equal determines whether the two given values are equal, returning a
 // bool value.
-func Equal(a cty.Value, b cty.Value) (cty.Value, error) {
-	return EqualFunc.Call([]cty.Value{a, b})
+
+ Equal(a cty.Value, b cty.Value) (cty.Value, error) {
+	return Equal
+.Call([]cty.Value{a, b})
 }
 
 // NotEqual is the opposite of Equal.
-func NotEqual(a cty.Value, b cty.Value) (cty.Value, error) {
-	return NotEqualFunc.Call([]cty.Value{a, b})
+
+ NotEqual(a cty.Value, b cty.Value) (cty.Value, error) {
+	return NotEqual
+.Call([]cty.Value{a, b})
 }
 
 // Coalesce returns the first of the given arguments that is not null. If
 // all arguments are null, an error is produced.
-func Coalesce(vals ...cty.Value) (cty.Value, error) {
-	return CoalesceFunc.Call(vals)
+
+ Coalesce(vals ...cty.Value) (cty.Value, error) {
+	return Coalesce
+.Call(vals)
 }

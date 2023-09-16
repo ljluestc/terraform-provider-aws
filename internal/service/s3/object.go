@@ -37,8 +37,7 @@ import (
 const objectCreationTimeout = 2 * time.Minute
 
 // @SDKResource("aws_s3_object", name="Object")
-// @Tags
-func ResourceObject() *schema.Resource {
+// @Tagsfunc ResourceObject() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceObjectCreate,
 		ReadWithoutTimeout:   resourceObjectRead,
@@ -191,12 +190,10 @@ func ResourceObject() *schema.Resource {
 		},
 	}
 }
-
 func resourceObjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	return append(diags, resourceObjectUpload(ctx, d, meta)...)
 }
-
 func resourceObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
@@ -277,7 +274,6 @@ func resourceObjectRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceObjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	if hasObjectContentChanges(d) {
@@ -349,7 +345,6 @@ func resourceObjectUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceObjectRead(ctx, d, meta)...)
 }
-
 func resourceObjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
@@ -374,7 +369,6 @@ func resourceObjectDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceObjectImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	id := d.Id()
 	id = strings.TrimPrefix(id, "s3://")
@@ -393,7 +387,6 @@ func resourceObjectImport(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func resourceObjectUpload(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
@@ -520,7 +513,6 @@ func resourceObjectUpload(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceObjectRead(ctx, d, meta)...)
 }
-
 func resourceObjectSetKMS(ctx context.Context, d *schema.ResourceData, meta interface{}, sseKMSKeyId *string) error {
 	// Only set non-default KMS key ID (one that doesn't match default)
 	if sseKMSKeyId != nil {
@@ -539,7 +531,6 @@ func resourceObjectSetKMS(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(map[string]interface{})
 
@@ -551,7 +542,6 @@ func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors [
 	}
 	return
 }
-
 func resourceObjectCustomizeDiff(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 	if hasObjectContentChanges(d) {
 		return d.SetNewComputed("version_id")
@@ -564,7 +554,6 @@ func resourceObjectCustomizeDiff(_ context.Context, d *schema.ResourceDiff, meta
 
 	return nil
 }
-
 func hasObjectContentChanges(d verify.ResourceDiffer) bool {
 	for _, key := range []string{
 		"bucket_key_enabled",
@@ -594,8 +583,7 @@ func hasObjectContentChanges(d verify.ResourceDiffer) bool {
 // DeleteAllObjectVersions deletes all versions of a specified key from an S3 bucket.
 // If key is empty then all versions of all objects are deleted.
 // Set force to true to override any S3 object lock protections on object lock enabled buckets.
-// Returns the number of objects deleted.
-func DeleteAllObjectVersions(ctx context.Context, conn *s3.S3, bucketName, key string, force, ignoreObjectErrors bool) (int64, error) {
+// Returns the number of objects deleted.func DeleteAllObjectVersions(ctx context.Context, conn *s3.S3, bucketName, key string, force, ignoreObjectErrors bool) (int64, error) {
 	var nObjects int64
 
 	input := &s3.ListObjectVersionsInput{
@@ -742,8 +730,7 @@ func DeleteAllObjectVersions(ctx context.Context, conn *s3.S3, bucketName, key s
 }
 
 // deleteObjectVersion deletes a specific object version.
-// Set force to true to override any S3 object lock protections.
-func deleteObjectVersion(ctx context.Context, conn *s3.S3, b, k, v string, force bool) error {
+// Set force to true to override any S3 object lock protections.func deleteObjectVersion(ctx context.Context, conn *s3.S3, b, k, v string, force bool) error {
 	input := &s3.DeleteObjectInput{
 		Bucket: aws.String(b),
 		Key:    aws.String(k),
@@ -770,7 +757,6 @@ func deleteObjectVersion(ctx context.Context, conn *s3.S3, b, k, v string, force
 
 	return err
 }
-
 func expandObjectDate(v string) *time.Time {
 	t, err := time.Parse(time.RFC3339, v)
 	if err != nil {
@@ -779,7 +765,6 @@ func expandObjectDate(v string) *time.Time {
 
 	return aws.Time(t)
 }
-
 func flattenObjectDate(t *time.Time) string {
 	if t == nil {
 		return ""

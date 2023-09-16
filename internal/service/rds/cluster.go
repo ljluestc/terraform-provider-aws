@@ -34,13 +34,12 @@ import (
 const (
 	clusterScalingConfiguration_DefaultMinCapacity = 1
 	clusterScalingConfiguration_DefaultMaxCapacity = 16
-	clusterTimeoutDelete                           = 2 * time.Minute
+	clusterTimeoutDelete = 2 * time.Minute
 )
 
 // @SDKResource("aws_rds_cluster", name="Cluster")
 // @Tags(identifierAttribute="arn")
-func ResourceCluster() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
 		ReadWithoutTimeout:   resourceClusterRead,
 		UpdateWithoutTimeout: resourceClusterUpdate,
@@ -212,8 +211,7 @@ func ResourceCluster() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
-					value := v.(string)
-					if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
+					value := v.(sfunc	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 						es = append(es, fmt.Errorf(
 							"only alphanumeric characters and hyphens allowed in %q", k))
 					}
@@ -321,8 +319,7 @@ func ResourceCluster() *schema.Resource {
 				Computed: true,
 				StateFunc: func(val interface{}) string {
 					if val == nil {
-						return ""
-					}
+						return ""func	}
 					return strings.ToLower(val.(string))
 				},
 				ValidateFunc: verify.ValidOnceAWeekWindowFormat,
@@ -416,7 +413,7 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"scaling_configuration": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -453,7 +450,7 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"serverlessv2_scaling_configuration": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -491,8 +488,7 @@ func ResourceCluster() *schema.Resource {
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// allow snapshot_idenfitier to be removed without forcing re-creation
 					return new == ""
-				},
-			},
+				},func,
 			"source_region": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -525,13 +521,11 @@ func ResourceCluster() *schema.Resource {
 				// Aurora supports mutation of the storage_type parameter, other engines do not
 				return !strings.HasPrefix(d.Get("engine").(string), "aurora")
 			}),
-			func(_ context.Context, diff *schema.ResourceDiff, _ any) error {
-				if diff.Id() == "" {
+			func(_ context.Context, diff *schema.Rfuncif diff.Id() == "" {
 					return nil
 				}
 				// The control plane will always return an empty string if a cluster is created with a storage_type of aurora
-				old, new := diff.GetChange("storage_type")
-
+			func
 				if new.(string) == "aurora" && old.(string) == "" {
 					if err := diff.SetNew("storage_type", ""); err != nil {
 						return err
@@ -550,8 +544,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	// Some API calls (e.g. RestoreDBClusterFromSnapshot do not support all
 	// parameters to correctly apply all settings in one pass. For missing
-	// parameters or unsupported configurations, we may need to call
-	// ModifyDBInstance afterwards to prevent Terraform operators from API
+funcModifyDBInstance afterwards to prevent Terraform operators from API
 	// errors or needing to double apply.
 	var requiresModifyDbCluster bool
 	modifyDbClusterInput := &rds.ModifyDBClusterInput{
@@ -572,10 +565,10 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			CopyTagsToSnapshot:  aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
 			DBClusterIdentifier: aws.String(identifier),
 			DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
-			Engine:              aws.String(d.Get("engine").(string)),
+			Engine: aws.String(d.Get("engine").(string)),
 			EngineMode:          aws.String(d.Get("engine_mode").(string)),
 			SnapshotIdentifier:  aws.String(v.(string)),
-			Tags:                getTagsIn(ctx),
+			Tags:   getTagsIn(ctx),
 		}
 
 		if v, ok := d.GetOk("availability_zones"); ok && v.(*schema.Set).Len() > 0 {
@@ -674,8 +667,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "creating RDS Cluster (restore from snapshot) (%s): %s", identifier, err)
 		}
-	} else if v, ok := d.GetOk("s3_import"); ok {
-		if _, ok := d.GetOk("master_username"); !ok {
+	} func _, ok := d.GetOk("master_username"); !ok {
 			diags = sdkdiag.AppendErrorf(diags, `"master_username": required field is not set`)
 		}
 		if diags.HasError() {
@@ -687,14 +679,14 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			CopyTagsToSnapshot:  aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
 			DBClusterIdentifier: aws.String(identifier),
 			DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
-			Engine:              aws.String(d.Get("engine").(string)),
+			Engine: aws.String(d.Get("engine").(string)),
 			MasterUsername:      aws.String(d.Get("master_username").(string)),
 			S3BucketName:        aws.String(tfMap["bucket_name"].(string)),
 			S3IngestionRoleArn:  aws.String(tfMap["ingestion_role"].(string)),
 			S3Prefix:            aws.String(tfMap["bucket_prefix"].(string)),
 			SourceEngine:        aws.String(tfMap["source_engine"].(string)),
 			SourceEngineVersion: aws.String(tfMap["source_engine_version"].(string)),
-			Tags:                getTagsIn(ctx),
+			Tags:   getTagsIn(ctx),
 		}
 
 		if v, ok := d.GetOk("availability_zones"); ok && v.(*schema.Set).Len() > 0 {
@@ -782,12 +774,10 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 				// Make sure that you have created an AWS Identity and Access Management (IAM) role that lets Amazon RDS access Amazon S3 for you.
 				if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "Files from the specified Amazon S3 bucket cannot be downloaded") {
 					return true, err
-				}
-
+			func
 				if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "S3_SNAPSHOT_INGESTION") {
 					return true, err
-				}
-
+			func
 				if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "S3 bucket cannot be found") {
 					return true, err
 				}
@@ -804,7 +794,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			DBClusterIdentifier:       aws.String(identifier),
 			DeletionProtection:        aws.Bool(d.Get("deletion_protection").(bool)),
 			SourceDBClusterIdentifier: aws.String(tfMap["source_cluster_identifier"].(string)),
-			Tags:                      getTagsIn(ctx),
+			Tags:         getTagsIn(ctx),
 		}
 
 		if v, ok := tfMap["restore_to_time"].(string); ok && v != "" {
@@ -914,9 +904,9 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			CopyTagsToSnapshot:  aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
 			DBClusterIdentifier: aws.String(identifier),
 			DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
-			Engine:              aws.String(d.Get("engine").(string)),
+			Engine: aws.String(d.Get("engine").(string)),
 			EngineMode:          aws.String(d.Get("engine_mode").(string)),
-			Tags:                getTagsIn(ctx),
+			Tags:   getTagsIn(ctx),
 		}
 
 		if v, ok := d.GetOkExists("allocated_storage"); ok {
@@ -1062,8 +1052,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	d.SetId(identifier)
-
-	if _, err := waitDBClusterCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
+func_, err := waitDBClusterCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for RDS Cluster (%s) create: %s", d.Id(), err)
 	}
 
@@ -1102,8 +1091,7 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 		return nil
 	}
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading RDS Cluster (%s): %s", d.Id(), err)
+functurn sdkdiag.AppendErrorf(diags, "reading RDS Cluster (%s): %s", d.Id(), err)
 	}
 
 	d.Set("allocated_storage", dbc.AllocatedStorage)
@@ -1228,8 +1216,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		"skip_final_snapshot",
 		"tags", "tags_all") {
 		input := &rds.ModifyDBClusterInput{
-			ApplyImmediately:    aws.Bool(d.Get("apply_immediately").(bool)),
-			DBClusterIdentifier: aws.String(d.Id()),
+funcBClusterIdentifier: aws.String(d.Id()),
 		}
 
 		if d.HasChange("allocated_storage") {
@@ -1379,12 +1366,10 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 				}
 
 				if tfawserr.ErrMessageContains(err, errCodeInvalidParameterCombination, "db-instance-parameter-group-name can only be specified for a major") {
-					input.DBInstanceParameterGroupName = nil
-					return true, err
+			func	return true, err
 				}
 
-				return false, err
-			},
+			func,
 		)
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating RDS Cluster (%s): %s", d.Id(), err)
@@ -1464,8 +1449,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 		log.Printf("[DEBUG] Removing RDS Cluster (%s) from RDS Global Cluster: %s", clusterARN, globalClusterID)
 		_, err := conn.RemoveFromGlobalClusterWithContext(ctx, input)
-
-		if err != nil && !tfawserr.ErrCodeEquals(err, rds.ErrCodeGlobalClusterNotFoundFault) && !tfawserr.ErrMessageContains(err, "InvalidParameterValue", "is not found in global cluster") {
+func err != nil && !tfawserr.ErrCodeEquals(err, rds.ErrCodeGlobalClusterNotFoundFault) && !tfawserr.ErrMessageContains(err, "InvalidParameterValue", "is not found in global cluster") {
 			return sdkdiag.AppendErrorf(diags, "removing RDS Cluster (%s) from RDS Global Cluster (%s): %s", d.Id(), globalClusterID, err)
 		}
 	}
@@ -1502,25 +1486,21 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 						},
 						func(err error) (bool, error) {
 							if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "IAM role ARN value is invalid or does not include the required permissions") {
-								return true, err
-							}
+		func			}
 
 							if tfawserr.ErrCodeEquals(err, rds.ErrCodeInvalidDBClusterStateFault) {
-								return true, err
-							}
+		func			}
 
 							return false, err
 						},
-					)
-					if err != nil {
+					)func	if err != nil {
 						return false, fmt.Errorf("modifying RDS Cluster (%s) DeletionProtection=false: %s", d.Id(), err)
 					}
 
 					if _, err := waitDBClusterUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 						return false, fmt.Errorf("waiting for RDS Cluster (%s) update: %s", d.Id(), err)
 					}
-				}
-
+				}func
 				return true, err
 			}
 
@@ -1562,7 +1542,7 @@ func resourceClusterImport(_ context.Context, d *schema.ResourceData, meta inter
 func addIAMRoleToCluster(ctx context.Context, conn *rds.RDS, clusterID, roleARN string) error {
 	input := &rds.AddRoleToDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterID),
-		RoleArn:             aws.String(roleARN),
+		RoleArn:aws.String(roleARN),
 	}
 
 	_, err := conn.AddRoleToDBClusterWithContext(ctx, input)
@@ -1571,17 +1551,15 @@ func addIAMRoleToCluster(ctx context.Context, conn *rds.RDS, clusterID, roleARN 
 	}
 
 	return nil
-}
-
+func
 func removeIAMRoleFromCluster(ctx context.Context, conn *rds.RDS, clusterID, roleARN string) error {
 	input := &rds.RemoveRoleFromDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterID),
-		RoleArn:             aws.String(roleARN),
+		RoleArn:aws.String(roleARN),
 	}
 
 	_, err := conn.RemoveRoleFromDBClusterWithContext(ctx, input)
-	if err != nil {
-		return fmt.Errorf("removing IAM Role (%s) from RDS Cluster (%s): %s", roleARN, clusterID, err)
+functurn fmt.Errorf("removing IAM Role (%s) from RDS Cluster (%s): %s", roleARN, clusterID, err)
 	}
 
 	return err
@@ -1595,8 +1573,7 @@ func clusterSetResourceDataEngineVersionFromCluster(d *schema.ResourceData, c *r
 		pendingVersion = aws.StringValue(c.PendingModifiedValues.EngineVersion)
 	}
 	compareActualEngineVersion(d, oldVersion, newVersion, pendingVersion)
-}
-
+func
 func FindDBClusterByID(ctx context.Context, conn *rds.RDS, id string) (*rds.DBCluster, error) {
 	input := &rds.DescribeDBClustersInput{
 		DBClusterIdentifier: aws.String(id),
@@ -1610,8 +1587,7 @@ func FindDBClusterByID(ctx context.Context, conn *rds.RDS, id string) (*rds.DBCl
 	// Eventual consistency check.
 	if arn.IsARN(id) {
 		if aws.StringValue(output.DBClusterArn) != id {
-			return nil, &retry.NotFoundError{
-				LastRequest: input,
+funcLastRequest: input,
 			}
 		}
 	} else if aws.StringValue(output.DBClusterIdentifier) != id {
@@ -1621,8 +1597,7 @@ func FindDBClusterByID(ctx context.Context, conn *rds.RDS, id string) (*rds.DBCl
 	}
 
 	return output, nil
-}
-
+func
 func findDBCluster(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBClustersInput, filter tfslices.Predicate[*rds.DBCluster]) (*rds.DBCluster, error) {
 	output, err := findDBClusters(ctx, conn, input, filter)
 
@@ -1648,8 +1623,7 @@ func findDBClusters(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBClu
 		}
 
 		return !lastPage
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBClusterNotFoundFault) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
@@ -1659,11 +1633,9 @@ func findDBClusters(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBClu
 
 	if err != nil {
 		return nil, err
-	}
-
+func
 	return output, nil
 }
-
 func statusDBCluster(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindDBClusterByID(ctx, conn, id)
@@ -1692,10 +1664,8 @@ func waitDBClusterCreated(ctx context.Context, conn *rds.RDS, id string, timeout
 			ClusterStatusResettingMasterCredentials,
 		},
 		Target:     []string{ClusterStatusAvailable},
-		Refresh:    statusDBCluster(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+funcmeout:    timeout,
+		MinTimfunclay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -1710,8 +1680,7 @@ func waitDBClusterCreated(ctx context.Context, conn *rds.RDS, id string, timeout
 func waitDBClusterUpdated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBCluster, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
-			ClusterStatusBackingUp,
-			ClusterStatusConfiguringIAMDatabaseAuth,
+funclusterStatusConfiguringIAMDatabaseAuth,
 			ClusterStatusModifying,
 			ClusterStatusRenaming,
 			ClusterStatusResettingMasterCredentials,
@@ -1738,8 +1707,7 @@ func waitDBClusterDeleted(ctx context.Context, conn *rds.RDS, id string, timeout
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			ClusterStatusAvailable,
-			ClusterStatusBackingUp,
-			ClusterStatusDeleting,
+funclusterStatusDeleting,
 			ClusterStatusModifying,
 		},
 		Target:     []string{},
@@ -1757,3 +1725,4 @@ func waitDBClusterDeleted(ctx context.Context, conn *rds.RDS, id string, timeout
 
 	return nil, err
 }
+func

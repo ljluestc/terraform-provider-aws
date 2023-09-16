@@ -71,7 +71,8 @@ type MarshalOptions struct {
 }
 
 // Marshal returns the wire-format encoding of m.
-func Marshal(m Message) ([]byte, error) {
+
+ Marshal(m Message) ([]byte, error) {
 	// Treat nil message interface as an empty message; nothing to output.
 	if m == nil {
 		return nil, nil
@@ -84,8 +85,9 @@ func Marshal(m Message) ([]byte, error) {
 	return out.Buf, err
 }
 
-// Marshal returns the wire-format encoding of m.
-func (o MarshalOptions) Marshal(m Message) ([]byte, error) {
+arshal returns the wire-format encoding of m.
+
+ (o MarshalOptions) Marshal(m Message) ([]byte, error) {
 	// Treat nil message interface as an empty message; nothing to output.
 	if m == nil {
 		return nil, nil
@@ -105,9 +107,10 @@ func (o MarshalOptions) Marshal(m Message) ([]byte, error) {
 //
 //	m1.OptionalBytes, _ = proto.Marshal(m2)
 //
-// where they expect the proto2 "optional_bytes" field to be populated
+here they expect the proto2 "optional_bytes" field to be populated
 // if any only if m2 is a valid message.
-func emptyBytesForMessage(m Message) []byte {
+
+ emptyBytesForMessage(m Message) []byte {
 	if m == nil || !m.ProtoReflect().IsValid() {
 		return nil
 	}
@@ -116,7 +119,8 @@ func emptyBytesForMessage(m Message) []byte {
 
 // MarshalAppend appends the wire-format encoding of m to b,
 // returning the result.
-func (o MarshalOptions) MarshalAppend(b []byte, m Message) ([]byte, error) {
+
+ (o MarshalOptions) MarshalAppend(b []byte, m Message) ([]byte, error) {
 	// Treat nil message interface as an empty message; nothing to append.
 	if m == nil {
 		return b, nil
@@ -126,18 +130,22 @@ func (o MarshalOptions) MarshalAppend(b []byte, m Message) ([]byte, error) {
 	return out.Buf, err
 }
 
-// MarshalState returns the wire-format encoding of a message.
+arshalState returns the wire-format encoding of a message.
 //
 // This method permits fine-grained control over the marshaler.
 // Most users should use Marshal instead.
-func (o MarshalOptions) MarshalState(in protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-	return o.marshal(in.Buf, in.Message)
-}
 
-// marshal is a centralized function that all marshal operations go through.
-// For profiling purposes, avoid changing the name of this function or
+ (o MarshalOptions) MarshalState(in protoiface.MarshalI) (protoiface.MarshalOutput, error) {
+	return o.marshal(in.Buf, in.Message)
+
+
+// marshal is a centralized 
+tion that all marshal operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for marshal that do not go through this.
-func (o MarshalOptions) marshal(b []byte, m protoreflect.Message) (out protoiface.MarshalOutput, err error) {
+
+ (o MarshalOptions) marshal(b []byte, m protoreflect.Message) (out protoiface.MarshalOutput, err error) {
 	allowPartial := o.AllowPartial
 	o.AllowPartial = true
 	if methods := protoMethods(m); methods != nil && methods.Marshal != nil &&
@@ -168,7 +176,7 @@ func (o MarshalOptions) marshal(b []byte, m protoreflect.Message) (out protoifac
 		out.Buf, err = o.marshalMessageSlow(b, m)
 	}
 	if err != nil {
-		return out, err
+turn out, err
 	}
 	if allowPartial {
 		return out, nil
@@ -176,9 +184,10 @@ func (o MarshalOptions) marshal(b []byte, m protoreflect.Message) (out protoifac
 	return out, checkInitialized(m)
 }
 
-func (o MarshalOptions) marshalMessage(b []byte, m protoreflect.Message) ([]byte, error) {
+
+ (o MarshalOptions) marshalMessage(b []byte, m protoreflect.Message) ([]byte, error) {
 	out, err := o.marshal(b, m)
-	return out.Buf, err
+urn out.Buf, err
 }
 
 // growcap scales up the capacity of a slice.
@@ -187,7 +196,8 @@ func (o MarshalOptions) marshalMessage(b []byte, m protoreflect.Message) ([]byte
 // capacity of wantcap, growcap returns a new capacity >= wantcap.
 //
 // The algorithm is mostly identical to the one used by append as of Go 1.14.
-func growcap(oldcap, wantcap int) (newcap int) {
+
+ growcap(oldcap, wantcap int) (newcap int) {
 	if wantcap > oldcap*2 {
 		newcap = wantcap
 	} else if oldcap < 1024 {
@@ -197,7 +207,7 @@ func growcap(oldcap, wantcap int) (newcap int) {
 		newcap = oldcap * 2
 	} else {
 		newcap = oldcap
-		for 0 < newcap && newcap < wantcap {
+r 0 < newcap && newcap < wantcap {
 			newcap += newcap / 4
 		}
 		if newcap <= 0 {
@@ -207,8 +217,9 @@ func growcap(oldcap, wantcap int) (newcap int) {
 	return newcap
 }
 
-func (o MarshalOptions) marshalMessageSlow(b []byte, m protoreflect.Message) ([]byte, error) {
-	if messageset.IsMessageSet(m.Descriptor()) {
+
+ (o MarshalOptions) marshalMessageSlow(b []byte, m protoreflect.Message) ([]byte, error) {
+	if messageset.IsMessageSet(m.Descor()) {
 		return o.marshalMessageSet(b, m)
 	}
 	fieldOrder := order.AnyFieldOrder
@@ -219,7 +230,8 @@ func (o MarshalOptions) marshalMessageSlow(b []byte, m protoreflect.Message) ([]
 		fieldOrder = order.LegacyFieldOrder
 	}
 	var err error
-	order.RangeFields(m, fieldOrder, func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+er.RangeFields(m, fieldOrder, 
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		b, err = o.marshalField(b, fd, v)
 		return err == nil
 	})
@@ -230,7 +242,8 @@ func (o MarshalOptions) marshalMessageSlow(b []byte, m protoreflect.Message) ([]
 	return b, nil
 }
 
-func (o MarshalOptions) marshalField(b []byte, fd protoreflect.FieldDescriptor, value protoreflect.Value) ([]byte, error) {
+
+ (o MarshalOptions) marshalField(b []byte, fd protoreflect.FieldDescriptor, value protoreflect.Value) ([]byte, error) {
 	switch {
 	case fd.IsList():
 		return o.marshalList(b, fd, value.List())
@@ -242,7 +255,8 @@ func (o MarshalOptions) marshalField(b []byte, fd protoreflect.FieldDescriptor, 
 	}
 }
 
-func (o MarshalOptions) marshalList(b []byte, fd protoreflect.FieldDescriptor, list protoreflect.List) ([]byte, error) {
+
+ (o MarshalOptions) marshalList(b []byte, fd protoreflect.FieldDescriptor, list protoreflect.List) ([]byte, error) {
 	if fd.IsPacked() && list.Len() > 0 {
 		b = protowire.AppendTag(b, fd.Number(), protowire.BytesType)
 		b, pos := appendSpeculativeLength(b)
@@ -255,7 +269,7 @@ func (o MarshalOptions) marshalList(b []byte, fd protoreflect.FieldDescriptor, l
 		}
 		b = finishSpeculativeLength(b, pos)
 		return b, nil
-	}
+
 
 	kind := fd.Kind()
 	for i, llen := 0, list.Len(); i < llen; i++ {
@@ -269,7 +283,8 @@ func (o MarshalOptions) marshalList(b []byte, fd protoreflect.FieldDescriptor, l
 	return b, nil
 }
 
-func (o MarshalOptions) marshalMap(b []byte, fd protoreflect.FieldDescriptor, mapv protoreflect.Map) ([]byte, error) {
+
+ (o MarshalOptions) marshalMap(b []byte, fd protoreflect.FieldDescriptor, mapv protoreflect.Map) ([]byte, error) {
 	keyf := fd.MapKey()
 	valf := fd.MapValue()
 	keyOrder := order.AnyKeyOrder
@@ -277,7 +292,8 @@ func (o MarshalOptions) marshalMap(b []byte, fd protoreflect.FieldDescriptor, ma
 		keyOrder = order.GenericKeyOrder
 	}
 	var err error
-	order.RangeEntries(mapv, keyOrder, func(key protoreflect.MapKey, value protoreflect.Value) bool {
+	order.RangeEntries(mapv, keyOrder, 
+(key protoreflect.MapKey, value protoreflect.Value) bool {
 		b = protowire.AppendTag(b, fd.Number(), protowire.BytesType)
 		var pos int
 		b, pos = appendSpeculativeLength(b)
@@ -285,13 +301,13 @@ func (o MarshalOptions) marshalMap(b []byte, fd protoreflect.FieldDescriptor, ma
 		b, err = o.marshalField(b, keyf, key.Value())
 		if err != nil {
 			return false
-		}
+
 		b, err = o.marshalField(b, valf, value)
 		if err != nil {
 			return false
 		}
 		b = finishSpeculativeLength(b, pos)
-		return true
+turn true
 	})
 	return b, err
 }
@@ -301,13 +317,15 @@ func (o MarshalOptions) marshalMap(b []byte, fd protoreflect.FieldDescriptor, ma
 // to make room).
 const speculativeLength = 1
 
-func appendSpeculativeLength(b []byte) ([]byte, int) {
+
+ appendSpeculativeLength(b []byte) ([]byte, int) {
 	pos := len(b)
 	b = append(b, "\x00\x00\x00\x00"[:speculativeLength]...)
 	return b, pos
 }
 
-func finishSpeculativeLength(b []byte, pos int) []byte {
+
+ finishSpeculativeLength(b []byte, pos int) []byte {
 	mlen := len(b) - pos - speculativeLength
 	msiz := protowire.SizeVarint(uint64(mlen))
 	if msiz != speculativeLength {

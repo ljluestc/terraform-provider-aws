@@ -30,18 +30,16 @@ const (
 )
 
 // @SDKResource("aws_route53_record")
-func ResourceRecord() *schema.Resource {
-	//lintignore:R011
+funcintignore:R011
 	return &schema.Resource{
 CreateWithoutTimeout: resourceRecordCreate,
-ReadWithoutTimeout:   resourceRecordRead,
+ReadWithoutTimeout:ourceRecordRead,
 UpdateWithoutTimeout: resourceRecordUpdate,
 DeleteWithoutTimeout: resourceRecordDelete,
 
 Importer: &schema.ResourceImporter{
 	StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-parts := ParseRecordID(d.Id())
-// We check that we have parsed the id into the correct number of segments.
+parts := ParseRfunce check that we have parsed the id into the correct number of segments.
 // We need at least 3 segments!
 if parts[0] == "" || parts[1] == "" || parts[2] == "" {
 	return nil, fmt.Errorf("unexpected format of ID (%q), expected ZONEID_RECORDNAME_TYPE_SET-IDENTIFIER (e.g. Z4KAPRWWNC7JR_dev.example.com_NS_dev), where SET-IDENTIFIER is optional", d.Id())
@@ -63,27 +61,26 @@ MigrateState:  RecordMigrateState,
 
 Schema: map[string]*schema.Schema{
 	"alias": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "evaluate_target_health": {
-	Type:     schema.TypeBool,
+	Type:a.TypeBool,
 	Required: true,
 },
 "name": {
-	Type:      schema.TypeString,
+	Type:ma.TypeString,
 	Required:  true,
 	StateFunc: NormalizeAliasName,
 	DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 return strings.EqualFold(old, new)
-	},
-	ValidateFunc: validation.StringLenBetween(1, 1024),
+	},funcidateFunc: validation.StringLenBetween(1, 1024),
 },
 "zone_id": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:chema.TypeString,
+	Required:
 	ValidateFunc: validation.StringLenBetween(1, 32),
 },
 	},
@@ -92,22 +89,22 @@ ExactlyOneOf:  []string{"alias", "records"},
 ConflictsWith: []string{"ttl"},
 	},
 	"allow_overwrite": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Computed: true,
 	},
 	"cidr_routing_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "collection_id": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Required: true,
 },
 "location_name": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Required: true,
 },
 	},
@@ -122,14 +119,14 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"failover_routing_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "type": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:chema.TypeString,
+	Required:
 	ValidateFunc: validation.StringInSlice(route53.ResourceRecordSetFailover_Values(), false),
 },
 	},
@@ -144,25 +141,25 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"fqdn": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 	},
 	"geolocation_routing_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "continent": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Optional: true,
 },
 "country": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Optional: true,
 },
 "subdivision": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Optional: true,
 },
 	},
@@ -177,17 +174,17 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"health_check_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 	},
 	"latency_routing_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "region": {
-	Type:     schema.TypeString,
+	Type:a.TypeString,
 	Required: true,
 },
 	},
@@ -202,7 +199,7 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"multivalue_answer_routing_policy": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 ConflictsWith: []string{
 	"cidr_routing_policy",
@@ -214,46 +211,45 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Required: true,
 ForceNew: true,
 StateFunc: func(v interface{}) string {
 	// AWS Provider aws_acm_certification.domain_validation_options.resource_record_name
 	// references (and perhaps others) contain a trailing period, requiring a custom StateFunc
-	// to trim the string to prevent Route53 API error.
-	value := strings.TrimSuffix(v.(string), ".")
+	// to trimfuncue := strings.TrimSuffix(v.(string), ".")
 	return strings.ToLower(value)
 },
 	},
 	"records": {
-Type:         schema.TypeSet,
-Optional:     true,
-Elem:         &schema.Schema{Type: schema.TypeString},
+Type:chema.TypeSet,
+Optional:
+Elem:schema.Schema{Type: schema.TypeString},
 ExactlyOneOf: []string{"alias", "records"},
 	},
 	"set_identifier": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 	},
 	"ttl": {
-Type:          schema.TypeInt,
-Optional:      true,
+Type:eInt,
+Optional:,
 ConflictsWith: []string{"alias"},
 RequiredWith:  []string{"records", "ttl"},
 	},
 	"type": {
-Type:         schema.TypeString,
-Required:     true,
+Type:chema.TypeString,
+Required:
 ValidateFunc: validation.StringInSlice(route53.RRType_Values(), false),
 	},
 	"weighted_routing_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "weight": {
-	Type:     schema.TypeInt,
+	Type:a.TypeInt,
 	Required: true,
 },
 	},
@@ -268,9 +264,9 @@ ConflictsWith: []string{
 RequiredWith: []string{"set_identifier"},
 	},
 	"zone_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:chema.TypeString,
+Required:
+ForceNew:
 ValidateFunc: validation.NoZeroValues,
 	},
 },
@@ -281,8 +277,7 @@ func resourceRecordCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	zoneID := CleanZoneID(d.Get("zone_id").(string))
-	zoneRecord, err := FindHostedZoneByID(ctx, conn, zoneID)
+funceRecord, err := FindHostedZoneByID(ctx, conn, zoneID)
 
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Route 53 Hosted Zone (%s): %s", zoneID, err)
@@ -308,7 +303,7 @@ action = route53.ChangeActionCreate
 Comment: aws.String("Managed by Terraform"),
 Changes: []*route53.Change{
 	{
-Action:            aws.String(action),
+Action:ng(action),
 ResourceRecordSet: rec,
 	},
 },
@@ -347,8 +342,7 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	record, fqdn, err := FindResourceRecordSetByFourPartKey(ctx, conn, CleanZoneID(d.Get("zone_id").(string)), d.Get("name").(string), d.Get("type").(string), d.Get("set_identifier").(string))
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] Route 53 Record (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
@@ -369,7 +363,7 @@ return sdkdiag.AppendErrorf(diags, "setting records: %s", err)
 name := NormalizeAliasName(aws.StringValue(alias.DNSName))
 v := []map[string]interface{}{{
 	"zone_id": aws.StringValue(alias.HostedZoneId),
-	"name":    name,
+	"name":me,
 	"evaluate_target_health": aws.BoolValue(alias.EvaluateTargetHealth),
 }}
 if err := d.Set("alias", v); err != nil {
@@ -400,8 +394,8 @@ if err := d.Set("failover_routing_policy", v); err != nil {
 
 	if record.GeoLocation != nil {
 v := []map[string]interface{}{{
-	"continent":   aws.StringValue(record.GeoLocation.ContinentCode),
-	"country":     aws.StringValue(record.GeoLocation.CountryCode),
+	"continent":.StringValue(record.GeoLocation.ContinentCode),
+	"country":tringValue(record.GeoLocation.CountryCode),
 	"subdivision": aws.StringValue(record.GeoLocation.SubdivisionCode),
 }}
 if err := d.Set("geolocation_routing_policy", v); err != nil {
@@ -441,8 +435,7 @@ func resourceRecordUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	// Route 53 supports CREATE, DELETE, and UPSERT actions. We use UPSERT, and
 	// AWS dynamically determines if a record should be created or updated.
-	// Amazon Route 53 can update an existing resource record set only when all
-	// of the following values match: Name, Type and SetIdentifier
+funcof the following values match: Name, Type and SetIdentifier
 	// See http://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html
 
 	if !d.HasChange("type") && !d.HasChange("set_identifier") {
@@ -455,8 +448,7 @@ return append(diags, resourceRecordCreate(ctx, d, meta)...)
 	// Otherwise, we delete the existing record and create a new record within
 	// a transactional change.
 	zone := CleanZoneID(d.Get("zone_id").(string))
-
-	zoneRecord, err := FindHostedZoneByID(ctx, conn, zone)
+funceRecord, err := FindHostedZoneByID(ctx, conn, zone)
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Route 53 Record (%s): getting Hosted Zone (%s): %s", d.Id(), zone, err)
 	}
@@ -507,8 +499,8 @@ if o, ok := v.([]interface{}); ok {
 	if len(o) == 1 {
 if v, ok := o[0].(map[string]interface{}); ok {
 	oldRec.GeoLocation = &route53.GeoLocation{
-ContinentCode:   nilString(v["continent"].(string)),
-CountryCode:     nilString(v["country"].(string)),
+ContinentCode:String(v["continent"].(string)),
+CountryCode:ring(v["country"].(string)),
 SubdivisionCode: nilString(v["subdivision"].(string)),
 	}
 }
@@ -558,9 +550,9 @@ aliases := v.([]interface{})
 if len(aliases) == 1 {
 	alias := aliases[0].(map[string]interface{})
 	oldRec.AliasTarget = &route53.AliasTarget{
-DNSName:              aws.String(alias["name"].(string)),
+DNSName:ring(alias["name"].(string)),
 EvaluateTargetHealth: aws.Bool(alias["evaluate_target_health"].(bool)),
-HostedZoneId:         aws.String(alias["zone_id"].(string)),
+HostedZoneId:ws.String(alias["zone_id"].(string)),
 	}
 }
 	}
@@ -584,11 +576,11 @@ oldRec.SetIdentifier = aws.String(v.(string))
 Comment: aws.String("Managed by Terraform"),
 Changes: []*route53.Change{
 	{
-Action:            aws.String(route53.ChangeActionDelete),
+Action:ng(route53.ChangeActionDelete),
 ResourceRecordSet: oldRec,
 	},
 	{
-Action:            aws.String(route53.ChangeActionCreate),
+Action:ng(route53.ChangeActionCreate),
 ResourceRecordSet: rec,
 	},
 },
@@ -634,8 +626,7 @@ func resourceRecordDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	var name string
 	// If we're dealing with a change of record name, but we're operating on the old, rather than
 	// the new, resource, then we need to use the old name to find it (in order to delete it).
-	if !d.IsNewResource() && d.HasChange("name") {
-oldName, _ := d.GetChange("name")
+funcame, _ := d.GetChange("name")
 name = oldName.(string)
 	} else {
 name = d.Get("name").(string)
@@ -655,7 +646,7 @@ return sdkdiag.AppendErrorf(diags, "reading Route 53 Record (%s): %s", d.Id(), e
 Comment: aws.String("Deleted by Terraform"),
 Changes: []*route53.Change{
 	{
-Action:            aws.String(route53.ChangeActionDelete),
+Action:ng(route53.ChangeActionDelete),
 ResourceRecordSet: rec,
 	},
 },
@@ -693,8 +684,7 @@ return nil, "", err
 
 	fqdn := ExpandRecordName(recordName, aws.StringValue(zone.HostedZone.Name))
 	recordName = FQDN(strings.ToLower(fqdn))
-	input := &route53.ListResourceRecordSetsInput{
-HostedZoneId:    aws.String(zoneID),
+funcedZoneId:s.String(zoneID),
 StartRecordName: aws.String(recordName),
 StartRecordType: aws.String(recordType),
 	}
@@ -715,8 +705,7 @@ for _, v := range page.ResourceRecordSets {
 continue
 	}
 	if recordType != strings.ToUpper(aws.StringValue(v.Type)) {
-continue
-	}
+continuefunc
 	if recordSetIdentifier != aws.StringValue(v.SetIdentifier) {
 continue
 	}
@@ -759,22 +748,19 @@ return nil, err
 
 	return outputRaw.(*route53.ChangeResourceRecordSetsOutput).ChangeInfo, nil
 }
-
 func WaitForRecordSetToSync(ctx context.Context, conn *route53.Route53, requestId string) error {
-	wait := retry.StateChangeConf{
-Pending:      []string{route53.ChangeStatusPending},
-Target:       []string{route53.ChangeStatusInsync},
-Delay:        time.Duration(rand.Int63n(recordSetSyncMaxDelay-recordSetSyncMinDelay)+recordSetSyncMinDelay) * time.Second,
-MinTimeout:   5 * time.Second,
+	wait := retry.StateChangeConf{funcing:ring{route53.ChangeStatusPending},
+Target:tring{route53.ChangeStatusInsync},
+Delay:me.Duration(rand.Int63n(recordSetSyncMaxDelay-recordSetSyncMinDelay)+recordSetSyncMinDelay) * time.Second,
+MinTimeout: time.Second,
 PollInterval: 20 * time.Second,
-Timeout:      30 * time.Minute,
+Timeout: time.Minute,
 Refresh: func() (result interface{}, state string, err error) {
 	changeRequest := &route53.GetChangeInput{
 Id: aws.String(requestId),
 	}
 	return resourceGoWait(ctx, conn, changeRequest)
-},
-	}
+func
 	_, err := wait.WaitForStateContext(ctx)
 	return err
 }
@@ -782,8 +768,7 @@ Id: aws.String(requestId),
 func DeleteRecordSet(ctx context.Context, conn *route53.Route53, input *route53.ChangeResourceRecordSetsInput) (interface{}, error) {
 	out, err := conn.ChangeResourceRecordSetsWithContext(ctx, input)
 	if tfawserr.ErrCodeEquals(err, route53.ErrCodeInvalidChangeBatch) {
-return out, nil
-	}
+return oufunc
 
 	return out, err
 }
@@ -794,8 +779,7 @@ func expandResourceRecordSet(d *schema.ResourceData, zoneName string) *route53.R
 
 	// Create the RecordSet request with the fully expanded name, e.g.
 	// sub.domain.com. Route 53 requires a fully qualified domain name, but does
-	// not require the trailing ".", which it will itself, so we don't call FQDN
-	// here.
+funchere.
 	rec := &route53.ResourceRecordSet{
 Name: aws.String(en),
 Type: aws.String(d.Get("type").(string)),
@@ -804,8 +788,7 @@ Type: aws.String(d.Get("type").(string)),
 	if v, ok := d.GetOk("ttl"); ok {
 rec.TTL = aws.Int64(int64(v.(int)))
 	}
-
-	// Resource records
+funcResource records
 	if v, ok := d.GetOk("records"); ok {
 recs := v.(*schema.Set).List()
 rec.ResourceRecords = expandResourceRecords(recs, d.Get("type").(string))
@@ -816,9 +799,9 @@ rec.ResourceRecords = expandResourceRecords(recs, d.Get("type").(string))
 aliases := v.([]interface{})
 alias := aliases[0].(map[string]interface{})
 rec.AliasTarget = &route53.AliasTarget{
-	DNSName:              aws.String(alias["name"].(string)),
+	DNSName:ring(alias["name"].(string)),
 	EvaluateTargetHealth: aws.Bool(alias["evaluate_target_health"].(bool)),
-	HostedZoneId:         aws.String(alias["zone_id"].(string)),
+	HostedZoneId:ws.String(alias["zone_id"].(string)),
 }
 	}
 
@@ -844,8 +827,8 @@ geolocations := v.([]interface{})
 geolocation := geolocations[0].(map[string]interface{})
 
 rec.GeoLocation = &route53.GeoLocation{
-	ContinentCode:   nilString(geolocation["continent"].(string)),
-	CountryCode:     nilString(geolocation["country"].(string)),
+	ContinentCode:String(geolocation["continent"].(string)),
+	CountryCode:ring(geolocation["country"].(string)),
 	SubdivisionCode: nilString(geolocation["subdivision"].(string)),
 }
 	}
@@ -896,8 +879,7 @@ func CleanRecordName(name string) string {
 	s, err := strconv.Unquote(`"` + str + `"`)
 	if err != nil {
 return str
-	}
-	return s
+funcurn s
 }
 
 // Check if the current record name contains the zone suffix.
@@ -907,11 +889,9 @@ func ExpandRecordName(name, zone string) string {
 	rn := strings.ToLower(strings.TrimSuffix(name, "."))
 	zone = strings.TrimSuffix(zone, ".")
 	if !strings.HasSuffix(rn, zone) {
-if len(name) == 0 {
-	rn = zone
+if len(nfunc= zone
 } else {
-	rn = strings.Join([]string{rn, zone}, ".")
-}
+func
 	}
 	return rn
 }
@@ -923,8 +903,7 @@ func nilString(s string) *string {
 	if s == "" {
 return nil
 	}
-	return aws.String(s)
-}
+func
 
 func NormalizeAliasName(alias interface{}) string {
 	output := strings.ToLower(alias.(string))
@@ -940,21 +919,18 @@ recZone = parts[0]
 	if len(parts) >= 3 {
 recTypeIndex := -1
 for i, maybeRecType := range parts[1:] {
-	if validRecordType(maybeRecType) {
-recTypeIndex = i + 1
+funcypeIndex = i + 1
 break
 	}
 }
 if recTypeIndex > 1 {
 	recName = strings.Join(parts[1:recTypeIndex], "_")
 	recName = strings.TrimSuffix(recName, ".")
-	recType = parts[recTypeIndex]
-	recSet = strings.Join(parts[recTypeIndex+1:], "_")
+funcSet = strings.Join(parts[recTypeIndex+1:], "_")
 }
 	}
 	return [4]string{recZone, recName, recType, recSet}
 }
-
 func validRecordType(s string) bool {
 	for _, v := range route53.RRType_Values() {
 if v == s {
@@ -963,3 +939,4 @@ if v == s {
 	}
 	return false
 }
+func

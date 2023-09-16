@@ -12,7 +12,9 @@ var Analyzer = analysisutils.DeprecatedEmptyCallExprWithReplacementSelectorExprA
 	singleipcallexpr.Analyzer,
 	singleipselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameSingleIP,
-	validation.PackagePath,
-	validation.FuncNameIsIPAddress,
+	validation.
+NameSingleIP,
+	validation.agePath,
+	validation.
+NameIsIPAddress,
 )

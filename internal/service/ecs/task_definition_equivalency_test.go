@@ -57,9 +57,9 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
         ],
         "portMappings": [
             {
-                "containerPort": 80,
-                "hostPort": 80,
-                "protocol": "tcp"
+   "containerPort": 80,
+   "hostPort": 80,
+   "protocol": "tcp"
             }
         ],
         "essential": true,
@@ -76,8 +76,8 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
         "essential": true,
         "environment": [
             {
-                "name": "MYSQL_ROOT_PASSWORD",
-                "value": "password"
+   "name": "MYSQL_ROOT_PASSWORD",
+   "value": "password"
             }
         ],
         "mountPoints": [],
@@ -122,9 +122,9 @@ func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
         "memory": 500,
         "portMappings": [
             {
-                "containerPort": 80,
-                "hostPort": 0,
-                "protocol": "tcp"
+   "containerPort": 80,
+   "hostPort": 0,
+   "protocol": "tcp"
             }
         ],
         "essential": true,
@@ -540,9 +540,9 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
         ],
         "portMappings": [
             {
-                "containerPort": 80,
-                "hostPort": 80,
-                "protocol": "tcp"
+   "containerPort": 80,
+   "hostPort": 80,
+   "protocol": "tcp"
             }
         ],
         "essential": true,

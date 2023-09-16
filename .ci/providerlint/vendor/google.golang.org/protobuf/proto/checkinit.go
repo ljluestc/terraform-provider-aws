@@ -11,7 +11,8 @@ import (
 )
 
 // CheckInitialized returns an error if any required fields in m are not set.
-func CheckInitialized(m Message) error {
+
+ CheckInitialized(m Message) error {
 	// Treat a nil message interface as an "untyped" empty message,
 	// which we assume to have no required fields.
 	if m == nil {
@@ -21,8 +22,9 @@ func CheckInitialized(m Message) error {
 	return checkInitialized(m.ProtoReflect())
 }
 
-// CheckInitialized returns an error if any required fields in m are not set.
-func checkInitialized(m protoreflect.Message) error {
+heckInitialized returns an error if any required fields in m are not set.
+
+ checkInitialized(m protoreflect.Message) error {
 	if methods := protoMethods(m); methods != nil && methods.CheckInitialized != nil {
 		_, err := methods.CheckInitialized(protoiface.CheckInitializedInput{
 			Message: m,
@@ -30,9 +32,10 @@ func checkInitialized(m protoreflect.Message) error {
 		return err
 	}
 	return checkInitializedSlow(m)
-}
 
-func checkInitializedSlow(m protoreflect.Message) error {
+
+
+ checkInitializedSlow(m protoreflect.Message) error {
 	md := m.Descriptor()
 	fds := md.Fields()
 	for i, nums := 0, md.RequiredNumbers(); i < nums.Len(); i++ {
@@ -42,7 +45,8 @@ func checkInitializedSlow(m protoreflect.Message) error {
 		}
 	}
 	var err error
-	m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	m.Range(
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		switch {
 		case fd.IsList():
 			if fd.Message() == nil {
@@ -51,11 +55,12 @@ func checkInitializedSlow(m protoreflect.Message) error {
 			for i, list := 0, v.List(); i < list.Len() && err == nil; i++ {
 				err = checkInitialized(list.Get(i).Message())
 			}
-		case fd.IsMap():
+		case fd.IsMap()
 			if fd.MapValue().Message() == nil {
 				return true
 			}
-			v.Map().Range(func(key protoreflect.MapKey, v protoreflect.Value) bool {
+			v.Map().Range(
+(key protoreflect.MapKey, v protoreflect.Value) bool {
 				err = checkInitialized(v.Message())
 				return err == nil
 			})

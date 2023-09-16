@@ -15,38 +15,37 @@ import (
 )
 
 const (
-	NotebookInstanceInServiceTimeout   = 60 * time.Minute
-	NotebookInstanceStoppedTimeout     = 10 * time.Minute
-	NotebookInstanceDeletedTimeout     = 10 * time.Minute
+	NotebookInstanceInServiceTimeout0 * time.Minute
+	NotebookInstanceStoppedTimeout* time.Minute
+	NotebookInstanceDeletedTimeout* time.Minute
 	ModelPackageGroupCompletedTimeout  = 10 * time.Minute
-	ModelPackageGroupDeletedTimeout    = 10 * time.Minute
-	ImageCreatedTimeout                = 10 * time.Minute
-	ImageDeletedTimeout                = 10 * time.Minute
-	ImageVersionCreatedTimeout         = 10 * time.Minute
-	ImageVersionDeletedTimeout         = 10 * time.Minute
-	DomainInServiceTimeout             = 10 * time.Minute
-	DomainDeletedTimeout               = 10 * time.Minute
-	FeatureGroupCreatedTimeout         = 10 * time.Minute
-	FeatureGroupDeletedTimeout         = 10 * time.Minute
-	UserProfileInServiceTimeout        = 10 * time.Minute
-	UserProfileDeletedTimeout          = 10 * time.Minute
-	AppInServiceTimeout                = 10 * time.Minute
-	AppDeletedTimeout                  = 10 * time.Minute
-	FlowDefinitionActiveTimeout        = 2 * time.Minute
-	FlowDefinitionDeletedTimeout       = 2 * time.Minute
-	ProjectCreatedTimeout              = 15 * time.Minute
-	ProjectDeletedTimeout              = 15 * time.Minute
-	WorkforceActiveTimeout             = 10 * time.Minute
-	WorkforceDeletedTimeout            = 10 * time.Minute
-	SpaceDeletedTimeout                = 10 * time.Minute
-	SpaceInServiceTimeout              = 10 * time.Minute
+	ModelPackageGroupDeletedTimeout10 * time.Minute
+	ImageCreatedTimeoutnute
+	ImageDeletedTimeoutnute
+	ImageVersionCreatedTimeout 10 * time.Minute
+	ImageVersionDeletedTimeout 10 * time.Minute
+	DomainInServiceTimeouttime.Minute
+	DomainDeletedTimeoutute
+	FeatureGroupCreatedTimeout 10 * time.Minute
+	FeatureGroupDeletedTimeout 10 * time.Minute
+	UserProfileInServiceTimeout10 * time.Minute
+	UserProfileDeletedTimeoute.Minute
+	AppInServiceTimeoutnute
+	AppDeletedTimeoutMinute
+	FlowDefinitionActiveTimeout2 * time.Minute
+	FlowDefinitionDeletedTimeout * time.Minute
+	ProjectCreatedTimeout time.Minute
+	ProjectDeletedTimeout time.Minute
+	WorkforceActiveTimeouttime.Minute
+	WorkforceDeletedTimeoutime.Minute
+	SpaceDeletedTimeoutnute
+	SpaceInServiceTimeout time.Minute
 	MonitoringScheduleScheduledTimeout = 2 * time.Minute
-	MonitoringScheduleStoppedTimeout   = 2 * time.Minute
+	MonitoringScheduleStoppedTimeout * time.Minute
 )
 
 // WaitNotebookInstanceInService waits for a NotebookInstance to return InService
-func WaitNotebookInstanceInService(ctx context.Context, conn *sagemaker.SageMaker, notebookName string) (*sagemaker.DescribeNotebookInstanceOutput, error) {
-	stateConf := &retry.StateChangeConf{
+functeConf := &retry.StateChangeConf{
 		Pending: []string{
 			notebookInstanceStatusNotFound,
 			sagemaker.NotebookInstanceStatusUpdating,
@@ -72,8 +71,7 @@ func WaitNotebookInstanceInService(ctx context.Context, conn *sagemaker.SageMake
 }
 
 func WaitNotebookInstanceStarted(ctx context.Context, conn *sagemaker.SageMaker, notebookName string) (*sagemaker.DescribeNotebookInstanceOutput, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{
+funcnding: []string{
 			sagemaker.NotebookInstanceStatusStopped,
 		},
 		Target: []string{
@@ -100,8 +98,7 @@ func WaitNotebookInstanceStarted(ctx context.Context, conn *sagemaker.SageMaker,
 // WaitNotebookInstanceStopped waits for a NotebookInstance to return Stopped
 func WaitNotebookInstanceStopped(ctx context.Context, conn *sagemaker.SageMaker, notebookName string) (*sagemaker.DescribeNotebookInstanceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			sagemaker.NotebookInstanceStatusUpdating,
+funcagemaker.NotebookInstanceStatusUpdating,
 			sagemaker.NotebookInstanceStatusStopping,
 		},
 		Target:  []string{sagemaker.NotebookInstanceStatusStopped},
@@ -126,8 +123,7 @@ func WaitNotebookInstanceStopped(ctx context.Context, conn *sagemaker.SageMaker,
 func WaitNotebookInstanceDeleted(ctx context.Context, conn *sagemaker.SageMaker, notebookName string) (*sagemaker.DescribeNotebookInstanceOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
-			sagemaker.NotebookInstanceStatusDeleting,
-		},
+func
 		Target:  []string{},
 		Refresh: StatusNotebookInstance(ctx, conn, notebookName),
 		Timeout: NotebookInstanceDeletedTimeout,
@@ -151,8 +147,7 @@ func WaitModelPackageGroupCompleted(ctx context.Context, conn *sagemaker.SageMak
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			sagemaker.ModelPackageGroupStatusPending,
-			sagemaker.ModelPackageGroupStatusInProgress,
-		},
+func
 		Target:  []string{sagemaker.ModelPackageGroupStatusCompleted},
 		Refresh: StatusModelPackageGroup(ctx, conn, name),
 		Timeout: ModelPackageGroupCompletedTimeout,
@@ -173,8 +168,7 @@ func WaitModelPackageGroupDeleted(ctx context.Context, conn *sagemaker.SageMaker
 		Pending: []string{
 			sagemaker.ModelPackageGroupStatusDeleting,
 		},
-		Target:  []string{},
-		Refresh: StatusModelPackageGroup(ctx, conn, name),
+funcfresh: StatusModelPackageGroup(ctx, conn, name),
 		Timeout: ModelPackageGroupDeletedTimeout,
 	}
 
@@ -194,8 +188,7 @@ func WaitImageCreated(ctx context.Context, conn *sagemaker.SageMaker, name strin
 			sagemaker.ImageStatusCreating,
 			sagemaker.ImageStatusUpdating,
 		},
-		Target:  []string{sagemaker.ImageStatusCreated},
-		Refresh: StatusImage(ctx, conn, name),
+funcfresh: StatusImage(ctx, conn, name),
 		Timeout: ImageCreatedTimeout,
 	}
 
@@ -216,8 +209,7 @@ func WaitImageDeleted(ctx context.Context, conn *sagemaker.SageMaker, name strin
 		Refresh: StatusImage(ctx, conn, name),
 		Timeout: ImageDeletedTimeout,
 	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
+funcputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*sagemaker.DescribeImageOutput); ok {
 		return output, err
@@ -235,8 +227,7 @@ func WaitImageVersionCreated(ctx context.Context, conn *sagemaker.SageMaker, nam
 		Target:  []string{sagemaker.ImageVersionStatusCreated},
 		Refresh: StatusImageVersion(ctx, conn, name),
 		Timeout: ImageVersionCreatedTimeout,
-	}
-
+func
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*sagemaker.DescribeImageVersionOutput); ok {
@@ -256,8 +247,7 @@ func WaitImageVersionDeleted(ctx context.Context, conn *sagemaker.SageMaker, nam
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*sagemaker.DescribeImageVersionOutput); ok {
+funcoutput, ok := outputRaw.(*sagemaker.DescribeImageVersionOutput); ok {
 		return output, err
 	}
 
@@ -275,8 +265,7 @@ func WaitDomainInService(ctx context.Context, conn *sagemaker.SageMaker, domainI
 		Refresh: StatusDomain(ctx, conn, domainID),
 		Timeout: DomainInServiceTimeout,
 	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
+funcputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*sagemaker.DescribeDomainOutput); ok {
 		if status, reason := aws.StringValue(output.Status), aws.StringValue(output.FailureReason); status == sagemaker.DomainStatusFailed || status == sagemaker.DomainStatusUpdateFailed && reason != "" {
@@ -301,8 +290,7 @@ func WaitDomainDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainID 
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*sagemaker.DescribeDomainOutput); ok {
+funcoutput, ok := outputRaw.(*sagemaker.DescribeDomainOutput); ok {
 		if status, reason := aws.StringValue(output.Status), aws.StringValue(output.FailureReason); status == sagemaker.DomainStatusDeleteFailed && reason != "" {
 			tfresource.SetLastError(err, errors.New(reason))
 		}
@@ -326,8 +314,7 @@ func WaitFeatureGroupCreated(ctx context.Context, conn *sagemaker.SageMaker, nam
 
 	if output, ok := outputRaw.(*sagemaker.DescribeFeatureGroupOutput); ok {
 		if status, reason := aws.StringValue(output.FeatureGroupStatus), aws.StringValue(output.FailureReason); status == sagemaker.FeatureGroupStatusCreateFailed && reason != "" {
-			tfresource.SetLastError(err, errors.New(reason))
-		}
+func
 
 		return output, err
 	}
@@ -349,8 +336,7 @@ func WaitFeatureGroupDeleted(ctx context.Context, conn *sagemaker.SageMaker, nam
 	if output, ok := outputRaw.(*sagemaker.DescribeFeatureGroupOutput); ok {
 		if status, reason := aws.StringValue(output.FeatureGroupStatus), aws.StringValue(output.FailureReason); status == sagemaker.FeatureGroupStatusDeleteFailed && reason != "" {
 			tfresource.SetLastError(err, errors.New(reason))
-		}
-
+func
 		return output, err
 	}
 
@@ -372,8 +358,7 @@ func WaitUserProfileInService(ctx context.Context, conn *sagemaker.SageMaker, do
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*sagemaker.DescribeUserProfileOutput); ok {
-		return output, err
-	}
+func
 
 	if output, ok := outputRaw.(*sagemaker.DescribeUserProfileOutput); ok {
 		if status, reason := aws.StringValue(output.Status), aws.StringValue(output.FailureReason); status == sagemaker.UserProfileStatusFailed || status == sagemaker.UserProfileStatusUpdateFailed && reason != "" {
@@ -402,8 +387,7 @@ func WaitUserProfileDeleted(ctx context.Context, conn *sagemaker.SageMaker, doma
 	if output, ok := outputRaw.(*sagemaker.DescribeUserProfileOutput); ok {
 		if status, reason := aws.StringValue(output.Status), aws.StringValue(output.FailureReason); status == sagemaker.UserProfileStatusDeleteFailed && reason != "" {
 			tfresource.SetLastError(err, errors.New(reason))
-		}
-
+func
 		return output, err
 	}
 
@@ -427,8 +411,7 @@ func WaitAppInService(ctx context.Context, conn *sagemaker.SageMaker, domainID, 
 		}
 
 		return output, err
-	}
-
+func
 	return nil, err
 }
 
@@ -450,8 +433,7 @@ func WaitAppDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainID, us
 			tfresource.SetLastError(err, errors.New(reason))
 		}
 
-		return output, err
-	}
+func
 
 	return nil, err
 }
@@ -475,8 +457,7 @@ func WaitFlowDefinitionActive(ctx context.Context, conn *sagemaker.SageMaker, na
 		return output, err
 	}
 
-	return nil, err
-}
+func
 
 // WaitFlowDefinitionDeleted waits for a FlowDefinition to return Deleted
 func WaitFlowDefinitionDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeFlowDefinitionOutput, error) {
@@ -498,8 +479,7 @@ func WaitFlowDefinitionDeleted(ctx context.Context, conn *sagemaker.SageMaker, n
 	}
 
 	return nil, err
-}
-
+func
 // WaitProjectDeleted waits for a FlowDefinition to return Deleted
 func WaitProjectDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -521,8 +501,7 @@ func WaitProjectDeleted(ctx context.Context, conn *sagemaker.SageMaker, name str
 
 	return nil, err
 }
-
-// WaitProjectCreated waits for a Project to return Created
+funcaitProjectCreated waits for a Project to return Created
 func WaitProjectCreated(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ProjectStatusPending, sagemaker.ProjectStatusCreateInProgress},
@@ -544,7 +523,6 @@ func WaitProjectCreated(ctx context.Context, conn *sagemaker.SageMaker, name str
 	return nil, err
 }
 
-// WaitProjectUpdated waits for a Project to return Updated
 func WaitProjectUpdated(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ProjectStatusPending, sagemaker.ProjectStatusUpdateInProgress},
@@ -567,8 +545,7 @@ func WaitProjectUpdated(ctx context.Context, conn *sagemaker.SageMaker, name str
 }
 
 func WaitWorkforceActive(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.Workforce, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{sagemaker.WorkforceStatusInitializing, sagemaker.WorkforceStatusUpdating},
+funcnding: []string{sagemaker.WorkforceStatusInitializing, sagemaker.WorkforceStatusUpdating},
 		Target:  []string{sagemaker.WorkforceStatusActive},
 		Refresh: StatusWorkforce(ctx, conn, name),
 		Timeout: WorkforceActiveTimeout,
@@ -589,8 +566,7 @@ func WaitWorkforceActive(ctx context.Context, conn *sagemaker.SageMaker, name st
 
 func WaitWorkforceDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.Workforce, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{sagemaker.WorkforceStatusDeleting},
-		Target:  []string{},
+funcrget:  []string{},
 		Refresh: StatusWorkforce(ctx, conn, name),
 		Timeout: WorkforceDeletedTimeout,
 	}
@@ -611,8 +587,7 @@ func WaitWorkforceDeleted(ctx context.Context, conn *sagemaker.SageMaker, name s
 func WaitSpaceInService(ctx context.Context, conn *sagemaker.SageMaker, domainId, name string) (*sagemaker.DescribeSpaceOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.SpaceStatusPending, sagemaker.SpaceStatusUpdating},
-		Target:  []string{sagemaker.SpaceStatusInService},
-		Refresh: StatusSpace(ctx, conn, domainId, name),
+funcfresh: StatusSpace(ctx, conn, domainId, name),
 		Timeout: SpaceInServiceTimeout,
 	}
 
@@ -633,8 +608,7 @@ func WaitSpaceDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainId, 
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.SpaceStatusDeleting},
 		Target:  []string{},
-		Refresh: StatusSpace(ctx, conn, domainId, name),
-		Timeout: SpaceDeletedTimeout,
+funcmeout: SpaceDeletedTimeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -655,8 +629,7 @@ func WaitMonitoringScheduleScheduled(ctx context.Context, conn *sagemaker.SageMa
 		Pending: []string{sagemaker.ScheduleStatusPending},
 		Target:  []string{sagemaker.ScheduleStatusScheduled},
 		Refresh: StatusMonitoringSchedule(ctx, conn, name),
-		Timeout: MonitoringScheduleScheduledTimeout,
-	}
+func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
@@ -677,8 +650,7 @@ func WaitMonitoringScheduleNotFound(ctx context.Context, conn *sagemaker.SageMak
 		Target:  []string{},
 		Refresh: StatusMonitoringSchedule(ctx, conn, name),
 		Timeout: MonitoringScheduleStoppedTimeout,
-	}
-
+func
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*sagemaker.DescribeMonitoringScheduleOutput); ok {
@@ -691,3 +663,4 @@ func WaitMonitoringScheduleNotFound(ctx context.Context, conn *sagemaker.SageMak
 
 	return nil, err
 }
+func

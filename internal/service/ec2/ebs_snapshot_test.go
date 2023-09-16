@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccEC2EBSSnapshot_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v ec2.Snapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot.test"
@@ -29,17 +28,15 @@ func TestAccEC2EBSSnapshot_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "ec2", regexache.MustCompile(`snapshot/snap-.+`)),
-	resource.TestCheckResourceAttr(resourceName, "description", ""),
+funcource.TestCheckResourceAttr(resourceName, "description", ""),
 	resource.TestCheckResourceAttr(resourceName, "outpost_arn", ""),
 	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "storage_tier", "standard"),
@@ -47,8 +44,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -59,17 +56,15 @@ ImportStateVerify: true,
 func TestAccEC2EBSSnapshot_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ebs_snapshot.test"
+funcourceName := "aws_ebs_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
+func
 Config: testAccEBSSnapshotConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -77,8 +72,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceEBSSnapshot(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -89,26 +83,23 @@ func TestAccEC2EBSSnapshot_storageTier(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotConfig_storageTier(rName, "archive"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "storage_tier", "archive"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
-	},
+ResourceName:ame,
+ImportState:
+func
 },
 	})
 }
@@ -123,27 +114,24 @@ func TestAccEC2EBSSnapshot_outpost(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotConfig_outpost(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrPair(resourceName, "outpost_arn", outpostDataSourceName, "arn"),
-),
+func
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2EBSSnapshot_tags(t *testing.T) {
@@ -157,9 +145,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
+func
 Config: testAccEBSSnapshotConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
@@ -167,17 +154,15 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+func
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
 Config: testAccEBSSnapshotConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckSnapshotExists(ctx, resourceName, &v),
+functAccCheckSnapshotExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -191,8 +176,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-},
+func
 	})
 }
 
@@ -202,29 +186,26 @@ func TestAccEC2EBSSnapshot_withDescription(t *testing.T) {
 	var v ec2.Snapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotConfig_description(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckSnapshotExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+funcource.TestCheckResourceAttr(resourceName, "description", "test description"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
-},
-	})
+func
 }
 
 
@@ -232,15 +213,14 @@ func TestAccEC2EBSSnapshot_withKMS(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	kmsKeyResourceName := "aws_kms_key.test"
-	resourceName := "aws_ebs_snapshot.test"
+funcourceName := "aws_ebs_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEBSSnapshotDestroy(ctx),
+CheckDestroy:stAccCheckEBSSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEBSSnapshotConfig_kms(rName),
@@ -248,18 +228,16 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckSnapshotExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsKeyResourceName, "arn"),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
+func
 func testAccCheckSnapshotExists(ctx context.Context, n string, v *ec2.Snapshot) resource.TestCheck
 func {
 	return 
@@ -267,8 +245,7 @@ func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
+func
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No EBS Snapshot ID is set")
 }
@@ -283,12 +260,9 @@ if err != nil {
 
 *v = *output
 
-return nil
-	}
-}
+func
+func
 
-
-func testAccCheckEBSSnapshotDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -314,17 +288,14 @@ return err
 
 return nil
 	}
-}
-
-
+func
 func testAccEBSSnapshotBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
-resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
+funcailability_zone = data.aws_availability_zones.available.names[0]
+  size
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -343,11 +314,10 @@ resource "aws_ebs_snapshot" "test" {
 func testAccEBSSnapshotConfig_storageTier(rName, tier string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot" "test" {
-  volume_id    = aws_ebs_volume.test.id
+  volume_idaws_ebs_volume.test.id
   storage_tier = %[2]q
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 `, rName, tier))
@@ -361,18 +331,16 @@ data "aws_outposts_outposts" "test" {}
 data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
-
-resource "aws_ebs_snapshot" "test" {
-  volume_id   = aws_ebs_volume.test.id
+funcurce "aws_ebs_snapshot" "test" {
+  volume_idws_ebs_volume.test.id
   outpost_arn = data.aws_outposts_outpost.test.arn
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
-}
-
+func
 
 func testAccEBSSnapshotConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotBaseConfig(rName), fmt.Sprintf(`
@@ -380,12 +348,11 @@ resource "aws_ebs_snapshot" "test" {
   volume_id = aws_ebs_volume.test.id
 
   tags = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
 }
-
 
 func testAccEBSSnapshotConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotBaseConfig(rName), fmt.Sprintf(`
@@ -393,8 +360,8 @@ resource "aws_ebs_snapshot" "test" {
   volume_id = aws_ebs_volume.test.id
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+1]q = %[2]q
+3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -404,11 +371,10 @@ resource "aws_ebs_snapshot" "test" {
 func testAccEBSSnapshotConfig_description(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot" "test" {
-  volume_id   = aws_ebs_volume.test.id
+  volume_idws_ebs_volume.test.id
   description = "test description"
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 `, rName))
@@ -421,27 +387,26 @@ resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
+  size
   encrypted= true
-  kms_key_id        = aws_kms_key.test.arn
+  kms_key_idms_key.test.arn
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+funclume_id = aws_ebs_volume.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
 }
+func

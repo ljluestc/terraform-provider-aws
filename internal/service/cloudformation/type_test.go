@@ -26,6 +26,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccCloudFormationType_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -34,10 +35,11 @@ func TestAccCloudFormationType_basic(t *testing.T) {
 	resourceName := "aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_name(rName, zipPath, typeName),
@@ -65,6 +67,7 @@ func TestAccCloudFormationType_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -73,10 +76,11 @@ func TestAccCloudFormationType_disappears(t *testing.T) {
 	resourceName := "aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_name(rName, zipPath, typeName),
@@ -92,6 +96,7 @@ func TestAccCloudFormationType_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationType_executionRoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -101,10 +106,11 @@ func TestAccCloudFormationType_executionRoleARN(t *testing.T) {
 	resourceName := "aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_executionRoleARN(rName, zipPath, typeName),
@@ -117,6 +123,7 @@ func TestAccCloudFormationType_executionRoleARN(t *testing.T) {
 	})
 }
 
+
 func TestAccCloudFormationType_logging(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -127,10 +134,11 @@ func TestAccCloudFormationType_logging(t *testing.T) {
 	resourceName := "aws_cloudformation_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTypeDestroy(ctx),
+		CheckDestroy:testAccCheckTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTypeConfig_logging(rName, zipPath, typeName),
@@ -145,8 +153,10 @@ func TestAccCloudFormationType_logging(t *testing.T) {
 	})
 }
 
+
 func testAccCheckTypeExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -164,8 +174,10 @@ func testAccCheckTypeExists(ctx context.Context, resourceName string) resource.T
 	}
 }
 
+
 func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudFormationConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -191,7 +203,8 @@ func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 }
 
 // Since the CloudFormation resource schema type name must match the RegisterType TypeName
-// and we randomize the latter to avoid testing race conditions, this function sets up a
+// and we randomize the latter to avoid testing race conditions, this 
+function sets up a
 // temporary directory and returns a string to the generated zip file.
 //
 // This is essentially the equivalent of running `cfn submit --dry-run` with the correct
@@ -212,6 +225,7 @@ func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 // Where handler.zip has the single Go binary file from bin, handler, at the root. This
 // binary file is large (near 10MB as of this writing), so it is in the .gitignore file.
 // The test skip messaging includes directions for how to locally build the binary.
+
 func testAccTypeZipGenerator(t *testing.T, typeName string) string {
 	t.Helper()
 	tempDir := t.TempDir()
@@ -268,6 +282,7 @@ func testAccTypeZipGenerator(t *testing.T, typeName string) string {
 	return targetZipFilePath
 }
 
+
 func testAccTypeBuildDirectoryZip(sourceDirectoryPath string, targetZipFilePath string) error {
 	targetZipFile, err := os.Create(targetZipFilePath)
 
@@ -314,6 +329,7 @@ func testAccTypeBuildDirectoryZip(sourceDirectoryPath string, targetZipFilePath 
 	return nil
 }
 
+
 func testAccTypeBuildHandlerZip(sourceBinHandlerFilePath string, targetZipFilePath string) error {
 	sourceBinHandlerFile, err := os.Open(sourceBinHandlerFilePath)
 
@@ -356,6 +372,7 @@ func testAccTypeBuildHandlerZip(sourceBinHandlerFilePath string, targetZipFilePa
 	return nil
 }
 
+
 func testAccTypeCopyFileWithTypeNameReplacement(sourceFilePath string, targetFilePath string, targetTypeName string) error {
 	sourceTypeName := "ExampleCompany::ExampleService::ExampleResource"
 	sourceFile, err := os.ReadFile(sourceFilePath)
@@ -373,6 +390,7 @@ func testAccTypeCopyFileWithTypeNameReplacement(sourceFilePath string, targetFil
 	return nil
 }
 
+
 func testAccTypeConfig_base(rName string, zipPath string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -389,6 +407,7 @@ resource "aws_s3_object" "test" {
 }
 `, rName, zipPath)
 }
+
 
 func testAccTypeConfig_executionRoleARN(rName string, zipPath string, typeName string) string {
 	return acctest.ConfigCompose(
@@ -412,11 +431,12 @@ resource "aws_iam_role" "test" {
 resource "aws_cloudformation_type" "test" {
   execution_role_arn     = aws_iam_role.test.arn
   schema_handler_package = "s3://${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  type                   = "RESOURCE"
-  type_name              = %[2]q
+  type      = "RESOURCE"
+  type_name = %[2]q
 }
 `, rName, typeName))
 }
+
 
 func testAccTypeConfig_logging(rName string, zipPath string, typeName string) string {
 	return acctest.ConfigCompose(
@@ -443,8 +463,8 @@ resource "aws_iam_role" "test" {
 
 resource "aws_cloudformation_type" "test" {
   schema_handler_package = "s3://${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  type                   = "RESOURCE"
-  type_name              = %[2]q
+  type      = "RESOURCE"
+  type_name = %[2]q
 
   logging_config {
     log_group_name = aws_cloudwatch_log_group.test.name
@@ -454,14 +474,15 @@ resource "aws_cloudformation_type" "test" {
 `, rName, typeName))
 }
 
+
 func testAccTypeConfig_name(rName string, zipPath string, typeName string) string {
 	return acctest.ConfigCompose(
 		testAccTypeConfig_base(rName, zipPath),
 		fmt.Sprintf(`
 resource "aws_cloudformation_type" "test" {
   schema_handler_package = "s3://${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  type                   = "RESOURCE"
-  type_name              = %[1]q
+  type      = "RESOURCE"
+  type_name = %[1]q
 }
 `, typeName))
 }

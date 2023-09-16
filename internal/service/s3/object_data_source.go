@@ -23,8 +23,7 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
-// @SDKDataSource("aws_s3_object")
-func DataSourceObject() *schema.Resource {
+// @SDKDataSource("aws_s3_object")func DataSourceObject() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceObjectRead,
 
@@ -131,10 +130,7 @@ func DataSourceObject() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourceObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
@@ -254,8 +250,7 @@ func dataSourceObjectRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 // This is to prevent potential issues w/ binary files
 // and generally unprintable characters
-// See https://github.com/hashicorp/terraform/pull/3858#issuecomment-156856738
-func isContentTypeAllowed(contentType *string) bool {
+// See https://github.com/hashicorp/terraform/pull/3858#issuecomment-156856738func isContentTypeAllowed(contentType *string) bool {
 	if contentType == nil {
 		return false
 	}

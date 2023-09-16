@@ -26,10 +26,10 @@ func TestAccDocDBClusterSnapshot_basic(t *testing.T) {
 	resourceName := "aws_docdb_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshotDestroy(ctx),
+		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_basic(rName),

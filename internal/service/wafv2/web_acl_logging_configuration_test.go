@@ -26,10 +26,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_basic(t *testing.T) {
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -58,10 +58,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateSingleHeaderRedactedField(t *t
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -117,10 +117,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateMethodRedactedField(t *testing
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -161,10 +161,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateQueryStringRedactedField(t *te
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -205,10 +205,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateURIPathRedactedField(t *testin
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -249,10 +249,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateMultipleRedactedFields(t *test
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_updateRedactedField(rName, "uri_path"),
@@ -317,10 +317,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeResourceARNForceNew(t *testing
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -361,10 +361,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeLogDestinationsForceNew(t *tes
 	kinesisResourceName := "aws_kinesis_firehose_delivery_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -402,10 +402,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -427,10 +427,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_emptyRedactedFields(t *testing.T) {
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_emptyRedactedField(rName),
@@ -458,10 +458,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateEmptyRedactedFields(t *testing
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_emptyRedactedField(rName),
@@ -501,10 +501,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_Disappears_webACL(t *testing.T) {
 	webACLResourceName := "aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_basic(rName),
@@ -525,10 +525,10 @@ func TestAccWAFV2WebACLLoggingConfiguration_loggingFilter(t *testing.T) {
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLLoggingConfigurationDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLLoggingConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWebACLLoggingConfigurationConfig_filter(rName),
@@ -756,7 +756,7 @@ resource "aws_wafv2_web_acl" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-metric-name"
+    metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
 }

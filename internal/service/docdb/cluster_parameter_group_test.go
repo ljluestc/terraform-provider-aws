@@ -29,10 +29,10 @@ func TestAccDocDBClusterParameterGroup_basic(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-terraform-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_basic(parameterGroupName),
@@ -64,10 +64,10 @@ func TestAccDocDBClusterParameterGroup_systemParameter(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-terraform-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_system(parameterGroupName),
@@ -84,7 +84,7 @@ func TestAccDocDBClusterParameterGroup_systemParameter(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"parameter"},
 			},
@@ -97,10 +97,10 @@ func TestAccDocDBClusterParameterGroup_namePrefix(t *testing.T) {
 	var v docdb.DBClusterParameterGroup
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_namePrefix,
@@ -111,7 +111,7 @@ func TestAccDocDBClusterParameterGroup_namePrefix(t *testing.T) {
 			},
 			{
 				ResourceName:            "aws_docdb_cluster_parameter_group.test",
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -124,10 +124,10 @@ func TestAccDocDBClusterParameterGroup_generatedName(t *testing.T) {
 	var v docdb.DBClusterParameterGroup
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_generatedName,
@@ -152,10 +152,10 @@ func TestAccDocDBClusterParameterGroup_description(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-terraform-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_description(parameterGroupName, "custom description"),
@@ -182,10 +182,10 @@ func TestAccDocDBClusterParameterGroup_disappears(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-terraform-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_basic(parameterGroupName),
@@ -207,10 +207,10 @@ func TestAccDocDBClusterParameterGroup_parameter(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-tf-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_basic2(parameterGroupName, "tls", "disabled"),
@@ -255,10 +255,10 @@ func TestAccDocDBClusterParameterGroup_tags(t *testing.T) {
 	parameterGroupName := fmt.Sprintf("cluster-parameter-group-test-tf-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckClusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_tags(parameterGroupName, "key1", "value1"),

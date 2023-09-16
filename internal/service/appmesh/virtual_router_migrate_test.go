@@ -33,8 +33,8 @@ func TestVirtualRouterMigrateState(t *testing.T) {
 		"v0_1-nonEmptySpec": {
 			StateVersion: 0,
 			Attributes: map[string]string{
-				"name":                           "svcb",
-				"spec.#":                         "1",
+				"name": "svcb",
+				"spec.#":            "1",
 				"spec.0.service_names.#":         "1",
 				"spec.0.service_names.423761483": "serviceb.simpleapp.local",
 			},

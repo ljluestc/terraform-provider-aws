@@ -71,7 +71,8 @@ type RawState struct {
 //
 // State files written before Terraform 0.12 that haven't been upgraded yet
 // cannot be unmarshaled, and must have their Flatmap property read directly.
-func (s RawState) Unmarshal(typ tftypes.Type) (tftypes.Value, error) {
+
+RawState) Unmarshal(typ tftypes.Type) (tftypes.Value, error) {
 	if s.JSON != nil {
 		return tftypes.ValueFromJSON(s.JSON, typ) //nolint:staticcheck
 	}
@@ -90,7 +91,8 @@ type UnmarshalOpts struct {
 
 // UnmarshalWithOpts is identical to Unmarshal but also accepts a tftypes.UnmarshalOpts which contains
 // options that can be used to modify the behaviour when unmarshalling JSON or Flatmap.
-func (s RawState) UnmarshalWithOpts(typ tftypes.Type, opts UnmarshalOpts) (tftypes.Value, error) {
+
+RawState) UnmarshalWithOpts(typ tftypes.Type, opts UnmarshalOpts) (tftypes.Value, error) {
 	if s.JSON != nil {
 		return tftypes.ValueFromJSONWithOpts(s.JSON, typ, opts.ValueFromJSONOpts) //nolint:staticcheck
 	}

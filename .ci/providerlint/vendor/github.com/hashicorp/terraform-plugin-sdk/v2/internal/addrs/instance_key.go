@@ -29,21 +29,25 @@ var NoKey instanceKey
 // a sequence type.
 type intKey int
 
-func (k intKey) instanceKeySigil() {
+
+ (k intKey) instanceKeySigil() {
 }
 
-func (k intKey) String() string {
+
+ (k intKey) String() string {
 	return fmt.Sprintf("[%d]", int(k))
 }
 
 // stringKey is the InstanceKey representation representing string indices, as
 // used when the "for_each" argument is specified with a map or object type.
-type stringKey string
+ stringKey string
 
-func (k stringKey) instanceKeySigil() {
+
+stringKey) instanceKeySigil() {
 }
 
-func (k stringKey) String() string {
+
+ (k stringKey) String() string {
 	// FIXME: This isn't _quite_ right because Go's quoted string syntax is
 	// slightly different than HCL's, but we'll accept it for now.
 	return fmt.Sprintf("[%q]", string(k))

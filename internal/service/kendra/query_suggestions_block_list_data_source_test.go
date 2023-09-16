@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccKendraQuerySuggestionsBlockListDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -26,7 +27,8 @@ t.Skip("skipping long-running test in short mode")
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -65,6 +67,7 @@ data "aws_kendra_query_suggestions_block_list" "test" {
   query_suggestions_block_list_id = "tf-acc-test-does-not-exist-kendra-id"
 }
 `
+
 
 func testAccQuerySuggestionsBlockListDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(

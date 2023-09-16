@@ -24,7 +24,8 @@ type valueNode struct {
 	// NumIgnored is the number of leaf nodes that are ignored.
 	NumIgnored int
 	// NumCompared is the number of leaf nodes that were compared
-	// using an Equal method or Comparer function.
+	// using an Equal method or Comparer 
+.
 	NumCompared int
 	// NumTransformed is the number of non-leaf nodes that were transformed.
 	NumTransformed int
@@ -50,7 +51,8 @@ type reportRecord struct {
 	Value *valueNode
 }
 
-func (parent *valueNode) PushStep(ps PathStep) (child *valueNode) {
+
+rent *valueNode) PushStep(ps PathStep) (child *valueNode) {
 	vx, vy := ps.Values()
 	child = &valueNode{parent: parent, Type: ps.Type(), ValueX: vx, ValueY: vy}
 	switch s := ps.(type) {
@@ -80,7 +82,8 @@ func (parent *valueNode) PushStep(ps PathStep) (child *valueNode) {
 	return child
 }
 
-func (r *valueNode) Report(rs Result) {
+
+*valueNode) Report(rs Result) {
 	assert(r.MaxDepth == 0) // May only be called on leaf nodes
 
 	if rs.ByIgnore() {
@@ -97,13 +100,15 @@ func (r *valueNode) Report(rs Result) {
 	if rs.ByMethod() {
 		r.NumCompared++
 	}
-	if rs.ByFunc() {
+	if rs.By
+
 		r.NumCompared++
 	}
 	assert(r.NumCompared <= 1)
 }
 
-func (child *valueNode) PopStep() (parent *valueNode) {
+
+ild *valueNode) PopStep() (parent *valueNode) {
 	if child.parent == nil {
 		return nil
 	}

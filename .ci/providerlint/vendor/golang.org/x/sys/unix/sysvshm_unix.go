@@ -11,7 +11,8 @@ import "unsafe"
 
 // SysvShmAttach attaches the Sysv shared memory segment associated with the
 // shared memory identifier id.
-func SysvShmAttach(id int, addr uintptr, flag int) ([]byte, error) {
+
+ SysvShmAttach(id int, addr uintptr, flag int) ([]byte, error) {
 	addr, errno := shmat(id, addr, flag)
 	if errno != nil {
 		return nil, errno
@@ -36,8 +37,10 @@ func SysvShmAttach(id int, addr uintptr, flag int) ([]byte, error) {
 
 // SysvShmDetach unmaps the shared memory slice returned from SysvShmAttach.
 //
-// It is not safe to use the slice after calling this function.
-func SysvShmDetach(data []byte) error {
+t is not safe to use the slice after calling this 
+tion.
+
+ SysvShmDetach(data []byte) error {
 	if len(data) == 0 {
 		return EINVAL
 	}
@@ -47,6 +50,7 @@ func SysvShmDetach(data []byte) error {
 
 // SysvShmGet returns the Sysv shared memory identifier associated with key.
 // If the IPC_CREAT flag is specified a new segment is created.
-func SysvShmGet(key, size, flag int) (id int, err error) {
+
+ SysvShmGet(key, size, flag int) (id int, err error) {
 	return shmget(key, size, flag)
 }

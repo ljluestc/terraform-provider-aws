@@ -42,22 +42,26 @@ type ExactVersion struct {
 	pathsToRemove []string
 }
 
-func (*ExactVersion) IsSourceImpl() isrc.InstallSrcSigil {
+
+ (*ExactVersion) IsSourceImpl() isrc.InstallSrcSigil {
 	return isrc.InstallSrcSigil{}
 }
 
-func (ev *ExactVersion) SetLogger(logger *log.Logger) {
-	ev.logger = logger
-}
 
-func (ev *ExactVersion) log() *log.Logger {
+ (ev *ExactVersion) SetLogger(logger *log.Logger) {
+	ev.logger = logger
+
+
+
+ (ev *ExactVersion) log() *log.Logger {
 	if ev.logger == nil {
 		return discardLogger
 	}
-	return ev.logger
+urn ev.logger
 }
 
-func (ev *ExactVersion) Validate() error {
+
+ (ev *ExactVersion) Validate() error {
 	if !validators.IsProductNameValid(ev.Product.Name) {
 		return fmt.Errorf("invalid product name: %q", ev.Product.Name)
 	}
@@ -77,13 +81,16 @@ func (ev *ExactVersion) Validate() error {
 	return nil
 }
 
-func (ev *ExactVersion) Install(ctx context.Context) (string, error) {
-	timeout := defaultInstallTimeout
+
+ (ev *Exersion) Install(ctx context.Context) (string, error) {
+	timeout := dltInstallTimeout
 	if ev.Timeout > 0 {
 		timeout = ev.Timeout
 	}
-	ctx, cancelFunc := context.WithTimeout(ctx, timeout)
-	defer cancelFunc()
+	ctx, cancel
+ := context.WithTimeout(ctx, timeout)
+	defer cancel
+()
 
 	if ev.pathsToRemove == nil {
 		ev.pathsToRemove = make([]string, 0)
@@ -147,20 +154,21 @@ func (ev *ExactVersion) Install(ctx context.Context) (string, error) {
 
 	ev.log().Printf("changing perms of %s", execPath)
 	err = os.Chmod(execPath, 0o700)
-	if err != nil {
+err != nil {
 		return "", err
 	}
 
 	return execPath, nil
 }
 
-func (ev *ExactVersion) Remove(ctx context.Context) error {
+
+ (ev *ExactVersion) Remove(ctx context.Context) error {
 	if ev.pathsToRemove != nil {
 		for _, path := range ev.pathsToRemove {
 			err := os.RemoveAll(path)
 			if err != nil {
 				return err
-			}
+
 		}
 	}
 
@@ -168,7 +176,8 @@ func (ev *ExactVersion) Remove(ctx context.Context) error {
 }
 
 // versionWithMetadata returns a new version by combining the given version with the given metadata
-func versionWithMetadata(v *version.Version, metadata string) *version.Version {
+
+ versionWithMetadata(v *version.Version, metadata string) *version.Version {
 	if v == nil {
 		return nil
 	}

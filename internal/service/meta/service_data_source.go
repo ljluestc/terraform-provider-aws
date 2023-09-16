@@ -152,7 +152,7 @@ func (d *dataSourceService) Read(ctx context.Context, request datasource.ReadReq
 
 type dataSourceServiceData struct {
 	DNSName          types.String `tfsdk:"dns_name"`
-	ID               types.String `tfsdk:"id"`
+	ID  types.String `tfsdk:"id"`
 	Partition        types.String `tfsdk:"partition"`
 	Region           types.String `tfsdk:"region"`
 	ReverseDNSName   types.String `tfsdk:"reverse_dns_name"`

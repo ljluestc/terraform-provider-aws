@@ -17,8 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_devicefarm_project", &resource.Sweeper{
+funcource.AddTestSweepers("aws_devicefarm_project", &resource.Sweeper{
 		Name: "aws_devicefarm_project",
 		F:    sweepProjects,
 	})
@@ -30,8 +29,7 @@ func init() {
 }
 
 func sweepProjects(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
@@ -45,8 +43,7 @@ func sweepProjects(region string) error {
 
 	err = conn.ListProjectsPagesWithContext(ctx, input, func(page *devicefarm.ListProjectsOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, project := range page.Projects {
 			r := ResourceProject()
@@ -87,8 +84,7 @@ func sweepProjects(region string) error {
 func sweepTestGridProjects(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-
-	if err != nil {
+funcerr != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}
 
@@ -102,8 +98,7 @@ func sweepTestGridProjects(region string) error {
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, project := range page.TestGridProjects {
+funcr _, project := range page.TestGridProjects {
 			r := ResourceTestGridProject()
 			d := r.Data(nil)
 

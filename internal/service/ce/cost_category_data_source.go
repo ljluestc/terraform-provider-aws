@@ -16,9 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKDataSource("aws_ce_cost_category")
-func DataSourceCostCategory() *schema.Resource {
-	schemaCostCategoryRuleExpressionComputed := func() *schema.Resource {
+// @SDKDataSource("aws_ce_cost_category")funcemaCostCategoryRuleExpressionComputed := func() *schema.Resource {
 		return &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"cost_category": {
@@ -315,10 +313,8 @@ func DataSourceCostCategory() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceCostCategoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	costCategory, err := FindCostCategoryByARN(ctx, conn, d.Get("cost_category_arn").(string))
 

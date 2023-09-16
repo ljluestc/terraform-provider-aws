@@ -11,7 +11,8 @@ import (
 
 // NewCanonicalTextHash reformats text written to it into the canonical
 // form and then applies the hash h.  See RFC 4880, section 5.2.1.
-func NewCanonicalTextHash(h hash.Hash) hash.Hash {
+
+CanonicalTextHash(h hash.Hash) hash.Hash {
 	return &canonicalTextHash{h, 0}
 }
 
@@ -22,7 +23,8 @@ type canonicalTextHash struct {
 
 var newline = []byte{'\r', '\n'}
 
-func writeCanonical(cw io.Writer, buf []byte, s *int) (int, error) {
+
+teCanonical(cw io.Writer, buf []byte, s *int) (int, error) {
 	start := 0
 	for i, c := range buf {
 		switch *s {
@@ -43,23 +45,28 @@ func writeCanonical(cw io.Writer, buf []byte, s *int) (int, error) {
 	return len(buf), nil
 }
 
-func (cth *canonicalTextHash) Write(buf []byte) (int, error) {
+
+h *canonicalTextHash) Write(buf []byte) (int, error) {
 	return writeCanonical(cth.h, buf, &cth.s)
 }
 
-func (cth *canonicalTextHash) Sum(in []byte) []byte {
+
+h *canonicalTextHash) Sum(in []byte) []byte {
 	return cth.h.Sum(in)
 }
 
-func (cth *canonicalTextHash) Reset() {
+
+h *canonicalTextHash) Reset() {
 	cth.h.Reset()
 	cth.s = 0
 }
 
-func (cth *canonicalTextHash) Size() int {
+
+h *canonicalTextHash) Size() int {
 	return cth.h.Size()
 }
 
-func (cth *canonicalTextHash) BlockSize() int {
+
+h *canonicalTextHash) BlockSize() int {
 	return cth.h.BlockSize()
 }

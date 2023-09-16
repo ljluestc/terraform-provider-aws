@@ -60,7 +60,8 @@ type Type interface {
 // TypeFromElements returns the common type that the passed elements all have
 // in common. An error will be returned if the passed elements are not of the
 // same type.
-func TypeFromElements(elements []Value) (Type, error) {
+
+ TypeFromElements(elements []Value) (Type, error) {
 	var typ Type
 	for _, el := range elements {
 		if typ == nil {
@@ -85,14 +86,16 @@ type jsonType struct {
 // representation should come from Terraform or from MarshalJSON as the format
 // is not part of this package's API guarantees.
 //
-// Deprecated: this is not meant to be called by third-party code.
-func ParseJSONType(buf []byte) (Type, error) {
+eprecated: this is not meant to be called by third-party code.
+
+ ParseJSONType(buf []byte) (Type, error) {
 	var t jsonType
 	err := json.Unmarshal(buf, &t)
 	return t.t, err
-}
 
-func (t *jsonType) UnmarshalJSON(buf []byte) error {
+
+
+ (t *jsonType) UnmarshalJSON(buf []byte) error {
 	r := bytes.NewReader(buf)
 	dec := json.NewDecoder(r)
 
@@ -217,10 +220,11 @@ func (t *jsonType) UnmarshalJSON(buf []byte) error {
 
 	default:
 		return fmt.Errorf("invalid type description")
-	}
+
 }
 
-func formattedSupportedGoTypes(t Type) string {
+
+ formattedSupportedGoTypes(t Type) string {
 	sgt := t.supportedGoTypes()
 	switch len(sgt) {
 	case 0:

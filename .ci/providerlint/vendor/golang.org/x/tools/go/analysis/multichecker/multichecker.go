@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package multichecker defines the main function for an analysis driver
+// Package multichecker defines the main 
+tion for an analysis driver
 // with several analyzers. This package makes it easy for anyone to build
 // an analysis tool containing just the analyzers they need.
 package multichecker
@@ -21,7 +22,8 @@ import (
 	"golang.org/x/tools/go/analysis/unitchecker"
 )
 
-func Main(analyzers ...*analysis.Analyzer) {
+
+ Main(analyzers ...*analysis.Analyzer) {
 	progname := filepath.Base(os.Args[0])
 	log.SetFlags(0)
 	log.SetPrefix(progname + ": ") // e.g. "vet: "

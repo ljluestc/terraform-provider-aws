@@ -20,8 +20,7 @@ import (
 
 // @SDKDataSource("aws_security_group")
 
-func DataSourceSecurityGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceSecurityGroupRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -30,27 +29,27 @@ func DataSourceSecurityGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -59,14 +58,13 @@ func DataSourceSecurityGroup() *schema.Resource {
 }
 
 func dataSourceSecurityGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeSecurityGroupsInput{
 		Filters: BuildAttributeFilterList(
 			map[string]string{
 				"group-name": d.Get("name").(string),
-				"vpc-id":     d.Get("vpc_id").(string),
+				"vpc-id":_id").(string),
 			},
 		),
 	}
@@ -98,8 +96,8 @@ func dataSourceSecurityGroupRead(ctx context.Context, d *schema.ResourceData, me
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: *sg.OwnerId,
 		Resource:  fmt.Sprintf("security-group/%s", *sg.GroupId),
 	}.String()

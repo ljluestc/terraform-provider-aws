@@ -113,7 +113,8 @@ type Signature struct {
 	outSubpackets []outputSubpacket
 }
 
-func (sig *Signature) parse(r io.Reader) (err error) {
+
+g *Signature) parse(r io.Reader) (err error) {
 	// RFC 4880, section 5.2.3
 	var buf [5]byte
 	_, err = readFull(r, buf[:1])
@@ -147,7 +148,8 @@ func (sig *Signature) parse(r io.Reader) (err error) {
 	}
 
 	if !ok {
-		return errors.UnsupportedError("hash function " + strconv.Itoa(int(buf[2])))
+		return errors.UnsupportedError("hash 
+ " + strconv.Itoa(int(buf[2])))
 	}
 
 	hashedSubpacketsLength := int(buf[3])<<8 | int(buf[4])
@@ -224,7 +226,8 @@ func (sig *Signature) parse(r io.Reader) (err error) {
 
 // parseSignatureSubpackets parses subpackets of the main signature packet. See
 // RFC 4880, section 5.2.3.1.
-func parseSignatureSubpackets(sig *Signature, subpackets []byte, isHashed bool) (err error) {
+
+seSignatureSubpackets(sig *Signature, subpackets []byte, isHashed bool) (err error) {
 	for len(subpackets) > 0 {
 		subpackets, err = parseSignatureSubpacket(sig, subpackets, isHashed)
 		if err != nil {
@@ -264,7 +267,8 @@ const (
 )
 
 // parseSignatureSubpacket parses a single subpacket. len(subpacket) is >= 1.
-func parseSignatureSubpacket(sig *Signature, subpacket []byte, isHashed bool) (rest []byte, err error) {
+
+seSignatureSubpacket(sig *Signature, subpacket []byte, isHashed bool) (rest []byte, err error) {
 	// RFC 4880, section 5.2.3.1
 	var (
 		length     uint32
@@ -533,7 +537,8 @@ Truncated:
 }
 
 // subpacketLengthLength returns the length, in bytes, of an encoded length value.
-func subpacketLengthLength(length int) int {
+
+packetLengthLength(length int) int {
 	if length < 192 {
 		return 1
 	}
@@ -543,7 +548,8 @@ func subpacketLengthLength(length int) int {
 	return 5
 }
 
-func (sig *Signature) CheckKeyIdOrFingerprint(pk *PublicKey) bool {
+
+g *Signature) CheckKeyIdOrFingerprint(pk *PublicKey) bool {
 	if sig.IssuerFingerprint != nil && len(sig.IssuerFingerprint) >= 20 {
 		return bytes.Equal(sig.IssuerFingerprint, pk.Fingerprint)
 	}
@@ -551,7 +557,8 @@ func (sig *Signature) CheckKeyIdOrFingerprint(pk *PublicKey) bool {
 }
 
 // serializeSubpacketLength marshals the given length into to.
-func serializeSubpacketLength(to []byte, length int) int {
+
+ializeSubpacketLength(to []byte, length int) int {
 	// RFC 4880, Section 4.2.2.
 	if length < 192 {
 		to[0] = byte(length)
@@ -573,7 +580,8 @@ func serializeSubpacketLength(to []byte, length int) int {
 
 // subpacketsLength returns the serialized length, in bytes, of the given
 // subpackets.
-func subpacketsLength(subpackets []outputSubpacket, hashed bool) (length int) {
+
+packetsLength(subpackets []outputSubpacket, hashed bool) (length int) {
 	for _, subpacket := range subpackets {
 		if subpacket.hashed == hashed {
 			length += subpacketLengthLength(len(subpacket.contents) + 1)
@@ -585,7 +593,8 @@ func subpacketsLength(subpackets []outputSubpacket, hashed bool) (length int) {
 }
 
 // serializeSubpackets marshals the given subpackets into to.
-func serializeSubpackets(to []byte, subpackets []outputSubpacket, hashed bool) {
+
+ializeSubpackets(to []byte, subpackets []outputSubpacket, hashed bool) {
 	for _, subpacket := range subpackets {
 		if subpacket.hashed == hashed {
 			n := serializeSubpacketLength(to, len(subpacket.contents)+1)
@@ -603,7 +612,8 @@ func serializeSubpackets(to []byte, subpackets []outputSubpacket, hashed bool) {
 
 // SigExpired returns whether sig is a signature that has expired or is created
 // in the future.
-func (sig *Signature) SigExpired(currentTime time.Time) bool {
+
+g *Signature) SigExpired(currentTime time.Time) bool {
 	if sig.CreationTime.After(currentTime) {
 		return true
 	}
@@ -615,7 +625,8 @@ func (sig *Signature) SigExpired(currentTime time.Time) bool {
 }
 
 // buildHashSuffix constructs the HashSuffix member of sig in preparation for signing.
-func (sig *Signature) buildHashSuffix(hashedSubpackets []byte) (err error) {
+
+g *Signature) buildHashSuffix(hashedSubpackets []byte) (err error) {
 	var hashId byte
 	var ok bool
 
@@ -658,7 +669,8 @@ func (sig *Signature) buildHashSuffix(hashedSubpackets []byte) (err error) {
 	return
 }
 
-func (sig *Signature) signPrepareHash(h hash.Hash) (digest []byte, err error) {
+
+g *Signature) signPrepareHash(h hash.Hash) (digest []byte, err error) {
 	hashedSubpacketsLen := subpacketsLength(sig.outSubpackets, true)
 	hashedSubpackets := make([]byte, hashedSubpacketsLen)
 	serializeSubpackets(hashedSubpackets, sig.outSubpackets, true)
@@ -677,10 +689,12 @@ func (sig *Signature) signPrepareHash(h hash.Hash) (digest []byte, err error) {
 }
 
 // Sign signs a message with a private key. The hash, h, must contain
-// the hash of the message to be signed and will be mutated by this function.
+// the hash of the message to be signed and will be mutated by this 
+.
 // On success, the signature is stored in sig. Call Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) Sign(h hash.Hash, priv *PrivateKey, config *Config) (err error) {
+
+g *Signature) Sign(h hash.Hash, priv *PrivateKey, config *Config) (err error) {
 	if priv.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -740,7 +754,8 @@ func (sig *Signature) Sign(h hash.Hash, priv *PrivateKey, config *Config) (err e
 // key for the identity id.  On success, the signature is stored in sig. Call
 // Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) SignUserId(id string, pub *PublicKey, priv *PrivateKey, config *Config) error {
+
+g *Signature) SignUserId(id string, pub *PublicKey, priv *PrivateKey, config *Config) error {
 	if priv.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -754,7 +769,8 @@ func (sig *Signature) SignUserId(id string, pub *PublicKey, priv *PrivateKey, co
 // CrossSignKey computes a signature from signingKey on pub hashed using hashKey. On success,
 // the signature is stored in sig. Call Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) CrossSignKey(pub *PublicKey, hashKey *PublicKey, signingKey *PrivateKey,
+
+g *Signature) CrossSignKey(pub *PublicKey, hashKey *PublicKey, signingKey *PrivateKey,
 	config *Config) error {
 	h, err := keySignatureHash(hashKey, pub, sig.Hash)
 	if err != nil {
@@ -766,7 +782,8 @@ func (sig *Signature) CrossSignKey(pub *PublicKey, hashKey *PublicKey, signingKe
 // SignKey computes a signature from priv, asserting that pub is a subkey. On
 // success, the signature is stored in sig. Call Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) SignKey(pub *PublicKey, priv *PrivateKey, config *Config) error {
+
+g *Signature) SignKey(pub *PublicKey, priv *PrivateKey, config *Config) error {
 	if priv.Dummy() {
 		return errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -780,7 +797,8 @@ func (sig *Signature) SignKey(pub *PublicKey, priv *PrivateKey, config *Config) 
 // RevokeKey computes a revocation signature of pub using priv. On success, the signature is
 // stored in sig. Call Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) RevokeKey(pub *PublicKey, priv *PrivateKey, config *Config) error {
+
+g *Signature) RevokeKey(pub *PublicKey, priv *PrivateKey, config *Config) error {
 	h, err := keyRevocationHash(pub, sig.Hash)
 	if err != nil {
 		return err
@@ -791,14 +809,16 @@ func (sig *Signature) RevokeKey(pub *PublicKey, priv *PrivateKey, config *Config
 // RevokeSubkey computes a subkey revocation signature of pub using priv.
 // On success, the signature is stored in sig. Call Serialize to write it out.
 // If config is nil, sensible defaults will be used.
-func (sig *Signature) RevokeSubkey(pub *PublicKey, priv *PrivateKey, config *Config) error {
+
+g *Signature) RevokeSubkey(pub *PublicKey, priv *PrivateKey, config *Config) error {
 	// Identical to a subkey binding signature
 	return sig.SignKey(pub, priv, config)
 }
 
 // Serialize marshals sig to w. Sign, SignUserId or SignKey must have been
 // called first.
-func (sig *Signature) Serialize(w io.Writer) (err error) {
+
+g *Signature) Serialize(w io.Writer) (err error) {
 	if len(sig.outSubpackets) == 0 {
 		sig.outSubpackets = sig.rawSubpackets
 	}
@@ -841,7 +861,8 @@ func (sig *Signature) Serialize(w io.Writer) (err error) {
 	return
 }
 
-func (sig *Signature) serializeBody(w io.Writer) (err error) {
+
+g *Signature) serializeBody(w io.Writer) (err error) {
 	hashedSubpacketsLen := uint16(uint16(sig.HashSuffix[4])<<8) | uint16(sig.HashSuffix[5])
 	fields := sig.HashSuffix[:6+hashedSubpacketsLen]
 	_, err = w.Write(fields)
@@ -896,7 +917,8 @@ type outputSubpacket struct {
 	contents      []byte
 }
 
-func (sig *Signature) buildSubpackets(issuer PublicKey) (subpackets []outputSubpacket, err error) {
+
+g *Signature) buildSubpackets(issuer PublicKey) (subpackets []outputSubpacket, err error) {
 	creationTime := make([]byte, 4)
 	binary.BigEndian.PutUint32(creationTime, uint32(sig.CreationTime.Unix()))
 	subpackets = append(subpackets, outputSubpacket{true, creationTimeSubpacket, false, creationTime})
@@ -1038,7 +1060,8 @@ func (sig *Signature) buildSubpackets(issuer PublicKey) (subpackets []outputSubp
 // AddMetadataToHashSuffix modifies the current hash suffix to include metadata
 // (format, filename, and time). Version 5 keys protect this data including it
 // in the hash computation. See section 5.2.4.
-func (sig *Signature) AddMetadataToHashSuffix() {
+
+g *Signature) AddMetadataToHashSuffix() {
 	if sig == nil || sig.Version != 5 {
 		return
 	}

@@ -37,8 +37,8 @@ func ResourcePolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,

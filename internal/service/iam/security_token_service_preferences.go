@@ -16,8 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKResource("aws_iam_security_token_service_preferences", name="Security Token Service Preferences")
-func ResourceSecurityTokenServicePreferences() *schema.Resource {
+// @SDKResource("aws_iam_security_token_service_preferences", name="Security Token Service Preferences")func ResourceSecurityTokenServicePreferences() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSecurityTokenServicePreferencesUpsert,
 		ReadWithoutTimeout:   resourceSecurityTokenServicePreferencesRead,
@@ -32,10 +31,7 @@ func ResourceSecurityTokenServicePreferences() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceSecurityTokenServicePreferencesUpsert(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	input := &iam.SetSecurityTokenServicePreferencesInput{
@@ -53,11 +49,8 @@ func resourceSecurityTokenServicePreferencesUpsert(ctx context.Context, d *schem
 	}
 
 	return append(diags, resourceSecurityTokenServicePreferencesRead(ctx, d, meta)...)
-}
-
-func resourceSecurityTokenServicePreferencesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceSecurityTokenServicePreferencesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	output, err := conn.GetAccountSummaryWithContext(ctx, &iam.GetAccountSummaryInput{})
 

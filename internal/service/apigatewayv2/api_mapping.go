@@ -34,21 +34,21 @@ func ResourceAPIMapping() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"api_mapping_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"stage": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 		},
@@ -60,9 +60,9 @@ func resourceAPIMappingCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	input := &apigatewayv2.CreateApiMappingInput{
-		ApiId:      aws.String(d.Get("api_id").(string)),
+		ApiId:g(d.Get("api_id").(string)),
 		DomainName: aws.String(d.Get("domain_name").(string)),
-		Stage:      aws.String(d.Get("stage").(string)),
+		Stage:g(d.Get("stage").(string)),
 	}
 
 	if v, ok := d.GetOk("api_mapping_key"); ok {
@@ -108,7 +108,7 @@ func resourceAPIMappingUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	input := &apigatewayv2.UpdateApiMappingInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:ing(d.Get("api_id").(string)),
 		ApiMappingId: aws.String(d.Id()),
 		DomainName:   aws.String(d.Get("domain_name").(string)),
 	}

@@ -41,8 +41,8 @@ func ResourceKeyPolicy() *schema.Resource {
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				ValidateFunc:          validation.StringIsJSON,

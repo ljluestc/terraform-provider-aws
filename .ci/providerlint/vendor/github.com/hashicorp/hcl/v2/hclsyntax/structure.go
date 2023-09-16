@@ -11,7 +11,8 @@ import (
 )
 
 // AsHCLBlock returns the block data expressed as a *hcl.Block.
-func (b *Block) AsHCLBlock() *hcl.Block {
+
+ (b *Block) AsHCLBlock() *hcl.Block {
 	if b == nil {
 		return nil
 	}
@@ -44,16 +45,20 @@ type Body struct {
 // Assert that *Body implements hcl.Body
 var assertBodyImplBody hcl.Body = &Body{}
 
-func (b *Body) walkChildNodes(w internalWalkFunc) {
+
+ (b *Body) walkChildNodes(w internalWalk
+) {
 	w(b.Attributes)
-	w(b.Blocks)
+.Blocks)
 }
 
-func (b *Body) Range() hcl.Range {
+
+*Body) Range() hcl.Range {
 	return b.SrcRange
 }
 
-func (b *Body) Content(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Diagnostics) {
+
+ (b *Body) Content(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Diagnostics) {
 	content, remainHCL, diags := b.PartialContent(schema)
 
 	// No we'll see if anything actually remains, to produce errors about
@@ -118,12 +123,13 @@ func (b *Body) Content(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Diagnostic
 				Subject:  &block.TypeRange,
 			})
 		}
-	}
+
 
 	return content, diags
 }
 
-func (b *Body) PartialContent(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Body, hcl.Diagnostics) {
+
+ (b *Body) PartialContent(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Body, hcl.Diagnostics) {
 	attrs := make(hcl.Attributes)
 	var blocks hcl.Blocks
 	var diags hcl.Diagnostics
@@ -239,13 +245,14 @@ func (b *Body) PartialContent(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Bod
 
 	return &hcl.BodyContent{
 		Attributes: attrs,
-		Blocks:     blocks,
+ocks:     blocks,
 
 		MissingItemRange: b.MissingItemRange(),
 	}, remain, diags
 }
 
-func (b *Body) JustAttributes() (hcl.Attributes, hcl.Diagnostics) {
+
+ (b *Body) JustAttributes() (hcl.Attributes, hcl.Diagnostics) {
 	attrs := make(hcl.Attributes)
 	var diags hcl.Diagnostics
 
@@ -269,17 +276,18 @@ func (b *Body) JustAttributes() (hcl.Attributes, hcl.Diagnostics) {
 	for name, attr := range b.Attributes {
 		if _, hidden := b.hiddenAttrs[name]; hidden {
 			continue
-		}
+
 		attrs[name] = attr.AsHCLAttribute()
 	}
 
 	return attrs, diags
 }
 
-func (b *Body) MissingItemRange() hcl.Range {
+
+ (b *Body) MissingItemRange() hcl.Range {
 	return hcl.Range{
 		Filename: b.SrcRange.Filename,
-		Start:    b.SrcRange.Start,
+art:    b.SrcRange.Start,
 		End:      b.SrcRange.Start,
 	}
 }
@@ -287,8 +295,10 @@ func (b *Body) MissingItemRange() hcl.Range {
 // Attributes is the collection of attribute definitions within a body.
 type Attributes map[string]*Attribute
 
-func (a Attributes) walkChildNodes(w internalWalkFunc) {
-	for _, attr := range a {
+
+ (a Attributes) walkChildNodes(w internalWalk
+) {
+ _, attr := range a {
 		w(attr)
 	}
 }
@@ -298,7 +308,8 @@ func (a Attributes) walkChildNodes(w internalWalkFunc) {
 //
 // This is provided only to complete the Node interface, but has no practical
 // use.
-func (a Attributes) Range() hcl.Range {
+
+ (a Attributes) Range() hcl.Range {
 	// An attributes doesn't really have a useful range to report, since
 	// it's just a grouping construct. So we'll arbitrarily take the
 	// range of one of the attributes, or produce an invalid range if we have
@@ -315,24 +326,28 @@ func (a Attributes) Range() hcl.Range {
 // Attribute represents a single attribute definition within a body.
 type Attribute struct {
 	Name string
-	Expr Expression
+r Expression
 
 	SrcRange    hcl.Range
 	NameRange   hcl.Range
 	EqualsRange hcl.Range
-}
 
-func (a *Attribute) walkChildNodes(w internalWalkFunc) {
+
+
+ (a *Attribute) walkChildNodes(w internalWalk
+) {
 	w(a.Expr)
 }
 
-func (a *Attribute) Range() hcl.Range {
+
+ (a *Attribute) Range() hcl.Range {
 	return a.SrcRange
 }
 
 // AsHCLAttribute returns the block data expressed as a *hcl.Attribute.
-func (a *Attribute) AsHCLAttribute() *hcl.Attribute {
-	if a == nil {
+
+ (a *Attribute) AsHCLAttribute() *hcl.Attribute {
+a == nil {
 		return nil
 	}
 	return &hcl.Attribute{
@@ -347,7 +362,9 @@ func (a *Attribute) AsHCLAttribute() *hcl.Attribute {
 // Blocks is the list of nested blocks within a body.
 type Blocks []*Block
 
-func (bs Blocks) walkChildNodes(w internalWalkFunc) {
+
+ (bs Blocks) walkChildNodes(w internalWalk
+) {
 	for _, block := range bs {
 		w(block)
 	}
@@ -358,18 +375,19 @@ func (bs Blocks) walkChildNodes(w internalWalkFunc) {
 //
 // This is provided only to complete the Node interface, but has no practical
 // use.
-func (bs Blocks) Range() hcl.Range {
+
+ (bs Blocks) Range() hcl.Range {
 	if len(bs) > 0 {
 		return bs[0].Range()
-	}
+
 	return hcl.Range{
 		Filename: "<unknown>",
 	}
-}
+
 
 // Block represents a nested block structure
 type Block struct {
-	Type   string
+e   string
 	Labels []string
 	Body   *Body
 
@@ -379,15 +397,19 @@ type Block struct {
 	CloseBraceRange hcl.Range
 }
 
-func (b *Block) walkChildNodes(w internalWalkFunc) {
+
+ (b *Block) walkChildNodes(w internalWalk
+) {
 	w(b.Body)
 }
 
-func (b *Block) Range() hcl.Range {
+
+ (b *Block) Range() hcl.Range {
 	return hcl.RangeBetween(b.TypeRange, b.CloseBraceRange)
 }
 
-func (b *Block) DefRange() hcl.Range {
+
+ (b *Block) DefRange() hcl.Range {
 	lastHeaderRange := b.TypeRange
 	if len(b.LabelRanges) > 0 {
 		lastHeaderRange = b.LabelRanges[len(b.LabelRanges)-1]

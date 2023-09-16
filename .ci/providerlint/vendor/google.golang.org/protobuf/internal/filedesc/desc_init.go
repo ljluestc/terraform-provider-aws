@@ -23,7 +23,8 @@ type fileRaw struct {
 	allServices   []Service
 }
 
-func newRawFile(db Builder) *File {
+
+ newRawFile(db Builder) *File {
 	fd := &File{fileRaw: fileRaw{builder: db}}
 	fd.initDecls(db.NumEnums, db.NumMessages, db.NumExtensions, db.NumServices)
 	fd.unmarshalSeed(db.RawDescriptor)
@@ -44,54 +45,61 @@ func newRawFile(db Builder) *File {
 // This is done to avoid regrowing the slice, which would change the address
 // for any previously seen declaration.
 //
-// The alloc methods "allocates" slices by pulling from the capacity.
-func (fd *File) initDecls(numEnums, numMessages, numExtensions, numServices int32) {
+he alloc methods "allocates" slices by pulling from the capacity.
+
+ (fd *File) initDecls(numEnums, numMessages, numExtensions, numServices int32) {
 	fd.allEnums = make([]Enum, 0, numEnums)
 	fd.allMessages = make([]Message, 0, numMessages)
 	fd.allExtensions = make([]Extension, 0, numExtensions)
 	fd.allServices = make([]Service, 0, numServices)
-}
 
-func (fd *File) allocEnums(n int) []Enum {
+
+
+ (fd *File) allocEnums(n int) []Enum {
 	total := len(fd.allEnums)
 	es := fd.allEnums[total : total+n]
-	fd.allEnums = fd.allEnums[:total+n]
+allEnums = fd.allEnums[:total+n]
 	return es
 }
-func (fd *File) allocMessages(n int) []Message {
+
+ (fd *File) allocMessages(n int) []Message {
 	total := len(fd.allMessages)
-	ms := fd.allMessages[total : total+n]
+:= fd.allMessages[total : total+n]
 	fd.allMessages = fd.allMessages[:total+n]
 	return ms
 }
-func (fd *File) allocExtensions(n int) []Extension {
-	total := len(fd.allExtensions)
+
+ (fd *File) allocExtensions(n int) []Extension {
+al := len(fd.allExtensions)
 	xs := fd.allExtensions[total : total+n]
 	fd.allExtensions = fd.allExtensions[:total+n]
 	return xs
 }
-func (fd *File) allocServices(n int) []Service {
+
+ (fd *File) allocServices(n int) []Service {
 	total := len(fd.allServices)
 	xs := fd.allServices[total : total+n]
-	fd.allServices = fd.allServices[:total+n]
+allServices = fd.allServices[:total+n]
 	return xs
 }
 
 // checkDecls performs a sanity check that the expected number of expected
 // declarations matches the number that were found in the descriptor proto.
-func (fd *File) checkDecls() {
+
+ (fd *File) checkDecls() {
 	switch {
 	case len(fd.allEnums) != cap(fd.allEnums):
 	case len(fd.allMessages) != cap(fd.allMessages):
 	case len(fd.allExtensions) != cap(fd.allExtensions):
-	case len(fd.allServices) != cap(fd.allServices):
+e len(fd.allServices) != cap(fd.allServices):
 	default:
 		return
 	}
 	panic("mismatching cardinality")
 }
 
-func (fd *File) unmarshalSeed(b []byte) {
+
+ (fd *File) unmarshalSeed(b []byte) {
 	sb := getBuilder()
 	defer putBuilder(sb)
 
@@ -211,7 +219,7 @@ func (fd *File) unmarshalSeed(b []byte) {
 	if numServices > 0 {
 		b := b0[posServices:]
 		for i := range fd.L1.Services.List {
-			_, n := protowire.ConsumeVarint(b)
+, n := protowire.ConsumeVarint(b)
 			v, m := protowire.ConsumeBytes(b[n:])
 			fd.L1.Services.List[i].unmarshalSeed(v, sb, fd, fd, i)
 			b = b[n+m:]
@@ -219,7 +227,8 @@ func (fd *File) unmarshalSeed(b []byte) {
 	}
 }
 
-func (ed *Enum) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (ed *Enum) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	ed.L0.ParentFile = pf
 	ed.L0.Parent = pd
 	ed.L0.Index = i
@@ -262,7 +271,7 @@ func (ed *Enum) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protorefl
 			switch num {
 			case genid.EnumDescriptorProto_Value_field_number:
 				ed.L2.Values.List[i].unmarshalFull(v, sb, pf, ed, i)
-				i++
+i++
 			}
 		default:
 			m := protowire.ConsumeFieldValue(num, typ, b)
@@ -271,7 +280,8 @@ func (ed *Enum) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protorefl
 	}
 }
 
-func (md *Message) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (md *Message) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	md.L0.ParentFile = pf
 	md.L0.Parent = pd
 	md.L0.Index = i
@@ -356,7 +366,7 @@ func (md *Message) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protor
 		}
 	}
 	if numExtensions > 0 {
-		b := b0[posExtensions:]
+:= b0[posExtensions:]
 		for i := range md.L1.Extensions.List {
 			_, n := protowire.ConsumeVarint(b)
 			v, m := protowire.ConsumeBytes(b[n:])
@@ -366,7 +376,8 @@ func (md *Message) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protor
 	}
 }
 
-func (md *Message) unmarshalSeedOptions(b []byte) {
+
+ (md *Message) unmarshalSeedOptions(b []byte) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -376,7 +387,7 @@ func (md *Message) unmarshalSeedOptions(b []byte) {
 			b = b[m:]
 			switch num {
 			case genid.MessageOptions_MapEntry_field_number:
-				md.L1.IsMapEntry = protowire.DecodeBool(v)
+md.L1.IsMapEntry = protowire.DecodeBool(v)
 			case genid.MessageOptions_MessageSetWireFormat_field_number:
 				md.L1.IsMessageSet = protowire.DecodeBool(v)
 			}
@@ -387,7 +398,8 @@ func (md *Message) unmarshalSeedOptions(b []byte) {
 	}
 }
 
-func (xd *Extension) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (xd *Extension) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	xd.L0.ParentFile = pf
 	xd.L0.Parent = pd
 	xd.L0.Index = i
@@ -411,7 +423,7 @@ func (xd *Extension) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd prot
 			v, m := protowire.ConsumeBytes(b)
 			b = b[m:]
 			switch num {
-			case genid.FieldDescriptorProto_Name_field_number:
+ase genid.FieldDescriptorProto_Name_field_number:
 				xd.L0.FullName = appendFullName(sb, pd.FullName(), v)
 			case genid.FieldDescriptorProto_Extendee_field_number:
 				xd.L1.Extendee = PlaceholderMessage(makeFullName(sb, v))
@@ -423,7 +435,8 @@ func (xd *Extension) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd prot
 	}
 }
 
-func (sd *Service) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (sd *Service) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	sd.L0.ParentFile = pf
 	sd.L0.Parent = pd
 	sd.L0.Index = i
@@ -434,38 +447,43 @@ func (sd *Service) unmarshalSeed(b []byte, sb *strs.Builder, pf *File, pd protor
 		switch typ {
 		case protowire.BytesType:
 			v, m := protowire.ConsumeBytes(b)
-			b = b[m:]
+			b =:]
 			switch num {
 			case genid.ServiceDescriptorProto_Name_field_number:
-				sd.L0.FullName = appendFullName(sb, pd.FullName(), v)
+sd.L0.FullName = appendFullName(sb, pd.FullName(), v)
 			}
 		default:
-			m := protowire.ConsumeFieldValue(num, typ, b)
+ := protowire.ConsumeFieldValue(num, typ, b)
 			b = b[m:]
 		}
 	}
 }
 
-var nameBuilderPool = sync.Pool{
-	New: func() interface{} { return new(strs.Builder) },
+nameBuilderPool = sync.Pool{
+	New: 
+() interface{} { return new(strs.Builder) },
 }
 
-func getBuilder() *strs.Builder {
-	return nameBuilderPool.Get().(*strs.Builder)
+
+ getBuilder() *strs.Builder {
+urn nameBuilderPool.Get().(*strs.Builder)
 }
-func putBuilder(b *strs.Builder) {
+
+ putBuilder(b *strs.Builder) {
 	nameBuilderPool.Put(b)
 }
 
 // makeFullName converts b to a protoreflect.FullName,
 // where b must start with a leading dot.
-func makeFullName(sb *strs.Builder, b []byte) protoreflect.FullName {
+
+ makeFullName(sb *strs.Builder, b []byte) protoreflect.FullName {
 	if len(b) == 0 || b[0] != '.' {
 		panic("name reference must be fully qualified")
 	}
 	return protoreflect.FullName(sb.MakeString(b[1:]))
 }
 
-func appendFullName(sb *strs.Builder, prefix protoreflect.FullName, suffix []byte) protoreflect.FullName {
+
+ appendFullName(sb *strs.Builder, prefix protoreflect.FullName, suffix []byte) protoreflect.FullName {
 	return sb.AppendFullName(prefix, protoreflect.Name(strs.UnsafeString(suffix)))
 }

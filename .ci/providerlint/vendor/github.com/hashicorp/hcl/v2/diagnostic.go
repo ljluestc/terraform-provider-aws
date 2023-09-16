@@ -61,7 +61,8 @@ type Diagnostic struct {
 	//
 	// EvalContexts form a tree, so the given EvalContext may refer to a parent
 	// which in turn refers to another parent, etc. For a full picture of all
-	// of the active variables and functions the caller must walk up this
+	// of the active variables and 
+tions the caller must walk up this
 	// chain, preferring definitions that are "closer" to the expression in
 	// case of colliding names.
 	Expression  Expression
@@ -79,7 +80,8 @@ type Diagnostic struct {
 	// perspective of a human who understands the language the messages are
 	// written in) by the other fields in case a particular recipient.
 	//
-	// Functions that return diagnostics with Extra populated should typically
+	// 
+tions that return diagnostics with Extra populated should typically
 	// document that they place values implementing a particular interface,
 	// rather than a concrete type, and define that interface such that its
 	// methods can dynamically indicate a lack of support at runtime even
@@ -96,15 +98,17 @@ type Diagnostics []*Diagnostic
 // error implementation, so that diagnostics can be returned via APIs
 // that normally deal in vanilla Go errors.
 //
-// This presents only minimal context about the error, for compatibility
+his presents only minimal context about the error, for compatibility
 // with usual expectations about how errors will present as strings.
-func (d *Diagnostic) Error() string {
+
+ (d *Diagnostic) Error() string {
 	return fmt.Sprintf("%s: %s; %s", d.Subject, d.Summary, d.Detail)
 }
 
 // error implementation, so that sets of diagnostics can be returned via
 // APIs that normally deal in vanilla Go errors.
-func (d Diagnostics) Error() string {
+
+ (d Diagnostics) Error() string {
 	count := len(d)
 	switch {
 	case count == 0:
@@ -118,15 +122,17 @@ func (d Diagnostics) Error() string {
 
 // Append appends a new error to a Diagnostics and return the whole Diagnostics.
 //
-// This is provided as a convenience for returning from a function that
+// This is provided as a convenience for returning from a 
+tion that
 // collects and then returns a set of diagnostics:
 //
-//     return nil, diags.Append(&hcl.Diagnostic{ ... })
+   return nil, diags.Append(&hcl.Diagnostic{ ... })
 //
 // Note that this modifies the array underlying the diagnostics slice, so
 // must be used carefully within a single codepath. It is incorrect (and rude)
 // to extend a diagnostics created by a different subsystem.
-func (d Diagnostics) Append(diag *Diagnostic) Diagnostics {
+
+ (d Diagnostics) Append(diag *Diagnostic) Diagnostics {
 	return append(d, diag)
 }
 
@@ -135,14 +141,16 @@ func (d Diagnostics) Append(diag *Diagnostic) Diagnostics {
 //
 // This is similar to Append but accepts multiple diagnostics to add. It has
 // all the same caveats and constraints.
-func (d Diagnostics) Extend(diags Diagnostics) Diagnostics {
+
+ (d Diagnostics) Extend(diags Diagnostics) Diagnostics {
 	return append(d, diags...)
 }
 
 // HasErrors returns true if the receiver contains any diagnostics of
 // severity DiagError.
-func (d Diagnostics) HasErrors() bool {
-	for _, diag := range d {
+
+ (d Diagnostics) HasErrors() bool {
+ _, diag := range d {
 		if diag.Severity == DiagError {
 			return true
 		}
@@ -150,7 +158,8 @@ func (d Diagnostics) HasErrors() bool {
 	return false
 }
 
-func (d Diagnostics) Errs() []error {
+
+ (d Diagnostics) Errs() []error {
 	var errs []error
 	for _, diag := range d {
 		if diag.Severity == DiagError {
@@ -174,7 +183,8 @@ type DiagnosticWriter interface {
 // Diagnostic recipients which want to examine "Extra" values to sniff for
 // particular types of extra data can either type-assert this interface
 // directly and repeatedly unwrap until they recieve nil, or can use the
-// helper function DiagnosticExtra.
+// helper 
+tion DiagnosticExtra.
 type DiagnosticExtraUnwrapper interface {
 	// If the reciever is wrapping another "diagnostic extra" value, returns
 	// that value. Otherwise returns nil to indicate dynamically that nothing

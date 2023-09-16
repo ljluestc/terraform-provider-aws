@@ -29,31 +29,41 @@ type Empty struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Empty) Reset()         { *m = Empty{} }
-func (m *Empty) String() string { return proto.CompactTextString(m) }
-func (*Empty) ProtoMessage()    {}
-func (*Empty) Descriptor() ([]byte, []int) {
+
+*Empty) Reset()         { *m = Empty{} }
+
+*Empty) String() string { return proto.CompactTextString(m) }
+
+ (*Empty) ProtoMessage()    {}
+
+ (*Empty) Descriptor() ([]byte, []int) {
 	return fileDescriptor_grpc_controller_08f8296ef6d80436, []int{0}
+
+
+ (m *Empty) XXX_Unmarshal(b []byte) error {
+urn xxx_messageInfo_Empty.Unmarshal(m, b)
 }
-func (m *Empty) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Empty.Unmarshal(m, b)
-}
-func (m *Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+
+*Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Empty.Marshal(b, m, deterministic)
 }
-func (dst *Empty) XXX_Merge(src proto.Message) {
+
+ (dst *Empty) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Empty.Merge(dst, src)
 }
-func (m *Empty) XXX_Size() int {
-	return xxx_messageInfo_Empty.Size(m)
+
+ (m *Empty) XXX_Size() int {
+urn xxx_messageInfo_Empty.Size(m)
 }
-func (m *Empty) XXX_DiscardUnknown() {
+
+ (m *Empty) XXX_DiscardUnknown() {
 	xxx_messageInfo_Empty.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-func init() {
+
+ init() {
 	proto.RegisterType((*Empty)(nil), "plugin.Empty")
 }
 
@@ -66,27 +76,29 @@ var _ grpc.ClientConn
 const _ = grpc.SupportPackageIsVersion4
 
 // GRPCControllerClient is the client API for GRPCController service.
-//
+
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GRPCControllerClient interface {
 	Shutdown(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
-}
+
 
 type gRPCControllerClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewGRPCControllerClient(cc *grpc.ClientConn) GRPCControllerClient {
+
+ NewGRPCControllerClient(cc *grpc.ClientConn) GRPCControllerClient {
 	return &gRPCControllerClient{cc}
 }
 
-func (c *gRPCControllerClient) Shutdown(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
+
+ (c *gRPCControllerClient) Shutdown(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/plugin.GRPCController/Shutdown", in, out, opts...)
+ := c.cc.Invoke(ctx, "/plugin.GRPCController/Shutdown", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+urn out, nil
 }
 
 // GRPCControllerServer is the server API for GRPCController service.
@@ -94,11 +106,14 @@ type GRPCControllerServer interface {
 	Shutdown(context.Context, *Empty) (*Empty, error)
 }
 
-func RegisterGRPCControllerServer(s *grpc.Server, srv GRPCControllerServer) {
+
+ RegisterGRPCControllerServer(s *grpc.Server, srv GRPCControllerServer) {
 	s.RegisterService(&_GRPCController_serviceDesc, srv)
 }
 
-func _GRPCController_Shutdown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ _GRPCController_Shutdown_Handler(srv interface{}, ctx context.Context, dec 
+(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -110,10 +125,11 @@ func _GRPCController_Shutdown_Handler(srv interface{}, ctx context.Context, dec 
 		Server:     srv,
 		FullMethod: "/plugin.GRPCController/Shutdown",
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GRPCControllerServer).Shutdown(ctx, req.(*Empty))
 	}
-	return interceptor(ctx, in, info, handler)
+urn interceptor(ctx, in, info, handler)
 }
 
 var _GRPCController_serviceDesc = grpc.ServiceDesc{
@@ -129,7 +145,8 @@ var _GRPCController_serviceDesc = grpc.ServiceDesc{
 	Metadata: "grpc_controller.proto",
 }
 
-func init() {
+
+ init() {
 	proto.RegisterFile("grpc_controller.proto", fileDescriptor_grpc_controller_08f8296ef6d80436)
 }
 

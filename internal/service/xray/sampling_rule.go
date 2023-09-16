@@ -26,8 +26,7 @@ import (
 
 // @SDKResource("aws_xray_sampling_rule", name="Sampling Rule")
 // @Tags(identifierAttribute="arn")
-func resourceSamplingRule() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSamplingRuleCreate,
 		ReadWithoutTimeout:   resourceSamplingRuleRead,
 		UpdateWithoutTimeout: resourceSamplingRuleUpdate,
@@ -114,8 +113,7 @@ func resourceSamplingRule() *schema.Resource {
 }
 
 func resourceSamplingRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
+funcn := meta.(*conns.AWSClient).XRayClient(ctx)
 
 	name := d.Get("rule_name").(string)
 	samplingRule := &types.SamplingRule{
@@ -154,8 +152,7 @@ func resourceSamplingRuleCreate(ctx context.Context, d *schema.ResourceData, met
 
 func resourceSamplingRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
-
+func
 	samplingRule, err := findSamplingRuleByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -188,8 +185,7 @@ func resourceSamplingRuleRead(ctx context.Context, d *schema.ResourceData, meta 
 func resourceSamplingRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).XRayClient(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		samplingRuleUpdate := &types.SamplingRuleUpdate{
 			FixedRate:     aws.Float64(d.Get("fixed_rate").(float64)),
 			Host:          aws.String(d.Get("host").(string)),
@@ -225,8 +221,7 @@ func resourceSamplingRuleDelete(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).XRayClient(ctx)
 
-	log.Printf("[INFO] Deleting XRay Sampling Rule: %s", d.Id())
-	_, err := conn.DeleteSamplingRule(ctx, &xray.DeleteSamplingRuleInput{
+funcerr := conn.DeleteSamplingRule(ctx, &xray.DeleteSamplingRuleInput{
 		RuleName: aws.String(d.Id()),
 	})
 
@@ -246,8 +241,7 @@ func findSamplingRuleByName(ctx context.Context, conn *xray.Client, name string)
 
 	pages := xray.NewGetSamplingRulesPaginator(conn, input)
 	for pages.HasMorePages() {
-		page, err := pages.NextPage(ctx)
-
+func
 		if err != nil {
 			return nil, err
 		}
@@ -269,8 +263,7 @@ func GetSamplingRule(ctx context.Context, conn *xray.XRay, ruleName string) (*xr
 		out, err := conn.GetSamplingRulesWithContext(ctx, params)
 		if err != nil {
 			return nil, err
-		}
-		for _, samplingRuleRecord := range out.SamplingRuleRecords {
+funcr _, samplingRuleRecord := range out.SamplingRuleRecords {
 			samplingRule := samplingRuleRecord.SamplingRule
 			if aws.StringValue(samplingRule.RuleName) == ruleName {
 				return samplingRule, nil

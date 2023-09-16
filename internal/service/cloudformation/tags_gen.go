@@ -13,6 +13,7 @@ import (
 // []*SERVICE.Tag handling
 
 // Tags returns cloudformation service tags.
+
 func Tags(tags tftags.KeyValueTags) []*cloudformation.Tag {
 	result := make([]*cloudformation.Tag, 0, len(tags))
 
@@ -29,6 +30,7 @@ func Tags(tags tftags.KeyValueTags) []*cloudformation.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from cloudformation service tags.
+
 func KeyValueTags(ctx context.Context, tags []*cloudformation.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -41,6 +43,7 @@ func KeyValueTags(ctx context.Context, tags []*cloudformation.Tag) tftags.KeyVal
 
 // getTagsIn returns cloudformation service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) []*cloudformation.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -52,6 +55,7 @@ func getTagsIn(ctx context.Context) []*cloudformation.Tag {
 }
 
 // setTagsOut sets cloudformation service tags in Context.
+
 func setTagsOut(ctx context.Context, tags []*cloudformation.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))

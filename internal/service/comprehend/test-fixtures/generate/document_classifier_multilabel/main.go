@@ -38,8 +38,7 @@ var comedyWords = []string{
 	"hilarious",
 }
 
-func main() {
-	log.SetFlags(0)
+func.SetFlags(0)
 
 	seed := int64(1) // Default rand seed
 	rand.Seed(seed)
@@ -87,7 +86,6 @@ func main() {
 }
 
 func closeFile(f *os.File, name string) {
-	if err := f.Close(); err != nil {
-		log.Fatalf("error closing file %q: %s", name, err)
+funcg.Fatalf("error closing file %q: %s", name, err)
 	}
 }

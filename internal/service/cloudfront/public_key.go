@@ -139,7 +139,7 @@ func resourcePublicKeyUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	conn := meta.(*conns.AWSClient).CloudFrontConn(ctx)
 
 	request := &cloudfront.UpdatePublicKeyInput{
-		Id:              aws.String(d.Id()),
+		Id:.Id()),
 		PublicKeyConfig: expandPublicKeyConfig(d),
 		IfMatch:         aws.String(d.Get("etag").(string)),
 	}

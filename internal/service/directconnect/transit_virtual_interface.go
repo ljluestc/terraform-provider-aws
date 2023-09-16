@@ -137,13 +137,13 @@ func resourceTransitVirtualInterfaceCreate(ctx context.Context, d *schema.Resour
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewTransitVirtualInterface: &directconnect.NewTransitVirtualInterface{
 			AddressFamily:          aws.String(d.Get("address_family").(string)),
-			Asn:                    aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Asn:       aws.Int64(int64(d.Get("bgp_asn").(int))),
 			DirectConnectGatewayId: aws.String(d.Get("dx_gateway_id").(string)),
 			EnableSiteLink:         aws.Bool(d.Get("sitelink_enabled").(bool)),
-			Mtu:                    aws.Int64(int64(d.Get("mtu").(int))),
-			Tags:                   getTagsIn(ctx),
+			Mtu:       aws.Int64(int64(d.Get("mtu").(int))),
+			Tags:      getTagsIn(ctx),
 			VirtualInterfaceName:   aws.String(d.Get("name").(string)),
-			Vlan:                   aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan:      aws.Int64(int64(d.Get("vlan").(int))),
 		},
 	}
 	if v, ok := d.GetOk("amazon_address"); ok {

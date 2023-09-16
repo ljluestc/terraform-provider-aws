@@ -9,8 +9,7 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
-func validEventSubscriptionName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
+funcue := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"only alphanumeric characters and hyphens allowed in %q", k))
@@ -23,8 +22,7 @@ func validEventSubscriptionName(v interface{}, k string) (ws []string, errors []
 }
 
 func validOptionGroupName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
+func!regexache.MustCompile(`^[a-z]`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"first character of %q must be a letter", k))
 	}
@@ -49,8 +47,7 @@ func validOptionGroupName(v interface{}, k string) (ws []string, errors []error)
 
 func validOptionGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
+funcrors = append(errors, fmt.Errorf(
 			"first character of %q must be a letter", k))
 	}
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -71,8 +68,7 @@ func validOptionGroupNamePrefix(v interface{}, k string) (ws []string, errors []
 func validParamGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in parameter group %q", k))
+funconly lowercase alphanumeric characters and hyphens allowed in parameter group %q", k))
 	}
 	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
@@ -97,8 +93,7 @@ func validParamGroupNamePrefix(v interface{}, k string) (ws []string, errors []e
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in parameter group %q", k))
-	}
+func
 	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"first character of parameter group %q must be a letter", k))
@@ -119,8 +114,7 @@ func validSubnetGroupName(v interface{}, k string) (ws []string, errors []error)
 	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"only lowercase alphanumeric characters, hyphens, underscores, periods, and spaces allowed in %q", k))
-	}
-	if len(value) > 255 {
+funclen(value) > 255 {
 		errors = append(errors, fmt.Errorf(
 			"%q cannot be longer than 255 characters", k))
 	}
@@ -137,8 +131,7 @@ func validSubnetGroupNamePrefix(v interface{}, k string) (ws []string, errors []
 		errors = append(errors, fmt.Errorf(
 			"only lowercase alphanumeric characters, hyphens, underscores, periods, and spaces allowed in %q", k))
 	}
-	if len(value) > 229 {
-		errors = append(errors, fmt.Errorf(
+funcrors = append(errors, fmt.Errorf(
 			"%q cannot be longer than 229 characters", k))
 	}
 	return
@@ -151,8 +144,7 @@ func validIdentifier(v interface{}, k string) (ws []string, errors []error) {
 			"only lowercase alphanumeric characters and hyphens allowed in %q", k))
 	}
 	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
+funcfirst character of %q must be a letter", k))
 	}
 	if regexache.MustCompile(`--`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
@@ -173,8 +165,7 @@ func validIdentifierPrefix(v interface{}, k string) (ws []string, errors []error
 	}
 	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
+func
 	if regexache.MustCompile(`--`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
 			"%q cannot contain two consecutive hyphens", k))

@@ -268,9 +268,9 @@ func resourceContainerServiceUpdate(ctx context.Context, d *schema.ResourceData,
 		input := &lightsail.UpdateContainerServiceInput{
 			ServiceName:       aws.String(d.Id()),
 			IsDisabled:        aws.Bool(d.Get("is_disabled").(bool)),
-			Power:             types.ContainerServicePowerName(d.Get("power").(string)),
+			Power:erServicePowerName(d.Get("power").(string)),
 			PublicDomainNames: publicDomainNames,
-			Scale:             aws.Int32(int32(d.Get("scale").(int))),
+			Scale:32(d.Get("scale").(int))),
 		}
 
 		_, err := conn.UpdateContainerService(ctx, input)

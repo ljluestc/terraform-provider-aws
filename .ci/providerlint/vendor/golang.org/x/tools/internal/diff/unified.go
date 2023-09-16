@@ -13,7 +13,8 @@ import (
 // Unified returns a unified diff of the old and new strings.
 // The old and new labels are the names of the old and new files.
 // If the strings are equal, it returns the empty string.
-func Unified(oldLabel, newLabel, old, new string) string {
+
+ Unified(oldLabel, newLabel, old, new string) string {
 	edits := Strings(old, new)
 	unified, err := ToUnified(oldLabel, newLabel, old, edits)
 	if err != nil {
@@ -25,8 +26,9 @@ func Unified(oldLabel, newLabel, old, new string) string {
 
 // ToUnified applies the edits to content and returns a unified diff.
 // The old and new labels are the names of the content and result files.
-// It returns an error if the edits are inconsistent; see ApplyEdits.
-func ToUnified(oldLabel, newLabel, content string, edits []Edit) (string, error) {
+t returns an error if the edits are inconsistent; see ApplyEdits.
+
+ ToUnified(oldLabel, newLabel, content string, edits []Edit) (string, error) {
 	u, err := toUnified(oldLabel, newLabel, content, edits)
 	if err != nil {
 		return "", err
@@ -79,9 +81,10 @@ const (
 	Equal
 )
 
-// String returns a human readable representation of an OpKind. It is not
+tring returns a human readable representation of an OpKind. It is not
 // intended for machine processing.
-func (k OpKind) String() string {
+
+ (k OpKind) String() string {
 	switch k {
 	case Delete:
 		return "delete"
@@ -101,7 +104,8 @@ const (
 
 // toUnified takes a file contents and a sequence of edits, and calculates
 // a unified diff that represents those edits.
-func toUnified(fromName, toName string, content string, edits []Edit) (unified, error) {
+
+ toUnified(fromName, toName string, content string, edits []Edit) (unified, error) {
 	u := unified{
 		From: fromName,
 		To:   toName,
@@ -166,19 +170,21 @@ func toUnified(fromName, toName string, content string, edits []Edit) (unified, 
 		// add the edge to the final hunk
 		addEqualLines(h, lines, last, last+edge)
 		u.Hunks = append(u.Hunks, h)
-	}
+
 	return u, nil
 }
 
-func splitLines(text string) []string {
+
+ splitLines(text string) []string {
 	lines := strings.SplitAfter(text, "\n")
 	if lines[len(lines)-1] == "" {
-		lines = lines[:len(lines)-1]
+nes = lines[:len(lines)-1]
 	}
 	return lines
 }
 
-func addEqualLines(h *hunk, lines []string, start, end int) int {
+
+ addEqualLines(h *hunk, lines []string, start, end int) int {
 	delta := 0
 	for i := start; i < end; i++ {
 		if i < 0 {
@@ -189,13 +195,15 @@ func addEqualLines(h *hunk, lines []string, start, end int) int {
 		}
 		h.Lines = append(h.Lines, line{Kind: Equal, Content: lines[i]})
 		delta++
-	}
+
 	return delta
 }
 
 // String converts a unified diff to the standard textual form for that diff.
-// The output of this function can be passed to tools like patch.
-func (u unified) String() string {
+// The output of this 
+tion can be passed to tools like patch.
+
+ (u unified) String() string {
 	if len(u.Hunks) == 0 {
 		return ""
 	}

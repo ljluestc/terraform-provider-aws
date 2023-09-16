@@ -7,67 +7,66 @@ import (
 	"testing"
 )
 
-func TestValidUsagePlanQuotaSettings(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := []struct {
-		Offset   int
-		Period   string
+		Offset
+		Perioding
 		ErrCount int
 	}{
 		{
-			Offset:   0,
-			Period:   "DAY",
+			Offset:
+			Period:Y",
 			ErrCount: 0,
 		},
 		{
-			Offset:   -1,
-			Period:   "DAY",
+			Offset:
+			Period:Y",
 			ErrCount: 1,
 		},
 		{
-			Offset:   1,
-			Period:   "DAY",
+			Offset:
+			Period:Y",
 			ErrCount: 1,
 		},
 		{
-			Offset:   0,
-			Period:   "WEEK",
+			Offset:
+			Period:EK",
 			ErrCount: 0,
 		},
 		{
-			Offset:   6,
-			Period:   "WEEK",
+			Offset:
+			Period:EK",
 			ErrCount: 0,
 		},
 		{
-			Offset:   -1,
-			Period:   "WEEK",
+			Offset:
+			Period:EK",
 			ErrCount: 1,
 		},
 		{
-			Offset:   7,
-			Period:   "WEEK",
+			Offset:
+			Period:EK",
 			ErrCount: 1,
 		},
 		{
-			Offset:   0,
-			Period:   "MONTH",
+			Offset:
+			Period:NTH",
 			ErrCount: 0,
 		},
 		{
-			Offset:   27,
-			Period:   "MONTH",
+			Offset:
+			Period:NTH",
 			ErrCount: 0,
 		},
 		{
-			Offset:   -1,
-			Period:   "MONTH",
+			Offset:
+			Period:NTH",
 			ErrCount: 1,
 		},
 		{
-			Offset:   28,
-			Period:   "MONTH",
+			Offset:
+			Period:NTH",
 			ErrCount: 1,
 		},
 	}

@@ -26,10 +26,10 @@ func TestAccKinesisAnalyticsApplication_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -67,10 +67,10 @@ func TestAccKinesisAnalyticsApplication_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -91,10 +91,10 @@ func TestAccKinesisAnalyticsApplication_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_tags1(rName, "key1", "value1"),
@@ -140,10 +140,10 @@ func TestAccKinesisAnalyticsApplication_Code_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_code(rName, "SELECT 1;\n"),
@@ -203,10 +203,10 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_add(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -268,10 +268,10 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_delete(t *testi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_cloudWatchLoggingOptions(rName, 0),
@@ -335,10 +335,10 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_update(t *testi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_cloudWatchLoggingOptions(rName, 0),
@@ -402,10 +402,10 @@ func TestAccKinesisAnalyticsApplication_Input_add(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -491,10 +491,10 @@ func TestAccKinesisAnalyticsApplication_Input_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_input(rName),
@@ -606,10 +606,10 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_add(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_input(rName),
@@ -721,10 +721,10 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_delete(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_inputProcessing(rName, 0),
@@ -838,10 +838,10 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_inputProcessing(rName, 0),
@@ -960,10 +960,10 @@ func TestAccKinesisAnalyticsApplication_Multiple_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_multiple(rName, "", ""),
@@ -1008,12 +1008,12 @@ func TestAccKinesisAnalyticsApplication_Multiple_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.0.starting_position_configuration.0.starting_position", ""),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_1",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_1",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "1",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.resource_arn", firehoseResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.role_arn", iamRole2ResourceName, "arn"),
@@ -1065,22 +1065,22 @@ func TestAccKinesisAnalyticsApplication_Multiple_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.0.starting_position_configuration.0.starting_position", ""),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_2",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_2",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "JSON",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "1",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.resource_arn", streamsResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.role_arn", iamRole2ResourceName, "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_3",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_3",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "1",
+						"lambda.#":       "1",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.resource_arn", lambdaResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.role_arn", iamRole1ResourceName, "arn"),
@@ -1131,10 +1131,10 @@ func TestAccKinesisAnalyticsApplication_Output_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_output(rName),
@@ -1150,12 +1150,12 @@ func TestAccKinesisAnalyticsApplication_Output_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_1",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_1",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "1",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.resource_arn", firehoseResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.role_arn", iamRole1ResourceName, "arn"),
@@ -1180,22 +1180,22 @@ func TestAccKinesisAnalyticsApplication_Output_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_2",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_2",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "JSON",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "1",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.resource_arn", streamsResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.role_arn", iamRole2ResourceName, "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_3",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_3",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "1",
+						"lambda.#":       "1",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.resource_arn", lambdaResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.role_arn", iamRole1ResourceName, "arn"),
@@ -1244,10 +1244,10 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_add(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -1325,10 +1325,10 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_delete(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_referenceDataSource(rName),
@@ -1407,10 +1407,10 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_update(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_referenceDataSource(rName),
@@ -1509,10 +1509,10 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onCreate(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_start(rName, true),
@@ -1560,7 +1560,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onCreate(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"start_application"},
 			},
@@ -1577,10 +1577,10 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onUpdate(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_start(rName, false),
@@ -1628,7 +1628,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onUpdate(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"start_application"},
 			},
@@ -1738,10 +1738,10 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_multiple(rName, "true", "LAST_STOPPED_POINT"),
@@ -1786,12 +1786,12 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.0.starting_position_configuration.0.starting_position", "LAST_STOPPED_POINT"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_1",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_1",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "1",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.resource_arn", firehoseResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_firehose.0.role_arn", iamRole2ResourceName, "arn"),
@@ -1844,22 +1844,22 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "inputs.0.starting_position_configuration.0.starting_position", "LAST_STOPPED_POINT"),
 					resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_2",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_2",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "JSON",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "1",
-						"lambda.#":                    "0",
+						"lambda.#":       "0",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.resource_arn", streamsResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.kinesis_stream.0.role_arn", iamRole2ResourceName, "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
-						"name":                        "OUTPUT_3",
-						"schema.#":                    "1",
+						"name":           "OUTPUT_3",
+						"schema.#":       "1",
 						"schema.0.record_format_type": "CSV",
 						"kinesis_firehose.#":          "0",
 						"kinesis_stream.#":            "0",
-						"lambda.#":                    "1",
+						"lambda.#":       "1",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.resource_arn", lambdaResourceName, "arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "outputs.*.lambda.0.role_arn", iamRole1ResourceName, "arn"),
@@ -1892,7 +1892,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"start_application"},
 			},
@@ -1971,7 +1971,7 @@ func testAccApplicationConfigBaseIAMRole(rName string) string {
 resource "aws_iam_role" "test" {
   count = 2
 
-  name               = "%[1]s.${count.index}"
+  name  = "%[1]s.${count.index}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",

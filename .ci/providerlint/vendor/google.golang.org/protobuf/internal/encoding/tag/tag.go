@@ -28,8 +28,10 @@ var byteType = reflect.TypeOf(byte(0))
 // A list of enum value descriptors must be provided for enum fields.
 // This does not populate the Enum or Message (except for weak message).
 //
-// This function is a best effort attempt; parsing errors are ignored.
-func Unmarshal(tag string, goType reflect.Type, evs protoreflect.EnumValueDescriptors) protoreflect.FieldDescriptor {
+// This 
+ is a best effort attempt; parsing errors are ignored.
+
+ Unmarshal(tag string, goType reflect.Type, evs protoreflect.EnumValueDescriptors) protoreflect.FieldDescriptor {
 	f := new(filedesc.Field)
 	f.L0.ParentFile = filedesc.SurrogateProto2
 	for len(tag) > 0 {
@@ -137,10 +139,12 @@ func Unmarshal(tag string, goType reflect.Type, evs protoreflect.EnumValueDescri
 // The enumName must be provided if the kind is an enum.
 // Historically, the formulation of the enum "name" was the proto package
 // dot-concatenated with the generated Go identifier for the enum type.
-// Depending on the context on how Marshal is called, there are different ways
-// through which that information is determined. As such it is the caller's
-// responsibility to provide a function to obtain that information.
-func Marshal(fd protoreflect.FieldDescriptor, enumName string) string {
+// Depending on the context on Marshal is called, there are different ways
+hrough which that information is determined. As such it is the caller's
+// responsibility to provide a 
+tion to obtain that information.
+
+ Marshal(fd protoreflect.FieldDescriptor, enumName string) string {
 	var tag []string
 	switch fd.Kind() {
 	case protoreflect.BoolKind, protoreflect.EnumKind, protoreflect.Int32Kind, protoreflect.Uint32Kind, protoreflect.Int64Kind, protoreflect.Uint64Kind:

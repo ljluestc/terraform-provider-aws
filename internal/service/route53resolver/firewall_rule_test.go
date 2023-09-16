@@ -45,8 +45,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -78,8 +78,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -114,8 +114,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -230,7 +230,7 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name     = %[1]q
+  name
   action   = "ALLOW"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
@@ -251,7 +251,7 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name     = %[1]q
+  name
   action   = "BLOCK"
   block_response = %[2]q
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
@@ -273,11 +273,11 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name     = %[1]q
+  name
   action   = "BLOCK"
   block_override_dns_type = "CNAME"
   block_override_domain   = "example.com."
-  block_override_ttl      = 60
+  block_override_ttl
   block_response = "OVERRIDE"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id

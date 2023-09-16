@@ -44,8 +44,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -123,7 +123,7 @@ func testAccConfigConfig_basic(rName, autodefinedReverseFlag string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_route53_resolver_config" "test" {
   autodefined_reverse_flag = %[1]q
-  resource_id     = aws_vpc.test.id
+  resource_idtest.id
 }
 `, autodefinedReverseFlag))
 }

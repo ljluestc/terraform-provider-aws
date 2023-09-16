@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_sagemaker_code_repository", name="Code Repository")
 // @Tags(identifierAttribute="arn")
-func ResourceCodeRepository() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCodeRepositoryCreate,
-		ReadWithoutTimeout:   resourceCodeRepositoryRead,
+		ReadWithoutTimeout:ourceCodeRepositoryRead,
 		UpdateWithoutTimeout: resourceCodeRepositoryUpdate,
 		DeleteWithoutTimeout: resourceCodeRepositoryDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,12 +34,12 @@ func ResourceCodeRepository() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 
 			"code_repository_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -49,31 +48,31 @@ func ResourceCodeRepository() *schema.Resource {
 				),
 			},
 			"git_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"repository_url": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							ForceNew: true,
 							Required: true,
 						},
 						"branch": {
-							Type:         schema.TypeString,
-							ForceNew:     true,
-							Optional:     true,
+							Type:chema.TypeString,
+							ForceNew:
+							Optional:
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 						"secret_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -82,14 +81,13 @@ func ResourceCodeRepository() *schema.Resource {
 }
 
 func resourceCodeRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("code_repository_name").(string)
 	input := &sagemaker.CreateCodeRepositoryInput{
 		CodeRepositoryName: aws.String(name),
-		GitConfig:          expandCodeRepositoryGitConfig(d.Get("git_config").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		GitConfig:RepositoryGitConfig(d.Get("git_config").([]interface{})),
+		Tags:
 	}
 
 	log.Printf("[DEBUG] sagemaker code repository create config: %#v", *input)
@@ -105,8 +103,7 @@ func resourceCodeRepositoryCreate(ctx context.Context, d *schema.ResourceData, m
 
 func resourceCodeRepositoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	codeRepository, err := FindCodeRepositoryByName(ctx, conn, d.Id())
 	if err != nil {
 		if tfawserr.ErrMessageContains(err, "ValidationException", "Cannot find CodeRepository") {
@@ -131,11 +128,10 @@ func resourceCodeRepositoryRead(ctx context.Context, d *schema.ResourceData, met
 func resourceCodeRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChange("git_config") {
+funcd.HasChange("git_config") {
 		input := &sagemaker.UpdateCodeRepositoryInput{
 			CodeRepositoryName: aws.String(d.Id()),
-			GitConfig:          expandCodeRepositoryUpdateGitConfig(d.Get("git_config").([]interface{})),
+			GitConfig:RepositoryUpdateGitConfig(d.Get("git_config").([]interface{})),
 		}
 
 		log.Printf("[DEBUG] sagemaker code repository update config: %#v", *input)
@@ -152,8 +148,7 @@ func resourceCodeRepositoryDelete(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteCodeRepositoryInput{
-		CodeRepositoryName: aws.String(d.Id()),
+funcdeRepositoryName: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteCodeRepositoryWithContext(ctx, input); err != nil {
@@ -171,8 +166,7 @@ func expandCodeRepositoryGitConfig(l []interface{}) *sagemaker.GitConfig {
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.GitConfig{
 		RepositoryUrl: aws.String(m["repository_url"].(string)),
 	}
@@ -194,8 +188,7 @@ func flattenCodeRepositoryGitConfig(config *sagemaker.GitConfig) []map[string]in
 	}
 
 	m := map[string]interface{}{
-		"repository_url": aws.StringValue(config.RepositoryUrl),
-	}
+func
 
 	if config.Branch != nil {
 		m["branch"] = aws.StringValue(config.Branch)
@@ -215,8 +208,7 @@ func expandCodeRepositoryUpdateGitConfig(l []interface{}) *sagemaker.GitConfigFo
 
 	m := l[0].(map[string]interface{})
 
-	config := &sagemaker.GitConfigForUpdate{
-		SecretArn: aws.String(m["secret_arn"].(string)),
+funccretArn: aws.String(m["secret_arn"].(string)),
 	}
 
 	return config

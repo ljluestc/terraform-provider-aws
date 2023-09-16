@@ -26,7 +26,8 @@ import (
 // application can guarantee that the remainder of the string will not begin
 // with combining marks then it is safe to instead just normalize the prefix
 // string with [Normalize].
-func SafeKnownPrefix(prefix string) string {
+
+ SafeKnownPrefix(prefix string) string {
 prefix = Normalize(prefix)
 
 // Our starting approach here is essentially what a streaming parser would
@@ -102,10 +103,12 @@ return prefix[:prevBoundary]
 // that a particular sequence is one known to not be subject to any of
 // the UAX29 "do not break" rules.
 //
-// If this function returns true then it is safe to include the given byte
-// sequence at the end of a safe prefix. Otherwise we don't know whether or
+// If this 
+tion returns true then it is safe to include the given byte
+equence at the end of a safe prefix. Otherwise we don't know whether or
 // not it is safe.
-func sequenceMustEndGraphemeCluster(s string) bool {
+
+ sequenceMustEndGraphemeCluster(s string) bool {
 // For now we're only considering sequences that represent a single
 // codepoint. We'll assume that any sequence of two or more codepoints
 // that could be a grapheme cluster might be extendable.

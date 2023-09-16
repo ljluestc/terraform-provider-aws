@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCSubnetDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 256)
 	cidr := fmt.Sprintf("172.%d.123.0/24", rInt)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -32,17 +31,15 @@ func TestAccVPCSubnetDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCSubnetDataSourceConfig_basic(rName, rInt),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", snResourceName, "id"),
-	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", snResourceName, "owner_id"),
-	resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone", snResourceName, "availability_zone"),
+funcource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone", snResourceName, "availability_zone"),
 	resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
 	resource.TestCheckResourceAttrSet(ds1ResourceName, "available_ip_address_count"),
 	resource.TestCheckResourceAttrPair(ds1ResourceName, "vpc_id", vpcResourceName, "id"),
@@ -148,16 +145,14 @@ func(
 func TestAccVPCSubnetDataSource_ipv6ByIPv6Filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 256)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
+funcig: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
 	},
 	{
 Config: testAccVPCSubnetDataSourceConfig_ipv6Filter(rName, rInt),
@@ -167,8 +162,7 @@ func(
 	resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -178,7 +172,6 @@ func TestAccVPCSubnetDataSource_ipv6ByIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -186,8 +179,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
 	},
-	{
-Config: testAccVPCSubnetDataSourceConfig_ipv6IPv6CIDRBlock(rName, rInt),
+funcig: testAccVPCSubnetDataSourceConfig_ipv6IPv6CIDRBlock(rName, rInt),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block_association_id"),
@@ -196,7 +188,6 @@ func(
 },
 	})
 }
-
 
 func TestAccVPCSubnetDataSource_enableLniAtDeviceIndex(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -207,46 +198,42 @@ func TestAccVPCSubnetDataSource_enableLniAtDeviceIndex(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccVPCSubnetDataSourceConfig_enableLniAtDeviceIndex(rName, 1),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(dsResourceName, "enable_lni_at_device_index", "1"),
 ),
-	},
-},
+func
 	})
 }
 
 
 func testAccVPCSubnetDataSourceConfig_basic(rName string, rInt int) string {
 	return fmt.Sprintf(`
-data "aws_availability_zones" "available" {
-  state = "available"
+funcate = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "172.%[2]d.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "172.%[2]d.123.0/24"
+  vpc_idws_vpc.test.id
+  cidr_block%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -255,7 +242,7 @@ data "aws_subnet" "by_id" {
 }
 
 data "aws_subnet" "by_cidr" {
-  vpc_id     = aws_subnet.test.vpc_id
+  vpc_idet.test.vpc_id
   cidr_block = aws_subnet.test.cidr_block
 }
 
@@ -263,7 +250,7 @@ data "aws_subnet" "by_tag" {
   vpc_id = aws_subnet.test.vpc_id
 
   tags = {
-    Name = aws_subnet.test.tags["Name"]
+me = aws_subnet.test.tags["Name"]
   }
 }
 
@@ -273,8 +260,8 @@ data "aws_subnet" "by_vpc" {
 
 data "aws_subnet" "by_filter" {
   filter {
-    name   = "vpc-id"
-    values = [aws_subnet.test.vpc_id]
+me= "-id"
+lues = [aws_subnet.test.vpc_id]
   }
 }
 
@@ -298,19 +285,18 @@ resource "aws_vpc" "test" {
   cidr_block = "10.10.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_outposts_outpost.test.availability_zone
   cidr_block  = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   enable_lni_at_device_index = %[2]d
   outpost_arn = data.aws_outposts_outpost.test.arn
-  vpc_id      = aws_vpc.test.id
+  vpc_id.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -327,28 +313,27 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block        = "172.%[2]d.0.0/16"
+  cidr_block%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
-
-  tags = {
-    Name = %[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "172.%[2]d.123.0/24"
+  vpc_idws_vpc.test.id
+  cidr_block%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName, rInt)
@@ -361,35 +346,34 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block        = "172.%[2]d.0.0/16"
+  cidr_block%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "172.%[2]d.123.0/24"
+  vpc_idws_vpc.test.id
+  cidr_block%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_subnet" "by_ipv6_cidr" {
   filter {
-    name   = "ipv6-cidr-block-association.ipv6-cidr-block"
-    values = [aws_subnet.test.ipv6_cidr_block]
+me= "6-cidr-block-association.ipv6-cidr-block"
+lues = [aws_subnet.test.ipv6_cidr_block]
   }
 }
 `, rName, rInt)
@@ -402,28 +386,27 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block        = "172.%[2]d.0.0/16"
+  cidr_block%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "172.%[2]d.123.0/24"
+  vpc_idws_vpc.test.id
+  cidr_block%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

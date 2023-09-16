@@ -41,11 +41,13 @@ type AnyVersion struct {
 	logger *log.Logger
 }
 
-func (*AnyVersion) IsSourceImpl() src.InstallSrcSigil {
+
+ (*AnyVersion) IsSourceImpl() src.InstallSrcSigil {
 	return src.InstallSrcSigil{}
 }
 
-func (av *AnyVersion) Validate() error {
+
+ (av *AnyVersion) Validate() error {
 	if av.ExactBinPath == "" && av.Product == nil {
 		return fmt.Errorf("must use either ExactBinPath or Product + ExtraPaths")
 	}
@@ -59,20 +61,23 @@ func (av *AnyVersion) Validate() error {
 		return fmt.Errorf("invalid binary name: %q", av.Product.BinaryName())
 	}
 	return nil
+
+
+
+ (av *AnyVersion) SetLogger(logger *log.Logger) {
+logger = logger
 }
 
-func (av *AnyVersion) SetLogger(logger *log.Logger) {
-	av.logger = logger
-}
 
-func (av *AnyVersion) log() *log.Logger {
+ (av *AnyVersion) log() *log.Logger {
 	if av.logger == nil {
 		return discardLogger
-	}
+
 	return av.logger
 }
 
-func (av *AnyVersion) Find(ctx context.Context) (string, error) {
+
+ (av *AnyVersion) Find(ctx context.Context) (string, error) {
 	if av.ExactBinPath != "" {
 		err := checkExecutable(av.ExactBinPath)
 		if err != nil {

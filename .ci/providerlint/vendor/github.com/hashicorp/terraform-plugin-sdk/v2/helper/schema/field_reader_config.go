@@ -27,12 +27,15 @@ type ConfigFieldReader struct {
 	once      sync.Once
 }
 
-func (r *ConfigFieldReader) ReadField(address []string) (FieldReadResult, error) {
-	r.once.Do(func() { r.indexMaps = make(map[string]map[string]int) })
-	return r.readField(address, false)
-}
 
-func (r *ConfigFieldReader) readField(
+ (r *CoFieldReader) ReadField(address []string) (FieldReadResult, error) {
+	r.once.Do(
+() { r.indexMaps = make(map[string]map[string]int) })
+	return r.readField(address, false)
+
+
+
+ (r *ConfigFieldReader) readField(
 	address []string, nested bool) (FieldReadResult, error) {
 	schemaList := addrToSchema(address, r.Schema)
 	if len(schemaList) == 0 {
@@ -114,10 +117,11 @@ func (r *ConfigFieldReader) readField(
 			address, schema.Elem.(map[string]*Schema))
 	default:
 		panic(fmt.Sprintf("Unknown type: %s", schema.Type))
-	}
+
 }
 
-func (r *ConfigFieldReader) readMap(k string, schema *Schema) (FieldReadResult, error) {
+
+ (r *ConfigFieldReader) readMap(k string, schema *Schema) (FieldReadResult, error) {
 	// We want both the raw value and the interpolated. We use the interpolated
 	// to store actual values and we use the raw one to check for
 	// computed keys. Actual values are obtained in the switch, depending on
@@ -217,11 +221,12 @@ func (r *ConfigFieldReader) readMap(k string, schema *Schema) (FieldReadResult, 
 	return FieldReadResult{
 		Value:    value,
 		Exists:   true,
-		Computed: computed,
+mputed: computed,
 	}, nil
 }
 
-func (r *ConfigFieldReader) readPrimitive(
+
+ (r *ConfigFieldReader) readPrimitive(
 	k string, schema *Schema) (FieldReadResult, error) {
 	raw, ok := r.Config.Get(k)
 	if !ok {
@@ -250,12 +255,13 @@ func (r *ConfigFieldReader) readPrimitive(
 
 	return FieldReadResult{
 		Value:    returnVal,
-		Exists:   true,
+ists:   true,
 		Computed: computed,
 	}, nil
 }
 
-func (r *ConfigFieldReader) readSet(
+
+ (r *ConfigFieldReader) readSet(
 	address []string, schema *Schema) (FieldReadResult, error) {
 	indexMap := make(map[string]int)
 	// Create the set that will be our result
@@ -292,13 +298,14 @@ func (r *ConfigFieldReader) readSet(
 
 	return FieldReadResult{
 		Value:  set,
-		Exists: true,
+ists: true,
 	}, nil
 }
 
 // hasComputedSubKeys walks through a schema and returns whether or not the
 // given key contains any subkeys that are computed.
-func (r *ConfigFieldReader) hasComputedSubKeys(key string, schema *Schema) bool {
+
+ (r *ConfigFieldReader) hasComputedSubKeys(key string, schema *Schema) bool {
 	prefix := key + "."
 
 	switch t := schema.Elem.(type) {
@@ -318,14 +325,15 @@ func (r *ConfigFieldReader) hasComputedSubKeys(key string, schema *Schema) bool 
 }
 
 // nestedConfigFieldReader is a funny little thing that just wraps a
-// ConfigFieldReader to call readField when ReadField is called so that
+onfigFieldReader to call readField when ReadField is called so that
 // we don't recalculate the set rewrites in the address, which leads to
 // an infinite loop.
 type nestedConfigFieldReader struct {
 	Reader *ConfigFieldReader
 }
 
-func (r *nestedConfigFieldReader) ReadField(
+
+ (r *nestedConfigFieldReader) ReadField(
 	address []string) (FieldReadResult, error) {
 	return r.Reader.readField(address, true)
 }

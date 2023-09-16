@@ -10,13 +10,12 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestInstanceMigrateState(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		Attributes   map[string]string
-		Expected     map[string]string
+		Attributes[string]string
+		Expected]string
 		Metainterface{}
 	}{
 		"v0.3.6 and earlier": {
@@ -26,7 +25,7 @@ func TestInstanceMigrateState(t *testing.T) {
 				"block_device.#": "2",
 				"block_device.3851383343.delete_on_termination": "true",
 				"block_device.3851383343.device_name":  "/dev/sdx",
-				"block_device.3851383343.encrypted":    "false",
+				"block_device.3851383343.encrypted":alse",
 				"block_device.3851383343.snapshot_id":  "",
 				"block_device.3851383343.virtual_name": "",
 				"block_device.3851383343.volume_size":  "5",
@@ -34,7 +33,7 @@ func TestInstanceMigrateState(t *testing.T) {
 				// Ephemeral
 				"block_device.3101711606.delete_on_termination": "false",
 				"block_device.3101711606.device_name":  "/dev/sdy",
-				"block_device.3101711606.encrypted":    "false",
+				"block_device.3101711606.encrypted":alse",
 				"block_device.3101711606.snapshot_id":  "",
 				"block_device.3101711606.virtual_name": "ephemeral0",
 				"block_device.3101711606.volume_size":  "",
@@ -42,7 +41,7 @@ func TestInstanceMigrateState(t *testing.T) {
 				// Root
 				"block_device.56575650.delete_on_termination": "true",
 				"block_device.56575650.device_name":  "/dev/sda1",
-				"block_device.56575650.encrypted":    "false",
+				"block_device.56575650.encrypted":alse",
 				"block_device.56575650.snapshot_id":  "",
 				"block_device.56575650.volume_size":  "10",
 				"block_device.56575650.volume_type":  "standard",
@@ -50,15 +49,15 @@ func TestInstanceMigrateState(t *testing.T) {
 			Expected: map[string]string{
 				"ebs_block_device.#": "1",
 				"ebs_block_device.3851383343.delete_on_termination":  "true",
-				"ebs_block_device.3851383343.device_name":   "/dev/sdx",
-				"ebs_block_device.3851383343.encrypted":     "false",
-				"ebs_block_device.3851383343.snapshot_id":   "",
-				"ebs_block_device.3851383343.volume_size":   "5",
-				"ebs_block_device.3851383343.volume_type":   "standard",
+				"ebs_block_device.3851383343.device_name":ev/sdx",
+				"ebs_block_device.3851383343.encrypted":
+				"ebs_block_device.3851383343.snapshot_id":
+				"ebs_block_device.3851383343.volume_size":,
+				"ebs_block_device.3851383343.volume_type":andard",
 				"ephemeral_block_device.#":"1",
-				"ephemeral_block_device.2458403513.device_name":      "/dev/sdy",
-				"ephemeral_block_device.2458403513.virtual_name":     "ephemeral0",
-				"root_block_device.#":     "1",
+				"ephemeral_block_device.2458403513.device_name":",
+				"ephemeral_block_device.2458403513.virtual_name":0",
+				"root_block_device.#":
 				"root_block_device.3018388612.delete_on_termination": "true",
 				"root_block_device.3018388612.device_name":  "/dev/sda1",
 				"root_block_device.3018388612.snapshot_id":  "",
@@ -73,7 +72,7 @@ func TestInstanceMigrateState(t *testing.T) {
 				"block_device.#": "2",
 				"block_device.3851383343.delete_on_termination": "true",
 				"block_device.3851383343.device_name":  "/dev/sdx",
-				"block_device.3851383343.encrypted":    "false",
+				"block_device.3851383343.encrypted":alse",
 				"block_device.3851383343.snapshot_id":  "",
 				"block_device.3851383343.virtual_name": "",
 				"block_device.3851383343.volume_size":  "5",
@@ -82,14 +81,14 @@ func TestInstanceMigrateState(t *testing.T) {
 				// Ephemeral
 				"block_device.3101711606.delete_on_termination": "false",
 				"block_device.3101711606.device_name":  "/dev/sdy",
-				"block_device.3101711606.encrypted":    "false",
+				"block_device.3101711606.encrypted":alse",
 				"block_device.3101711606.snapshot_id":  "",
 				"block_device.3101711606.virtual_name": "ephemeral0",
 				"block_device.3101711606.volume_size":  "",
 				"block_device.3101711606.volume_type":  "",
 				"block_device.3101711606.iops":"",
 				// Root
-				"root_block_device.#":     "1",
+				"root_block_device.#":
 				"root_block_device.3018388612.delete_on_termination": "true",
 				"root_block_device.3018388612.device_name":  "/dev/sda1",
 				"root_block_device.3018388612.snapshot_id":  "",
@@ -100,15 +99,15 @@ func TestInstanceMigrateState(t *testing.T) {
 			Expected: map[string]string{
 				"ebs_block_device.#": "1",
 				"ebs_block_device.3851383343.delete_on_termination":  "true",
-				"ebs_block_device.3851383343.device_name":   "/dev/sdx",
-				"ebs_block_device.3851383343.encrypted":     "false",
-				"ebs_block_device.3851383343.snapshot_id":   "",
-				"ebs_block_device.3851383343.volume_size":   "5",
-				"ebs_block_device.3851383343.volume_type":   "standard",
+				"ebs_block_device.3851383343.device_name":ev/sdx",
+				"ebs_block_device.3851383343.encrypted":
+				"ebs_block_device.3851383343.snapshot_id":
+				"ebs_block_device.3851383343.volume_size":,
+				"ebs_block_device.3851383343.volume_type":andard",
 				"ephemeral_block_device.#":"1",
-				"ephemeral_block_device.2458403513.device_name":      "/dev/sdy",
-				"ephemeral_block_device.2458403513.virtual_name":     "ephemeral0",
-				"root_block_device.#":     "1",
+				"ephemeral_block_device.2458403513.device_name":",
+				"ephemeral_block_device.2458403513.virtual_name":0",
+				"root_block_device.#":
 				"root_block_device.3018388612.delete_on_termination": "true",
 				"root_block_device.3018388612.device_name":  "/dev/sda1",
 				"root_block_device.3018388612.snapshot_id":  "",
@@ -142,8 +141,7 @@ func TestInstanceMigrateState(t *testing.T) {
 }
 
 func TestInstanceMigrateState_empty(t *testing.T) {
-	t.Parallel()
-
+func
 	var is *terraform.InstanceState
 	var meta interface{}
 

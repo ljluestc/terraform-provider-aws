@@ -23,10 +23,9 @@ import (
 )
 
 // @SDKResource("aws_ram_resource_share_accepter")
-func ResourceResourceShareAccepter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceResourceShareAccepterCreate,
-		ReadWithoutTimeout:   resourceResourceShareAccepterRead,
+		ReadWithoutTimeout:ourceResourceShareAccepterRead,
 		DeleteWithoutTimeout: resourceResourceShareAccepterDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -40,40 +39,40 @@ func ResourceResourceShareAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"invitation_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"receiver_account_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"resources": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"share_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"sender_account_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"share_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: verify.ValidARN,
 			},
 			"share_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},
@@ -81,8 +80,7 @@ func ResourceResourceShareAccepter() *schema.Resource {
 }
 
 func resourceResourceShareAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
+funcn := meta.(*conns.AWSClient).RAMConn(ctx)
 
 	shareARN := d.Get("share_arn").(string)
 
@@ -99,7 +97,7 @@ func resourceResourceShareAccepterCreate(ctx context.Context, d *schema.Resource
 	}
 
 	input := &ram.AcceptResourceShareInvitationInput{
-		ClientToken:                aws.String(id.UniqueId()),
+		ClientToken:.String(id.UniqueId()),
 		ResourceShareInvitationArn: invitation.ResourceShareInvitationArn,
 	}
 
@@ -126,8 +124,7 @@ func resourceResourceShareAccepterCreate(ctx context.Context, d *schema.Resource
 
 func resourceResourceShareAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	accountID := meta.(*conns.AWSClient).AccountID
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
+funcn := meta.(*conns.AWSClient).RAMConn(ctx)
 
 	invitation, err := FindResourceShareInvitationByResourceShareARNAndStatus(ctx, conn, d.Id(), ram.ResourceShareInvitationStatusAccepted)
 
@@ -161,8 +158,8 @@ func resourceResourceShareAccepterRead(ctx context.Context, d *schema.ResourceDa
 	d.Set("status", resourceShare.Status)
 
 	inputL := &ram.ListResourcesInput{
-		MaxResults:        aws.Int64(500),
-		ResourceOwner:     aws.String(ram.ResourceOwnerOtherAccounts),
+		MaxResults:Int64(500),
+		ResourceOwner:ws.String(ram.ResourceOwnerOtherAccounts),
 		ResourceShareArns: aws.StringSlice([]string{d.Id()}),
 	}
 	resources, err := findResources(ctx, conn, inputL)
@@ -174,8 +171,7 @@ func resourceResourceShareAccepterRead(ctx context.Context, d *schema.ResourceDa
 	resourceARNs := tfslices.ApplyToAll(resources, func(r *ram.Resource) string {
 		return aws.StringValue(r.Arn)
 	})
-	d.Set("resources", resourceARNs)
-
+	d.Set("resources", resourceARNs)func
 	return diags
 }
 
@@ -183,16 +179,15 @@ func resourceResourceShareAccepterDelete(ctx context.Context, d *schema.Resource
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RAMConn(ctx)
 
-	receiverAccountID := d.Get("receiver_account_id").(string)
-
+func
 	if receiverAccountID == "" {
 		return sdkdiag.AppendErrorf(diags, "The receiver account ID is required to leave a resource share")
 	}
 
 	input := &ram.DisassociateResourceShareInput{
-		ClientToken:      aws.String(id.UniqueId()),
+		ClientToken:ring(id.UniqueId()),
 		ResourceShareArn: aws.String(d.Id()),
-		Principals:       []*string{aws.String(receiverAccountID)},
+		Principals:ring{aws.String(receiverAccountID)},
 	}
 	log.Printf("[DEBUG] Leave RAM resource share request: %s", input)
 
@@ -220,13 +215,11 @@ func resourceResourceShareGetIDFromARN(arn string) string {
 }
 
 func findResourceShareOwnerOtherAccountsByARN(ctx context.Context, conn *ram.RAM, arn string) (*ram.ResourceShare, error) {
-	input := &ram.GetResourceSharesInput{
-		ResourceOwner:     aws.String(ram.ResourceOwnerOtherAccounts),
+funcsourceOwner:ws.String(ram.ResourceOwnerOtherAccounts),
 		ResourceShareArns: aws.StringSlice([]string{arn}),
 	}
 	output, err := findResourceShare(ctx, conn, input)
-
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 
@@ -242,12 +235,10 @@ func findResources(ctx context.Context, conn *ram.RAM, input *ram.ListResourcesI
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.Resources {
+funcr _, v := range page.Resources {
 			if v != nil {
 				output = append(output, v)
-			}
-		}
+			}func
 
 		return !lastPage
 	})

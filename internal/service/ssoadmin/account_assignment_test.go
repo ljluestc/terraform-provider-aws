@@ -21,8 +21,7 @@ import (
 )
 
 
-func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ssoadmin_account_assignment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	groupName := os.Getenv("AWS_IDENTITY_STORE_GROUP_NAME")
@@ -30,8 +29,7 @@ func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	testAccPreCheckInstances(ctx, t)
+functAccPreCheckInstances(ctx, t)
 	testAccPreCheckIdentityStoreGroupName(t)
 },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
@@ -43,8 +41,7 @@ Config: testAccAccountAssignmentConfig_basicGroup(groupName, rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckAccountAssignmentExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "target_type", "AWS_ACCOUNT"),
-	resource.TestCheckResourceAttr(resourceName, "principal_type", "GROUP"),
+funcource.TestCheckResourceAttr(resourceName, "principal_type", "GROUP"),
 	resource.TestMatchResourceAttr(resourceName, "principal_id", regexache.MustCompile("^([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}")),
 ),
 	},
@@ -61,8 +58,7 @@ ImportStateVerify: true,
 func TestAccSSOAdminAccountAssignment_Basic_user(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_account_assignment.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	userName := os.Getenv("AWS_IDENTITY_STORE_USER_NAME")
+funcrName := os.Getenv("AWS_IDENTITY_STORE_USER_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
@@ -70,8 +66,7 @@ func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckInstances(ctx, t)
 	testAccPreCheckIdentityStoreUserName(t)
-},
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountAssignmentDestroy(ctx),
 Steps: []resource.TestStep{
@@ -83,8 +78,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "target_type", "AWS_ACCOUNT"),
 	resource.TestCheckResourceAttr(resourceName, "principal_type", "USER"),
 	resource.TestMatchResourceAttr(resourceName, "principal_id", regexache.MustCompile("^([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}")),
-),
-	},
+func
 	{
 ResourceName:      resourceName,
 ImportState:       true,
@@ -101,7 +95,6 @@ func TestAccSSOAdminAccountAssignment_MissingPolicy(t *testing.T) {
 	userName := os.Getenv("AWS_IDENTITY_STORE_USER_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
 func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckInstances(ctx, t)
@@ -109,8 +102,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountAssignmentDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 // We assign a policy called rName on the assumption it doesn't exist due to being randomly generated, hoping to generate an error
 Config:      testAccAccountAssignmentConfig_withCustomerPolicy(userName, "/", rName, rName),
@@ -129,8 +121,7 @@ func TestAccSSOAdminAccountAssignment_disappears(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
-func() {
-	acctest.PreCheck(ctx, t)
+functest.PreCheck(ctx, t)
 	testAccPreCheckInstances(ctx, t)
 	testAccPreCheckIdentityStoreGroupName(t)
 },
@@ -138,8 +129,7 @@ ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountAssignmentDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccAccountAssignmentConfig_basicGroup(groupName, rName),
+funcig: testAccAccountAssignmentConfig_basicGroup(groupName, rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckAccountAssignmentExists(ctx, resourceName),
@@ -150,7 +140,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 
 func testAccCheckAccountAssignmentDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -163,13 +152,10 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	idParts, err := tfssoadmin.ParseAccountAssignmentID(rs.Primary.ID)
-	if err != nil {
-return err
-	}
+funcerr != nil {
+func
 
-	principalID := idParts[0]
-	principalType := idParts[1]
+funcncipalType := idParts[1]
 	targetID := idParts[2]
 	permissionSetARN := idParts[4]
 	instanceARN := idParts[5]
@@ -206,13 +192,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 idParts, err := tfssoadmin.ParseAccountAssignmentID(rs.Primary.ID)
 if err != nil {
 	return err
-}
-
-principalID := idParts[0]
-principalType := idParts[1]
+func
+funccipalType := idParts[1]
 targetID := idParts[2]
-permissionSetARN := idParts[4]
-instanceARN := idParts[5]
+funcanceARN := idParts[5]
 
 _, err = tfssoadmin.FindAccountAssignment(ctx, conn, principalID, principalType, targetID, permissionSetARN, instanceARN)
 
@@ -238,8 +221,7 @@ resource "aws_ssoadmin_permission_set" "test" {
 func testAccAccountAssignmentConfig_basicGroup(groupName, rName string) string {
 	return acctest.ConfigCompose(testAccAccountAssignmentConfig_base(rName), fmt.Sprintf(`
 data "aws_identitystore_group" "test" {
-  identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-
+func
   alternate_identifier {
     unique_attribute {
       attribute_path  = "DisplayName"
@@ -253,8 +235,7 @@ resource "aws_ssoadmin_account_assignment" "test" {
   permission_set_arn = aws_ssoadmin_permission_set.test.arn
   target_type        = "AWS_ACCOUNT"
   target_id = data.aws_caller_identity.current.account_id
-  principal_type     = "GROUP"
-  principal_id       = data.aws_identitystore_group.test.group_id
+funcincipal_id       = data.aws_identitystore_group.test.group_id
 }
 `, groupName))
 }
@@ -279,8 +260,7 @@ resource "aws_ssoadmin_account_assignment" "test" {
   target_type        = "AWS_ACCOUNT"
   target_id = data.aws_caller_identity.current.account_id
   principal_type     = "USER"
-  principal_id       = data.aws_identitystore_user.test.user_id
-}
+func
 `, userName))
 }
 
@@ -305,8 +285,7 @@ func testAccAccountAssignmentConfig_withCustomerPolicy(userName, policyPath, pol
 	return acctest.ConfigCompose(
 testAccAccountAssignmentConfig_basicUser(userName, rName),
 fmt.Sprintf(`
-resource "aws_ssoadmin_customer_managed_policy_attachment" "test" {
-  instance_arn       = aws_ssoadmin_permission_set.test.instance_arn
+funcstance_arn       = aws_ssoadmin_permission_set.test.instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.test.arn
 
   customer_managed_policy_reference {
@@ -314,5 +293,5 @@ resource "aws_ssoadmin_customer_managed_policy_attachment" "test" {
     path = %[2]q
   }
 }
-`, policyName, policyPath))
-}
+func
+func

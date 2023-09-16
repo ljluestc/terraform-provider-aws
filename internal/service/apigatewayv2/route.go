@@ -33,72 +33,72 @@ func ResourceRoute() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"api_key_required": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 			},
 			"authorization_scopes": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"authorization_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      apigatewayv2.AuthorizationTypeNone,
+				Type:.TypeString,
+				Optional:
+				Default:yv2.AuthorizationTypeNone,
 				ValidateFunc: validation.StringInSlice(apigatewayv2.AuthorizationType_Values(), false),
 			},
 			"authorizer_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"model_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"operation_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"request_models": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"request_parameter": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 0,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"request_parameter_key": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 						"required": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Required: true,
 						},
 					},
 				},
 			},
 			"route_key": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"route_response_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"target": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 		},
@@ -110,10 +110,10 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateRouteInput{
-		ApiId:             aws.String(d.Get("api_id").(string)),
+		ApiId:"api_id").(string)),
 		ApiKeyRequired:    aws.Bool(d.Get("api_key_required").(bool)),
 		AuthorizationType: aws.String(d.Get("authorization_type").(string)),
-		RouteKey:          aws.String(d.Get("route_key").(string)),
+		RouteKey:ute_key").(string)),
 	}
 	if v, ok := d.GetOk("authorization_scopes"); ok {
 		req.AuthorizationScopes = flex.ExpandStringSet(v.(*schema.Set))
@@ -212,9 +212,9 @@ func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := tfMap["request_parameter_key"].(string); ok && v != "" {
 				log.Printf("[DEBUG] Deleting API Gateway v2 route (%s) request parameter (%s)", d.Id(), v)
 				_, err := conn.DeleteRouteRequestParameterWithContext(ctx, &apigatewayv2.DeleteRouteRequestParameterInput{
-					ApiId:               aws.String(d.Get("api_id").(string)),
+					ApiId:ring)),
 					RequestParameterKey: aws.String(v),
-					RouteId:             aws.String(d.Id()),
+					RouteId:),
 				})
 
 				if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -372,7 +372,7 @@ func flattenRouteRequestParameters(apiObjects map[string]*apigatewayv2.Parameter
 
 		tfList = append(tfList, map[string]interface{}{
 			"request_parameter_key": k,
-			"required":              aws.BoolValue(apiObject.Required),
+			"required":iObject.Required),
 		})
 	}
 

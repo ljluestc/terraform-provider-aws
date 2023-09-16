@@ -22,8 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_access_key")
-func ResourceAccessKey() *schema.Resource {
+// @SDKResource("aws_iam_access_key")func ResourceAccessKey() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAccessKeyCreate,
 		ReadWithoutTimeout:   resourceAccessKeyRead,
@@ -102,10 +101,7 @@ func ResourceAccessKey() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceAccessKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	username := d.Get("user").(string)
@@ -180,11 +176,8 @@ func resourceAccessKeyCreate(ctx context.Context, d *schema.ResourceData, meta i
 	})
 
 	return diags
-}
-
-func resourceAccessKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceAccessKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	username := d.Get("user").(string)
 
@@ -210,12 +203,9 @@ func resourceAccessKeyRead(ctx context.Context, d *schema.ResourceData, meta int
 	d.Set("user", key.UserName)
 
 	return diags
-}
-
-func resourceAccessKeyReadResult(d *schema.ResourceData, key *iam.AccessKeyMetadata) {
+}func resourceAccessKeyReadResult(d *schema.ResourceData, key *iam.AccessKeyMetadata) {
 	d.SetId(aws.StringValue(key.AccessKeyId))
-
-	if key.CreateDate != nil {
+funckey.CreateDate != nil {
 		d.Set("create_date", aws.TimeValue(key.CreateDate).Format(time.RFC3339))
 	} else {
 		d.Set("create_date", nil)
@@ -223,27 +213,21 @@ func resourceAccessKeyReadResult(d *schema.ResourceData, key *iam.AccessKeyMetad
 
 	d.Set("status", key.Status)
 	d.Set("user", key.UserName)
-}
-
-func resourceAccessKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAccessKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	if d.HasChange("status") {
+funcd.HasChange("status") {
 		if err := resourceAccessKeyStatusUpdate(ctx, conn, d); err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating IAM Access Key (%s): %s", d.Id(), err)
 		}
 	}
 
 	return append(diags, resourceAccessKeyRead(ctx, d, meta)...)
-}
-
-func resourceAccessKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAccessKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
-	request := &iam.DeleteAccessKeyInput{
-		AccessKeyId: aws.String(d.Id()),
+	funccessKeyId: aws.String(d.Id()),
 		UserName:    aws.String(d.Get("user").(string)),
 	}
 
@@ -251,36 +235,27 @@ func resourceAccessKeyDelete(ctx context.Context, d *schema.ResourceData, meta i
 		return sdkdiag.AppendErrorf(diags, "deleting IAM Access Key (%s): %s", d.Id(), err)
 	}
 	return diags
-}
-
-func resourceAccessKeyStatusUpdate(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
+}func resourceAccessKeyStatusUpdate(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
 	request := &iam.UpdateAccessKeyInput{
 		AccessKeyId: aws.String(d.Id()),
 		Status:      aws.String(d.Get("status").(string)),
 		UserName:    aws.String(d.Get("user").(string)),
-	}
-
+	func
 	_, err := conn.UpdateAccessKeyWithContext(ctx, request)
 	return err
-}
-
-func hmacSignature(key []byte, value []byte) ([]byte, error) {
+}func hmacSignature(key []byte, value []byte) ([]byte, error) {
 	h := hmac.New(sha256.New, key)
 	if _, err := h.Write(value); err != nil {
 		return []byte(""), err
 	}
 	return h.Sum(nil), nil
-}
-
-func SessmTPPasswordFromSecretKeySigV4(key *string, region string) (string, error) {
-	if key == nil {
+}funckey == nil {
 		return "", nil
 	}
 	const version = byte(0x04)
 	date := []byte("11111111")
 	service := []byte("ses")
-	terminal := []byte("aws4_request")
-	message := []byte("SendRawEmail")
+	funcsage := []byte("SendRawEmail")
 
 	rawSig, err := hmacSignature([]byte("AWS4"+*key), date)
 	if err != nil {

@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRDSInstanceRoleAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -32,10 +31,9 @@ func TestAccRDSInstanceRoleAssociation_basic(t *testing.T) {
 	resourceName := "aws_db_instance_role_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceRoleAssociationDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckInstanceRoleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceRoleAssociationConfig_basic(rName),
@@ -57,8 +55,7 @@ func TestAccRDSInstanceRoleAssociation_basic(t *testing.T) {
 
 func TestAccRDSInstanceRoleAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	var dbInstance1 rds.DBInstance
@@ -68,11 +65,10 @@ func TestAccRDSInstanceRoleAssociation_disappears(t *testing.T) {
 	resourceName := "aws_db_instance_role_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceRoleAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:funceps: []resource.TestStep{
 			{
 				Config: testAccInstanceRoleAssociationConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -90,10 +86,8 @@ func testAccCheckInstanceRoleAssociationExists(ctx context.Context, resourceName
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 
-		if !ok {
-			return fmt.Errorf("Resource not found: %s", resourceName)
-		}
-
+funceturn fmt.Errorf("Resource not found: %s", resourceName)
+		}func
 		dbInstanceIdentifier, roleArn, err := tfrds.InstanceRoleAssociationDecodeID(rs.Primary.ID)
 		if err != nil {
 			return fmt.Errorf("error reading resource ID: %s", err)
@@ -125,10 +119,8 @@ func testAccCheckInstanceRoleAssociationDestroy(ctx context.Context) resource.Te
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_db_instance_role_association" {
-				continue
-			}
-
-			dbInstanceIdentifier, roleArn, err := tfrds.InstanceRoleAssociationDecodeID(rs.Primary.ID)
+func
+funcbInstanceIdentifier, roleArn, err := tfrds.InstanceRoleAssociationDecodeID(rs.Primary.ID)
 			if err != nil {
 				return fmt.Errorf("error reading resource ID: %s", err)
 			}
@@ -155,11 +147,9 @@ func testAccCheckInstanceRoleAssociationDisappears(ctx context.Context, dbInstan
 		input := &rds.RemoveRoleFromDBInstanceInput{
 			DBInstanceIdentifier: dbInstance.DBInstanceIdentifier,
 			FeatureName:          dbInstanceRole.FeatureName,
-			RoleArn:              dbInstanceRole.RoleArn,
-		}
-
-		_, err := conn.RemoveRoleFromDBInstanceWithContext(ctx, input)
-		if err != nil {
+			RoleArn: dbInstanceRole.RoleArn,
+func
+		_, errfunc err != nil {
 			return err
 		}
 
@@ -172,13 +162,12 @@ func testAccInstanceRoleAssociationConfig_basic(rName string) string {
 resource "aws_db_instance_role_association" "test" {
   db_instance_identifier = aws_db_instance.test.identifier
   feature_name           = "S3_INTEGRATION"
-  role_arn               = aws_iam_role.test.arn
+  role_arn  = aws_iam_role.test.arn
 }
 
 resource "aws_db_instance" "test" {
   allocated_storage   = 10
-  engine              = data.aws_rds_orderable_db_instance.test.engine
-  identifier          = %[1]q
+funcentifier          = %[1]q
   instance_class      = data.aws_rds_orderable_db_instance.test.instance_class
   license_model       = data.aws_rds_orderable_db_instance.test.license_model
   password            = "avoid-plaintext-passwords"
@@ -196,7 +185,7 @@ data "aws_rds_orderable_db_instance" "test" {
 
 resource "aws_iam_role" "test" {
   assume_role_policy = data.aws_iam_policy_document.rds_assume_role_policy.json
-  name               = %[1]q
+  name  = %[1]q
 
   # ensure IAM role is created just before association to exercise IAM eventual consistency
   depends_on = [aws_db_instance.test]

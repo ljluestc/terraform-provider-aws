@@ -20,8 +20,7 @@ import (
 )
 
 // @SDKResource("aws_devicefarm_upload")
-func ResourceUpload() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUploadCreate,
 		ReadWithoutTimeout:   resourceUploadRead,
 		UpdateWithoutTimeout: resourceUploadUpdate,
@@ -74,8 +73,7 @@ func ResourceUpload() *schema.Resource {
 }
 
 func resourceUploadCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	input := &devicefarm.CreateUploadInput{
 		Name:       aws.String(d.Get("name").(string)),
@@ -101,8 +99,7 @@ func resourceUploadCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 func resourceUploadRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	upload, err := FindUploadByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -137,8 +134,7 @@ func resourceUploadRead(ctx context.Context, d *schema.ResourceData, meta interf
 func resourceUploadUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	input := &devicefarm.UpdateUploadInput{
+funcut := &devicefarm.UpdateUploadInput{
 		Arn: aws.String(d.Id()),
 	}
 
@@ -163,8 +159,7 @@ func resourceUploadDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	input := &devicefarm.DeleteUploadInput{
-		Arn: aws.String(d.Id()),
+funcn: aws.String(d.Id()),
 	}
 
 	log.Printf("[DEBUG] Deleting DeviceFarm Upload: %s", d.Id())

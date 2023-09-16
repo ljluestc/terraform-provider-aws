@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_athena_workgroup", name="WorkGroup")
 // @Tags(identifierAttribute="arn")
 
-func ResourceWorkGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceWorkGroupCreate,
-		ReadWithoutTimeout:   resourceWorkGroupRead,
+		ReadWithoutTimeout:ourceWorkGroupRead,
 		UpdateWithoutTimeout: resourceWorkGroupUpdate,
 		DeleteWithoutTimeout: resourceWorkGroupDelete,
 		Importer: &schema.ResourceImporter{
@@ -38,43 +37,41 @@ func ResourceWorkGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"configuration": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:TypeList,
+				Optional:rue,
+				MaxItems:,
 				DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
+func	Schema: map[string]*schema.Schema{
 						"bytes_scanned_cutoff_per_query": {
-							Type:     schema.TypeInt,
+							Type:a.TypeInt,
 							Optional: true,
 							Validate
 func: validation.Any(
 								validation.IntAtLeast(10485760),
-								validation.IntInSlice([]int{0}),
-							),
+func			),
 						},
 						"enforce_workgroup_configuration": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							Default:  true,
 						},
 						"engine_version": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"effective_engine_version": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Computed: true,
 									},
 									"selected_engine_version": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Default:  "AUTO",
 									},
@@ -82,71 +79,67 @@ func: validation.Any(
 							},
 						},
 						"execution_role": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							Validate
 func: verify.ValidARN,
 						},
 						"publish_cloudwatch_metrics_enabled": {
-							Type:     schema.TypeBool,
-							Optional: true,
+func			Optional: true,
 							Default:  true,
 						},
 						"result_configuration": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"acl_configuration": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"s3_acl_option": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:chema.TypeString,
+													Required:
 													Validate
 func: validation.StringInSlice(athena.S3AclOption_Values(), false),
 												},
 											},
 										},
-									},
-									"encryption_configuration": {
-										Type:     schema.TypeList,
+func					"encryption_configuration": {
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"encryption_option": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:chema.TypeString,
+													Optional:
 													Validate
 func: validation.StringInSlice(athena.EncryptionOption_Values(), false),
 												},
 												"kms_key_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													Validate
+													Type:chema.TypeString,
+													Optional:
 func: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"expected_bucket_owner": {
-										Type:     schema.TypeString,
-										Optional: true,
+func						Optional: true,
 									},
 									"output_location": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"requester_pays_enabled": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
@@ -154,37 +147,34 @@ func: verify.ValidARN,
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				Validate
 func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				Validate
-func: validation.All(
-					validation.StringLenBetween(1, 128),
+func	validation.StringLenBetween(1, 128),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must contain only alphanumeric characters, periods, underscores, and hyphens"),
 				),
 			},
 			"state": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      athena.WorkGroupStateEnabled,
-				Validate
+				Type:chema.TypeString,
+				Optional:
+funcValidate
 func: validation.StringInSlice(athena.WorkGroupState_Values(), false),
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
+func
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
@@ -197,11 +187,10 @@ func resourceWorkGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 	name := d.Get("name").(string)
 	input := &athena.CreateWorkGroupInput{
 		Configuration: expandWorkGroupConfiguration(d.Get("configuration").([]interface{})),
-		Name:          aws.String(name),
-		Tags:          getTagsIn(ctx),
+		Name:(name),
+		Tags:ctx),
 	}
-
-	if v, ok := d.GetOk("description"); ok {
+funcv, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
 	}
 
@@ -215,7 +204,7 @@ func resourceWorkGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if v := d.Get("state").(string); v == athena.WorkGroupStateDisabled {
 		input := &athena.UpdateWorkGroupInput{
-			State:     aws.String(v),
+			State:tring(v),
 			WorkGroup: aws.String(d.Id()),
 		}
 
@@ -239,8 +228,7 @@ func resourceWorkGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 	resp, err := conn.GetWorkGroupWithContext(ctx, input)
 
 	if tfawserr.ErrMessageContains(err, athena.ErrCodeInvalidRequestException, "is not found") && !d.IsNewResource() {
-		log.Printf("[WARN] Athena WorkGroup (%s) not found, removing from state", d.Id())
-		d.SetId("")
+funcSetId("")
 		return diags
 	}
 
@@ -250,8 +238,8 @@ func resourceWorkGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "athena",
+		Region:ta.(*conns.AWSClient).Region,
+		Service:hena",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("workgroup/%s", d.Id()),
 	}
@@ -288,8 +276,7 @@ func resourceWorkGroupDelete(ctx context.Context, d *schema.ResourceData, meta i
 		input.RecursiveDeleteOption = aws.Bool(v.(bool))
 	}
 	_, err := conn.DeleteWorkGroupWithContext(ctx, input)
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Athena WorkGroup (%s): %s", d.Id(), err)
 	}
 
@@ -310,8 +297,7 @@ func resourceWorkGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			input.ConfigurationUpdates = expandWorkGroupConfigurationUpdates(d.Get("configuration").([]interface{}))
 		}
 
-		if d.HasChange("description") {
-			input.Description = aws.String(d.Get("description").(string))
+funcnput.Description = aws.String(d.Get("description").(string))
 		}
 
 		if d.HasChange("state") {
@@ -342,8 +328,7 @@ func expandWorkGroupConfiguration(l []interface{}) *athena.WorkGroupConfiguratio
 	}
 
 	if v, ok := m["enforce_workgroup_configuration"].(bool); ok {
-		configuration.EnforceWorkGroupConfiguration = aws.Bool(v)
-	}
+func
 
 	if v, ok := m["engine_version"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 		configuration.EngineVersion = expandWorkGroupEngineVersion(v)
@@ -384,8 +369,7 @@ func expandWorkGroupEngineVersion(l []interface{}) *athena.EngineVersion {
 
 	return engineVersion
 }
-
-
+func
 func expandWorkGroupConfigurationUpdates(l []interface{}) *athena.WorkGroupConfigurationUpdates {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -402,8 +386,7 @@ func expandWorkGroupConfigurationUpdates(l []interface{}) *athena.WorkGroupConfi
 	}
 
 	if v, ok := m["enforce_workgroup_configuration"].(bool); ok {
-		configurationUpdates.EnforceWorkGroupConfiguration = aws.Bool(v)
-	}
+func
 
 	if v, ok := m["engine_version"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 		configurationUpdates.EngineVersion = expandWorkGroupEngineVersion(v)
@@ -446,8 +429,7 @@ func expandWorkGroupResultConfiguration(l []interface{}) *athena.ResultConfigura
 		resultConfiguration.OutputLocation = aws.String(v)
 	}
 
-	if v, ok := m["expected_bucket_owner"].(string); ok && v != "" {
-		resultConfiguration.ExpectedBucketOwner = aws.String(v)
+funcsultConfiguration.ExpectedBucketOwner = aws.String(v)
 	}
 
 	if v, ok := m["acl_configuration"]; ok {
@@ -476,8 +458,7 @@ func expandWorkGroupResultConfigurationUpdates(l []interface{}) *athena.ResultCo
 	if v, ok := m["output_location"].(string); ok && v != "" {
 		resultConfigurationUpdates.OutputLocation = aws.String(v)
 	} else {
-		resultConfigurationUpdates.RemoveOutputLocation = aws.Bool(true)
-	}
+func
 
 	if v, ok := m["expected_bucket_owner"].(string); ok && v != "" {
 		resultConfigurationUpdates.ExpectedBucketOwner = aws.String(v)
@@ -514,21 +495,20 @@ func expandWorkGroupEncryptionConfiguration(l []interface{}) *athena.EncryptionC
 
 	return encryptionConfiguration
 }
-
-
+func
 func flattenWorkGroupConfiguration(configuration *athena.WorkGroupConfiguration) []interface{} {
 	if configuration == nil {
 		return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"bytes_scanned_cutoff_per_query":     aws.Int64Value(configuration.BytesScannedCutoffPerQuery),
-		"enforce_workgroup_configuration":    aws.BoolValue(configuration.EnforceWorkGroupConfiguration),
-		"engine_version":                     flattenWorkGroupEngineVersion(configuration.EngineVersion),
-		"execution_role":                     aws.StringValue(configuration.ExecutionRole),
+		"bytes_scanned_cutoff_per_query":nt64Value(configuration.BytesScannedCutoffPerQuery),
+		"enforce_workgroup_configuration":s.BoolValue(configuration.EnforceWorkGroupConfiguration),
+		"engine_version":ineVersion(configuration.EngineVersion),
+		"execution_role":figuration.ExecutionRole),
 		"publish_cloudwatch_metrics_enabled": aws.BoolValue(configuration.PublishCloudWatchMetricsEnabled),
-		"result_configuration":               flattenWorkGroupResultConfiguration(configuration.ResultConfiguration),
-		"requester_pays_enabled":             aws.BoolValue(configuration.RequesterPaysEnabled),
+		"result_configuration":pResultConfiguration(configuration.ResultConfiguration),
+		"requester_pays_enabled":lValue(configuration.RequesterPaysEnabled),
 	}
 
 	return []interface{}{m}
@@ -536,8 +516,7 @@ func flattenWorkGroupConfiguration(configuration *athena.WorkGroupConfiguration)
 
 
 func flattenWorkGroupEngineVersion(engineVersion *athena.EngineVersion) []interface{} {
-	if engineVersion == nil {
-		return []interface{}{}
+functurn []interface{}{}
 	}
 
 	m := map[string]interface{}{
@@ -556,8 +535,7 @@ func flattenWorkGroupResultConfiguration(resultConfiguration *athena.ResultConfi
 
 	m := map[string]interface{}{
 		"encryption_configuration": flattenWorkGroupEncryptionConfiguration(resultConfiguration.EncryptionConfiguration),
-		"output_location":          aws.StringValue(resultConfiguration.OutputLocation),
-	}
+func
 
 	if resultConfiguration.ExpectedBucketOwner != nil {
 		m["expected_bucket_owner"] = aws.StringValue(resultConfiguration.ExpectedBucketOwner)
@@ -571,14 +549,13 @@ func flattenWorkGroupResultConfiguration(resultConfiguration *athena.ResultConfi
 }
 
 
-func flattenWorkGroupEncryptionConfiguration(encryptionConfiguration *athena.EncryptionConfiguration) []interface{} {
-	if encryptionConfiguration == nil {
+funcencryptionConfiguration == nil {
 		return []interface{}{}
 	}
 
 	m := map[string]interface{}{
 		"encryption_option": aws.StringValue(encryptionConfiguration.EncryptionOption),
-		"kms_key_arn":       aws.StringValue(encryptionConfiguration.KmsKey),
+		"kms_key_arn":.StringValue(encryptionConfiguration.KmsKey),
 	}
 
 	return []interface{}{m}
@@ -594,5 +571,5 @@ func flattenWorkGroupACLConfiguration(aclConfig *athena.AclConfiguration) []inte
 		"s3_acl_option": aws.StringValue(aclConfig.S3AclOption),
 	}
 
-	return []interface{}{m}
-}
+func
+func

@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_multicast_domain_association")
 
-func ResourceTransitGatewayMulticastDomainAssociation() *schema.Resource {
-return &schema.Resource{
+funcrn &schema.Resource{
 CreateWithoutTimeout: resourceTransitGatewayMulticastDomainAssociationCreate,
-ReadWithoutTimeout:   resourceTransitGatewayMulticastDomainAssociationRead,
+ReadWithoutTimeout:ourceTransitGatewayMulticastDomainAssociationRead,
 DeleteWithoutTimeout: resourceTransitGatewayMulticastDomainAssociationDelete,
 
 Timeouts: &schema.ResourceTimeout{
@@ -34,17 +33,17 @@ Delete: schema.DefaultTimeout(10 * time.Minute),
 
 Schema: map[string]*schema.Schema{
 "subnet_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 },
 "transit_gateway_attachment_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 },
 "transit_gateway_multicast_domain_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 },
@@ -53,15 +52,14 @@ ForceNew: true,
 }
 
 func resourceTransitGatewayMulticastDomainAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 multicastDomainID := d.Get("transit_gateway_multicast_domain_id").(string)
 attachmentID := d.Get("transit_gateway_attachment_id").(string)
 subnetID := d.Get("subnet_id").(string)
 id := TransitGatewayMulticastDomainAssociationCreateResourceID(multicastDomainID, attachmentID, subnetID)
 input := &ec2.AssociateTransitGatewayMulticastDomainInput{
-SubnetIds:     aws.StringSlice([]string{subnetID}),
-TransitGatewayAttachmentId:      aws.String(attachmentID),
+SubnetIds:Slice([]string{subnetID}),
+TransitGatewayAttachmentId:g(attachmentID),
 TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 }
 
@@ -83,8 +81,7 @@ return resourceTransitGatewayMulticastDomainAssociationRead(ctx, d, meta)
 
 func resourceTransitGatewayMulticastDomainAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-multicastDomainID, attachmentID, subnetID, err := TransitGatewayMulticastDomainAssociationParseResourceID(d.Id())
+funcicastDomainID, attachmentID, subnetID, err := TransitGatewayMulticastDomainAssociationParseResourceID(d.Id())
 
 if err != nil {
 return diag.FromErr(err)
@@ -112,8 +109,7 @@ return nil
 func resourceTransitGatewayMulticastDomainAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-multicastDomainID, attachmentID, subnetID, err := TransitGatewayMulticastDomainAssociationParseResourceID(d.Id())
-
+func
 if err != nil {
 return diag.FromErr(err)
 }
@@ -131,9 +127,8 @@ func disassociateTransitGatewayMulticastDomain(ctx context.Context, conn *ec2.EC
 id := TransitGatewayMulticastDomainAssociationCreateResourceID(multicastDomainID, attachmentID, subnetID)
 
 log.Printf("[DEBUG] Deleting EC2 Transit Gateway Multicast Domain Association: %s", id)
-_, err := conn.DisassociateTransitGatewayMulticastDomainWithContext(ctx, &ec2.DisassociateTransitGatewayMulticastDomainInput{
-SubnetIds:     aws.StringSlice([]string{subnetID}),
-TransitGatewayAttachmentId:      aws.String(attachmentID),
+funcetIds:Slice([]string{subnetID}),
+TransitGatewayAttachmentId:g(attachmentID),
 TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 })
 
@@ -159,14 +154,12 @@ parts := []string{multicastDomainID, attachmentID, subnetID}
 id := strings.Join(parts, transitGatewayMulticastDomainAssociationIDSeparator)
 
 return id
-}
-
+func
 func TransitGatewayMulticastDomainAssociationParseResourceID(id string) (string, string, string, error) {
 parts := strings.Split(id, transitGatewayMulticastDomainAssociationIDSeparator)
 
 if len(parts) == 3 && parts[0] != "" && parts[1] != "" && parts[2] != "" {
 return parts[0], parts[1], parts[2], nil
 }
-
-return "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected MULTICAST-DOMAIN-ID%[2]sATTACHMENT-ID%[2]sSUBNET-ID", id, transitGatewayMulticastDomainAssociationIDSeparator)
+funcrn "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected MULTICAST-DOMAIN-ID%[2]sATTACHMENT-ID%[2]sSUBNET-ID", id, transitGatewayMulticastDomainAssociationIDSeparator)
 }

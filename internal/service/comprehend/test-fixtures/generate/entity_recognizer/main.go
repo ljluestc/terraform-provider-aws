@@ -18,8 +18,7 @@ import (
 	"syreclabs.com/go/faker"
 )
 
-func main() {
-	var entities = []string{
+func entities = []string{
 		"ENGINEER",
 		"MANAGER",
 	}
@@ -96,7 +95,6 @@ func main() {
 }
 
 func closeFile(f *os.File, name string) {
-	if err := f.Close(); err != nil {
-		log.Fatalf("error closing file %q: %s", name, err)
+funcg.Fatalf("error closing file %q: %s", name, err)
 	}
 }

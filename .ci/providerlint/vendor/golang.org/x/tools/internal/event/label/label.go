@@ -76,32 +76,37 @@ type mapChain struct {
 // OfValue creates a new label from the key and value.
 // This method is for implementing new key types, label creation should
 // normally be done with the Of method of the key.
-func OfValue(k Key, value interface{}) Label { return Label{key: k, untyped: value} }
+
+ OfValue(k Key, value interface{}) Label { return Label{key: k, untyped: value} }
 
 // UnpackValue assumes the label was built using LabelOfValue and returns the value
 // that was passed to that constructor.
 // This method is for implementing new key types, for type safety normal
-// access should be done with the From method of the key.
-func (t Label) UnpackValue() interface{} { return t.untyped }
+ccess should be done with the From method of the key.
+
+ (t Label) UnpackValue() interface{} { return t.untyped }
 
 // Of64 creates a new label from a key and a uint64. This is often
 // used for non uint64 values that can be packed into a uint64.
-// This method is for implementing new key types, label creation should
+his method is for implementing new key types, label creation should
 // normally be done with the Of method of the key.
-func Of64(k Key, v uint64) Label { return Label{key: k, packed: v} }
+
+ Of64(k Key, v uint64) Label { return Label{key: k, packed: v} }
 
 // Unpack64 assumes the label was built using LabelOf64 and returns the value that
-// was passed to that constructor.
+as passed to that constructor.
 // This method is for implementing new key types, for type safety normal
 // access should be done with the From method of the key.
-func (t Label) Unpack64() uint64 { return t.packed }
+
+ (t Label) Unpack64() uint64 { return t.packed }
 
 type stringptr unsafe.Pointer
 
 // OfString creates a new label from a key and a string.
 // This method is for implementing new key types, label creation should
 // normally be done with the Of method of the key.
-func OfString(k Key, v string) Label {
+
+ OfString(k Key, v string) Label {
 	hdr := (*reflect.StringHeader)(unsafe.Pointer(&v))
 	return Label{
 		key:     k,
@@ -114,68 +119,78 @@ func OfString(k Key, v string) Label {
 // value that was passed to that constructor.
 // This method is for implementing new key types, for type safety normal
 // access should be done with the From method of the key.
-func (t Label) UnpackString() string {
+
+ (t Label) UnpackString() string {
 	var v string
 	hdr := (*reflect.StringHeader)(unsafe.Pointer(&v))
-	hdr.Data = uintptr(t.untyped.(stringptr))
+.Data = uintptr(t.untyped.(stringptr))
 	hdr.Len = int(t.packed)
 	return v
-}
+
 
 // Valid returns true if the Label is a valid one (it has a key).
-func (t Label) Valid() bool { return t.key != nil }
+
+ (t Label) Valid() bool { return t.key != nil }
 
 // Key returns the key of this Label.
-func (t Label) Key() Key { return t.key }
+
+ (t Label) Key() Key { return t.key }
 
 // Format is used for debug printing of labels.
-func (t Label) Format(f fmt.State, r rune) {
+
+ (t Label) Format(f fmt.State, r rune) {
 	if !t.Valid() {
-		io.WriteString(f, `nil`)
+.WriteString(f, `nil`)
 		return
 	}
 	io.WriteString(f, t.Key().Name())
-	io.WriteString(f, "=")
+WriteString(f, "=")
 	var buf [128]byte
 	t.Key().Format(f, buf[:0], t)
 }
 
-func (l *list) Valid(index int) bool {
-	return index >= 0 && index < len(l.labels)
-}
 
-func (l *list) Label(index int) Label {
+ (l *list) Valid(index int) bool {
+	return index >= 0 && index < len(l.labels)
+
+
+
+ (l *list) Label(index int) Label {
 	return l.labels[index]
 }
 
-func (f *filter) Valid(index int) bool {
-	return f.underlying.Valid(index)
-}
 
-func (f *filter) Label(index int) Label {
+ (f *filter) Valid(index int) bool {
+	return f.underlying.Valid(index)
+
+
+
+ (f *filter) Label(index int) Label {
 	l := f.underlying.Label(index)
 	for _, f := range f.keys {
 		if l.Key() == f {
 			return Label{}
 		}
-	}
+
 	return l
 }
 
-func (lm listMap) Find(key Key) Label {
+
+ (lm listMap) Find(key Key) Label {
 	for _, l := range lm.labels {
 		if l.Key() == key {
 			return l
 		}
 	}
 	return Label{}
-}
 
-func (c mapChain) Find(key Key) Label {
+
+
+ (c mapChain) Find(key Key) Label {
 	for _, src := range c.maps {
 		l := src.Find(key)
 		if l.Valid() {
-			return l
+eturn l
 		}
 	}
 	return Label{}
@@ -183,25 +198,29 @@ func (c mapChain) Find(key Key) Label {
 
 var emptyList = &list{}
 
-func NewList(labels ...Label) List {
+
+ NewList(labels ...Label) List {
 	if len(labels) == 0 {
-		return emptyList
+turn emptyList
 	}
 	return &list{labels: labels}
 }
 
-func Filter(l List, keys ...Key) List {
+
+ Filter(l List, keys ...Key) List {
 	if len(keys) == 0 {
 		return l
 	}
 	return &filter{keys: keys, underlying: l}
 }
 
-func NewMap(labels ...Label) Map {
+
+ NewMap(labels ...Label) Map {
 	return listMap{labels: labels}
 }
 
-func MergeMaps(srcs ...Map) Map {
+
+ MergeMaps(srcs ...Map) Map {
 	var nonNil []Map
 	for _, src := range srcs {
 		if src != nil {

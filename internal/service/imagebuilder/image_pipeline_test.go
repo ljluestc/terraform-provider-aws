@@ -28,10 +28,10 @@ func TestAccImageBuilderImagePipeline_basic(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_name(rName),
@@ -73,10 +73,10 @@ func TestAccImageBuilderImagePipeline_disappears(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_name(rName),
@@ -96,10 +96,10 @@ func TestAccImageBuilderImagePipeline_description(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_description(rName, "description1"),
@@ -131,10 +131,10 @@ func TestAccImageBuilderImagePipeline_distributionARN(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_distributionConfigurationARN1(rName),
@@ -165,10 +165,10 @@ func TestAccImageBuilderImagePipeline_enhancedImageMetadataEnabled(t *testing.T)
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_enhancedMetadataEnabled(rName, false),
@@ -201,10 +201,10 @@ func TestAccImageBuilderImagePipeline_imageRecipeARN(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_name(rName),
@@ -237,10 +237,10 @@ func TestAccImageBuilderImagePipeline_containerRecipeARN(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_containerRecipeARN1(rName),
@@ -271,10 +271,10 @@ func TestAccImageBuilderImagePipeline_ImageScanning_imageScanningEnabled(t *test
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_testsConfigurationScanningEnabled(rName, false),
@@ -307,10 +307,10 @@ func TestAccImageBuilderImagePipeline_ImageScanning_imageScanningEnabledAdvanced
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_testsConfigurationScanningEnabledAdvanced(rName, []string{"a", "b"}),
@@ -349,10 +349,10 @@ func TestAccImageBuilderImagePipeline_ImageTests_imageTestsEnabled(t *testing.T)
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_testsConfigurationTestsEnabled(rName, false),
@@ -385,10 +385,10 @@ func TestAccImageBuilderImagePipeline_ImageTests_timeoutMinutes(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_testsConfigurationTimeoutMinutes(rName, 721),
@@ -423,10 +423,10 @@ func TestAccImageBuilderImagePipeline_infrastructureARN(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_name(rName),
@@ -457,10 +457,10 @@ func TestAccImageBuilderImagePipeline_Schedule_pipelineExecutionStartCondition(t
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_scheduleExecutionStartCondition(rName, imagebuilder.PipelineExecutionStartConditionExpressionMatchAndDependencyUpdatesAvailable),
@@ -472,7 +472,7 @@ func TestAccImageBuilderImagePipeline_Schedule_pipelineExecutionStartCondition(t
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
 			},
@@ -494,10 +494,10 @@ func TestAccImageBuilderImagePipeline_Schedule_scheduleExpression(t *testing.T) 
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_scheduleExpression(rName, "cron(1 0 * * ? *)"),
@@ -509,7 +509,7 @@ func TestAccImageBuilderImagePipeline_Schedule_scheduleExpression(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
 			},
@@ -531,10 +531,10 @@ func TestAccImageBuilderImagePipeline_Schedule_timezone(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_scheduleTimezone(rName, "cron(1 0 * * ? *)", "Etc/UTC"),
@@ -547,7 +547,7 @@ func TestAccImageBuilderImagePipeline_Schedule_timezone(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
 			},
@@ -570,10 +570,10 @@ func TestAccImageBuilderImagePipeline_status(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_status(rName, imagebuilder.PipelineStatusDisabled),
@@ -604,10 +604,10 @@ func TestAccImageBuilderImagePipeline_tags(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
+		CheckDestroy:magePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImagePipelineConfig_tags1(rName, "key1", "value1"),
@@ -780,7 +780,7 @@ resource "aws_imagebuilder_container_recipe" "test" {
   EOF
 
   container_type    = "DOCKER"
-  name              = %[1]q
+  name
   parent_image      = "amazonlinux:latest"
   working_directory = "/tmp"
   version           = "1.0.0"
@@ -799,7 +799,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   description       = %[2]q
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName, description))
 }
@@ -826,7 +826,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.test.arn
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -853,7 +853,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.test.arn
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -864,7 +864,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   enhanced_image_metadata_enabled  = %[2]t
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName, enhancedImageMetadataEnabled))
 }
@@ -884,7 +884,7 @@ resource "aws_imagebuilder_image_recipe" "test2" {
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test2.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -892,9 +892,9 @@ resource "aws_imagebuilder_image_pipeline" "test" {
 func testAccImagePipelineConfig_containerRecipeARN1(rName string) string {
 	return acctest.ConfigCompose(testAccImagePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_pipeline" "test" {
-  container_recipe_arn             = aws_imagebuilder_container_recipe.test.arn
+  container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -924,9 +924,9 @@ EOF
 }
 
 resource "aws_imagebuilder_image_pipeline" "test" {
-  container_recipe_arn             = aws_imagebuilder_container_recipe.test2.arn
+  container_recipe_arnilder_container_recipe.test2.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -936,7 +936,7 @@ func testAccImagePipelineConfig_testsConfigurationScanningEnabled(rName string, 
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   image_scanning_configuration {
     image_scanning_enabled = %[2]t
@@ -953,9 +953,9 @@ func testAccImagePipelineConfig_testsConfigurationScanningEnabledAdvanced(rName 
 
 	return acctest.ConfigCompose(testAccImagePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_pipeline" "test" {
-  container_recipe_arn             = aws_imagebuilder_container_recipe.test.arn
+  container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   image_scanning_configuration {
     image_scanning_enabled = true
@@ -974,7 +974,7 @@ func testAccImagePipelineConfig_testsConfigurationTestsEnabled(rName string, ima
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   image_tests_configuration {
     image_tests_enabled = %[2]t
@@ -988,7 +988,7 @@ func testAccImagePipelineConfig_testsConfigurationTimeoutMinutes(rName string, t
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   image_tests_configuration {
     timeout_minutes = %[2]d
@@ -1007,7 +1007,7 @@ resource "aws_imagebuilder_infrastructure_configuration" "test2" {
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test2.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -1017,7 +1017,7 @@ func testAccImagePipelineConfig_name(rName string) string {
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName))
 }
@@ -1027,7 +1027,7 @@ func testAccImagePipelineConfig_scheduleExecutionStartCondition(rName string, pi
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   schedule {
     pipeline_execution_start_condition = %[2]q
@@ -1042,7 +1042,7 @@ func testAccImagePipelineConfig_scheduleExpression(rName string, scheduleExpress
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   schedule {
     schedule_expression = %[2]q
@@ -1056,7 +1056,7 @@ func testAccImagePipelineConfig_scheduleTimezone(rName string, scheduleExpressio
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   schedule {
     schedule_expression = %[2]q
@@ -1070,7 +1070,7 @@ func testAccImagePipelineConfig_status(rName string, status string) string {
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
   status            = %[2]q
 }
 `, rName, status))
@@ -1081,7 +1081,7 @@ func testAccImagePipelineConfig_tags1(rName string, tagKey1 string, tagValue1 st
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q
@@ -1095,7 +1095,7 @@ func testAccImagePipelineConfig_tags2(rName string, tagKey1 string, tagValue1 st
 resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q

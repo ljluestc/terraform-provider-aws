@@ -30,7 +30,7 @@ func TestAccAPIGatewayV2IntegrationResponse_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
+CheckDestroy:CheckIntegrationResponseDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationResponseConfig_basic(rName),
@@ -44,9 +44,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:urceName,
 ImportStateIdFunc: testAccIntegrationResponseImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -64,7 +64,7 @@ func TestAccAPIGatewayV2IntegrationResponse_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
+CheckDestroy:CheckIntegrationResponseDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationResponseConfig_basic(rName),
@@ -90,7 +90,7 @@ func TestAccAPIGatewayV2IntegrationResponse_allAttributes(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
+CheckDestroy:CheckIntegrationResponseDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationResponseConfig_allAttributes(rName),
@@ -118,9 +118,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:urceName,
 ImportStateIdFunc: testAccIntegrationResponseImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -138,7 +138,7 @@ continue
 
 	_, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
 ApiId:  aws.String(rs.Primary.Attributes["api_id"]),
-IntegrationId:         aws.String(rs.Primary.Attributes["integration_id"]),
+IntegrationId:ws.String(rs.Primary.Attributes["integration_id"]),
 IntegrationResponseId: aws.String(rs.Primary.ID),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -161,7 +161,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 _, err := conn.DeleteIntegrationResponseWithContext(ctx, &apigatewayv2.DeleteIntegrationResponseInput{
 	ApiId:  apiId,
-	IntegrationId:         integrationId,
+	IntegrationId:ntegrationId,
 	IntegrationResponseId: v.IntegrationResponseId,
 })
 
@@ -186,7 +186,7 @@ apiId := aws.String(rs.Primary.Attributes["api_id"])
 integrationId := aws.String(rs.Primary.Attributes["integration_id"])
 resp, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
 	ApiId:  apiId,
-	IntegrationId:         integrationId,
+	IntegrationId:ntegrationId,
 	IntegrationResponseId: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -216,7 +216,7 @@ func testAccIntegrationResponseConfig_basic(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
   api_id    = aws_apigatewayv2_api.test.id
-  integration_id           = aws_apigatewayv2_integration.test.id
+  integration_idgatewayv2_integration.test.id
   integration_response_key = "/200/"
 }
 `
@@ -226,10 +226,10 @@ func testAccIntegrationResponseConfig_allAttributes(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
   api_id    = aws_apigatewayv2_api.test.id
-  integration_id           = aws_apigatewayv2_integration.test.id
+  integration_idgatewayv2_integration.test.id
   integration_response_key = "$default"
 
-  content_handling_strategy     = "CONVERT_TO_TEXT"
+  content_handling_strategyNVERT_TO_TEXT"
   template_selection_expression = "$request.body.name"
 
   response_templates = {
@@ -243,10 +243,10 @@ func testAccIntegrationResponseConfig_allAttributesUpdated(rName string) string 
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
   api_id    = aws_apigatewayv2_api.test.id
-  integration_id           = aws_apigatewayv2_integration.test.id
+  integration_idgatewayv2_integration.test.id
   integration_response_key = "/404/"
 
-  content_handling_strategy     = "CONVERT_TO_BINARY"
+  content_handling_strategyNVERT_TO_BINARY"
   template_selection_expression = "$request.body.id"
 
   response_templates = {

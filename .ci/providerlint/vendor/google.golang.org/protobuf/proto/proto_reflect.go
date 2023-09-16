@@ -15,6 +15,7 @@ import (
 
 const hasProtoMethods = false
 
-func protoMethods(m protoreflect.Message) *protoiface.Methods {
+
+toMethods(m protoreflect.Message) *protoiface.Methods {
 	return nil
 }

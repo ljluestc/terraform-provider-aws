@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-func TestAccSageMakerNotebookInstanceLifecycleConfiguration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var lifecycleConfig sagemaker.DescribeNotebookInstanceLifecycleConfigOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_notebook_instance_lifecycle_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNotebookInstanceLifecycleConfigurationDestroy(ctx),
+		CheckDestroy:CheckNotebookInstanceLifecycleConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNotebookInstanceLifecycleConfigurationConfig_basic(rName),
@@ -43,8 +42,8 @@ func TestAccSageMakerNotebookInstanceLifecycleConfiguration_basic(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -52,16 +51,15 @@ func TestAccSageMakerNotebookInstanceLifecycleConfiguration_basic(t *testing.T) 
 }
 
 func TestAccSageMakerNotebookInstanceLifecycleConfiguration_update(t *testing.T) {
-	ctx := acctest.Context(t)
-	var lifecycleConfig sagemaker.DescribeNotebookInstanceLifecycleConfigOutput
+func lifecycleConfig sagemaker.DescribeNotebookInstanceLifecycleConfigOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_notebook_instance_lifecycle_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNotebookInstanceLifecycleConfigurationDestroy(ctx),
+		CheckDestroy:CheckNotebookInstanceLifecycleConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccNotebookInstanceLifecycleConfigurationConfig_basic(rName),
@@ -81,8 +79,8 @@ func TestAccSageMakerNotebookInstanceLifecycleConfiguration_update(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -91,10 +89,8 @@ func TestAccSageMakerNotebookInstanceLifecycleConfiguration_update(t *testing.T)
 
 func testAccCheckNotebookInstanceLifecycleConfigurationExists(ctx context.Context, resourceName string, lifecycleConfig *sagemaker.DescribeNotebookInstanceLifecycleConfigOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}
+func !ok {
+			returfunc
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("no ID is set")
@@ -123,10 +119,8 @@ func testAccCheckNotebookInstanceLifecycleConfigurationDestroy(ctx context.Conte
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_sagemaker_notebook_instance_lifecycle_configuration" {
-				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
+func
+funconn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 			lifecycleConfig, err := conn.DescribeNotebookInstanceLifecycleConfigWithContext(ctx, &sagemaker.DescribeNotebookInstanceLifecycleConfigInput{
 				NotebookInstanceLifecycleConfigName: aws.String(rs.Primary.ID),
 			})
@@ -152,14 +146,12 @@ resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "test" {
   name = %q
 }
 `, rName)
-}
-
+func
 func testAccNotebookInstanceLifecycleConfigurationConfig_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "test" {
-  name      = %q
+  name
   on_create = base64encode("echo bla")
   on_start  = base64encode("echo blub")
 }
-`, rName)
-}
+func

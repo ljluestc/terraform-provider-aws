@@ -13,24 +13,21 @@ import (
 )
 
 
-func TestAccVPCPrefixListDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	ds1Name := "data.aws_prefix_list.s3_by_id"
 	ds2Name := "data.aws_prefix_list.s3_by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCPrefixListDataSourceConfig_basic,
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
-	resource.TestCheckResourceAttrSet(ds1Name, "name"),
-	acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
+functest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
 	resource.TestCheckResourceAttrSet(ds2Name, "name"),
 ),
 	},
@@ -42,24 +39,21 @@ func(
 func TestAccVPCPrefixListDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	ds1Name := "data.aws_prefix_list.s3_by_id"
-	ds2Name := "data.aws_prefix_list.s3_by_name"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCPrefixListDataSourceConfig_filter,
+funcig: testAccVPCPrefixListDataSourceConfig_filter,
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
 	resource.TestCheckResourceAttrSet(ds1Name, "name"),
 	acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
 	resource.TestCheckResourceAttrSet(ds2Name, "name"),
-),
-	},
+func
 },
 	})
 }
@@ -71,13 +65,11 @@ func TestAccVPCPrefixListDataSource_nameDoesNotOverrideFilter(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
-Config:      testAccVPCPrefixListDataSourceConfig_nameDoesNotOverrideFilter,
+Config:AccVPCPrefixListDataSourceConfig_nameDoesNotOverrideFilter,
 ExpectError: regexache.MustCompile(`no matching EC2 Prefix List found`),
-	},
-},
+func
 	})
 }
 
@@ -98,15 +90,15 @@ data "aws_region" "current" {}
 
 data "aws_prefix_list" "s3_by_name" {
   filter {
-    name   = "prefix-list-name"
-    values = ["com.amazonaws.${data.aws_region.current.name}.s3"]
+me= "fix-list-name"
+lues = ["com.amazonaws.${data.aws_region.current.name}.s3"]
   }
 }
 
 data "aws_prefix_list" "s3_by_id" {
   filter {
-    name   = "prefix-list-id"
-    values = [data.aws_prefix_list.s3_by_name.id]
+me= "fix-list-id"
+lues = [data.aws_prefix_list.s3_by_name.id]
   }
 }
 `
@@ -118,8 +110,8 @@ data "aws_prefix_list" "test" {
   name = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
 
   filter {
-    name   = "prefix-list-name"
-    values = ["com.amazonaws.${data.aws_region.current.name}.s3"]
+me= "fix-list-name"
+lues = ["com.amazonaws.${data.aws_region.current.name}.s3"]
   }
 }
 `

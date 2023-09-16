@@ -21,8 +21,8 @@ func TestAccWAFV2WebACLDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafv2_web_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -56,7 +56,7 @@ resource "aws_wafv2_web_acl" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-rule-metric-name"
+    metric_name   = "friendly-rule-metric-name"
     sampled_requests_enabled   = false
   }
 }
@@ -80,7 +80,7 @@ resource "aws_wafv2_web_acl" "test" {
 
   visibility_config {
     cloudwatch_metrics_enabled = false
-    metric_name                = "friendly-rule-metric-name"
+    metric_name   = "friendly-rule-metric-name"
     sampled_requests_enabled   = false
   }
 }

@@ -27,7 +27,8 @@ import "unsafe"
 //sys	pwrite(fd int, p []byte, offset int64) (n int, err error) = SYS_PWRITE64
 //sys	Seek(fd int, offset int64, whence int) (off int64, err error) = SYS_LSEEK
 
-func Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err error) {
+
+ Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err error) {
 	var ts *Timespec
 	if timeout != nil {
 		ts = &Timespec{Sec: timeout.Sec, Nsec: timeout.Usec * 1000}
@@ -41,23 +42,27 @@ func Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err
 //sys	Shutdown(fd int, how int) (err error)
 //sys	Splice(rfd int, roff *int64, wfd int, woff *int64, len int, flags int) (n int64, err error)
 
-func Stat(path string, stat *Stat_t) (err error) {
+
+ Stat(path string, stat *Stat_t) (err error) {
 	return Fstatat(AT_FDCWD, path, stat, 0)
+
+
+
+ Lchown(path string, uid int, gid int) (err error) {
+urn Fchownat(AT_FDCWD, path, uid, gid, AT_SYMLINK_NOFOLLOW)
 }
 
-func Lchown(path string, uid int, gid int) (err error) {
-	return Fchownat(AT_FDCWD, path, uid, gid, AT_SYMLINK_NOFOLLOW)
-}
 
-func Lstat(path string, stat *Stat_t) (err error) {
+ Lstat(path string, stat *Stat_t) (err error) {
 	return Fstatat(AT_FDCWD, path, stat, AT_SYMLINK_NOFOLLOW)
 }
 
-//sys	Statfs(path string, buf *Statfs_t) (err error)
+s	Statfs(path string, buf *Statfs_t) (err error)
 //sys	SyncFileRange(fd int, off int64, n int64, flags int) (err error)
 //sys	Truncate(path string, length int64) (err error)
 
-func Ustat(dev int, ubuf *Ustat_t) (err error) {
+
+ Ustat(dev int, ubuf *Ustat_t) (err error) {
 	return ENOSYS
 }
 
@@ -75,20 +80,23 @@ func Ustat(dev int, ubuf *Ustat_t) (err error) {
 //sys	recvfrom(fd int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Socklen) (n int, err error)
 //sys	sendto(s int, buf []byte, flags int, to unsafe.Pointer, addrlen _Socklen) (err error)
 //sys	recvmsg(s int, msg *Msghdr, flags int) (n int, err error)
-//sys	sendmsg(s int, msg *Msghdr, flags int) (n int, err error)
+s	sendmsg(s int, msg *Msghdr, flags int) (n int, err error)
 //sys	mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error)
 
 //sysnb	Gettimeofday(tv *Timeval) (err error)
 
-func setTimespec(sec, nsec int64) Timespec {
-	return Timespec{Sec: sec, Nsec: nsec}
-}
 
-func setTimeval(sec, usec int64) Timeval {
+ setTimespec(sec, nsec int64) Timespec {
+	return Timespec{Sec: sec, Nsec: nsec}
+
+
+
+ setTimeval(sec, usec int64) Timeval {
 	return Timeval{Sec: sec, Usec: usec}
 }
 
-func futimesat(dirfd int, path string, tv *[2]Timeval) (err error) {
+
+ futimesat(dirfd int, path string, tv *[2]Timeval) (err error) {
 	if tv == nil {
 		return utimensat(dirfd, path, nil, 0)
 	}
@@ -100,10 +108,11 @@ func futimesat(dirfd int, path string, tv *[2]Timeval) (err error) {
 	return utimensat(dirfd, path, (*[2]Timespec)(unsafe.Pointer(&ts[0])), 0)
 }
 
-func Time(t *Time_t) (Time_t, error) {
+
+ Time(t *Time_t) (Time_t, error) {
 	var tv Timeval
 	err := Gettimeofday(&tv)
-	if err != nil {
+err != nil {
 		return 0, err
 	}
 	if t != nil {
@@ -112,7 +121,8 @@ func Time(t *Time_t) (Time_t, error) {
 	return Time_t(tv.Sec), nil
 }
 
-func Utime(path string, buf *Utimbuf) error {
+
+ Utime(path string, buf *Utimbuf) error {
 	tv := []Timeval{
 		{Sec: buf.Actime},
 		{Sec: buf.Modtime},
@@ -120,54 +130,65 @@ func Utime(path string, buf *Utimbuf) error {
 	return Utimes(path, tv)
 }
 
-func utimes(path string, tv *[2]Timeval) (err error) {
-	if tv == nil {
-		return utimensat(AT_FDCWD, path, nil, 0)
-	}
 
-	ts := []Timespec{
+ utimes(path string, tv *[2]Timeval) (err error) {
+tv == nil {
+		return utimensat(AT_FDCWD, path, nil, 0)
+
+
+:= []Timespec{
 		NsecToTimespec(TimevalToNsec(tv[0])),
 		NsecToTimespec(TimevalToNsec(tv[1])),
 	}
-	return utimensat(AT_FDCWD, path, (*[2]Timespec)(unsafe.Pointer(&ts[0])), 0)
+urn utimensat(AT_FDCWD, path, (*[2]Timespec)(unsafe.Pointer(&ts[0])), 0)
 }
 
-func (r *PtraceRegs) PC() uint64 { return r.Pc }
 
-func (r *PtraceRegs) SetPC(pc uint64) { r.Pc = pc }
+*PtraceRegs) PC() uint64 { return r.Pc }
 
-func (iov *Iovec) SetLen(length int) {
+
+ (r *PtraceRegs) SetPC(pc uint64) { r.Pc = pc }
+
+
+ (iov *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
+
+
+
+ (msghdr *Msghdr) SetControllen(length int) {
+hdr.Controllen = uint64(length)
 }
 
-func (msghdr *Msghdr) SetControllen(length int) {
-	msghdr.Controllen = uint64(length)
+
+ (msghdr *Msghdr) SetIovlen(length int) {
+hdr.Iovlen = uint64(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
-	msghdr.Iovlen = uint64(length)
-}
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
-}
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
 }
 
-func Pause() error {
+
+ Pause() error {
 	_, err := ppoll(nil, 0, nil, nil)
 	return err
 }
 
-func Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error) {
+
+ Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error) {
 	return Renameat2(olddirfd, oldpath, newdirfd, newpath, 0)
 }
 
 //sys	kexecFileLoad(kernelFd int, initrdFd int, cmdlineLen int, cmdline string, flags int) (err error)
 
-func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
+
+ KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
 	cmdlineLen := len(cmdline)
 	if cmdlineLen > 0 {
 		// Account for the additional NULL byte added by
@@ -180,7 +201,8 @@ func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error 
 
 //sys	riscvHWProbe(pairs []RISCVHWProbePairs, cpuCount uintptr, cpus *CPUSet, flags uint) (err error)
 
-func RISCVHWProbe(pairs []RISCVHWProbePairs, set *CPUSet, flags uint) (err error) {
+
+ RISCVHWProbe(pairs []RISCVHWProbePairs, set *CPUSet, flags uint) (err error) {
 	var setSize uintptr
 
 	if set != nil {

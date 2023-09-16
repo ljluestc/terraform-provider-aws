@@ -18,11 +18,16 @@ type (
 	methods = struct {
 		pragma.NoUnkeyedLiterals
 		Flags            supportFlags
-		Size             func(sizeInput) sizeOutput
-		Marshal          func(marshalInput) (marshalOutput, error)
-		Unmarshal        func(unmarshalInput) (unmarshalOutput, error)
-		Merge            func(mergeInput) mergeOutput
-		CheckInitialized func(checkInitializedInput) (checkInitializedOutput, error)
+		Size             
+(sizeInput) sizput
+		Marshal          
+(marshalInput) shalOutput, error)
+		Unmarshal        
+(unmarshalInput) (unmarshalOutput, error)
+		Merge            
+(mergeInput) mergeOutput
+		CheckInitialized 
+(checkInitializedInput) (checkInitializedOutput, error)
 	}
 	supportFlags = uint64
 	sizeInput    = struct {

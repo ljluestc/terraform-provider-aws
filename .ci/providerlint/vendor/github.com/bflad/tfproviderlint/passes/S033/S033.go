@@ -9,10 +9,12 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and StateFunc configured
+const Doc = `check for Schema with only Computed enabled and State
+ configured
 
-The S033 analyzer reports cases of schemas which only enables Computed
-and configures StateFunc, which is not valid.`
+The S033 analyzer res cases of schemas which only enables Computed
+and configures State
+, which is not valid.`
 
 const analyzerName = "S033"
 
@@ -24,9 +26,10 @@ var Analyzer = &analysis.Analyzer{
 		schemainfocomputedonly.Analyzer,
 	},
 	Run: run,
-}
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
 	for _, schemaInfo := range schemaInfos {
@@ -34,15 +37,18 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			continue
 		}
 
-		if schemaInfo.Schema.StateFunc == nil {
+		if schemaInfo.Schema.State
+ == nil {
 			continue
 		}
 
 		switch t := schemaInfo.AstCompositeLit.Type.(type) {
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure StateFunc", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure State
+", analyzerName)
 		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure StateFunc", analyzerName)
+			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure State
+", analyzerName)
 		}
 	}
 

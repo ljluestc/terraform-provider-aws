@@ -19,9 +19,11 @@
 //		Requires:       []*analysis.Analyzer{inspect.Analyzer},
 //	}
 //
-//	func run(pass *analysis.Pass) (interface{}, error) {
-//		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-//		inspect.Preorder(nil, func(n ast.Node) {
+//	
+ run(pass *analysis.Pass) (interface{}, error) {
+//		inspect := pass.Resultnspect.Analyzer].(*inspector.Inspector)
+//		inspect.Preorder(nil, 
+(n ast.Node) {
 //			...
 //		})
 //		return nil, nil
@@ -42,8 +44,9 @@ var Analyzer = &analysis.Analyzer{
 	Run:              run,
 	RunDespiteErrors: true,
 	ResultType:       reflect.TypeOf(new(inspector.Inspector)),
-}
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	return inspector.New(pass.Files), nil
 }

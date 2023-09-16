@@ -7,7 +7,9 @@ import (
 
 var Analyzer = analysisutils.SelectorExprAnalyzer(
 	"validatejsonstringselectorexpr",
-	validation.IsFunc,
+	validation.Is
+
 	validation.PackagePath,
-	validation.FuncNameValidateJsonString,
+	validation.
+ValidateJsonString,
 )

@@ -192,9 +192,9 @@ func TestAccGameLiftFleet_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(rName, launchPath, params, bucketName, key, roleArn),
@@ -220,7 +220,7 @@ func TestAccGameLiftFleet_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
@@ -286,9 +286,9 @@ func TestAccGameLiftFleet_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basicTags1(rName, launchPath, params, bucketName, key, roleArn, "key1", "value1"),
@@ -300,7 +300,7 @@ func TestAccGameLiftFleet_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
@@ -367,9 +367,9 @@ func TestAccGameLiftFleet_allFields(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_allFields(rName, desc, launchPath, params[0], bucketName, key, roleArn),
@@ -419,7 +419,7 @@ func TestAccGameLiftFleet_allFields(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
@@ -508,9 +508,9 @@ func TestAccGameLiftFleet_cert(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_cert(rName, launchPath, params, bucketName, key, roleArn),
@@ -522,7 +522,7 @@ func TestAccGameLiftFleet_cert(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
@@ -548,9 +548,9 @@ func TestAccGameLiftFleet_script(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_script(rName),
@@ -576,7 +576,7 @@ func TestAccGameLiftFleet_script(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
@@ -620,9 +620,9 @@ func TestAccGameLiftFleet_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
+		CheckDestroy:testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(rName, launchPath, params, bucketName, key, roleArn),
@@ -692,7 +692,7 @@ func testAccFleetConfig_basic(rName, launchPath, params, bucketName, key, roleAr
 resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
-  name              = %[1]q
+  name = %[1]q
 
   runtime_configuration {
     server_process {
@@ -710,7 +710,7 @@ func testAccFleetConfig_basicTags1(rName, launchPath, params, bucketName, key, r
 resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
-  name              = %[1]q
+  name = %[1]q
 
   runtime_configuration {
     server_process {
@@ -732,7 +732,7 @@ func testAccFleetConfig_basicTags2(rName, launchPath, params, bucketName, key, r
 resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
-  name              = %[1]q
+  name = %[1]q
 
   runtime_configuration {
     server_process {
@@ -753,11 +753,11 @@ resource "aws_gamelift_fleet" "test" {
 func testAccFleetConfig_basicUpdated(rName, launchPath, params, bucketName, key, roleArn string) string {
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id                           = aws_gamelift_build.test.id
-  ec2_instance_type                  = "c4.large"
-  description                        = %[1]q
-  name                               = %[1]q
-  metric_groups                      = ["UpdatedGroup"]
+  build_id = aws_gamelift_build.test.id
+  ec2_instance_type     = "c4.large"
+  description           = %[1]q
+  name     = %[1]q
+  metric_groups         = ["UpdatedGroup"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
@@ -782,7 +782,7 @@ func testAccFleetConfig_allFields(rName, desc, launchPath, params, bucketName, k
 resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
-  name              = "%s"
+  name = "%s"
   description       = "%s"
   instance_role_arn = aws_iam_role.test.arn
   fleet_type        = "ON_DEMAND"
@@ -808,7 +808,7 @@ resource "aws_gamelift_fleet" "test" {
     to_port   = 60000
   }
 
-  metric_groups                      = ["TerraformAccTest"]
+  metric_groups         = ["TerraformAccTest"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
@@ -837,7 +837,7 @@ resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
 
-  name              = "%s"
+  name = "%s"
   description       = "%s"
   instance_role_arn = aws_iam_role.test.arn
   fleet_type        = "ON_DEMAND"
@@ -863,7 +863,7 @@ resource "aws_gamelift_fleet" "test" {
     to_port   = 60000
   }
 
-  metric_groups                      = ["TerraformAccTest"]
+  metric_groups         = ["TerraformAccTest"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
@@ -888,7 +888,7 @@ resource "aws_gamelift_fleet" "test" {
 func testAccFleetBasicTemplate(rName, bucketName, key, roleArn string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_build" "test" {
-  name             = %[1]q
+  name= %[1]q
   operating_system = "WINDOWS_2012"
 
   storage_location {
@@ -963,7 +963,7 @@ func testAccFleetConfig_cert(rName, launchPath, params, bucketName, key, roleArn
 resource "aws_gamelift_fleet" "test" {
   build_id          = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
-  name              = %[1]q
+  name = %[1]q
 
   certificate_configuration {
     certificate_type = "GENERATED"
@@ -990,7 +990,7 @@ resource "aws_gamelift_script" "test" {
 resource "aws_gamelift_fleet" "test" {
   script_id         = aws_gamelift_script.test.id
   ec2_instance_type = "t2.micro"
-  name              = %[1]q
+  name = %[1]q
 
   runtime_configuration {
     server_process {

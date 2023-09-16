@@ -25,8 +25,8 @@ func TestAccNetworkFirewallFirewallDataSource_arn(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -73,8 +73,8 @@ func TestAccNetworkFirewallFirewallDataSource_name(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -121,8 +121,8 @@ func TestAccNetworkFirewallFirewallDataSource_arnandname(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkfirewall.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -203,9 +203,9 @@ func testAccFirewallDataSourceConfig_arn(rName string) string {
 		testAccFirewallDataSourceDependenciesConfig(rName),
 		fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test.id
@@ -223,9 +223,9 @@ func testAccFirewallDataSourceConfig_name(rName string) string {
 		testAccFirewallDataSourceDependenciesConfig(rName),
 		fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test.id
@@ -245,9 +245,9 @@ func testAccFirewallDataSourceConfig_arnandname(rName string) string {
 		testAccFirewallDataSourceDependenciesConfig(rName),
 		fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
-  name                = %[1]q
+  name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
-  vpc_id              = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 
   subnet_mapping {
     subnet_id = aws_subnet.test.id

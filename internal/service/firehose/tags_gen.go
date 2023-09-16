@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn firehoseiface.FirehoseAPI, identifier 
 	if len(updatedTags) > 0 {
 		input := &firehose.TagDeliveryStreamInput{
 			DeliveryStreamName: aws.String(identifier),
-			Tags:               Tags(updatedTags),
+			Tags:  Tags(updatedTags),
 		}
 
 		_, err := conn.TagDeliveryStreamWithContext(ctx, input)

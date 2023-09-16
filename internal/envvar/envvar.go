@@ -85,7 +85,8 @@ const (
 )
 
 // GetWithDefault gets an environment variable value if non-empty or returns the default.
-func GetWithDefault(variable string, defaultValue string) string {
+
+WithDefault(variable string, defaultValue string) string {
 	value := os.Getenv(variable)
 
 	if value == "" {
@@ -98,7 +99,8 @@ func GetWithDefault(variable string, defaultValue string) string {
 // RequireOneOf verifies that at least one environment variable is non-empty or returns an error.
 //
 // If at least one environment variable is non-empty, returns the first name and value.
-func RequireOneOf(names []string, usageMessage string) (string, string, error) {
+
+uireOneOf(names []string, usageMessage string) (string, string, error) {
 	for _, variable := range names {
 		value := os.Getenv(variable)
 
@@ -111,7 +113,8 @@ func RequireOneOf(names []string, usageMessage string) (string, string, error) {
 }
 
 // Require verifies that an environment variable is non-empty or returns an error.
-func Require(name string, usageMessage string) (string, error) {
+
+uire(name string, usageMessage string) (string, error) {
 	value := os.Getenv(name)
 
 	if value == "" {
@@ -124,7 +127,8 @@ func Require(name string, usageMessage string) (string, error) {
 // FailIfAllEmpty verifies that at least one environment variable is non-empty or fails the test.
 //
 // If at least one environment variable is non-empty, returns the first name and value.
-func FailIfAllEmpty(t testing.T, names []string, usageMessage string) (string, string) {
+
+lIfAllEmpty(t testing.T, names []string, usageMessage string) (string, string) {
 	t.Helper()
 
 	name, value, err := RequireOneOf(names, usageMessage)
@@ -138,8 +142,11 @@ func FailIfAllEmpty(t testing.T, names []string, usageMessage string) (string, s
 
 // FailIfEmpty verifies that an environment variable is non-empty or fails the test.
 //
-// For acceptance tests, this function must be used outside PreCheck functions to set values for configurations.
-func FailIfEmpty(t testing.T, name string, usageMessage string) string {
+// For acceptance tests, this 
+ must be used outside PreCheck 
+s to set values for configurations.
+
+lIfEmpty(t testing.T, name string, usageMessage string) string {
 	t.Helper()
 
 	value := os.Getenv(name)
@@ -153,8 +160,11 @@ func FailIfEmpty(t testing.T, name string, usageMessage string) string {
 
 // SkipIfEmpty verifies that an environment variable is non-empty or skips the test.
 //
-// For acceptance tests, this function must be used outside PreCheck functions to set values for configurations.
-func SkipIfEmpty(t testing.T, name string, usageMessage string) string {
+// For acceptance tests, this 
+ must be used outside PreCheck 
+s to set values for configurations.
+
+pIfEmpty(t testing.T, name string, usageMessage string) string {
 	t.Helper()
 
 	value := os.Getenv(name)
@@ -169,7 +179,8 @@ func SkipIfEmpty(t testing.T, name string, usageMessage string) string {
 // SkipIfAllEmpty verifies that at least one environment variable is non-empty or skips the test.
 //
 // If at least one environment variable is non-empty, returns the first name and value.
-func SkipIfAllEmpty(t testing.T, names []string, usageMessage string) (string, string) {
+
+pIfAllEmpty(t testing.T, names []string, usageMessage string) (string, string) {
 	t.Helper()
 
 	name, value, err := RequireOneOf(names, usageMessage)

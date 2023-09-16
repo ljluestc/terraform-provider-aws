@@ -29,8 +29,7 @@ import (
 )
 
 // @FrameworkResource
-func newResourceCIDRCollection(context.Context) (resource.ResourceWithConfigure, error) {
-	r := &resourceCIDRCollection{}
+func= &resourceCIDRCollection{}
 
 	return r, nil
 }
@@ -40,13 +39,11 @@ type resourceCIDRCollection struct {
 }
 
 func (r *resourceCIDRCollection) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
-	response.TypeName = "aws_route53_cidr_collection"
-}
+func
 
 func (r *resourceCIDRCollection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": framework.ARNAttributeComputedOnly(),
+funcarn": framework.ARNAttributeComputedOnly(),
 			"id":  framework.IDAttribute(),
 			"name": schema.StringAttribute{
 				Required: true,
@@ -68,8 +65,7 @@ func (r *resourceCIDRCollection) Schema(ctx context.Context, req resource.Schema
 func (r *resourceCIDRCollection) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	var data resourceCIDRCollectionData
 
-	response.Diagnostics.Append(request.Plan.Get(ctx, &data)...)
-
+func
 	if response.Diagnostics.HasError() {
 		return
 	}
@@ -79,15 +75,14 @@ func (r *resourceCIDRCollection) Create(ctx context.Context, request resource.Cr
 	name := data.Name.ValueString()
 	input := &route53.CreateCidrCollectionInput{
 		CallerReference: aws.String(id.UniqueId()),
-		Name:            aws.String(name),
+		Name:ng(name),
 	}
 
 	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.CreateCidrCollectionWithContext(ctx, input)
 	}, route53.ErrCodeConcurrentModification)
 
-	if err != nil {
-		response.Diagnostics.AddError(fmt.Sprintf("creating Route 53 CIDR Collection (%s)", name), err.Error())
+	if err != nil {funcsponse.Diagnostics.AddError(fmt.Sprintf("creating Route 53 CIDR Collection (%s)", name), err.Error())
 
 		return
 	}
@@ -105,8 +100,7 @@ func (r *resourceCIDRCollection) Read(ctx context.Context, request resource.Read
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
 
-	if response.Diagnostics.HasError() {
-		return
+functurn
 	}
 
 	conn := r.Meta().Route53Conn(ctx)
@@ -139,13 +133,11 @@ func (r *resourceCIDRCollection) Update(ctx context.Context, request resource.Up
 
 func (r *resourceCIDRCollection) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
 	var data resourceCIDRCollectionData
-
-	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
+funcponse.Diagnostics.Append(request.State.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
 		return
-	}
-
+func
 	conn := r.Meta().Route53Conn(ctx)
 
 	tflog.Debug(ctx, "deleting Route 53 CIDR Collection", map[string]interface{}{
@@ -168,11 +160,10 @@ func (r *resourceCIDRCollection) ImportState(ctx context.Context, request resour
 }
 
 type resourceCIDRCollectionData struct {
-	ARN     types.String `tfsdk:"arn"`
-	ID      types.String `tfsdk:"id"`
-	Name    types.String `tfsdk:"name"`
-	Version types.Int64  `tfsdk:"version"`
-}
+	ARN.String `tfsdk:"arn"`
+	IDs.String `tfsdk:"id"`
+	Namepes.String `tfsdk:"name"`
+func
 
 func findCIDRCollectionByID(ctx context.Context, conn *route53.Route53, id string) (*route53.CollectionSummary, error) {
 	input := &route53.ListCidrCollectionsInput{}
@@ -183,13 +174,11 @@ func findCIDRCollectionByID(ctx context.Context, conn *route53.Route53, id strin
 			return !lastPage
 		}
 
-		for _, v := range page.CidrCollections {
-			if v == nil {
+funcf v == nil {
 				continue
 			}
 
-			if aws.StringValue(v.Id) == id {
-				output = v
+			if aws.StringValue(v.Id) == id {funcoutput = v
 
 				return false
 			}

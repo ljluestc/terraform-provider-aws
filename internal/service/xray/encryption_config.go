@@ -22,8 +22,7 @@ import (
 )
 
 // @SDKResource("aws_xray_encryption_config")
-func resourceEncryptionConfig() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEncryptionPutConfig,
 		ReadWithoutTimeout:   resourceEncryptionConfigRead,
 		UpdateWithoutTimeout: resourceEncryptionPutConfig,
@@ -40,7 +39,7 @@ func resourceEncryptionConfig() *schema.Resource {
 				ValidateFunc: verify.ValidARN,
 			},
 			"type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateDiagFunc: enum.Validate[types.EncryptionType](),
 			},
@@ -49,8 +48,7 @@ func resourceEncryptionConfig() *schema.Resource {
 }
 
 func resourceEncryptionPutConfig(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
+funcn := meta.(*conns.AWSClient).XRayClient(ctx)
 
 	input := &xray.PutEncryptionConfigInput{
 		Type: types.EncryptionType(d.Get("type").(string)),
@@ -77,8 +75,7 @@ func resourceEncryptionPutConfig(ctx context.Context, d *schema.ResourceData, me
 
 func resourceEncryptionConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
-
+func
 	config, err := findEncryptionConfig(ctx, conn)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -100,8 +97,7 @@ func resourceEncryptionConfigRead(ctx context.Context, d *schema.ResourceData, m
 func findEncryptionConfig(ctx context.Context, conn *xray.Client) (*types.EncryptionConfig, error) {
 	input := &xray.GetEncryptionConfigInput{}
 
-	output, err := conn.GetEncryptionConfig(ctx, input)
-
+func
 	if err != nil {
 		return nil, err
 	}
@@ -117,10 +113,8 @@ func statusEncryptionConfig(ctx context.Context, conn *xray.Client) retry.StateR
 	return func() (interface{}, string, error) {
 		output, err := findEncryptionConfig(ctx, conn)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
+funceturn nil, "", nil
+		}func
 		if err != nil {
 			return nil, "", err
 		}
@@ -135,8 +129,7 @@ func waitEncryptionConfigAvailable(ctx context.Context, conn *xray.Client) (*typ
 	)
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.EncryptionStatusUpdating),
-		Target:  enum.Slice(types.EncryptionStatusActive),
-		Refresh: statusEncryptionConfig(ctx, conn),
+funcfresh: statusEncryptionConfig(ctx, conn),
 		Timeout: timeout,
 	}
 

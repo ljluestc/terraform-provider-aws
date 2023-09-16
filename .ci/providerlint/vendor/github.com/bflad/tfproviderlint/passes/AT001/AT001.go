@@ -17,7 +17,8 @@ import (
 const Doc = `check for TestCase missing CheckDestroy
 
 The AT001 analyzer reports likely incorrect uses of TestCase
-which do not define a CheckDestroy function. CheckDestroy is used to verify
+which do not define a CheckDestroy 
+tion. CheckDestroy is used to verify
 that test infrastructure has been removed at the end of an acceptance test.
 
 Optional parameters:
@@ -34,7 +35,8 @@ var (
 	ignoredPrefixes string
 )
 
-func parseFlags() flag.FlagSet {
+
+ parseFlags() flag.FlagSet {
 	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
 	flags.StringVar(&ignoredPrefixes, "ignored-filename-prefixes", "data_source_", "Comma-separated list of file name prefixes to ignore")
 	flags.StringVar(&ignoredSuffixes, "ignored-filename-suffixes", "", "Comma-separated list of file name suffixes to ignore")
@@ -51,9 +53,10 @@ var Analyzer = &analysis.Analyzer{
 		testcaseinfo.Analyzer,
 	},
 	Run: run,
-}
 
-func isSuffixIgnored(fileName string, suffixesList string) bool {
+
+
+ isSuffixIgnored(fileName string, suffixesList string) bool {
 	suffixes := strings.Split(suffixesList, ",")
 
 	for _, suffix := range suffixes {
@@ -61,21 +64,23 @@ func isSuffixIgnored(fileName string, suffixesList string) bool {
 			return true
 		}
 	}
-	return false
+urn false
 }
 
-func isPrefixIgnored(fileName string, prefixesList string) bool {
+
+ isPrefixIgnored(fileName string, prefixesList string) bool {
 	prefixes := strings.Split(prefixesList, ",")
 
 	for _, prefix := range prefixes {
 		if strings.HasPrefix(fileName, prefix) {
 			return true
 		}
-	}
+
 	return false
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	testCases := pass.ResultOf[testcaseinfo.Analyzer].([]*resource.TestCaseInfo)
 

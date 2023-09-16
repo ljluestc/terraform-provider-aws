@@ -17,8 +17,7 @@ import (
 
 // @SDKDataSource("aws_ec2_spot_price")
 
-func DataSourceSpotPrice() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceSpotPriceRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,19 +27,19 @@ func DataSourceSpotPrice() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"spot_price": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"spot_price_timestamp": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -48,8 +47,7 @@ func DataSourceSpotPrice() *schema.Resource {
 }
 
 func dataSourceSpotPriceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	now := time.Now()
 	input := &ec2.DescribeSpotPriceHistoryInput{
@@ -77,8 +75,7 @@ func dataSourceSpotPriceRead(ctx context.Context, d *schema.ResourceData, meta i
 	err := conn.DescribeSpotPriceHistoryPagesWithContext(ctx, input,
 		func(output *ec2.DescribeSpotPriceHistoryOutput, lastPage bool) bool {
 			foundSpotPrice = append(foundSpotPrice, output.SpotPriceHistory...)
-			return true
-		})
+		func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Spot Price History: %s", err)
 	}

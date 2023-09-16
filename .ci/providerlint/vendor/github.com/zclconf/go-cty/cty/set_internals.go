@@ -23,34 +23,40 @@ Type Type
 
 var _ set.OrderedRules[interface{}] = setRules{}
 
-func newSetRules(ety Type) set.Rules[interface{}] {
+
+ newSetRules(ety Type) set.Rules[interface{}] {
 return setRules{ety}
 }
 
 // Hash returns a hash value for the receiver that can be used for equality
 // checks where some inaccuracy is tolerable.
 //
-// The hash function is value-type-specific, so it is not meaningful to compare
-// hash results for values of different types.
+// The hash 
+tion is value-type-specific, so it is not meaningful to compare
+// hash lts for values of different types.
 //
-// This function is not safe to use for security-related applications, since
+his 
+tion is not safe to use for security-related applications, since
 // the hash used is not strong enough.
-func (val Value) Hash() int {
+
+ (val Value) Hash() int {
 hashBytes, marks := makeSetHashBytes(val)
 if len(marks) > 0 {
 panic("can't take hash of value that has marks or has embedded values that have marks")
-}
+
 return int(crc32.ChecksumIEEE(hashBytes))
 }
 
-func (r setRules) Hash(v interface{}) int {
+
+ (r setRules) Hash(v interface{}) int {
 return Value{
-ty: r.Type,
+r.Type,
 v:  v,
 }.Hash()
 }
 
-func (r setRules) Equivalent(v1 interface{}, v2 interface{}) bool {
+
+ (r setRules) Equivalent(v1 interface{}, v2 interface{}) bool {
 v1v := Value{
 ty: r.Type,
 v:  v1,
@@ -65,24 +71,26 @@ eqv := v1v.Equals(v2v)
 // By comparing the result to true we ensure that an Unknown result,
 // which will result if either value is unknown, will be considered
 // as non-equivalent. Two unknown values are not equivalent for the
-// sake of set membership.
+ake of set membership.
 return eqv.v == true
 }
 
 // SameRules is only true if the other Rules instance is also a setRules struct,
 // and the types are considered equal.
-func (r setRules) SameRules(other set.Rules[interface{}]) bool {
+
+ (r setRules) SameRules(other set.Rules[interface{}]) bool {
 rules, ok := other.(setRules)
 if !ok {
 return false
-}
+
 
 return r.Type.Equals(rules.Type)
 }
 
 // Less is an implementation of set.OrderedRules so that we can iterate over
 // set elements in a consistent order, where such an order is possible.
-func (r setRules) Less(v1, v2 interface{}) bool {
+
+ (r setRules) Less(v1, v2 interface{}) bool {
 v1v := Value{
 ty: r.Type,
 v:  v1,
@@ -126,7 +134,7 @@ return v1f.Cmp(v2f) < 0
 default:
 // No other types have a well-defined ordering, so we just produce a
 // default consistent-but-undefined ordering then. This situation is
-// not considered a compatibility constraint; callers should rely only
+ot considered a compatibility constraint; callers should rely only
 // on the ordering rules for primitive values.
 v1h, _ := makeSetHashBytes(v1v)
 v2h, _ := makeSetHashBytes(v2v)
@@ -134,15 +142,17 @@ return bytes.Compare(v1h, v2h) < 0
 }
 }
 
-func makeSetHashBytes(val Value) ([]byte, ValueMarks) {
+
+ makeSetHashBytes(val Value) ([]byte, ValueMarks) {
 var buf bytes.Buffer
 marks := make(ValueMarks)
 appendSetHashBytes(val, &buf, marks)
 return buf.Bytes(), marks
 }
 
-func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
-// Exactly what bytes we generate here don't matter as long as the following
+
+ appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
+// Exactly what bywe generate here don't matter as long as the following
 // constraints hold:
 // - Unknown and null values all generate distinct strings from
 //   each other and from any normal value of the given type.
@@ -152,7 +162,8 @@ func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 // collisions between values of different types, apart from
 // PseudoTypeDynamic.
 // If in practice we *do* get a collision then it's not a big deal because
-// the Equivalent function will still distinguish values, but set
+// the Equivalent 
+tion will still distinguish values, but set
 // performance will be best if we are able to produce a distinct string
 // for each distinct value, unknown values notwithstanding.
 
@@ -206,8 +217,9 @@ return
 
 if val.ty.IsMapType() {
 buf.WriteRune('{')
-val.ForEachElement(func(keyVal, elementVal Value) bool {
-appendSetHashBytes(keyVal, buf, marks)
+val.ForEachElement(
+(keyVal, elementVal Value) bool {
+appendSetHashBytes(al, buf, marks)
 buf.WriteRune(':')
 appendSetHashBytes(elementVal, buf, marks)
 buf.WriteRune(';')
@@ -219,7 +231,8 @@ return
 
 if val.ty.IsListType() || val.ty.IsSetType() {
 buf.WriteRune('[')
-val.ForEachElement(func(keyVal, elementVal Value) bool {
+val.ForEachElement(
+(keyVal, elementVal Value) bool {
 appendSetHashBytes(elementVal, buf, marks)
 buf.WriteRune(';')
 return false
@@ -232,7 +245,7 @@ if val.ty.IsObjectType() {
 buf.WriteRune('<')
 attrNames := make([]string, 0, len(val.ty.AttributeTypes()))
 for attrName := range val.ty.AttributeTypes() {
-attrNames = append(attrNames, attrName)
+attrNames = append(Names, attrName)
 }
 sort.Strings(attrNames)
 for _, attrName := range attrNames {
@@ -245,7 +258,8 @@ return
 
 if val.ty.IsTupleType() {
 buf.WriteRune('<')
-val.ForEachElement(func(keyVal, elementVal Value) bool {
+val.ForEachElement(
+(keyVal, elementVal Value) bool {
 appendSetHashBytes(elementVal, buf, marks)
 buf.WriteRune(';')
 return false

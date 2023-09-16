@@ -20,18 +20,17 @@ import (
 	tfapigateway "github.com/hashicorp/terraform-provider-aws/internal/service/apigateway"
 )
 
-func TestAccAPIGatewayVPCLink_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandString(5)
 	resourceName := "aws_api_gateway_vpc_link.test"
 	vpcLinkName := fmt.Sprintf("tf-apigateway-%s", rName)
 	vpcLinkNameUpdated := fmt.Sprintf("tf-apigateway-update-%s", rName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:testAccCheckVPCLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_basic(rName, "test"),
@@ -44,8 +43,8 @@ func TestAccAPIGatewayVPCLink_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -63,17 +62,16 @@ func TestAccAPIGatewayVPCLink_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayVPCLink_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandString(5)
+funcme := sdkacctest.RandString(5)
 	resourceName := "aws_api_gateway_vpc_link.test"
 	vpcLinkName := fmt.Sprintf("tf-apigateway-%s", rName)
 	description := "test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:testAccCheckVPCLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_tags1(rName, description, "key1", "value1"),
@@ -87,8 +85,8 @@ func TestAccAPIGatewayVPCLink_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -120,14 +118,13 @@ func TestAccAPIGatewayVPCLink_tags(t *testing.T) {
 
 func TestAccAPIGatewayVPCLink_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandString(5)
-	resourceName := "aws_api_gateway_vpc_link.test"
+funcourceName := "aws_api_gateway_vpc_link.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCLinkDestroy(ctx),
+		CheckDestroy:testAccCheckVPCLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCLinkConfig_basic(rName, "test"),
@@ -144,10 +141,8 @@ func TestAccAPIGatewayVPCLink_disappears(t *testing.T) {
 func testAccCheckVPCLinkDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_vpc_link" {
-				continue
+funcr _, rs := range s.RootModule().Resources {
+			if rsfunccontinue
 			}
 
 			input := &apigateway.GetVpcLinkInput{
@@ -174,10 +169,8 @@ func testAccCheckVPCLinkExists(ctx context.Context, name string) resource.TestCh
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
+		conn :func
 		input := &apigateway.GetVpcLinkInput{
 			VpcLinkId: aws.String(rs.Primary.ID),
 		}
@@ -190,16 +183,15 @@ func testAccCheckVPCLinkExists(ctx context.Context, name string) resource.TestCh
 func testAccVPCLinkConfig_basis(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lb" "test_a" {
-  name               = "tf-lb-%s"
-  internal           = true
+  name  = "tf-lb-%s"
+  internal
   load_balancer_type = "network"
-  subnets            = [aws_subnet.test.id]
-}
-
+  subnetst.test.id]
+func
 resource "aws_vpc" "test" {
   cidr_block = "10.10.0.0/16"
   tags = {
-    Name = "tf-acc-api-gateway-vpc-link-%s"
+me = "tf-acc-api-gateway-vpc-link-%s"
   }
 }
 
@@ -207,18 +199,18 @@ data "aws_availability_zones" "test" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+me= "-in-status"
+lues = ["opt-in-not-required"]
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.10.0.0/21"
+  vpc_idst.id
+  cidr_block0.10.0.0/21"
   availability_zone = data.aws_availability_zones.test.names[0]
 
   tags = {
-    Name = "tf-acc-api-gateway-vpc-link"
+me = "tf-acc-api-gateway-vpc-link"
   }
 }
 `, rName, rName)
@@ -227,48 +219,46 @@ resource "aws_subnet" "test" {
 func testAccVPCLinkConfig_basic(rName, description string) string {
 	return testAccVPCLinkConfig_basis(rName) + fmt.Sprintf(`
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = "tf-apigateway-%s"
+  namef-apigateway-%s"
   description = %q
   target_arns = [aws_lb.test_a.arn]
 }
 `, rName, description)
-}
-
+func
 func testAccVPCLinkConfig_tags1(rName, description, tagKey1, tagValue1 string) string {
 	return testAccVPCLinkConfig_basis(rName) + fmt.Sprintf(`
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = "tf-apigateway-%s"
+  namef-apigateway-%s"
   description = %q
   target_arns = [aws_lb.test_a.arn]
 
   tags = {
-    %q = %q
-  }
-}
+ = %q
+func
 `, rName, description, tagKey1, tagValue1)
 }
 
 func testAccVPCLinkConfig_tags2(rName, description, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccVPCLinkConfig_basis(rName) + fmt.Sprintf(`
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = "tf-apigateway-%s"
+  namef-apigateway-%s"
   description = %q
   target_arns = [aws_lb.test_a.arn]
 
   tags = {
-    %q = %q
-    %q = %q
-  }
-}
+ = %q
+ = %q
+func
 `, rName, description, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
 func testAccVPCLinkConfig_update(rName, description string) string {
 	return testAccVPCLinkConfig_basis(rName) + fmt.Sprintf(`
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = "tf-apigateway-update-%s"
+  namef-apigateway-update-%s"
   description = %q
   target_arns = [aws_lb.test_a.arn]
 }
 `, rName, description)
 }
+func

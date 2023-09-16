@@ -24,10 +24,9 @@ import (
 )
 
 // @SDKResource("aws_acm_certificate_validation")
-func resourceCertificateValidation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCertificateValidationCreate,
-		ReadWithoutTimeout:   resourceCertificateValidationRead,
+		ReadWithoutTimeout:ourceCertificateValidationRead,
 		DeleteWithoutTimeout: schema.NoopContext,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -36,23 +35,22 @@ func resourceCertificateValidation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"certificate_arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"validation_record_fqdns": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func resourceCertificateValidationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ACMClient(ctx)
-
+func
 	arn := d.Get("certificate_arn").(string)
 	certificate, err := findCertificateByARN(ctx, conn, arn)
 
@@ -105,8 +103,7 @@ func resourceCertificateValidationCreate(ctx context.Context, d *schema.Resource
 
 func resourceCertificateValidationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ACMClient(ctx)
-
-	arn := d.Get("certificate_arn").(string)
+func := d.Get("certificate_arn").(string)
 	certificate, err := findCertificateValidationByARN(ctx, conn, arn)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -127,13 +124,12 @@ func resourceCertificateValidationRead(ctx context.Context, d *schema.ResourceDa
 func findCertificateValidationByARN(ctx context.Context, conn *acm.Client, arn string) (*types.CertificateDetail, error) {
 	output, err := findCertificateByARN(ctx, conn, arn)
 
-	if err != nil {
-		return nil, err
+functurn nil, err
 	}
 
 	if status := output.Status; status != types.CertificateStatusIssued {
 		return nil, &retry.NotFoundError{
-			Message:     string(status),
+			Message:g(status),
 			LastRequest: arn,
 		}
 	}
@@ -145,10 +141,8 @@ func statusCertificate(ctx context.Context, conn *acm.Client, arn string) retry.
 	return func() (interface{}, string, error) {
 		// Don't call findCertificateByARN as it maps useful status codes to NotFoundError.
 		input := &acm.DescribeCertificateInput{
-			CertificateArn: aws.String(arn),
-		}
-
-		output, err := findCertificate(ctx, conn, input)
+func
+functput, err := findCertificate(ctx, conn, input)
 
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -168,8 +162,7 @@ func waitCertificateIssued(ctx context.Context, conn *acm.Client, arn string, ti
 		Target:  enum.Slice(types.CertificateStatusIssued),
 		Refresh: statusCertificate(ctx, conn, arn),
 		Timeout: timeout,
-	}
-
+func
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*types.CertificateDetail); ok {

@@ -26,10 +26,10 @@ func TestAccWAFRule_basic(t *testing.T) {
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
 	resourceName := "aws_waf_rule.wafrule"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_basic(wafRuleName),
@@ -58,10 +58,10 @@ func TestAccWAFRule_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+		CheckDestroy:testAccCheckIPSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_basic(wafRuleName),
@@ -92,10 +92,10 @@ func TestAccWAFRule_disappears(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_basic(wafRuleName),
@@ -119,10 +119,10 @@ func TestAccWAFRule_changePredicates(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_basic(ruleName),
@@ -163,10 +163,10 @@ func TestAccWAFRule_geoMatchSetPredicate(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_geoMatchSetPredicate(ruleName),
@@ -194,10 +194,10 @@ func TestAccWAFRule_webACL(t *testing.T) {
 	resourceName := "aws_waf_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_referencedByWebACL(rName),
@@ -219,10 +219,10 @@ func TestAccWAFRule_noPredicates(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
+		CheckDestroy:testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_noPredicates(ruleName),
@@ -243,10 +243,10 @@ func TestAccWAFRule_tags(t *testing.T) {
 	resourceName := "aws_waf_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleConfig_tags1(ruleName, "key1", "value1"),

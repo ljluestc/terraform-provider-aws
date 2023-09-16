@@ -29,7 +29,7 @@ func TestAccAPIGatewayV2Deployment_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+CheckDestroy:ymentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDeploymentConfig_basic(rName, "Test description"),
@@ -40,9 +40,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccDeploymentImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -68,7 +68,7 @@ func TestAccAPIGatewayV2Deployment_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+CheckDestroy:ymentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDeploymentConfig_basic(rName, "Test description"),
@@ -93,7 +93,7 @@ func TestAccAPIGatewayV2Deployment_triggers(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDeploymentDestroy(ctx),
+CheckDestroy:ymentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDeploymentConfig_triggers(rName, false),
@@ -119,10 +119,10 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportStateIdFunc:       testAccDeploymentImportStateIdFunc(resourceName),
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:
+ImportStateIdFunc:eploymentImportStateIdFunc(resourceName),
+ImportState:
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"triggers"},
 	},
 	{
@@ -146,7 +146,7 @@ continue
 	}
 
 	_, err := conn.GetDeploymentWithContext(ctx, &apigatewayv2.GetDeploymentInput{
-ApiId:        aws.String(rs.Primary.Attributes["api_id"]),
+ApiId:ing(rs.Primary.Attributes["api_id"]),
 DeploymentId: aws.String(rs.Primary.ID),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -168,7 +168,7 @@ func testAccCheckDeploymentDisappears(ctx context.Context, apiId *string, v *api
 conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 _, err := conn.DeleteDeploymentWithContext(ctx, &apigatewayv2.DeleteDeploymentInput{
-	ApiId:        apiId,
+	ApiId:
 	DeploymentId: v.DeploymentId,
 })
 
@@ -191,7 +191,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 apiId := aws.String(rs.Primary.Attributes["api_id"])
 resp, err := conn.GetDeploymentWithContext(ctx, &apigatewayv2.GetDeploymentInput{
-	ApiId:        apiId,
+	ApiId:
 	DeploymentId: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -239,7 +239,7 @@ return fmt.Sprintf("%s/%s", rs.Primary.Attributes["api_id"], rs.Primary.ID), nil
 func testAccDeploymentConfig_basic(rName, description string) string {
 	return testAccRouteConfig_target(rName) + fmt.Sprintf(`
 resource "aws_apigatewayv2_deployment" "test" {
-  api_id      = aws_apigatewayv2_api.test.id
+  api_idgatewayv2_api.test.id
   description = %[1]q
 
   depends_on = [aws_apigatewayv2_route.test]
@@ -250,21 +250,21 @@ resource "aws_apigatewayv2_deployment" "test" {
 func testAccDeploymentConfig_triggers(rName string, apiKeyRequired bool) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 }
 
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "MOCK"
 }
 
 resource "aws_apigatewayv2_route" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   api_key_required = %[2]t
-  route_key        = "$default"
-  target           = "integrations/${aws_apigatewayv2_integration.test.id}"
+  route_keyault"
+  targetws_apigatewayv2_integration.test.id}"
 }
 
 resource "aws_apigatewayv2_deployment" "test" {
@@ -272,8 +272,8 @@ resource "aws_apigatewayv2_deployment" "test" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      aws_apigatewayv2_integration.test,
-      aws_apigatewayv2_route.test,
+tewayv2_integration.test,
+tewayv2_route.test,
     ]))
   }
 

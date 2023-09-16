@@ -29,6 +29,8 @@ const (
 
 // @SDKResource("aws_connect_routing_profile", name="Routing Profile")
 // @Tags(identifierAttribute="arn")
+
+
 func ResourceRoutingProfile() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceRoutingProfileCreate,
@@ -131,6 +133,8 @@ Computed: true,
 	}
 }
 
+
+
 func resourceRoutingProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -174,6 +178,8 @@ if err != nil {
 
 	return resourceRoutingProfileRead(ctx, d, meta)
 }
+
+
 
 func resourceRoutingProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -230,6 +236,8 @@ return diag.Errorf("finding Connect Routing Profile Queue Configs Summary by Rou
 
 	return nil
 }
+
+
 
 func resourceRoutingProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -324,6 +332,8 @@ if err != nil {
 	return resourceRoutingProfileRead(ctx, d, meta)
 }
 
+
+
 func updateQueueConfigs(ctx context.Context, conn *connect.Connect, instanceID, routingProfileID string, queueConfigsUpdateAdd, queueConfigsUpdateRemove []interface{}) error {
 	// updates to queue configs
 	// There are 3 APIs for this
@@ -371,6 +381,8 @@ return fmt.Errorf("updating RoutingProfile Queue Configs, specifically associati
 	return nil
 }
 
+
+
 func resourceRoutingProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -392,6 +404,8 @@ return diag.Errorf("deleting RoutingProfile (%s): %s", d.Id(), err)
 	return nil
 }
 
+
+
 func expandRoutingProfileMediaConcurrencies(mediaConcurrencies []interface{}) []*connect.MediaConcurrency {
 	if len(mediaConcurrencies) == 0 {
 return nil
@@ -411,6 +425,8 @@ mediaConcurrenciesExpanded = append(mediaConcurrenciesExpanded, mediaConcurrency
 	return mediaConcurrenciesExpanded
 }
 
+
+
 func flattenRoutingProfileMediaConcurrencies(mediaConcurrencies []*connect.MediaConcurrency) []interface{} {
 	mediaConcurrenciesList := []interface{}{}
 
@@ -424,6 +440,8 @@ mediaConcurrenciesList = append(mediaConcurrenciesList, values)
 	}
 	return mediaConcurrenciesList
 }
+
+
 
 func expandRoutingProfileQueueConfigs(queueConfigs []interface{}) []*connect.RoutingProfileQueueConfig {
 	if len(queueConfigs) == 0 {
@@ -451,6 +469,8 @@ queueConfigsExpanded = append(queueConfigsExpanded, queueConfigExpanded)
 	return queueConfigsExpanded
 }
 
+
+
 func expandRoutingProfileQueueReferences(queueConfigs []interface{}) []*connect.RoutingProfileQueueReference {
 	if len(queueConfigs) == 0 {
 return nil
@@ -471,6 +491,8 @@ queueReferencesExpanded = append(queueReferencesExpanded, queueReferenceExpanded
 	return queueReferencesExpanded
 }
 
+
+
 func getRoutingProfileQueueConfigs(ctx context.Context, conn *connect.Connect, instanceID, routingProfileID string) ([]interface{}, error) {
 	queueConfigsList := []interface{}{}
 
@@ -480,7 +502,9 @@ MaxResults:       aws.Int64(ListRoutingProfileQueuesMaxResults),
 RoutingProfileId: aws.String(routingProfileID),
 	}
 
-	err := conn.ListRoutingProfileQueuesPagesWithContext(ctx, input, func(page *connect.ListRoutingProfileQueuesOutput, lastPage bool) bool {
+	err := conn.ListRoutingProfileQueuesPagesWithContext(ctx, input, 
+
+func(page *connect.ListRoutingProfileQueuesOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
@@ -511,6 +535,8 @@ return nil, err
 
 	return queueConfigsList, nil
 }
+
+
 
 func RoutingProfileParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)

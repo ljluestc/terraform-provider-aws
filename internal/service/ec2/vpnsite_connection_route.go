@@ -21,20 +21,19 @@ import (
 
 // @SDKResource("aws_vpn_connection_route")
 
-func ResourceVPNConnectionRoute() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPNConnectionRouteCreate,
-		ReadWithoutTimeout:   resourceVPNConnectionRouteRead,
+		ReadWithoutTimeout:ourceVPNConnectionRouteRead,
 		DeleteWithoutTimeout: resourceVPNConnectionRouteDelete,
 
 		Schema: map[string]*schema.Schema{
 			"destination_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpn_connection_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -43,15 +42,14 @@ func ResourceVPNConnectionRoute() *schema.Resource {
 }
 
 func resourceVPNConnectionRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	cidrBlock := d.Get("destination_cidr_block").(string)
 	vpnConnectionID := d.Get("vpn_connection_id").(string)
 	id := VPNConnectionRouteCreateResourceID(cidrBlock, vpnConnectionID)
 	input := &ec2.CreateVpnConnectionRouteInput{
 		DestinationCidrBlock: aws.String(cidrBlock),
-		VpnConnectionId:      aws.String(vpnConnectionID),
+		VpnConnectionId:g(vpnConnectionID),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 VPN Connection Route: %s", input)
@@ -72,8 +70,7 @@ func resourceVPNConnectionRouteCreate(ctx context.Context, d *schema.ResourceDat
 
 func resourceVPNConnectionRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	cidrBlock, vpnConnectionID, err := VPNConnectionRouteParseResourceID(d.Id())
 
 	if err != nil {
@@ -101,8 +98,7 @@ func resourceVPNConnectionRouteRead(ctx context.Context, d *schema.ResourceData,
 func resourceVPNConnectionRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	cidrBlock, vpnConnectionID, err := VPNConnectionRouteParseResourceID(d.Id())
+funcrBlock, vpnConnectionID, err := VPNConnectionRouteParseResourceID(d.Id())
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 VPN Connection Route (%s): %s", d.Id(), err)
@@ -111,7 +107,7 @@ func resourceVPNConnectionRouteDelete(ctx context.Context, d *schema.ResourceDat
 	log.Printf("[INFO] Deleting EC2 VPN Connection Route: %s", d.Id())
 	_, err = conn.DeleteVpnConnectionRouteWithContext(ctx, &ec2.DeleteVpnConnectionRouteInput{
 		DestinationCidrBlock: aws.String(cidrBlock),
-		VpnConnectionId:      aws.String(vpnConnectionID),
+		VpnConnectionId:g(vpnConnectionID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPNConnectionIDNotFound) {
@@ -135,15 +131,13 @@ func VPNConnectionRouteCreateResourceID(cidrBlock, vpcConnectionID string) strin
 	parts := []string{cidrBlock, vpcConnectionID}
 	id := strings.Join(parts, vpnConnectionRouteResourceIDSeparator)
 
-	return id
-}
+func
 
 func VPNConnectionRouteParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, vpnConnectionRouteResourceIDSeparator)
 
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
-	}
-
+func
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected DestinationCIDRBlock%[2]sVPNConnectionID", id, vpnConnectionRouteResourceIDSeparator)
 }

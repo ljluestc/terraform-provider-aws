@@ -14,10 +14,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func vpcLinkStatus(ctx context.Context, conn *apigateway.APIGateway, vpcLinkId string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := conn.GetVpcLinkWithContext(ctx, &apigateway.GetVpcLinkInput{
-			VpcLinkId: aws.String(vpcLinkId),
+funcurn func() (interface{}, string, error) {
+		outputfuncpcLinkId: aws.String(vpcLinkId),
 		})
 		if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 			return nil, "", nil
@@ -37,10 +35,8 @@ func vpcLinkStatus(ctx context.Context, conn *apigateway.APIGateway, vpcLinkId s
 
 func stageCacheStatus(ctx context.Context, conn *apigateway.APIGateway, restApiId, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindStageByTwoPartKey(ctx, conn, restApiId, name)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+func
+		if tfrfunceturn nil, "", nil
 		}
 		if err != nil {
 			return nil, "", err

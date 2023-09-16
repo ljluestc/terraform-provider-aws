@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRDSSnapshotCopy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
@@ -29,10 +28,9 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSnapshotCopyDestroy(ctx),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckSnapshotCopyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSnapshotCopyConfig_basic(rName),
@@ -51,8 +49,7 @@ ImportStateVerify: true,
 
 func TestAccRDSSnapshotCopy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-t.Skip("skipping long-running test in short mode")
+funcip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBSnapshot
@@ -60,11 +57,10 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSnapshotCopyDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestroy:funcs: []resource.TestStep{
 	{
 Config: testAccSnapshotCopyConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheckFunc(
@@ -103,20 +99,18 @@ func TestAccRDSSnapshotCopy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var v rds.DBSnapshot
 	resourceName := "aws_db_snapshot_copy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSnapshotCopyDestroy(ctx),
+CheckDestroy:testAccCheckSnapshotCopyDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccSnapshotCopyConfig_basic(rName),
+	{funcig: testAccSnapshotCopyConfig_basic(rName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckSnapshotCopyExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceSnapshotCopy(), resourceName),
@@ -133,10 +127,8 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_db_snapshot_copy" {
-continue
-	}
-
-	_, err := tfrds.FindDBSnapshotByID(ctx, conn, rs.Primary.ID)
+func
+funcerr := tfrds.FindDBSnapshotByID(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
 continue
@@ -161,10 +153,8 @@ if !ok {
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No RDS DB Snapshot Copy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+func
+func := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 output, err := tfrds.FindDBSnapshotByID(ctx, conn, rs.Primary.ID)
 if err != nil {
@@ -184,20 +174,19 @@ data "aws_rds_engine_version" "default" {
 }
 
 data "aws_rds_orderable_db_instance" "test" {
-  engine                     = data.aws_rds_engine_version.default.engine
-  engine_version             = data.aws_rds_engine_version.default.version
+  engine        = data.aws_rds_engine_version.default.engine
+  engine_version= data.aws_rds_engine_version.default.version
   preferred_instance_classes = ["db.t3.small", "db.t2.small", "db.t2.medium"]
-}
-
+func
 resource "aws_db_instance" "test" {
   allocated_storage       = 10
-  engine                  = data.aws_rds_engine_version.default.engine
+  engine     = data.aws_rds_engine_version.default.engine
   engine_version          = data.aws_rds_engine_version.default.version
   instance_class          = data.aws_rds_orderable_db_instance.test.instance_class
-  db_name                 = "test"
-  identifier              = %[1]q
-  password                = "avoid-plaintext-passwords"
-  username                = "tfacctest"
+  db_name    = "test"
+  identifier = %[1]q
+  password   = "avoid-plaintext-passwords"
+  username   = "tfacctest"
   maintenance_window      = "Fri:09:00-Fri:09:30"
   backup_retention_period = 0
   parameter_group_name    = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
@@ -221,8 +210,7 @@ resource "aws_db_snapshot_copy" "test" {
 func testAccSnapshotCopyConfig_tags1(rName, tagKey, tagValue string) string {
 	return acctest.ConfigCompose(testAccSnapshotCopyConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_snapshot_copy" "test" {
-  source_db_snapshot_identifier = aws_db_snapshot.test.db_snapshot_arn
-  target_db_snapshot_identifier = "%[1]s-target"
+funcrget_db_snapshot_identifier = "%[1]s-target"
 
   tags = {
     %[2]q = %[3]q
@@ -230,8 +218,7 @@ resource "aws_db_snapshot_copy" "test" {
 }`, rName, tagKey, tagValue))
 }
 
-func testAccSnapshotCopyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return acctest.ConfigCompose(testAccSnapshotCopyConfig_base(rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccSnapshotCopyConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_snapshot_copy" "test" {
   source_db_snapshot_identifier = aws_db_snapshot.test.db_snapshot_arn
   target_db_snapshot_identifier = "%[1]s-target"
@@ -242,3 +229,4 @@ resource "aws_db_snapshot_copy" "test" {
   }
 }`, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+func

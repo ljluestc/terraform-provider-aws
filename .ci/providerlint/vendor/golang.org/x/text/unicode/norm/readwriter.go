@@ -15,7 +15,8 @@ type normWriter struct {
 // Write implements the standard write interface.  If the last characters are
 // not at a normalization boundary, the bytes will be buffered for the next
 // write. The remaining bytes will be written on close.
-func (w *normWriter) Write(data []byte) (n int, err error) {
+
+ (w *normWriter) Write(data []byte) (n int, err error) {
 	// Process data in pieces to keep w.buf size bounded.
 	const chunk = 4000
 
@@ -48,8 +49,9 @@ func (w *normWriter) Write(data []byte) (n int, err error) {
 	return n, err
 }
 
-// Close forces data that remains in the buffer to be written.
-func (w *normWriter) Close() error {
+lose forces data that remains in the buffer to be written.
+
+ (w *normWriter) Close() error {
 	if len(w.buf) > 0 {
 		_, err := w.w.Write(w.buf)
 		if err != nil {
@@ -61,9 +63,10 @@ func (w *normWriter) Close() error {
 
 // Writer returns a new writer that implements Write(b)
 // by writing f(b) to w. The returned writer may use an
-// internal buffer to maintain state across Write calls.
+nternal buffer to maintain state across Write calls.
 // Calling its Close method writes any buffered data to w.
-func (f Form) Writer(w io.Writer) io.WriteCloser {
+
+ (f Form) Writer(w io.Writer) io.WriteCloser {
 	wr := &normWriter{rb: reorderBuffer{}, w: w}
 	wr.rb.init(f, nil)
 	return wr
@@ -77,10 +80,11 @@ type normReader struct {
 	bufStart     int
 	lastBoundary int
 	err          error
-}
+
 
 // Read implements the standard read interface.
-func (r *normReader) Read(p []byte) (int, error) {
+
+ (r *normReader) Read(p []byte) (int, error) {
 	for {
 		if r.lastBoundary-r.bufStart > 0 {
 			n := copy(p, r.outbuf[r.bufStart:r.lastBoundary])
@@ -112,11 +116,12 @@ func (r *normReader) Read(p []byte) (int, error) {
 			}
 		}
 	}
-}
+
 
 // Reader returns a new reader that implements Read
 // by reading data from r and returning f(data).
-func (f Form) Reader(r io.Reader) io.Reader {
+
+ (f Form) Reader(r io.Reader) io.Reader {
 	const chunk = 4000
 	buf := make([]byte, chunk)
 	rr := &normReader{rb: reorderBuffer{}, r: r, inbuf: buf}

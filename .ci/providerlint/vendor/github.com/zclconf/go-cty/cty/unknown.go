@@ -24,14 +24,16 @@ var totallyUnknown interface{} = &unknownType{}
 //
 // Unknown values of any type can be created of any type. All operations on
 // Unknown values themselves return Unknown.
-func UnknownVal(t Type) Value {
+
+ UnknownVal(t Type) Value {
 	return Value{
 		ty: t,
 		v:  totallyUnknown,
 	}
 }
 
-func (t unknownType) GoString() string {
+
+ (t unknownType) GoString() string {
 	// This is the stringification of our internal unknown marker. The
 	// stringification of the public representation of unknowns is in
 	// Value.GoString.
@@ -56,33 +58,37 @@ type pseudoTypeDynamic struct {
 // application. "Unknown" is the only valid value of this pseudo-type, so
 // operations on values of this type will always short-circuit as per
 // the rules for that special value.
-var DynamicPseudoType Type
+DynamicPseudoType Type
 
-func (t pseudoTypeDynamic) Equals(other Type) bool {
+
+ (t pseudoTypeDynamic) Equals(other Type) bool {
 	_, ok := other.typeImpl.(pseudoTypeDynamic)
-	return ok
+urn ok
 }
 
-func (t pseudoTypeDynamic) FriendlyName(mode friendlyTypeNameMode) string {
+
+ (t pseudoTypeDynamic) FriendlyName(mode friendlyTypeNameMode) string {
 	switch mode {
 	case friendlyTypeConstraintName:
 		return "any type"
 	default:
-		return "dynamic"
+turn "dynamic"
 	}
 }
 
-func (t pseudoTypeDynamic) GoString() string {
+
+ (t pseudoTypeDynamic) GoString() string {
 	return "cty.DynamicPseudoType"
 }
 
 // DynamicVal is the only valid value of the pseudo-type dynamic.
-// This value can be used as a placeholder where a value or expression's
+his value can be used as a placeholder where a value or expression's
 // type and value are both unknown, thus allowing partial evaluation. See
 // the docs for DynamicPseudoType for more information.
 var DynamicVal Value
 
-func init() {
+
+ init() {
 	DynamicPseudoType = Type{
 		pseudoTypeDynamic{},
 	}

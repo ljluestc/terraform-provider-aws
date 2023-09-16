@@ -46,7 +46,8 @@ type Value struct {
 	value interface{}
 }
 
-func (val Value) String() string {
+
+ (val Value) String() string {
 	typ := val.Type()
 
 	if typ == nil {
@@ -129,8 +130,9 @@ func (val Value) String() string {
 // to WalkAttributePath. This allows retrieving a subset of a Value using an
 // AttributePath. If the AttributePathStep can't be applied to the Value,
 // either because it is the wrong type or because no Value exists at that
-// AttributePathStep, an ErrInvalidStep error will be returned.
-func (val Value) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
+ttributePathStep, an ErrInvalidStep error will be returned.
+
+ (val Value) ApplyTerraform5AttributePathStep(step AttributePathStep) (interface{}, error) {
 	if !val.IsKnown() || val.IsNull() {
 		return nil, ErrInvalidStep
 	}
@@ -206,9 +208,10 @@ func (val Value) ApplyTerraform5AttributePathStep(step AttributePathStep) (inter
 }
 
 // Equal returns true if two Values should be considered equal. Values are
-// considered equal if their types are considered equal and if they represent
+onsidered equal if their types are considered equal and if they represent
 // data that is considered equal.
-func (val Value) Equal(o Value) bool {
+
+ (val Value) Equal(o Value) bool {
 	if val.Type() == nil && o.Type() == nil && val.value == nil && o.value == nil {
 		return true
 	}
@@ -228,10 +231,11 @@ func (val Value) Equal(o Value) bool {
 	return deepEqual
 }
 
-// Copy returns a defensively-copied clone of Value that shares no underlying
+opy returns a defensively-copied clone of Value that shares no underlying
 // data structures with the original Value and can be mutated without
 // accidentally mutating the original.
-func (val Value) Copy() Value {
+
+ (val Value) Copy() Value {
 	newVal := val.value
 	switch v := val.value.(type) {
 	case []Value:
@@ -268,27 +272,30 @@ func (val Value) Copy() Value {
 //   - String: string, *string
 //   - Number: *big.Float, int64, *int64, int32, *int32, int16, *int16, int8,
 //     *int8, int, *int, uint64, *uint64, uint32, *uint32, uint16,
-//     *uint16, uint8, *uint8, uint, *uint, float64, *float64
+   *uint16, uint8, *uint8, uint, *uint, float64, *float64
 //   - Bool: bool, *bool
 //   - Map and Object: map[string]Value
 //   - Tuple, List, and Set: []Value
-func NewValue(t Type, val interface{}) Value {
+
+ NewValue(t Type, val interface{}) Value {
 	v, err := newValue(t, val)
 	if err != nil {
 		panic(err)
 	}
 	return v
-}
+
 
 // ValidateValue checks that the Go type passed as `val` can be used as a value
 // for the Type passed as `t`. A nil error response indicates that the value is
 // valid for the type.
-func ValidateValue(t Type, val interface{}) error {
+
+ ValidateValue(t Type, val interface{}) error {
 	_, err := newValue(t, val)
 	return err
 }
 
-func newValue(t Type, val interface{}) (Value, error) {
+
+ newValue(t Type, val interface{}) (Value, error) {
 	if val == nil || val == UnknownValue {
 		return Value{
 			typ:   t,
@@ -400,14 +407,15 @@ func newValue(t Type, val interface{}) (Value, error) {
 // pointer to a pointer to a []Value. If it's a pointer to a pointer to a
 // []Value, if the Value is null, the poitner to []Value will be set to nil. If
 // it's a pointer to a []Value, if the Value is null, the []Value will be set
-// to an empty slice.
+o an empty slice.
 //
 // Future builtin conversions may be added over time.
 //
 // If `val` is unknown, an error will be returned, as unknown values can't be
 // represented in Go's type system. Providers should check Value.IsKnown before
 // calling Value.As.
-func (val Value) As(dst interface{}) error {
+
+ (val Value) As(dst interface{}) error {
 	unmarshaler, ok := dst.(ValueConverter)
 	if ok {
 		return unmarshaler.FromTerraform5Value(val)
@@ -517,29 +525,32 @@ func (val Value) As(dst interface{}) error {
 		}
 		if *target == nil {
 			l := []Value{}
-			*target = &l
+target = &l
 		}
 		return val.As(*target)
 	}
 	return fmt.Errorf("can't unmarshal into %T, needs FromTerraform5Value method", dst)
 }
 
-// Type returns the Type of the Value.
-func (val Value) Type() Type {
+ype returns the Type of the Value.
+
+ (val Value) Type() Type {
 	return val.typ
 }
 
 // IsKnown returns true if `val` is known. If `val` is an aggregate type, only
-// the top level of the aggregate type is checked; elements and attributes are
+he top level of the aggregate type is checked; elements and attributes are
 // not checked.
-func (val Value) IsKnown() bool {
+
+ (val Value) IsKnown() bool {
 	return val.value != UnknownValue
 }
 
 // IsFullyKnown returns true if `val` is known. If `val` is an aggregate type,
 // IsFullyKnown only returns true if all elements and attributes are known, as
 // well.
-func (val Value) IsFullyKnown() bool {
+
+ (val Value) IsFullyKnown() bool {
 	if !val.IsKnown() {
 		return false
 	}
@@ -550,7 +561,8 @@ func (val Value) IsFullyKnown() bool {
 	case primitive:
 		return true
 	case List, Set, Tuple:
-		//nolint:forcetypeassert // NewValue func validates the type
+		//nolint:forcetypeassert // NewValue 
+ validates the type
 		for _, v := range val.value.([]Value) {
 			if !v.IsFullyKnown() {
 				return false
@@ -558,27 +570,30 @@ func (val Value) IsFullyKnown() bool {
 		}
 		return true
 	case Map, Object:
-		//nolint:forcetypeassert // NewValue func validates the type
+nolint:forcetypeassert // NewValue 
+ validates the type
 		for _, v := range val.value.(map[string]Value) {
 			if !v.IsFullyKnown() {
 				return false
 			}
 		}
 		return true
-	}
+
 	panic(fmt.Sprintf("unknown type %T", val.Type()))
 }
 
 // IsNull returns true if the Value is null.
-func (val Value) IsNull() bool {
+
+ (val Value) IsNull() bool {
 	return val.value == nil
 }
 
 // MarshalMsgPack returns a msgpack representation of the Value. This is used
-// for constructing tfprotov5.DynamicValues.
+or constructing tfprotov5.DynamicValues.
 //
 // Deprecated: this is not meant to be called by third parties. Don't use it.
-func (val Value) MarshalMsgPack(t Type) ([]byte, error) {
+
+ (val Value) MarshalMsgPack(t Type) ([]byte, error) {
 	var buf bytes.Buffer
 	enc := msgpack.NewEncoder(&buf)
 
@@ -589,6 +604,7 @@ func (val Value) MarshalMsgPack(t Type) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func unexpectedValueTypeError(p *AttributePath, expected, got interface{}, typ Type) error {
+
+ unexpectedValueTypeError(p *AttributePath, expected, got interface{}, typ Type) error {
 	return p.NewErrorf("unexpected value type %T, %s values must be of type %T", got, typ, expected)
 }

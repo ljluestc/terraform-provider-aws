@@ -67,6 +67,9 @@ type AddrTranslator interface {
 	HostToPlugin(hostNet, hostAddr string) (pluginNet string, pluginAddr string, err error)
 }
 
-// ReattachFunc can be passed to a client's reattach config to reattach to an
-// already running plugin instead of starting it ourselves.
-type ReattachFunc func() (AttachedRunner, error)
+// Reattach
+ can be passed to a client's reattach config to reattach to an
+// already ruggin instead of starting it ourselves.
+type Reattach
+ 
+() (AttachedRunner, error)

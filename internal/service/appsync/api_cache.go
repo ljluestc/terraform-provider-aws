@@ -69,10 +69,10 @@ func resourceAPICacheCreate(ctx context.Context, d *schema.ResourceData, meta in
 	apiID := d.Get("api_id").(string)
 
 	params := &appsync.CreateApiCacheInput{
-		ApiId:              aws.String(apiID),
-		Type:               aws.String(d.Get("type").(string)),
+		ApiId: aws.String(apiID),
+		Type:  aws.String(d.Get("type").(string)),
 		ApiCachingBehavior: aws.String(d.Get("api_caching_behavior").(string)),
-		Ttl:                aws.Int64(int64(d.Get("ttl").(int))),
+		Ttl:   aws.Int64(int64(d.Get("ttl").(int))),
 	}
 
 	if v, ok := d.GetOk("at_rest_encryption_enabled"); ok {

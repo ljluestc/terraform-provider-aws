@@ -13,8 +13,10 @@ import (
 )
 
 // CustomizeConn customizes a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) CustomizeConn(ctx context.Context, conn *cloudformation_sdkv1.CloudFormation) (*cloudformation_sdkv1.CloudFormation, error) {
-	conn.Handlers.Retry.PushBack(func(r *request_sdkv1.Request) {
+	conn.Handlers.Retry.PushBack(
+func(r *request_sdkv1.Request) {
 		if tfawserr.ErrMessageContains(r.Error, cloudformation_sdkv1.ErrCodeOperationInProgressException, "Another Operation on StackSet") {
 			r.Retryable = aws_sdkv1.Bool(true)
 		}

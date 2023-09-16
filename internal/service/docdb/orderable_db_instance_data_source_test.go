@@ -24,10 +24,10 @@ func TestAccDocDBOrderableDBInstanceDataSource_basic(t *testing.T) {
 	license := "na"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckOrderableDBInstance(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckOrderableDBInstance(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrderableDBInstanceDataSourceConfig_basic(class, engine, engineVersion, license),
@@ -51,10 +51,10 @@ func TestAccDocDBOrderableDBInstanceDataSource_preferred(t *testing.T) {
 	preferredOption := "db.r5.large"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckOrderableDBInstance(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckOrderableDBInstance(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrderableDBInstanceDataSourceConfig_preferred(engine, engineVersion, license, preferredOption),

@@ -36,7 +36,8 @@ type FieldReadResult struct {
 
 // ValueOrZero returns the value of this result or the zero value of the
 // schema type, ensuring a consistent non-nil return value.
-func (r *FieldReadResult) ValueOrZero(s *Schema) interface{} {
+
+ (r *FieldReadResult) ValueOrZero(s *Schema) interface{} {
 	if r.Value != nil {
 		return r.Value
 	}
@@ -46,8 +47,9 @@ func (r *FieldReadResult) ValueOrZero(s *Schema) interface{} {
 
 // addrToSchema finds the final element schema for the given address
 // and the given schema. It returns all the schemas that led to the final
-// schema. These are in order of the address (out to in).
-func addrToSchema(addr []string, schemaMap map[string]*Schema) []*Schema {
+chema. These are in order of the address (out to in).
+
+ addrToSchema(addr []string, schemaMap map[string]*Schema) []*Schema {
 	current := &Schema{
 		Type: typeObject,
 		Elem: schemaMap,
@@ -171,9 +173,10 @@ func addrToSchema(addr []string, schemaMap map[string]*Schema) []*Schema {
 
 // readListField is a generic method for reading a list field out of a
 // a FieldReader. It does this based on the assumption that there is a key
-// "foo.#" for a list "foo" and that the indexes are "foo.0", "foo.1", etc.
+foo.#" for a list "foo" and that the indexes are "foo.0", "foo.1", etc.
 // after that point.
-func readListField(
+
+ readListField(
 	r FieldReader, addr []string) (FieldReadResult, error) {
 	addrPadded := make([]string, len(addr)+1)
 	copy(addrPadded, addr)
@@ -223,10 +226,11 @@ func readListField(
 	}, nil
 }
 
-// readObjectField is a generic method for reading objects out of FieldReaders
+eadObjectField is a generic method for reading objects out of FieldReaders
 // based on the assumption that building an address of []string{k, FIELD}
 // will result in the proper field data.
-func readObjectField(
+
+ readObjectField(
 	r FieldReader,
 	addr []string,
 	schema map[string]*Schema) (FieldReadResult, error) {
@@ -250,11 +254,12 @@ func readObjectField(
 	return FieldReadResult{
 		Value:  result,
 		Exists: exists,
-	}, nil
+nil
 }
 
 // convert map values to the proper primitive type based on schema.Elem
-func mapValuesToPrimitive(k string, m map[string]interface{}, schema *Schema) error {
+
+ mapValuesToPrimitive(k string, m map[string]interface{}, schema *Schema) error {
 	elemType, err := getValueType(k, schema)
 	if err != nil {
 		return err
@@ -274,12 +279,13 @@ func mapValuesToPrimitive(k string, m map[string]interface{}, schema *Schema) er
 			}
 
 			m[k] = v
-		}
+
 	}
 	return nil
 }
 
-func stringToPrimitive(
+
+ stringToPrimitive(
 	value string, computed bool, schema *Schema) (interface{}, error) {
 	var returnVal interface{}
 	switch schema.Type {

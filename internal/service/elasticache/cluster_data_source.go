@@ -20,6 +20,8 @@ import (
 )
 
 // @SDKDataSource("aws_elasticache_cluster")
+
+
 func DataSourceCluster() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceClusterRead,
@@ -68,7 +70,9 @@ func DataSourceCluster() *schema.Resource {
 			"cluster_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+
+func(v interface{}) string {
 					value := v.(string)
 					return strings.ToLower(value)
 				},
@@ -170,6 +174,8 @@ func DataSourceCluster() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

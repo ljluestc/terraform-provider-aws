@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_vpn_attachment")
 
-func DataSourceTransitGatewayVPNAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayVPNAttachmentRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,13 +28,13 @@ func DataSourceTransitGatewayVPNAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
-			"tags":   tftags.TagsSchemaComputed(),
+			"tags":ags.TagsSchemaComputed(),
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"vpn_connection_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -43,8 +42,7 @@ func DataSourceTransitGatewayVPNAttachment() *schema.Resource {
 }
 
 func dataSourceTransitGatewayVPNAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayAttachmentsInput{

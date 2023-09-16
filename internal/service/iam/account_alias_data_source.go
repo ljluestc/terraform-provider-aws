@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_account_alias")
-func DataSourceAccountAlias() *schema.Resource {
+// @SDKDataSource("aws_iam_account_alias")func DataSourceAccountAlias() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceAccountAliasRead,
 
@@ -27,10 +26,7 @@ func DataSourceAccountAlias() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceAccountAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	log.Printf("[DEBUG] Reading IAM Account Aliases.")

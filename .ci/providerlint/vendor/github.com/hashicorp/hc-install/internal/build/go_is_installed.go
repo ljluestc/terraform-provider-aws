@@ -16,7 +16,8 @@ type GoIsInstalled struct {
 }
 
 // Check checks whether any Go version is installed locally
-func (gii *GoIsInstalled) Check(ctx context.Context) error {
+
+ (gii *GoIsInstalled) Check(ctx context.Context) error {
 	goVersion, err := GetGoVersion(ctx)
 	if err != nil {
 		return err

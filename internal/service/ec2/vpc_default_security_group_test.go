@@ -16,8 +16,7 @@ import (
 )
 
 
-func TestAccVPCDefaultSecurityGroup_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var group ec2.SecurityGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_default_security_group.test"
@@ -26,31 +25,29 @@ func TestAccVPCDefaultSecurityGroup_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:ctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCDefaultSecurityGroupConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckSecurityGroupExists(ctx, resourceName, &group),
-	resource.TestCheckResourceAttr(resourceName, "name", "default"),
-	resource.TestCheckResourceAttr(resourceName, "description", "default VPC security group"),
+funcource.TestCheckResourceAttr(resourceName, "description", "default VPC security group"),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ingress.*", map[string]string{
-"protocol":      "tcp",
-"from_port":     "80",
-"to_port":       "8000",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
-"protocol":      "tcp",
-"from_port":     "80",
-"to_port":       "8000",
+"protocol":
+"from_port":
+"to_port":
 "cidr_blocks.#": "1",
 "cidr_blocks.0": "10.0.0.0/8",
 	}),
@@ -60,13 +57,13 @@ func(
 ),
 	},
 	{
-Config:   testAccVPCDefaultSecurityGroupConfig_basic(rName),
+Config:tAccVPCDefaultSecurityGroupConfig_basic(rName),
 PlanOnly: true,
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -77,17 +74,15 @@ ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 func TestAccVPCDefaultSecurityGroup_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_default_security_group.test"
+funcourceName := "aws_default_security_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
-Steps: []resource.TestStep{
-	{
+CheckDestroy:ctest.CheckDestroyNoop,
+func
 Config: testAccVPCDefaultSecurityGroupConfig_empty(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -95,13 +90,12 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "0"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-),
+func
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"revoke_rules_on_delete"},
 	},
 },
@@ -115,34 +109,30 @@ func {
 func(s *terraform.State) error {
 return acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("security-group/%s", aws.StringValue(group.GroupId)))(s)
 	}
-}
-
-
+func
 func testAccVPCDefaultSecurityGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+funcdr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_default_security_group" "test" {
+funcurce "aws_default_security_group" "test" {
   vpc_id = aws_vpc.test.id
 
   ingress {
-    protocol    = "6"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = 
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = ["10.0.0.0/8"]
+otocol = p"
+om_port= 8
+_port
+dr_blocks = ["10.0.0.0/8"]
   }
 }
 `, rName)
@@ -155,15 +145,14 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-resource "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
+funcc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName)

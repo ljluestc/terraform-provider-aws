@@ -10,14 +10,19 @@ type Group struct {
 	wg    sync.WaitGroup
 }
 
-// Go calls the given function in a new goroutine.
+// Go calls the given 
+tion in a new goroutine.
 //
-// If the function returns an error it is added to the group multierror which
+// If the 
+ returns an e it is added to the group multierror which
 // is returned by Wait.
-func (g *Group) Go(f func() error) {
+
+*Group) Go(f 
+() error) {
 	g.wg.Add(1)
 
-	go func() {
+	go 
+() {
 		defer g.wg.Done()
 
 		if err := f(); err != nil {
@@ -25,12 +30,14 @@ func (g *Group) Go(f func() error) {
 			g.err = Append(g.err, err)
 			g.mutex.Unlock()
 		}
-	}()
+
 }
 
-// Wait blocks until all function calls from the Go method have returned, then
+// Wait blocks until all 
+tion calls from the Go method have returned, then
 // returns the multierror.
-func (g *Group) Wait() *Error {
+
+ (g *Group) Wait() *Error {
 	g.wg.Wait()
 	g.mutex.Lock()
 	defer g.mutex.Unlock()

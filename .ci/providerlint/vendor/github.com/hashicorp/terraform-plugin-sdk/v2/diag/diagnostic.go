@@ -23,7 +23,8 @@ type Diagnostics []Diagnostic
 // This helper aims to mimic the go error practices of if err != nil. After any
 // operation that returns Diagnostics, check that it HasError and bubble up the
 // stack.
-func (diags Diagnostics) HasError() bool {
+
+ (diags Diagnostics) HasError() bool {
 	for i := range diags {
 		if diags[i].Severity == Error {
 			return true
@@ -78,8 +79,9 @@ type Diagnostic struct {
 	AttributePath cty.Path
 }
 
-// Validate ensures a valid Severity and a non-empty Summary are set.
-func (d Diagnostic) Validate() error {
+alidate ensures a valid Severity and a non-empty Summary are set.
+
+ (d Diagnostic) Validate() error {
 	var validSev bool
 	for _, sev := range severities {
 		if d.Severity == sev {

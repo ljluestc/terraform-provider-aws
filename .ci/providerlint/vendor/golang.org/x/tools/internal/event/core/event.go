@@ -33,9 +33,11 @@ type eventLabelMap struct {
 	event Event
 }
 
-func (ev Event) At() time.Time { return ev.at }
 
-func (ev Event) Format(f fmt.State, r rune) {
+ (ev Event) At() time.Time { return ev.at }
+
+
+ (ev Event) Format(f fmt.State, r rune) {
 	if !ev.at.IsZero() {
 		fmt.Fprint(f, ev.at.Format("2006/01/02 15:04:05 "))
 	}
@@ -44,20 +46,23 @@ func (ev Event) Format(f fmt.State, r rune) {
 			fmt.Fprintf(f, "\n\t%v", l)
 		}
 	}
+
+
+
+ (ev Event) Valid(index int) bool {
+urn index >= 0 && index < len(ev.static)+len(ev.dynamic)
 }
 
-func (ev Event) Valid(index int) bool {
-	return index >= 0 && index < len(ev.static)+len(ev.dynamic)
-}
 
-func (ev Event) Label(index int) label.Label {
+ (ev Event) Label(index int) label.Label {
 	if index < len(ev.static) {
 		return ev.static[index]
-	}
+
 	return ev.dynamic[index-len(ev.static)]
 }
 
-func (ev Event) Find(key label.Key) label.Label {
+
+ (ev Event) Find(key label.Key) label.Label {
 	for _, l := range ev.static {
 		if l.Key() == key {
 			return l
@@ -66,20 +71,22 @@ func (ev Event) Find(key label.Key) label.Label {
 	for _, l := range ev.dynamic {
 		if l.Key() == key {
 			return l
-		}
+
 	}
 	return label.Label{}
 }
 
-func MakeEvent(static [3]label.Label, labels []label.Label) Event {
+
+ MakeEvent(static [3]label.Label, labels []label.Label) Event {
 	return Event{
-		static:  static,
+atic:  static,
 		dynamic: labels,
 	}
 }
 
 // CloneEvent event returns a copy of the event with the time adjusted to at.
-func CloneEvent(ev Event, at time.Time) Event {
+
+ CloneEvent(ev Event, at time.Time) Event {
 	ev.at = at
 	return ev
 }

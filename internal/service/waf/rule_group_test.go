@@ -32,10 +32,10 @@ func TestAccWAFRuleGroup_basic(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleName, groupName),
@@ -73,10 +73,10 @@ func TestAccWAFRuleGroup_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleName, groupName),
@@ -113,10 +113,10 @@ func TestAccWAFRuleGroup_disappears(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleName, groupName),
@@ -143,10 +143,10 @@ func TestAccWAFRuleGroup_changeActivatedRules(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_basic(ruleName1, groupName),
@@ -235,10 +235,10 @@ func TestAccWAFRuleGroup_tags(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+		CheckDestroy:testAccCheckWebACLDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_tags1(groupName, "key1", "value1"),
@@ -287,10 +287,10 @@ func TestAccWAFRuleGroup_noActivatedRules(t *testing.T) {
 	resourceName := "aws_waf_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, waf.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleGroupDestroy(ctx),
+		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleGroupConfig_noActivateds(groupName),

@@ -23,10 +23,10 @@ func TestAccCloudFrontMonitoringSubscription_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_monitoring_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringSubscriptionDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:onitoringSubscriptionDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringSubscriptionConfig_basic("Enabled"),
@@ -53,10 +53,10 @@ func TestAccCloudFrontMonitoringSubscription_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_monitoring_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringSubscriptionDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:onitoringSubscriptionDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringSubscriptionConfig_basic("Enabled"),
@@ -76,10 +76,10 @@ func TestAccCloudFrontMonitoringSubscription_update(t *testing.T) {
 	resourceName := "aws_cloudfront_monitoring_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMonitoringSubscriptionDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		CheckDestroy:onitoringSubscriptionDestroy(ctx),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitoringSubscriptionConfig_basic("Enabled"),
@@ -187,8 +187,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }

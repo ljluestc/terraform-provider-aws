@@ -746,8 +746,8 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	input := &appmesh.CreateRouteInput{
 		MeshName:          aws.String(d.Get("mesh_name").(string)),
 		RouteName:         aws.String(name),
-		Spec:              expandRouteSpec(d.Get("spec").([]interface{})),
-		Tags:              getTagsIn(ctx),
+		Spec: expandRouteSpec(d.Get("spec").([]interface{})),
+		Tags: getTagsIn(ctx),
 		VirtualRouterName: aws.String(d.Get("virtual_router_name").(string)),
 	}
 
@@ -809,7 +809,7 @@ func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		input := &appmesh.UpdateRouteInput{
 			MeshName:          aws.String(d.Get("mesh_name").(string)),
 			RouteName:         aws.String(d.Get("name").(string)),
-			Spec:              expandRouteSpec(d.Get("spec").([]interface{})),
+			Spec: expandRouteSpec(d.Get("spec").([]interface{})),
 			VirtualRouterName: aws.String(d.Get("virtual_router_name").(string)),
 		}
 

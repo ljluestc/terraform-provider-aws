@@ -13,7 +13,8 @@ import (
 
 // NewHTTPClient provides a pre-configured http.Client
 // e.g. with relevant User-Agent header
-func NewHTTPClient() *http.Client {
+
+ NewHTTPClient() *http.Client {
 	client := cleanhttp.DefaultClient()
 
 	userAgent := fmt.Sprintf("hc-install/%s", version.Version())
@@ -32,7 +33,8 @@ type userAgentRoundTripper struct {
 	userAgent string
 }
 
-func (rt *userAgentRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+
+ (rt *userAgentRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	if _, ok := req.Header["User-Agent"]; !ok {
 		req.Header.Set("User-Agent", rt.userAgent)
 	}

@@ -52,9 +52,9 @@ func testAccHostedTransitVirtualInterface_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckHostedTransitVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckHostedTransitVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedTransitVirtualInterfaceConfig_basic(connectionId, rName, amzAsn, bgpAsn, vlan),
@@ -112,9 +112,9 @@ func testAccHostedTransitVirtualInterface_accepterTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckHostedTransitVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckHostedTransitVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedTransitVirtualInterfaceConfig_accepterTags(connectionId, rName, amzAsn, bgpAsn, vlan),
@@ -189,9 +189,9 @@ resource "aws_dx_hosted_transit_virtual_interface" "test" {
   address_family   = "ipv4"
   bgp_asn          = %[4]d
   connection_id    = %[1]q
-  name             = %[2]q
+  name= %[2]q
   owner_account_id = data.aws_caller_identity.accepter.account_id
-  vlan             = %[5]d
+  vlan= %[5]d
 
   # The aws_dx_hosted_transit_virtual_interface
   # must be destroyed before the aws_dx_gateway.

@@ -21,20 +21,20 @@ func DataSourceDetector() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"service_role_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"finding_publishing_frequency": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},

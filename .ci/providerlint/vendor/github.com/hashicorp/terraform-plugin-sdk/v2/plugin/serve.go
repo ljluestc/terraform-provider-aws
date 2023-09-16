@@ -37,19 +37,32 @@ var Handshake = plugin.HandshakeConfig{
 	MagicCookieValue: "d602bf8f470bc67ca7faa0386276bbdd4330efaf76d1a219cb4d6991ca9872b2",
 }
 
-type ProviderFunc func() *schema.Provider
-type GRPCProviderFunc func() tfprotov5.ProviderServer
-type GRPCProviderV6Func func() tfprotov6.ProviderServer
+type Provider
+ 
+() *schema.Prov
+type GRPCProvider
+ 
+() tfprotov5.ProviderServer
+type GRPCiderV6
+ 
+() tfprotov6.ProviderServer
 
-// ServeOpts are the configurations to serve a plugin.
+// ServeOpts the configuras to serve a plugin.
 type ServeOpts struct {
-	ProviderFunc ProviderFunc
+	Provider
+ Provider
+
 
 	// Wrapped versions of the above plugins will automatically shimmed and
-	// added to the GRPC functions when possible.
-	GRPCProviderFunc GRPCProviderFunc
+	// added to the GRPC 
+tions when possible.
+	GRPCProvider
+ GRPCProvider
 
-	GRPCProviderV6Func GRPCProviderV6Func
+
+	GRPCProviderV6
+ GRPCProviderV6
+
 
 	// Logger is the logger that go-plugin will use.
 	Logger hclog.Logger
@@ -66,7 +79,7 @@ type ServeOpts struct {
 	Debug bool
 
 	// TestConfig should only be set when the provider is being tested; it
-	// will opt out of go-plugin's lifecycle management and other features,
+	// will opt out of go-plugin's lifecycle manent and other features,
 	// and will use the supplied configuration options to control the
 	// plugin's lifecycle and communicate connection information. See the
 	// go-plugin GoDoc for more information.
@@ -79,7 +92,8 @@ type ServeOpts struct {
 	// acceptance tests.
 	NoLogOutputOverride bool
 
-	// UseTFLogSink is the testing.T for a test function that will turn on
+	//TFLogSink is the testingor a test 
+ that will turn on
 	// the terraform-plugin-log logging sink.
 	UseTFLogSink testing.T
 
@@ -91,9 +105,13 @@ type ServeOpts struct {
 	ProviderAddr string
 }
 
-// Serve serves a plugin. This function never returns and should be the final
-// function called in the main function of the plugin.
-func Serve(opts *ServeOpts) {
+// Serve serves a plugin. This 
+tion never returns and should be the final
+// 
+tion called in the main 
+tion of the plugin.
+
+ Serve(opts *ServeOpts) {
 	if opts.Debug && opts.TestConfig != nil {
 		log.Printf("[ERROR] Error starting provider: cannot set both Debug and TestConfig")
 		return
@@ -103,12 +121,12 @@ func Serve(opts *ServeOpts) {
 		// In order to allow go-plugin to correctly pass log-levels through to
 		// terraform, we need to use an hclog.Logger with JSON output. We can
 		// inject this into the std `log` package here, so existing providers will
-		// make use of it automatically.
-		logger := hclog.New(&hclog.LoggerOptions{
-			// We send all output to terraform. Go-plugin will take the output and
+		// make use of itomatically.
+		logger := hclog.NhcloggerOptions{
+			// We send all output to terraform. Go-plugin wilke the output and
 			// pass it through another hclog.Logger on the client side where it can
 			// be filtered.
-			Level:      hclog.Trace,
+			Level:      hclog.Tr
 			JSONFormat: true,
 		})
 		log.SetOutput(logger.StandardWriter(&hclog.StandardLoggerOptions{InferLevels: true}))
@@ -121,26 +139,34 @@ func Serve(opts *ServeOpts) {
 	var err error
 
 	switch {
-	case opts.ProviderFunc != nil && opts.GRPCProviderFunc == nil:
-		opts.GRPCProviderFunc = func() tfprotov5.ProviderServer {
-			return schema.NewGRPCProviderServer(opts.ProviderFunc())
+e opts.Provider
+ != nil && opts.GRPCProvider
+ == nil:
+		opts.GRPCProvider
+ = 
+() tfprotov5.ProviderServer {
+			return schema.NewGRPCProviderServer(opts.Provider
+())
 		}
 		err = tf5serverServe(opts)
-	case opts.GRPCProviderFunc != nil:
+	case opts.GRPCProvider
+ != nil:
 		err = tf5serverServe(opts)
-	case opts.GRPCProviderV6Func != nil:
+	case opts.GRPCProviderV6
+ != nil:
 		err = tf6serverServe(opts)
 	default:
 		err = errors.New("no provider server defined in ServeOpts")
 	}
 
-	if err != nil {
+	if e= nil {
 		log.Printf("[ERROR] Error starting provider: %s", err)
 	}
 }
 
-func tf5serverServe(opts *ServeOpts) error {
-	var tf5serveOpts []tf5server.ServeOpt
+
+ tf5serverServe(opts *ServeOpts) error {
+	var erveOpts []tf5server.ServeOpt
 
 	if opts.Debug {
 		tf5serveOpts = append(tf5serveOpts, tf5server.WithManagedDebug())
@@ -159,14 +185,16 @@ func tf5serverServe(opts *ServeOpts) error {
 		closeCh := make(chan struct{})
 		reattachConfigCh := make(chan *plugin.ReattachConfig)
 
-		go func() {
+		go 
+() {
 			// Always forward close channel receive, since its signaling that
-			// the channel is closed.
+/ the channel is closed.
 			val := <-closeCh
 			opts.TestConfig.CloseCh <- val
 		}()
 
-		go func() {
+		go 
+() {
 			val, ok := <-reattachConfigCh
 
 			if ok {
@@ -185,10 +213,12 @@ func tf5serverServe(opts *ServeOpts) error {
 		tf5serveOpts = append(tf5serveOpts, tf5server.WithLoggingSink(opts.UseTFLogSink))
 	}
 
-	return tf5server.Serve(opts.ProviderAddr, opts.GRPCProviderFunc, tf5serveOpts...)
+	return tf5server.Serve(opts.ProviderAddr, opts.GRPCProvider
+, tf5serveOpts...)
 }
 
-func tf6serverServe(opts *ServeOpts) error {
+
+ tf6serverServe(opts *ServeOpts) error {
 	var tf6serveOpts []tf6server.ServeOpt
 
 	if opts.Debug {
@@ -208,14 +238,16 @@ func tf6serverServe(opts *ServeOpts) error {
 		closeCh := make(chan struct{})
 		reattachConfigCh := make(chan *plugin.ReattachConfig)
 
-		go func() {
+		go 
+() {
 			// Always forward close channel receive, since its signaling that
 			// the channel is closed.
 			val := <-closeCh
 			opts.TestConfig.CloseCh <- val
 		}()
 
-		go func() {
+		go 
+() {
 			val, ok := <-reattachConfigCh
 
 			if ok {
@@ -234,5 +266,6 @@ func tf6serverServe(opts *ServeOpts) error {
 		tf6serveOpts = append(tf6serveOpts, tf6server.WithLoggingSink(opts.UseTFLogSink))
 	}
 
-	return tf6server.Serve(opts.ProviderAddr, opts.GRPCProviderV6Func, tf6serveOpts...)
+	return tf6server.Serve(opts.ProviderAddr, opts.GRPCProviderV6
+, tf6serveOpts...)
 }

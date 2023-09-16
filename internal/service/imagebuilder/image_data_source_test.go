@@ -19,10 +19,10 @@ func TestAccImageBuilderImageDataSource_ARN_aws(t *testing.T) { // nosemgrep:ci.
 	dataSourceName := "data.aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageDestroy(ctx),
+		CheckDestroy:mageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageDataSourceConfig_arn(),
@@ -55,10 +55,10 @@ func TestAccImageBuilderImageDataSource_ARN_self(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageDestroy(ctx),
+		CheckDestroy:mageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageDataSourceConfig_arnSelf(rName),
@@ -90,10 +90,10 @@ func TestAccImageBuilderImageDataSource_ARN_containerRecipe(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageDestroy(ctx),
+		CheckDestroy:mageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageDataSourceConfig_arnContainerRecipe(rName),
@@ -203,7 +203,7 @@ resource "aws_internet_gateway" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block              = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
 }
@@ -222,7 +222,7 @@ resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_id             = aws_subnet.test.id
+  subnet_idtest.id
 
   depends_on = [aws_default_route_table.test]
 }
@@ -280,7 +280,7 @@ resource "aws_internet_gateway" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block              = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
 }
@@ -354,13 +354,13 @@ resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_id             = aws_subnet.test.id
+  subnet_idtest.id
 
   depends_on = [aws_default_route_table.test]
 }
 
 resource "aws_imagebuilder_image" "test" {
-  container_recipe_arn             = aws_imagebuilder_container_recipe.test.arn
+  container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 

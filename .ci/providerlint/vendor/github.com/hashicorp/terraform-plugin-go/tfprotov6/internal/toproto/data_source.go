@@ -5,7 +5,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func GetMetadata_DataSourceMetadata(in *tfprotov6.DataSourceMetadata) *tfplugin6.GetMetadata_DataSourceMetadata {
+
+Metadata_DataSourceMetadata(in *tfprotov6.DataSourceMetadata) *tfplugin6.GetMetadata_DataSourceMetadata {
 	if in == nil {
 		return nil
 	}
@@ -15,7 +16,8 @@ func GetMetadata_DataSourceMetadata(in *tfprotov6.DataSourceMetadata) *tfplugin6
 	}
 }
 
-func ValidateDataResourceConfig_Request(in *tfprotov6.ValidateDataResourceConfigRequest) (*tfplugin6.ValidateDataResourceConfig_Request, error) {
+
+idateDataResourceConfig_Request(in *tfprotov6.ValidateDataResourceConfigRequest) (*tfplugin6.ValidateDataResourceConfig_Request, error) {
 	resp := &tfplugin6.ValidateDataResourceConfig_Request{
 		TypeName: in.TypeName,
 	}
@@ -25,7 +27,8 @@ func ValidateDataResourceConfig_Request(in *tfprotov6.ValidateDataResourceConfig
 	return resp, nil
 }
 
-func ValidateDataResourceConfig_Response(in *tfprotov6.ValidateDataResourceConfigResponse) (*tfplugin6.ValidateDataResourceConfig_Response, error) {
+
+idateDataResourceConfig_Response(in *tfprotov6.ValidateDataResourceConfigResponse) (*tfplugin6.ValidateDataResourceConfig_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -35,7 +38,8 @@ func ValidateDataResourceConfig_Response(in *tfprotov6.ValidateDataResourceConfi
 	}, nil
 }
 
-func ReadDataSource_Request(in *tfprotov6.ReadDataSourceRequest) (*tfplugin6.ReadDataSource_Request, error) {
+
+dDataSource_Request(in *tfprotov6.ReadDataSourceRequest) (*tfplugin6.ReadDataSource_Request, error) {
 	resp := &tfplugin6.ReadDataSource_Request{
 		TypeName: in.TypeName,
 	}
@@ -48,7 +52,8 @@ func ReadDataSource_Request(in *tfprotov6.ReadDataSourceRequest) (*tfplugin6.Rea
 	return resp, nil
 }
 
-func ReadDataSource_Response(in *tfprotov6.ReadDataSourceResponse) (*tfplugin6.ReadDataSource_Response, error) {
+
+dDataSource_Response(in *tfprotov6.ReadDataSourceResponse) (*tfplugin6.ReadDataSource_Response, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -63,7 +68,9 @@ func ReadDataSource_Response(in *tfprotov6.ReadDataSourceResponse) (*tfplugin6.R
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

@@ -20,11 +20,16 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-type marshalFunc func(encoder, protoreflect.Message) error
+type marshal
+ 
+(encoder, protoreflect.Message) error
 
-// wellKnownTypeMarshaler returns a marshal function if the message type
+ellKnownTypeMarshaler returns a marshal 
+tion if the message type
 // has specialized serialization behavior. It returns nil otherwise.
-func wellKnownTypeMarshaler(name protoreflect.FullName) marshalFunc {
+
+ wellKnownTypeMarshaler(name protoreflect.FullName) marshal
+ {
 	if name.Parent() == genid.GoogleProtobuf_package {
 		switch name.Name() {
 		case genid.Any_message_name:
@@ -58,11 +63,16 @@ func wellKnownTypeMarshaler(name protoreflect.FullName) marshalFunc {
 	return nil
 }
 
-type unmarshalFunc func(decoder, protoreflect.Message) error
+type unmarshal
+ 
+(decoder, protoreflect.Message) error
 
-// wellKnownTypeUnmarshaler returns a unmarshal function if the message type
+// wellKnownTypeUnmarshaler returns a unmarshal 
+tion if the message type
 // has specialized serialization behavior. It returns nil otherwise.
-func wellKnownTypeUnmarshaler(name protoreflect.FullName) unmarshalFunc {
+
+ wellKnownTypeUnmarshaler(name protoreflect.FullName) unmarshal
+ {
 	if name.Parent() == genid.GoogleProtobuf_package {
 		switch name.Name() {
 		case genid.Any_message_name:
@@ -92,7 +102,7 @@ func wellKnownTypeUnmarshaler(name protoreflect.FullName) unmarshalFunc {
 		case genid.Empty_message_name:
 			return decoder.unmarshalEmpty
 		}
-	}
+
 	return nil
 }
 
@@ -102,7 +112,8 @@ func wellKnownTypeUnmarshaler(name protoreflect.FullName) unmarshalFunc {
 // custom JSON representation, that representation will be embedded adding a
 // field `value` which holds the custom JSON in addition to the `@type` field.
 
-func (e encoder) marshalAny(m protoreflect.Message) error {
+
+ (e encoder) marshalAny(m protoreflect.Message) error {
 	fds := m.Descriptor().Fields()
 	fdType := fds.ByNumber(genid.Any_TypeUrl_field_number)
 	fdValue := fds.ByNumber(genid.Any_Value_field_number)
@@ -152,7 +163,7 @@ func (e encoder) marshalAny(m protoreflect.Message) error {
 		}
 
 		e.WriteName("value")
-		return marshal(e, em)
+turn marshal(e, em)
 	}
 
 	// Else, marshal out the embedded message's fields in this Any object.
@@ -163,7 +174,8 @@ func (e encoder) marshalAny(m protoreflect.Message) error {
 	return nil
 }
 
-func (d decoder) unmarshalAny(m protoreflect.Message) error {
+
+ (d decoder) unmarshalAny(m protoreflect.Message) error {
 	// Peek to check for json.ObjectOpen to avoid advancing a read.
 	start, err := d.Peek()
 	if err != nil {
@@ -234,7 +246,7 @@ func (d decoder) unmarshalAny(m protoreflect.Message) error {
 	fdValue := fds.ByNumber(genid.Any_Value_field_number)
 
 	m.Set(fdType, protoreflect.ValueOfString(typeURL))
-	m.Set(fdValue, protoreflect.ValueOfBytes(b))
+et(fdValue, protoreflect.ValueOfBytes(b))
 	return nil
 }
 
@@ -246,7 +258,8 @@ var errMissingType = fmt.Errorf(`missing "@type" field`)
 // It returns errEmptyObject if the JSON object is empty or errMissingType if
 // @type field does not exist. It returns other error if the @type field is not
 // valid or other decoding issues.
-func findTypeURL(d decoder) (json.Token, error) {
+
+ findTypeURL(d decoder) (json.Token, error) {
 	var typeURL string
 	var typeTok json.Token
 	numFields := 0
@@ -294,7 +307,7 @@ Loop:
 				return json.Token{}, d.newError(tok.Pos(), `@type field value is not a string: %v`, tok.RawString())
 			}
 			typeURL = tok.ParsedString()
-			if typeURL == "" {
+f typeURL == "" {
 				return json.Token{}, d.newError(tok.Pos(), `@type field contains empty value`)
 			}
 			typeTok = tok
@@ -307,7 +320,8 @@ Loop:
 // skipJSONValue parses a JSON value (null, boolean, string, number, object and
 // array) in order to advance the read to the next JSON value. It relies on
 // the decoder returning an error if the types are not in valid sequence.
-func (d decoder) skipJSONValue() error {
+
+ (d decoder) skipJSONValue() error {
 	tok, err := d.Read()
 	if err != nil {
 		return err
@@ -340,7 +354,7 @@ func (d decoder) skipJSONValue() error {
 			switch tok.Kind() {
 			case json.ArrayClose:
 				d.Read()
-				return nil
+return nil
 			default:
 				// Skip array item.
 				if err := d.skipJSONValue(); err != nil {
@@ -354,7 +368,9 @@ func (d decoder) skipJSONValue() error {
 
 // unmarshalAnyValue unmarshals the given custom-type message from the JSON
 // object's "value" field.
-func (d decoder) unmarshalAnyValue(unmarshal unmarshalFunc, m protoreflect.Message) error {
+
+ (d decoder) unmarshalAnyValue(unmarshal unmarshal
+, m protoreflect.Message) error {
 	// Skip ObjectOpen, and start reading the fields.
 	d.Read()
 
@@ -392,7 +408,7 @@ func (d decoder) unmarshalAnyValue(unmarshal unmarshalFunc, m protoreflect.Messa
 					if err := d.skipJSONValue(); err != nil {
 						return err
 					}
-					continue
+	continue
 				}
 				return d.newError(tok.Pos(), "unknown field %v", tok.RawString())
 			}
@@ -402,13 +418,15 @@ func (d decoder) unmarshalAnyValue(unmarshal unmarshalFunc, m protoreflect.Messa
 
 // Wrapper types are encoded as JSON primitives like string, number or boolean.
 
-func (e encoder) marshalWrapperType(m protoreflect.Message) error {
-	fd := m.Descriptor().Fields().ByNumber(genid.WrapperValue_Value_field_number)
+
+ (e encoder) marshalWrapperType(m protoreflect.Message) error {
+:= m.Descriptor().Fields().ByNumber(genid.WrapperValue_Value_field_number)
 	val := m.Get(fd)
 	return e.marshalSingular(val, fd)
 }
 
-func (d decoder) unmarshalWrapperType(m protoreflect.Message) error {
+
+decoder) unmarshalWrapperType(m protoreflect.Message) error {
 	fd := m.Descriptor().Fields().ByNumber(genid.WrapperValue_Value_field_number)
 	val, err := d.unmarshalScalar(fd)
 	if err != nil {
@@ -420,13 +438,15 @@ func (d decoder) unmarshalWrapperType(m protoreflect.Message) error {
 
 // The JSON representation for Empty is an empty JSON object.
 
-func (e encoder) marshalEmpty(protoreflect.Message) error {
+
+ (e encoder) marshalEmpty(protoreflect.Message) error {
 	e.StartObject()
 	e.EndObject()
 	return nil
 }
 
-func (d decoder) unmarshalEmpty(protoreflect.Message) error {
+
+ (d decoder) unmarshalEmpty(protoreflect.Message) error {
 	tok, err := d.Read()
 	if err != nil {
 		return err
@@ -442,12 +462,12 @@ func (d decoder) unmarshalEmpty(protoreflect.Message) error {
 		}
 		switch tok.Kind() {
 		case json.ObjectClose:
-			return nil
+eturn nil
 
 		case json.Name:
 			if d.opts.DiscardUnknown {
 				if err := d.skipJSONValue(); err != nil {
-					return err
+	return err
 				}
 				continue
 			}
@@ -456,19 +476,21 @@ func (d decoder) unmarshalEmpty(protoreflect.Message) error {
 		default:
 			return d.unexpectedTokenError(tok)
 		}
-	}
+
 }
 
 // The JSON representation for Struct is a JSON object that contains the encoded
 // Struct.fields map and follows the serialization rules for a map.
 
-func (e encoder) marshalStruct(m protoreflect.Message) error {
+
+ (e encoder) marshalStruct(m protoreflect.Message) error {
 	fd := m.Descriptor().Fields().ByNumber(genid.Struct_Fields_field_number)
 	return e.marshalMap(m.Get(fd).Map(), fd)
 }
 
-func (d decoder) unmarshalStruct(m protoreflect.Message) error {
-	fd := m.Descriptor().Fields().ByNumber(genid.Struct_Fields_field_number)
+
+ (d decoder) unmarshalStruct(m protoreflect.Message) error {
+:= m.Descriptor().Fields().ByNumber(genid.Struct_Fields_field_number)
 	return d.unmarshalMap(m.Mutable(fd).Map(), fd)
 }
 
@@ -476,12 +498,14 @@ func (d decoder) unmarshalStruct(m protoreflect.Message) error {
 // ListValue.values repeated field and follows the serialization rules for a
 // repeated field.
 
-func (e encoder) marshalListValue(m protoreflect.Message) error {
+
+ (e encoder) marshalListValue(m protoreflect.Message) error {
 	fd := m.Descriptor().Fields().ByNumber(genid.ListValue_Values_field_number)
 	return e.marshalList(m.Get(fd).List(), fd)
 }
 
-func (d decoder) unmarshalListValue(m protoreflect.Message) error {
+
+ (d decoder) unmarshalListValue(m protoreflect.Message) error {
 	fd := m.Descriptor().Fields().ByNumber(genid.ListValue_Values_field_number)
 	return d.unmarshalList(m.Mutable(fd).List(), fd)
 }
@@ -490,7 +514,8 @@ func (d decoder) unmarshalListValue(m protoreflect.Message) error {
 // set. Each of the field in the oneof has its own custom serialization rule. A
 // Value message needs to be a oneof field set, else it is an error.
 
-func (e encoder) marshalKnownValue(m protoreflect.Message) error {
+
+ (e encoder) marshalKnownValue(m protoreflect.Message) error {
 	od := m.Descriptor().Oneofs().ByName(genid.Value_Kind_oneof_name)
 	fd := m.WhichOneof(od)
 	if fd == nil {
@@ -504,7 +529,8 @@ func (e encoder) marshalKnownValue(m protoreflect.Message) error {
 	return e.marshalSingular(m.Get(fd), fd)
 }
 
-func (d decoder) unmarshalKnownValue(m protoreflect.Message) error {
+
+ (d decoder) unmarshalKnownValue(m protoreflect.Message) error {
 	tok, err := d.Peek()
 	if err != nil {
 		return err
@@ -591,12 +617,13 @@ const (
 	maxSecondsInDuration = 315576000000
 )
 
-func (e encoder) marshalDuration(m protoreflect.Message) error {
+
+ (e encoder) marshalDuration(m protoreflect.Message) error {
 	fds := m.Descriptor().Fields()
 	fdSeconds := fds.ByNumber(genid.Duration_Seconds_field_number)
 	fdNanos := fds.ByNumber(genid.Duration_Nanos_field_number)
 
-	secsVal := m.Get(fdSeconds)
+sVal := m.Get(fdSeconds)
 	nanosVal := m.Get(fdNanos)
 	secs := secsVal.Int()
 	nanos := nanosVal.Int()
@@ -623,13 +650,14 @@ func (e encoder) marshalDuration(m protoreflect.Message) error {
 	return nil
 }
 
-func (d decoder) unmarshalDuration(m protoreflect.Message) error {
+
+ (d decoder) unmarshalDuration(m protoreflect.Message) error {
 	tok, err := d.Read()
 	if err != nil {
 		return err
 	}
 	if tok.Kind() != json.String {
-		return d.unexpectedTokenError(tok)
+turn d.unexpectedTokenError(tok)
 	}
 
 	secs, nanos, ok := parseDuration(tok.ParsedString())
@@ -657,7 +685,8 @@ func (d decoder) unmarshalDuration(m protoreflect.Message) error {
 // integer or fractional part. Fractional part is limited to 9 digits only for
 // nanoseconds precision, regardless of whether there are trailing zero digits.
 // Example values are 1s, 0.1s, 1.s, .1s, +1s, -1s, -.1s.
-func parseDuration(input string) (int64, int32, bool) {
+
+ parseDuration(input string) (int64, int32, bool) {
 	b := []byte(input)
 	size := len(b)
 	if size < 2 {
@@ -750,7 +779,7 @@ func parseDuration(input string) (int64, int32, bool) {
 		}
 	}
 
-	if neg {
+neg {
 		if secs > 0 {
 			secs = -secs
 		}
@@ -776,10 +805,11 @@ func parseDuration(input string) (int64, int32, bool) {
 
 const (
 	maxTimestampSeconds = 253402300799
-	minTimestampSeconds = -62135596800
+TimestampSeconds = -62135596800
 )
 
-func (e encoder) marshalTimestamp(m protoreflect.Message) error {
+
+ (e encoder) marshalTimestamp(m protoreflect.Message) error {
 	fds := m.Descriptor().Fields()
 	fdSeconds := fds.ByNumber(genid.Timestamp_Seconds_field_number)
 	fdNanos := fds.ByNumber(genid.Timestamp_Nanos_field_number)
@@ -805,7 +835,8 @@ func (e encoder) marshalTimestamp(m protoreflect.Message) error {
 	return nil
 }
 
-func (d decoder) unmarshalTimestamp(m protoreflect.Message) error {
+
+ (d decoder) unmarshalTimestamp(m protoreflect.Message) error {
 	tok, err := d.Read()
 	if err != nil {
 		return err
@@ -814,7 +845,7 @@ func (d decoder) unmarshalTimestamp(m protoreflect.Message) error {
 		return d.unexpectedTokenError(tok)
 	}
 
-	s := tok.ParsedString()
+= tok.ParsedString()
 	t, err := time.Parse(time.RFC3339Nano, s)
 	if err != nil {
 		return d.newError(tok.Pos(), "invalid %v value %v", genid.Timestamp_message_fullname, tok.RawString())
@@ -836,7 +867,7 @@ func (d decoder) unmarshalTimestamp(m protoreflect.Message) error {
 	fdNanos := fds.ByNumber(genid.Timestamp_Nanos_field_number)
 
 	m.Set(fdSeconds, protoreflect.ValueOfInt64(secs))
-	m.Set(fdNanos, protoreflect.ValueOfInt32(int32(t.Nanosecond())))
+et(fdNanos, protoreflect.ValueOfInt32(int32(t.Nanosecond())))
 	return nil
 }
 
@@ -845,7 +876,8 @@ func (d decoder) unmarshalTimestamp(m protoreflect.Message) error {
 // lower-camel naming conventions. Encoding should fail if the path name would
 // end up differently after a round-trip.
 
-func (e encoder) marshalFieldMask(m protoreflect.Message) error {
+
+ (e encoder) marshalFieldMask(m protoreflect.Message) error {
 	fd := m.Descriptor().Fields().ByNumber(genid.FieldMask_Paths_field_number)
 	list := m.Get(fd).List()
 	paths := make([]string, 0, list.Len())
@@ -867,7 +899,8 @@ func (e encoder) marshalFieldMask(m protoreflect.Message) error {
 	return nil
 }
 
-func (d decoder) unmarshalFieldMask(m protoreflect.Message) error {
+
+ (d decoder) unmarshalFieldMask(m protoreflect.Message) error {
 	tok, err := d.Read()
 	if err != nil {
 		return err

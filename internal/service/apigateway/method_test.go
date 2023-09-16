@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayMethod_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.Method
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_basic(rName),
@@ -44,8 +43,8 @@ func TestAccAPIGatewayMethod_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -66,16 +65,15 @@ func TestAccAPIGatewayMethod_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayMethod_customAuthorizer(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.Method
+func conf apigateway.Method
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_customAuthorizer(rName),
@@ -86,8 +84,8 @@ func TestAccAPIGatewayMethod_customAuthorizer(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -106,15 +104,14 @@ func TestAccAPIGatewayMethod_customAuthorizer(t *testing.T) {
 
 func TestAccAPIGatewayMethod_cognitoAuthorizer(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.Method
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_cognitoAuthorizer(rName),
@@ -136,8 +133,8 @@ func TestAccAPIGatewayMethod_cognitoAuthorizer(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -148,14 +145,13 @@ func TestAccAPIGatewayMethod_cognitoAuthorizer(t *testing.T) {
 func TestAccAPIGatewayMethod_customRequestValidator(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf apigateway.Method
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_method.test"
+funcourceName := "aws_api_gateway_method.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_customRequestValidator(rName),
@@ -165,8 +161,8 @@ func TestAccAPIGatewayMethod_customRequestValidator(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -186,13 +182,12 @@ func TestAccAPIGatewayMethod_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf apigateway.Method
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_api_gateway_method.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_basic(rName),
@@ -211,12 +206,11 @@ func TestAccAPIGatewayMethod_operationName(t *testing.T) {
 	var conf apigateway.Method
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_method.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMethodDestroy(ctx),
+		CheckDestroy:testAccCheckMethodDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMethodConfig_operationName(rName, "getTest"),
@@ -226,8 +220,8 @@ func TestAccAPIGatewayMethod_operationName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccMethodImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -248,10 +242,8 @@ func testAccCheckMethodExists(ctx context.Context, n string, v *apigateway.Metho
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway Method ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
@@ -275,10 +267,8 @@ func testAccCheckMethodDestroy(ctx context.Context) resource.TestCheckFunc {
 			if rs.Type != "aws_api_gateway_method" {
 				continue
 			}
-
-			_, err := tfapigateway.FindMethodByThreePartKey(ctx, conn, rs.Primary.Attributes["http_method"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["rest_api_id"])
-
-			if tfresource.NotFound(err) {
+func, err := tfapigateway.FindMethodByThreePartKey(ctx, conn, rs.Primary.Attributes["http_method"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["rest_api_id"])
+funcf tfresource.NotFound(err) {
 				continue
 			}
 
@@ -303,10 +293,8 @@ func testAccMethodImportStateIdFunc(resourceName string) resource.ImportStateIdF
 		return fmt.Sprintf("%s/%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.Attributes["resource_id"], rs.Primary.Attributes["http_method"]), nil
 	}
 }
-
 func testAccMethodConfig_customAuthorizer(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_api_gateway_rest_api" "test" {
+	return funcurce "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 }
 
@@ -316,16 +304,15 @@ resource "aws_iam_role" "invocation_role" {
 
   assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "apigateway.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+functatement": [
+
+n": "sts:AssumeRole",
+ipal": {
+vice": "apigateway.amazonaws.com"
+
+t": "Allow",
+ ""
+
   ]
 }
 EOF
@@ -339,11 +326,11 @@ resource "aws_iam_role_policy" "invocation_policy" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "lambda:InvokeFunction",
-      "Effect": "Allow",
-      "Resource": "${aws_lambda_function.authorizer.arn}"
-    }
+
+n": "lambda:InvokeFunction",
+t": "Allow",
+rce": "${aws_lambda_function.authorizer.arn}"
+
   ]
 }
 EOF
@@ -355,56 +342,52 @@ resource "aws_iam_role" "iam_for_lambda" {
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+  "Statement": [func
+n": "sts:AssumeRole",
+ipal": {
+vice": "lambda.amazonaws.com"
+
+t": "Allow",
+ ""
+
   ]
 }
 EOF
 }
 
 resource "aws_lambda_function" "authorizer" {
-  filename         = "test-fixtures/lambdatest.zip"
+  filenameixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
-  function_name    = %[1]q
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "exports.example"
-  runtime          = "nodejs16.x"
+  function_name%[1]q
+  role= aws_iam_role.iam_for_lambda.arn
+  handlerts.example"
+  runtimes16.x"
 }
 
 resource "aws_api_gateway_authorizer" "test" {
-  name                   = %[1]q
-  rest_api_id            = aws_api_gateway_rest_api.test.id
-  authorizer_uri         = aws_lambda_function.authorizer.invoke_arn
+  nameq
+  rest_api_idteway_rest_api.test.id
+  authorizer_uribda_function.authorizer.invoke_arn
   authorizer_credentials = aws_iam_role.invocation_role.arn
-}
-
+}func
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  functh_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "CUSTOM"
   authorizer_id = aws_api_gateway_authorizer.test.id
-
-  request_models = {
-    "application/json" = "Error"
+funcquest_models = {
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.header.Content-Type" = false
-    "method.request.querystring.page"    = true
+ethod.request.header.Content-Type" = false
+ethod.request.querystring.page" = e
   }
 }
 `, rName)
@@ -424,14 +407,13 @@ resource "aws_iam_role" "invocation_role" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "apigateway.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+
+n": "sts:AssumeRole",
+ipal": {
+func
+t": "Allow",
+ ""
+
   ]
 }
 EOF
@@ -444,14 +426,14 @@ resource "aws_iam_role" "iam_for_lambda" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+
+n": "sts:AssumeRole",
+ipal": {
+vice": "lambda.amazonaws.com"
+
+t": "Allow",
+ ""
+
   ]
 }
 EOF
@@ -462,17 +444,17 @@ resource "aws_cognito_user_pool" "pool" {
 }
 
 resource "aws_api_gateway_authorizer" "test" {
-  name            = %[1]q
-  rest_api_id     = aws_api_gateway_rest_api.test.id
+  name
+  rest_api_id aws_api_gateway_rest_api.test.id
   identity_source = "method.request.header.Authorization"
-  provider_arns   = [aws_cognito_user_pool.pool.arn]
-  type            = "COGNITO_USER_POOLS"
+  provider_arnsaws_cognito_user_pool.pool.arn]
+  typeSER_POOLS"
 }
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 `, rName)
 }
@@ -480,46 +462,44 @@ resource "aws_api_gateway_resource" "test" {
 func testAccMethodConfig_cognitoAuthorizer(rName string) string {
 	return acctest.ConfigCompose(testAccMethodConfig_cognitoAuthorizerBase(rName), `
 resource "aws_api_gateway_method" "test" {
-  rest_api_id          = aws_api_gateway_rest_api.test.id
-  resource_id          = aws_api_gateway_resource.test.id
-  http_method          = "GET"
-  authorization        = "COGNITO_USER_POOLS"
-  authorizer_id        = aws_api_gateway_authorizer.test.id
+  rest_api_idi_gateway_rest_api.test.id
+  resource_idi_gateway_resource.test.id
+  http_method
+  authorizationOGNITO_USER_POOLS"
+  authorizer_ids_api_gateway_authorizer.test.id
   authorization_scopes = ["test.read", "test.write"]
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.header.Content-Type" = false
-    "method.request.querystring.page"    = true
+ethod.request.header.Content-Type" = false
+ethod.request.querystring.page" = e
   }
-}
-`)
+func
 }
 
 func testAccMethodConfig_cognitoAuthorizerUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccMethodConfig_cognitoAuthorizerBase(rName), `
 resource "aws_api_gateway_method" "test" {
-  rest_api_id          = aws_api_gateway_rest_api.test.id
-  resource_id          = aws_api_gateway_resource.test.id
-  http_method          = "GET"
-  authorization        = "COGNITO_USER_POOLS"
-  authorizer_id        = aws_api_gateway_authorizer.test.id
+  rest_api_idi_gateway_rest_api.test.id
+  resource_idi_gateway_resource.test.id
+  http_method
+  authorizationOGNITO_USER_POOLS"
+  authorizer_ids_api_gateway_authorizer.test.id
   authorization_scopes = ["test.read", "test.write", "test.delete"]
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.querystring.page" = false
+ethod.request.querystring.page" = false
   }
 }
 `)
-}
-
+func
 func testAccMethodConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
@@ -528,23 +508,22 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
-  }
-
+pplication/json" = "Error"
+func
   request_parameters = {
-    "method.request.header.Content-Type" = false
-    "method.request.querystring.page"    = true
+ethod.request.header.Content-Type" = false
+ethod.request.querystring.page" = e
   }
 }
 `, rName)
@@ -558,22 +537,21 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
-
-  request_parameters = {
-    "method.request.querystring.page" = false
+funcquest_parameters = {
+ethod.request.querystring.page" = false
   }
 }
 `, rName)
@@ -587,13 +565,13 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_request_validator" "validator" {
-  rest_api_id                 = aws_api_gateway_rest_api.test.id
-  name                        = "paramsValidator"
+  rest_api_idaws_api_gateway_rest_api.test.id
+  namemsValidator"
   validate_request_parameters = true
 }
 `, rName)
@@ -601,19 +579,18 @@ resource "aws_api_gateway_request_validator" "validator" {
 
 func testAccMethodConfig_customRequestValidator(rName string) string {
 	return acctest.ConfigCompose(testAccMethodConfig_customRequestValidatorBase(rName), `
-resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+funcst_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.header.Content-Type" = false
-    "method.request.querystring.page"    = true
+ethod.request.header.Content-Type" = false
+ethod.request.querystring.page" = e
   }
 
   request_validator_id = aws_api_gateway_request_validator.validator.id
@@ -622,19 +599,18 @@ resource "aws_api_gateway_method" "test" {
 }
 
 func testAccMethodConfig_customRequestValidatorUpdate(rName string) string {
-	return acctest.ConfigCompose(testAccMethodConfig_customRequestValidatorBase(rName), `
-resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+funcurce "aws_api_gateway_method" "test" {
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.querystring.page" = false
+ethod.request.querystring.page" = false
   }
 }
 `)
@@ -645,28 +621,26 @@ func testAccMethodConfig_operationName(rName, operationName string) string {
 resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
 }
-
-resource "aws_api_gateway_resource" "test" {
+funcurce "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
   authorization  = "NONE"
-  http_method    = "GET"
+  http_method"GET"
   operation_name = %[2]q
-  resource_id    = aws_api_gateway_resource.test.id
-  rest_api_id    = aws_api_gateway_rest_api.test.id
+  resource_idaws_api_gateway_resource.test.id
+  rest_api_idaws_api_gateway_rest_api.test.id
 
   request_models = {
-    "application/json" = "Error"
+pplication/json" = "Error"
   }
 
   request_parameters = {
-    "method.request.header.Content-Type" = false
-    "method.request.querystring.page"    = true
-  }
+ethod.request.header.Content-Type" = false
+func
 }
 `, rName, operationName)
 }

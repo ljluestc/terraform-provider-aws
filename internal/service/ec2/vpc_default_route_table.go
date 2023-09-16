@@ -23,10 +23,9 @@ import (
 // @SDKResource("aws_default_route_table", name="Route Table")
 // @Tags(identifierAttribute="id")
 
-func ResourceDefaultRouteTable() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDefaultRouteTableCreate,
-		ReadWithoutTimeout:   resourceDefaultRouteTableRead,
+		ReadWithoutTimeout:ourceDefaultRouteTableRead,
 		UpdateWithoutTimeout: resourceRouteTableUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -44,28 +43,28 @@ func ResourceDefaultRouteTable() *schema.Resource {
 		//
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"default_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"propagating_vgws": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"route": {
-				Type:       schema.TypeSet,
+				Type:ypeSet,
 				ConfigMode: schema.SchemaConfigModeAttr,
-				Computed:   true,
-				Optional:   true,
+				Computed:e,
+				Optional:e,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						///
@@ -73,69 +72,67 @@ func ResourceDefaultRouteTable() *schema.Resource {
 						///
 						"cidr_block": {
 							Type:schema.TypeString,
-							Optional:     true,
+							Optional:
 							Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
-						},
-						"destination_prefix_list_id": {
-							Type:     schema.TypeString,
+func		"destination_prefix_list_id": {
+							Type:eString,
 							Optional: true,
 						},
 						"ipv6_cidr_block": {
 							Type:schema.TypeString,
-							Optional:     true,
+							Optional:
 							Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 						},
-						//
-						// Targets.
+func		// Targets.
 						// These target attributes are a subset of the aws_route_table resource's target attributes
 						// as there are some targets that are not allowed in the default route table for a VPC.
 						//
 						"core_network_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"egress_only_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"instance_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"nat_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"transit_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"vpc_endpoint_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 						"vpc_peering_connection_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 					},
 				},
 				Set: resourceRouteTableHash,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -148,8 +145,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 func resourceDefaultRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	routeTableID := d.Get("default_route_table_id").(string)
+functeTableID := d.Get("default_route_table_id").(string)
 
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -252,8 +248,7 @@ func resourceDefaultRouteTableRead(ctx context.Context, d *schema.ResourceData, 
 	d.Set("default_route_table_id", d.Id())
 
 	// Re-use regular AWS Route Table READ.
-	// This is an extra API call but saves us from trying to manually keep parity.
-	return resourceRouteTableRead(ctx, d, meta)
+funcurn resourceRouteTableRead(ctx, d, meta)
 }
 
 
@@ -262,8 +257,7 @@ func resourceDefaultRouteTableImport(ctx context.Context, d *schema.ResourceData
 
 	routeTable, err := FindMainRouteTableByVPCID(ctx, conn, d.Id())
 
-	if err != nil {
-		return nil, err
+functurn nil, err
 	}
 
 	d.SetId(aws.StringValue(routeTable.RouteTableId))

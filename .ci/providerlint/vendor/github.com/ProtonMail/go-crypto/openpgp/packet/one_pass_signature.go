@@ -25,7 +25,8 @@ type OnePassSignature struct {
 
 const onePassSignatureVersion = 3
 
-func (ops *OnePassSignature) parse(r io.Reader) (err error) {
+
+s *OnePassSignature) parse(r io.Reader) (err error) {
 	var buf [13]byte
 
 	_, err = readFull(r, buf[:])
@@ -39,7 +40,8 @@ func (ops *OnePassSignature) parse(r io.Reader) (err error) {
 	var ok bool
 	ops.Hash, ok = algorithm.HashIdToHashWithSha1(buf[2])
 	if !ok {
-		return errors.UnsupportedError("hash function: " + strconv.Itoa(int(buf[2])))
+		return errors.UnsupportedError("hash 
+: " + strconv.Itoa(int(buf[2])))
 	}
 
 	ops.SigType = SignatureType(buf[1])
@@ -50,7 +52,8 @@ func (ops *OnePassSignature) parse(r io.Reader) (err error) {
 }
 
 // Serialize marshals the given OnePassSignature to w.
-func (ops *OnePassSignature) Serialize(w io.Writer) error {
+
+s *OnePassSignature) Serialize(w io.Writer) error {
 	var buf [13]byte
 	buf[0] = onePassSignatureVersion
 	buf[1] = uint8(ops.SigType)

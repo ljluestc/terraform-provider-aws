@@ -18,8 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_db_instances")
-func DataSourceInstances() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstancesRead,
 
 		Schema: map[string]*schema.Schema{
@@ -40,8 +39,7 @@ func DataSourceInstances() *schema.Resource {
 }
 
 func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeDBInstancesInput{}
 
@@ -53,8 +51,7 @@ func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta i
 	if v, ok := d.GetOk("tags"); ok {
 		filter = func(x *rds.DBInstance) bool {
 			return KeyValueTags(ctx, x.TagList).ContainsAll(tftags.New(ctx, v.(map[string]interface{})))
-		}
-	}
+		}func
 
 	instances, err := findDBInstancesSDKv1(ctx, conn, input, filter)
 

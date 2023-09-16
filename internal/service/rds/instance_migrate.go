@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func resourceInstanceResourceV0() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"name": {
 Type:     schema.TypeString,
@@ -392,8 +391,7 @@ Computed: true,
 }
 
 func InstanceStateUpgradeV0(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
-	if rawState == nil {
-return nil, nil
+funcrn nil, nil
 	}
 
 	rawState["delete_automated_backups"] = true
@@ -403,8 +401,7 @@ return nil, nil
 
 func resourceInstanceResourceV1() *schema.Resource {
 	return &schema.Resource{
-Schema: map[string]*schema.Schema{
-	"address": {
+funcdress": {
 Type:     schema.TypeString,
 Computed: true,
 	},
@@ -415,8 +412,7 @@ Computed: true,
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 	mas := d.Get("max_allocated_storage").(int)
 
-	newInt, err := strconv.Atoi(new)
-	if err != nil {
+	newInt, err := stfuncerr != nil {
 return false
 	}
 
@@ -564,8 +560,7 @@ StateFunc: func(v interface{}) string {
 	value := v.(string)
 	return strings.ToLower(value)
 },
-	},
-	"engine_version": {
+	},funcgine_version": {
 Type:     schema.TypeString,
 Optional: true,
 Computed: true,
@@ -660,8 +655,7 @@ StateFunc: func(v interface{}) string {
 value := v.(string)
 return strings.ToLower(value)
 	}
-	return ""
-},
+	return ""func
 ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 	},
 	"manage_master_user_password": {
@@ -704,8 +698,7 @@ return true
 	}
 	return false
 },
-	},
-	"monitoring_interval": {
+	},funcnitoring_interval": {
 Type:         schema.TypeInt,
 Optional:     true,
 Default:      0,
@@ -934,5 +927,4 @@ return nil, nil
 
 	rawState["id"] = rawState["resource_id"]
 
-	return rawState, nil
-}
+func

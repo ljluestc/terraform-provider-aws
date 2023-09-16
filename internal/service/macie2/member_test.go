@@ -20,8 +20,8 @@ import (
 )
 
 const (
-	envVarPrincipalEmail             = "AWS_MACIE2_ACCOUNT_EMAIL"
-	envVarAlternateEmail             = "AWS_MACIE2_ALTERNATE_ACCOUNT_EMAIL"
+	envVarPrincipalEmail= "AWS_MACIE2_ACCOUNT_EMAIL"
+	envVarAlternateEmail= "AWS_MACIE2_ALTERNATE_ACCOUNT_EMAIL"
 	envVarPrincipalEmailMessageError = "Environment variable AWS_MACIE2_ACCOUNT_EMAIL is not set. " +
 		"To properly test inviting Macie member account must be provided."
 	envVarAlternateEmailMessageError = "Environment variable AWS_MACIE2_ALTERNATE_ACCOUNT_EMAIL is not set. " +
@@ -40,8 +40,8 @@ func testAccMember_basic(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckMemberDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_basic(acctest.DefaultEmailAddress),
@@ -77,8 +77,8 @@ func testAccMember_disappears(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckMemberDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_basic(acctest.DefaultEmailAddress),
@@ -104,8 +104,8 @@ func testAccMember_invitationDisableEmailNotification(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_inviteInvitationDisableEmailNotification(email, "true", true),
@@ -146,8 +146,8 @@ func testAccMember_invite(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_invite(email, false),
@@ -178,9 +178,9 @@ func testAccMember_invite(t *testing.T) {
 				),
 			},
 			{
-				Config:                  testAccMemberConfig_invite(email, true),
+				Config:     testAccMemberConfig_invite(email, true),
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
 			},
@@ -201,8 +201,8 @@ func testAccMember_inviteRemoved(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_invite(email, true),
@@ -233,9 +233,9 @@ func testAccMember_inviteRemoved(t *testing.T) {
 				),
 			},
 			{
-				Config:                  testAccMemberConfig_invite(email, false),
+				Config:     testAccMemberConfig_invite(email, false),
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
 			},
@@ -256,8 +256,8 @@ func testAccMember_status(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_status(email, macie2.MacieStatusEnabled, true),
@@ -288,9 +288,9 @@ func testAccMember_status(t *testing.T) {
 				),
 			},
 			{
-				Config:                  testAccMemberConfig_status(email, macie2.MacieStatusPaused, true),
+				Config:     testAccMemberConfig_status(email, macie2.MacieStatusPaused, true),
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
 			},
@@ -310,8 +310,8 @@ func testAccMember_withTags(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckMemberDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_tags(acctest.DefaultEmailAddress),
@@ -446,8 +446,8 @@ resource "aws_macie2_account" "member" {
 
 resource "aws_macie2_member" "member" {
   account_id         = data.aws_caller_identity.member.account_id
-  email              = %[1]q
-  invite             = %[2]t
+  email = %[1]q
+  invite= %[2]t
   invitation_message = "This is a message of the invitation"
   depends_on         = [aws_macie2_account.admin]
 }
@@ -471,12 +471,12 @@ resource "aws_macie2_account" "member" {
 }
 
 resource "aws_macie2_member" "member" {
-  account_id                            = data.aws_caller_identity.member.account_id
-  email                                 = %[1]q
+  account_id  = data.aws_caller_identity.member.account_id
+  email       = %[1]q
   invitation_disable_email_notification = %[2]q
-  invitation_message                    = "This is a message of the invitation"
-  invite                                = %[3]t
-  depends_on                            = [aws_macie2_account.admin]
+  invitation_message       = "This is a message of the invitation"
+  invite      = %[3]t
+  depends_on  = [aws_macie2_account.admin]
 }
 `, email, disable, invite))
 }
@@ -497,17 +497,17 @@ resource "aws_macie2_account" "member" {
 
 resource "aws_macie2_member" "member" {
   account_id         = data.aws_caller_identity.member.account_id
-  email              = %[1]q
-  status             = %[2]q
-  invite             = %[3]t
+  email = %[1]q
+  status= %[2]q
+  invite= %[3]t
   invitation_message = "This is a message of the invitation"
   depends_on         = [aws_macie2_account.admin]
 }
 
 resource "aws_macie2_invitation_accepter" "member" {
-  provider                 = "awsalternate"
+  provider    = "awsalternate"
   administrator_account_id = data.aws_caller_identity.admin.account_id
-  depends_on               = [aws_macie2_member.member]
+  depends_on  = [aws_macie2_member.member]
 }
 `, email, memberStatus, invite)
 }

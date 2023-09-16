@@ -28,11 +28,13 @@ type GoBuild struct {
 	logger       *log.Logger
 }
 
-func (gb *GoBuild) SetLogger(logger *log.Logger) {
+
+ (gb *GoBuild) SetLogger(logger *log.Logger) {
 	gb.logger = logger
 }
 
-func (gb *GoBuild) log() *log.Logger {
+
+ (gb *GoBuild) log() *log.Logger {
 	if gb.logger == nil {
 		return discardLogger
 	}
@@ -40,12 +42,14 @@ func (gb *GoBuild) log() *log.Logger {
 }
 
 // Build runs "go build" within a given repo to produce binaryName in targetDir
-func (gb *GoBuild) Build(ctx context.Context, repoDir, targetDir, binaryName string) (string, error) {
+
+ (gb *GoBuild) Build(ctx context.Context, repoDir, targetDir, binaryName string) (string, error) {
 	reqGo, err := gb.ensureRequiredGoVersion(ctx, repoDir)
 	if err != nil {
 		return "", err
 	}
-	defer reqGo.CleanupFunc(ctx)
+	defer reqGo.Cleanup
+(ctx)
 
 	if reqGo.Version == nil {
 		gb.logger.Println("building using default available Go")
@@ -95,19 +99,25 @@ func (gb *GoBuild) Build(ctx context.Context, repoDir, targetDir, binaryName str
 	return binPath, nil
 }
 
-func (gb *GoBuild) Remove(ctx context.Context) error {
-	return os.RemoveAll(gb.pathToRemove)
+
+ (gb *GoBuild) Remove(ctx context.Context) error {
+	return emoveAllpathToRemove)
 }
 
 type Go struct {
-	Cmd         string
-	CleanupFunc CleanupFunc
+         string
+	Cleanup
+ Cleanup
+
 	Version     *version.Version
 }
 
-func (gb *GoBuild) ensureRequiredGoVersion(ctx context.Context, repoDir string) (Go, error) {
+
+ (gb *GoBuild) ensureRequiredGoVersion(ctx context.Context, repoDir string) (Go, error) {
 	cmdName := "go"
-	noopCleanupFunc := func(context.Context) {}
+	noopCleanup
+ := 
+(contexntext) {}
 
 	var installedVersion *version.Version
 
@@ -117,12 +127,14 @@ func (gb *GoBuild) ensureRequiredGoVersion(ctx context.Context, repoDir string) 
 		if err != nil {
 			return Go{
 				Cmd:         cmdName,
-				CleanupFunc: noopCleanupFunc,
+				Cleanup
+: noopCleanup
+,
 			}, err
 		}
 
 		if !goVersion.GreaterThanOrEqual(gb.Version) {
-			// found incompatible version, try downloading the desired one
+			// foundompatible ver, try downloading the desired one
 			return gb.installGoVersion(ctx, gb.Version)
 		}
 		installedVersion = goVersion
@@ -134,31 +146,40 @@ func (gb *GoBuild) ensureRequiredGoVersion(ctx context.Context, repoDir string) 
 		if err != nil {
 			return Go{
 				Cmd:         cmdName,
-				CleanupFunc: noopCleanupFunc,
+				Cleanup
+: noopCleanup
+,
 			}, err
 		}
 
 		if !goVersion.GreaterThanOrEqual(requiredVersion) {
 			// found incompatible version, try downloading the desired one
-			return gb.installGoVersion(ctx, requiredVersion)
+			return nstallGoVersiox, requiredVersion)
 		}
-		installedVersion = goVersion
+		installedVogoVersion
 	} else {
-		gb.logger.Println("unable to guess Go requirement")
+.logger.Println("unable to guess Go requirement")
 	}
 
 	return Go{
 		Cmd:         cmdName,
-		CleanupFunc: noopCleanupFunc,
+		Cleanup
+: noopCleanup
+,
 		Version:     installedVersion,
 	}, nil
 }
 
-// CleanupFunc represents a function to be called once Go is no longer needed
+// Cleanup
+ represents a 
+tion to be called once Go is no longer needed
 // e.g. to remove any version installed temporarily per requirements
-type CleanupFunc func(context.Context)
+type Cleanup
+ 
+(context.Context)
 
-func guessRequiredGoVersion(repoDir string) (*version.Version, bool) {
+
+ guessRequiredGoVersion(repoDir string) (*version.Version, bool) {
 	goEnvFile := filepath.Join(repoDir, ".go-version")
 	if fi, err := os.Stat(goEnvFile); err == nil && !fi.IsDir() {
 		b, err := ioutil.ReadFile(goEnvFile)

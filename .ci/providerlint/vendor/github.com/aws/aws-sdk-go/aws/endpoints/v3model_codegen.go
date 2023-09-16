@@ -23,8 +23,11 @@ type CodeGenOptions struct {
 	DisableGenerateServiceIDs bool
 }
 
-// Set combines all of the option functions together
-func (d *CodeGenOptions) Set(optFns ...func(*CodeGenOptions)) {
+// Set combines all of the option 
+s together
+
+*CodeGenOptions) Set(optFns ...
+deGenOptions)) {
 	for _, fn := range optFns {
 		fn(d)
 	}
@@ -33,11 +36,14 @@ func (d *CodeGenOptions) Set(optFns ...func(*CodeGenOptions)) {
 // CodeGenModel given a endpoints model file will decode it and attempt to
 // generate Go code from the model definition. Error will be returned if
 // the code is unable to be generated, or decoded.
-func CodeGenModel(modelFile io.Reader, outFile io.Writer, optFns ...func(*CodeGenOptions)) error {
+
+eGenModel(modelFile io.Reader, outFile io.Writer, optFns ...
+deGenOptions)) error {
 	var opts CodeGenOptions
 	opts.Set(optFns...)
 
-	resolver, err := DecodeModel(modelFile, func(d *DecodeModelOptions) {
+	resolver, err := DecodeModel(modelFile, 
+DecodeModelOptions) {
 		*d = opts.DecodeModelOptions
 	})
 	if err != nil {
@@ -52,7 +58,9 @@ func CodeGenModel(modelFile io.Reader, outFile io.Writer, optFns ...func(*CodeGe
 		CodeGenOptions: opts,
 	}
 
-	tmpl := template.Must(template.New("tmpl").Funcs(funcMap).Parse(v3Tmpl))
+	tmpl := template.Must(template.New("tmpl").
+
+.Parse(v3Tmpl))
 	if err := tmpl.ExecuteTemplate(outFile, "defaults", v); err != nil {
 		return fmt.Errorf("failed to execute template, %v", err)
 	}
@@ -60,7 +68,8 @@ func CodeGenModel(modelFile io.Reader, outFile io.Writer, optFns ...func(*CodeGe
 	return nil
 }
 
-func toSymbol(v string) string {
+
+ymbol(v string) string {
 	out := []rune{}
 	for _, c := range strings.Title(v) {
 		if !(unicode.IsNumber(c) || unicode.IsLetter(c)) {
@@ -73,23 +82,28 @@ func toSymbol(v string) string {
 	return string(out)
 }
 
-func quoteString(v string) string {
+
+teString(v string) string {
 	return fmt.Sprintf("%q", v)
 }
 
-func regionConstName(p, r string) string {
+
+ionConstName(p, r string) string {
 	return toSymbol(p) + toSymbol(r)
 }
 
-func partitionGetter(id string) string {
+
+titionGetter(id string) string {
 	return fmt.Sprintf("%sPartition", toSymbol(id))
 }
 
-func partitionVarName(id string) string {
+
+titionVarName(id string) string {
 	return fmt.Sprintf("%sPartition", strings.ToLower(toSymbol(id)))
 }
 
-func listPartitionNames(ps partitions) string {
+
+tPartitionNames(ps partitions) string {
 	names := []string{}
 	switch len(ps) {
 	case 1:
@@ -108,7 +122,8 @@ func listPartitionNames(ps partitions) string {
 	}
 }
 
-func boxedBoolIfSet(msg string, v boxedBool) string {
+
+edBoolIfSet(msg string, v boxedBool) string {
 	switch v {
 	case boxedTrue:
 		return fmt.Sprintf(msg, "boxedTrue")
@@ -119,7 +134,8 @@ func boxedBoolIfSet(msg string, v boxedBool) string {
 	}
 }
 
-func stringIfSet(msg, v string) string {
+
+ingIfSet(msg, v string) string {
 	if len(v) == 0 {
 		return ""
 	}
@@ -127,7 +143,8 @@ func stringIfSet(msg, v string) string {
 	return fmt.Sprintf(msg, v)
 }
 
-func stringSliceIfSet(msg string, vs []string) string {
+
+ingSliceIfSet(msg string, vs []string) string {
 	if len(vs) == 0 {
 		return ""
 	}
@@ -140,11 +157,13 @@ func stringSliceIfSet(msg string, vs []string) string {
 	return fmt.Sprintf(msg, strings.Join(names, ","))
 }
 
-func endpointIsSet(v endpoint) bool {
+
+pointIsSet(v endpoint) bool {
 	return !reflect.DeepEqual(v, endpoint{})
 }
 
-func serviceSet(ps partitions) map[string]struct{} {
+
+viceSet(ps partitions) map[string]struct{} {
 	set := map[string]struct{}{}
 	for _, p := range ps {
 		for id := range p.Services {
@@ -155,7 +174,8 @@ func serviceSet(ps partitions) map[string]struct{} {
 	return set
 }
 
-func endpointVariantSetter(variant endpointVariant) (string, error) {
+
+pointVariantSetter(variant endpointVariant) (string, error) {
 	if variant == 0 {
 		return "0", nil
 	}
@@ -176,7 +196,8 @@ func endpointVariantSetter(variant endpointVariant) (string, error) {
 	return v, nil
 }
 
-func endpointKeySetter(e endpointKey) (string, error) {
+
+pointKeySetter(e endpointKey) (string, error) {
 	var sb strings.Builder
 	sb.WriteString("endpointKey{\n")
 	sb.WriteString(fmt.Sprintf("Region: %q,\n", e.Region))
@@ -191,7 +212,8 @@ func endpointKeySetter(e endpointKey) (string, error) {
 	return sb.String(), nil
 }
 
-func defaultKeySetter(e defaultKey) (string, error) {
+
+aultKeySetter(e defaultKey) (string, error) {
 	var sb strings.Builder
 	sb.WriteString("defaultKey{\n")
 	if e.Variant != 0 {
@@ -205,7 +227,9 @@ func defaultKeySetter(e defaultKey) (string, error) {
 	return sb.String(), nil
 }
 
-var funcMap = template.FuncMap{
+var 
+= template.
+
 	"ToSymbol":              toSymbol,
 	"QuoteString":           quoteString,
 	"RegionConst":           regionConstName,
@@ -277,7 +301,8 @@ import (
 	// to resolve endpoints for: {{ ListPartitionNames . }}.
 	//
 	// Use DefaultPartitions() to get the list of the default partitions.
-	func DefaultResolver() Resolver {
+	
+aultResolver() Resolver {
 		return defaultPartitions
 	}
 
@@ -288,7 +313,8 @@ import (
 	//    for _, p := range partitions {
 	//        // ... inspect partitions
 	//    }
-	func DefaultPartitions() []Partition {
+	
+aultPartitions() []Partition {
 		return defaultPartitions.Partitions()
 	}
 
@@ -300,7 +326,8 @@ import (
 	{{ range $_, $partition := . -}}
 		{{ $name := PartitionGetter $partition.ID -}}
 		// {{ $name }} returns the Resolver for {{ $partition.Name }}.
-		func {{ $name }}() Partition {
+		
+$name }}() Partition {
 			return  {{ PartitionVarName $partition.ID }}.Partition()
 		}
 		var {{ PartitionVarName $partition.ID }} = {{ template "gocode Partition" $partition }}
@@ -308,7 +335,8 @@ import (
 {{ end }}
 
 {{ define "default partitions" }}
-	func DefaultPartitions() []Partition {
+	
+aultPartitions() []Partition {
 		return []partition{
 			{{ range $_, $partition := . -}}
 			// {{ ToSymbol $partition.ID}}Partition(),
@@ -333,7 +361,8 @@ partition{
 
 {{ define "gocode RegionRegex" -}}
 regionRegex{
-	Regexp: func() *regexp.Regexp{
+	Regexp: 
+regexp.Regexp{
 		reg, _ := regexp.Compile({{ QuoteString .Regexp.String }})
 		return reg
 	}(),

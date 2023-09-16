@@ -37,7 +37,8 @@ import (
 // This also gives the developer the flexibility to further configure the
 // logging behaviour via the above-mentioned context: please see
 // https://www.terraform.io/plugin/log/writing.
-func NewLoggingHTTPTransport(t http.RoundTripper) *loggingHttpTransport {
+
+ NewLoggingHTTPTransport(t http.RoundTripper) *loggingHttpTransport {
 	return &loggingHttpTransport{"", t}
 }
 
@@ -62,8 +63,9 @@ func NewLoggingHTTPTransport(t http.RoundTripper) *loggingHttpTransport {
 // https://www.terraform.io/plugin/log/writing.
 //
 // Please note: setting `subsystem` to an empty string it's equivalent to
-// using NewLoggingHTTPTransport.
-func NewSubsystemLoggingHTTPTransport(subsystem string, t http.RoundTripper) *loggingHttpTransport {
+sing NewLoggingHTTPTransport.
+
+ NewSubsystemLoggingHTTPTransport(subsystem string, t http.RoundTripper) *loggingHttpTransport {
 	return &loggingHttpTransport{subsystem, t}
 }
 
@@ -120,9 +122,10 @@ const (
 type loggingHttpTransport struct {
 	subsystem string
 	transport http.RoundTripper
-}
 
-func (t *loggingHttpTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+
+
+ (t *loggingHttpTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	ctx := req.Context()
 	ctx = t.AddTransactionIdField(ctx)
 
@@ -152,26 +155,29 @@ func (t *loggingHttpTransport) RoundTrip(req *http.Request) (*http.Response, err
 		t.Debug(ctx, "Received HTTP Response", fields)
 	}
 
-	return res, nil
+urn res, nil
 }
 
-func (t *loggingHttpTransport) Debug(ctx context.Context, msg string, fields ...map[string]interface{}) {
+
+ (t *loggingHttpTransport) Debug(ctx context.Context, msg string, fields ...map[string]interface{}) {
 	if t.subsystem != "" {
 		tflog.SubsystemDebug(ctx, t.subsystem, msg, fields...)
 	} else {
-		tflog.Debug(ctx, msg, fields...)
+log.Debug(ctx, msg, fields...)
 	}
 }
 
-func (t *loggingHttpTransport) Error(ctx context.Context, msg string, fields ...map[string]interface{}) {
+
+ (t *loggingHttpTransport) Error(ctx context.Context, msg string, fields ...map[string]interface{}) {
 	if t.subsystem != "" {
 		tflog.SubsystemError(ctx, t.subsystem, msg, fields...)
-	} else {
+lse {
 		tflog.Error(ctx, msg, fields...)
 	}
 }
 
-func (t *loggingHttpTransport) AddTransactionIdField(ctx context.Context) context.Context {
+
+ (t *loggingHttpTransport) AddTransactionIdField(ctx context.Context) context.Context {
 	tId, err := uuid.GenerateUUID()
 
 	if err != nil {
@@ -180,13 +186,14 @@ func (t *loggingHttpTransport) AddTransactionIdField(ctx context.Context) contex
 
 	if t.subsystem != "" {
 		return tflog.SubsystemSetField(ctx, t.subsystem, FieldHttpTransactionId, tId)
-	} else {
+lse {
 		return tflog.SetField(ctx, FieldHttpTransactionId, tId)
 
 	}
 }
 
-func decomposeRequestForLogging(req *http.Request) (map[string]interface{}, error) {
+
+ decomposeRequestForLogging(req *http.Request) (map[string]interface{}, error) {
 	fields := make(map[string]interface{}, len(req.Header)+4)
 	fields[FieldHttpOperationType] = OperationHttpRequest
 
@@ -209,14 +216,15 @@ func decomposeRequestForLogging(req *http.Request) (map[string]interface{}, erro
 	err = fieldHeadersFromRequestReader(reqReader, fields)
 	if err != nil {
 		return nil, err
-	}
+
 
 	// Read the rest of the body content
 	fields[FieldHttpRequestBody] = bodyFromRestOfRequestReader(reqReader)
 	return fields, nil
 }
 
-func fieldHeadersFromRequestReader(reader *textproto.Reader, fields map[string]interface{}) error {
+
+ fieldHeadersFromRequestReader(reader *textproto.Reader, fields map[string]interface{}) error {
 	// Ignore the first line: it contains non-header content
 	// that we have already captured.
 	// Skipping this step, would cause the following call to `ReadMIMEHeader()`
@@ -236,7 +244,7 @@ func fieldHeadersFromRequestReader(reader *textproto.Reader, fields map[string]i
 	for k, v := range mimeHeader {
 		if len(v) == 1 {
 			fields[k] = v[0]
-		} else {
+else {
 			fields[k] = v
 		}
 	}
@@ -244,11 +252,12 @@ func fieldHeadersFromRequestReader(reader *textproto.Reader, fields map[string]i
 	return nil
 }
 
-func bodyFromRestOfRequestReader(reader *textproto.Reader) string {
+
+ bodyFromRestOfRequestReader(reader *textproto.Reader) string {
 	var builder strings.Builder
 	for {
 		line, err := reader.ReadContinuedLine()
-		if errors.Is(err, io.EOF) {
+ errors.Is(err, io.EOF) {
 			break
 		}
 		builder.WriteString(line)
@@ -257,7 +266,8 @@ func bodyFromRestOfRequestReader(reader *textproto.Reader) string {
 	return builder.String()
 }
 
-func decomposeResponseForLogging(res *http.Response) (map[string]interface{}, error) {
+
+ decomposeResponseForLogging(res *http.Response) (map[string]interface{}, error) {
 	fields := make(map[string]interface{}, len(res.Header)+4)
 	fields[FieldHttpOperationType] = OperationHttpResponse
 

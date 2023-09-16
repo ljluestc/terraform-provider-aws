@@ -23,6 +23,8 @@ import (
 // @SDKResource("aws_connect_phone_number", name="Phone Number")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourcePhoneNumber() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePhoneNumberCreate,
@@ -48,6 +50,8 @@ func ResourcePhoneNumber() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringInSlice(connect.PhoneNumberCountryCode_Values(), false),
 			},
 			"description": {
@@ -55,6 +59,8 @@ func: validation.StringInSlice(connect.PhoneNumberCountryCode_Values(), false),
 				Optional:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 500),
 			},
 			"phone_number": {
@@ -66,6 +72,8 @@ func: validation.StringLenBetween(1, 500),
 				Optional:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validPhoneNumberPrefix,
 			},
 			"status": {
@@ -88,6 +96,8 @@ func: validPhoneNumberPrefix,
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: verify.ValidARN,
 			},
 			"type": {
@@ -95,6 +105,8 @@ func: verify.ValidARN,
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringInSlice(connect.PhoneNumberType_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -102,6 +114,8 @@ func: validation.StringInSlice(connect.PhoneNumberType_Values(), false),
 		},
 	}
 }
+
+
 
 
 func resourcePhoneNumberCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -171,6 +185,8 @@ func resourcePhoneNumberCreate(ctx context.Context, d *schema.ResourceData, meta
 }
 
 
+
+
 func resourcePhoneNumberRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -213,6 +229,8 @@ func resourcePhoneNumberRead(ctx context.Context, d *schema.ResourceData, meta i
 }
 
 
+
+
 func resourcePhoneNumberUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -243,6 +261,8 @@ func resourcePhoneNumberUpdate(ctx context.Context, d *schema.ResourceData, meta
 }
 
 
+
+
 func resourcePhoneNumberDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -268,6 +288,8 @@ func resourcePhoneNumberDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
+
+
 
 
 func flattenPhoneNumberStatus(apiObject *connect.PhoneNumberStatus) []interface{} {

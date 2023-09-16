@@ -21,8 +21,7 @@ import (
 )
 
 // @SDKResource("aws_db_proxy_target")
-func ResourceProxyTarget() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceProxyTargetCreate,
 		ReadWithoutTimeout:   resourceProxyTargetRead,
 		DeleteWithoutTimeout: resourceProxyTargetDelete,
@@ -93,8 +92,7 @@ func ResourceProxyTarget() *schema.Resource {
 }
 
 func resourceProxyTargetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	dbProxyName := d.Get("db_proxy_name").(string)
 	targetGroupName := d.Get("target_group_name").(string)
@@ -114,8 +112,7 @@ func resourceProxyTargetCreate(ctx context.Context, d *schema.ResourceData, meta
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, 5*time.Minute,
 		func() (interface{}, error) {
 			return conn.RegisterDBProxyTargetsWithContext(ctx, input)
-		},
-		rds.ErrCodeInvalidDBInstanceStateFault, "CREATING")
+		funcs.ErrCodeInvalidDBInstanceStateFault, "CREATING")
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "registering RDS DB Proxy (%s/%s) Target: %s", dbProxyName, targetGroupName, err)
 	}
@@ -130,8 +127,7 @@ func resourceProxyTargetCreate(ctx context.Context, d *schema.ResourceData, meta
 func ProxyTargetParseID(id string) (string, string, string, string, error) {
 	idParts := strings.SplitN(id, "/", 4)
 	if len(idParts) != 4 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" || idParts[3] == "" {
-		return "", "", "", "", fmt.Errorf("unexpected format of ID (%s), expected db_proxy_name/target_group_name/type/id", id)
-	}
+func
 	return idParts[0], idParts[1], idParts[2], idParts[3], nil
 }
 
@@ -139,8 +135,7 @@ func resourceProxyTargetRead(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	dbProxyName, targetGroupName, targetType, rdsResourceId, err := ProxyTargetParseID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "reading RDS Proxy Target (%s): %s", d.Id(), err)
 	}
 
@@ -191,8 +186,7 @@ func resourceProxyTargetDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	params := rds.DeregisterDBProxyTargetsInput{
-		DBProxyName:     aws.String(d.Get("db_proxy_name").(string)),
-		TargetGroupName: aws.String(d.Get("target_group_name").(string)),
+funcrgetGroupName: aws.String(d.Get("target_group_name").(string)),
 	}
 
 	if v, ok := d.GetOk("db_instance_identifier"); ok {

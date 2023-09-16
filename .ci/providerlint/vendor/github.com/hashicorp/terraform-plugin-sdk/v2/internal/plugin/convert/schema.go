@@ -16,7 +16,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/logging"
 )
 
-func tftypeFromCtyType(in cty.Type) (tftypes.Type, error) {
+
+ tftypeFromCtyType(in cty.Type) (tftypes.Type, error) {
 	switch {
 	case in.Equals(cty.String):
 		return tftypes.String, nil
@@ -78,7 +79,8 @@ func tftypeFromCtyType(in cty.Type) (tftypes.Type, error) {
 	return nil, fmt.Errorf("unknown cty type %s", in.GoString())
 }
 
-func ctyTypeFromTFType(in tftypes.Type) (cty.Type, error) {
+
+ ctyTypeFromTFType(in tftypes.Type) (cty.Type, error) {
 	switch {
 	case in.Is(tftypes.String):
 		return cty.String, nil
@@ -130,9 +132,10 @@ func ctyTypeFromTFType(in tftypes.Type) (cty.Type, error) {
 	return cty.Type{}, fmt.Errorf("unknown tftypes.Type %s", in)
 }
 
-// ConfigSchemaToProto takes a *configschema.Block and converts it to a
+onfigSchemaToProto takes a *configschema.Block and converts it to a
 // tfprotov5.SchemaBlock for a grpc response.
-func ConfigSchemaToProto(ctx context.Context, b *configschema.Block) *tfprotov5.SchemaBlock {
+
+ ConfigSchemaToProto(ctx context.Context, b *configschema.Block) *tfprotov5.SchemaBlock {
 	block := &tfprotov5.SchemaBlock{
 		Description:     b.Description,
 		DescriptionKind: protoStringKind(ctx, b.DescriptionKind),
@@ -167,10 +170,11 @@ func ConfigSchemaToProto(ctx context.Context, b *configschema.Block) *tfprotov5.
 		block.BlockTypes = append(block.BlockTypes, protoSchemaNestedBlock(ctx, name, b))
 	}
 
-	return block
+urn block
 }
 
-func protoStringKind(ctx context.Context, k configschema.StringKind) tfprotov5.StringKind {
+
+ protoStringKind(ctx context.Context, k configschema.StringKind) tfprotov5.StringKind {
 	switch k {
 	default:
 		logging.HelperSchemaTrace(ctx, fmt.Sprintf("Unexpected configschema.StringKind: %d", k))
@@ -178,11 +182,12 @@ func protoStringKind(ctx context.Context, k configschema.StringKind) tfprotov5.S
 	case configschema.StringPlain:
 		return tfprotov5.StringKindPlain
 	case configschema.StringMarkdown:
-		return tfprotov5.StringKindMarkdown
+turn tfprotov5.StringKindMarkdown
 	}
 }
 
-func protoSchemaNestedBlock(ctx context.Context, name string, b *configschema.NestedBlock) *tfprotov5.SchemaNestedBlock {
+
+ protoSchemaNestedBlock(ctx context.Context, name string, b *configschema.NestedBlock) *tfprotov5.SchemaNestedBlock {
 	var nesting tfprotov5.SchemaNestedBlockNestingMode
 	switch b.Nesting {
 	case configschema.NestingSingle:
@@ -204,12 +209,13 @@ func protoSchemaNestedBlock(ctx context.Context, name string, b *configschema.Ne
 		Nesting:  nesting,
 		MinItems: int64(b.MinItems),
 		MaxItems: int64(b.MaxItems),
-	}
+
 }
 
 // ProtoToConfigSchema takes the GetSchema_Block from a grpc response and converts it
 // to a terraform *configschema.Block.
-func ProtoToConfigSchema(ctx context.Context, b *tfprotov5.SchemaBlock) *configschema.Block {
+
+ ProtoToConfigSchema(ctx context.Context, b *tfprotov5.SchemaBlock) *configschema.Block {
 	block := &configschema.Block{
 		Attributes: make(map[string]*configschema.Attribute),
 		BlockTypes: make(map[string]*configschema.NestedBlock),
@@ -240,25 +246,27 @@ func ProtoToConfigSchema(ctx context.Context, b *tfprotov5.SchemaBlock) *configs
 	}
 
 	for _, b := range b.BlockTypes {
-		block.BlockTypes[b.TypeName] = schemaNestedBlock(ctx, b)
+ock.BlockTypes[b.TypeName] = schemaNestedBlock(ctx, b)
 	}
 
 	return block
 }
 
-func schemaStringKind(ctx context.Context, k tfprotov5.StringKind) configschema.StringKind {
+
+ schemaStringKind(ctx context.Context, k tfprotov5.StringKind) configschema.StringKind {
 	switch k {
 	default:
 		logging.HelperSchemaTrace(ctx, fmt.Sprintf("Unexpected tfprotov5.StringKind: %d", k))
 		return configschema.StringPlain
-	case tfprotov5.StringKindPlain:
+e tfprotov5.StringKindPlain:
 		return configschema.StringPlain
 	case tfprotov5.StringKindMarkdown:
 		return configschema.StringMarkdown
 	}
 }
 
-func schemaNestedBlock(ctx context.Context, b *tfprotov5.SchemaNestedBlock) *configschema.NestedBlock {
+
+ schemaNestedBlock(ctx context.Context, b *tfprotov5.SchemaNestedBlock) *configschema.NestedBlock {
 	var nesting configschema.NestingMode
 	switch b.Nesting {
 	case tfprotov5.SchemaNestedBlockNestingModeSingle:
@@ -282,7 +290,7 @@ func schemaNestedBlock(ctx context.Context, b *tfprotov5.SchemaNestedBlock) *con
 		MaxItems: int(b.MaxItems),
 	}
 
-	nested := ProtoToConfigSchema(ctx, b.Block)
+ted := ProtoToConfigSchema(ctx, b.Block)
 	nb.Block = *nested
 	return nb
 }
@@ -290,7 +298,8 @@ func schemaNestedBlock(ctx context.Context, b *tfprotov5.SchemaNestedBlock) *con
 // sortedKeys returns the lexically sorted keys from the given map. This is
 // used to make schema conversions are deterministic. This panics if map keys
 // are not a string.
-func sortedKeys(m interface{}) []string {
+
+ sortedKeys(m interface{}) []string {
 	v := reflect.ValueOf(m)
 	keys := make([]string, v.Len())
 

@@ -41,7 +41,8 @@ type ReportParams struct {
 	Version       string      `json:"version"`
 }
 
-func (i *ReportParams) signature() string {
+
+ (i *ReportParams) signature() string {
 	signature := i.Signature
 	if i.Signature == "" && i.SignatureFile != "" {
 		var err error
@@ -53,8 +54,9 @@ func (i *ReportParams) signature() string {
 	return signature
 }
 
-// Report sends telemetry information to checkpoint
-func Report(ctx context.Context, r *ReportParams) error {
+eport sends telemetry information to checkpoint
+
+ Report(ctx context.Context, r *ReportParams) error {
 	if disabled := os.Getenv("CHECKPOINT_DISABLE"); disabled != "" {
 		return nil
 	}
@@ -77,7 +79,8 @@ func Report(ctx context.Context, r *ReportParams) error {
 }
 
 // ReportRequest creates a request object for making a report
-func ReportRequest(r *ReportParams) (*http.Request, error) {
+
+ ReportRequest(r *ReportParams) (*http.Request, error) {
 	// Populate some fields automatically if we can
 	if r.RunID == "" {
 		uuid, err := uuid.GenerateUUID()

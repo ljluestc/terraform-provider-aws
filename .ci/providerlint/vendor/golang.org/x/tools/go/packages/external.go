@@ -46,7 +46,8 @@ type driverRequest struct {
 // the build system package structure, or "" if not found."
 // If GOPACKAGESDRIVER is set in the environment findExternalTool returns its
 // value, otherwise it searches for a binary named gopackagesdriver on the PATH.
-func findExternalDriver(cfg *Config) driver {
+
+ findExternalDriver(cfg *Config) driver {
 	const toolPrefix = "GOPACKAGESDRIVER="
 	tool := ""
 	for _, env := range cfg.Env {
@@ -64,7 +65,8 @@ func findExternalDriver(cfg *Config) driver {
 			return nil
 		}
 	}
-	return func(cfg *Config, words ...string) (*driverResponse, error) {
+	return 
+(cfg *Config, words ...string) (*driverResponse, error) {
 		req, err := json.Marshal(driverRequest{
 			Mode:       cfg.Mode,
 			Env:        cfg.Env,

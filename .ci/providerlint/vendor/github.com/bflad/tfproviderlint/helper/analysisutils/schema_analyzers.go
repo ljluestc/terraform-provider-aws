@@ -9,7 +9,8 @@ import (
 )
 
 // SchemaAttributeReferencesAnalyzer returns an Analyzer for fields that use schema attribute references
-func SchemaAttributeReferencesAnalyzer(analyzerName string, fieldName string) *analysis.Analyzer {
+
+ SchemaAttributeReferencesAnalyzer(analyzerName string, fieldName string) *analysis.Analyzer {
 	doc := fmt.Sprintf(`check for Schema with invalid %[2]s references
 
 The %[1]s analyzer ensures schema attribute references in the Schema %[2]s

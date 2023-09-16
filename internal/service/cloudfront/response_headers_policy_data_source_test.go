@@ -21,10 +21,10 @@ func TestAccCloudFrontResponseHeadersPolicyDataSource_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_response_headers_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicKeyDestroy(ctx),
+		CheckDestroy:ublicKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResponseHeadersPolicyDataSourceConfig_basic(rName),
@@ -153,7 +153,7 @@ resource "aws_cloudfront_response_headers_policy" "test" {
   security_headers_config {
     content_security_policy {
       content_security_policy = "policy1"
-      override                = true
+      override
     }
 
     frame_options {
@@ -163,8 +163,8 @@ resource "aws_cloudfront_response_headers_policy" "test" {
 
     strict_transport_security {
       access_control_max_age_sec = 90
-      override                   = true
-      preload                    = true
+      override
+      preload
     }
   }
 

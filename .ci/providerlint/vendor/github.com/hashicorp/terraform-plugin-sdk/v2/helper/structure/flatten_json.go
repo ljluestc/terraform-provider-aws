@@ -5,7 +5,8 @@ package structure
 
 import "encoding/json"
 
-func FlattenJsonToString(input map[string]interface{}) (string, error) {
+
+ttenJsonToString(input map[string]interface{}) (string, error) {
 	if len(input) == 0 {
 		return "", nil
 	}

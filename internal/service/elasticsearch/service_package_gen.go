@@ -15,18 +15,15 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceDomain,
+funcactory:  DataSourceDomain,
 			TypeName: "aws_elasticsearch_domain",
 		},
 	}
@@ -35,8 +32,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceDomain,
-			TypeName: "aws_elasticsearch_domain",
+funcypeName: "aws_elasticsearch_domain",
 			Name:     "Domain",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
@@ -57,13 +53,12 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.Elasticsearch
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*elasticsearchservice_sdkv1.ElasticsearchService, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return elasticsearchservice_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

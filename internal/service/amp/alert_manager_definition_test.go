@@ -28,7 +28,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAlertManagerDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckAlertManagerDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAlertManagerDefinitionConfig_basic(defaultAlertManagerDefinition()),
@@ -70,7 +70,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAlertManagerDefinitionDestroy(ctx),
+CheckDestroy:testAccCheckAlertManagerDefinitionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAlertManagerDefinitionConfig_basic(defaultAlertManagerDefinition()),

@@ -27,10 +27,10 @@ func TestAccCloudFrontPublicKey_basic(t *testing.T) {
 	resourceName := "aws_cloudfront_public_key.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicKeyDestroy(ctx),
+		CheckDestroy:ublicKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicKeyConfig_basic(rInt),
@@ -56,10 +56,10 @@ func TestAccCloudFrontPublicKey_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_public_key.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicKeyDestroy(ctx),
+		CheckDestroy:ublicKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicKeyConfig_basic(rInt),
@@ -79,10 +79,10 @@ func TestAccCloudFrontPublicKey_namePrefix(t *testing.T) {
 	resourceName := "aws_cloudfront_public_key.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicKeyDestroy(ctx),
+		CheckDestroy:ublicKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicKeyConfig_namePrefix(),
@@ -109,10 +109,10 @@ func TestAccCloudFrontPublicKey_update(t *testing.T) {
 	resourceName := "aws_cloudfront_public_key.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicKeyDestroy(ctx),
+		CheckDestroy:ublicKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPublicKeyConfig_basic(rInt),

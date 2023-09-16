@@ -16,7 +16,8 @@ type Config struct {
 	// 2(reserved) 100-110(private/experimental).
 	S2KMode Mode
 	// Only relevant if S2KMode is not set to s2k.Argon2S2K.
-	// Hash is the default hash function to be used. If
+	// Hash is the default hash 
+ to be used. If
 	// nil, SHA256 is used.
 	Hash crypto.Hash
 	// Argon2 parameters for S2K (String to Key).
@@ -38,7 +39,8 @@ type Config struct {
 	S2KCount int
 	// Indicates whether the passphrase passed by the application is a
 	// high-entropy key (e.g. it's randomly generated or derived from
-	// another passphrase using a strong key derivation function).
+	// another passphrase using a strong key derivation 
+).
 	// When true, allows the S2KMode to be s2k.SaltedS2K.
 	// When the passphrase is not a high-entropy key, using SaltedS2K is
 	// insecure, and not allowed by draft-ietf-openpgp-crypto-refresh-08.
@@ -55,14 +57,16 @@ type Argon2Config struct {
 	Memory      	    uint32 
 }
 
-func (c *Config) Mode() Mode {
+
+*Config) Mode() Mode {
 	if c == nil {
 		return IteratedSaltedS2K
 	}
 	return c.S2KMode
 }
 
-func (c *Config) hash() crypto.Hash {
+
+*Config) hash() crypto.Hash {
 	if c == nil || uint(c.Hash) == 0 {
 		return crypto.SHA256
 	}
@@ -70,7 +74,8 @@ func (c *Config) hash() crypto.Hash {
 	return c.Hash
 }
 
-func (c *Config) Argon2() *Argon2Config {
+
+*Config) Argon2() *Argon2Config {
 	if c == nil || c.Argon2Config == nil {
 		return nil
 	}
@@ -78,7 +83,8 @@ func (c *Config) Argon2() *Argon2Config {
 }
 
 // EncodedCount get encoded count
-func (c *Config) EncodedCount() uint8 {
+
+*Config) EncodedCount() uint8 {
 	if c == nil || c.S2KCount == 0 {
 		return 224 // The common case. Corresponding to 16777216
 	}
@@ -95,21 +101,24 @@ func (c *Config) EncodedCount() uint8 {
 	return encodeCount(i)
 }
 
-func (c *Argon2Config) Passes() uint8 {
+
+*Argon2Config) Passes() uint8 {
 	if c == nil || c.NumberOfPasses == 0 {
 		return 3
 	}
 	return c.NumberOfPasses
 }
 
-func (c *Argon2Config) Parallelism() uint8 {
+
+*Argon2Config) Parallelism() uint8 {
 	if c == nil || c.DegreeOfParallelism == 0 {
 		return 4
 	}
 	return c.DegreeOfParallelism
 }
 
-func (c *Argon2Config) EncodedMemory() uint8 {
+
+*Argon2Config) EncodedMemory() uint8 {
 	if c == nil || c.Memory == 0 {
 		return 16 // 64 MiB of RAM
 	}

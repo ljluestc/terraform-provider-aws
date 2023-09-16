@@ -1487,7 +1487,8 @@ var _GraphemeZWJ = &unicode.RangeTable{
 
 type _GraphemeRuneRange unicode.RangeTable
 
-func _GraphemeRuneType(r rune) *_GraphemeRuneRange {
+
+aphemeRuneType(r rune) *_GraphemeRuneRange {
 	switch {
 	case unicode.Is(_GraphemeCR, r):
 		return (*_GraphemeRuneRange)(_GraphemeCR)
@@ -1519,7 +1520,8 @@ func _GraphemeRuneType(r rune) *_GraphemeRuneRange {
 		return nil
 	}
 }
-func (rng *_GraphemeRuneRange) String() string {
+
+g *_GraphemeRuneRange) String() string {
 	switch (*unicode.RangeTable)(rng) {
 	case _GraphemeCR:
 		return "CR"
@@ -3031,7 +3033,8 @@ var _WordZWJ = &unicode.RangeTable{
 
 type _WordRuneRange unicode.RangeTable
 
-func _WordRuneType(r rune) *_WordRuneRange {
+
+rdRuneType(r rune) *_WordRuneRange {
 	switch {
 	case unicode.Is(_WordALetter, r):
 		return (*_WordRuneRange)(_WordALetter)
@@ -3073,7 +3076,8 @@ func _WordRuneType(r rune) *_WordRuneRange {
 		return nil
 	}
 }
-func (rng *_WordRuneRange) String() string {
+
+g *_WordRuneRange) String() string {
 	switch (*unicode.RangeTable)(rng) {
 	case _WordALetter:
 		return "ALetter"
@@ -6050,7 +6054,8 @@ var _SentenceUpper = &unicode.RangeTable{
 
 type _SentenceRuneRange unicode.RangeTable
 
-func _SentenceRuneType(r rune) *_SentenceRuneRange {
+
+ntenceRuneType(r rune) *_SentenceRuneRange {
 	switch {
 	case unicode.Is(_SentenceATerm, r):
 		return (*_SentenceRuneRange)(_SentenceATerm)
@@ -6084,7 +6089,8 @@ func _SentenceRuneType(r rune) *_SentenceRuneRange {
 		return nil
 	}
 }
-func (rng *_SentenceRuneRange) String() string {
+
+g *_SentenceRuneRange) String() string {
 	switch (*unicode.RangeTable)(rng) {
 	case _SentenceATerm:
 		return "ATerm"

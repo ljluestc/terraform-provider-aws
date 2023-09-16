@@ -12,6 +12,7 @@ type ParserError struct {
 	Detail  string
 }
 
-func (pe *ParserError) Error() string {
+
+ *ParserError) Error() string {
 	return fmt.Sprintf("%s: %s", pe.Summary, pe.Detail)
 }

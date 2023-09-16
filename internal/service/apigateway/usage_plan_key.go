@@ -21,16 +21,14 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_usage_plan_key")
-func ResourceUsagePlanKey() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceUsagePlanKeyCreate,
-		ReadWithoutTimeout:   resourceUsagePlanKeyRead,
+		ReadWithoutTimeout:ourceUsagePlanKeyRead,
 		DeleteWithoutTimeout: resourceUsagePlanKeyDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+				idParts := stfuncif len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected USAGE-PLAN-ID/USAGE-PLAN-KEY-ID", d.Id())
 				}
 				usagePlanId := idParts[0]
@@ -44,26 +42,26 @@ func ResourceUsagePlanKey() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"key_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"key_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"usage_plan_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"value": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},
@@ -72,11 +70,10 @@ func ResourceUsagePlanKey() *schema.Resource {
 
 func resourceUsagePlanKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.CreateUsagePlanKeyInput{
-		KeyId:       aws.String(d.Get("key_id").(string)),
-		KeyType:     aws.String(d.Get("key_type").(string)),
+		KeyId:tring(d.Get("key_id").(string)),
+		KeyType:ws.String(d.Get("key_type").(string)),
 		UsagePlanId: aws.String(d.Get("usage_plan_id").(string)),
 	}
 
@@ -94,8 +91,7 @@ func resourceUsagePlanKeyCreate(ctx context.Context, d *schema.ResourceData, met
 func resourceUsagePlanKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	upk, err := FindUsagePlanKeyByTwoPartKey(ctx, conn, d.Get("usage_plan_id").(string), d.Get("key_id").(string))
+func, err := FindUsagePlanKeyByTwoPartKey(ctx, conn, d.Get("usage_plan_id").(string), d.Get("key_id").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Usage Plan Key (%s) not found, removing from state", d.Id())
@@ -118,9 +114,8 @@ func resourceUsagePlanKeyDelete(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	log.Printf("[DEBUG] Deleting API Gateway Usage Plan Key: %s", d.Id())
-	_, err := conn.DeleteUsagePlanKeyWithContext(ctx, &apigateway.DeleteUsagePlanKeyInput{
-		KeyId:       aws.String(d.Get("key_id").(string)),
+funcerr := conn.DeleteUsagePlanKeyWithContext(ctx, &apigateway.DeleteUsagePlanKeyInput{
+		KeyId:tring(d.Get("key_id").(string)),
 		UsagePlanId: aws.String(d.Get("usage_plan_id").(string)),
 	})
 
@@ -137,15 +132,14 @@ func resourceUsagePlanKeyDelete(ctx context.Context, d *schema.ResourceData, met
 
 func FindUsagePlanKeyByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, usagePlanID, keyID string) (*apigateway.UsagePlanKey, error) {
 	input := &apigateway.GetUsagePlanKeyInput{
-		KeyId:       aws.String(keyID),
+		KeyId:tring(keyID),
 		UsagePlanId: aws.String(usagePlanID),
 	}
-
-	output, err := conn.GetUsagePlanKeyWithContext(ctx, input)
+funcput, err := conn.GetUsagePlanKeyWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

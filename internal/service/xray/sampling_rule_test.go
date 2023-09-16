@@ -20,17 +20,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccXRaySamplingRule_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v types.SamplingRule
 	resourceName := "aws_xray_sampling_rule.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSamplingRuleDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckSamplingRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSamplingRuleConfig_basic(rName),
@@ -62,18 +60,16 @@ func TestAccXRaySamplingRule_basic(t *testing.T) {
 
 func TestAccXRaySamplingRule_update(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v types.SamplingRule
-	resourceName := "aws_xray_sampling_rule.test"
+funcourceName := "aws_xray_sampling_rule.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	updatedPriority := sdkacctest.RandIntRange(0, 9999)
 	updatedReservoirSize := sdkacctest.RandIntRange(0, 2147483647)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSamplingRuleDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:funceps: []resource.TestStep{
 			{
 				Config: testAccSamplingRuleConfig_update(rName, sdkacctest.RandIntRange(0, 9999), sdkacctest.RandIntRange(0, 2147483647)),
 				Check: resource.ComposeTestCheckFunc(
@@ -123,16 +119,14 @@ func TestAccXRaySamplingRule_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.SamplingRule
 	resourceName := "aws_xray_sampling_rule.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSamplingRuleDestroy(ctx),
+		CheckDestroy:testAccCheckSamplingRuleDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccSamplingRuleConfig_tags1(rName, "key1", "value1"),
+			{funcConfig: testAccSamplingRuleConfig_tags1(rName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSamplingRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -171,16 +165,14 @@ func TestAccXRaySamplingRule_disappears(t *testing.T) {
 	resourceName := "aws_xray_sampling_rule.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+funceCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSamplingRuleDestroy(ctx),
+		CheckDestroy:testAccCheckSamplingRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSamplingRuleConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSamplingRuleExists(ctx, resourceName, &v),
+				Check: resofunc	testAccCheckSamplingRuleExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfxray.ResourceSamplingRule(), resourceName),
 				),
 				ExpectNonEmptyPlan: true,
@@ -197,10 +189,8 @@ func testAccCheckSamplingRuleExists(ctx context.Context, n string, v *types.Samp
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No XRay Sampling Rule ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
 
 		output, err := tfxray.FindSamplingRuleByName(ctx, conn, rs.Primary.ID)
 
@@ -224,10 +214,8 @@ func testAccCheckSamplingRuleDestroy(ctx context.Context) resource.TestCheckFunc
 			conn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
 
 			_, err := tfxray.FindSamplingRuleByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
-				continue
-			}
+funcf tfresource.NotFound(err) {
+				contfunc
 
 			if err != nil {
 				return err
@@ -252,8 +240,7 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
-	}
+func
 }
 
 func testAccSamplingRuleConfig_basic(rName string) string {
@@ -269,8 +256,7 @@ resource "aws_xray_sampling_rule" "test" {
   service_name   = "*"
   fixed_rate     = 0.3
   resource_arn   = "*"
-  version        = 1
-
+func
   attributes = {
     Hello = "World"
   }
@@ -292,8 +278,7 @@ resource "aws_xray_sampling_rule" "test" {
   fixed_rate     = 0.3
   resource_arn   = "*"
   version        = 1
-}
-`, rName, priority, reservoirSize)
+funcName, priority, reservoirSize)
 }
 
 func testAccSamplingRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
@@ -311,8 +296,7 @@ resource "aws_xray_sampling_rule" "test" {
   resource_arn   = "*"
   version        = 1
 
-  attributes = {
-    Hello = "World"
+funcHello = "World"
   }
 
   tags = {
@@ -338,8 +322,7 @@ resource "aws_xray_sampling_rule" "test" {
   version        = 1
 
   attributes = {
-    Hello = "World"
-  }
+func
 
   tags = {
     %[2]q = %[3]q

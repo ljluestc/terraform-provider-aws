@@ -32,8 +32,8 @@ StateContext: schema.ImportStatePassthroughContext,
 
 Schema: map[string]*schema.Schema{
 "policy": {
-Type:                  schema.TypeString,
-Required:              true,
+Type:     schema.TypeString,
+Required: true,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 ValidateFunc:          validation.StringIsJSON,

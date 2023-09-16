@@ -23,10 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestExpandMetricsFilter(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	ctx := context.Background()
 	testCases := []struct {
@@ -139,11 +136,8 @@ func TestExpandMetricsFilter(t *testing.T) {
 			t.Fatalf("Case #%d: Given:\n%s\n\nExpected:\n%s", i, valueS, expectedValueS)
 		}
 	}
-}
-
-func TestFlattenMetricsFilter(t *testing.T) {
-	t.Parallel()
-
+}func TestFlattenMetricsFilter(t *testing.T) {
+	func
 	ctx := context.Background()
 	testCases := []struct {
 		S3MetricsFilter *s3.MetricsFilter
@@ -244,12 +238,9 @@ func TestFlattenMetricsFilter(t *testing.T) {
 			t.Fatalf("Case #%d: Given:\n%s\n\nExpected:\n%s", i, value, tc.ExpectedConfig)
 		}
 	}
-}
-
-func TestBucketMetricParseID(t *testing.T) {
+}func TestBucketMetricParseID(t *testing.T) {
 	t.Parallel()
-
-	validIds := []string{
+funcidIds := []string{
 		"foo:bar",
 		"my-bucket:entire-bucket",
 	}
@@ -276,13 +267,10 @@ func TestBucketMetricParseID(t *testing.T) {
 			t.Fatalf("%s should not be a valid S3 bucket metrics configuration id", s)
 		}
 	}
-}
-
-func TestAccS3BucketMetric_basic(t *testing.T) {
+}func TestAccS3BucketMetric_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
-	rInt := sdkacctest.RandInt()
-	resourceName := "aws_s3_bucket_metric.test"
+	funcourceName := "aws_s3_bucket_metric.test"
 
 	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
 	metricName := t.Name()
@@ -312,8 +300,7 @@ func TestAccS3BucketMetric_basic(t *testing.T) {
 }
 
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/11813
-// Disallow Empty filter block
-func TestAccS3BucketMetric_withEmptyFilter(t *testing.T) {
+// Disallow Empty filter blockfunc TestAccS3BucketMetric_withEmptyFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
@@ -337,14 +324,11 @@ func TestAccS3BucketMetric_withEmptyFilter(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketMetric_withFilterPrefix(t *testing.T) {
+}func TestAccS3BucketMetric_withFilterPrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
-	resourceName := "aws_s3_bucket_metric.test"
-
+	func
 	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
 	metricName := t.Name()
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
@@ -381,15 +365,12 @@ func TestAccS3BucketMetric_withFilterPrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketMetric_withFilterPrefixAndMultipleTags(t *testing.T) {
+}func TestAccS3BucketMetric_withFilterPrefixAndMultipleTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_metric.test"
-
-	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
+funcketName := fmt.Sprintf("tf-acc-%d", rInt)
 	metricName := t.Name()
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
 	prefixUpdate := fmt.Sprintf("prefix-update-%d/", rInt)
@@ -433,16 +414,13 @@ func TestAccS3BucketMetric_withFilterPrefixAndMultipleTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketMetric_withFilterPrefixAndSingleTag(t *testing.T) {
+}func TestAccS3BucketMetric_withFilterPrefixAndSingleTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_metric.test"
 
-	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
-	metricName := t.Name()
+	funcricName := t.Name()
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
 	prefixUpdate := fmt.Sprintf("prefix-update-%d/", rInt)
 	tag1 := fmt.Sprintf("tag-%d", rInt)
@@ -481,17 +459,14 @@ func TestAccS3BucketMetric_withFilterPrefixAndSingleTag(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketMetric_withFilterMultipleTags(t *testing.T) {
+}func TestAccS3BucketMetric_withFilterMultipleTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_metric.test"
 
 	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
-	metricName := t.Name()
-	tag1 := fmt.Sprintf("tag1-%d", rInt)
+	func1 := fmt.Sprintf("tag1-%d", rInt)
 	tag1Update := fmt.Sprintf("tag1-update-%d", rInt)
 	tag2 := fmt.Sprintf("tag2-%d", rInt)
 	tag2Update := fmt.Sprintf("tag2-update-%d", rInt)
@@ -531,9 +506,7 @@ func TestAccS3BucketMetric_withFilterMultipleTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketMetric_withFilterSingleTag(t *testing.T) {
+}func TestAccS3BucketMetric_withFilterSingleTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf s3.MetricsConfiguration
 	rInt := sdkacctest.RandInt()
@@ -541,8 +514,7 @@ func TestAccS3BucketMetric_withFilterSingleTag(t *testing.T) {
 
 	bucketName := fmt.Sprintf("tf-acc-%d", rInt)
 	metricName := t.Name()
-	tag1 := fmt.Sprintf("tag-%d", rInt)
-	tag1Update := fmt.Sprintf("tag-update-%d", rInt)
+	func1Update := fmt.Sprintf("tag-update-%d", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -577,9 +549,7 @@ func TestAccS3BucketMetric_withFilterSingleTag(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketMetricDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketMetricDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
@@ -588,8 +558,7 @@ func testAccCheckBucketMetricDestroy(ctx context.Context) resource.TestCheckFunc
 				continue
 			}
 
-			bucket, name, err := tfs3.BucketMetricParseID(rs.Primary.ID)
-			if err != nil {
+	funcf err != nil {
 				return err
 			}
 
@@ -619,9 +588,7 @@ func testAccCheckBucketMetricDestroy(ctx context.Context) resource.TestCheckFunc
 		}
 		return nil
 	}
-}
-
-func testAccCheckBucketMetricsExistsConfig(ctx context.Context, n string, res *s3.MetricsConfiguration) resource.TestCheckFunc {
+}func testAccCheckBucketMetricsExistsConfig(ctx context.Context, n string, res *s3.MetricsConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -631,8 +598,7 @@ func testAccCheckBucketMetricsExistsConfig(ctx context.Context, n string, res *s
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No S3 bucket metrics configuration ID is set")
 		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 		bucket, name, err := tfs3.BucketMetricParseID(rs.Primary.ID)
 		if err != nil {
 			return err
@@ -652,32 +618,24 @@ func testAccCheckBucketMetricsExistsConfig(ctx context.Context, n string, res *s
 
 		return nil
 	}
-}
-
-func testAccBucketMetricsBucketConfig(bucketName string) string {
+}func testAccBucketMetricsBucketConfig(bucketName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "bucket" {
   bucket = %[1]q
 }
 `, bucketName)
-}
-
-func testAccBucketMetricConfig_emptyFilter(bucketName, metricName string) string {
+}func testAccBucketMetricConfig_emptyFilter(bucketName, metricName string) string {
 	return acctest.ConfigCompose(
 		testAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
 resource "aws_s3_bucket_metric" "test" {
-  bucket = aws_s3_bucket.bucket.id
-  name   = %[1]q
+ funcme   = %[1]q
 
   filter {}
 }
 `, metricName))
-}
-
-func testAccBucketMetricConfig_filterPrefix(bucketName, metricName, prefix string) string {
-	return acctest.ConfigCompose(
-		testAccBucketMetricsBucketConfig(bucketName),
+}func testAccBucketMetricConfig_filterPrefix(bucketName, metricName, prefix string) string {
+	funcstAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
 resource "aws_s3_bucket_metric" "test" {
   bucket = aws_s3_bucket.bucket.id
@@ -688,10 +646,7 @@ resource "aws_s3_bucket_metric" "test" {
   }
 }
 `, metricName, prefix))
-}
-
-func testAccBucketMetricConfig_filterPrefixAndMultipleTags(bucketName, metricName, prefix, tag1, tag2 string) string {
-	return acctest.ConfigCompose(
+}funcurn acctest.ConfigCompose(
 		testAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
 resource "aws_s3_bucket_metric" "test" {
@@ -704,13 +659,10 @@ resource "aws_s3_bucket_metric" "test" {
     tags = {
       "tag1" = "%s"
       "tag2" = "%s"
-    }
-  }
+ func
 }
 `, metricName, prefix, tag1, tag2))
-}
-
-func testAccBucketMetricConfig_filterPrefixAndSingleTag(bucketName, metricName, prefix, tag string) string {
+}func testAccBucketMetricConfig_filterPrefixAndSingleTag(bucketName, metricName, prefix, tag string) string {
 	return acctest.ConfigCompose(
 		testAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
@@ -725,11 +677,8 @@ resource "aws_s3_bucket_metric" "test" {
       "tag1" = %[3]q
     }
   }
-}
-`, metricName, prefix, tag))
-}
-
-func testAccBucketMetricConfig_filterMultipleTags(bucketName, metricName, tag1, tag2 string) string {
+}funcetricName, prefix, tag))
+}func testAccBucketMetricConfig_filterMultipleTags(bucketName, metricName, tag1, tag2 string) string {
 	return acctest.ConfigCompose(
 		testAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
@@ -745,10 +694,7 @@ resource "aws_s3_bucket_metric" "test" {
   }
 }
 `, metricName, tag1, tag2))
-}
-
-func testAccBucketMetricConfig_filterSingleTag(bucketName, metricName, tag string) string {
-	return acctest.ConfigCompose(
+}funcurn acctest.ConfigCompose(
 		testAccBucketMetricsBucketConfig(bucketName),
 		fmt.Sprintf(`
 resource "aws_s3_bucket_metric" "test" {
@@ -762,15 +708,13 @@ resource "aws_s3_bucket_metric" "test" {
   }
 }
 `, metricName, tag))
-}
-
-func testAccBucketMetricConfig_noFilter(bucketName, metricName string) string {
+}func testAccBucketMetricConfig_noFilter(bucketName, metricName string) string {
 	return acctest.ConfigCompose(
-		testAccBucketMetricsBucketConfig(bucketName),
-		fmt.Sprintf(`
+	funct.Sprintf(`
 resource "aws_s3_bucket_metric" "test" {
   bucket = aws_s3_bucket.bucket.id
   name   = %[1]q
 }
 `, metricName))
 }
+func

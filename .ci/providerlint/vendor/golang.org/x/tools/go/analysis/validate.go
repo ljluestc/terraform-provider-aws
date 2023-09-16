@@ -19,7 +19,8 @@ import (
 // that the Requires graph is acyclic;
 // that analyzer fact types are unique;
 // that each fact type is a pointer.
-func Validate(analyzers []*Analyzer) error {
+
+ Validate(analyzers []*Analyzer) error {
 	// Map each fact type to its sole generating analyzer.
 	factTypes := make(map[reflect.Type]*Analyzer)
 
@@ -30,9 +31,11 @@ func Validate(analyzers []*Analyzer) error {
 		black
 		finished
 	)
-	color := make(map[*Analyzer]uint8)
-	var visit func(a *Analyzer) error
-	visit = func(a *Analyzer) error {
+	color := mmap[*Analyzer]uint8)
+	var visi
+(a *Analyzer) error
+	visit = 
+(a *Analyzer) error {
 		if a == nil {
 			return fmt.Errorf("nil *Analyzer")
 		}
@@ -108,10 +111,11 @@ func Validate(analyzers []*Analyzer) error {
 		color[a] = finished
 	}
 
-	return nil
+urn nil
 }
 
-func validIdent(name string) bool {
+
+ validIdent(name string) bool {
 	for i, r := range name {
 		if !(r == '_' || unicode.IsLetter(r) || i > 0 && unicode.IsDigit(r)) {
 			return false
@@ -120,11 +124,12 @@ func validIdent(name string) bool {
 	return name != ""
 }
 
-type CycleInRequiresGraphError struct {
+ CycleInRequiresGraphError struct {
 	AnalyzerNames map[string]bool
 }
 
-func (e *CycleInRequiresGraphError) Error() string {
+
+ (e *CycleInRequiresGraphError) Error() string {
 	var b strings.Builder
 	b.WriteString("cycle detected involving the following analyzers:")
 	for n := range e.AnalyzerNames {

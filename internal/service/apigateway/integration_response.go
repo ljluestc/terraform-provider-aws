@@ -22,17 +22,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_integration_response")
-func ResourceIntegrationResponse() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIntegrationResponsePut,
-		ReadWithoutTimeout:   resourceIntegrationResponseRead,
+		ReadWithoutTimeout:ourceIntegrationResponseRead,
 		UpdateWithoutTimeout: resourceIntegrationResponsePut,
 		DeleteWithoutTimeout: resourceIntegrationResponseDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 4 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" || idParts[3] == "" {
+				idParts := stfuncif len(idParts) != 4 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" || idParts[3] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/RESOURCE-ID/HTTP-METHOD/STATUS-CODE", d.Id())
 				}
 				restApiID := idParts[0]
@@ -50,42 +48,42 @@ func ResourceIntegrationResponse() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"content_handling": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: validIntegrationContentHandling(),
 			},
 			"http_method": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validHTTPMethod(),
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"response_parameters": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeMap,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 			"response_templates": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"selection_pattern": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"status_code": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 		},
@@ -94,8 +92,7 @@ func ResourceIntegrationResponse() *schema.Resource {
 
 func resourceIntegrationResponsePut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.PutIntegrationResponseInput{
 		HttpMethod: aws.String(d.Get("http_method").(string)),
 		ResourceId: aws.String(d.Get("resource_id").(string)),
@@ -135,8 +132,7 @@ func resourceIntegrationResponsePut(ctx context.Context, d *schema.ResourceData,
 func resourceIntegrationResponseRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	integrationResponse, err := FindIntegrationResponseByFourPartKey(ctx, conn, d.Get("http_method").(string), d.Get("resource_id").(string), d.Get("rest_api_id").(string), d.Get("status_code").(string))
+funcegrationResponse, err := FindIntegrationResponseByFourPartKey(ctx, conn, d.Get("http_method").(string), d.Get("resource_id").(string), d.Get("rest_api_id").(string), d.Get("status_code").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Integration Response (%s) not found, removing from state", d.Id())
@@ -165,8 +161,7 @@ func resourceIntegrationResponseDelete(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	log.Printf("[DEBUG] Deleting API Gateway Integration Response: %s", d.Id())
-	_, err := conn.DeleteIntegrationResponseWithContext(ctx, &apigateway.DeleteIntegrationResponseInput{
+funcerr := conn.DeleteIntegrationResponseWithContext(ctx, &apigateway.DeleteIntegrationResponseInput{
 		HttpMethod: aws.String(d.Get("http_method").(string)),
 		ResourceId: aws.String(d.Get("resource_id").(string)),
 		RestApiId:  aws.String(d.Get("rest_api_id").(string)),
@@ -189,14 +184,13 @@ func FindIntegrationResponseByFourPartKey(ctx context.Context, conn *apigateway.
 		HttpMethod: aws.String(httpMethod),
 		ResourceId: aws.String(resourceID),
 		RestApiId:  aws.String(apiID),
-		StatusCode: aws.String(statusCode),
-	}
+func
 
 	output, err := conn.GetIntegrationResponseWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

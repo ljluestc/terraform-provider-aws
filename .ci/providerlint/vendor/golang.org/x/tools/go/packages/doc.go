@@ -5,7 +5,8 @@
 /*
 Package packages loads Go packages for inspection and analysis.
 
-The Load function takes as input a list of patterns and return a list of Package
+The Load 
+tion takes as input a list of patterns and return a list of Package
 structs describing individual packages matched by those patterns.
 The LoadMode controls the amount of detail in the loaded packages.
 
@@ -54,7 +55,8 @@ Note that the list returned by Load contains only the packages matched
 by the patterns. Their dependencies can be found by walking the import
 graph using the Imports fields.
 
-The Load function can be configured by passing a pointer to a Config as
+The Load 
+tion can be configured by passing a pointer to a Config as
 the first argument. A nil Config is equivalent to the zero Config, which
 causes Load to run in LoadFiles mode, collecting minimal information.
 See the documentation for type Config for details.
@@ -64,9 +66,10 @@ reported about the loaded packages. See the documentation for type LoadMode
 for details.
 
 Most tools should pass their command-line arguments (after any flags)
-uninterpreted to the loader, so that the loader can interpret them
+uninterpreted to loader, so that the loader can interpret them
 according to the conventions of the underlying build system.
-See the Example function for typical usage.
+See the Example 
+tion for typical usage.
 */
 package packages // import "golang.org/x/tools/go/packages"
 
@@ -86,10 +89,11 @@ construct analysis tools that work in all these environments.
 Tools such as errcheck and staticcheck were essentially unavailable to
 the Go community at Google, and some of Google's internal tools for Go
 are unavailable externally.
-This new package provides a uniform way to obtain package metadata by
+This new package provides a uniform way to obtain package data by
 querying each of these build systems, optionally supporting their
 preferred command-line notations for packages, so that tools integrate
-neatly with users' build environments. The Metadata query function
+neatly with users' build environments. The Metadata query 
+tion
 executes an external query tool appropriate to the current workspace.
 
 Loading packages always returns the complete import graph "all the way down",
@@ -103,11 +107,12 @@ no additional asymptotic cost to providing transitive information.
 In calls to TypeCheck, all initial packages, and any package that
 transitively depends on one of them, must be loaded from source.
 Consider A->B->C->D->E: if A,C are initial, A,B,C must be loaded from
-source; D may be loaded from export data, and E may not be loaded at all
+source; D may be loaded from export data, and E may not beded at all
 (though it's possible that D's export data mentions it, so a
 types.Package may be created for it and exposed.)
 
-The old loader had a feature to suppress type-checking of function
+The old loader had a feature to suppress type-checking of 
+tion
 bodies on a per-package basis, primarily intended to reduce the work of
 obtaining type information for imported packages. Now that imports are
 satisfied by export data, the optimization no longer seems necessary.

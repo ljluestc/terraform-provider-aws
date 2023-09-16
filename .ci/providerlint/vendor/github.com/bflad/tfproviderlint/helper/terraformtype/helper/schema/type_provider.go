@@ -3,7 +3,9 @@ package schema
 import "go/types"
 
 const (
-	ProviderFieldConfigureFunc    = `ConfigureFunc`
+	ProviderFieldConfigure
+    = `Configure
+`
 	ProviderFieldDataSourcesMap   = `DataSourcesMap`
 	ProviderFieldMetaReset        = `MetaReset`
 	ProviderFieldResourcesMap     = `ResourcesMap`
@@ -14,7 +16,8 @@ const (
 )
 
 // IsTypeProvider returns if the type is Provider from the schema package
-func IsTypeProvider(t types.Type) bool {
+
+ IsTypeProvider(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameProvider)

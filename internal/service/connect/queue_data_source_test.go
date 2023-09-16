@@ -14,8 +14,7 @@ import (
 )
 
 
-func testAccQueueDataSource_queueID(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_queue.test"
@@ -25,16 +24,14 @@ func testAccQueueDataSource_queueID(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueDataSourceConfig_id(rName, rName2, outboundCallerConfigName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
+funcource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "max_contacts", resourceName, "max_contacts"),
 	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
@@ -53,8 +50,7 @@ func(
 func testAccQueueDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_queue.test"
+funcourceName := "aws_connect_queue.test"
 	datasourceName := "data.aws_connect_queue.test"
 	outboundCallerConfigName := "exampleOutboundCallerConfigName"
 
@@ -64,16 +60,14 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccQueueDataSourceConfig_name(rName, rName2, outboundCallerConfigName),
+funcig: testAccQueueDataSourceConfig_name(rName, rName2, outboundCallerConfigName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "max_contacts", resourceName, "max_contacts"),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+funcource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "outbound_caller_config.#", resourceName, "outbound_caller_config.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "outbound_caller_config.0.outbound_caller_id_name", resourceName, "outbound_caller_config.0.outbound_caller_id_name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "queue_id", resourceName, "queue_id"),
@@ -92,8 +86,7 @@ resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
   instance_alias  = %[1]q
-  outbound_calls_enabled   = true
-}
+func
 
 data "aws_connect_hours_of_operation" "test" {
   instance_id = aws_connect_instance.test.id
@@ -125,8 +118,7 @@ testAccQueueBaseDataSourceConfig(rName, rName2, outboundCallerConfigName),
 data "aws_connect_queue" "test" {
   instance_id = aws_connect_instance.test.id
   queue_id    = aws_connect_queue.test.queue_id
-}
-`)
+func
 }
 
 
@@ -138,5 +130,4 @@ data "aws_connect_queue" "test" {
   instance_id = aws_connect_instance.test.id
   name        = aws_connect_queue.test.name
 }
-`)
-}
+func

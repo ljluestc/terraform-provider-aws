@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_network_acls")
 
-func DataSourceNetworkACLs() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceNetworkACLsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,13 +28,13 @@ func DataSourceNetworkACLs() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -43,8 +42,7 @@ func DataSourceNetworkACLs() *schema.Resource {
 }
 
 func dataSourceNetworkACLsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeNetworkAclsInput{}
 

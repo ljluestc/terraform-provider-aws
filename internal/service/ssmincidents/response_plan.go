@@ -203,8 +203,8 @@ func resourceResponsePlanCreate(ctx context.Context, d *schema.ResourceData, met
 		Engagements:      flex.ExpandStringValueSet(d.Get("engagements").(*schema.Set)),
 		IncidentTemplate: expandIncidentTemplate(d.Get("incident_template").([]interface{})),
 		Integrations:     expandIntegration(d.Get("integration").([]interface{})),
-		Name:             aws.String(d.Get("name").(string)),
-		Tags:             getTagsIn(ctx),
+		Name:aws.String(d.Get("name").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	output, err := client.CreateResponsePlan(ctx, input)

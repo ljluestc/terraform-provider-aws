@@ -152,7 +152,7 @@ func resourceEventDestinationCreate(ctx context.Context, d *schema.ResourceData,
 	createOpts := &ses.CreateConfigurationSetEventDestinationInput{
 		ConfigurationSetName: aws.String(configurationSetName),
 		EventDestination: &ses.EventDestination{
-			Name:               aws.String(eventDestinationName),
+			Name:  aws.String(eventDestinationName),
 			Enabled:            aws.Bool(enabled),
 			MatchingEventTypes: flex.ExpandStringSet(matchingEventTypes),
 		},

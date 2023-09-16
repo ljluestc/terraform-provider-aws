@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_account_password_policy")
-func ResourceAccountPasswordPolicy() *schema.Resource {
+// @SDKResource("aws_iam_account_password_policy")func ResourceAccountPasswordPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAccountPasswordPolicyUpdate,
 		ReadWithoutTimeout:   resourceAccountPasswordPolicyRead,
@@ -82,10 +81,7 @@ func ResourceAccountPasswordPolicy() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceAccountPasswordPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	input := &iam.UpdateAccountPasswordPolicyInput{}
@@ -129,11 +125,8 @@ func resourceAccountPasswordPolicyUpdate(ctx context.Context, d *schema.Resource
 	}
 
 	return append(diags, resourceAccountPasswordPolicyRead(ctx, d, meta)...)
-}
-
-func resourceAccountPasswordPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceAccountPasswordPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	policy, err := FindAccountPasswordPolicy(ctx, conn)
 
@@ -159,12 +152,9 @@ func resourceAccountPasswordPolicyRead(ctx context.Context, d *schema.ResourceDa
 	d.Set("require_uppercase_characters", policy.RequireUppercaseCharacters)
 
 	return diags
-}
-
-func resourceAccountPasswordPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAccountPasswordPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	log.Printf("[DEBUG] Deleting IAM Account Password Policy: %s", d.Id())
 	_, err := conn.DeleteAccountPasswordPolicyWithContext(ctx, &iam.DeleteAccountPasswordPolicyInput{})
 
@@ -173,13 +163,10 @@ func resourceAccountPasswordPolicyDelete(ctx context.Context, d *schema.Resource
 	}
 
 	return diags
-}
-
-func FindAccountPasswordPolicy(ctx context.Context, conn *iam.IAM) (*iam.PasswordPolicy, error) {
+}func FindAccountPasswordPolicy(ctx context.Context, conn *iam.IAM) (*iam.PasswordPolicy, error) {
 	input := &iam.GetAccountPasswordPolicyInput{}
 
-	output, err := conn.GetAccountPasswordPolicyWithContext(ctx, input)
-
+	func
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,

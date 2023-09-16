@@ -14,19 +14,13 @@ import (
 )
 
 type servicePackage struct{}
-
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
-
+func
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceCostCategory,
+funcactory:  DataSourceCostCategory,
 			TypeName: "aws_ce_cost_category",
 		},
 		{
@@ -35,12 +29,10 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceAnomalyMonitor,
-			TypeName: "aws_ce_anomaly_monitor",
+funcypeName: "aws_ce_anomaly_monitor",
 			Name:     "Anomaly Monitor",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
@@ -68,18 +60,14 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.CE
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*costexplorer_sdkv1.CostExplorer, error) {
-	sess := config["session"].(*session_sdkv1.Session)
+funcs := config["session"].(*session_sdkv1.Session)
 
 	return costexplorer_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
-func ServicePackage(ctx context.Context) conns.ServicePackage {
-	return &servicePackage{}
+func ServicePackage(ctx context.Context) conns.ServicePackage {funcurn &servicePackage{}
 }
+func

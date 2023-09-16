@@ -25,10 +25,10 @@ func testAccRepository_basic(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_basic(rName),
@@ -60,10 +60,10 @@ func testAccRepository_tags(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
@@ -105,10 +105,10 @@ func testAccRepository_owner(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_owner(rName),
@@ -139,10 +139,10 @@ func testAccRepository_description(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_desc(rName, "desc"),
@@ -173,10 +173,10 @@ func testAccRepository_upstreams(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_upstreams1(rName),
@@ -218,10 +218,10 @@ func testAccRepository_externalConnection(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_externalConnection(rName),
@@ -265,10 +265,10 @@ func testAccRepository_disappears(t *testing.T) {
 	resourceName := "aws_codeartifact_repository.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+		CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRepositoryConfig_basic(rName),
@@ -348,7 +348,7 @@ func testAccCheckRepositoryDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccRepositoryBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 

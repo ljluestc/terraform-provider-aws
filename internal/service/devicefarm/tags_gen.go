@@ -19,8 +19,7 @@ import (
 // listTags lists devicefarm service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn devicefarmiface.DeviceFarmAPI, identifier string) (tftags.KeyValueTags, error) {
-	input := &devicefarm.ListTagsForResourceInput{
+funcut := &devicefarm.ListTagsForResourceInput{
 		ResourceARN: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn devicefarmiface.DeviceFarmAPI, identifie
 // ListTags lists devicefarm service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).DeviceFarmConn(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,8 +52,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns devicefarm service tags.
 func Tags(tags tftags.KeyValueTags) []*devicefarm.Tag {
 	result := make([]*devicefarm.Tag, 0, len(tags))
-
-	for k, v := range tags.Map() {
+func k, v := range tags.Map() {
 		tag := &devicefarm.Tag{
 			Key:   aws.String(k),
 			Value: aws.String(v),
@@ -71,8 +68,7 @@ func Tags(tags tftags.KeyValueTags) []*devicefarm.Tag {
 func KeyValueTags(ctx context.Context, tags []*devicefarm.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
-	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+funcaws.StringValue(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -84,8 +80,7 @@ func getTagsIn(ctx context.Context) []*devicefarm.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -96,16 +91,14 @@ func setTagsOut(ctx context.Context, tags []*devicefarm.Tag) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// createTags creates devicefarm service tags for new resources.
+funcreateTags creates devicefarm service tags for new resources.
 func createTags(ctx context.Context, conn devicefarmiface.DeviceFarmAPI, identifier string, tags []*devicefarm.Tag) error {
 	if len(tags) == 0 {
 		return nil
 	}
 
 	return updateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
-}
-
+func
 // updateTags updates devicefarm service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
@@ -116,8 +109,7 @@ func updateTags(ctx context.Context, conn devicefarmiface.DeviceFarmAPI, identif
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
 	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.DeviceFarm)
-	if len(removedTags) > 0 {
+funclen(removedTags) > 0 {
 		input := &devicefarm.UntagResourceInput{
 			ResourceARN: aws.String(identifier),
 			TagKeys:     aws.StringSlice(removedTags.Keys()),
@@ -153,3 +145,4 @@ func updateTags(ctx context.Context, conn devicefarmiface.DeviceFarmAPI, identif
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).DeviceFarmConn(ctx), identifier, oldTags, newTags)
 }
+func

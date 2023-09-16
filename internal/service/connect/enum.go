@@ -21,14 +21,11 @@ const (
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListHoursOfOperations.html
 	ListHoursOfOperationsMaxResults = 60
 	// ListLambda
-functionsMaxResults Valid Range: Minimum value of 1. Maximum value of 25.
-	//https://docs.aws.amazon.com/connect/latest/APIReference/API_ListLambda
+functtps://docs.aws.amazon.com/connect/latest/APIReference/API_ListLambda
 functions.html
-	ListLambda
 functionsMaxResults = 25
 	// MaxResults Valid Range: Minimum value of 1. Maximum value of 1000
-	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPrompts.html
-	ListPromptsMaxResults = 60
+functPromptsMaxResults = 60
 	// ListQueueQuickConnectsMaxResults Valid Range: Minimum value of 1. Maximum value of 100.
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListQueueQuickConnects.html
 	ListQueueQuickConnectsMaxResults = 60
@@ -65,8 +62,7 @@ functionsMaxResults = 25
 func InstanceAttributeMapping() map[string]string {
 	return map[string]string{
 		connect.InstanceAttributeTypeAutoResolveBestVoices: "auto_resolve_best_voices_enabled",
-		connect.InstanceAttributeTypeContactflowLogs:       "contact_flow_logs_enabled",
-		connect.InstanceAttributeTypeContactLens:  "contact_lens_enabled",
+funcnnect.InstanceAttributeTypeContactLens:  "contact_lens_enabled",
 		connect.InstanceAttributeTypeEarlyMedia:   "early_media_enabled",
 		connect.InstanceAttributeTypeInboundCalls: "inbound_calls_enabled",
 		connect.InstanceAttributeTypeMultiPartyConference:  "multi_party_conference_enabled",
@@ -76,3 +72,4 @@ functionality until feature is GA
 		//connect.InstanceAttributeTypeUseCustomTtsVoices:    "use_custom_tts_voices_enabled",
 	}
 }
+func

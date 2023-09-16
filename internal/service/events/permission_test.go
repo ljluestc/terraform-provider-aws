@@ -31,10 +31,10 @@ func TestAccEventsPermission_basic(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_permission.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccPermissionConfig_basic("", statementID),
@@ -104,10 +104,10 @@ func TestAccEventsPermission_eventBusName(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_permission.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionConfig_eventBusName(principal1, busName, statementID),
@@ -136,10 +136,10 @@ func TestAccEventsPermission_action(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_permission.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccPermissionConfig_action("", principal, statementID),
@@ -179,10 +179,10 @@ func TestAccEventsPermission_condition(t *testing.T) {
 	resourceName := "aws_cloudwatch_event_permission.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionConfig_conditionOrganization(statementID, "o-1234567890"),
@@ -223,10 +223,10 @@ func TestAccEventsPermission_multiple(t *testing.T) {
 	resourceName2 := "aws_cloudwatch_event_permission.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionConfig_basic(principal1, statementID1),
@@ -258,10 +258,10 @@ func TestAccEventsPermission_disappears(t *testing.T) {
 	statementID := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionConfig_basic(principal, statementID),

@@ -9,7 +9,8 @@ import (
 	"path/filepath"
 )
 
-func symlinkFile(src string, dest string) error {
+
+ symlinkFile(src string, dest string) error {
 	err := os.Symlink(src, dest)
 
 	if err != nil {
@@ -34,8 +35,9 @@ func symlinkFile(src string, dest string) error {
 // symlinkDirectoriesOnly finds only the first-level child directories in srcDir
 // and symlinks them into destDir.
 // Unlike symlinkDir, this is done non-recursively in order to limit the number
-// of file descriptors used.
-func symlinkDirectoriesOnly(srcDir string, destDir string) error {
+f file descriptors used.
+
+ symlinkDirectoriesOnly(srcDir string, destDir string) error {
 	srcInfo, err := os.Stat(srcDir)
 	if err != nil {
 		return fmt.Errorf("unable to stat source directory %q: %w", srcDir, err)

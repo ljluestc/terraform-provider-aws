@@ -80,8 +80,8 @@ func resourceClusterCapacityProvidersPut(ctx context.Context, d *schema.Resource
 
 	clusterName := d.Get("cluster_name").(string)
 	input := &ecs.PutClusterCapacityProvidersInput{
-		CapacityProviders:               flex.ExpandStringSet(d.Get("capacity_providers").(*schema.Set)),
-		Cluster:                         aws.String(clusterName),
+		CapacityProviders:  flex.ExpandStringSet(d.Get("capacity_providers").(*schema.Set)),
+		Cluster:            aws.String(clusterName),
 		DefaultCapacityProviderStrategy: expandCapacityProviderStrategy(d.Get("default_capacity_provider_strategy").(*schema.Set)),
 	}
 
@@ -132,8 +132,8 @@ func resourceClusterCapacityProvidersDelete(ctx context.Context, d *schema.Resou
 	conn := meta.(*conns.AWSClient).ECSConn(ctx)
 
 	input := &ecs.PutClusterCapacityProvidersInput{
-		CapacityProviders:               []*string{},
-		Cluster:                         aws.String(d.Id()),
+		CapacityProviders:  []*string{},
+		Cluster:            aws.String(d.Id()),
 		DefaultCapacityProviderStrategy: []*ecs.CapacityProviderStrategyItem{},
 	}
 

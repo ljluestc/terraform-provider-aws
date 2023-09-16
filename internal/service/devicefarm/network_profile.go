@@ -23,8 +23,7 @@ import (
 
 // @SDKResource("aws_devicefarm_network_profile", name="Network Profile")
 // @Tags(identifierAttribute="arn")
-func ResourceNetworkProfile() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkProfileCreate,
 		ReadWithoutTimeout:   resourceNetworkProfileRead,
 		UpdateWithoutTimeout: resourceNetworkProfileUpdate,
@@ -110,8 +109,7 @@ func ResourceNetworkProfile() *schema.Resource {
 }
 
 func resourceNetworkProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &devicefarm.CreateNetworkProfileInput{
@@ -176,8 +174,7 @@ func resourceNetworkProfileCreate(ctx context.Context, d *schema.ResourceData, m
 
 func resourceNetworkProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	project, err := FindNetworkProfileByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -217,8 +214,7 @@ func resourceNetworkProfileRead(ctx context.Context, d *schema.ResourceData, met
 func resourceNetworkProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateNetworkProfileInput{
 			Arn: aws.String(d.Id()),
 		}
@@ -281,8 +277,7 @@ func resourceNetworkProfileDelete(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	log.Printf("[DEBUG] Deleting DeviceFarm Network Profile: %s", d.Id())
-	_, err := conn.DeleteNetworkProfileWithContext(ctx, &devicefarm.DeleteNetworkProfileInput{
+funcerr := conn.DeleteNetworkProfileWithContext(ctx, &devicefarm.DeleteNetworkProfileInput{
 		Arn: aws.String(d.Id()),
 	})
 

@@ -39,9 +39,9 @@ func TestAccDirectConnectConnectionConfirmation_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckHostedConnectionDestroy(ctx, altProviderFunc),
+		CheckDestroy:testAccCheckHostedConnectionDestroy(ctx, altProviderFunc),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfirmationConfig_basic(connectionName, env.ConnectionId, env.OwnerAccountId),
@@ -86,11 +86,11 @@ func testAccConnectionConfirmationConfig_basic(name, connectionId, ownerAccountI
 resource "aws_dx_hosted_connection" "connection" {
   provider = "awsalternate"
 
-  name             = "%s"
+  name= "%s"
   connection_id    = "%s"
   owner_account_id = "%s"
   bandwidth        = "100Mbps"
-  vlan             = 4092
+  vlan= 4092
 }
 
 resource "aws_dx_connection_confirmation" "test" {

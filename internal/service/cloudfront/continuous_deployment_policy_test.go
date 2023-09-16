@@ -34,9 +34,9 @@ func TestAccCloudFrontContinuousDeploymentPolicy_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContinuousDeploymentPolicyDestroy(ctx),
+		CheckDestroy:ontinuousDeploymentPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContinuousDeploymentPolicyConfig_init(),
@@ -56,7 +56,7 @@ func TestAccCloudFrontContinuousDeploymentPolicy_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "staging_distribution_dns_names.0.items.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "staging_distribution_dns_names.0.items.0", stagingDistributionResourceName, "domain_name"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "traffic_config.*", map[string]string{
-						"type":                          "SingleWeight",
+						"type":
 						"single_weight_config.#":        "1",
 						"single_weight_config.0.weight": "0.01",
 					}),
@@ -88,9 +88,9 @@ func TestAccCloudFrontContinuousDeploymentPolicy_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContinuousDeploymentPolicyDestroy(ctx),
+		CheckDestroy:ontinuousDeploymentPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContinuousDeploymentPolicyConfig_init(),
@@ -120,9 +120,9 @@ func TestAccCloudFrontContinuousDeploymentPolicy_trafficConfig(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContinuousDeploymentPolicyDestroy(ctx),
+		CheckDestroy:ontinuousDeploymentPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContinuousDeploymentPolicyConfig_init(),
@@ -138,10 +138,10 @@ func TestAccCloudFrontContinuousDeploymentPolicy_trafficConfig(t *testing.T) {
 					testAccCheckContinuousDeploymentPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "false"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "traffic_config.*", map[string]string{
-						"type":                          "SingleWeight",
+						"type":
 						"single_weight_config.#":        "1",
 						"single_weight_config.0.weight": "0.01",
-						"single_weight_config.0.session_stickiness_config.#":             "1",
+						"single_weight_config.0.session_stickiness_config.#":
 						"single_weight_config.0.session_stickiness_config.0.idle_ttl":    "300",
 						"single_weight_config.0.session_stickiness_config.0.maximum_ttl": "600",
 					}),
@@ -158,10 +158,10 @@ func TestAccCloudFrontContinuousDeploymentPolicy_trafficConfig(t *testing.T) {
 					testAccCheckContinuousDeploymentPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "traffic_config.*", map[string]string{
-						"type":                          "SingleWeight",
+						"type":
 						"single_weight_config.#":        "1",
 						"single_weight_config.0.weight": "0.02",
-						"single_weight_config.0.session_stickiness_config.#":             "1",
+						"single_weight_config.0.session_stickiness_config.#":
 						"single_weight_config.0.session_stickiness_config.0.idle_ttl":    "600",
 						"single_weight_config.0.session_stickiness_config.0.maximum_ttl": "1200",
 					}),
@@ -173,7 +173,7 @@ func TestAccCloudFrontContinuousDeploymentPolicy_trafficConfig(t *testing.T) {
 					testAccCheckContinuousDeploymentPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "false"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "traffic_config.*", map[string]string{
-						"type":                          "SingleHeader",
+						"type":
 						"single_header_config.#":        "1",
 						"single_header_config.0.header": "aws-cf-cd-test",
 						"single_header_config.0.value":  "test",
@@ -191,7 +191,7 @@ func TestAccCloudFrontContinuousDeploymentPolicy_trafficConfig(t *testing.T) {
 					testAccCheckContinuousDeploymentPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "traffic_config.*", map[string]string{
-						"type":                          "SingleHeader",
+						"type":
 						"single_header_config.#":        "1",
 						"single_header_config.0.header": "aws-cf-cd-test2",
 						"single_header_config.0.value":  "test2",
@@ -276,8 +276,8 @@ resource "aws_cloudfront_distribution" "staging" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -326,8 +326,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
@@ -374,8 +374,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "test"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }

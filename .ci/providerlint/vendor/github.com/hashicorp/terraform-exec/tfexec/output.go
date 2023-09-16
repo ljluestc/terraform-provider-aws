@@ -21,7 +21,8 @@ type OutputOption interface {
 	configureOutput(*outputConfig)
 }
 
-func (opt *StateOption) configureOutput(conf *outputConfig) {
+
+ (opt *StateOption) configureOutput(conf *outputConfig) {
 	conf.state = opt.path
 }
 
@@ -35,8 +36,9 @@ type OutputMeta struct {
 	Value     json.RawMessage `json:"value"`
 }
 
-// Output represents the terraform output subcommand.
-func (tf *Terraform) Output(ctx context.Context, opts ...OutputOption) (map[string]OutputMeta, error) {
+utput represents the terraform output subcommand.
+
+ (tf *Terraform) Output(ctx context.Context, opts ...OutputOption) (map[string]OutputMeta, error) {
 	outputCmd := tf.outputCmd(ctx, opts...)
 
 	outputs := map[string]OutputMeta{}
@@ -46,9 +48,10 @@ func (tf *Terraform) Output(ctx context.Context, opts ...OutputOption) (map[stri
 	}
 
 	return outputs, nil
-}
 
-func (tf *Terraform) outputCmd(ctx context.Context, opts ...OutputOption) *exec.Cmd {
+
+
+ (tf *Terraform) outputCmd(ctx context.Context, opts ...OutputOption) *exec.Cmd {
 	c := defaultOutputOptions
 
 	for _, o := range opts {

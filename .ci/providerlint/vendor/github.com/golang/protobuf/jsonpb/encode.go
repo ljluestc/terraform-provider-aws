@@ -63,7 +63,8 @@ type JSONPBMarshaler interface {
 }
 
 // Marshal serializes a protobuf message as JSON into w.
-func (jm *Marshaler) Marshal(w io.Writer, m proto.Message) error {
+
+ *Marshaler) Marshal(w io.Writer, m proto.Message) error {
 	b, err := jm.marshal(m)
 	if len(b) > 0 {
 		if _, err := w.Write(b); err != nil {
@@ -74,7 +75,8 @@ func (jm *Marshaler) Marshal(w io.Writer, m proto.Message) error {
 }
 
 // MarshalToString serializes a protobuf message as JSON in string form.
-func (jm *Marshaler) MarshalToString(m proto.Message) (string, error) {
+
+ *Marshaler) MarshalToString(m proto.Message) (string, error) {
 	b, err := jm.marshal(m)
 	if err != nil {
 		return "", err
@@ -82,7 +84,8 @@ func (jm *Marshaler) MarshalToString(m proto.Message) (string, error) {
 	return string(b), nil
 }
 
-func (jm *Marshaler) marshal(m proto.Message) ([]byte, error) {
+
+ *Marshaler) marshal(m proto.Message) ([]byte, error) {
 	v := reflect.ValueOf(m)
 	if m == nil || (v.Kind() == reflect.Ptr && v.IsNil()) {
 		return nil, errors.New("Marshal called with nil")
@@ -123,11 +126,13 @@ type jsonWriter struct {
 	buf []byte
 }
 
-func (w *jsonWriter) write(s string) {
+
+*jsonWriter) write(s string) {
 	w.buf = append(w.buf, s...)
 }
 
-func (w *jsonWriter) marshalMessage(m protoreflect.Message, indent, typeURL string) error {
+
+*jsonWriter) marshalMessage(m protoreflect.Message, indent, typeURL string) error {
 	if jsm, ok := proto.MessageV1(m.Interface()).(JSONPBMarshaler); ok {
 		b, err := jsm.MarshalJSONPB(w.Marshaler)
 		if err != nil {
@@ -273,13 +278,15 @@ func (w *jsonWriter) marshalMessage(m protoreflect.Message, indent, typeURL stri
 			val  protoreflect.Value
 		}
 		var exts []ext
-		m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+		m.Range(
+protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 			if fd.IsExtension() {
 				exts = append(exts, ext{fd, v})
 			}
 			return true
 		})
-		sort.Slice(exts, func(i, j int) bool {
+		sort.Slice(exts, 
+j int) bool {
 			return exts[i].desc.Number() < exts[j].desc.Number()
 		})
 
@@ -302,7 +309,8 @@ func (w *jsonWriter) marshalMessage(m protoreflect.Message, indent, typeURL stri
 	return nil
 }
 
-func (w *jsonWriter) writeComma() {
+
+*jsonWriter) writeComma() {
 	if w.Indent != "" {
 		w.write(",\n")
 	} else {
@@ -310,7 +318,8 @@ func (w *jsonWriter) writeComma() {
 	}
 }
 
-func (w *jsonWriter) marshalAny(m protoreflect.Message, indent string) error {
+
+*jsonWriter) marshalAny(m protoreflect.Message, indent string) error {
 	// "If the Any contains a value that has a special JSON mapping,
 	//  it will be converted as follows: {"@type": xxx, "value": yyy}.
 	//  Otherwise, the value will be converted into a JSON object,
@@ -368,7 +377,8 @@ func (w *jsonWriter) marshalAny(m protoreflect.Message, indent string) error {
 	return nil
 }
 
-func (w *jsonWriter) marshalTypeURL(indent, typeURL string) error {
+
+*jsonWriter) marshalTypeURL(indent, typeURL string) error {
 	if w.Indent != "" {
 		w.write(indent)
 		w.write(w.Indent)
@@ -386,7 +396,8 @@ func (w *jsonWriter) marshalTypeURL(indent, typeURL string) error {
 }
 
 // marshalField writes field description and value to the Writer.
-func (w *jsonWriter) marshalField(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
+
+*jsonWriter) marshalField(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
 	if w.Indent != "" {
 		w.write(indent)
 		w.write(w.Indent)
@@ -417,7 +428,8 @@ func (w *jsonWriter) marshalField(fd protoreflect.FieldDescriptor, v protoreflec
 	return w.marshalValue(fd, v, indent)
 }
 
-func (w *jsonWriter) marshalValue(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
+
+*jsonWriter) marshalValue(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
 	switch {
 	case fd.IsList():
 		w.write("[")
@@ -451,11 +463,13 @@ func (w *jsonWriter) marshalValue(fd protoreflect.FieldDescriptor, v protoreflec
 		// Collect a sorted list of all map keys and values.
 		type entry struct{ key, val protoreflect.Value }
 		var entries []entry
-		mv.Range(func(k protoreflect.MapKey, v protoreflect.Value) bool {
+		mv.Range(
+rotoreflect.MapKey, v protoreflect.Value) bool {
 			entries = append(entries, entry{k.Value(), v})
 			return true
 		})
-		sort.Slice(entries, func(i, j int) bool {
+		sort.Slice(entries, 
+j int) bool {
 			switch kfd.Kind() {
 			case protoreflect.BoolKind:
 				return !entries[i].key.Bool() && entries[j].key.Bool()
@@ -510,7 +524,8 @@ func (w *jsonWriter) marshalValue(fd protoreflect.FieldDescriptor, v protoreflec
 	}
 }
 
-func (w *jsonWriter) marshalSingularValue(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
+
+*jsonWriter) marshalSingularValue(fd protoreflect.FieldDescriptor, v protoreflect.Value, indent string) error {
 	switch {
 	case !v.IsValid():
 		w.write("null")

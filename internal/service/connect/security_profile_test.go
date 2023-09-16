@@ -20,6 +20,8 @@ import (
 )
 
 
+
+
 func testAccSecurityProfile_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeSecurityProfileOutput
@@ -29,6 +31,8 @@ func testAccSecurityProfile_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -37,6 +41,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccSecurityProfileConfig_basic(rName, rName2, "Created"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -57,6 +63,8 @@ ImportStateVerify: true,
 	{
 Config: testAccSecurityProfileConfig_basic(rName, rName2, "Updated"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -74,6 +82,8 @@ func(
 }
 
 
+
+
 func testAccSecurityProfile_updatePermissions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeSecurityProfileOutput
@@ -83,6 +93,8 @@ func testAccSecurityProfile_updatePermissions(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,6 +103,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccSecurityProfileConfig_basic(rName, rName2, "TestPermissionsUpdate"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -112,6 +126,8 @@ ImportStateVerify: true,
 // Test updating permissions
 Config: testAccSecurityProfileConfig_permissions(rName, rName2, "TestPermissionsUpdate"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -129,6 +145,8 @@ func(
 }
 
 
+
+
 func testAccSecurityProfile_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeSecurityProfileOutput
@@ -140,6 +158,8 @@ func testAccSecurityProfile_updateTags(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -148,6 +168,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccSecurityProfileConfig_basic(rName, rName2, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -162,6 +184,8 @@ ImportStateVerify: true,
 	{
 Config: testAccSecurityProfileConfig_tags(rName, rName2, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
@@ -172,6 +196,8 @@ func(
 	{
 Config: testAccSecurityProfileConfig_tagsUpdated(rName, rName2, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
@@ -185,6 +211,8 @@ func(
 }
 
 
+
+
 func testAccSecurityProfile_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeSecurityProfileOutput
@@ -194,6 +222,8 @@ func testAccSecurityProfile_disappears(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -202,6 +232,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccSecurityProfileConfig_basic(rName, rName2, "Disappear"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceSecurityProfile(), resourceName),
@@ -213,10 +245,18 @@ ExpectNonEmptyPlan: true,
 }
 
 
+
+
 func testAccCheckSecurityProfileExists(ctx context.Context, resourceName string, 
+
+
 function *connect.DescribeSecurityProfileOutput) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
@@ -240,13 +280,19 @@ params := &connect.DescribeSecurityProfileInput{
 }
 
 get
+
+
 function, err := conn.DescribeSecurityProfileWithContext(ctx, params)
 if err != nil {
 	return err
 }
 
 *
+
+
 function = *get
+
+
 function
 
 return nil
@@ -254,9 +300,15 @@ return nil
 }
 
 
+
+
 func testAccCheckSecurityProfileDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_security_profile" {
@@ -292,6 +344,8 @@ return nil
 }
 
 
+
+
 func testAccSecurityProfileConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -302,6 +356,8 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccSecurityProfileConfig_basic(rName, rName2, label string) string {
@@ -319,6 +375,8 @@ resource "aws_connect_security_profile" "test" {
 }
 `, rName2, label))
 }
+
+
 
 
 func testAccSecurityProfileConfig_permissions(rName, rName2, label string) string {
@@ -343,6 +401,8 @@ resource "aws_connect_security_profile" "test" {
 }
 
 
+
+
 func testAccSecurityProfileConfig_tags(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
 testAccSecurityProfileConfig_base(rName),
@@ -359,6 +419,8 @@ resource "aws_connect_security_profile" "test" {
 }
 `, rName2, label))
 }
+
+
 
 
 func testAccSecurityProfileConfig_tagsUpdated(rName, rName2, label string) string {

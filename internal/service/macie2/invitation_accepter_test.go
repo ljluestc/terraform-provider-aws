@@ -29,8 +29,8 @@ func testAccInvitationAccepter_basic(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInvitationAccepterConfig_basic(email),
@@ -119,15 +119,15 @@ resource "aws_macie2_account" "member" {}
 resource "aws_macie2_member" "member" {
   provider           = "awsalternate"
   account_id         = data.aws_caller_identity.member.account_id
-  email              = %[1]q
-  invite             = true
+  email = %[1]q
+  invite= true
   invitation_message = "This is a message of the invite"
   depends_on         = [aws_macie2_account.admin]
 }
 
 resource "aws_macie2_invitation_accepter" "member" {
   administrator_account_id = data.aws_caller_identity.admin.account_id
-  depends_on               = [aws_macie2_member.member]
+  depends_on  = [aws_macie2_member.member]
 }
 `, email)
 }

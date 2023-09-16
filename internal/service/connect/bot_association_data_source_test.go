@@ -14,6 +14,7 @@ import (
 )
 
 
+
 func testAccBotAssociationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -23,6 +24,7 @@ func testAccBotAssociationDataSource_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -30,6 +32,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccBotAssociationDataSourceConfig_basic(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "lex_bot", resourceName, "lex_bot"),
@@ -38,6 +41,7 @@ func(
 },
 	})
 }
+
 
 
 func testAccBotAssociationDataSourceConfig_base(rName string, rName2 string) string {
@@ -74,7 +78,7 @@ resource "aws_lex_bot" "test" {
     intent_version = "1"
   }
   child_directed   = false
-  name             = %[1]q
+  name= %[1]q
   process_behavior = "BUILD"
 }
 
@@ -94,6 +98,7 @@ resource "aws_connect_bot_association" "test" {
 }
 `, rName, rName2)
 }
+
 
 
 func testAccBotAssociationDataSourceConfig_basic(rName string, rName2 string) string {

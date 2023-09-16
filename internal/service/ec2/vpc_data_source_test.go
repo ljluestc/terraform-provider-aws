@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rInt1 := sdkacctest.RandIntRange(1, 128)
 	rInt2 := sdkacctest.RandIntRange(128, 254)
 	cidr := fmt.Sprintf("10.%d.%d.0/28", rInt1, rInt2)
@@ -30,16 +29,14 @@ func TestAccVPCDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCDataSourceConfig_basic(rName, cidr),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", vpcResourceName, "arn"),
-	resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
-	resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_hostnames", "false"),
+funcource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_hostnames", "false"),
 	resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_support", "true"),
 	resource.TestCheckResourceAttr(ds1ResourceName, "enable_network_address_usage_metrics", "false"),
 	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", vpcResourceName, "id"),
@@ -73,16 +70,14 @@ func(
 func TestAccVPCDataSource_CIDRBlockAssociations_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPCDestroy(ctx),
+func
 Config: testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -90,8 +85,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func testAccVPCDataSourceConfig_basic(rName, cidr string) string {
@@ -100,9 +94,8 @@ resource "aws_vpc" "test" {
   cidr_block = %[2]q
 
   assign_generated_ipv6_cidr_block = true
-
-  tags = {
-    Name = %[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
@@ -116,14 +109,14 @@ data "aws_vpc" "by_cidr" {
 
 data "aws_vpc" "by_tag" {
   tags = {
-    Name = aws_vpc.test.tags["Name"]
+me = aws_vpc.test.tags["Name"]
   }
 }
 
 data "aws_vpc" "by_filter" {
   filter {
-    name   = "vpc-id"
-    values = [aws_vpc.test.id]
+me= "-id"
+lues = [aws_vpc.test.id]
   }
 }
 `, rName, cidr)
@@ -136,12 +129,11 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_vpc_ipv4_cidr_block_association" "test" {
-  vpc_id     = aws_vpc.test.id
+  vpc_idtest.id
   cidr_block = "172.0.0.0/16"
 }
 

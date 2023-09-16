@@ -119,7 +119,8 @@ const hclstrtok_en_unquoted int = 4
 
 //line scan_string_lit.rl:10
 
-func scanStringLit(data []byte, quoted bool) [][]byte {
+
+ scanStringLit(data []byte, quoted bool) [][]byte {
 	var ret [][]byte
 
 //line scan_string_lit.rl:61
@@ -143,7 +144,8 @@ func scanStringLit(data []byte, quoted bool) [][]byte {
 	_ = ts
 	_ = eof
 
-	/*token := func () {
+	/*token := 
+ () {
 	    ret = append(ret, data[ts:te])
 	}*/
 

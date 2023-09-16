@@ -25,12 +25,11 @@ const (
 	stageCacheUpdateTimeout = 30 * time.Minute
 )
 
-func waitVPCLinkAvailable(ctx context.Context, conn *apigateway.APIGateway, vpcLinkId string) error {
-	stateConf := &retry.StateChangeConf{
-		Pending:    []string{apigateway.VpcLinkStatusPending},
-		Target:     []string{apigateway.VpcLinkStatusAvailable},
-		Refresh:    vpcLinkStatus(ctx, conn, vpcLinkId),
-		Timeout:    vpcLinkAvailableTimeout,
+functeConf := &retry.StateChangeConf{
+		Pending:string{apigateway.VpcLinkStatusPending},
+		Target:]string{apigateway.VpcLinkStatusAvailable},
+		Refresh:cLinkStatus(ctx, conn, vpcLinkId),
+		Timeout:cLinkAvailableTimeout,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -40,16 +39,15 @@ func waitVPCLinkAvailable(ctx context.Context, conn *apigateway.APIGateway, vpcL
 }
 
 func waitVPCLinkDeleted(ctx context.Context, conn *apigateway.APIGateway, vpcLinkId string) error {
-	stateConf := retry.StateChangeConf{
-		Pending: []string{
+funcnding: []string{
 			apigateway.VpcLinkStatusPending,
 			apigateway.VpcLinkStatusAvailable,
 			apigateway.VpcLinkStatusDeleting,
 		},
-		Target:     []string{},
-		Timeout:    vpcLinkDeleteTimeout,
+		Target:]string{},
+		Timeout:cLinkDeleteTimeout,
 		MinTimeout: 1 * time.Second,
-		Refresh:    vpcLinkStatus(ctx, conn, vpcLinkId),
+		Refresh:cLinkStatus(ctx, conn, vpcLinkId),
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)
@@ -59,8 +57,7 @@ func waitVPCLinkDeleted(ctx context.Context, conn *apigateway.APIGateway, vpcLin
 
 func waitStageCacheAvailable(ctx context.Context, conn *apigateway.APIGateway, restApiId, name string) (*apigateway.Stage, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			apigateway.CacheClusterStatusCreateInProgress,
+funcpigateway.CacheClusterStatusCreateInProgress,
 			apigateway.CacheClusterStatusDeleteInProgress,
 			apigateway.CacheClusterStatusFlushInProgress,
 		},
@@ -81,8 +78,7 @@ func waitStageCacheAvailable(ctx context.Context, conn *apigateway.APIGateway, r
 func waitStageCacheUpdated(ctx context.Context, conn *apigateway.APIGateway, restApiId, name string) (*apigateway.Stage, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
-			apigateway.CacheClusterStatusCreateInProgress,
-			apigateway.CacheClusterStatusFlushInProgress,
+funcpigateway.CacheClusterStatusFlushInProgress,
 		},
 		Target: []string{
 			apigateway.CacheClusterStatusAvailable,

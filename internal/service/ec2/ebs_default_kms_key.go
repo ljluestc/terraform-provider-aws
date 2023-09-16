@@ -17,10 +17,9 @@ import (
 
 // @SDKResource("aws_ebs_default_kms_key")
 
-func ResourceEBSDefaultKMSKey() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSDefaultKMSKeyCreate,
-		ReadWithoutTimeout:   resourceEBSDefaultKMSKeyRead,
+		ReadWithoutTimeout:ourceEBSDefaultKMSKeyRead,
 		DeleteWithoutTimeout: resourceEBSDefaultKMSKeyDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -29,20 +28,18 @@ func ResourceEBSDefaultKMSKey() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"key_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: verify.ValidARN,
-			},
-		},
+func
 	}
 }
 
 
 func resourceEBSDefaultKMSKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	resp, err := conn.ModifyEbsDefaultKmsKeyIdWithContext(ctx, &ec2.ModifyEbsDefaultKmsKeyIdInput{
 		KmsKeyId: aws.String(d.Get("key_arn").(string)),
 	})
@@ -59,8 +56,7 @@ func resourceEBSDefaultKMSKeyCreate(ctx context.Context, d *schema.ResourceData,
 func resourceEBSDefaultKMSKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	resp, err := conn.GetEbsDefaultKmsKeyIdWithContext(ctx, &ec2.GetEbsDefaultKmsKeyIdInput{})
+funcp, err := conn.GetEbsDefaultKmsKeyIdWithContext(ctx, &ec2.GetEbsDefaultKmsKeyIdInput{})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EBS default KMS key: %s", err)
 	}
@@ -75,8 +71,7 @@ func resourceEBSDefaultKMSKeyDelete(ctx context.Context, d *schema.ResourceData,
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	_, err := conn.ResetEbsDefaultKmsKeyIdWithContext(ctx, &ec2.ResetEbsDefaultKmsKeyIdInput{})
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EBS default KMS key: %s", err)
 	}
 

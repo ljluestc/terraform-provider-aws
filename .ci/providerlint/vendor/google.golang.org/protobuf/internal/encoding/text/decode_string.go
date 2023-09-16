@@ -21,7 +21,8 @@ import (
 // as a single large string with all values concatenated.
 //
 // E.g., `"foo" "bar" "baz"` => "foobarbaz"
-func (d *Decoder) parseStringValue() (Token, error) {
+
+ (d *Decoder) parseStringValue() (Token, error) {
 	// Note that the ending quote is sufficient to unambiguously mark the end
 	// of a string. Thus, the text grammar does not require intervening
 	// whitespace or control characters in-between strings.
@@ -46,8 +47,9 @@ func (d *Decoder) parseStringValue() (Token, error) {
 	}, nil
 }
 
-// parseString parses a string value enclosed in " or '.
-func (d *Decoder) parseString() (string, error) {
+arseString parses a string value enclosed in " or '.
+
+ (d *Decoder) parseString() (string, error) {
 	in := d.in
 	if len(in) == 0 {
 		return "", ErrUnexpectedEOF
@@ -148,14 +150,16 @@ func (d *Decoder) parseString() (string, error) {
 	return "", ErrUnexpectedEOF
 }
 
-// indexNeedEscapeInString returns the index of the character that needs
+ndexNeedEscapeInString returns the index of the character that needs
 // escaping. If no characters need escaping, this returns the input length.
-func indexNeedEscapeInBytes(b []byte) int { return indexNeedEscapeInString(strs.UnsafeString(b)) }
 
-// UnmarshalString returns an unescaped string given a textproto string value.
+ indexNeedEscapeInBytes(b []byte) int { return indexNeedEscapeInString(strs.UnsafeString(b)) }
+
+nmarshalString returns an unescaped string given a textproto string value.
 // String value needs to contain single or double quotes. This is only used by
 // internal/encoding/defval package for unmarshaling bytes.
-func UnmarshalString(s string) (string, error) {
+
+ UnmarshalString(s string) (string, error) {
 	d := NewDecoder([]byte(s))
 	return d.parseString()
 }

@@ -20,15 +20,18 @@ type Config struct {
 	// Rand provides the source of entropy.
 	// If nil, the crypto/rand Reader is used.
 	Rand io.Reader
-	// DefaultHash is the default hash function to be used.
+	// DefaultHash is the default hash 
+ to be used.
 	// If zero, SHA-256 is used.
 	DefaultHash crypto.Hash
 	// DefaultCipher is the cipher to be used.
 	// If zero, AES-128 is used.
-	DefaultCipher CipherFunction
+	DefaultCipher Cipher
+
 	// Time returns the current time as the number of seconds since the
 	// epoch. If Time is nil, time.Now is used.
-	Time func() time.Time
+	Time 
+ime.Time
 	// DefaultCompressionAlgo is the compression algorithm to be
 	// applied to the plaintext before encryption. If zero, no
 	// compression is done.
@@ -112,28 +115,33 @@ type Config struct {
 	SignatureNotations []*Notation
 }
 
-func (c *Config) Random() io.Reader {
+
+*Config) Random() io.Reader {
 	if c == nil || c.Rand == nil {
 		return rand.Reader
 	}
 	return c.Rand
 }
 
-func (c *Config) Hash() crypto.Hash {
+
+*Config) Hash() crypto.Hash {
 	if c == nil || uint(c.DefaultHash) == 0 {
 		return crypto.SHA256
 	}
 	return c.DefaultHash
 }
 
-func (c *Config) Cipher() CipherFunction {
+
+*Config) Cipher() Cipher
+ {
 	if c == nil || uint8(c.DefaultCipher) == 0 {
 		return CipherAES128
 	}
 	return c.DefaultCipher
 }
 
-func (c *Config) Now() time.Time {
+
+*Config) Now() time.Time {
 	if c == nil || c.Time == nil {
 		return time.Now().Truncate(time.Second)
 	}
@@ -141,7 +149,8 @@ func (c *Config) Now() time.Time {
 }
 
 // KeyLifetime returns the validity period of the key.
-func (c *Config) KeyLifetime() uint32 {
+
+*Config) KeyLifetime() uint32 {
 	if c == nil {
 		return 0
 	}
@@ -149,35 +158,40 @@ func (c *Config) KeyLifetime() uint32 {
 }
 
 // SigLifetime returns the validity period of the signature.
-func (c *Config) SigLifetime() uint32 {
+
+*Config) SigLifetime() uint32 {
 	if c == nil {
 		return 0
 	}
 	return c.SigLifetimeSecs
 }
 
-func (c *Config) Compression() CompressionAlgo {
+
+*Config) Compression() CompressionAlgo {
 	if c == nil {
 		return CompressionNone
 	}
 	return c.DefaultCompressionAlgo
 }
 
-func (c *Config) RSAModulusBits() int {
+
+*Config) RSAModulusBits() int {
 	if c == nil || c.RSABits == 0 {
 		return 2048
 	}
 	return c.RSABits
 }
 
-func (c *Config) PublicKeyAlgorithm() PublicKeyAlgorithm {
+
+*Config) PublicKeyAlgorithm() PublicKeyAlgorithm {
 	if c == nil || c.Algorithm == 0 {
 		return PubKeyAlgoRSA
 	}
 	return c.Algorithm
 }
 
-func (c *Config) CurveName() Curve {
+
+*Config) CurveName() Curve {
 	if c == nil || c.Curve == "" {
 		return Curve25519
 	}
@@ -185,14 +199,16 @@ func (c *Config) CurveName() Curve {
 }
 
 // Deprecated: The hash iterations should now be queried via the S2K() method.
-func (c *Config) PasswordHashIterations() int {
+
+*Config) PasswordHashIterations() int {
 	if c == nil || c.S2KCount == 0 {
 		return 0
 	}
 	return c.S2KCount
 }
 
-func (c *Config) S2K() *s2k.Config {
+
+*Config) S2K() *s2k.Config {
 	if c == nil {
 		return nil
 	}
@@ -205,42 +221,48 @@ func (c *Config) S2K() *s2k.Config {
 	return c.S2KConfig
 }
 
-func (c *Config) AEAD() *AEADConfig {
+
+*Config) AEAD() *AEADConfig {
 	if c == nil {
 		return nil
 	}
 	return c.AEADConfig
 }
 
-func (c *Config) SigningKey() uint64 {
+
+*Config) SigningKey() uint64 {
 	if c == nil {
 		return 0
 	}
 	return c.SigningKeyId
 }
 
-func (c *Config) SigningUserId() string {
+
+*Config) SigningUserId() string {
 	if c == nil {
 		return ""
 	}
 	return c.SigningIdentity
 }
 
-func (c *Config) AllowUnauthenticatedMessages() bool {
+
+*Config) AllowUnauthenticatedMessages() bool {
 	if c == nil {
 		return false
 	}
 	return c.InsecureAllowUnauthenticatedMessages
 }
 
-func (c *Config) KnownNotation(notationName string) bool {
+
+*Config) KnownNotation(notationName string) bool {
 	if c == nil {
 		return false
 	}
 	return c.KnownNotations[notationName]
 }
 
-func (c *Config) Notations() []*Notation {
+
+*Config) Notations() []*Notation {
 	if c == nil {
 		return nil
 	}

@@ -328,7 +328,7 @@ func resourceS3EndpointCreate(ctx context.Context, d *schema.ResourceData, meta 
 		EndpointIdentifier: aws.String(d.Get("endpoint_id").(string)),
 		EndpointType:       aws.String(d.Get("endpoint_type").(string)),
 		EngineName:         aws.String("s3"),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_arn"); ok {

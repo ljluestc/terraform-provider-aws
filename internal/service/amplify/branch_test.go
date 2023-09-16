@@ -27,10 +27,10 @@ func testAccBranch_basic(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_name(rName),
@@ -75,10 +75,10 @@ func testAccBranch_disappears(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_name(rName),
@@ -99,10 +99,10 @@ func testAccBranch_tags(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_tags1(rName, "key1", "value1"),
@@ -148,10 +148,10 @@ func testAccBranch_BasicAuthCredentials(t *testing.T) {
 	credentials2 := base64.StdEncoding.EncodeToString([]byte("username2:password2"))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_basicAuthCredentials(rName, credentials1),
@@ -194,10 +194,10 @@ func testAccBranch_EnvironmentVariables(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_environmentVariables(rName),
@@ -242,10 +242,10 @@ func testAccBranch_OptionalArguments(t *testing.T) {
 	backendEnvironment2ResourceName := "aws_amplify_backend_environment.test2"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBranchDestroy(ctx),
+		CheckDestroy:testAccCheckBranchDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBranchConfig_optionalArguments(rName, environmentName),
@@ -475,7 +475,7 @@ resource "aws_amplify_branch" "test" {
   backend_environment_arn       = aws_amplify_backend_environment.test1.arn
   description    = "testdescription1"
   display_name   = "testdisplayname1"
-  enable_auto_build             = false
+  enable_auto_build= false
   enable_notification           = true
   enable_performance_mode       = true
   enable_pull_request_preview   = false
@@ -510,7 +510,7 @@ resource "aws_amplify_branch" "test" {
   backend_environment_arn       = aws_amplify_backend_environment.test2.arn
   description    = "testdescription2"
   display_name   = "testdisplayname2"
-  enable_auto_build             = true
+  enable_auto_build= true
   enable_notification           = false
   enable_performance_mode       = true
   enable_pull_request_preview   = true

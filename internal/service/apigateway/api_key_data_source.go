@@ -16,42 +16,41 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_api_key")
-func DataSourceAPIKey() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAPIKeyRead,
 
 		Schema: map[string]*schema.Schema{
 			"created_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"customer_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Computed: true,
 			},
 			"id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"last_updated_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"value": {
-				Type:      schema.TypeString,
+				Type:.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
@@ -60,8 +59,7 @@ func DataSourceAPIKey() *schema.Resource {
 }
 
 func dataSourceAPIKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	id := d.Get("id").(string)

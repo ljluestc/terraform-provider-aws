@@ -20,6 +20,8 @@ import (
 )
 
 
+
+
 func testAccQueue_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -31,6 +33,8 @@ func testAccQueue_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -39,6 +43,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_basic(rName, rName2, originalDescription),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -60,6 +66,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_basic(rName, rName2, updatedDescription),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -78,6 +86,8 @@ func(
 }
 
 
+
+
 func testAccQueue_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -88,6 +98,8 @@ func testAccQueue_disappears(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -96,6 +108,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_basic(rName, rName2, "Disappear"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceQueue(), resourceName),
@@ -107,6 +121,8 @@ ExpectNonEmptyPlan: true,
 }
 
 
+
+
 func testAccQueue_updateHoursOfOperationId(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -116,6 +132,8 @@ func testAccQueue_updateHoursOfOperationId(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,6 +142,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_hoursOfOperation(rName, rName2, "first"),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -145,6 +165,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_hoursOfOperation(rName, rName2, "second"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -166,6 +188,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_hoursOfOperation(rName, rName2, "first"),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -184,6 +208,8 @@ func(
 }
 
 
+
+
 func testAccQueue_updateMaxContacts(t *testing.T) {
 	t.Skip("A bug in the service API has been reported")
 
@@ -198,6 +224,8 @@ func testAccQueue_updateMaxContacts(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -206,6 +234,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_maxContacts(rName, rName2, originalMaxContacts),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -228,6 +258,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_maxContacts(rName, rName2, updatedMaxContacts),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -247,6 +279,8 @@ func(
 }
 
 
+
+
 func testAccQueue_updateOutboundCallerConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -258,6 +292,8 @@ func testAccQueue_updateOutboundCallerConfig(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -266,6 +302,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_outboundCaller(rName, rName2, originalOutboundCallerIdName),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -289,6 +327,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_outboundCaller(rName, rName2, updatedOutboundCallerIdName),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -309,6 +349,8 @@ func(
 }
 
 
+
+
 func testAccQueue_updateStatus(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -320,6 +362,8 @@ func testAccQueue_updateStatus(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -328,6 +372,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_status(rName, rName2, originalStatus),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -349,6 +395,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_status(rName, rName2, updatedStatus),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -367,6 +415,8 @@ func(
 }
 
 
+
+
 func testAccQueue_updateQuickConnectIds(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -379,6 +429,8 @@ func testAccQueue_updateQuickConnectIds(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -388,6 +440,8 @@ Steps: []resource.TestStep{
 // start with no quick connects associated with the queue
 Config: testAccQueueConfig_basic(rName, rName4, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -410,6 +464,8 @@ ImportStateVerify: true,
 // associate one quick connect to the queue
 Config: testAccQueueConfig_quickConnect1(rName, rName2, rName3, rName4, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -433,6 +489,8 @@ ImportStateVerify: true,
 // associate two quick connects to the queue
 Config: testAccQueueConfig_quickConnect2(rName, rName2, rName3, rName4, description),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -455,6 +513,8 @@ ImportStateVerify: true,
 // remove one quick connect
 Config: testAccQueueConfig_quickConnect1(rName, rName2, rName3, rName4, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -474,6 +534,8 @@ func(
 }
 
 
+
+
 func testAccQueue_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQueueOutput
@@ -485,6 +547,8 @@ func testAccQueue_updateTags(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -493,6 +557,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_basic(rName, rName2, description),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -507,6 +573,8 @@ ImportStateVerify: true,
 	{
 Config: testAccQueueConfig_tags(rName, rName2, description),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
@@ -517,6 +585,8 @@ func(
 	{
 Config: testAccQueueConfig_tagsUpdated(rName, rName2, description),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	testAccCheckQueueExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
@@ -530,10 +600,18 @@ func(
 }
 
 
+
+
 func testAccCheckQueueExists(ctx context.Context, resourceName string, 
+
+
 function *connect.DescribeQueueOutput) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
@@ -557,13 +635,19 @@ params := &connect.DescribeQueueInput{
 }
 
 get
+
+
 function, err := conn.DescribeQueueWithContext(ctx, params)
 if err != nil {
 	return err
 }
 
 *
+
+
 function = *get
+
+
 function
 
 return nil
@@ -571,9 +655,15 @@ return nil
 }
 
 
+
+
 func testAccCheckQueueDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_queue" {
@@ -609,6 +699,8 @@ return nil
 }
 
 
+
+
 func testAccQueueConfig_base(rName string) string {
 	// Use the aws_connect_hours_of_operation data source with the default "Basic Hours" that comes with connect instances.
 	// Because if a resource is used, Terraform will not be able to delete it since queues do not have support for the delete api
@@ -633,6 +725,8 @@ data "aws_connect_hours_of_operation" "test" {
 }
 
 
+
+
 func testAccQueueConfig_basic(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
 testAccQueueConfig_base(rName),
@@ -649,6 +743,8 @@ resource "aws_connect_queue" "test" {
 }
 `, rName2, label))
 }
+
+
 
 
 func testAccQueueConfig_hoursOfOperation(rName, rName2, selectHoursOfOperationId string) string {
@@ -694,7 +790,11 @@ resource "aws_connect_queue" "test" {
 }
 
 //lint:ignore U1000 Ignore unused 
+
+
 function temporarily
+
+
 
 func testAccQueueConfig_maxContacts(rName, rName2, maxContacts string) string {
 	return acctest.ConfigCompose(
@@ -713,6 +813,8 @@ resource "aws_connect_queue" "test" {
 }
 `, rName2, maxContacts))
 }
+
+
 
 
 func testAccQueueConfig_outboundCaller(rName, rName2, OutboundCallerIdName string) string {
@@ -737,6 +839,8 @@ resource "aws_connect_queue" "test" {
 }
 
 
+
+
 func testAccQueueConfig_status(rName, rName2, status string) string {
 	return acctest.ConfigCompose(
 testAccQueueConfig_base(rName),
@@ -754,6 +858,8 @@ resource "aws_connect_queue" "test" {
 }
 `, rName2, status))
 }
+
+
 
 
 func testAccQueueQuickConnectConfig_base(rName, rName2 string) string {
@@ -797,6 +903,8 @@ resource "aws_connect_quick_connect" "test2" {
 }
 
 
+
+
 func testAccQueueConfig_quickConnect1(rName, rName2, rName3, rName4, label string) string {
 	return acctest.ConfigCompose(
 testAccQueueConfig_base(rName),
@@ -818,6 +926,8 @@ resource "aws_connect_queue" "test" {
 }
 `, rName4, label))
 }
+
+
 
 
 func testAccQueueConfig_quickConnect2(rName, rName2, rName3, rName4, label string) string {
@@ -844,6 +954,8 @@ resource "aws_connect_queue" "test" {
 }
 
 
+
+
 func testAccQueueConfig_tags(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
 testAccQueueConfig_base(rName),
@@ -861,6 +973,8 @@ resource "aws_connect_queue" "test" {
 }
 `, rName2, label))
 }
+
+
 
 
 func testAccQueueConfig_tagsUpdated(rName, rName2, label string) string {

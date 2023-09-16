@@ -77,7 +77,7 @@ func ResourceReplicationTask() *schema.Resource {
 				ValidateFunc: validReplicationTaskID,
 			},
 			"replication_task_settings": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
@@ -98,7 +98,7 @@ func ResourceReplicationTask() *schema.Resource {
 				Computed: true,
 			},
 			"table_mappings": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
@@ -124,12 +124,12 @@ func resourceReplicationTaskCreate(ctx context.Context, d *schema.ResourceData, 
 	taskId := d.Get("replication_task_id").(string)
 
 	request := &dms.CreateReplicationTaskInput{
-		MigrationType:             aws.String(d.Get("migration_type").(string)),
+		MigrationType:aws.String(d.Get("migration_type").(string)),
 		ReplicationInstanceArn:    aws.String(d.Get("replication_instance_arn").(string)),
 		ReplicationTaskIdentifier: aws.String(taskId),
 		SourceEndpointArn:         aws.String(d.Get("source_endpoint_arn").(string)),
-		TableMappings:             aws.String(d.Get("table_mappings").(string)),
-		Tags:                      getTagsIn(ctx),
+		TableMappings:aws.String(d.Get("table_mappings").(string)),
+		Tags:         getTagsIn(ctx),
 		TargetEndpointArn:         aws.String(d.Get("target_endpoint_arn").(string)),
 	}
 

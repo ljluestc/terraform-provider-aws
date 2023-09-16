@@ -28,9 +28,9 @@ func TestAccRedshiftServerlessResourcePolicy_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),
@@ -58,9 +58,9 @@ func TestAccRedshiftServerlessResourcePolicy_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyConfig_basic(rName),

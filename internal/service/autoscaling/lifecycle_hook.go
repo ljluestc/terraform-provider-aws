@@ -25,7 +25,7 @@ import (
 func ResourceLifecycleHook() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLifecycleHookPut,
-		ReadWithoutTimeout:   resourceLifecycleHookRead,
+		ReadWithoutTimeout:ourceLifecycleHookRead,
 		UpdateWithoutTimeout: resourceLifecycleHookPut,
 		DeleteWithoutTimeout: resourceLifecycleHookDelete,
 
@@ -35,37 +35,37 @@ func ResourceLifecycleHook() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"autoscaling_group_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"default_result": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"heartbeat_timeout": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 			},
 			"lifecycle_transition": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"notification_metadata": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"notification_target_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 		},
@@ -129,7 +129,7 @@ func resourceLifecycleHookDelete(ctx context.Context, d *schema.ResourceData, me
 	log.Printf("[INFO] Deleting Auto Scaling Lifecycle Hook: %s", d.Id())
 	_, err := conn.DeleteLifecycleHookWithContext(ctx, &autoscaling.DeleteLifecycleHookInput{
 		AutoScalingGroupName: aws.String(d.Get("autoscaling_group_name").(string)),
-		LifecycleHookName:    aws.String(d.Id()),
+		LifecycleHookName:s.String(d.Id()),
 	})
 
 	if tfawserr.ErrMessageContains(err, ErrCodeValidationError, "not found") {
@@ -146,7 +146,7 @@ func resourceLifecycleHookDelete(ctx context.Context, d *schema.ResourceData, me
 func getPutLifecycleHookInput(d *schema.ResourceData) *autoscaling.PutLifecycleHookInput {
 	var params = &autoscaling.PutLifecycleHookInput{
 		AutoScalingGroupName: aws.String(d.Get("autoscaling_group_name").(string)),
-		LifecycleHookName:    aws.String(d.Get("name").(string)),
+		LifecycleHookName:s.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("default_result"); ok {
@@ -179,14 +179,14 @@ func getPutLifecycleHookInput(d *schema.ResourceData) *autoscaling.PutLifecycleH
 func FindLifecycleHook(ctx context.Context, conn *autoscaling.AutoScaling, asgName, hookName string) (*autoscaling.LifecycleHook, error) {
 	input := &autoscaling.DescribeLifecycleHooksInput{
 		AutoScalingGroupName: aws.String(asgName),
-		LifecycleHookNames:   aws.StringSlice([]string{hookName}),
+		LifecycleHookNames:.StringSlice([]string{hookName}),
 	}
 
 	output, err := conn.DescribeLifecycleHooksWithContext(ctx, input)
 
 	if tfawserr.ErrMessageContains(err, ErrCodeValidationError, "not found") {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccTranscribeMedicalVocabulary_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -31,13 +30,12 @@ func TestAccTranscribeMedicalVocabulary_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
+			acctest.Pfunccctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccMedicalVocabularyPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMedicalVocabularyDestroy(ctx),
+		CheckDestroy:testAccCheckMedicalVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMedicalVocabularyConfig_basic(rName),
@@ -50,7 +48,7 @@ func TestAccTranscribeMedicalVocabulary_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vocabulary_file_uri", "download_uri"},
 			},
@@ -60,8 +58,7 @@ func TestAccTranscribeMedicalVocabulary_basic(t *testing.T) {
 
 func TestAccTranscribeMedicalVocabulary_updateS3URI(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	var medicalVocabulary transcribe.GetMedicalVocabularyOutput
@@ -74,11 +71,10 @@ func TestAccTranscribeMedicalVocabulary_updateS3URI(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
-			testAccMedicalVocabularyPreCheck(ctx, t)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+			testAccMefunc
+		ErrorCheck:  acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMedicalVocabularyDestroy(ctx),
+		CheckDestroy:testAccCheckMedicalVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMedicalVocabularyConfig_updateFile(rName, file1),
@@ -104,8 +100,7 @@ func TestAccTranscribeMedicalVocabulary_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var medicalVocabulary transcribe.GetMedicalVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_transcribe_medical_vocabulary.test"
@@ -116,9 +111,8 @@ func TestAccTranscribeMedicalVocabulary_updateTags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccMedicalVocabularyPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMedicalVocabularyDestroy(ctx),
+		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckMedicalVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMedicalVocabularyConfig_tags1(rName, "key1", "value1"),
@@ -155,8 +149,7 @@ func TestAccTranscribeMedicalVocabulary_disappears(t *testing.T) {
 		t.Skip("skipping long-running test in short mode")
 	}
 
-	var medicalVocabulary transcribe.GetMedicalVocabularyOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_transcribe_medical_vocabulary.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -165,10 +158,9 @@ func TestAccTranscribeMedicalVocabulary_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccMedicalVocabularyPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMedicalVocabularyDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestrfunceps: []resource.TestStep{
 			{
 				Config: testAccMedicalVocabularyConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -189,10 +181,8 @@ func testAccCheckMedicalVocabularyDestroy(ctx context.Context) resource.TestChec
 			if rs.Type != "aws_transcribe_medical_vocabulary" {
 				continue
 			}
-
-			_, err := tftranscribe.FindMedicalVocabularyByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+func, err := tftranscribe.FindMedicalVocabularyByName(ctx, conn, rs.Primary.ID)
+funcf tfresource.NotFound(err) {
 				continue
 			}
 
@@ -217,10 +207,8 @@ func testAccCheckMedicalVocabularyExists(ctx context.Context, name string, medic
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Transcribe MedicalVocabulary is set")
 		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TranscribeClient(ctx)
-		resp, err := tftranscribe.FindMedicalVocabularyByName(ctx, conn, rs.Primary.ID)
-
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).TranscribeClient(ctx)
+		resp, func
 		if err != nil {
 			return fmt.Errorf("Error describing Transcribe MedicalVocabulary: %s", err.Error())
 		}
@@ -243,8 +231,7 @@ func testAccMedicalVocabularyPreCheck(ctx context.Context, t *testing.T) {
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
-	}
+func
 }
 
 func testAccMedicalVocabularyBaseConfig(rName string) string {
@@ -260,8 +247,7 @@ resource "aws_s3_object" "object1" {
   source = "test-fixtures/medical_vocabulary_test1.txt"
 }
 
-resource "aws_s3_object" "object2" {
-  bucket = aws_s3_bucket.test.id
+funccket = aws_s3_bucket.test.id
   key    = "transcribe/test2.txt"
   source = "test-fixtures/medical_vocabulary_test2.txt"
 }
@@ -283,8 +269,7 @@ resource "aws_transcribe_medical_vocabulary" "test" {
     tag2 = "value3"
   }
 
-  depends_on = [
-    aws_s3_object.object1
+funcaws_s3_object.object1
   ]
 }
 `, rName))
@@ -305,8 +290,7 @@ resource "aws_transcribe_medical_vocabulary" "test" {
   }
 
   depends_on = [
-    aws_s3_object.object1,
-    aws_s3_object.object2
+funcaws_s3_object.object2
   ]
 }
 `, rName, fileName))
@@ -328,8 +312,7 @@ resource "aws_transcribe_medical_vocabulary" "test" {
   depends_on = [
     aws_s3_object.object1
   ]
-}
-`, rName, key1, value1))
+funcName, key1, value1))
 }
 
 func testAccMedicalVocabularyConfig_tags2(rName, key1, value1, key2, value2 string) string {
@@ -349,6 +332,5 @@ resource "aws_transcribe_medical_vocabulary" "test" {
   depends_on = [
     aws_s3_object.object1
   ]
-}
-`, rName, key1, value1, key2, value2))
+funcName, key1, value1, key2, value2))
 }

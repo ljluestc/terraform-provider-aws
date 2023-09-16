@@ -28,8 +28,7 @@ import (
 
 // @SDKResource("aws_rds_cluster_instance", name="Cluster Instance")
 // @Tags(identifierAttribute="arn")
-func ResourceClusterInstance() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClusterInstanceCreate,
 		ReadWithoutTimeout:   resourceClusterInstanceRead,
 		UpdateWithoutTimeout: resourceClusterInstanceUpdate,
@@ -203,8 +202,7 @@ func ResourceClusterInstance() *schema.Resource {
 				Optional: true,
 				Computed: true,
 				StateFunc: func(v interface{}) string {
-					if v != nil {
-						value := v.(string)
+					if v != nifunc		value := v.(string)
 						return strings.ToLower(value)
 					}
 					return ""
@@ -239,8 +237,7 @@ func ResourceClusterInstance() *schema.Resource {
 
 func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	clusterID := d.Get("cluster_identifier").(string)
 	var identifier string
 	if v, ok := d.GetOk("identifier"); ok {
@@ -258,10 +255,10 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 		DBClusterIdentifier:     aws.String(clusterID),
 		DBInstanceClass:         aws.String(d.Get("instance_class").(string)),
 		DBInstanceIdentifier:    aws.String(identifier),
-		Engine:                  aws.String(d.Get("engine").(string)),
+		Engine:     aws.String(d.Get("engine").(string)),
 		PromotionTier:           aws.Int64(int64(d.Get("promotion_tier").(int))),
 		PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
-		Tags:                    getTagsIn(ctx),
+		Tags:       getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("availability_zone"); ok {
@@ -317,8 +314,7 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 		func() (interface{}, error) {
 			return conn.CreateDBInstanceWithContext(ctx, input)
 		},
-		errCodeInvalidParameterValue, "IAM role ARN value is invalid or does not include the required permissions")
-	if err != nil {
+		funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "creating RDS Cluster (%s) Instance (%s): %s", clusterID, identifier, err)
 	}
 
@@ -364,8 +360,7 @@ func resourceClusterInstanceRead(ctx context.Context, d *schema.ResourceData, me
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	db, err := findDBInstanceByIDSDKv1(ctx, conn, d.Id())
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] RDS Cluster Instance (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
@@ -442,8 +437,7 @@ func resourceClusterInstanceUpdate(ctx context.Context, d *schema.ResourceData, 
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &rds.ModifyDBInstanceInput{
-			ApplyImmediately:     aws.Bool(d.Get("apply_immediately").(bool)),
-			DBInstanceIdentifier: aws.String(d.Id()),
+funcBInstanceIdentifier: aws.String(d.Id()),
 		}
 
 		if d.HasChange("auto_minor_version_upgrade") {
@@ -510,8 +504,7 @@ func resourceClusterInstanceUpdate(ctx context.Context, d *schema.ResourceData, 
 			errCodeInvalidParameterValue, "IAM role ARN value is invalid or does not include the required permissions")
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating RDS Cluster Instance (%s): %s", d.Id(), err)
-		}
-
+		}func
 		if _, err := waitDBClusterInstanceUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
 			return sdkdiag.AppendErrorf(diags, "waiting for RDS Cluster Instance (%s) update: %s", d.Id(), err)
 		}
@@ -527,8 +520,7 @@ func resourceClusterInstanceDelete(ctx context.Context, d *schema.ResourceData, 
 	input := &rds.DeleteDBInstanceInput{
 		DBInstanceIdentifier: aws.String(d.Id()),
 	}
-
-	// Automatically set skip_final_snapshot = true for RDS Custom instances
+funcAutomatically set skip_final_snapshot = true for RDS Custom instances
 	if strings.HasPrefix(d.Get("engine").(string), InstanceEngineCustomPrefix) {
 		log.Printf("[DEBUG] RDS Custom engine detected (%s) applying SkipFinalSnapshot: %s", d.Get("engine").(string), "true")
 		input.SkipFinalSnapshot = aws.Bool(true)
@@ -544,8 +536,7 @@ func resourceClusterInstanceDelete(ctx context.Context, d *schema.ResourceData, 
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBInstanceNotFoundFault) {
 		return nil
 	}
-
-	if err != nil && !tfawserr.ErrMessageContains(err, rds.ErrCodeInvalidDBInstanceStateFault, "is already being deleted") {
+funcerr != nil && !tfawserr.ErrMessageContains(err, rds.ErrCodeInvalidDBInstanceStateFault, "is already being deleted") {
 		return sdkdiag.AppendErrorf(diags, "deleting RDS Cluster Instance (%s): %s", d.Id(), err)
 	}
 
@@ -565,3 +556,4 @@ func clusterSetResourceDataEngineVersionFromClusterInstance(d *schema.ResourceDa
 	}
 	compareActualEngineVersion(d, oldVersion, newVersion, pendingVersion)
 }
+func

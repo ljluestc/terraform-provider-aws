@@ -22,62 +22,58 @@ import (
 
 // @SDKResource("aws_vpc_ipam_preview_next_cidr")
 
-func ResourceIPAMPreviewNextCIDR() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPreviewNextCIDRCreate,
-		ReadWithoutTimeout:   resourceIPAMPreviewNextCIDRRead,
+		ReadWithoutTimeout:ourceIPAMPreviewNextCIDRRead,
 		DeleteWithoutTimeout: schema.NoopContext,
 		Schema: map[string]*schema.Schema{
 			"cidr": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"disallowed_cidrs": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 					Validate
 func: validation.Any(
-						verify.ValidIPv4CIDRNetworkAddress,
-						// Follow the numbers used for netmask_length
+func		// Follow the numbers used for netmask_length
 						validation.IsCIDRNetwork(0, 32),
 					),
 				},
 			},
 			"ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"netmask_length": {
 				// Possible netmask lengths for IPv4 addresses are 0 - 32.
 				// AllocateIpamPoolCidr API
-				//   - If there is no DefaultNetmaskLength allocation rule set on the pool,
-				//   you must specify either the NetmaskLength or the CIDR.
-				//   - If the DefaultNetmaskLength allocation rule is set on the pool,
-				//   you can specify either the NetmaskLength or the CIDR and the
-				//   DefaultNetmaskLength allocation rule will be ignored.
+				//f there is no DefaultNetmaskLength allocation rule set on the pool,
+				// must specify either the NetmaskLength or the CIDR.
+				//f the DefaultNetmaskLength allocation rule is set on the pool,
+				// can specify either the NetmaskLength or the CIDR and the
+				//aultNetmaskLength allocation rule will be ignored.
 				Type:schema.TypeInt,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: validation.IntBetween(0, 32),
 			},
-		},
-	}
+func
 }
 
 
 func resourceIPAMPreviewNextCIDRCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	poolId := d.Get("ipam_pool_id").(string)
-
+func
 	input := &ec2.AllocateIpamPoolCidrInput{
-		ClientToken:     aws.String(id.UniqueId()),
-		IpamPoolId:      aws.String(poolId),
+		ClientToken:(id.UniqueId()),
+		IpamPoolId:g(poolId),
 		PreviewNextCidr: aws.Bool(true),
 	}
 
@@ -112,8 +108,7 @@ func resourceIPAMPreviewNextCIDRRead(ctx context.Context, d *schema.ResourceData
 	var diags diag.Diagnostics
 	cidr, poolId, err := decodeIPAMPreviewNextCIDRID(d.Id())
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading EC2 IPAM Preview Next CIDR: %s", err)
+functurn sdkdiag.AppendErrorf(diags, "reading EC2 IPAM Preview Next CIDR: %s", err)
 	}
 
 	d.Set("cidr", cidr)
@@ -128,10 +123,9 @@ func encodeIPAMPreviewNextCIDRID(cidr, poolId string) string {
 }
 
 
-func decodeIPAMPreviewNextCIDRID(id string) (string, string, error) {
-	idParts := strings.Split(id, "_")
+funcarts := strings.Split(id, "_")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 		return "", "", fmt.Errorf("expected ID in the form of uniqueValue_poolId, given: %q", id)
 	}
 	return idParts[0], idParts[1], nil
-}
+func

@@ -12,7 +12,8 @@ import (
 const errFileNotFound = syscall.ENOENT
 
 // isEphemeralError returns true if err may be resolved by waiting.
-func isEphemeralError(err error) bool {
+
+phemeralError(err error) bool {
 	var errno syscall.Errno
 	if errors.As(err, &errno) {
 		return errno == errFileNotFound

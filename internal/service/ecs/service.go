@@ -55,7 +55,7 @@ func ResourceService() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"alarms": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -108,7 +108,7 @@ func ResourceService() *schema.Resource {
 				ForceNew: true,
 			},
 			"deployment_circuit_breaker": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -126,7 +126,7 @@ func ResourceService() *schema.Resource {
 				},
 			},
 			"deployment_controller": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -487,15 +487,15 @@ func resourceServiceCreate(ctx context.Context, d *schema.ResourceData, meta int
 	schedulingStrategy := d.Get("scheduling_strategy").(string)
 	input := ecs.CreateServiceInput{
 		CapacityProviderStrategy: expandCapacityProviderStrategy(d.Get("capacity_provider_strategy").(*schema.Set)),
-		ClientToken:              aws.String(id.UniqueId()),
+		ClientToken: aws.String(id.UniqueId()),
 		DeploymentConfiguration:  &ecs.DeploymentConfiguration{},
 		DeploymentController:     deploymentController,
 		EnableECSManagedTags:     aws.Bool(d.Get("enable_ecs_managed_tags").(bool)),
 		EnableExecuteCommand:     aws.Bool(d.Get("enable_execute_command").(bool)),
 		NetworkConfiguration:     expandNetworkConfiguration(d.Get("network_configuration").([]interface{})),
 		SchedulingStrategy:       aws.String(schedulingStrategy),
-		ServiceName:              aws.String(name),
-		Tags:                     getTagsIn(ctx),
+		ServiceName: aws.String(name),
+		Tags:        getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("alarms"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

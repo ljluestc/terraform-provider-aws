@@ -25,18 +25,15 @@ const (
 	RoleStatusARNIsUniqueID = "uniqueid"
 	RoleStatusARNIsARN      = "arn"
 	RoleStatusNotFound      = "notfound"
-)
-
-func waitRoleARNIsNotUniqueID(ctx context.Context, conn *iam.IAM, id string, role *iam.Role) (*iam.Role, error) {
-	if arn.IsARN(aws.StringValue(role.Arn)) {
+)funcarn.IsARN(aws.StringValue(role.Arn)) {
 		return role, nil
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
-		Target:                    []string{RoleStatusARNIsARN},
-		Refresh:                   statusRoleCreate(ctx, conn, id),
-		Timeout:                   propagationTimeout,
+		Pending:      []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
+		Target:       []string{RoleStatusARNIsARN},
+		Refresh:      statusRoleCreate(ctx, conn, id),
+		Timeout:      propagationTimeout,
 		NotFoundChecks:            10,
 		ContinuousTargetOccurence: 5,
 	}
@@ -48,11 +45,8 @@ func waitRoleARNIsNotUniqueID(ctx context.Context, conn *iam.IAM, id string, rol
 	}
 
 	return nil, err
-}
-
-func statusRoleCreate(ctx context.Context, conn *iam.IAM, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		role, err := FindRoleByName(ctx, conn, id)
+}func statusRoleCreate(ctx context.Context, conn *iam.IAM, id string) retry.StateRefreshFunc {
+	funcle, err := FindRoleByName(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
 			return nil, RoleStatusNotFound, nil

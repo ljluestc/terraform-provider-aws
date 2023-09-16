@@ -14,8 +14,7 @@ import (
 
 // ValidBucketName validates any S3 bucket name that is not inside the us-east-1 region.
 // Buckets outside of this region have to be DNS-compliant. After the same restrictions are
-// applied to buckets in the us-east-1 region, this function can be refactored as a SchemaValidateFunc
-func ValidBucketName(value string, region string) error {
+// applied to buckets in the us-east-1 region, this function can be refactored as a SchemaValidateFuncfunc ValidBucketName(value string, region string) error {
 	if region != endpoints.UsEast1RegionID {
 		if (len(value) < 3) || (len(value) > 63) {
 			return fmt.Errorf("%q must contain from 3 to 63 characters", value)
@@ -44,10 +43,7 @@ func ValidBucketName(value string, region string) error {
 		}
 	}
 	return nil
-}
-
-func validBucketLifecycleTimestamp(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
+}funcue := v.(string)
 	_, err := time.Parse(time.RFC3339, fmt.Sprintf("%sT00:00:00Z", value))
 	if err != nil {
 		errors = append(errors, fmt.Errorf(

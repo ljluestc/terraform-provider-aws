@@ -38,7 +38,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+CheckDestroy:testAccCheckPrivateVirtualInterfaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPrivateVirtualInterfaceConfig_basic(connectionId, rName, bgpAsn, vlan),
@@ -111,7 +111,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+CheckDestroy:testAccCheckPrivateVirtualInterfaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPrivateVirtualInterfaceConfig_tags(connectionId, rName, bgpAsn, vlan),
@@ -191,7 +191,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+CheckDestroy:testAccCheckPrivateVirtualInterfaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPrivateVirtualInterfaceConfig_gateway(connectionId, rName, amzAsn, bgpAsn, vlan),
@@ -244,7 +244,7 @@ t.Skipf("Environment variable %s is not set", key)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+CheckDestroy:testAccCheckPrivateVirtualInterfaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPrivateVirtualInterfaceConfig_siteLinkBasic(connectionId, rName, amzAsn, bgpAsn, vlan, true),
@@ -414,8 +414,8 @@ resource "aws_dx_private_virtual_interface" "test" {
   bgp_asn          = %[4]d
   dx_gateway_id    = aws_dx_gateway.test.id
   connection_id    = %[1]q
-  name             = %[2]q
-  vlan             = %[5]d
+  name= %[2]q
+  vlan= %[5]d
   sitelink_enabled = %[6]t
 }
 `, cid, rName, amzAsn, bgpAsn, vlan, sitelink_enabled)
@@ -433,8 +433,8 @@ resource "aws_dx_private_virtual_interface" "test" {
   bgp_asn          = %[4]d
   dx_gateway_id    = aws_dx_gateway.test.id
   connection_id    = %[1]q
-  name             = %[2]q
-  vlan             = %[5]d
+  name= %[2]q
+  vlan= %[5]d
   sitelink_enabled = %[6]t
 }
 `, cid, rName, amzAsn, bgpAsn, vlan, sitelink_enabled)

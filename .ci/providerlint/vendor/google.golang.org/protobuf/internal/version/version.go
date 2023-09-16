@@ -27,7 +27,8 @@ import (
 //     PreRelease must not contain the string "devel".
 //
 //  3. Since the last released minor version, have there been any changes to
-//     generator that relies on new functionality in the runtime?
+//     generator that relies on new 
+tionality in the runtime?
 //     If yes, then increment RequiredGenerated.
 //
 //  4. Since the last released minor version, have there been any changes to
@@ -61,8 +62,9 @@ const (
 // Examples:
 //
 //	v1.20.1
-//	v1.21.0-rc.1
-func String() string {
+1.21.0-rc.1
+
+ String() string {
 	v := fmt.Sprintf("v%d.%d.%d", Major, Minor, Patch)
 	if PreRelease != "" {
 		v += "-" + PreRelease

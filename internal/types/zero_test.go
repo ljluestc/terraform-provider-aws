@@ -12,21 +12,22 @@ type AIsZero struct {
 	Value int
 }
 
-func TestIsZero(t *testing.T) {
+
+tIsZero(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-Name     string
-Ptr      *AIsZero
+Name
+Ptr
 Expected bool
 	}{
 {
-	Name:     "nil pointer",
+	Name:er",
 	Expected: true,
 },
 {
-	Name:     "pointer to zero value",
-	Ptr:      &AIsZero{},
+	Name:o zero value",
+	Ptr:},
 	Expected: true,
 },
 {
@@ -42,7 +43,8 @@ Expected bool
 	for _, testCase := range testCases {
 testCase := testCase
 
-t.Run(testCase.Name, func(t *testing.T) {
+t.Run(testCase.Name, 
+testing.T) {
 	t.Parallel()
 
 	got := IsZero(testCase.Ptr)

@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccSiteVPNConnectionRoute_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
 	resourceName := "aws_vpn_connection_route.test"
@@ -28,17 +27,15 @@ func TestAccSiteVPNConnectionRoute_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNConnectionRouteDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPNConnectionRouteDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
 Check: resource.ComposeTestCheck
 func(
 	testAccVPNConnectionRouteExists(ctx, resourceName),
-),
-	},
+func
 },
 	})
 }
@@ -47,17 +44,15 @@ func(
 func TestAccSiteVPNConnectionRoute_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
-	resourceName := "aws_vpn_connection_route.test"
+funcourceName := "aws_vpn_connection_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNConnectionRouteDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPNConnectionRouteDestroy(ctx),
+func
 Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
 Check: resource.ComposeTestCheck
 func(
@@ -65,8 +60,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNConnectionRoute(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -77,13 +71,10 @@ func {
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_vpn_connection_route" {
-continue
-	}
+funcrs.Type != "aws_vpn_connection_route" {
+func
 
-	cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
-
+func
 	if err != nil {
 return err
 	}
@@ -115,13 +106,10 @@ if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
 
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 VPN Connection Route ID is set")
-}
-
+funcurn fmt.Errorf("No EC2 VPN Connection Route ID is set")
+func
 cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
-
-if err != nil {
+funcrr != nil {
 	return err
 }
 
@@ -138,34 +126,33 @@ func testAccSiteVPNConnectionRouteConfig_basic(rName string, rBgpAsn int) string
 	return fmt.Sprintf(`
 resource "aws_vpn_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_customer_gateway" "test" {
-  bgp_asn    = %[2]d
+  bgp_asn%[2]d
   ip_address = "182.0.0.1"
-  type       = "ipsec.1"
-
-  tags = {
-    Name = %[1]q
+  type.1"
+funcgs = {
+me = %[1]q
   }
 }
 
 resource "aws_vpn_connection" "test" {
-  vpn_gateway_id      = aws_vpn_gateway.test.id
+  vpn_gateway_id_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
   type = "ipsec.1"
   static_routes_only  = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpn_connection_route" "test" {
   destination_cidr_block = "172.168.10.0/24"
-  vpn_connection_id      = aws_vpn_connection.test.id
+  vpn_connection_id_connection.test.id
 }
 `, rName, rBgpAsn)
 }

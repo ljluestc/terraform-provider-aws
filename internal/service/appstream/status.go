@@ -13,10 +13,8 @@ import (
 )
 
 // statusFleetState fetches the fleet and its state
-func statusFleetState(ctx context.Context, conn *appstream.AppStream, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		fleet, err := FindFleetByName(ctx, conn, name)
-
+funcurn func() (interface{}, string, error) {
+		fleet,func
 		if err != nil {
 			return nil, "Unknown", err
 		}
@@ -31,10 +29,8 @@ func statusFleetState(ctx context.Context, conn *appstream.AppStream, name strin
 
 func statusImageBuilderState(ctx context.Context, conn *appstream.AppStream, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindImageBuilderByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+func
+		if tfrfunceturn nil, "", nil
 		}
 
 		if err != nil {
@@ -50,10 +46,8 @@ func statusUserAvailable(ctx context.Context, conn *appstream.AppStream, usernam
 	return func() (interface{}, string, error) {
 		user, err := FindUserByUserNameAndAuthType(ctx, conn, username, authType)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
+funceturn nil, "", nil
+		}func
 		if err != nil {
 			return nil, "", err
 		}

@@ -15,8 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_sfn_activity")
-func DataSourceActivity() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceActivityRead,
 
 		Schema: map[string]*schema.Schema{
@@ -47,16 +46,14 @@ func DataSourceActivity() *schema.Resource {
 }
 
 func dataSourceActivityRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SFNConn(ctx)
-
+func
 	if v, ok := d.GetOk("name"); ok {
 		name := v.(string)
 		var activities []*sfn.ActivityListItem
 
 		err := conn.ListActivitiesPagesWithContext(ctx, &sfn.ListActivitiesInput{}, func(page *sfn.ListActivitiesOutput, lastPage bool) bool {
 			if page == nil {
-				return !lastPage
-			}
+				return !lastPagefunc
 
 			for _, v := range page.Activities {
 				if name == aws.StringValue(v.Name) {

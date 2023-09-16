@@ -33,6 +33,8 @@ import (
 
 // @SDKResource("aws_elasticache_replication_group", name="Replication Group")
 // @Tags(identifierAttribute="arn")
+
+
 func ResourceReplicationGroup() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -166,7 +168,9 @@ func ResourceReplicationGroup() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
-				StateFunc: func(val interface{}) string {
+				StateFunc: 
+
+func(val interface{}) string {
 					// ElastiCache always changes the maintenance to lowercase
 					return strings.ToLower(val.(string))
 				},
@@ -209,7 +213,9 @@ func ResourceReplicationGroup() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+
+func(k, old, new string, d *schema.ResourceData) bool {
 					return strings.HasPrefix(old, "global-datastore-")
 				},
 			},
@@ -217,7 +223,9 @@ func ResourceReplicationGroup() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 				ForceNew: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+
+func(k, old, new string, d *schema.ResourceData) bool {
 					// Suppress default Redis ports when not defined
 					if !d.IsNewResource() && new == "0" && old == defaultRedisPort {
 						return true
@@ -248,7 +256,9 @@ func ResourceReplicationGroup() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validateReplicationGroupID,
-				StateFunc: func(val interface{}) string {
+				StateFunc: 
+
+func(val interface{}) string {
 					return strings.ToLower(val.(string))
 				},
 			},
@@ -333,7 +343,9 @@ func ResourceReplicationGroup() *schema.Resource {
 		// SchemaVersion: 1 did not include any state changes via MigrateState.
 		// Perform a no-operation state upgrade for Terraform 0.12 compatibility.
 		// Future state migrations should be performed with StateUpgraders.
-		MigrateState: func(v int, inst *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+		MigrateState: 
+
+func(v int, inst *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 			return inst, nil
 		},
 
@@ -346,7 +358,9 @@ func ResourceReplicationGroup() *schema.Resource {
 		CustomizeDiff: customdiff.Sequence(
 			CustomizeDiffValidateReplicationGroupAutomaticFailover,
 			customizeDiffEngineVersionForceNewOnDowngrade,
-			customdiff.ComputedIf("member_clusters", func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
+			customdiff.ComputedIf("member_clusters", 
+
+func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				return diff.HasChange("num_cache_clusters") ||
 					diff.HasChange("num_node_groups") ||
 					diff.HasChange("replicas_per_node_group")
@@ -356,6 +370,8 @@ func ResourceReplicationGroup() *schema.Resource {
 	}
 }
 
+
+
 func resourceReplicationGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -363,7 +379,7 @@ func resourceReplicationGroupCreate(ctx context.Context, d *schema.ResourceData,
 	replicationGroupID := d.Get("replication_group_id").(string)
 	input := &elasticache.CreateReplicationGroupInput{
 		ReplicationGroupId: aws.String(replicationGroupID),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -536,6 +552,8 @@ func resourceReplicationGroupCreate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceReplicationGroupRead(ctx, d, meta)...)
 }
 
+
+
 func resourceReplicationGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -662,6 +680,8 @@ func resourceReplicationGroupRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
+
 
 func resourceReplicationGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -826,7 +846,7 @@ func resourceReplicationGroupUpdate(ctx context.Context, d *schema.ResourceData,
 				ApplyImmediately:        aws.Bool(true),
 				ReplicationGroupId:      aws.String(d.Id()),
 				AuthTokenUpdateStrategy: aws.String("ROTATE"),
-				AuthToken:               aws.String(d.Get("auth_token").(string)),
+				AuthToken:  aws.String(d.Get("auth_token").(string)),
 			}
 
 			_, err := conn.ModifyReplicationGroupWithContext(ctx, params)
@@ -843,6 +863,8 @@ func resourceReplicationGroupUpdate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourceReplicationGroupRead(ctx, d, meta)...)
 }
+
+
 
 func resourceReplicationGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -879,13 +901,17 @@ func resourceReplicationGroupDelete(ctx context.Context, d *schema.ResourceData,
 	return diags
 }
 
+
+
 func DisassociateReplicationGroup(ctx context.Context, conn *elasticache.ElastiCache, globalReplicationGroupID, id, region string, readyTimeout time.Duration) error {
 	input := &elasticache.DisassociateGlobalReplicationGroupInput{
 		GlobalReplicationGroupId: aws.String(globalReplicationGroupID),
 		ReplicationGroupId:       aws.String(id),
 		ReplicationGroupRegion:   aws.String(region),
 	}
-	err := retry.RetryContext(ctx, readyTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, readyTimeout, 
+
+func() *retry.RetryError {
 		_, err := conn.DisassociateGlobalReplicationGroupWithContext(ctx, input)
 		if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeGlobalReplicationGroupNotFoundFault) {
 			return nil
@@ -921,6 +947,8 @@ func DisassociateReplicationGroup(ctx context.Context, conn *elasticache.ElastiC
 	return nil
 }
 
+
+
 func deleteReplicationGroup(ctx context.Context, replicationGroupID string, conn *elasticache.ElastiCache, finalSnapshotID string, timeout time.Duration) error {
 	input := &elasticache.DeleteReplicationGroupInput{
 		ReplicationGroupId: aws.String(replicationGroupID),
@@ -930,7 +958,9 @@ func deleteReplicationGroup(ctx context.Context, replicationGroupID string, conn
 	}
 
 	// 10 minutes should give any creating/deleting cache clusters or snapshots time to complete
-	err := retry.RetryContext(ctx, 10*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 10*time.Minute, 
+
+func() *retry.RetryError {
 		_, err := conn.DeleteReplicationGroupWithContext(ctx, input)
 		if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeReplicationGroupNotFoundFault) {
 			return nil
@@ -961,6 +991,8 @@ func deleteReplicationGroup(ctx context.Context, replicationGroupID string, conn
 	return err
 }
 
+
+
 func modifyReplicationGroupShardConfiguration(ctx context.Context, conn *elasticache.ElastiCache, d *schema.ResourceData) error {
 	if d.HasChange("num_node_groups") {
 		err := modifyReplicationGroupShardConfigurationNumNodeGroups(ctx, conn, d, "num_node_groups")
@@ -978,6 +1010,8 @@ func modifyReplicationGroupShardConfiguration(ctx context.Context, conn *elastic
 
 	return nil
 }
+
+
 
 func modifyReplicationGroupShardConfigurationNumNodeGroups(ctx context.Context, conn *elasticache.ElastiCache, d *schema.ResourceData, argument string) error {
 	o, n := d.GetChange(argument)
@@ -1014,6 +1048,8 @@ func modifyReplicationGroupShardConfigurationNumNodeGroups(ctx context.Context, 
 
 	return nil
 }
+
+
 
 func modifyReplicationGroupShardConfigurationReplicasPerNodeGroup(ctx context.Context, conn *elasticache.ElastiCache, d *schema.ResourceData, argument string) error {
 	o, n := d.GetChange(argument)
@@ -1053,6 +1089,8 @@ func modifyReplicationGroupShardConfigurationReplicasPerNodeGroup(ctx context.Co
 	return nil
 }
 
+
+
 func modifyReplicationGroupNumCacheClusters(ctx context.Context, conn *elasticache.ElastiCache, d *schema.ResourceData, argument string) error {
 	o, n := d.GetChange(argument)
 	oldNumberCacheClusters := o.(int)
@@ -1066,6 +1104,8 @@ func modifyReplicationGroupNumCacheClusters(ctx context.Context, conn *elasticac
 	}
 	return err
 }
+
+
 
 func increaseReplicationGroupNumCacheClusters(ctx context.Context, conn *elasticache.ElastiCache, replicationGroupID string, newNumberCacheClusters int, timeout time.Duration) error {
 	input := &elasticache.IncreaseReplicaCountInput{
@@ -1085,6 +1125,8 @@ func increaseReplicationGroupNumCacheClusters(ctx context.Context, conn *elastic
 
 	return nil
 }
+
+
 
 func decreaseReplicationGroupNumCacheClusters(ctx context.Context, conn *elasticache.ElastiCache, replicationGroupID string, newNumberCacheClusters int, timeout time.Duration) error {
 	input := &elasticache.DecreaseReplicaCountInput{

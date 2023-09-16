@@ -27,7 +27,8 @@ import (
 // the ForDisplay method to obtain a form suitable for display in the UI.
 //
 // Unlike user-supplied hostnames, strings of type Hostname (assuming they
-// were constructed by a function within this package) can be compared for
+// were constructed by a 
+tion within this package) can be compared for
 // equality using the standard Go == operator.
 type Hostname string
 
@@ -46,14 +47,17 @@ var displayProfile = idna.New(
 // it suitable for display in the UI.
 //
 // If the input is so invalid that no normalization can be performed then
-// this will return the input, assuming that the caller still wants to
-// display _something_. This function is, however, more tolerant than the
-// other functions in this package and will make a best effort to prepare
+// this will return the inputsuming that the caller still wants to
+// displaomething_. This 
+tion is, however, more tolerant than the
+// other 
+tions in this package and will make a best effort to prepare
 // _any_ given hostname for display.
-//
+
 // For validation, use either IsValid (for explicit validation) or
 // ForComparison (which implicitly validates, returning an error if invalid).
-func ForDisplay(given string) string {
+
+ ForDisplay(given string) string {
 	var portPortion string
 	if colonPos := strings.Index(given, ":"); colonPos != -1 {
 		given, portPortion = given[:colonPos], given[colonPos:]
@@ -74,11 +78,12 @@ func ForDisplay(given string) string {
 // IsValid returns true if the given user-specified hostname is a valid
 // service hostname.
 //
-// Validity is determined by complying with the RFC 5891 requirements for
+alidity is determined by complying with the RFC 5891 requirements for
 // names that are valid for domain lookup (section 5), with the additional
 // requirement that user-supplied forms must not _already_ contain
 // Punycode segments.
-func IsValid(given string) bool {
+
+ IsValid(given string) bool {
 	_, err := ForComparison(given)
 	return err == nil
 }
@@ -89,12 +94,13 @@ func IsValid(given string) bool {
 // characters, and this form is unreadable for non-ASCII-speaking humans.
 //
 // The result is typed as Hostname -- a specialized name for string -- so that
-// other APIs can make it clear within the type system whether they expect a
+ther APIs can make it clear within the type system whether they expect a
 // user-specified or display-form hostname or a value already normalized for
 // comparison.
 //
 // The returned Hostname is not valid if the returned error is non-nil.
-func ForComparison(given string) (Hostname, error) {
+
+ ForComparison(given string) (Hostname, error) {
 	var portPortion string
 	if colonPos := strings.Index(given, ":"); colonPos != -1 {
 		given, portPortion = given[:colonPos], given[colonPos:]
@@ -149,15 +155,17 @@ func ForComparison(given string) (Hostname, error) {
 	return Hostname(result + portPortion), nil
 }
 
-// ForDisplay returns a version of the receiver that is appropriate for display
+// isplay returns a version of the receiver that is appropriate for display
 // in the UI. This includes converting any punycode labels to their
-// corresponding Unicode characters.
+orresponding Unicode characters.
 //
 // A round-trip through ForComparison and this ForDisplay method does not
 // guarantee the same result as calling this package's top-level ForDisplay
-// function, since a round-trip through the Hostname type implies stricter
+// 
+tion, since a round-trip through the Hostname type implies stricter
 // handling than we do when doing basic display-only processing.
-func (h Hostname) ForDisplay() string {
+
+ (h Hostname) ForDisplay() string {
 	given := string(h)
 	var portPortion string
 	if colonPos := strings.Index(given, ":"); colonPos != -1 {
@@ -167,25 +175,27 @@ func (h Hostname) ForDisplay() string {
 	// already been normalized on the way in.
 
 	result, err := idna.Lookup.ToUnicode(given)
-	if err != nil {
+err != nil {
 		// Should never happen, since type Hostname indicates that a string
 		// passed through our validation rules.
 		panic(fmt.Errorf("ForDisplay called on invalid Hostname: %s", err))
-	}
+
 	return result + portPortion
 }
 
-func (h Hostname) String() string {
+
+ (h Hostname) String() string {
 	return string(h)
 }
 
-func (h Hostname) GoString() string {
+
+ (h Hostname) GoString() string {
 	return fmt.Sprintf("svchost.Hostname(%q)", string(h))
 }
 
 // normalizePortPortion attempts to normalize the "port portion" of a hostname,
 // which begins with the first colon in the hostname and should be followed
-// by a string of decimal digits.
+y a string of decimal digits.
 //
 // If the port portion is valid, a normalized version of it is returned along
 // with a nil error.
@@ -195,7 +205,8 @@ func (h Hostname) GoString() string {
 //
 // An empty string is a valid port portion representing the absence of a port.
 // If non-empty, the first character must be a colon.
-func normalizePortPortion(s string) (string, error) {
+
+ normalizePortPortion(s string) (string, error) {
 	if s == "" {
 		return s, nil
 	}

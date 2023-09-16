@@ -23,8 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_user_login_profile")
-func ResourceUserLoginProfile() *schema.Resource {
+// @SDKResource("aws_iam_user_login_profile")func ResourceUserLoginProfile() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserLoginProfileCreate,
 		ReadWithoutTimeout:   resourceUserLoginProfileRead,
@@ -86,8 +85,7 @@ const (
 )
 
 // GeneratePassword generates a random password of a given length, matching the
-// most restrictive iam password policy.
-func GeneratePassword(length int) (string, error) {
+// most restrictive iam password policy.func GeneratePassword(length int) (string, error) {
 	const charset = charLower + charUpper + charNumbers + charSymbols
 
 	result := make([]byte, length)
@@ -124,16 +122,12 @@ func GeneratePassword(length int) (string, error) {
 }
 
 // Check the generated password contains all character classes listed in the
-// IAM password policy.
-func CheckPwdPolicy(pass []byte) bool {
+// IAM password policy.func CheckPwdPolicy(pass []byte) bool {
 	return (bytes.ContainsAny(pass, charLower) &&
 		bytes.ContainsAny(pass, charNumbers) &&
 		bytes.ContainsAny(pass, charSymbols) &&
 		bytes.ContainsAny(pass, charUpper))
-}
-
-func resourceUserLoginProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 	username := d.Get("user").(string)
 
@@ -144,8 +138,8 @@ func resourceUserLoginProfileCreate(ctx context.Context, d *schema.ResourceData,
 	}
 
 	request := &iam.CreateLoginProfileInput{
-		UserName:              aws.String(username),
-		Password:              aws.String(initialPassword),
+		UserName: aws.String(username),
+		Password: aws.String(initialPassword),
 		PasswordResetRequired: aws.Bool(d.Get("password_reset_required").(bool)),
 	}
 
@@ -174,11 +168,8 @@ func resourceUserLoginProfileCreate(ctx context.Context, d *schema.ResourceData,
 	}
 
 	return diags
-}
-
-func resourceUserLoginProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceUserLoginProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	input := &iam.GetLoginProfileInput{
 		UserName: aws.String(d.Id()),
@@ -226,12 +217,9 @@ func resourceUserLoginProfileRead(ctx context.Context, d *schema.ResourceData, m
 	d.Set("password_reset_required", loginProfile.PasswordResetRequired)
 
 	return diags
-}
-
-func resourceUserLoginProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserLoginProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	input := &iam.DeleteLoginProfileInput{
 		UserName: aws.String(d.Id()),
 	}

@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_coip_pool")
 
-func DataSourceCoIPPool() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceCoIPPoolRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,26 +28,26 @@ func DataSourceCoIPPool() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"local_gateway_route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"pool_cidrs": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
-				Set:      schema.HashString,
+				Set:shString,
 			},
 
 			"pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 
@@ -60,8 +59,7 @@ func DataSourceCoIPPool() *schema.Resource {
 }
 
 func dataSourceCoIPPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	req := &ec2.DescribeCoipPoolsInput{}

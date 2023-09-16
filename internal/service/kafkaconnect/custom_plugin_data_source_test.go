@@ -20,8 +20,8 @@ func TestAccKafkaConnectCustomPluginDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_mskconnect_custom_plugin.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+		ErrorCheck:est.ErrorCheck(t, kafkaconnect.EndpointsID),
 		CheckDestroy:    nil,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -47,8 +47,8 @@ resource "aws_mskconnect_custom_plugin" "test" {
 
   location {
     s3 {
-      bucket_arn = aws_s3_bucket.test.arn
-      file_key   = aws_s3_object.test.key
+et_arn = aws_s3_bucket.test.arn
+_key   = aws_s3_object.test.key
     }
   }
 }

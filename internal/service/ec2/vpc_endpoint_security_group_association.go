@@ -20,26 +20,25 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_security_group_association")
 
-func ResourceVPCEndpointSecurityGroupAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointSecurityGroupAssociationCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointSecurityGroupAssociationRead,
+		ReadWithoutTimeout:ourceVPCEndpointSecurityGroupAssociationRead,
 		DeleteWithoutTimeout: resourceVPCEndpointSecurityGroupAssociationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"replace_default_association": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  false,
 				ForceNew: true,
 			},
 			"security_group_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -48,8 +47,7 @@ func ResourceVPCEndpointSecurityGroupAssociation() *schema.Resource {
 }
 
 func resourceVPCEndpointSecurityGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	vpcEndpointID := d.Get("vpc_endpoint_id").(string)
 	securityGroupID := d.Get("security_group_id").(string)
@@ -111,8 +109,7 @@ func resourceVPCEndpointSecurityGroupAssociationCreate(ctx context.Context, d *s
 
 func resourceVPCEndpointSecurityGroupAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	vpcEndpointID := d.Get("vpc_endpoint_id").(string)
 	securityGroupID := d.Get("security_group_id").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
@@ -136,8 +133,7 @@ func resourceVPCEndpointSecurityGroupAssociationRead(ctx context.Context, d *sch
 func resourceVPCEndpointSecurityGroupAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	vpcEndpointID := d.Get("vpc_endpoint_id").(string)
+funcEndpointID := d.Get("vpc_endpoint_id").(string)
 	securityGroupID := d.Get("security_group_id").(string)
 	replaceDefaultAssociation := d.Get("replace_default_association").(bool)
 
@@ -174,10 +170,9 @@ func resourceVPCEndpointSecurityGroupAssociationDelete(ctx context.Context, d *s
 
 func createVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC2, vpcEndpointID, securityGroupID string) error {
 	input := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId:       aws.String(vpcEndpointID),
+		VpcEndpointId:ng(vpcEndpointID),
 		AddSecurityGroupIds: aws.StringSlice([]string{securityGroupID}),
-	}
-
+func
 	log.Printf("[DEBUG] Creating VPC Endpoint Security Group Association: %s", input)
 	_, err := conn.ModifyVpcEndpointWithContext(ctx, input)
 
@@ -195,8 +190,7 @@ func deleteVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC
 		VpcEndpointId: aws.String(vpcEndpointID),
 		RemoveSecurityGroupIds: aws.StringSlice([]string{securityGroupID}),
 	}
-
-	log.Printf("[DEBUG] Deleting VPC Endpoint Security Group Association: %s", input)
+func.Printf("[DEBUG] Deleting VPC Endpoint Security Group Association: %s", input)
 	_, err := conn.ModifyVpcEndpointWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCEndpointIdNotFound, errCodeInvalidGroupNotFound, errCodeInvalidParameter) {

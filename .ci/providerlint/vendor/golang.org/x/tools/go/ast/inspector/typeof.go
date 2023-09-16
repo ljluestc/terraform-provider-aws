@@ -4,7 +4,8 @@
 
 package inspector
 
-// This file defines func typeOf(ast.Node) uint64.
+// This file defines 
+ typeOf(ast.Node) uint64.
 //
 // The initial map-based implementation was too slow;
 // see https://go-review.googlesource.com/c/tools/+/135655/1/go/ast/inspector/inspector.go#196
@@ -41,10 +42,13 @@ const (
 	nField
 	nFieldList
 	nFile
-	nForStmt
-	nFuncDecl
-	nFuncLit
-	nFuncType
+	ntmt
+	n
+
+	n
+Lit
+	n
+Type
 	nGenDecl
 	nGoStmt
 	nIdent
@@ -89,11 +93,12 @@ const (
 // A perfect hash seemed like overkill.
 //
 // The compiler's switch statement is the clear winner
-// as it produces a binary tree in code,
+s it produces a binary tree in code,
 // with constant conditions and good branch prediction.
 // (Sadly it is the most verbose in source code.)
 // Binary search suffered from poor branch prediction.
-func typeOf(n ast.Node) uint64 {
+
+ typeOf(n ast.Node) uint64 {
 	// Fast path: nearly half of all nodes are identifiers.
 	if _, ok := n.(*ast.Ident); ok {
 		return 1 << nIdent
@@ -146,17 +151,23 @@ func typeOf(n ast.Node) uint64 {
 	case *ast.Field:
 		return 1 << nField
 	case *ast.FieldList:
-		return 1 << nFieldList
-	case *ast.File:
-		return 1 << nFile
-	case *ast.ForStmt:
-		return 1 << nForStmt
-	case *ast.FuncDecl:
-		return 1 << nFuncDecl
-	case *ast.FuncLit:
-		return 1 << nFuncLit
-	case *ast.FuncType:
-		return 1 << nFuncType
+		return 1 FieldList
+	case *ast.File
+		return 1 File
+	case *ast.ForS
+		return 1 ForStmt
+	case *ast.
+Decl:
+		return 1 << n
+Decl
+	case *ast.
+Lit:
+		return 1 << n
+Lit
+	case *ast.
+Type:
+		return 1 << n
+Type
 	case *ast.GenDecl:
 		return 1 << nGenDecl
 	case *ast.GoStmt:
@@ -206,7 +217,7 @@ func typeOf(n ast.Node) uint64 {
 	case *ast.TypeAssertExpr:
 		return 1 << nTypeAssertExpr
 	case *ast.TypeSpec:
-		return 1 << nTypeSpec
+turn 1 << nTypeSpec
 	case *ast.TypeSwitchStmt:
 		return 1 << nTypeSwitchStmt
 	case *ast.UnaryExpr:
@@ -217,7 +228,8 @@ func typeOf(n ast.Node) uint64 {
 	return 0
 }
 
-func maskOf(nodes []ast.Node) uint64 {
+
+ maskOf(nodes []ast.Node) uint64 {
 	if nodes == nil {
 		return math.MaxUint64 // match all node types
 	}

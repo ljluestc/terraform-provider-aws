@@ -11,10 +11,12 @@ import (
 	"github.com/hashicorp/go-cty/cty"
 )
 
-// FormatCtyPath is a helper function to produce a user-friendly string
+// FormatCtyPath is a helper 
+tion to produce a user-friendly string
 // representation of a cty.Path. The result uses a syntax similar to the
-// HCL expression language in the hope of it being familiar to users.
-func FormatCtyPath(path cty.Path) string {
+CL expression language in the hope of it being familiar to users.
+
+ FormatCtyPath(path cty.Path) string {
 	var buf bytes.Buffer
 	for _, step := range path {
 		switch ts := step.(type) {
@@ -43,13 +45,15 @@ func FormatCtyPath(path cty.Path) string {
 	return buf.String()
 }
 
-// FormatError is a helper function to produce a user-friendly string
+// FormatError is a helper 
+tion to produce a user-friendly string
 // representation of certain special error types that we might want to
 // include in diagnostic messages.
-//
+
 // This currently has special behavior only for cty.PathError, where a
 // non-empty path is rendered in a HCL-like syntax as context.
-func FormatError(err error) string {
+
+ FormatError(err error) string {
 	perr, ok := err.(cty.PathError)
 	if !ok || len(perr.Path) == 0 {
 		return err.Error()

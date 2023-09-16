@@ -17,12 +17,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
+
+
 func init() {
 	resource.AddTestSweepers("aws_connect_instance", &resource.Sweeper{
 		Name: "aws_connect_instance",
 		F:    sweepInstance,
 	})
 }
+
+
 
 func sweepInstance(region string) error {
 	ctx := sweep.Context(region)
@@ -40,7 +44,9 @@ func sweepInstance(region string) error {
 	input := &connect.ListInstancesInput{MaxResults: aws.Int64(ListInstancesMaxResults)}
 
 	err = conn.ListInstancesPagesWithContext(ctx, input,
-		func(page *connect.ListInstancesOutput, lastPage bool) bool {
+		
+
+func(page *connect.ListInstancesOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

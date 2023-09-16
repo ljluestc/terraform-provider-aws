@@ -26,8 +26,8 @@ func TestAccMQBrokerDataSource_basic(t *testing.T) {
 	dataSourceByNameName := "data.aws_mq_broker.by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

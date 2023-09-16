@@ -20,14 +20,16 @@ var Analyzer = &analysis.Analyzer{
 	ResultType: reflect.TypeOf([]*ast.CompositeLit{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
 	var result []*ast.CompositeLit
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 		x := n.(*ast.CompositeLit)
 
 		if !schema.IsMapStringSchema(x, pass.TypesInfo) {

@@ -6,12 +6,14 @@ package pkgbits
 
 import "fmt"
 
-func assert(b bool) {
+
+ert(b bool) {
 	if !b {
 		panic("assertion failed")
 	}
 }
 
-func errorf(format string, args ...interface{}) {
+
+orf(format string, args ...interface{}) {
 	panic(fmt.Errorf(format, args...))
 }

@@ -12,12 +12,14 @@ import (
 )
 
 // Size returns the size in bytes of the wire-format encoding of m.
-func Size(m Message) int {
+
+ Size(m Message) int {
 	return MarshalOptions{}.Size(m)
 }
 
-// Size returns the size in bytes of the wire-format encoding of m.
-func (o MarshalOptions) Size(m Message) int {
+ize returns the size in bytes of the wire-format encoding of m.
+
+ (o MarshalOptions) Size(m Message) int {
 	// Treat a nil message interface as an empty message; nothing to output.
 	if m == nil {
 		return 0
@@ -26,10 +28,13 @@ func (o MarshalOptions) Size(m Message) int {
 	return o.size(m.ProtoReflect())
 }
 
-// size is a centralized function that all size operations go through.
-// For profiling purposes, avoid changing the name of this function or
+// size is a centralized 
+ that all size operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for size that do not go through this.
-func (o MarshalOptions) size(m protoreflect.Message) (size int) {
+
+ (o MarshalOptions) size(m protoreflect.Message) (size int) {
 	methods := protoMethods(m)
 	if methods != nil && methods.Size != nil {
 		out := methods.Size(protoiface.SizeInput{
@@ -43,28 +48,31 @@ func (o MarshalOptions) size(m protoreflect.Message) (size int) {
 		out, _ := methods.Marshal(protoiface.MarshalInput{
 			Message: m,
 		})
-		return len(out.Buf)
+turn len(out.Buf)
 	}
 	return o.sizeMessageSlow(m)
 }
 
-func (o MarshalOptions) sizeMessageSlow(m protoreflect.Message) (size int) {
+
+ (o MarshalOptions) sizeMessageSlow(m protoreflect.Message) (size int) {
 	if messageset.IsMessageSet(m.Descriptor()) {
 		return o.sizeMessageSet(m)
 	}
-	m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
-		size += o.sizeField(fd, v)
+	m.Range(
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+ze += o.sizeField(fd, v)
 		return true
 	})
 	size += len(m.GetUnknown())
 	return size
 }
 
-func (o MarshalOptions) sizeField(fd protoreflect.FieldDescriptor, value protoreflect.Value) (size int) {
+
+ (o MarshalOptions) sizeField(fd protoreflect.FieldDescriptor, value protoreflect.Value) (size int) {
 	num := fd.Number()
 	switch {
 	case fd.IsList():
-		return o.sizeList(num, fd, value.List())
+turn o.sizeList(num, fd, value.List())
 	case fd.IsMap():
 		return o.sizeMap(num, fd, value.Map())
 	default:
@@ -72,7 +80,8 @@ func (o MarshalOptions) sizeField(fd protoreflect.FieldDescriptor, value protore
 	}
 }
 
-func (o MarshalOptions) sizeList(num protowire.Number, fd protoreflect.FieldDescriptor, list protoreflect.List) (size int) {
+
+ (o MarshalOptions) sizeList(num protowire.Number, fd protoreflect.FieldDescriptor, list protoreflect.List) (size int) {
 	sizeTag := protowire.SizeTag(num)
 
 	if fd.IsPacked() && list.Len() > 0 {
@@ -80,19 +89,21 @@ func (o MarshalOptions) sizeList(num protowire.Number, fd protoreflect.FieldDesc
 		for i, llen := 0, list.Len(); i < llen; i++ {
 			content += o.sizeSingular(num, fd.Kind(), list.Get(i))
 		}
-		return sizeTag + protowire.SizeBytes(content)
+turn sizeTag + protowire.SizeBytes(content)
 	}
 
-	for i, llen := 0, list.Len(); i < llen; i++ {
+	for i, llen0, list.Len(); i < llen; i++ {
 		size += sizeTag + o.sizeSingular(num, fd.Kind(), list.Get(i))
 	}
 	return size
 }
 
-func (o MarshalOptions) sizeMap(num protowire.Number, fd protoreflect.FieldDescriptor, mapv protoreflect.Map) (size int) {
+
+ (o MarshalOptions) sizeMap(num protowire.Number, fd protoreflect.FieldDescriptor, mapv protoreflect.Map) (size int) {
 	sizeTag := protowire.SizeTag(num)
 
-	mapv.Range(func(key protoreflect.MapKey, value protoreflect.Value) bool {
+	mapv.Range(
+(key protoreflect.MapKey, value protoreflect.Value) bool {
 		size += sizeTag
 		size += protowire.SizeBytes(o.sizeField(fd.MapKey(), key.Value()) + o.sizeField(fd.MapValue(), value))
 		return true

@@ -26,10 +26,9 @@ import (
 
 // @SDKResource("aws_sagemaker_workteam", name="Workteam")
 // @Tags(identifierAttribute="arn")
-func ResourceWorkteam() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceWorkteamCreate,
-		ReadWithoutTimeout:   resourceWorkteamRead,
+		ReadWithoutTimeout:ourceWorkteamRead,
 		UpdateWithoutTimeout: resourceWorkteamUpdate,
 		DeleteWithoutTimeout: resourceWorkteamDelete,
 
@@ -39,54 +38,54 @@ func ResourceWorkteam() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: validation.StringLenBetween(1, 200),
 			},
 			"member_definition": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MinItems: 1,
 				MaxItems: 10,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cognito_member_definition": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"client_id": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 									},
 									"user_group": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 									},
 									"user_pool": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"oidc_member_definition": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"groups": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										MaxItems: 10,
 										Required: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:chema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 63),
 										},
 									},
@@ -97,14 +96,14 @@ func ResourceWorkteam() *schema.Resource {
 				},
 			},
 			"notification_configuration": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"notification_topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
@@ -112,18 +111,18 @@ func ResourceWorkteam() *schema.Resource {
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 			},
 			"subdomain": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"workforce_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"workteam_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -138,16 +137,15 @@ func ResourceWorkteam() *schema.Resource {
 }
 
 func resourceWorkteamCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("workteam_name").(string)
 	input := &sagemaker.CreateWorkteamInput{
-		WorkteamName:      aws.String(name),
-		WorkforceName:     aws.String(d.Get("workforce_name").(string)),
-		Description:       aws.String(d.Get("description").(string)),
+		WorkteamName:String(name),
+		WorkforceName:tring(d.Get("workforce_name").(string)),
+		Description:.String(d.Get("description").(string)),
 		MemberDefinitions: expandWorkteamMemberDefinition(d.Get("member_definition").([]interface{})),
-		Tags:              getTagsIn(ctx),
+		Tags:sIn(ctx),
 	}
 
 	if v, ok := d.GetOk("notification_configuration"); ok {
@@ -157,8 +155,7 @@ func resourceWorkteamCreate(ctx context.Context, d *schema.ResourceData, meta in
 	log.Printf("[DEBUG] Updating SageMaker Workteam: %s", input)
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 		return conn.CreateWorkteamWithContext(ctx, input)
-	}, "ValidationException")
-
+	}, "ValidationException")func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating SageMaker Workteam (%s): %s", name, err)
 	}
@@ -171,8 +168,7 @@ func resourceWorkteamCreate(ctx context.Context, d *schema.ResourceData, meta in
 func resourceWorkteamRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	workteam, err := FindWorkteamByName(ctx, conn, d.Id())
+funckteam, err := FindWorkteamByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] SageMaker Workteam (%s) not found, removing from state", d.Id())
@@ -205,9 +201,8 @@ func resourceWorkteamUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &sagemaker.UpdateWorkteamInput{
-			WorkteamName:      aws.String(d.Id()),
+funcput := &sagemaker.UpdateWorkteamInput{
+			WorkteamName:String(d.Id()),
 			MemberDefinitions: expandWorkteamMemberDefinition(d.Get("member_definition").([]interface{})),
 		}
 
@@ -235,8 +230,7 @@ func resourceWorkteamDelete(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	log.Printf("[DEBUG] Deleting SageMaker Workteam: %s", d.Id())
-	_, err := conn.DeleteWorkteamWithContext(ctx, &sagemaker.DeleteWorkteamInput{
-		WorkteamName: aws.String(d.Id()),
+funcrkteamName: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrMessageContains(err, "ValidationException", "The work team") {
@@ -256,8 +250,7 @@ func expandWorkteamMemberDefinition(l []interface{}) []*sagemaker.MemberDefiniti
 	}
 
 	var members []*sagemaker.MemberDefinition
-
-	for _, mem := range l {
+func _, mem := range l {
 		memRaw := mem.(map[string]interface{})
 		member := &sagemaker.MemberDefinition{}
 
@@ -282,8 +275,7 @@ func flattenWorkteamMemberDefinition(config []*sagemaker.MemberDefinition) []map
 		member := make(map[string]interface{})
 
 		if raw.CognitoMemberDefinition != nil {
-			member["cognito_member_definition"] = flattenWorkteamCognitoMemberDefinition(raw.CognitoMemberDefinition)
-		}
+func
 
 		if raw.OidcMemberDefinition != nil {
 			member["oidc_member_definition"] = flattenWorkteamOIDCMemberDefinition(raw.OidcMemberDefinition)
@@ -303,8 +295,7 @@ func expandWorkteamCognitoMemberDefinition(l []interface{}) *sagemaker.CognitoMe
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.CognitoMemberDefinition{
-		ClientId:  aws.String(m["client_id"].(string)),
-		UserPool:  aws.String(m["user_pool"].(string)),
+funcerPool:  aws.String(m["user_pool"].(string)),
 		UserGroup: aws.String(m["user_group"].(string)),
 	}
 
@@ -320,8 +311,7 @@ func flattenWorkteamCognitoMemberDefinition(config *sagemaker.CognitoMemberDefin
 		"client_id":  aws.StringValue(config.ClientId),
 		"user_pool":  aws.StringValue(config.UserPool),
 		"user_group": aws.StringValue(config.UserGroup),
-	}
-
+func
 	return []map[string]interface{}{m}
 }
 
@@ -335,8 +325,7 @@ func expandWorkteamOIDCMemberDefinition(l []interface{}) *sagemaker.OidcMemberDe
 	config := &sagemaker.OidcMemberDefinition{
 		Groups: flex.ExpandStringSet(m["groups"].(*schema.Set)),
 	}
-
-	return config
+funcurn config
 }
 
 func flattenWorkteamOIDCMemberDefinition(config *sagemaker.OidcMemberDefinition) []map[string]interface{} {
@@ -350,7 +339,6 @@ func flattenWorkteamOIDCMemberDefinition(config *sagemaker.OidcMemberDefinition)
 
 	return []map[string]interface{}{m}
 }
-
 func expandWorkteamNotificationConfiguration(l []interface{}) *sagemaker.NotificationConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -363,8 +351,7 @@ func expandWorkteamNotificationConfiguration(l []interface{}) *sagemaker.Notific
 	if v, ok := m["notification_topic_arn"].(string); ok && v != "" {
 		config.NotificationTopicArn = aws.String(v)
 	} else {
-		return nil
-	}
+func
 
 	return config
 }
@@ -380,3 +367,4 @@ func flattenWorkteamNotificationConfiguration(config *sagemaker.NotificationConf
 
 	return []map[string]interface{}{m}
 }
+func

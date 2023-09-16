@@ -10,7 +10,9 @@ var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V008",
 	validaterfc3339timestringselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameValidateRFC3339TimeString,
-	validation.PackagePath,
-	validation.FuncNameIsRFC3339Time,
+	validation.
+NameValidateRFC3339TimeString,
+	validation.agePath,
+	validation.
+NameIsRFC3339Time,
 )

@@ -15,10 +15,9 @@ import (
 )
 
 // @SDKResource("aws_sagemaker_servicecatalog_portfolio_status")
-func ResourceServicecatalogPortfolioStatus() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceServicecatalogPortfolioStatusPut,
-		ReadWithoutTimeout:   resourceServicecatalogPortfolioStatusRead,
+		ReadWithoutTimeout:ourceServicecatalogPortfolioStatusRead,
 		UpdateWithoutTimeout: resourceServicecatalogPortfolioStatusPut,
 		DeleteWithoutTimeout: schema.NoopContext,
 		Importer: &schema.ResourceImporter{
@@ -27,8 +26,8 @@ func ResourceServicecatalogPortfolioStatus() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"status": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: validation.StringInSlice(sagemaker.SagemakerServicecatalogStatus_Values(), false),
 			},
 		},
@@ -36,8 +35,7 @@ func ResourceServicecatalogPortfolioStatus() *schema.Resource {
 }
 
 func resourceServicecatalogPortfolioStatusPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	status := d.Get("status").(string)
 	var err error
@@ -58,8 +56,7 @@ func resourceServicecatalogPortfolioStatusPut(ctx context.Context, d *schema.Res
 
 func resourceServicecatalogPortfolioStatusRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	resp, err := conn.GetSagemakerServicecatalogPortfolioStatusWithContext(ctx, &sagemaker.GetSagemakerServicecatalogPortfolioStatusInput{})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "Getting SageMaker Servicecatalog Portfolio Status: %s", err)

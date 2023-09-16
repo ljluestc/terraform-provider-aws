@@ -21,10 +21,9 @@ import (
 // @SDKResource("aws_vpc_peering_connection_accepter", name="VPC Peering Connection")
 // @Tags(identifierAttribute="id")
 
-func ResourceVPCPeeringConnectionAccepter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCPeeringAccepterCreate,
-		ReadWithoutTimeout:   resourceVPCPeeringConnectionRead,
+		ReadWithoutTimeout:ourceVPCPeeringConnectionRead,
 		UpdateWithoutTimeout: resourceVPCPeeringConnectionUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -35,50 +34,49 @@ func ResourceVPCPeeringConnectionAccepter() *schema.Resource {
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, m interface{}) (result []*schema.ResourceData, err error) {
-				d.Set("vpc_peering_connection_id", d.Id())
-
+				d.Set("vpc_pefunc
 				return []*schema.ResourceData{d}, nil
 			},
 		},
 
 		// Keep in sync with aws_vpc_peering_connections's schema with the following changes:
-		//   - peer_owner_id is Computed-only
-		//   - peer_region is Computed-only
-		//   - peer_vpc_id is Computed-only
-		//   - vpc_id is Computed-only
+		//eer_owner_id is Computed-only
+		//eer_region is Computed-only
+		//eer_vpc_id is Computed-only
+		//pc_id is Computed-only
 		// and additions:
-		//   - vpc_peering_connection_id Required/ForceNew
+		//pc_peering_connection_id Required/ForceNew
 		Schema: map[string]*schema.Schema{
 			"accept_status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"accepter": vpcPeeringConnectionOptionsSchema,
 			"auto_accept": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"peer_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"peer_region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"peer_vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			"requester":       vpcPeeringConnectionOptionsSchema,
-			names.AttrTags:    tftags.TagsSchema(),
+			"requester":ngConnectionOptionsSchema,
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_peering_connection_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -90,8 +88,7 @@ func ResourceVPCPeeringConnectionAccepter() *schema.Resource {
 
 func resourceVPCPeeringAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	vpcPeeringConnectionID := d.Get("vpc_peering_connection_id").(string)
 	vpcPeeringConnection, err := FindVPCPeeringConnectionByID(ctx, conn, vpcPeeringConnectionID)
 

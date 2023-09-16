@@ -28,7 +28,8 @@ const (
 	NoLevel Level = 0
 
 	// Trace is the most verbose level. Intended to be used for the tracing
-	// of actions in code, such as function enters/exits, etc.
+	// of actions in code, such as 
+ enters/exits, etc.
 	Trace Level = 1
 
 	// Debug information for programmer low-level analysis.
@@ -53,9 +54,11 @@ const (
 // to be formatted. For example: L.Info(Fmt{"%d beans/day", beans}).
 type Format []interface{}
 
-// Fmt returns a Format type. This is a convenience function for creating a Format
+// Fmt returns a Format type. This is a convenience 
+ for creating a Format
 // type.
-func Fmt(str string, args ...interface{}) Format {
+
+(str string, args ...interface{}) Format {
 	return append(Format{str}, args...)
 }
 
@@ -102,7 +105,8 @@ type SupportsColor interface {
 // LevelFromString returns a Level type for the named log level, or "NoLevel" if
 // the level string is invalid. This facilitates setting the log level via
 // config or environment variable by name in a predictable way.
-func LevelFromString(levelStr string) Level {
+
+elFromString(levelStr string) Level {
 	// We don't care about case. Accept both "INFO" and "info".
 	levelStr = strings.ToLower(strings.TrimSpace(levelStr))
 	switch levelStr {
@@ -123,7 +127,8 @@ func LevelFromString(levelStr string) Level {
 	}
 }
 
-func (l Level) String() string {
+
+Level) String() string {
 	switch l {
 	case Trace:
 		return "trace"
@@ -242,7 +247,9 @@ type StandardLoggerOptions struct {
 	ForceLevel Level
 }
 
-type TimeFunction = func() time.Time
+type Time
+ = 
+ime.Time
 
 // LoggerOptions can be used to configure a new logger.
 type LoggerOptions struct {
@@ -273,8 +280,10 @@ type LoggerOptions struct {
 	// The time format to use instead of the default
 	TimeFormat string
 
-	// A function which is called to get the time object that is formatted using `TimeFormat`
-	TimeFn TimeFunction
+	// A 
+ which is called to get the time object that is formatted using `TimeFormat`
+	TimeFn Time
+
 
 	// Control whether or not to display the time at all. This is required
 	// because setting TimeFormat to empty assumes the default format.
@@ -291,11 +300,13 @@ type LoggerOptions struct {
 	// of long messages with multiple fields.
 	ColorHeaderAndFields bool
 
-	// A function which is called with the log information and if it returns true the value
+	// A 
+ which is called with the log information and if it returns true the value
 	// should not be logged.
 	// This is useful when interacting with a system that you wish to suppress the log
 	// message for (because it's too noisy, etc)
-	Exclude func(level Level, msg string, args ...interface{}) bool
+	Exclude 
+el Level, msg string, args ...interface{}) bool
 
 	// IndependentLevels causes subloggers to be created with an independent
 	// copy of this logger's level. This means that using SetLevel on this
@@ -303,12 +314,16 @@ type LoggerOptions struct {
 	// will not affect the parent or sibling loggers.
 	IndependentLevels bool
 
-	// SubloggerHook registers a function that is called when a sublogger via
-	// Named, With, or ResetNamed is created. If defined, the function is passed
+	// SubloggerHook registers a 
+ that is called when a sublogger via
+	// Named, With, or ResetNamed is created. If defined, the 
+ is passed
 	// the newly created Logger and the returned Logger is returned from the
-	// original function. This option allows customization via interception and
+	// original 
+. This option allows customization via interception and
 	// wrapping of Logger instances.
-	SubloggerHook func(sub Logger) Logger
+	SubloggerHook 
+ Logger) Logger
 }
 
 // InterceptLogger describes the interface for using a logger
@@ -381,13 +396,16 @@ type Locker interface {
 
 // NoopLocker implements locker but does nothing. This is useful if the client
 // wants tight control over locking, in order to provide grouping of log
-// entries or other functionality.
+// entries or other 
+ality.
 type NoopLocker struct{}
 
 // Lock does nothing
-func (n NoopLocker) Lock() {}
+
+NoopLocker) Lock() {}
 
 // Unlock does nothing
-func (n NoopLocker) Unlock() {}
+
+NoopLocker) Unlock() {}
 
 var _ Locker = (*NoopLocker)(nil)

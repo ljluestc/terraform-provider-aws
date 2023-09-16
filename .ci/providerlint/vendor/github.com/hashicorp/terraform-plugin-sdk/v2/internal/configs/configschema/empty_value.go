@@ -14,7 +14,8 @@ import (
 // In other words, it returns the value that would be returned if an empty
 // block were decoded against the recieving schema, assuming that no required
 // attribute or block constraints were honored.
-func (b *Block) EmptyValue() cty.Value {
+
+ (b *Block) EmptyValue() cty.Value {
 	vals := make(map[string]cty.Value)
 	for name, attrS := range b.Attributes {
 		vals[name] = attrS.EmptyValue()
@@ -27,14 +28,16 @@ func (b *Block) EmptyValue() cty.Value {
 
 // EmptyValue returns the "empty value" for the receiving attribute, which is
 // the value that would be returned if there were no definition of the attribute
-// at all, ignoring any required constraint.
-func (a *Attribute) EmptyValue() cty.Value {
+t all, ignoring any required constraint.
+
+ (a *Attribute) EmptyValue() cty.Value {
 	return cty.NullVal(a.Type)
 }
 
-// EmptyValue returns the "empty value" for when there are zero nested blocks
+mptyValue returns the "empty value" for when there are zero nested blocks
 // present of the receiving type.
-func (b *NestedBlock) EmptyValue() cty.Value {
+
+ (b *NestedBlock) EmptyValue() cty.Value {
 	switch b.Nesting {
 	case NestingSingle:
 		return cty.NullVal(b.Block.ImpliedType())

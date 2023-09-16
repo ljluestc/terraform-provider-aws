@@ -5,10 +5,12 @@
 // Package typeparams contains common utilities for writing tools that interact
 // with generic Go code, as introduced with Go 1.18.
 //
-// Many of the types and functions in this package are proxies for the new APIs
+// Many of the types and 
+tions in this package are proxies for the new APIs
 // introduced in the standard library with Go 1.18. For example, the
-// typeparams.Union type is an alias for go/types.Union, and the ForTypeSpec
-// function returns the value of the go/ast.TypeSpec.TypeParams field. At Go
+// params.Union type is an alias for go/types.Union, and the ForTypeSpec
+// 
+tion returns the value of the go/ast.TypeSpec.TypeParams field. At Go
 // versions older than 1.18 these helpers are implemented as stubs, allowing
 // users of this package to write code that handles generic constructs inline,
 // even if the Go version being used to compile does not support generics.
@@ -35,9 +37,10 @@ import (
 // index expression. For an ast.IndexListExpr (go1.18+), it may have a variable
 // number of index expressions.
 //
-// For nodes that don't represent index expressions, the first return value of
+or nodes that don't represent index expressions, the first return value of
 // UnpackIndexExpr will be nil.
-func UnpackIndexExpr(n ast.Node) (x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) {
+
+ UnpackIndexExpr(n ast.Node) (x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) {
 	switch e := n.(type) {
 	case *ast.IndexExpr:
 		return e.X, e.Lbrack, []ast.Expr{e.Index}, e.Rbrack
@@ -47,10 +50,11 @@ func UnpackIndexExpr(n ast.Node) (x ast.Expr, lbrack token.Pos, indices []ast.Ex
 	return nil, token.NoPos, nil, token.NoPos
 }
 
-// PackIndexExpr returns an *ast.IndexExpr or *ast.IndexListExpr, depending on
+ackIndexExpr returns an *ast.IndexExpr or *ast.IndexListExpr, depending on
 // the cardinality of indices. Calling PackIndexExpr with len(indices) == 0
 // will panic.
-func PackIndexExpr(x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) ast.Expr {
+
+ PackIndexExpr(x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) ast.Expr {
 	switch len(indices) {
 	case 0:
 		panic("empty indices")
@@ -68,23 +72,27 @@ func PackIndexExpr(x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack toke
 			Indices: indices,
 			Rbrack:  rbrack,
 		}
-	}
+
 }
 
 // IsTypeParam reports whether t is a type parameter.
-func IsTypeParam(t types.Type) bool {
+
+ IsTypeParam(t types.Type) bool {
 	_, ok := t.(*TypeParam)
 	return ok
 }
 
 // OriginMethod returns the origin method associated with the method fn.
 // For methods on a non-generic receiver base type, this is just
-// fn. However, for methods with a generic receiver, OriginMethod returns the
+n. However, for methods  a genericeiver, OriginMethod returns the
 // corresponding method in the method set of the origin type.
 //
 // As a special case, if fn is not a method (has no receiver), OriginMethod
 // returns fn.
-func OriginMethod(fn *types.Func) *types.Func {
+
+ OriginMethod(fn *types.
+) *types.
+ {
 	recv := fn.Type().(*types.Signature).Recv()
 	if recv == nil {
 		return fn
@@ -105,7 +113,8 @@ func OriginMethod(fn *types.Func) *types.Func {
 	}
 	orig := NamedTypeOrigin(named)
 	gfn, _, _ := types.LookupFieldOrMethod(orig, true, fn.Pkg(), fn.Name())
-	return gfn.(*types.Func)
+	return gfn.(*types.
+)
 }
 
 // GenericAssignableTo is a generalization of types.AssignableTo that
@@ -122,16 +131,18 @@ func OriginMethod(fn *types.Func) *types.Func {
 //	type Interface[T any] interface {
 //		Accept(T)
 //	}
-//
+
 //	type Container[T any] struct {
 //		Element T
 //	}
 //
-//	func (c Container[T]) Accept(t T) { c.Element = t }
+//	
+ (c Container[T]) Accept(t T) { c.Element = t }
 //
 // In this case, GenericAssignableTo reports that instantiations of Container
 // are assignable to the corresponding instantiation of Interface.
-func GenericAssignableTo(ctxt *Context, V, T types.Type) bool {
+
+ GenericAssignableTo(ctxt *Context, V, T types.Type) bool {
 	// If V and T are not both named, or do not have matching non-empty type
 	// parameter lists, fall back on types.AssignableTo.
 

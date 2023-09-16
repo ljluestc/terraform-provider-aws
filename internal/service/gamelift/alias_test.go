@@ -41,9 +41,9 @@ func TestAccGameLiftAlias_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAliasConfig_basic(aliasName, description, message),
@@ -93,9 +93,9 @@ func TestAccGameLiftAlias_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAliasConfig_basicTags1(aliasName, "key1", "value1"),
@@ -171,9 +171,9 @@ func TestAccGameLiftAlias_fleetRouting(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAliasConfig_allFields(aliasName, description,
@@ -214,9 +214,9 @@ func TestAccGameLiftAlias_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAliasConfig_basic(aliasName, description, message),

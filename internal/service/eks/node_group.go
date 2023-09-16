@@ -304,7 +304,7 @@ func resourceNodeGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 		NodegroupName:      aws.String(nodeGroupName),
 		NodeRole:           aws.String(d.Get("node_role_arn").(string)),
 		Subnets:            flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("ami_type"); ok {
@@ -471,7 +471,7 @@ func resourceNodeGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		input := &eks.UpdateNodegroupVersionInput{
 			ClientRequestToken: aws.String(id.UniqueId()),
 			ClusterName:        aws.String(clusterName),
-			Force:              aws.Bool(d.Get("force_update_version").(bool)),
+			Force: aws.Bool(d.Get("force_update_version").(bool)),
 			NodegroupName:      aws.String(nodeGroupName),
 		}
 
@@ -525,9 +525,9 @@ func resourceNodeGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		input := &eks.UpdateNodegroupConfigInput{
 			ClientRequestToken: aws.String(id.UniqueId()),
 			ClusterName:        aws.String(clusterName),
-			Labels:             expandUpdateLabelsPayload(ctx, oldLabelsRaw, newLabelsRaw),
+			Labels:expandUpdateLabelsPayload(ctx, oldLabelsRaw, newLabelsRaw),
 			NodegroupName:      aws.String(nodeGroupName),
-			Taints:             expandUpdateTaintsPayload(oldTaintsRaw.(*schema.Set).List(), newTaintsRaw.(*schema.Set).List()),
+			Taints:expandUpdateTaintsPayload(oldTaintsRaw.(*schema.Set).List(), newTaintsRaw.(*schema.Set).List()),
 		}
 
 		if d.HasChange("scaling_config") {
@@ -849,7 +849,7 @@ func flattenNodeGroupResources(resources *eks.NodegroupResources) []map[string]i
 	}
 
 	m := map[string]interface{}{
-		"autoscaling_groups":              flattenAutoScalingGroups(resources.AutoScalingGroups),
+		"autoscaling_groups": flattenAutoScalingGroups(resources.AutoScalingGroups),
 		"remote_access_security_group_id": aws.StringValue(resources.RemoteAccessSecurityGroup),
 	}
 
@@ -902,7 +902,7 @@ func flattenRemoteAccessConfig(config *eks.RemoteAccessConfig) []map[string]inte
 	}
 
 	m := map[string]interface{}{
-		"ec2_ssh_key":               aws.StringValue(config.Ec2SshKey),
+		"ec2_ssh_key":  aws.StringValue(config.Ec2SshKey),
 		"source_security_group_ids": aws.StringValueSlice(config.SourceSecurityGroups),
 	}
 

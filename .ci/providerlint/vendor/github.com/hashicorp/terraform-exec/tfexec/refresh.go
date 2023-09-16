@@ -34,50 +34,61 @@ type RefreshCmdOption interface {
 	configureRefresh(*refreshConfig)
 }
 
-func (opt *BackupOption) configureRefresh(conf *refreshConfig) {
+
+ (opt *BackupOption) configureRefresh(conf *refreshConfig) {
 	conf.backup = opt.path
 }
 
-func (opt *DirOption) configureRefresh(conf *refreshConfig) {
+
+ (opt *DirOption) configureRefresh(conf *refreshConfig) {
 	conf.dir = opt.path
+
+
+
+ (opt *LockOption) configureRefresh(conf *refreshConfig) {
+f.lock = opt.lock
 }
 
-func (opt *LockOption) configureRefresh(conf *refreshConfig) {
-	conf.lock = opt.lock
-}
 
-func (opt *LockTimeoutOption) configureRefresh(conf *refreshConfig) {
+t *LockTimeoutOption) configureRefresh(conf *refreshConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *ReattachOption) configureRefresh(conf *refreshConfig) {
+
+ (opt *ReattachOption) configureRefresh(conf *refreshConfig) {
 	conf.reattachInfo = opt.info
 }
 
-func (opt *StateOption) configureRefresh(conf *refreshConfig) {
+
+ (opt *StateOption) configureRefresh(conf *refreshConfig) {
 	conf.state = opt.path
+
+
+
+ (opt *StateOutOption) configureRefresh(conf *refreshConfig) {
+f.stateOut = opt.path
 }
 
-func (opt *StateOutOption) configureRefresh(conf *refreshConfig) {
-	conf.stateOut = opt.path
-}
 
-func (opt *TargetOption) configureRefresh(conf *refreshConfig) {
+t *TargetOption) configureRefresh(conf *refreshConfig) {
 	conf.targets = append(conf.targets, opt.target)
 }
 
-func (opt *VarOption) configureRefresh(conf *refreshConfig) {
+
+t *VarOption) configureRefresh(conf *refreshConfig) {
 	conf.vars = append(conf.vars, opt.assignment)
 }
 
-func (opt *VarFileOption) configureRefresh(conf *refreshConfig) {
+
+ (opt *VarFileOption) configureRefresh(conf *refreshConfig) {
 	conf.varFiles = append(conf.varFiles, opt.path)
 }
 
 // Refresh represents the terraform refresh subcommand.
-func (tf *Terraform) Refresh(ctx context.Context, opts ...RefreshCmdOption) error {
+
+ (tf *Terraform) Refresh(ctx context.Context, opts ...RefreshCmdOption) error {
 	cmd, err := tf.refreshCmd(ctx, opts...)
-	if err != nil {
+err != nil {
 		return err
 	}
 	return tf.runTerraformCmd(ctx, cmd)
@@ -88,11 +99,12 @@ func (tf *Terraform) Refresh(ctx context.Context, opts ...RefreshCmdOption) erro
 // [machine-readable](https://developer.hashicorp.com/terraform/internals/machine-readable-ui)
 // JSON being written to the supplied `io.Writer`. RefreshJSON is likely to be
 // removed in a future major version in favour of Refresh returning JSON by default.
-func (tf *Terraform) RefreshJSON(ctx context.Context, w io.Writer, opts ...RefreshCmdOption) error {
+
+ (tf *Terraform) RefreshJSON(ctx context.Context, w io.Writer, opts ...RefreshCmdOption) error {
 	err := tf.compatible(ctx, tf0_15_3, nil)
 	if err != nil {
 		return fmt.Errorf("terraform refresh -json was added in 0.15.3: %w", err)
-	}
+
 
 	tf.SetStdout(w)
 
@@ -104,7 +116,8 @@ func (tf *Terraform) RefreshJSON(ctx context.Context, w io.Writer, opts ...Refre
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) refreshCmd(ctx context.Context, opts ...RefreshCmdOption) (*exec.Cmd, error) {
+
+ *Terraform) refreshCmd(ctx context.Context, opts ...RefreshCmdOption) (*exec.Cmd, error) {
 	c := defaultRefreshOptions
 
 	for _, o := range opts {
@@ -117,7 +130,8 @@ func (tf *Terraform) refreshCmd(ctx context.Context, opts ...RefreshCmdOption) (
 
 }
 
-func (tf *Terraform) refreshJSONCmd(ctx context.Context, opts ...RefreshCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) refreshJSONCmd(ctx context.Context, opts ...RefreshCmdOption) (*exec.Cmd, error) {
 	c := defaultRefreshOptions
 
 	for _, o := range opts {
@@ -130,7 +144,8 @@ func (tf *Terraform) refreshJSONCmd(ctx context.Context, opts ...RefreshCmdOptio
 	return tf.buildRefreshCmd(ctx, c, args)
 }
 
-func (tf *Terraform) buildRefreshArgs(c refreshConfig) []string {
+
+ (tf *Terraform) buildRefreshArgs(c refreshConfig) []string {
 	args := []string{"refresh", "-no-color", "-input=false"}
 
 	// string opts: only pass if set
@@ -153,7 +168,7 @@ func (tf *Terraform) buildRefreshArgs(c refreshConfig) []string {
 	// boolean and numerical opts: always pass
 	args = append(args, "-lock="+strconv.FormatBool(c.lock))
 
-	// string slice opts: split into separate args
+string slice opts: split into separate args
 	if c.targets != nil {
 		for _, ta := range c.targets {
 			args = append(args, "-target="+ta)
@@ -168,7 +183,8 @@ func (tf *Terraform) buildRefreshArgs(c refreshConfig) []string {
 	return args
 }
 
-func (tf *Terraform) buildRefreshCmd(ctx context.Context, c refreshConfig, args []string) (*exec.Cmd, error) {
+
+ (tf *Terraform) buildRefreshCmd(ctx context.Context, c refreshConfig, args []string) (*exec.Cmd, error) {
 	// optional positional argument
 	if c.dir != "" {
 		args = append(args, c.dir)

@@ -7,7 +7,8 @@
 
 package bidirule
 
-func (t *Transformer) isFinal() bool {
+
+*Transformer) isFinal() bool {
 	if !t.isRTL() {
 		return true
 	}

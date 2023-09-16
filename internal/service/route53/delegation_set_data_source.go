@@ -18,26 +18,25 @@ import (
 )
 
 // @SDKDataSource("aws_route53_delegation_set")
-func DataSourceDelegationSet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceDelegationSetRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 			},
 			"caller_reference": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"name_servers": {
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:a.TypeList,
+				Elem:ma.Schema{Type: schema.TypeString},
 				Computed: true,
 			},
 		},
@@ -45,8 +44,7 @@ func DataSourceDelegationSet() *schema.Resource {
 }
 
 func dataSourceDelegationSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	dSetID := d.Get("id").(string)
 
@@ -70,7 +68,7 @@ func dataSourceDelegationSetRead(ctx context.Context, d *schema.ResourceData, me
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "route53",
+		Service:ute53",
 		Resource:  fmt.Sprintf("delegationset/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)

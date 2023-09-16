@@ -18,17 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRoute53CIDRLocation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_route53_cidr_location.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
+ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:CheckCIDRLocationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCIDRLocation_basic(rName, locationName),
@@ -41,8 +39,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 },
@@ -53,24 +51,22 @@ ImportStateVerify: true,
 
 acctest.CheckFrameworkResourceDisappears() cannot currently set top-level list/set/map attributes.
 
-    cidr_location_test.go:55: Step 1/1 error: Check failed: Check 2/2 error: 1 error occurred:
-        	* deleting Route 53 CIDR Location (50c328ab-5145-b3ed-77ab-6241355c43fb:wzv44e9s6lr6p7pj)
+dr_location_test.go:55: Step 1/1 error: Check failed: Check 2/2 error: 1 error occurred:
+ deleting Route 53 CIDR Location (50c328ab-5145-b3ed-77ab-6241355c43fb:wzv44e9s6lr6p7pj)
 
-        InvalidParameter: 1 validation error(s) found.
-        - missing required field, ChangeCidrCollectionInput.Changes[0].CidrList.
+validParameter: 1 validation error(s) found.
+missing required field, ChangeCidrCollectionInput.Changes[0].CidrList.
 
 func TestAccRoute53CIDRLocation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_route53_cidr_location.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestrofuncs: []resource.TestStep{
 	{
 Config: testAccCIDRLocation_basic(rName, locationName),
 Check: resource.ComposeTestCheckFunc(
@@ -88,16 +84,14 @@ func TestAccRoute53CIDRLocation_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_route53_cidr_location.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	locationName := sdkacctest.RandString(16)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
+CheckDestroy:CheckCIDRLocationDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccCIDRLocation_basic(rName, locationName),
+	{funcig: testAccCIDRLocation_basic(rName, locationName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckCIDRLocationExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "2"),
@@ -107,8 +101,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:e,
 ImportStateVerify: true,
 	},
 	{
@@ -132,10 +126,8 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_route53_cidr_location" {
-continue
-	}
-
-	collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
+func
+funclectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
 
 	if err != nil {
 return err
@@ -166,10 +158,8 @@ if !ok {
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No Route 53 CIDR Collection ID is set")
-}
-
-collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
+func
+funcectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
 
 if err != nil {
 	return err
@@ -192,9 +182,8 @@ resource "aws_route53_cidr_collection" "test" {
 resource "aws_route53_cidr_location" "test" {
   cidr_collection_id = aws_route53_cidr_collection.test.id
   name= %[2]q
-  cidr_blocks        = ["200.5.3.0/24", "200.6.3.0/24"]
-}
-`, rName, locationName)
+  cidr_blocks["200.5.3.0/24", "200.6.3.0/24"]
+funcName, locationName)
 }
 
 func testAccCIDRLocation_updated(rName, locationName string) string {
@@ -206,7 +195,6 @@ resource "aws_route53_cidr_collection" "test" {
 resource "aws_route53_cidr_location" "test" {
   cidr_collection_id = aws_route53_cidr_collection.test.id
   name= %[2]q
-  cidr_blocks        = ["200.5.2.0/24", "200.6.3.0/24", "200.6.5.0/24"]
+  cidr_blocks["200.5.2.0/24", "200.6.3.0/24", "200.6.5.0/24"]
 }
-`, rName, locationName)
-}
+func

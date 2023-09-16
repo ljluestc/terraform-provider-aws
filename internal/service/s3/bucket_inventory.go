@@ -23,8 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_inventory")
-func ResourceBucketInventory() *schema.Resource {
+// @SDKResource("aws_s3_bucket_inventory")func ResourceBucketInventory() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketInventoryPut,
 		ReadWithoutTimeout:   resourceBucketInventoryRead,
@@ -179,10 +178,7 @@ func ResourceBucketInventory() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketInventoryPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	bucket := d.Get("bucket").(string)
 	name := d.Get("name").(string)
@@ -257,11 +253,8 @@ func resourceBucketInventoryPut(ctx context.Context, d *schema.ResourceData, met
 	d.SetId(fmt.Sprintf("%s:%s", bucket, name))
 
 	return append(diags, resourceBucketInventoryRead(ctx, d, meta)...)
-}
-
-func resourceBucketInventoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketInventoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket, name, err := BucketInventoryParseID(d.Id())
 	if err != nil {
@@ -289,12 +282,9 @@ func resourceBucketInventoryDelete(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	return diags
-}
-
-func resourceBucketInventoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketInventoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	bucket, name, err := BucketInventoryParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading S3 Bucket Inventory Configuration (%s): %s", d.Id(), err)
@@ -379,24 +369,18 @@ func resourceBucketInventoryRead(ctx context.Context, d *schema.ResourceData, me
 	}
 
 	return diags
-}
-
-func expandInventoryFilter(m map[string]interface{}) *s3.InventoryFilter {
+}func expandInventoryFilter(m map[string]interface{}) *s3.InventoryFilter {
 	v, ok := m["prefix"]
 	if !ok {
-		return nil
-	}
+	func
 	return &s3.InventoryFilter{
 		Prefix: aws.String(v.(string)),
 	}
-}
-
-func flattenInventoryFilter(filter *s3.InventoryFilter) []map[string]interface{} {
+}func flattenInventoryFilter(filter *s3.InventoryFilter) []map[string]interface{} {
 	if filter == nil {
 		return nil
 	}
-
-	result := make([]map[string]interface{}, 0, 1)
+funcult := make([]map[string]interface{}, 0, 1)
 
 	m := make(map[string]interface{})
 	if filter.Prefix != nil {
@@ -406,27 +390,21 @@ func flattenInventoryFilter(filter *s3.InventoryFilter) []map[string]interface{}
 	result = append(result, m)
 
 	return result
-}
-
-func flattenInventorySchedule(schedule *s3.InventorySchedule) []map[string]interface{} {
+}func flattenInventorySchedule(schedule *s3.InventorySchedule) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, 1)
 
 	m := make(map[string]interface{}, 1)
 	m["frequency"] = aws.StringValue(schedule.Frequency)
-
-	result = append(result, m)
+funcult = append(result, m)
 
 	return result
-}
-
-func expandInventoryBucketDestination(m map[string]interface{}) *s3.InventoryS3BucketDestination {
+}func expandInventoryBucketDestination(m map[string]interface{}) *s3.InventoryS3BucketDestination {
 	destination := &s3.InventoryS3BucketDestination{
 		Format: aws.String(m["format"].(string)),
 		Bucket: aws.String(m["bucket_arn"].(string)),
 	}
 
-	if v, ok := m["account_id"]; ok && v.(string) != "" {
-		destination.AccountId = aws.String(v.(string))
+	funcstination.AccountId = aws.String(v.(string))
 	}
 
 	if v, ok := m["prefix"]; ok && v.(string) != "" {
@@ -460,17 +438,14 @@ func expandInventoryBucketDestination(m map[string]interface{}) *s3.InventoryS3B
 	}
 
 	return destination
-}
-
-func flattenInventoryBucketDestination(destination *s3.InventoryS3BucketDestination) []map[string]interface{} {
+}func flattenInventoryBucketDestination(destination *s3.InventoryS3BucketDestination) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, 1)
 
 	m := map[string]interface{}{
 		"format":     aws.StringValue(destination.Format),
 		"bucket_arn": aws.StringValue(destination.Bucket),
 	}
-
-	if destination.AccountId != nil {
+funcdestination.AccountId != nil {
 		m["account_id"] = aws.StringValue(destination.AccountId)
 	}
 	if destination.Prefix != nil {
@@ -494,9 +469,7 @@ func flattenInventoryBucketDestination(destination *s3.InventoryS3BucketDestinat
 	result = append(result, m)
 
 	return result
-}
-
-func BucketInventoryParseID(id string) (string, string, error) {
+}func BucketInventoryParseID(id string) (string, string, error) {
 	idParts := strings.Split(id, ":")
 	if len(idParts) != 2 {
 		return "", "", fmt.Errorf("please make sure the ID is in the form BUCKET:NAME (i.e. my-bucket:EntireBucket")
@@ -504,4 +477,4 @@ func BucketInventoryParseID(id string) (string, string, error) {
 	bucket := idParts[0]
 	name := idParts[1]
 	return bucket, name, nil
-}
+}func

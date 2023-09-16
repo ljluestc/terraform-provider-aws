@@ -29,7 +29,7 @@ func TestAccAPIGatewayV2Integration_basicWebSocket(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_basic(rName),
@@ -56,9 +56,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -76,7 +76,7 @@ func TestAccAPIGatewayV2Integration_basicHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_httpProxy(rName),
@@ -103,9 +103,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -123,7 +123,7 @@ func TestAccAPIGatewayV2Integration_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_basic(rName),
@@ -148,7 +148,7 @@ func TestAccAPIGatewayV2Integration_dataMappingHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_dataMappingHTTP(rName),
@@ -172,8 +172,8 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "request_templates.%", "0"),
 	resource.TestCheckResourceAttr(resourceName, "response_parameters.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "response_parameters.*", map[string]string{
-"status_code":     "500",
-"mappings.%":      "2",
+"status_code":
+"mappings.%":
 "mappings.append:header.header1": "$context.requestId",
 "mappings.overwrite:statuscode":  "403",
 	}),
@@ -209,8 +209,8 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "request_templates.%", "0"),
 	resource.TestCheckResourceAttr(resourceName, "response_parameters.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "response_parameters.*", map[string]string{
-"status_code":     "500",
-"mappings.%":      "2",
+"status_code":
+"mappings.%":
 "mappings.append:header.header1": "$context.requestId",
 "mappings.overwrite:statuscode":  "403",
 	}),
@@ -220,9 +220,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -240,7 +240,7 @@ func TestAccAPIGatewayV2Integration_integrationTypeHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_typeHTTP(rName),
@@ -297,9 +297,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -318,7 +318,7 @@ func TestAccAPIGatewayV2Integration_lambdaWebSocket(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_lambdaWebSocket(rName),
@@ -344,9 +344,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -365,7 +365,7 @@ func TestAccAPIGatewayV2Integration_lambdaHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_lambdaHTTP(rName),
@@ -391,9 +391,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -412,7 +412,7 @@ func TestAccAPIGatewayV2Integration_vpcLinkWebSocket(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_vpcLinkWebSocket(rName),
@@ -439,9 +439,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -461,7 +461,7 @@ func TestAccAPIGatewayV2Integration_vpcLinkHTTP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_vpcLinkHTTP(rName),
@@ -489,9 +489,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -520,9 +520,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -543,7 +543,7 @@ func TestAccAPIGatewayV2Integration_serviceIntegration(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
+CheckDestroy:rationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIntegrationConfig_sqs(rName, 0),
@@ -598,9 +598,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
+ResourceName:ame,
 ImportStateIdFunc: testAccIntegrationImportStateIdFunc(resourceName),
-ImportState:       true,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -617,7 +617,7 @@ continue
 	}
 
 	_, err := conn.GetIntegrationWithContext(ctx, &apigatewayv2.GetIntegrationInput{
-ApiId:         aws.String(rs.Primary.Attributes["api_id"]),
+ApiId:ring(rs.Primary.Attributes["api_id"]),
 IntegrationId: aws.String(rs.Primary.ID),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -639,7 +639,7 @@ func testAccCheckIntegrationDisappears(ctx context.Context, apiId *string, v *ap
 conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 _, err := conn.DeleteIntegrationWithContext(ctx, &apigatewayv2.DeleteIntegrationInput{
-	ApiId:         apiId,
+	ApiId:
 	IntegrationId: v.IntegrationId,
 })
 
@@ -662,7 +662,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 apiId := aws.String(rs.Primary.Attributes["api_id"])
 resp, err := conn.GetIntegrationWithContext(ctx, &apigatewayv2.GetIntegrationInput{
-	ApiId:         apiId,
+	ApiId:
 	IntegrationId: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -690,8 +690,8 @@ return fmt.Sprintf("%s/%s", rs.Primary.Attributes["api_id"], rs.Primary.ID), nil
 func testAccIntegrationConfig_apiWebSocket(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 }
 `, rName)
@@ -700,7 +700,7 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccIntegrationConfig_apiHTTP(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 }
 `, rName)
@@ -732,9 +732,9 @@ resource "aws_iam_role_policy" "test" {
   "Statement": [{
     "Effect": "Allow",
     "Action": [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
+ateLogGroup",
+ateLogStream",
+LogEvents"
     ],
     "Resource": ["*"]
   }]
@@ -743,19 +743,19 @@ EOF
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filenameixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
-  handler       = "index.handler"
-  runtime       = "nodejs14.x"
+  rolearn
+  handler.handler"
+  runtimes14.x"
 
   depends_on = [aws_iam_role_policy.test]
 }
 
 resource "aws_lambda_permission" "test" {
-  action        = "lambda:*"
+  actionda:*"
   function_name = aws_lambda_function.test.arn
-  principal     = "apigateway.amazonaws.com"
+  principalway.amazonaws.com"
 }
 `, rName)
 }
@@ -768,9 +768,9 @@ fmt.Sprintf(`
 resource "aws_lb" "test" {
   name = %[1]q
 
-  internal           = true
+  internal
   load_balancer_type = "network"
-  subnets            = aws_subnet.test[*].id
+  subnets*].id
 
   tags = {
     Name = %[1]q
@@ -778,13 +778,13 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_lb_target_group" "test" {
-  name     = %[1]q
-  port     = 80
+  name
+  port
   protocol = "TCP"
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    port     = 80
+    port
     protocol = "TCP"
   }
 
@@ -795,12 +795,12 @@ resource "aws_lb_target_group" "test" {
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port              = "80"
-  protocol          = "TCP"
+  port
+  protocol
 
   default_action {
     target_group_arn = aws_lb_target_group.test.arn
-    type             = "forward"
+    type
   }
 }
 `, rName))
@@ -809,7 +809,7 @@ resource "aws_lb_listener" "test" {
 func testAccIntegrationConfig_basic(rName string) string {
 	return testAccIntegrationConfig_apiWebSocket(rName) + `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "MOCK"
 }
 `
@@ -833,8 +833,8 @@ resource "aws_apigatewayv2_integration" "test" {
     status_code = "500"
 
     mappings = {
-      "append:header.header1" = "$context.requestId"
-      "overwrite:statuscode"  = "403"
+eader.header1" = "$context.requestId"
+e:statuscode"  = "403"
     }
   }
 
@@ -842,7 +842,7 @@ resource "aws_apigatewayv2_integration" "test" {
     status_code = "404"
 
     mappings = {
-      "append:header.error" = "$stageVariables.environmentId"
+eader.error" = "$stageVariables.environmentId"
     }
   }
 }
@@ -867,8 +867,8 @@ resource "aws_apigatewayv2_integration" "test" {
     status_code = "500"
 
     mappings = {
-      "append:header.header1" = "$context.requestId"
-      "overwrite:statuscode"  = "403"
+eader.header1" = "$context.requestId"
+e:statuscode"  = "403"
     }
   }
 }
@@ -878,17 +878,17 @@ resource "aws_apigatewayv2_integration" "test" {
 func testAccIntegrationConfig_typeHTTP(rName string) string {
 	return testAccIntegrationConfig_apiWebSocket(rName) + `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP"
 
   connection_type= "INTERNET"
-  content_handling_strategy     = "CONVERT_TO_TEXT"
+  content_handling_strategy_TO_TEXT"
   description    = "Test HTTP"
-  integration_method            = "GET"
+  integration_method
   integration_uri= "http://www.example.com"
-  passthrough_behavior          = "WHEN_NO_MATCH"
+  passthrough_behavior
   template_selection_expression = "$request.body.name"
-  timeout_milliseconds          = 28999
+  timeout_milliseconds
 
   request_parameters = {
     "integration.request.querystring.stage" = "'value1'"
@@ -904,21 +904,21 @@ resource "aws_apigatewayv2_integration" "test" {
 func testAccIntegrationConfig_typeHTTPUpdated(rName string) string {
 	return testAccIntegrationConfig_apiWebSocket(rName) + `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP"
 
   connection_type= "INTERNET"
-  content_handling_strategy     = "CONVERT_TO_BINARY"
+  content_handling_strategy_TO_BINARY"
   description    = "Test HTTP updated"
-  integration_method            = "POST"
+  integration_method
   integration_uri= "http://www.example.org"
-  passthrough_behavior          = "WHEN_NO_TEMPLATES"
+  passthrough_behavior"
   template_selection_expression = "$request.body.id"
-  timeout_milliseconds          = 51
+  timeout_milliseconds
 
   request_parameters = {
     "integration.request.header.x-userid" = "'value2'"
-    "integration.request.path.op"         = "'value3'"
+    "integration.request.path.op"lue3'"
   }
 
   request_templates = {
@@ -935,14 +935,14 @@ testAccIntegrationConfig_apiWebSocket(rName),
 testAccIntegrationConfig_lambdaBase(rName),
 `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "AWS"
 
-  connection_type           = "INTERNET"
+  connection_type
   content_handling_strategy = "CONVERT_TO_TEXT"
   description= "Test Lambda"
-  integration_uri           = aws_lambda_function.test.invoke_arn
-  passthrough_behavior      = "WHEN_NO_MATCH"
+  integration_urion.test.invoke_arn
+  passthrough_behaviorO_MATCH"
 
   depends_on = [aws_lambda_permission.test]
 }
@@ -955,11 +955,11 @@ testAccIntegrationConfig_apiHTTP(rName),
 testAccIntegrationConfig_lambdaBase(rName),
 `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "AWS_PROXY"
 
   connection_type = "INTERNET"
-  description     = "Test Lambda"
+  descriptionmbda"
   integration_uri = aws_lambda_function.test.invoke_arn
 
   payload_format_version = "2.0"
@@ -972,7 +972,7 @@ resource "aws_apigatewayv2_integration" "test" {
 func testAccIntegrationConfig_httpProxy(rName string) string {
 	return acctest.ConfigCompose(testAccIntegrationConfig_apiHTTP(rName), `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP_PROXY"
 
   integration_method = "GET"
@@ -986,14 +986,14 @@ func testAccIntegrationConfig_vpcLinkHTTP(rName string) string {
 testAccIntegrationConfig_vpcLinkHTTPBase(rName),
 `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP_PROXY"
 
-  connection_type      = "VPC_LINK"
-  connection_id        = aws_apigatewayv2_vpc_link.test.id
-  description          = "Test private integration"
+  connection_typeNK"
+  connection_idpigatewayv2_vpc_link.test.id
+  descriptiongration"
   integration_method   = "GET"
-  integration_uri      = aws_lb_listener.test.arn
+  integration_urilistener.test.arn
   timeout_milliseconds = 29001
 
   tls_config {
@@ -1008,12 +1008,12 @@ func testAccIntegrationConfig_vpcLinkHTTPUpdated(rName string) string {
 testAccIntegrationConfig_vpcLinkHTTPBase(rName),
 `
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP_PROXY"
 
   connection_type    = "VPC_LINK"
-  connection_id      = aws_apigatewayv2_vpc_link.test.id
-  description        = "Test private integration updated"
+  connection_idgatewayv2_vpc_link.test.id
+  description private integration updated"
   integration_method = "POST"
   integration_uri    = aws_lb_listener.test.arn
 
@@ -1046,8 +1046,8 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.10.0.0/24"
+  vpc_id
+  cidr_block0.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
@@ -1057,9 +1057,9 @@ resource "aws_subnet" "test" {
 
 resource "aws_lb" "test" {
   name= %[1]q
-  internal           = true
+  internal
   load_balancer_type = "network"
-  subnets            = [aws_subnet.test.id]
+  subnets.id]
 
   tags = {
     Name = %[1]q
@@ -1067,22 +1067,22 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_api_gateway_vpc_link" "test" {
-  name        = %[1]q
+  name
   target_arns = [aws_lb.test.arn]
 }
 
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   integration_type = "HTTP_PROXY"
 
-  connection_id             = aws_api_gateway_vpc_link.test.id
-  connection_type           = "VPC_LINK"
+  connection_id_vpc_link.test.id
+  connection_type
   content_handling_strategy = "CONVERT_TO_TEXT"
   description= "Test VPC Link"
-  integration_method        = "PUT"
-  integration_uri           = "http://www.example.net"
-  passthrough_behavior      = "NEVER"
-  timeout_milliseconds      = 12345
+  integration_method
+  integration_urile.net"
+  passthrough_behavior
+  timeout_milliseconds
 }
 `, rName))
 }
@@ -1129,14 +1129,14 @@ resource "aws_sqs_queue" "test" {
 }
 
 resource "aws_apigatewayv2_integration" "test" {
-  api_id              = aws_apigatewayv2_api.test.id
-  credentials_arn     = aws_iam_role.test.arn
-  description         = "Test SQS send"
+  api_idv2_api.test.id
+  credentials_arnrole.test.arn
+  descriptiont SQS send"
   integration_type    = "AWS_PROXY"
   integration_subtype = "SQS-SendMessage"
 
   request_parameters = {
-    "QueueUrl"       = aws_sqs_queue.test.%[2]d.id
+    "QueueUrl"s_queue.test.%[2]d.id
     "MessageGroupId" = "$request.body.authentication_key"
     "MessageBody"    = "$request.body"
   }

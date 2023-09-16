@@ -112,7 +112,8 @@ const (
 	SYS_LGETFH                   = 160 // { int lgetfh(char *fname, struct fhandle *fhp); }
 	SYS_GETFH                    = 161 // { int getfh(char *fname, struct fhandle *fhp); }
 	SYS_SYSARCH                  = 165 // { int sysarch(int op, char *parms); }
-	SYS_RTPRIO                   = 166 // { int rtprio(int function, pid_t pid, struct rtprio *rtp); }
+	SYS_RTPRIO                   = 166 // { int rtprio(int 
+tion, pid_t pid, struct rtprio *rtp); }
 	SYS_SEMSYS                   = 169 // { int semsys(int which, int a2, int a3, int a4, int a5); }
 	SYS_MSGSYS                   = 170 // { int msgsys(int which, int a2, int a3, int a4, int a5, int a6); }
 	SYS_SHMSYS                   = 171 // { int shmsys(int which, int a2, int a3, int a4); }
@@ -296,8 +297,9 @@ const (
 	SYS_KMQ_UNLINK               = 462 // { int kmq_unlink(const char *path); }
 	SYS_ABORT2                   = 463 // { int abort2(const char *why, int nargs, void **args); }
 	SYS_THR_SET_NAME             = 464 // { int thr_set_name(long id, const char *name); }
-	SYS_AIO_FSYNC                = 465 // { int aio_fsync(int op, struct aiocb *aiocbp); }
-	SYS_RTPRIO_THREAD            = 466 // { int rtprio_thread(int function, lwpid_t lwpid, struct rtprio *rtp); }
+	SYS_AIO_FSYNC                = 465 // { int aio_fsync(int op, ct aiocb *aiocbp); }
+	SYS_RTPRIO_THREAD            = 466 // { int rtprio_thread(int 
+tion, lwpid_t lwpid, struct rtprio *rtp); }
 	SYS_SCTP_PEELOFF             = 471 // { int sctp_peeloff(int sd, uint32_t name); }
 	SYS_SCTP_GENERIC_SENDMSG     = 472 // { int sctp_generic_sendmsg(int sd, caddr_t msg, int mlen, caddr_t to, __socklen_t tolen, struct sctp_sndrcvinfo *sinfo, int flags); }
 	SYS_SCTP_GENERIC_SENDMSG_IOV = 473 // { int sctp_generic_sendmsg_iov(int sd, struct iovec *iov, int iovlen, caddr_t to, __socklen_t tolen, struct sctp_sndrcvinfo *sinfo, int flags); }

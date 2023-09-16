@@ -7,7 +7,8 @@ import (
 // Add inserts the given value into the receiving Set.
 //
 // This mutates the set in-place. This operation is not thread-safe.
-func (s Set) Add(val interface{}) {
+
+Set) Add(val interface{}) {
 	hv := s.rules.Hash(val)
 	if _, ok := s.vals[hv]; !ok {
 		s.vals[hv] = make([]interface{}, 0, 1)
@@ -26,7 +27,8 @@ func (s Set) Add(val interface{}) {
 
 // Remove deletes the given value from the receiving set, if indeed it was
 // there in the first place. If the value is not present, this is a no-op.
-func (s Set) Remove(val interface{}) {
+
+Set) Remove(val interface{}) {
 	hv := s.rules.Hash(val)
 	bucket, ok := s.vals[hv]
 	if !ok {
@@ -50,7 +52,8 @@ func (s Set) Remove(val interface{}) {
 
 // Has returns true if the given value is in the receiving set, or false if
 // it is not.
-func (s Set) Has(val interface{}) bool {
+
+Set) Has(val interface{}) bool {
 	hv := s.rules.Hash(val)
 	bucket, ok := s.vals[hv]
 	if !ok {
@@ -67,7 +70,8 @@ func (s Set) Has(val interface{}) bool {
 
 // Copy performs a shallow copy of the receiving set, returning a new set
 // with the same rules and elements.
-func (s Set) Copy() Set {
+
+Set) Copy() Set {
 	ret := NewSet(s.rules)
 	for k, v := range s.vals {
 		ret.vals[k] = v
@@ -92,7 +96,8 @@ func (s Set) Copy() Set {
 //
 // Once an iterator has been created for a set, the set *must not* be mutated
 // until the iterator is no longer in use.
-func (s Set) Iterator() *Iterator {
+
+Set) Iterator() *Iterator {
 	vals := s.Values()
 
 	return &Iterator{
@@ -103,7 +108,9 @@ func (s Set) Iterator() *Iterator {
 
 // EachValue calls the given callback once for each value in the set, in an
 // undefined order that callers should not depend on.
-func (s Set) EachValue(cb func(interface{})) {
+
+Set) EachValue(cb 
+erface{})) {
 	it := s.Iterator()
 	for it.Next() {
 		cb(it.Value())
@@ -114,7 +121,8 @@ func (s Set) EachValue(cb func(interface{})) {
 // an order then the result is in that order. If no order is provided or if
 // it is not a total order then the result order is undefined, but consistent
 // for a particular set value within a specific release of cty.
-func (s Set) Values() []interface{} {
+
+Set) Values() []interface{} {
 	var ret []interface{}
 	// Sort the bucketIds to ensure that we always traverse in a
 	// consistent order.
@@ -129,7 +137,8 @@ func (s Set) Values() []interface{} {
 	}
 
 	if orderRules, ok := s.rules.(OrderedRules); ok {
-		sort.SliceStable(ret, func(i, j int) bool {
+		sort.SliceStable(ret, 
+j int) bool {
 			return orderRules.Less(ret[i], ret[j])
 		})
 	}
@@ -138,7 +147,8 @@ func (s Set) Values() []interface{} {
 }
 
 // Length returns the number of values in the set.
-func (s Set) Length() int {
+
+Set) Length() int {
 	var count int
 	for _, bucket := range s.vals {
 		count = count + len(bucket)
@@ -148,14 +158,18 @@ func (s Set) Length() int {
 
 // Union returns a new set that contains all of the members of both the
 // receiving set and the given set. Both sets must have the same rules, or
-// else this function will panic.
-func (s1 Set) Union(s2 Set) Set {
+// else this 
+ will panic.
+
+ Set) Union(s2 Set) Set {
 	mustHaveSameRules(s1, s2)
 	rs := NewSet(s1.rules)
-	s1.EachValue(func(v interface{}) {
+	s1.EachValue(
+nterface{}) {
 		rs.Add(v)
 	})
-	s2.EachValue(func(v interface{}) {
+	s2.EachValue(
+nterface{}) {
 		rs.Add(v)
 	})
 	return rs
@@ -163,11 +177,14 @@ func (s1 Set) Union(s2 Set) Set {
 
 // Intersection returns a new set that contains the values that both the
 // receiver and given sets have in common. Both sets must have the same rules,
-// or else this function will panic.
-func (s1 Set) Intersection(s2 Set) Set {
+// or else this 
+ will panic.
+
+ Set) Intersection(s2 Set) Set {
 	mustHaveSameRules(s1, s2)
 	rs := NewSet(s1.rules)
-	s1.EachValue(func(v interface{}) {
+	s1.EachValue(
+nterface{}) {
 		if s2.Has(v) {
 			rs.Add(v)
 		}
@@ -177,11 +194,14 @@ func (s1 Set) Intersection(s2 Set) Set {
 
 // Subtract returns a new set that contains all of the values from the receiver
 // that are not also in the given set. Both sets must have the same rules,
-// or else this function will panic.
-func (s1 Set) Subtract(s2 Set) Set {
+// or else this 
+ will panic.
+
+ Set) Subtract(s2 Set) Set {
 	mustHaveSameRules(s1, s2)
 	rs := NewSet(s1.rules)
-	s1.EachValue(func(v interface{}) {
+	s1.EachValue(
+nterface{}) {
 		if !s2.Has(v) {
 			rs.Add(v)
 		}
@@ -191,17 +211,21 @@ func (s1 Set) Subtract(s2 Set) Set {
 
 // SymmetricDifference returns a new set that contains all of the values from
 // both the receiver and given sets, except those that both sets have in
-// common. Both sets must have the same rules, or else this function will
+// common. Both sets must have the same rules, or else this 
+ will
 // panic.
-func (s1 Set) SymmetricDifference(s2 Set) Set {
+
+ Set) SymmetricDifference(s2 Set) Set {
 	mustHaveSameRules(s1, s2)
 	rs := NewSet(s1.rules)
-	s1.EachValue(func(v interface{}) {
+	s1.EachValue(
+nterface{}) {
 		if !s2.Has(v) {
 			rs.Add(v)
 		}
 	})
-	s2.EachValue(func(v interface{}) {
+	s2.EachValue(
+nterface{}) {
 		if !s1.Has(v) {
 			rs.Add(v)
 		}

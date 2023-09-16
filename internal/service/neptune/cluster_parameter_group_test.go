@@ -29,10 +29,10 @@ func TestAccNeptuneClusterParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_neptune_cluster_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_basic(parameterGroupName),
@@ -63,10 +63,10 @@ func TestAccNeptuneClusterParameterGroup_namePrefix(t *testing.T) {
 	resourceName := "aws_neptune_cluster_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_namePrefixEmpty,
@@ -77,7 +77,7 @@ func TestAccNeptuneClusterParameterGroup_namePrefix(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -92,10 +92,10 @@ func TestAccNeptuneClusterParameterGroup_generatedName(t *testing.T) {
 	resourceName := "aws_neptune_cluster_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_generatedName,
@@ -121,10 +121,10 @@ func TestAccNeptuneClusterParameterGroup_description(t *testing.T) {
 	parameterGroupName := sdkacctest.RandomWithPrefix("cluster-parameter-group-test-terraform")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_description(parameterGroupName, "custom description"),
@@ -152,10 +152,10 @@ func TestAccNeptuneClusterParameterGroup_NamePrefix_parameter(t *testing.T) {
 	prefix := acctest.ResourcePrefix
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_namePrefix(prefix, "neptune_enable_audit_log", "1"),
@@ -171,7 +171,7 @@ func TestAccNeptuneClusterParameterGroup_NamePrefix_parameter(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -200,10 +200,10 @@ func TestAccNeptuneClusterParameterGroup_parameter(t *testing.T) {
 	parameterGroupName := sdkacctest.RandomWithPrefix("cluster-parameter-group-test-tf")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_one(parameterGroupName, "neptune_enable_audit_log", "1"),
@@ -249,10 +249,10 @@ func TestAccNeptuneClusterParameterGroup_tags(t *testing.T) {
 	parameterGroupName := sdkacctest.RandomWithPrefix("cluster-parameter-group-test-tf")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterParameterGroupDestroy(ctx),
+		CheckDestroy:lusterParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterParameterGroupConfig_tags(parameterGroupName, "key1", "value1"),

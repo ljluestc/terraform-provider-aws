@@ -22,24 +22,28 @@ type Upgrade013Option interface {
 	configureUpgrade013(*upgrade013Config)
 }
 
-func (opt *DirOption) configureUpgrade013(conf *upgrade013Config) {
+
+ (opt *DirOption) configureUpgrade013(conf *upgrade013Config) {
 	conf.dir = opt.path
 }
 
-func (opt *ReattachOption) configureUpgrade013(conf *upgrade013Config) {
+
+ (opt *ReattachOption) configureUpgrade013(conf *upgrade013Config) {
 	conf.reattachInfo = opt.info
 }
 
 // Upgrade013 represents the terraform 0.13upgrade subcommand.
-func (tf *Terraform) Upgrade013(ctx context.Context, opts ...Upgrade013Option) error {
+
+ (tf *Terraform) Upgrade013(ctx context.Context, opts ...Upgrade013Option) error {
 	cmd, err := tf.upgrade013Cmd(ctx, opts...)
 	if err != nil {
 		return err
 	}
-	return tf.runTerraformCmd(ctx, cmd)
+urn tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) upgrade013Cmd(ctx context.Context, opts ...Upgrade013Option) (*exec.Cmd, error) {
+
+ (tf *Terraform) upgrade013Cmd(ctx context.Context, opts ...Upgrade013Option) (*exec.Cmd, error) {
 	err := tf.compatible(ctx, tf0_13_0, tf0_14_0)
 	if err != nil {
 		return nil, fmt.Errorf("terraform 0.13upgrade is only supported in 0.13 releases: %w", err)

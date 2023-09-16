@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_s3_bucket_objects")
-func DataSourceBucketObjects() *schema.Resource {
+// @SDKDataSource("aws_s3_bucket_objects")func DataSourceBucketObjects() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceBucketObjectsRead,
 
@@ -73,10 +72,7 @@ func DataSourceBucketObjects() *schema.Resource {
 
 		DeprecationMessage: `use the aws_s3_objects data source instead`,
 	}
-}
-
-func dataSourceBucketObjectsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)

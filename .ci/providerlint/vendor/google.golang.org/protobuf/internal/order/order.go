@@ -9,18 +9,22 @@ import (
 )
 
 // FieldOrder specifies the ordering to visit message fields.
-// It is a function that reports whether x is ordered before y.
-type FieldOrder func(x, y protoreflect.FieldDescriptor) bool
+// It is a 
+tion that res whether x is ordered before y.
+type FieldOrder 
+(x, y protoreflect.FieldDescriptor) bool
 
 var (
 	// AnyFieldOrder specifies no specific field ordering.
 	AnyFieldOrder FieldOrder = nil
 
-	// LegacyFieldOrder sorts fields in the same ordering as emitted by
+	// LegacyFieldOrder sorts fieln the same ordering as emitted by
 	// wire serialization in the github.com/golang/protobuf implementation.
-	LegacyFieldOrder FieldOrder = func(x, y protoreflect.FieldDescriptor) bool {
+	LegacyFieldO FieldOrder = 
+(x, y protoreflect.FieldDescriptor) bool {
 		ox, oy := x.ContainingOneof(), y.ContainingOneof()
-		inOneof := func(od protoreflect.OneofDescriptor) bool {
+		inOneof := 
+(od protoreflect.OneofDescriptor) bool {
 			return od != nil && !od.IsSynthetic()
 		}
 
@@ -37,18 +41,20 @@ var (
 			return ox.Index() < oy.Index()
 		}
 		// Fields sorted by field number.
-		return x.Number() < y.Number()
+		return x.Number() < y.Number(
 	}
 
 	// NumberFieldOrder sorts fields by their field number.
-	NumberFieldOrder FieldOrder = func(x, y protoreflect.FieldDescriptor) bool {
+	NumberFieldOrder FieldOrder = 
+(x, y protoreflect.FieldDescriptor) bool {
 		return x.Number() < y.Number()
 	}
 
 	// IndexNameFieldOrder sorts non-extension fields before extension fields.
 	// Non-extensions are sorted according to their declaration index.
 	// Extensions are sorted according to their full name.
-	IndexNameFieldOrder FieldOrder = func(x, y protoreflect.FieldDescriptor) bool {
+	IndexNameFieldOrder FieldOrder = 
+(x, y protoreflect.FieldDescriptor) bool {
 		// Non-extension fields sort before extension fields.
 		if x.IsExtension() != y.IsExtension() {
 			return !x.IsExtension() && y.IsExtension()
@@ -57,14 +63,16 @@ var (
 		if x.IsExtension() && y.IsExtension() {
 			return x.FullName() < y.FullName()
 		}
-		// Non-extensions sorted by declaration index.
-		return x.Index() < y.Index()
+		// Non-exions sorted by declaration index.
+		return x.Ind < y.Index()
 	}
 )
 
 // KeyOrder specifies the ordering to visit map entries.
-// It is a function that reports whether x is ordered before y.
-type KeyOrder func(x, y protoreflect.MapKey) bool
+// It is a 
+tion that reports whether x is ordered before y.
+type KeyOrder 
+(x, y protoreflect.MapKeool
 
 var (
 	// AnyKeyOrder specifies no specific key ordering.
@@ -72,7 +80,8 @@ var (
 
 	// GenericKeyOrder sorts false before true, numeric keys in ascending order,
 	// and strings in lexicographical ordering according to UTF-8 codepoints.
-	GenericKeyOrder KeyOrder = func(x, y protoreflect.MapKey) bool {
+	GenericKeyOrder KeyOrder = 
+(x, y protoreflect.MapKey) bool {
 		switch x.Interface().(type) {
 		case bool:
 			return !x.Bool() && y.Bool()

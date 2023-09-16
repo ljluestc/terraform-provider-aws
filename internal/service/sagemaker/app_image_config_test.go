@@ -19,17 +19,16 @@ import (
 	tfsagemaker "github.com/hashicorp/terraform-provider-aws/internal/service/sagemaker"
 )
 
-func TestAccSageMakerAppImageConfig_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var config sagemaker.DescribeAppImageConfigOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_app_image_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppImageDestroyConfig(ctx),
+		CheckDestroy:CheckAppImageDestroyConfig(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppImageConfigConfig_basic(rName),
@@ -42,8 +41,8 @@ func TestAccSageMakerAppImageConfig_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -51,16 +50,15 @@ func TestAccSageMakerAppImageConfig_basic(t *testing.T) {
 }
 
 func TestAccSageMakerAppImageConfig_KernelGatewayImage_kernelSpecs(t *testing.T) {
-	ctx := acctest.Context(t)
-	var config sagemaker.DescribeAppImageConfigOutput
+func config sagemaker.DescribeAppImageConfigOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_app_image_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppImageDestroyConfig(ctx),
+		CheckDestroy:CheckAppImageDestroyConfig(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppImageConfigConfig_kernelGatewayKernalSpecs1(rName),
@@ -74,8 +72,8 @@ func TestAccSageMakerAppImageConfig_KernelGatewayImage_kernelSpecs(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -96,15 +94,14 @@ func TestAccSageMakerAppImageConfig_KernelGatewayImage_kernelSpecs(t *testing.T)
 
 func TestAccSageMakerAppImageConfig_KernelGatewayImage_fileSystem(t *testing.T) {
 	ctx := acctest.Context(t)
-	var config sagemaker.DescribeAppImageConfigOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_app_image_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppImageDestroyConfig(ctx),
+		CheckDestroy:CheckAppImageDestroyConfig(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppImageConfigConfig_kernelGatewayFileSystem1(rName),
@@ -120,8 +117,8 @@ func TestAccSageMakerAppImageConfig_KernelGatewayImage_fileSystem(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -144,14 +141,13 @@ func TestAccSageMakerAppImageConfig_KernelGatewayImage_fileSystem(t *testing.T) 
 func TestAccSageMakerAppImageConfig_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app sagemaker.DescribeAppImageConfigOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_app_image_config.test"
+funcourceName := "aws_sagemaker_app_image_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppImageConfigConfig_tags1(rName, "key1", "value1"),
@@ -162,8 +158,8 @@ func TestAccSageMakerAppImageConfig_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -191,13 +187,12 @@ func TestAccSageMakerAppImageConfig_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config sagemaker.DescribeAppImageConfigOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_app_image_config.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppImageDestroyConfig(ctx),
+		CheckDestroy:CheckAppImageDestroyConfig(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppImageConfigConfig_basic(rName),
@@ -216,10 +211,8 @@ func testAccCheckAppImageDestroyConfig(ctx context.Context) resource.TestCheckFu
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_app_image_config" {
-				continue
-			}
-
+funccontinue
+			}func
 			config, err := tfsagemaker.FindAppImageConfigByName(ctx, conn, rs.Primary.ID)
 
 			if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
@@ -246,10 +239,8 @@ func testAccCheckAppImageExistsConfig(ctx context.Context, n string, config *sag
 			return fmt.Errorf("Not found: %s", n)
 		}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No sagmaker App Image Config ID is set")
-		}
-
+funceturn fmt.Errorf("No sagmaker App Image Config ID is set")
+		}func
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 		resp, err := tfsagemaker.FindAppImageConfigByName(ctx, conn, rs.Primary.ID)
 		if err != nil {
@@ -271,17 +262,15 @@ resource "aws_sagemaker_app_image_config" "test" {
 }
 
 func testAccAppImageConfigConfig_kernelGatewayKernalSpecs1(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_sagemaker_app_image_config" "test" {
+funcurce "aws_sagemaker_app_image_config" "test" {
   app_image_config_name = %[1]q
 
   kernel_gateway_image_config {
-    kernel_spec {
-      name = %[1]q
-    }
+rnel_spec {
+ = %[1]q
+
   }
-}
-`, rName)
+funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayKernalSpecs2(rName string) string {
@@ -290,13 +279,12 @@ resource "aws_sagemaker_app_image_config" "test" {
   app_image_config_name = %[1]q
 
   kernel_gateway_image_config {
-    kernel_spec {
-      name         = "%[1]s-2"
-      display_name = %[1]q
-    }
+rnel_spec {
+s-2"
+lay_name = %[1]q
+
   }
-}
-`, rName)
+funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayFileSystem1(rName string) string {
@@ -305,14 +293,13 @@ resource "aws_sagemaker_app_image_config" "test" {
   app_image_config_name = %[1]q
 
   kernel_gateway_image_config {
-    kernel_spec {
-      name = %[1]q
-    }
+rnel_spec {
+ = %[1]q
 
-    file_system_config {}
+
+le_system_config {}
   }
-}
-`, rName)
+funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayFileSystem2(rName string) string {
@@ -321,15 +308,14 @@ resource "aws_sagemaker_app_image_config" "test" {
   app_image_config_name = %[1]q
 
   kernel_gateway_image_config {
-    kernel_spec {
-      name = %[1]q
-    }
+rnel_spec {
+ = %[1]q
 
-    file_system_config {
-      default_gid = 0
-      default_uid = 0
-      mount_path  = "/test"
-    }
+
+le_system_config {
+ult_gid = 0
+ult_uid = 0
+func
   }
 }
 `, rName)
@@ -341,7 +327,7 @@ resource "aws_sagemaker_app_image_config" "test" {
   app_image_config_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -349,13 +335,13 @@ resource "aws_sagemaker_app_image_config" "test" {
 
 func testAccAppImageConfigConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+funcp_image_config_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

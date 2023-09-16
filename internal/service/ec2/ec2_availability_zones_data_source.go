@@ -20,8 +20,7 @@ import (
 
 // @SDKDataSource("aws_availability_zones")
 
-func DataSourceAvailabilityZones() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAvailabilityZonesRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -30,40 +29,39 @@ func DataSourceAvailabilityZones() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"all_availability_zones": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"exclude_names": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"exclude_zone_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"group_names": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"names": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"state": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringInSlice(ec2.AvailabilityZoneState_Values(), false),
-			},
-			"zone_ids": {
-				Type:     schema.TypeList,
+funczone_ids": {
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -72,8 +70,7 @@ func: validation.StringInSlice(ec2.AvailabilityZoneState_Values(), false),
 
 func dataSourceAvailabilityZonesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	log.Printf("[DEBUG] Reading Availability Zones.")
 
 	request := &ec2.DescribeAvailabilityZonesInput{}
@@ -85,7 +82,7 @@ func dataSourceAvailabilityZonesRead(ctx context.Context, d *schema.ResourceData
 	if v, ok := d.GetOk("state"); ok {
 		request.Filters = []*ec2.Filter{
 			{
-				Name:   aws.String("state"),
+				Name:.String("state"),
 				Values: []*string{aws.String(v.(string))},
 			},
 		}
@@ -112,8 +109,7 @@ func dataSourceAvailabilityZonesRead(ctx context.Context, d *schema.ResourceData
 func(i, j int) bool {
 		return aws.StringValue(resp.AvailabilityZones[i].ZoneName) < aws.StringValue(resp.AvailabilityZones[j].ZoneName)
 	})
-
-	excludeNames := d.Get("exclude_names").(*schema.Set)
+funcludeNames := d.Get("exclude_names").(*schema.Set)
 	excludeZoneIDs := d.Get("exclude_zone_ids").(*schema.Set)
 
 	groupNames := schema.NewSet(schema.HashString, nil)

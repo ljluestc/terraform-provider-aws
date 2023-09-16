@@ -18,6 +18,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
+
 func TestAccElastiCacheUserGroupAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -28,10 +30,12 @@ func TestAccElastiCacheUserGroupAssociation_basic(t *testing.T) {
 	resourceName := "aws_elasticache_user_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupAssociationConfig_basic(rName),
@@ -50,6 +54,8 @@ func TestAccElastiCacheUserGroupAssociation_basic(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheUserGroupAssociation_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -60,10 +66,12 @@ func TestAccElastiCacheUserGroupAssociation_update(t *testing.T) {
 	resourceName := "aws_elasticache_user_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupAssociationConfig_preUpdate(rName),
@@ -85,16 +93,20 @@ func TestAccElastiCacheUserGroupAssociation_update(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheUserGroupAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elasticache_user_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupAssociationConfig_basic(rName),
@@ -108,6 +120,8 @@ func TestAccElastiCacheUserGroupAssociation_disappears(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheUserGroupAssociation_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -119,10 +133,12 @@ func TestAccElastiCacheUserGroupAssociation_multiple(t *testing.T) {
 	resourceName2 := "aws_elasticache_user_group_association.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserGroupAssociationConfig_preMultiple(rName),
@@ -138,8 +154,12 @@ func TestAccElastiCacheUserGroupAssociation_multiple(t *testing.T) {
 	})
 }
 
+
+
 func testAccCheckUserGroupAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElastiCacheConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -170,8 +190,12 @@ func testAccCheckUserGroupAssociationDestroy(ctx context.Context) resource.TestC
 	}
 }
 
+
+
 func testAccCheckUserGroupAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -194,6 +218,8 @@ func testAccCheckUserGroupAssociationExists(ctx context.Context, n string) resou
 		return err
 	}
 }
+
+
 
 func testAccUserGroupAssociationConfig_base(rName string) string {
 	return acctest.ConfigCompose(
@@ -227,6 +253,8 @@ resource "aws_elasticache_user_group" "test" {
 `, rName))
 }
 
+
+
 func testAccUserGroupAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccUserGroupAssociationConfig_base(rName), `
 resource "aws_elasticache_user_group_association" "test" {
@@ -235,6 +263,8 @@ resource "aws_elasticache_user_group_association" "test" {
 }
 `)
 }
+
+
 
 func testAccUserGroupAssociationConfig_preUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccUserGroupAssociationConfig_base(rName), fmt.Sprintf(`
@@ -253,6 +283,8 @@ resource "aws_elasticache_user_group_association" "test" {
 `, rName))
 }
 
+
+
 func testAccUserGroupAssociationConfig_update(rName string) string {
 	return acctest.ConfigCompose(testAccUserGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_elasticache_user" "test3" {
@@ -270,6 +302,8 @@ resource "aws_elasticache_user_group_association" "test" {
 `, rName))
 }
 
+
+
 func testAccUserGroupAssociationConfig_preMultiple(rName string) string {
 	return acctest.ConfigCompose(testAccUserGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_elasticache_user" "test3" {
@@ -281,6 +315,8 @@ resource "aws_elasticache_user" "test3" {
 }
 `, rName))
 }
+
+
 
 func testAccUserGroupAssociationConfig_multiple(rName string) string {
 	return acctest.ConfigCompose(testAccUserGroupAssociationConfig_base(rName), fmt.Sprintf(`

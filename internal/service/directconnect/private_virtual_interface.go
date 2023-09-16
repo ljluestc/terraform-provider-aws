@@ -150,12 +150,12 @@ func resourcePrivateVirtualInterfaceCreate(ctx context.Context, d *schema.Resour
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewPrivateVirtualInterface: &directconnect.NewPrivateVirtualInterface{
 			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:                  aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
 			EnableSiteLink:       aws.Bool(d.Get("sitelink_enabled").(bool)),
-			Mtu:                  aws.Int64(int64(d.Get("mtu").(int))),
-			Tags:                 getTagsIn(ctx),
+			Mtu:     aws.Int64(int64(d.Get("mtu").(int))),
+			Tags:    getTagsIn(ctx),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:                 aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
 		},
 	}
 	if vgwOk && vgwIdRaw.(string) != "" {

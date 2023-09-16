@@ -77,7 +77,7 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 		log.Printf("[DEBUG] Creating certificate from CSR")
 		out, err := conn.CreateCertificateFromCsrWithContext(ctx, &iot.CreateCertificateFromCsrInput{
 			CertificateSigningRequest: aws.String(d.Get("csr").(string)),
-			SetAsActive:               aws.Bool(d.Get("active").(bool)),
+			SetAsActive:  aws.Bool(d.Get("active").(bool)),
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "creating certificate from CSR: %v", err)

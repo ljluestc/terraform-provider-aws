@@ -32,9 +32,9 @@ func TestAccAuditManagerControl_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckControlDestroy(ctx),
+		CheckDestroy:testAccCheckControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccControlConfig_basic(rName),
@@ -68,9 +68,9 @@ func TestAccAuditManagerControl_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckControlDestroy(ctx),
+		CheckDestroy:testAccCheckControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccControlConfig_basic(rName),
@@ -95,9 +95,9 @@ func TestAccAuditManagerControl_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckControlDestroy(ctx),
+		CheckDestroy:testAccCheckControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccControlConfig_tags1(rName, "key1", "value1"),
@@ -147,9 +147,9 @@ func TestAccAuditManagerControl_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckControlDestroy(ctx),
+		CheckDestroy:testAccCheckControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccControlConfig_optional(rName, "text1", "text1", "text1", "text1"),
@@ -205,9 +205,9 @@ func TestAccAuditManagerControl_optionalSources(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckControlDestroy(ctx),
+		CheckDestroy:testAccCheckControlDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccControlConfig_optionalSources(rName, "text1", string(types.SourceFrequencyDaily),
@@ -362,7 +362,7 @@ resource "aws_auditmanager_control" "test" {
 
   action_plan_instructions = %[2]q
   action_plan_title        = %[3]q
-  description              = %[4]q
+  description = %[4]q
   testing_information      = %[5]q
 
   control_mapping_sources {

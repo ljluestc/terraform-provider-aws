@@ -18,7 +18,8 @@ import (
 // Shallow object conversions work the same for both safe and unsafe modes,
 // but the safety flag is passed on to recursive conversions and may thus
 // limit the above definition of "subset".
-func conversionObjectToObject(in, out cty.Type, unsafe bool) conversion {
+
+ conversionObjectToObject(in, out cty.Type, unsafe bool) conversion {
 	inAtys := in.AttributeTypes()
 	outAtys := out.AttributeTypes()
 	outOptionals := out.OptionalAttributes()
@@ -54,8 +55,9 @@ func conversionObjectToObject(in, out cty.Type, unsafe bool) conversion {
 	}
 
 	// If we get here then a conversion is possible, using the attribute
-	// conversions given in attrConvs.
-	return func(val cty.Value, path cty.Path) (cty.Value, error) {
+	// convons given in attrConvs.
+	return 
+(val cty.Value, path cty.Path) (cty.Value, error) {
 		attrVals := make(map[string]cty.Value, len(attrConvs))
 		path = append(path, nil)
 		pathStep := &path[len(path)-1]

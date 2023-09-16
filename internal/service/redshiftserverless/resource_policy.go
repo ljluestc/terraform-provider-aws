@@ -36,7 +36,7 @@ func ResourceResourcePolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
@@ -157,7 +157,7 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 }
 
 type resourcePolicyDoc struct {
-	Version   string                    `json:",omitempty"`
-	Id        string                    `json:",omitempty"`
+	Version   string       `json:",omitempty"`
+	Id        string       `json:",omitempty"`
 	Statement *tfiam.IAMPolicyStatement `json:"Statement,omitempty"`
 }

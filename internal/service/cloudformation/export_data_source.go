@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_cloudformation_export")
+
 func DataSourceExport() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceExportRead,
@@ -37,6 +38,7 @@ func DataSourceExport() *schema.Resource {
 	}
 }
 
+
 func dataSourceExportRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFormationConn(ctx)
@@ -46,7 +48,8 @@ func dataSourceExportRead(ctx context.Context, d *schema.ResourceData, meta inte
 	d.SetId(fmt.Sprintf("cloudformation-exports-%s-%s", region, name))
 	input := &cloudformation.ListExportsInput{}
 	err := conn.ListExportsPagesWithContext(ctx, input,
-		func(page *cloudformation.ListExportsOutput, lastPage bool) bool {
+		
+func(page *cloudformation.ListExportsOutput, lastPage bool) bool {
 			for _, e := range page.Exports {
 				if name == aws.StringValue(e.Name) {
 					value = aws.StringValue(e.Value)

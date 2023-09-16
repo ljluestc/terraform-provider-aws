@@ -7,10 +7,7 @@ import (
 	"testing"
 
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestParseResourceID(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	testCases := []struct {
 		TestName            string

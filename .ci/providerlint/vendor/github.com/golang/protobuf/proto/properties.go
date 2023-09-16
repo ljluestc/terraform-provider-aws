@@ -96,7 +96,8 @@ type OneofProperties struct {
 }
 
 // String formats the properties in the protobuf struct field tag style.
-func (p *Properties) String() string {
+
+*Properties) String() string {
 	s := p.Wire
 	s += "," + strconv.Itoa(p.Tag)
 	if p.Required {
@@ -134,7 +135,8 @@ func (p *Properties) String() string {
 }
 
 // Parse populates p by parsing a string in the protobuf struct field tag style.
-func (p *Properties) Parse(tag string) {
+
+*Properties) Parse(tag string) {
 	// For example: "bytes,49,opt,name=foo,def=hello!"
 	for len(tag) > 0 {
 		i := strings.IndexByte(tag, ',')
@@ -193,7 +195,8 @@ func (p *Properties) Parse(tag string) {
 // Init populates the properties from a protocol buffer struct tag.
 //
 // Deprecated: Do not use.
-func (p *Properties) Init(typ reflect.Type, name, tag string, f *reflect.StructField) {
+
+*Properties) Init(typ reflect.Type, name, tag string, f *reflect.StructField) {
 	p.Name = name
 	p.OrigName = name
 	if tag == "" {
@@ -216,7 +219,8 @@ var propertiesCache sync.Map // map[reflect.Type]*StructProperties
 // where protobuf message fields are represented by exported Go struct fields.
 //
 // Deprecated: Use protobuf reflection instead.
-func GetProperties(t reflect.Type) *StructProperties {
+
+Properties(t reflect.Type) *StructProperties {
 	if p, ok := propertiesCache.Load(t); ok {
 		return p.(*StructProperties)
 	}
@@ -224,7 +228,8 @@ func GetProperties(t reflect.Type) *StructProperties {
 	return p.(*StructProperties)
 }
 
-func newProperties(t reflect.Type) *StructProperties {
+
+Properties(t reflect.Type) *StructProperties {
 	if t.Kind() != reflect.Struct {
 		panic(fmt.Sprintf("%v is not a generated message in the open-struct API", t))
 	}
@@ -260,11 +265,14 @@ func newProperties(t reflect.Type) *StructProperties {
 	// Construct a mapping of oneof field names to properties.
 	if hasOneof {
 		var oneofWrappers []interface{}
-		if fn, ok := reflect.PtrTo(t).MethodByName("XXX_OneofFuncs"); ok {
-			oneofWrappers = fn.Func.Call([]reflect.Value{reflect.Zero(fn.Type.In(0))})[3].Interface().([]interface{})
+		if fn, ok := reflect.PtrTo(t).MethodByName("XXX_Oneof
+ ok {
+			oneofWrappers = fn.
+l([]reflect.Value{reflect.Zero(fn.Type.In(0))})[3].Interface().([]interface{})
 		}
 		if fn, ok := reflect.PtrTo(t).MethodByName("XXX_OneofWrappers"); ok {
-			oneofWrappers = fn.Func.Call([]reflect.Value{reflect.Zero(fn.Type.In(0))})[0].Interface().([]interface{})
+			oneofWrappers = fn.
+l([]reflect.Value{reflect.Zero(fn.Type.In(0))})[0].Interface().([]interface{})
 		}
 		if m, ok := reflect.Zero(reflect.PtrTo(t)).Interface().(protoreflect.ProtoMessage); ok {
 			if m, ok := m.ProtoReflect().(interface{ ProtoMessageInfo() *protoimpl.MessageInfo }); ok {
@@ -301,6 +309,9 @@ func newProperties(t reflect.Type) *StructProperties {
 	return prop
 }
 
-func (sp *StructProperties) Len() int           { return len(sp.Prop) }
-func (sp *StructProperties) Less(i, j int) bool { return false }
-func (sp *StructProperties) Swap(i, j int)      { return }
+
+ *StructProperties) Len() int           { return len(sp.Prop) }
+
+ *StructProperties) Less(i, j int) bool { return false }
+
+ *StructProperties) Swap(i, j int)      { return }

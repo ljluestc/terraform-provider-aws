@@ -31,35 +31,43 @@ type SockaddrDatalink struct {
 	raw    RawSockaddrDatalink
 }
 
-func anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
+
+ anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	return nil, EAFNOSUPPORT
 }
 
-func Syscall9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
 
-func nametomib(name string) (mib []_C_int, err error) {
-	i := sort.Search(len(sysctlMib), func(i int) bool {
+call9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
+
+
+ nametomib(name string) (mib []_C_int, err error) {
+	i := sort.Search(len(sysctlMib), 
+(i int) bool {
 		return sysctlMib[i].ctlname >= name
 	})
 	if i < len(sysctlMib) && sysctlMib[i].ctlname == name {
 		return sysctlMib[i].ctloid, nil
-	}
+
 	return nil, EINVAL
 }
 
-func direntIno(buf []byte) (uint64, bool) {
+
+ direntIno(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Fileno), unsafe.Sizeof(Dirent{}.Fileno))
 }
 
-func direntReclen(buf []byte) (uint64, bool) {
-	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
-}
 
-func direntNamlen(buf []byte) (uint64, bool) {
+ direntReclen(buf []byte) (uint64, bool) {
+	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
+
+
+
+ direntNamlen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Namlen), unsafe.Sizeof(Dirent{}.Namlen))
 }
 
-func SysctlUvmexp(name string) (*Uvmexp, error) {
+
+ SysctlUvmexp(name string) (*Uvmexp, error) {
 	mib, err := sysctlmib(name)
 	if err != nil {
 		return nil, err
@@ -68,26 +76,28 @@ func SysctlUvmexp(name string) (*Uvmexp, error) {
 	n := uintptr(SizeofUvmexp)
 	var u Uvmexp
 	if err := sysctl(mib, (*byte)(unsafe.Pointer(&u)), &n, nil, 0); err != nil {
-		return nil, err
+turn nil, err
 	}
 	if n != SizeofUvmexp {
 		return nil, EIO
 	}
 	return &u, nil
-}
 
-func Pipe(p []int) (err error) {
+
+
+ Pipe(p []int) (err error) {
 	return Pipe2(p, 0)
 }
 
 //sysnb	pipe2(p *[2]_C_int, flags int) (err error)
 
-func Pipe2(p []int, flags int) error {
+
+ Pipe2(p []int, flags int) error {
 	if len(p) != 2 {
 		return EINVAL
 	}
 	var pp [2]_C_int
-	err := pipe2(&pp, flags)
+ := pipe2(&pp, flags)
 	if err == nil {
 		p[0] = int(pp[0])
 		p[1] = int(pp[1])
@@ -97,7 +107,8 @@ func Pipe2(p []int, flags int) error {
 
 //sys	Getdents(fd int, buf []byte) (n int, err error)
 
-func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
+
+ Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	n, err = Getdents(fd, buf)
 	if err != nil || basep == nil {
 		return
@@ -113,7 +124,7 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	if unsafe.Sizeof(*basep) == 8 {
 		return
 	}
-	if off>>32 != 0 {
+off>>32 != 0 {
 		// We can't stuff the offset back into a uintptr, so any
 		// future calls would be suspect. Generate an error.
 		// EIO was allowed by getdirentries.
@@ -124,7 +135,8 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 
 //sys	Getcwd(buf []byte) (n int, err error) = SYS___GETCWD
 
-func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+
+dfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
 	}
@@ -132,21 +144,23 @@ func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 }
 
 // TODO
-func sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+
+ sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	return -1, ENOSYS
 }
 
-func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
+
+ Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	var _p0 unsafe.Pointer
 	var bufsize uintptr
 	if len(buf) > 0 {
-		_p0 = unsafe.Pointer(&buf[0])
+0 = unsafe.Pointer(&buf[0])
 		bufsize = unsafe.Sizeof(Statfs_t{}) * uintptr(len(buf))
 	}
 	r0, _, e1 := Syscall(SYS_GETFSSTAT, uintptr(_p0), bufsize, uintptr(flags))
 	n = int(r0)
 	if e1 != 0 {
-		err = e1
+r = e1
 	}
 	return
 }
@@ -154,17 +168,19 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 //sysnb	getresuid(ruid *_C_int, euid *_C_int, suid *_C_int)
 //sysnb	getresgid(rgid *_C_int, egid *_C_int, sgid *_C_int)
 
-func Getresuid() (ruid, euid, suid int) {
+
+ Getresuid() (ruid, euid, suid int) {
 	var r, e, s _C_int
 	getresuid(&r, &e, &s)
 	return int(r), int(e), int(s)
-}
 
-func Getresgid() (rgid, egid, sgid int) {
+
+
+ Getresgid() (rgid, egid, sgid int) {
 	var r, e, s _C_int
 	getresgid(&r, &e, &s)
 	return int(r), int(e), int(s)
-}
+
 
 //sys	ioctl(fd int, req uint, arg uintptr) (err error)
 //sys	ioctlPtr(fd int, req uint, arg unsafe.Pointer) (err error) = SYS_IOCTL
@@ -173,14 +189,16 @@ func Getresgid() (rgid, egid, sgid int) {
 
 //sys	ppoll(fds *PollFd, nfds int, timeout *Timespec, sigmask *Sigset_t) (n int, err error)
 
-func Ppoll(fds []PollFd, timeout *Timespec, sigmask *Sigset_t) (n int, err error) {
+
+ Ppoll(fds []PollFd, timeout *Timespec, sigmask *Sigset_t) (n int, err error) {
 	if len(fds) == 0 {
 		return ppoll(nil, 0, timeout, sigmask)
 	}
 	return ppoll(&fds[0], len(fds), timeout, sigmask)
 }
 
-func Uname(uname *Utsname) error {
+
+ Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
 	if err := sysctl(mib, &uname.Sysname[0], &n, nil, 0); err != nil {

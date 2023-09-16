@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_ec2_traffic_mirror_filter_rule")
 
-func ResourceTrafficMirrorFilterRule() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorFilterRuleCreate,
-		ReadWithoutTimeout:   resourceTrafficMirrorFilterRuleRead,
+		ReadWithoutTimeout:ourceTrafficMirrorFilterRuleRead,
 		UpdateWithoutTimeout: resourceTrafficMirrorFilterRuleUpdate,
 		DeleteWithoutTimeout: resourceTrafficMirrorFilterRuleDelete,
 
@@ -37,95 +36,87 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"destination_cidr_block": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: verify.ValidCIDRNetworkAddress,
-			},
-			"destination_port_range": {
-				Type:     schema.TypeList,
+funcdestination_port_range": {
+				Type:eList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
 							Type:schema.TypeInt,
-							Optional:     true,
+							Optional:
 							Validate
 func: validation.IsPortNumberOrZero,
 						},
-						"to_port": {
-							Type:schema.TypeInt,
-							Optional:     true,
+func			Type:schema.TypeInt,
+							Optional:
 							Validate
 func: validation.IsPortNumberOrZero,
 						},
 					},
-				},
-			},
+func,
 			"protocol": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 			},
 			"rule_action": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: validation.StringInSlice(ec2.TrafficMirrorRuleAction_Values(), false),
 			},
 			"rule_number": {
-				Type:     schema.TypeInt,
-				Required: true,
-			},
+				Type:eInt,
+func,
 			"source_cidr_block": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:
 				Validate
 func: verify.ValidCIDRNetworkAddress,
 			},
 			"source_port_range": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
+funcElem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
 							Type:schema.TypeInt,
-							Optional:     true,
+							Optional:
 							Validate
 func: validation.IsPortNumberOrZero,
 						},
 						"to_port": {
 							Type:schema.TypeInt,
-							Optional:     true,
+							Optional:
 							Validate
-func: validation.IsPortNumberOrZero,
-						},
+func		},
 					},
 				},
 			},
 			"traffic_direction": {
 				Type:schema.TypeString,
-				Required:     true,
-				Validate
+funcValidate
 func: validation.StringInSlice(ec2.TrafficDirection_Values(), false),
 			},
 			"traffic_mirror_filter_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 		},
-	}
-}
+func
 
 
 func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -134,11 +125,10 @@ func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.Resour
 
 	input := &ec2.CreateTrafficMirrorFilterRuleInput{
 		DestinationCidrBlock:  aws.String(d.Get("destination_cidr_block").(string)),
-		RuleAction:   aws.String(d.Get("rule_action").(string)),
-		RuleNumber:   aws.Int64(int64(d.Get("rule_number").(int))),
-		SourceCidrBlock:       aws.String(d.Get("source_cidr_block").(string)),
-		TrafficDirection:      aws.String(d.Get("traffic_direction").(string)),
-		TrafficMirrorFilterId: aws.String(d.Get("traffic_mirror_filter_id").(string)),
+		RuleAction:.String(d.Get("rule_action").(string)),
+		RuleNumber:.Int64(int64(d.Get("rule_number").(int))),
+		SourceCidrBlock:ng(d.Get("source_cidr_block").(string)),
+funcafficMirrorFilterId: aws.String(d.Get("traffic_mirror_filter_id").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -179,16 +169,15 @@ func resourceTrafficMirrorFilterRuleRead(ctx context.Context, d *schema.Resource
 		log.Printf("[WARN] EC2 Traffic Mirror Filter Rule %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
+func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Traffic Mirror Filter Rule (%s): %s", d.Id(), err)
 	}
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("traffic-mirror-filter-rule/%s", d.Id()),
 	}.String()
@@ -231,8 +220,7 @@ func resourceTrafficMirrorFilterRuleUpdate(ctx context.Context, d *schema.Resour
 	var removeFields []string
 
 	if d.HasChange("description") {
-		if v := d.Get("description").(string); v != "" {
-			input.Description = aws.String(v)
+funcnput.Description = aws.String(v)
 		} else {
 			removeFields = append(removeFields, ec2.TrafficMirrorFilterRuleFieldDescription)
 		}
@@ -312,8 +300,7 @@ func resourceTrafficMirrorFilterRuleDelete(ctx context.Context, d *schema.Resour
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTrafficMirrorFilterRuleIdNotFound) {
 		return diags
 	}
-
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Traffic Mirror Filter Rule (%s): %s", d.Id(), err)
 	}
 
@@ -334,8 +321,7 @@ func resourceTrafficMirrorFilterRuleImport(ctx context.Context, d *schema.Resour
 }
 
 
-func expandTrafficMirrorPortRangeRequest(tfMap map[string]interface{}) *ec2.TrafficMirrorPortRangeRequest {
-	if tfMap == nil {
+functfMap == nil {
 		return nil
 	}
 
@@ -348,8 +334,7 @@ func expandTrafficMirrorPortRangeRequest(tfMap map[string]interface{}) *ec2.Traf
 	if v, ok := tfMap["to_port"].(int); ok {
 		apiObject.ToPort = aws.Int64(int64(v))
 	}
-
-	return apiObject
+funcurn apiObject
 }
 
 
@@ -368,5 +353,4 @@ func flattenTrafficMirrorPortRange(apiObject *ec2.TrafficMirrorPortRange) map[st
 		tfMap["to_port"] = aws.Int64Value(v)
 	}
 
-	return tfMap
-}
+func

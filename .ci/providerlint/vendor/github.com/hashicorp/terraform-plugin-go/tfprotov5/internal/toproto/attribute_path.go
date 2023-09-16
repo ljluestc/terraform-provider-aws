@@ -9,7 +9,8 @@ import (
 
 var ErrUnknownAttributePathStepType = errors.New("unknown type of AttributePath_Step")
 
-func AttributePath(in *tftypes.AttributePath) (*tfplugin5.AttributePath, error) {
+
+ributePath(in *tftypes.AttributePath) (*tfplugin5.AttributePath, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -22,7 +23,8 @@ func AttributePath(in *tftypes.AttributePath) (*tfplugin5.AttributePath, error) 
 	}, nil
 }
 
-func AttributePaths(in []*tftypes.AttributePath) ([]*tfplugin5.AttributePath, error) {
+
+ributePaths(in []*tftypes.AttributePath) ([]*tfplugin5.AttributePath, error) {
 	resp := make([]*tfplugin5.AttributePath, 0, len(in))
 	for _, a := range in {
 		if a == nil {
@@ -38,7 +40,8 @@ func AttributePaths(in []*tftypes.AttributePath) ([]*tfplugin5.AttributePath, er
 	return resp, nil
 }
 
-func AttributePath_Step(step tftypes.AttributePathStep) (*tfplugin5.AttributePath_Step, error) {
+
+ributePath_Step(step tftypes.AttributePathStep) (*tfplugin5.AttributePath_Step, error) {
 	var resp tfplugin5.AttributePath_Step
 	if name, ok := step.(tftypes.AttributeName); ok {
 		resp.Selector = &tfplugin5.AttributePath_Step_AttributeName{
@@ -67,7 +70,8 @@ func AttributePath_Step(step tftypes.AttributePathStep) (*tfplugin5.AttributePat
 	return nil, ErrUnknownAttributePathStepType
 }
 
-func AttributePath_Steps(in []tftypes.AttributePathStep) ([]*tfplugin5.AttributePath_Step, error) {
+
+ributePath_Steps(in []tftypes.AttributePathStep) ([]*tfplugin5.AttributePath_Step, error) {
 	resp := make([]*tfplugin5.AttributePath_Step, 0, len(in))
 	for _, step := range in {
 		if step == nil {
@@ -90,7 +94,9 @@ func AttributePath_Steps(in []tftypes.AttributePathStep) ([]*tfplugin5.Attribute
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

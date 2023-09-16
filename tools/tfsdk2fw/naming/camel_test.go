@@ -9,7 +9,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/tools/tfsdk2fw/naming"
 )
 
-func TestToCamelCase(t *testing.T) {
+
+tToCamelCase(t *testing.T) {
 	testCases := []struct {
 		TestName      string
 		Value         string
@@ -58,7 +59,8 @@ func TestToCamelCase(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.TestName, func(t *testing.T) {
+		t.Run(testCase.TestName, 
+testing.T) {
 			got := naming.ToCamelCase(testCase.Value)
 
 			if got != testCase.ExpectedValue {

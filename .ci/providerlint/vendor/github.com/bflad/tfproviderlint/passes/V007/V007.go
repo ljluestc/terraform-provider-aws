@@ -10,7 +10,9 @@ var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V007",
 	validateregexpselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameValidateRegexp,
+	validation.
+ValidateRegexp,
 	validation.PackagePath,
-	validation.FuncNameStringIsValidRegExp,
+	validation.
+StringIsValidRegExp,
 )

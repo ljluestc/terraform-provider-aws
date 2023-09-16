@@ -14,18 +14,21 @@ type diagnosticBase struct {
 	detail   string
 }
 
-func (d diagnosticBase) Severity() Severity {
+
+ (d diagnosticBase) Severity() Severity {
 	return d.severity
 }
 
-func (d diagnosticBase) Description() Description {
+
+ (d diagnosticBase) Description() Description {
 	return Description{
 		Summary: d.summary,
 		Detail:  d.detail,
 	}
-}
 
-func Diag(sev Severity, summary, detail string) Diagnostic {
+
+
+ Diag(sev Severity, summary, detail string) Diagnostic {
 	return &diagnosticBase{
 		severity: sev,
 		summary:  summary,

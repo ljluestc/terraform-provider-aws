@@ -21,6 +21,7 @@ const (
 //
 // Given input: arn:aws:cloudformation:us-west-2:123456789012:type/resource/HashiCorp-TerraformAwsProvider-TfAccTestzwv6r2i7/00000001,
 // returns arn:aws:cloudformation:us-west-2:123456789012:type/resource/HashiCorp-TerraformAwsProvider-TfAccTestzwv6r2i7 and 00000001.
+
 func TypeVersionARNToTypeARNAndVersionID(inputARN string) (string, string, error) {
 	parsedARN, err := arn.Parse(inputARN)
 

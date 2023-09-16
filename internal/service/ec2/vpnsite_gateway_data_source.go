@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_vpn_gateway")
 
-func DataSourceVPNGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPNGatewayRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -32,32 +31,32 @@ func DataSourceVPNGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"amazon_side_asn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"attached_vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -67,8 +66,7 @@ func DataSourceVPNGateway() *schema.Resource {
 }
 
 func dataSourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeVpnGatewaysInput{}
@@ -79,7 +77,7 @@ func dataSourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	input.Filters = BuildAttributeFilterList(
 		map[string]string{
-			"state":    d.Get("state").(string),
+			"state":Get("state").(string),
 			"availability-zone": d.Get("availability_zone").(string),
 		},
 	)
@@ -120,8 +118,8 @@ func dataSourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("amazon_side_asn", strconv.FormatInt(aws.Int64Value(vgw.AmazonSideAsn), 10))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("vpn-gateway/%s", d.Id()),
 	}.String()

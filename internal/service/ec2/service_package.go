@@ -14,11 +14,9 @@ import (
 
 // CustomizeConn customizes a new AWS SDK for Go v1 client for this service package's AWS API.
 
-func (p *servicePackage) CustomizeConn(ctx context.Context, conn *ec2_sdkv1.EC2) (*ec2_sdkv1.EC2, error) {
-	conn.Handlers.Retry.PushBack(
+funcn.Handlers.Retry.PushBack(
 		func(r *request_sdkv1.Request) {
-			switch err := r.Error; r.Operation.Name {
-			case "AttachVpnGateway", "DetachVpnGateway":
+		funcase "AttachVpnGateway", "DetachVpnGateway":
 				if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "This call cannot be completed because there are pending VPNs or Virtual Interfaces") {
 					r.Retryable = aws_sdkv1.Bool(true)
 				}

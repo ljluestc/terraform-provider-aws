@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccEC2InstanceConnectEndpoint_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
 	subnetResourceName := "aws_subnet.test.0"
 	vpcResourceName := "aws_vpc.test"
@@ -30,17 +29,15 @@ func TestAccEC2InstanceConnectEndpoint_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceConnectEndpointDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConnectEndpointConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`instance-connect-endpoint/.+`)),
-	resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
+funcource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
 	resource.TestCheckResourceAttrSet(resourceName, "dns_name"),
 	resource.TestCheckResourceAttrSet(resourceName, "fips_dns_name"),
 	acctest.CheckResourceAttrGreaterThanOrEqualValue(resourceName, "network_interface_ids.#", 1),
@@ -53,8 +50,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -65,16 +62,14 @@ ImportStateVerify: true,
 func TestAccEC2InstanceConnectEndpoint_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceConnectEndpointDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
+func
 Config: testAccInstanceConnectEndpointConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -82,8 +77,7 @@ func(
 	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInstanceConnectEndpoint, resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -94,15 +88,13 @@ func TestAccEC2InstanceConnectEndpoint_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceConnectEndpointDestroy(ctx),
+CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConnectEndpointConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -110,9 +102,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
+ResourceName:ame,
+funcrtStateVerify: true,
 	},
 	{
 Config: testAccInstanceConnectEndpointConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
@@ -126,7 +117,6 @@ func(
 	},
 	{
 Config: testAccInstanceConnectEndpointConfig_tags1(rName, "key2", "value2"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -136,7 +126,6 @@ func(
 },
 	})
 }
-
 
 func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -149,10 +138,9 @@ func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceConnectEndpointDestroy(ctx),
+CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConnectEndpointConfig_securityGroupIDs(rName),
@@ -161,8 +149,7 @@ func(
 	testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`instance-connect-endpoint/.+`)),
 	resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
-	resource.TestCheckResourceAttrSet(resourceName, "dns_name"),
-	resource.TestCheckResourceAttrSet(resourceName, "fips_dns_name"),
+funcource.TestCheckResourceAttrSet(resourceName, "fips_dns_name"),
 	acctest.CheckResourceAttrGreaterThanOrEqualValue(resourceName, "network_interface_ids.#", 1),
 	resource.TestCheckResourceAttr(resourceName, "preserve_client_ip", "false"),
 	resource.TestCheckResourceAttr(resourceName, "security_group_ids.#", "2"),
@@ -170,13 +157,12 @@ func(
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "security_group_ids.*", securityGroup2ResourceName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "subnet_id", subnetResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -198,13 +184,10 @@ if rs.Primary.ID == "" {
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
 
-_, err := tfec2.FindInstanceConnectEndpointByID(ctx, conn, rs.Primary.ID)
-
-return err
-	}
+func
+func
 }
-
-
+func
 func testAccCheckInstanceConnectEndpointDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
@@ -222,13 +205,10 @@ continue
 continue
 	}
 
-	if err != nil {
-return err
-	}
-
+funcrn err
+func
 	return fmt.Errorf("EC2 Instance Connect Endpoint %s still exists", rs.Primary.ID)
-}
-
+func
 return nil
 	}
 }
@@ -249,23 +229,21 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
   subnet_id = aws_subnet.test[0].id
 
   tags = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
 }
-
-
+func
 func testAccInstanceConnectEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_instance_connect_endpoint" "test" {
   subnet_id = aws_subnet.test[0].id
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
-  }
-}
+1]q = %[2]q
+3]q = %[4]q
+func
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
 
@@ -275,11 +253,10 @@ func testAccInstanceConnectEndpointConfig_securityGroupIDs(rName string) string 
 resource "aws_security_group" "test" {
   count = 2
 
-  name   = "%[1]s-${count.index}"
+  name%[1]s-${count.index}"
   vpc_id = aws_vpc.test.id
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
@@ -289,8 +266,8 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
   security_group_ids = aws_security_group.test[*].id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
-}
+func

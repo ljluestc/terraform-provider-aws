@@ -26,10 +26,10 @@ func TestAccDMSReplicationInstance_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_replicationInstanceClass(rName, replicationInstanceClass),
@@ -56,7 +56,7 @@ func TestAccDMSReplicationInstance_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -72,10 +72,10 @@ func TestAccDMSReplicationInstance_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_replicationInstanceClass(rName, replicationInstanceClass),
@@ -95,10 +95,10 @@ func TestAccDMSReplicationInstance_allocatedStorage(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_allocatedStorage(rName, 5),
@@ -109,7 +109,7 @@ func TestAccDMSReplicationInstance_allocatedStorage(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -130,10 +130,10 @@ func TestAccDMSReplicationInstance_autoMinorVersionUpgrade(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_autoMinorVersionUpgrade(rName, true),
@@ -144,7 +144,7 @@ func TestAccDMSReplicationInstance_autoMinorVersionUpgrade(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -173,10 +173,10 @@ func TestAccDMSReplicationInstance_availabilityZone(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_availabilityZone(rName),
@@ -187,7 +187,7 @@ func TestAccDMSReplicationInstance_availabilityZone(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -201,10 +201,10 @@ func TestAccDMSReplicationInstance_engineVersion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_engineVersion(rName, "3.4.7"),
@@ -215,7 +215,7 @@ func TestAccDMSReplicationInstance_engineVersion(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"allow_major_version_upgrade", "apply_immediately"},
 			},
@@ -237,10 +237,10 @@ func TestAccDMSReplicationInstance_kmsKeyARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_kmsKeyARN(rName),
@@ -251,7 +251,7 @@ func TestAccDMSReplicationInstance_kmsKeyARN(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -265,10 +265,10 @@ func TestAccDMSReplicationInstance_multiAz(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_multiAz(rName, true),
@@ -279,7 +279,7 @@ func TestAccDMSReplicationInstance_multiAz(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -307,10 +307,10 @@ func TestAccDMSReplicationInstance_networkType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_networkType(rName, "IPV4"),
@@ -321,7 +321,7 @@ func TestAccDMSReplicationInstance_networkType(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -342,10 +342,10 @@ func TestAccDMSReplicationInstance_preferredMaintenanceWindow(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_preferredMaintenanceWindow(rName, "sun:00:30-sun:02:30"),
@@ -356,7 +356,7 @@ func TestAccDMSReplicationInstance_preferredMaintenanceWindow(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -377,10 +377,10 @@ func TestAccDMSReplicationInstance_publiclyAccessible(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_publiclyAccessible(rName, true),
@@ -392,7 +392,7 @@ func TestAccDMSReplicationInstance_publiclyAccessible(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -409,10 +409,10 @@ func TestAccDMSReplicationInstance_replicationInstanceClass(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_replicationInstanceClass(rName, replicationInstanceClass1),
@@ -423,7 +423,7 @@ func TestAccDMSReplicationInstance_replicationInstanceClass(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -444,10 +444,10 @@ func TestAccDMSReplicationInstance_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_tags1(rName, "key1", "value1"),
@@ -459,7 +459,7 @@ func TestAccDMSReplicationInstance_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -490,10 +490,10 @@ func TestAccDMSReplicationInstance_vpcSecurityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationInstanceDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationInstanceConfig_vpcSecurityGroupIDs(rName),
@@ -504,7 +504,7 @@ func TestAccDMSReplicationInstance_vpcSecurityGroupIDs(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"apply_immediately"},
 			},
@@ -560,7 +560,7 @@ func testAccReplicationInstanceConfig_base(rName string) string {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "testing"
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 }
 `, rName))
 }
@@ -614,7 +614,7 @@ data "aws_partition" "current" {}
 resource "aws_dms_replication_instance" "test" {
   apply_immediately           = true
   allow_major_version_upgrade = true
-  engine_version              = %[2]q
+  engine_version = %[2]q
   replication_instance_class  = data.aws_partition.current.partition == "aws" ? "dms.t2.micro" : "dms.c4.large"
   replication_instance_id     = %[1]q
   replication_subnet_group_id = aws_dms_replication_subnet_group.test.id
@@ -632,7 +632,7 @@ resource "aws_kms_key" "test" {
 
 resource "aws_dms_replication_instance" "test" {
   apply_immediately           = true
-  kms_key_arn                 = aws_kms_key.test.arn
+  kms_key_arn    = aws_kms_key.test.arn
   replication_instance_class  = data.aws_partition.current.partition == "aws" ? "dms.t2.micro" : "dms.c4.large"
   replication_instance_id     = %[1]q
   replication_subnet_group_id = aws_dms_replication_subnet_group.test.id
@@ -646,7 +646,7 @@ data "aws_partition" "current" {}
 
 resource "aws_dms_replication_instance" "test" {
   apply_immediately           = true
-  multi_az                    = %[2]t
+  multi_az       = %[2]t
   replication_instance_class  = data.aws_partition.current.partition == "aws" ? "dms.t2.micro" : "dms.c4.large"
   replication_instance_id     = %[1]q
   replication_subnet_group_id = aws_dms_replication_subnet_group.test.id
@@ -661,12 +661,12 @@ data "aws_partition" "current" {}
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "testing"
-  subnet_ids                           = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 }
 
 resource "aws_dms_replication_instance" "test" {
   apply_immediately           = true
-  network_type                = %[2]q
+  network_type   = %[2]q
   replication_instance_class  = data.aws_partition.current.partition == "aws" ? "dms.t2.micro" : "dms.c4.large"
   replication_instance_id     = %[1]q
   replication_subnet_group_id = aws_dms_replication_subnet_group.test.id

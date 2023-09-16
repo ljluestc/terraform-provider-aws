@@ -185,7 +185,7 @@ func (r *resourceAccountRegistration) ImportState(ctx context.Context, req resou
 type resourceAccountRegistrationData struct {
 	DelegatedAdminAccount types.String `tfsdk:"delegated_admin_account"`
 	DeregisterOnDestroy   types.Bool   `tfsdk:"deregister_on_destroy"`
-	KmsKey                types.String `tfsdk:"kms_key"`
-	ID                    types.String `tfsdk:"id"`
-	Status                types.String `tfsdk:"status"`
+	KmsKey   types.String `tfsdk:"kms_key"`
+	ID       types.String `tfsdk:"id"`
+	Status   types.String `tfsdk:"status"`
 }

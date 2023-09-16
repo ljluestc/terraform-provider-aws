@@ -18,8 +18,7 @@ import (
 
 // @FrameworkDataSource
 
-func newDataSourceSecurityGroupRules(context.Context) (datasource.DataSourceWithConfigure, error) {
-	return &dataSourceSecurityGroupRules{}, nil
+funcurn &dataSourceSecurityGroupRules{}, nil
 }
 
 type dataSourceSecurityGroupRules struct {
@@ -27,16 +26,14 @@ type dataSourceSecurityGroupRules struct {
 }
 
 func (d *dataSourceSecurityGroupRules) Metadata(_ context.Context, request datasource.MetadataRequest, response *datasource.MetadataResponse) {
-	response.TypeName = "aws_vpc_security_group_rules"
-}
+func
 
 func (d *dataSourceSecurityGroupRules) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"id": framework.IDAttribute(),
+funcid": framework.IDAttribute(),
 			"ids": schema.ListAttribute{
 				ElementType: types.StringType,
-				Computed:    true,
+				Computed:ue,
 			},
 			"tags": tftags.TagsAttribute(),
 		},
@@ -49,8 +46,7 @@ func (d *dataSourceSecurityGroupRules) Schema(ctx context.Context, req datasourc
 func (d *dataSourceSecurityGroupRules) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourceSecurityGroupRulesData
 
-	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
-
+func
 	if response.Diagnostics.HasError() {
 		return
 	}
@@ -86,8 +82,8 @@ func (d *dataSourceSecurityGroupRules) Read(ctx context.Context, request datasou
 }
 
 type dataSourceSecurityGroupRulesData struct {
-	Filters types.Set    `tfsdk:"filter"`
-	ID      types.String `tfsdk:"id"`
-	IDs     types.List   `tfsdk:"ids"`
-	Tags    types.Map    `tfsdk:"tags"`
+	Filters types.Setfsdk:"filter"`
+	IDing `tfsdk:"id"`
+	IDssdk:"ids"`
+	Tagspes.Map `tk:"tags"`
 }

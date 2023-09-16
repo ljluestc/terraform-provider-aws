@@ -1,12 +1,20 @@
 package acctest
 
 const (
-	FuncNameRandInt               = `RandInt`
-	FuncNameRandIntRange          = `RandIntRange`
-	FuncNameRandIpAddress         = `RandIpAddress`
-	FuncNameRandSSHKeyPair        = `RandSSHKeyPair`
-	FuncNameRandString            = `RandString`
-	FuncNameRandStringFromCharSet = `RandStringFromCharSet`
-	FuncNameRandTLSCert           = `RandTLSCert`
-	FuncNameRandomWithPrefix      = `RandomWithPrefix`
+	
+RandInt               = `RandInt`
+	
+RandIntRange          = `RandIntRange`
+	
+RandIpAddress         = `RandIpAddress`
+	
+RandSSHKeyPair        = `RandSSHKeyPair`
+	
+RandString            = `RandString`
+	
+RandStringFromCharSet = `RandStringFromCharSet`
+	
+RandTLSCert           = `RandTLSCert`
+	
+RandomWithPrefix      = `RandomWithPrefix`
 )

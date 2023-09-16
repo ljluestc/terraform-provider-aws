@@ -20,10 +20,10 @@ func TestAccImageBuilderDistributionConfigurationsDataSource_filter(t *testing.T
 	resourceName := "aws_imagebuilder_distribution_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDistributionConfigurationDestroy(ctx),
+		CheckDestroy:istributionConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDistributionConfigurationsDataSourceConfig_filter(rName),

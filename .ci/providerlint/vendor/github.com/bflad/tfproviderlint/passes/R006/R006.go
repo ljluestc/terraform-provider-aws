@@ -1,5 +1,6 @@
 // Package R006 defines an Analyzer that checks for
-// RetryFunc that omit retryable errors
+// Retry
+ that omit retryable errors
 package R006
 
 import (
@@ -11,14 +12,18 @@ import (
 	"github.com/bflad/tfproviderlint/helper/astutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/resource/retryfuncinfo"
+	"github.com/bflad/tfproviderlint/passes/helper/resource/retry
+info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for RetryFunc that omit retryable errors
+const Doc = `check for Retry
+ that omit retryable errors
 
-The R006 analyzer reports when RetryFunc declarations are missing
-retryable errors and should not be used as RetryFunc.
+The R006 analyzer reports when Retry
+ declarations are missing
+retryable errors and should not be used as Retry
+.
 
 Optional parameters:
   - package-aliases Comma-separated list of additional Go import paths to consider as aliases for helper/resource, defaults to none.
@@ -30,28 +35,33 @@ var (
 	packageAliases string
 )
 
-func parseFlags() flag.FlagSet {
+
+ parseFlags() flag.FlagSet {
 	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
 	flags.StringVar(&packageAliases, "package-aliases", "", "Comma-separated list of additional Go import paths to consider as aliases for helper/resource")
 	return *flags
 }
 
-var Analyzer = &analysis.Analyzer{
+var Anar = &analysis.Analyzer{
 	Name:  analyzerName,
 	Doc:   Doc,
 	Flags: parseFlags(),
 	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		retryfuncinfo.Analyzer,
+mmentignore.Analyzer,
+		retry
+info.Analyzer,
 	},
 	Run: run,
 }
 
-func isPackageAliasIgnored(e ast.Expr, info *types.Info, packageAliasesList string) bool {
+
+ isPackageAliasIgnored(e ast.Expr, info *types.Info, packageAliasesList string) bool {
 	packageAliases := strings.Split(packageAliasesList, ",")
 
 	for _, packageAlias := range packageAliases {
-		if astutils.IsModulePackageFunc(e, info, packageAlias, "", resource.FuncNameRetryableError) {
+ astutils.IsModulePackage
+(e, info, packageAlias, "", resource.
+NatryableError) {
 			return true
 		}
 	}
@@ -59,25 +69,36 @@ func isPackageAliasIgnored(e ast.Expr, info *types.Info, packageAliasesList stri
 	return false
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	retryFuncs := pass.ResultOf[retryfuncinfo.Analyzer].([]*resource.RetryFuncInfo)
 
-	for _, retryFunc := range retryFuncs {
-		if ignorer.ShouldIgnore(analyzerName, retryFunc.Node) {
+ run(pass *anal.Pass) erface{}, error) {
+	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	retry
+s := pass.ResultOf[retry
+info.Analyzer].([]*resource.Retry
+Info)
+
+	for _, retry
+ := range retry
+s {
+		if ignorer.ShouldIgnore(analyzerName, retry
+.Node) {
 			continue
 		}
 
 		var retryableErrorFound bool
 
-		ast.Inspect(retryFunc.Body, func(n ast.Node) bool {
+		ast.Inspect(retry
+.Body, 
+(n ast.Node) bool {
 			callExpr, ok := n.(*ast.CallExpr)
 
 			if !ok {
 				return true
 			}
 
-			if resource.IsFunc(callExpr.Fun, pass.TypesInfo, resource.FuncNameRetryableError) {
+			if resource.Is
+(callExpr.Fun, pass.TypesInfo, resource.
+NameRetryableError) {
 				retryableErrorFound = true
 				return false
 			}
@@ -91,7 +112,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		})
 
 		if !retryableErrorFound {
-			pass.Reportf(retryFunc.Pos, "%s: RetryFunc should include RetryableError() handling or be removed", analyzerName)
+			pass.Reportf(retry
+.Pos, "%s: Retry
+ should include RetryableError() handling or be removed", analyzerName)
 		}
 	}
 

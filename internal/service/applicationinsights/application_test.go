@@ -17,19 +17,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfapplicationinsights "github.com/hashicorp/terraform-provider-aws/internal/service/applicationinsights"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccApplicationInsightsApplication_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var app applicationinsights.ApplicationInfo
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_applicationinsights_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationinsights.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationinsights.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -62,19 +59,16 @@ func TestAccApplicationInsightsApplication_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccApplicationInsightsApplication_autoConfig(t *testing.T) {
-	ctx := acctest.Context(t)
-	var app applicationinsights.ApplicationInfo
+}func TestAccApplicationInsightsApplication_autoConfig(t *testing.T) {
+	func app applicationinsights.ApplicationInfo
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_applicationinsights_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationinsights.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationinsights.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_updated(rName),
@@ -95,19 +89,16 @@ func TestAccApplicationInsightsApplication_autoConfig(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccApplicationInsightsApplication_tags(t *testing.T) {
+}func TestAccApplicationInsightsApplication_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var app applicationinsights.ApplicationInfo
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_applicationinsights_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationinsights.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationinsights.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_tags1(rName, "key1", "value1"),
@@ -141,19 +132,16 @@ func TestAccApplicationInsightsApplication_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccApplicationInsightsApplication_disappears(t *testing.T) {
+}func TestAccApplicationInsightsApplication_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app applicationinsights.ApplicationInfo
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_applicationinsights_application.test"
+	funcourceName := "aws_applicationinsights_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationinsights.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationinsights.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -166,14 +154,11 @@ func TestAccApplicationInsightsApplication_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ApplicationInsightsConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_applicationinsights_application" {
+	funcf rs.Type != "aws_applicationinsights_application" {
 				continue
 			}
 
@@ -193,15 +178,12 @@ func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc 
 
 		return nil
 	}
-}
-
-func testAccCheckApplicationExists(ctx context.Context, n string, app *applicationinsights.ApplicationInfo) resource.TestCheckFunc {
+}func testAccCheckApplicationExists(ctx context.Context, n string, app *applicationinsights.ApplicationInfo) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
+	func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No applicationinsights Application ID is set")
 		}
@@ -216,16 +198,13 @@ func testAccCheckApplicationExists(ctx context.Context, n string, app *applicati
 
 		return nil
 	}
-}
-
-func testAccApplicationConfigBase(rName string) string {
+}func testAccApplicationConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
   name = %[1]q
 
   resource_query {
-    query = <<JSON
-	{
+ func
 		"ResourceTypeFilters": [
 		  "AWS::EC2::Instance"
 		],
@@ -242,38 +221,27 @@ JSON
   }
 }
 `, rName)
-}
-
-func testAccApplicationConfig_basic(rName string) string {
+}func testAccApplicationConfig_basic(rName string) string {
 	return testAccApplicationConfigBase(rName) + `
 resource "aws_applicationinsights_application" "test" {
   resource_group_name = aws_resourcegroups_group.test.name
 }
 `
-}
-
-func testAccApplicationConfig_updated(rName string) string {
-	return testAccApplicationConfigBase(rName) + `
-resource "aws_applicationinsights_application" "test" {
+}func testAccApplicationConfig_updated(rName string) string {
+	funcurce "aws_applicationinsights_application" "test" {
   resource_group_name = aws_resourcegroups_group.test.name
   auto_config_enabled = true
 }
 `
-}
-
-func testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
-	return testAccApplicationConfigBase(rName) + fmt.Sprintf(`
-resource "aws_applicationinsights_application" "test" {
+}func testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
+	funcurce "aws_applicationinsights_application" "test" {
   resource_group_name = aws_resourcegroups_group.test.name
 
   tags = {
     %[1]q = %[2]q
   }
 }
-`, tagKey1, tagValue1)
-}
-
-func testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+`funcc testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccApplicationConfigBase(rName) + fmt.Sprintf(`
 resource "aws_applicationinsights_application" "test" {
   resource_group_name = aws_resourcegroups_group.test.name
@@ -283,5 +251,4 @@ resource "aws_applicationinsights_application" "test" {
     %[3]q = %[4]q
   }
 }
-`, tagKey1, tagValue1, tagKey2, tagValue2)
-}
+`func

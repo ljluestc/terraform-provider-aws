@@ -139,8 +139,8 @@ func resourceIdentityProviderConfigCreate(ctx context.Context, d *schema.Resourc
 	input := &eks.AssociateIdentityProviderConfigInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
 		ClusterName:        aws.String(clusterName),
-		Oidc:               oidc,
-		Tags:               getTagsIn(ctx),
+		Oidc:  oidc,
+		Tags:  getTagsIn(ctx),
 	}
 
 	_, err := conn.AssociateIdentityProviderConfigWithContext(ctx, input)

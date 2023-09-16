@@ -48,10 +48,10 @@ func testAccTransitVirtualInterface_basic(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckTransitVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitVirtualInterfaceConfig_basic(connectionId, rName, amzAsn, bgpAsn, vlan),
@@ -122,10 +122,10 @@ func testAccTransitVirtualInterface_tags(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckTransitVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitVirtualInterfaceConfig_tags(connectionId, rName, amzAsn, bgpAsn, vlan),
@@ -202,10 +202,10 @@ func testAccTransitVirtualInterface_siteLink(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitVirtualInterfaceDestroy(ctx),
+		CheckDestroy:testAccCheckTransitVirtualInterfaceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitVirtualInterfaceConfig_siteLinkBasic(connectionId, rName, amzAsn, bgpAsn, vlan, true),
@@ -352,10 +352,10 @@ resource "aws_dx_transit_virtual_interface" "test" {
   bgp_asn          = %[3]d
   dx_gateway_id    = aws_dx_gateway.test.id
   connection_id    = %[1]q
-  name             = %[2]q
-  mtu              = 8500
+  name= %[2]q
+  mtu = 8500
   sitelink_enabled = %[5]t
-  vlan             = %[4]d
+  vlan= %[4]d
 }
 `, cid, rName, bgpAsn, vlan, sitelink_enabled)
 }
@@ -367,10 +367,10 @@ resource "aws_dx_transit_virtual_interface" "test" {
   bgp_asn          = %[3]d
   dx_gateway_id    = aws_dx_gateway.test.id
   connection_id    = %[1]q
-  name             = %[2]q
-  mtu              = 8500
+  name= %[2]q
+  mtu = 8500
   sitelink_enabled = %[5]t
-  vlan             = %[4]d
+  vlan= %[4]d
 }
 `, cid, rName, bgpAsn, vlan, sitelink_enabled)
 }

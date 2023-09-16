@@ -4,14 +4,14 @@
 package codebuild
 
 import (
-	"time"
+"time"
 )
 
 const (
-	ResNameReportGroup = "Report Group"
-	ResNameWebhook     = "Webhook"
+ResNameReportGroup = "Report Group"
+ResNameWebhook     = "Webhook"
 )
 
 const (
-	propagationTimeout = 2 * time.Minute
+propagationTimeout = 2 * time.Minute
 )

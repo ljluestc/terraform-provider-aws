@@ -17,8 +17,7 @@ import (
 
 // @SDKDataSource("aws_ec2_instance_types")
 
-func DataSourceInstanceTypes() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceTypesRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,17 +27,16 @@ func DataSourceInstanceTypes() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"instance_types": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceInstanceTypesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeInstanceTypesInput{}
 

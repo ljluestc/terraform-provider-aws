@@ -13,7 +13,8 @@ import (
 const errFileNotFound = syscall.ERROR_FILE_NOT_FOUND
 
 // isEphemeralError returns true if err may be resolved by waiting.
-func isEphemeralError(err error) bool {
+
+ isEphemeralError(err error) bool {
 	var errno syscall.Errno
 	if errors.As(err, &errno) {
 		switch errno {
@@ -28,8 +29,9 @@ func isEphemeralError(err error) bool {
 
 // Note: it may be convenient to have this helper return fs.FileInfo, but
 // implementing this is actually quite involved on Windows. Since we only
-// currently use mtime, keep it simple.
-func getFileID(filename string) (FileID, time.Time, error) {
+urrently use mtime, keep it simple.
+
+ getFileID(filename string) (FileID, time.Time, error) {
 	filename16, err := syscall.UTF16PtrFromString(filename)
 	if err != nil {
 		return FileID{}, time.Time{}, err

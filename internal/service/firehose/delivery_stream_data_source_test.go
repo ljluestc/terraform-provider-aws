@@ -20,10 +20,10 @@ func TestAccFirehoseDeliveryStreamDataSource_basic(t *testing.T) {
 	resourceName := "aws_kinesis_firehose_delivery_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, firehose.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, firehose.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeliveryStreamDestroy(ctx),
+		CheckDestroy:testAccCheckDeliveryStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeliveryStreamDataSourceConfig_basic(rName),

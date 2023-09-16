@@ -24,9 +24,7 @@ import (
 )
 
 // @SDKResource("aws_ce_anomaly_monitor", name="Anomaly Monitor")
-// @Tags(identifierAttribute="id")
-func ResourceAnomalyMonitor() *schema.Resource {
-	return &schema.Resource{
+// @Tags(identifierAttribute="id")funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceAnomalyMonitorCreate,
 		ReadWithoutTimeout:   resourceAnomalyMonitorRead,
 		UpdateWithoutTimeout: resourceAnomalyMonitorUpdate,
@@ -53,7 +51,7 @@ func ResourceAnomalyMonitor() *schema.Resource {
 					validation.StringMatch(regexache.MustCompile(`[\\S\\s]*`), "Must be a valid Anomaly Monitor Name matching expression: [\\S\\s]*")),
 			},
 			"monitor_specification": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
 				ValidateFunc:     validation.StringIsJSON,
@@ -73,10 +71,8 @@ func ResourceAnomalyMonitor() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceAnomalyMonitorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
+func
 	input := &costexplorer.CreateAnomalyMonitorInput{
 		AnomalyMonitor: &costexplorer.AnomalyMonitor{
 			MonitorName: aws.String(d.Get("name").(string)),
@@ -119,11 +115,9 @@ func resourceAnomalyMonitorCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return resourceAnomalyMonitorRead(ctx, d, meta)
 }
-
 func resourceAnomalyMonitorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
-	monitor, err := FindAnomalyMonitorByARN(ctx, conn, d.Id())
+funcitor, err := FindAnomalyMonitorByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.CE, create.ErrActionReading, ResNameAnomalyMonitor, d.Id())
@@ -156,12 +150,10 @@ func resourceAnomalyMonitorRead(ctx context.Context, d *schema.ResourceData, met
 
 	return nil
 }
-
 func resourceAnomalyMonitorUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
 	requestUpdate := false
-
-	input := &costexplorer.UpdateAnomalyMonitorInput{
+funcut := &costexplorer.UpdateAnomalyMonitorInput{
 		MonitorArn: aws.String(d.Id()),
 	}
 
@@ -180,13 +172,11 @@ func resourceAnomalyMonitorUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	return resourceAnomalyMonitorRead(ctx, d, meta)
 }
-
 func resourceAnomalyMonitorDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
 
 	_, err := conn.DeleteAnomalyMonitorWithContext(ctx, &costexplorer.DeleteAnomalyMonitorInput{MonitorArn: aws.String(d.Id())})
-
-	if err != nil && tfawserr.ErrCodeEquals(err, costexplorer.ErrCodeUnknownMonitorException) {
+funcerr != nil && tfawserr.ErrCodeEquals(err, costexplorer.ErrCodeUnknownMonitorException) {
 		return nil
 	}
 

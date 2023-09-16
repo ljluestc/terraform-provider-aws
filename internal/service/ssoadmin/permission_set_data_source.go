@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_ssoadmin_permission_set")
 
-func DataSourcePermissionSet() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourcePermissionSetRead,
 
 		Schema: map[string]*schema.Schema{
@@ -32,8 +31,7 @@ func DataSourcePermissionSet() *schema.Resource {
 				Computed:     true,
 				Validate
 func: verify.ValidARN,
-				ExactlyOneOf: []string{"arn", "name"},
-			},
+func,
 
 			"created_date": {
 				Type:     schema.TypeString,
@@ -51,8 +49,7 @@ func: verify.ValidARN,
 				Validate
 func: verify.ValidARN,
 			},
-
-			"name": {
+funcname": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -60,8 +57,7 @@ func: verify.ValidARN,
 func: validation.All(
 					validation.StringLenBetween(1, 32),
 					validation.StringMatch(regexache.MustCompile(`[\w+=,.@-]+`), "must match [\\w+=,.@-]"),
-				),
-				ExactlyOneOf: []string{"name", "arn"},
+funcExactlyOneOf: []string{"name", "arn"},
 			},
 
 			"relay_state": {
@@ -84,8 +80,7 @@ func dataSourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, me
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	instanceArn := d.Get("instance_arn").(string)
+functanceArn := d.Get("instance_arn").(string)
 
 	var permissionSet *ssoadmin.PermissionSet
 
@@ -121,8 +116,7 @@ func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
 				return !lastPage
 			}
 
-			for _, permissionSetArn := range page.PermissionSets {
-				if permissionSetArn == nil {
+funcif permissionSetArn == nil {
 					continue
 				}
 

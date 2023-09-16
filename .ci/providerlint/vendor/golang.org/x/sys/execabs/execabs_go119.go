@@ -12,10 +12,12 @@ import (
 	"os/exec"
 )
 
-func isGo119ErrDot(err error) bool {
+
+o119ErrDot(err error) bool {
 	return errors.Is(err, exec.ErrDot)
 }
 
-func isGo119ErrFieldSet(cmd *exec.Cmd) bool {
+
+o119ErrFieldSet(cmd *exec.Cmd) bool {
 	return cmd.Err != nil
 }

@@ -30,7 +30,7 @@ func TestAccLogsSubscriptionFilter_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
@@ -62,7 +62,7 @@ func TestAccLogsSubscriptionFilter_many(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNLambdaMany(rName, 2), // This is the default limit of subscription filters on an account
@@ -82,7 +82,7 @@ func TestAccLogsSubscriptionFilter_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
@@ -107,7 +107,7 @@ func TestAccLogsSubscriptionFilter_Disappears_logGroup(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
@@ -132,7 +132,7 @@ func TestAccLogsSubscriptionFilter_DestinationARN_kinesisDataFirehose(t *testing
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNKinesisDataFirehose(rName),
@@ -162,7 +162,7 @@ func TestAccLogsSubscriptionFilter_DestinationARN_kinesisStream(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_destinationARNKinesisStream(rName),
@@ -191,7 +191,7 @@ func TestAccLogsSubscriptionFilter_distribution(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_distribution(rName, "Random"),
@@ -229,7 +229,7 @@ func TestAccLogsSubscriptionFilter_roleARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+CheckDestroy:testAccCheckSubscriptionFilterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubscriptionFilterConfig_roleARN1(rName),
@@ -347,7 +347,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[1]q
+  name = %[1]q
   retention_in_days = 1
 }
 
@@ -468,7 +468,7 @@ func testAccSubscriptionFilterConfig_kinesisStreamBase(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[1]q
+  name = %[1]q
   retention_in_days = 1
 }
 
@@ -526,7 +526,7 @@ func testAccSubscriptionFilterConfig_lambdaBase(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[1]q
+  name = %[1]q
   retention_in_days = 1
 }
 
@@ -577,7 +577,7 @@ func testAccSubscriptionFilterConfig_lambdaMany(rName string, n int) string {
 data "aws_partition" "current" {}
 
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[1]q
+  name = %[1]q
   retention_in_days = 1
 }
 

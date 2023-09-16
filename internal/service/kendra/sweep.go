@@ -18,12 +18,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/awsv2"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_kendra_index", &resource.Sweeper{
 		Name: "aws_kendra_index",
 		F:    sweepIndex,
 	})
 }
+
 
 func sweepIndex(region string) error {
 	ctx := sweep.Context(region)

@@ -32,7 +32,8 @@ const (
 type Actions []Action
 
 // NoOp is true if this set of Actions denotes a no-op.
-func (a Actions) NoOp() bool {
+
+ (a Actions) NoOp() bool {
 	if len(a) != 1 {
 		return false
 	}
@@ -41,8 +42,9 @@ func (a Actions) NoOp() bool {
 }
 
 // Create is true if this set of Actions denotes creation of a new
-// resource.
-func (a Actions) Create() bool {
+esource.
+
+ (a Actions) Create() bool {
 	if len(a) != 1 {
 		return false
 	}
@@ -51,57 +53,63 @@ func (a Actions) Create() bool {
 }
 
 // Read is true if this set of Actions denotes a read operation only.
-func (a Actions) Read() bool {
+
+ (a Actions) Read() bool {
 	if len(a) != 1 {
 		return false
 	}
 
 	return a[0] == ActionRead
-}
+
 
 // Update is true if this set of Actions denotes an update operation.
-func (a Actions) Update() bool {
+
+ (a Actions) Update() bool {
 	if len(a) != 1 {
 		return false
 	}
 
-	return a[0] == ActionUpdate
+urn a[0] == ActionUpdate
 }
 
 // Delete is true if this set of Actions denotes resource removal.
-func (a Actions) Delete() bool {
+
+ (a Actions) Delete() bool {
 	if len(a) != 1 {
 		return false
 	}
 
 	return a[0] == ActionDelete
-}
+
 
 // DestroyBeforeCreate is true if this set of Actions denotes a
 // destroy-before-create operation. This is the standard resource
 // replacement method.
-func (a Actions) DestroyBeforeCreate() bool {
+
+ (a Actions) DestroyBeforeCreate() bool {
 	if len(a) != 2 {
 		return false
 	}
 
 	return a[0] == ActionDelete && a[1] == ActionCreate
-}
+
 
 // CreateBeforeDestroy is true if this set of Actions denotes a
 // create-before-destroy operation, usually the result of replacement
 // to a resource that has the create_before_destroy lifecycle option
 // set.
-func (a Actions) CreateBeforeDestroy() bool {
+
+ (a Actions) CreateBeforeDestroy() bool {
 	if len(a) != 2 {
 		return false
-	}
+
 
 	return a[0] == ActionCreate && a[1] == ActionDelete
 }
 
 // Replace is true if this set of Actions denotes a valid replacement
 // operation.
-func (a Actions) Replace() bool {
+
+ (a Actions) Replace() bool {
 	return a.DestroyBeforeCreate() || a.CreateBeforeDestroy()
 }

@@ -23,7 +23,8 @@ import (
 // available for upgrade tests, and then will return an object containing the
 // results of that initialization which can then be stored in a global variable
 // for use in other tests.
-func AutoInitProviderHelper(ctx context.Context, sourceDir string) *Helper {
+
+ AutoInitProviderHelper(ctx context.Context, sourceDir string) *Helper {
 	helper, err := AutoInitHelper(ctx, sourceDir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "cannot run Terraform provider tests: %s\n", err)
@@ -51,8 +52,9 @@ type Helper struct {
 // a configuration and then calls InitHelper with it. This is a convenient
 // way to get the standard init behavior based on environment variables, and
 // callers should use this unless they have an unusual requirement that calls
-// for constructing a config in a different way.
-func AutoInitHelper(ctx context.Context, sourceDir string) (*Helper, error) {
+or constructing a config in a different way.
+
+ AutoInitHelper(ctx context.Context, sourceDir string) (*Helper, error) {
 	config, err := DiscoverConfig(ctx, sourceDir)
 	if err != nil {
 		return nil, err
@@ -65,12 +67,14 @@ func AutoInitHelper(ctx context.Context, sourceDir string) (*Helper, error) {
 //
 // For most callers it is sufficient to call AutoInitHelper instead, which
 // will construct a configuration automatically based on certain environment
-// variables.
+// variable
 //
-// If this function returns an error then it may have left some temporary files
+// If this 
+ returns an error then it may have left some temporary files
 // behind in the system's temporary directory. There is currently no way to
 // automatically clean those up.
-func InitHelper(ctx context.Context, config *Config) (*Helper, error) {
+
+ InitHelper(ctx context.Context, config *Config) (*Helper, error) {
 	tempDir := os.Getenv(EnvTfAccTempDir)
 	baseDir, err := os.MkdirTemp(tempDir, "plugintest")
 	if err != nil {
@@ -86,11 +90,12 @@ func InitHelper(ctx context.Context, config *Config) (*Helper, error) {
 }
 
 // Close cleans up temporary files and directories created to support this
-// helper, returning an error if any of the cleanup fails.
+elper, returning an error if any of the cleanup fails.
 //
 // Call this before returning from TestMain to minimize the amount of detritus
 // left behind in the filesystem after the tests complete.
-func (h *Helper) Close() error {
+
+ (h *Helper) Close() error {
 	if h.execTempDir != "" {
 		err := os.RemoveAll(h.execTempDir)
 		if err != nil {
@@ -101,12 +106,13 @@ func (h *Helper) Close() error {
 }
 
 // NewWorkingDir creates a new working directory for use in the implementation
-// of a single test, returning a WorkingDir object representing that directory.
+f a single test, returning a WorkingDir object representing that directory.
 //
 // If the working directory object is not itself closed by the time the test
 // program exits, the Close method on the helper itself will attempt to
 // delete it.
-func (h *Helper) NewWorkingDir(ctx context.Context, t TestControl) (*WorkingDir, error) {
+
+ (h *Helper) NewWorkingDir(ctx context.Context, t TestControl) (*WorkingDir, error) {
 	dir, err := os.MkdirTemp(h.baseDir, "work")
 	if err != nil {
 		return nil, err
@@ -260,31 +266,34 @@ func (h *Helper) NewWorkingDir(ctx context.Context, t TestControl) (*WorkingDir,
 		tf:            tf,
 		baseDir:       dir,
 		terraformExec: h.terraformExec,
-	}, nil
+nil
 }
 
 // RequireNewWorkingDir is a variant of NewWorkingDir that takes a TestControl
 // object and will immediately fail the running test if the creation of the
 // working directory fails.
-func (h *Helper) RequireNewWorkingDir(ctx context.Context, t TestControl) *WorkingDir {
+
+ (h *Helper) RequireNewWorkingDir(ctx context.Context, t TestControl) *WorkingDir {
 	t.Helper()
 
 	wd, err := h.NewWorkingDir(ctx, t)
 	if err != nil {
 		t := testingT{t}
-		t.Fatalf("failed to create new working directory: %s", err)
+Fatalf("failed to create new working directory: %s", err)
 		return nil
 	}
 	return wd
 }
 
-// WorkingDirectory returns the working directory being used when running tests.
-func (h *Helper) WorkingDirectory() string {
+orkingDirectory returns the working directory being used when running tests.
+
+ (h *Helper) WorkingDirectory() string {
 	return h.baseDir
 }
 
 // TerraformExecPath returns the location of the Terraform CLI executable that
 // should be used when running tests.
-func (h *Helper) TerraformExecPath() string {
+
+ (h *Helper) TerraformExecPath() string {
 	return h.terraformExec
 }

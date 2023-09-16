@@ -19,12 +19,12 @@ func TestAccCloudFormationExportDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_cloudformation_export.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:                    testAccExportDataSourceConfig_staticValue(rName),
+				Config:       testAccExportDataSourceConfig_staticValue(rName),
 				PreventPostDestroyRefresh: true,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(dataSourceName, "value", "waiter"),
@@ -41,12 +41,12 @@ func TestAccCloudFormationExportDataSource_resourceReference(t *testing.T) {
 	resourceName := "aws_cloudformation_stack.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:                    testAccExportDataSourceConfig_resourceReference(rName),
+				Config:       testAccExportDataSourceConfig_resourceReference(rName),
 				PreventPostDestroyRefresh: true,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(dataSourceName, "exporting_stack_id", resourceName, "id"),

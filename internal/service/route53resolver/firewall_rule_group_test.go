@@ -30,7 +30,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFirewallRuleGroupConfig_basic(rName),
@@ -65,7 +65,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFirewallRuleGroupConfig_basic(rName),
@@ -92,7 +92,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFirewallRuleGroupConfig_tags1(rName, "key1", "value1"),

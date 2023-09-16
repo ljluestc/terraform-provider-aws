@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ebs_volumes")
 
-func DataSourceEBSVolumes() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSVolumesRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,9 +28,9 @@ func DataSourceEBSVolumes() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchema(),
 		},
@@ -39,8 +38,7 @@ func DataSourceEBSVolumes() *schema.Resource {
 }
 
 func dataSourceEBSVolumesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeVolumesInput{}
 

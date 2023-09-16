@@ -25,7 +25,7 @@ func TestAccOpenSearchOutboundConnection_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:omainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOutboundConnectionConfig(name),
@@ -55,7 +55,7 @@ func TestAccOpenSearchOutboundConnection_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDomainDestroy(ctx),
+CheckDestroy:omainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOutboundConnectionConfig(name),

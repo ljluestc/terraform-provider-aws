@@ -5,10 +5,12 @@ package validation
 
 import "fmt"
 
-// ListOfUniqueStrings is a ValidateFunc that ensures a list has no
+// ListOfUniqueStrings is a Validate
+ that ensures a list has no
 // duplicate items in it. It's useful for when a list is needed over a set
-// because order matters, yet the items still need to be unique.
-func ListOfUniqueStrings(i interface{}, k string) (warnings []string, errors []error) {
+ecause order matters, yet the items still need to be unique.
+
+ ListOfUniqueStrings(i interface{}, k string) (warnings []string, errors []error) {
 	v, ok := i.([]interface{})
 	if !ok {
 		errors = append(errors, fmt.Errorf("expected type of %q to be List", k))

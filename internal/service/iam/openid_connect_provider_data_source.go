@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKDataSource("aws_iam_openid_connect_provider")
-func DataSourceOpenIDConnectProvider() *schema.Resource {
+// @SDKDataSource("aws_iam_openid_connect_provider")func DataSourceOpenIDConnectProvider() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceOpenIDConnectProviderRead,
 
@@ -43,7 +42,7 @@ func DataSourceOpenIDConnectProvider() *schema.Resource {
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"url": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				Computed:         true,
 				ValidateFunc:     validOpenIDURL,
@@ -52,10 +51,7 @@ func DataSourceOpenIDConnectProvider() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceOpenIDConnectProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &iam.GetOpenIDConnectProviderInput{}
@@ -93,11 +89,8 @@ func dataSourceOpenIDConnectProviderRead(ctx context.Context, d *schema.Resource
 	}
 
 	return nil
-}
-
-func dataSourceGetOpenIDConnectProviderByURL(ctx context.Context, conn *iam.IAM, url string) (*iam.OpenIDConnectProviderListEntry, error) {
-	var result *iam.OpenIDConnectProviderListEntry
-
+}func dataSourceGetOpenIDConnectProviderByURL(ctx context.Context, conn *iam.IAM, url string) (*iam.OpenIDConnectProviderListEntry, error) {
+	func
 	input := &iam.ListOpenIDConnectProvidersInput{}
 
 	output, err := conn.ListOpenIDConnectProvidersWithContext(ctx, input)
@@ -122,12 +115,9 @@ func dataSourceGetOpenIDConnectProviderByURL(ctx context.Context, conn *iam.IAM,
 	}
 
 	return result, nil
-}
-
-func urlFromOpenIDConnectProviderARN(arn string) (string, error) {
+}func urlFromOpenIDConnectProviderARN(arn string) (string, error) {
 	parts := strings.SplitN(arn, "/", 2)
-	if len(parts) != 2 {
-		return "", fmt.Errorf("reading OpenID Connect Provider expected the arn to be like: arn:PARTITION:iam::ACCOUNT:oidc-provider/URL but got: %s", arn)
+	functurn "", fmt.Errorf("reading OpenID Connect Provider expected the arn to be like: arn:PARTITION:iam::ACCOUNT:oidc-provider/URL but got: %s", arn)
 	}
 	return parts[1], nil
 }

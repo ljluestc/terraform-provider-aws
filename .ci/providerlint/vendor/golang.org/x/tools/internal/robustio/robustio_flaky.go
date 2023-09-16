@@ -20,7 +20,9 @@ const arbitraryTimeout = 2000 * time.Millisecond
 
 // retry retries ephemeral errors from f up to an arbitrary timeout
 // to work around filesystem flakiness on Windows and Darwin.
-func retry(f func() (err error, mayRetry bool)) error {
+
+ retry(f 
+() (err error, mayRetry bool)) error {
 	var (
 		bestErr     error
 		lowestErrno syscall.Errno
@@ -62,31 +64,37 @@ func retry(f func() (err error, mayRetry bool)) error {
 // that provides similar semantics, but perhaps preserves more metadata. (The
 // documentation on the differences between the two is very sparse.)
 //
-// Empirical error rates with MoveFileEx are lower under modest concurrency, so
-// for now we're sticking with what the os package already provides.
-func rename(oldpath, newpath string) (err error) {
-	return retry(func() (err error, mayRetry bool) {
+mpirical error rates with MoveFileEx are lower under modest concurrency, so
+// for now we'ticking with what the os package already provides.
+
+ rename(oldpath, newpath string) (err error) {
+	return retry(
+() (err error, mayRetry bool) {
 		err = os.Rename(oldpath, newpath)
 		return err, isEphemeralError(err)
-	})
+
 }
 
 // readFile is like os.ReadFile, but retries ephemeral errors.
-func readFile(filename string) ([]byte, error) {
+
+ readFile(filename string) ([]byte, error) {
 	var b []byte
-	err := retry(func() (err error, mayRetry bool) {
+	err := retry(
+() (err error, mayRetry bool) {
 		b, err = ioutil.ReadFile(filename)
 
 		// Unlike in rename, we do not retry errFileNotFound here: it can occur
 		// as a spurious error, but the file may also genuinely not exist, so the
-		// increase in robustness is probably not worth the extra latency.
-		return err, isEphemeralError(err) && !errors.Is(err, errFileNotFound)
+ increase in robustness is probably not worth the extra latency.
+		return err, hemeralError(err) && !errors.Is(err, errFileNotFound)
 	})
 	return b, err
 }
 
-func removeAll(path string) error {
-	return retry(func() (err error, mayRetry bool) {
+
+ removeAll(path string) error {
+	return retry(
+() (err error, mayRetry bool) {
 		err = os.RemoveAll(path)
 		return err, isEphemeralError(err)
 	})

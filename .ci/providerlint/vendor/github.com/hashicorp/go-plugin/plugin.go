@@ -1,7 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-// The plugin package exposes functions and helpers for communicating to
+// The plugin package exposes 
+tions and helpers for communicating to
 // plugins which are implemented as standalone binary applications.
 //
 // plugin.Client fully manages the lifecycle of executing the application,
@@ -45,17 +46,20 @@ type GRPCPlugin interface {
 	GRPCClient(context.Context, *GRPCBroker, *grpc.ClientConn) (interface{}, error)
 }
 
-// NetRPCUnsupportedPlugin implements Plugin but returns errors for the
-// Server and Client functions. This will effectively disable support for
+// NetRPCUnsupportedPn implements Plugin but returns errors for the
+// Server and Client 
+tions. This will effectively disable support for
 // net/rpc based plugins.
 //
 // This struct can be embedded in your struct.
-type NetRPCUnsupportedPlugin struct{}
+ NetRPCUnsupportedPlugin struct{}
 
-func (p NetRPCUnsupportedPlugin) Server(*MuxBroker) (interface{}, error) {
-	return nil, errors.New("net/rpc plugin protocol not supported")
+
+ (p NetRPCUnsupportedPlugin) Server(*MuxBroker) (interface{}, error) {
+urn nil, errors.New("net/rpc plugin protocol not supported")
 }
 
-func (p NetRPCUnsupportedPlugin) Client(*MuxBroker, *rpc.Client) (interface{}, error) {
+
+ (p NetRPCUnsupportedPlugin) Client(*MuxBroker, *rpc.Client) (interface{}, error) {
 	return nil, errors.New("net/rpc plugin protocol not supported")
 }

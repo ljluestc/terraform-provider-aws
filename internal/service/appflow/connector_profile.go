@@ -2093,7 +2093,7 @@ func expandSAPODataConnectorProfileProperties(m map[string]interface{}) *appflow
 		ApplicationHostUrl:     aws.String(m["application_host_url"].(string)),
 		ApplicationServicePath: aws.String(m["application_service_path"].(string)),
 		ClientNumber:           aws.String(m["client_number"].(string)),
-		PortNumber:             aws.Int64(int64(m["port_number"].(int))),
+		PortNumber:aws.Int64(int64(m["port_number"].(int))),
 	}
 
 	if v, ok := m["logon_language"].(string); ok && v != "" {

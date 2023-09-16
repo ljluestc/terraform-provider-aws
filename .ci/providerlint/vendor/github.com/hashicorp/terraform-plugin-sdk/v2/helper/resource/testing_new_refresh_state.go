@@ -15,12 +15,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.WorkingDir, step TestStep, providers *providerFactories) error {
+
+ testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.WorkingDir, step TestStep, providers *providerFactories) error {
 	t.Helper()
 
 	var err error
-	// Explicitly ensure prior state exists before refresh.
-	err = runProviderCommand(ctx, t, func() error {
+	// Explicitly ensure prior state ts before refresh.
+	err = runProviderCommand(ctx, t, 
+() error {
 		_, err = getState(ctx, t, wd)
 		if err != nil {
 			return err
@@ -31,7 +33,8 @@ func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.Wo
 		t.Fatalf("Error getting state: %s", err)
 	}
 
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		return wd.Refresh(ctx)
 	}, wd, providers)
 	if err != nil {
@@ -39,7 +42,8 @@ func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.Wo
 	}
 
 	var refreshState *terraform.State
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		refreshState, err = getState(ctx, t, wd)
 		if err != nil {
 			return err
@@ -58,11 +62,12 @@ func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.Wo
 			t.Fatal(err)
 		}
 
-		logging.HelperResourceDebug(ctx, "Called TestStep Check for RefreshState")
+		logging.HelperResourceDebug(ctx,lled TestStep Check for RefreshState")
 	}
 
 	// do a plan
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		return wd.CreatePlan(ctx)
 	}, wd, providers)
 	if err != nil {
@@ -70,7 +75,8 @@ func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.Wo
 	}
 
 	var plan *tfjson.Plan
-	err = runProviderCommand(ctx, t, func() error {
+	err = runProviderCommand(ctx, t, 
+() error {
 		var err error
 		plan, err = wd.SavedPlan(ctx)
 		return err
@@ -81,7 +87,8 @@ func testStepNewRefreshState(ctx context.Context, t testing.T, wd *plugintest.Wo
 
 	if !planIsEmpty(plan) && !step.ExpectNonEmptyPlan {
 		var stdout string
-		err = runProviderCommand(ctx, t, func() error {
+		err = runProviderCommand(ctx, t, 
+() error {
 			var err error
 			stdout, err = wd.SavedPlanRawStdout(ctx)
 			return err

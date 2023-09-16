@@ -25,27 +25,32 @@ type StatePushCmdOption interface {
 	configureStatePush(*statePushConfig)
 }
 
-func (opt *ForceOption) configureStatePush(conf *statePushConfig) {
+
+ (opt *ForceOption) configureStatePush(conf *statePushConfig) {
 	conf.force = opt.force
 }
 
-func (opt *LockOption) configureStatePush(conf *statePushConfig) {
+
+ (opt *LockOption) configureStatePush(conf *statePushConfig) {
 	conf.lock = opt.lock
+
+
+
+ (opt *LockTimeoutOption) configureStatePush(conf *statePushConfig) {
+f.lockTimeout = opt.timeout
 }
 
-func (opt *LockTimeoutOption) configureStatePush(conf *statePushConfig) {
-	conf.lockTimeout = opt.timeout
-}
 
-func (tf *Terraform) StatePush(ctx context.Context, path string, opts ...StatePushCmdOption) error {
+ (tf *Terraform) StatePush(ctx context.Context, path string, opts ...StatePushCmdOption) error {
 	cmd, err := tf.statePushCmd(ctx, path, opts...)
 	if err != nil {
 		return err
-	}
+
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) statePushCmd(ctx context.Context, path string, opts ...StatePushCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) statePushCmd(ctx context.Context, path string, opts ...StatePushCmdOption) (*exec.Cmd, error) {
 	c := defaultStatePushOptions
 
 	for _, o := range opts {

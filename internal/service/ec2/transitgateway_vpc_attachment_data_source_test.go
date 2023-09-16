@@ -14,8 +14,7 @@ import (
 )
 
 
-func testAccTransitGatewayVPCAttachmentDataSource_Filter(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_vpc_attachment.test"
 	resourceName := "aws_ec2_transit_gateway_vpc_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,17 +22,15 @@ func testAccTransitGatewayVPCAttachmentDataSource_Filter(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayVPCAttachmentDataSourceConfig_filter(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(resourceName, "appliance_mode_support", dataSourceName, "appliance_mode_support"),
-	resource.TestCheckResourceAttrPair(resourceName, "dns_support", dataSourceName, "dns_support"),
-	resource.TestCheckResourceAttrPair(resourceName, "ipv6_support", dataSourceName, "ipv6_support"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipv6_support", dataSourceName, "ipv6_support"),
 	resource.TestCheckResourceAttrPair(resourceName, "subnet_ids.#", dataSourceName, "subnet_ids.#"),
 	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
 	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
@@ -49,17 +46,15 @@ func(
 func testAccTransitGatewayVPCAttachmentDataSource_ID(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_vpc_attachment.test"
-	resourceName := "aws_ec2_transit_gateway_vpc_attachment.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
+func
 Config: testAccTransitGatewayVPCAttachmentDataSourceConfig_id(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -67,8 +62,7 @@ func(
 	resource.TestCheckResourceAttrPair(resourceName, "dns_support", dataSourceName, "dns_support"),
 	resource.TestCheckResourceAttrPair(resourceName, "ipv6_support", dataSourceName, "ipv6_support"),
 	resource.TestCheckResourceAttrPair(resourceName, "subnet_ids.#", dataSourceName, "subnet_ids.#"),
-	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
+funcource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", dataSourceName, "vpc_id"),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_owner_id", dataSourceName, "vpc_owner_id"),
 ),
@@ -84,40 +78,39 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.0.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+  vpc_idaws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 data "aws_ec2_transit_gateway_vpc_attachment" "test" {
   filter {
-    name   = "transit-gateway-attachment-id"
-    values = [aws_ec2_transit_gateway_vpc_attachment.test.id]
+me= "nsit-gateway-attachment-id"
+lues = [aws_ec2_transit_gateway_vpc_attachment.test.id]
   }
 }
 `, rName))
@@ -129,10 +122,9 @@ func testAccTransitGatewayVPCAttachmentDataSourceConfig_id(rName string) string 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
   subnet_ids= aws_subnet.test[*].id
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id    = aws_vpc.test.id
+  vpc_idaws_vpc.test.id
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 

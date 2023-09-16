@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_kendra_index")
+
 func DataSourceIndex() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceIndexRead,
@@ -280,6 +281,7 @@ func DataSourceIndex() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceIndexRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)

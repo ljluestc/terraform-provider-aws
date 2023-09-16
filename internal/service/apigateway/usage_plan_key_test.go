@@ -18,8 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayUsagePlanKey_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.UsagePlanKey
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	apiGatewayApiKeyResourceName := "aws_api_gateway_api_key.test"
@@ -27,10 +26,10 @@ func TestAccAPIGatewayUsagePlanKey_basic(t *testing.T) {
 	resourceName := "aws_api_gateway_usage_plan_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsagePlanKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUsagePlanKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsagePlanKeyConfig_typeAPI(rName),
@@ -44,8 +43,8 @@ func TestAccAPIGatewayUsagePlanKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccCheckUsagePlanKeyImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -54,16 +53,15 @@ func TestAccAPIGatewayUsagePlanKey_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayUsagePlanKey_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.UsagePlanKey
+func conf apigateway.UsagePlanKey
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_usage_plan_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsagePlanKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUsagePlanKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsagePlanKeyConfig_typeAPI(rName),
@@ -79,14 +77,13 @@ func TestAccAPIGatewayUsagePlanKey_disappears(t *testing.T) {
 
 func TestAccAPIGatewayUsagePlanKey_KeyID_concurrency(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.UsagePlanKey
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUsagePlanKeyDestroy(ctx),
+		CheckDestroy:testAccCheckUsagePlanKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUsagePlanKeyConfig_idConcurrency(rName),
@@ -110,10 +107,8 @@ func TestAccAPIGatewayUsagePlanKey_KeyID_concurrency(t *testing.T) {
 func testAccCheckUsagePlanKeyExists(ctx context.Context, n string, v *apigateway.UsagePlanKey) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
+funceturn fmt.Errorf("Not found: %s", n)
+		}func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Usage Plan Key ID is set")
 		}
@@ -137,10 +132,8 @@ func testAccCheckUsagePlanKeyDestroy(ctx context.Context) resource.TestCheckFunc
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_usage_plan_key" {
-				continue
-			}
-
+funccontinue
+			}func
 			_, err := tfapigateway.FindUsagePlanKeyByTwoPartKey(ctx, conn, rs.Primary.Attributes["usage_plan_id"], rs.Primary.Attributes["key_id"])
 
 			if tfresource.NotFound(err) {
@@ -165,10 +158,8 @@ func testAccCheckUsagePlanKeyImportStateIdFunc(resourceName string) resource.Imp
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
 
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["usage_plan_id"], rs.Primary.ID), nil
-	}
-}
-
+func
+}func
 func testAccUsagePlanKeyBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_rest_api" "test" {
@@ -177,14 +168,13 @@ resource "aws_api_gateway_rest_api" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
-}
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+func
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 }
 
@@ -200,8 +190,8 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.de"
+  typeTP"
+  urittps://www.google.de"
   integration_http_method = "GET"
 }
 
@@ -232,16 +222,15 @@ resource "aws_api_gateway_api_key" "test" {
 
 resource "aws_api_gateway_usage_plan" "test" {
   name = %[1]q
-
-  api_stages {
-    api_id = aws_api_gateway_rest_api.test.id
-    stage  = aws_api_gateway_deployment.test.stage_name
+funci_stages {
+i_id = aws_api_gateway_rest_api.test.id
+age  = aws_api_gateway_deployment.test.stage_name
   }
 }
 
 resource "aws_api_gateway_usage_plan_key" "test" {
-  key_id        = aws_api_gateway_api_key.test.id
-  key_type      = "API_KEY"
+  key_ids_api_gateway_api_key.test.id
+  key_type_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.test.id
 }
 `, rName))
@@ -258,19 +247,18 @@ resource "aws_api_gateway_api_key" "test" {
 }
 
 resource "aws_api_gateway_usage_plan" "test" {
-  name = %[1]q
-
+func
   api_stages {
-    api_id = aws_api_gateway_rest_api.test.id
-    stage  = aws_api_gateway_deployment.test.stage_name
+i_id = aws_api_gateway_rest_api.test.id
+age  = aws_api_gateway_deployment.test.stage_name
   }
 }
 
 resource "aws_api_gateway_usage_plan_key" "test" {
   count = 10
 
-  key_id        = aws_api_gateway_api_key.test[count.index].id
-  key_type      = "API_KEY"
+  key_ids_api_gateway_api_key.test[count.index].id
+  key_type_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.test.id
 }
 `, rName))

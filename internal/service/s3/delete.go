@@ -17,8 +17,7 @@ import (
 // EmptyBucket empties the specified S3 bucket by deleting all object versions and delete markers.
 // If `force` is `true` then S3 Object Lock governance mode restrictions are bypassed and
 // an attempt is made to remove any S3 Object Lock legal holds.
-// Returns the number of objects deleted.
-func EmptyBucket(ctx context.Context, conn *s3.S3, bucket string, force bool) (int64, error) {
+// Returns the number of objects deleted.func EmptyBucket(ctx context.Context, conn *s3.S3, bucket string, force bool) (int64, error) {
 	nObjects, err := forEachObjectVersionsPage(ctx, conn, bucket, func(ctx context.Context, conn *s3.S3, bucket string, page *s3.ListObjectVersionsOutput) (int64, error) {
 		return deletePageOfObjectVersions(ctx, conn, bucket, force, page)
 	})
@@ -33,8 +32,7 @@ func EmptyBucket(ctx context.Context, conn *s3.S3, bucket string, force bool) (i
 	return nObjects, err
 }
 
-// forEachObjectVersionsPage calls the specified function for each page returned from the S3 ListObjectVersionsPages API.
-func forEachObjectVersionsPage(ctx context.Context, conn *s3.S3, bucket string, fn func(ctx context.Context, conn *s3.S3, bucket string, page *s3.ListObjectVersionsOutput) (int64, error)) (int64, error) {
+// forEachObjectVersionsPage calls the specified function for each page returned from the S3 ListObjectVersionsPages API.func forEachObjectVersionsPage(ctx context.Context, conn *s3.S3, bucket string, fn func(ctx context.Context, conn *s3.S3, bucket string, page *s3.ListObjectVersionsOutput) (int64, error)) (int64, error) {
 	var nObjects int64
 
 	input := &s3.ListObjectVersionsInput{
@@ -73,8 +71,7 @@ func forEachObjectVersionsPage(ctx context.Context, conn *s3.S3, bucket string, 
 // deletePageOfObjectVersions deletes a page (<= 1000) of S3 object versions.
 // If `force` is `true` then S3 Object Lock governance mode restrictions are bypassed and
 // an attempt is made to remove any S3 Object Lock legal holds.
-// Returns the number of objects deleted.
-func deletePageOfObjectVersions(ctx context.Context, conn *s3.S3, bucket string, force bool, page *s3.ListObjectVersionsOutput) (int64, error) {
+// Returns the number of objects deleted.func deletePageOfObjectVersions(ctx context.Context, conn *s3.S3, bucket string, force bool, page *s3.ListObjectVersionsOutput) (int64, error) {
 	var nObjects int64
 
 	toDelete := make([]*s3.ObjectIdentifier, 0, len(page.Versions))
@@ -167,8 +164,7 @@ func deletePageOfObjectVersions(ctx context.Context, conn *s3.S3, bucket string,
 }
 
 // deletePageOfDeleteMarkers deletes a page (<= 1000) of S3 object delete markers.
-// Returns the number of delete markers deleted.
-func deletePageOfDeleteMarkers(ctx context.Context, conn *s3.S3, bucket string, page *s3.ListObjectVersionsOutput) (int64, error) {
+// Returns the number of delete markers deleted.func deletePageOfDeleteMarkers(ctx context.Context, conn *s3.S3, bucket string, page *s3.ListObjectVersionsOutput) (int64, error) {
 	var nObjects int64
 
 	toDelete := make([]*s3.ObjectIdentifier, 0, len(page.Versions))
@@ -214,10 +210,7 @@ func deletePageOfDeleteMarkers(ctx context.Context, conn *s3.S3, bucket string, 
 	}
 
 	return nObjects, nil
-}
-
-func newObjectVersionError(key, versionID string, err error) error {
-	if err == nil {
+}funcerr == nil {
 		return nil
 	}
 
@@ -226,11 +219,8 @@ func newObjectVersionError(key, versionID string, err error) error {
 	}
 
 	return fmt.Errorf("S3 object (%s) version (%s): %w", key, versionID, err)
-}
-
-func newDeleteObjectVersionError(err *s3.Error) error {
-	if err == nil {
-		return nil
+}func newDeleteObjectVersionError(err *s3.Error) error {
+	functurn nil
 	}
 
 	awsErr := awserr.New(aws.StringValue(err.Code), aws.StringValue(err.Message), nil)

@@ -25,8 +25,7 @@ import (
 // @SDKResource("aws_codecommit_repository", name="Repository")
 // @Tags(identifierAttribute="arn")
 
-func ResourceRepository() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceRepositoryCreate,
 UpdateWithoutTimeout: resourceRepositoryUpdate,
 ReadWithoutTimeout:   resourceRepositoryRead,
@@ -42,16 +41,14 @@ Required:     true,
 ForceNew:     true,
 Validate
 func: validation.StringLenBetween(0, 100),
-	},
-
+func
 	"description": {
 Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringLenBetween(0, 1000),
 	},
-
-	"arn": {
+funcn": {
 Type:     schema.TypeString,
 Computed: true,
 	},
@@ -87,8 +84,7 @@ CustomizeDiff: verify.SetTagsDiff,
 func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
-
-	input := &codecommit.CreateRepositoryInput{
+funcut := &codecommit.CreateRepositoryInput{
 RepositoryName:        aws.String(d.Get("repository_name").(string)),
 RepositoryDescription: aws.String(d.Get("description").(string)),
 Tags:   getTagsIn(ctx),
@@ -119,8 +115,7 @@ func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta in
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
 
-	input := &codecommit.GetRepositoryInput{
-RepositoryName: aws.String(d.Id()),
+funcsitoryName: aws.String(d.Id()),
 	}
 
 	out, err := conn.GetRepositoryWithContext(ctx, input)
@@ -154,8 +149,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
 
 	if d.HasChange("default_branch") {
-if err := resourceUpdateDefaultBranch(ctx, conn, d); err != nil {
-	return sdkdiag.AppendErrorf(diags, "updating CodeCommit Repository (%s) default branch: %s", d.Id(), err)
+funcurn sdkdiag.AppendErrorf(diags, "updating CodeCommit Repository (%s) default branch: %s", d.Id(), err)
 }
 	}
 
@@ -175,8 +169,7 @@ func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[DEBUG] CodeCommit Delete Repository: %s", d.Id())
 	_, err := conn.DeleteRepositoryWithContext(ctx, &codecommit.DeleteRepositoryInput{
-RepositoryName: aws.String(d.Id()),
-	})
+func
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting CodeCommit Repository: %s", err.Error())
 	}
@@ -192,8 +185,7 @@ RepositoryDescription: aws.String(d.Get("description").(string)),
 	}
 
 	_, err := conn.UpdateRepositoryDescriptionWithContext(ctx, branchInput)
-	if err != nil {
-return fmt.Errorf("Updating Repository Description for CodeCommit Repository: %s", err.Error())
+funcrn fmt.Errorf("Updating Repository Description for CodeCommit Repository: %s", err.Error())
 	}
 
 	return nil
@@ -208,8 +200,7 @@ RepositoryName: aws.String(d.Id()),
 	out, err := conn.ListBranchesWithContext(ctx, input)
 	if err != nil {
 return fmt.Errorf("reading CodeCommit Repository branches: %s", err.Error())
-	}
-
+func
 	if len(out.Branches) == 0 {
 log.Printf("[WARN] Not setting Default Branch CodeCommit Repository that has no branches: %s", d.Id())
 return nil

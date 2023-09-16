@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCNATGatewayDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceNameByID := "data.aws_nat_gateway.test_by_id"
 	dataSourceNameBySubnetID := "data.aws_nat_gateway.test_by_subnet_id"
@@ -25,16 +24,14 @@ func TestAccVPCNATGatewayDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNATGatewayDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(dataSourceNameByID, "allocation_id", resourceName, "allocation_id"),
-	resource.TestCheckResourceAttrPair(dataSourceNameByID, "association_id", resourceName, "association_id"),
-	resource.TestCheckResourceAttrPair(dataSourceNameByID, "connectivity_type", resourceName, "connectivity_type"),
+funcource.TestCheckResourceAttrPair(dataSourceNameByID, "connectivity_type", resourceName, "connectivity_type"),
 	resource.TestCheckResourceAttrPair(dataSourceNameByID, "network_interface_id", resourceName, "network_interface_id"),
 	resource.TestCheckResourceAttrPair(dataSourceNameByID, "private_ip", resourceName, "private_ip"),
 	resource.TestCheckResourceAttrPair(dataSourceNameByID, "public_ip", resourceName, "public_ip"),
@@ -74,11 +71,10 @@ func(
 func testAccVPCNATGatewayDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  subnet_id     = aws_subnet.public.id
-  allocation_id = aws_eip.test.id
+funclocation_id = aws_eip.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   depends_on = [aws_internet_gateway.test]
@@ -94,7 +90,7 @@ data "aws_nat_gateway" "test_by_subnet_id" {
 
 data "aws_nat_gateway" "test_by_tags" {
   tags = {
-    Name = aws_nat_gateway.test.tags["Name"]
+me = aws_nat_gateway.test.tags["Name"]
   }
 }
 `, rName))

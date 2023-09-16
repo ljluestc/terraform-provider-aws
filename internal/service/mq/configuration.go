@@ -67,8 +67,8 @@ func ResourceConfiguration() *schema.Resource {
 				ValidateFunc: validation.StringInSlice(mq.AuthenticationStrategy_Values(), true),
 			},
 			"data": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				DiffSuppressFunc:      suppressXMLEquivalentConfig,
 				DiffSuppressOnRefresh: true,
 			},

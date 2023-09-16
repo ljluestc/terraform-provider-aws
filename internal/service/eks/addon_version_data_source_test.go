@@ -22,10 +22,10 @@ func TestAccEKSAddonVersionDataSource_basic(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonVersionDataSourceConfig_basic(rName, addonName, true),

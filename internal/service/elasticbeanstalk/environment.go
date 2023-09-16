@@ -162,7 +162,7 @@ func ResourceEnvironment() *schema.Resource {
 				ConflictsWith: []string{"solution_stack_name", "template_name"},
 			},
 			"poll_interval": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ValidateDiagFunc: sdktypes.ValidateDurationBetween(10*time.Second, 3*time.Minute), //nolint:gomnd
 			},
@@ -208,7 +208,7 @@ func ResourceEnvironment() *schema.Resource {
 				Computed: true,
 			},
 			"wait_for_ready_timeout": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				Default:          "20m",
 				ValidateDiagFunc: sdktypes.ValidateDuration,

@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_kendra_experience")
+
 func DataSourceExperience() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceExperienceRead,
@@ -138,6 +139,7 @@ func DataSourceExperience() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceExperienceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)

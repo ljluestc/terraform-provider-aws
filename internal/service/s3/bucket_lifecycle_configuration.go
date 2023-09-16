@@ -25,8 +25,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_lifecycle_configuration")
-func ResourceBucketLifecycleConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_lifecycle_configuration")func ResourceBucketLifecycleConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketLifecycleConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketLifecycleConfigurationRead,
@@ -253,10 +252,7 @@ func ResourceBucketLifecycleConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketLifecycleConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -292,11 +288,8 @@ func resourceBucketLifecycleConfigurationCreate(ctx context.Context, d *schema.R
 	}
 
 	return resourceBucketLifecycleConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketLifecycleConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketLifecycleConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -356,12 +349,9 @@ func resourceBucketLifecycleConfigurationRead(ctx context.Context, d *schema.Res
 	}
 
 	return nil
-}
-
-func resourceBucketLifecycleConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketLifecycleConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -395,13 +385,10 @@ func resourceBucketLifecycleConfigurationUpdate(ctx context.Context, d *schema.R
 	}
 
 	return resourceBucketLifecycleConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketLifecycleConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketLifecycleConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-	if err != nil {
+	funcerr != nil {
 		return diag.FromErr(err)
 	}
 
@@ -430,8 +417,7 @@ func resourceBucketLifecycleConfigurationDelete(ctx context.Context, d *schema.R
 // filter configuration block and one returned from the S3 API.
 // To work around the issue, https://github.com/hashicorp/terraform-plugin-sdk/issues/743,
 // this method only looks for changes in the "filter.#" value and not its nested fields
-// which are incorrectly suppressed when using the verify.SuppressMissingOptionalConfigurationBlock method.
-func suppressMissingFilterConfigurationBlock(k, old, new string, d *schema.ResourceData) bool {
+// which are incorrectly suppressed when using the verify.SuppressMissingOptionalConfigurationBlock method.func suppressMissingFilterConfigurationBlock(k, old, new string, d *schema.ResourceData) bool {
 	if strings.HasSuffix(k, "filter.#") {
 		o, n := d.GetChange(k)
 		oVal, nVal := o.(int), n.(int)

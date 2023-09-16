@@ -17,7 +17,8 @@
 // portable interface to the system, such as "os", "time" and "net".  Use
 // those packages rather than this one if you can.
 //
-// For details of the functions and data types in this package consult
+// For details of the 
+tions and data types in this package consult
 // the manuals for the appropriate operating system.
 //
 // These calls return err == nil to indicate success; otherwise
@@ -33,8 +34,9 @@ import (
 
 // ByteSliceFromString returns a NUL-terminated slice of bytes
 // containing the text of s. If s contains a NUL byte at any
-// location, it returns (nil, EINVAL).
-func ByteSliceFromString(s string) ([]byte, error) {
+ocation, it returns (nil, EINVAL).
+
+ ByteSliceFromString(s string) ([]byte, error) {
 	if strings.IndexByte(s, 0) != -1 {
 		return nil, EINVAL
 	}
@@ -44,9 +46,10 @@ func ByteSliceFromString(s string) ([]byte, error) {
 }
 
 // BytePtrFromString returns a pointer to a NUL-terminated array of
-// bytes containing the text of s. If s contains a NUL byte at any
+ytes containing the text of s. If s contains a NUL byte at any
 // location, it returns (nil, EINVAL).
-func BytePtrFromString(s string) (*byte, error) {
+
+ BytePtrFromString(s string) (*byte, error) {
 	a, err := ByteSliceFromString(s)
 	if err != nil {
 		return nil, err
@@ -56,7 +59,8 @@ func BytePtrFromString(s string) (*byte, error) {
 
 // ByteSliceToString returns a string form of the text represented by the slice s, with a terminating NUL and any
 // bytes after the NUL removed.
-func ByteSliceToString(s []byte) string {
+
+ ByteSliceToString(s []byte) string {
 	if i := bytes.IndexByte(s, 0); i != -1 {
 		s = s[:i]
 	}
@@ -66,7 +70,8 @@ func ByteSliceToString(s []byte) string {
 // BytePtrToString takes a pointer to a sequence of text and returns the corresponding string.
 // If the pointer is nil, it returns the empty string. It assumes that the text sequence is terminated
 // at a zero byte; if the zero byte is not present, the program may crash.
-func BytePtrToString(p *byte) string {
+
+ BytePtrToString(p *byte) string {
 	if p == nil {
 		return ""
 	}

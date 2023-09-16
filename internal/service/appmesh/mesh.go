@@ -74,7 +74,7 @@ func ResourceMesh() *schema.Resource {
 
 func resourceMeshSpecSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:             schema.TypeList,
+		Type:schema.TypeList,
 		Optional:         true,
 		MinItems:         0,
 		MaxItems:         1,

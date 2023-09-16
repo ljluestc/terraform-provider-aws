@@ -25,12 +25,12 @@ func DataSourceRules() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"name_regex": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringIsValidRegExp,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Validate
 func: validation.Any(
@@ -40,23 +40,23 @@ func: validation.Any(
 				),
 			},
 			"resolver_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"resolver_rule_ids": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 			"rule_type": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 			},
 			"share_status": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringInSlice(route53resolver.ShareStatus_Values(), false),
 			},

@@ -26,10 +26,10 @@ func TestAccEventsBusPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBusDestroy(ctx),
+		CheckDestroy:testAccCheckBusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBusPolicyConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccEventsBusPolicy_ignoreEquivalent(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBusDestroy(ctx),
+		CheckDestroy:testAccCheckBusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBusPolicyConfig_order(rName),
@@ -86,10 +86,10 @@ func TestAccEventsBusPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBusDestroy(ctx),
+		CheckDestroy:testAccCheckBusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBusPolicyConfig_basic(rName),
@@ -110,10 +110,10 @@ func TestAccEventsBusPolicy_disappears_EventBus(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eventbridge.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBusDestroy(ctx),
+		CheckDestroy:testAccCheckBusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBusPolicyConfig_basic(rName),

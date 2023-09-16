@@ -19,62 +19,60 @@ import (
 )
 
 // @SDKDataSource("aws_acm_certificate")
-func dataSourceCertificate() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceCertificateRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"certificate": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"certificate_chain": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"domain": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 			},
 			"key_types": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:             schema.TypeString,
+					Type:TypeString,
 					ValidateDiagFunc: enum.Validate[types.KeyAlgorithm](),
 				},
 			},
 			"most_recent": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"statuses": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"types": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ACMClient(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	domain := d.Get("domain")
 	input := &acm.ListCertificatesInput{}
@@ -229,8 +227,7 @@ func dataSourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta
 
 func mostRecentCertificate(i, j *types.CertificateDetail) (*types.CertificateDetail, error) {
 	if i.Status != j.Status {
-		return nil, fmt.Errorf("most_recent filtering on different ACM certificate statues is not supported")
-	}
+func
 	// Cover IMPORTED and ISSUED AMAZON_ISSUED certificates
 	if i.Status == types.CertificateStatusIssued {
 		if aws.ToTime(i.NotBefore).After(aws.ToTime(j.NotBefore)) {

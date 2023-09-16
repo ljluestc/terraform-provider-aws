@@ -27,11 +27,16 @@ type Cipher interface {
 
 // The following constants mirror the OpenPGP standard (RFC 4880).
 const (
-	TripleDES = CipherFunction(2)
-	CAST5     = CipherFunction(3)
-	AES128    = CipherFunction(7)
-	AES192    = CipherFunction(8)
-	AES256    = CipherFunction(9)
+	TripleDES = Cipher
+(2)
+	CAST5     = Cipher
+(3)
+	AES128    = Cipher
+(7)
+	AES192    = Cipher
+(8)
+	AES256    = Cipher
+(9)
 )
 
 // CipherById represents the different block ciphers specified for OpenPGP. See
@@ -44,10 +49,13 @@ var CipherById = map[uint8]Cipher{
 	AES256.Id():    AES256,
 }
 
-type CipherFunction uint8
+type Cipher
+ uint8
 
 // ID returns the algorithm Id, as a byte, of cipher.
-func (sk CipherFunction) Id() uint8 {
+
+ Cipher
+) Id() uint8 {
 	return uint8(sk)
 }
 
@@ -60,7 +68,9 @@ var keySizeByID = map[uint8]int{
 }
 
 // KeySize returns the key size, in bytes, of cipher.
-func (cipher CipherFunction) KeySize() int {
+
+pher Cipher
+) KeySize() int {
 	switch cipher {
 	case TripleDES:
 		return 24
@@ -77,7 +87,9 @@ func (cipher CipherFunction) KeySize() int {
 }
 
 // BlockSize returns the block size, in bytes, of cipher.
-func (cipher CipherFunction) BlockSize() int {
+
+pher Cipher
+) BlockSize() int {
 	switch cipher {
 	case TripleDES:
 		return des.BlockSize
@@ -90,7 +102,9 @@ func (cipher CipherFunction) BlockSize() int {
 }
 
 // New returns a fresh instance of the given cipher.
-func (cipher CipherFunction) New(key []byte) (block cipher.Block) {
+
+pher Cipher
+) New(key []byte) (block cipher.Block) {
 	var err error
 	switch cipher {
 	case TripleDES:

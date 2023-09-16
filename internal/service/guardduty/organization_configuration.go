@@ -32,57 +32,57 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"auto_enable": {
-				Type:         schema.TypeBool,
-				Optional:     true,
-				Computed:     true,
+				Type:.TypeBool,
+				Optional:
+				Computed:
 				ExactlyOneOf: []string{"auto_enable", "auto_enable_organization_members"},
 				Deprecated:   "Use auto_enable_organization_members instead",
 			},
 
 			"auto_enable_organization_members": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:.TypeString,
+				Optional:
+				Computed:
 				ExactlyOneOf: []string{"auto_enable", "auto_enable_organization_members"},
 				ValidateFunc: validation.StringInSlice(guardduty.AutoEnableMembers_Values(), false),
 			},
 
 			"datasources": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3_logs": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"auto_enable": {
-										Type:     schema.TypeBool,
+										Type:eBool,
 										Required: true,
 									},
 								},
 							},
 						},
 						"kubernetes": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"audit_logs": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"enable": {
-													Type:     schema.TypeBool,
+													Type:eBool,
 													Required: true,
 												},
 											},
@@ -92,26 +92,26 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 							},
 						},
 						"malware_protection": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"scan_ec2_instance_with_findings": {
-										Type:     schema.TypeList,
+										Type:eList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"ebs_volumes": {
-													Type:     schema.TypeList,
+													Type:eList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"auto_enable": {
-																Type:     schema.TypeBool,
+																Type:eBool,
 																Required: true,
 															},
 														},
@@ -128,9 +128,9 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 			},
 
 			"detector_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.NoZeroValues,
 			},
 		},
@@ -174,7 +174,7 @@ func resourceOrganizationConfigurationUpdate(ctx context.Context, d *schema.Reso
 
 	input := &guardduty.UpdateOrganizationConfigurationInput{
 		AutoEnableOrganizationMembers: aws.String(d.Get("auto_enable_organization_members").(string)),
-		DetectorId:                    aws.String(detectorID),
+		DetectorId:
 	}
 
 	if v, ok := d.GetOk("datasources"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

@@ -16,8 +16,7 @@ import (
 
 // @SDKDataSource("aws_ssoadmin_instances")
 
-func DataSourceInstances() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstancesRead,
 
 		Schema: map[string]*schema.Schema{
@@ -36,8 +35,7 @@ func DataSourceInstances() *schema.Resource {
 }
 
 func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
+funcn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
 
 	output, err := findInstanceMetadatas(ctx, conn)
 
@@ -61,14 +59,12 @@ func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta i
 
 func findInstanceMetadatas(ctx context.Context, conn *ssoadmin.SSOAdmin) ([]*ssoadmin.InstanceMetadata, error) {
 	input := &ssoadmin.ListInstancesInput{}
-	var output []*ssoadmin.InstanceMetadata
-
+func
 	err := conn.ListInstancesPagesWithContext(ctx, input,
 		func(page *ssoadmin.ListInstancesOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
-			}
-
+		func
 			for _, v := range page.Instances {
 				if v != nil {
 					output = append(output, v)

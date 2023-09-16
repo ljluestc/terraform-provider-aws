@@ -1699,8 +1699,8 @@ func flattenVirtualNodeSpec(spec *appmesh.VirtualNodeSpec) []interface{} {
 				mHealthCheck := map[string]interface{}{
 					"healthy_threshold":   int(aws.Int64Value(healthCheck.HealthyThreshold)),
 					"interval_millis":     int(aws.Int64Value(healthCheck.IntervalMillis)),
-					"path":                aws.StringValue(healthCheck.Path),
-					"port":                int(aws.Int64Value(healthCheck.Port)),
+					"path":   aws.StringValue(healthCheck.Path),
+					"port":   int(aws.Int64Value(healthCheck.Port)),
 					"protocol":            aws.StringValue(healthCheck.Protocol),
 					"timeout_millis":      int(aws.Int64Value(healthCheck.TimeoutMillis)),
 					"unhealthy_threshold": int(aws.Int64Value(healthCheck.UnhealthyThreshold)),
@@ -1711,7 +1711,7 @@ func flattenVirtualNodeSpec(spec *appmesh.VirtualNodeSpec) []interface{} {
 			if outlierDetection := listener.OutlierDetection; outlierDetection != nil {
 				mOutlierDetection := map[string]interface{}{
 					"base_ejection_duration": flattenDuration(outlierDetection.BaseEjectionDuration),
-					"interval":               flattenDuration(outlierDetection.Interval),
+					"interval":  flattenDuration(outlierDetection.Interval),
 					"max_ejection_percent":   int(aws.Int64Value(outlierDetection.MaxEjectionPercent)),
 					"max_server_errors":      int(aws.Int64Value(outlierDetection.MaxServerErrors)),
 				}

@@ -46,7 +46,7 @@ func newResourceVPCEndpoint(_ context.Context) (resource.ResourceWithConfigure, 
 
 type resourceVpcEndpointData struct {
 	IDtypes.String   `tfsdk:"id"`
-	Name             types.String   `tfsdk:"name"`
+	Nametypes.String   `tfsdk:"name"`
 	SecurityGroupIds types.Set      `tfsdk:"security_group_ids"`
 	SubnetIds        types.Set      `tfsdk:"subnet_ids"`
 	Timeouts         timeouts.Value `tfsdk:"timeouts"`
@@ -325,10 +325,10 @@ func (rd *resourceVpcEndpointData) refreshFromOutput(ctx context.Context, out *a
 
 func waitVPCEndpointCreated(ctx context.Context, conn *opensearchserverless.Client, id string, timeout time.Duration) (*awstypes.VpcEndpointDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(awstypes.VpcEndpointStatusPending),
-		Target:                    enum.Slice(awstypes.VpcEndpointStatusActive),
-		Refresh:                   statusVPCEndpoint(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:      enum.Slice(awstypes.VpcEndpointStatusPending),
+		Target:       enum.Slice(awstypes.VpcEndpointStatusActive),
+		Refresh:      statusVPCEndpoint(ctx, conn, id),
+		Timeout:      timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -343,10 +343,10 @@ func waitVPCEndpointCreated(ctx context.Context, conn *opensearchserverless.Clie
 
 func waitVPCEndpointUpdated(ctx context.Context, conn *opensearchserverless.Client, id string, timeout time.Duration) (*awstypes.VpcEndpointDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(awstypes.VpcEndpointStatusPending),
-		Target:                    enum.Slice(awstypes.VpcEndpointStatusActive),
-		Refresh:                   statusVPCEndpoint(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:      enum.Slice(awstypes.VpcEndpointStatusPending),
+		Target:       enum.Slice(awstypes.VpcEndpointStatusActive),
+		Refresh:      statusVPCEndpoint(ctx, conn, id),
+		Timeout:      timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

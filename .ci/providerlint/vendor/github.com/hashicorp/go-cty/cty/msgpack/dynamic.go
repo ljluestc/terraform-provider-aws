@@ -12,7 +12,8 @@ type dynamicVal struct {
 	Path  cty.Path
 }
 
-func (dv *dynamicVal) MarshalMsgpack() ([]byte, error) {
+
+ *dynamicVal) MarshalMsgpack() ([]byte, error) {
 	// Rather than defining a msgpack-specific serialization of types,
 	// instead we use the existing JSON serialization.
 	typeJSON, err := dv.Value.Type().MarshalJSON()

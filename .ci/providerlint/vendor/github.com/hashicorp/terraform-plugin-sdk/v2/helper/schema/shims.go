@@ -19,15 +19,19 @@ import (
 // derives a terraform.InstanceDiff to give to the legacy providers. This is
 // used to take the states provided by the new ApplyResourceChange method and
 // convert them to a state+diff required for the legacy Apply method.
-func DiffFromValues(ctx context.Context, prior, planned, config cty.Value, res *Resource) (*terraform.InstanceDiff, error) {
+
+ DiffFromValues(ctx context.Context, prior, planned, config cty.Value, res *Resource) (*terraform.InstanceDiff, error) {
 	return diffFromValues(ctx, prior, planned, config, res, nil)
 }
 
-// diffFromValues takes an additional CustomizeDiffFunc, so we can generate our
+// diffFromValues takes an additional CustomizeDiff
+, so we can generate our
 // test fixtures from the legacy tests. In the new provider protocol the diff
-// only needs to be created for the apply operation, and any customizations
+nly needs to be created for the apply operation, and any customizations
 // have already been done.
-func diffFromValues(ctx context.Context, prior, planned, config cty.Value, res *Resource, cust CustomizeDiffFunc) (*terraform.InstanceDiff, error) {
+
+ diffFromValues(ctx context.Context, prior, planned, config cty.Value, res *Resource, cust CustomizeDiff
+) (*terraform.InstanceDiff, error) {
 	instanceState, err := res.ShimInstanceStateFromValue(prior)
 	if err != nil {
 		return nil, err
@@ -54,7 +58,8 @@ func diffFromValues(ctx context.Context, prior, planned, config cty.Value, res *
 // During apply the only unknown values are those which are to be computed by
 // the resource itself. These may have been marked as unknown config values, and
 // need to be removed to prevent the UnknownVariableValue from appearing the diff.
-func removeConfigUnknowns(cfg map[string]interface{}) {
+
+ removeConfigUnknowns(cfg map[string]interface{}) {
 	for k, v := range cfg {
 		switch v := v.(type) {
 		case string:
@@ -77,17 +82,20 @@ func removeConfigUnknowns(cfg map[string]interface{}) {
 // get a new cty.Value state. This is used to convert the diff returned from
 // the legacy provider Diff method to the state required for the new
 // PlanResourceChange method.
-func ApplyDiff(base cty.Value, d *terraform.InstanceDiff, schema *configschema.Block) (cty.Value, error) {
+
+lyDiff(base cty.Value, d *terraform.InstanceDiff, schema *configschema.Block) (cty.Value, error) {
 	return d.ApplyToValue(base, schema)
 }
 
-// StateValueToJSONMap converts a cty.Value to generic JSON map via the cty JSON
+tateValueToJSONMap converts a cty.Value to generic JSON map via the cty JSON
 // encoding.
-func StateValueToJSONMap(val cty.Value, ty cty.Type) (map[string]interface{}, error) {
+
+ StateValueToJSONMap(val cty.Value, ty cty.Type) (map[string]interface{}, error) {
 	return stateValueToJSONMap(val, ty, false)
 }
 
-func stateValueToJSONMap(val cty.Value, ty cty.Type, useJSONNumber bool) (map[string]interface{}, error) {
+
+ stateValueToJSONMap(val cty.Value, ty cty.Type, useJSONNumber bool) (map[string]interface{}, error) {
 	js, err := ctyjson.Marshal(val, ty)
 	if err != nil {
 		return nil, err
@@ -101,7 +109,7 @@ func stateValueToJSONMap(val cty.Value, ty cty.Type, useJSONNumber bool) (map[st
 	} else {
 		if err := json.Unmarshal(js, &m); err != nil {
 			return nil, err
-		}
+
 	}
 
 	return m, nil
@@ -109,7 +117,8 @@ func stateValueToJSONMap(val cty.Value, ty cty.Type, useJSONNumber bool) (map[st
 
 // JSONMapToStateValue takes a generic json map[string]interface{} and converts it
 // to the specific type, ensuring that the values conform to the schema.
-func JSONMapToStateValue(m map[string]interface{}, block *configschema.Block) (cty.Value, error) {
+
+ JSONMapToStateValue(m map[string]interface{}, block *configschema.Block) (cty.Value, error) {
 	var val cty.Value
 
 	js, err := json.Marshal(m)
@@ -119,7 +128,7 @@ func JSONMapToStateValue(m map[string]interface{}, block *configschema.Block) (c
 
 	val, err = ctyjson.Unmarshal(js, block.ImpliedType())
 	if err != nil {
-		return val, err
+turn val, err
 	}
 
 	return block.CoerceValue(val)
@@ -128,6 +137,7 @@ func JSONMapToStateValue(m map[string]interface{}, block *configschema.Block) (c
 // StateValueFromInstanceState converts a terraform.InstanceState to a
 // cty.Value as described by the provided cty.Type, and maintains the resource
 // ID as the "id" attribute.
-func StateValueFromInstanceState(is *terraform.InstanceState, ty cty.Type) (cty.Value, error) {
+
+ StateValueFromInstanceState(is *terraform.InstanceState, ty cty.Type) (cty.Value, error) {
 	return is.AttrsAsObjectValue(ty)
 }

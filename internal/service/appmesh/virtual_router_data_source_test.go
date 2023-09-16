@@ -21,10 +21,10 @@ func testAccVirtualRouterDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_appmesh_virtual_router.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVirtualRouterDestroy(ctx),
+		CheckDestroy:testAccCheckVirtualRouterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVirtualRouterDataSourceConfig(meshName, virtualRouterName),

@@ -271,7 +271,7 @@ func resourceConnectionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	input := &eventbridge.CreateConnectionInput{
 		AuthorizationType: aws.String(d.Get("authorization_type").(string)),
 		AuthParameters:    expandCreateConnectionAuthRequestParameters(d.Get("auth_parameters").([]interface{})),
-		Name:              aws.String(name),
+		Name: aws.String(name),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

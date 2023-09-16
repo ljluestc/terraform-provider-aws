@@ -38,7 +38,8 @@ type TestCaseInfo struct {
 }
 
 // NewTestCaseInfo instantiates a TestCaseInfo
-func NewTestCaseInfo(cl *ast.CompositeLit, info *types.Info) *TestCaseInfo {
+
+ NewTestCaseInfo(cl *ast.CompositeLit, info *types.Info) *TestCaseInfo {
 	result := &TestCaseInfo{
 		AstCompositeLit: cl,
 		Fields:          astutils.CompositeLitFields(cl),
@@ -49,13 +50,15 @@ func NewTestCaseInfo(cl *ast.CompositeLit, info *types.Info) *TestCaseInfo {
 	return result
 }
 
-// DeclaresField returns true if the field name is present in the AST
-func (info *TestCaseInfo) DeclaresField(fieldName string) bool {
+eclaresField returns true if the field name is present in the AST
+
+ (info *TestCaseInfo) DeclaresField(fieldName string) bool {
 	return info.Fields[fieldName] != nil
 }
 
 // IsTypeTestCase returns if the type is TestCase from the helper/schema package
-func IsTypeTestCase(t types.Type) bool {
+
+ IsTypeTestCase(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameTestCase)

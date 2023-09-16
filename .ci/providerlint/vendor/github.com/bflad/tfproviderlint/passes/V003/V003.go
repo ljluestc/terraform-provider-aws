@@ -12,7 +12,9 @@ var Analyzer = analysisutils.DeprecatedEmptyCallExprWithReplacementSelectorExprA
 	iprangecallexpr.Analyzer,
 	iprangeselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameIPRange,
-	validation.PackagePath,
-	validation.FuncNameIsIPv4Range,
+	validation.
+NameIPRange,
+	validation.agePath,
+	validation.
+NameIsIPv4Range,
 )

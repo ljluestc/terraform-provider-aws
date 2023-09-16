@@ -98,7 +98,7 @@ func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta 
 		AuthorizerName:        aws.String(name),
 		EnableCachingForHttp:  aws.Bool(d.Get("enable_caching_for_http").(bool)),
 		SigningDisabled:       aws.Bool(d.Get("signing_disabled").(bool)),
-		Status:                aws.String(d.Get("status").(string)),
+		Status:   aws.String(d.Get("status").(string)),
 	}
 
 	if v, ok := d.GetOk("token_key_name"); ok {

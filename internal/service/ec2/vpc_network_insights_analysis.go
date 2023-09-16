@@ -24,10 +24,9 @@ import (
 // @SDKResource("aws_ec2_network_insights_analysis", name="Network Insights Analysis")
 // @Tags(identifierAttribute="id")
 
-func ResourceNetworkInsightsAnalysis() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInsightsAnalysisCreate,
-		ReadWithoutTimeout:   resourceNetworkInsightsAnalysisRead,
+		ReadWithoutTimeout:ourceNetworkInsightsAnalysisRead,
 		UpdateWithoutTimeout: resourceNetworkInsightsAnalysisUpdate,
 		DeleteWithoutTimeout: resourceNetworkInsightsAnalysisDelete,
 
@@ -37,68 +36,67 @@ func ResourceNetworkInsightsAnalysis() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"alternate_path_hints": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"component_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"component_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"explanations": networkInsightsAnalysisExplanationsSchema,
 			"filter_in_arns": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
-				},
-			},
+func,
 			"forward_path_components": networkInsightsAnalysisPathComponentsSchema,
 			"network_insights_path_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"path_found": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"return_path_components": networkInsightsAnalysisPathComponentsSchema,
 			"start_date": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"status_message": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"wait_for_completion": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
 			"warning_message": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -108,78 +106,78 @@ func: verify.ValidARN,
 }
 
 var networkInsightsAnalysisPathComponentsSchema = &schema.Schema{
-	Type:     schema.TypeList,
+	Type:eList,
 	Computed: true,
 	Elem: &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"acl_rule": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"egress": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"port_range": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"rule_action": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"rule_number": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"additional_details": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"additional_detail_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"component": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"arn": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"id": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 									"name": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Computed: true,
 									},
 								},
@@ -189,111 +187,111 @@ var networkInsightsAnalysisPathComponentsSchema = &schema.Schema{
 				},
 			},
 			"attached_to": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"component": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"destination_vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"inbound_header": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_addresses": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"destination_port_ranges": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"source_addresses": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"source_port_ranges": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
@@ -303,51 +301,51 @@ var networkInsightsAnalysisPathComponentsSchema = &schema.Schema{
 				},
 			},
 			"outbound_header": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_addresses": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"destination_port_ranges": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"source_addresses": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 						"source_port_ranges": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
@@ -357,212 +355,212 @@ var networkInsightsAnalysisPathComponentsSchema = &schema.Schema{
 				},
 			},
 			"route_table_route": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"destination_prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"egress_only_internet_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"instance_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"nat_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"origin": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"transit_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"vpc_peering_connection_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"security_group_rule": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"direction": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"port_range": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"security_group_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"sequence_number": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"source_vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"subnet": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway_route_table_route": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attachment_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"destination_cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"resource_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"resource_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"route_origin": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
@@ -573,829 +571,829 @@ var networkInsightsAnalysisPathComponentsSchema = &schema.Schema{
 }
 
 var networkInsightsAnalysisExplanationsSchema = &schema.Schema{
-	Type:     schema.TypeList,
+	Type:eList,
 	Computed: true,
 	Elem: &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"acl": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"acl_rule": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"egress": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"port_range": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"rule_action": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"rule_number": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"addresses": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"attached_to": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"availability_zones": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"cidrs": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"classic_load_balancer_listener": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"instance_port": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"load_balancer_port": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"component": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"customer_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"destination": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"destination_vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"direction": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"elastic_load_balancer_listener": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"explanation_code": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ingress_route_table": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"internet_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"load_balancer_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"load_balancer_listener_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"load_balancer_target_group": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"load_balancer_target_groups": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"load_balancer_target_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"missing_component": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"nat_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"network_interface": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"packet_field": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"port_ranges": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"to": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"prefix_list": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"protocols": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"route_table": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"route_table_route": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"destination_prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"egress_only_internet_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"instance_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"nat_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"origin": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"transit_gateway_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"vpc_peering_connection_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"security_group": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"security_group_rule": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"direction": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"port_range": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"from": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 									"to": {
-										Type:     schema.TypeInt,
+										Type:eInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"protocol": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"security_group_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"security_groups": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"source_vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"subnet": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"subnet_route_table": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway_attachment": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway_route_table": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"transit_gateway_route_table_route": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attachment_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"destination_cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"prefix_list_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"resource_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"resource_type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"route_origin": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"state": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpc": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpc_endpoint": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpc_peering_connection": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpn_connection": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpn_gateway": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
@@ -1408,10 +1406,9 @@ var networkInsightsAnalysisExplanationsSchema = &schema.Schema{
 
 func resourceNetworkInsightsAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	input := &ec2.StartNetworkInsightsAnalysisInput{
+funcut := &ec2.StartNetworkInsightsAnalysisInput{
 		NetworkInsightsPathId: aws.String(d.Get("network_insights_path_id").(string)),
-		TagSpecifications:     getTagSpecificationsIn(ctx, ec2.ResourceTypeNetworkInsightsAnalysis),
+		TagSpecifications:ificationsIn(ctx, ec2.ResourceTypeNetworkInsightsAnalysis),
 	}
 
 	if v, ok := d.GetOk("filter_in_arns"); ok && v.(*schema.Set).Len() > 0 {
@@ -1440,8 +1437,7 @@ func resourceNetworkInsightsAnalysisCreate(ctx context.Context, d *schema.Resour
 func resourceNetworkInsightsAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	output, err := FindNetworkInsightsAnalysisByID(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Network Insights Analysis (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -1483,15 +1479,13 @@ func resourceNetworkInsightsAnalysisUpdate(ctx context.Context, d *schema.Resour
 	// Tags only.
 	return resourceNetworkInsightsAnalysisRead(ctx, d, meta)
 }
-
-
+func
 func resourceNetworkInsightsAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Network Insights Analysis: %s", d.Id())
 	_, err := conn.DeleteNetworkInsightsAnalysisWithContext(ctx, &ec2.DeleteNetworkInsightsAnalysisInput{
-		NetworkInsightsAnalysisId: aws.String(d.Id()),
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkInsightsAnalysisIdNotFound) {
 		return nil
@@ -1511,8 +1505,7 @@ func flattenAdditionalDetail(apiObject *ec2.AdditionalDetail) map[string]interfa
 	}
 
 	tfMap := map[string]interface{}{}
-
-	if v := apiObject.AdditionalDetailType; v != nil {
+funcv := apiObject.AdditionalDetailType; v != nil {
 		tfMap["additional_detail_type"] = aws.StringValue(v)
 	}
 
@@ -1531,8 +1524,7 @@ func flattenAdditionalDetails(apiObjects []*ec2.AdditionalDetail) []interface{} 
 
 	var tfList []interface{}
 
-	for _, apiObject := range apiObjects {
-		if apiObject == nil {
+func apiObject == nil {
 			continue
 		}
 
@@ -1551,8 +1543,7 @@ func flattenAlternatePathHint(apiObject *ec2.AlternatePathHint) map[string]inter
 	tfMap := map[string]interface{}{}
 
 	if v := apiObject.ComponentArn; v != nil {
-		tfMap["component_arn"] = aws.StringValue(v)
-	}
+func
 
 	if v := apiObject.ComponentId; v != nil {
 		tfMap["component_id"] = aws.StringValue(v)
@@ -1571,8 +1562,7 @@ func flattenAlternatePathHints(apiObjects []*ec2.AlternatePathHint) []interface{
 
 	for _, apiObject := range apiObjects {
 		if apiObject == nil {
-			continue
-		}
+func
 
 		tfList = append(tfList, flattenAlternatePathHint(apiObject))
 	}
@@ -1591,10 +1581,8 @@ func-name
 
 	if v := apiObject.Cidr; v != nil {
 		tfMap["cidr"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.Egress; v != nil {
-		tfMap["egress"] = aws.BoolValue(v)
+func
+funcMap["egress"] = aws.BoolValue(v)
 	}
 
 	if v := apiObject.PortRange; v != nil {
@@ -1629,8 +1617,7 @@ func flattenAnalysisLoadBalancerListener(apiObject *ec2.AnalysisLoadBalancerList
 	}
 
 	if v := apiObject.LoadBalancerPort; v != nil {
-		tfMap["load_balancer_port"] = aws.Int64Value(v)
-	}
+func
 
 	return tfMap
 }
@@ -1649,8 +1636,7 @@ func flattenAnalysisComponent(apiObject *ec2.AnalysisComponent) map[string]inter
 
 	if v := apiObject.Id; v != nil {
 		tfMap["id"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.Name; v != nil {
 		tfMap["name"] = aws.StringValue(v)
 	}
@@ -1673,8 +1659,7 @@ func flattenAnalysisComponents(apiObjects []*ec2.AnalysisComponent) []interface{
 
 		tfList = append(tfList, flattenAnalysisComponent(apiObject))
 	}
-
-	return tfList
+funcurn tfList
 }
 
 
@@ -1693,8 +1678,7 @@ func flattenAnalysisLoadBalancerTarget(apiObject *ec2.AnalysisLoadBalancerTarget
 		tfMap["availability_zone"] = aws.StringValue(v)
 	}
 
-	if v := apiObject.Instance; v != nil {
-		tfMap["instance"] = []interface{}{flattenAnalysisComponent(v)}
+funcMap["instance"] = []interface{}{flattenAnalysisComponent(v)}
 	}
 
 	if v := apiObject.Port; v != nil {
@@ -1721,8 +1705,7 @@ func flattenAnalysisPacketHeader(apiObject *ec2.AnalysisPacketHeader) map[string
 	}
 
 	if v := apiObject.Protocol; v != nil {
-		tfMap["protocol"] = aws.StringValue(v)
-	}
+func
 
 	if v := apiObject.SourceAddresses; v != nil {
 		tfMap["source_addresses"] = aws.StringValueSlice(v)
@@ -1753,8 +1736,7 @@ func flattenAnalysisRouteTableRoute(apiObject *ec2.AnalysisRouteTableRoute) map[
 
 	if v := apiObject.EgressOnlyInternetGatewayId; v != nil {
 		tfMap["egress_only_internet_gateway_id"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.GatewayId; v != nil {
 		tfMap["gateway_id"] = aws.StringValue(v)
 	}
@@ -1805,8 +1787,7 @@ func flattenAnalysisSecurityGroupRule(apiObject *ec2.AnalysisSecurityGroupRule) 
 	if v := apiObject.PrefixListId; v != nil {
 		tfMap["prefix_list_id"] = aws.StringValue(v)
 	}
-
-	if v := apiObject.Protocol; v != nil {
+funcv := apiObject.Protocol; v != nil {
 		tfMap["protocol"] = aws.StringValue(v)
 	}
 
@@ -1837,8 +1818,7 @@ func flattenExplanation(apiObject *ec2.Explanation) map[string]interface{} {
 		tfMap["address"] = aws.StringValue(v)
 	}
 
-	if v := apiObject.Addresses; v != nil {
-		tfMap["addresses"] = aws.StringValueSlice(v)
+funcMap["addresses"] = aws.StringValueSlice(v)
 	}
 
 	if v := apiObject.AttachedTo; v != nil {
@@ -2045,8 +2025,7 @@ func flattenExplanations(apiObjects []*ec2.Explanation) []interface{} {
 
 
 func flattenPathComponent(apiObject *ec2.PathComponent) map[string]interface{} {
-	if apiObject == nil {
-		return nil
+functurn nil
 	}
 
 	tfMap := map[string]interface{}{}
@@ -2065,8 +2044,7 @@ func flattenPathComponent(apiObject *ec2.PathComponent) map[string]interface{} {
 
 	if v := apiObject.DestinationVpc; v != nil {
 		tfMap["destination_vpc"] = []interface{}{flattenAnalysisComponent(v)}
-	}
-
+func
 	if v := apiObject.InboundHeader; v != nil {
 		tfMap["inbound_header"] = []interface{}{flattenAnalysisPacketHeader(v)}
 	}
@@ -2133,8 +2111,7 @@ func flattenPathComponents(apiObjects []*ec2.PathComponent) []interface{} {
 func flattenPortRange(apiObject *ec2.PortRange) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
+func
 	tfMap := map[string]interface{}{}
 
 	if v := apiObject.From; v != nil {
@@ -2153,8 +2130,7 @@ func flattenPortRanges(apiObjects []*ec2.PortRange) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
 	}
-
-	var tfList []interface{}
+func tfList []interface{}
 
 	for _, apiObject := range apiObjects {
 		if apiObject == nil {
@@ -2173,8 +2149,7 @@ func flattenTransitGatewayRouteTableRoute(apiObject *ec2.TransitGatewayRouteTabl
 		return nil
 	}
 
-	tfMap := map[string]interface{}{}
-
+func
 	if v := apiObject.AttachmentId; v != nil {
 		tfMap["attachment_id"] = aws.StringValue(v)
 	}
@@ -2193,8 +2168,7 @@ func flattenTransitGatewayRouteTableRoute(apiObject *ec2.TransitGatewayRouteTabl
 
 	if v := apiObject.ResourceType; v != nil {
 		tfMap["resource_type"] = aws.StringValue(v)
-	}
-
+func
 	if v := apiObject.RouteOrigin; v != nil {
 		tfMap["route_origin"] = aws.StringValue(v)
 	}

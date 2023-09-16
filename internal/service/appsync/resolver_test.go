@@ -27,10 +27,10 @@ func testAccResolver_basic(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_basic(rName),
@@ -60,10 +60,10 @@ func testAccResolver_code(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_code(rName, "test-fixtures/test-code.js"),
@@ -90,10 +90,10 @@ func testAccResolver_syncConfig(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_sync(rName),
@@ -122,10 +122,10 @@ func testAccResolver_disappears(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_basic(rName),
@@ -147,10 +147,10 @@ func testAccResolver_dataSource(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_basic(rName),
@@ -182,10 +182,10 @@ func testAccResolver_DataSource_lambda(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_dataSourceLambda(rName),
@@ -210,10 +210,10 @@ func testAccResolver_requestTemplate(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_requestTemplate(rName, "/"),
@@ -245,10 +245,10 @@ func testAccResolver_responseTemplate(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_responseTemplate(rName, 200),
@@ -280,10 +280,10 @@ func testAccResolver_multipleResolvers(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_multiple(rName),
@@ -311,10 +311,10 @@ func testAccResolver_pipeline(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_pipeline(rName),
@@ -340,10 +340,10 @@ func testAccResolver_caching(t *testing.T) {
 	resourceName := "aws_appsync_resolver.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResolverDestroy(ctx),
+		CheckDestroy:testAccCheckResolverDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResolverConfig_caching(rName),

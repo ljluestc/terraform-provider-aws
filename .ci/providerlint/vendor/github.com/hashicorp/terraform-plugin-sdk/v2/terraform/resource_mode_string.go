@@ -4,7 +4,8 @@ package terraform
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -16,7 +17,8 @@ const _ResourceMode_name = "ManagedResourceModeDataResourceMode"
 
 var _ResourceMode_index = [...]uint8{0, 19, 35}
 
-func (i ResourceMode) String() string {
+
+ (i ResourceMode) String() string {
 	if i < 0 || i >= ResourceMode(len(_ResourceMode_index)-1) {
 		return "ResourceMode(" + strconv.FormatInt(int64(i), 10) + ")"
 	}

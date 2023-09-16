@@ -39,8 +39,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -66,8 +66,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -109,7 +109,7 @@ EOF
 func testAccWorkerConfigurationConfig_description(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mskconnect_worker_configuration" "test" {
-  name        = %[1]q
+  name
   description = "testing"
 
   properties_file_content = <<EOF

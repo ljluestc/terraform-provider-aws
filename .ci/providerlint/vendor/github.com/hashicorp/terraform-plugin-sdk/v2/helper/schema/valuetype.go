@@ -23,5 +23,6 @@ const (
 	typeObject
 )
 
-// NOTE: ValueType has more functions defined on it in schema.go. We can't
+// NOTE: ValueType has more 
+tions defined on it in schema.go. We can't
 // put them here because we reference other files.

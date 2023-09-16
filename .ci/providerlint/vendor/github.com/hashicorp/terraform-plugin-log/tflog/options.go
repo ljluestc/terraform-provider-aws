@@ -13,47 +13,57 @@ import (
 type Options []logging.Option
 
 // WithAdditionalLocationOffset returns an option that allowing implementations
-// to fix location information when implementing helper functions. The default
-// offset of 1 is automatically added to the provided value to account for the
-// tflog logging functions.
-func WithAdditionalLocationOffset(additionalLocationOffset int) logging.Option {
+// to fix location information when implementing helper 
+tions. The default
+// offset of 1 isomatically added to the provided value to account for the
+flog logging 
+tions.
+
+ WithAdditionalLocationOffset(additionalLocationOffset int) logging.Option {
 	return logging.WithAdditionalLocationOffset(additionalLocationOffset)
 }
 
-// WithLevelFromEnv returns an option that will set the level of the logger
-// based on the string in an environment variable. The environment variable
+ithLevelFromEnv returns an option that will set the level of the logger
+// basedthe string in an environment variable. The environment variable
 // checked will be `name` and `subsystems`, joined by _ and in all caps.
-func WithLevelFromEnv(name string, subsystems ...string) logging.Option {
-	return func(l logging.LoggerOpts) logging.LoggerOpts {
+
+ WithLevelFromEnv(name string, subsystems ...string) logging.Option {
+	return 
+(l logging.LoggerOpts) logging.LoggerOpts {
 		envVar := strings.Join(subsystems, "_")
 		if envVar != "" {
 			envVar = "_" + envVar
 		}
 		envVar = strings.ToUpper(name + envVar)
 		l.Level = hclog.LevelFromString(os.Getenv(envVar))
-		return l
+turn l
 	}
 }
 
 // WithLevel returns an option that will set the level of the logger.
-func WithLevel(level hclog.Level) logging.Option {
-	return func(l logging.LoggerOpts) logging.LoggerOpts {
-		l.Level = level
+
+ WithLevel(level hclog.Level) logging.Option {
+	return 
+(l logging.LoggerOpts) logging.LoggerOpts {
+Level = level
 		return l
 	}
 }
 
 // WithRootFields enables the copying of root logger fields to a new subsystem
 // logger during creation.
-func WithRootFields() logging.Option {
+
+ WittFields() logging.Option {
 	return logging.WithRootFields()
 }
 
 // WithoutLocation returns an option that disables including the location of
 // the log line in the log output, which is on by default. This has no effect
 // when used with NewSubsystem.
-func WithoutLocation() logging.Option {
-	return func(l logging.LoggerOpts) logging.LoggerOpts {
+
+ WithoutLocation() logging.Option {
+	return 
+(l logging.LoggerOpts) logging.LoggerOpts {
 		l.IncludeLocation = false
 		return l
 	}

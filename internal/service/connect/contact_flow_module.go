@@ -29,6 +29,8 @@ const contactFlowModuleMutexKey = `aws_connect_contact_flow_module`
 // @SDKResource("aws_connect_contact_flow_module", name="Contact Flow Module")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourceContactFlowModule() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceContactFlowModuleCreate,
@@ -53,12 +55,20 @@ Type:    schema.TypeString,
 Optional:true,
 Computed:true,
 Validate
+
+
 func:     validation.StringIsJSON,
 ConflictsWith:    []string{"filename"},
 DiffSuppress
+
+
 func: verify.SuppressEquivalentJSONDiffs,
 State
+
+
 func: 
+
+
 func(v interface{}) string {
 	json, _ := structure.NormalizeJsonString(v)
 	return json
@@ -72,6 +82,8 @@ Optional: true,
 Type:schema.TypeString,
 Optional:     true,
 Validate
+
+
 func: validation.StringLenBetween(0, 500),
 	},
 	"filename": {
@@ -87,6 +99,8 @@ Required: true,
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 127),
 	},
 	names.AttrTags:    tftags.TagsSchema(),
@@ -94,6 +108,8 @@ func: validation.StringLenBetween(1, 127),
 },
 	}
 }
+
+
 
 
 func resourceContactFlowModuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -144,6 +160,8 @@ return diag.Errorf("creating Connect Contact Flow Module (%s): empty output", na
 }
 
 
+
+
 func resourceContactFlowModuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -183,6 +201,8 @@ return diag.Errorf("getting Connect Contact Flow Module (%s): empty response", d
 
 	return nil
 }
+
+
 
 
 func resourceContactFlowModuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -242,6 +262,8 @@ if updateContentInputErr != nil {
 }
 
 
+
+
 func resourceContactFlowModuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -263,6 +285,8 @@ return diag.Errorf("deleting Connect Contact Flow Module (%s): %s", d.Id(), dele
 }
 
 
+
+
 func ContactFlowModuleParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -272,6 +296,8 @@ return "", "", fmt.Errorf("unexpected format of ID (%s), expected instanceID:con
 
 	return parts[0], parts[1], nil
 }
+
+
 
 
 func resourceContactFlowModuleLoadFileContent(filename string) (string, error) {

@@ -13,7 +13,8 @@ import (
 // invalid.
 type StructuralError string
 
-func (s StructuralError) Error() string {
+
+StructuralError) Error() string {
 	return "openpgp: invalid data: " + string(s)
 }
 
@@ -21,7 +22,8 @@ func (s StructuralError) Error() string {
 // makes use of currently unimplemented features.
 type UnsupportedError string
 
-func (s UnsupportedError) Error() string {
+
+UnsupportedError) Error() string {
 	return "openpgp: unsupported feature: " + string(s)
 }
 
@@ -29,7 +31,8 @@ func (s UnsupportedError) Error() string {
 // incorrect value.
 type InvalidArgumentError string
 
-func (i InvalidArgumentError) Error() string {
+
+InvalidArgumentError) Error() string {
 	return "openpgp: invalid argument: " + string(i)
 }
 
@@ -37,7 +40,8 @@ func (i InvalidArgumentError) Error() string {
 // validate.
 type SignatureError string
 
-func (b SignatureError) Error() string {
+
+SignatureError) Error() string {
 	return "openpgp: invalid signature: " + string(b)
 }
 
@@ -46,7 +50,8 @@ var ErrMDCMissing error = SignatureError("MDC packet not found")
 
 type signatureExpiredError int
 
-func (se signatureExpiredError) Error() string {
+
+ signatureExpiredError) Error() string {
 	return "openpgp: signature expired"
 }
 
@@ -54,7 +59,8 @@ var ErrSignatureExpired error = signatureExpiredError(0)
 
 type keyExpiredError int
 
-func (ke keyExpiredError) Error() string {
+
+ keyExpiredError) Error() string {
 	return "openpgp: key expired"
 }
 
@@ -62,7 +68,8 @@ var ErrKeyExpired error = keyExpiredError(0)
 
 type keyIncorrectError int
 
-func (ki keyIncorrectError) Error() string {
+
+ keyIncorrectError) Error() string {
 	return "openpgp: incorrect key"
 }
 
@@ -72,13 +79,15 @@ var ErrKeyIncorrect error = keyIncorrectError(0)
 // as they do not match the private ones
 type KeyInvalidError string
 
-func (e KeyInvalidError) Error() string {
+
+KeyInvalidError) Error() string {
 	return "openpgp: invalid key: " + string(e)
 }
 
 type unknownIssuerError int
 
-func (unknownIssuerError) Error() string {
+
+knownIssuerError) Error() string {
 	return "openpgp: signature made by unknown entity"
 }
 
@@ -86,7 +95,8 @@ var ErrUnknownIssuer error = unknownIssuerError(0)
 
 type keyRevokedError int
 
-func (keyRevokedError) Error() string {
+
+yRevokedError) Error() string {
 	return "openpgp: signature made by revoked key"
 }
 
@@ -94,7 +104,8 @@ var ErrKeyRevoked error = keyRevokedError(0)
 
 type UnknownPacketTypeError uint8
 
-func (upte UnknownPacketTypeError) Error() string {
+
+te UnknownPacketTypeError) Error() string {
 	return "openpgp: unknown packet type: " + strconv.Itoa(int(upte))
 }
 
@@ -102,7 +113,8 @@ func (upte UnknownPacketTypeError) Error() string {
 // AEAD instance, configuration struct, nonces or index values.
 type AEADError string
 
-func (ae AEADError) Error() string {
+
+ AEADError) Error() string {
 	return "openpgp: aead error: " + string(ae)
 }
 
@@ -111,6 +123,7 @@ func (ae AEADError) Error() string {
 // https://git.gnupg.org/cgi-bin/gitweb.cgi?p=gnupg.git;a=blob;f=doc/DETAILS;h=fe55ae16ab4e26d8356dc574c9e8bc935e71aef1;hb=23191d7851eae2217ecdac6484349849a24fd94a#l1109
 type ErrDummyPrivateKey string
 
-func (dke ErrDummyPrivateKey) Error() string {
+
+e ErrDummyPrivateKey) Error() string {
 	return "openpgp: s2k GNU dummy key: " + string(dke)
 }

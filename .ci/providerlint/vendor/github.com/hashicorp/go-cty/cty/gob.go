@@ -15,7 +15,8 @@ import (
 //
 // Currently it is not possible to represent values of capsule types in gob,
 // because the types themselves cannot be represented.
-func (val Value) GobEncode() ([]byte, error) {
+
+l Value) GobEncode() ([]byte, error) {
 	if val.IsMarked() {
 		return nil, errors.New("value is marked")
 	}
@@ -40,7 +41,8 @@ func (val Value) GobEncode() ([]byte, error) {
 // GobDecode is an implementation of the gob.GobDecoder interface, which
 // inverts the operation performed by GobEncode. See the documentation of
 // GobEncode for considerations when using cty.Value instances with gob.
-func (val *Value) GobDecode(buf []byte) error {
+
+l *Value) GobDecode(buf []byte) error {
 	r := bytes.NewReader(buf)
 	dec := gob.NewDecoder(r)
 
@@ -70,7 +72,8 @@ func (val *Value) GobDecode(buf []byte) error {
 // allows Types to be included in structures encoded with encoding/gob.
 //
 // Currently it is not possible to represent capsule types in gob.
-func (t Type) GobEncode() ([]byte, error) {
+
+Type) GobEncode() ([]byte, error) {
 	buf := &bytes.Buffer{}
 	enc := gob.NewEncoder(buf)
 
@@ -90,7 +93,8 @@ func (t Type) GobEncode() ([]byte, error) {
 // GobDecode is an implementatino of the gob.GobDecoder interface, which
 // reverses the encoding performed by GobEncode to allow types to be recovered
 // from gob buffers.
-func (t *Type) GobDecode(buf []byte) error {
+
+*Type) GobDecode(buf []byte) error {
 	r := bytes.NewReader(buf)
 	dec := gob.NewDecoder(r)
 
@@ -110,11 +114,13 @@ func (t *Type) GobDecode(buf []byte) error {
 
 // Capsule types cannot currently be gob-encoded, because they rely on pointer
 // equality and we have no way to recover the original pointer on decode.
-func (t *capsuleType) GobEncode() ([]byte, error) {
+
+*capsuleType) GobEncode() ([]byte, error) {
 	return nil, fmt.Errorf("cannot gob-encode capsule type %q", t.FriendlyName(friendlyTypeName))
 }
 
-func (t *capsuleType) GobDecode() ([]byte, error) {
+
+*capsuleType) GobDecode() ([]byte, error) {
 	return nil, fmt.Errorf("cannot gob-decode capsule type %q", t.FriendlyName(friendlyTypeName))
 }
 
@@ -141,8 +147,10 @@ type gobCapsuleTypeImpl struct {
 // The implementation of gobDecodeFixNumberPtr mutates the given raw value
 // during its work, and may either return the same value mutated or a new
 // value. Callers must no longer use whatever value they pass as "raw" after
-// this function is called.
-func gobDecodeFixNumberPtr(raw interface{}, ty Type) interface{} {
+// this 
+ is called.
+
+DecodeFixNumberPtr(raw interface{}, ty Type) interface{} {
 	// Unfortunately we need to work recursively here because number values
 	// might be embedded in structural or collection type values.
 
@@ -195,7 +203,8 @@ func gobDecodeFixNumberPtr(raw interface{}, ty Type) interface{} {
 // that works with already-constructed values. This is primarily for testing,
 // to fix up intentionally-invalid number values for the parts of the test
 // code that need them to be valid, such as calling GoString on them.
-func gobDecodeFixNumberPtrVal(v Value) Value {
+
+DecodeFixNumberPtrVal(v Value) Value {
 	raw := gobDecodeFixNumberPtr(v.v, v.ty)
 	return Value{
 		v:  raw,

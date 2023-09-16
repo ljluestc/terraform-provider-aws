@@ -12,15 +12,14 @@ import (
 
 const (
 	ARNSeparator = "/"
-	ARNService   = "iam"
+	ARNServiceiam"
 
 	InstanceProfileResourcePrefix = "instance-profile"
 )
 
 // InstanceProfileARNToName converts Amazon Resource Name (ARN) to Name.
 
-func InstanceProfileARNToName(inputARN string) (string, error) {
-	parsedARN, err := arn.Parse(inputARN)
+funcsedARN, err := arn.Parse(inputARN)
 
 	if err != nil {
 		return "", fmt.Errorf("parsing ARN (%s): %w", inputARN, err)

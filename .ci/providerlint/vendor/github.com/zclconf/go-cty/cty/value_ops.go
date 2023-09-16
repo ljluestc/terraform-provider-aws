@@ -9,7 +9,8 @@ import (
 
 // GoString is an implementation of fmt.GoStringer that produces concise
 // source-like representations of values suitable for use in debug messages.
-func (val Value) GoString() string {
+
+ (val Value) GoString() string {
 if val.IsMarked() {
 unVal, marks := val.Unmark()
 if len(marks) == 1 {
@@ -127,8 +128,9 @@ return fmt.Sprintf("cty.Value{ty: %#v, v: %#v}", val.ty, val.v)
 // either of the given values are.
 //
 // Use RawEquals to compare if two values are equal *ignoring* the
-// short-circuit rules and the exception for null values.
-func (val Value) Equals(other Value) Value {
+hort-circuit rules and the exception for null values.
+
+ (val Value) Equals(other Value) Value {
 if val.ContainsMarked() || other.ContainsMarked() {
 val, valMarks := val.UnmarkDeep()
 other, otherMarks := other.UnmarkDeep()
@@ -158,9 +160,10 @@ return False
 }
 
 // We need to deal with unknown values before anything else with nulls
-// because any unknown value that hasn't yet been refined as non-null
+// because any unn value that hasn't yet been refined as non-null
 // could become null, and nulls of any types are equal to one another.
-unknownResult := func() Value {
+unknownResult := 
+() Value {
 return UnknownVal(Bool).Refine().NotNull().NewValue()
 }
 switch {
@@ -380,43 +383,48 @@ panic(fmt.Errorf("unsupported value type %#v in Equals", ty))
 }
 
 return BoolVal(result)
-}
+
 
 // NotEqual is a shorthand for Equals followed by Not.
-func (val Value) NotEqual(other Value) Value {
+
+ (val Value) NotEqual(other Value) Value {
 return val.Equals(other).Not()
 }
 
 // True returns true if the receiver is True, false if False, and panics if
 // the receiver is not of type Bool.
 //
-// This is a helper function to help write application logic that works with
+his is a helper 
+tion to help write application logic that works with
 // values, rather than a first-class operation. It does not work with unknown
 // or null values. For more robust handling with unknown value
 // short-circuiting, use val.Equals(cty.True).
-func (val Value) True() bool {
+
+ (val Value) True() bool {
 val.assertUnmarked()
 if val.ty != Bool {
-panic("not bool")
+c("not bool")
 }
 return val.Equals(True).v.(bool)
 }
 
 // False is the opposite of True.
-func (val Value) False() bool {
+
+ (val Value) False() bool {
 return !val.True()
 }
 
 // RawEquals returns true if and only if the two given values have the same
 // type and equal value, ignoring the usual short-circuit rules about
-// unknowns and dynamic types.
+nknowns and dynamic types.
 //
 // This method is more appropriate for testing than for real use, since it
 // skips over usual semantics around unknowns but as a consequence allows
 // testing the result of another operation that is expected to return unknown.
 // It returns a primitive Go bool rather than a Value to remind us that it
 // is not a first-class value operation.
-func (val Value) RawEquals(other Value) bool {
+
+ (val Value) RawEquals(other Value) bool {
 if !val.ty.Equals(other.ty) {
 return false
 }
@@ -576,7 +584,7 @@ return val.v == other.v
 }
 return impl(val.v, other.v)
 
-default:
+ult:
 // should never happen
 panic(fmt.Errorf("unsupported value type %#v in RawEquals", ty))
 }
@@ -584,7 +592,8 @@ panic(fmt.Errorf("unsupported value type %#v in RawEquals", ty))
 
 // Add returns the sum of the receiver and the given other value. Both values
 // must be numbers; this method will panic if not.
-func (val Value) Add(other Value) Value {
+
+ (val Value) Add(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -595,7 +604,7 @@ if shortCircuit := mustTypeCheck(Number, Number, val, other); shortCircuit != ni
 shortCircuit = forceShortCircuitType(shortCircuit, Number)
 ret := shortCircuit.RefineWith(numericRangeArithmetic(Value.Add, val.Range(), other.Range()))
 return ret.RefineNotNull()
-}
+
 
 ret := new(big.Float)
 ret.Add(val.v.(*big.Float), other.v.(*big.Float))
@@ -604,7 +613,8 @@ return NumberVal(ret)
 
 // Subtract returns receiver minus the given other value. Both values must be
 // numbers; this method will panic if not.
-func (val Value) Subtract(other Value) Value {
+
+ (val Value) Subtract(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -612,7 +622,7 @@ return val.Subtract(other).WithMarks(valMarks, otherMarks)
 }
 
 if shortCircuit := mustTypeCheck(Number, Number, val, other); shortCircuit != nil {
-shortCircuit = forceShortCircuitType(shortCircuit, Number)
+tCircuit = forceShortCircuitType(shortCircuit, Number)
 ret := shortCircuit.RefineWith(numericRangeArithmetic(Value.Subtract, val.Range(), other.Range()))
 return ret.RefineNotNull()
 }
@@ -622,13 +632,14 @@ return val.Add(other.Negate())
 
 // Negate returns the numeric negative of the receiver, which must be a number.
 // This method will panic when given a value of any other type.
-func (val Value) Negate() Value {
+
+ (val Value) Negate() Value {
 if val.IsMarked() {
 val, valMarks := val.Unmark()
 return val.Negate().WithMarks(valMarks)
 }
 
-if shortCircuit := mustTypeCheck(Number, Number, val); shortCircuit != nil {
+hortCircuit := mustTypeCheck(Number, Number, val); shortCircuit != nil {
 shortCircuit = forceShortCircuitType(shortCircuit, Number)
 return (*shortCircuit).RefineNotNull()
 }
@@ -639,7 +650,8 @@ return NumberVal(ret)
 
 // Multiply returns the product of the receiver and the given other value.
 // Both values must be numbers; this method will panic if not.
-func (val Value) Multiply(other Value) Value {
+
+ (val Value) Multiply(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -688,9 +700,11 @@ return NumberVal(ret)
 // undesirable, in which case the caller should check whether the
 // other value equals zero before calling and raise an error instead.
 //
-// If both values are zero or infinity, this function will panic with
+// If both values are zero or infinity, this 
+tion will panic with
 // an instance of big.ErrNaN.
-func (val Value) Divide(other Value) Value {
+
+ (val Value) Divide(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -711,7 +725,7 @@ return NumberVal(ret)
 }
 
 // Modulo returns the remainder of an integer division of the receiver and
-// the given other value. Both values must be numbers; this method will panic
+he given other value. Both values must be numbers; this method will panic
 // if not.
 //
 // If the "other" value is exactly zero, this operation will return either
@@ -722,10 +736,12 @@ return NumberVal(ret)
 //
 // This operation is primarily here for use with nonzero natural numbers.
 // Modulo with "other" as a non-natural number gets somewhat philosophical,
-// and this function takes a position on what that should mean, but callers
+// and this 
+tion takes a position on what that should mean, but callers
 // may wish to disallow such things outright or implement their own modulo
 // if they disagree with the interpretation used here.
-func (val Value) Modulo(other Value) Value {
+
+ (val Value) Modulo(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -748,7 +764,7 @@ return val
 }
 
 // FIXME: This is a bit clumsy. Should come back later and see if there's a
-// more straightforward way to do this.
+ore straightforward way to do this.
 rat := val.Divide(other)
 ratFloorInt, _ := rat.v.(*big.Float).Int(nil)
 
@@ -764,7 +780,8 @@ return NumberVal(work)
 
 // Absolute returns the absolute (signless) value of the receiver, which must
 // be a number or this method will panic.
-func (val Value) Absolute() Value {
+
+ (val Value) Absolute() Value {
 if val.IsMarked() {
 val, valMarks := val.Unmark()
 return val.Absolute().WithMarks(valMarks)
@@ -772,7 +789,7 @@ return val.Absolute().WithMarks(valMarks)
 
 if shortCircuit := mustTypeCheck(Number, Number, val); shortCircuit != nil {
 shortCircuit = forceShortCircuitType(shortCircuit, Number)
-return (*shortCircuit).Refine().NotNull().NumberRangeInclusive(Zero, UnknownVal(Number)).NewValue()
+rn (*shortCircuit).Refine().NotNull().NumberRangeInclusive(Zero, UnknownVal(Number)).NewValue()
 }
 
 ret := (&big.Float{}).Abs(val.v.(*big.Float))
@@ -789,7 +806,8 @@ return NumberVal(ret)
 //
 // This method may be called on a value whose type is DynamicPseudoType,
 // in which case the result will also be DynamicVal.
-func (val Value) GetAttr(name string) Value {
+
+ (val Value) GetAttr(name string) Value {
 if val.IsMarked() {
 val, valMarks := val.Unmark()
 return val.GetAttr(name).WithMarks(valMarks)
@@ -818,7 +836,7 @@ return Value{
 ty: attrType,
 v:  val.v.(map[string]interface{})[name],
 }
-}
+
 
 // Index returns the value of an element of the receiver, which must have
 // either a list, map or tuple type. This method will panic if the receiver
@@ -836,7 +854,8 @@ v:  val.v.(map[string]interface{})[name],
 //
 // This method may be called on a value whose type is DynamicPseudoType,
 // in which case the result will also be the DynamicValue.
-func (val Value) Index(key Value) Value {
+
+ (val Value) Index(key Value) Value {
 if val.IsMarked() || key.IsMarked() {
 val, valMarks := val.Unmark()
 key, keyMarks := key.Unmark()
@@ -918,7 +937,7 @@ eltys := val.Type().TupleElementTypes()
 
 if !val.IsKnown() {
 return UnknownVal(eltys[index])
-}
+
 
 return Value{
 ty: eltys[index],
@@ -937,7 +956,8 @@ panic("not a list, map, or tuple type")
 //
 // This method will panic if the receiver is not indexable, but does not
 // impose any panic-causing type constraints on the key.
-func (val Value) HasIndex(key Value) Value {
+
+ (val Value) HasIndex(key Value) Value {
 if val.IsMarked() || key.IsMarked() {
 val, valMarks := val.Unmark()
 key, keyMarks := key.Unmark()
@@ -1020,7 +1040,8 @@ panic("not a list, map, or tuple type")
 // given value are unknown.
 //
 // This method will panic if the receiver is not a set, or if it is a null set.
-func (val Value) HasElement(elem Value) Value {
+
+ (val Value) HasElement(elem Value) Value {
 if val.IsMarked() || elem.IsMarked() {
 val, valMarks := val.Unmark()
 elem, elemMarks := elem.Unmark()
@@ -1035,7 +1056,7 @@ panic("not a set type")
 if !val.IsKnown() || !elem.IsKnown() {
 return UnknownVal(Bool).RefineNotNull()
 }
-if val.IsNull() {
+al.IsNull() {
 panic("can't call HasElement on a null value")
 }
 if !ty.ElementType().Equals(elem.Type()) {
@@ -1052,11 +1073,15 @@ return BoolVal(s.Has(elem.v))
 //
 // If the receiver is unknown then the result is also unknown.
 //
-// If the receiver is null then this function will panic.
+// If the receiver is null then this 
+tion will panic.
 //
 // Note that Length is not supported for strings. To determine the length
-// of a string, use the Length function in funcs/stdlib.
-func (val Value) Length() Value {
+// of a string, use the Length 
+tion in 
+s/stdlib.
+
+ (val Value) Length() Value {
 if val.IsMarked() {
 val, valMarks := val.Unmark()
 return val.Length().WithMarks(valMarks)
@@ -1073,8 +1098,8 @@ if !val.IsKnown() {
 rng := val.Range()
 return UnknownVal(Number).RefineWith(valueRefineLengthResult(rng))
 }
-if val.Type().IsSetType() {
-// The Length rules are a little different for sets because if any
+al.Type().IsSetType() {
+// The th rules are a little different for sets because if any
 // unknown values are present then the values they are standing in for
 // may or may not be equal to other elements in the set, and thus they
 // may or may not coalesce with other elements and produce fewer
@@ -1096,10 +1121,13 @@ return UnknownVal(Number).Refine().NotNull().NumberRangeInclusive(NumberIntVal(1
 }
 
 return NumberIntVal(int64(val.LengthInt()))
-}
 
-func valueRefineLengthResult(collRng ValueRange) func(*RefinementBuilder) *RefinementBuilder {
-return func(b *RefinementBuilder) *RefinementBuilder {
+
+
+ valueRefineLengthResult(collRng ValueRange) 
+(*RefinementBuilder) *RefinementBuilder {
+return 
+(b *RefinementBuilder) *RefinementBuilder {
 return b.
 NotNull().
 NumberRangeInclusive(
@@ -1121,7 +1149,8 @@ NumberIntVal(int64(collRng.LengthUpperBound())),
 // case, whereas LengthInt will return the maximum possible length as if the
 // unknown values were each a placeholder for a value not equal to any other
 // value in the set.
-func (val Value) LengthInt() int {
+
+ (val Value) LengthInt() int {
 val.assertUnmarked()
 if val.Type().IsTupleType() {
 // For tuples, we can return the length even if the value is not known.
@@ -1158,7 +1187,7 @@ return val.v.(set.Set[interface{}]).Length()
 case val.ty.IsMapType():
 return len(val.v.(map[string]interface{}))
 
-default:
+ult:
 panic("value is not a collection")
 }
 }
@@ -1171,7 +1200,7 @@ panic("value is not a collection")
 //
 // If the receiver is of a list type, the returned keys will be of type Number
 // and the values will be of the list's element type.
-//
+
 // If the receiver is of a map type, the returned keys will be of type String
 // and the value will be of the map's element type. Elements are passed in
 // ascending lexicographical order by key.
@@ -1182,12 +1211,13 @@ panic("value is not a collection")
 // If the receiver is of a tuple type, the returned keys will be of type Number
 // and the value will be of the corresponding element's type.
 //
-// If the receiver is of an object type, the returned keys will be of type
+// If the receiver is of an object type, the returned keys will betype
 // String and the value will be of the corresponding attributes's type.
 //
 // ElementIterator is an integration method, so it cannot handle Unknown
 // values. This method will panic if the receiver is Unknown.
-func (val Value) ElementIterator() ElementIterator {
+
+ (val Value) ElementIterator() ElementIterator {
 val.assertUnmarked()
 if !val.IsKnown() {
 panic("can't use ElementIterator on unknown value")
@@ -1200,23 +1230,27 @@ return elementIterator(val)
 
 // CanIterateElements returns true if the receiver can support the
 // ElementIterator method (and by extension, ForEachElement) without panic.
-func (val Value) CanIterateElements() bool {
+
+l Value) CanIterateElements() bool {
 return canElementIterator(val)
 }
 
-// ForEachElement executes a given callback function for each element of
+// ForEachElement executes a given callback 
+tion for each element of
 // the receiver, which must be a collection type or tuple type, or this method
 // will panic.
 //
 // ForEachElement uses ElementIterator internally, and so the values passed
 // to the callback are as described for ElementIterator.
 //
-// Returns true if the iteration exited early due to the callback function
+// Returns true if the iteration exited early due to the callback 
+tion
 // returning true, or false if the loop ran to completion.
 //
-// ForEachElement is an integration method, so it cannot handle Unknown
+orEachElement is an integration method, so it cannot handle Unknown
 // values. This method will panic if the receiver is Unknown.
-func (val Value) ForEachElement(cb ElementCallback) bool {
+
+ (val Value) ForEachElement(cb ElementCallback) bool {
 val.assertUnmarked()
 it := val.ElementIterator()
 for it.Next() {
@@ -1231,11 +1265,12 @@ return false
 
 // Not returns the logical inverse of the receiver, which must be of type
 // Bool or this method will panic.
-func (val Value) Not() Value {
+
+ (val Value) Not() Value {
 if val.IsMarked() {
 val, valMarks := val.Unmark()
 return val.Not().WithMarks(valMarks)
-}
+
 
 if shortCircuit := mustTypeCheck(Bool, Bool, val); shortCircuit != nil {
 shortCircuit = forceShortCircuitType(shortCircuit, Bool)
@@ -1247,7 +1282,8 @@ return BoolVal(!val.v.(bool))
 
 // And returns the result of logical AND with the receiver and the other given
 // value, which must both be of type Bool or this method will panic.
-func (val Value) And(other Value) Value {
+
+ (val Value) And(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -1257,7 +1293,7 @@ return val.And(other).WithMarks(valMarks, otherMarks)
 if shortCircuit := mustTypeCheck(Bool, Bool, val, other); shortCircuit != nil {
 // If either value is known to be exactly False then it doesn't
 // matter what the other value is, because the final result must
-// either be False or an error.
+ither be False or an error.
 if val == False || other == False {
 return False
 }
@@ -1270,7 +1306,8 @@ return BoolVal(val.v.(bool) && other.v.(bool))
 
 // Or returns the result of logical OR with the receiver and the other given
 // value, which must both be of type Bool or this method will panic.
-func (val Value) Or(other Value) Value {
+
+ (val Value) Or(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
@@ -1293,8 +1330,9 @@ return BoolVal(val.v.(bool) || other.v.(bool))
 
 // LessThan returns True if the receiver is less than the other given value,
 // which must both be numbers or this method will panic.
-func (val Value) LessThan(other Value) Value {
-if val.IsMarked() || other.IsMarked() {
+
+ (val Value) LessThan(other Value) Value {
+al.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
 return val.LessThan(other).WithMarks(valMarks, otherMarks)
@@ -1332,17 +1370,18 @@ return BoolVal(val.v.(*big.Float).Cmp(other.v.(*big.Float)) < 0)
 
 // GreaterThan returns True if the receiver is greater than the other given
 // value, which must both be numbers or this method will panic.
-func (val Value) GreaterThan(other Value) Value {
+
+ (val Value) GreaterThan(other Value) Value {
 if val.IsMarked() || other.IsMarked() {
 val, valMarks := val.Unmark()
 other, otherMarks := other.Unmark()
-return val.GreaterThan(other).WithMarks(valMarks, otherMarks)
+rn val.GreaterThan(other).WithMarks(valMarks, otherMarks)
 }
 
 if shortCircuit := mustTypeCheck(Number, Bool, val, other); shortCircuit != nil {
 // We might be able to return a known answer even with unknown inputs.
 // FIXME: This is more conservative than it needs to be, because it
-// treats all bounds as exclusive bounds.
+reats all bounds as exclusive bounds.
 valRng := val.Range()
 otherRng := other.Range()
 if valRng.TypeConstraint() == Number && other.Range().TypeConstraint() == Number {
@@ -1362,7 +1401,7 @@ return False
 }
 }
 
-shortCircuit = forceShortCircuitType(shortCircuit, Bool)
+tCircuit = forceShortCircuitType(shortCircuit, Bool)
 return (*shortCircuit).RefineNotNull()
 }
 
@@ -1370,18 +1409,21 @@ return BoolVal(val.v.(*big.Float).Cmp(other.v.(*big.Float)) > 0)
 }
 
 // LessThanOrEqualTo is equivalent to LessThan and Equal combined with Or.
-func (val Value) LessThanOrEqualTo(other Value) Value {
+
+ (val Value) LessThanOrEqualTo(other Value) Value {
 return val.LessThan(other).Or(val.Equals(other))
 }
 
 // GreaterThanOrEqualTo is equivalent to GreaterThan and Equal combined with Or.
-func (val Value) GreaterThanOrEqualTo(other Value) Value {
+
+ (val Value) GreaterThanOrEqualTo(other Value) Value {
 return val.GreaterThan(other).Or(val.Equals(other))
 }
 
 // AsString returns the native string from a non-null, non-unknown cty.String
 // value, or panics if called on any other value.
-func (val Value) AsString() string {
+
+l Value) AsString() string {
 val.assertUnmarked()
 if val.ty != String {
 panic("not a string")
@@ -1401,7 +1443,8 @@ return val.v.(string)
 //
 // For more convenient conversions to other native numeric types, use the
 // "gocty" package.
-func (val Value) AsBigFloat() *big.Float {
+
+l Value) AsBigFloat() *big.Float {
 val.assertUnmarked()
 if val.ty != Number {
 panic("not a number")
@@ -1423,9 +1466,10 @@ return new(big.Float).Copy(val.v.(*big.Float))
 //
 // For more convenient conversions to slices of more specific types, use
 // the "gocty" package.
-func (val Value) AsValueSlice() []Value {
+
+ (val Value) AsValueSlice() []Value {
 val.assertUnmarked()
-l := val.LengthInt()
+ val.LengthInt()
 if l == 0 {
 return nil
 }
@@ -1444,10 +1488,11 @@ return ret
 //
 // For more convenient conversions to maps of more specific types, use
 // the "gocty" package.
-func (val Value) AsValueMap() map[string]Value {
+
+ (val Value) AsValueMap() map[string]Value {
 val.assertUnmarked()
 l := val.LengthInt()
-if l == 0 {
+ == 0 {
 return nil
 }
 
@@ -1469,7 +1514,8 @@ return ret
 // element types.
 //
 // The returned ValueSet can store only values of the receiver's element type.
-func (val Value) AsValueSet() ValueSet {
+
+ (val Value) AsValueSet() ValueSet {
 val.assertUnmarked()
 if !val.Type().IsCollectionType() {
 panic("not a collection type")
@@ -1492,7 +1538,8 @@ return ret
 // The result is the same pointer that was passed to CapsuleVal to create
 // the value. Since cty considers values to be immutable, it is strongly
 // recommended to treat the encapsulated value itself as immutable too.
-func (val Value) EncapsulatedValue() interface{} {
+
+ (val Value) EncapsulatedValue() interface{} {
 val.assertUnmarked()
 if !val.Type().IsCapsuleType() {
 panic("not a capsule-typed value")

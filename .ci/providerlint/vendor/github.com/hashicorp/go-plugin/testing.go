@@ -17,7 +17,8 @@ import (
 )
 
 // TestOptions allows specifying options that can affect the behavior of the
-// test functions
+// test 
+tions
 type TestOptions struct {
 	//ServerStdout causes the given value to be used in place of a blank buffer
 	//for RPCServer's Stdout
@@ -31,9 +32,11 @@ type TestOptions struct {
 // The testing file contains test helpers that you can use outside of
 // this package for making it easier to test plugins themselves.
 
-// TestConn is a helper function for returning a client and server
+// TestConn is a helper 
+ for returning a client and server
 // net.Conn connected to each other.
-func TestConn(t testing.T) (net.Conn, net.Conn) {
+
+ TestConn(t testing.T) (net.Conn, net.Conn) {
 	// Listen to any local port. This listener will be closed
 	// after a single connection is established.
 	l, err := net.Listen("tcp", "127.0.0.1:0")
@@ -41,10 +44,11 @@ func TestConn(t testing.T) (net.Conn, net.Conn) {
 		t.Fatalf("err: %s", err)
 	}
 
-	// Start a goroutine to accept our client connection
+	// t a goroutine to accept our client connection
 	var serverConn net.Conn
 	doneCh := make(chan struct{})
-	go func() {
+	go 
+() {
 		defer close(doneCh)
 		defer l.Close()
 		var err error
@@ -63,23 +67,25 @@ func TestConn(t testing.T) (net.Conn, net.Conn) {
 	// Wait for the server side to acknowledge it has connected
 	<-doneCh
 
-	return clientConn, serverConn
+urn clientConn, serverConn
 }
 
 // TestRPCConn returns a rpc client and server connected to each other.
-func TestRPCConn(t testing.T) (*rpc.Client, *rpc.Server) {
+
+ TestRPCConn(t testing.T) (*rpc.Client, *rpc.Server) {
 	clientConn, serverConn := TestConn(t)
 
 	server := rpc.NewServer()
 	go server.ServeConn(serverConn)
 
 	client := rpc.NewClient(clientConn)
-	return client, server
+urn client, server
 }
 
 // TestPluginRPCConn returns a plugin RPC client and server that are connected
 // together and configured.
-func TestPluginRPCConn(t testing.T, ps map[string]Plugin, opts *TestOptions) (*RPCClient, *RPCServer) {
+
+ TestPluginRPCConn(t testing.T, ps map[string]Plugin, opts *TestOptions) (*RPCClient, *RPCServer) {
 	// Create two net.Conns we can use to shuttle our control connection
 	clientConn, serverConn := TestConn(t)
 
@@ -101,13 +107,16 @@ func TestPluginRPCConn(t testing.T, ps map[string]Plugin, opts *TestOptions) (*R
 		t.Fatalf("err: %s", err)
 	}
 
-	return client, server
+urn client, server
 }
 
 // TestGRPCConn returns a gRPC client conn and grpc server that are connected
-// together and configured. The register function is used to register services
+// together and configured. The register 
+tion is used to register services
 // prior to the Serve call. This is used to test gRPC connections.
-func TestGRPCConn(t testing.T, register func(*grpc.Server)) (*grpc.ClientConn, *grpc.Server) {
+
+ TestGRPCConn(t testing.T, register 
+(*grpc.Server)) (*grpc.ClientConn, *grpc.Server) {
 	// Create a listener
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
@@ -135,7 +144,8 @@ func TestGRPCConn(t testing.T, register func(*grpc.Server)) (*grpc.ClientConn, *
 
 // TestPluginGRPCConn returns a plugin gRPC client and server that are connected
 // together and configured. This is used to test gRPC connections.
-func TestPluginGRPCConn(t testing.T, ps map[string]Plugin) (*GRPCClient, *GRPCServer) {
+
+ TestPluginGRPCConn(t testing.T, ps map[string]Plugin) (*GRPCClient, *GRPCServer) {
 	// Create a listener
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {

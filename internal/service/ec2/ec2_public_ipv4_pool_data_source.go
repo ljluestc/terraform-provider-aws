@@ -17,54 +17,53 @@ import (
 
 // @SDKDataSource("aws_ec2_public_ipv4_pool")
 
-func DataSourcePublicIPv4Pool() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourcePublicIPv4PoolRead,
 
 		Schema: map[string]*schema.Schema{
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"network_border_group": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"pool_address_ranges": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"available_address_count": {
-							Type:     schema.TypeInt,
+							Type:eInt,
 							Computed: true,
 						},
 						"first_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"last_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"total_address_count": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"total_available_address_count": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -72,8 +71,7 @@ func DataSourcePublicIPv4Pool() *schema.Resource {
 }
 
 func dataSourcePublicIPv4PoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	poolID := d.Get("pool_id").(string)
@@ -100,8 +98,7 @@ func dataSourcePublicIPv4PoolRead(ctx context.Context, d *schema.ResourceData, m
 
 func flattenPublicIPv4PoolRange(apiObject *ec2.PublicIpv4PoolRange) map[string]interface{} {
 	if apiObject == nil {
-		return nil
-	}
+func
 
 	tfMap := map[string]interface{}{}
 
@@ -127,8 +124,7 @@ func flattenPublicIPv4PoolRange(apiObject *ec2.PublicIpv4PoolRange) map[string]i
 func flattenPublicIPv4PoolRanges(apiObjects []*ec2.PublicIpv4PoolRange) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
-	}
-
+func
 	var tfList []interface{}
 
 	for _, apiObject := range apiObjects {

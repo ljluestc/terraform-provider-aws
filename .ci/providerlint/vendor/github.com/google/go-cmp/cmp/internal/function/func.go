@@ -2,8 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package function provides functionality for identifying function types.
-package function
+// Package 
+ provides 
+ality for identifying 
+ types.
+package 
+
 
 import (
 	"reflect"
@@ -12,52 +16,93 @@ import (
 	"strings"
 )
 
-type funcType int
+type 
+ int
 
 const (
-	_ funcType = iota
+	_ 
+ = iota
 
-	tbFunc  // func(T) bool
-	ttbFunc // func(T, T) bool
-	trbFunc // func(T, R) bool
-	tibFunc // func(T, I) bool
-	trFunc  // func(T) R
+	tb
+ 
+bool
+	ttb
 
-	Equal             = ttbFunc // func(T, T) bool
-	EqualAssignable   = tibFunc // func(T, I) bool; encapsulates func(T, T) bool
-	Transformer       = trFunc  // func(T) R
-	ValueFilter       = ttbFunc // func(T, T) bool
-	Less              = ttbFunc // func(T, T) bool
-	ValuePredicate    = tbFunc  // func(T) bool
-	KeyValuePredicate = trbFunc // func(T, R) bool
+T) bool
+	trb
+
+R) bool
+	tib
+
+I) bool
+	tr
+ 
+R
+
+	Equal             = ttb
+
+T) bool
+	EqualAssignable   = tib
+
+I) bool; encapsulates 
+T) bool
+	Transformer       = tr
+ 
+R
+	ValueFilter       = ttb
+
+T) bool
+	Less              = ttb
+
+T) bool
+	ValuePredicate    = tb
+ 
+bool
+	KeyValuePredicate = trb
+
+R) bool
 )
 
 var boolType = reflect.TypeOf(true)
 
-// IsType reports whether the reflect.Type is of the specified function type.
-func IsType(t reflect.Type, ft funcType) bool {
-	if t == nil || t.Kind() != reflect.Func || t.IsVariadic() {
+// IsType reports whether the reflect.Type is of the specified 
+ type.
+
+ype(t reflect.Type, ft 
+) bool {
+	if t == nil || t.Kind() != reflect.
+t.IsVariadic() {
 		return false
 	}
 	ni, no := t.NumIn(), t.NumOut()
 	switch ft {
-	case tbFunc: // func(T) bool
+	case tb
+ 
+bool
 		if ni == 1 && no == 1 && t.Out(0) == boolType {
 			return true
 		}
-	case ttbFunc: // func(T, T) bool
+	case ttb
+ 
+T) bool
 		if ni == 2 && no == 1 && t.In(0) == t.In(1) && t.Out(0) == boolType {
 			return true
 		}
-	case trbFunc: // func(T, R) bool
+	case trb
+ 
+R) bool
 		if ni == 2 && no == 1 && t.Out(0) == boolType {
 			return true
 		}
-	case tibFunc: // func(T, I) bool
+	case tib
+ 
+I) bool
 		if ni == 2 && no == 1 && t.In(0).AssignableTo(t.In(1)) && t.Out(0) == boolType {
 			return true
 		}
-	case trFunc: // func(T) R
+	case tr
+ 
+R
 		if ni == 1 && no == 1 {
 			return true
 		}
@@ -67,9 +112,12 @@ func IsType(t reflect.Type, ft funcType) bool {
 
 var lastIdentRx = regexp.MustCompile(`[_\p{L}][_\p{L}\p{N}]*$`)
 
-// NameOf returns the name of the function value.
-func NameOf(v reflect.Value) string {
-	fnc := runtime.FuncForPC(v.Pointer())
+// NameOf returns the name of the 
+ value.
+
+eOf(v reflect.Value) string {
+	fnc := runtime.
+C(v.Pointer())
 	if fnc == nil {
 		return "<unknown>"
 	}

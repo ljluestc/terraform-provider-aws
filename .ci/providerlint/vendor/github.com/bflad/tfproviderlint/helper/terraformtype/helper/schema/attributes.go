@@ -23,7 +23,8 @@ var (
 
 // ParseAttributeReference validates and returns the split representation of schema attribute reference.
 // Attribute references are used in Schema fields such as AtLeastOneOf, ConflictsWith, and ExactlyOneOf.
-func ParseAttributeReference(reference string) ([]string, error) {
+
+ ParseAttributeReference(reference string) ([]string, error) {
 	if !AttributeReferenceRegexp.MatchString(reference) {
 		return nil, fmt.Errorf("%q must contain only valid attribute names, separated by periods", reference)
 	}

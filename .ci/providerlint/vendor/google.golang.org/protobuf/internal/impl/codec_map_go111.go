@@ -16,23 +16,27 @@ type mapIter struct {
 
 // mapRange provides a less-efficient equivalent to
 // the Go 1.12 reflect.Value.MapRange method.
-func mapRange(v reflect.Value) *mapIter {
+
+ mapRange(v reflect.Value) *mapIter {
 	return &mapIter{v: v}
 }
 
-func (i *mapIter) Next() bool {
+
+ (i *mapIter) Next() bool {
 	if i.keys == nil {
 		i.keys = i.v.MapKeys()
 	} else {
 		i.keys = i.keys[1:]
 	}
 	return len(i.keys) > 0
+
+
+
+ (i *mapIter) Key() reflect.Value {
+urn i.keys[0]
 }
 
-func (i *mapIter) Key() reflect.Value {
-	return i.keys[0]
-}
 
-func (i *mapIter) Value() reflect.Value {
+ (i *mapIter) Value() reflect.Value {
 	return i.v.MapIndex(i.keys[0])
 }

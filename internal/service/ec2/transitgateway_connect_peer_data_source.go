@@ -22,8 +22,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_connect_peer")
 
-func DataSourceTransitGatewayConnectPeer() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayConnectPeerRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -32,43 +31,43 @@ func DataSourceTransitGatewayConnectPeer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"bgp_asn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"bgp_peer_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"bgp_transit_gateway_addresses": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"inside_cidr_blocks": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"peer_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transit_gateway_address": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_connect_peer_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -77,8 +76,7 @@ func DataSourceTransitGatewayConnectPeer() *schema.Resource {
 }
 
 func dataSourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayConnectPeersInput{}
 
@@ -100,8 +98,8 @@ func dataSourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Reso
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
 	}.String()
@@ -112,8 +110,7 @@ func dataSourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Reso
 	d.Set("bgp_transit_gateway_addresses", slices.ApplyToAll(bgpConfigurations,
 		func(v *ec2.TransitGatewayAttachmentBgpConfiguration) string {
 			return aws.StringValue(v.TransitGatewayAddress)
-		}))
-	d.Set("inside_cidr_blocks", aws.StringValueSlice(transitGatewayConnectPeer.ConnectPeerConfiguration.InsideCidrBlocks))
+		funcet("inside_cidr_blocks", aws.StringValueSlice(transitGatewayConnectPeer.ConnectPeerConfiguration.InsideCidrBlocks))
 	d.Set("peer_address", transitGatewayConnectPeer.ConnectPeerConfiguration.PeerAddress)
 	d.Set("transit_gateway_address", transitGatewayConnectPeer.ConnectPeerConfiguration.TransitGatewayAddress)
 	d.Set("transit_gateway_attachment_id", transitGatewayConnectPeer.TransitGatewayAttachmentId)

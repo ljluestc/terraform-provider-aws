@@ -11,7 +11,8 @@ import (
 )
 
 // NewColorable returns new instance of Writer which handles escape sequence.
-func NewColorable(file *os.File) io.Writer {
+
+Colorable(file *os.File) io.Writer {
 	if file == nil {
 		panic("nil passed instead of *os.File to NewColorable()")
 	}
@@ -20,19 +21,24 @@ func NewColorable(file *os.File) io.Writer {
 }
 
 // NewColorableStdout returns new instance of Writer which handles escape sequence for stdout.
-func NewColorableStdout() io.Writer {
+
+ColorableStdout() io.Writer {
 	return os.Stdout
 }
 
 // NewColorableStderr returns new instance of Writer which handles escape sequence for stderr.
-func NewColorableStderr() io.Writer {
+
+ColorableStderr() io.Writer {
 	return os.Stderr
 }
 
 // EnableColorsStdout enable colors if possible.
-func EnableColorsStdout(enabled *bool) func() {
+
+bleColorsStdout(enabled *bool) 
+
 	if enabled != nil {
 		*enabled = true
 	}
-	return func() {}
+	return 
+}
 }

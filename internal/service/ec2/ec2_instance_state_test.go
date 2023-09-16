@@ -18,8 +18,7 @@ import (
 )
 
 
-func TestAccEC2InstanceState_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ec2_instance_state.test"
 	state := "stopped"
 	force := "false"
@@ -27,17 +26,15 @@ func TestAccEC2InstanceState_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStateConfig_basic(state, force),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckInstanceStateExists(ctx, resourceName),
-	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-	resource.TestCheckResourceAttr(resourceName, "state", state),
+funcource.TestCheckResourceAttr(resourceName, "state", state),
 ),
 	},
 },
@@ -48,8 +45,7 @@ func(
 func TestAccEC2InstanceState_state(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_state.test"
-	stateStopped := "stopped"
-	stateRunning := "running"
+functeRunning := "running"
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -57,9 +53,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckInstanceDestroy(ctx),
+func
 Config: testAccInstanceStateConfig_basic(stateStopped, force),
 Check: resource.ComposeTestCheck
 func(
@@ -67,10 +62,9 @@ func(
 	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 	resource.TestCheckResourceAttr(resourceName, "state", stateStopped),
 ),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+func
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -82,8 +76,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "state", stateRunning),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -94,18 +87,16 @@ func TestAccEC2InstanceState_disappears_Instance(t *testing.T) {
 	state := "stopped"
 	force := "false"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+CheckDestroy:stAccCheckInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStateConfig_basic(state, force),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckInstanceStateExists(ctx, resourceName),
+functAccCheckInstanceStateExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInstance(), parentResourceName),
 ),
 ExpectNonEmptyPlan: true,
@@ -113,8 +104,7 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-
+func
 func testAccCheckInstanceStateExists(ctx context.Context, n string) resource.TestCheck
 func {
 	return 
@@ -125,13 +115,10 @@ if !ok {
 }
 
 if rs.Primary.ID == "" {
-	return errors.New("No EC2InstanceState ID is set")
-}
+func
+func := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-out, err := tfec2.FindInstanceStateByID(ctx, conn, rs.Primary.ID)
-
+func
 if err != nil {
 	return err
 }
@@ -157,8 +144,7 @@ resource "aws_instance" "test" {
 
 resource "aws_ec2_instance_state" "test" {
   instance_id = aws_instance.test.id
-  state       = %[1]q
-  force       = %[2]s
-}
+  state
+func
 `, state, force))
 }

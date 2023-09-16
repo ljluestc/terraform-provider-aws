@@ -30,10 +30,10 @@ func TestAccLightsailDomainEntry_basic(t *testing.T) {
 	domainEntryName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainEntryDestroy(ctx),
+		CheckDestroy:omainEntryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainEntryConfig_basic(domainName, domainEntryName),
@@ -57,7 +57,7 @@ func TestAccLightsailDomainEntry_basic(t *testing.T) {
 				ImportState:       true,
 				ImportStateIdFunc: testAccDomainEntryStateLegacyIdFunc(resourceName),
 				ImportStateVerify: true,
-				Check:             resource.TestCheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
+				Check:CheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
 			},
 		},
 	})
@@ -70,10 +70,10 @@ func TestAccLightsailDomainEntry_underscore(t *testing.T) {
 	domainEntryName := "_" + sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainEntryDestroy(ctx),
+		CheckDestroy:omainEntryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainEntryConfig_basic(domainName, domainEntryName),
@@ -97,7 +97,7 @@ func TestAccLightsailDomainEntry_underscore(t *testing.T) {
 				ImportState:       true,
 				ImportStateIdFunc: testAccDomainEntryStateLegacyIdFunc(resourceName),
 				ImportStateVerify: true,
-				Check:             resource.TestCheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
+				Check:CheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
 			},
 		},
 	})
@@ -110,10 +110,10 @@ func TestAccLightsailDomainEntry_apex(t *testing.T) {
 	domainEntryName := ""
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainEntryDestroy(ctx),
+		CheckDestroy:omainEntryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainEntryConfig_basic(domainName, domainEntryName),
@@ -137,7 +137,7 @@ func TestAccLightsailDomainEntry_apex(t *testing.T) {
 				ImportState:       true,
 				ImportStateIdFunc: testAccDomainEntryStateLegacyIdFunc(resourceName),
 				ImportStateVerify: true,
-				Check:             resource.TestCheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
+				Check:CheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "A", "127.0.0.1")),
 			},
 		},
 	})
@@ -150,10 +150,10 @@ func TestAccLightsailDomainEntry_disappears(t *testing.T) {
 	domainEntryName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainEntryDestroy(ctx),
+		CheckDestroy:omainEntryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainEntryConfig_basic(domainName, domainEntryName),
@@ -174,10 +174,10 @@ func TestAccLightsailDomainEntry_typeAAAA(t *testing.T) {
 	domainEntryName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, string(types.RegionNameUsEast1)) },
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainEntryDestroy(ctx),
+		CheckDestroy:omainEntryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainEntryConfig_typeAAAA(domainName, domainEntryName),
@@ -201,7 +201,7 @@ func TestAccLightsailDomainEntry_typeAAAA(t *testing.T) {
 				ImportState:       true,
 				ImportStateIdFunc: testAccDomainEntryStateLegacyIdFunc(resourceName),
 				ImportStateVerify: true,
-				Check:             resource.TestCheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "AAAA", "::1")),
+				Check:CheckResourceAttr(resourceName, "id", fmt.Sprintf("%s,%s,%s,%s", domainEntryName, domainName, "AAAA", "::1")),
 			},
 		},
 	})

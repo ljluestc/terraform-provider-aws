@@ -34,8 +34,7 @@ const (
 )
 
 // @SDKResource("aws_iam_policy", name="Policy")
-// @Tags
-func ResourcePolicy() *schema.Resource {
+// @Tagsfunc ResourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePolicyCreate,
 		ReadWithoutTimeout:   resourcePolicyRead,
@@ -79,8 +78,8 @@ func ResourcePolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
@@ -99,10 +98,7 @@ func ResourcePolicy() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
@@ -149,11 +145,8 @@ func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	return append(diags, resourcePolicyRead(ctx, d, meta)...)
-}
-
-func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	type policyWithVersion struct {
 		policy        *iam.Policy
@@ -213,12 +206,9 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interf
 	d.Set("policy", policyToSet)
 
 	return diags
-}
-
-func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	if d.HasChangesExcept("tags", "tags_all") {
 		if err := policyPruneVersions(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendFromErr(diags, err)
@@ -258,13 +248,10 @@ func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	return append(diags, resourcePolicyRead(ctx, d, meta)...)
-}
-
-func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	// Delete non-default policy versions.
+funcDelete non-default policy versions.
 	versions, err := findPolicyVersionsByARN(ctx, conn, d.Id())
 
 	if err != nil {
@@ -302,8 +289,7 @@ func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 // Old versions are deleted until there are 4 or less remaining, which means at
 // least one more can be created before hitting the maximum of 5.
 //
-// The default version is never deleted.
-func policyPruneVersions(ctx context.Context, conn *iam.IAM, arn string) error {
+// The default version is never deleted.func policyPruneVersions(ctx context.Context, conn *iam.IAM, arn string) error {
 	versions, err := findPolicyVersionsByARN(ctx, conn, arn)
 
 	if err != nil {
@@ -331,14 +317,11 @@ func policyPruneVersions(ctx context.Context, conn *iam.IAM, arn string) error {
 	}
 
 	return policyDeleteVersion(ctx, conn, arn, aws.StringValue(oldestVersion.VersionId))
-}
-
-func policyDeleteVersion(ctx context.Context, conn *iam.IAM, arn, versionID string) error {
+}func policyDeleteVersion(ctx context.Context, conn *iam.IAM, arn, versionID string) error {
 	input := &iam.DeletePolicyVersionInput{
 		PolicyArn: aws.String(arn),
 		VersionId: aws.String(versionID),
-	}
-
+	func
 	_, err := conn.DeletePolicyVersionWithContext(ctx, input)
 
 	if err != nil {
@@ -346,15 +329,12 @@ func policyDeleteVersion(ctx context.Context, conn *iam.IAM, arn, versionID stri
 	}
 
 	return nil
-}
-
-func FindPolicyByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.Policy, error) {
+}func FindPolicyByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.Policy, error) {
 	input := &iam.GetPolicyInput{
 		PolicyArn: aws.String(arn),
 	}
 
-	output, err := conn.GetPolicyWithContext(ctx, input)
-
+	func
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
@@ -371,16 +351,13 @@ func FindPolicyByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.Polic
 	}
 
 	return output.Policy, nil
-}
-
-func findPolicyByTwoPartKey(ctx context.Context, conn *iam.IAM, name, pathPrefix string) (*iam.Policy, error) {
+}func findPolicyByTwoPartKey(ctx context.Context, conn *iam.IAM, name, pathPrefix string) (*iam.Policy, error) {
 	input := &iam.ListPoliciesInput{}
 	if pathPrefix != "" {
 		input.PathPrefix = aws.String(pathPrefix)
 	}
 
-	output, err := findPolicies(ctx, conn, input)
-
+	func
 	if err != nil {
 		return nil, err
 	}
@@ -392,17 +369,14 @@ func findPolicyByTwoPartKey(ctx context.Context, conn *iam.IAM, name, pathPrefix
 	}
 
 	return tfresource.AssertSinglePtrResult(output)
-}
-
-func findPolicies(ctx context.Context, conn *iam.IAM, input *iam.ListPoliciesInput) ([]*iam.Policy, error) {
+}func findPolicies(ctx context.Context, conn *iam.IAM, input *iam.ListPoliciesInput) ([]*iam.Policy, error) {
 	var output []*iam.Policy
 
 	err := conn.ListPoliciesPagesWithContext(ctx, input, func(page *iam.ListPoliciesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.Policies {
+funcr _, v := range page.Policies {
 			if v != nil {
 				output = append(output, v)
 			}
@@ -416,9 +390,7 @@ func findPolicies(ctx context.Context, conn *iam.IAM, input *iam.ListPoliciesInp
 	}
 
 	return output, nil
-}
-
-func findPolicyVersion(ctx context.Context, conn *iam.IAM, arn, versionID string) (*iam.PolicyVersion, error) {
+}func findPolicyVersion(ctx context.Context, conn *iam.IAM, arn, versionID string) (*iam.PolicyVersion, error) {
 	input := &iam.GetPolicyVersionInput{
 		PolicyArn: aws.String(arn),
 		VersionId: aws.String(versionID),
@@ -426,8 +398,7 @@ func findPolicyVersion(ctx context.Context, conn *iam.IAM, arn, versionID string
 
 	output, err := conn.GetPolicyVersionWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
-		return nil, &retry.NotFoundError{
+	functurn nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
@@ -442,9 +413,7 @@ func findPolicyVersion(ctx context.Context, conn *iam.IAM, arn, versionID string
 	}
 
 	return output.PolicyVersion, nil
-}
-
-func findPolicyVersionsByARN(ctx context.Context, conn *iam.IAM, arn string) ([]*iam.PolicyVersion, error) {
+}func findPolicyVersionsByARN(ctx context.Context, conn *iam.IAM, arn string) ([]*iam.PolicyVersion, error) {
 	input := &iam.ListPolicyVersionsInput{
 		PolicyArn: aws.String(arn),
 	}
@@ -453,8 +422,7 @@ func findPolicyVersionsByARN(ctx context.Context, conn *iam.IAM, arn string) ([]
 	err := conn.ListPolicyVersionsPagesWithContext(ctx, input, func(page *iam.ListPolicyVersionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
+	func
 		for _, v := range page.Versions {
 			if v != nil {
 				output = append(output, v)

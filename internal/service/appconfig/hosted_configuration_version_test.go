@@ -26,10 +26,10 @@ func TestAccAppConfigHostedConfigurationVersion_basic(t *testing.T) {
 	resourceName := "aws_appconfig_hosted_configuration_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHostedConfigurationVersionDestroy(ctx),
+		CheckDestroy:testAccCheckHostedConfigurationVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedConfigurationVersionConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccAppConfigHostedConfigurationVersion_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_hosted_configuration_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHostedConfigurationVersionDestroy(ctx),
+		CheckDestroy:testAccCheckHostedConfigurationVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedConfigurationVersionConfig_basic(rName),
@@ -160,7 +160,7 @@ func testAccHostedConfigurationVersionConfig_basic(rName string) string {
 resource "aws_appconfig_hosted_configuration_version" "test" {
   application_id           = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
-  content_type             = "application/json"
+  content_type= "application/json"
 
   content = jsonencode({
     foo = "bar"

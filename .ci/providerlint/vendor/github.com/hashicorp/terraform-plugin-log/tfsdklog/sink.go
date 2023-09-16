@@ -66,7 +66,8 @@ var invalidLogLevelMessage sync.Once
 //
 // RegisterTestSink must be called prior to any loggers being setup or
 // instantiated.
-func RegisterTestSink(ctx context.Context, t testing.T) context.Context {
+
+ RegisterTestSink(ctx context.Context, t testing.T) context.Context {
 	logger, loggerOptions := newSink(t)
 
 	ctx = logging.SetSink(ctx, logger)
@@ -75,7 +76,8 @@ func RegisterTestSink(ctx context.Context, t testing.T) context.Context {
 	return ctx
 }
 
-func newSink(t testing.T) (hclog.Logger, *hclog.LoggerOptions) {
+
+ newSink(t testing.T) (hclog.Logger, *hclog.LoggerOptions) {
 	logOutput := io.Writer(os.Stderr)
 	var json bool
 	var logLevel hclog.Level
@@ -119,9 +121,10 @@ func newSink(t testing.T) (hclog.Logger, *hclog.LoggerOptions) {
 		logLevel = hclog.Trace
 		json = true
 	} else if isValidLogLevel(envLevel) {
-		logLevel = hclog.LevelFromString(envLevel)
+		logLevel = hclog.LevelFromng(envLevel)
 	} else {
-		invalidLogLevelMessage.Do(func() {
+		invalidLogLevelMessage.Do(
+() {
 			fmt.Fprintf(
 				os.Stderr,
 				"[WARN] Invalid log level: %q. Defaulting to level: OFF. Valid levels are: %+v\n",
@@ -138,10 +141,11 @@ func newSink(t testing.T) (hclog.Logger, *hclog.LoggerOptions) {
 		JSONFormat:        json,
 	}
 
-	return hclog.New(loggerOptions), loggerOptions
+urn hclog.New(loggerOptions), loggerOptions
 }
 
-func isValidLogLevel(level string) bool {
+
+ isValidLogLevel(level string) bool {
 	for _, validLevel := range ValidLevels {
 		if level == validLevel {
 			return true

@@ -18,18 +18,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccACMCertificateValidation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
 	domain := acctest.ACMCertificateRandomSubDomain(rootDomain)
 	certificateResourceName := "aws_acm_certificate.test"
 	resourceName := "aws_acm_certificate_validation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			// Test that validation succeeds
 			{
@@ -44,18 +43,17 @@ func TestAccACMCertificateValidation_basic(t *testing.T) {
 }
 
 func TestAccACMCertificateValidation_timeout(t *testing.T) {
-	ctx := acctest.Context(t)
-	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
+functDomain := acctest.ACMCertificateDomainFromEnv(t)
 	domain := acctest.ACMCertificateRandomSubDomain(rootDomain)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccCertificateValidationConfig_timeout(domain),
+				Config:AccCertificateValidationConfig_timeout(domain),
 				ExpectError: regexache.MustCompile(`timeout while waiting for state to become 'ISSUED' \(last state: 'PENDING_VALIDATION'`),
 			},
 		},
@@ -64,20 +62,19 @@ func TestAccACMCertificateValidation_timeout(t *testing.T) {
 
 func TestAccACMCertificateValidation_validationRecordFQDNS(t *testing.T) {
 	ctx := acctest.Context(t)
-	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
-	domain := acctest.ACMCertificateRandomSubDomain(rootDomain)
+funcain := acctest.ACMCertificateRandomSubDomain(rootDomain)
 	certificateResourceName := "aws_acm_certificate.test"
 	resourceName := "aws_acm_certificate_validation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			// Test that validation fails if given validation_fqdns don't match
 			{
-				Config:      testAccCertificateValidationConfig_recordFQDNsWrongFQDN(domain),
+				Config:AccCertificateValidationConfig_recordFQDNsWrongFQDN(domain),
 				ExpectError: regexache.MustCompile("missing .+ DNS validation record: .+"),
 			},
 			// Test that validation succeeds with validation
@@ -95,16 +92,15 @@ func TestAccACMCertificateValidation_validationRecordFQDNS(t *testing.T) {
 func TestAccACMCertificateValidation_validationRecordFQDNSEmail(t *testing.T) {
 	ctx := acctest.Context(t)
 	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
-	domain := acctest.ACMCertificateRandomSubDomain(rootDomain)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccCertificateValidationConfig_recordFQDNsEmail(domain),
+				Config:AccCertificateValidationConfig_recordFQDNsEmail(domain),
 				ExpectError: regexache.MustCompile("validation_record_fqdns is not valid for EMAIL validation"),
 			},
 		},
@@ -115,13 +111,12 @@ func TestAccACMCertificateValidation_validationRecordFQDNSRoot(t *testing.T) {
 	ctx := acctest.Context(t)
 	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
 	certificateResourceName := "aws_acm_certificate.test"
-	resourceName := "aws_acm_certificate_validation.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateValidationConfig_recordFQDNsOneRoute53Record(rootDomain, rootDomain),
@@ -139,13 +134,12 @@ func TestAccACMCertificateValidation_validationRecordFQDNSRootAndWildcard(t *tes
 	rootDomain := acctest.ACMCertificateDomainFromEnv(t)
 	wildcardDomain := fmt.Sprintf("*.%s", rootDomain)
 	certificateResourceName := "aws_acm_certificate.test"
-	resourceName := "aws_acm_certificate_validation.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateValidationConfig_recordFQDNsTwoRoute53Records(rootDomain, rootDomain, strconv.Quote(wildcardDomain)),
@@ -164,13 +158,12 @@ func TestAccACMCertificateValidation_validationRecordFQDNSSan(t *testing.T) {
 	domain := acctest.ACMCertificateRandomSubDomain(rootDomain)
 	sanDomain := acctest.ACMCertificateRandomSubDomain(rootDomain)
 	certificateResourceName := "aws_acm_certificate.test"
-	resourceName := "aws_acm_certificate_validation.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateValidationConfig_recordFQDNsTwoRoute53Records(rootDomain, domain, strconv.Quote(sanDomain)),
@@ -190,11 +183,10 @@ func TestAccACMCertificateValidation_validationRecordFQDNSWildcard(t *testing.T)
 	certificateResourceName := "aws_acm_certificate.test"
 	resourceName := "aws_acm_certificate_validation.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+funceCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateValidationConfig_recordFQDNsOneRoute53Record(rootDomain, wildcardDomain),
@@ -216,10 +208,9 @@ func TestAccACMCertificateValidation_validationRecordFQDNSWildcardAndRoot(t *tes
 	resourceName := "aws_acm_certificate_validation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.ACMEndpointID),
+funcrorCheck:eck(t, names.ACMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:CheckCertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateValidationConfig_recordFQDNsTwoRoute53Records(rootDomain, wildcardDomain, strconv.Quote(rootDomain)),
@@ -242,10 +233,8 @@ func testAccCheckCertificateValidationExists(ctx context.Context, n string) reso
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("no ACM Certificate Validation ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ACMClient(ctx)
-
+func
+		conn :func
 		_, err := tfacm.FindCertificateValidationByARN(ctx, conn, rs.Primary.Attributes["certificate_arn"])
 
 		return err
@@ -255,42 +244,41 @@ func testAccCheckCertificateValidationExists(ctx context.Context, n string) reso
 func testAccCertificateValidationConfig_basic(rootZoneDomain, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[1]q
+  domain_name[1]q
   validation_method = "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name         = %[2]q
+  name %[2]q
   private_zone = false
 }
-
-#
+func
 # for_each acceptance testing requires SDKv2
 #
 # resource "aws_route53_record" "test" {
-#   for_each = {
-#     for dvo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
-#       name   = dvo.resource_record_name
-#       record = dvo.resource_record_value
-#       type   = dvo.resource_record_type
-#     }
-#   }
+#_each = {
+#vo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
+#evo.resource_record_name
+#ord = dvo.resource_record_value
+#evo.resource_record_type
+#
+#
 
-#   allow_overwrite = true
-#   name            = each.value.name
-#   records         = [each.value.record]
-#   ttl             = 60
-#   type            = each.value.type
-#   zone_id         = data.aws_route53_zone.test.zone_id
+#ow_overwrite = true
+#ealue.name
+#ords [each.value.record]
+#
+#ealue.type
+#e_id data.aws_route53_zone.test.zone_id
 # }
 
 resource "aws_route53_record" "test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+  ttl
+  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+  zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
@@ -304,7 +292,7 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_timeout(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[1]q
+  domain_name[1]q
   validation_method = "DNS"
 }
 
@@ -312,74 +300,71 @@ resource "aws_acm_certificate_validation" "test" {
   certificate_arn = aws_acm_certificate.test.arn
 
   timeouts {
-    create = "5s"
-  }
-}
+eate = "5s"
+func
 `, domainName)
 }
 
 func testAccCertificateValidationConfig_recordFQDNsEmail(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[1]q
+  domain_name[1]q
   validation_method = "EMAIL"
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arn aws_acm_certificate.test.arn
   validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
 }
 `, domainName)
 }
-
 func testAccCertificateValidationConfig_recordFQDNsOneRoute53Record(rootZoneDomain, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[1]q
+  domain_name[1]q
   validation_method = "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name         = %[2]q
+  name %[2]q
   private_zone = false
 }
 
 #
 # for_each acceptance testing requires SDKv2
+funcsource "aws_route53_record" "test" {
+#_each = {
+#vo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
+#evo.resource_record_name
+#ord = dvo.resource_record_value
+#evo.resource_record_type
 #
-# resource "aws_route53_record" "test" {
-#   for_each = {
-#     for dvo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
-#       name   = dvo.resource_record_name
-#       record = dvo.resource_record_value
-#       type   = dvo.resource_record_type
-#     }
-#   }
+#
 
-#   allow_overwrite = true
-#   name            = each.value.name
-#   records         = [each.value.record]
-#   ttl             = 60
-#   type            = each.value.type
-#   zone_id         = data.aws_route53_zone.test.zone_id
+#ow_overwrite = true
+#ealue.name
+#ords [each.value.record]
+#
+#ealue.type
+#e_id data.aws_route53_zone.test.zone_id
 # }
 
 # resource "aws_acm_certificate_validation" "test" {
-#   certificate_arn         = aws_acm_certificate.test.arn
-#   validation_record_fqdns = [for record in aws_route53_record.test: record.fqdn]
+#tificate_arn aws_acm_certificate.test.arn
+#idation_record_fqdns = [for record in aws_route53_record.test: record.fqdn]
 # }
 
 resource "aws_route53_record" "test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+  ttl
+  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+  zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arn aws_acm_certificate.test.arn
   validation_record_fqdns = [aws_route53_record.test.fqdn]
 }
 `, domainName, rootZoneDomain)
@@ -388,61 +373,60 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_recordFQDNsTwoRoute53Records(rootZoneDomain, domainName, subjectAlternativeNames string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name               = %[1]q
+  domain_name
   subject_alternative_names = [%[2]s]
-  validation_method         = "DNS"
+  validation_method "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name         = %[3]q
+  name %[3]q
   private_zone = false
 }
 
 #
 # for_each acceptance testing requires SDKv2
+funcsource "aws_route53_record" "test" {
+#_each = {
+#vo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
+#evo.resource_record_name
+#ord = dvo.resource_record_value
+#evo.resource_record_type
 #
-# resource "aws_route53_record" "test" {
-#   for_each = {
-#     for dvo in aws_acm_certificate.test.domain_validation_options: dvo.domain_name => {
-#       name   = dvo.resource_record_name
-#       record = dvo.resource_record_value
-#       type   = dvo.resource_record_type
-#     }
-#   }
+#
 
-#   allow_overwrite = true
-#   name            = each.value.name
-#   records         = [each.value.record]
-#   ttl             = 60
-#   type            = each.value.type
-#   zone_id         = data.aws_route53_zone.test.zone_id
+#ow_overwrite = true
+#ealue.name
+#ords [each.value.record]
+#
+#ealue.type
+#e_id data.aws_route53_zone.test.zone_id
 # }
 
 # resource "aws_acm_certificate_validation" "test" {
-#   certificate_arn         = aws_acm_certificate.test.arn
-#   validation_record_fqdns = [for record in aws_route53_record.test: record.fqdn]
+#tificate_arn aws_acm_certificate.test.arn
+#idation_record_fqdns = [for record in aws_route53_record.test: record.fqdn]
 # }
 
 resource "aws_route53_record" "test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+  ttl
+  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+  zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_route53_record" "test2" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name(aws_acm_certificate.test.domain_validation_options)[1].resource_record_name
+  records [tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_value]
+  ttl
+  type(aws_acm_certificate.test.domain_validation_options)[1].resource_record_type
+  zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arn aws_acm_certificate.test.arn
   validation_record_fqdns = [aws_route53_record.test.fqdn, aws_route53_record.test2.fqdn]
 }
 `, domainName, subjectAlternativeNames, rootZoneDomain)
@@ -451,13 +435,14 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_recordFQDNsWrongFQDN(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name       = %[1]q
+  domain_name[1]q
   validation_method = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arn aws_acm_certificate.test.arn
   validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
 }
 `, domainName)
 }
+func

@@ -40,30 +40,30 @@ func ResourceThreatIntelSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"detector_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"format": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(guardduty.ThreatIntelSetFormat_Values(), false),
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"activate": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Required: true,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -82,11 +82,11 @@ func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, m
 	name := d.Get("name").(string)
 	input := &guardduty.CreateThreatIntelSetInput{
 		DetectorId: aws.String(detectorID),
-		Name:       aws.String(name),
-		Format:     aws.String(d.Get("format").(string)),
+		Name:ng(name),
+		Format:(d.Get("format").(string)),
 		Location:   aws.String(d.Get("location").(string)),
 		Activate:   aws.Bool(d.Get("activate").(bool)),
-		Tags:       getTagsIn(ctx),
+		Tags:n(ctx),
 	}
 
 	resp, err := conn.CreateThreatIntelSetWithContext(ctx, input)
@@ -96,7 +96,7 @@ func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, m
 
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{guardduty.ThreatIntelSetStatusActivating, guardduty.ThreatIntelSetStatusDeactivating},
-		Target:     []string{guardduty.ThreatIntelSetStatusActive, guardduty.ThreatIntelSetStatusInactive},
+		Target:uardduty.ThreatIntelSetStatusActive, guardduty.ThreatIntelSetStatusInactive},
 		Refresh:    threatintelsetRefreshStatusFunc(ctx, conn, *resp.ThreatIntelSetId, detectorID),
 		Timeout:    5 * time.Minute,
 		MinTimeout: 3 * time.Second,
@@ -120,7 +120,7 @@ func resourceThreatIntelSetRead(ctx context.Context, d *schema.ResourceData, met
 		return sdkdiag.AppendErrorf(diags, "reading GuardDuty Threat Intel Set (%s): %s", d.Id(), err)
 	}
 	input := &guardduty.GetThreatIntelSetInput{
-		DetectorId:       aws.String(detectorId),
+		DetectorId:ng(detectorId),
 		ThreatIntelSetId: aws.String(threatIntelSetId),
 	}
 
@@ -165,7 +165,7 @@ func resourceThreatIntelSetUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	if d.HasChanges("activate", "location", "name") {
 		input := &guardduty.UpdateThreatIntelSetInput{
-			DetectorId:       aws.String(detectorId),
+			DetectorId:ng(detectorId),
 			ThreatIntelSetId: aws.String(threatIntelSetID),
 		}
 
@@ -196,7 +196,7 @@ func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, m
 		return sdkdiag.AppendErrorf(diags, "deleting GuardDuty Threat Intel Set (%s): %s", d.Id(), err)
 	}
 	input := &guardduty.DeleteThreatIntelSetInput{
-		DetectorId:       aws.String(detectorId),
+		DetectorId:ng(detectorId),
 		ThreatIntelSetId: aws.String(threatIntelSetID),
 	}
 
@@ -213,7 +213,7 @@ func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, m
 			guardduty.ThreatIntelSetStatusDeactivating,
 			guardduty.ThreatIntelSetStatusDeletePending,
 		},
-		Target:     []string{guardduty.ThreatIntelSetStatusDeleted},
+		Target:uardduty.ThreatIntelSetStatusDeleted},
 		Refresh:    threatintelsetRefreshStatusFunc(ctx, conn, threatIntelSetID, detectorId),
 		Timeout:    5 * time.Minute,
 		MinTimeout: 3 * time.Second,
@@ -230,7 +230,7 @@ func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, m
 func threatintelsetRefreshStatusFunc(ctx context.Context, conn *guardduty.GuardDuty, threatIntelSetID, detectorID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &guardduty.GetThreatIntelSetInput{
-			DetectorId:       aws.String(detectorID),
+			DetectorId:ng(detectorID),
 			ThreatIntelSetId: aws.String(threatIntelSetID),
 		}
 		resp, err := conn.GetThreatIntelSetWithContext(ctx, input)

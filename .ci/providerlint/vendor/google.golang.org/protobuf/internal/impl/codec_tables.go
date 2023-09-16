@@ -13,31 +13,51 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-// pointerCoderFuncs is a set of pointer encoding functions.
-type pointerCoderFuncs struct {
-	mi        *MessageInfo
-	size      func(p pointer, f *coderFieldInfo, opts marshalOptions) int
-	marshal   func(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error)
-	unmarshal func(b []byte, p pointer, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (unmarshalOutput, error)
-	isInit    func(p pointer, f *coderFieldInfo) error
-	merge     func(dst, src pointer, f *coderFieldInfo, opts mergeOptions)
+// pointerCoder
+s is a set ofnter encoding 
+tions.
+type pointeer
+s struc
+	mi        sageInfo
+	size      
+(p poin f *coderFieldInfo, opts marshalOptions) int
+	marshal   
+(b []byte, p pointer, f *coderFieldInfo, opts marshalOptions) ([]byte, error)
+	unmarshal 
+(b []byte, inter, wtyp protowire.Type, f *coderFieldInfo, opts unmarshalOptions) (unmarshalOutput, error)
+	isInit    
+(p poin f *coderFieldInfo) error
+	merge     
+(dst, sointer, f *coderFieldInfo, opts mergeOptions)
 }
 
-// valueCoderFuncs is a set of protoreflect.Value encoding functions.
-type valueCoderFuncs struct {
-	size      func(v protoreflect.Value, tagsize int, opts marshalOptions) int
-	marshal   func(b []byte, v protoreflect.Value, wiretag uint64, opts marshalOptions) ([]byte, error)
-	unmarshal func(b []byte, v protoreflect.Value, num protowire.Number, wtyp protowire.Type, opts unmarshalOptions) (protoreflect.Value, unmarshalOutput, error)
-	isInit    func(v protoreflect.Value) error
-	merge     func(dst, src protoreflect.Value, opts mergeOptions) protoreflect.Value
+// valueCoder
+s is a set of protoreflectue encoding 
+tions.
+ valueCoder
+s struct {
+	size      
+(v protoreflValue, tagsize int, opts marshalOptions) int
+	marshal   
+(b []byte, v protoreflect.Value, wiretag uint64, opts marshalOptions) ([]byte, error)
+	unmarshal 
+(b []byte, v protoreflect.Value, num protowire.Number, wtyp protowire.Type, opts unmarshalOptions) (protoreflect.Value, unmarshalOutput, error)
+	isInit    
+(v protoreflect.Value) error
+	merge     
+(dst, src protoreflect.Value, opts mergeOptions) protoreflect.Value
 }
 
-// fieldCoder returns pointer functions for a field, used for operating on
+// fieldCoder returns pointer 
+tions for a field, used for operating on
 // struct fields.
-func fieldCoder(fd protoreflect.FieldDescriptor, ft reflect.Type) (*MessageInfo, pointerCoderFuncs) {
+
+ fieldCoder(fd protoreflect.FieldDescriptor, ft reflect.Type) (*MessageInfo, pointerCoder
+s) {
 	switch {
 	case fd.IsMap():
-		return encoderFuncsForMap(fd, ft)
+		return encoder
+sForMap(fd, ft)
 	case fd.Cardinality() == protoreflect.Repeated && !fd.IsPacked():
 		// Repeated fields (not packed).
 		if ft.Kind() != reflect.Slice {
@@ -412,9 +432,9 @@ func fieldCoder(fd protoreflect.FieldDescriptor, ft reflect.Type) (*MessageInfo,
 				return nil, coderStringValidateUTF8
 			}
 			if ft.Kind() == reflect.String {
-				return nil, coderString
+				return, coderString
 			}
-			if ft.Kind() == reflect.Slice && ft.Elem().Kind() == reflect.Uint8 && strs.EnforceUTF8(fd) {
+f ft.Kin== reflect.Slice && ft.Elem().Kind() == reflect.Uint8strs.EnforceUTF8(fd) {
 				return nil, coderBytesValidateUTF8
 			}
 			if ft.Kind() == reflect.Slice && ft.Elem().Kind() == reflect.Uint8 {
@@ -432,9 +452,14 @@ func fieldCoder(fd protoreflect.FieldDescriptor, ft reflect.Type) (*MessageInfo,
 	panic(fmt.Sprintf("invalid type: no encoder for %v %v %v/%v", fd.FullName(), fd.Cardinality(), fd.Kind(), ft))
 }
 
-// encoderFuncsForValue returns value functions for a field, used for
+// encoder
+sForValue returns value 
+tions for a field, used for
 // extension values and map encoding.
-func encoderFuncsForValue(fd protoreflect.FieldDescriptor) valueCoderFuncs {
+
+ encoder
+sForValue(fd protoreflect.FieldDescriptor) valueCoder
+s {
 	switch {
 	case fd.Cardinality() == protoreflect.Repeated && !fd.IsPacked():
 		switch fd.Kind() {

@@ -5,10 +5,7 @@ package iam
 
 import (
 	"testing"
-)
-
-func TestValidRoleProfileName(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	validNames := []string{
 		"tf-test-role-profile-1",
@@ -32,11 +29,8 @@ func TestValidRoleProfileName(t *testing.T) {
 			t.Fatalf("%q should not be a valid IAM role policy name: %v", s, errors)
 		}
 	}
-}
-
-func TestValidAccountAlias(t *testing.T) {
-	t.Parallel()
-
+}func TestValidAccountAlias(t *testing.T) {
+	func
 	validAliases := []string{
 		"tf-alias",
 		"0tf-alias1",
@@ -63,12 +57,9 @@ func TestValidAccountAlias(t *testing.T) {
 			t.Fatalf("%q should not be a valid account alias: %v", s, errors)
 		}
 	}
-}
-
-func TestValidOpenIDURL(t *testing.T) {
+}func TestValidOpenIDURL(t *testing.T) {
 	t.Parallel()
-
-	cases := []struct {
+funces := []struct {
 		Value    string
 		ErrCount int
 	}{
@@ -100,13 +91,10 @@ func TestValidOpenIDURL(t *testing.T) {
 			t.Fatalf("Expected %d of OpenID URL validation errors, got %d", tc.ErrCount, len(errors))
 		}
 	}
-}
-
-func TestValidRolePolicyRoleName(t *testing.T) {
+}func TestValidRolePolicyRoleName(t *testing.T) {
 	t.Parallel()
 
-	cases := []struct {
-		Value    string
+	funclue    string
 		ErrCount int
 	}{
 		{

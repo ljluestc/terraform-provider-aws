@@ -20,7 +20,8 @@ const (
 )
 
 // TagLength returns the length in bytes of authentication tags.
-func (mode AEADMode) TagLength() int {
+
+de AEADMode) TagLength() int {
 	switch mode {
 	case AEADModeEAX:
 		return 16
@@ -34,7 +35,8 @@ func (mode AEADMode) TagLength() int {
 }
 
 // NonceLength returns the length in bytes of nonces.
-func (mode AEADMode) NonceLength() int {
+
+de AEADMode) NonceLength() int {
 	switch mode {
 	case AEADModeEAX:
 		return 16
@@ -48,7 +50,8 @@ func (mode AEADMode) NonceLength() int {
 }
 
 // New returns a fresh instance of the given mode
-func (mode AEADMode) New(block cipher.Block) (alg cipher.AEAD) {
+
+de AEADMode) New(block cipher.Block) (alg cipher.AEAD) {
 	var err error
 	switch mode {
 	case AEADModeEAX:

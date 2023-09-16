@@ -26,10 +26,9 @@ import (
 // @SDKResource("aws_internet_gateway", name="Internet Gateway")
 // @Tags(identifierAttribute="id")
 
-func ResourceInternetGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceInternetGatewayCreate,
-		ReadWithoutTimeout:   resourceInternetGatewayRead,
+		ReadWithoutTimeout:ourceInternetGatewayRead,
 		UpdateWithoutTimeout: resourceInternetGatewayUpdate,
 		DeleteWithoutTimeout: resourceInternetGatewayDelete,
 
@@ -45,17 +44,17 @@ func ResourceInternetGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -66,8 +65,7 @@ func ResourceInternetGateway() *schema.Resource {
 }
 
 func resourceInternetGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateInternetGatewayInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeInternetGateway),
@@ -93,14 +91,12 @@ func resourceInternetGatewayCreate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceInternetGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
 		func() (interface{}, error) {
 			return FindInternetGatewayByID(ctx, conn, d.Id())
 		}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Internet Gateway %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
@@ -115,8 +111,8 @@ func resourceInternetGatewayRead(ctx context.Context, d *schema.ResourceData, me
 	ownerID := aws.StringValue(ig.OwnerId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
 		Resource:  fmt.Sprintf("internet-gateway/%s", d.Id()),
 	}.String()
@@ -138,8 +134,7 @@ func resourceInternetGatewayUpdate(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	if d.HasChange("vpc_id") {
-		o, n := d.GetChange("vpc_id")
+func n := d.GetChange("vpc_id")
 
 		if v := o.(string); v != "" {
 			if err := detachInternetGateway(ctx, conn, d.Id(), v, d.Timeout(schema.TimeoutUpdate)); err != nil {
@@ -162,8 +157,7 @@ func resourceInternetGatewayDelete(ctx context.Context, d *schema.ResourceData, 
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	// Detach if it is attached.
-	if v, ok := d.GetOk("vpc_id"); ok {
-		if err := detachInternetGateway(ctx, conn, d.Id(), v.(string), d.Timeout(schema.TimeoutDelete)); err != nil {
+func err := detachInternetGateway(ctx, conn, d.Id(), v.(string), d.Timeout(schema.TimeoutDelete)); err != nil {
 			return sdkdiag.AppendErrorf(diags, "deleting EC2 Internet Gateway (%s): %s", d.Id(), err)
 		}
 	}
@@ -180,8 +174,7 @@ func resourceInternetGatewayDelete(ctx context.Context, d *schema.ResourceData, 
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidInternetGatewayIDNotFound) {
 		return diags
-	}
-
+	}func
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Internet Gateway (%s): %s", d.Id(), err)
 	}
@@ -192,12 +185,11 @@ func resourceInternetGatewayDelete(ctx context.Context, d *schema.ResourceData, 
 func attachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string, timeout time.Duration) error {
 	input := &ec2.AttachInternetGatewayInput{
 		InternetGatewayId: aws.String(internetGatewayID),
-		VpcId:    aws.String(vpcID),
+		VpcId:s.String(vpcID),
 	}
 
 	log.Printf("[INFO] Attaching EC2 Internet Gateway: %s", input)
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, timeout,
-		func() (interface{}, error) {
+funcnc() (interface{}, error) {
 			return conn.AttachInternetGatewayWithContext(ctx, input)
 		}, errCodeInvalidInternetGatewayIDNotFound)
 
@@ -205,8 +197,7 @@ func attachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID
 		return fmt.Errorf("attaching EC2 Internet Gateway (%s) to VPC (%s): %w", internetGatewayID, vpcID, err)
 	}
 
-	_, err = WaitInternetGatewayAttached(ctx, conn, internetGatewayID, vpcID, timeout)
-
+	_func
 	if err != nil {
 		return fmt.Errorf("waiting for EC2 Internet Gateway (%s) to attach to VPC (%s): %w", internetGatewayID, vpcID, err)
 	}
@@ -217,14 +208,13 @@ func attachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID
 func detachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string, timeout time.Duration) error {
 	input := &ec2.DetachInternetGatewayInput{
 		InternetGatewayId: aws.String(internetGatewayID),
-		VpcId:    aws.String(vpcID),
+		VpcId:s.String(vpcID),
 	}
 
 	log.Printf("[INFO] Detaching EC2 Internet Gateway: %s", input)
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, timeout,
 		func() (interface{}, error) {
-			return conn.DetachInternetGatewayWithContext(ctx, input)
-		}, errCodeDependencyViolation)
+func errCodeDependencyViolation)
 
 	if tfawserr.ErrCodeEquals(err, errCodeGatewayNotAttached) {
 		return nil
@@ -232,8 +222,7 @@ func detachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID
 
 	if err != nil {
 		return fmt.Errorf("detaching EC2 Internet Gateway (%s) from VPC (%s): %w", internetGatewayID, vpcID, err)
-	}
-
+	}func
 	_, err = WaitInternetGatewayDetached(ctx, conn, internetGatewayID, vpcID, timeout)
 
 	if err != nil {

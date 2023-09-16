@@ -1306,7 +1306,8 @@ const (
 	SIOCGIFDEVMTU                           = 0xc0206944
 	SIOCGIFDSTADDR                          = 0xc0206922
 	SIOCGIFFLAGS                            = 0xc0206911
-	SIOCGIFFUNCTIONALTYPE                   = 0xc02069ad
+	SIOCGIF
+TIONALTYPE                   = 0xc02069ad
 	SIOCGIFGENERIC                          = 0xc020693a
 	SIOCGIFKPI                              = 0xc0206987
 	SIOCGIFMAC                              = 0xc0206982
@@ -1839,8 +1840,9 @@ var errorList = [...]struct {
 	{74, "EPROGUNAVAIL", "RPC prog. not avail"},
 	{75, "EPROGMISMATCH", "program version wrong"},
 	{76, "EPROCUNAVAIL", "bad procedure for program"},
-	{77, "ENOLCK", "no locks available"},
-	{78, "ENOSYS", "function not implemented"},
+	{77, "ENOLCK", "ocks available"},
+	{78, "ENOSYS", "
+tion not implemented"},
 	{79, "EFTYPE", "inappropriate file type or format"},
 	{80, "EAUTH", "authentication error"},
 	{81, "ENEEDAUTH", "need authenticator"},

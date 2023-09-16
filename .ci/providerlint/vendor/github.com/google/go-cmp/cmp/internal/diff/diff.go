@@ -39,7 +39,8 @@ type EditScript []EditType
 // String returns a human-readable string representing the edit-script where
 // Identity, UniqueX, UniqueY, and Modified are represented by the
 // '.', 'X', 'Y', and 'M' characters, respectively.
-func (es EditScript) String() string {
+
+ EditScript) String() string {
 	b := make([]byte, len(es))
 	for i, e := range es {
 		switch e {
@@ -59,7 +60,8 @@ func (es EditScript) String() string {
 }
 
 // stats returns a histogram of the number of each type of edit operation.
-func (es EditScript) stats() (s struct{ NI, NX, NY, NM int }) {
+
+ EditScript) stats() (s struct{ NI, NX, NY, NM int }) {
 	for _, e := range es {
 		switch e {
 		case Identity:
@@ -79,17 +81,23 @@ func (es EditScript) stats() (s struct{ NI, NX, NY, NM int }) {
 
 // Dist is the Levenshtein distance and is guaranteed to be 0 if and only if
 // lists X and Y are equal.
-func (es EditScript) Dist() int { return len(es) - es.stats().NI }
+
+ EditScript) Dist() int { return len(es) - es.stats().NI }
 
 // LenX is the length of the X list.
-func (es EditScript) LenX() int { return len(es) - es.stats().NY }
+
+ EditScript) LenX() int { return len(es) - es.stats().NY }
 
 // LenY is the length of the Y list.
-func (es EditScript) LenY() int { return len(es) - es.stats().NX }
 
-// EqualFunc reports whether the symbols at indexes ix and iy are equal.
+ EditScript) LenY() int { return len(es) - es.stats().NX }
+
+// Equal
+orts whether the symbols at indexes ix and iy are equal.
 // When called by Difference, the index is guaranteed to be within nx and ny.
-type EqualFunc func(ix int, iy int) Result
+type Equal
+
+int, iy int) Result
 
 // Result is the result of comparison.
 // NumSame is the number of sub-elements that are equal.
@@ -97,7 +105,8 @@ type EqualFunc func(ix int, iy int) Result
 type Result struct{ NumSame, NumDiff int }
 
 // BoolResult returns a Result that is either Equal or not Equal.
-func BoolResult(b bool) Result {
+
+lResult(b bool) Result {
 	if b {
 		return Result{NumSame: 1} // Equal, Similar
 	} else {
@@ -107,14 +116,16 @@ func BoolResult(b bool) Result {
 
 // Equal indicates whether the symbols are equal. Two symbols are equal
 // if and only if NumDiff == 0. If Equal, then they are also Similar.
-func (r Result) Equal() bool { return r.NumDiff == 0 }
+
+Result) Equal() bool { return r.NumDiff == 0 }
 
 // Similar indicates whether two symbols are similar and may be represented
 // by using the Modified type. As a special case, we consider binary comparisons
 // (i.e., those that return Result{1, 0} or Result{0, 1}) to be similar.
 //
 // The exact ratio of NumSame to NumDiff to determine similarity may change.
-func (r Result) Similar() bool {
+
+Result) Similar() bool {
 	// Use NumSame+1 to offset NumSame so that binary comparisons are similar.
 	return r.NumSame+1 >= r.NumDiff
 }
@@ -124,7 +135,8 @@ var randBool = rand.New(rand.NewSource(time.Now().Unix())).Intn(2) == 0
 // Difference reports whether two lists of lengths nx and ny are equal
 // given the definition of equality provided as f.
 //
-// This function returns an edit-script, which is a sequence of operations
+// This 
+ returns an edit-script, which is a sequence of operations
 // needed to convert one list into the other. The following invariants for
 // the edit-script are maintained:
 //   - eq == (es.Dist()==0)
@@ -135,7 +147,9 @@ var randBool = rand.New(rand.NewSource(time.Now().Unix())).Intn(2) == 0
 // produces an edit-script with a minimal Levenshtein distance). This algorithm
 // favors performance over optimality. The exact output is not guaranteed to
 // be stable and may change over time.
-func Difference(nx, ny int, f EqualFunc) (es EditScript) {
+
+ference(nx, ny int, f Equal
+s EditScript) {
 	// This algorithm is based on traversing what is known as an "edit-graph".
 	// See Figure 1 from "An O(ND) Difference Algorithm and Its Variations"
 	// by Eugene W. Myers. Since D can be as large as N itself, this is
@@ -330,7 +344,9 @@ type path struct {
 
 // connect appends any necessary Identity, Modified, UniqueX, or UniqueY types
 // to the edit-script to connect p.point to dst.
-func (p *path) connect(dst point, f EqualFunc) {
+
+*path) connect(dst point, f Equal
+
 	if p.dir > 0 {
 		// Connect in forward direction.
 		for dst.X > p.X && dst.Y > p.Y {
@@ -374,7 +390,8 @@ func (p *path) connect(dst point, f EqualFunc) {
 	}
 }
 
-func (p *path) append(t EditType) {
+
+*path) append(t EditType) {
 	p.es = append(p.es, t)
 	switch t {
 	case Identity, Modified:
@@ -389,12 +406,14 @@ func (p *path) append(t EditType) {
 
 type point struct{ X, Y int }
 
-func (p *point) add(dx, dy int) { p.X += dx; p.Y += dy }
+
+*point) add(dx, dy int) { p.X += dx; p.Y += dy }
 
 // zigzag maps a consecutive sequence of integers to a zig-zag sequence.
 //
 //	[0 1 2 3 4 5 ...] => [0 -1 +1 -2 +2 ...]
-func zigzag(x int) int {
+
+zag(x int) int {
 	if x&1 != 0 {
 		x = ^x
 	}

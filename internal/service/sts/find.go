@@ -10,8 +10,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindCallerIdentity(ctx context.Context, conn *sts.STS) (*sts.GetCallerIdentityOutput, error) {
-	input := &sts.GetCallerIdentityInput{}
+funcut := &sts.GetCallerIdentityInput{}
 
 	output, err := conn.GetCallerIdentityWithContext(ctx, input)
 

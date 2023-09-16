@@ -25,9 +25,9 @@ func TestAccIdentityStoreUserDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDataSourceConfig_basic(name, email),
@@ -67,9 +67,9 @@ func TestAccIdentityStoreUserDataSource_filterUserName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDataSourceConfig_filterUserName(name, email),
@@ -94,9 +94,9 @@ func TestAccIdentityStoreUserDataSource_uniqueAttributeUserName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDataSourceConfig_uniqueAttributeUserName(name, email),
@@ -121,9 +121,9 @@ func TestAccIdentityStoreUserDataSource_email(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDataSourceConfig_email(name, email),
@@ -148,9 +148,9 @@ func TestAccIdentityStoreUserDataSource_userID(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDataSourceConfig_id(name, email),
@@ -232,7 +232,7 @@ resource "aws_identitystore_user" "test" {
   preferred_language = "en-US"
   profile_url        = "http://example.com"
   timezone           = "UTC"
-  title              = "Mr"
+  title = "Mr"
   user_type          = "Member"
 }
 

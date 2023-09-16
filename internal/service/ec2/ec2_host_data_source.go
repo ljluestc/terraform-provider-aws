@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_ec2_host")
 
-func DataSourceHost() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceHostRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,58 +30,58 @@ func DataSourceHost() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"asset_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"auto_placement": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"cores": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"host_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"host_recovery": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"instance_family": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"sockets": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"total_vcpus": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -90,8 +89,7 @@ func DataSourceHost() *schema.Resource {
 }
 
 func dataSourceHostRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeHostsInput{
@@ -117,8 +115,8 @@ func dataSourceHostRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(host.OwnerId),
 		Resource:  fmt.Sprintf("dedicated-host/%s", d.Id()),
 	}.String()

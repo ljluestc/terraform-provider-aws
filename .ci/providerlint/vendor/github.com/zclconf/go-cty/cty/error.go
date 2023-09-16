@@ -11,7 +11,8 @@ error
 Path Path
 }
 
-func errorf(path Path, f string, args ...interface{}) error {
+
+ errorf(path Path, f string, args ...interface{}) error {
 // We need to copy the Path because often our caller builds it by
 // continually mutating the same underlying buffer.
 sPath := make(Path, len(path))
@@ -24,14 +25,16 @@ Path:  sPath,
 
 // NewErrorf creates a new PathError for the current path by passing the
 // given format and arguments to fmt.Errorf and then wrapping the result
-// similarly to NewError.
-func (p Path) NewErrorf(f string, args ...interface{}) error {
+imilarly to NewError.
+
+ (p Path) NewErrorf(f string, args ...interface{}) error {
 return errorf(p, f, args...)
 }
 
-// NewError creates a new PathError for the current path, wrapping the given
+ewError creates a new PathError for the current path, wrapping the given
 // error.
-func (p Path) NewError(err error) error {
+
+ (p Path) NewError(err error) error {
 // if we're being asked to wrap an existing PathError then our new
 // PathError will be the concatenation of the two paths, ensuring
 // that we still get a single flat PathError that's thus easier for

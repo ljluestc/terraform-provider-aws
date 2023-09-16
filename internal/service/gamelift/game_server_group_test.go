@@ -30,9 +30,9 @@ func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_basic(rName),
@@ -49,7 +49,7 @@ func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -68,9 +68,9 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_autoScalingPolicy(rName),
@@ -82,7 +82,7 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -101,9 +101,9 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t 
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_autoScalingPolicyEstimatedInstanceWarmup(rName),
@@ -115,7 +115,7 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -134,9 +134,9 @@ func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_balancingStrategy(rName, gamelift.BalancingStrategySpotOnly),
@@ -147,7 +147,7 @@ func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -170,9 +170,9 @@ func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_name(rName, rName),
@@ -183,7 +183,7 @@ func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -209,9 +209,9 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_instanceDefinition(rName, 2),
@@ -222,7 +222,7 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -248,9 +248,9 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testi
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_instanceDefinitionWeightedCapacity(rName, "1"),
@@ -263,7 +263,7 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testi
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -291,9 +291,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_launchTemplateID(rName),
@@ -306,7 +306,7 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -325,9 +325,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_launchTemplateName(rName),
@@ -340,7 +340,7 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -359,9 +359,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_launchTemplateVersion(rName),
@@ -374,7 +374,7 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -393,9 +393,9 @@ func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_protectionPolicy(rName, gamelift.GameServerProtectionPolicyFullProtection),
@@ -406,7 +406,7 @@ func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -429,9 +429,9 @@ func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_maxSize(rName, "1"),
@@ -442,7 +442,7 @@ func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -472,9 +472,9 @@ func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_minSize(rName, "1"),
@@ -485,7 +485,7 @@ func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -511,9 +511,9 @@ func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_roleARN(rName, "test1"),
@@ -525,7 +525,7 @@ func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -556,9 +556,9 @@ func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, gamelift.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, gamelift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGameServerGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGameServerGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGameServerGroupConfig_vpcSubnets(rName, 1),
@@ -568,7 +568,7 @@ func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
@@ -658,8 +658,8 @@ resource "aws_iam_role" %[2]q {
           "Effect": "Allow",
           "Principal": {
             "Service": [
-              "autoscaling.amazonaws.com",
-              "gamelift.amazonaws.com"
+ "autoscaling.amazonaws.com",
+ "gamelift.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"

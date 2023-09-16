@@ -32,10 +32,10 @@ func testAccPermissions_basic(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_basic(rName),
@@ -57,10 +57,10 @@ func testAccPermissions_disappears(t *testing.T) {
 	resourceName := "aws_lakeformation_permissions.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcBasic(rName, "\"event\", \"timestamp\""),
@@ -82,10 +82,10 @@ func testAccPermissions_database(t *testing.T) {
 	dbName := "aws_glue_catalog_database.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_database(rName),
@@ -115,10 +115,10 @@ func testAccPermissions_databaseIAMAllowed(t *testing.T) {
 	dbName := "aws_glue_catalog_database.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_databaseIAMAllowed(rName),
@@ -147,10 +147,10 @@ func testAccPermissions_databaseMultiple(t *testing.T) {
 	dbName := "aws_glue_catalog_database.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_databaseMultiple(rName),
@@ -191,10 +191,10 @@ func testAccPermissions_dataLocation(t *testing.T) {
 	bucketName := "aws_s3_bucket.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_dataLocation(rName),
@@ -220,10 +220,10 @@ func testAccPermissions_lfTag(t *testing.T) {
 	tagName := "aws_lakeformation_lf_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_lfTag(rName),
@@ -255,10 +255,10 @@ func testAccPermissions_lfTagPolicy(t *testing.T) {
 	tagName := "aws_lakeformation_lf_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_lfTagPolicy(rName),
@@ -292,10 +292,10 @@ func testAccPermissions_lfTagPolicyMultiple(t *testing.T) {
 	// tagName := "aws_lakeformation_lf_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_lfTagPolicyMultiple(rName),
@@ -339,10 +339,10 @@ func testAccPermissions_tableBasic(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableBasic(rName),
@@ -369,10 +369,10 @@ func testAccPermissions_tableIAMAllowed(t *testing.T) {
 	dbName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableIAMAllowed(rName),
@@ -400,10 +400,10 @@ func testAccPermissions_tableImplicit(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableImplicit(rName),
@@ -431,10 +431,10 @@ func testAccPermissions_tableMultipleRoles(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableMultipleRoles(rName),
@@ -469,10 +469,10 @@ func testAccPermissions_tableSelectOnly(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableSelectOnly(rName),
@@ -497,10 +497,10 @@ func testAccPermissions_tableSelectPlus(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableSelectPlus(rName),
@@ -522,10 +522,10 @@ func testAccPermissions_tableWildcardNoSelect(t *testing.T) {
 	databaseResourceName := "aws_glue_catalog_database.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableWildcardNoSelect(rName),
@@ -547,10 +547,10 @@ func testAccPermissions_tableWildcardSelectOnly(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableWildcardSelectOnly(rName),
@@ -573,10 +573,10 @@ func testAccPermissions_tableWildcardSelectPlus(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_tableWildcardSelectPlus(rName),
@@ -599,10 +599,10 @@ func testAccPermissions_twcBasic(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcBasic(rName, "\"event\", \"timestamp\""),
@@ -676,10 +676,10 @@ func testAccPermissions_twcImplicit(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcImplicit(rName),
@@ -705,10 +705,10 @@ func testAccPermissions_twcWildcardExcludedColumns(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcWildcardExcludedColumns(rName),
@@ -731,10 +731,10 @@ func testAccPermissions_twcWildcardSelectOnly(t *testing.T) {
 	tableName := "aws_glue_catalog_table.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcWildcardSelectOnly(rName),
@@ -761,10 +761,10 @@ func testAccPermissions_twcWildcardSelectPlus(t *testing.T) {
 	roleName := "aws_iam_role.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPermissionsDestroy(ctx),
+		CheckDestroy:testAccCheckPermissionsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPermissionsConfig_twcWildcardSelectPlus(rName),
@@ -1169,9 +1169,9 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   database {
     name = aws_glue_catalog_database.test.name
@@ -1288,9 +1288,9 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   database {
     name = aws_glue_catalog_database.test.name
@@ -1379,8 +1379,8 @@ func testAccPermissionsConfig_lfTag(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name  = %[1]q
+  path  = "/"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -1417,9 +1417,9 @@ resource "aws_lakeformation_lf_tag" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ASSOCIATE", "DESCRIBE"]
+  permissions      = ["ASSOCIATE", "DESCRIBE"]
   permissions_with_grant_option = ["ASSOCIATE", "DESCRIBE"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   lf_tag {
     key    = aws_lakeformation_lf_tag.test.key
@@ -1436,8 +1436,8 @@ func testAccPermissionsConfig_lfTagPolicy(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name  = %[1]q
+  path  = "/"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -1474,9 +1474,9 @@ resource "aws_lakeformation_lf_tag" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   lf_tag_policy {
     resource_type = "DATABASE"
@@ -1500,8 +1500,8 @@ func testAccPermissionsConfig_lfTagPolicyMultiple(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name  = %[1]q
+  path  = "/"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -1540,9 +1540,9 @@ resource "aws_lakeformation_lf_tag" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   lf_tag_policy {
     resource_type = "DATABASE"
@@ -1736,8 +1736,8 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  principal                     = aws_iam_role.test.arn
-  permissions                   = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
+  principal        = aws_iam_role.test.arn
+  permissions      = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
   permissions_with_grant_option = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
 
   table {
@@ -1947,7 +1947,7 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 resource "aws_lakeformation_permissions" "test" {
   principal = aws_iam_role.test.arn
 
-  permissions                   = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
+  permissions      = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
   permissions_with_grant_option = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
 
   table {
@@ -1996,9 +1996,9 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  permissions                   = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT"]
+  permissions      = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT"]
   permissions_with_grant_option = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT"]
-  principal                     = aws_iam_role.test.arn
+  principal        = aws_iam_role.test.arn
 
   table {
     database_name = aws_glue_catalog_database.test.name
@@ -2142,7 +2142,7 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 resource "aws_lakeformation_permissions" "test" {
   principal = aws_iam_role.test.arn
 
-  permissions                   = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
+  permissions      = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
   permissions_with_grant_option = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
 
   table {
@@ -2286,8 +2286,8 @@ resource "aws_lakeformation_data_lake_settings" "test" {
 }
 
 resource "aws_lakeformation_permissions" "test" {
-  principal                     = aws_iam_role.test.arn
-  permissions                   = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
+  principal        = aws_iam_role.test.arn
+  permissions      = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
   permissions_with_grant_option = ["ALL", "ALTER", "DELETE", "DESCRIBE", "DROP", "INSERT", "SELECT"]
 
   table_with_columns {
@@ -2364,8 +2364,8 @@ resource "aws_lakeformation_permissions" "test" {
 
   table_with_columns {
     database_name         = aws_glue_catalog_table.test.database_name
-    name                  = aws_glue_catalog_table.test.name
-    wildcard              = true
+    name     = aws_glue_catalog_table.test.name
+    wildcard = true
     excluded_column_names = ["value"]
   }
 

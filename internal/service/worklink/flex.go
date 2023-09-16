@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
 
+
 func flattenIdentityProviderConfigResponse(c *worklink.DescribeIdentityProviderConfigurationOutput) []map[string]interface{} {
 	config := make(map[string]interface{})
 
@@ -25,6 +26,7 @@ func flattenIdentityProviderConfigResponse(c *worklink.DescribeIdentityProviderC
 
 	return []map[string]interface{}{config}
 }
+
 
 func flattenNetworkConfigResponse(c *worklink.DescribeCompanyNetworkConfigurationOutput) []map[string]interface{} {
 	config := make(map[string]interface{})

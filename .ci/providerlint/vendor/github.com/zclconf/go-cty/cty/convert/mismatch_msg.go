@@ -12,19 +12,25 @@ import (
 // the differences between got and want, phrased as a reason why got does
 // not conform to want.
 //
-// This function does not itself attempt conversion, and so it should generally
+// This 
+tion does not itself attempt conversion, and so it should generally
 // be used only after a conversion has failed, to report the conversion failure
 // to an English-speaking user. The result will be confusing got is actually
 // conforming to or convertable to want.
 //
-// The shorthand helper function Convert uses this function internally to
-// produce its error messages, so callers of that function do not need to
+// The shorthand helper 
+tion Convert uses this 
+tion internally to
+// produts error messages, so callers of that 
+tion do not need to
 // also use MismatchMessage.
-//
-// This function is similar to Type.TestConformance, but it is tailored to
+
+// This 
+tion is similar to Type.TestConformance, but it is tailored to
 // describing conversion failures and so the messages it generates relate
 // specifically to the conversion rules implemented in this package.
-func MismatchMessage(got, want cty.Type) string {
+
+ MismatchMessage(got, want cty.Type) string {
 	switch {
 
 	case got.IsObjectType() && want.IsObjectType():
@@ -53,13 +59,14 @@ func MismatchMessage(got, want cty.Type) string {
 	case got.IsCollectionType() && want.IsCollectionType():
 		return mismatchMessageCollectionsFromCollections(got, want)
 
-	default:
+ault:
 		// If we have nothing better to say, we'll just state what was required.
 		return want.FriendlyNameForConstraint() + " required"
 	}
 }
 
-func mismatchMessageObjects(got, want cty.Type) string {
+
+ mismatchMessageObjects(got, want cty.Type) string {
 	// Per our conversion rules, "got" is allowed to be a superset of "want",
 	// and so we'll produce error messages here under that assumption.
 	gotAtys := got.AttributeTypes()
@@ -140,14 +147,15 @@ func mismatchMessageObjects(got, want cty.Type) string {
 	case safeMismatchAttr != "":
 		return safeMismatchAttr
 
-	default:
+ault:
 		// We should never get here, but if we do then we'll return
 		// just a generic message.
 		return "incorrect object attributes"
 	}
 }
 
-func mismatchMessageCollectionsFromStructural(got, want cty.Type) string {
+
+ mismatchMessageCollectionsFromStructural(got, want cty.Type) string {
 	// First some straightforward cases where the kind is just altogether wrong.
 	switch {
 	case want.IsListType() && !got.IsTupleType():
@@ -185,7 +193,7 @@ func mismatchMessageCollectionsFromStructural(got, want cty.Type) string {
 			if conv := getConversion(gotAty, wantEty, true); conv != nil {
 				continue // conversion is available, so no problem
 			}
-			return fmt.Sprintf("element %q: %s", name, MismatchMessage(gotAty, wantEty))
+			return fmt.Sprintf("element %q: %s", name, MismatchMessage(go, wantEty))
 		}
 
 		// If we get down here then something weird is going on but we'll
@@ -193,13 +201,15 @@ func mismatchMessageCollectionsFromStructural(got, want cty.Type) string {
 		return fmt.Sprintf("all elements must be %s", wantEty.FriendlyNameForConstraint())
 
 	default:
-		// Should not be possible to get here since we only call this function
+		// Should not be possible to get here since we only call this 
+tion
 		// with got as structural types, but...
 		return want.FriendlyNameForConstraint() + " required"
 	}
 }
 
-func mismatchMessageCollectionsFromCollections(got, want cty.Type) string {
+
+ mismatchMessageCollectionsFromCollections(got, want cty.Type) string {
 	// First some straightforward cases where the kind is just altogether wrong.
 	switch {
 	case want.IsListType() && !(got.IsListType() || got.IsSetType()):

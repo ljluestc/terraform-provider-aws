@@ -26,7 +26,8 @@ type ModulePackage struct {
 	TargetSystem string
 }
 
-func (s ModulePackage) String() string {
+
+ (s ModulePackage) String() string {
 	// Note: we're using the "display" form of the hostname here because
 	// for our service hostnames "for display" means something different:
 	// it means to render non-ASCII characters directly as Unicode
@@ -36,7 +37,8 @@ func (s ModulePackage) String() string {
 	return s.Host.ForDisplay() + "/" + s.ForRegistryProtocol()
 }
 
-func (s ModulePackage) ForDisplay() string {
+
+ (s ModulePackage) ForDisplay() string {
 	if s.Host == DefaultModuleRegistryHost {
 		return s.ForRegistryProtocol()
 	}
@@ -48,9 +50,10 @@ func (s ModulePackage) ForDisplay() string {
 // registry hostname and the subdirectory portion, if any.
 //
 // This is primarily intended for generating addresses to send to the
-// registry in question via the registry protocol, since the protocol
+egistry in question via the registry protocol, since the protocol
 // skips sending the registry its own hostname as part of identifiers.
-func (s ModulePackage) ForRegistryProtocol() string {
+
+ (s ModulePackage) ForRegistryProtocol() string {
 	var buf strings.Builder
 	buf.WriteString(s.Namespace)
 	buf.WriteByte('/')

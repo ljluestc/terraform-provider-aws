@@ -33,7 +33,7 @@ func (f PredicateFunc[T]) Invoke(t T, err error) (bool, error) {
 }
 
 type operation[T any] struct {
-	op                Op[T]
+	op   Op[T]
 	predicate         Predicate[T]
 	transformRunError func(error) error
 }

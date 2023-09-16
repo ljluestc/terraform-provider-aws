@@ -28,10 +28,10 @@ func TestAccAPIGatewayV2Authorizer_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_basic(rName),
@@ -59,9 +59,9 @@ func TestAccAPIGatewayV2Authorizer_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAuthorizerImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -76,10 +76,10 @@ func TestAccAPIGatewayV2Authorizer_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_basic(rName),
@@ -103,10 +103,10 @@ func TestAccAPIGatewayV2Authorizer_credentials(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_credentials(rName),
@@ -125,9 +125,9 @@ func TestAccAPIGatewayV2Authorizer_credentials(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAuthorizerImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -174,10 +174,10 @@ func TestAccAPIGatewayV2Authorizer_jwt(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_jwt(rName),
@@ -198,9 +198,9 @@ func TestAccAPIGatewayV2Authorizer_jwt(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAuthorizerImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -235,10 +235,10 @@ func TestAccAPIGatewayV2Authorizer_HTTPAPILambdaRequestAuthorizer_initialMissing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_httpAPILambdaRequest(rName),
@@ -257,9 +257,9 @@ func TestAccAPIGatewayV2Authorizer_HTTPAPILambdaRequestAuthorizer_initialMissing
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAuthorizerImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -309,10 +309,10 @@ func TestAccAPIGatewayV2Authorizer_HTTPAPILambdaRequestAuthorizer_initialZeroCac
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:ayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthorizerDestroy(ctx),
+		CheckDestroy:rizerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthorizerConfig_httpAPILambdaRequestUpdated(rName, 0),
@@ -332,9 +332,9 @@ func TestAccAPIGatewayV2Authorizer_HTTPAPILambdaRequestAuthorizer_initialZeroCac
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ame,
 				ImportStateIdFunc: testAccAuthorizerImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -368,7 +368,7 @@ func testAccCheckAuthorizerDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 
 			_, err := conn.GetAuthorizerWithContext(ctx, &apigatewayv2.GetAuthorizerInput{
-				ApiId:        aws.String(rs.Primary.Attributes["api_id"]),
+				ApiId:ing(rs.Primary.Attributes["api_id"]),
 				AuthorizerId: aws.String(rs.Primary.ID),
 			})
 			if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -400,7 +400,7 @@ func testAccCheckAuthorizerExists(ctx context.Context, n string, vApiId *string,
 
 		apiId := aws.String(rs.Primary.Attributes["api_id"])
 		resp, err := conn.GetAuthorizerWithContext(ctx, &apigatewayv2.GetAuthorizerInput{
-			ApiId:        apiId,
+			ApiId:
 			AuthorizerId: aws.String(rs.Primary.ID),
 		})
 		if err != nil {
@@ -428,8 +428,8 @@ func testAccAuthorizerImportStateIdFunc(resourceName string) resource.ImportStat
 func testAccAuthorizerConfig_apiWebSocket(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 }
 `, rName)
@@ -438,7 +438,7 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAuthorizerConfig_apiHTTP(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 }
 `, rName)
@@ -447,11 +447,11 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccAuthorizerConfig_baseLambda(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLambdaBase(rName, rName, rName), fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filenameixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.handler"
-  runtime       = "nodejs14.x"
+  roleor_lambda.arn
+  handler.handler"
+  runtimes14.x"
 }
 
 resource "aws_iam_role" "test" {
@@ -478,10 +478,10 @@ func testAccAuthorizerConfig_basic(rName string) string {
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id          = aws_apigatewayv2_api.test.id
+  api_idpi.test.id
   authorizer_type = "REQUEST"
   authorizer_uri  = aws_lambda_function.test.invoke_arn
-  name            = %[1]q
+  name
 }
 `, rName))
 }
@@ -492,11 +492,11 @@ func testAccAuthorizerConfig_credentials(rName string) string {
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   authorizer_type  = "REQUEST"
   authorizer_uri   = aws_lambda_function.test.invoke_arn
   identity_sources = ["route.request.header.Auth"]
-  name             = %[1]q
+  name
 
   authorizer_credentials_arn = aws_iam_role.test.arn
 }
@@ -509,11 +509,11 @@ func testAccAuthorizerConfig_credentialsUpdated(rName string) string {
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   authorizer_type  = "REQUEST"
   authorizer_uri   = aws_lambda_function.test.invoke_arn
   identity_sources = ["route.request.header.Auth", "route.request.querystring.Name"]
-  name             = "%[1]s-updated"
+  name
 
   authorizer_credentials_arn = aws_iam_role.test.arn
 }
@@ -530,10 +530,10 @@ resource "aws_cognito_user_pool" "test" {
 }
 
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   authorizer_type  = "JWT"
   identity_sources = ["$request.header.Authorization"]
-  name             = %[1]q
+  name
 
   jwt_configuration {
     audience = ["test"]
@@ -553,10 +553,10 @@ resource "aws_cognito_user_pool" "test" {
 }
 
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idapi.test.id
   authorizer_type  = "JWT"
   identity_sources = ["$request.header.Authorization"]
-  name             = %[1]q
+  name
 
   jwt_configuration {
     audience = ["test", "testing"]
@@ -572,11 +572,11 @@ func testAccAuthorizerConfig_httpAPILambdaRequest(rName string) string {
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id             = aws_apigatewayv2_api.test.id
+  api_id2_api.test.id
   authorizer_payload_format_version = "2.0"
   authorizer_type    = "REQUEST"
-  authorizer_uri     = aws_lambda_function.test.invoke_arn
-  enable_simple_responses           = true
+  authorizer_urida_function.test.invoke_arn
+  enable_simple_responses
   identity_sources   = ["$request.header.Auth"]
   name= %[1]q
 }
@@ -589,11 +589,11 @@ func testAccAuthorizerConfig_httpNoAuthenticationSources(rName string) string {
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id             = aws_apigatewayv2_api.test.id
+  api_id2_api.test.id
   authorizer_payload_format_version = "2.0"
   authorizer_type    = "REQUEST"
-  authorizer_uri     = aws_lambda_function.test.invoke_arn
-  enable_simple_responses           = true
+  authorizer_urida_function.test.invoke_arn
+  enable_simple_responses
   name= %[1]q
 }
 `, rName))
@@ -605,12 +605,12 @@ func testAccAuthorizerConfig_httpAPILambdaRequestUpdated(rName string, authorize
 		testAccAuthorizerConfig_baseLambda(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_authorizer" "test" {
-  api_id             = aws_apigatewayv2_api.test.id
+  api_id2_api.test.id
   authorizer_payload_format_version = "1.0"
   authorizer_result_ttl_in_seconds  = %[2]d
   authorizer_type    = "REQUEST"
-  authorizer_uri     = aws_lambda_function.test.invoke_arn
-  enable_simple_responses           = false
+  authorizer_urida_function.test.invoke_arn
+  enable_simple_responses
   identity_sources   = ["$request.querystring.User", "$context.routeKey"]
   name= %[1]q
 }

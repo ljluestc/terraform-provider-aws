@@ -9,21 +9,31 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-// StdlibFunctionCallExprRunner returns an Analyzer runner for function *ast.CallExpr
-func StdlibFunctionCallExprRunner(packagePath string, functionName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+// Stdlib
+CalrRunner returns an Analyzer runner for 
+tiont.CallExpr
+
+ Stdlib
+tionCallExprRunner(packagePath string, 
+tionName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (intee{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.CallExpr)(nil),
 		}
 		var result []*ast.CallExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			callExpr := n.(*ast.CallExpr)
 
-			if !astutils.IsStdlibPackageFunc(callExpr.Fun, pass.TypesInfo, packagePath, functionName) {
-				return
-			}
+			if !astutils.IsStdlibPackage
+(callExpr.Fun, pass.TypesInfo, packagePath, 
+tionName) {
+				retur
+
 
 			result = append(result, callExpr)
 		})
@@ -32,19 +42,29 @@ func StdlibFunctionCallExprRunner(packagePath string, functionName string) func(
 	}
 }
 
-// StdlibFunctionSelectorExprRunner returns an Analyzer runner for function *ast.SelectorExpr
-func StdlibFunctionSelectorExprRunner(packagePath string, functionName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+// Stdlib
+tionSelectorExprRunner returns an Analyzer runner for 
+tion *ast.SelectorExpr
+
+ Stdlib
+tionSelectorExprRunner(packagePath string, 
+tionName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.SelectorExpr)(nil),
 		}
 		var result []*ast.SelectorExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			selectorExpr := n.(*ast.SelectorExpr)
 
-			if !astutils.IsStdlibPackageFunc(selectorExpr, pass.TypesInfo, packagePath, functionName) {
+			if !astutils.IsStdlibPackage
+(selectorExpr, pass.TypesInfo, packagePath, 
+tionName) {
 				return
 			}
 

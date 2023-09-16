@@ -13,6 +13,8 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
+
+
 func TestValidMemcachedVersionString(t *testing.T) {
 	t.Parallel()
 
@@ -56,7 +58,9 @@ func TestValidMemcachedVersionString(t *testing.T) {
 
 	for _, testcase := range testcases {
 		testcase := testcase
-		t.Run(testcase.version, func(t *testing.T) {
+		t.Run(testcase.version, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			warnings, errors := validMemcachedVersionString(testcase.version, "key")
@@ -79,6 +83,8 @@ func TestValidMemcachedVersionString(t *testing.T) {
 		})
 	}
 }
+
+
 
 func TestValidRedisVersionString(t *testing.T) {
 	t.Parallel()
@@ -183,7 +189,9 @@ func TestValidRedisVersionString(t *testing.T) {
 
 	for _, testcase := range testcases {
 		testcase := testcase
-		t.Run(testcase.version, func(t *testing.T) {
+		t.Run(testcase.version, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			warnings, errors := validRedisVersionString(testcase.version, "key")
@@ -206,6 +214,8 @@ func TestValidRedisVersionString(t *testing.T) {
 		})
 	}
 }
+
+
 
 func TestValidateClusterEngineVersion(t *testing.T) {
 	t.Parallel()
@@ -282,7 +292,9 @@ func TestValidateClusterEngineVersion(t *testing.T) {
 
 	for _, testcase := range testcases {
 		testcase := testcase
-		t.Run(fmt.Sprintf("%s %s", testcase.engine, testcase.version), func(t *testing.T) {
+		t.Run(fmt.Sprintf("%s %s", testcase.engine, testcase.version), 
+
+func(t *testing.T) {
 			t.Parallel()
 			err := validateClusterEngineVersion(testcase.engine, testcase.version)
 
@@ -303,9 +315,13 @@ type mockGetChangeDiffer struct {
 	old, new string
 }
 
+
+
 func (d *mockGetChangeDiffer) GetChange(key string) (interface{}, interface{}) {
 	return d.old, d.new
 }
+
+
 
 func TestCustomizeDiffEngineVersionIsDowngrade(t *testing.T) {
 	t.Parallel()
@@ -389,7 +405,9 @@ func TestCustomizeDiffEngineVersionIsDowngrade(t *testing.T) {
 
 	for name, testcase := range testcases {
 		testcase := testcase
-		t.Run(name, func(t *testing.T) {
+		t.Run(name, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			diff := &mockGetChangeDiffer{
@@ -417,23 +435,33 @@ type mockForceNewDiffer struct {
 	forceNew  bool
 }
 
+
+
 func (d *mockForceNewDiffer) Id() string {
 	return d.id
 }
+
+
 
 func (d *mockForceNewDiffer) HasChange(key string) bool {
 	return d.hasChange || d.old != d.new
 }
 
+
+
 func (d *mockForceNewDiffer) GetChange(key string) (interface{}, interface{}) {
 	return d.old, d.new
 }
+
+
 
 func (d *mockForceNewDiffer) ForceNew(key string) error {
 	d.forceNew = true
 
 	return nil
 }
+
+
 
 func TestCustomizeDiffEngineVersionForceNewOnDowngrade(t *testing.T) {
 	t.Parallel()
@@ -543,7 +571,9 @@ func TestCustomizeDiffEngineVersionForceNewOnDowngrade(t *testing.T) {
 
 	for name, testcase := range testcases {
 		testcase := testcase
-		t.Run(name, func(t *testing.T) {
+		t.Run(name, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			diff := &mockForceNewDiffer{}
@@ -572,6 +602,8 @@ func TestCustomizeDiffEngineVersionForceNewOnDowngrade(t *testing.T) {
 		})
 	}
 }
+
+
 
 func TestNormalizeEngineVersion(t *testing.T) {
 	t.Parallel()
@@ -613,7 +645,9 @@ func TestNormalizeEngineVersion(t *testing.T) {
 
 	for _, testcase := range testcases {
 		testcase := testcase
-		t.Run(testcase.version, func(t *testing.T) {
+		t.Run(testcase.version, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			version, err := normalizeEngineVersion(testcase.version)
@@ -633,6 +667,8 @@ func TestNormalizeEngineVersion(t *testing.T) {
 		})
 	}
 }
+
+
 
 func TestVersionDiff(t *testing.T) {
 	t.Parallel()
@@ -678,9 +714,13 @@ type mockDiff struct {
 	hasChange bool // force HasChange() to return true
 }
 
+
+
 func (d mockDiff) HasChange() bool {
 	return d.hasChange || d.old != d.new
 }
+
+
 
 func (d mockDiff) GetChange() (interface{}, interface{}) {
 	return d.old, d.new
@@ -691,23 +731,31 @@ type mockChangesDiffer struct {
 	values map[string]mockDiff
 }
 
+
+
 func (d *mockChangesDiffer) Id() string {
 	return d.id
 }
+
+
 
 func (d *mockChangesDiffer) HasChange(key string) bool {
 	return d.values[key].HasChange()
 }
 
+
+
 func (d *mockChangesDiffer) GetChange(key string) (interface{}, interface{}) {
 	return d.values[key].GetChange()
 }
+
+
 
 func TestParamGroupNameRequiresMajorVersionUpgrade(t *testing.T) {
 	t.Parallel()
 
 	testcases := map[string]struct {
-		isNew                  bool
+		isNew     bool
 		paramOld, paramNew     string
 		paramHasChange         bool
 		versionOld, versionNew string
@@ -783,7 +831,9 @@ func TestParamGroupNameRequiresMajorVersionUpgrade(t *testing.T) {
 	for name, testcase := range testcases {
 		testcase := testcase
 
-		t.Run(name, func(t *testing.T) {
+		t.Run(name, 
+
+func(t *testing.T) {
 			t.Parallel()
 
 			diff := &mockChangesDiffer{

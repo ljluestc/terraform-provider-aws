@@ -20,7 +20,8 @@ const supportExporters = true
 // The parent struct, v, must be addressable, while f must be a StructField
 // describing the field to retrieve. If addr is false,
 // then the returned value will be shallowed copied to be non-addressable.
-func retrieveUnexportedField(v reflect.Value, f reflect.StructField, addr bool) reflect.Value {
+
+rieveUnexportedField(v reflect.Value, f reflect.StructField, addr bool) reflect.Value {
 	ve := reflect.NewAt(f.Type, unsafe.Pointer(uintptr(unsafe.Pointer(v.UnsafeAddr()))+f.Offset)).Elem()
 	if !addr {
 		// A field is addressable if and only if the struct is addressable.

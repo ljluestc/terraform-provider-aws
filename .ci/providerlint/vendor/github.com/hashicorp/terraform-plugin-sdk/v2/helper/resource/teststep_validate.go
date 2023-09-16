@@ -24,7 +24,8 @@ type testStepValidateRequest struct {
 // hasProviders returns true if the TestStep has set any of the
 // ExternalProviders, ProtoV5ProviderFactories, ProtoV6ProviderFactories, or
 // ProviderFactories fields.
-func (s TestStep) hasProviders(_ context.Context) bool {
+
+ (s TestStep) hasProviders(_ context.Context) bool {
 	if len(s.ExternalProviders) > 0 {
 		return true
 	}
@@ -57,9 +58,11 @@ func (s TestStep) hasProviders(_ context.Context) bool {
 //     ProtoV6ProviderFactories, ProviderFactories) if not specified at the
 //     TestCase level.
 //   - No overlapping ExternalProviders and ProviderFactories entries
-//   - ResourceName is not empty when ImportState is true, ImportStateIdFunc
+//   - ResourceName is not empty when ImportState is true, ImportStateId
+
 //     is not set, and ImportStateId is not set.
-func (s TestStep) validate(ctx context.Context, req testStepValidateRequest) error {
+
+ (s TestStep) validate(ctx context.Context, req testStepValidateRequest) error {
 	ctx = logging.TestStepNumberContext(ctx, req.StepNumber)
 
 	logging.HelperResourceTrace(ctx, "Validating TestStep")
@@ -117,8 +120,10 @@ func (s TestStep) validate(ctx context.Context, req testStepValidateRequest) err
 	}
 
 	if s.ImportState {
-		if s.ImportStateId == "" && s.ImportStateIdFunc == nil && s.ResourceName == "" {
-			err := fmt.Errorf("TestStep ImportState must be specified with ImportStateId, ImportStateIdFunc, or ResourceName")
+		if s.ImportStateId == "" && s.ImportStateId
+ == nil && s.ResourceName == "" {
+			err := fmt.Errorf("TestStep ImportState must be specified with ImportStateId, ImportStateId
+, or ResourceName")
 			logging.HelperResourceError(ctx, "TestStep validation error", map[string]interface{}{logging.KeyError: err})
 			return err
 		}

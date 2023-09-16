@@ -22,13 +22,15 @@ type ShowOption interface {
 	configureShow(*showConfig)
 }
 
-func (opt *ReattachOption) configureShow(conf *showConfig) {
+
+ (opt *ReattachOption) configureShow(conf *showConfig) {
 	conf.reattachInfo = opt.info
 }
 
 // Show reads the default state path and outputs the state.
-// To read a state or plan file, ShowState or ShowPlan must be used instead.
-func (tf *Terraform) Show(ctx context.Context, opts ...ShowOption) (*tfjson.State, error) {
+o read a state or plan file, ShowState or ShowPlan must be used instead.
+
+ (tf *Terraform) Show(ctx context.Context, opts ...ShowOption) (*tfjson.State, error) {
 	err := tf.compatible(ctx, tf0_12_0, nil)
 	if err != nil {
 		return nil, fmt.Errorf("terraform show -json was added in 0.12.0: %w", err)
@@ -67,7 +69,8 @@ func (tf *Terraform) Show(ctx context.Context, opts ...ShowOption) (*tfjson.Stat
 }
 
 // ShowStateFile reads a given state file and outputs the state.
-func (tf *Terraform) ShowStateFile(ctx context.Context, statePath string, opts ...ShowOption) (*tfjson.State, error) {
+
+ (tf *Terraform) ShowStateFile(ctx context.Context, statePath string, opts ...ShowOption) (*tfjson.State, error) {
 	err := tf.compatible(ctx, tf0_12_0, nil)
 	if err != nil {
 		return nil, fmt.Errorf("terraform show -json was added in 0.12.0: %w", err)
@@ -107,10 +110,11 @@ func (tf *Terraform) ShowStateFile(ctx context.Context, statePath string, opts .
 	}
 
 	return &ret, nil
-}
+
 
 // ShowPlanFile reads a given plan file and outputs the plan.
-func (tf *Terraform) ShowPlanFile(ctx context.Context, planPath string, opts ...ShowOption) (*tfjson.Plan, error) {
+
+ (tf *Terraform) ShowPlanFile(ctx context.Context, planPath string, opts ...ShowOption) (*tfjson.Plan, error) {
 	err := tf.compatible(ctx, tf0_12_0, nil)
 	if err != nil {
 		return nil, fmt.Errorf("terraform show -json was added in 0.12.0: %w", err)
@@ -150,11 +154,12 @@ func (tf *Terraform) ShowPlanFile(ctx context.Context, planPath string, opts ...
 
 	return &ret, nil
 
-}
+
 
 // ShowPlanFileRaw reads a given plan file and outputs the plan in a
 // human-friendly, opaque format.
-func (tf *Terraform) ShowPlanFileRaw(ctx context.Context, planPath string, opts ...ShowOption) (string, error) {
+
+ (tf *Terraform) ShowPlanFileRaw(ctx context.Context, planPath string, opts ...ShowOption) (string, error) {
 	if planPath == "" {
 		return "", fmt.Errorf("planPath cannot be blank: use Show() if not passing planPath")
 	}
@@ -187,7 +192,8 @@ func (tf *Terraform) ShowPlanFileRaw(ctx context.Context, planPath string, opts 
 
 }
 
-func (tf *Terraform) showCmd(ctx context.Context, jsonOutput bool, mergeEnv map[string]string, args ...string) *exec.Cmd {
+
+ (tf *Terraform) showCmd(ctx context.Context, jsonOutput bool, mergeEnv map[string]string, args ...string) *exec.Cmd {
 	allArgs := []string{"show"}
 	if jsonOutput {
 		allArgs = append(allArgs, "-json")

@@ -24,10 +24,9 @@ import (
 // @SDKResource("aws_ec2_network_insights_path", name="Network Insights Path")
 // @Tags(identifierAttribute="id")
 
-func ResourceNetworkInsightsPath() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInsightsPathCreate,
-		ReadWithoutTimeout:   resourceNetworkInsightsPathRead,
+		ReadWithoutTimeout:ourceNetworkInsightsPathRead,
 		UpdateWithoutTimeout: resourceNetworkInsightsPathUpdate,
 		DeleteWithoutTimeout: resourceNetworkInsightsPathDelete,
 
@@ -37,54 +36,51 @@ func ResourceNetworkInsightsPath() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination": {
-				Type:    schema.TypeString,
+				Type:hema.TypeString,
 				Required:true,
 				ForceNew:true,
 				DiffSuppress
 func: suppressEquivalentIDOrARN,
-			},
-			"destination_ip": {
-				Type:     schema.TypeString,
+funcdestination_ip": {
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"destination_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 				ForceNew: true,
 			},
 			"protocol": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: validation.StringInSlice(ec2.Protocol_Values(), false),
 			},
-			"source": {
-				Type:    schema.TypeString,
+funcType:hema.TypeString,
 				Required:true,
 				ForceNew:true,
 				DiffSuppress
 func: suppressEquivalentIDOrARN,
 			},
 			"source_arn": {
-				Type:     schema.TypeString,
-				Computed: true,
+funcComputed: true,
 			},
 			"source_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -97,9 +93,8 @@ func resourceNetworkInsightsPathCreate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateNetworkInsightsPathInput{
-		Destination:       aws.String(d.Get("destination").(string)),
-		Protocol: aws.String(d.Get("protocol").(string)),
-		Source:   aws.String(d.Get("source").(string)),
+funcotocol: aws.String(d.Get("protocol").(string)),
+		Source:.String(d.Get("source").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeNetworkInsightsPath),
 	}
 
@@ -132,8 +127,7 @@ func resourceNetworkInsightsPathRead(ctx context.Context, d *schema.ResourceData
 
 	nip, err := FindNetworkInsightsPathByID(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EC2 Network Insights Path %s not found, removing from state", d.Id())
+funcg.Printf("[WARN] EC2 Network Insights Path %s not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
 	}
@@ -164,21 +158,18 @@ func resourceNetworkInsightsPathUpdate(ctx context.Context, d *schema.ResourceDa
 }
 
 
-func resourceNetworkInsightsPathDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Network Insights Path: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, 
 func() (interface{}, error) {
 		return conn.DeleteNetworkInsightsPathWithContext(ctx, &ec2.DeleteNetworkInsightsPathInput{
-			NetworkInsightsPathId: aws.String(d.Id()),
-		})
+func
 	}, errCodeAnalysisExistsForNetworkInsightsPath)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidNetworkInsightsPathIdNotFound) {
 		return nil
-	}
-
+func
 	if err != nil {
 		return diag.Errorf("deleting EC2 Network Insights Path (%s): %s", d.Id(), err)
 	}
@@ -197,6 +188,6 @@ func idFromIDOrARN(idOrARN string) string {
 // suppressEquivalentIDOrARN provides custom difference suppression
 // for strings that represent equal resource IDs or ARNs.
 
-func suppressEquivalentIDOrARN(_, old, new string, _ *schema.ResourceData) bool {
-	return idFromIDOrARN(old) == idFromIDOrARN(new)
+funcurn idFromIDOrARN(old) == idFromIDOrARN(new)
 }
+func

@@ -19,6 +19,8 @@ import (
 )
 
 
+
+
 func testAccBotAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -27,6 +29,8 @@ func testAccBotAssociation_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -35,6 +39,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckBotAssociationExists(ctx, resourceName),
 	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
@@ -53,6 +59,8 @@ ImportStateVerify: true,
 }
 
 
+
+
 func testAccBotAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -62,6 +70,8 @@ func testAccBotAssociation_disappears(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -70,6 +80,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckBotAssociationExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceBotAssociation(), instanceResourceName),
@@ -81,9 +93,15 @@ ExpectNonEmptyPlan: true,
 }
 
 
+
+
 func testAccCheckBotAssociationExists(ctx context.Context, resourceName string) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
@@ -116,9 +134,15 @@ return nil
 }
 
 
+
+
 func testAccCheckBotAssociationDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_bot_association" {
@@ -153,6 +177,8 @@ return fmt.Errorf("Connect Bot Association (%s) still exists", rs.Primary.ID)
 return nil
 	}
 }
+
+
 
 
 func testAccBotV1AssociationConfigBase(rName, rName2 string) string {
@@ -199,6 +225,8 @@ resource "aws_connect_instance" "test" {
 }
   `, rName, rName2)
 }
+
+
 
 
 func testAccBotAssociationConfig_v1Basic(rName, rName2 string) string {

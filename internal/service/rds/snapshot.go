@@ -26,8 +26,7 @@ import (
 
 // @SDKResource("aws_db_snapshot", name="DB Snapshot")
 // @Tags(identifierAttribute="db_snapshot_arn")
-func ResourceSnapshot() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSnapshotCreate,
 		ReadWithoutTimeout:   resourceSnapshotRead,
 		UpdateWithoutTimeout: resourceSnapshotUpdate,
@@ -134,14 +133,13 @@ func ResourceSnapshot() *schema.Resource {
 }
 
 func resourceSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	dbSnapshotID := d.Get("db_snapshot_identifier").(string)
 	input := &rds.CreateDBSnapshotInput{
 		DBInstanceIdentifier: aws.String(d.Get("db_instance_identifier").(string)),
 		DBSnapshotIdentifier: aws.String(dbSnapshotID),
-		Tags:                 getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateDBSnapshotWithContext(ctx, input)
@@ -173,8 +171,7 @@ func resourceSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 func resourceSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	snapshot, err := FindDBSnapshotByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -227,8 +224,7 @@ func resourceSnapshotRead(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceSnapshotUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	if d.HasChange("shared_accounts") {
+funcd.HasChange("shared_accounts") {
 		o, n := d.GetChange("shared_accounts")
 		os := o.(*schema.Set)
 		ns := n.(*schema.Set)
@@ -257,8 +253,7 @@ func resourceSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta in
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS DB Snapshot: %s", d.Id())
-	_, err := conn.DeleteDBSnapshotWithContext(ctx, &rds.DeleteDBSnapshotInput{
+funcerr := conn.DeleteDBSnapshotWithContext(ctx, &rds.DeleteDBSnapshotInput{
 		DBSnapshotIdentifier: aws.String(d.Id()),
 	})
 
@@ -278,8 +273,7 @@ func FindDBSnapshotByID(ctx context.Context, conn *rds.RDS, id string) (*rds.DBS
 		DBSnapshotIdentifier: aws.String(id),
 	}
 	output, err := findDBSnapshot(ctx, conn, input, tfslices.PredicateTrue[*rds.DBSnapshot]())
-
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 
@@ -299,8 +293,7 @@ func findDBSnapshot(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBSna
 	if err != nil {
 		return nil, err
 	}
-
-	return tfresource.AssertSinglePtrResult(output)
+funcurn tfresource.AssertSinglePtrResult(output)
 }
 
 func findDBSnapshots(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBSnapshotsInput, filter tfslices.Predicate[*rds.DBSnapshot]) ([]*rds.DBSnapshot, error) {
@@ -310,12 +303,10 @@ func findDBSnapshots(ctx context.Context, conn *rds.RDS, input *rds.DescribeDBSn
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.DBSnapshots {
+funcr _, v := range page.DBSnapshots {
 			if v != nil && filter(v) {
 				output = append(output, v)
-			}
-		}
+			}func
 
 		return !lastPage
 	})

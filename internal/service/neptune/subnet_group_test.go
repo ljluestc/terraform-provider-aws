@@ -27,10 +27,10 @@ func TestAccNeptuneSubnetGroup_basic(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccNeptuneSubnetGroup_disappears(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccNeptuneSubnetGroup_nameGenerated(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_nameGenerated(rName),
@@ -113,10 +113,10 @@ func TestAccNeptuneSubnetGroup_namePrefix(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_namePrefix(rName, "tf-acc-test-prefix-"),
@@ -142,10 +142,10 @@ func TestAccNeptuneSubnetGroup_tags(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_tags1(rName, "key1", "value1"),
@@ -188,10 +188,10 @@ func TestAccNeptuneSubnetGroup_update(t *testing.T) {
 	resourceName := "aws_neptune_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),

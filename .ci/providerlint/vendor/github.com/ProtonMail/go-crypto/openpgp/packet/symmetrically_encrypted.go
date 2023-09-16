@@ -24,7 +24,8 @@ type SymmetricallyEncrypted struct {
 	prefix []byte
 
 	// Specific to version 2
-	cipher        CipherFunction
+	cipher        Cipher
+
 	mode          AEADMode
 	chunkSizeByte byte
 	salt          [aeadSaltSize]byte
@@ -35,7 +36,8 @@ const (
 	symmetricallyEncryptedVersionAead = 2
 )
 
-func (se *SymmetricallyEncrypted) parse(r io.Reader) error {
+
+ *SymmetricallyEncrypted) parse(r io.Reader) error {
 	if se.IntegrityProtected {
 		// See RFC 4880, section 5.13.
 		var buf [1]byte
@@ -63,7 +65,9 @@ func (se *SymmetricallyEncrypted) parse(r io.Reader) error {
 // Decrypt returns a ReadCloser, from which the decrypted Contents of the
 // packet can be read. An incorrect key will only be detected after trying
 // to decrypt the entire data.
-func (se *SymmetricallyEncrypted) Decrypt(c CipherFunction, key []byte) (io.ReadCloser, error) {
+
+ *SymmetricallyEncrypted) Decrypt(c Cipher
+, key []byte) (io.ReadCloser, error) {
 	if se.Version == symmetricallyEncryptedVersionAead {
 		return se.decryptAead(key)
 	}
@@ -75,7 +79,9 @@ func (se *SymmetricallyEncrypted) Decrypt(c CipherFunction, key []byte) (io.Read
 // to w and returns a WriteCloser to which the to-be-encrypted packets can be
 // written.
 // If config is nil, sensible defaults will be used.
-func SerializeSymmetricallyEncrypted(w io.Writer, c CipherFunction, aeadSupported bool, cipherSuite CipherSuite, key []byte, config *Config) (Contents io.WriteCloser, err error) {
+
+ializeSymmetricallyEncrypted(w io.Writer, c Cipher
+, aeadSupported bool, cipherSuite CipherSuite, key []byte, config *Config) (Contents io.WriteCloser, err error) {
 	writeCloser := noOpCloser{w}
 	ciphertext, err := serializeStreamHeader(writeCloser, packetTypeSymmetricallyEncryptedIntegrityProtected)
 	if err != nil {

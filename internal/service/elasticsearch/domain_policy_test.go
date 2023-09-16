@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var domain elasticsearch.ElasticsearchDomainStatus
 	ri := sdkacctest.RandInt()
 	policy := `{
@@ -27,7 +26,7 @@ func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
             "Principal": "*",
             "Effect": "Allow",
             "Condition": {
-                "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
+   "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
             },
             "Resource": "${aws_elasticsearch_domain.example.arn}"
         }
@@ -41,7 +40,7 @@ func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
             "Principal": "*",
             "Effect": "Allow",
             "Condition": {
-                "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
+   "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
             },
             "Resource": "%s"
         }
@@ -50,10 +49,9 @@ func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
 	name := fmt.Sprintf("tf-test-%d", ri)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticsearch.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainPolicyConfig_basic(ri, policy),
@@ -62,8 +60,7 @@ func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("aws_elasticsearch_domain.example", "elasticsearch_version", "2.3"),
 					func(s *terraform.State) error {
 						awsClient := acctest.Provider.Meta().(*conns.AWSClient)
-						expectedArn, err := buildDomainARN(name, awsClient.Partition, awsClient.AccountID, awsClient.Region)
-						if err != nil {
+					func		if err != nil {
 							return err
 						}
 						expectedPolicy := fmt.Sprintf(expectedPolicyTpl, expectedArn)
@@ -79,8 +76,7 @@ func TestAccElasticsearchDomainPolicy_basic(t *testing.T) {
 func buildDomainARN(name, partition, accId, region string) (string, error) {
 	if partition == "" {
 		return "", fmt.Errorf("Unable to construct ES Domain ARN because of missing AWS partition")
-	}
-	if accId == "" {
+funcaccId == "" {
 		return "", fmt.Errorf("Unable to construct ES Domain ARN because of missing AWS Account ID")
 	}
 	// arn:aws:es:us-west-2:187416307283:domain/example-name
@@ -91,8 +87,7 @@ func testAccDomainPolicyConfig_basic(randInt int, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticsearch_domain" "example" {
   domain_name           = "tf-test-%d"
-  elasticsearch_version = "2.3"
-
+func
   cluster_config {
     instance_type = "t2.small.elasticsearch" # supported in both aws and aws-us-gov
   }

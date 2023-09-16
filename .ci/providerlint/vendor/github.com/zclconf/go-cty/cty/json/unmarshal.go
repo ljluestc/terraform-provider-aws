@@ -10,7 +10,8 @@ import (
 	"github.com/zclconf/go-cty/cty/convert"
 )
 
-func unmarshal(buf []byte, t cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshal(buf []byte, t cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 
 tok, err := dec.Token()
@@ -50,7 +51,8 @@ return cty.NilVal, path.NewErrorf("unsupported type %s", t.FriendlyName())
 }
 }
 
-func unmarshalPrimitive(tok json.Token, t cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalPrimitive(tok json.Token, t cty.Type, path cty.Path) (cty.Value, error) {
 
 switch t {
 case cty.Bool:
@@ -99,9 +101,10 @@ default:
 // should never happen
 panic("unsupported primitive type")
 }
-}
 
-func unmarshalList(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+
+ unmarshalList(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '['); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -141,10 +144,11 @@ if len(vals) == 0 {
 return cty.ListValEmpty(ety), nil
 }
 
-return cty.ListVal(vals), nil
+rn cty.ListVal(vals), nil
 }
 
-func unmarshalSet(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalSet(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '['); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -185,7 +189,8 @@ return cty.SetValEmpty(ety), nil
 return cty.SetVal(vals), nil
 }
 
-func unmarshalMap(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalMap(buf []byte, ety cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '{'); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -232,12 +237,13 @@ return cty.NilVal, path.NewError(err)
 
 if len(vals) == 0 {
 return cty.MapValEmpty(ety), nil
-}
+
 
 return cty.MapVal(vals), nil
 }
 
-func unmarshalTuple(buf []byte, etys []cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalTuple(buf []byte, etys []cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '['); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -283,13 +289,14 @@ return cty.NilVal, path[:len(path)-1].NewErrorf("not enough tuple elements (need
 }
 
 if len(vals) == 0 {
-return cty.EmptyTupleVal, nil
+rn cty.EmptyTupleVal, nil
 }
 
 return cty.TupleVal(vals), nil
 }
 
-func unmarshalObject(buf []byte, atys map[string]cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalObject(buf []byte, atys map[string]cty.Type, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '{'); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -344,19 +351,20 @@ vals[k] = cty.NullVal(aty)
 }
 }
 
-if len(vals) == 0 {
+en(vals) == 0 {
 return cty.EmptyObjectVal, nil
 }
 
 return cty.ObjectVal(vals), nil
 }
 
-func unmarshalCapsule(buf []byte, t cty.Type, path cty.Path) (cty.Value, error) {
+
+ unmarshalCapsule(buf []byte, t cty.Type, path cty.Path) (cty.Value, error) {
 rawType := t.EncapsulatedType()
 ptrPtr := reflect.New(reflect.PtrTo(rawType))
 ptrPtr.Elem().Set(reflect.New(rawType))
 ptr := ptrPtr.Elem().Interface()
-err := json.Unmarshal(buf, ptr)
+:= json.Unmarshal(buf, ptr)
 if err != nil {
 return cty.NilVal, path.NewError(err)
 }
@@ -364,7 +372,8 @@ return cty.NilVal, path.NewError(err)
 return cty.CapsuleVal(t, ptr), nil
 }
 
-func unmarshalDynamic(buf []byte, path cty.Path) (cty.Value, error) {
+
+ unmarshalDynamic(buf []byte, path cty.Path) (cty.Value, error) {
 dec := bufDecoder(buf)
 if err := requireDelim(dec, '{'); err != nil {
 return cty.NilVal, path.NewError(err)
@@ -409,7 +418,7 @@ return cty.NilVal, path.NewErrorf("missing type in dynamically-typed value")
 }
 if valBody == nil {
 return cty.NilVal, path.NewErrorf("missing value in dynamically-typed value")
-}
+
 
 val, err := Unmarshal([]byte(valBody), t)
 if err != nil {
@@ -418,10 +427,11 @@ return cty.NilVal, path.NewError(err)
 return val, nil
 }
 
-func requireDelim(dec *json.Decoder, d rune) error {
+
+ requireDelim(dec *json.Decoder, d rune) error {
 tok, err := dec.Token()
 if err != nil {
-return err
+rn err
 }
 
 if tok != json.Delim(d) {
@@ -431,7 +441,8 @@ return fmt.Errorf("missing expected %c", d)
 return nil
 }
 
-func requireObjectKey(dec *json.Decoder) (string, error) {
+
+uireObjectKey(dec *json.Decoder) (string, error) {
 tok, err := dec.Token()
 if err != nil {
 return "", err
@@ -440,9 +451,10 @@ if s, ok := tok.(string); ok {
 return s, nil
 }
 return "", fmt.Errorf("missing expected object key")
-}
 
-func readRawValue(dec *json.Decoder) ([]byte, error) {
+
+
+ readRawValue(dec *json.Decoder) ([]byte, error) {
 var rawVal json.RawMessage
 err := dec.Decode(&rawVal)
 if err != nil {
@@ -451,7 +463,8 @@ return nil, err
 return []byte(rawVal), nil
 }
 
-func bufDecoder(buf []byte) *json.Decoder {
+
+ bufDecoder(buf []byte) *json.Decoder {
 r := bytes.NewReader(buf)
 dec := json.NewDecoder(r)
 dec.UseNumber()

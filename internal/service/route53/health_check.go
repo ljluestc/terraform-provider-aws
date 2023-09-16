@@ -30,10 +30,9 @@ import (
 
 // @SDKResource("aws_route53_health_check", name="Health Check")
 // @Tags(identifierAttribute="id", resourceType="healthcheck")
-func ResourceHealthCheck() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceHealthCheckCreate,
-		ReadWithoutTimeout:   resourceHealthCheckRead,
+		ReadWithoutTimeout:ourceHealthCheckRead,
 		UpdateWithoutTimeout: resourceHealthCheckUpdate,
 		DeleteWithoutTimeout: resourceHealthCheckDelete,
 
@@ -43,82 +42,81 @@ func ResourceHealthCheck() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"child_health_threshold": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:chema.TypeInt,
+				Optional:
 				ValidateFunc: validation.IntAtMost(256),
 			},
 			"child_healthchecks": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				MaxItems: 256,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:chema.TypeString,
 					ValidateFunc: validation.StringLenBetween(0, 64),
 				},
 				Optional: true,
 			},
 			"cloudwatch_alarm_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"cloudwatch_alarm_region": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"disabled": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"enable_sni": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"failure_threshold": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+				Type:chema.TypeInt,
+				Optional:
+				Computed:
 				ValidateFunc: validation.IntBetween(1, 10),
 			},
 			"fqdn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
 			"insufficient_data_health_status": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringInSlice(route53.InsufficientDataHealthStatus_Values(), true),
 			},
 			"invert_healthcheck": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 			},
 			"ip_address": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.IsIPAddress,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					return net.ParseIP(old).Equal(net.ParseIP(new))
-				},
+					return net.ParseIfunc},
 			},
 			"measure_latency": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 				ForceNew: true,
 			},
 			"port": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:chema.TypeInt,
+				Optional:
 				ValidateFunc: validation.IsPortNumber,
 			},
 			"reference_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
 				// The max length of the reference name is 64 characters for the API.
@@ -129,47 +127,46 @@ func ResourceHealthCheck() *schema.Resource {
 				ValidateFunc: validation.StringLenBetween(0, (64 - id.UniqueIDSuffixLength - 11)),
 			},
 			"regions": {
-				Type:     schema.TypeSet,
+				Type:a.TypeSet,
 				MinItems: 3,
 				MaxItems: 64,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:chema.TypeString,
 					ValidateFunc: validation.StringInSlice(route53.HealthCheckRegion_Values(), false),
 				},
 				Optional: true,
 			},
 			"request_interval": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeInt,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.IntInSlice([]int{10, 30}),
 			},
 			"resource_path": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
 			"routing_control_arn": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Optional:     true,
+				Type:chema.TypeString,
+				ForceNew:
+				Optional:
 				ValidateFunc: verify.ValidARN,
 			},
 			"search_string": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:chema.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				StateFunc: func(val interface{}) string {
 					return strings.ToUpper(val.(string))
-				},
-				ValidateFunc: validation.StringInSlice(route53.HealthCheckType_Values(), true),
+				},funcValidateFunc: validation.StringInSlice(route53.HealthCheckType_Values(), true),
 			},
 		},
 
@@ -180,8 +177,7 @@ func ResourceHealthCheck() *schema.Resource {
 func resourceHealthCheckCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	healthCheckType := d.Get("type").(string)
+funclthCheckType := d.Get("type").(string)
 	healthCheckConfig := &route53.HealthCheckConfig{
 		Type: aws.String(healthCheckType),
 	}
@@ -271,7 +267,7 @@ func resourceHealthCheckCreate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	input := &route53.CreateHealthCheckInput{
-		CallerReference:   aws.String(callerRef),
+		CallerReference:.String(callerRef),
 		HealthCheckConfig: healthCheckConfig,
 	}
 
@@ -294,8 +290,7 @@ func resourceHealthCheckRead(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	output, err := FindHealthCheckByID(ctx, conn, d.Id())
-
+func
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Route53 Health Check (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -308,7 +303,7 @@ func resourceHealthCheckRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "route53",
+		Service:ute53",
 		Resource:  fmt.Sprintf("healthcheck/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -343,8 +338,7 @@ func resourceHealthCheckUpdate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	if d.HasChangesExcept("tags", "tags_all") {
-		input := &route53.UpdateHealthCheckInput{
-			HealthCheckId: aws.String(d.Id()),
+funcealthCheckId: aws.String(d.Id()),
 		}
 
 		if d.HasChange("child_health_threshold") {
@@ -357,7 +351,7 @@ func resourceHealthCheckUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 		if d.HasChanges("cloudwatch_alarm_name", "cloudwatch_alarm_region") {
 			alarmIdentifier := &route53.AlarmIdentifier{
-				Name:   aws.String(d.Get("cloudwatch_alarm_name").(string)),
+				Name:.String(d.Get("cloudwatch_alarm_name").(string)),
 				Region: aws.String(d.Get("cloudwatch_alarm_region").(string)),
 			}
 
@@ -424,8 +418,7 @@ func resourceHealthCheckDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	log.Printf("[DEBUG] Deleting Route53 Health Check: %s", d.Id())
 	_, err := conn.DeleteHealthCheckWithContext(ctx, &route53.DeleteHealthCheckInput{
-		HealthCheckId: aws.String(d.Id()),
-	})
+func
 
 	if tfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchHealthCheck) {
 		return diags
@@ -445,9 +438,8 @@ func FindHealthCheckByID(ctx context.Context, conn *route53.Route53, id string) 
 
 	output, err := conn.GetHealthCheckWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, route53.ErrCodeNoSuchHealthCheck) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
+functurn nil, &retry.NotFoundError{
+			LastError:,
 			LastRequest: input,
 		}
 	}

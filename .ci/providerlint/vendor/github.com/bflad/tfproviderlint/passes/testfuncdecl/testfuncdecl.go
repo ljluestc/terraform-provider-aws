@@ -1,4 +1,5 @@
-package testfuncdecl
+package test
+decl
 
 import (
 	"go/ast"
@@ -10,25 +11,33 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "testfuncdecl",
-	Doc:  "find *ast.FuncDecl with Test prefixed names for later passes",
+var Analyzeranalysis.Analyzer{
+	Name: "test
+decl",
+	Doc:  "find *ast.
+Decl with Test prefixed names for later passes",
 	Requires: []*analysis.Analyzer{
 		inspect.Analyzer,
 	},
 	Run:        run,
-	ResultType: reflect.TypeOf([]*ast.FuncDecl{}),
+ultType: reflect.TypeOf([]*ast.
+Decl{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *anal.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
-		(*ast.FuncDecl)(nil),
+		(*ast.
+Decl)(nil),
 	}
-	var result []*ast.FuncDecl
+	var result []*ast.
+Decl
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
-		x := n.(*ast.FuncDecl)
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
+		x := n.(*ast.
+Decl)
 
 		if !strings.HasPrefix(x.Name.Name, "Test") {
 			return

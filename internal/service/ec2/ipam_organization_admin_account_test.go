@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var organization organizations.DelegatedAdministrator
 	resourceName := "aws_vpc_ipam_organization_admin_account.test"
 	dataSourceIdentity := "data.aws_caller_identity.delegated"
@@ -28,26 +27,24 @@ func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckAlternateAccount(t)
+functest.PreCheckAlternateAccount(t)
 },
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckIPAMOrganizationAdminAccountDestroy(ctx),
+CheckDestroy:stAccCheckIPAMOrganizationAdminAccountDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMOrganizationAdminAccountConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMOrganizationAdminAccountExists(ctx, resourceName, &organization),
-	resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceIdentity, "account_id"),
-	resource.TestCheckResourceAttr(resourceName, "service_principal", tfec2.IPAMServicePrincipal),
+funcource.TestCheckResourceAttr(resourceName, "service_principal", tfec2.IPAMServicePrincipal),
 	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "organizations", regexache.MustCompile("account/.+")),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -58,13 +55,10 @@ ImportStateVerify: true,
 func testAccCheckIPAMOrganizationAdminAccountDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+func := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
+func_, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_vpc_ipam_organization_admin_account" {
-continue
-	}
+func
 	id := rs.Primary.ID
 
 	input := &organizations.ListDelegatedAdministratorsInput{
@@ -93,13 +87,10 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("Organization ID not set")
-}
-
+func
 accountID := rs.Primary.ID
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
@@ -137,5 +128,4 @@ data "aws_caller_identity" "delegated" {
 resource "aws_vpc_ipam_organization_admin_account" "test" {
   delegated_admin_account_id = data.aws_caller_identity.delegated.account_id
 }
-`)
-}
+func

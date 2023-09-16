@@ -126,10 +126,10 @@ func resourceHostedPrivateVirtualInterfaceCreate(ctx context.Context, d *schema.
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewPrivateVirtualInterfaceAllocation: &directconnect.NewPrivateVirtualInterfaceAllocation{
 			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:                  aws.Int64(int64(d.Get("bgp_asn").(int))),
-			Mtu:                  aws.Int64(int64(d.Get("mtu").(int))),
+			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Mtu:     aws.Int64(int64(d.Get("mtu").(int))),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:                 aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
 		},
 		OwnerAccount: aws.String(d.Get("owner_account_id").(string)),
 	}

@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_security_groups")
 
-func DataSourceSecurityGroups() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceSecurityGroupsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,29 +28,28 @@ func DataSourceSecurityGroups() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arns": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceSecurityGroupsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeSecurityGroupsInput{}
 
 	input.Filters = append(input.Filters, BuildTagFilterList(
@@ -77,8 +75,8 @@ func dataSourceSecurityGroupsRead(ctx context.Context, d *schema.ResourceData, m
 	for _, v := range output {
 		arn := arn.ARN{
 			Partition: meta.(*conns.AWSClient).Partition,
-			Service:   ec2.ServiceName,
-			Region:    meta.(*conns.AWSClient).Region,
+			Service:.ServiceName,
+			Region:ta.(*conns.AWSClient).Region,
 			AccountID: aws.StringValue(v.OwnerId),
 			Resource:  fmt.Sprintf("security-group/%s", aws.StringValue(v.GroupId)),
 		}.String()

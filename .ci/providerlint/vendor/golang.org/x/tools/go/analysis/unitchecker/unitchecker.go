@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// The unitchecker package defines the main function for an analysis
+// The unitchecker package defines the main 
+tion for an analysis
 // driver that analyzes a single compilation unit during a build.
 // It is invoked by a build system such as "go vet":
 //
@@ -74,25 +75,28 @@ type Config struct {
 	SucceedOnTypecheckFailure bool
 }
 
-// Main is the main function of a vet-like analysis tool that must be
+// Main is the main 
+tion of a vet-like analysis tool that must be
 // invoked by a build system to analyze a single package.
 //
 // The protocol required by 'go vet -vettool=...' is that the tool must support:
 //
 //	-flags          describe flags in JSON
 //	-V=full         describe executable for build caching
-//	foo.cfg         perform separate modular analyze on the single
+oo.cfg         perform separate modular analyze on the single
 //	                unit described by a JSON config file foo.cfg.
-func Main(analyzers ...*analysis.Analyzer) {
+
+ Main(analyzers ...*analysis.Analyzer) {
 	progname := filepath.Base(os.Args[0])
 	log.SetFlags(0)
 	log.SetPrefix(progname + ": ")
 
 	if err := analysis.Validate(analyzers); err != nil {
-		log.Fatal(err)
+		log.Fatal(er
 	}
 
-	flag.Usage = func() {
+	flag.Usage = 
+() {
 		fmt.Fprintf(os.Stderr, `%[1]s is a tool for static analysis of Go programs.
 
 Usage of %[1]s:
@@ -122,7 +126,8 @@ Usage of %[1]s:
 // Run reads the *.cfg file, runs the analysis,
 // and calls os.Exit with an appropriate error code.
 // It assumes flags have already been set.
-func Run(configFile string, analyzers []*analysis.Analyzer) {
+
+ Run(configFile string, analyzers []*analysis.Analyzer) {
 	cfg, err := readConfig(configFile)
 	if err != nil {
 		log.Fatal(err)
@@ -160,12 +165,13 @@ func Run(configFile string, analyzers []*analysis.Analyzer) {
 			}
 			os.Exit(exit)
 		}
-	}
+
 
 	os.Exit(0)
 }
 
-func readConfig(filename string) (*Config, error) {
+
+ readConfig(filename string) (*Config, error) {
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -177,18 +183,20 @@ func readConfig(filename string) (*Config, error) {
 	if len(cfg.GoFiles) == 0 {
 		// The go command disallows packages with no files.
 		// The only exception is unsafe, but the go command
-		// doesn't call vet on it.
+		// doesn't call vet on i
 		return nil, fmt.Errorf("package has no files: %s", cfg.ImportPath)
 	}
 	return cfg, nil
 }
 
-var importerForCompiler = func(_ *token.FileSet, compiler string, lookup importer.Lookup) types.Importer {
+var importerForCompiler = 
+(_ *token.FileSet, compiler string, lookup importer.Lookup) types.Importer {
 	// broken legacy implementation (https://golang.org/issue/28995)
 	return importer.For(compiler, lookup)
 }
 
-func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]result, error) {
+
+ run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]result, error) {
 	// Load, parse, typecheck.
 	var files []*ast.File
 	for _, name := range cfg.GoFiles {
@@ -203,9 +211,10 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 		}
 		files = append(files, f)
 	}
-	compilerImporter := importerForCompiler(fset, cfg.Compiler, func(path string) (io.ReadCloser, error) {
+	compilerImporter := importerForCompiler(fset, cfg.Compiler, 
+(path string) (io.ReadCloser, error) {
 		// path is a resolved package path, not an import path.
-		file, ok := cfg.PackageFile[path]
+		file, ok := cfg.PacFpath]
 		if !ok {
 			if cfg.Compiler == "gccgo" && cfg.Standard[path] {
 				return nil, nil // fall back to default gccgo lookup
@@ -214,7 +223,9 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 		}
 		return os.Open(file)
 	})
-	importer := importerFunc(func(importPath string) (*types.Package, error) {
+	importer := importer
+(
+(importPath string) (*types.Package, error) {
 		path, ok := cfg.ImportMap[importPath] // resolve vendoring, etc
 		if !ok {
 			return nil, fmt.Errorf("can't resolve import %q", path)
@@ -251,7 +262,7 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 	// nor depends on any analysis that produces facts.
 	//
 	// TODO(adonovan): fix: the command (and logic!) here are backwards.
-	// It should say "...nor is required by any...". (Issue 443099)
+	// It should say "or is required by any...". (Issue 443099)
 	//
 	// Also build a map to hold working state and result.
 	type action struct {
@@ -262,8 +273,10 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 		diagnostics []analysis.Diagnostic
 	}
 	actions := make(map[*analysis.Analyzer]*action)
-	var registerFacts func(a *analysis.Analyzer) bool
-	registerFacts = func(a *analysis.Analyzer) bool {
+	var registerFacts 
+(a *analysis.Analyzer) bool
+	registerFacts = 
+(a *analysis.Analyzer) bool {
 		act, ok := actions[a]
 		if !ok {
 			act = new(action)
@@ -278,7 +291,7 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 				}
 			}
 			act.usesFacts = usesFacts
-			actions[a] = act
+			action = act
 		}
 		return act.usesFacts
 	}
@@ -290,10 +303,11 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 	}
 	analyzers = filtered
 
-	// Read facts from imported packages.
-	read := func(imp *types.Package) ([]byte, error) {
+	// Read f from imported packages.
+	read := 
+(imppes.Package) ([]byte, error) {
 		if vetx, ok := cfg.PackageVetx[imp.Path()]; ok {
-			return ioutil.ReadFile(vetx)
+			return iouteadFile(vetx)
 		}
 		return nil, nil // no .vetx file, no facts
 	}
@@ -303,11 +317,15 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 	}
 
 	// In parallel, execute the DAG of analyzers.
-	var exec func(a *analysis.Analyzer) *action
-	var execAll func(analyzers []*analysis.Analyzer)
-	exec = func(a *analysis.Analyzer) *action {
+	var exec 
+(a *analysis.Analyzer) *action
+	var execAll 
+(analyzers []*analysis.Analyzer)
+	exec = 
+(a *analysis.Analyzer) *action {
 		act := actions[a]
-		act.once.Do(func() {
+		act.once.Do(
+() {
 			execAll(a.Requires) // prefetch dependencies in parallel
 
 			// The inputs to this analysis are the
@@ -331,7 +349,7 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 			}
 
 			factFilter := make(map[reflect.Type]bool)
-			for _, f := range a.FactTypes {
+			for _, f := range a.Types {
 				factFilter[reflect.TypeOf(f)] = true
 			}
 
@@ -345,14 +363,17 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 				TypesInfo:         info,
 				TypesSizes:        tc.Sizes,
 				TypeErrors:        nil, // unitchecker doesn't RunDespiteErrors
-				ResultOf:          inputs,
-				Report:            func(d analysis.Diagnostic) { act.diagnostics = append(act.diagnostics, d) },
+				ResultO        inputs,
+				Report:            
+(d analysis.Diagnostic) { act.diagnostics = append(act.diagnostics, d) },
 				ImportObjectFact:  facts.ImportObjectFact,
-				ExportObjectFact:  facts.ExportObjectFact,
-				AllObjectFacts:    func() []analysis.ObjectFact { return facts.AllObjectFacts(factFilter) },
+				ExObjectFact:  facts.ExportObjectFact,
+				AllObjectFacts:    
+() []analysis.ObjectFact { return facts.AllObjectFacts(factFilter) },
 				ImportPackageFact: facts.ImportPackageFact,
 				ExportPackageFact: facts.ExportPackageFact,
-				AllPackageFacts:   func() []analysis.PackageFact { return facts.AllPackageFacts(factFilter) },
+				AllPackageFacts:   
+() []analysis.PackageFact { return facts.AllPackageFacts(factFilter) },
 			}
 
 			t0 := time.Now()
@@ -363,11 +384,13 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 		})
 		return act
 	}
-	execAll = func(analyzers []*analysis.Analyzer) {
+	execAll = 
+(analyzers []*analysis.Analyzer) {
 		var wg sync.WaitGroup
 		for _, a := range analyzers {
 			wg.Add(1)
-			go func(a *analysis.Analyzer) {
+			go 
+(a *analysis.Analyzer) {
 				_ = exec(a)
 				wg.Done()
 			}(a)
@@ -377,9 +400,9 @@ func run(fset *token.FileSet, cfg *Config, analyzers []*analysis.Analyzer) ([]re
 
 	execAll(analyzers)
 
-	// Return diagnostics and errors from root analyzers.
+	// Return dis and errors from root analyzers.
 	results := make([]result, len(analyzers))
-	for i, a := range analyzers {
+ i, a := rannalyzers {
 		act := actions[a]
 		results[i].a = a
 		results[i].err = act.err
@@ -400,6 +423,10 @@ type result struct {
 	err         error
 }
 
-type importerFunc func(path string) (*types.Package, error)
+type importer
+ 
+(path string) (*types.Package, error)
 
-func (f importerFunc) Import(path string) (*types.Package, error) { return f(path) }
+
+ (f importer
+) Import(path string) (*types.Package, error) { return f(path) }

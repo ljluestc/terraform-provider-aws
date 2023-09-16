@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomActionTypeDestroy(ctx),
+CheckDestroy:testAccCheckCustomActionTypeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomActionTypeConfig_basic(rName),
@@ -76,7 +76,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomActionTypeDestroy(ctx),
+CheckDestroy:testAccCheckCustomActionTypeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomActionTypeConfig_basic(rName),
@@ -103,7 +103,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomActionTypeDestroy(ctx),
+CheckDestroy:testAccCheckCustomActionTypeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomActionTypeConfig_tags1(rName, "key1", "value1"),
@@ -152,7 +152,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomActionTypeDestroy(ctx),
+CheckDestroy:testAccCheckCustomActionTypeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomActionTypeConfig_allAttributes(rName),

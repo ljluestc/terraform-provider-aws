@@ -13,6 +13,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
+
 func testAccUserDataSource_userID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -26,7 +28,9 @@ func testAccUserDataSource_userID(t *testing.T) {
 	datasourceName := "data.aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:  
+
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -60,6 +64,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	})
 }
 
+
+
 func testAccUserDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -73,7 +79,9 @@ func testAccUserDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:  
+
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -106,6 +114,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
+
+
 
 func testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(
@@ -143,6 +153,8 @@ resource "aws_connect_user" "test" {
 `, rName5, email))
 }
 
+
+
 func testAccUserDataSourceConfig_id(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(
 testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email),
@@ -153,6 +165,8 @@ data "aws_connect_user" "test" {
 }
 `)
 }
+
+
 
 func testAccUserDataSourceConfig_name(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(

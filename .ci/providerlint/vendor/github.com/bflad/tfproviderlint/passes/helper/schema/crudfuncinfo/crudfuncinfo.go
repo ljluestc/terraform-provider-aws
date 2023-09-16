@@ -1,4 +1,5 @@
-package crudfuncinfo
+package crud
+info
 
 import (
 	"go/ast"
@@ -10,27 +11,45 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "crudfuncinfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema CreateFunc, CreateContextFunc, ReadFunc, ReadContextFunc, UpdateFunc, UpdateContextFunc, DeleteFunc, and DeleteContextFunc declarations for later passes",
-	Requires: []*analysis.Analyzer{
-		inspect.Analyzer,
+var Analyzeranalysis.Analyzer{
+	Name: "crud
+info",
+	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema Create
+, CreateContext
+, Read
+, ReadContext
+, Update
+, UpdateContext
+lete
+, and DeleteContext
+ declarations for later passes",
+	Require]*analysis.Analyzer{
+		inspecalyzer,
 	},
 	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.CRUDFuncInfo{}),
+	ResultType: reflect.TypeOf([]*schema.CRUD
+Info{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
-		(*ast.FuncDecl)(nil),
-		(*ast.FuncLit)(nil),
+		(*ast.
+Decl)(nil),
+		(*ast.
+Lit)(nil),
 	}
-	var result []*schema.CRUDFuncInfo
+	var result []*schema.CRUD
+Info
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
-		if schema.IsFuncTypeCRUDFunc(n, pass.TypesInfo) {
-			result = append(result, schema.NewCRUDFuncInfo(n, pass.TypesInfo))
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
+		if schema.Is
+TypeCRUD
+(n, pass.TypesInfo) {
+			result = append(result, schema.NewCRUD
+Info(n, pass.TypesInfo))
 		}
 	})
 

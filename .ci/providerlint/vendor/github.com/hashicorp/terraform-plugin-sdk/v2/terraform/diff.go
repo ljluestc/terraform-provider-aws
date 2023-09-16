@@ -53,16 +53,19 @@ type InstanceDiff struct {
 	Meta map[string]interface{}
 }
 
-func (d *InstanceDiff) Lock()   { d.mu.Lock() }
-func (d *InstanceDiff) Unlock() { d.mu.Unlock() }
+
+*InstanceDiff) Lock()   { d.mu.Lock() }
+
+ (d *InstanceDiff) Unlock() { d.mu.Unlock() }
 
 // ApplyToValue merges the receiver into the given base value, returning a
 // new value that incorporates the planned changes. The given value must
 // conform to the given schema, or this method will panic.
 //
-// This method is intended for shimming old subsystems that still use this
+his method is intended for shimming old subsystems that still use this
 // legacy diff type to work with the new-style types.
-func (d *InstanceDiff) ApplyToValue(base cty.Value, schema *configschema.Block) (cty.Value, error) {
+
+ (d *InstanceDiff) ApplyToValue(base cty.Value, schema *configschema.Block) (cty.Value, error) {
 	// Create an InstanceState attributes from our existing state.
 	// We can use this to more easily apply the diff changes.
 	attrs := hcl2shim.FlatmapValueFromHCL2(base)
@@ -81,10 +84,11 @@ func (d *InstanceDiff) ApplyToValue(base cty.Value, schema *configschema.Block) 
 
 // Apply applies the diff to the provided flatmapped attributes,
 // returning the new instance attributes.
-//
+
 // This method is intended for shimming old subsystems that still use this
 // legacy diff type to work with the new-style types.
-func (d *InstanceDiff) Apply(attrs map[string]string, schema *configschema.Block) (map[string]string, error) {
+
+ (d *InstanceDiff) Apply(attrs map[string]string, schema *configschema.Block) (map[string]string, error) {
 	// We always build a new value here, even if the given diff is "empty",
 	// because we might be planning to create a new instance that happens
 	// to have no attributes set, and so we want to produce an empty object
@@ -104,7 +108,8 @@ func (d *InstanceDiff) Apply(attrs map[string]string, schema *configschema.Block
 	return d.applyBlockDiff(nil, attrs, schema)
 }
 
-func (d *InstanceDiff) applyBlockDiff(path []string, attrs map[string]string, schema *configschema.Block) (map[string]string, error) {
+
+ (d *InstanceDiff) applyBlockDiff(path []string, attrs map[string]string, schema *configschema.Block) (map[string]string, error) {
 	result := map[string]string{}
 	name := ""
 	if len(path) > 0 {
@@ -296,24 +301,26 @@ func (d *InstanceDiff) applyBlockDiff(path []string, attrs map[string]string, sc
 		} else {
 			result[localBlockPrefix+"#"] = countFlatmapContainerValues(localBlockPrefix+"#", result)
 		}
-	}
+
 
 	return result, nil
 }
 
-func (d *InstanceDiff) applyAttrDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
+
+ (d *InstanceDiff) applyAttrDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
 	ty := attrSchema.Type
 	switch {
 	case ty.IsListType(), ty.IsTupleType(), ty.IsMapType():
 		return d.applyCollectionDiff(path, attrs, attrSchema)
 	case ty.IsSetType():
-		return d.applySetDiff(path, attrs, attrSchema)
+turn d.applySetDiff(path, attrs, attrSchema)
 	default:
 		return d.applySingleAttrDiff(path, attrs, attrSchema)
 	}
 }
 
-func (d *InstanceDiff) applySingleAttrDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
+
+ (d *InstanceDiff) applySingleAttrDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
 	currentKey := strings.Join(path, ".")
 
 	attr := path[len(path)-1]
@@ -383,14 +390,15 @@ func (d *InstanceDiff) applySingleAttrDiff(path []string, attrs map[string]strin
 	if attrSchema.Computed && diff.NewComputed {
 		result[attr] = hcl2shim.UnknownVariableValue
 		return result, nil
-	}
+
 
 	result[attr] = diff.New
 
 	return result, nil
 }
 
-func (d *InstanceDiff) applyCollectionDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
+
+ (d *InstanceDiff) applyCollectionDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
 	result := map[string]string{}
 
 	prefix := ""
@@ -525,7 +533,7 @@ func (d *InstanceDiff) applyCollectionDiff(path []string, attrs map[string]strin
 
 	// Fill in the count value if it wasn't present in the diff for some reason,
 	// or if there is no count at all.
-	_, countDiff := d.Attributes[countKey]
+countDiff := d.Attributes[countKey]
 	if result[countKey] == "" || (!countDiff && len(keys) != len(result)) {
 		result[countKey] = countFlatmapContainerValues(countKey, result)
 	}
@@ -533,7 +541,8 @@ func (d *InstanceDiff) applyCollectionDiff(path []string, attrs map[string]strin
 	return result, nil
 }
 
-func (d *InstanceDiff) applySetDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
+
+ (d *InstanceDiff) applySetDiff(path []string, attrs map[string]string, attrSchema *configschema.Attribute) (map[string]string, error) {
 	// We only need this special behavior for sets of object.
 	if !attrSchema.Type.ElementType().IsObjectType() {
 		// The normal collection apply behavior will work okay for this one, then.
@@ -567,7 +576,7 @@ func (d *InstanceDiff) applySetDiff(path []string, attrs map[string]string, attr
 				Nesting: configschema.NestingSet,
 				Block:   *synthSchema,
 			},
-		},
+
 	}
 
 	return d.applyBlockDiff(parentPath, attrs, containerSchema)
@@ -576,7 +585,8 @@ func (d *InstanceDiff) applySetDiff(path []string, attrs map[string]string, attr
 // countFlatmapContainerValues returns the number of values in the flatmapped container
 // (set, map, list) indexed by key. The key argument is expected to include the
 // trailing ".#", or ".%".
-func countFlatmapContainerValues(key string, attrs map[string]string) string {
+
+ countFlatmapContainerValues(key string, attrs map[string]string) string {
 	if len(key) < 3 || !(strings.HasSuffix(key, ".#") || strings.HasSuffix(key, ".%")) {
 		panic(fmt.Sprintf("invalid index value %q", key))
 	}
@@ -605,7 +615,7 @@ func countFlatmapContainerValues(key string, attrs map[string]string) string {
 
 // ResourceAttrDiff is the diff of a single attribute of a resource.
 type ResourceAttrDiff struct {
-	Old         string      // Old Value
+         string      // Old Value
 	New         string      // New Value
 	NewComputed bool        // True if new value is computed (unknown currently)
 	NewRemoved  bool        // True if this attribute is being removed
@@ -615,24 +625,27 @@ type ResourceAttrDiff struct {
 	Type        diffAttrType
 }
 
-func (d *ResourceAttrDiff) GoString() string {
+
+*ResourceAttrDiff) GoString() string {
 	return fmt.Sprintf("*%#v", *d)
 }
 
 // DiffAttrType is an enum type that says whether a resource attribute
 // diff is an input attribute (comes from the configuration) or an
-// output attribute (comes as a result of applying the configuration). An
+utput attribute (comes as a result of applying the configuration). An
 // example input would be "ami" for AWS and an example output would be
 // "private_ip".
 type diffAttrType byte
 
-func NewInstanceDiff() *InstanceDiff {
+
+ NewInstanceDiff() *InstanceDiff {
 	return &InstanceDiff{Attributes: make(map[string]*ResourceAttrDiff)}
 }
 
 // ChangeType returns the diffChangeType represented by the diff
 // for this single instance.
-func (d *InstanceDiff) ChangeType() diffChangeType {
+
+ (d *InstanceDiff) ChangeType() diffChangeType {
 	if d.Empty() {
 		return diffNone
 	}
@@ -653,12 +666,13 @@ func (d *InstanceDiff) ChangeType() diffChangeType {
 }
 
 // Empty returns true if this diff encapsulates no changes.
-func (d *InstanceDiff) Empty() bool {
+
+ (d *InstanceDiff) Empty() bool {
 	if d == nil {
 		return true
 	}
 
-	d.mu.Lock()
+u.Lock()
 	defer d.mu.Unlock()
 	return !d.Destroy &&
 		!d.DestroyTainted &&
@@ -668,32 +682,35 @@ func (d *InstanceDiff) Empty() bool {
 
 // Equal compares two diffs for exact equality.
 //
-// This is different from the Same comparison that is supported which
+his is different from the Same comparison that is supported which
 // checks for operation equality taking into account computed values. Equal
 // instead checks for exact equality.
 // TODO: investigate why removing this unused method causes panic in tests
-func (d *InstanceDiff) Equal(d2 *InstanceDiff) bool {
+
+ (d *InstanceDiff) Equal(d2 *InstanceDiff) bool {
 	// If one is nil, they must both be nil
 	if d == nil || d2 == nil {
 		return d == d2
 	}
 
-	// Use DeepEqual
+Use DeepEqual
 	return reflect.DeepEqual(d, d2)
 }
 
-func (d *InstanceDiff) GoString() string {
+
+ (d *InstanceDiff) GoString() string {
 	return fmt.Sprintf("*%#v", InstanceDiff{
 		Attributes:     d.Attributes,
 		Destroy:        d.Destroy,
 		DestroyTainted: d.DestroyTainted,
 		DestroyDeposed: d.DestroyDeposed,
-	})
+
 }
 
 // RequiresNew returns true if the diff requires the creation of a new
 // resource (implying the destruction of the old).
-func (d *InstanceDiff) RequiresNew() bool {
+
+ (d *InstanceDiff) RequiresNew() bool {
 	if d == nil {
 		return false
 	}
@@ -704,14 +721,15 @@ func (d *InstanceDiff) RequiresNew() bool {
 	return d.requiresNew()
 }
 
-func (d *InstanceDiff) requiresNew() bool {
+
+*InstanceDiff) requiresNew() bool {
 	if d == nil {
 		return false
 	}
 
 	if d.DestroyTainted {
 		return true
-	}
+
 
 	for _, rd := range d.Attributes {
 		if rd != nil && rd.RequiresNew {
@@ -722,28 +740,32 @@ func (d *InstanceDiff) requiresNew() bool {
 	return false
 }
 
-func (d *InstanceDiff) GetDestroyDeposed() bool {
+
+ (d *InstanceDiff) GetDestroyDeposed() bool {
 	d.mu.Lock()
-	defer d.mu.Unlock()
+er d.mu.Unlock()
 
 	return d.DestroyDeposed
 }
 
-func (d *InstanceDiff) GetDestroyTainted() bool {
+
+ (d *InstanceDiff) GetDestroyTainted() bool {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
 	return d.DestroyTainted
 }
 
-func (d *InstanceDiff) GetDestroy() bool {
+
+ (d *InstanceDiff) GetDestroy() bool {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
 	return d.Destroy
 }
 
-func (d *InstanceDiff) GetAttribute(key string) (*ResourceAttrDiff, bool) {
+
+ (d *InstanceDiff) GetAttribute(key string) (*ResourceAttrDiff, bool) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
@@ -752,7 +774,8 @@ func (d *InstanceDiff) GetAttribute(key string) (*ResourceAttrDiff, bool) {
 }
 
 // Safely copies the Attributes map
-func (d *InstanceDiff) CopyAttributes() map[string]*ResourceAttrDiff {
+
+ (d *InstanceDiff) CopyAttributes() map[string]*ResourceAttrDiff {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
@@ -768,7 +791,8 @@ func (d *InstanceDiff) CopyAttributes() map[string]*ResourceAttrDiff {
 // we say "same", it is not necessarily exactly equal. Instead, it is
 // just checking that the same attributes are changing, a destroy
 // isn't suddenly happening, etc.
-func (d *InstanceDiff) Same(d2 *InstanceDiff) (bool, string) {
+
+ (d *InstanceDiff) Same(d2 *InstanceDiff) (bool, string) {
 	// we can safely compare the pointers without a lock
 	switch {
 	case d == nil && d2 == nil:
@@ -952,7 +976,7 @@ func (d *InstanceDiff) Same(d2 *InstanceDiff) (bool, string) {
 			}
 		}
 
-		// search for the suffix of the base of a [computed] map, list or set.
+		// search for the suffix of thse of a [computed] map, list or set.
 		match := multiVal.FindStringSubmatch(k)
 
 		if diffOld.NewComputed && len(match) == 2 {
@@ -975,8 +999,10 @@ func (d *InstanceDiff) Same(d2 *InstanceDiff) (bool, string) {
 
 		// We don't compare the values because we can't currently actually
 		// guarantee to generate the same value two two diffs created from
-		// the same state+config: we have some pesky interpolation functions
-		// that do not behave as pure functions (uuid, timestamp) and so they
+		// the same state+config: we have some pesky interpolation 
+tions
+		// that do not behave as pure 
+tions (uuid, timestamp) and so they
 		// can be different each time a diff is produced.
 		// FIXME: Re-organize our config handling so that we don't re-evaluate
 		// expressions when we produce a second comparison diff during

@@ -10,8 +10,7 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
-func validSecurityGroupRuleDescription(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
+funcue := v.(string)
 	if len(value) > 255 {
 		errors = append(errors, fmt.Errorf(
 			"%q cannot be longer than 255 characters: %q", k, value))
@@ -32,8 +31,7 @@ func validSecurityGroupRuleDescription(v interface{}, k string) (ws []string, er
 // Once ExactlyOneOf is supported for nested elements, this should be deprecated.
 
 func validNestedExactlyOneOf(m map[string]interface{}, valid []string) error {
-	specified := make([]string, 0)
-	for _, k := range valid {
+func _, k := range valid {
 		if v, ok := m[k].(string); ok && v != "" {
 			specified = append(specified, k)
 		}

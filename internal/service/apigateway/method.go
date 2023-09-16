@@ -22,17 +22,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_method")
-func ResourceMethod() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceMethodCreate,
-		ReadWithoutTimeout:   resourceMethodRead,
+		ReadWithoutTimeout:ourceMethodRead,
 		UpdateWithoutTimeout: resourceMethodUpdate,
 		DeleteWithoutTimeout: resourceMethodDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
+				idParts := stfuncif len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/RESOURCE-ID/HTTP-METHOD", d.Id())
 				}
 				restApiID := idParts[0]
@@ -48,54 +46,54 @@ func ResourceMethod() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_key_required": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"authorization": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"authorization_scopes": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:chema.TypeSet,
+				Elem:schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 			"authorizer_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"http_method": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validHTTPMethod(),
 			},
 			"operation_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"request_models": {
-				Type:     schema.TypeMap,
+				Type:chema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"request_parameters": {
-				Type:     schema.TypeMap,
-				Elem:     &schema.Schema{Type: schema.TypeBool},
+				Type:chema.TypeMap,
+				Elem:schema.Schema{Type: schema.TypeBool},
 				Optional: true,
 			},
 			"request_validator_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -105,14 +103,13 @@ func ResourceMethod() *schema.Resource {
 
 func resourceMethodCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.PutMethodInput{
-		ApiKeyRequired:    aws.Bool(d.Get("api_key_required").(bool)),
+		ApiKeyRequired:s.Bool(d.Get("api_key_required").(bool)),
 		AuthorizationType: aws.String(d.Get("authorization").(string)),
-		HttpMethod:        aws.String(d.Get("http_method").(string)),
-		ResourceId:        aws.String(d.Get("resource_id").(string)),
-		RestApiId:         aws.String(d.Get("rest_api_id").(string)),
+		HttpMethod:String(d.Get("http_method").(string)),
+		ResourceId:String(d.Get("resource_id").(string)),
+		RestApiId:g(d.Get("rest_api_id").(string)),
 	}
 
 	if v, ok := d.GetOk("authorizer_id"); ok {
@@ -153,8 +150,7 @@ func resourceMethodCreate(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceMethodRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	method, err := FindMethodByThreePartKey(ctx, conn, d.Get("http_method").(string), d.Get("resource_id").(string), d.Get("rest_api_id").(string))
+funchod, err := FindMethodByThreePartKey(ctx, conn, d.Get("http_method").(string), d.Get("resource_id").(string), d.Get("rest_api_id").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Method (%s) not found, removing from state", d.Id())
@@ -182,11 +178,10 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	operations := make([]*apigateway.PatchOperation, 0)
-
+func
 	if d.HasChange("resource_id") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/resourceId"),
 			Value: aws.String(d.Get("resource_id").(string)),
 		})
@@ -203,7 +198,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("authorization") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/authorizationType"),
 			Value: aws.String(d.Get("authorization").(string)),
 		})
@@ -211,7 +206,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("authorizer_id") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/authorizerId"),
 			Value: aws.String(d.Get("authorizer_id").(string)),
 		})
@@ -227,7 +222,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		additionList := ns.Difference(os)
 		for _, v := range additionList.List() {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpAdd),
+				Op:s.String(apigateway.OpAdd),
 				Path:  aws.String(path),
 				Value: aws.String(v.(string)),
 			})
@@ -236,7 +231,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		removalList := os.Difference(ns)
 		for _, v := range removalList.List() {
 			operations = append(operations, &apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpRemove),
+				Op:s.String(apigateway.OpRemove),
 				Path:  aws.String(path),
 				Value: aws.String(v.(string)),
 			})
@@ -245,7 +240,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("api_key_required") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/apiKeyRequired"),
 			Value: aws.String(fmt.Sprintf("%t", d.Get("api_key_required").(bool))),
 		})
@@ -261,7 +256,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			}
 		}
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/requestValidatorId"),
 			Value: request_validator_id,
 		})
@@ -275,17 +270,17 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			}
 		}
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/operationName"),
 			Value: operation_name,
 		})
 	}
 
 	input := &apigateway.UpdateMethodInput{
-		HttpMethod:      aws.String(d.Get("http_method").(string)),
+		HttpMethod:ring(d.Get("http_method").(string)),
 		PatchOperations: operations,
-		ResourceId:      aws.String(d.Get("resource_id").(string)),
-		RestApiId:       aws.String(d.Get("rest_api_id").(string)),
+		ResourceId:ring(d.Get("resource_id").(string)),
+		RestApiId:tring(d.Get("rest_api_id").(string)),
 	}
 
 	_, err := conn.UpdateMethodWithContext(ctx, input)
@@ -314,7 +309,7 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			for _, cacheKeyParameter := range currentCacheKeyParameters {
 				if aws.StringValue(cacheKeyParameter) == replacedRequestParameter {
 					integrationOperations = append(integrationOperations, &apigateway.PatchOperation{
-						Op:    aws.String(apigateway.OpAdd),
+						Op:s.String(apigateway.OpAdd),
 						Path:  aws.String(fmt.Sprintf("/cacheKeyParameters/%s", replacedRequestParameter)),
 						Value: aws.String(""),
 					})
@@ -323,10 +318,10 @@ func resourceMethodUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		}
 
 		input := &apigateway.UpdateIntegrationInput{
-			HttpMethod:      aws.String(d.Get("http_method").(string)),
+			HttpMethod:ring(d.Get("http_method").(string)),
 			PatchOperations: integrationOperations,
-			ResourceId:      aws.String(d.Get("resource_id").(string)),
-			RestApiId:       aws.String(d.Get("rest_api_id").(string)),
+			ResourceId:ring(d.Get("resource_id").(string)),
+			RestApiId:tring(d.Get("rest_api_id").(string)),
 		}
 
 		_, err = conn.UpdateIntegrationWithContext(ctx, input)
@@ -344,8 +339,7 @@ func resourceMethodDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	log.Printf("[DEBUG] Deleting API Gateway Method: %s", d.Id())
-	_, err := conn.DeleteMethodWithContext(ctx, &apigateway.DeleteMethodInput{
-		HttpMethod: aws.String(d.Get("http_method").(string)),
+functpMethod: aws.String(d.Get("http_method").(string)),
 		ResourceId: aws.String(d.Get("resource_id").(string)),
 		RestApiId:  aws.String(d.Get("rest_api_id").(string)),
 	})
@@ -367,12 +361,11 @@ func FindMethodByThreePartKey(ctx context.Context, conn *apigateway.APIGateway, 
 		ResourceId: aws.String(resourceID),
 		RestApiId:  aws.String(apiID),
 	}
-
-	output, err := conn.GetMethodWithContext(ctx, input)
+funcput, err := conn.GetMethodWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

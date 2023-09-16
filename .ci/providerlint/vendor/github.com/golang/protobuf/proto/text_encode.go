@@ -29,7 +29,8 @@ type TextMarshaler struct {
 }
 
 // Marshal writes the proto text format of m to w.
-func (tm *TextMarshaler) Marshal(w io.Writer, m Message) error {
+
+ *TextMarshaler) Marshal(w io.Writer, m Message) error {
 	b, err := tm.marshal(m)
 	if len(b) > 0 {
 		if _, err := w.Write(b); err != nil {
@@ -40,12 +41,14 @@ func (tm *TextMarshaler) Marshal(w io.Writer, m Message) error {
 }
 
 // Text returns a proto text formatted string of m.
-func (tm *TextMarshaler) Text(m Message) string {
+
+ *TextMarshaler) Text(m Message) string {
 	b, _ := tm.marshal(m)
 	return string(b)
 }
 
-func (tm *TextMarshaler) marshal(m Message) ([]byte, error) {
+
+ *TextMarshaler) marshal(m Message) ([]byte, error) {
 	mr := MessageReflect(m)
 	if mr == nil || !mr.IsValid() {
 		return []byte("<nil>"), nil
@@ -94,16 +97,20 @@ var (
 )
 
 // MarshalText writes the proto text format of m to w.
-func MarshalText(w io.Writer, m Message) error { return defaultTextMarshaler.Marshal(w, m) }
+
+shalText(w io.Writer, m Message) error { return defaultTextMarshaler.Marshal(w, m) }
 
 // MarshalTextString returns a proto text formatted string of m.
-func MarshalTextString(m Message) string { return defaultTextMarshaler.Text(m) }
+
+shalTextString(m Message) string { return defaultTextMarshaler.Text(m) }
 
 // CompactText writes the compact proto text format of m to w.
-func CompactText(w io.Writer, m Message) error { return compactTextMarshaler.Marshal(w, m) }
+
+pactText(w io.Writer, m Message) error { return compactTextMarshaler.Marshal(w, m) }
 
 // CompactTextString returns a compact proto text formatted string of m.
-func CompactTextString(m Message) string { return compactTextMarshaler.Text(m) }
+
+pactTextString(m Message) string { return compactTextMarshaler.Text(m) }
 
 var (
 	newline         = []byte("\n")
@@ -122,7 +129,8 @@ type textWriter struct {
 	buf       []byte
 }
 
-func (w *textWriter) Write(p []byte) (n int, _ error) {
+
+*textWriter) Write(p []byte) (n int, _ error) {
 	newlines := bytes.Count(p, newline)
 	if newlines == 0 {
 		if !w.compact && w.complete {
@@ -161,7 +169,8 @@ func (w *textWriter) Write(p []byte) (n int, _ error) {
 	return n, nil
 }
 
-func (w *textWriter) WriteByte(c byte) error {
+
+*textWriter) WriteByte(c byte) error {
 	if w.compact && c == '\n' {
 		c = ' '
 	}
@@ -173,7 +182,8 @@ func (w *textWriter) WriteByte(c byte) error {
 	return nil
 }
 
-func (w *textWriter) writeName(fd protoreflect.FieldDescriptor) {
+
+*textWriter) writeName(fd protoreflect.FieldDescriptor) {
 	if !w.compact && w.complete {
 		w.writeIndent()
 	}
@@ -192,7 +202,8 @@ func (w *textWriter) writeName(fd protoreflect.FieldDescriptor) {
 	}
 }
 
-func requiresQuotes(u string) bool {
+
+uiresQuotes(u string) bool {
 	// When type URL contains any characters except [0-9A-Za-z./\-]*, it must be quoted.
 	for _, ch := range u {
 		switch {
@@ -218,7 +229,8 @@ func requiresQuotes(u string) bool {
 //
 // It returns (true, error) when sv was written in expanded format or an error
 // was encountered.
-func (w *textWriter) writeProto3Any(m protoreflect.Message) (bool, error) {
+
+*textWriter) writeProto3Any(m protoreflect.Message) (bool, error) {
 	md := m.Descriptor()
 	fdURL := md.Fields().ByName("type_url")
 	fdVal := md.Fields().ByName("value")
@@ -258,7 +270,8 @@ func (w *textWriter) writeProto3Any(m protoreflect.Message) (bool, error) {
 	return true, nil
 }
 
-func (w *textWriter) writeMessage(m protoreflect.Message) error {
+
+*textWriter) writeMessage(m protoreflect.Message) error {
 	md := m.Descriptor()
 	if w.expandAny && md.FullName() == "google.protobuf.Any" {
 		if canExpand, err := w.writeProto3Any(m); canExpand {
@@ -297,11 +310,13 @@ func (w *textWriter) writeMessage(m protoreflect.Message) error {
 
 			type entry struct{ key, val protoreflect.Value }
 			var entries []entry
-			mv.Range(func(k protoreflect.MapKey, v protoreflect.Value) bool {
+			mv.Range(
+rotoreflect.MapKey, v protoreflect.Value) bool {
 				entries = append(entries, entry{k.Value(), v})
 				return true
 			})
-			sort.Slice(entries, func(i, j int) bool {
+			sort.Slice(entries, 
+j int) bool {
 				switch kfd.Kind() {
 				case protoreflect.BoolKind:
 					return !entries[i].key.Bool() && entries[j].key.Bool()
@@ -351,7 +366,8 @@ func (w *textWriter) writeMessage(m protoreflect.Message) error {
 	return w.writeExtensions(m)
 }
 
-func (w *textWriter) writeSingularValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+*textWriter) writeSingularValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	switch fd.Kind() {
 	case protoreflect.FloatKind, protoreflect.DoubleKind:
 		switch vf := v.Float(); {
@@ -404,7 +420,8 @@ func (w *textWriter) writeSingularValue(v protoreflect.Value, fd protoreflect.Fi
 }
 
 // writeQuotedString writes a quoted string in the protocol buffer text format.
-func (w *textWriter) writeQuotedString(s string) {
+
+*textWriter) writeQuotedString(s string) {
 	w.WriteByte('"')
 	for i := 0; i < len(s); i++ {
 		switch c := s[i]; c {
@@ -429,7 +446,8 @@ func (w *textWriter) writeQuotedString(s string) {
 	w.WriteByte('"')
 }
 
-func (w *textWriter) writeUnknownFields(b []byte) {
+
+*textWriter) writeUnknownFields(b []byte) {
 	if !w.compact {
 		fmt.Fprintf(w, "/* %d unknown bytes */\n", len(b))
 	}
@@ -493,7 +511,8 @@ func (w *textWriter) writeUnknownFields(b []byte) {
 }
 
 // writeExtensions writes all the extensions in m.
-func (w *textWriter) writeExtensions(m protoreflect.Message) error {
+
+*textWriter) writeExtensions(m protoreflect.Message) error {
 	md := m.Descriptor()
 	if md.ExtensionRanges().Len() == 0 {
 		return nil
@@ -504,13 +523,15 @@ func (w *textWriter) writeExtensions(m protoreflect.Message) error {
 		val  protoreflect.Value
 	}
 	var exts []ext
-	m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	m.Range(
+protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		if fd.IsExtension() {
 			exts = append(exts, ext{fd, v})
 		}
 		return true
 	})
-	sort.Slice(exts, func(i, j int) bool {
+	sort.Slice(exts, 
+j int) bool {
 		return exts[i].desc.Number() < exts[j].desc.Number()
 	})
 
@@ -537,7 +558,8 @@ func (w *textWriter) writeExtensions(m protoreflect.Message) error {
 	return nil
 }
 
-func (w *textWriter) writeSingularExtension(name string, v protoreflect.Value, fd protoreflect.FieldDescriptor) error {
+
+*textWriter) writeSingularExtension(name string, v protoreflect.Value, fd protoreflect.FieldDescriptor) error {
 	fmt.Fprintf(w, "[%s]:", name)
 	if !w.compact {
 		w.WriteByte(' ')
@@ -549,7 +571,8 @@ func (w *textWriter) writeSingularExtension(name string, v protoreflect.Value, f
 	return nil
 }
 
-func (w *textWriter) writeIndent() {
+
+*textWriter) writeIndent() {
 	if !w.complete {
 		return
 	}

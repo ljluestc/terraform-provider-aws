@@ -16,14 +16,17 @@ import (
 // marshal to be able to produce a message that continues to have those
 // unrecognized fields. To avoid this, DiscardUnknown is used to
 // explicitly clear the unknown fields after unmarshaling.
-func DiscardUnknown(m Message) {
+
+cardUnknown(m Message) {
 	if m != nil {
 		discardUnknown(MessageReflect(m))
 	}
 }
 
-func discardUnknown(m protoreflect.Message) {
-	m.Range(func(fd protoreflect.FieldDescriptor, val protoreflect.Value) bool {
+
+cardUnknown(m protoreflect.Message) {
+	m.Range(
+protoreflect.FieldDescriptor, val protoreflect.Value) bool {
 		switch {
 		// Handle singular message.
 		case fd.Cardinality() != protoreflect.Repeated:
@@ -42,7 +45,8 @@ func discardUnknown(m protoreflect.Message) {
 		case fd.IsMap():
 			if fd.MapValue().Message() != nil {
 				ms := m.Get(fd).Map()
-				ms.Range(func(_ protoreflect.MapKey, v protoreflect.Value) bool {
+				ms.Range(
+rotoreflect.MapKey, v protoreflect.Value) bool {
 					discardUnknown(v.Message())
 					return true
 				})

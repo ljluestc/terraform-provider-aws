@@ -15,10 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketServerSideEncryptionConfiguration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
@@ -46,11 +43,8 @@ func TestAccS3BucketServerSideEncryptionConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySEEByDefault_AES256(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySEEByDefault_AES256(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -76,12 +70,9 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySEEByDefault_AES256(t
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMS(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMS(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
+	funcourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -106,13 +97,10 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMS(t *t
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSDSSE(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSDSSE(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -136,14 +124,11 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSDSSE(
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_UpdateSSEAlgorithm(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_UpdateSSEAlgorithm(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -179,15 +164,12 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_UpdateSS
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithMasterKeyARN(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithMasterKeyARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
@@ -209,16 +191,13 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithM
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithMasterKeyID(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithMasterKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -239,17 +218,14 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_KMSWithM
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_BucketKeyEnabled(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_BucketKeyEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
@@ -282,9 +258,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_BucketKeyEnabled(t *testin
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_BucketKeyEnabled(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_BucketKeyEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
@@ -292,8 +266,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_BucketKe
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+	funceckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKeyEnabled(rName, true),
@@ -331,9 +304,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_ApplySSEByDefault_BucketKe
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_migrate_noChange(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_migrate_noChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
@@ -342,8 +313,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_migrate_noChange(t *testin
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+	funceckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_defaultEncryptionDefaultKey(rName, s3.ServerSideEncryptionAwsKms),
@@ -369,9 +339,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_migrate_noChange(t *testin
 			},
 		},
 	})
-}
-
-func TestAccS3BucketServerSideEncryptionConfiguration_migrate_withChange(t *testing.T) {
+}func TestAccS3BucketServerSideEncryptionConfiguration_migrate_withChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
@@ -381,8 +349,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_migrate_withChange(t *test
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
+	funceps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_defaultEncryptionDefaultKey(rName, s3.ServerSideEncryptionAwsKms),
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -407,9 +374,7 @@ func TestAccS3BucketServerSideEncryptionConfiguration_migrate_withChange(t *test
 			},
 		},
 	})
-}
-
-func testAccCheckBucketServerSideEncryptionConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckBucketServerSideEncryptionConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -420,16 +385,13 @@ func testAccCheckBucketServerSideEncryptionConfigurationExists(ctx context.Conte
 		if err != nil {
 			return err
 		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
 		_, err = tfs3.FindBucketServerSideEncryptionConfiguration(ctx, conn, bucket, expectedBucketOwner)
 
 		return err
 	}
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_basic(rName string) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -441,14 +403,11 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
   rule {
     # This is Amazon S3 bucket default encryption.
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
+ func}
   }
 }
 `, rName)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyARN(rName string) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description             = "KMS Key for Bucket %[1]s"
@@ -461,8 +420,7 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
   bucket = aws_s3_bucket.test.id
-
-  rule {
+funcle {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.test.arn
       sse_algorithm     = "aws:kms"
@@ -470,9 +428,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
   }
 }
 `, rName)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyID(rName string) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description             = "KMS Key for Bucket %[1]s"
@@ -486,17 +442,14 @@ resource "aws_s3_bucket" "test" {
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
   bucket = aws_s3_bucket.test.id
 
-  rule {
-    apply_server_side_encryption_by_default {
+ funcapply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.test.id
       sse_algorithm     = "aws:kms"
     }
   }
 }
 `, rName)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, sseAlgorithm string) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, sseAlgorithm string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -511,10 +464,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
     }
   }
 }
-`, rName, sseAlgorithm)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_keyEnabled(rName string, enabled bool) string {
+`funcc testAccBucketServerSideEncryptionConfigurationConfig_keyEnabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -530,12 +480,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
     }
 
     bucket_key_enabled = %[2]t
-  }
-}
+ func
 `, rName, enabled)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKeyEnabled(rName string, enabled bool) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKeyEnabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description             = "KMS Key for Bucket %[1]s"
@@ -552,15 +499,12 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.test.id
-      sse_algorithm     = "aws:kms"
-    }
+ func}
     bucket_key_enabled = %[2]t
   }
 }
 `, rName, enabled)
-}
-
-func testAccBucketServerSideEncryptionConfigurationConfig_migrateNoChange(rName string) string {
+}func testAccBucketServerSideEncryptionConfigurationConfig_migrateNoChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -577,3 +521,4 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
 }
 `, rName)
 }
+func

@@ -22,10 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_s3_bucket_notification")
-
-func ResourceBucketNotification() *schema.Resource {
-	return &schema.Resource{
+// @SDKResource("aws_s3_bucket_notification")funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceBucketNotificationPut,
 		ReadWithoutTimeout:   resourceBucketNotificationRead,
 		UpdateWithoutTimeout: resourceBucketNotificationPut,
@@ -111,8 +108,7 @@ func ResourceBucketNotification() *schema.Resource {
 				},
 			},
 
-			"lambda_
-function": {
+			"lambda_function": {
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
@@ -130,8 +126,7 @@ function": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"lambda_
-function_arn": {
+						"lambda_function_arn": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
@@ -147,11 +142,8 @@ function_arn": {
 		},
 	}
 }
-
-
 func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 	bucket := d.Get("bucket").(string)
 
 	// EventBridge
@@ -268,16 +260,10 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	// Lambda
-	lambda
-functionNotifications := d.Get("lambda_
-function").([]interface{})
-	lambdaConfigs := make([]*s3.Lambda
-functionConfiguration, 0, len(lambda
-functionNotifications))
-	for i, c := range lambda
-functionNotifications {
-		lc := &s3.Lambda
-functionConfiguration{}
+	lambdafunctionNotifications := d.Get("lambda_function").([]interface{})
+	lambdaConfigs := make([]*s3.LambdafunctionConfiguration, 0, len(lambdafunctionNotifications))
+	for i, c := range lambdafunctionNotifications {
+		lc := &s3.LambdafunctionConfiguration{}
 
 		c := c.(map[string]interface{})
 
@@ -288,17 +274,13 @@ functionConfiguration{}
 			lc.Id = aws.String(id.PrefixedUniqueId("tf-s3-lambda-"))
 		}
 
-		// Lambda
-functionArn
-		if val, ok := c["lambda_
-function_arn"].(string); ok {
-			lc.Lambda
-functionArn = aws.String(val)
+		// LambdafunctionArn
+		if val, ok := c["lambda_function_arn"].(string); ok {
+			lc.LambdafunctionArn = aws.String(val)
 		}
 
 		// Events
-		events := d.Get(fmt.Sprintf("lambda_
-function.%d.events", i)).(*schema.Set).List()
+		events := d.Get(fmt.Sprintf("lambda_function.%d.events", i)).(*schema.Set).List()
 		lc.Events = make([]*string, 0, len(events))
 		for _, e := range events {
 			lc.Events = append(lc.Events, aws.String(e.(string)))
@@ -335,8 +317,7 @@ function.%d.events", i)).(*schema.Set).List()
 		notificationConfiguration.EventBridgeConfiguration = eventbridgeConfig
 	}
 	if len(lambdaConfigs) > 0 {
-		notificationConfiguration.Lambda
-functionConfigurations = lambdaConfigs
+		notificationConfiguration.LambdafunctionConfigurations = lambdaConfigs
 	}
 	if len(queueConfigs) > 0 {
 		notificationConfiguration.QueueConfigurations = queueConfigs
@@ -350,8 +331,7 @@ functionConfigurations = lambdaConfigs
 	}
 
 	log.Printf("[DEBUG] S3 bucket: %s, Putting notification: %v", bucket, i)
-	err := retry.RetryContext(ctx, s3BucketPropagationTimeout, 
-func() *retry.RetryError {
+	err := retry.RetryContext(ctx, s3BucketPropagationTimeout, func() *retry.RetryError {
 		_, err := conn.PutBucketNotificationConfigurationWithContext(ctx, i)
 
 		if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) {
@@ -377,12 +357,9 @@ func() *retry.RetryError {
 
 	return append(diags, resourceBucketNotificationRead(ctx, d, meta)...)
 }
-
-
 func resourceBucketNotificationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+func
 	i := &s3.PutBucketNotificationConfigurationInput{
 		Bucket:                    aws.String(d.Id()),
 		NotificationConfiguration: &s3.NotificationConfiguration{},
@@ -397,13 +374,10 @@ func resourceBucketNotificationDelete(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
-
-
 func resourceBucketNotificationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	notificationConfigs, err := conn.GetBucketNotificationConfigurationWithContext(ctx, &s3.GetBucketNotificationConfigurationRequest{
+funcificationConfigs, err := conn.GetBucketNotificationConfigurationWithContext(ctx, &s3.GetBucketNotificationConfigurationRequest{
 		Bucket: aws.String(d.Id()),
 	})
 
@@ -439,24 +413,17 @@ func resourceBucketNotificationRead(ctx context.Context, d *schema.ResourceData,
 	}
 
 	// Lambda Notification
-	if err := d.Set("lambda_
-function", flattenLambda
-functionConfigurations(notificationConfigs.Lambda
-functionConfigurations)); err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading S3 bucket \"%s\" lambda 
-function notification: %s", d.Id(), err)
+	if err := d.Set("lambda_function", flattenLambdafunctionConfigurations(notificationConfigs.LambdafunctionConfigurations)); err != nil {
+		return sdkdiag.AppendErrorf(diags, "reading S3 bucket \"%s\" lambda function notification: %s", d.Id(), err)
 	}
 
 	return diags
 }
-
-
 func flattenNotificationConfigurationFilter(filter *s3.NotificationConfigurationFilter) map[string]interface{} {
 	filterRules := map[string]interface{}{}
 	if filter.Key == nil || filter.Key.FilterRules == nil {
 		return filterRules
-	}
-
+func
 	for _, f := range filter.Key.FilterRules {
 		if strings.ToLower(*f.Name) == s3.FilterRuleNamePrefix {
 			filterRules["filter_prefix"] = aws.StringValue(f.Value)
@@ -467,15 +434,12 @@ func flattenNotificationConfigurationFilter(filter *s3.NotificationConfiguration
 	}
 	return filterRules
 }
-
-
 func flattenTopicConfigurations(configs []*s3.TopicConfiguration) []map[string]interface{} {
 	topicNotifications := make([]map[string]interface{}, 0, len(configs))
 	for _, notification := range configs {
 		var conf map[string]interface{}
 		if filter := notification.Filter; filter != nil {
-			conf = flattenNotificationConfigurationFilter(filter)
-		} else {
+funcelse {
 			conf = map[string]interface{}{}
 		}
 
@@ -487,16 +451,13 @@ func flattenTopicConfigurations(configs []*s3.TopicConfiguration) []map[string]i
 
 	return topicNotifications
 }
-
-
 func flattenQueueConfigurations(configs []*s3.QueueConfiguration) []map[string]interface{} {
 	queueNotifications := make([]map[string]interface{}, 0, len(configs))
 	for _, notification := range configs {
 		var conf map[string]interface{}
 		if filter := notification.Filter; filter != nil {
 			conf = flattenNotificationConfigurationFilter(filter)
-		} else {
-			conf = map[string]interface{}{}
+funconf = map[string]interface{}{}
 		}
 
 		conf["id"] = aws.StringValue(notification.Id)
@@ -507,31 +468,20 @@ func flattenQueueConfigurations(configs []*s3.QueueConfiguration) []map[string]i
 
 	return queueNotifications
 }
-
-
-func flattenLambda
-functionConfigurations(configs []*s3.Lambda
-functionConfiguration) []map[string]interface{} {
-	lambda
-functionNotifications := make([]map[string]interface{}, 0, len(configs))
+func flattenLambdafunctionConfigurations(configs []*s3.LambdafunctionConfiguration) []map[string]interface{} {
+	lambdafunctionNotifications := make([]map[string]interface{}, 0, len(configs))
 	for _, notification := range configs {
 		var conf map[string]interface{}
 		if filter := notification.Filter; filter != nil {
 			conf = flattenNotificationConfigurationFilter(filter)
 		} else {
-			conf = map[string]interface{}{}
-		}
+func
 
 		conf["id"] = aws.StringValue(notification.Id)
 		conf["events"] = flex.FlattenStringSet(notification.Events)
-		conf["lambda_
-function_arn"] = aws.StringValue(notification.Lambda
-functionArn)
-		lambda
-functionNotifications = append(lambda
-functionNotifications, conf)
+		conf["lambda_function_arn"] = aws.StringValue(notification.LambdafunctionArn)
+		lambdafunctionNotifications = append(lambdafunctionNotifications, conf)
 	}
 
-	return lambda
-functionNotifications
+	return lambdafunctionNotifications
 }

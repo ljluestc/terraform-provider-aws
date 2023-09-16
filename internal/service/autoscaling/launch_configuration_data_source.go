@@ -20,168 +20,168 @@ func DataSourceLaunchConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"associate_public_ip_address": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Computed: true,
 			},
 			"ebs_block_device": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"delete_on_termination": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Computed: true,
 						},
 						"device_name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 						"encrypted": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Computed: true,
 						},
 						"iops": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"no_device": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Computed: true,
 						},
 						"snapshot_id": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 						"throughput": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"volume_size": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"volume_type": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"ebs_optimized": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Computed: true,
 			},
 			"enable_monitoring": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Computed: true,
 			},
 			"ephemeral_block_device": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"device_name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 						"virtual_name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"iam_instance_profile": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"image_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"key_name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"metadata_options": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_endpoint": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 						"http_put_response_hop_limit": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"http_tokens": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"placement_tenancy": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"root_block_device": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"delete_on_termination": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Computed: true,
 						},
 						"encrypted": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Computed: true,
 						},
 						"iops": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"throughput": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"volume_size": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Computed: true,
 						},
 						"volume_type": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"security_groups": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"spot_price": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"user_data": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},

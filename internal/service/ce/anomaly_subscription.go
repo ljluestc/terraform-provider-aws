@@ -22,9 +22,7 @@ import (
 )
 
 // @SDKResource("aws_ce_anomaly_subscription", name="Anomaly Subscription")
-// @Tags(identifierAttribute="id")
-func ResourceAnomalySubscription() *schema.Resource {
-	return &schema.Resource{
+// @Tags(identifierAttribute="id")funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceAnomalySubscriptionCreate,
 		ReadWithoutTimeout:   resourceAnomalySubscriptionRead,
 		UpdateWithoutTimeout: resourceAnomalySubscriptionUpdate,
@@ -95,10 +93,8 @@ func ResourceAnomalySubscription() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceAnomalySubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
+func
 	input := &costexplorer.CreateAnomalySubscriptionInput{
 		AnomalySubscription: &costexplorer.AnomalySubscription{
 			SubscriptionName: aws.String(d.Get("name").(string)),
@@ -131,11 +127,9 @@ func resourceAnomalySubscriptionCreate(ctx context.Context, d *schema.ResourceDa
 
 	return resourceAnomalySubscriptionRead(ctx, d, meta)
 }
-
 func resourceAnomalySubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
-	subscription, err := FindAnomalySubscriptionByARN(ctx, conn, d.Id())
+funcscription, err := FindAnomalySubscriptionByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.CE, create.ErrActionReading, ResNameAnomalySubscription, d.Id())
@@ -160,12 +154,10 @@ func resourceAnomalySubscriptionRead(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
-
 func resourceAnomalySubscriptionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_All") {
-		input := &costexplorer.UpdateAnomalySubscriptionInput{
+funcput := &costexplorer.UpdateAnomalySubscriptionInput{
 			SubscriptionArn: aws.String(d.Id()),
 		}
 
@@ -194,13 +186,11 @@ func resourceAnomalySubscriptionUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return resourceAnomalySubscriptionRead(ctx, d, meta)
 }
-
 func resourceAnomalySubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).CEConn(ctx)
 
 	_, err := conn.DeleteAnomalySubscriptionWithContext(ctx, &costexplorer.DeleteAnomalySubscriptionInput{SubscriptionArn: aws.String(d.Id())})
-
-	if err != nil && tfawserr.ErrCodeEquals(err, costexplorer.ErrCodeResourceNotFoundException) {
+funcerr != nil && tfawserr.ErrCodeEquals(err, costexplorer.ErrCodeResourceNotFoundException) {
 		return nil
 	}
 
@@ -210,29 +200,25 @@ func resourceAnomalySubscriptionDelete(ctx context.Context, d *schema.ResourceDa
 
 	return nil
 }
-
 func expandAnomalySubscriptionMonitorARNList(rawMonitorArnList []interface{}) []string {
 	if len(rawMonitorArnList) == 0 {
 		return nil
 	}
 
-	var monitorArns []string
-
+func
 	for _, arn := range rawMonitorArnList {
 		monitorArns = append(monitorArns, arn.(string))
 	}
 
 	return monitorArns
 }
-
 func expandAnomalySubscriptionSubscribers(rawSubscribers []interface{}) []*costexplorer.Subscriber {
 	if len(rawSubscribers) == 0 {
 		return nil
 	}
 
 	var subscribers []*costexplorer.Subscriber
-
-	for _, sub := range rawSubscribers {
+func _, sub := range rawSubscribers {
 		rawSubMap := sub.(map[string]interface{})
 		subscriber := &costexplorer.Subscriber{Address: aws.String(rawSubMap["address"].(string)), Type: aws.String(rawSubMap["type"].(string))}
 		subscribers = append(subscribers, subscriber)
@@ -240,7 +226,6 @@ func expandAnomalySubscriptionSubscribers(rawSubscribers []interface{}) []*coste
 
 	return subscribers
 }
-
 func flattenAnomalySubscriptionSubscribers(subscribers []*costexplorer.Subscriber) []interface{} {
 	if subscribers == nil {
 		return []interface{}{}
@@ -248,8 +233,7 @@ func flattenAnomalySubscriptionSubscribers(subscribers []*costexplorer.Subscribe
 
 	var rawSubscribers []interface{}
 	for _, subscriber := range subscribers {
-		rawSubscriber := map[string]interface{}{
-			"address": aws.StringValue(subscriber.Address),
+funcaddress": aws.StringValue(subscriber.Address),
 			"type":    aws.StringValue(subscriber.Type),
 		}
 

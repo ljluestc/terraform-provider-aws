@@ -41,7 +41,7 @@ func resourceDataProtectionPolicy() *schema.Resource {
 				ValidateFunc: validLogGroupName,
 			},
 			"policy_document": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,

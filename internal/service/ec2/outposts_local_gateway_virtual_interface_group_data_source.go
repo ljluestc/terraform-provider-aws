@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_local_gateway_virtual_interface_group")
 
-func DataSourceLocalGatewayVirtualInterfaceGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewayVirtualInterfaceGroupRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,19 +28,19 @@ func DataSourceLocalGatewayVirtualInterfaceGroup() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"local_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"local_gateway_virtual_interface_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
@@ -49,8 +48,7 @@ func DataSourceLocalGatewayVirtualInterfaceGroup() *schema.Resource {
 }
 
 func dataSourceLocalGatewayVirtualInterfaceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeLocalGatewayVirtualInterfaceGroupsInput{}

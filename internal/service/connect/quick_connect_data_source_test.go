@@ -14,6 +14,8 @@ import (
 )
 
 
+
+
 func testAccQuickConnectDataSource_id(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -24,6 +26,8 @@ func testAccQuickConnectDataSource_id(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -31,6 +35,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQuickConnectDataSourceConfig_id(rName, rName2, phoneNumber),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
@@ -47,6 +53,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccQuickConnectDataSource_name(t *testing.T) {
@@ -59,6 +67,8 @@ func testAccQuickConnectDataSource_name(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -66,6 +76,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccQuickConnectDataSourceConfig_name(rName, rName2, phoneNumber),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
@@ -82,6 +94,8 @@ func(
 },
 	})
 }
+
+
 
 
 func testAccQuickConnectDataSourceConfig_base(rName, rName2, phoneNumber string) string {
@@ -114,6 +128,8 @@ resource "aws_connect_quick_connect" "test" {
 }
 
 
+
+
 func testAccQuickConnectDataSourceConfig_id(rName, rName2, phoneNumber string) string {
 	return acctest.ConfigCompose(
 testAccQuickConnectDataSourceConfig_base(rName, rName2, phoneNumber),
@@ -124,6 +140,8 @@ data "aws_connect_quick_connect" "test" {
 }
 `)
 }
+
+
 
 
 func testAccQuickConnectDataSourceConfig_name(rName, rName2, phoneNumber string) string {

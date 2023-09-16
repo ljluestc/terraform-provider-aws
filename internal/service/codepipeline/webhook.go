@@ -134,11 +134,11 @@ func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	request := &codepipeline.PutWebhookInput{
 		Webhook: &codepipeline.WebhookDefinition{
-			Authentication:              aws.String(authType),
-			Filters:                     extractWebhookRules(d.Get("filter").(*schema.Set)),
-			Name:                        aws.String(d.Get("name").(string)),
-			TargetAction:                aws.String(d.Get("target_action").(string)),
-			TargetPipeline:              aws.String(d.Get("target_pipeline").(string)),
+			Authentication: aws.String(authType),
+			Filters:        extractWebhookRules(d.Get("filter").(*schema.Set)),
+			Name:           aws.String(d.Get("name").(string)),
+			TargetAction:   aws.String(d.Get("target_action").(string)),
+			TargetPipeline: aws.String(d.Get("target_pipeline").(string)),
 			AuthenticationConfiguration: extractWebhookAuthConfig(authType, authConfig),
 		},
 		Tags: getTagsIn(ctx),
@@ -212,11 +212,11 @@ func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 		request := &codepipeline.PutWebhookInput{
 			Webhook: &codepipeline.WebhookDefinition{
-				Authentication:              aws.String(authType),
-				Filters:                     extractWebhookRules(d.Get("filter").(*schema.Set)),
-				Name:                        aws.String(d.Get("name").(string)),
-				TargetAction:                aws.String(d.Get("target_action").(string)),
-				TargetPipeline:              aws.String(d.Get("target_pipeline").(string)),
+				Authentication: aws.String(authType),
+				Filters:        extractWebhookRules(d.Get("filter").(*schema.Set)),
+				Name:           aws.String(d.Get("name").(string)),
+				TargetAction:   aws.String(d.Get("target_action").(string)),
+				TargetPipeline: aws.String(d.Get("target_pipeline").(string)),
 				AuthenticationConfiguration: extractWebhookAuthConfig(authType, authConfig),
 			},
 		}

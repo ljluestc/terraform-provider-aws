@@ -26,6 +26,8 @@ import (
 
 // @SDKResource("aws_connect_instance")
 
+
+
 func ResourceInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceCreate,
@@ -71,6 +73,8 @@ func ResourceInstance() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringLenBetween(12, 12),
 				AtLeastOneOf: []string{"directory_id", "instance_alias"},
 			},
@@ -84,6 +88,8 @@ func: validation.StringLenBetween(12, 12),
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringInSlice(connect.DirectoryType_Values(), false),
 			},
 			"inbound_calls_enabled": {
@@ -96,6 +102,8 @@ func: validation.StringInSlice(connect.DirectoryType_Values(), false),
 				ForceNew:     true,
 				AtLeastOneOf: []string{"directory_id", "instance_alias"},
 				Validate
+
+
 func: validation.All(
 					validation.StringLenBetween(1, 64),
 					validation.StringMatch(regexache.MustCompile(`^([0-9A-Za-z]+)([0-9A-Za-z-]+)$`), "must contain only alphanumeric or hyphen characters"),
@@ -120,6 +128,8 @@ func: validation.All(
 				Computed: true,
 			},
 			// Pre-release feature requiring allow-list from AWS. Removing all 
+
+
 functionality until feature is GA
 			// "use_custom_tts_voices_enabled": {
 			// 	Type:     schema.TypeBool,
@@ -129,6 +139,8 @@ functionality until feature is GA
 		},
 	}
 }
+
+
 
 
 func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -169,6 +181,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceInstanceRead(ctx, d, meta)
 }
+
 
 
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -223,6 +236,7 @@ func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta inte
 }
 
 
+
 func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -238,6 +252,7 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -264,6 +279,7 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 }
 
 
+
 func updateInstanceAttribute(ctx context.Context, conn *connect.Connect, instanceID, attributeType, value string) error {
 	input := &connect.UpdateInstanceAttributeInput{
 		AttributeType: aws.String(attributeType),
@@ -283,6 +299,7 @@ func updateInstanceAttribute(ctx context.Context, conn *connect.Connect, instanc
 
 	return nil
 }
+
 
 
 func FindInstanceByID(ctx context.Context, conn *connect.Connect, id string) (*connect.Instance, error) {
@@ -311,9 +328,12 @@ func FindInstanceByID(ctx context.Context, conn *connect.Connect, id string) (*c
 }
 
 
+
 func statusInstance(ctx context.Context, conn *connect.Connect, id string) retry.StateRefresh
+
 func {
 	return 
+
 func() (interface{}, string, error) {
 		output, err := FindInstanceByID(ctx, conn, id)
 
@@ -328,6 +348,7 @@ func() (interface{}, string, error) {
 		return output, aws.StringValue(output.InstanceStatus), nil
 	}
 }
+
 
 
 func waitInstanceCreated(ctx context.Context, conn *connect.Connect, id string, timeout time.Duration) (*connect.Instance, error) {
@@ -349,6 +370,7 @@ func waitInstanceCreated(ctx context.Context, conn *connect.Connect, id string, 
 
 	return nil, err
 }
+
 
 
 func waitInstanceDeleted(ctx context.Context, conn *connect.Connect, id string, timeout time.Duration) (*connect.Instance, error) {

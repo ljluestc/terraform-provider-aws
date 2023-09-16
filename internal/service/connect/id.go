@@ -10,7 +10,9 @@ import (
 
 const botV1AssociationIDSeparator = ":"
 const lambda
+
 functionAssociationIDSeparator = ","
+
 
 
 func BotV1AssociationParseResourceID(id string) (string, string, string, error) {
@@ -24,6 +26,7 @@ func BotV1AssociationParseResourceID(id string) (string, string, string, error) 
 }
 
 
+
 func BotV1AssociationCreateResourceID(instanceID string, botName string, region string) string {
 	parts := []string{instanceID, botName, region}
 	id := strings.Join(parts, botV1AssociationIDSeparator)
@@ -32,15 +35,20 @@ func BotV1AssociationCreateResourceID(instanceID string, botName string, region 
 }
 
 
+
 func Lambda
+
 functionAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, lambda
+
 functionAssociationIDSeparator, 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return "", "",
 			fmt.Errorf("unexpected format for ID (%q), expected instanceID"+lambda
+
 functionAssociationIDSeparator+
 				"
+
 functionARN", id)
 	}
 
@@ -48,12 +56,17 @@ functionARN", id)
 }
 
 
+
 func Lambda
+
 functionAssociationCreateResourceID(instanceID string, 
+
 functionArn string) string {
 	parts := []string{instanceID, 
+
 functionArn}
 	id := strings.Join(parts, lambda
+
 functionAssociationIDSeparator)
 
 	return id

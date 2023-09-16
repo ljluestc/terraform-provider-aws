@@ -20,8 +20,7 @@ import (
 
 // @SDKDataSource("aws_vpc_ipam_pool")
 
-func DataSourceIPAMPool() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPAMPoolRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -30,73 +29,73 @@ func DataSourceIPAMPool() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"allocation_default_netmask_length": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"allocation_max_netmask_length": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"allocation_min_netmask_length": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"allocation_resource_tags": tftags.TagsSchemaComputed(),
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"auto_import": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"aws_service": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"ipam_scope_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipam_scope_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"locale": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"pool_depth": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"publicly_advertisable": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"source_ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -105,8 +104,7 @@ func DataSourceIPAMPool() *schema.Resource {
 }
 
 func dataSourceIPAMPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeIpamPoolsInput{}

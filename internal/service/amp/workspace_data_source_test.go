@@ -25,7 +25,7 @@ PreCheck: func() {
 	acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
-CheckDestroy:             nil,
+CheckDestroy:nil,
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{

@@ -13,15 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRAMResourceShareDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ram_resource_share.test"
 	datasourceName := "data.aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -39,14 +38,13 @@ func TestAccRAMResourceShareDataSource_basic(t *testing.T) {
 }
 
 func TestAccRAMResourceShareDataSource_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ram_resource_share.test"
 	datasourceName := "data.aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -62,13 +60,12 @@ func TestAccRAMResourceShareDataSource_tags(t *testing.T) {
 
 func TestAccRAMResourceShareDataSource_resources(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ram_resource_share.test"
+funcourceName := "aws_ram_resource_share.test"
 	datasourceName := "data.aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -85,12 +82,11 @@ func TestAccRAMResourceShareDataSource_resources(t *testing.T) {
 func TestAccRAMResourceShareDataSource_status(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ram_resource_share.test"
-	datasourceName := "data.aws_ram_resource_share.test"
+funcasourceName := "data.aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -108,14 +104,13 @@ func testAccResourceShareDataSourceConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "other" {
   name = "%[1]s-other"
-}
-
+func
 resource "aws_ram_resource_share" "test" {
   name = %[1]q
 }
 
 data "aws_ram_resource_share" "test" {
-  name           = aws_ram_resource_share.test.name
+  nameam_resource_share.test.name
   resource_owner = "SELF"
 
   depends_on = [aws_ram_resource_share.other]
@@ -128,18 +123,17 @@ func testAccResourceShareDataSourceConfig_tags(rName string) string {
 resource "aws_ram_resource_share" "test" {
   name = %[1]q
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
 data "aws_ram_resource_share" "test" {
-  name           = aws_ram_resource_share.test.name
+  nameam_resource_share.test.name
   resource_owner = "SELF"
 
   filter {
-    name   = "Name"
-    values = [%[1]q]
+me= "e"
+lues = [%[1]q]
   }
 }
 `, rName)
@@ -151,13 +145,12 @@ resource "aws_ram_resource_share" "test" {
   name = %[1]q
 }
 
-resource "aws_ram_resource_association" "test" {
-  resource_arn       = aws_subnet.test[0].arn
+funcsource_arn_subnet.test[0].arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 
 data "aws_ram_resource_share" "test" {
-  name           = aws_ram_resource_share.test.name
+  nameam_resource_share.test.name
   resource_owner = "SELF"
 
   depends_on = [aws_ram_resource_association.test]
@@ -172,8 +165,7 @@ resource "aws_ram_resource_share" "test" {
 }
 
 data "aws_ram_resource_share" "test" {
-  name                  = aws_ram_resource_share.test.name
-  resource_owner        = "SELF"
+funcsource_ownerELF"
   resource_share_status = "ACTIVE"
 }
 `, rName)

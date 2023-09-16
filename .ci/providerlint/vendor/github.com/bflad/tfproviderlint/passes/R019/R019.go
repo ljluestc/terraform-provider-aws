@@ -37,13 +37,15 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func parseFlags() flag.FlagSet {
+
+ parseFlags() flag.FlagSet {
 	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
 	flags.IntVar(&threshold, "threshold", 5, "Number of arguments for reporting")
 	return *flags
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	callExprs := pass.ResultOf[resourcedatahaschangescallexpr.Analyzer].([]*ast.CallExpr)
 	for _, callExpr := range callExprs {

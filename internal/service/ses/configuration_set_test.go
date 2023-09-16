@@ -29,9 +29,9 @@ func TestAccSESConfigurationSet_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_basic(rName),
@@ -65,9 +65,9 @@ func TestAccSESConfigurationSet_sendingEnabled(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_sending(rName, false),
@@ -112,9 +112,9 @@ func TestAccSESConfigurationSet_reputationMetricsEnabled(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_reputationMetrics(rName, false),
@@ -156,9 +156,9 @@ func TestAccSESConfigurationSet_deliveryOptions(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_deliveryOptions(rName, ses.TlsPolicyRequire),
@@ -187,9 +187,9 @@ func TestAccSESConfigurationSet_Update_deliveryOptions(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_basic(rName),
@@ -244,9 +244,9 @@ func TestAccSESConfigurationSet_emptyDeliveryOptions(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_emptyDeliveryOptions(rName),
@@ -275,9 +275,9 @@ func TestAccSESConfigurationSet_Update_emptyDeliveryOptions(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_basic(rName),
@@ -323,10 +323,10 @@ func TestAccSESConfigurationSet_trackingOptions(t *testing.T) {
 	resourceName := "aws_ses_configuration_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy,
+		CheckDestroy:testAccCheckConfigurationSetDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_trackingOptions(rName, "wn011su7.test"),
@@ -356,9 +356,9 @@ func TestAccSESConfigurationSet_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationSetDestroy(ctx),
+		CheckDestroy:testAccCheckConfigurationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationSetConfig_basic(rName),
@@ -444,7 +444,7 @@ resource "aws_ses_configuration_set" "test" {
 func testAccConfigurationSetConfig_reputationMetrics(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_ses_configuration_set" "test" {
-  name                       = %[1]q
+  name          = %[1]q
   reputation_metrics_enabled = %[2]t
 }
 `, rName, enabled)

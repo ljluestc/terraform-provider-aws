@@ -24,7 +24,8 @@ type Config struct {
 }
 
 // Validate checks to ensure that the config is present.
-func (c *Config) Validate() error {
+
+ (c *Config) Validate() error {
 	if c == nil {
 		return errors.New("config is nil")
 	}
@@ -32,7 +33,8 @@ func (c *Config) Validate() error {
 	return nil
 }
 
-func (c *Config) UnmarshalJSON(b []byte) error {
+
+ (c *Config) UnmarshalJSON(b []byte) error {
 	type rawConfig Config
 	var config rawConfig
 

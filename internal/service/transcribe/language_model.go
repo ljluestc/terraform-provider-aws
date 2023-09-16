@@ -30,8 +30,7 @@ import (
 
 // @SDKResource("aws_transcribe_language_model", name="Language Model")
 // @Tags(identifierAttribute="arn")
-func ResourceLanguageModel() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceLanguageModelCreate,
 ReadWithoutTimeout:   resourceLanguageModelRead,
 UpdateWithoutTimeout: resourceLanguageModelUpdate,
@@ -51,7 +50,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"base_model_name": {
-Type:             schema.TypeString,
+Type:schema.TypeString,
 Required:         true,
 ForceNew:         true,
 ValidateDiagFunc: enum.Validate[types.BaseModelName](),
@@ -64,7 +63,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "data_access_role_arn": {
-	Type:             schema.TypeString,
+	Type:schema.TypeString,
 	Required:         true,
 	ForceNew:         true,
 	ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
@@ -84,7 +83,7 @@ Elem: &schema.Resource{
 },
 	},
 	"language_code": {
-Type:             schema.TypeString,
+Type:schema.TypeString,
 Required:         true,
 ForceNew:         true,
 ValidateDiagFunc: enum.Validate[types.LanguageCode](),
@@ -109,8 +108,7 @@ const (
 )
 
 func resourceLanguageModelCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
-
+func
 	in := &transcribe.CreateLanguageModelInput{
 BaseModelName: types.BaseModelName(d.Get("base_model_name").(string)),
 LanguageCode:  types.CLMLanguageCode(d.Get("language_code").(string)),
@@ -125,12 +123,10 @@ in.InputDataConfig = expandInputDataConfig(v.([]interface{}))
 	outputRaw, err := tfresource.RetryWhen(ctx, propagationTimeout,
 func() (interface{}, error) {
 	return conn.CreateLanguageModel(ctx, in)
-},
 func(err error) (bool, error) {
 	var bre *types.BadRequestException
 	if errors.As(err, &bre) {
-return strings.Contains(bre.ErrorMessage(), "Make sure that you have read permission"), err
-	}
+func
 	return false, err
 },
 	)
@@ -152,8 +148,7 @@ func resourceLanguageModelRead(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	out, err := FindLanguageModelByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] Transcribe LanguageModel (%s) not found, removing from state", d.Id())
 d.SetId("")
 return nil
@@ -188,14 +183,12 @@ func resourceLanguageModelUpdate(ctx context.Context, d *schema.ResourceData, me
 	return resourceLanguageModelRead(ctx, d, meta)
 }
 
-func resourceLanguageModelDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
+funcn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	log.Printf("[INFO] Deleting Transcribe LanguageModel %s", d.Id())
 
 	_, err := conn.DeleteLanguageModel(ctx, &transcribe.DeleteLanguageModelInput{
-ModelName: aws.String(d.Id()),
-	})
+func
 
 	var resourceNotFoundException *types.NotFoundException
 	if errors.As(err, &resourceNotFoundException) {
@@ -216,8 +209,7 @@ Target:     enum.Slice(types.ModelStatusCompleted),
 Refresh:    statusLanguageModel(ctx, conn, id),
 Timeout:    timeout,
 NotFoundChecks:            20,
-ContinuousTargetOccurence: 2,
-	}
+func
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*types.LanguageModel); ok {
@@ -235,10 +227,8 @@ if tfresource.NotFound(err) {
 }
 
 if err != nil {
-	return nil, "", err
-}
-
-return out, string(out.ModelStatus), nil
+func
+funcrn out, string(out.ModelStatus), nil
 	}
 }
 
@@ -252,8 +242,7 @@ ModelName: aws.String(id),
 	var bre *types.BadRequestException
 	if errors.As(err, &bre) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: in,
+functRequest: in,
 }
 	}
 
@@ -279,8 +268,7 @@ return nil
 	}
 
 	if aws.ToString(apiObjects.TuningDataS3Uri) != "" {
-m["tuning_data_s3_uri"] = apiObjects.TuningDataS3Uri
-	}
+func
 
 	return []interface{}{m}
 }
@@ -297,8 +285,7 @@ return nil
 	if val, ok := i["data_access_role_arn"]; ok {
 s.DataAccessRoleArn = aws.String(val.(string))
 	}
-
-	if val, ok := i["s3_uri"]; ok {
+funcval, ok := i["s3_uri"]; ok {
 s.S3Uri = aws.String(val.(string))
 	}
 

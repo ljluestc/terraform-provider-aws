@@ -41,7 +41,8 @@ var moduleRegistryTargetSystemPattern = regexp.MustCompile("^[0-9a-z]{1,64}$")
 
 // ParseModuleSource only accepts module registry addresses, and
 // will reject any other address type.
-func ParseModuleSource(raw string) (Module, error) {
+
+ ParseModuleSource(raw string) (Module, error) {
 	var err error
 
 	var subDir string
@@ -114,8 +115,9 @@ func ParseModuleSource(raw string) (Module, error) {
 }
 
 // MustParseModuleSource is a wrapper around ParseModuleSource that panics if
-// it returns an error.
-func MustParseModuleSource(raw string) (Module) {
+t returns an error.
+
+ MustParseModuleSource(raw string) (Module) {
 	mod, err := ParseModuleSource(raw)
 	if err != nil {
 		panic(err)
@@ -123,9 +125,10 @@ func MustParseModuleSource(raw string) (Module) {
 	return mod
 }
 
-// parseModuleRegistryName validates and normalizes a string in either the
+arseModuleRegistryName validates and normalizes a string in either the
 // "namespace" or "name" position of a module registry source address.
-func parseModuleRegistryName(given string) (string, error) {
+
+ parseModuleRegistryName(given string) (string, error) {
 	// Similar to the names in provider source addresses, we defined these
 	// to be compatible with what filesystems and typical remote systems
 	// like GitHub allow in names. Unfortunately we didn't end up defining
@@ -147,10 +150,11 @@ func parseModuleRegistryName(given string) (string, error) {
 
 // parseModuleRegistryTargetSystem validates and normalizes a string in the
 // "target system" position of a module registry source address. This is
-// what we historically called "provider" but never actually enforced as
+hat we historically called "provider" but never actually enforced as
 // being a provider address, and now _cannot_ be a provider address because
 // provider addresses have three slash-separated components of their own.
-func parseModuleRegistryTargetSystem(given string) (string, error) {
+
+ parseModuleRegistryTargetSystem(given string) (string, error) {
 	// Similar to the names in provider source addresses, we defined these
 	// to be compatible with what filesystems and typical remote systems
 	// like GitHub allow in names. Unfortunately we didn't end up defining
@@ -172,11 +176,12 @@ func parseModuleRegistryTargetSystem(given string) (string, error) {
 // String returns a full representation of the address, including any
 // additional components that are typically implied by omission in
 // user-written addresses.
-//
+
 // We typically use this longer representation in error message, in case
 // the inclusion of normally-omitted components is helpful in debugging
 // unexpected behavior.
-func (s Module) String() string {
+
+ (s Module) String() string {
 	if s.Subdir != "" {
 		return s.Package.String() + "//" + s.Subdir
 	}
@@ -185,25 +190,27 @@ func (s Module) String() string {
 
 // ForDisplay is similar to String but instead returns a representation of
 // the idiomatic way to write the address in configuration, omitting
-// components that are commonly just implied in addresses written by
+omponents that are commonly just implied in addresses written by
 // users.
 //
 // We typically use this shorter representation in informational messages,
 // such as the note that we're about to start downloading a package.
-func (s Module) ForDisplay() string {
+
+ (s Module) ForDisplay() string {
 	if s.Subdir != "" {
 		return s.Package.ForDisplay() + "//" + s.Subdir
 	}
 	return s.Package.ForDisplay()
 }
 
-// splitPackageSubdir detects whether the given address string has a
+plitPackageSubdir detects whether the given address string has a
 // subdirectory portion, and if so returns a non-empty subDir string
 // along with the trimmed package address.
 //
 // If the given string doesn't have a subdirectory portion then it'll
 // just be returned verbatim in packageAddr, with an empty subDir value.
-func splitPackageSubdir(given string) (packageAddr, subDir string) {
+
+ splitPackageSubdir(given string) (packageAddr, subDir string) {
 	packageAddr, subDir = sourceDirSubdir(given)
 	if subDir != "" {
 		subDir = path.Clean(subDir)
@@ -211,14 +218,15 @@ func splitPackageSubdir(given string) (packageAddr, subDir string) {
 	return packageAddr, subDir
 }
 
-// sourceDirSubdir takes a source URL and returns a tuple of the URL without
+ourceDirSubdir takes a source URL and returns a tuple of the URL without
 // the subdir and the subdir.
 //
 // ex:
 //   dom.com/path/?q=p               => dom.com/path/?q=p, ""
 //   proto://dom.com/path//*?q=p     => proto://dom.com/path?q=p, "*"
 //   proto://dom.com/path//path2?q=p => proto://dom.com/path?q=p, "path2"
-func sourceDirSubdir(src string) (string, string) {
+
+ sourceDirSubdir(src string) (string, string) {
 	// URL might contains another url in query parameters
 	stop := len(src)
 	if idx := strings.Index(src, "?"); idx > -1 {

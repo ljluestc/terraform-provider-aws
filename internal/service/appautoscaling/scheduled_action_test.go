@@ -31,10 +31,10 @@ func TestAccAppAutoScalingScheduledAction_dynamoDB(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_dynamoDB(rName, schedule1),
@@ -86,10 +86,10 @@ func TestAccAppAutoScalingScheduledAction_ecs(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_ecs(rName, ts),
@@ -120,10 +120,10 @@ func TestAccAppAutoScalingScheduledAction_emr(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_emr(rName, ts),
@@ -153,10 +153,10 @@ func TestAccAppAutoScalingScheduledAction_Name_duplicate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_duplicateName(rName),
@@ -179,10 +179,10 @@ func TestAccAppAutoScalingScheduledAction_spotFleet(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_spotFleet(rName, ts, validUntil),
@@ -217,10 +217,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleAtExpression_timezone(t *testi
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_timezone(rName, at, timezone, startTime, endTime),
@@ -253,10 +253,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_basic(t *testin
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_schedule(rName, cron),
@@ -292,10 +292,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_timezone(t *tes
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_timezone(rName, cron, timezone, startTime, endTime),
@@ -324,7 +324,7 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_startEndTimeTim
 	var sa applicationautoscaling.ScheduledAction
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	cron := "cron(0 17 * * ? *)"
-	scheduleTimezone := "Etc/GMT+9"                                    // Z-09:00 (IANA and RFC3339 have inverted signs)
+	scheduleTimezone := "Etc/GMT+9"          // Z-09:00 (IANA and RFC3339 have inverted signs)
 	startTimezone, _ := time.LoadLocation("Antarctica/DumontDUrville") // Z+10:00
 	endTimezone, _ := time.LoadLocation("America/Vancouver")           // Z-08:00
 	startTime := time.Now().AddDate(0, 0, 2).In(startTimezone)
@@ -335,10 +335,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_startEndTimeTim
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_timezone(rName, cron, scheduleTimezone, startTime.Format(time.RFC3339), endTime.Format(time.RFC3339)),
@@ -389,10 +389,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleRateExpression_basic(t *testin
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_schedule(rName, rate),
@@ -428,10 +428,10 @@ func TestAccAppAutoScalingScheduledAction_ScheduleRateExpression_timezone(t *tes
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_timezone(rName, rate, timezone, startTime, endTime),
@@ -464,10 +464,10 @@ func TestAccAppAutoScalingScheduledAction_minCapacity(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_minCapacity(rName, schedule, 1),
@@ -520,10 +520,10 @@ func TestAccAppAutoScalingScheduledAction_maxCapacity(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
+		CheckDestroy:testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduledActionConfig_maxCapacity(rName, schedule, 10),

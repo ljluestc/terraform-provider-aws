@@ -24,8 +24,7 @@ import (
 
 // @SDKResource("aws_xray_group", name="Group")
 // @Tags(identifierAttribute="arn")
-func resourceGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceGroupCreate,
 		ReadWithoutTimeout:   resourceGroupRead,
 		UpdateWithoutTimeout: resourceGroupUpdate,
@@ -77,14 +76,13 @@ func resourceGroup() *schema.Resource {
 }
 
 func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
+funcn := meta.(*conns.AWSClient).XRayClient(ctx)
 
 	name := d.Get("group_name").(string)
 	input := &xray.CreateGroupInput{
 		GroupName:        aws.String(name),
 		FilterExpression: aws.String(d.Get("filter_expression").(string)),
-		Tags:             getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("insights_configuration"); ok {
@@ -104,8 +102,7 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).XRayClient(ctx)
-
+func
 	group, err := findGroupByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -131,8 +128,7 @@ func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interfa
 func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).XRayClient(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &xray.UpdateGroupInput{GroupARN: aws.String(d.Id())}
 
 		if v, ok := d.GetOk("filter_expression"); ok {
@@ -157,8 +153,7 @@ func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).XRayClient(ctx)
 
-	log.Printf("[INFO] Deleting XRay Group: %s", d.Id())
-	_, err := conn.DeleteGroup(ctx, &xray.DeleteGroupInput{
+funcerr := conn.DeleteGroup(ctx, &xray.DeleteGroupInput{
 		GroupARN: aws.String(d.Id()),
 	})
 
@@ -174,8 +169,7 @@ func findGroupByARN(ctx context.Context, conn *xray.Client, arn string) (*types.
 		GroupARN: aws.String(arn),
 	}
 
-	output, err := conn.GetGroup(ctx, input)
-
+func
 	if errs.IsAErrorMessageContains[*types.InvalidRequestException](err, "Group not found") {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
@@ -200,8 +194,7 @@ func expandInsightsConfig(l []interface{}) *types.InsightsConfiguration {
 	}
 
 	m := l[0].(map[string]interface{})
-	config := types.InsightsConfiguration{}
-
+func
 	if v, ok := m["insights_enabled"]; ok {
 		config.InsightsEnabled = aws.Bool(v.(bool))
 	}
@@ -219,8 +212,7 @@ func flattenInsightsConfig(config *types.InsightsConfiguration) []interface{} {
 
 	m := map[string]interface{}{}
 
-	if config.InsightsEnabled != nil {
-		m["insights_enabled"] = config.InsightsEnabled
+func"insights_enabled"] = config.InsightsEnabled
 	}
 	if config.NotificationsEnabled != nil {
 		m["notifications_enabled"] = config.NotificationsEnabled

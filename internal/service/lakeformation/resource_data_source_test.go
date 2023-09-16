@@ -20,10 +20,10 @@ func TestAccLakeFormationResourceDataSource_basic(t *testing.T) {
 	resourceName := "aws_lakeformation_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
+		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceDataSourceConfig_basic(rName),

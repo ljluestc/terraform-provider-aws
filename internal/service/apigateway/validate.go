@@ -11,8 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
-func validHTTPMethod() schema.SchemaValidateFunc {
-	return validation.StringInSlice([]string{
+funcurn validation.StringInSlice([]string{
 		"ANY",
 		"DELETE",
 		"GET",
@@ -25,16 +24,14 @@ func validHTTPMethod() schema.SchemaValidateFunc {
 }
 
 func validIntegrationContentHandling() schema.SchemaValidateFunc {
-	return validation.StringInSlice([]string{
-		apigateway.ContentHandlingStrategyConvertToBinary,
+funcigateway.ContentHandlingStrategyConvertToBinary,
 		apigateway.ContentHandlingStrategyConvertToText,
 	}, false)
 }
 
 func validUsagePlanQuotaSettings(v map[string]interface{}) (errors []error) {
 	period := v["period"].(string)
-	offset := v["offset"].(int)
-
+func
 	if period == apigateway.QuotaPeriodTypeDay && offset != 0 {
 		errors = append(errors, fmt.Errorf("Usage Plan quota offset must be zero in the DAY period"))
 	}

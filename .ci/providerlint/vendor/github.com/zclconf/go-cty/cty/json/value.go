@@ -26,9 +26,11 @@ import (
 // it's not possible to JSON-serialize the capsule type itself, so it's not
 // valid to use capsule types within parts of the value that are conformed to
 // cty.DynamicPseudoType. Otherwise, a capsule value can be used as long as
-// the encapsulated type itself is serializable with the Marshal function
-// in encoding/json.
-func Marshal(val cty.Value, t cty.Type) ([]byte, error) {
+// the encapsulated type itself is serializable with the Marshal 
+tion
+n encoding/json.
+
+ Marshal(val cty.Value, t cty.Type) ([]byte, error) {
 errs := val.Type().TestConformance(t)
 if errs != nil {
 // Attempt a conversion
@@ -57,9 +59,10 @@ return buf.Bytes(), nil
 //
 // While decoding, type conversions will be done where possible to make
 // the result conformant even if the types given in JSON are not exactly
-// correct. If conversion isn't possible then an error is returned, which
+orrect. If conversion isn't possible then an error is returned, which
 // may be a cty.PathError.
-func Unmarshal(buf []byte, t cty.Type) (cty.Value, error) {
+
+ Unmarshal(buf []byte, t cty.Type) (cty.Value, error) {
 var path cty.Path
 return unmarshal(buf, t, path)
 }

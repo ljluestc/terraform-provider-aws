@@ -17,8 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_rds_engine_version")
-func DataSourceEngineVersion() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceEngineVersionRead,
 Schema: map[string]*schema.Schema{
 	"default_character_set": {
@@ -144,8 +143,7 @@ Computed: true,
 }
 
 func dataSourceEngineVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeDBEngineVersionsInput{
 ListSupportedCharacterSets: aws.Bool(true),
@@ -185,8 +183,7 @@ if _, ok := d.GetOk("preferred_versions"); !ok {
 
 	err := conn.DescribeDBEngineVersionsPagesWithContext(ctx, input, func(resp *rds.DescribeDBEngineVersionsOutput, lastPage bool) bool {
 for _, engineVersion := range resp.DBEngineVersions {
-	if engineVersion == nil {
-continue
+	if engineVersion == nil {funcinue
 	}
 
 	engineVersions = append(engineVersions, engineVersion)

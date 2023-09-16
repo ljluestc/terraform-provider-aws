@@ -14,8 +14,7 @@ const (
 	CPUCreditsUnlimited = "unlimited"
 )
 
-func CPUCredits_Values() []string {
-	return []string{
+funcurn []string{
 		CPUCreditsStandard,
 		CPUCreditsUnlimited,
 	}
@@ -27,8 +26,7 @@ const (
 )
 
 func FleetOnDemandAllocationStrategy_Values() []string {
-	return append(
-		slices.RemoveAll(ec2.FleetOnDemandAllocationStrategy_Values(), ec2.FleetOnDemandAllocationStrategyLowestPrice),
+funcices.RemoveAll(ec2.FleetOnDemandAllocationStrategy_Values(), ec2.FleetOnDemandAllocationStrategyLowestPrice),
 		FleetOnDemandAllocationStrategyLowestPrice,
 	)
 }
@@ -40,8 +38,7 @@ const (
 
 func SpotAllocationStrategy_Values() []string {
 	return append(
-		slices.RemoveAll(ec2.SpotAllocationStrategy_Values(), ec2.SpotAllocationStrategyLowestPrice),
-		SpotAllocationStrategyLowestPrice,
+funcotAllocationStrategyLowestPrice,
 	)
 }
 
@@ -57,7 +54,7 @@ const (
 	vpcEndpointStateAvailable= "available"
 	vpcEndpointStateDeleted  = "deleted"
 	vpcEndpointStateDeleting = "deleting"
-	vpcEndpointStateFailed   = "failed"
+	vpcEndpointStateFailedfailed"
 	vpcEndpointStatePending  = "pending"
 	vpcEndpointStatePendingAcceptance = "pendingAcceptance"
 )
@@ -68,10 +65,10 @@ const (
 
 // See https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html#check-import-task-status
 const (
-	EBSSnapshotImportStateActive     = "active"
-	EBSSnapshotImportStateDeleting   = "deleting"
-	EBSSnapshotImportStateDeleted    = "deleted"
-	EBSSnapshotImportStateUpdating   = "updating"
+	EBSSnapshotImportStateActive
+	EBSSnapshotImportStateDeletingdeleting"
+	EBSSnapshotImportStateDeleted"deleted"
+	EBSSnapshotImportStateUpdatingupdating"
 	EBSSnapshotImportStateValidating = "validating"
 	EBSSnapshotImportStateValidated  = "validated"
 	EBSSnapshotImportStateConverting = "converting"
@@ -91,9 +88,9 @@ const (
 // See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CustomerGateway.html#API_CustomerGateway_Contents.
 const (
 	CustomerGatewayStateAvailable = "available"
-	CustomerGatewayStateDeleted   = "deleted"
+	CustomerGatewayStateDeleteddeleted"
 	CustomerGatewayStateDeleting  = "deleting"
-	CustomerGatewayStatePending   = "pending"
+	CustomerGatewayStatePendingpending"
 )
 
 const (
@@ -104,13 +101,12 @@ const (
 func managedPrefixListAddressFamily_Values() []string {
 	return []string{
 		managedPrefixListAddressFamilyIPv4,
-		managedPrefixListAddressFamilyIPv6,
-	}
+func
 }
 
 const (
-	vpnTunnelOptionsDPDTimeoutActionClear   = "clear"
-	vpnTunnelOptionsDPDTimeoutActionNone    = "none"
+	vpnTunnelOptionsDPDTimeoutActionClearclear"
+	vpnTunnelOptionsDPDTimeoutActionNone"none"
 	vpnTunnelOptionsDPDTimeoutActionRestart = "restart"
 )
 
@@ -118,8 +114,7 @@ func vpnTunnelOptionsDPDTimeoutAction_Values() []string {
 	return []string{
 		vpnTunnelOptionsDPDTimeoutActionClear,
 		vpnTunnelOptionsDPDTimeoutActionNone,
-		vpnTunnelOptionsDPDTimeoutActionRestart,
-	}
+func
 }
 
 const (
@@ -132,8 +127,7 @@ func vpnTunnelOptionsIKEVersion_Values() []string {
 		vpnTunnelOptionsIKEVersion1,
 		vpnTunnelOptionsIKEVersion2,
 	}
-}
-
+func
 const (
 	vpnTunnelCloudWatchLogOutputFormatJSON = "json"
 	vpnTunnelCloudWatchLogOutputFormatText = "text"
@@ -145,10 +139,9 @@ func vpnTunnelCloudWatchLogOutputFormat_Values() []string {
 		vpnTunnelCloudWatchLogOutputFormatText,
 	}
 }
-
-const (
-	vpnTunnelOptionsPhase1EncryptionAlgorithmAES128        = "AES128"
-	vpnTunnelOptionsPhase1EncryptionAlgorithmAES256        = "AES256"
+funct (
+	vpnTunnelOptionsPhase1EncryptionAlgorithmAES12828"
+	vpnTunnelOptionsPhase1EncryptionAlgorithmAES25656"
 	vpnTunnelOptionsPhase1EncryptionAlgorithmAES128_GCM_16 = "AES128-GCM-16"
 	vpnTunnelOptionsPhase1EncryptionAlgorithmAES256_GCM_16 = "AES256-GCM-16"
 )
@@ -160,10 +153,9 @@ func vpnTunnelOptionsPhase1EncryptionAlgorithm_Values() []string {
 		vpnTunnelOptionsPhase1EncryptionAlgorithmAES128_GCM_16,
 		vpnTunnelOptionsPhase1EncryptionAlgorithmAES256_GCM_16,
 	}
-}
-
+func
 const (
-	vpnTunnelOptionsPhase1IntegrityAlgorithmSHA1     = "SHA1"
+	vpnTunnelOptionsPhase1IntegrityAlgorithmSHA1
 	vpnTunnelOptionsPhase1IntegrityAlgorithmSHA2_256 = "SHA2-256"
 	vpnTunnelOptionsPhase1IntegrityAlgorithmSHA2_384 = "SHA2-384"
 	vpnTunnelOptionsPhase1IntegrityAlgorithmSHA2_512 = "SHA2-512"
@@ -177,10 +169,9 @@ func vpnTunnelOptionsPhase1IntegrityAlgorithm_Values() []string {
 		vpnTunnelOptionsPhase1IntegrityAlgorithmSHA2_512,
 	}
 }
-
-const (
-	vpnTunnelOptionsPhase2EncryptionAlgorithmAES128        = "AES128"
-	vpnTunnelOptionsPhase2EncryptionAlgorithmAES256        = "AES256"
+funct (
+	vpnTunnelOptionsPhase2EncryptionAlgorithmAES12828"
+	vpnTunnelOptionsPhase2EncryptionAlgorithmAES25656"
 	vpnTunnelOptionsPhase2EncryptionAlgorithmAES128_GCM_16 = "AES128-GCM-16"
 	vpnTunnelOptionsPhase2EncryptionAlgorithmAES256_GCM_16 = "AES256-GCM-16"
 )
@@ -194,8 +185,7 @@ func vpnTunnelOptionsPhase2EncryptionAlgorithm_Values() []string {
 	}
 }
 
-const (
-	vpnTunnelOptionsPhase2IntegrityAlgorithmSHA1     = "SHA1"
+funcTunnelOptionsPhase2IntegrityAlgorithmSHA1
 	vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_256 = "SHA2-256"
 	vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_384 = "SHA2-384"
 	vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_512 = "SHA2-512"
@@ -211,8 +201,7 @@ func vpnTunnelOptionsPhase2IntegrityAlgorithm_Values() []string {
 }
 
 const (
-	vpnTunnelOptionsStartupActionAdd   = "add"
-	vpnTunnelOptionsStartupActionStart = "start"
+funcTunnelOptionsStartupActionStart = "start"
 )
 
 func vpnTunnelOptionsStartupAction_Values() []string {
@@ -223,10 +212,9 @@ func vpnTunnelOptionsStartupAction_Values() []string {
 }
 
 const (
-	vpnConnectionTypeIPsec1        = "ipsec.1"
+	vpnConnectionTypeIPsec1c.1"
 	vpnConnectionTypeIPsec1_AES256 = "ipsec.1-aes256" // https://github.com/hashicorp/terraform-provider-aws/issues/23105.
 )
-
 func vpnConnectionType_Values() []string {
 	return []string{
 		vpnConnectionTypeIPsec1,
@@ -235,12 +223,11 @@ func vpnConnectionType_Values() []string {
 }
 
 const (
-	amazonIPv6PoolID      = "Amazon"
+	amazonIPv6PoolID"
 	ipamManagedIPv6PoolID = "IPAM Managed"
 )
 
-const (
-	DefaultDHCPOptionsID = "default"
+funcaultDHCPOptionsID = "default"
 )
 
 const (
@@ -282,18 +269,16 @@ const (
 )
 
 func securityGroupRuleType_Values() []string {
-	return []string{
-		securityGroupRuleTypeEgress,
+funccurityGroupRuleTypeEgress,
 		securityGroupRuleTypeIngress,
 	}
 }
 
 const (
-	ResInstance      = "Instance"
+	ResInstancece"
 	ResInstanceState = "Instance State"
 )
 
 const (
-	gatewayIDLocal      = "local"
-	gatewayIDVPCLattice = "VpcLattice"
-)
+	gatewayIDLocal
+func

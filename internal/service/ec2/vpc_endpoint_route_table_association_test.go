@@ -19,36 +19,31 @@ import (
 )
 
 
-func TestAccVPCEndpointRouteTableAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointRouteTableAssociationConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointRouteTableAssociationExists(ctx, resourceName),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateId
 func: testAccVPCEndpointRouteTableAssociationImportStateId
 func(resourceName),
 ImportStateVerify: true,
-	},
-},
-	})
-}
+func
+func
 
 
 func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
@@ -56,16 +51,14 @@ func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCEndpointRouteTableAssociationConfig_basic(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckVPCEndpointRouteTableAssociationExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointRouteTableAssociation(), resourceName),
@@ -73,8 +66,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx context.Context) resource.TestCheck
@@ -85,13 +77,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_vpc_endpoint_route_table_association" {
-continue
-	}
+func
+func := tfec2.FindVPCEndpointRouteTableAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["route_table_id"])
 
-	err := tfec2.FindVPCEndpointRouteTableAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["route_table_id"])
-
-	if tfresource.NotFound(err) {
-continue
+funcinue
 	}
 
 	if err != nil {
@@ -117,13 +106,10 @@ if !ok {
 
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No VPC Endpoint Route Table Association ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
+func
+func
 return tfec2.FindVPCEndpointRouteTableAssociationExists(ctx, conn, rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.Attributes["route_table_id"])
-	}
-}
+func
 
 
 func testAccVPCEndpointRouteTableAssociationImportStateId
@@ -140,34 +126,29 @@ id := fmt.Sprintf("%s/%s", rs.Primary.Attributes["vpc_endpoint_id"], rs.Primary.
 return id, nil
 	}
 }
+func
+funcurn fmt.Sprintf(`
+funcdr_block = "10.0.0.0/16"
 
-
-func testAccVPCEndpointRouteTableAssociationConfig_basic(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id       = aws_vpc.test.id
+  vpc_idc.test.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 

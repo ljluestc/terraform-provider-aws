@@ -26,10 +26,10 @@ func TestAccECSTaskSet_basic(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccECSTaskSet_withExternalId(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_externalID(rName),
@@ -92,10 +92,10 @@ func TestAccECSTaskSet_withScale(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_scale(rName, 0.0),
@@ -141,10 +141,10 @@ func TestAccECSTaskSet_disappears(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_basic(rName),
@@ -164,10 +164,10 @@ func TestAccECSTaskSet_withCapacityProviderStrategy(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_capacityProviderStrategy(rName, 1, 0),
@@ -207,10 +207,10 @@ func TestAccECSTaskSet_withAlb(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_alb(rName),
@@ -237,10 +237,10 @@ func TestAccECSTaskSet_withLaunchTypeFargate(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_launchTypeFargate(rName),
@@ -272,10 +272,10 @@ func TestAccECSTaskSet_withLaunchTypeFargateAndPlatformVersion(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_launchTypeFargateAndPlatformVersion(rName, "1.3.0"),
@@ -317,10 +317,10 @@ func TestAccECSTaskSet_withServiceRegistries(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_serviceRegistries(rName),
@@ -347,10 +347,10 @@ func TestAccECSTaskSet_tags(t *testing.T) {
 	resourceName := "aws_ecs_task_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecs.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTaskSetDestroy(ctx),
+		CheckDestroy:testAccCheckTaskSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTaskSetConfig_tags1(rName, "key1", "value1"),
@@ -471,7 +471,7 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                = %[1]q
+  family   = %[1]q
   container_definitions = <<DEFINITION
 [
   {
@@ -546,7 +546,7 @@ resource "aws_ecs_task_set" "test" {
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.test.name
     weight            = %[2]d
-    base              = %[3]d
+    base = %[3]d
   }
 }
 `, rName, weight, base))
@@ -559,7 +559,7 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                = %[1]q
+  family   = %[1]q
   container_definitions = <<DEFINITION
 [
   {
@@ -594,11 +594,11 @@ resource "aws_lb" "test" {
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  port              = "80"
+  port = "80"
   protocol          = "HTTP"
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type= "forward"
   }
 }
 
@@ -691,7 +691,7 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                = %[1]q
+  family   = %[1]q
   network_mode          = "awsvpc"
   container_definitions = <<DEFINITION
 [
@@ -756,11 +756,11 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = %[1]q
-  network_mode             = "awsvpc"
+  family      = %[1]q
+  network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
+  cpu         = "256"
+  memory      = "512"
   container_definitions    = <<DEFINITION
 [
   {
@@ -823,11 +823,11 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = %[1]q
-  network_mode             = "awsvpc"
+  family      = %[1]q
+  network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
+  cpu         = "256"
+  memory      = "512"
   container_definitions    = <<DEFINITION
 [
   {

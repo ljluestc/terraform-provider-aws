@@ -39,10 +39,10 @@ func TestAccDocDBCluster_basic(t *testing.T) {
 	resourceName := "aws_docdb_cluster.default"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rInt),
@@ -84,10 +84,10 @@ func TestAccDocDBCluster_namePrefix(t *testing.T) {
 	var v docdb.DBCluster
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_namePrefix(),
@@ -118,10 +118,10 @@ func TestAccDocDBCluster_generatedName(t *testing.T) {
 	var v docdb.DBCluster
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_generatedName(),
@@ -156,10 +156,10 @@ func TestAccDocDBCluster_GlobalClusterIdentifier(t *testing.T) {
 	resourceName := "aws_docdb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_globalIdentifier(rName),
@@ -196,10 +196,10 @@ func TestAccDocDBCluster_GlobalClusterIdentifier_Add(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_globalCompatible(rName),
@@ -237,10 +237,10 @@ func TestAccDocDBCluster_GlobalClusterIdentifier_Remove(t *testing.T) {
 	resourceName := "aws_docdb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_globalIdentifier(rName),
@@ -282,10 +282,10 @@ func TestAccDocDBCluster_GlobalClusterIdentifier_Update(t *testing.T) {
 	resourceName := "aws_docdb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_globalIdentifierUpdate(rName, globalClusterResourceName1),
@@ -332,9 +332,9 @@ func TestAccDocDBCluster_GlobalClusterIdentifier_PrimarySecondaryClusters(t *tes
 			acctest.PreCheckMultipleRegion(t, 2)
 			testAccPreCheckGlobalCluster(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_globalIdentifierPrimarySecondary(rNameGlobal, rNamePrimary, rNameSecondary),
@@ -353,10 +353,10 @@ func TestAccDocDBCluster_takeFinalSnapshot(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterSnapshot(ctx, rInt),
+		CheckDestroy:testAccCheckClusterSnapshot(ctx, rInt),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_finalSnapshot(rInt),
@@ -385,10 +385,10 @@ func TestAccDocDBCluster_takeFinalSnapshot(t *testing.T) {
 func TestAccDocDBCluster_missingUserNameCausesError(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccClusterConfig_noUsernameOrPassword(sdkacctest.RandInt()),
@@ -404,10 +404,10 @@ func TestAccDocDBCluster_updateTags(t *testing.T) {
 	ri := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(ri),
@@ -447,10 +447,10 @@ func TestAccDocDBCluster_updateCloudWatchLogsExports(t *testing.T) {
 	ri := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_noCloudWatchLogs(ri),
@@ -487,10 +487,10 @@ func TestAccDocDBCluster_kmsKey(t *testing.T) {
 	var v docdb.DBCluster
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_kmsKey(sdkacctest.RandInt()),
@@ -520,10 +520,10 @@ func TestAccDocDBCluster_encrypted(t *testing.T) {
 	var v docdb.DBCluster
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_encrypted(sdkacctest.RandInt()),
@@ -557,10 +557,10 @@ func TestAccDocDBCluster_backupsUpdate(t *testing.T) {
 
 	ri := sdkacctest.RandInt()
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_backups(ri),
@@ -609,10 +609,10 @@ func TestAccDocDBCluster_port(t *testing.T) {
 	resourceName := "aws_docdb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_port(rInt, 5432),
@@ -651,10 +651,10 @@ func TestAccDocDBCluster_deleteProtection(t *testing.T) {
 	resourceName := "aws_docdb_cluster.default"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_deleteProtection(true),
@@ -716,7 +716,7 @@ data "aws_availability_zones" "alternate" {
 
 resource "aws_docdb_global_cluster" "test" {
   global_cluster_identifier = "%[1]s"
-  engine                    = "docdb"
+  engine       = "docdb"
   engine_version            = "4.0.0"
 }
 
@@ -726,7 +726,7 @@ resource "aws_docdb_cluster" "primary" {
   master_password           = "barbarbar"
   skip_final_snapshot       = true
   global_cluster_identifier = aws_docdb_global_cluster.test.id
-  engine                    = aws_docdb_global_cluster.test.engine
+  engine       = aws_docdb_global_cluster.test.engine
   engine_version            = aws_docdb_global_cluster.test.engine_version
 }
 
@@ -747,7 +747,7 @@ resource "aws_vpc" "alternate" {
 
 resource "aws_subnet" "alternate" {
   provider          = "awsalternate"
-  count             = 3
+  count= 3
   vpc_id            = aws_vpc.alternate.id
   availability_zone = data.aws_availability_zones.alternate.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
@@ -764,14 +764,14 @@ resource "aws_docdb_subnet_group" "alternate" {
 }
 
 resource "aws_docdb_cluster" "secondary" {
-  provider                  = "awsalternate"
+  provider     = "awsalternate"
   cluster_identifier        = "%[3]s"
   skip_final_snapshot       = true
   db_subnet_group_name      = aws_docdb_subnet_group.alternate.name
   global_cluster_identifier = aws_docdb_global_cluster.test.id
-  engine                    = aws_docdb_global_cluster.test.engine
+  engine       = aws_docdb_global_cluster.test.engine
   engine_version            = aws_docdb_global_cluster.test.engine_version
-  depends_on                = [aws_docdb_cluster_instance.primary]
+  depends_on   = [aws_docdb_cluster_instance.primary]
 }
 
 resource "aws_docdb_cluster_instance" "secondary" {
@@ -786,8 +786,8 @@ resource "aws_docdb_cluster_instance" "secondary" {
 func testAccClusterConfig_globalIdentifierUpdate(rName, globalClusterIdentifierResourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_docdb_global_cluster" "test" {
-  count                     = 2
-  engine                    = "docdb"
+  count        = 2
+  engine       = "docdb"
   engine_version            = "4.0.0" # version compatible with global
   global_cluster_identifier = "%[1]s-${count.index}"
 }
@@ -819,7 +819,7 @@ func testAccClusterConfig_globalIdentifier(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_docdb_global_cluster" "test" {
   engine_version            = "4.0.0" # version compatible
-  engine                    = "docdb"
+  engine       = "docdb"
   global_cluster_identifier = %[1]q
 }
 
@@ -975,10 +975,10 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  skip_final_snapshot             = true
+  skip_final_snapshot= true
 
   tags = {
     Environment = "production"
@@ -1024,8 +1024,8 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.docdb4.0"
   final_snapshot_identifier       = "tf-acctest-docdbcluster-snapshot-%[1]d"
 
@@ -1063,10 +1063,10 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  skip_final_snapshot             = true
+  skip_final_snapshot= true
 
   tags = {
     Environment = "production"
@@ -1087,10 +1087,10 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  skip_final_snapshot             = true
+  skip_final_snapshot= true
 
   tags = {
     Environment = "production"
@@ -1131,12 +1131,12 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username                 = "foo"
-  master_password                 = "mustbeeightcharaters"
+  master_username    = "foo"
+  master_password    = "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  storage_encrypted               = true
-  kms_key_id                      = aws_kms_key.foo.arn
-  skip_final_snapshot             = true
+  storage_encrypted  = true
+  kms_key_id         = aws_kms_key.foo.arn
+  skip_final_snapshot= true
 }
 `, n))
 }
@@ -1171,8 +1171,8 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username              = "foo"
-  master_password              = "mustbeeightcharaters"
+  master_username = "foo"
+  master_password = "mustbeeightcharaters"
   backup_retention_period      = 5
   preferred_backup_window      = "07:00-09:00"
   preferred_maintenance_window = "tue:04:00-tue:04:30"
@@ -1192,8 +1192,8 @@ resource "aws_docdb_cluster" "default" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  master_username              = "foo"
-  master_password              = "mustbeeightcharaters"
+  master_username = "foo"
+  master_password = "mustbeeightcharaters"
   backup_retention_period      = 10
   preferred_backup_window      = "03:00-09:00"
   preferred_maintenance_window = "wed:01:00-wed:01:30"
@@ -1212,13 +1212,13 @@ resource "aws_docdb_cluster" "test" {
     data.aws_availability_zones.available.names[2]
   ]
 
-  cluster_identifier              = "tf-acc-test-%d"
+  cluster_identifier = "tf-acc-test-%d"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  engine                          = "docdb"
-  master_password                 = "mustbeeightcharaters"
-  master_username                 = "foo"
-  port                            = %d
-  skip_final_snapshot             = true
+  engine= "docdb"
+  master_password    = "mustbeeightcharaters"
+  master_username    = "foo"
+  port  = %d
+  skip_final_snapshot= true
 }
 `, rInt, port))
 }

@@ -22,22 +22,27 @@ type staticExpr struct {
 // provide one. Ideally this should be a real source range, but it can
 // be a synthetic one (with an empty-string filename) if no suitable range
 // is available.
-func StaticExpr(val cty.Value, rng Range) Expression {
+
+ StaticExpr(val cty.Value, rng Range) Expression {
 	return staticExpr{val, rng}
 }
 
-func (e staticExpr) Value(ctx *EvalContext) (cty.Value, Diagnostics) {
+
+ (e staticExpr) Value(ctx *EvalContext) (cty.Value, Diagnostics) {
 	return e.val, nil
+
+
+
+ (e staticExpr) Variables() []Traversal {
+urn nil
 }
 
-func (e staticExpr) Variables() []Traversal {
-	return nil
-}
 
-func (e staticExpr) Range() Range {
+staticExpr) Range() Range {
 	return e.rng
 }
 
-func (e staticExpr) StartRange() Range {
+
+ (e staticExpr) StartRange() Range {
 	return e.rng
 }

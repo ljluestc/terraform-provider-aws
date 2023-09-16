@@ -25,6 +25,7 @@ import (
 )
 
 // @SDKResource("aws_worklink_fleet")
+
 func ResourceFleet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFleetCreate,
@@ -87,7 +88,8 @@ func ResourceFleet() *schema.Resource {
 			"device_ca_certificate": {
 				Type:     schema.TypeString,
 				Optional: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					s, ok := v.(string)
 					if !ok {
 						return ""
@@ -134,6 +136,7 @@ func ResourceFleet() *schema.Resource {
 	}
 }
 
+
 func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
@@ -172,6 +175,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceFleetRead(ctx, d, meta)...)
 }
+
 
 func resourceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -237,6 +241,7 @@ func resourceFleetRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
@@ -284,6 +289,7 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceFleetRead(ctx, d, meta)...)
 }
 
+
 func resourceFleetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
@@ -316,8 +322,10 @@ func resourceFleetDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func FleetStateRefresh(ctx context.Context, conn *worklink.WorkLink, arn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		emptyResp := &worklink.DescribeFleetMetadataOutput{}
 
 		resp, err := conn.DescribeFleetMetadataWithContext(ctx, &worklink.DescribeFleetMetadataInput{
@@ -332,6 +340,7 @@ func FleetStateRefresh(ctx context.Context, conn *worklink.WorkLink, arn string)
 		return resp, *resp.FleetStatus, nil
 	}
 }
+
 
 func updateAuditStreamConfiguration(ctx context.Context, conn *worklink.WorkLink, d *schema.ResourceData) error {
 	input := &worklink.UpdateAuditStreamConfigurationInput{
@@ -349,6 +358,7 @@ func updateAuditStreamConfiguration(ctx context.Context, conn *worklink.WorkLink
 
 	return nil
 }
+
 
 func updateCompanyNetworkConfiguration(ctx context.Context, conn *worklink.WorkLink, d *schema.ResourceData) error {
 	oldNetwork, newNetwork := d.GetChange("network")
@@ -372,6 +382,7 @@ func updateCompanyNetworkConfiguration(ctx context.Context, conn *worklink.WorkL
 	return nil
 }
 
+
 func updateDevicePolicyConfiguration(ctx context.Context, conn *worklink.WorkLink, d *schema.ResourceData) error {
 	input := &worklink.UpdateDevicePolicyConfigurationInput{
 		FleetArn: aws.String(d.Id()),
@@ -387,6 +398,7 @@ func updateDevicePolicyConfiguration(ctx context.Context, conn *worklink.WorkLin
 	}
 	return nil
 }
+
 
 func updateIdentityProviderConfiguration(ctx context.Context, conn *worklink.WorkLink, d *schema.ResourceData) error {
 	oldIdentityProvider, newIdentityProvider := d.GetChange("identity_provider")

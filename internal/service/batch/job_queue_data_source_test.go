@@ -20,8 +20,8 @@ func TestAccBatchJobQueueDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_batch_job_queue.by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -47,8 +47,8 @@ func TestAccBatchJobQueueDataSource_schedulingPolicy(t *testing.T) {
 	datasourceName := "data.aws_batch_job_queue.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, batch.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -173,16 +173,16 @@ func testAccJobQueueDataSourceConfig_basic(rName string) string {
 		testAccJobQueueDataSourceConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_batch_job_queue" "test" {
-  name                 = "%[1]s"
-  state                = "ENABLED"
-  priority             = 1
+  name    = "%[1]s"
+  state   = "ENABLED"
+  priority= 1
   compute_environments = [aws_batch_compute_environment.sample.arn]
 }
 
 resource "aws_batch_job_queue" "wrong" {
-  name                 = "%[1]s_wrong"
-  state                = "ENABLED"
-  priority             = 2
+  name    = "%[1]s_wrong"
+  state   = "ENABLED"
+  priority= 2
   compute_environments = [aws_batch_compute_environment.sample.arn]
 }
 
@@ -211,10 +211,10 @@ resource "aws_batch_scheduling_policy" "test" {
 }
 
 resource "aws_batch_job_queue" "test" {
-  name                  = %[1]q
+  name     = %[1]q
   scheduling_policy_arn = aws_batch_scheduling_policy.test.arn
-  state                 = "ENABLED"
-  priority              = 1
+  state    = "ENABLED"
+  priority = 1
   compute_environments  = [aws_batch_compute_environment.sample.arn]
 }
 

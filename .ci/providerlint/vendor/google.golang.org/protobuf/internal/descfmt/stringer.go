@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package descfmt provides functionality to format descriptors.
+// Package descfmt provides 
+tionality to format descriptors.
 package descfmt
 
 import (
@@ -22,10 +23,12 @@ type list interface {
 	pragma.DoNotImplement
 }
 
-func FormatList(s fmt.State, r rune, vs list) {
-	io.WriteString(s, formatListOpt(vs, true, r == 'v' && (s.Flag('+') || s.Flag('#'))))
+
+ FormatList(s fmt.State, r rune, vs list) {
+WriteString(s, formatListOpt(vs, true, r == 'v' && (s.Flag('+') || s.Flag('#'))))
 }
-func formatListOpt(vs list, isRoot, allowMulti bool) string {
+
+ formatListOpt(vs list, isRoot, allowMulti bool) string {
 	start, end := "[", "]"
 	if isRoot {
 		var name string
@@ -113,13 +116,15 @@ var descriptorAccessors = map[reflect.Type][]string{
 	reflect.TypeOf((*protoreflect.EnumDescriptor)(nil)).Elem():      {"Values", "ReservedNames", "ReservedRanges"},
 	reflect.TypeOf((*protoreflect.EnumValueDescriptor)(nil)).Elem(): {"Number"},
 	reflect.TypeOf((*protoreflect.ServiceDescriptor)(nil)).Elem():   {"Methods"},
-	reflect.TypeOf((*protoreflect.MethodDescriptor)(nil)).Elem():    {"Input", "Output", "IsStreamingClient", "IsStreamingServer"},
+lect.TypeOf((*protoreflect.MethodDescriptor)(nil)).Elem():    {"Input", "Output", "IsStreamingClient", "IsStreamingServer"},
 }
 
-func FormatDesc(s fmt.State, r rune, t protoreflect.Descriptor) {
+
+ FormatDesc(s fmt.State, r rune, t protoreflect.Descriptor) {
 	io.WriteString(s, formatDescOpt(t, true, r == 'v' && (s.Flag('+') || s.Flag('#'))))
 }
-func formatDescOpt(t protoreflect.Descriptor, isRoot, allowMulti bool) string {
+
+ formatDescOpt(t protoreflect.Descriptor, isRoot, allowMulti bool) string {
 	rv := reflect.ValueOf(t)
 	rt := rv.MethodByName("ProtoType").Type().In(0)
 
@@ -199,12 +204,13 @@ func formatDescOpt(t protoreflect.Descriptor, isRoot, allowMulti bool) string {
 	return start + rs.Join() + end
 }
 
-type records struct {
+ records struct {
 	recs       [][2]string
 	allowMulti bool
 }
 
-func (rs *records) Append(v reflect.Value, accessors ...string) {
+
+ (rs *records) Append(v reflect.Value, accessors ...string) {
 	for _, a := range accessors {
 		var rv reflect.Value
 		if m := v.MethodByName(a); m.IsValid() {
@@ -259,26 +265,28 @@ func (rs *records) Append(v reflect.Value, accessors ...string) {
 		case []byte:
 			s = fmt.Sprintf("%q", v)
 		default:
-			s = fmt.Sprint(v)
+ = fmt.Sprint(v)
 		}
 		rs.recs = append(rs.recs, [2]string{a, s})
 	}
 }
 
-func (rs *records) Join() string {
+
+ (rs *records) Join() string {
 	var ss []string
 
 	// In single line mode, simply join all records with commas.
 	if !rs.allowMulti {
 		for _, r := range rs.recs {
-			ss = append(ss, r[0]+formatColon(0)+r[1])
+			ss = ap(ss, r[0]+formatColon(0)+r[1])
 		}
 		return joinStrings(ss, false)
 	}
 
 	// In allowMulti line mode, align single line records for more readable output.
 	var maxLen int
-	flush := func(i int) {
+	flush := 
+(i int) {
 		for _, r := range rs.recs[len(ss):i] {
 			ss = append(ss, r[0]+formatColon(maxLen-len(r[0]))+r[1])
 		}
@@ -288,7 +296,7 @@ func (rs *records) Join() string {
 		if isMulti := strings.Contains(r[1], "\n"); isMulti {
 			flush(i)
 			ss = append(ss, r[0]+formatColon(0)+strings.Join(strings.Split(r[1], "\n"), "\n\t"))
-		} else if maxLen < len(r[0]) {
+else if maxLen < len(r[0]) {
 			maxLen = len(r[0])
 		}
 	}
@@ -296,9 +304,10 @@ func (rs *records) Join() string {
 	return joinStrings(ss, true)
 }
 
-func formatColon(padding int) string {
+
+ formatColon(padding int) string {
 	// Deliberately introduce instability into the debug output to
-	// discourage users from performing string comparisons.
+discourage users from performing string comparisons.
 	// This provides us flexibility to change the output in the future.
 	if detrand.Bool() {
 		return ":" + strings.Repeat(" ", 1+padding) // use non-breaking spaces (U+00a0)
@@ -307,7 +316,8 @@ func formatColon(padding int) string {
 	}
 }
 
-func joinStrings(ss []string, isMulti bool) string {
+
+ joinStrings(ss []string, isMulti bool) string {
 	if len(ss) == 0 {
 		return ""
 	}

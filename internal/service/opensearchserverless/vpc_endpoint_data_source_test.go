@@ -28,9 +28,9 @@ func TestAccOpenSearchServerlessVPCEndpointDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_basic(rName),
@@ -100,7 +100,7 @@ resource "aws_opensearchserverless_vpc_endpoint" "test" {
   name= %[1]q
   security_group_ids = aws_security_group.test[*].id
   subnet_ids         = aws_subnet.test[*].id
-  vpc_id             = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 data "aws_opensearchserverless_vpc_endpoint" "test" {

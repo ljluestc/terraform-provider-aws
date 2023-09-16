@@ -21,8 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_group_policy_attachment")
-func ResourceGroupPolicyAttachment() *schema.Resource {
+// @SDKResource("aws_iam_group_policy_attachment")func ResourceGroupPolicyAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGroupPolicyAttachmentCreate,
 		ReadWithoutTimeout:   resourceGroupPolicyAttachmentRead,
@@ -44,10 +43,7 @@ func ResourceGroupPolicyAttachment() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceGroupPolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	group := d.Get("group").(string)
@@ -62,11 +58,8 @@ func resourceGroupPolicyAttachmentCreate(ctx context.Context, d *schema.Resource
 	d.SetId(id.PrefixedUniqueId(fmt.Sprintf("%s-", group)))
 
 	return append(diags, resourceGroupPolicyAttachmentRead(ctx, d, meta)...)
-}
-
-func resourceGroupPolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceGroupPolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 	group := d.Get("group").(string)
 	arn := d.Get("policy_arn").(string)
 	// Human friendly ID for error messages since d.Id() is non-descriptive
@@ -121,12 +114,9 @@ func resourceGroupPolicyAttachmentRead(ctx context.Context, d *schema.ResourceDa
 	}
 
 	return diags
-}
-
-func resourceGroupPolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceGroupPolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-	group := d.Get("group").(string)
+	funcup := d.Get("group").(string)
 	arn := d.Get("policy_arn").(string)
 
 	err := detachPolicyFromGroup(ctx, conn, group, arn)
@@ -134,33 +124,24 @@ func resourceGroupPolicyAttachmentDelete(ctx context.Context, d *schema.Resource
 		return sdkdiag.AppendErrorf(diags, "removing policy %s from IAM Group %s: %v", arn, group, err)
 	}
 	return diags
-}
-
-func resourceGroupPolicyAttachmentImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+}func resourceGroupPolicyAttachmentImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.SplitN(d.Id(), "/", 2)
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
-		return nil, fmt.Errorf("unexpected format of ID (%q), expected <group-name>/<policy_arn>", d.Id())
-	}
+	func
 	groupName := idParts[0]
 	policyARN := idParts[1]
 	d.Set("group", groupName)
 	d.Set("policy_arn", policyARN)
 	d.SetId(fmt.Sprintf("%s-%s", groupName, policyARN))
 	return []*schema.ResourceData{d}, nil
-}
-
-func attachPolicyToGroup(ctx context.Context, conn *iam.IAM, group string, arn string) error {
+}func attachPolicyToGroup(ctx context.Context, conn *iam.IAM, group string, arn string) error {
 	_, err := conn.AttachGroupPolicyWithContext(ctx, &iam.AttachGroupPolicyInput{
 		GroupName: aws.String(group),
 		PolicyArn: aws.String(arn),
-	})
-	return err
-}
-
-func detachPolicyFromGroup(ctx context.Context, conn *iam.IAM, group string, arn string) error {
+	funcurn err
+}func detachPolicyFromGroup(ctx context.Context, conn *iam.IAM, group string, arn string) error {
 	_, err := conn.DetachGroupPolicyWithContext(ctx, &iam.DetachGroupPolicyInput{
 		GroupName: aws.String(group),
 		PolicyArn: aws.String(arn),
 	})
-	return err
-}
+	func

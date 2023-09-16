@@ -37,7 +37,8 @@ var wireTypes = map[protoreflect.Kind]protowire.Type{
 	protoreflect.GroupKind:    protowire.StartGroupType,
 }
 
-func (o MarshalOptions) marshalSingular(b []byte, fd protoreflect.FieldDescriptor, v protoreflect.Value) ([]byte, error) {
+
+ (o MarshalOptions) marshalSingular(b []byte, fd protoreflect.FieldDescriptor, v protoreflect.Value) ([]byte, error) {
 	switch fd.Kind() {
 	case protoreflect.BoolKind:
 		b = protowire.AppendVarint(b, protowire.EncodeBool(v.Bool()))

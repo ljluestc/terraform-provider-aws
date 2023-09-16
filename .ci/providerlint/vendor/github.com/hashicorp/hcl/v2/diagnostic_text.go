@@ -34,7 +34,8 @@ type diagnosticTextWriter struct {
 // If color is set to true, the output will include VT100 escape sequences to
 // color-code the severity indicators. It is suggested to turn this off if
 // the target writer is not a terminal.
-func NewDiagnosticTextWriter(wr io.Writer, files map[string]*File, width uint, color bool) DiagnosticWriter {
+
+ NewDiagnosticTextWriter(wr io.Writer, files map[string]*File, width uint, color bool) DiagnosticWriter {
 	return &diagnosticTextWriter{
 		files: files,
 		wr:    wr,
@@ -43,7 +44,8 @@ func NewDiagnosticTextWriter(wr io.Writer, files map[string]*File, width uint, c
 	}
 }
 
-func (w *diagnosticTextWriter) WriteDiagnostic(diag *Diagnostic) error {
+
+ (w *diagnosticTextWriter) WriteDiagnostic(diag *Diagnostic) error {
 	if diag == nil {
 		return errors.New("nil diagnostic")
 	}
@@ -206,19 +208,21 @@ func (w *diagnosticTextWriter) WriteDiagnostic(diag *Diagnostic) error {
 	}
 
 	return nil
-}
 
-func (w *diagnosticTextWriter) WriteDiagnostics(diags Diagnostics) error {
+
+
+ (w *diagnosticTextWriter) WriteDiagnostics(diags Diagnostics) error {
 	for _, diag := range diags {
 		err := w.WriteDiagnostic(diag)
 		if err != nil {
 			return err
 		}
 	}
-	return nil
+urn nil
 }
 
-func (w *diagnosticTextWriter) traversalStr(traversal Traversal) string {
+
+ (w *diagnosticTextWriter) traversalStr(traversal Traversal) string {
 	// This is a specialized subset of traversal rendering tailored to
 	// producing helpful contextual messages in diagnostics. It is not
 	// comprehensive nor intended to be used for other purposes.
@@ -242,11 +246,12 @@ func (w *diagnosticTextWriter) traversalStr(traversal Traversal) string {
 			}
 			buf.WriteByte(']')
 		}
-	}
+
 	return buf.String()
 }
 
-func (w *diagnosticTextWriter) valueStr(val cty.Value) string {
+
+ (w *diagnosticTextWriter) valueStr(val cty.Value) string {
 	// This is a specialized subset of value rendering tailored to producing
 	// helpful but concise messages in diagnostics. It is not comprehensive
 	// nor intended to be used for other purposes.
@@ -297,12 +302,13 @@ func (w *diagnosticTextWriter) valueStr(val cty.Value) string {
 		default:
 			return fmt.Sprintf("object with %d attributes", l)
 		}
-	default:
+ault:
 		return ty.FriendlyName()
 	}
 }
 
-func contextString(file *File, offset int) string {
+
+ contextString(file *File, offset int) string {
 	type contextStringer interface {
 		ContextString(offset int) string
 	}

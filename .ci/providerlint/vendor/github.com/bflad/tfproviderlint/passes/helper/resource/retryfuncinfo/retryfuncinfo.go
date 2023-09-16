@@ -1,4 +1,5 @@
-package retryfuncinfo
+package retry
+info
 
 import (
 	"go/ast"
@@ -10,45 +11,71 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "retryfuncinfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/resource RetryFunc declarations for later passes",
+var Analyzer nalysis.Analyzer{
+	Name: "retry
+info",
+	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/resource Retry
+ declarations for later passes",
 	Requires: []*analysis.Analyzer{
 		inspect.Analyzer,
 	},
 	Run:        run,
-	ResultType: reflect.TypeOf([]*resource.RetryFuncInfo{}),
+ultType: reflect.TypeOf([]*resource.Retry
+Info{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+
+ run(pass *analysis.Pass) (interface{}, error) {
+	inspect := pass.ResultOf[ins.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
-		(*ast.FuncDecl)(nil),
-		(*ast.FuncLit)(nil),
+		(*ast.
+)(ni
+		t.
+Lit)(nil),
 	}
-	var result []*resource.RetryFuncInfo
+	var result []*resource.Retry
+I
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
-		funcDecl, funcDeclOk := n.(*ast.FuncDecl)
-		funcLit, funcLitOk := n.(*ast.FuncLit)
+	inspect.Prer(nodeFil 
+st.Nod
+		
+Decl, 
+DeclOk := n.(*ast.
+Decl)
+		
+Lit, 
+LitOk := n.(*ast.
+Lit)
 
-		var funcType *ast.FuncType
+		var 
+Type *ast
+Type
 
-		if funcDeclOk && funcDecl != nil {
-			funcType = funcDecl.Type
-		} else if funcLitOk && funcLit != nil {
-			funcType = funcLit.Type
+		if 
+DeclOk && 
+Decl != nil {
+			
+Type = 
+Decl.Type
+		} else if 
+LitOk && 
+Lit != nil {
+			
+Type = 
+Lit.Type
 		} else {
 			return
 		}
 
-		params := funcType.Params
+		params := 
+Type.Params
 
 		if params != nil && len(params.List) != 0 {
 			return
 		}
 
-		results := funcType.Results
+		results := 
+Type.Results
 
 		if results == nil || len(results.List) != 1 {
 			return
@@ -58,7 +85,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			return
 		}
 
-		result = append(result, resource.NewRetryFuncInfo(funcDecl, funcLit, pass.TypesInfo))
+		result = append(result, resource.NewRetry
+Info(
+Decl, 
+Lit, pass.TypesInfo))
 	})
 
 	return result, nil

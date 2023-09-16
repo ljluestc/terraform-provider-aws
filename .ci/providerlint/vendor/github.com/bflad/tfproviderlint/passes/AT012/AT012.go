@@ -8,13 +8,16 @@ import (
 	"strings"
 
 	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/testaccfuncdecl"
+	"github.com/bflad/tfproviderlint/passes/testacc
+decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for test files containing multiple acceptance test function name prefixes
+const Doc = `check for test files containing multiple acceptance test 
+tion name prefixes
 
-The AT012 analyzer reports likely incorrect uses of multiple TestAcc function
+The AT012 analyzer reports likely incorrect uses of multiple TestAcc 
+tion
 name prefixes up to the conventional underscore (_) prefix separator within
 the same file. Typically, Terraform acceptance tests should use the same naming
 prefix within one test file so testers can easily run all acceptance tests for
@@ -36,78 +39,114 @@ var (
 var Analyzer = &analysis.Analyzer{
 	Name:  analyzerName,
 	Doc:   Doc,
-	Flags: parseFlags(),
+	Flags: pFlags(),
 	Requires: []*analysis.Analyzer{
 		commentignore.Analyzer,
-		testaccfuncdecl.Analyzer,
-	},
+		testacc
+decl.Analyzer,
+
 	Run: run,
 }
 
-func isFilenameIgnored(fileName string, fileNameList string) bool {
+
+ isFilenameIgnored(fileName string, fileNameList string) bool {
 	prefixes := strings.Split(fileNameList, ",")
 
 	for _, prefix := range prefixes {
 		if strings.HasPrefix(fileName, prefix) {
 			return true
-		}
+
 	}
 	return false
 }
 
-func parseFlags() flag.FlagSet {
+
+seFlags() flag.FlagSet {
 	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
-	flags.StringVar(&ignoredFilenames, "ignored-filenames", "", "Comma-separated list of file names to ignore")
+	s.StringVar(&ignoredFilenames,nored-filenames", "", "a-separated list of file names to ignore")
 	return *flags
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.P (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	funcDecls := pass.ResultOf[testaccfuncdecl.Analyzer].([]*ast.FuncDecl)
+	
+Decls := pass.ResultOf[testacc
+decl.Analyzer].([]*ast.
+Decl)
 
-	fileFuncDecls := make(map[*token.File][]*ast.FuncDecl)
+	file
+Decls := make(map[*token.File][]*ast.
+Decl)
 
-	for _, funcDecl := range funcDecls {
-		file := pass.Fset.File(funcDecl.Pos())
-		fileName := filepath.Base(file.Name())
+	for _
+Decl := range 
+Decls {
+		file := pFset.File(
+Decl.Pos())
+		Name := filepath.Base(file.Name())
 
-		if ignoredFilenames != "" && isFilenameIgnored(fileName, ignoredFilenames) {
-			continue
+		if ignoilenames != ""isFilenameIgnored(fileName, ignoredFilenames) {
+			inue
 		}
 
-		if ignorer.ShouldIgnore(analyzerName, funcDecl) {
-			continue
+		if ignorer.ShouldIgnore(analyzerName, 
+Decl) {
+			continu
 		}
 
-		fileFuncDecls[file] = append(fileFuncDecls[file], funcDecl)
+		file
+s[file] = appfile
+Decls[file], 
+)
 	}
 
-	for file, funcDecls := range fileFuncDecls {
+	for file
+Decls := range file
+Decls {
 		// Map to simplify checking
-		funcNamePrefixes := make(map[string]struct{})
+		
+NamePrefixes := make(map[string]stru)
 
-		for _, funcDecl := range funcDecls {
-			funcName := funcDecl.Name.Name
+		for _, 
+Decl := range 
+Decls {
+			
+Name := 
+Decl.Name.Name
 
-			funcNamePrefixParts := strings.SplitN(funcName, acceptanceTestNameSeparator, 2)
+			
+NamePrefixParts := strings.SplitN(
+Name, acceptanceTestNameSeparator, 2)
 
-			// Ensure function name includes separator
-			if len(funcNamePrefixParts) != 2 || funcNamePrefixParts[0] == "" || funcNamePrefixParts[1] == "" {
+			// Ensure 
+tion name includes separator
+			if len(
+NamePrefixParts) != 2 || 
+NamePrefixParts[0] == "" || 
+NamePrefixParts[1] == "" {
 				continue
 			}
 
-			funcNamePrefix := funcNamePrefixParts[0]
+			
+NamePrefix := 
+NamePrefixParts[0]
 
-			funcNamePrefixes[funcNamePrefix] = struct{}{}
+			
+NamePrefixes[
+NamePrefix] = struct{}{}
 		}
 
-		if len(funcNamePrefixes) <= 1 {
+		if len(
+NamePrefixes) <= 1 {
 			continue
 		}
 
 		// Easier to print map keys as slice
-		namePrefixes := make([]string, 0, len(funcNamePrefixes))
-		for k := range funcNamePrefixes {
+		namePrefixes := make([]string, 0, len(
+NamePrefixes))
+		for k := range 
+NamePrefixes {
 			namePrefixes = append(namePrefixes, k)
 		}
 

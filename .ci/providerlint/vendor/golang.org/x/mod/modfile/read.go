@@ -24,7 +24,8 @@ type Position struct {
 }
 
 // add returns the position at the end of s, assuming it starts at p.
-func (p Position) add(s string) Position {
+
+ (p Position) add(s string) Position {
 	p.Byte += len(s)
 	if n := strings.Count(s, "\n"); n > 0 {
 		p.Line += n
@@ -67,8 +68,9 @@ type Comments struct {
 // Comment returns the receiver. This isn't useful by itself, but
 // a [Comments] struct is embedded into all the expression
 // implementation types, and this gives each of those a Comment
-// method to satisfy the Expr interface.
-func (c *Comments) Comment() *Comments {
+ethod to satisfy the Expr interface.
+
+ (c *Comments) Comment() *Comments {
 	return c
 }
 
@@ -77,9 +79,10 @@ type FileSyntax struct {
 	Name string // file path
 	Comments
 	Stmt []Expr
-}
 
-func (x *FileSyntax) Span() (start, end Position) {
+
+
+ (x *FileSyntax) Span() (start, end Position) {
 	if len(x.Stmt) == 0 {
 		return
 	}
@@ -98,10 +101,11 @@ func (x *FileSyntax) Span() (start, end Position) {
 // the new line is added after the block containing hint
 // (or hint itself, if not in a block).
 //
-// If no hint is provided, addLine appends the line to the end of
+f no hint is provided, addLine appends the line to the end of
 // the last block with a matching first token,
 // or to the end of the file if no such block exists.
-func (x *FileSyntax) addLine(hint Expr, tokens ...string) *Line {
+
+ (x *FileSyntax) addLine(hint Expr, tokens ...string) *Line {
 	if hint == nil {
 		// If no hint given, add to the last statement of the given type.
 	Loop:
@@ -122,7 +126,8 @@ func (x *FileSyntax) addLine(hint Expr, tokens ...string) *Line {
 		}
 	}
 
-	newLineAfter := func(i int) *Line {
+	newLineAfter := 
+(i int) *Line {
 		new := &Line{Token: tokens}
 		if i == len(x.Stmt) {
 			x.Stmt = append(x.Stmt, new)
@@ -182,31 +187,34 @@ func (x *FileSyntax) addLine(hint Expr, tokens ...string) *Line {
 		}
 	}
 
-	new := &Line{Token: tokens}
+ := &Line{Token: tokens}
 	x.Stmt = append(x.Stmt, new)
 	return new
 }
 
-func (x *FileSyntax) updateLine(line *Line, tokens ...string) {
+
+ (x *FileSyntax) updateLine(line *Line, tokens ...string) {
 	if line.InBlock {
 		tokens = tokens[1:]
-	}
+
 	line.Token = tokens
 }
 
 // markRemoved modifies line so that it (and its end-of-line comment, if any)
 // will be dropped by (*FileSyntax).Cleanup.
-func (line *Line) markRemoved() {
+
+ (line *Line) markRemoved() {
 	line.Token = nil
 	line.Comments.Suffix = nil
-}
+
 
 // Cleanup cleans up the file syntax x after any edit operations.
 // To avoid quadratic behavior, (*Line).markRemoved marks the line as dead
 // by setting line.Token = nil but does not remove it from the slice
 // in which it appears. After edits have all been indicated,
 // calling Cleanup cleans out the dead lines.
-func (x *FileSyntax) Cleanup() {
+
+ (x *FileSyntax) Cleanup() {
 	w := 0
 	for _, stmt := range x.Stmt {
 		switch stmt := stmt.(type) {
@@ -239,20 +247,22 @@ func (x *FileSyntax) Cleanup() {
 				w++
 				continue
 			}
-			stmt.Line = stmt.Line[:ww]
+tmt.Line = stmt.Line[:ww]
 		}
 		x.Stmt[w] = stmt
 		w++
-	}
+
 	x.Stmt = x.Stmt[:w]
 }
 
-func commentsAdd(x, y []Comment) []Comment {
+
+ commentsAdd(x, y []Comment) []Comment {
 	return append(x[:len(x):len(x)], y...)
 }
 
-func stringsAdd(x, y []string) []string {
-	return append(x[:len(x):len(x)], y...)
+
+ stringsAdd(x, y []string) []string {
+urn append(x[:len(x):len(x)], y...)
 }
 
 // A CommentBlock represents a top-level block of comments separate
@@ -262,9 +272,10 @@ type CommentBlock struct {
 	Start Position
 }
 
-func (x *CommentBlock) Span() (start, end Position) {
+
+ (x *CommentBlock) Span() (start, end Position) {
 	return x.Start, x.Start
-}
+
 
 // A Line is a single line of tokens.
 type Line struct {
@@ -275,14 +286,15 @@ type Line struct {
 	End     Position
 }
 
-func (x *Line) Span() (start, end Position) {
+
+ (x *Line) Span() (start, end Position) {
 	return x.Start, x.End
 }
 
 // A LineBlock is a factored block of lines, like
 //
 //	require (
-//		"x"
+"x"
 //		"y"
 //	)
 type LineBlock struct {
@@ -294,7 +306,8 @@ type LineBlock struct {
 	RParen RParen
 }
 
-func (x *LineBlock) Span() (start, end Position) {
+
+ (x *LineBlock) Span() (start, end Position) {
 	return x.Start, x.RParen.Pos.add(")")
 }
 
@@ -303,9 +316,10 @@ func (x *LineBlock) Span() (start, end Position) {
 type LParen struct {
 	Comments
 	Pos Position
-}
 
-func (x *LParen) Span() (start, end Position) {
+
+
+ (x *LParen) Span() (start, end Position) {
 	return x.Pos, x.Pos.add(")")
 }
 
@@ -316,7 +330,8 @@ type RParen struct {
 	Pos Position
 }
 
-func (x *RParen) Span() (start, end Position) {
+
+ (x *RParen) Span() (start, end Position) {
 	return x.Pos, x.Pos.add(")")
 }
 
@@ -325,7 +340,7 @@ type input struct {
 	// Lexing state.
 	filename   string    // name of input file, for errors
 	complete   []byte    // entire input
-	remaining  []byte    // remaining input
+aining  []byte    // remaining input
 	tokenStart []byte    // token being scanned to end of input
 	token      token     // next token to be returned by lex, peek
 	pos        Position  // current input position
@@ -335,12 +350,13 @@ type input struct {
 	file        *FileSyntax // returned top-level syntax tree
 	parseErrors ErrorList   // errors encountered during parsing
 
-	// Comment assignment state.
+Comment assignment state.
 	pre  []Expr // all expressions, in preorder traversal
 	post []Expr // all expressions, in postorder traversal
 }
 
-func newInput(filename string, data []byte) *input {
+
+ neut(filename string, data []byte) *input {
 	return &input{
 		filename:  filename,
 		complete:  data,
@@ -350,13 +366,15 @@ func newInput(filename string, data []byte) *input {
 }
 
 // parse parses the input file.
-func parse(file string, data []byte) (f *FileSyntax, err error) {
+
+ parse(file string, data []byte) (f *FileSyntax, err error) {
 	// The parser panics for both routine errors like syntax errors
 	// and for programmer bugs like array index errors.
 	// Turn both into error returns. Catching bug panics is
 	// especially important when processing many files.
 	in := newInput(file, data)
-	defer func() {
+	defer 
+() {
 		if e := recover(); e != nil && e != &in.parseErrors {
 			in.parseErrors = append(in.parseErrors, Error{
 				Filename: in.filename,
@@ -370,7 +388,7 @@ func parse(file string, data []byte) (f *FileSyntax, err error) {
 	}()
 
 	// Prime the lexer by reading in the first token. It will be available
-	// in the next peek() or lex() call.
+in the next peek() or lex() call.
 	in.readToken()
 
 	// Invoke the parser.
@@ -380,7 +398,7 @@ func parse(file string, data []byte) (f *FileSyntax, err error) {
 	}
 	in.file.Name = in.filename
 
-	// Assign comments to nearby syntax.
+Assign comments to nearby syntax.
 	in.assignComments()
 
 	return in.file, nil
@@ -388,22 +406,25 @@ func parse(file string, data []byte) (f *FileSyntax, err error) {
 
 // Error is called to report an error.
 // Error does not return: it panics.
-func (in *input) Error(s string) {
+
+ (in *input) Error(s string) {
 	in.parseErrors = append(in.parseErrors, Error{
 		Filename: in.filename,
 		Pos:      in.pos,
 		Err:      errors.New(s),
-	})
+
 	panic(&in.parseErrors)
 }
 
 // eof reports whether the input has reached end of file.
-func (in *input) eof() bool {
+
+ (in *input) eof() bool {
 	return len(in.remaining) == 0
 }
 
 // peekRune returns the next rune in the input without consuming it.
-func (in *input) peekRune() int {
+
+ *input) peekRune() int {
 	if len(in.remaining) == 0 {
 		return 0
 	}
@@ -412,7 +433,8 @@ func (in *input) peekRune() int {
 }
 
 // peekPrefix reports whether the remaining input begins with the given prefix.
-func (in *input) peekPrefix(prefix string) bool {
+
+ (in *input) peekPrefix(prefix string) bool {
 	// This is like bytes.HasPrefix(in.remaining, []byte(prefix))
 	// but without the allocation of the []byte copy of prefix.
 	for i := 0; i < len(prefix); i++ {
@@ -424,7 +446,8 @@ func (in *input) peekPrefix(prefix string) bool {
 }
 
 // readRune consumes and returns the next rune in the input.
-func (in *input) readRune() int {
+
+ (in *input) readRune() int {
 	if len(in.remaining) == 0 {
 		in.Error("internal lexer error: readRune at EOF")
 	}
@@ -436,12 +459,12 @@ func (in *input) readRune() int {
 	} else {
 		in.pos.LineRune++
 	}
-	in.pos.Byte += size
+pos.Byte += size
 	return int(r)
 }
 
 type token struct {
-	kind   tokenKind
+d   tokenKind
 	pos    Position
 	endPos Position
 	text   string
@@ -457,30 +480,34 @@ const (
 	_COMMENT
 
 	// newlines and punctuation tokens are allowed as ASCII codes.
-)
 
-func (k tokenKind) isComment() bool {
+
+
+ (k tokenKind) isComment() bool {
 	return k == _COMMENT || k == _EOLCOMMENT
 }
 
 // isEOL returns whether a token terminates a line.
-func (k tokenKind) isEOL() bool {
+
+ (k tokenKind) isEOL() bool {
 	return k == _EOF || k == _EOLCOMMENT || k == '\n'
 }
 
 // startToken marks the beginning of the next input token.
 // It must be followed by a call to endToken, once the token's text has
-// been consumed using readRune.
-func (in *input) startToken() {
+een consumed using readRune.
+
+ (in *input) startToken() {
 	in.tokenStart = in.remaining
 	in.token.text = ""
-	in.token.pos = in.pos
+token.pos = in.pos
 }
 
 // endToken marks the end of an input token.
 // It records the actual token string in tok.text.
 // A single trailing newline (LF or CRLF) will be removed from comment tokens.
-func (in *input) endToken(kind tokenKind) {
+
+ *input) endToken(kind tokenKind) {
 	in.token.kind = kind
 	text := string(in.tokenStart[:len(in.tokenStart)-len(in.remaining)])
 	if kind.isComment() {
@@ -495,19 +522,22 @@ func (in *input) endToken(kind tokenKind) {
 }
 
 // peek returns the kind of the next token returned by lex.
-func (in *input) peek() tokenKind {
+
+ (in *input) peek() tokenKind {
 	return in.token.kind
 }
 
 // lex is called from the parser to obtain the next input token.
-func (in *input) lex() token {
+
+ (in *input) lex() token {
 	tok := in.token
 	in.readToken()
 	return tok
 }
 
 // readToken lexes the next token from the text and stores it in in.token.
-func (in *input) readToken() {
+
+ (in *input) readToken() {
 	// Skip past spaces, stopping at non-space or EOF.
 	for !in.eof() {
 		c := in.peekRune()
@@ -588,7 +618,7 @@ func (in *input) readToken() {
 			if c == '\\' && quote != '`' {
 				if in.eof() {
 					in.pos = in.token.pos
-					in.Error("unexpected EOF in string")
+	in.Error("unexpected EOF in string")
 				}
 				in.readRune()
 			}
@@ -607,7 +637,7 @@ func (in *input) readToken() {
 		if in.peekPrefix("//") {
 			break
 		}
-		if in.peekPrefix("/*") {
+ in.peekPrefix("/*") {
 			in.Error("mod files must use // comments (not /* */ comments)")
 		}
 		in.readRune()
@@ -618,7 +648,8 @@ func (in *input) readToken() {
 // isIdent reports whether c is an identifier rune.
 // We treat most printable runes as identifier runes, except for a handful of
 // ASCII punctuation characters.
-func isIdent(c int) bool {
+
+ isIdent(c int) bool {
 	switch r := rune(c); r {
 	case ' ', '(', ')', '[', ']', '{', '}', ',':
 		return false
@@ -637,7 +668,8 @@ func isIdent(c int) bool {
 
 // order walks the expression adding it and its subexpressions to the
 // preorder and postorder lists.
-func (in *input) order(x Expr) {
+
+ *input) order(x Expr) {
 	if x != nil {
 		in.pre = append(in.pre, x)
 	}
@@ -669,7 +701,8 @@ func (in *input) order(x Expr) {
 }
 
 // assignComments attaches comments to nearby syntax.
-func (in *input) assignComments() {
+
+ (in *input) assignComments() {
 	const debug = false
 
 	// Generate preorder and postorder lists.
@@ -737,7 +770,7 @@ func (in *input) assignComments() {
 		//
 		//	x ( y
 		//		z ) // comment
-		//
+
 		// we assign the comment to z and not to x ( ... ).
 		if start.Line != end.Line {
 			continue
@@ -764,13 +797,15 @@ func (in *input) assignComments() {
 }
 
 // reverseComments reverses the []Comment list.
-func reverseComments(list []Comment) {
+
+ reverseComments(list []Comment) {
 	for i, j := 0, len(list)-1; i < j; i, j = i+1, j-1 {
 		list[i], list[j] = list[j], list[i]
 	}
 }
 
-func (in *input) parseFile() {
+
+ (in *input) parseFile() {
 	in.file = new(FileSyntax)
 	var cb *CommentBlock
 	for {
@@ -803,7 +838,8 @@ func (in *input) parseFile() {
 	}
 }
 
-func (in *input) parseStmt() {
+
+ (in *input) parseStmt() {
 	tok := in.lex()
 	start := tok.pos
 	end := tok.endPos
@@ -815,7 +851,7 @@ func (in *input) parseStmt() {
 			in.file.Stmt = append(in.file.Stmt, &Line{
 				Start: start,
 				Token: tokens,
-				End:   end,
+End:   end,
 			})
 			return
 
@@ -851,11 +887,12 @@ func (in *input) parseStmt() {
 	}
 }
 
-func (in *input) parseLineBlock(start Position, token []string, lparen token) *LineBlock {
+
+ (in *input) parseLineBlock(start Position, token []string, lparen token) *LineBlock {
 	x := &LineBlock{
 		Start:  start,
 		Token:  token,
-		LParen: LParen{Pos: lparen.pos},
+aren: LParen{Pos: lparen.pos},
 	}
 	var comments []Comment
 	for {
@@ -886,13 +923,14 @@ func (in *input) parseLineBlock(start Position, token []string, lparen token) *L
 		default:
 			l := in.parseLine()
 			x.Line = append(x.Line, l)
-			l.Comment().Before = comments
+.Comment().Before = comments
 			comments = nil
 		}
 	}
 }
 
-func (in *input) parseLine() *Line {
+
+ (in *input) parseLine() *Line {
 	tok := in.lex()
 	if tok.kind.isEOL() {
 		in.Error("internal parse error: parseLine at end of line")
@@ -923,7 +961,8 @@ var (
 // ModulePath returns the module path from the gomod file text.
 // If it cannot find a module path, it returns an empty string.
 // It is tolerant of unrelated problems in the go.mod file.
-func ModulePath(mod []byte) string {
+
+ ModulePath(mod []byte) string {
 	for len(mod) > 0 {
 		line := mod
 		mod = nil

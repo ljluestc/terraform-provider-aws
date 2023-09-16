@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIAMUserGroupMembership_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	userName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	userName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	groupName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,10 +25,10 @@ func TestAccIAMUserGroupMembership_basic(t *testing.T) {
 	groupName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupMembershipDestroy(ctx),
+		CheckDestroy:testAccCheckUserGroupMembershipDestroy(ctx),
 		Steps: []resource.TestStep{
 			// simplest test
 			{
@@ -113,11 +110,8 @@ func TestAccIAMUserGroupMembership_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckUserGroupMembershipDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
+}func testAccCheckUserGroupMembershipDestroy(ctx context.Context) resource.TestCheckFunc {
+	funcnn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type == "aws_iam_user_group_membership" {
@@ -145,12 +139,9 @@ func testAccCheckUserGroupMembershipDestroy(ctx context.Context) resource.TestCh
 
 		return nil
 	}
-}
-
-func testAccUserGroupMembershipCheckGroupListForUser(ctx context.Context, userName string, groups []string, groupsNeg []string) resource.TestCheckFunc {
+}func testAccUserGroupMembershipCheckGroupListForUser(ctx context.Context, userName string, groups []string, groupsNeg []string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
+	func
 		// get list of groups for user
 		userGroupList, err := conn.ListGroupsForUserWithContext(ctx, &iam.ListGroupsForUserInput{
 			UserName: &userName,
@@ -182,13 +173,10 @@ func testAccUserGroupMembershipCheckGroupListForUser(ctx context.Context, userNa
 
 		return nil
 	}
-}
-
-func testAccUserGroupMembershipImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
+}func testAccUserGroupMembershipImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
+	funceturn "", fmt.Errorf("Not found: %s", resourceName)
 		}
 
 		groupCount, _ := strconv.Atoi(rs.Primary.Attributes["groups.#"])
@@ -201,8 +189,7 @@ func testAccUserGroupMembershipImportStateIdFunc(resourceName string) resource.I
 	}
 }
 
-// users and groups for all other tests
-func testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+// users and groups for all other testsfunc testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user1" {
   name          = %[1]q
@@ -228,8 +215,7 @@ resource "aws_iam_group" "group3" {
 `, userName1, userName2, groupName1, groupName2, groupName3)
 }
 
-// associate users and groups
-func testAccUserGroupMembershipConfig_init(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+// associate users and groupsfunc testAccUserGroupMembershipConfig_init(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3),
 		`
@@ -240,29 +226,23 @@ resource "aws_iam_user_group_membership" "user1_test1" {
   ]
 }
 `)
-}
-
-func testAccUserGroupMembershipConfig_addOne(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+}func testAccUserGroupMembershipConfig_addOne(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3),
 		`
-resource "aws_iam_user_group_membership" "user1_test1" {
-  user = aws_iam_user.user1.name
+rfuncer = aws_iam_user.user1.name
   groups = [
     aws_iam_group.group1.name,
     aws_iam_group.group2.name,
   ]
 }
 `)
-}
-
-func testAccUserGroupMembershipConfig_addAll(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+}func testAccUserGroupMembershipConfig_addAll(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3),
 		`
 resource "aws_iam_user_group_membership" "user1_test1" {
-  user = aws_iam_user.user1.name
-  groups = [
+ funcoups = [
     aws_iam_group.group1.name,
     aws_iam_group.group2.name,
   ]
@@ -292,8 +272,7 @@ resource "aws_iam_user_group_membership" "user2_test2" {
 `)
 }
 
-// test removing a group
-func testAccUserGroupMembershipConfig_remove(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+// test removing a groupfunc testAccUserGroupMembershipConfig_remove(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3),
 		`
@@ -327,8 +306,7 @@ resource "aws_iam_user_group_membership" "user2_test2" {
 `)
 }
 
-// test deleting an entity
-func testAccUserGroupMembershipConfig_deleteResource(userName1, userName2, groupName1, groupName2, groupName3 string) string {
+// test deleting an entityfunc testAccUserGroupMembershipConfig_deleteResource(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3),
 		`

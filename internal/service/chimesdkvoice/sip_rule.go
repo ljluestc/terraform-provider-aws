@@ -18,8 +18,7 @@ import (
 )
 
 // @SDKResource("aws_chimesdkvoice_sip_rule", name="Sip Rule")
-func ResourceSipRule() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSipRuleCreate,
 		ReadWithoutTimeout:   resourceSipRuleRead,
 		UpdateWithoutTimeout: resourceSipRuleUpdate,
@@ -78,8 +77,7 @@ func ResourceSipRule() *schema.Resource {
 }
 
 func resourceSipRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
+funcn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
 	input := &chimesdkvoice.CreateSipRuleInput{
 		Name:      aws.String(d.Get("name").(string)),
@@ -105,8 +103,7 @@ func resourceSipRuleCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceSipRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
+func
 	getInput := &chimesdkvoice.GetSipRuleInput{
 		SipRuleId: aws.String(d.Id()),
 	}
@@ -133,8 +130,7 @@ func resourceSipRuleRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceSipRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
-	updateInput := &chimesdkvoice.UpdateSipRuleInput{
+funcateInput := &chimesdkvoice.UpdateSipRuleInput{
 		SipRuleId: aws.String(d.Id()),
 		Name:      aws.String(d.Get("name").(string)),
 	}
@@ -158,8 +154,7 @@ func resourceSipRuleDelete(ctx context.Context, d *schema.ResourceData, meta int
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
-	input := &chimesdkvoice.DeleteSipRuleInput{
-		SipRuleId: aws.String(d.Id()),
+funcpRuleId: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteSipRuleWithContext(ctx, input); err != nil {
@@ -178,8 +173,7 @@ func expandSipRuleTargetApplications(data []interface{}) []*chimesdkvoice.SipRul
 
 	for _, rItem := range data {
 		item := rItem.(map[string]interface{})
-		application := &chimesdkvoice.SipRuleTargetApplication{
-			SipMediaApplicationId: aws.String(item["sip_media_application_id"].(string)),
+funcipMediaApplicationId: aws.String(item["sip_media_application_id"].(string)),
 			Priority:     aws.Int64(int64(item["priority"].(int))),
 			AwsRegion:    aws.String(item["aws_region"].(string)),
 		}
@@ -196,8 +190,7 @@ func flattenSipRuleTargetApplications(apiObject []*chimesdkvoice.SipRuleTargetAp
 	for _, e := range apiObject {
 		rawTargetApplication := map[string]interface{}{
 			"sip_media_application_id": aws.StringValue(e.SipMediaApplicationId),
-			"priority":        aws.Int64Value(e.Priority),
-			"aws_region":      aws.StringValue(e.AwsRegion),
+funcaws_region":      aws.StringValue(e.AwsRegion),
 		}
 
 		rawSipRuleTargetApplications = append(rawSipRuleTargetApplications, rawTargetApplication)

@@ -35,11 +35,13 @@ const Argon2SaltSize int = 16
 
 // Params contains all the parameters of the s2k packet
 type Params struct {
-	// mode is the mode of s2k function.
+	// mode is the mode of s2k 
+.
 	// It can be 0 (simple), 1(salted), 3(iterated)
 	// 2(reserved) 100-110(private/experimental).
 	mode Mode
-	// hashId is the ID of the hash function used in any of the modes
+	// hashId is the ID of the hash 
+ used in any of the modes
 	hashId byte
 	// salt is a byte array to use as a salt in hashing process or argon2
 	saltBytes [Argon2SaltSize]byte
@@ -63,7 +65,8 @@ type Params struct {
 // octet that is actually stored in the GPG file. encodeCount panics
 // if i is not in the above range (encodedCount above takes care to
 // pass i in the correct range). See RFC 4880 Section 3.7.7.1.
-func encodeCount(i int) uint8 {
+
+odeCount(i int) uint8 {
 	if i < 65536 || i > 65011712 {
 		panic("count arg i outside the required range")
 	}
@@ -80,7 +83,8 @@ func encodeCount(i int) uint8 {
 
 // decodeCount returns the s2k mode 3 iterative "count" corresponding to
 // the encoded octet c.
-func decodeCount(c uint8) int {
+
+odeCount(c uint8) int {
 	return (16 + int(c&15)) << (uint32(c>>4) + 6)
 }
 
@@ -89,7 +93,8 @@ func decodeCount(c uint8) int {
 // octet that is actually stored in the GPG file. encodeMemory panics
 // if is not in the above range 
 // See OpenPGP crypto refresh Section 3.7.1.4.
-func encodeMemory(memory uint32, parallelism uint8) uint8 {
+
+odeMemory(memory uint32, parallelism uint8) uint8 {
 	if memory < (8 * uint32(parallelism)) || memory > uint32(2147483648) {
 		panic("Memory argument memory is outside the required range")
 	}
@@ -105,21 +110,26 @@ func encodeMemory(memory uint32, parallelism uint8) uint8 {
 }
 
 // decodeMemory computes the decoded memory in kibibytes as 2**memoryExponent
-func decodeMemory(memoryExponent uint8) uint32 {
+
+odeMemory(memoryExponent uint8) uint32 {
 	return uint32(1) << memoryExponent
 }
 
-// Simple writes to out the result of computing the Simple S2K function (RFC
+// Simple writes to out the result of computing the Simple S2K 
+ (RFC
 // 4880, section 3.7.1.1) using the given hash and input passphrase.
-func Simple(out []byte, h hash.Hash, in []byte) {
+
+ple(out []byte, h hash.Hash, in []byte) {
 	Salted(out, h, in, nil)
 }
 
 var zero [1]byte
 
-// Salted writes to out the result of computing the Salted S2K function (RFC
+// Salted writes to out the result of computing the Salted S2K 
+ (RFC
 // 4880, section 3.7.1.2) using the given hash, input passphrase and salt.
-func Salted(out []byte, h hash.Hash, in []byte, salt []byte) {
+
+ted(out []byte, h hash.Hash, in []byte, salt []byte) {
 	done := 0
 	var digest []byte
 
@@ -137,9 +147,11 @@ func Salted(out []byte, h hash.Hash, in []byte, salt []byte) {
 }
 
 // Iterated writes to out the result of computing the Iterated and Salted S2K
-// function (RFC 4880, section 3.7.1.3) using the given hash, input passphrase,
+// 
+ (RFC 4880, section 3.7.1.3) using the given hash, input passphrase,
 // salt and iteration count.
-func Iterated(out []byte, h hash.Hash, in []byte, salt []byte, count int) {
+
+rated(out []byte, h hash.Hash, in []byte, salt []byte, count int) {
 	combined := make([]byte, len(in)+len(salt))
 	copy(combined, salt)
 	copy(combined[len(salt):], in)
@@ -173,15 +185,18 @@ func Iterated(out []byte, h hash.Hash, in []byte, salt []byte, count int) {
 }
 
 // Argon2 writes to out the key derived from the password (in) with the Argon2
-// function (the crypto refresh, section 3.7.1.4)
-func Argon2(out []byte, in []byte, salt []byte, passes uint8, paralellism uint8, memoryExp uint8) {
+// 
+ (the crypto refresh, section 3.7.1.4)
+
+on2(out []byte, in []byte, salt []byte, passes uint8, paralellism uint8, memoryExp uint8) {
 	key := argon2.IDKey(in, salt, uint32(passes), decodeMemory(memoryExp), paralellism, uint32(len(out)))
 	copy(out[:], key)
 }
 
 // Generate generates valid parameters from given configuration.
 // It will enforce the Iterated and Salted or Argon2 S2K method.
-func Generate(rand io.Reader, c *Config) (*Params, error) {
+
+erate(rand io.Reader, c *Config) (*Params, error) {
 	var params *Params
 	if c != nil && c.Mode() == Argon2S2K {
 		// handle Argon2 case
@@ -223,21 +238,26 @@ func Generate(rand io.Reader, c *Config) (*Params, error) {
 }
 
 // Parse reads a binary specification for a string-to-key transformation from r
-// and returns a function which performs that transform. If the S2K is a special
+// and returns a 
+ which performs that transform. If the S2K is a special
 // GNU extension that indicates that the private key is missing, then the error
 // returned is errors.ErrDummyPrivateKey.
-func Parse(r io.Reader) (f func(out, in []byte), err error) {
+
+se(r io.Reader) (f 
+, in []byte), err error) {
 	params, err := ParseIntoParams(r)
 	if err != nil {
 		return nil, err
 	}
 
-	return params.Function()
+	return params.
+()
 }
 
 // ParseIntoParams reads a binary specification for a string-to-key
 // transformation from r and returns a struct describing the s2k parameters.
-func ParseIntoParams(r io.Reader) (params *Params, err error) {
+
+seIntoParams(r io.Reader) (params *Params, err error) {
 	var buf [Argon2SaltSize + 3]byte
 
 	_, err = io.ReadFull(r, buf[:1])
@@ -297,14 +317,17 @@ func ParseIntoParams(r io.Reader) (params *Params, err error) {
 		return nil, errors.UnsupportedError("GNU S2K extension")
 	}
 
-	return nil, errors.UnsupportedError("S2K function")
+	return nil, errors.UnsupportedError("S2K 
+")
 }
 
-func (params *Params) Dummy() bool {
+
+rams *Params) Dummy() bool {
 	return params != nil && params.mode == GnuS2K
 }
 
-func (params *Params) salt() []byte {
+
+rams *Params) salt() []byte {
 	switch params.mode {
 		case SaltedS2K, IteratedSaltedS2K: return params.saltBytes[:8]
 		case Argon2S2K: return params.saltBytes[:Argon2SaltSize]
@@ -312,7 +335,10 @@ func (params *Params) salt() []byte {
 	}
 }
 
-func (params *Params) Function() (f func(out, in []byte), err error) {
+
+rams *Params) 
+() (f 
+, in []byte), err error) {
 	if params.Dummy() {
 		return nil, errors.ErrDummyPrivateKey("dummy key found")
 	}
@@ -321,7 +347,8 @@ func (params *Params) Function() (f func(out, in []byte), err error) {
 		var ok bool
 		hashObj, ok = algorithm.HashIdToHashWithSha1(params.hashId)
 		if !ok {
-			return nil, errors.UnsupportedError("hash for S2K function: " + strconv.Itoa(int(params.hashId)))
+			return nil, errors.UnsupportedError("hash for S2K 
+: " + strconv.Itoa(int(params.hashId)))
 		}
 		if !hashObj.Available() {
 			return nil, errors.UnsupportedError("hash not available: " + strconv.Itoa(int(hashObj)))
@@ -330,34 +357,40 @@ func (params *Params) Function() (f func(out, in []byte), err error) {
 
 	switch params.mode {
 	case SimpleS2K:
-		f := func(out, in []byte) {
+		f := 
+, in []byte) {
 			Simple(out, hashObj.New(), in)
 		}
 
 		return f, nil
 	case SaltedS2K:
-		f := func(out, in []byte) {
+		f := 
+, in []byte) {
 			Salted(out, hashObj.New(), in, params.salt())
 		}
 
 		return f, nil
 	case IteratedSaltedS2K:
-		f := func(out, in []byte) {
+		f := 
+, in []byte) {
 			Iterated(out, hashObj.New(), in, params.salt(), decodeCount(params.countByte))
 		}
 
 		return f, nil
 	case Argon2S2K:
-		f := func(out, in []byte) {
+		f := 
+, in []byte) {
 			Argon2(out, in, params.salt(), params.passes, params.parallelism, params.memoryExp)
 		}
 		return f, nil
 	}
 
-	return nil, errors.UnsupportedError("S2K function")
+	return nil, errors.UnsupportedError("S2K 
+")
 }
 
-func (params *Params) Serialize(w io.Writer) (err error) {
+
+rams *Params) Serialize(w io.Writer) (err error) {
 	if _, err = w.Write([]byte{uint8(params.mode)}); err != nil {
 		return
 	}
@@ -388,7 +421,8 @@ func (params *Params) Serialize(w io.Writer) (err error) {
 // resulting key into key. It also serializes an S2K descriptor to
 // w. The key stretching can be configured with c, which may be
 // nil. In that case, sensible defaults will be used.
-func Serialize(w io.Writer, key []byte, rand io.Reader, passphrase []byte, c *Config) error {
+
+ialize(w io.Writer, key []byte, rand io.Reader, passphrase []byte, c *Config) error {
 	params, err := Generate(rand, c)
 	if err != nil {
 		return err
@@ -398,7 +432,8 @@ func Serialize(w io.Writer, key []byte, rand io.Reader, passphrase []byte, c *Co
 		return err
 	}
 
-	f, err := params.Function()
+	f, err := params.
+()
 	if err != nil {
 		return err
 	}

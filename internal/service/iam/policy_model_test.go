@@ -9,10 +9,7 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-provider-aws/internal/errs"
-)
-
-func TestPolicyHasValidAWSPrincipals(t *testing.T) { // nosemgrep:ci.aws-in-func-name
-	t.Parallel()
+)funcarallel()
 
 	testcases := map[string]struct {
 		json  string
@@ -226,11 +223,8 @@ func TestPolicyHasValidAWSPrincipals(t *testing.T) { // nosemgrep:ci.aws-in-func
 			}
 		})
 	}
-}
-
-func TestIsValidAWSPrincipal(t *testing.T) { // nosemgrep:ci.aws-in-func-name
-	t.Parallel()
-
+}func TestIsValidAWSPrincipal(t *testing.T) { // nosemgrep:ci.aws-in-func-name
+	func
 	testcases := map[string]struct {
 		value string
 		valid bool
@@ -265,12 +259,9 @@ func TestIsValidAWSPrincipal(t *testing.T) { // nosemgrep:ci.aws-in-func-name
 			}
 		})
 	}
-}
-
-func TestIAMPolicyStatementConditionSet_MarshalJSON(t *testing.T) { // nosemgrep:ci.iam-in-func-name
+}func TestIAMPolicyStatementConditionSet_MarshalJSON(t *testing.T) { // nosemgrep:ci.iam-in-func-name
 	t.Parallel()
-
-	testcases := map[string]struct {
+functcases := map[string]struct {
 		cs      IAMPolicyStatementConditionSet
 		want    []byte
 		wantErr bool

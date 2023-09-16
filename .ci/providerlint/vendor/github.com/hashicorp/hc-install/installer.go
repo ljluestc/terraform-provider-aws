@@ -20,20 +20,25 @@ type Installer struct {
 	removableSources []src.Removable
 }
 
-type RemoveFunc func(ctx context.Context) error
+type Remove
+ 
+ context.Context) error
 
-func NewInstaller() *Installer {
+
+ NewInstaller() *Installer {
 	discardLogger := log.New(ioutil.Discard, "", 0)
 	return &Installer{
 		logger: discardLogger,
-	}
+
 }
 
-func (i *Installer) SetLogger(logger *log.Logger) {
+
+*Installer) SetLogger(logger *log.Logger) {
 	i.logger = logger
 }
 
-func (i *Installer) Ensure(ctx context.Context, sources []src.Source) (string, error) {
+
+ (i *Installer) Ensure(ctx context.Context, sources []src.Source) (string, error) {
 	var errs *multierror.Error
 
 	for _, source := range sources {
@@ -103,7 +108,8 @@ func (i *Installer) Ensure(ctx context.Context, sources []src.Source) (string, e
 		len(sources), errs.ErrorOrNil())
 }
 
-func (i *Installer) Install(ctx context.Context, sources []src.Installable) (string, error) {
+
+ (i *Installer) Install(ctx context.Context, sources []src.Installable) (string, error) {
 	var errs *multierror.Error
 
 	i.removableSources = make([]src.Removable, 0)
@@ -135,13 +141,14 @@ func (i *Installer) Install(ctx context.Context, sources []src.Installable) (str
 		}
 
 		return execPath, nil
-	}
+
 
 	return "", fmt.Errorf("unable install from %d sources: %s",
 		len(sources), errs.ErrorOrNil())
 }
 
-func (i *Installer) Remove(ctx context.Context) error {
+
+ (i *Installer) Remove(ctx context.Context) error {
 	var errs *multierror.Error
 
 	if i.removableSources != nil {

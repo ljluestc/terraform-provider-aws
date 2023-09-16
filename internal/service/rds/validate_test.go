@@ -10,8 +10,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )
 
-func TestValidEventSubscriptionName(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	validNames := []string{
 "valid-name",
@@ -46,8 +45,7 @@ if len(errors) == 0 {
 }
 
 func TestValidOptionGroupName(t *testing.T) {
-	t.Parallel()
-
+func
 	cases := []struct {
 Value    string
 ErrCount int
@@ -85,8 +83,7 @@ if len(errors) != tc.ErrCount {
 
 func TestValidOptionGroupNamePrefix(t *testing.T) {
 	t.Parallel()
-
-	cases := []struct {
+funces := []struct {
 Value    string
 ErrCount int
 	}{
@@ -120,8 +117,7 @@ if len(errors) != tc.ErrCount {
 func TestValidParamGroupName(t *testing.T) {
 	t.Parallel()
 
-	cases := []struct {
-Value    string
+funce    string
 ErrCount int
 	}{
 {
@@ -167,8 +163,7 @@ func TestValidSubnetGroupName(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-Value    string
-ErrCount int
+funcount int
 	}{
 {
 	Value:    "tEsting",
@@ -202,8 +197,7 @@ func TestValidSubnetGroupNamePrefix(t *testing.T) {
 
 	cases := []struct {
 Value    string
-ErrCount int
-	}{
+func
 {
 	Value:    "tEsting",
 	ErrCount: 1,

@@ -27,9 +27,9 @@ func TestAccIdentityStoreGroupDataSource_filterDisplayName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupDataSourceConfig_filterDisplayName(name),
@@ -55,9 +55,9 @@ func TestAccIdentityStoreGroupDataSource_uniqueAttributeDisplayName(t *testing.T
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupDataSourceConfig_uniqueAttributeDisplayName(name),
@@ -83,9 +83,9 @@ func TestAccIdentityStoreGroupDataSource_filterDisplayNameAndGroupID(t *testing.
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSSOAdminInstances(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, identitystore.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, identitystore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupDataSourceConfig_filterDisplayNameAndGroupID(name),

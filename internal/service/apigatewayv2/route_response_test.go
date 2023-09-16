@@ -28,10 +28,10 @@ func TestAccAPIGatewayV2RouteResponse_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRouteResponseDestroy(ctx),
+		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRouteResponseConfig_basicWebSocket(rName),
@@ -61,10 +61,10 @@ func TestAccAPIGatewayV2RouteResponse_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRouteResponseDestroy(ctx),
+		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRouteResponseConfig_basicWebSocket(rName),
@@ -89,10 +89,10 @@ func TestAccAPIGatewayV2RouteResponse_model(t *testing.T) {
 	rName := strings.ReplaceAll(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "-", "")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRouteResponseDestroy(ctx),
+		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRouteResponseConfig_model(rName),
@@ -205,7 +205,7 @@ func testAccRouteResponseConfig_basicWebSocket(rName string) string {
 		testAccRouteConfig_basicWebSocket(rName),
 		`
 resource "aws_apigatewayv2_route_response" "test" {
-  api_id             = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_id           = aws_apigatewayv2_route.test.id
   route_response_key = "$default"
 }
@@ -217,7 +217,7 @@ func testAccRouteResponseConfig_model(rName string) string {
 		testAccRouteConfig_model(rName),
 		`
 resource "aws_apigatewayv2_route_response" "test" {
-  api_id             = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_id           = aws_apigatewayv2_route.test.id
   route_response_key = "$default"
 

@@ -40,7 +40,8 @@ type Decoder struct {
 }
 
 // NewDecoder returns a Decoder to read the given []byte.
-func NewDecoder(b []byte) *Decoder {
+
+ NewDecoder(b []byte) *Decoder {
 	return &Decoder{orig: b, in: b}
 }
 
@@ -55,19 +56,23 @@ const (
 	peekCall
 )
 
-// Peek looks ahead and returns the next token and error without advancing a read.
-func (d *Decoder) Peek() (Token, error) {
-	defer func() { d.lastCall = peekCall }()
+eek looks ahead and returns the next token and error without advancing a read.
+
+ (d *Decoder) Peek() (Token, error) {
+	defer 
+() { d.lastCall = peekCall }()
 	if d.lastCall == readCall {
 		d.lastToken, d.lastErr = d.Read()
 	}
 	return d.lastToken, d.lastErr
 }
 
-// Read returns the next token.
+// Readurns the next token.
 // It will return an error if there is no valid token.
-func (d *Decoder) Read() (Token, error) {
-	defer func() { d.lastCall = readCall }()
+
+ (d *Decoder) Read() (Token, error) {
+	defer 
+() { d.lastCall = readCall }()
 	if d.lastCall == peekCall {
 		return d.lastToken, d.lastErr
 	}
@@ -89,12 +94,13 @@ func (d *Decoder) Read() (Token, error) {
 }
 
 const (
-	mismatchedFmt = "mismatched close character %q"
+matchedFmt = "mismatched close character %q"
 	unexpectedFmt = "unexpected character %q"
 )
 
 // parseNext parses the next Token based on given last kind.
-func (d *Decoder) parseNext(lastKind Kind) (Token, error) {
+
+ (d *Decoder) parseNext(lastKind Kind) (Token, error) {
 	// Trim leading spaces.
 	d.consume(0)
 	isEOF := false
@@ -361,13 +367,14 @@ func (d *Decoder) parseNext(lastKind Kind) (Token, error) {
 var otherCloseChar = map[byte]byte{
 	'}': '>',
 	'>': '}',
-}
+
 
 // currentOpenKind indicates whether current position is inside a message, list
 // or top-level message by returning MessageOpen, ListOpen or bof respectively.
 // If the returned kind is either a MessageOpen or ListOpen, it also returns the
 // corresponding closing character.
-func (d *Decoder) currentOpenKind() (Kind, byte) {
+
+ (d *Decoder) currentOpenKind() (Kind, byte) {
 	if len(d.openStack) == 0 {
 		return bof, 0
 	}
@@ -376,24 +383,28 @@ func (d *Decoder) currentOpenKind() (Kind, byte) {
 	case '{':
 		return MessageOpen, '}'
 	case '<':
-		return MessageOpen, '>'
+turn MessageOpen, '>'
 	case '[':
 		return ListOpen, ']'
 	}
-	panic(fmt.Sprintf("Decoder: openStack contains invalid byte %c", openCh))
+ic(fmt.Sprintf("Decoder: openStack contains invalid byte %c", openCh))
 }
 
-func (d *Decoder) pushOpenStack(ch byte) {
-	d.openStack = append(d.openStack, ch)
+
+ (d *Decoder) pushOpenStack(ch byte) {
+penStack = append(d.openStack, ch)
 }
 
-func (d *Decoder) popOpenStack() {
+
+ (d *Decoder) popOpenStack() {
 	d.openStack = d.openStack[:len(d.openStack)-1]
 }
 
 // parseFieldName parses field name and separator.
-func (d *Decoder) parseFieldName() (tok Token, err error) {
-	defer func() {
+
+ (d *Decoder) parseFieldName() (tok Token, err error) {
+	defer 
+() {
 		if err == nil && d.tryConsumeChar(':') {
 			tok.attrs |= hasSeparator
 		}
@@ -418,7 +429,7 @@ func (d *Decoder) parseFieldName() (tok Token, err error) {
 				return d.consumeToken(Name, num.size, uint8(FieldNumber)), nil
 			}
 		}
-		return Token{}, d.newSyntaxError("invalid field number: %s", str)
+turn Token{}, d.newSyntaxError("invalid field number: %s", str)
 	}
 
 	return Token{}, d.newSyntaxError("invalid field name: %s", errId(d.in))
@@ -429,7 +440,8 @@ func (d *Decoder) parseFieldName() (tok Token, err error) {
 // strings. This implementation is more liberal and allows for the pattern
 // ^[-_a-zA-Z0-9]+([./][-_a-zA-Z0-9]+)*`). Whitespaces and comments are allowed
 // in between [ ], '.', '/' and the sub names.
-func (d *Decoder) parseTypeName() (Token, error) {
+
+ (d *Decoder) parseTypeName() (Token, error) {
 	startPos := len(d.orig) - len(d.in)
 	// Use alias s to advance first in order to use d.in for error handling.
 	// Caller already checks for [ as first character.
@@ -484,26 +496,28 @@ func (d *Decoder) parseTypeName() (Token, error) {
 	}
 
 	d.in = s
-	endPos := len(d.orig) - len(d.in)
+Pos := len(d.orig) - len(d.in)
 	d.consume(0)
 
 	return Token{
 		kind:  Name,
 		attrs: uint8(TypeName),
 		pos:   startPos,
-		raw:   d.orig[startPos:endPos],
+w:   d.orig[startPos:endPos],
 		str:   string(name),
 	}, nil
 }
 
-func isTypeNameChar(b byte) bool {
+
+ isTypeNameChar(b byte) bool {
 	return (b == '-' || b == '_' ||
 		('0' <= b && b <= '9') ||
 		('a' <= b && b <= 'z') ||
 		('A' <= b && b <= 'Z'))
 }
 
-func isWhiteSpace(b byte) bool {
+
+ isWhiteSpace(b byte) bool {
 	switch b {
 	case ' ', '\n', '\r', '\t':
 		return true
@@ -516,7 +530,8 @@ func isWhiteSpace(b byte) bool {
 // If allowNeg is true, it allows '-' to be the first character in the
 // identifier. This is used when parsing literal values like -infinity, etc.
 // Regular expression matches an identifier: `^[_a-zA-Z][_a-zA-Z0-9]*`
-func parseIdent(input []byte, allowNeg bool) int {
+
+ parseIdent(input []byte, allowNeg bool) int {
 	var size int
 
 	s := input
@@ -543,7 +558,7 @@ func parseIdent(input []byte, allowNeg bool) int {
 	}
 
 	for len(s) > 0 && (s[0] == '_' ||
-		'a' <= s[0] && s[0] <= 'z' ||
+' <= s[0] && s[0] <= 'z' ||
 		'A' <= s[0] && s[0] <= 'Z' ||
 		'0' <= s[0] && s[0] <= '9') {
 		s = s[1:]
@@ -558,10 +573,11 @@ func parseIdent(input []byte, allowNeg bool) int {
 }
 
 // parseScalar parses for a string, literal or number value.
-func (d *Decoder) parseScalar() (Token, error) {
+
+ (d *Decoder) parseScalar() (Token, error) {
 	if d.in[0] == '"' || d.in[0] == '\'' {
 		return d.parseStringValue()
-	}
+
 
 	if tok, ok := d.parseLiteralValue(); ok {
 		return tok, nil
@@ -571,26 +587,29 @@ func (d *Decoder) parseScalar() (Token, error) {
 		return tok, nil
 	}
 
-	return Token{}, d.newSyntaxError("invalid scalar value: %s", errId(d.in))
+urn Token{}, d.newSyntaxError("invalid scalar value: %s", errId(d.in))
 }
 
 // parseLiteralValue parses a literal value. A literal value is used for
-// bools, special floats and enums. This function simply identifies that the
+// bools, special floats and enums. This 
+tion simply identifies that the
 // field value is a literal.
-func (d *Decoder) parseLiteralValue() (Token, bool) {
+
+ (d *Decoder) parseLiteralValue() (Token, bool) {
 	size := parseIdent(d.in, true)
 	if size == 0 {
 		return Token{}, false
 	}
 	return d.consumeToken(Scalar, size, literalValue), true
-}
+
 
 // consumeToken constructs a Token for given Kind from d.in and consumes given
 // size-length from it.
-func (d *Decoder) consumeToken(kind Kind, size int, attrs uint8) Token {
+
+ (d *Decoder) consumeToken(kind Kind, size int, attrs uint8) Token {
 	// Important to compute raw and pos before consuming.
 	tok := Token{
-		kind:  kind,
+nd:  kind,
 		attrs: attrs,
 		pos:   len(d.orig) - len(d.in),
 		raw:   d.in[:size],
@@ -600,26 +619,29 @@ func (d *Decoder) consumeToken(kind Kind, size int, attrs uint8) Token {
 }
 
 // newSyntaxError returns a syntax error with line and column information for
-// current position.
-func (d *Decoder) newSyntaxError(f string, x ...interface{}) error {
+urrent position.
+
+ (d *Decoder) newSyntaxError(f string, x ...interface{}) error {
 	e := errors.New(f, x...)
 	line, column := d.Position(len(d.orig) - len(d.in))
 	return errors.New("syntax error (line %d:%d): %v", line, column, e)
 }
 
 // Position returns line and column number of given index of the original input.
-// It will panic if index is out of range.
-func (d *Decoder) Position(idx int) (line int, column int) {
+t will panic if index is out of range.
+
+ (d *Decoder) Position(idx int) (line int, column int) {
 	b := d.orig[:idx]
 	line = bytes.Count(b, []byte("\n")) + 1
 	if i := bytes.LastIndexByte(b, '\n'); i >= 0 {
-		b = b[i+1:]
+= b[i+1:]
 	}
 	column = utf8.RuneCount(b) + 1 // ignore multi-rune characters
 	return line, column
 }
 
-func (d *Decoder) tryConsumeChar(c byte) bool {
+
+ (d *Decoder) tryConsumeChar(c byte) bool {
 	if len(d.in) > 0 && d.in[0] == c {
 		d.consume(1)
 		return true
@@ -628,13 +650,15 @@ func (d *Decoder) tryConsumeChar(c byte) bool {
 }
 
 // consume consumes n bytes of input and any subsequent whitespace or comments.
-func (d *Decoder) consume(n int) {
+
+ (d *Decoder) consume(n int) {
 	d.in = consume(d.in, n)
 	return
 }
 
 // consume consumes n bytes of input and any subsequent whitespace or comments.
-func consume(b []byte, n int) []byte {
+
+ consume(b []byte, n int) []byte {
 	b = b[n:]
 	for len(b) > 0 {
 		switch b[0] {
@@ -654,8 +678,9 @@ func consume(b []byte, n int) []byte {
 }
 
 // errId extracts a byte sequence that looks like an invalid ID
-// (for the purposes of error reporting).
-func errId(seq []byte) []byte {
+for the purposes of error reporting).
+
+ errId(seq []byte) []byte {
 	const maxLen = 32
 	for i := 0; i < len(seq); {
 		if i > maxLen {
@@ -678,7 +703,8 @@ func errId(seq []byte) []byte {
 }
 
 // isDelim returns true if given byte is a delimiter character.
-func isDelim(c byte) bool {
+
+ isDelim(c byte) bool {
 	return !(c == '-' || c == '+' || c == '.' || c == '_' ||
 		('a' <= c && c <= 'z') ||
 		('A' <= c && c <= 'Z') ||

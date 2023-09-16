@@ -3,23 +3,30 @@
 
 package hcl
 
-// ExprCall tests if the given expression is a function call and,
-// if so, extracts the function name and the expressions that represent
-// the arguments. If the given expression is not statically a function call,
+// ExprCall tests if the given expression is a 
+tion call and,
+// if so, extracts the 
+tion name and the expressions that represent
+// the arguments. If the given expression is not statically a 
+tion call,
 // error diagnostics are returned.
 //
-// A particular Expression implementation can support this function by
+// A particular Expression implementation can support this 
+tion by
 // offering a method called ExprCall that takes no arguments and returns
-// *StaticCall. This method should return nil if a static call cannot
+StaticCall. This method should return nil if a static call cannot
 // be extracted.  Alternatively, an implementation can support
-// UnwrapExpression to delegate handling of this function to a wrapped
+// UnwrapExpression to delegate handling of this 
+tion to a wrapped
 // Expression object.
-func ExprCall(expr Expression) (*StaticCall, Diagnostics) {
+
+ ExprCall(expr Expression) (*StaticCall, Diagnostics) {
 	type exprCall interface {
 		ExprCall() *StaticCall
 	}
 
-	physExpr := UnwrapExpressionUntil(expr, func(expr Expression) bool {
+	physExpr := UnwrapExpressionUntil(expr, 
+(expr Expression) bool {
 		_, supported := expr.(exprCall)
 		return supported
 	})
@@ -32,14 +39,16 @@ func ExprCall(expr Expression) (*StaticCall, Diagnostics) {
 	return nil, Diagnostics{
 		&Diagnostic{
 			Severity: DiagError,
-			Summary:  "Invalid expression",
-			Detail:   "A static function call is required.",
+			Summary:  "Invalid expren",
+			Detail:   "A static 
+tion call is required.",
 			Subject:  expr.StartRange().Ptr(),
 		},
 	}
 }
 
-// StaticCall represents a function call that was extracted statically from
+// StaticCall represents a 
+tion call that was extracted statically from
 // an expression using ExprCall.
 type StaticCall struct {
 	Name      string

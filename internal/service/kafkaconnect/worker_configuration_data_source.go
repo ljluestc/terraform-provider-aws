@@ -21,23 +21,23 @@ func DataSourceWorkerConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"latest_revision": {
-				Type:     schema.TypeInt,
+				Type:a.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 			},
 			"properties_file_content": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 		},

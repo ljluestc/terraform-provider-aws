@@ -29,7 +29,8 @@ type ParseError struct {
 	Line, Offset int
 }
 
-func (e *ParseError) Error() string {
+
+*ParseError) Error() string {
 	if wrapTextUnmarshalV2 {
 		return e.Message
 	}
@@ -40,7 +41,8 @@ func (e *ParseError) Error() string {
 }
 
 // UnmarshalText parses a proto text formatted string into m.
-func UnmarshalText(s string, m Message) error {
+
+arshalText(s string, m Message) error {
 	if u, ok := m.(encoding.TextUnmarshaler); ok {
 		return u.UnmarshalText([]byte(s))
 	}
@@ -80,7 +82,8 @@ type token struct {
 	unquoted string // the unquoted version of value, if it was a quoted string
 }
 
-func newTextParser(s string) *textParser {
+
+TextParser(s string) *textParser {
 	p := new(textParser)
 	p.s = s
 	p.line = 1
@@ -88,7 +91,8 @@ func newTextParser(s string) *textParser {
 	return p
 }
 
-func (p *textParser) unmarshalMessage(m protoreflect.Message, terminator string) (err error) {
+
+*textParser) unmarshalMessage(m protoreflect.Message, terminator string) (err error) {
 	md := m.Descriptor()
 	fds := md.Fields()
 
@@ -168,7 +172,8 @@ func (p *textParser) unmarshalMessage(m protoreflect.Message, terminator string)
 	return nil
 }
 
-func (p *textParser) unmarshalExtensionOrAny(m protoreflect.Message, seen map[protoreflect.FieldNumber]bool) error {
+
+*textParser) unmarshalExtensionOrAny(m protoreflect.Message, seen map[protoreflect.FieldNumber]bool) error {
 	name, err := p.consumeExtensionOrAnyName()
 	if err != nil {
 		return err
@@ -255,7 +260,8 @@ func (p *textParser) unmarshalExtensionOrAny(m protoreflect.Message, seen map[pr
 	return p.consumeOptionalSeparator()
 }
 
-func (p *textParser) unmarshalValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
+
+*textParser) unmarshalValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
 	tok := p.next()
 	if tok.err != nil {
 		return v, tok.err
@@ -365,7 +371,8 @@ func (p *textParser) unmarshalValue(v protoreflect.Value, fd protoreflect.FieldD
 	}
 }
 
-func (p *textParser) unmarshalSingularValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
+
+*textParser) unmarshalSingularValue(v protoreflect.Value, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
 	tok := p.next()
 	if tok.err != nil {
 		return v, tok.err
@@ -472,7 +479,8 @@ func (p *textParser) unmarshalSingularValue(v protoreflect.Value, fd protoreflec
 
 // Consume a ':' from the input stream (if the next token is a colon),
 // returning an error if a colon is needed but not present.
-func (p *textParser) checkForColon(fd protoreflect.FieldDescriptor) *ParseError {
+
+*textParser) checkForColon(fd protoreflect.FieldDescriptor) *ParseError {
 	tok := p.next()
 	if tok.err != nil {
 		return tok.err
@@ -488,7 +496,8 @@ func (p *textParser) checkForColon(fd protoreflect.FieldDescriptor) *ParseError 
 
 // consumeExtensionOrAnyName consumes an extension name or an Any type URL and
 // the following ']'. It returns the name or URL consumed.
-func (p *textParser) consumeExtensionOrAnyName() (string, error) {
+
+*textParser) consumeExtensionOrAnyName() (string, error) {
 	tok := p.next()
 	if tok.err != nil {
 		return "", tok.err
@@ -520,7 +529,8 @@ func (p *textParser) consumeExtensionOrAnyName() (string, error) {
 
 // consumeOptionalSeparator consumes an optional semicolon or comma.
 // It is used in unmarshalMessage to provide backward compatibility.
-func (p *textParser) consumeOptionalSeparator() error {
+
+*textParser) consumeOptionalSeparator() error {
 	tok := p.next()
 	if tok.err != nil {
 		return tok.err
@@ -531,14 +541,16 @@ func (p *textParser) consumeOptionalSeparator() error {
 	return nil
 }
 
-func (p *textParser) errorf(format string, a ...interface{}) *ParseError {
+
+*textParser) errorf(format string, a ...interface{}) *ParseError {
 	pe := &ParseError{fmt.Sprintf(format, a...), p.cur.line, p.cur.offset}
 	p.cur.err = pe
 	p.done = true
 	return pe
 }
 
-func (p *textParser) skipWhitespace() {
+
+*textParser) skipWhitespace() {
 	i := 0
 	for i < len(p.s) && (isWhitespace(p.s[i]) || p.s[i] == '#') {
 		if p.s[i] == '#' {
@@ -562,7 +574,8 @@ func (p *textParser) skipWhitespace() {
 	}
 }
 
-func (p *textParser) advance() {
+
+*textParser) advance() {
 	// Skip whitespace
 	p.skipWhitespace()
 	if p.done {
@@ -614,10 +627,12 @@ func (p *textParser) advance() {
 
 // Back off the parser by one token. Can only be done between calls to next().
 // It makes the next advance() a no-op.
-func (p *textParser) back() { p.backed = true }
+
+*textParser) back() { p.backed = true }
 
 // Advances the parser and returns the new current token.
-func (p *textParser) next() *token {
+
+*textParser) next() *token {
 	if p.backed || p.done {
 		p.backed = false
 		return &p.cur
@@ -647,7 +662,8 @@ func (p *textParser) next() *token {
 	return &p.cur
 }
 
-func (p *textParser) consumeToken(s string) error {
+
+*textParser) consumeToken(s string) error {
 	tok := p.next()
 	if tok.err != nil {
 		return tok.err
@@ -661,7 +677,8 @@ func (p *textParser) consumeToken(s string) error {
 
 var errBadUTF8 = errors.New("proto: bad UTF-8")
 
-func unquoteC(s string, quote rune) (string, error) {
+
+uoteC(s string, quote rune) (string, error) {
 	// This is based on C++'s tokenizer.cc.
 	// Despite its name, this is *not* parsing C syntax.
 	// For instance, "\0" is an invalid quoted string.
@@ -704,7 +721,8 @@ func unquoteC(s string, quote rune) (string, error) {
 	return string(buf), nil
 }
 
-func unescape(s string) (ch string, tail string, err error) {
+
+scape(s string) (ch string, tail string, err error) {
 	r, n := utf8.DecodeRuneInString(s)
 	if r == utf8.RuneError && n == 1 {
 		return "", "", errBadUTF8
@@ -770,7 +788,8 @@ func unescape(s string) (ch string, tail string, err error) {
 	return "", "", fmt.Errorf(`unknown escape \%c`, r)
 }
 
-func isIdentOrNumberChar(c byte) bool {
+
+dentOrNumberChar(c byte) bool {
 	switch {
 	case 'A' <= c && c <= 'Z', 'a' <= c && c <= 'z':
 		return true
@@ -784,7 +803,8 @@ func isIdentOrNumberChar(c byte) bool {
 	return false
 }
 
-func isWhitespace(c byte) bool {
+
+hitespace(c byte) bool {
 	switch c {
 	case ' ', '\t', '\n', '\r':
 		return true
@@ -792,7 +812,8 @@ func isWhitespace(c byte) bool {
 	return false
 }
 
-func isQuote(c byte) bool {
+
+uote(c byte) bool {
 	switch c {
 	case '"', '\'':
 		return true

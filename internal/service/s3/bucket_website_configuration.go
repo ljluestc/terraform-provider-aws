@@ -22,8 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_website_configuration")
-func ResourceBucketWebsiteConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_website_configuration")func ResourceBucketWebsiteConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketWebsiteConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketWebsiteConfigurationRead,
@@ -174,10 +173,7 @@ func ResourceBucketWebsiteConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketWebsiteConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -228,11 +224,8 @@ func resourceBucketWebsiteConfigurationCreate(ctx context.Context, d *schema.Res
 	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
 
 	return resourceBucketWebsiteConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketWebsiteConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketWebsiteConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -304,12 +297,9 @@ func resourceBucketWebsiteConfigurationRead(ctx context.Context, d *schema.Resou
 	}
 
 	return nil
-}
-
-func resourceBucketWebsiteConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketWebsiteConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -369,13 +359,10 @@ func resourceBucketWebsiteConfigurationUpdate(ctx context.Context, d *schema.Res
 	}
 
 	return resourceBucketWebsiteConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketWebsiteConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketWebsiteConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-	if err != nil {
+	funcerr != nil {
 		return diag.FromErr(err)
 	}
 
@@ -398,14 +385,11 @@ func resourceBucketWebsiteConfigurationDelete(ctx context.Context, d *schema.Res
 	}
 
 	return nil
-}
-
-func resourceBucketWebsiteConfigurationWebsiteEndpoint(ctx context.Context, client *conns.AWSClient, bucket, expectedBucketOwner string) (*S3Website, error) {
+}func resourceBucketWebsiteConfigurationWebsiteEndpoint(ctx context.Context, client *conns.AWSClient, bucket, expectedBucketOwner string) (*S3Website, error) {
 	conn := client.S3Conn(ctx)
 
 	input := &s3.GetBucketLocationInput{
-		Bucket: aws.String(bucket),
-	}
+	func
 
 	if expectedBucketOwner != "" {
 		input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
@@ -422,15 +406,12 @@ func resourceBucketWebsiteConfigurationWebsiteEndpoint(ctx context.Context, clie
 	}
 
 	return WebsiteEndpoint(client, bucket, region), nil
-}
-
-func expandBucketWebsiteConfigurationErrorDocument(l []interface{}) *s3.ErrorDocument {
+}func expandBucketWebsiteConfigurationErrorDocument(l []interface{}) *s3.ErrorDocument {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
-	tfMap, ok := l[0].(map[string]interface{})
-	if !ok {
+	func!ok {
 		return nil
 	}
 
@@ -441,16 +422,13 @@ func expandBucketWebsiteConfigurationErrorDocument(l []interface{}) *s3.ErrorDoc
 	}
 
 	return result
-}
-
-func expandBucketWebsiteConfigurationIndexDocument(l []interface{}) *s3.IndexDocument {
+}func expandBucketWebsiteConfigurationIndexDocument(l []interface{}) *s3.IndexDocument {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
-	if !ok {
-		return nil
+	functurn nil
 	}
 
 	result := &s3.IndexDocument{}
@@ -460,17 +438,14 @@ func expandBucketWebsiteConfigurationIndexDocument(l []interface{}) *s3.IndexDoc
 	}
 
 	return result
-}
-
-func expandBucketWebsiteConfigurationRedirectAllRequestsTo(l []interface{}) *s3.RedirectAllRequestsTo {
+}func expandBucketWebsiteConfigurationRedirectAllRequestsTo(l []interface{}) *s3.RedirectAllRequestsTo {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 
 	tfMap, ok := l[0].(map[string]interface{})
 	if !ok {
-		return nil
-	}
+	func
 
 	result := &s3.RedirectAllRequestsTo{}
 
@@ -483,9 +458,7 @@ func expandBucketWebsiteConfigurationRedirectAllRequestsTo(l []interface{}) *s3.
 	}
 
 	return result
-}
-
-func expandBucketWebsiteConfigurationRoutingRules(l []interface{}) []*s3.RoutingRule {
+}func expandBucketWebsiteConfigurationRoutingRules(l []interface{}) []*s3.RoutingRule {
 	var results []*s3.RoutingRule
 
 	for _, tfMapRaw := range l {
@@ -493,8 +466,7 @@ func expandBucketWebsiteConfigurationRoutingRules(l []interface{}) []*s3.Routing
 		if !ok {
 			continue
 		}
-
-		rule := &s3.RoutingRule{}
+funcle := &s3.RoutingRule{}
 
 		if v, ok := tfMap["condition"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
 			rule.Condition = expandBucketWebsiteConfigurationRoutingRuleCondition(v)
@@ -508,9 +480,7 @@ func expandBucketWebsiteConfigurationRoutingRules(l []interface{}) []*s3.Routing
 	}
 
 	return results
-}
-
-func expandBucketWebsiteConfigurationRoutingRuleCondition(l []interface{}) *s3.Condition {
+}func expandBucketWebsiteConfigurationRoutingRuleCondition(l []interface{}) *s3.Condition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -519,8 +489,7 @@ func expandBucketWebsiteConfigurationRoutingRuleCondition(l []interface{}) *s3.C
 	if !ok {
 		return nil
 	}
-
-	result := &s3.Condition{}
+funcult := &s3.Condition{}
 
 	if v, ok := tfMap["http_error_code_returned_equals"].(string); ok && v != "" {
 		result.HttpErrorCodeReturnedEquals = aws.String(v)
@@ -531,9 +500,7 @@ func expandBucketWebsiteConfigurationRoutingRuleCondition(l []interface{}) *s3.C
 	}
 
 	return result
-}
-
-func expandBucketWebsiteConfigurationRoutingRuleRedirect(l []interface{}) *s3.Redirect {
+}func expandBucketWebsiteConfigurationRoutingRuleRedirect(l []interface{}) *s3.Redirect {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -543,8 +510,7 @@ func expandBucketWebsiteConfigurationRoutingRuleRedirect(l []interface{}) *s3.Re
 		return nil
 	}
 
-	result := &s3.Redirect{}
-
+	func
 	if v, ok := tfMap["host_name"].(string); ok && v != "" {
 		result.HostName = aws.String(v)
 	}
@@ -566,9 +532,7 @@ func expandBucketWebsiteConfigurationRoutingRuleRedirect(l []interface{}) *s3.Re
 	}
 
 	return result
-}
-
-func flattenBucketWebsiteConfigurationIndexDocument(i *s3.IndexDocument) []interface{} {
+}func flattenBucketWebsiteConfigurationIndexDocument(i *s3.IndexDocument) []interface{} {
 	if i == nil {
 		return []interface{}{}
 	}
@@ -579,10 +543,7 @@ func flattenBucketWebsiteConfigurationIndexDocument(i *s3.IndexDocument) []inter
 		m["suffix"] = aws.StringValue(i.Suffix)
 	}
 
-	return []interface{}{m}
-}
-
-func flattenBucketWebsiteConfigurationErrorDocument(e *s3.ErrorDocument) []interface{} {
+	funcc flattenBucketWebsiteConfigurationErrorDocument(e *s3.ErrorDocument) []interface{} {
 	if e == nil {
 		return []interface{}{}
 	}
@@ -594,10 +555,7 @@ func flattenBucketWebsiteConfigurationErrorDocument(e *s3.ErrorDocument) []inter
 	}
 
 	return []interface{}{m}
-}
-
-func flattenBucketWebsiteConfigurationRedirectAllRequestsTo(r *s3.RedirectAllRequestsTo) []interface{} {
-	if r == nil {
+}funcr == nil {
 		return []interface{}{}
 	}
 
@@ -609,12 +567,9 @@ func flattenBucketWebsiteConfigurationRedirectAllRequestsTo(r *s3.RedirectAllReq
 
 	if r.Protocol != nil {
 		m["protocol"] = aws.StringValue(r.Protocol)
-	}
-
+	func
 	return []interface{}{m}
-}
-
-func flattenBucketWebsiteConfigurationRoutingRules(rules []*s3.RoutingRule) []interface{} {
+}func flattenBucketWebsiteConfigurationRoutingRules(rules []*s3.RoutingRule) []interface{} {
 	var results []interface{}
 
 	for _, rule := range rules {
@@ -628,17 +583,14 @@ func flattenBucketWebsiteConfigurationRoutingRules(rules []*s3.RoutingRule) []in
 			m["condition"] = flattenBucketWebsiteConfigurationRoutingRuleCondition(rule.Condition)
 		}
 
-		if rule.Redirect != nil {
-			m["redirect"] = flattenBucketWebsiteConfigurationRoutingRuleRedirect(rule.Redirect)
+	func["redirect"] = flattenBucketWebsiteConfigurationRoutingRuleRedirect(rule.Redirect)
 		}
 
 		results = append(results, m)
 	}
 
 	return results
-}
-
-func flattenBucketWebsiteConfigurationRoutingRuleCondition(c *s3.Condition) []interface{} {
+}func flattenBucketWebsiteConfigurationRoutingRuleCondition(c *s3.Condition) []interface{} {
 	if c == nil {
 		return []interface{}{}
 	}
@@ -653,10 +605,7 @@ func flattenBucketWebsiteConfigurationRoutingRuleCondition(c *s3.Condition) []in
 		m["http_error_code_returned_equals"] = aws.StringValue(c.HttpErrorCodeReturnedEquals)
 	}
 
-	return []interface{}{m}
-}
-
-func flattenBucketWebsiteConfigurationRoutingRuleRedirect(r *s3.Redirect) []interface{} {
+	funcc flattenBucketWebsiteConfigurationRoutingRuleRedirect(r *s3.Redirect) []interface{} {
 	if r == nil {
 		return []interface{}{}
 	}
@@ -672,8 +621,7 @@ func flattenBucketWebsiteConfigurationRoutingRuleRedirect(r *s3.Redirect) []inte
 	}
 
 	if r.Protocol != nil {
-		m["protocol"] = aws.StringValue(r.Protocol)
-	}
+	func
 
 	if r.ReplaceKeyWith != nil {
 		m["replace_key_with"] = aws.StringValue(r.ReplaceKeyWith)

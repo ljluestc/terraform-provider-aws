@@ -11,48 +11,47 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestInstanceProfileARNToName(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := []struct {
-		TestName      string
-		InputARN      string
+		TestName
+		InputARN
 		ExpectedError *regexp.Regexp
 		ExpectedName  string
 	}{
 		{
-			TestName:      "empty ARN",
-			InputARN:      "",
+			TestName:N",
+			InputARN:
 			ExpectedError: regexache.MustCompile(`parsing ARN`),
 		},
 		{
-			TestName:      "unparsable ARN",
-			InputARN:      "test",
+			TestName:le ARN",
+			InputARN:
 			ExpectedError: regexache.MustCompile(`parsing ARN`),
 		},
 		{
-			TestName:      "invalid ARN service",
-			InputARN:      "arn:aws:ec2:us-east-1:123456789012:instance/i-12345678", //lintignore:AWSAT003,AWSAT005
+			TestName:ARN service",
+			InputARN:ec2:us-east-1:123456789012:instance/i-12345678", //lintignore:AWSAT003,AWSAT005
 			ExpectedError: regexache.MustCompile(`expected service iam`),
 		},
 		{
-			TestName:      "invalid ARN resource parts",
-			InputARN:      "arn:aws:iam:us-east-1:123456789012:name", //lintignore:AWSAT003,AWSAT005
+			TestName:ARN resource parts",
+			InputARN:iam:us-east-1:123456789012:name", //lintignore:AWSAT003,AWSAT005
 			ExpectedError: regexache.MustCompile(`expected at least 2 resource parts`),
 		},
 		{
-			TestName:      "invalid ARN resource prefix",
-			InputARN:      "arn:aws:iam:us-east-1:123456789012:role/name", //lintignore:AWSAT003,AWSAT005
+			TestName:ARN resource prefix",
+			InputARN:iam:us-east-1:123456789012:role/name", //lintignore:AWSAT003,AWSAT005
 			ExpectedError: regexache.MustCompile(`expected resource prefix instance-profile`),
 		},
 		{
-			TestName:     "valid ARN",
-			InputARN:     "arn:aws:iam:us-east-1:123456789012:instance-profile/name", //lintignore:AWSAT003,AWSAT005
+			TestName:",
+			InputARN:am:us-east-1:123456789012:instance-profile/name", //lintignore:AWSAT003,AWSAT005
 			ExpectedName: "name",
 		},
 		{
-			TestName:     "valid ARN with multiple parts",
-			InputARN:     "arn:aws:iam:us-east-1:123456789012:instance-profile/path/name", //lintignore:AWSAT003,AWSAT005
+			TestName: with multiple parts",
+			InputARN:am:us-east-1:123456789012:instance-profile/path/name", //lintignore:AWSAT003,AWSAT005
 			ExpectedName: "name",
 		},
 	}
@@ -61,8 +60,7 @@ func TestInstanceProfileARNToName(t *testing.T) {
 		testCase := testCase
 		t.Run(testCase.TestName,
 			func(t *testing.T) {
-				t.Parallel()
-
+			func
 				got, err := tfec2.InstanceProfileARNToName(testCase.InputARN)
 
 				if err == nil && testCase.ExpectedError != nil {

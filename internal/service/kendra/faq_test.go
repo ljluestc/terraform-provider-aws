@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccKendraFaq_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -34,7 +35,8 @@ func TestAccKendraFaq_basic(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -66,6 +68,7 @@ func TestAccKendraFaq_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraFaq_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -81,7 +84,8 @@ func TestAccKendraFaq_description(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -102,6 +106,7 @@ func TestAccKendraFaq_description(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraFaq_fileFormat(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -117,7 +122,8 @@ func TestAccKendraFaq_fileFormat(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -138,6 +144,7 @@ func TestAccKendraFaq_fileFormat(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraFaq_languageCode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -153,7 +160,8 @@ func TestAccKendraFaq_languageCode(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -174,6 +182,7 @@ func TestAccKendraFaq_languageCode(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraFaq_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -188,7 +197,8 @@ func TestAccKendraFaq_tags(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -227,6 +237,7 @@ func TestAccKendraFaq_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraFaq_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -241,7 +252,8 @@ func TestAccKendraFaq_disappears(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckFaqDestroy(ctx),
@@ -258,8 +270,10 @@ func TestAccKendraFaq_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccCheckFaqDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -286,8 +300,10 @@ func testAccCheckFaqDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccCheckFaqExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 
 		if !ok {
@@ -314,6 +330,7 @@ func testAccCheckFaqExists(ctx context.Context, name string) resource.TestCheckF
 		return nil
 	}
 }
+
 
 func testAccFaqConfigBase(rName, rName2, rName3, rName4 string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
@@ -444,6 +461,7 @@ resource "aws_s3_object" "test" {
 `, rName, rName2, rName3, rName4)
 }
 
+
 func testAccFaqConfig_basic(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 		testAccFaqConfigBase(rName, rName2, rName3, rName4),
@@ -460,6 +478,7 @@ resource "aws_kendra_faq" "test" {
 }
 `, rName5))
 }
+
 
 func testAccFaqConfig_description(rName, rName2, rName3, rName4, rName5, description string) string {
 	return acctest.ConfigCompose(
@@ -479,6 +498,7 @@ resource "aws_kendra_faq" "test" {
 `, rName5, description))
 }
 
+
 func testAccFaqConfig_fileFormat(rName, rName2, rName3, rName4, rName5, fileFormat string) string {
 	return acctest.ConfigCompose(
 		testAccFaqConfigBase(rName, rName2, rName3, rName4),
@@ -497,6 +517,7 @@ resource "aws_kendra_faq" "test" {
 `, rName5, fileFormat))
 }
 
+
 func testAccFaqConfig_languageCode(rName, rName2, rName3, rName4, rName5, languageCode string) string {
 	return acctest.ConfigCompose(
 		testAccFaqConfigBase(rName, rName2, rName3, rName4),
@@ -514,6 +535,7 @@ resource "aws_kendra_faq" "test" {
 }
 `, rName5, languageCode))
 }
+
 
 func testAccFaqConfig_tags1(rName, rName2, rName3, rName4, rName5, tag, value string) string {
 	return acctest.ConfigCompose(
@@ -535,6 +557,7 @@ resource "aws_kendra_faq" "test" {
 }
 `, rName5, tag, value))
 }
+
 
 func testAccFaqConfig_tags2(rName, rName2, rName3, rName4, rName5, tag1, value1, tag2, value2 string) string {
 	return acctest.ConfigCompose(

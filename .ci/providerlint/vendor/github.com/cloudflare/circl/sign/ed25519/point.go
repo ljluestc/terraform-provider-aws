@@ -11,12 +11,14 @@ type (
 )
 type pointR3 struct{ addYX, subYX, dt2 fp.Elt }
 
-func (P *pointR1) neg() {
+
+*pointR1) neg() {
 	fp.Neg(&P.x, &P.x)
 	fp.Neg(&P.ta, &P.ta)
 }
 
-func (P *pointR1) SetIdentity() {
+
+*pointR1) SetIdentity() {
 	P.x = fp.Elt{}
 	fp.SetOne(&P.y)
 	fp.SetOne(&P.z)
@@ -24,7 +26,8 @@ func (P *pointR1) SetIdentity() {
 	P.tb = fp.Elt{}
 }
 
-func (P *pointR1) toAffine() {
+
+*pointR1) toAffine() {
 	fp.Inv(&P.z, &P.z)
 	fp.Mul(&P.x, &P.x, &P.z)
 	fp.Mul(&P.y, &P.y, &P.z)
@@ -35,7 +38,8 @@ func (P *pointR1) toAffine() {
 	P.tb = P.y
 }
 
-func (P *pointR1) ToBytes(k []byte) error {
+
+*pointR1) ToBytes(k []byte) error {
 	P.toAffine()
 	var x [fp.Size]byte
 	err := fp.ToBytes(k[:fp.Size], &P.y)
@@ -51,7 +55,8 @@ func (P *pointR1) ToBytes(k []byte) error {
 	return nil
 }
 
-func (P *pointR1) FromBytes(k []byte) bool {
+
+*pointR1) FromBytes(k []byte) bool {
 	if len(k) != paramB {
 		panic("wrong size")
 	}
@@ -87,7 +92,8 @@ func (P *pointR1) FromBytes(k []byte) bool {
 }
 
 // double calculates 2P for curves with A=-1.
-func (P *pointR1) double() {
+
+*pointR1) double() {
 	Px, Py, Pz, Pta, Ptb := &P.x, &P.y, &P.z, &P.ta, &P.tb
 	a, b, c, e, f, g, h := Px, Py, Pz, Pta, Px, Py, Ptb
 	fp.Add(e, Px, Py) // x+y
@@ -105,18 +111,21 @@ func (P *pointR1) double() {
 	fp.Mul(Py, g, h)  // Y = G * H, T = E * H
 }
 
-func (P *pointR1) mixAdd(Q *pointR3) {
+
+*pointR1) mixAdd(Q *pointR3) {
 	fp.Add(&P.z, &P.z, &P.z) // D = 2*z1
 	P.coreAddition(Q)
 }
 
-func (P *pointR1) add(Q *pointR2) {
+
+*pointR1) add(Q *pointR2) {
 	fp.Mul(&P.z, &P.z, &Q.z2) // D = 2*z1*z2
 	P.coreAddition(&Q.pointR3)
 }
 
 // coreAddition calculates P=P+Q for curves with A=-1.
-func (P *pointR1) coreAddition(Q *pointR3) {
+
+*pointR1) coreAddition(Q *pointR3) {
 	Px, Py, Pz, Pta, Ptb := &P.x, &P.y, &P.z, &P.ta, &P.tb
 	addYX2, subYX2, dt2 := &Q.addYX, &Q.subYX, &Q.dt2
 	a, b, c, d, e, f, g, h := Px, Py, &fp.Elt{}, Pz, Pta, Px, Py, Ptb
@@ -135,7 +144,8 @@ func (P *pointR1) coreAddition(Q *pointR3) {
 	fp.Mul(Py, g, h)     // Y = G * H, T = E * H
 }
 
-func (P *pointR1) oddMultiples(T []pointR2) {
+
+*pointR1) oddMultiples(T []pointR2) {
 	var R pointR2
 	n := len(T)
 	T[0].fromR1(P)
@@ -148,7 +158,8 @@ func (P *pointR1) oddMultiples(T []pointR2) {
 	}
 }
 
-func (P *pointR1) isEqual(Q *pointR1) bool {
+
+*pointR1) isEqual(Q *pointR1) bool {
 	l, r := &fp.Elt{}, &fp.Elt{}
 	fp.Mul(l, &P.x, &Q.z)
 	fp.Mul(r, &Q.x, &P.z)
@@ -167,12 +178,14 @@ func (P *pointR1) isEqual(Q *pointR1) bool {
 	return b
 }
 
-func (P *pointR3) neg() {
+
+*pointR3) neg() {
 	P.addYX, P.subYX = P.subYX, P.addYX
 	fp.Neg(&P.dt2, &P.dt2)
 }
 
-func (P *pointR2) fromR1(Q *pointR1) {
+
+*pointR2) fromR1(Q *pointR1) {
 	fp.Add(&P.addYX, &Q.y, &Q.x)
 	fp.Sub(&P.subYX, &Q.y, &Q.x)
 	fp.Mul(&P.dt2, &Q.ta, &Q.tb)
@@ -181,14 +194,16 @@ func (P *pointR2) fromR1(Q *pointR1) {
 	fp.Add(&P.z2, &Q.z, &Q.z)
 }
 
-func (P *pointR3) cneg(b int) {
+
+*pointR3) cneg(b int) {
 	t := &fp.Elt{}
 	fp.Cswap(&P.addYX, &P.subYX, uint(b))
 	fp.Neg(t, &P.dt2)
 	fp.Cmov(&P.dt2, t, uint(b))
 }
 
-func (P *pointR3) cmov(Q *pointR3, b int) {
+
+*pointR3) cmov(Q *pointR3, b int) {
 	fp.Cmov(&P.addYX, &Q.addYX, uint(b))
 	fp.Cmov(&P.subYX, &Q.subYX, uint(b))
 	fp.Cmov(&P.dt2, &Q.dt2, uint(b))

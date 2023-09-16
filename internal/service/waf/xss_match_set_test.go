@@ -30,7 +30,7 @@ func TestAccWAFXSSMatchSet_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckXSSMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccXSSMatchSetConfig_basic(rName),
@@ -73,7 +73,7 @@ func TestAccWAFXSSMatchSet_changeNameForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckXSSMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccXSSMatchSetConfig_basic(rName),
@@ -110,7 +110,7 @@ func TestAccWAFXSSMatchSet_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckXSSMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccXSSMatchSetConfig_basic(rName),
@@ -134,7 +134,7 @@ func TestAccWAFXSSMatchSet_changeTuples(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckXSSMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccXSSMatchSetConfig_basic(setName),
@@ -195,7 +195,7 @@ func TestAccWAFXSSMatchSet_noTuples(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckXSSMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccXSSMatchSetConfig_noTuples(setName),

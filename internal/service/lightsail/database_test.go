@@ -36,9 +36,9 @@ func TestAccLightsailDatabase_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_basic(rName),
@@ -93,9 +93,9 @@ func TestAccLightsailDatabase_relationalDatabaseName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_basic(rNameTooShort),
@@ -156,9 +156,9 @@ func TestAccLightsailDatabase_masterDatabaseName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_masterDatabaseName(rName, dbNameTooShort),
@@ -223,9 +223,9 @@ func TestAccLightsailDatabase_masterUsername(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_masterUsername(rName, usernameTooShort),
@@ -293,9 +293,9 @@ func TestAccLightsailDatabase_masterPassword(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_masterPassword(rName, passwordTooShort),
@@ -338,9 +338,9 @@ func TestAccLightsailDatabase_preferredBackupWindow(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_preferredBackupWindow(rName, backupWindowInvalidHour),
@@ -393,9 +393,9 @@ func TestAccLightsailDatabase_preferredMaintenanceWindow(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_preferredMaintenanceWindow(rName, maintenanceWindowInvalidDay),
@@ -449,9 +449,9 @@ func TestAccLightsailDatabase_publiclyAccessible(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_publiclyAccessible(rName, true),
@@ -493,9 +493,9 @@ func TestAccLightsailDatabase_backupRetentionEnabled(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_backupRetentionEnabled(rName, true),
@@ -542,9 +542,9 @@ func TestAccLightsailDatabase_finalSnapshotName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseSnapshotDestroy(ctx),
+		CheckDestroy:atabaseSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDatabaseConfig_finalSnapshotName(rName, sNameTooShort),
@@ -594,9 +594,9 @@ func TestAccLightsailDatabase_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_tags1(rName, "key1", "value1"),
@@ -649,9 +649,9 @@ func TestAccLightsailDatabase_ha(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_ha(rName),
@@ -708,8 +708,8 @@ func TestAccLightsailDatabase_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+		CheckDestroy:atabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_basic(rName),
@@ -842,8 +842,8 @@ func testAccDatabaseConfig_basic(rName string) string {
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName))
@@ -858,8 +858,8 @@ func testAccDatabaseConfig_masterDatabaseName(rName string, masterDatabaseName s
   master_database_name     = %[2]q
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterDatabaseName))
@@ -874,8 +874,8 @@ func testAccDatabaseConfig_masterUsername(rName string, masterUsername string) s
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = %[2]q
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterUsername))
@@ -890,8 +890,8 @@ func testAccDatabaseConfig_masterPassword(rName string, masterPassword string) s
   master_database_name     = "testdatabasename"
   master_password          = %[2]q
   master_username          = "testusername"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterPassword))
@@ -906,8 +906,8 @@ func testAccDatabaseConfig_preferredBackupWindow(rName string, preferredBackupWi
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   preferred_backup_window  = %[2]q
   apply_immediately        = true
   skip_final_snapshot      = true
@@ -922,10 +922,10 @@ func testAccDatabaseConfig_preferredMaintenanceWindow(rName string, preferredMai
   relational_database_name     = %[1]q
   availability_zone            = data.aws_availability_zones.available.names[0]
   master_database_name         = "testdatabasename"
-  master_password              = "testdatabasepassword"
-  master_username              = "test"
-  blueprint_id                 = "mysql_8_0"
-  bundle_id                    = "micro_1_0"
+  master_passwordasepassword"
+  master_username
+  blueprint_id8_0"
+  bundle_idro_1_0"
   preferred_maintenance_window = %[2]q
   apply_immediately            = true
   skip_final_snapshot          = true
@@ -942,8 +942,8 @@ func testAccDatabaseConfig_publiclyAccessible(rName string, publiclyAccessible b
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   publicly_accessible      = %[2]t
   apply_immediately        = true
   skip_final_snapshot      = true
@@ -960,8 +960,8 @@ func testAccDatabaseConfig_backupRetentionEnabled(rName string, backupRetentionE
   master_database_name     = "test"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   backup_retention_enabled = %[2]t
   apply_immediately        = true
   skip_final_snapshot      = true
@@ -978,8 +978,8 @@ func testAccDatabaseConfig_finalSnapshotName(rName string, sName string) string 
   master_database_name     = "test"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   final_snapshot_name      = %[2]q
 }
 `, rName, sName))
@@ -994,8 +994,8 @@ func testAccDatabaseConfig_tags1(rName string, tagKey1, tagValue1 string) string
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
   tags = {
     %[2]q = %[3]q
@@ -1013,8 +1013,8 @@ func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_1_0"
+  blueprint_id
+  bundle_id_0"
   skip_final_snapshot      = true
   tags = {
     %[2]q = %[3]q
@@ -1032,8 +1032,8 @@ func testAccDatabaseConfig_ha(rName string) string {
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"
   master_username          = "test"
-  blueprint_id             = "mysql_8_0"
-  bundle_id                = "micro_ha_1_0"
+  blueprint_id
+  bundle_ida_1_0"
   skip_final_snapshot      = true
 }
 `, rName))

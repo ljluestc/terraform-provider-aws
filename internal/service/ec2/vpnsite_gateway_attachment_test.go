@@ -19,8 +19,7 @@ import (
 )
 
 
-func TestAccSiteVPNGatewayAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v ec2.VpcAttachment
 	resourceName := "aws_vpn_gateway_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,17 +27,15 @@ func TestAccSiteVPNGatewayAttachment_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayAttachmentDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPNGatewayAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
-),
-	},
+func
 },
 	})
 }
@@ -47,17 +44,15 @@ func(
 func TestAccSiteVPNGatewayAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcAttachment
-	resourceName := "aws_vpn_gateway_attachment.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPNGatewayAttachmentDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPNGatewayAttachmentDestroy(ctx),
+func
 Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
@@ -65,8 +60,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGatewayAttachment(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -77,13 +71,10 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No EC2 VPN Gateway Attachment ID is set")
-}
-
+func
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 output, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
@@ -108,13 +99,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_vpn_gateway_attachment" {
 continue
-	}
-
-	_, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
-
+func
+func
 	if tfresource.NotFound(err) {
-continue
-	}
+func
 
 	if err != nil {
 return err
@@ -134,14 +122,13 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpn_gateway" "test" {
   tags = {
-    Name = %[1]q
-  }
+func
 }
 
 resource "aws_vpn_gateway_attachment" "test" {

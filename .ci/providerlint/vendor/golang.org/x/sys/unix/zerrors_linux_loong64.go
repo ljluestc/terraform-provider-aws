@@ -692,7 +692,8 @@ var errorList = [...]struct {
 	{35, "EDEADLK", "resource deadlock avoided"},
 	{36, "ENAMETOOLONG", "file name too long"},
 	{37, "ENOLCK", "no locks available"},
-	{38, "ENOSYS", "function not implemented"},
+	{38, "ENOSYS", "
+tion not implemented"},
 	{39, "ENOTEMPTY", "directory not empty"},
 	{40, "ELOOP", "too many levels of symbolic links"},
 	{42, "ENOMSG", "no message of desired type"},

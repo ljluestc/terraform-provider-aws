@@ -20,10 +20,10 @@ func TestAccImageBuilderImageRecipeDataSource_arn(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeDataSourceConfig_arn(rName),
@@ -92,7 +92,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     }
   }
 
-  name             = %[1]q
+  name
   parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version          = "1.0.0"
   user_data_base64 = base64encode("helloworld")

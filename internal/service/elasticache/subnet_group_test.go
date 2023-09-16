@@ -18,6 +18,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
+
 func TestAccElastiCacheSubnetGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var csg elasticache.CacheSubnetGroup
@@ -25,10 +27,12 @@ func TestAccElastiCacheSubnetGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -52,6 +56,8 @@ func TestAccElastiCacheSubnetGroup_basic(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheSubnetGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var csg elasticache.CacheSubnetGroup
@@ -59,10 +65,12 @@ func TestAccElastiCacheSubnetGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -76,6 +84,8 @@ func TestAccElastiCacheSubnetGroup_disappears(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheSubnetGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var csg elasticache.CacheSubnetGroup
@@ -83,10 +93,12 @@ func TestAccElastiCacheSubnetGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_tags1(rName, "key1", "value1"),
@@ -124,6 +136,8 @@ func TestAccElastiCacheSubnetGroup_tags(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheSubnetGroup_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var csg elasticache.CacheSubnetGroup
@@ -131,10 +145,12 @@ func TestAccElastiCacheSubnetGroup_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_updatePre(rName),
@@ -167,8 +183,12 @@ func TestAccElastiCacheSubnetGroup_update(t *testing.T) {
 	})
 }
 
+
+
 func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElastiCacheConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -193,8 +213,12 @@ func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc 
 	}
 }
 
+
+
 func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *elasticache.CacheSubnetGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -218,6 +242,8 @@ func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *elasticache
 	}
 }
 
+
+
 func testAccSubnetGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_elasticache_subnet_group" "test" {
@@ -230,6 +256,8 @@ resource "aws_elasticache_subnet_group" "test" {
 `, rName))
 }
 
+
+
 func testAccSubnetGroupConfig_updatePre(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_elasticache_subnet_group" "test" {
@@ -240,6 +268,8 @@ resource "aws_elasticache_subnet_group" "test" {
 `, rName))
 }
 
+
+
 func testAccSubnetGroupConfig_updatePost(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_elasticache_subnet_group" "test" {
@@ -249,6 +279,8 @@ resource "aws_elasticache_subnet_group" "test" {
 }
 `, rName))
 }
+
+
 
 func testAccSubnetGroupConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -262,6 +294,8 @@ resource "aws_elasticache_subnet_group" "test" {
 }
 `, rName, tag1Key, tag1Value))
 }
+
+
 
 func testAccSubnetGroupConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`

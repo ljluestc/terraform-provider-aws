@@ -41,7 +41,8 @@ type InstallationOptions struct {
 	ArmoredPublicKey string
 }
 
-func (v *Versions) List(ctx context.Context) ([]src.Source, error) {
+
+ (v *Versions) List(ctx context.Context) ([]src.Source, error) {
 	if !validators.IsProductNameValid(v.Product.Name) {
 		return nil, fmt.Errorf("invalid product name: %q", v.Product.Name)
 	}
@@ -54,8 +55,10 @@ func (v *Versions) List(ctx context.Context) ([]src.Source, error) {
 	if v.ListTimeout > 0 {
 		timeout = v.ListTimeout
 	}
-	ctx, cancelFunc := context.WithTimeout(ctx, timeout)
-	defer cancelFunc()
+	ctx, cancel
+ := context.WithTimeout(ctx, timeout)
+	defer cancel
+()
 
 	r := rjson.NewReleases()
 	pvs, err := r.ListProductVersions(ctx, v.Product.Name)

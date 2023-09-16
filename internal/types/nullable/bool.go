@@ -16,11 +16,13 @@ const (
 
 type Bool string
 
-func (b Bool) IsNull() bool {
+
+Bool) IsNull() bool {
 	return b == ""
 }
 
-func (b Bool) Value() (bool, bool, error) {
+
+Bool) Value() (bool, bool, error) {
 	if b.IsNull() {
 return false, true, nil
 	}
@@ -32,13 +34,15 @@ return false, false, err
 	return value, false, nil
 }
 
-func NewBool(v bool) Bool {
+
+Bool(v bool) Bool {
 	return Bool(strconv.FormatBool(v))
 }
 
 // ValidateTypeStringNullableBool provides custom error messaging for TypeString booleans
 // Some arguments require a boolean value or unspecified, empty field.
-func ValidateTypeStringNullableBool(v interface{}, k string) (ws []string, es []error) {
+
+idateTypeStringNullableBool(v interface{}, k string) (ws []string, es []error) {
 	value, ok := v.(string)
 	if !ok {
 es = append(es, fmt.Errorf("expected type of %s to be string", k))
@@ -61,7 +65,8 @@ ws = append(ws, fmt.Sprintf(`%s: the use of values other than "true" and "false"
 	return
 }
 
-func DiffSuppressNullableBool(k, o, n string, d *schema.ResourceData) bool {
+
+fSuppressNullableBool(k, o, n string, d *schema.ResourceData) bool {
 	ov, onull, _ := Bool(o).Value()
 	nv, nnull, _ := Bool(n).Value()
 	if onull && nnull {
@@ -78,7 +83,8 @@ return ov == nv
 // as a convenience.
 // This is typically not what you want: it is indended for cases where a parameter is optional
 // in some cases and must be set in others.
-func DiffSuppressNullableBoolFalseAsNull(k, o, n string, d *schema.ResourceData) bool {
+
+fSuppressNullableBoolFalseAsNull(k, o, n string, d *schema.ResourceData) bool {
 	ov, onull, _ := Bool(o).Value()
 	nv, nnull, _ := Bool(n).Value()
 	if !ov && nnull || onull && !nv {

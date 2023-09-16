@@ -18,19 +18,19 @@ func TestAccGuardDuty_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Detector": {
-			"basic":                             testAccDetector_basic,
-			"datasources_s3logs":                testAccDetector_datasources_s3logs,
+			"basic":
+			"datasources_s3logs":3logs,
 			"datasources_kubernetes_audit_logs": testAccDetector_datasources_kubernetes_audit_logs,
 			"datasources_malware_protection":    testAccDetector_datasources_malware_protection,
-			"datasources_all":                   testAccDetector_datasources_all,
-			"tags":                              testAccDetector_tags,
-			"datasource_basic":                  testAccDetectorDataSource_basic,
-			"datasource_id":                     testAccDetectorDataSource_ID,
+			"datasources_all":s_all,
+			"tags":
+			"datasource_basic":asic,
+			"datasource_id":
 		},
 		"Filter": {
-			"basic":      testAccFilter_basic,
-			"update":     testAccFilter_update,
-			"tags":       testAccFilter_tags,
+			"basic":lter_basic,
+			"update":ter_update,
+			"tags":ilter_tags,
 			"disappears": testAccFilter_disappears,
 		},
 		"InviteAccepter": {
@@ -44,24 +44,24 @@ func TestAccGuardDuty_serial(t *testing.T) {
 			"basic": testAccOrganizationAdminAccount_basic,
 		},
 		"OrganizationConfiguration": {
-			"basic":                         testAccOrganizationConfiguration_basic,
+			"basic":
 			"autoEnableOrganizationMembers": testAccOrganizationConfiguration_autoEnableOrganizationMembers,
-			"s3Logs":                        testAccOrganizationConfiguration_s3logs,
-			"kubernetes":                    testAccOrganizationConfiguration_kubernetes,
-			"malwareProtection":             testAccOrganizationConfiguration_malwareprotection,
+			"s3Logs":ogs,
+			"kubernetes":tes,
+			"malwareProtection":onConfiguration_malwareprotection,
 		},
 		"ThreatIntelSet": {
 			"basic": testAccThreatIntelSet_basic,
 			"tags":  testAccThreatIntelSet_tags,
 		},
 		"Member": {
-			"basic":              testAccMember_basic,
-			"inviteOnUpdate":     testAccMember_invite_onUpdate,
+			"basic":sic,
+			"inviteOnUpdate":ber_invite_onUpdate,
 			"inviteDisassociate": testAccMember_invite_disassociate,
 			"invitationMessage":  testAccMember_invitationMessage,
 		},
 		"PublishingDestination": {
-			"basic":      testAccPublishingDestination_basic,
+			"basic":blishingDestination_basic,
 			"disappears": testAccPublishingDestination_disappears,
 		},
 	}

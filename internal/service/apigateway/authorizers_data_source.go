@@ -15,18 +15,17 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_authorizers")
-func DataSourceAuthorizers() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAuthorizersRead,
 
 		Schema: map[string]*schema.Schema{
 			"ids": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 		},
@@ -34,8 +33,7 @@ func DataSourceAuthorizers() *schema.Resource {
 }
 
 func dataSourceAuthorizersRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	apiID := d.Get("rest_api_id").(string)
 	input := &apigateway.GetAuthorizersInput{
@@ -45,8 +43,7 @@ func dataSourceAuthorizersRead(ctx context.Context, d *schema.ResourceData, meta
 
 	err := getAuthorizersPages(ctx, conn, input, func(page *apigateway.GetAuthorizersOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.Items {
 			if v == nil {

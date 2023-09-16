@@ -8,11 +8,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func GetMetadataRequest(in *tfplugin5.GetMetadata_Request) (*tfprotov5.GetMetadataRequest, error) {
+
+MetadataRequest(in *tfplugin5.GetMetadata_Request) (*tfprotov5.GetMetadataRequest, error) {
 	return &tfprotov5.GetMetadataRequest{}, nil
 }
 
-func GetMetadataResponse(in *tfplugin5.GetMetadata_Response) (*tfprotov5.GetMetadataResponse, error) {
+
+MetadataResponse(in *tfplugin5.GetMetadata_Response) (*tfprotov5.GetMetadataResponse, error) {
 	if in == nil {
 		return nil, nil
 	}
@@ -42,11 +44,13 @@ func GetMetadataResponse(in *tfplugin5.GetMetadata_Response) (*tfprotov5.GetMeta
 	return resp, nil
 }
 
-func GetProviderSchemaRequest(in *tfplugin5.GetProviderSchema_Request) (*tfprotov5.GetProviderSchemaRequest, error) {
+
+ProviderSchemaRequest(in *tfplugin5.GetProviderSchema_Request) (*tfprotov5.GetProviderSchemaRequest, error) {
 	return &tfprotov5.GetProviderSchemaRequest{}, nil
 }
 
-func GetProviderSchemaResponse(in *tfplugin5.GetProviderSchema_Response) (*tfprotov5.GetProviderSchemaResponse, error) {
+
+ProviderSchemaResponse(in *tfplugin5.GetProviderSchema_Response) (*tfprotov5.GetProviderSchemaResponse, error) {
 	var resp tfprotov5.GetProviderSchemaResponse
 	if in.Provider != nil {
 		schema, err := Schema(in.Provider)
@@ -94,7 +98,8 @@ func GetProviderSchemaResponse(in *tfplugin5.GetProviderSchema_Response) (*tfpro
 	return &resp, nil
 }
 
-func PrepareProviderConfigRequest(in *tfplugin5.PrepareProviderConfig_Request) (*tfprotov5.PrepareProviderConfigRequest, error) {
+
+pareProviderConfigRequest(in *tfplugin5.PrepareProviderConfig_Request) (*tfprotov5.PrepareProviderConfigRequest, error) {
 	var resp tfprotov5.PrepareProviderConfigRequest
 	if in.Config != nil {
 		resp.Config = DynamicValue(in.Config)
@@ -102,7 +107,8 @@ func PrepareProviderConfigRequest(in *tfplugin5.PrepareProviderConfig_Request) (
 	return &resp, nil
 }
 
-func PrepareProviderConfigResponse(in *tfplugin5.PrepareProviderConfig_Response) (*tfprotov5.PrepareProviderConfigResponse, error) {
+
+pareProviderConfigResponse(in *tfplugin5.PrepareProviderConfig_Response) (*tfprotov5.PrepareProviderConfigResponse, error) {
 	var resp tfprotov5.PrepareProviderConfigResponse
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
@@ -115,7 +121,8 @@ func PrepareProviderConfigResponse(in *tfplugin5.PrepareProviderConfig_Response)
 	return &resp, nil
 }
 
-func ConfigureProviderRequest(in *tfplugin5.Configure_Request) (*tfprotov5.ConfigureProviderRequest, error) {
+
+figureProviderRequest(in *tfplugin5.Configure_Request) (*tfprotov5.ConfigureProviderRequest, error) {
 	resp := &tfprotov5.ConfigureProviderRequest{
 		TerraformVersion: in.TerraformVersion,
 	}
@@ -125,7 +132,8 @@ func ConfigureProviderRequest(in *tfplugin5.Configure_Request) (*tfprotov5.Confi
 	return resp, nil
 }
 
-func ConfigureProviderResponse(in *tfplugin5.Configure_Response) (*tfprotov5.ConfigureProviderResponse, error) {
+
+figureProviderResponse(in *tfplugin5.Configure_Response) (*tfprotov5.ConfigureProviderResponse, error) {
 	diags, err := Diagnostics(in.Diagnostics)
 	if err != nil {
 		return nil, err
@@ -135,11 +143,13 @@ func ConfigureProviderResponse(in *tfplugin5.Configure_Response) (*tfprotov5.Con
 	}, nil
 }
 
-func StopProviderRequest(in *tfplugin5.Stop_Request) (*tfprotov5.StopProviderRequest, error) {
+
+pProviderRequest(in *tfplugin5.Stop_Request) (*tfprotov5.StopProviderRequest, error) {
 	return &tfprotov5.StopProviderRequest{}, nil
 }
 
-func StopProviderResponse(in *tfplugin5.Stop_Response) (*tfprotov5.StopProviderResponse, error) {
+
+pProviderResponse(in *tfplugin5.Stop_Response) (*tfprotov5.StopProviderResponse, error) {
 	return &tfprotov5.StopProviderResponse{
 		Error: in.Error,
 	}, nil

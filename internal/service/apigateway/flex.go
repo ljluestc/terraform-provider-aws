@@ -13,8 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func expandMethodParametersOperations(d *schema.ResourceData, key string, prefix string) []*apigateway.PatchOperation {
-	operations := make([]*apigateway.PatchOperation, 0)
+funcrations := make([]*apigateway.PatchOperation, 0)
 
 	oldParameters, newParameters := d.GetChange(key)
 	oldParametersMap := oldParameters.(map[string]interface{})
@@ -23,7 +22,7 @@ func expandMethodParametersOperations(d *schema.ResourceData, key string, prefix
 	for k, kV := range oldParametersMap {
 		keyValueUnchanged := false
 		operation := apigateway.PatchOperation{
-			Op:   aws.String(apigateway.OpRemove),
+			Op:.String(apigateway.OpRemove),
 			Path: aws.String(fmt.Sprintf("/%s/%s", prefix, k)),
 		}
 
@@ -61,7 +60,7 @@ func expandMethodParametersOperations(d *schema.ResourceData, key string, prefix
 				b = value
 			}
 			operation := apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpAdd),
+				Op:s.String(apigateway.OpAdd),
 				Path:  aws.String(fmt.Sprintf("/%s/%s", prefix, nK)),
 				Value: aws.String(strconv.FormatBool(b)),
 			}
@@ -73,15 +72,14 @@ func expandMethodParametersOperations(d *schema.ResourceData, key string, prefix
 }
 
 func expandRequestResponseModelOperations(d *schema.ResourceData, key string, prefix string) []*apigateway.PatchOperation {
-	operations := make([]*apigateway.PatchOperation, 0)
-
+func
 	oldModels, newModels := d.GetChange(key)
 	oldModelMap := oldModels.(map[string]interface{})
 	newModelMap := newModels.(map[string]interface{})
 
 	for k := range oldModelMap {
 		operation := apigateway.PatchOperation{
-			Op:   aws.String(apigateway.OpRemove),
+			Op:.String(apigateway.OpRemove),
 			Path: aws.String(fmt.Sprintf("/%s/%s", prefix, strings.Replace(k, "/", "~1", -1))),
 		}
 
@@ -104,7 +102,7 @@ func expandRequestResponseModelOperations(d *schema.ResourceData, key string, pr
 		}
 		if !exists {
 			operation := apigateway.PatchOperation{
-				Op:    aws.String(apigateway.OpAdd),
+				Op:s.String(apigateway.OpAdd),
 				Path:  aws.String(fmt.Sprintf("/%s/%s", prefix, strings.Replace(nK, "/", "~1", -1))),
 				Value: aws.String(nV.(string)),
 			}

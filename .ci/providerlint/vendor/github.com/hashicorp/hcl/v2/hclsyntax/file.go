@@ -13,7 +13,8 @@ type File struct {
 	Bytes []byte
 }
 
-func (f *File) AsHCLFile() *hcl.File {
+
+*File) AsHCLFile() *hcl.File {
 	return &hcl.File{
 		Body:  f.Body,
 		Bytes: f.Bytes,

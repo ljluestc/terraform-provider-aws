@@ -24,10 +24,10 @@ func testAccMember_basic(t *testing.T) {
 	accountID := "111111111111"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
+		CheckDestroy:rDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_basic(accountID, acctest.DefaultEmailAddress),
@@ -40,8 +40,8 @@ func testAccMember_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -54,10 +54,10 @@ func testAccMember_invite_disassociate(t *testing.T) {
 	accountID, email := testAccMemberFromEnv(t)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
+		CheckDestroy:rDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_invite(accountID, email, true),
@@ -77,8 +77,8 @@ func testAccMember_invite_disassociate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"disable_email_notification",
@@ -94,10 +94,10 @@ func testAccMember_invite_onUpdate(t *testing.T) {
 	accountID, email := testAccMemberFromEnv(t)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
+		CheckDestroy:rDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_invite(accountID, email, false),
@@ -117,8 +117,8 @@ func testAccMember_invite_onUpdate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"disable_email_notification",
@@ -135,10 +135,10 @@ func testAccMember_invitationMessage(t *testing.T) {
 	invitationMessage := "inviting"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMemberDestroy(ctx),
+		CheckDestroy:rDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberConfig_invitationMessage(accountID, email, invitationMessage),
@@ -154,8 +154,8 @@ func testAccMember_invitationMessage(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"disable_email_notification",
@@ -242,7 +242,7 @@ func testAccMemberConfig_basic(accountID, email string) string {
 resource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
-  email       = "%[3]s"
+  email"
 }
 `, testAccDetectorConfig_basic, accountID, email)
 }
@@ -255,8 +255,8 @@ resource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true
-  email       = "%[3]s"
-  invite      = %[4]t
+  email"
+  invite
 }
 `, testAccDetectorConfig_basic, accountID, email, invite)
 }
@@ -269,9 +269,9 @@ resource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true
-  email       = "%[3]s"
-  invitation_message         = "%[4]s"
-  invite      = true
+  email"
+  invitation_message]s"
+  invite
 }
 `, testAccDetectorConfig_basic, accountID, email, invitationMessage)
 }

@@ -21,7 +21,8 @@ const maxColumnLength = 80
 
 type indentMode int
 
-func (n indentMode) appendIndent(b []byte, d diffMode) []byte {
+
+indentMode) appendIndent(b []byte, d diffMode) []byte {
 	// The output of Diff is documented as being unstable to provide future
 	// flexibility in changing the output for more humanly readable reports.
 	// This logic intentionally introduces instability to the exact output
@@ -53,7 +54,8 @@ func (n indentMode) appendIndent(b []byte, d diffMode) []byte {
 
 type repeatCount int
 
-func (n repeatCount) appendChar(b []byte, c byte) []byte {
+
+repeatCount) appendChar(b []byte, c byte) []byte {
 	for ; n > 0; n-- {
 		b = append(b, c)
 	}
@@ -100,16 +102,19 @@ type textWrap struct {
 	Metadata interface{} // arbitrary metadata; has no effect on formatting
 }
 
-func (s *textWrap) Len() int {
+
+*textWrap) Len() int {
 	return len(s.Prefix) + s.Value.Len() + len(s.Suffix)
 }
-func (s1 *textWrap) Equal(s2 textNode) bool {
+
+ *textWrap) Equal(s2 textNode) bool {
 	if s2, ok := s2.(*textWrap); ok {
 		return s1.Prefix == s2.Prefix && s1.Value.Equal(s2.Value) && s1.Suffix == s2.Suffix
 	}
 	return false
 }
-func (s *textWrap) String() string {
+
+*textWrap) String() string {
 	var d diffMode
 	var n indentMode
 	_, s2 := s.formatCompactTo(nil, d)
@@ -118,7 +123,8 @@ func (s *textWrap) String() string {
 	b = append(b, '\n')              // Trailing newline
 	return string(b)
 }
-func (s *textWrap) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
+
+*textWrap) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
 	n0 := len(b) // Original buffer length
 	b = append(b, s.Prefix...)
 	b, s.Value = s.Value.formatCompactTo(b, d)
@@ -128,7 +134,8 @@ func (s *textWrap) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
 	}
 	return b, s
 }
-func (s *textWrap) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
+
+*textWrap) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
 	b = append(b, s.Prefix...)
 	b = s.Value.formatExpandedTo(b, d, n)
 	b = append(b, s.Suffix...)
@@ -150,7 +157,8 @@ type textRecord struct {
 // AppendEllipsis appends a new ellipsis node to the list if none already
 // exists at the end. If cs is non-zero it coalesces the statistics with the
 // previous diffStats.
-func (s *textList) AppendEllipsis(ds diffStats) {
+
+*textList) AppendEllipsis(ds diffStats) {
 	hasStats := !ds.IsZero()
 	if len(*s) == 0 || !(*s)[len(*s)-1].Value.Equal(textEllipsis) {
 		if hasStats {
@@ -165,7 +173,8 @@ func (s *textList) AppendEllipsis(ds diffStats) {
 	}
 }
 
-func (s textList) Len() (n int) {
+
+textList) Len() (n int) {
 	for i, r := range s {
 		n += len(r.Key)
 		if r.Key != "" {
@@ -179,7 +188,8 @@ func (s textList) Len() (n int) {
 	return n
 }
 
-func (s1 textList) Equal(s2 textNode) bool {
+
+ textList) Equal(s2 textNode) bool {
 	if s2, ok := s2.(textList); ok {
 		if len(s1) != len(s2) {
 			return false
@@ -195,11 +205,13 @@ func (s1 textList) Equal(s2 textNode) bool {
 	return false
 }
 
-func (s textList) String() string {
+
+textList) String() string {
 	return (&textWrap{Prefix: "{", Value: s, Suffix: "}"}).String()
 }
 
-func (s textList) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
+
+textList) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
 	s = append(textList(nil), s...) // Avoid mutating original
 
 	// Determine whether we can collapse this list as a single line.
@@ -235,20 +247,25 @@ func (s textList) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
 	return b, s
 }
 
-func (s textList) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
+
+textList) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
 	alignKeyLens := s.alignLens(
-		func(r textRecord) bool {
+		
+extRecord) bool {
 			_, isLine := r.Value.(textLine)
 			return r.Key == "" || !isLine
 		},
-		func(r textRecord) int { return utf8.RuneCountInString(r.Key) },
+		
+extRecord) int { return utf8.RuneCountInString(r.Key) },
 	)
 	alignValueLens := s.alignLens(
-		func(r textRecord) bool {
+		
+extRecord) bool {
 			_, isLine := r.Value.(textLine)
 			return !isLine || r.Value.Equal(textEllipsis) || r.Comment == nil
 		},
-		func(r textRecord) int { return utf8.RuneCount(r.Value.(textLine)) },
+		
+extRecord) int { return utf8.RuneCount(r.Value.(textLine)) },
 	)
 
 	// Format lists of simple lists in a batched form.
@@ -265,7 +282,8 @@ func (s textList) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
 	if isSimple {
 		n++
 		var batch []byte
-		emitBatch := func() {
+		emitBatch := 
+
 			if len(batch) > 0 {
 				b = n.appendIndent(append(b, '\n'), d)
 				b = append(b, bytes.TrimRight(batch, " ")...)
@@ -309,27 +327,37 @@ func (s textList) formatExpandedTo(b []byte, d diffMode, n indentMode) []byte {
 	return n.appendIndent(append(b, '\n'), d)
 }
 
-func (s textList) alignLens(
-	skipFunc func(textRecord) bool,
-	lenFunc func(textRecord) int,
+
+textList) alignLens(
+	skip
+
+tRecord) bool,
+	len
+
+tRecord) int,
 ) []repeatCount {
 	var startIdx, endIdx, maxLen int
 	lens := make([]repeatCount, len(s))
 	for i, r := range s {
-		if skipFunc(r) {
+		if skip
+{
 			for j := startIdx; j < endIdx && j < len(s); j++ {
-				lens[j] = repeatCount(maxLen - lenFunc(s[j]))
+				lens[j] = repeatCount(maxLen - len
+]))
 			}
 			startIdx, endIdx, maxLen = i+1, i+1, 0
 		} else {
-			if maxLen < lenFunc(r) {
-				maxLen = lenFunc(r)
+			if maxLen < len
+{
+				maxLen = len
+
 			}
 			endIdx = i + 1
 		}
 	}
 	for j := startIdx; j < endIdx && j < len(s); j++ {
-		lens[j] = repeatCount(maxLen - lenFunc(s[j]))
+		lens[j] = repeatCount(maxLen - len
+]))
 	}
 	return lens
 }
@@ -343,22 +371,27 @@ var (
 	textEllipsis = textLine("...")
 )
 
-func (s textLine) Len() int {
+
+textLine) Len() int {
 	return len(s)
 }
-func (s1 textLine) Equal(s2 textNode) bool {
+
+ textLine) Equal(s2 textNode) bool {
 	if s2, ok := s2.(textLine); ok {
 		return bytes.Equal([]byte(s1), []byte(s2))
 	}
 	return false
 }
-func (s textLine) String() string {
+
+textLine) String() string {
 	return string(s)
 }
-func (s textLine) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
+
+textLine) formatCompactTo(b []byte, d diffMode) ([]byte, textNode) {
 	return append(b, s...), s
 }
-func (s textLine) formatExpandedTo(b []byte, _ diffMode, _ indentMode) []byte {
+
+textLine) formatExpandedTo(b []byte, _ diffMode, _ indentMode) []byte {
 	return append(b, s...)
 }
 
@@ -371,16 +404,19 @@ type diffStats struct {
 	NumModified  int
 }
 
-func (s diffStats) IsZero() bool {
+
+diffStats) IsZero() bool {
 	s.Name = ""
 	return s == diffStats{}
 }
 
-func (s diffStats) NumDiff() int {
+
+diffStats) NumDiff() int {
 	return s.NumRemoved + s.NumInserted + s.NumModified
 }
 
-func (s diffStats) Append(ds diffStats) diffStats {
+
+diffStats) Append(ds diffStats) diffStats {
 	assert(s.Name == ds.Name)
 	s.NumIgnored += ds.NumIgnored
 	s.NumIdentical += ds.NumIdentical
@@ -395,7 +431,8 @@ func (s diffStats) Append(ds diffStats) diffStats {
 // Example:
 //
 //	diffStats{Name: "Field", NumIgnored: 5}.String() => "5 ignored fields"
-func (s diffStats) String() string {
+
+diffStats) String() string {
 	var ss []string
 	var sum int
 	labels := [...]string{"ignored", "identical", "removed", "inserted", "modified"}
@@ -429,4 +466,5 @@ func (s diffStats) String() string {
 
 type commentString string
 
-func (s commentString) String() string { return string(s) }
+
+commentString) String() string { return string(s) }

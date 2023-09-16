@@ -16,7 +16,8 @@ type ServeMuxMap map[string]*ServeConfig
 //
 // This command doesn't return until the plugin is done being executed. Any
 // errors are logged or output to stderr.
-func ServeMux(m ServeMuxMap) {
+
+ ServeMux(m ServeMuxMap) {
 	if len(os.Args) != 2 {
 		fmt.Fprintf(os.Stderr,
 			"Invoked improperly. This is an internal command that shouldn't\n"+

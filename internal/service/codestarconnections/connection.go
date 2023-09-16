@@ -58,7 +58,7 @@ func resourceConnection() *schema.Resource {
 				ForceNew: true,
 			},
 			"provider_type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
 				Computed:         true,

@@ -21,17 +21,15 @@ import (
 )
 
 // @SDKResource("aws_api_gateway_request_validator")
-func ResourceRequestValidator() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceRequestValidatorCreate,
-		ReadWithoutTimeout:   resourceRequestValidatorRead,
+		ReadWithoutTimeout:ourceRequestValidatorRead,
 		UpdateWithoutTimeout: resourceRequestValidatorUpdate,
 		DeleteWithoutTimeout: resourceRequestValidatorDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+				idParts := stfuncif len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected REST-API-ID/REQUEST-VALIDATOR-ID", d.Id())
 				}
 				restApiID := idParts[0]
@@ -44,21 +42,21 @@ func ResourceRequestValidator() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"validate_request_body": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"validate_request_parameters": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
@@ -68,13 +66,12 @@ func ResourceRequestValidator() *schema.Resource {
 
 func resourceRequestValidatorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &apigateway.CreateRequestValidatorInput{
-		Name:                      aws.String(name),
-		RestApiId:                 aws.String(d.Get("rest_api_id").(string)),
-		ValidateRequestBody:       aws.Bool(d.Get("validate_request_body").(bool)),
+		Name:g(name),
+		RestApiId:s.String(d.Get("rest_api_id").(string)),
+		ValidateRequestBody:ool(d.Get("validate_request_body").(bool)),
 		ValidateRequestParameters: aws.Bool(d.Get("validate_request_parameters").(bool)),
 	}
 
@@ -92,8 +89,7 @@ func resourceRequestValidatorCreate(ctx context.Context, d *schema.ResourceData,
 func resourceRequestValidatorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	output, err := FindRequestValidatorByTwoPartKey(ctx, conn, d.Id(), d.Get("rest_api_id").(string))
+funcput, err := FindRequestValidatorByTwoPartKey(ctx, conn, d.Id(), d.Get("rest_api_id").(string))
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] API Gateway Request Validator (%s) not found, removing from state", d.Id())
@@ -116,11 +112,10 @@ func resourceRequestValidatorUpdate(ctx context.Context, d *schema.ResourceData,
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	operations := make([]*apigateway.PatchOperation, 0)
-
+func
 	if d.HasChange("name") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/name"),
 			Value: aws.String(d.Get("name").(string)),
 		})
@@ -128,7 +123,7 @@ func resourceRequestValidatorUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChange("validate_request_body") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/validateRequestBody"),
 			Value: aws.String(fmt.Sprintf("%t", d.Get("validate_request_body").(bool))),
 		})
@@ -136,7 +131,7 @@ func resourceRequestValidatorUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChange("validate_request_parameters") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String(apigateway.OpReplace),
+			Op:s.String(apigateway.OpReplace),
 			Path:  aws.String("/validateRequestParameters"),
 			Value: aws.String(fmt.Sprintf("%t", d.Get("validate_request_parameters").(bool))),
 		})
@@ -144,8 +139,8 @@ func resourceRequestValidatorUpdate(ctx context.Context, d *schema.ResourceData,
 
 	input := &apigateway.UpdateRequestValidatorInput{
 		RequestValidatorId: aws.String(d.Id()),
-		RestApiId:          aws.String(d.Get("rest_api_id").(string)),
-		PatchOperations:    operations,
+		RestApiId:ng(d.Get("rest_api_id").(string)),
+		PatchOperations:erations,
 	}
 
 	_, err := conn.UpdateRequestValidatorWithContext(ctx, input)
@@ -162,9 +157,8 @@ func resourceRequestValidatorDelete(ctx context.Context, d *schema.ResourceData,
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	log.Printf("[DEBUG] Deleting API Gateway Request Validator: %s", d.Id())
-	_, err := conn.DeleteRequestValidatorWithContext(ctx, &apigateway.DeleteRequestValidatorInput{
-		RequestValidatorId: aws.String(d.Id()),
-		RestApiId:          aws.String(d.Get("rest_api_id").(string)),
+funcquestValidatorId: aws.String(d.Id()),
+		RestApiId:ng(d.Get("rest_api_id").(string)),
 	})
 
 	if err != nil {
@@ -181,14 +175,13 @@ func resourceRequestValidatorDelete(ctx context.Context, d *schema.ResourceData,
 func FindRequestValidatorByTwoPartKey(ctx context.Context, conn *apigateway.APIGateway, requestValidatorID, apiID string) (*apigateway.UpdateRequestValidatorOutput, error) {
 	input := &apigateway.GetRequestValidatorInput{
 		RequestValidatorId: aws.String(requestValidatorID),
-		RestApiId:          aws.String(apiID),
+		RestApiId:ng(apiID),
 	}
 
-	output, err := conn.GetRequestValidatorWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

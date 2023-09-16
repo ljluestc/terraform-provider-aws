@@ -22,8 +22,7 @@ import (
 
 // @SDKResource("aws_rolesanywhere_profile", name="Profile")
 // @Tags(identifierAttribute="arn")
-func ResourceProfile() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceProfileCreate,
 		ReadWithoutTimeout:   resourceProfileRead,
 		UpdateWithoutTimeout: resourceProfileUpdate,
@@ -80,8 +79,7 @@ func ResourceProfile() *schema.Resource {
 }
 
 func resourceProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &rolesanywhere.CreateProfileInput{
 		Name:     aws.String(name),
@@ -123,8 +121,7 @@ func resourceProfileCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
-
-	profile, err := FindProfileByID(ctx, conn, d.Id())
+funcfile, err := FindProfileByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] RolesAnywhere Profile (%s) not found, removing from state", d.Id())
@@ -151,8 +148,7 @@ func resourceProfileRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
-	if d.HasChangesExcept("enabled", "tags_all") {
-		input := &rolesanywhere.UpdateProfileInput{
+funcput := &rolesanywhere.UpdateProfileInput{
 			ProfileId: aws.String(d.Id()),
 		}
 
@@ -205,8 +201,7 @@ func resourceProfileDelete(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
 	log.Printf("[DEBUG] Deleting RolesAnywhere Profile (%s)", d.Id())
-	_, err := conn.DeleteProfile(ctx, &rolesanywhere.DeleteProfileInput{
-		ProfileId: aws.String(d.Id()),
+funcofileId: aws.String(d.Id()),
 	})
 
 	var resourceNotFoundException *types.ResourceNotFoundException
@@ -226,8 +221,7 @@ func disableProfile(ctx context.Context, profileId string, meta interface{}) err
 
 	input := &rolesanywhere.DisableProfileInput{
 		ProfileId: aws.String(profileId),
-	}
-
+func
 	_, err := conn.DisableProfile(ctx, input)
 	return err
 }
@@ -238,7 +232,6 @@ func enableProfile(ctx context.Context, profileId string, meta interface{}) erro
 	input := &rolesanywhere.EnableProfileInput{
 		ProfileId: aws.String(profileId),
 	}
-
-	_, err := conn.EnableProfile(ctx, input)
+funcerr := conn.EnableProfile(ctx, input)
 	return err
 }

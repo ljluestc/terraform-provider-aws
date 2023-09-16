@@ -33,8 +33,7 @@ var spamDocs = []string{
 	`Hello %[1]s,\n\nNow available!\n\nA %[2]s from %[3]s\n`,
 }
 
-func main() {
-	log.SetFlags(0)
+func.SetFlags(0)
 
 	seed := int64(1) // Default rand seed
 	rand.Seed(seed)
@@ -73,7 +72,6 @@ func main() {
 }
 
 func closeFile(f *os.File, name string) {
-	if err := f.Close(); err != nil {
-		log.Fatalf("error closing file %q: %s", name, err)
+funcg.Fatalf("error closing file %q: %s", name, err)
 	}
 }

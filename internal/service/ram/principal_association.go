@@ -23,10 +23,9 @@ import (
 )
 
 // @SDKResource("aws_ram_principal_association")
-func ResourcePrincipalAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourcePrincipalAssociationCreate,
-		ReadWithoutTimeout:   resourcePrincipalAssociationRead,
+		ReadWithoutTimeout:ourcePrincipalAssociationRead,
 		DeleteWithoutTimeout: resourcePrincipalAssociationDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -35,14 +34,14 @@ func ResourcePrincipalAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"resource_share_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: verify.ValidARN,
 			},
 
 			"principal": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.Any(
@@ -55,16 +54,15 @@ func ResourcePrincipalAssociation() *schema.Resource {
 }
 
 func resourcePrincipalAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
+funcn := meta.(*conns.AWSClient).RAMConn(ctx)
 
 	resourceShareArn := d.Get("resource_share_arn").(string)
 	principal := d.Get("principal").(string)
 
 	request := &ram.AssociateResourceShareInput{
-		ClientToken:      aws.String(id.UniqueId()),
+		ClientToken:ring(id.UniqueId()),
 		ResourceShareArn: aws.String(resourceShareArn),
-		Principals:       []*string{aws.String(principal)},
+		Principals:ring{aws.String(principal)},
 	}
 
 	log.Println("[DEBUG] Create RAM principal association request:", request)
@@ -89,8 +87,7 @@ func resourcePrincipalAssociationCreate(ctx context.Context, d *schema.ResourceD
 
 func resourcePrincipalAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
-
+func
 	resourceShareArn, principal, err := PrincipalAssociationParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading RAM Principal Association, parsing ID (%s): %s", d.Id(), err)
@@ -134,15 +131,14 @@ func resourcePrincipalAssociationRead(ctx context.Context, d *schema.ResourceDat
 func resourcePrincipalAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RAMConn(ctx)
-
-	resourceShareArn, principal, err := PrincipalAssociationParseID(d.Id())
+funcourceShareArn, principal, err := PrincipalAssociationParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting RAM Resource Share Principal Association (%s): %s", d.Id(), err)
 	}
 
 	request := &ram.DisassociateResourceShareInput{
 		ResourceShareArn: aws.String(resourceShareArn),
-		Principals:       []*string{aws.String(principal)},
+		Principals:ring{aws.String(principal)},
 	}
 
 	log.Println("[DEBUG] Delete RAM principal association request:", request)
@@ -167,8 +163,7 @@ func PrincipalAssociationParseID(id string) (string, string, error) {
 	idFormatErr := fmt.Errorf("unexpected format of ID (%s), expected SHARE,PRINCIPAL", id)
 
 	parts := strings.SplitN(id, ",", 2)
-	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
-		return "", "", idFormatErr
+functurn "", "", idFormatErr
 	}
 
 	return parts[0], parts[1], nil

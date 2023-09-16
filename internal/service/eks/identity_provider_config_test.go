@@ -27,10 +27,10 @@ func TestAccEKSIdentityProviderConfig_basic(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderConfigDestroy(ctx),
+		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccIdentityProviderConfigConfig_issuerURL(rName, "http://example.com"),
@@ -70,10 +70,10 @@ func TestAccEKSIdentityProviderConfig_disappears(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderConfigDestroy(ctx),
+		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfigConfig_name(rName),
@@ -94,10 +94,10 @@ func TestAccEKSIdentityProviderConfig_allOIDCOptions(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderConfigDestroy(ctx),
+		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfigConfig_allOIDCOptions(rName),
@@ -132,10 +132,10 @@ func TestAccEKSIdentityProviderConfig_tags(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderConfigDestroy(ctx),
+		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfigConfig_tags1(rName, "key1", "value1"),
@@ -264,7 +264,7 @@ resource "aws_vpc" "test" {
   enable_dns_support   = true
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -277,7 +277,7 @@ resource "aws_subnet" "test" {
   vpc_id            = aws_vpc.test.id
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -301,9 +301,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id                     = "example.net"
+    client_id        = "example.net"
     identity_provider_config_name = %[1]q
-    issuer_url                    = "https://example.com"
+    issuer_url       = "https://example.com"
   }
 }
 `, rName))
@@ -315,9 +315,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id                     = "example.net"
+    client_id        = "example.net"
     identity_provider_config_name = %[1]q
-    issuer_url                    = %[2]q
+    issuer_url       = %[2]q
   }
 }
 `, rName, issuerUrl))
@@ -329,13 +329,13 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id                     = "example.net"
-    groups_claim                  = "groups"
-    groups_prefix                 = "oidc:"
+    client_id        = "example.net"
+    groups_claim     = "groups"
+    groups_prefix    = "oidc:"
     identity_provider_config_name = %[1]q
-    issuer_url                    = "https://example.com"
-    username_claim                = "email"
-    username_prefix               = "-"
+    issuer_url       = "https://example.com"
+    username_claim   = "email"
+    username_prefix  = "-"
 
     required_claims = {
       keyOne = "valueOne"
@@ -352,9 +352,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id                     = "example.net"
+    client_id        = "example.net"
     identity_provider_config_name = %[1]q
-    issuer_url                    = "https://example.com"
+    issuer_url       = "https://example.com"
   }
 
   tags = {
@@ -370,9 +370,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id                     = "example.net"
+    client_id        = "example.net"
     identity_provider_config_name = %[1]q
-    issuer_url                    = "https://example.com"
+    issuer_url       = "https://example.com"
   }
 
   tags = {

@@ -26,7 +26,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	resourceInfos := pass.ResultOf[resourceinfodatasourceonly.Analyzer].([]*schema.ResourceInfo)
 	for _, resourceInfo := range resourceInfos {
@@ -36,7 +37,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 		var schemaInfos []*schema.SchemaInfo
 
-		ast.Inspect(resourceInfo.AstCompositeLit, func(n ast.Node) bool {
+		ast.Inspect(resourceInfo.AstCompositeLit, 
+(n ast.Node) bool {
 			compositeLit, ok := n.(*ast.CompositeLit)
 
 			if !ok {

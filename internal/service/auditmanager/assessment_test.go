@@ -32,9 +32,9 @@ func TestAccAuditManagerAssessment_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentConfig_basic(rName),
@@ -52,7 +52,7 @@ func TestAccAuditManagerAssessment_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"roles"},
 			},
@@ -71,9 +71,9 @@ func TestAccAuditManagerAssessment_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentConfig_basic(rName),
@@ -98,9 +98,9 @@ func TestAccAuditManagerAssessment_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentConfig_tags1(rName, "key1", "value1"),
@@ -113,7 +113,7 @@ func TestAccAuditManagerAssessment_tags(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"roles"},
 			},
@@ -151,9 +151,9 @@ func TestAccAuditManagerAssessment_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentConfig_optional(rName, "text"),
@@ -165,7 +165,7 @@ func TestAccAuditManagerAssessment_optional(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"roles"},
 			},

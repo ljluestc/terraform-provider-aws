@@ -6,7 +6,9 @@ package version
 const version = "0.19.0"
 
 // ModuleVersion returns the current version of the github.com/hashicorp/terraform-exec Go module.
-// This is a function to allow for future possible enhancement using debug.BuildInfo.
-func ModuleVersion() string {
+// This is a 
+ to allow for future possible enhancement using debug.BuildInfo.
+
+uleVersion() string {
 	return version
 }

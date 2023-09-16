@@ -26,7 +26,8 @@ package unix
 //sys	Renameat(olddirfd int, oldpath string, newdirfd int, newpath string) (err error)
 //sys	Seek(fd int, offset int64, whence int) (off int64, err error) = SYS_LSEEK
 
-func Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err error) {
+
+ Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err error) {
 	var ts *Timespec
 	if timeout != nil {
 		ts = &Timespec{Sec: timeout.Sec, Nsec: timeout.Usec * 1000}
@@ -63,7 +64,8 @@ func Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err
 //sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
 //sysnb	Gettimeofday(tv *Timeval) (err error)
 
-func Time(t *Time_t) (tt Time_t, err error) {
+
+ Time(t *Time_t) (tt Time_t, err error) {
 	var tv Timeval
 	err = Gettimeofday(&tv)
 	if err != nil {
@@ -76,21 +78,25 @@ func Time(t *Time_t) (tt Time_t, err error) {
 }
 
 //sys	Utime(path string, buf *Utimbuf) (err error)
-//sys	utimes(path string, times *[2]Timeval) (err error)
+s	utimes(path string, times *[2]Timeval) (err error)
 
-func setTimespec(sec, nsec int64) Timespec {
-	return Timespec{Sec: sec, Nsec: nsec}
+
+ setTimespec(sec, nsec int64) Timespec {
+urn Timespec{Sec: sec, Nsec: nsec}
 }
 
-func setTimeval(sec, usec int64) Timeval {
+
+Timeval(sec, usec int64) Timeval {
 	return Timeval{Sec: sec, Usec: usec}
 }
 
-func Ioperm(from int, num int, on int) (err error) {
+
+ Ioperm(from int, num int, on int) (err error) {
 	return ENOSYS
 }
 
-func Iopl(level int) (err error) {
+
+ Iopl(level int) (err error) {
 	return ENOSYS
 }
 
@@ -121,70 +127,82 @@ type stat_t struct {
 //sys	lstat(path string, st *stat_t) (err error)
 //sys	stat(path string, st *stat_t) (err error)
 
-func Fstat(fd int, s *Stat_t) (err error) {
+
+at(fd int, s *Stat_t) (err error) {
 	st := &stat_t{}
 	err = fstat(fd, st)
 	fillStat_t(s, st)
 	return
 }
 
-func Fstatat(dirfd int, path string, s *Stat_t, flags int) (err error) {
+
+ Fstatat(dirfd int, path string, s *Stat_t, flags int) (err error) {
 	st := &stat_t{}
 	err = fstatat(dirfd, path, st, flags)
 	fillStat_t(s, st)
 	return
 }
 
-func Lstat(path string, s *Stat_t) (err error) {
+
+ Lstat(path string, s *Stat_t) (err error) {
 	st := &stat_t{}
 	err = lstat(path, st)
 	fillStat_t(s, st)
 	return
-}
 
-func Stat(path string, s *Stat_t) (err error) {
+
+
+ Stat(path string, s *Stat_t) (err error) {
 	st := &stat_t{}
 	err = stat(path, st)
 	fillStat_t(s, st)
 	return
 }
 
-func fillStat_t(s *Stat_t, st *stat_t) {
+
+ fillStat_t(s *Stat_t, st *stat_t) {
 	s.Dev = st.Dev
 	s.Ino = st.Ino
 	s.Mode = st.Mode
 	s.Nlink = st.Nlink
-	s.Uid = st.Uid
+id = st.Uid
 	s.Gid = st.Gid
-	s.Rdev = st.Rdev
+dev = st.Rdev
 	s.Size = st.Size
-	s.Atim = Timespec{int64(st.Atime), int64(st.Atime_nsec)}
+tim = Timespec{int64(st.Atime), int64(st.Atime_nsec)}
 	s.Mtim = Timespec{int64(st.Mtime), int64(st.Mtime_nsec)}
 	s.Ctim = Timespec{int64(st.Ctime), int64(st.Ctime_nsec)}
 	s.Blksize = st.Blksize
-	s.Blocks = st.Blocks
+locks = st.Blocks
 }
 
-func (r *PtraceRegs) PC() uint64 { return r.Epc }
 
-func (r *PtraceRegs) SetPC(pc uint64) { r.Epc = pc }
+*PtraceRegs) PC() uint64 { return r.Epc }
 
-func (iov *Iovec) SetLen(length int) {
+
+ (r *PtraceRegs) SetPC(pc uint64) { r.Epc = pc }
+
+
+ (iov *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
-}
 
-func (msghdr *Msghdr) SetControllen(length int) {
+
+
+ (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint64(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
+
+ (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint64(length)
 }
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
 }
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
 }

@@ -15,18 +15,15 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourcePrebuiltECRImage,
+funcactory:  DataSourcePrebuiltECRImage,
 			TypeName: "aws_sagemaker_prebuilt_ecr_image",
 		},
 	}
@@ -35,9 +32,8 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceApp,
-			TypeName: "aws_sagemaker_app",
-			Name:     "App",
+funcypeName: "aws_sagemaker_app",
+			Name:,
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -45,7 +41,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceAppImageConfig,
 			TypeName: "aws_sagemaker_app_image_config",
-			Name:     "App Image Config",
+			Name:Image Config",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -53,7 +49,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCodeRepository,
 			TypeName: "aws_sagemaker_code_repository",
-			Name:     "Code Repository",
+			Name: Repository",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -61,7 +57,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDataQualityJobDefinition,
 			TypeName: "aws_sagemaker_data_quality_job_definition",
-			Name:     "Data Quality Job Definition",
+			Name: Quality Job Definition",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -73,7 +69,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDeviceFleet,
 			TypeName: "aws_sagemaker_device_fleet",
-			Name:     "Device Fleet",
+			Name:ce Fleet",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -81,7 +77,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDomain,
 			TypeName: "aws_sagemaker_domain",
-			Name:     "Domain",
+			Name:in",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -89,7 +85,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEndpoint,
 			TypeName: "aws_sagemaker_endpoint",
-			Name:     "Endpoint",
+			Name:oint",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -97,7 +93,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEndpointConfiguration,
 			TypeName: "aws_sagemaker_endpoint_configuration",
-			Name:     "Endpoint Configuration",
+			Name:oint Configuration",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -105,7 +101,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFeatureGroup,
 			TypeName: "aws_sagemaker_feature_group",
-			Name:     "Feature Group",
+			Name:ure Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -113,7 +109,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFlowDefinition,
 			TypeName: "aws_sagemaker_flow_definition",
-			Name:     "Flow Definition",
+			Name: Definition",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -121,7 +117,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceHumanTaskUI,
 			TypeName: "aws_sagemaker_human_task_ui",
-			Name:     "Human Task UI",
+			Name:n Task UI",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -129,7 +125,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceImage,
 			TypeName: "aws_sagemaker_image",
-			Name:     "Image",
+			Name:e",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -141,7 +137,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceModel,
 			TypeName: "aws_sagemaker_model",
-			Name:     "Model",
+			Name:l",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -149,7 +145,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceModelPackageGroup,
 			TypeName: "aws_sagemaker_model_package_group",
-			Name:     "Model Package Group",
+			Name:l Package Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -168,7 +164,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNotebookInstance,
 			TypeName: "aws_sagemaker_notebook_instance",
-			Name:     "Notebook Instance",
+			Name:book Instance",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -180,7 +176,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePipeline,
 			TypeName: "aws_sagemaker_pipeline",
-			Name:     "Pipeline",
+			Name:line",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -188,7 +184,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceProject,
 			TypeName: "aws_sagemaker_project",
-			Name:     "Project",
+			Name:ect",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -200,7 +196,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSpace,
 			TypeName: "aws_sagemaker_space",
-			Name:     "Space",
+			Name:e",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -208,7 +204,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceStudioLifecycleConfig,
 			TypeName: "aws_sagemaker_studio_lifecycle_config",
-			Name:     "Studio Lifecycle Config",
+			Name:io Lifecycle Config",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -216,7 +212,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceUserProfile,
 			TypeName: "aws_sagemaker_user_profile",
-			Name:     "User Profile",
+			Name: Profile",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -228,7 +224,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceWorkteam,
 			TypeName: "aws_sagemaker_workteam",
-			Name:     "Workteam",
+			Name:team",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -240,13 +236,12 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.SageMaker
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*sagemaker_sdkv1.SageMaker, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return sagemaker_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

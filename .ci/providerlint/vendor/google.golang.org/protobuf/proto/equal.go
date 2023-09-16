@@ -38,7 +38,8 @@ import (
 // to &pb.M{}.
 // If two valid messages marshal to the same bytes under deterministic
 // serialization, then Equal is guaranteed to report true.
-func Equal(x, y Message) bool {
+
+ Equal(x, y Message) bool {
 	if x == nil || y == nil {
 		return x == nil && y == nil
 	}

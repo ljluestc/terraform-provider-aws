@@ -21,8 +21,7 @@ import (
 )
 
 
-func TestAccEC2SpotInstanceRequest_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -30,26 +29,24 @@ func TestAccEC2SpotInstanceRequest_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
-	testAccCheckSpotInstanceRequestAttributes(&sir),
-	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
+funcource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 	resource.TestCheckResourceAttr(resourceName, "instance_interruption_behavior", "terminate"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
@@ -60,17 +57,15 @@ ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfi
 func TestAccEC2SpotInstanceRequest_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
-	resourceName := "aws_spot_instance_request.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
+func
 Config: testAccSpotInstanceRequestConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -78,8 +73,7 @@ func(
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSpotInstanceRequest(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
-},
+func
 	})
 }
 
@@ -90,16 +84,14 @@ func TestAccEC2SpotInstanceRequest_tags(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir1),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -107,9 +99,8 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+funcrtStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 	{
@@ -124,8 +115,7 @@ func(
 ),
 	},
 	{
-Config: testAccSpotInstanceRequestConfig_tags1(rName, "key2", "value2"),
-Check: resource.ComposeAggregateTestCheck
+funck: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir3),
 	testAccCheckSpotInstanceRequestIDsEqual(&sir3, &sir2),
@@ -136,8 +126,7 @@ func(
 },
 	})
 }
-
-
+func
 func TestAccEC2SpotInstanceRequest_keyName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
@@ -149,13 +138,12 @@ func TestAccEC2SpotInstanceRequest_keyName(t *testing.T) {
 	if err != nil {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_keyName(rName, publicKey),
@@ -164,17 +152,15 @@ func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
 	resource.TestCheckResourceAttrPair(resourceName, "key_name", keyPairResourceName, "key_name"),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
-}
-
+func
 
 func TestAccEC2SpotInstanceRequest_withLaunchGroup(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -187,11 +173,10 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccSpotInstanceRequestConfig_launchGroup(rName),
-Check: resource.ComposeAggregateTestCheck
+funck: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
 	testAccCheckSpotInstanceRequestAttributes(&sir),
@@ -199,17 +184,15 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 	resource.TestCheckResourceAttr(resourceName, "launch_group", rName),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
-}
-
+func
 
 func TestAccEC2SpotInstanceRequest_withBlockDuration(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -222,23 +205,21 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_blockDuration(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
-	testAccCheckSpotInstanceRequestAttributes(&sir),
+functAccCheckSpotInstanceRequestAttributes(&sir),
 	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 	resource.TestCheckResourceAttr(resourceName, "block_duration_minutes", "60"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+funcrtStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
@@ -246,8 +227,7 @@ ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfi
 }
 
 
-func TestAccEC2SpotInstanceRequest_vpc(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -257,7 +237,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_vpc(rName),
@@ -266,17 +246,15 @@ func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
 	testAccCheckSpotInstanceRequestAttributes(&sir),
 	testAccCheckSpotInstanceRequestAttributesVPC(&sir),
-	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
-	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
+funcource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
-	},
-},
+func
 	})
 }
 
@@ -284,8 +262,7 @@ ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfi
 func TestAccEC2SpotInstanceRequest_validUntil(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
-	resourceName := "aws_spot_instance_request.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	validUntil := testAccSpotInstanceRequestValidUntil(t)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -293,7 +270,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_validUntil(rName, validUntil),
@@ -304,18 +281,16 @@ func(
 	testAccCheckSpotInstanceRequestAttributesValidUntil(&sir, validUntil),
 	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
-}
-
+func
 
 func TestAccEC2SpotInstanceRequest_withoutSpotPrice(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -323,12 +298,11 @@ func TestAccEC2SpotInstanceRequest_withoutSpotPrice(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_noPrice(rName),
@@ -341,10 +315,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
-ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
+ResourceName:ourceName,
+ImportState:ue,
+funcrtStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
@@ -352,8 +325,7 @@ ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfi
 
 
 func TestAccEC2SpotInstanceRequest_subnetAndSGAndPublicIPAddress(t *testing.T) {
-	ctx := acctest.Context(t)
-	var sir ec2.SpotInstanceRequest
+func sir ec2.SpotInstanceRequest
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -361,8 +333,7 @@ func TestAccEC2SpotInstanceRequest_subnetAndSGAndPublicIPAddress(t *testing.T) {
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+funckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_subnetAndSGAndPublicIPAddress(rName),
@@ -374,14 +345,13 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
-	})
-}
+func
 
 
 func TestAccEC2SpotInstanceRequest_networkInterfaceAttributes(t *testing.T) {
@@ -389,17 +359,15 @@ func TestAccEC2SpotInstanceRequest_networkInterfaceAttributes(t *testing.T) {
 	var sir ec2.SpotInstanceRequest
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccSpotInstanceRequestConfig_subnetAndSGAndPublicIPAddress(rName),
-Check: resource.ComposeAggregateTestCheck
+funck: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
 	testAccCheckSpotInstanceRequest_InstanceAttributes(ctx, &sir, rName),
@@ -408,16 +376,15 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
 }
-
-
+func
 func TestAccEC2SpotInstanceRequest_getPasswordData(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
@@ -425,8 +392,7 @@ func TestAccEC2SpotInstanceRequest_getPasswordData(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
-	if err != nil {
-t.Fatalf("error generating random SSH key: %s", err)
+functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -434,8 +400,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_getPasswordData(rName, publicKey),
 Check: resource.ComposeAggregateTestCheck
@@ -445,16 +410,15 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"get_password_data", "password_data", "user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
 	})
 }
-
-
+func
 func TestAccEC2SpotInstanceRequest_interruptStop(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
@@ -466,9 +430,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
+func
 Config: testAccSpotInstanceRequestConfig_interrupt(rName, "stop"),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -476,12 +439,11 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 	resource.TestCheckResourceAttr(resourceName, "instance_interruption_behavior", "stop"),
-),
-	},
+func
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
@@ -493,17 +455,15 @@ func TestAccEC2SpotInstanceRequest_interruptHibernate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var sir ec2.SpotInstanceRequest
 	resourceName := "aws_spot_instance_request.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config: testAccSpotInstanceRequestConfig_interrupt(rName, "hibernate"),
+funcig: testAccSpotInstanceRequestConfig_interrupt(rName, "hibernate"),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
@@ -511,11 +471,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 	resource.TestCheckResourceAttr(resourceName, "instance_interruption_behavior", "hibernate"),
 ),
-	},
-	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+func
+ResourceName:ourceName,
+ImportState:ue,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"user_data_replace_on_change", "wait_for_fulfillment"},
 	},
 },
@@ -530,17 +489,15 @@ func TestAccEC2SpotInstanceRequest_interruptUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_interrupt(rName, "hibernate"),
 Check: resource.ComposeAggregateTestCheck
-func(
-	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir1),
+functAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir1),
 	resource.TestCheckResourceAttr(resourceName, "instance_interruption_behavior", "hibernate"),
 ),
 	},
@@ -548,8 +505,7 @@ func(
 Config: testAccSpotInstanceRequestConfig_interrupt(rName, "terminate"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir2),
-	testAccCheckSpotInstanceRequestIDsNotEqual(&sir1, &sir2),
+functAccCheckSpotInstanceRequestIDsNotEqual(&sir1, &sir2),
 	resource.TestCheckResourceAttr(resourceName, "instance_interruption_behavior", "terminate"),
 ),
 	},
@@ -567,24 +523,21 @@ func TestAccEC2SpotInstanceRequest_withInstanceProfile(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotInstanceRequestDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSpotInstanceRequestConfig_withInstanceProfile(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckSpotInstanceRequestExists(ctx, resourceName, &sir),
-	resource.TestCheckResourceAttrSet(resourceName, "iam_instance_profile"),
-	resource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
+funcource.TestCheckResourceAttr(resourceName, "spot_bid_status", "fulfilled"),
 	resource.TestCheckResourceAttr(resourceName, "spot_request_state", "active"),
 ),
 	},
 },
 	})
 }
-
 
 func testAccSpotInstanceRequestValidUntil(t *testing.T) string {
 	return testAccSpotInstanceRequestTime(t, "12h")
@@ -594,8 +547,7 @@ func testAccSpotInstanceRequestValidUntil(t *testing.T) string {
 func testAccSpotInstanceRequestTime(t *testing.T, duration string) string {
 	n := time.Now().UTC()
 	d, err := time.ParseDuration(duration)
-	if err != nil {
-t.Fatalf("err parsing time duration: %s", err)
+functalf("err parsing time duration: %s", err)
 	}
 	return n.Add(d).Format(time.RFC3339)
 }
@@ -606,8 +558,7 @@ func {
 	return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+func_, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_spot_instance_request" {
 continue
 	}
@@ -615,8 +566,7 @@ continue
 	_, err := tfec2.FindSpotInstanceRequestByID(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
-// Now check if the associated Spot Instance was also destroyed.
-instanceID := rs.Primary.Attributes["spot_instance_id"]
+funcanceID := rs.Primary.Attributes["spot_instance_id"]
 _, err := tfec2.FindInstanceByID(ctx, conn, instanceID)
 
 if tfresource.NotFound(err) {
@@ -624,8 +574,7 @@ if tfresource.NotFound(err) {
 }
 
 if err != nil {
-	return err
-}
+func
 
 return fmt.Errorf("EC2 Instance %s still exists", instanceID)
 	}
@@ -637,14 +586,12 @@ return err
 	return fmt.Errorf("EC2 Spot Instance Request %s still exists", rs.Primary.ID)
 }
 
-return nil
-	}
+func
 }
 
 
 func testAccCheckSpotInstanceRequestExists(ctx context.Context, n string, v *ec2.SpotInstanceRequest) resource.TestCheck
-func {
-	return 
+funcurn 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -654,13 +601,10 @@ if !ok {
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No EC2 Spot Instance Request ID is set")
 }
+func := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+funcut, err := tfec2.FindSpotInstanceRequestByID(ctx, conn, rs.Primary.ID)
 
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
-output, err := tfec2.FindSpotInstanceRequestByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
-	return err
+funcurn err
 }
 
 *v = *output
@@ -698,12 +642,9 @@ if sir.ValidUntil.Format(time.RFC3339) != validUntil {
 	return fmt.Errorf("Unexpected valid_until time: %s", sir.ValidUntil.String())
 }
 return nil
-	}
-}
-
-
+func
+func
 func testAccCheckSpotInstanceRequestAttributesCheckSIRWithoutSpot(
-	sir *ec2.SpotInstanceRequest) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -729,14 +670,11 @@ instance, err := tfec2.FindInstanceByID(ctx, conn, aws.StringValue(v.InstanceId)
 if err != nil {
 	return err
 }
-
-for _, v := range instance.SecurityGroups {
+func_, v := range instance.SecurityGroups {
 	if aws.StringValue(v.GroupName) == sgName {
-return nil
-	}
+func
 }
-
-return fmt.Errorf("Error in matching Spot Instance Security Group, expected %s, got %v", sgName, instance.SecurityGroups)
+funcrn fmt.Errorf("Error in matching Spot Instance Security Group, expected %s, got %v", sgName, instance.SecurityGroups)
 	}
 }
 
@@ -751,13 +689,10 @@ if nis == nil || len(nis) != 1 {
 	return fmt.Errorf("Expected exactly 1 network interface, found %d", len(nis))
 }
 
-return nil
-	}
+func
 }
-
-
+func
 func testAccCheckSpotInstanceRequestAttributesVPC(
-	sir *ec2.SpotInstanceRequest) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -767,14 +702,11 @@ if nis == nil || len(nis) != 1 {
 }
 
 ni := nis[0]
-
-if ni.SubnetId == nil {
+funci.SubnetId == nil {
 	return fmt.Errorf("Expected SubnetId not be non-empty for %s as the instance belongs to a VPC", *sir.InstanceId)
-}
-return nil
+funcrn nil
 	}
-}
-
+func
 
 func testAccCheckSpotInstanceRequestIDsEqual(sir1, sir2 *ec2.SpotInstanceRequest) resource.TestCheck
 func {
@@ -786,12 +718,9 @@ if aws.StringValue(sir1.SpotInstanceRequestId) != aws.StringValue(sir2.SpotInsta
 
 return nil
 	}
-}
-
-
+func
 func testAccCheckSpotInstanceRequestIDsNotEqual(sir1, sir2 *ec2.SpotInstanceRequest) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 if aws.StringValue(sir1.SpotInstanceRequestId) == aws.StringValue(sir2.SpotInstanceRequestId) {
 	return fmt.Errorf("Spot Instance Request IDs are equal")
@@ -808,18 +737,15 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
   spot_price  = "0.05"
   wait_for_fulfillment = true
-}
-
+func
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value       = %[1]q
-}
-`, rName))
+funcy= "Name"
+  value
+funcName))
 }
 
 
@@ -829,20 +755,17 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+funcot_price  = "0.05"
   wait_for_fulfillment = true
-
-  tags = {
-    %[2]q = %[3]q
-  }
-}
+funcgs = {
+2]q = %[3]q
+func
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -853,48 +776,41 @@ func testAccSpotInstanceRequestConfig_tags2(rName, tagKey1, tagValue1, tagKey2, 
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
-resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
+funciata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+funcot_price  = "0.05"
   wait_for_fulfillment = true
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+funcgs = {
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
-}
-`, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
+  value
+funcName, tagKey1, tagValue1, tagKey2, tagValue2))
+func
 
-
-func testAccSpotInstanceRequestConfig_validUntil(rName string, validUntil string) string {
-	return acctest.ConfigCompose(
+funcurn acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
   spot_price  = "0.05"
   valid_until = %[2]q
   wait_for_fulfillment = true
-
-  tags = {
-    Name = %[1]q
+funcgs = {
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName, validUntil))
 }
@@ -906,19 +822,18 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
-  wait_for_fulfillment = true
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+funcit_for_fulfillment = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName))
 }
@@ -930,29 +845,28 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name    = aws_key_pair.test.key_name
-  wait_for_fulfillment = true
-
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
+  key_nameaws_key_pair.test.key_name
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name[1]q
   public_key = %[2]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName, publicKey))
 }
@@ -960,25 +874,24 @@ resource "aws_ec2_tag" "test" {
 
 func testAccSpotInstanceRequestConfig_launchGroup(rName string) string {
 	return acctest.ConfigCompose(
-acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
+funcest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
   spot_price  = "0.05"
   wait_for_fulfillment = true
   launch_group= %[1]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName))
 }
@@ -987,24 +900,23 @@ resource "aws_ec2_tag" "test" {
 func testAccSpotInstanceRequestConfig_blockDuration(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
-fmt.Sprintf(`
+funcSprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price    = "0.05"
-  wait_for_fulfillment   = true
+  spot_price"0.05"
+  wait_for_fulfillmentrue
   block_duration_minutes = 60
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName))
 }
@@ -1012,44 +924,42 @@ resource "aws_ec2_tag" "test" {
 
 func testAccSpotInstanceRequestConfig_vpc(rName string) string {
 	return acctest.ConfigCompose(
-acctest.ConfigAvailableAZsNoOptIn(),
-acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+funcest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.1.1.0/24"
-  vpc_id   = aws_vpc.test.id
+  cidr_block.1.0/24"
+  vpc_idws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
   spot_price  = "0.05"
   wait_for_fulfillment = true
-  subnet_id   = aws_subnet.test.id
+  subnet_idws_subnet.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value       = %[1]q
+funcy= "Name"
+  value
 }
 `, rName))
 }
@@ -1064,50 +974,48 @@ fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
   ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type= data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price   = "0.05"
-  wait_for_fulfillment        = true
-  subnet_id    = aws_subnet.test.id
-  vpc_security_group_ids      = [aws_security_group.test.id]
+  spot_price0.05"
+  wait_for_fulfillment
+  subnet_idaws_subnet.test.id
+  vpc_security_group_idscurity_group.test.id]
   associate_public_ip_address = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-resource "aws_vpc" "test" {
+funcurce "aws_vpc" "test" {
   cidr_block  = "10.0.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  availability_zone       = data.aws_availability_zones.available.names[0]
-  vpc_id   = aws_vpc.test.id
-  cidr_block     = "10.0.0.0/24"
+  availability_zonews_availability_zones.available.names[0]
+  vpc_idws_vpc.test.id
+  cidr_block0/24"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
-  }
-}
+me = %[1]q
+func
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName))
 }
@@ -1119,57 +1027,56 @@ testAccLatestWindowsServer2016CoreAMIConfig(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.win2016core-ami.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
+  amiata.aws_ami.win2016core-ami.id
+  instance_typeaws_ec2_instance_type_offering.available.instance_type
   spot_price  = "0.05"
-  key_name    = aws_key_pair.test.key_name
+  key_nameaws_key_pair.test.key_name
   wait_for_fulfillment = true
-  get_password_data    = true
+  get_password_datatrue
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name[1]q
   public_key = %[2]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName, publicKey))
 }
-
-
+func
 func testAccSpotInstanceRequestConfig_interrupt(rName, interruptionBehavior string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("c5.large", "c4.large"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami    = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type   = data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price      = "0.07"
+  amidata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_typeata.aws_ec2_instance_type_offering.available.instance_type
+  spot_price
   wait_for_fulfillment  = true
   instance_interruption_behavior = %[2]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName, interruptionBehavior))
 }
@@ -1185,16 +1092,16 @@ resource "aws_iam_role" "test" {
 
   assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-   "Effect": "Allow",
-   "Principal": {
+ersion": "2012-10-17",
+tatement": [
+
+fect": "Allow",
+incipal": {
  "Service": "ec2.amazonaws.com"
-   },
-   "Action": "sts:AssumeRole"
-        }
-    ]
+
+tion": "sts:AssumeRole"
+
+
 }
 EOF
 }
@@ -1205,9 +1112,8 @@ resource "aws_iam_instance_profile" "test" {
 }
 
 resource "aws_spot_instance_request" "test" {
-  ami   = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
-  iam_instance_profile = aws_iam_instance_profile.test.name
+  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+funcm_instance_profile = aws_iam_instance_profile.test.name
   spot_price  = "0.05"
   wait_for_fulfillment = true
 }
@@ -1215,7 +1121,8 @@ resource "aws_spot_instance_request" "test" {
 resource "aws_ec2_tag" "test" {
   resource_id = aws_spot_instance_request.test.spot_instance_id
   key= "Name"
-  value       = %[1]q
+  value
 }
 `, rName))
 }
+funcfunc

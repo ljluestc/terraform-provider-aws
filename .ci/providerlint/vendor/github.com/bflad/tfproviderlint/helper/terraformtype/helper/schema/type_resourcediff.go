@@ -9,7 +9,8 @@ const (
 )
 
 // IsTypeResourceDiff returns if the type is ResourceDiff from the schema package
-func IsTypeResourceDiff(t types.Type) bool {
+
+ypeResourceDiff(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameResourceDiff)

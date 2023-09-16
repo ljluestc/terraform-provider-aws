@@ -17,7 +17,8 @@ var v1_21 = version.Must(version.NewVersion("1.21"))
 
 // installGoVersion installs given version of Go using Go
 // according to https://golang.org/doc/manage-install
-func (gb *GoBuild) installGoVersion(ctx context.Context, v *version.Version) (Go, error) {
+
+ (gb *GoBuild) installGoVersion(ctx context.Context, v *version.Version) (Go, error) {
 	goVersion := v.String()
 
 	// trim 0 patch versions as that's how Go does it
@@ -53,7 +54,9 @@ func (gb *GoBuild) installGoVersion(ctx context.Context, v *version.Version) (Go
 	}
 	gb.log().Printf("download of go %q finished", v)
 
-	cleanupFunc := func(ctx context.Context) {
+	cleanup
+ := 
+(ctx context.Context) {
 		cmd = exec.CommandContext(ctx, cmdName, "env", "GOROOT")
 		out, err = cmd.CombinedOutput()
 		if err != nil {
@@ -69,7 +72,9 @@ func (gb *GoBuild) installGoVersion(ctx context.Context, v *version.Version) (Go
 
 	return Go{
 		Cmd:         cmdName,
-		CleanupFunc: cleanupFunc,
+		Cleanup
+: cleanup
+,
 		Version:     v,
 	}, nil
 }

@@ -23,8 +23,7 @@ import (
 
 // @SDKResource("aws_devicefarm_project", name="Project")
 // @Tags(identifierAttribute="arn")
-func ResourceProject() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceProjectCreate,
 		ReadWithoutTimeout:   resourceProjectRead,
 		UpdateWithoutTimeout: resourceProjectUpdate,
@@ -57,8 +56,7 @@ func ResourceProject() *schema.Resource {
 }
 
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &devicefarm.CreateProjectInput{
@@ -86,8 +84,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
+func
 	project, err := FindProjectByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -111,8 +108,7 @@ func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateProjectInput{
 			Arn: aws.String(d.Id()),
 		}
@@ -139,8 +135,7 @@ func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta int
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 
-	log.Printf("[DEBUG] Deleting DeviceFarm Project: %s", d.Id())
-	_, err := conn.DeleteProjectWithContext(ctx, &devicefarm.DeleteProjectInput{
+funcerr := conn.DeleteProjectWithContext(ctx, &devicefarm.DeleteProjectInput{
 		Arn: aws.String(d.Id()),
 	})
 

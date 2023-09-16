@@ -11,7 +11,8 @@ import (
 // with FromContext. The optional args can be set with the same syntax as
 // Logger.With to set fields on the inserted logger. This will not modify
 // the logger argument in-place.
-func WithContext(ctx context.Context, logger Logger, args ...interface{}) context.Context {
+
+hContext(ctx context.Context, logger Logger, args ...interface{}) context.Context {
 	// While we could call logger.With even with zero args, we have this
 	// check to avoid unnecessary allocations around creating a copy of a
 	// logger.
@@ -25,7 +26,8 @@ func WithContext(ctx context.Context, logger Logger, args ...interface{}) contex
 // FromContext returns a logger from the context. This will return L()
 // (the default logger) if no logger is found in the context. Therefore,
 // this will never return a nil value.
-func FromContext(ctx context.Context) Logger {
+
+mContext(ctx context.Context) Logger {
 	logger, _ := ctx.Value(contextKey).(Logger)
 	if logger == nil {
 		return L()

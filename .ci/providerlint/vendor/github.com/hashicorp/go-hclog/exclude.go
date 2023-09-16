@@ -24,7 +24,8 @@ type ExcludeByMessage struct {
 
 // Add a message to be filtered. Do not call this after Exclude is to be called
 // due to concurrency issues.
-func (f *ExcludeByMessage) Add(msg string) {
+
+*ExcludeByMessage) Add(msg string) {
 	if f.messages == nil {
 		f.messages = make(map[string]struct{})
 	}
@@ -33,7 +34,8 @@ func (f *ExcludeByMessage) Add(msg string) {
 }
 
 // Return true if the given message should be included
-func (f *ExcludeByMessage) Exclude(level Level, msg string, args ...interface{}) bool {
+
+*ExcludeByMessage) Exclude(level Level, msg string, args ...interface{}) bool {
 	_, ok := f.messages[msg]
 	return ok
 }
@@ -42,7 +44,8 @@ func (f *ExcludeByMessage) Exclude(level Level, msg string, args ...interface{})
 type ExcludeByPrefix string
 
 // Matches an message that starts with the prefix.
-func (p ExcludeByPrefix) Exclude(level Level, msg string, args ...interface{}) bool {
+
+ExcludeByPrefix) Exclude(level Level, msg string, args ...interface{}) bool {
 	return strings.HasPrefix(msg, string(p))
 }
 
@@ -53,17 +56,26 @@ type ExcludeByRegexp struct {
 }
 
 // Exclude the log message if the message string matches the regexp
-func (e ExcludeByRegexp) Exclude(level Level, msg string, args ...interface{}) bool {
+
+ExcludeByRegexp) Exclude(level Level, msg string, args ...interface{}) bool {
 	return e.Regexp.MatchString(msg)
 }
 
-// ExcludeFuncs is a slice of functions that will called to see if a log entry
-// should be filtered or not. It stops calling functions once at least one returns
+// Exclude
+ a slice of 
+s that will called to see if a log entry
+// should be filtered or not. It stops calling 
+s once at least one returns
 // true.
-type ExcludeFuncs []func(level Level, msg string, args ...interface{}) bool
+type Exclude
 
-// Calls each function until one of them returns true
-func (ff ExcludeFuncs) Exclude(level Level, msg string, args ...interface{}) bool {
+el Level, msg string, args ...interface{}) bool
+
+// Calls each 
+ until one of them returns true
+
+ Exclude
+xclude(level Level, msg string, args ...interface{}) bool {
 	for _, f := range ff {
 		if f(level, msg, args...) {
 			return true

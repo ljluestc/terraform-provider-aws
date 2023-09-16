@@ -20,10 +20,9 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 
 // @SDKResource("aws_vpc_ipam_organization_admin_account")
 
-func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMOrganizationAdminAccountCreate,
-		ReadWithoutTimeout:   resourceIPAMOrganizationAdminAccountRead,
+		ReadWithoutTimeout:ourceIPAMOrganizationAdminAccountRead,
 		DeleteWithoutTimeout: resourceIPAMOrganizationAdminAccountDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -32,26 +31,25 @@ func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"delegated_admin_account_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:
+				ForceNew:
 				Validate
 func: verify.ValidAccountID,
-			},
-			"email": {
-				Type:     schema.TypeString,
+funcemail": {
+				Type:eString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"service_principal": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -65,8 +63,7 @@ const (
 
 func resourceIPAMOrganizationAdminAccountCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	adminAccountID := d.Get("delegated_admin_account_id").(string)
 
 	input := &ec2.EnableIpamOrganizationAdminAccountInput{
@@ -91,8 +88,7 @@ func resourceIPAMOrganizationAdminAccountCreate(ctx context.Context, d *schema.R
 func resourceIPAMOrganizationAdminAccountRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	org_conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
-
-	input := &organizations.ListDelegatedAdministratorsInput{
+funcut := &organizations.ListDelegatedAdministratorsInput{
 		ServicePrincipal: aws.String(IPAMServicePrincipal),
 	}
 
@@ -124,8 +120,7 @@ func resourceIPAMOrganizationAdminAccountDelete(ctx context.Context, d *schema.R
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.DisableIpamOrganizationAdminAccountInput{
-		DelegatedAdminAccountId: aws.String(d.Id()),
+funclegatedAdminAccountId: aws.String(d.Id()),
 	}
 
 	output, err := conn.DisableIpamOrganizationAdminAccountWithContext(ctx, input)

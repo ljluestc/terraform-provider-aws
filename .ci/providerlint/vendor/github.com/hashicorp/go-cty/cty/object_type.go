@@ -11,9 +11,11 @@ type typeObject struct {
 
 // Object creates an object type with the given attribute types.
 //
-// After a map is passed to this function the caller must no longer access it,
+// After a map is passed to this 
+ the caller must no longer access it,
 // since ownership is transferred to this library.
-func Object(attrTypes map[string]Type) Type {
+
+ect(attrTypes map[string]Type) Type {
 	attrTypesNorm := make(map[string]Type, len(attrTypes))
 	for k, v := range attrTypes {
 		attrTypesNorm[NormalizeString(k)] = v
@@ -26,7 +28,8 @@ func Object(attrTypes map[string]Type) Type {
 	}
 }
 
-func (t typeObject) Equals(other Type) bool {
+
+typeObject) Equals(other Type) bool {
 	if ot, ok := other.typeImpl.(typeObject); ok {
 		if len(t.AttrTypes) != len(ot.AttrTypes) {
 			// Fast path: if we don't have the same number of attributes
@@ -51,7 +54,8 @@ func (t typeObject) Equals(other Type) bool {
 	return false
 }
 
-func (t typeObject) FriendlyName(mode friendlyTypeNameMode) string {
+
+typeObject) FriendlyName(mode friendlyTypeNameMode) string {
 	// There isn't really a friendly way to write an object type due to its
 	// complexity, so we'll just do something English-ish. Callers will
 	// probably want to make some extra effort to avoid ever printing out
@@ -62,7 +66,8 @@ func (t typeObject) FriendlyName(mode friendlyTypeNameMode) string {
 	return "object"
 }
 
-func (t typeObject) GoString() string {
+
+typeObject) GoString() string {
 	if len(t.AttrTypes) == 0 {
 		return "cty.EmptyObject"
 	}
@@ -77,7 +82,8 @@ var EmptyObject Type
 // EmptyObject.
 var EmptyObjectVal Value
 
-func init() {
+
+t() {
 	EmptyObject = Object(map[string]Type{})
 	EmptyObjectVal = Value{
 		ty: EmptyObject,
@@ -87,7 +93,8 @@ func init() {
 
 // IsObjectType returns true if the given type is an object type, regardless
 // of its element type.
-func (t Type) IsObjectType() bool {
+
+Type) IsObjectType() bool {
 	_, ok := t.typeImpl.(typeObject)
 	return ok
 }
@@ -95,7 +102,8 @@ func (t Type) IsObjectType() bool {
 // HasAttribute returns true if the receiver has an attribute with the given
 // name, regardless of its type. Will panic if the reciever isn't an object
 // type; use IsObjectType to determine whether this operation will succeed.
-func (t Type) HasAttribute(name string) bool {
+
+Type) HasAttribute(name string) bool {
 	name = NormalizeString(name)
 	if ot, ok := t.typeImpl.(typeObject); ok {
 		_, hasAttr := ot.AttrTypes[name]
@@ -107,7 +115,8 @@ func (t Type) HasAttribute(name string) bool {
 // AttributeType returns the type of the attribute with the given name. Will
 // panic if the receiver is not an object type (use IsObjectType to confirm)
 // or if the object type has no such attribute (use HasAttribute to confirm).
-func (t Type) AttributeType(name string) Type {
+
+Type) AttributeType(name string) Type {
 	name = NormalizeString(name)
 	if ot, ok := t.typeImpl.(typeObject); ok {
 		aty, hasAttr := ot.AttrTypes[name]
@@ -127,7 +136,8 @@ func (t Type) AttributeType(name string) Type {
 // for read access only. It is forbidden for any caller to modify the returned
 // map. For many purposes the attribute-related methods of Value are more
 // appropriate and more convenient to use.
-func (t Type) AttributeTypes() map[string]Type {
+
+Type) AttributeTypes() map[string]Type {
 	if ot, ok := t.typeImpl.(typeObject); ok {
 		return ot.AttrTypes
 	}

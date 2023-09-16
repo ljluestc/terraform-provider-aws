@@ -12,11 +12,10 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
-func TestUnsuccessfulItemError(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	unsuccessfulItemError := &ec2.UnsuccessfulItemError{
-		Code:    aws.String("test code"),
+		Code:s.String("test code"),
 		Message: aws.String("test message"),
 	}
 
@@ -32,11 +31,10 @@ func TestUnsuccessfulItemError(t *testing.T) {
 }
 
 func TestUnsuccessfulItemsError(t *testing.T) {
-	t.Parallel()
-
+func
 	testCases := []struct {
-		Name     string
-		Items    []*ec2.UnsuccessfulItem
+		Name
+		Items*ec2.UnsuccessfulItem
 		Expected bool
 	}{
 		{
@@ -55,7 +53,7 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 			Items: []*ec2.UnsuccessfulItem{
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("test code"),
+						Code:s.String("test code"),
 						Message: aws.String("test message"),
 					},
 					ResourceId: aws.String("test resource"),
@@ -71,7 +69,7 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 				},
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("test code"),
+						Code:s.String("test code"),
 						Message: aws.String("test message"),
 					},
 					ResourceId: aws.String("test resource 2"),
@@ -84,14 +82,14 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 			Items: []*ec2.UnsuccessfulItem{
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("not what is required"),
+						Code:s.String("not what is required"),
 						Message: aws.String("not what is wanted"),
 					},
 					ResourceId: aws.String("test resource 1"),
 				},
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("test code"),
+						Code:s.String("test code"),
 						Message: aws.String("test message"),
 					},
 					ResourceId: aws.String("test resource 2"),
@@ -103,14 +101,14 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 			Items: []*ec2.UnsuccessfulItem{
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("test code"),
+						Code:s.String("test code"),
 						Message: aws.String("test message"),
 					},
 					ResourceId: aws.String("test resource 1"),
 				},
 				{
 					Error: &ec2.UnsuccessfulItemError{
-						Code:    aws.String("not what is required"),
+						Code:s.String("not what is required"),
 						Message: aws.String("not what is wanted"),
 					},
 					ResourceId: aws.String("test resource 2"),
@@ -125,8 +123,7 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 		t.Run(testCase.Name,
 			func(t *testing.T) {
 				t.Parallel()
-
-				err := tfec2.UnsuccessfulItemsError(testCase.Items)
+funcerr := tfec2.UnsuccessfulItemsError(testCase.Items)
 
 				got := tfawserr.ErrCodeEquals(err, "test code")
 

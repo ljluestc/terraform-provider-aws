@@ -236,8 +236,8 @@ type resourceFrameworkShareData struct {
 	DestinationAccount types.String `tfsdk:"destination_account"`
 	DestinationRegion  types.String `tfsdk:"destination_region"`
 	FrameworkID        types.String `tfsdk:"framework_id"`
-	ID                 types.String `tfsdk:"id"`
-	Status             types.String `tfsdk:"status"`
+	ID    types.String `tfsdk:"id"`
+	Statustypes.String `tfsdk:"status"`
 }
 
 // refreshFromOutput writes state data from an AWS response object

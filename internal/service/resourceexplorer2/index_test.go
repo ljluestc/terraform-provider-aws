@@ -27,9 +27,9 @@ func testAccIndex_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic,
@@ -57,9 +57,9 @@ func testAccIndex_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic,
@@ -82,9 +82,9 @@ func testAccIndex_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_tags1("key1", "value1"),
@@ -129,9 +129,9 @@ func testAccIndex_type(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.ResourceExplorer2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_type("AGGREGATOR"),

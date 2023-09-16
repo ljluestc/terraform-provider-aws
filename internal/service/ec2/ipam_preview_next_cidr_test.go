@@ -13,25 +13,22 @@ import (
 )
 
 
-func TestAccIPAMPreviewNextCIDR_ipv4Basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_preview_next_cidr.test"
 	netmaskLength := "28"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:l,
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrSet(resourceName, "cidr"),
-	resource.TestCheckResourceAttrSet(resourceName, "id"),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 	resource.TestCheckResourceAttr(resourceName, "netmask_length", netmaskLength),
 ),
 	},
@@ -43,17 +40,15 @@ func(
 func TestAccIPAMPreviewNextCIDR_ipv4Allocated(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_preview_next_cidr.test"
-	netmaskLength := "28"
-	allocatedCidr := "172.2.0.0/28"
+funcocatedCidr := "172.2.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
-Steps: []resource.TestStep{
-	{
+CheckDestroy:l,
+func
 Config: testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength),
 Check: resource.ComposeTestCheck
 func(
@@ -61,8 +56,7 @@ func(
 	resource.TestCheckResourceAttrSet(resourceName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 	resource.TestCheckResourceAttr(resourceName, "netmask_length", netmaskLength),
-),
-	},
+func
 	{
 Config: testAccIPAMPreviewNextCIDRConfig_ipv4Allocated(netmaskLength),
 Check: resource.ComposeTestCheck
@@ -72,8 +66,7 @@ func(
 	resource.TestCheckResourceAttrSet(resourceName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 	resource.TestCheckResourceAttr(resourceName, "netmask_length", netmaskLength),
-),
-	},
+func
 },
 	})
 }
@@ -86,18 +79,16 @@ func TestAccIPAMPreviewNextCIDR_ipv4DisallowedCIDR(t *testing.T) {
 	netmaskLength := "28"
 	expectedCidr := "172.2.0.16/28"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:l,
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPreviewNextCIDRConfig_ipv4Disallowed(netmaskLength, disallowedCidr),
 Check: resource.ComposeTestCheck
-func(
-	resource.TestCheckResourceAttr(resourceName, "cidr", expectedCidr),
+funcource.TestCheckResourceAttr(resourceName, "cidr", expectedCidr),
 	resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.0", disallowedCidr),
 	resource.TestCheckResourceAttrSet(resourceName, "id"),
@@ -105,8 +96,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "netmask_length", netmaskLength),
 ),
 	},
-},
-	})
+func
 }
 
 const testAccIPAMPreviewNextCIDRConfig_ipv4Base = `
@@ -115,7 +105,7 @@ data "aws_region" "current" {}
 resource "aws_vpc_ipam" "test" {
   description = "test"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 
@@ -137,13 +127,12 @@ func testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength string) string {
 testAccIPAMPreviewNextCIDRConfig_ipv4Base,
 fmt.Sprintf(`
 resource "aws_vpc_ipam_preview_next_cidr" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.test.id
+  ipam_pool_idws_vpc_ipam_pool.test.id
   netmask_length = %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
-  ]
-}
+s_vpc_ipam_pool_cidr.test
+func
 `, netmaskLength))
 }
 
@@ -153,14 +142,13 @@ func testAccIPAMPreviewNextCIDRConfig_ipv4Allocated(netmaskLength string) string
 testAccIPAMPreviewNextCIDRConfig_ipv4Base,
 fmt.Sprintf(`
 resource "aws_vpc_ipam_preview_next_cidr" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.test.id
+  ipam_pool_idws_vpc_ipam_pool.test.id
   netmask_length = %[1]q
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
+s_vpc_ipam_pool_cidr.test
   ]
-}
-
+func
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
   cidr= aws_vpc_ipam_preview_next_cidr.test.cidr
@@ -172,16 +160,15 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
 func testAccIPAMPreviewNextCIDRConfig_ipv4Disallowed(netmaskLength, disallowedCidr string) string {
 	return testAccIPAMPreviewNextCIDRConfig_ipv4Base + fmt.Sprintf(`
 resource "aws_vpc_ipam_preview_next_cidr" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.test.id
+  ipam_pool_idws_vpc_ipam_pool.test.id
   netmask_length = %[1]q
 
   disallowed_cidrs = [
-    %[2]q
+2]q
   ]
 
   depends_on = [
-    aws_vpc_ipam_pool_cidr.test
-  ]
-}
+s_vpc_ipam_pool_cidr.test
+func
 `, netmaskLength, disallowedCidr)
 }

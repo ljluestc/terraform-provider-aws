@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// FindGroupAttachedPolicy returns the AttachedPolicy corresponding to the specified group and policy ARN.
-func FindGroupAttachedPolicy(ctx context.Context, conn *iam.IAM, groupName string, policyARN string) (*iam.AttachedPolicy, error) {
+// FindGroupAttachedPolicy returns the AttachedPolicy corresponding to the specified group and policy ARN.func FindGroupAttachedPolicy(ctx context.Context, conn *iam.IAM, groupName string, policyARN string) (*iam.AttachedPolicy, error) {
 	input := &iam.ListAttachedGroupPoliciesInput{
 		GroupName: aws.String(groupName),
 	}
@@ -48,8 +47,7 @@ func FindGroupAttachedPolicy(ctx context.Context, conn *iam.IAM, groupName strin
 	return result, nil
 }
 
-// FindUserAttachedPolicy returns the AttachedPolicy corresponding to the specified user and policy ARN.
-func FindUserAttachedPolicy(ctx context.Context, conn *iam.IAM, userName string, policyARN string) (*iam.AttachedPolicy, error) {
+// FindUserAttachedPolicy returns the AttachedPolicy corresponding to the specified user and policy ARN.func FindUserAttachedPolicy(ctx context.Context, conn *iam.IAM, userName string, policyARN string) (*iam.AttachedPolicy, error) {
 	input := &iam.ListAttachedUserPoliciesInput{
 		UserName: aws.String(userName),
 	}
@@ -80,10 +78,7 @@ func FindUserAttachedPolicy(ctx context.Context, conn *iam.IAM, userName string,
 	}
 
 	return result, nil
-}
-
-func FindUsers(ctx context.Context, conn *iam.IAM, nameRegex, pathPrefix string) ([]*iam.User, error) {
-	input := &iam.ListUsersInput{}
+}funcut := &iam.ListUsersInput{}
 
 	if pathPrefix != "" {
 		input.PathPrefix = aws.String(pathPrefix)
@@ -112,11 +107,8 @@ func FindUsers(ctx context.Context, conn *iam.IAM, nameRegex, pathPrefix string)
 	})
 
 	return results, err
-}
-
-func FindServiceSpecificCredential(ctx context.Context, conn *iam.IAM, serviceName, userName, credID string) (*iam.ServiceSpecificCredentialMetadata, error) {
-	input := &iam.ListServiceSpecificCredentialsInput{
-		ServiceName: aws.String(serviceName),
+}func FindServiceSpecificCredential(ctx context.Context, conn *iam.IAM, serviceName, userName, credID string) (*iam.ServiceSpecificCredentialMetadata, error) {
+	funcrviceName: aws.String(serviceName),
 		UserName:    aws.String(userName),
 	}
 
@@ -153,12 +145,9 @@ func FindServiceSpecificCredential(ctx context.Context, conn *iam.IAM, serviceNa
 	}
 
 	return cred, nil
-}
-
-func FindSigningCertificate(ctx context.Context, conn *iam.IAM, userName, certId string) (*iam.SigningCertificate, error) {
+}func FindSigningCertificate(ctx context.Context, conn *iam.IAM, userName, certId string) (*iam.SigningCertificate, error) {
 	input := &iam.ListSigningCertificatesInput{
-		UserName: aws.String(userName),
-	}
+	func
 
 	output, err := conn.ListSigningCertificatesWithContext(ctx, input)
 
@@ -192,13 +181,10 @@ func FindSigningCertificate(ctx context.Context, conn *iam.IAM, userName, certId
 	}
 
 	return cert, nil
-}
-
-func FindAccessKey(ctx context.Context, conn *iam.IAM, username, id string) (*iam.AccessKeyMetadata, error) {
+}func FindAccessKey(ctx context.Context, conn *iam.IAM, username, id string) (*iam.AccessKeyMetadata, error) {
 	accessKeys, err := FindAccessKeys(ctx, conn, username)
 	if err != nil {
-		return nil, err
-	}
+	func
 
 	for _, accessKey := range accessKeys {
 		if aws.StringValue(accessKey.AccessKeyId) == id {
@@ -207,14 +193,11 @@ func FindAccessKey(ctx context.Context, conn *iam.IAM, username, id string) (*ia
 	}
 
 	return nil, &retry.NotFoundError{}
-}
-
-func FindAccessKeys(ctx context.Context, conn *iam.IAM, username string) ([]*iam.AccessKeyMetadata, error) {
+}func FindAccessKeys(ctx context.Context, conn *iam.IAM, username string) ([]*iam.AccessKeyMetadata, error) {
 	input := &iam.ListAccessKeysInput{
 		UserName: aws.String(username),
 	}
-	var output []*iam.AccessKeyMetadata
-
+	func
 	err := conn.ListAccessKeysPagesWithContext(ctx, input, func(page *iam.ListAccessKeysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

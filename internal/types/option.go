@@ -10,29 +10,34 @@ const (
 )
 
 // Some returns an Option containing a value.
-func Some[T any](v T) Option[T] {
+
+e[T any](v T) Option[T] {
 	return Option[T]{
 value: v,
 	}
 }
 
 // None returns an Option with no value.
-func None[T any]() Option[T] {
+
+e[T any]() Option[T] {
 	return nil
 }
 
 // IsNone returns whether the Option has no value.
-func (o Option[T]) IsNone() bool {
+
+Option[T]) IsNone() bool {
 	return o == nil
 }
 
 // IsSome returns whether the Option has a value.
-func (o Option[T]) IsSome() bool {
+
+Option[T]) IsSome() bool {
 	return o != nil
 }
 
 // MustUnwrap returns the contained value or panics.
-func (o Option[T]) MustUnwrap() T {
+
+Option[T]) MustUnwrap() T {
 	if o.IsNone() {
 panic("missing value")
 	}
@@ -40,22 +45,28 @@ panic("missing value")
 }
 
 // UnwrapOr returns the contained value or the specified default.
-func (o Option[T]) UnwrapOr(v T) T {
-	return o.UnwrapOrElse(func() T {
+
+Option[T]) UnwrapOr(v T) T {
+	return o.UnwrapOrElse(
+ {
 return v
 	})
 }
 
 // UnwrapOrDefault returns the contained value or the default value for T.
-func (o Option[T]) UnwrapOrDefault() T {
-	return o.UnwrapOrElse(func() T {
+
+Option[T]) UnwrapOrDefault() T {
+	return o.UnwrapOrElse(
+ {
 var v T
 return v
 	})
 }
 
 // UnwrapOrElse returns the contained value or computes a value from f.
-func (o Option[T]) UnwrapOrElse(f func() T) T {
+
+Option[T]) UnwrapOrElse(f 
+) T {
 	if o.IsNone() {
 return f()
 	}

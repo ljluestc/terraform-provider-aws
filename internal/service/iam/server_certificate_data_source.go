@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_server_certificate")
-func DataSourceServerCertificate() *schema.Resource {
+// @SDKDataSource("aws_iam_server_certificate")func DataSourceServerCertificate() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceServerCertificateRead,
 
@@ -85,25 +84,13 @@ func DataSourceServerCertificate() *schema.Resource {
 	}
 }
 
-type CertificateByExpiration []*iam.ServerCertificateMetadata
-
-func (m CertificateByExpiration) Len() int {
-	return len(m)
-}
-
-func (m CertificateByExpiration) Swap(i, j int) {
-	m[i], m[j] = m[j], m[i]
-}
-
-func (m CertificateByExpiration) Less(i, j int) bool {
+type CertificateByExpiration []*iam.ServerCertificateMetadatafuncurn len(m)
+}func (m CertificateByExpiration) Swap(i, j int) {
+	funcc (m CertificateByExpiration) Less(i, j int) bool {
 	return m[i].Expiration.After(*m[j].Expiration)
-}
-
-func dataSourceServerCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	var matcher = func(cert *iam.ServerCertificateMetadata) bool {
+func matcher = func(cert *iam.ServerCertificateMetadata) bool {
 		return strings.HasPrefix(aws.StringValue(cert.ServerCertificateName), d.Get("name_prefix").(string))
 	}
 	if v, ok := d.GetOk("name"); ok {

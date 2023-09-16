@@ -26,6 +26,8 @@ import (
 // @SDKResource("aws_connect_hours_of_operation", name="Hours Of Operation")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourceHoursOfOperation() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceHoursOfOperationCreate,
@@ -54,6 +56,8 @@ Elem: &schema.Resource{
 	Type:schema.TypeString,
 	Required:     true,
 	Validate
+
+
 func: validation.StringInSlice(connect.HoursOfOperationDays_Values(), false),
 },
 "end_time": {
@@ -93,6 +97,8 @@ Required: true,
 	},
 },
 Set: 
+
+
 func(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -106,6 +112,8 @@ func(v interface{}) int {
 Type:schema.TypeString,
 Optional:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 250),
 	},
 	"hours_of_operation_id": {
@@ -120,6 +128,8 @@ Required: true,
 Type:schema.TypeString,
 Required:     true,
 Validate
+
+
 func: validation.StringLenBetween(1, 127),
 	},
 	names.AttrTags:    tftags.TagsSchema(),
@@ -131,6 +141,8 @@ Required: true,
 },
 	}
 }
+
+
 
 
 func resourceHoursOfOperationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -166,6 +178,8 @@ return diag.Errorf("creating Connect Hours of Operation (%s): empty output", nam
 
 	return resourceHoursOfOperationRead(ctx, d, meta)
 }
+
+
 
 
 func resourceHoursOfOperationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -213,6 +227,8 @@ return diag.FromErr(err)
 }
 
 
+
+
 func resourceHoursOfOperationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -240,6 +256,8 @@ if err != nil {
 }
 
 
+
+
 func resourceHoursOfOperationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -260,6 +278,8 @@ return diag.Errorf("deleting HoursOfOperation (%s): %s", d.Id(), err)
 
 	return nil
 }
+
+
 
 
 func expandConfigs(configs []interface{}) []*connect.HoursOfOperationConfig {
@@ -297,6 +317,8 @@ hoursOfOperationConfigs = append(hoursOfOperationConfigs, hoursOfOperationConfig
 }
 
 
+
+
 func flattenConfigs(configs []*connect.HoursOfOperationConfig) []interface{} {
 	configsList := []interface{}{}
 	for _, config := range configs {
@@ -318,6 +340,8 @@ configsList = append(configsList, values)
 	}
 	return configsList
 }
+
+
 
 
 func HoursOfOperationParseID(id string) (string, string, error) {

@@ -209,7 +209,7 @@ func resourceProvisioningTemplateUpdate(ctx context.Context, d *schema.ResourceD
 	if d.HasChanges("description", "enabled", "provisioning_role_arn") {
 		input := &iot.UpdateProvisioningTemplateInput{
 			Description:         aws.String(d.Get("description").(string)),
-			Enabled:             aws.Bool(d.Get("enabled").(bool)),
+			Enabled:aws.Bool(d.Get("enabled").(bool)),
 			ProvisioningRoleArn: aws.String(d.Get("provisioning_role_arn").(string)),
 			TemplateName:        aws.String(d.Id()),
 		}

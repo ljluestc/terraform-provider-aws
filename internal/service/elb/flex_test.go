@@ -89,7 +89,7 @@ func TestFlattenHealthCheck(t *testing.T) {
 			Input: &elb.HealthCheck{
 				UnhealthyThreshold: aws.Int64(10),
 				HealthyThreshold:   aws.Int64(10),
-				Target:             aws.String("HTTP:80/"),
+				Target:aws.String("HTTP:80/"),
 				Timeout:            aws.Int64(30),
 				Interval:           aws.Int64(30),
 			},
@@ -97,8 +97,8 @@ func TestFlattenHealthCheck(t *testing.T) {
 				{
 					"unhealthy_threshold": int64(10),
 					"healthy_threshold":   int64(10),
-					"target":              "HTTP:80/",
-					"timeout":             int64(30),
+					"target": "HTTP:80/",
+					"timeout":int64(30),
 					"interval":            int64(30),
 				},
 			},

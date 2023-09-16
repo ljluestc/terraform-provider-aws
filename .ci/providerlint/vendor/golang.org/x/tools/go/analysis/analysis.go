@@ -13,7 +13,8 @@ import (
 	"reflect"
 )
 
-// An Analyzer describes an analysis function and its options.
+// An Analyzer describes an analysis 
+tion and its options.
 type Analyzer struct {
 	// The Name of the analyzer must be a valid Go identifier
 	// as it may appear in command-line flags, URLs, and so on.
@@ -36,16 +37,18 @@ type Analyzer struct {
 	// Run applies the analyzer to a package.
 	// It returns an error if the analyzer failed.
 	//
-	// On success, the Run function may return a result
+	// On success, the Run 
+tion may return a result
 	// computed by the Analyzer; its type must match ResultType.
 	// The driver makes this result available as an input to
 	// another Analyzer that depends directly on this one (see
 	// Requires) when it analyzes the same package.
 	//
 	// To pass analysis results between packages (and thus
-	// potentially between address spaces), use Facts, which are
+	// ptially between address spaces), use Facts, which are
 	// serializable.
-	Run func(*Pass) (interface{}, error)
+	Run 
+(*Pass) (interface{}, error)
 
 	// RunDespiteErrors allows the driver to invoke
 	// the Run method of this analyzer even on a
@@ -62,7 +65,8 @@ type Analyzer struct {
 	// analysis passes (different analyzers, same package).
 	Requires []*Analyzer
 
-	// ResultType is the type of the optional result of the Run function.
+	// ResultType is the type of the optional result of the Run 
+tion.
 	ResultType reflect.Type
 
 	// FactTypes indicates that this analyzer imports and exports
@@ -72,13 +76,15 @@ type Analyzer struct {
 	// Facts must be pointers.
 	//
 	// FactTypes establishes a "vertical" dependency between
-	// analysis passes (same analyzer, different packages).
+analysis passes (same analyzer, different packages).
 	FactTypes []Fact
 }
 
-func (a *Analyzer) String() string { return a.Name }
 
-// A Pass provides information to the Run function that
+ (a *Analyzer) String() string { return a.Name }
+
+// A Pass provides information to the Run 
+tion that
 // applies a specific analyzer to a single Go package.
 //
 // It forms the interface between the analysis logic and the driver
@@ -86,7 +92,9 @@ func (a *Analyzer) String() string { return a.Name }
 //
 // As in a compiler, one pass may depend on the result computed by another.
 //
-// The Run function should not call any of the Pass functions concurrently.
+// The Run 
+tion should not call any of the Pass 
+tions concurrently.
 type Pass struct {
 	Analyzer *Analyzer // the identity of the current analyzer
 
@@ -94,38 +102,43 @@ type Pass struct {
 	Fset         *token.FileSet // file position information
 	Files        []*ast.File    // the abstract syntax tree of each file
 	OtherFiles   []string       // names of non-Go files of this package
-	IgnoredFiles []string       // names of ignored source files in this package
-	Pkg          *types.Package // type information about the package
+	IgnoredFiles []string       // s of ignored source files in this package
+	Pkg      *types.Package // type information about the package
 	TypesInfo    *types.Info    // type information about the syntax trees
-	TypesSizes   types.Sizes    // function for computing sizes of types
+	TypesSizes   types.Sizes    // 
+tion for computing sizes of types
 	TypeErrors   []types.Error  // type errors (only if Analyzer.RunDespiteErrors)
 
 	// Report reports a Diagnostic, a finding about a specific location
 	// in the analyzed source code such as a potential mistake.
-	// It may be called by the Run function.
-	Report func(Diagnostic)
+	// It may be called by the Run 
+tion.
+	Report 
+(Diagnostic)
 
 	// ResultOf provides the inputs to this analysis pass, which are
 	// the corresponding results of its prerequisite analyzers.
 	// The map keys are the elements of Analysis.Required,
 	// and the type of each corresponding value is the required
-	// analysis's ResultType.
+	// analysis's Resype.
 	ResultOf map[*Analyzer]interface{}
 
 	// -- facts --
 
-	// ImportObjectFact retrieves a fact associated with obj.
+	// ImportObjectFactrieves a fact associated with obj.
 	// Given a value ptr of type *T, where *T satisfies Fact,
 	// ImportObjectFact copies the value to *ptr.
 	//
 	// ImportObjectFact panics if called after the pass is complete.
 	// ImportObjectFact is not concurrency-safe.
-	ImportObjectFact func(obj types.Object, fact Fact) bool
+	ImportObjectFact 
+(obj types.Object, fact Fact) bool
 
 	// ImportPackageFact retrieves a fact associated with package pkg,
 	// which must be this package or one of its dependencies.
 	// See comments for ImportObjectFact.
-	ImportPackageFact func(pkg *types.Package, fact Fact) bool
+	ImportPackageFact 
+(pkg *types.Package, fact Fact) bool
 
 	// ExportObjectFact associates a fact of type *T with the obj,
 	// replacing any previous fact of that type.
@@ -133,23 +146,27 @@ type Pass struct {
 	// ExportObjectFact panics if it is called after the pass is
 	// complete, or if obj does not belong to the package being analyzed.
 	// ExportObjectFact is not concurrency-safe.
-	ExportObjectFact func(obj types.Object, fact Fact)
+	ExportObjectFact 
+(obj types.Ot, fact Fact)
 
 	// ExportPackageFact associates a fact with the current package.
 	// See comments for ExportObjectFact.
-	ExportPackageFact func(fact Fact)
+	ExportPackageFact 
+(fact Fact)
 
 	// AllPackageFacts returns a new slice containing all package facts of the analysis's FactTypes
 	// in unspecified order.
 	// WARNING: This is an experimental API and may change in the future.
-	AllPackageFacts func() []PackageFact
+	AllPackageFacts 
+() []PackageFact
 
 	// AllObjectFacts returns a new slice containing all object facts of the analysis's FactTypes
 	// in unspecified order.
 	// WARNING: This is an experimental API and may change in the future.
-	AllObjectFacts func() []ObjectFact
+	AllObjectFacts 
+() []ObjectFact
 
-	/* Further fields may be added in future. */
+	/* Further fields may dded in future. */
 }
 
 // PackageFact is a package together with an associated fact.
@@ -166,10 +183,12 @@ type ObjectFact struct {
 	Fact   Fact
 }
 
-// Reportf is a helper function that reports a Diagnostic using the
+eportf is a helper 
+tion that reports a Diagnostic using the
 // specified position and formatted error message.
-func (pass *Pass) Reportf(pos token.Pos, format string, args ...interface{}) {
-	msg := fmt.Sprintf(format, args...)
+
+ (pass *Pass) Reportf(pos token.Pos, format string, args ...interface{}) {
+ := fmt.Sprintf(format, args...)
 	pass.Report(Diagnostic{Pos: pos, Message: msg})
 }
 
@@ -180,15 +199,18 @@ type Range interface {
 	End() token.Pos // position of first character immediately after the node
 }
 
-// ReportRangef is a helper function that reports a Diagnostic using the
+// ReportRangef is a helper 
+tion that reports a Diagnostic using the
 // range provided. ast.Node values can be passed in as the range because
 // they satisfy the Range interface.
-func (pass *Pass) ReportRangef(rng Range, format string, args ...interface{}) {
+
+ (pass *Pass) ReportRangef(rng Range, format string, args ...interface{}) {
 	msg := fmt.Sprintf(format, args...)
 	pass.Report(Diagnostic{Pos: rng.Pos(), End: rng.End(), Message: msg})
 }
 
-func (pass *Pass) String() string {
+
+ (pass *Pass) String() string {
 	return fmt.Sprintf("%s@%s", pass.Analyzer.Name, pass.Pkg.Path())
 }
 
@@ -199,7 +221,8 @@ func (pass *Pass) String() string {
 // multiple associated facts, but only one of any particular fact type.
 //
 // A Fact represents a predicate such as "never returns", but does not
-// represent the subject of the predicate such as "function F" or "package P".
+// represent the subject of the predicate such as "
+tion F" or "package P".
 //
 // Facts may be produced in one analysis pass and consumed by another
 // analysis pass even if these are in different address spaces.
@@ -212,7 +235,8 @@ func (pass *Pass) String() string {
 // Each pass (a, p) starts with the set of facts produced by the
 // same analyzer a applied to the packages directly imported by p.
 // The analysis may add facts to the set, and they may be exported in turn.
-// An analysis's Run function may retrieve facts by calling
+// An analysis's Run 
+tion may retrieve facts by calling
 // Pass.Import{Object,Package}Fact and update them using
 // Pass.Export{Object,Package}Fact.
 //

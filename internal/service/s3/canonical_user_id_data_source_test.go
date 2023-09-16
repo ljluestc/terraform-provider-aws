@@ -9,10 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccS3CanonicalUserIDDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	dataSourceName := "data.aws_canonical_user_id.test"
 
 	resource.ParallelTest(t, resource.TestCase{

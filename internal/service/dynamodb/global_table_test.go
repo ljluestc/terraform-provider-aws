@@ -31,9 +31,9 @@ func TestAccDynamoDBGlobalTable_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckGlobalTable(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGlobalTableDestroy(ctx),
+		CheckDestroy:testAccCheckGlobalTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccGlobalTableConfig_invalidName(sdkacctest.RandString(2)),
@@ -76,9 +76,9 @@ func TestAccDynamoDBGlobalTable_multipleRegions(t *testing.T) {
 			testAccPreCheckGlobalTable(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckGlobalTableDestroy(ctx),
+		CheckDestroy:testAccCheckGlobalTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGlobalTableConfig_multipleRegions1(rName),

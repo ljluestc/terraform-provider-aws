@@ -13,7 +13,8 @@ import (
 	"time"
 )
 
-func getFileID(filename string) (FileID, time.Time, error) {
+
+ getFileID(filename string) (FileID, time.Time, error) {
 	fi, err := os.Stat(filename)
 	if err != nil {
 		return FileID{}, time.Time{}, err

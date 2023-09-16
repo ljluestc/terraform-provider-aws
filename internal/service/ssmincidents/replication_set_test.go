@@ -38,9 +38,9 @@ func testReplicationSet_basic(t *testing.T) {
 			acctest.PreCheckMultipleRegion(t, 2)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSetConfig_basicTwoRegion(region1, region2),
@@ -83,9 +83,9 @@ func testReplicationSet_updateRegionsWithoutCMK(t *testing.T) {
 			acctest.PreCheckMultipleRegion(t, 2)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSetConfig_basicOneRegion(region1),
@@ -166,9 +166,9 @@ func testReplicationSet_updateRegionsWithCMK(t *testing.T) {
 			acctest.PreCheckMultipleRegion(t, 2)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSetConfig_oneRegionWithCMK(),
@@ -257,9 +257,9 @@ func testReplicationSet_updateTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: acctest.ConfigCompose(
@@ -340,9 +340,9 @@ func testReplicationSet_updateEmptyTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSetConfig_oneTag(rKey1, ""),
@@ -401,9 +401,9 @@ func testReplicationSet_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.SSMIncidentsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReplicationSetDestroy(ctx),
+		CheckDestroy:testAccCheckReplicationSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicationSetConfig_basicTwoRegion(region1, region2),

@@ -83,45 +83,55 @@ const (
 	extensionInfoFullInit      = 2
 )
 
-func InitExtensionInfo(xi *ExtensionInfo, xd protoreflect.ExtensionDescriptor, goType reflect.Type) {
+
+ InitExtensionInfo(xi *ExtensionInfo, xd protoreflect.ExtensionDescriptor, goType reflect.Type) {
 	xi.goType = goType
 	xi.desc = extensionTypeDescriptor{xd, xi}
 	xi.init = extensionInfoDescInit
 }
 
-func (xi *ExtensionInfo) New() protoreflect.Value {
-	return xi.lazyInit().New()
+
+ (xi *ExtensionInfo) New() protoreflect.Value {
+urn xi.lazyInit().New()
 }
-func (xi *ExtensionInfo) Zero() protoreflect.Value {
+
+ *ExtensionInfo) Zero() protoreflect.Value {
 	return xi.lazyInit().Zero()
 }
-func (xi *ExtensionInfo) ValueOf(v interface{}) protoreflect.Value {
+
+ (xi *ExtensionInfo) ValueOf(v interface{}) protoreflect.Value {
 	return xi.lazyInit().PBValueOf(reflect.ValueOf(v))
+
+
+ (xi *ExtensionInfo) InterfaceOf(v protoreflect.Value) interface{} {
+urn xi.lazyInit().GoValueOf(v).Interface()
 }
-func (xi *ExtensionInfo) InterfaceOf(v protoreflect.Value) interface{} {
-	return xi.lazyInit().GoValueOf(v).Interface()
-}
-func (xi *ExtensionInfo) IsValidValue(v protoreflect.Value) bool {
+
+ *ExtensionInfo) IsValidValue(v protoreflect.Value) bool {
 	return xi.lazyInit().IsValidPB(v)
 }
-func (xi *ExtensionInfo) IsValidInterface(v interface{}) bool {
+
+ (xi *ExtensionInfo) IsValidInterface(v interface{}) bool {
 	return xi.lazyInit().IsValidGo(reflect.ValueOf(v))
 }
-func (xi *ExtensionInfo) TypeDescriptor() protoreflect.ExtensionTypeDescriptor {
+
+ (xi *ExtensionInfo) TypeDescriptor() protoreflect.ExtensionTypeDescriptor {
 	if atomic.LoadUint32(&xi.init) < extensionInfoDescInit {
 		xi.lazyInitSlow()
 	}
 	return &xi.desc
 }
 
-func (xi *ExtensionInfo) lazyInit() Converter {
+
+ (xi *ExtensionInfo) lazyInit() Converter {
 	if atomic.LoadUint32(&xi.init) < extensionInfoFullInit {
 		xi.lazyInitSlow()
 	}
 	return xi.conv
 }
 
-func (xi *ExtensionInfo) lazyInitSlow() {
+
+ (xi *ExtensionInfo) lazyInitSlow() {
 	xi.mu.Lock()
 	defer xi.mu.Unlock()
 
@@ -138,19 +148,21 @@ func (xi *ExtensionInfo) lazyInitSlow() {
 			xi.initToLegacy()
 		}
 		xi.conv = NewConverter(xi.goType, xi.desc.ExtensionDescriptor)
-		xi.info = makeExtensionFieldInfo(xi.desc.ExtensionDescriptor)
+.info = makeExtensionFieldInfo(xi.desc.ExtensionDescriptor)
 		xi.info.validation = newValidationInfo(xi.desc.ExtensionDescriptor, xi.goType)
 	}
-}
+
 
 type extensionTypeDescriptor struct {
 	protoreflect.ExtensionDescriptor
 	xi *ExtensionInfo
 }
 
-func (xtd *extensionTypeDescriptor) Type() protoreflect.ExtensionType {
+
+ (xtd *extensionTypeDescriptor) Type() protoreflect.ExtensionType {
 	return xtd.xi
 }
-func (xtd *extensionTypeDescriptor) Descriptor() protoreflect.ExtensionDescriptor {
+
+ (xtd *extensionTypeDescriptor) Descriptor() protoreflect.ExtensionDescriptor {
 	return xtd.ExtensionDescriptor
 }

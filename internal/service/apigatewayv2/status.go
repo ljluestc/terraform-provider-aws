@@ -16,7 +16,7 @@ import (
 func StatusDeployment(ctx context.Context, conn *apigatewayv2.ApiGatewayV2, apiId, deploymentId string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &apigatewayv2.GetDeploymentInput{
-			ApiId:        aws.String(apiId),
+			ApiId:ing(apiId),
 			DeploymentId: aws.String(deploymentId),
 		}
 

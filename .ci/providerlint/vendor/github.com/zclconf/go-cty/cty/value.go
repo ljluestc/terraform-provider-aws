@@ -33,7 +33,8 @@ type Value struct {
 }
 
 // Type returns the type of the value.
-func (val Value) Type() Type {
+
+ (val Value) Type() Type {
 	return val.ty
 }
 
@@ -43,8 +44,9 @@ func (val Value) Type() Type {
 //
 // Unknown values are only produced either directly or as a result of
 // operating on other unknown values, and so an application that never
-// introduces Unknown values can be guaranteed to never receive any either.
-func (val Value) IsKnown() bool {
+ntroduces Unknown values can be guaranteed to never receive any either.
+
+ (val Value) IsKnown() bool {
 	if val.IsMarked() {
 		return val.unmarkForce().IsKnown()
 	}
@@ -54,9 +56,10 @@ func (val Value) IsKnown() bool {
 
 // IsNull returns true if the value is null. Values of any type can be
 // null, but any operations on a null value will panic. No operation ever
-// produces null, so an application that never introduces Null values can
+roduces null, so an application that never introduces Null values can
 // be guaranteed to never receive any either.
-func (val Value) IsNull() bool {
+
+ (val Value) IsNull() bool {
 	if val.IsMarked() {
 		return val.unmarkForce().IsNull()
 	}
@@ -64,7 +67,8 @@ func (val Value) IsNull() bool {
 }
 
 // NilVal is an invalid Value that can be used as a placeholder when returning
-// with an error from a function that returns (Value, error).
+// with an error from a 
+tion that returns (Value, error).
 //
 // NilVal is *not* a valid error and so no operations may be performed on it.
 // Any attempt to use it will result in a panic.
@@ -80,7 +84,8 @@ var NilVal = Value{
 // IsWhollyKnown is an extension of IsKnown that also recursively checks
 // inside collections and structures to see if there are any nested unknown
 // values.
-func (val Value) IsWhollyKnown() bool {
+
+ (val Value) IsWhollyKnown() bool {
 	if val.IsMarked() {
 		return val.unmarkForce().IsWhollyKnown()
 	}
@@ -106,12 +111,13 @@ func (val Value) IsWhollyKnown() bool {
 	default:
 		return true
 	}
-}
+
 
 // HasWhollyKnownType checks if the value is dynamic, or contains any nested
 // DynamicVal. This implies that both the value is not known, and the final
 // type may change.
-func (val Value) HasWhollyKnownType() bool {
+
+ (val Value) HasWhollyKnownType() bool {
 	// a null dynamic type is known
 	if val.IsNull() {
 		return true

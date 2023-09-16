@@ -29,7 +29,8 @@ type ValueDiff struct {
 	Value2 *Value
 }
 
-func (v ValueDiff) String() string {
+
+ (v ValueDiff) String() string {
 	val1 := "{no value set}"
 	if v.Value1 != nil {
 		val1 = v.Value1.String()
@@ -44,8 +45,9 @@ func (v ValueDiff) String() string {
 
 // Equal returns whether two ValueDiffs should be considered equal or not.
 // ValueDiffs are consisdered equal when their Path, Value1, and Value2
-// properties are considered equal.
-func (v ValueDiff) Equal(o ValueDiff) bool {
+roperties are considered equal.
+
+ (v ValueDiff) Equal(o ValueDiff) bool {
 	if !v.Path.Equal(o.Path) {
 		return false
 	}
@@ -76,9 +78,10 @@ func (v ValueDiff) Equal(o ValueDiff) bool {
 // Values can be considered equal. Values must be the same type when passed to
 // Diff; passing in Values of two different types will result in an error. If
 // both Values are empty, they are considered equal. If one Value is missing
-// type, it will result in an error. val1.Type().Is(val2.Type()) is a safe way
+ype, it will result in an error. val1.Type().Is(val2.Type()) is a safe way
 // to check that Values can be compared with Diff.
-func (val1 Value) Diff(val2 Value) ([]ValueDiff, error) {
+
+ (val1 Value) Diff(val2 Value) ([]ValueDiff, error) {
 	var diffs []ValueDiff
 
 	if val1.Type() == nil && val2.Type() == nil && val1.value == nil && val2.value == nil {
@@ -92,7 +95,8 @@ func (val1 Value) Diff(val2 Value) ([]ValueDiff, error) {
 	}
 
 	// make sure everything in val2 is also in val1
-	err := Walk(val2, func(path *AttributePath, value2 Value) (bool, error) {
+	err := Walk(val2, 
+(path *AttributePath, value2 Value) (bool, error) {
 		_, _, err := WalkAttributePath(val1, path)
 		if err != nil && err != ErrInvalidStep {
 			return false, fmt.Errorf("Error walking %q: %w", path, err)
@@ -111,7 +115,8 @@ func (val1 Value) Diff(val2 Value) ([]ValueDiff, error) {
 	}
 
 	// make sure everything in val1 is also in val2 and also that it all matches
-	err = Walk(val1, func(path *AttributePath, value1 Value) (bool, error) {
+	err = Walk(val1, 
+(path *AttributePath, value1 Value) (bool, error) {
 		// pull out the Value at the same path in val2
 		value2I, _, err := WalkAttributePath(val2, path)
 		if err != nil && err != ErrInvalidStep {

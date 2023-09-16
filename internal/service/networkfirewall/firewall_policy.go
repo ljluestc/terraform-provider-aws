@@ -213,7 +213,7 @@ func resourceFirewallPolicyCreate(ctx context.Context, d *schema.ResourceData, m
 	input := &networkfirewall.CreateFirewallPolicyInput{
 		FirewallPolicy:     expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
 		FirewallPolicyName: aws.String(d.Get("name").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -272,7 +272,7 @@ func resourceFirewallPolicyUpdate(ctx context.Context, d *schema.ResourceData, m
 			EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
 			FirewallPolicy:          expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
 			FirewallPolicyArn:       aws.String(d.Id()),
-			UpdateToken:             aws.String(d.Get("update_token").(string)),
+			UpdateToken:aws.String(d.Get("update_token").(string)),
 		}
 
 		// Only pass non-empty description values, else API request returns an InternalServiceError

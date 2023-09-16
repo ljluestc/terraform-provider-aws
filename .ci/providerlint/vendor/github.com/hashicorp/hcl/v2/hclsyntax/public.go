@@ -17,7 +17,8 @@ import (
 // situations where detailed access is required. However, most common use-cases
 // should be served using the hcl.Body interface to ensure compatibility with
 // other configurationg syntaxes, such as JSON.
-func ParseConfig(src []byte, filename string, start hcl.Pos) (*hcl.File, hcl.Diagnostics) {
+
+ ParseConfig(src []byte, filename string, start hcl.Pos) (*hcl.File, hcl.Diagnostics) {
 	tokens, diags := LexConfig(src, filename, start)
 	peeker := newPeeker(tokens, false)
 	parser := &parser{peeker: peeker}
@@ -40,8 +41,9 @@ func ParseConfig(src []byte, filename string, start hcl.Pos) (*hcl.File, hcl.Dia
 }
 
 // ParseExpression parses the given buffer as a standalone HCL expression,
-// returning it as an instance of Expression.
-func ParseExpression(src []byte, filename string, start hcl.Pos) (Expression, hcl.Diagnostics) {
+eturning it as an instance of Expression.
+
+ ParseExpression(src []byte, filename string, start hcl.Pos) (Expression, hcl.Diagnostics) {
 	tokens, diags := LexExpression(src, filename, start)
 	peeker := newPeeker(tokens, false)
 	parser := &parser{peeker: peeker}
@@ -73,9 +75,10 @@ func ParseExpression(src []byte, filename string, start hcl.Pos) (Expression, hc
 	return expr, diags
 }
 
-// ParseTemplate parses the given buffer as a standalone HCL template,
+arseTemplate parses the given buffer as a standalone HCL template,
 // returning it as an instance of Expression.
-func ParseTemplate(src []byte, filename string, start hcl.Pos) (Expression, hcl.Diagnostics) {
+
+ ParseTemplate(src []byte, filename string, start hcl.Pos) (Expression, hcl.Diagnostics) {
 	tokens, diags := LexTemplate(src, filename, start)
 	peeker := newPeeker(tokens, false)
 	parser := &parser{peeker: peeker}
@@ -93,10 +96,11 @@ func ParseTemplate(src []byte, filename string, start hcl.Pos) (Expression, hcl.
 // ParseTraversalAbs parses the given buffer as a standalone absolute traversal.
 //
 // Parsing as a traversal is more limited than parsing as an expession since
-// it allows only attribute and indexing operations on variables. Traverals
+t allows only attribute and indexing operations on variables. Traverals
 // are useful as a syntax for referring to objects without necessarily
 // evaluating them.
-func ParseTraversalAbs(src []byte, filename string, start hcl.Pos) (hcl.Traversal, hcl.Diagnostics) {
+
+ ParseTraversalAbs(src []byte, filename string, start hcl.Pos) (hcl.Traversal, hcl.Diagnostics) {
 	tokens, diags := LexExpression(src, filename, start)
 	peeker := newPeeker(tokens, false)
 	parser := &parser{peeker: peeker}
@@ -121,11 +125,12 @@ func ParseTraversalAbs(src []byte, filename string, start hcl.Pos) (hcl.Traversa
 // LexConfig performs lexical analysis on the given buffer, treating it as a
 // whole HCL config file, and returns the resulting tokens.
 //
-// Only minimal validation is done during lexical analysis, so the returned
+nly minimal validation is done during lexical analysis, so the returned
 // diagnostics may include errors about lexical issues such as bad character
 // encodings or unrecognized characters, but full parsing is required to
 // detect _all_ syntax errors.
-func LexConfig(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
+
+ LexConfig(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
 	tokens := scanTokens(src, filename, start, scanNormal)
 	diags := checkInvalidTokens(tokens)
 	return tokens, diags
@@ -133,12 +138,13 @@ func LexConfig(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnost
 
 // LexExpression performs lexical analysis on the given buffer, treating it as
 // a standalone HCL expression, and returns the resulting tokens.
-//
+
 // Only minimal validation is done during lexical analysis, so the returned
 // diagnostics may include errors about lexical issues such as bad character
 // encodings or unrecognized characters, but full parsing is required to
 // detect _all_ syntax errors.
-func LexExpression(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
+
+ LexExpression(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
 	// This is actually just the same thing as LexConfig, since configs
 	// and expressions lex in the same way.
 	tokens := scanTokens(src, filename, start, scanNormal)
@@ -147,13 +153,14 @@ func LexExpression(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diag
 }
 
 // LexTemplate performs lexical analysis on the given buffer, treating it as a
-// standalone HCL template, and returns the resulting tokens.
+tandalone HCL template, and returns the resulting tokens.
 //
 // Only minimal validation is done during lexical analysis, so the returned
 // diagnostics may include errors about lexical issues such as bad character
 // encodings or unrecognized characters, but full parsing is required to
 // detect _all_ syntax errors.
-func LexTemplate(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
+
+ LexTemplate(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagnostics) {
 	tokens := scanTokens(src, filename, start, scanTemplate)
 	diags := checkInvalidTokens(tokens)
 	return tokens, diags
@@ -165,7 +172,8 @@ func LexTemplate(src []byte, filename string, start hcl.Pos) (Tokens, hcl.Diagno
 // This is useful when accepting names from the user that will be used as
 // variable or attribute names in the scope, to ensure that any name chosen
 // will be traversable using the variable or attribute traversal syntax.
-func ValidIdentifier(s string) bool {
+
+ ValidIdentifier(s string) bool {
 	// This is a kinda-expensive way to do something pretty simple, but it
 	// is easiest to do with our existing scanner-related infrastructure here
 	// and nobody should be validating identifiers in a tight loop.

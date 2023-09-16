@@ -5,10 +5,10 @@ package acm
 
 // Exports for use in tests only.
 var (
-	FindCertificateByARN           = findCertificateByARN
+	FindCertificateByARNtificateByARN
 	FindCertificateValidationByARN = findCertificateValidationByARN
-	WaitCertificateRenewed         = waitCertificateRenewed
+	WaitCertificateRenewed waitCertificateRenewed
 
-	ResourceCertificate           = resourceCertificate
+	ResourceCertificateeCertificate
 	ResourceCertificateValidation = resourceCertificateValidation
 )

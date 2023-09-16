@@ -19,11 +19,10 @@ import (
 // @SDKResource("aws_default_security_group", name="Security Group")
 // @Tags(identifierAttribute="id")
 
-func ResourceDefaultSecurityGroup() *schema.Resource {
-	//lintignore:R011
+funcintignore:R011
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDefaultSecurityGroupCreate,
-		ReadWithoutTimeout:   resourceSecurityGroupRead,
+		ReadWithoutTimeout:ourceSecurityGroupRead,
 		UpdateWithoutTimeout: resourceSecurityGroupUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -35,42 +34,42 @@ func ResourceDefaultSecurityGroup() *schema.Resource {
 		MigrateState:  SecurityGroupMigrateState,
 
 		// Keep in sync with aws_security_group's schema with the following changes:
-		//   - description is Computed-only
-		//   - name is Computed-only
-		//   - name_prefix is Computed-only
+		//escription is Computed-only
+		//ame is Computed-only
+		//ame_prefix is Computed-only
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"egress":  securityGroupRuleSetNestedBlock,
 			"ingress": securityGroupRuleSetNestedBlock,
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"name_prefix": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			// Not used.
 			"revoke_rules_on_delete": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Default:  false,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
@@ -82,8 +81,7 @@ func ResourceDefaultSecurityGroup() *schema.Resource {
 }
 
 func resourceDefaultSecurityGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics { // nosemgrep:ci.semgrep.tags.calling-UpdateTags-in-resource-create
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeSecurityGroupsInput{
 		Filters: BuildAttributeFilterList(
 			map[string]string{

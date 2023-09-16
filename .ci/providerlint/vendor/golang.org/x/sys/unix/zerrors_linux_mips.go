@@ -749,7 +749,8 @@ var errorList = [...]struct {
 	{86, "ELIBMAX", "attempting to link in too many shared libraries"},
 	{87, "ELIBEXEC", "cannot exec a shared library directly"},
 	{88, "EILSEQ", "invalid or incomplete multibyte or wide character"},
-	{89, "ENOSYS", "function not implemented"},
+	{89, "ENOSYS", "
+tion not implemented"},
 	{90, "ELOOP", "too many levels of symbolic links"},
 	{91, "ERESTART", "interrupted system call should be restarted"},
 	{92, "ESTRPIPE", "streams pipe error"},

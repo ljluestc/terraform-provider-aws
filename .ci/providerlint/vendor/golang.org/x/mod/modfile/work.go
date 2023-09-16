@@ -33,10 +33,12 @@ type Use struct {
 //
 // data is the content of the file.
 //
-// fix is an optional function that canonicalizes module versions.
+// fix is an optional 
+tion that canonicalizes module versions.
 // If fix is nil, all module versions must be canonical ([module.CanonicalVersion]
-// must return the same string).
-func ParseWork(file string, data []byte, fix VersionFixer) (*WorkFile, error) {
+ust return the same string).
+
+ ParseWork(file string, data []byte, fix VersionFixer) (*WorkFile, error) {
 	fs, err := parse(file, data)
 	if err != nil {
 		return nil, err
@@ -84,9 +86,10 @@ func ParseWork(file string, data []byte, fix VersionFixer) (*WorkFile, error) {
 
 // Cleanup cleans up the file f after any edit operations.
 // To avoid quadratic behavior, modifications like [WorkFile.DropRequire]
-// clear the entry but do not remove it from the slice.
+lear the entry but do not remove it from the slice.
 // Cleanup cleans out all the cleared entries.
-func (f *WorkFile) Cleanup() {
+
+ (f *WorkFile) Cleanup() {
 	w := 0
 	for _, r := range f.Use {
 		if r.Path != "" {
@@ -105,10 +108,11 @@ func (f *WorkFile) Cleanup() {
 	}
 	f.Replace = f.Replace[:w]
 
-	f.Syntax.Cleanup()
+yntax.Cleanup()
 }
 
-func (f *WorkFile) AddGoStmt(version string) error {
+
+ (f *WorkFile) AddGoStmt(version string) error {
 	if !GoVersionRE.MatchString(version) {
 		return fmt.Errorf("invalid language version %q", version)
 	}
@@ -130,11 +134,12 @@ func (f *WorkFile) AddGoStmt(version string) error {
 	} else {
 		f.Go.Version = version
 		f.Syntax.updateLine(f.Go.Syntax, "go", version)
-	}
+
 	return nil
 }
 
-func (f *WorkFile) AddToolchainStmt(name string) error {
+
+ (f *WorkFile) AddToolchainStmt(name string) error {
 	if !ToolchainRE.MatchString(name) {
 		return fmt.Errorf("invalid toolchain name %q", name)
 	}
@@ -164,27 +169,30 @@ func (f *WorkFile) AddToolchainStmt(name string) error {
 	} else {
 		f.Toolchain.Name = name
 		f.Syntax.updateLine(f.Toolchain.Syntax, "toolchain", name)
-	}
+
 	return nil
 }
 
 // DropGoStmt deletes the go statement from the file.
-func (f *WorkFile) DropGoStmt() {
+
+ (f *WorkFile) DropGoStmt() {
 	if f.Go != nil {
-		f.Go.Syntax.markRemoved()
+Go.Syntax.markRemoved()
 		f.Go = nil
 	}
 }
 
 // DropToolchainStmt deletes the toolchain statement from the file.
-func (f *WorkFile) DropToolchainStmt() {
+
+*WorkFile) DropToolchainStmt() {
 	if f.Toolchain != nil {
 		f.Toolchain.Syntax.markRemoved()
 		f.Toolchain = nil
 	}
 }
 
-func (f *WorkFile) AddUse(diskPath, modulePath string) error {
+
+ (f *WorkFile) AddUse(diskPath, modulePath string) error {
 	need := true
 	for _, d := range f.Use {
 		if d.Path == diskPath {
@@ -197,20 +205,22 @@ func (f *WorkFile) AddUse(diskPath, modulePath string) error {
 				*d = Use{}
 			}
 		}
-	}
+
 
 	if need {
 		f.AddNewUse(diskPath, modulePath)
 	}
-	return nil
+urn nil
 }
 
-func (f *WorkFile) AddNewUse(diskPath, modulePath string) {
+
+ (f *WorkFile) AddNewUse(diskPath, modulePath string) {
 	line := f.Syntax.addLine(nil, "use", AutoQuote(diskPath))
 	f.Use = append(f.Use, &Use{Path: diskPath, ModulePath: modulePath, Syntax: line})
 }
 
-func (f *WorkFile) SetUse(dirs []*Use) {
+
+ (f *WorkFile) SetUse(dirs []*Use) {
 	need := make(map[string]string)
 	for _, d := range dirs {
 		need[d.Path] = d.ModulePath
@@ -223,7 +233,7 @@ func (f *WorkFile) SetUse(dirs []*Use) {
 			d.Syntax.markRemoved()
 			*d = Use{}
 		}
-	}
+
 
 	// TODO(#45713): Add module path to comment.
 
@@ -233,21 +243,24 @@ func (f *WorkFile) SetUse(dirs []*Use) {
 	f.SortBlocks()
 }
 
-func (f *WorkFile) DropUse(path string) error {
+
+ (f *WorkFile) DropUse(path string) error {
 	for _, d := range f.Use {
 		if d.Path == path {
-			d.Syntax.markRemoved()
+.Syntax.markRemoved()
 			*d = Use{}
 		}
 	}
 	return nil
 }
 
-func (f *WorkFile) AddReplace(oldPath, oldVers, newPath, newVers string) error {
-	return addReplace(f.Syntax, &f.Replace, oldPath, oldVers, newPath, newVers)
-}
 
-func (f *WorkFile) DropReplace(oldPath, oldVers string) error {
+ (f *WorkFile) AddReplace(oldPath, oldVers, newPath, newVers string) error {
+	return addReplace(f.Syntax, &f.Replace, oldPath, oldVers, newPath, newVers)
+
+
+
+ (f *WorkFile) DropReplace(oldPath, oldVers string) error {
 	for _, r := range f.Replace {
 		if r.Old.Path == oldPath && r.Old.Version == oldVers {
 			r.Syntax.markRemoved()
@@ -257,7 +270,8 @@ func (f *WorkFile) DropReplace(oldPath, oldVers string) error {
 	return nil
 }
 
-func (f *WorkFile) SortBlocks() {
+
+ (f *WorkFile) SortBlocks() {
 	f.removeDups() // otherwise sorting is unsafe
 
 	for _, stmt := range f.Syntax.Stmt {
@@ -265,7 +279,8 @@ func (f *WorkFile) SortBlocks() {
 		if !ok {
 			continue
 		}
-		sort.SliceStable(block.Line, func(i, j int) bool {
+		sort.SliceStable(block.Line, 
+j int) bool {
 			return lineLess(block.Line[i], block.Line[j])
 		})
 	}
@@ -280,6 +295,7 @@ func (f *WorkFile) SortBlocks() {
 //
 // retract directives are not de-duplicated since comments are
 // meaningful, and versions may be retracted multiple times.
-func (f *WorkFile) removeDups() {
+
+ (f *WorkFile) removeDups() {
 	removeDups(f.Syntax, nil, &f.Replace)
 }

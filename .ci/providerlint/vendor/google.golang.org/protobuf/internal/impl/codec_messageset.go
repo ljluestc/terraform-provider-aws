@@ -13,30 +13,34 @@ import (
 	"google.golang.org/protobuf/internal/flags"
 )
 
-func sizeMessageSet(mi *MessageInfo, p pointer, opts marshalOptions) (size int) {
+
+ sizeMessageSet(mi *MessageInfo, p pointer, opts marshalOptions) (size int) {
 	if !flags.ProtoLegacy {
 		return 0
 	}
 
 	ext := *p.Apply(mi.extensionOffset).Extensions()
 	for _, x := range ext {
-		xi := getExtensionFieldInfo(x.Type())
-		if xi.funcs.size == nil {
+		xi := xtensionFieldInfo(x.Type())
+		if xi.
+s.size == nil {
 			continue
 		}
-		num, _ := protowire.DecodeTag(xi.wiretag)
+		num, _ := pwire.DecodeTag(xi.wiretag)
 		size += messageset.SizeField(num)
-		size += xi.funcs.size(x.Value(), protowire.SizeTag(messageset.FieldMessage), opts)
+		size += xi.
+s.size(x.Value(), protowire.SizeTag(messageset.FieldMessage), opts)
 	}
 
 	if u := mi.getUnknownBytes(p); u != nil {
 		size += messageset.SizeUnknown(*u)
 	}
 
-	return size
+urn size
 }
 
-func marshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts marshalOptions) ([]byte, error) {
+
+ marshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts marshalOptions) ([]byte, error) {
 	if !flags.ProtoLegacy {
 		return b, errors.New("no support for message_set_wire_format")
 	}
@@ -81,19 +85,22 @@ func marshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts marshalOptions
 	return b, nil
 }
 
-func marshalMessageSetField(mi *MessageInfo, b []byte, x ExtensionField, opts marshalOptions) ([]byte, error) {
+
+ marshalMessageSetField(mi *MessageInfo, b []byte, x ExtensionField, opts marshalOptions) ([]byte, error) {
 	xi := getExtensionFieldInfo(x.Type())
 	num, _ := protowire.DecodeTag(xi.wiretag)
 	b = messageset.AppendFieldStart(b, num)
-	b, err := xi.funcs.marshal(b, x.Value(), protowire.EncodeTag(messageset.FieldMessage, protowire.BytesType), opts)
+	b, err := xi.
+s.marshal(b, x.Value(), protowire.EncodeTag(messageset.FieldMessage, protowire.BytesType), opts)
 	if err != nil {
-		return b, err
+turn b, err
 	}
 	b = messageset.AppendFieldEnd(b)
 	return b, nil
 }
 
-func unmarshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts unmarshalOptions) (out unmarshalOutput, err error) {
+
+ unmarshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts unmarshalOptions) (out unmarshalOutput, err error) {
 	if !flags.ProtoLegacy {
 		return out, errors.New("no support for message_set_wire_format")
 	}
@@ -104,7 +111,8 @@ func unmarshalMessageSet(mi *MessageInfo, b []byte, p pointer, opts unmarshalOpt
 	}
 	ext := *ep
 	initialized := true
-	err = messageset.Unmarshal(b, true, func(num protowire.Number, v []byte) error {
+	err = messageset.Unmarshal(b, true, 
+(num protowire.Number, v []byte) error {
 		o, err := mi.unmarshalExtension(v, num, protowire.BytesType, ext, opts)
 		if err == errUnknown {
 			u := mi.mutableUnknownBytes(p)

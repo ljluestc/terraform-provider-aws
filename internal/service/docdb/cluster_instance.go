@@ -186,10 +186,10 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &docdb.CreateDBInstanceInput{
 		DBInstanceClass:         aws.String(d.Get("instance_class").(string)),
 		DBClusterIdentifier:     aws.String(d.Get("cluster_identifier").(string)),
-		Engine:                  aws.String(d.Get("engine").(string)),
+		Engine:     aws.String(d.Get("engine").(string)),
 		PromotionTier:           aws.Int64(int64(d.Get("promotion_tier").(int))),
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-		Tags:                    getTagsIn(ctx),
+		Tags:       getTagsIn(ctx),
 	}
 
 	if attr, ok := d.GetOk("availability_zone"); ok {

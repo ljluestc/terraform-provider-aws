@@ -456,8 +456,8 @@ func resourceTaskDefinitionCreate(ctx context.Context, d *schema.ResourceData, m
 
 	input := &ecs.RegisterTaskDefinitionInput{
 		ContainerDefinitions: definitions,
-		Family:               aws.String(d.Get("family").(string)),
-		Tags:                 getTagsIn(ctx),
+		Family:  aws.String(d.Get("family").(string)),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("cpu"); ok {

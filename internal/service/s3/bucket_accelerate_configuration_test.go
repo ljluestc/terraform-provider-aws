@@ -18,10 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketAccelerateConfiguration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_accelerate_configuration.test"
 
@@ -49,11 +46,8 @@ func TestAccS3BucketAccelerateConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketAccelerateConfiguration_update(t *testing.T) {
-	ctx := acctest.Context(t)
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketAccelerateConfiguration_update(t *testing.T) {
+	funcketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_accelerate_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -88,12 +82,9 @@ func TestAccS3BucketAccelerateConfiguration_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketAccelerateConfiguration_disappears(t *testing.T) {
+}func TestAccS3BucketAccelerateConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_accelerate_configuration.test"
+	funcourceName := "aws_s3_bucket_accelerate_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
@@ -114,13 +105,10 @@ func TestAccS3BucketAccelerateConfiguration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketAccelerateConfiguration_migrate_noChange(t *testing.T) {
+}func TestAccS3BucketAccelerateConfiguration_migrate_noChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_accelerate_configuration.test"
-	bucketResourceName := "aws_s3_bucket.test"
+	funcketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -145,14 +133,11 @@ func TestAccS3BucketAccelerateConfiguration_migrate_noChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketAccelerateConfiguration_migrate_withChange(t *testing.T) {
+}func TestAccS3BucketAccelerateConfiguration_migrate_withChange(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_accelerate_configuration.test"
-	bucketResourceName := "aws_s3_bucket.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -176,15 +161,12 @@ func TestAccS3BucketAccelerateConfiguration_migrate_withChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketAccelerateConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketAccelerateConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_s3_bucket_accelerate_configuration" {
-				continue
+	funccontinue
 			}
 
 			bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
@@ -217,16 +199,13 @@ func testAccCheckBucketAccelerateConfigurationDestroy(ctx context.Context) resou
 
 		return nil
 	}
-}
-
-func testAccCheckBucketAccelerateConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckBucketAccelerateConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("Resource (%s) ID not set", resourceName)
 		}
 
@@ -257,17 +236,14 @@ func testAccCheckBucketAccelerateConfigurationExists(ctx context.Context, resour
 
 		return nil
 	}
-}
-
-func testAccBucketAccelerateConfigurationConfig_basic(bucketName, status string) string {
+}func testAccBucketAccelerateConfigurationConfig_basic(bucketName, status string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 
 resource "aws_s3_bucket_accelerate_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-  status = %[2]q
+ funcatus = %[2]q
 }
 `, bucketName, status)
 }

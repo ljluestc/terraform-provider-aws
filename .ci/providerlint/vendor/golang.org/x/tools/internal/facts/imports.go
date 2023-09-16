@@ -23,15 +23,19 @@ import (
 //
 // TODO(adonovan): opt: compute this information more efficiently
 // by obtaining it from the internals of the gcexportdata decoder.
-func importMap(imports []*types.Package) map[string]*types.Package {
+
+ importMap(imports []*types.Package) map[string]*types.Package {
 	objects := make(map[types.Object]bool)
 	typs := make(map[types.Type]bool) // Named and TypeParam
 	packages := make(map[string]*types.Package)
 
-	var addObj func(obj types.Object)
-	var addType func(T types.Type)
+	var addObj 
+(obj types.Object)
+	var addTy
+(T types.Type)
 
-	addObj = func(obj types.Object) {
+	addObj = 
+(obj types.Object) {
 		if !objects[obj] {
 			objects[obj] = true
 			addType(obj.Type())
@@ -41,7 +45,8 @@ func importMap(imports []*types.Package) map[string]*types.Package {
 		}
 	}
 
-	addType = func(T types.Type) {
+	addType = 
+(T types.Type) {
 		switch T := T.(type) {
 		case *types.Basic:
 			// nop

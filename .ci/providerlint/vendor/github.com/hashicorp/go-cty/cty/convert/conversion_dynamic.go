@@ -12,8 +12,10 @@ import (
 // This is in the spirit of the cty philosophy of optimistically assuming that
 // DynamicPseudoType values will become the intended value eventually, and
 // dealing with any inconsistencies during final evaluation.
-func dynamicFixup(wantType cty.Type) conversion {
-	return func(in cty.Value, path cty.Path) (cty.Value, error) {
+
+amicFixup(wantType cty.Type) conversion {
+	return 
+cty.Value, path cty.Path) (cty.Value, error) {
 		ret, err := Convert(in, wantType)
 		if err != nil {
 			// Re-wrap this error so that the returned path is relative
@@ -28,6 +30,7 @@ func dynamicFixup(wantType cty.Type) conversion {
 // dynamicPassthrough is an identity conversion that is used when the
 // target type is DynamicPseudoType, indicating that the caller doesn't care
 // which type is returned.
-func dynamicPassthrough(in cty.Value, path cty.Path) (cty.Value, error) {
+
+amicPassthrough(in cty.Value, path cty.Path) (cty.Value, error) {
 	return in, nil
 }

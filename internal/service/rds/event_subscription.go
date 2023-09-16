@@ -26,8 +26,7 @@ import (
 
 // @SDKResource("aws_db_event_subscription", name="Event Subscription")
 // @Tags(identifierAttribute="arn")
-func ResourceEventSubscription() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceEventSubscriptionCreate,
 ReadWithoutTimeout:   resourceEventSubscriptionRead,
 UpdateWithoutTimeout: resourceEventSubscriptionUpdate,
@@ -102,15 +101,14 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &rds.CreateEventSubscriptionInput{
 Enabled:          aws.Bool(d.Get("enabled").(bool)),
 SnsTopicArn:      aws.String(d.Get("sns_topic").(string)),
 SubscriptionName: aws.String(name),
-Tags:             getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("event_categories"); ok && v.(*schema.Set).Len() > 0 {
@@ -142,8 +140,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for RDS Event Subscription (%s) crea
 
 func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	sub, err := FindEventSubscriptionByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -173,8 +170,7 @@ return sdkdiag.AppendErrorf(diags, "reading RDS Event Subscription (%s): %s", d.
 func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all", "source_ids") {
+funcd.HasChangesExcept("tags", "tags_all", "source_ids") {
 input := &rds.ModifyEventSubscriptionInput{
 	SubscriptionName: aws.String(d.Id()),
 }
@@ -242,8 +238,7 @@ func resourceEventSubscriptionDelete(ctx context.Context, d *schema.ResourceData
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS Event Subscription: (%s)", d.Id())
-	_, err := conn.DeleteEventSubscriptionWithContext(ctx, &rds.DeleteEventSubscriptionInput{
+funcerr := conn.DeleteEventSubscriptionWithContext(ctx, &rds.DeleteEventSubscriptionInput{
 SubscriptionName: aws.String(d.Id()),
 	})
 

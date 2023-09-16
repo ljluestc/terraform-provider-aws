@@ -50,12 +50,12 @@ func resourceSchedule() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(0, 512)),
 			},
 			"end_date": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.IsRFC3339Time),
 			},
@@ -66,12 +66,12 @@ func resourceSchedule() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"maximum_window_in_minutes": {
-							Type:             schema.TypeInt,
+							Type:t,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(1, 1440)),
 						},
 						"mode": {
-							Type:             schema.TypeString,
+							Type:ring,
 							Required:         true,
 							ValidateDiagFunc: enum.Validate[types.FlexibleTimeWindowMode](),
 						},
@@ -88,7 +88,7 @@ func resourceSchedule() *schema.Resource {
 				),
 			},
 			"kms_key_arn": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 			},
@@ -115,23 +115,23 @@ func resourceSchedule() *schema.Resource {
 				)),
 			},
 			"schedule_expression": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Required:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 			},
 			"schedule_expression_timezone": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				Default:          "UTC",
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 50)),
 			},
 			"start_date": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.IsRFC3339Time),
 			},
 			"state": {
-				Type:             schema.TypeString,
+				Type:ring,
 				Optional:         true,
 				Default:          types.ScheduleStateEnabled,
 				ValidateDiagFunc: enum.Validate[types.ScheduleState](),
@@ -143,7 +143,7 @@ func resourceSchedule() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:             schema.TypeString,
+							Type:ring,
 							Required:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 						},
@@ -154,7 +154,7 @@ func resourceSchedule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"arn": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Required:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 									},
@@ -175,17 +175,17 @@ func resourceSchedule() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"base": {
-													Type:             schema.TypeInt,
+													Type:t,
 													Optional:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 100000)),
 												},
 												"capacity_provider": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Required:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 255)),
 												},
 												"weight": {
-													Type:             schema.TypeInt,
+													Type:t,
 													Optional:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 1000)),
 												},
@@ -201,12 +201,12 @@ func resourceSchedule() *schema.Resource {
 										Optional: true,
 									},
 									"group": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Optional:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 255)),
 									},
 									"launch_type": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Optional:         true,
 										ValidateDiagFunc: enum.Validate[types.LaunchType](),
 									},
@@ -242,12 +242,12 @@ func resourceSchedule() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"expression": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Optional:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 2000)),
 												},
 												"type": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Required:         true,
 													ValidateDiagFunc: enum.Validate[types.PlacementConstraintType](),
 												},
@@ -269,7 +269,7 @@ func resourceSchedule() *schema.Resource {
 													},
 												},
 												"type": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Required:         true,
 													ValidateDiagFunc: enum.Validate[types.PlacementStrategyType](),
 												},
@@ -281,7 +281,7 @@ func resourceSchedule() *schema.Resource {
 										Optional: true,
 									},
 									"propagate_tags": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Optional:         true,
 										ValidateDiagFunc: enum.Validate[types.PropagateTags](),
 									},
@@ -291,13 +291,13 @@ func resourceSchedule() *schema.Resource {
 									},
 									"tags": tftags.TagsSchema(),
 									"task_count": {
-										Type:             schema.TypeInt,
+										Type:t,
 										Optional:         true,
 										Default:          1,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 10)),
 									},
 									"task_definition_arn": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Required:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 									},
@@ -311,12 +311,12 @@ func resourceSchedule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"detail_type": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Required:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 									},
 									"source": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Required:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 									},
@@ -324,7 +324,7 @@ func resourceSchedule() *schema.Resource {
 							},
 						},
 						"input": {
-							Type:             schema.TypeString,
+							Type:ring,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, math.MaxInt)),
 						},
@@ -335,7 +335,7 @@ func resourceSchedule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"partition_key": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Required:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 									},
@@ -349,13 +349,13 @@ func resourceSchedule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"maximum_event_age_in_seconds": {
-										Type:             schema.TypeInt,
+										Type:t,
 										Optional:         true,
 										Default:          86400,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(60, 86400)),
 									},
 									"maximum_retry_attempts": {
-										Type:             schema.TypeInt,
+										Type:t,
 										Optional:         true,
 										Default:          185,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 185)),
@@ -373,7 +373,7 @@ func resourceSchedule() *schema.Resource {
 							},
 						},
 						"role_arn": {
-							Type:             schema.TypeString,
+							Type:ring,
 							Required:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 						},
@@ -391,12 +391,12 @@ func resourceSchedule() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"name": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Required:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 												},
 												"value": {
-													Type:             schema.TypeString,
+													Type:ring,
 													Required:         true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 												},
@@ -413,7 +413,7 @@ func resourceSchedule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"message_group_id": {
-										Type:             schema.TypeString,
+										Type:ring,
 										Optional:         true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 									},
@@ -437,7 +437,7 @@ func resourceScheduleCreate(ctx context.Context, d *schema.ResourceData, meta in
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 
 	in := &scheduler.CreateScheduleInput{
-		Name:               aws.String(name),
+		Name:name),
 		ScheduleExpression: aws.String(d.Get("schedule_expression").(string)),
 	}
 
@@ -571,9 +571,9 @@ func resourceScheduleUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	in := &scheduler.UpdateScheduleInput{
 		FlexibleTimeWindow: expandFlexibleTimeWindow(d.Get("flexible_time_window").([]interface{})[0].(map[string]interface{})),
 		GroupName:          aws.String(d.Get("group_name").(string)),
-		Name:               aws.String(d.Get("name").(string)),
+		Name:d.Get("name").(string)),
 		ScheduleExpression: aws.String(d.Get("schedule_expression").(string)),
-		Target:             expandTarget(ctx, d.Get("target").([]interface{})[0].(map[string]interface{})),
+		Target:ctx, d.Get("target").([]interface{})[0].(map[string]interface{})),
 	}
 
 	if v, ok := d.Get("description").(string); ok && v != "" {

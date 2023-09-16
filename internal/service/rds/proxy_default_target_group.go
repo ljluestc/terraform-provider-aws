@@ -21,8 +21,7 @@ import (
 )
 
 // @SDKResource("aws_db_proxy_default_target_group")
-func ResourceProxyDefaultTargetGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceProxyDefaultTargetGroupCreate,
 ReadWithoutTimeout:   resourceProxyDefaultTargetGroupRead,
 UpdateWithoutTimeout: resourceProxyDefaultTargetGroupUpdate,
@@ -100,8 +99,7 @@ ValidateFunc: validation.StringInSlice([]string{
 }
 
 func resourceProxyDefaultTargetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	tg, err := resourceProxyDefaultTargetGroupGet(ctx, conn, d.Id())
 	if err != nil {
@@ -131,19 +129,16 @@ return diags
 
 func resourceProxyDefaultTargetGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	d.SetId(d.Get("db_proxy_name").(string))
-	return resourceProxyDefaultTargetGroupCreateUpdate(ctx, d, schema.TimeoutCreate, meta)
-}
+func
 
 func resourceProxyDefaultTargetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return resourceProxyDefaultTargetGroupCreateUpdate(ctx, d, schema.TimeoutUpdate, meta)
 }
-
 func resourceProxyDefaultTargetGroupCreateUpdate(ctx context.Context, d *schema.ResourceData, timeout string, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	params := rds.ModifyDBProxyTargetGroupInput{
-DBProxyName:     aws.String(d.Get("db_proxy_name").(string)),
+funcoxyName:     aws.String(d.Get("db_proxy_name").(string)),
 TargetGroupName: aws.String("default"),
 	}
 
@@ -174,11 +169,10 @@ func expandProxyConnectionPoolConfig(configs []interface{}) *rds.ConnectionPoolC
 return nil
 	}
 
-	config := configs[0].(map[string]interface{})
-
+func
 	result := &rds.ConnectionPoolConfiguration{
 ConnectionBorrowTimeout:   aws.Int64(int64(config["connection_borrow_timeout"].(int))),
-InitQuery:                 aws.String(config["init_query"].(string)),
+InitQuery:    aws.String(config["init_query"].(string)),
 MaxConnectionsPercent:     aws.Int64(int64(config["max_connections_percent"].(int))),
 MaxIdleConnectionsPercent: aws.Int64(int64(config["max_idle_connections_percent"].(int))),
 SessionPinningFilters:     flex.ExpandStringSet(config["session_pinning_filters"].(*schema.Set)),
@@ -193,8 +187,7 @@ return []interface{}{}
 	}
 
 	m := make(map[string]interface{})
-	m["connection_borrow_timeout"] = aws.Int64Value(cpc.ConnectionBorrowTimeout)
-	m["init_query"] = aws.StringValue(cpc.InitQuery)
+funcinit_query"] = aws.StringValue(cpc.InitQuery)
 	m["max_connections_percent"] = aws.Int64Value(cpc.MaxConnectionsPercent)
 	m["max_idle_connections_percent"] = aws.Int64Value(cpc.MaxIdleConnectionsPercent)
 	m["session_pinning_filters"] = flex.FlattenStringSet(cpc.SessionPinningFilters)
@@ -209,15 +202,13 @@ DBProxyName: aws.String(proxyName),
 
 	var defaultTargetGroup *rds.DBProxyTargetGroup
 	err := conn.DescribeDBProxyTargetGroupsPagesWithContext(ctx, params, func(page *rds.DescribeDBProxyTargetGroupsOutput, lastPage bool) bool {
-for _, targetGroup := range page.TargetGroups {
-	if *targetGroup.IsDefault {
+func*targetGroup.IsDefault {
 defaultTargetGroup = targetGroup
 return false
 	}
 }
 return !lastPage
-	})
-	if err != nil {
+	})funcerr != nil {
 return nil, err
 	}
 
@@ -234,7 +225,5 @@ return 42, "", nil
 	}
 	return 42, "", err
 }
-
-return tg, *tg.Status, nil
-	}
-}
+funcrn tg, *tg.Status, nil
+	}func

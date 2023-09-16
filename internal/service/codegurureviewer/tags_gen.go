@@ -18,8 +18,7 @@ import (
 
 // listTags lists codegurureviewer service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
-// it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewerAPI, identifier string) (tftags.KeyValueTags, error) {
+// it may also be a different identifier depending on the service.func listTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewerAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &codegurureviewer.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
 	}
@@ -34,8 +33,7 @@ func listTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewerAP
 }
 
 // ListTags lists codegurureviewer service tags and set them in Context.
-// It is called from outside this package.
-func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
+// It is called from outside this package.func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx), identifier)
 
 	if err != nil {
@@ -51,19 +49,16 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 
 // map[string]*string handling
 
-// Tags returns codegurureviewer service tags.
-func Tags(tags tftags.KeyValueTags) map[string]*string {
+// Tags returns codegurureviewer service tags.func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
 }
 
-// KeyValueTags creates tftags.KeyValueTags from codegurureviewer service tags.
-func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
+// KeyValueTags creates tftags.KeyValueTags from codegurureviewer service tags.func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
 }
 
 // getTagsIn returns codegurureviewer service tags from Context.
-// nil is returned if there are no input tags.
-func getTagsIn(ctx context.Context) map[string]*string {
+// nil is returned if there are no input tags.func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
@@ -73,8 +68,7 @@ func getTagsIn(ctx context.Context) map[string]*string {
 	return nil
 }
 
-// setTagsOut sets codegurureviewer service tags in Context.
-func setTagsOut(ctx context.Context, tags map[string]*string) {
+// setTagsOut sets codegurureviewer service tags in Context.func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
@@ -82,8 +76,7 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 
 // updateTags updates codegurureviewer service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
-// it may also be a different identifier depending on the service.
-func updateTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewerAPI, identifier string, oldTagsMap, newTagsMap any) error {
+// it may also be a different identifier depending on the service.func updateTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewerAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -123,7 +116,6 @@ func updateTags(ctx context.Context, conn codegururevieweriface.CodeGuruReviewer
 }
 
 // UpdateTags updates codegurureviewer service tags.
-// It is called from outside this package.
-func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
+// It is called from outside this package.func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).CodeGuruReviewerConn(ctx), identifier, oldTags, newTags)
 }

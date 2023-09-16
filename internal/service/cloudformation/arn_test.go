@@ -11,6 +11,7 @@ import (
 	tfcloudformation "github.com/hashicorp/terraform-provider-aws/internal/service/cloudformation"
 )
 
+
 func TestTypeVersionARNToTypeARNAndVersionID(t *testing.T) {
 	t.Parallel()
 
@@ -56,7 +57,8 @@ func TestTypeVersionARNToTypeARNAndVersionID(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.TestName, func(t *testing.T) {
+		t.Run(testCase.TestName, 
+func(t *testing.T) {
 			t.Parallel()
 
 			gotTypeARN, gotVersionID, err := tfcloudformation.TypeVersionARNToTypeARNAndVersionID(testCase.InputARN)

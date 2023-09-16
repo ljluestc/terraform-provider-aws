@@ -18,19 +18,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAppStreamFleetStackAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_appstream_fleet_stack_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckHasIAMRole(ctx, t, "AmazonAppStreamServiceAccess")
+			acctest.Pfunccctest.PreCheckHasIAMRole(ctx, t, "AmazonAppStreamServiceAccess")
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetStackAssociationDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		CheckDestroy:testAccCheckFleetStackAssociationDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetStackAssociationConfig_basic(rName),
@@ -51,17 +49,15 @@ func TestAccAppStreamFleetStackAssociation_basic(t *testing.T) {
 
 func TestAccAppStreamFleetStackAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_appstream_fleet_stack_association.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "AmazonAppStreamServiceAccess")
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetStackAssociationDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		},funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckFleetStackAssociationDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetStackAssociationConfig_basic(rName),
@@ -79,10 +75,8 @@ func testAccCheckFleetStackAssociationExists(ctx context.Context, resourceName s
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).AppStreamConn(ctx)
 
 		fleetName, stackName, err := tfappstream.DecodeStackFleetID(rs.Primary.ID)
 		if err != nil {
@@ -105,10 +99,8 @@ func testAccCheckFleetStackAssociationDestroy(ctx context.Context) resource.Test
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appstream_fleet_stack_association" {
-				continue
-			}
-
-			fleetName, stackName, err := tfappstream.DecodeStackFleetID(rs.Primary.ID)
+func
+funcleetName, stackName, err := tfappstream.DecodeStackFleetID(rs.Primary.ID)
 			if err != nil {
 				return fmt.Errorf("error decoding AppStream Fleet Stack Association ID (%s): %w", rs.Primary.ID, err)
 			}
@@ -138,8 +130,7 @@ resource "aws_appstream_fleet" "test" {
   image_name    = "Amazon-AppStream2-Sample-Image-03-11-2023"
   instance_type = "stream.standard.small"
 
-  compute_capacity {
-    desired_instances = 1
+funcdesired_instances = 1
   }
 }
 

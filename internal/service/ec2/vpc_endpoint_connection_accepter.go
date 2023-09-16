@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_connection_accepter")
 
-func ResourceVPCEndpointConnectionAccepter() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointConnectionAccepterCreate,
-		ReadWithoutTimeout:   resourceVPCEndpointConnectionAccepterRead,
+		ReadWithoutTimeout:ourceVPCEndpointConnectionAccepterRead,
 		DeleteWithoutTimeout: resourceVPCEndpointConnectionAccepterDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -33,17 +32,17 @@ func ResourceVPCEndpointConnectionAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"vpc_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_endpoint_service_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_endpoint_state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -51,14 +50,13 @@ func ResourceVPCEndpointConnectionAccepter() *schema.Resource {
 }
 
 func resourceVPCEndpointConnectionAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	serviceID := d.Get("vpc_endpoint_service_id").(string)
 	vpcEndpointID := d.Get("vpc_endpoint_id").(string)
 	id := VPCEndpointConnectionAccepterCreateResourceID(serviceID, vpcEndpointID)
 	input := &ec2.AcceptVpcEndpointConnectionsInput{
-		ServiceId:      aws.String(serviceID),
+		ServiceId:g(serviceID),
 		VpcEndpointIds: aws.StringSlice([]string{vpcEndpointID}),
 	}
 
@@ -82,8 +80,7 @@ func resourceVPCEndpointConnectionAccepterCreate(ctx context.Context, d *schema.
 
 func resourceVPCEndpointConnectionAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	serviceID, vpcEndpointID, err := VPCEndpointConnectionAccepterParseResourceID(d.Id())
 
 	if err != nil {
@@ -112,15 +109,14 @@ func resourceVPCEndpointConnectionAccepterRead(ctx context.Context, d *schema.Re
 func resourceVPCEndpointConnectionAccepterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	serviceID, vpcEndpointID, err := VPCEndpointConnectionAccepterParseResourceID(d.Id())
+funcviceID, vpcEndpointID, err := VPCEndpointConnectionAccepterParseResourceID(d.Id())
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting VPC Endpoint Connection (%s): %s", d.Id(), err)
 	}
 
 	input := &ec2.RejectVpcEndpointConnectionsInput{
-		ServiceId:      aws.String(serviceID),
+		ServiceId:g(serviceID),
 		VpcEndpointIds: aws.StringSlice([]string{vpcEndpointID}),
 	}
 
@@ -143,15 +139,13 @@ func VPCEndpointConnectionAccepterCreateResourceID(serviceID, vpcEndpointID stri
 	parts := []string{serviceID, vpcEndpointID}
 	id := strings.Join(parts, vpcEndpointConnectionAccepterResourceIDSeparator)
 
-	return id
-}
+func
 
 func VPCEndpointConnectionAccepterParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, vpcEndpointConnectionAccepterResourceIDSeparator)
 
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
-	}
-
+func
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected VPCEndpointServiceID%[2]sVPCEndpointID", id, vpcEndpointConnectionAccepterResourceIDSeparator)
 }

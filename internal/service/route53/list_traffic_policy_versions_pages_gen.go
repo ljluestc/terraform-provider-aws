@@ -10,9 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/route53/route53iface"
 )
 
-func listTrafficPolicyVersionsPages(ctx context.Context, conn route53iface.Route53API, input *route53.ListTrafficPolicyVersionsInput, fn func(*route53.ListTrafficPolicyVersionsOutput, bool) bool) error {
-	for {
-		output, err := conn.ListTrafficPolicyVersionsWithContext(ctx, input)
+func {functput, err := conn.ListTrafficPolicyVersionsWithContext(ctx, input)
 		if err != nil {
 			return err
 		}

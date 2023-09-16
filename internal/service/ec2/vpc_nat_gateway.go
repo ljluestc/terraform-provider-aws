@@ -29,10 +29,9 @@ import (
 // @SDKResource("aws_nat_gateway", name="NAT Gateway")
 // @Tags(identifierAttribute="id")
 
-func ResourceNATGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNATGatewayCreate,
-		ReadWithoutTimeout:   resourceNATGatewayRead,
+		ReadWithoutTimeout:ourceNATGatewayRead,
 		UpdateWithoutTimeout: resourceNATGatewayUpdate,
 		DeleteWithoutTimeout: resourceNATGatewayDelete,
 
@@ -48,63 +47,61 @@ func ResourceNATGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allocation_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"association_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"connectivity_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      ec2.ConnectivityTypePublic,
+				Optional:
+				ForceNew:
+				Default:ctivityTypePublic,
 				Validate
 func: validation.StringInSlice(ec2.ConnectivityType_Values(), false),
-			},
-			"network_interface_id": {
-				Type:     schema.TypeString,
+funcnetwork_interface_id": {
+				Type:eString,
 				Computed: true,
 			},
 			"private_ip": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:
+				Computed:
+				ForceNew:
 				Validate
 func: validation.IsIPv4Address,
 			},
-			"public_ip": {
-				Type:     schema.TypeString,
+funcType:eString,
 				Computed: true,
 			},
 			"secondary_allocation_ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"secondary_private_ip_address_count": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"secondary_private_ip_addresses"},
 			},
 			"secondary_private_ip_addresses": {
 				Type: schema.TypeSet,
-				Optional:      true,
-				Computed:      true,
+				Optional:
+				Computed:
 				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"secondary_private_ip_address_count"},
 			},
 			"subnet_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -119,8 +116,7 @@ func: validation.IsIPv4Address,
 func resourceNATGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	input := &ec2.CreateNatGatewayInput{
-		ClientToken:       aws.String(id.UniqueId()),
+funcientToken:ng(id.UniqueId()),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeNatgateway),
 	}
 
@@ -172,8 +168,7 @@ func resourceNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	ng, err := FindNATGatewayByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 NAT Gateway (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
@@ -220,13 +215,12 @@ func resourceNATGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	switch d.Get("connectivity_type").(string) {
 	case ec2.ConnectivityTypePrivate:
-		if d.HasChanges("secondary_private_ip_addresses") {
-			oRaw, nRaw := d.GetChange("secondary_private_ip_addresses")
+funcRaw, nRaw := d.GetChange("secondary_private_ip_addresses")
 			o, n := oRaw.(*schema.Set), nRaw.(*schema.Set)
 
 			if add := n.Difference(o); add.Len() > 0 {
 				input := &ec2.AssignPrivateNatGatewayAddressInput{
-					NatGatewayId:       aws.String(d.Id()),
+					NatGatewayId:ng(d.Id()),
 					PrivateIpAddresses: flex.ExpandStringSet(add),
 				}
 
@@ -245,7 +239,7 @@ func resourceNATGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 			if del := o.Difference(n); del.Len() > 0 {
 				input := &ec2.UnassignPrivateNatGatewayAddressInput{
-					NatGatewayId:       aws.String(d.Id()),
+					NatGatewayId:ng(d.Id()),
 					PrivateIpAddresses: flex.ExpandStringSet(del),
 				}
 
@@ -315,7 +309,7 @@ func resourceNATGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 				input := &ec2.DisassociateNatGatewayAddressInput{
 					AssociationIds: aws.StringSlice(associationIDs),
-					NatGatewayId:   aws.String(d.Id()),
+					NatGatewayId:.String(d.Id()),
 				}
 
 				_, err = conn.DisassociateNatGatewayAddressWithContext(ctx, input)
@@ -343,8 +337,7 @@ func resourceNATGatewayDelete(ctx context.Context, d *schema.ResourceData, meta 
 	log.Printf("[INFO] Deleting EC2 NAT Gateway: %s", d.Id())
 	_, err := conn.DeleteNatGatewayWithContext(ctx, &ec2.DeleteNatGatewayInput{
 		NatGatewayId: aws.String(d.Id()),
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, errCodeNatGatewayNotFound) {
 		return nil
 	}
@@ -368,8 +361,7 @@ func resourceNATGatewayCustomizeDiff(ctx context.Context, diff *schema.ResourceD
 			return fmt.Errorf(`allocation_id is not supported with connectivity_type = "%s"`, connectivityType)
 		}
 		if v, ok := diff.GetOk("secondary_allocation_ids"); ok && v.(*schema.Set).Len() > 0 {
-			return fmt.Errorf(`secondary_allocation_ids is not supported with connectivity_type = "%s"`, connectivityType)
-		}
+func
 
 	case ec2.ConnectivityTypePublic:
 		if v := diff.GetRawConfig().GetAttr("secondary_private_ip_address_count"); v.IsKnown() && !v.IsNull() {

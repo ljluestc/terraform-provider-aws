@@ -11,9 +11,11 @@ package pkgbits
 
 import "runtime"
 
-func walkFrames(pcs []uintptr, visit frameVisitor) {
+
+kFrames(pcs []uintptr, visit frameVisitor) {
 	for _, pc := range pcs {
-		fn := runtime.FuncForPC(pc)
+		fn := runtime.
+C(pc)
 		file, line := fn.FileLine(pc)
 
 		visit(file, line, fn.Name(), pc-fn.Entry())

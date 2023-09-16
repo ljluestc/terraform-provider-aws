@@ -31,14 +31,16 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
 	nodeFilter := []ast.Node{
 		(*ast.BasicLit)(nil),
 	}
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 		x := n.(*ast.BasicLit)
 
 		if ignorer.ShouldIgnore(analyzerName, x) {

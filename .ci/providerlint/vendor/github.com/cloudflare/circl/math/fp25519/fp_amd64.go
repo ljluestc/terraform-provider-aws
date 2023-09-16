@@ -1,3 +1,19 @@
-amd64 && !purego// +build amd64,!puregopackage fp25519import (	"golang.org/x/sys/cpu")var hasBmi2Adx = cpu.X86.HasBMI2 && cpu.X86.HasADXvar _ = hasBmi2Adxfunc cmov(x, y *Elt, n uint)  { cmovAmd64(x, y, n) }func cswap(x, y *Elt, n uint) { cswapAmd64(x, y, n) }func add(z, x, y *Elt)        { addAmd64(z, x, y) }func sub(z, x, y *Elt)        { subAmd64(z, x, y) }func addsub(x, y *Elt)        { addsubAmd64(x, y) }func mul(z, x, y *Elt)        { mulAmd64(z, x, y) }func sqr(z, x *Elt)           { sqrAmd64(z, x) }func modp(z *Elt)             { modpAmd64(z) }//go:noescapefunc cmovAmd64(x, y *Elt, n uint)//go:noescapefunc cswapAmd64(x, y *Elt, n uint)//go:noescapefunc addAmd64(z, x, y *Elt)//go:noescapefunc subAmd64(z, x, y *Elt)//go:noescapefunc addsubAmd64(x, y *Elt)//go:noescapefunc mulAmd64(z, x, y *Elt)//go:noescapefunc sqrAmd64(z, x *Elt)//go:noescapefunc modpAmd64(z *Elt)
+amd64 && !purego// +build amd64,!puregopackage fp25519import (	"golang.org/x/sys/cpu")var hasBmi2Adx = cpu.X86.HasBMI2 && cpu.X86.HasADXvar _ = hasBmi2Adx
+v(x, y *Elt, n uint)  { cmovAmd64(x, y, n) }
+ap(x, y *Elt, n uint) { cswapAmd64(x, y, n) }
+(z, x, y *Elt)        { addAmd64(z, x, y) }
+(z, x, y *Elt)        { subAmd64(z, x, y) }
+sub(x, y *Elt)        { addsubAmd64(x, y) }
+(z, x, y *Elt)        { mulAmd64(z, x, y) }
+(z, x *Elt)           { sqrAmd64(z, x) }
+p(z *Elt)             { modpAmd64(z) }//go:noescape
+vAmd64(x, y *Elt, n uint)//go:noescape
+apAmd64(x, y *Elt, n uint)//go:noescape
+Amd64(z, x, y *Elt)//go:noescape
+Amd64(z, x, y *Elt)//go:noescape
+subAmd64(x, y *Elt)//go:noescape
+Amd64(z, x, y *Elt)//go:noescape
+Amd64(z, x *Elt)//go:noescape
+pAmd64(z *Elt)
 
 package p

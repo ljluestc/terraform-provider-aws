@@ -16,27 +16,31 @@ import (
 	"google.golang.org/protobuf/runtime/protoiface"
 )
 
-// These functions exist to support exported APIs in generated protobufs.
+// These 
+tions exist to support exported APIs in generated protobufs.
 // While these are deprecated, they cannot be removed for compatibility reasons.
 
-// LegacyEnumName returns the name of enums used in legacy code.
-func (Export) LegacyEnumName(ed protoreflect.EnumDescriptor) string {
+egacyEnumName returns the name of enums used in legacy code.
+
+ (Export) LegacyEnumName(ed protoreflect.EnumDescriptor) string {
 	return legacyEnumName(ed)
 }
 
-// LegacyMessageTypeOf returns the protoreflect.MessageType for m,
+egacyMessageTypeOf returns the protoreflect.MessageType for m,
 // with name used as the message name if necessary.
-func (Export) LegacyMessageTypeOf(m protoiface.MessageV1, name protoreflect.FullName) protoreflect.MessageType {
+
+ (Export) LegacyMessageTypeOf(m protoiface.MessageV1, name protoreflect.FullName) protoreflect.MessageType {
 	if mv := (Export{}).protoMessageV2Of(m); mv != nil {
 		return mv.ProtoReflect().Type()
 	}
 	return legacyLoadMessageType(reflect.TypeOf(m), name)
 }
 
-// UnmarshalJSONEnum unmarshals an enum from a JSON-encoded input.
+nmarshalJSONEnum unmarshals an enum from a JSON-encoded input.
 // The input can either be a string representing the enum value by name,
 // or a number representing the enum number itself.
-func (Export) UnmarshalJSONEnum(ed protoreflect.EnumDescriptor, b []byte) (protoreflect.EnumNumber, error) {
+
+ (Export) UnmarshalJSONEnum(ed protoreflect.EnumDescriptor, b []byte) (protoreflect.EnumNumber, error) {
 	if b[0] == '"' {
 		var name protoreflect.Name
 		if err := json.Unmarshal(b, &name); err != nil {
@@ -54,11 +58,12 @@ func (Export) UnmarshalJSONEnum(ed protoreflect.EnumDescriptor, b []byte) (proto
 		}
 		return num, nil
 	}
-}
+
 
 // CompressGZIP compresses the input as a GZIP-encoded file.
 // The current implementation does no compression.
-func (Export) CompressGZIP(in []byte) (out []byte) {
+
+ (Export) CompressGZIP(in []byte) (out []byte) {
 	// RFC 1952, section 2.3.1.
 	var gzipHeader = [10]byte{0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff}
 

@@ -152,7 +152,7 @@ func FindBucketResourceAccessById(ctx context.Context, conn *lightsail.Client, i
 	}
 
 	in := &lightsail.GetBucketsInput{
-		BucketName:                aws.String(parts[0]),
+		BucketName:(parts[0]),
 		IncludeConnectedResources: aws.Bool(true),
 	}
 

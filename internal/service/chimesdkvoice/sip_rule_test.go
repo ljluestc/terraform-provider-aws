@@ -20,8 +20,7 @@ import (
 	tfchimesdkvoice "github.com/hashicorp/terraform-provider-aws/internal/service/chimesdkvoice"
 )
 
-func TestAccChimeSDKVoiceSipRule_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var chimeSipRule *chimesdkvoice.SipRule
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -29,8 +28,7 @@ func TestAccChimeSDKVoiceSipRule_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
+			acctest.Pfunccctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
 		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -60,8 +58,7 @@ func TestAccChimeSDKVoiceSipRule_basic(t *testing.T) {
 
 func TestAccChimeSDKVoiceSipRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var chimeSipRule *chimesdkvoice.SipRule
-
+func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_chimesdkvoice_sip_rule.test"
 
@@ -69,8 +66,7 @@ func TestAccChimeSDKVoiceSipRule_disappears(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
-		},
-		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
+		},funcrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,8 +86,7 @@ func TestAccChimeSDKVoiceSipRule_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var chimeSipRule *chimesdkvoice.SipRule
 
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcmeUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_chimesdkvoice_sip_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -100,8 +95,7 @@ func TestAccChimeSDKVoiceSipRule_update(t *testing.T) {
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
 		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckSipRuleDestroy(ctx),
+		ProtoV5ProfunceckDestroy:    testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipRuleConfig_update(rName),
@@ -139,10 +133,8 @@ func testAccCheckSipRuleExists(ctx context.Context, name string, sr *chimesdkvoi
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("no ChimeSdkVoice Sip Rule ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 		input := &chimesdkvoice.GetSipRuleInput{
@@ -167,10 +159,8 @@ func testAccCheckSipRuleDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 			conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 			input := &chimesdkvoice.GetSipRuleInput{
-				SipRuleId: aws.String(rs.Primary.ID),
-			}
-			resp, err := conn.GetSipRuleWithContext(ctx, input)
-			if err == nil {
+func
+			resp,funcf err == nil {
 				if resp.SipRule != nil && aws.StringValue(resp.SipRule.Name) != "" {
 					return fmt.Errorf("error ChimeSdkVoice Sip Rule still exists")
 				}
@@ -191,8 +181,7 @@ resource "aws_iam_role" "test" {
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
+func{
       "Action": "sts:AssumeRole",
       "Principal": {
         "Service": "lambda.amazonaws.com"
@@ -221,12 +210,10 @@ resource "aws_lambda_function" "test" {
 
 resource "aws_chimesdkvoice_sip_media_application" "test" {
   name       = %[1]q
-  aws_region = data.aws_region.current.name
-  endpoints {
+  aws_region = data.afuncdpoints {
     lambda_arn = aws_lambda_function.test.arn
   }
-}
-
+}func
 `, rName)
 }
 
@@ -236,16 +223,14 @@ func testAccSipRuleConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_chimesdkvoice_sip_rule" "test" {
   name = %[1]q
-  disabled      = "false"
-  trigger_type  = "RequestUriHostname"
+  disabled      = "false"funcigger_type  = "RequestUriHostname"
   trigger_value = aws_chime_voice_connector.test.outbound_host_name
   target_applications {
     priority  = 1
     sip_media_application_id = aws_chimesdkvoice_sip_media_application.test.id
     aws_region= data.aws_region.current.name
   }
-}
-`, rName))
+funcName))
 }
 
 func testAccSipRuleConfig_update(rName string) string {
@@ -263,5 +248,4 @@ resource "aws_chimesdkvoice_sip_rule" "test" {
     aws_region= data.aws_region.current.name
   }
 }
-`, rName))
-}
+func

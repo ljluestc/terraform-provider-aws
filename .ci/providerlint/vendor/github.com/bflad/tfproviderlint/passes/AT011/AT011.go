@@ -11,7 +11,8 @@ const Doc = `check for TestCase including IDRefreshIgnore implementation without
 
 The AT011 analyzer reports likely extraneous use of ID-only refresh testing.
 Most resources should prefer to include a TestStep with ImportState instead
-since it will cover the same testing functionality along with verifying
+since it will cover the same testing 
+tionality along with verifying
 resource import support.
 
 However for cases where IDRefreshName is being already being used, the
@@ -31,7 +32,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	testCases := pass.ResultOf[testcaseinfo.Analyzer].([]*resource.TestCaseInfo)
 

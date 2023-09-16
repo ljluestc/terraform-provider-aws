@@ -217,7 +217,7 @@ func ResourceCluster() *schema.Resource {
 				ValidateFunc: verify.ValidARN,
 			},
 			"logging": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems:         1,
 				Optional:         true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -392,26 +392,26 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	clusterID := d.Get("cluster_identifier").(string)
 	backupInput := &redshift.RestoreFromClusterSnapshotInput{
-		AllowVersionUpgrade:              aws.Bool(d.Get("allow_version_upgrade").(bool)),
+		AllowVersionUpgrade: aws.Bool(d.Get("allow_version_upgrade").(bool)),
 		AutomatedSnapshotRetentionPeriod: aws.Int64(int64(d.Get("automated_snapshot_retention_period").(int))),
-		ClusterIdentifier:                aws.String(clusterID),
-		Port:                             aws.Int64(int64(d.Get("port").(int))),
-		NodeType:                         aws.String(d.Get("node_type").(string)),
-		PubliclyAccessible:               aws.Bool(d.Get("publicly_accessible").(bool)),
+		ClusterIdentifier:   aws.String(clusterID),
+		Port:   aws.Int64(int64(d.Get("port").(int))),
+		NodeType:            aws.String(d.Get("node_type").(string)),
+		PubliclyAccessible:  aws.Bool(d.Get("publicly_accessible").(bool)),
 	}
 
 	input := &redshift.CreateClusterInput{
-		AllowVersionUpgrade:              aws.Bool(d.Get("allow_version_upgrade").(bool)),
+		AllowVersionUpgrade: aws.Bool(d.Get("allow_version_upgrade").(bool)),
 		AutomatedSnapshotRetentionPeriod: aws.Int64(int64(d.Get("automated_snapshot_retention_period").(int))),
-		ClusterIdentifier:                aws.String(clusterID),
-		ClusterVersion:                   aws.String(d.Get("cluster_version").(string)),
-		DBName:                           aws.String(d.Get("database_name").(string)),
-		MasterUsername:                   aws.String(d.Get("master_username").(string)),
-		MasterUserPassword:               aws.String(d.Get("master_password").(string)),
-		NodeType:                         aws.String(d.Get("node_type").(string)),
-		Port:                             aws.Int64(int64(d.Get("port").(int))),
-		PubliclyAccessible:               aws.Bool(d.Get("publicly_accessible").(bool)),
-		Tags:                             getTagsIn(ctx),
+		ClusterIdentifier:   aws.String(clusterID),
+		ClusterVersion:      aws.String(d.Get("cluster_version").(string)),
+		DBName: aws.String(d.Get("database_name").(string)),
+		MasterUsername:      aws.String(d.Get("master_username").(string)),
+		MasterUserPassword:  aws.String(d.Get("master_password").(string)),
+		NodeType:            aws.String(d.Get("node_type").(string)),
+		Port:   aws.Int64(int64(d.Get("port").(int))),
+		PubliclyAccessible:  aws.Bool(d.Get("publicly_accessible").(bool)),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("aqua_configuration_status"); ok {

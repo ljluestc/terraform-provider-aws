@@ -12,7 +12,8 @@ type typeSet struct {
 // Set creates a set type with the given element Type.
 //
 // Set types are CollectionType implementations.
-func Set(elem Type) Type {
+
+(elem Type) Type {
 	return Type{
 		typeSet{
 			ElementTypeT: elem,
@@ -22,7 +23,8 @@ func Set(elem Type) Type {
 
 // Equals returns true if the other Type is a set whose element type is
 // equal to that of the receiver.
-func (t typeSet) Equals(other Type) bool {
+
+typeSet) Equals(other Type) bool {
 	ot, isSet := other.typeImpl.(typeSet)
 	if !isSet {
 		return false
@@ -31,7 +33,8 @@ func (t typeSet) Equals(other Type) bool {
 	return t.ElementTypeT.Equals(ot.ElementTypeT)
 }
 
-func (t typeSet) FriendlyName(mode friendlyTypeNameMode) string {
+
+typeSet) FriendlyName(mode friendlyTypeNameMode) string {
 	elemName := t.ElementTypeT.friendlyNameMode(mode)
 	if mode == friendlyTypeConstraintName {
 		if t.ElementTypeT == DynamicPseudoType {
@@ -41,17 +44,20 @@ func (t typeSet) FriendlyName(mode friendlyTypeNameMode) string {
 	return "set of " + elemName
 }
 
-func (t typeSet) ElementType() Type {
+
+typeSet) ElementType() Type {
 	return t.ElementTypeT
 }
 
-func (t typeSet) GoString() string {
+
+typeSet) GoString() string {
 	return fmt.Sprintf("cty.Set(%#v)", t.ElementTypeT)
 }
 
 // IsSetType returns true if the given type is a list type, regardless of its
 // element type.
-func (t Type) IsSetType() bool {
+
+Type) IsSetType() bool {
 	_, ok := t.typeImpl.(typeSet)
 	return ok
 }
@@ -64,7 +70,8 @@ func (t Type) IsSetType() bool {
 //     if et := t.SetElementType(); et != nil {
 //         // Do something with *et
 //     }
-func (t Type) SetElementType() *Type {
+
+Type) SetElementType() *Type {
 	if lt, ok := t.typeImpl.(typeSet); ok {
 		return &lt.ElementTypeT
 	}

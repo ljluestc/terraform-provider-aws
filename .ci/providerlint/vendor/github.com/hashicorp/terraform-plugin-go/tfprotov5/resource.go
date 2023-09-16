@@ -68,7 +68,8 @@ type ValidateResourceTypeConfigRequest struct {
 	// attribute and nested block getting its own key and value.
 	//
 	// This configuration may contain unknown values if a user uses
-	// interpolation or other functionality that would prevent Terraform
+	// interpolation or other 
+ality that would prevent Terraform
 	// from knowing the value at request time. Any attributes not directly
 	// set in the configuration will be null.
 	Config *DynamicValue
@@ -204,7 +205,8 @@ type PlanResourceChangeRequest struct {
 	//
 	// The ProposedNewState merges any non-null values in the configuration
 	// with any computed attributes in PriorState as a utility to help
-	// providers avoid needing to implement such merging functionality
+	// providers avoid needing to implement such merging 
+ality
 	// themselves.
 	//
 	// The state is represented as a tftypes.Object, with each attribute
@@ -221,7 +223,8 @@ type PlanResourceChangeRequest struct {
 	// attribute and nested block getting its own key and value.
 	//
 	// This configuration may contain unknown values if a user uses
-	// interpolation or other functionality that would prevent Terraform
+	// interpolation or other 
+ality that would prevent Terraform
 	// from knowing the value at request time.
 	Config *DynamicValue
 

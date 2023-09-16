@@ -28,10 +28,10 @@ func TestAccIoTRoleAlias_basic(t *testing.T) {
 	resourceName2 := "aws_iot_role_alias.ra2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRoleAliasDestroy(ctx),
+		CheckDestroy:testAccCheckRoleAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRoleAliasConfig_basic(alias),
@@ -179,7 +179,7 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra" {
-  alias               = "%s"
+  alias  = "%s"
   role_arn            = aws_iam_role.role.arn
   credential_duration = 43200
 }

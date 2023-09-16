@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_prefix_list")
 
-func DataSourcePrefixList() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourcePrefixListRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,18 +27,18 @@ func DataSourcePrefixList() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cidr_blocks": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"prefix_list_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -47,8 +46,7 @@ func DataSourcePrefixList() *schema.Resource {
 }
 
 func dataSourcePrefixListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribePrefixListsInput{}
 

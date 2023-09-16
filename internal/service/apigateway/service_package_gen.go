@@ -15,18 +15,15 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceAPIKey,
+funcactory:  DataSourceAPIKey,
 			TypeName: "aws_api_gateway_api_key",
 		},
 		{
@@ -67,13 +64,12 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceAccount,
-			TypeName: "aws_api_gateway_account",
+funcypeName: "aws_api_gateway_account",
 		},
 		{
 			Factory:  ResourceAPIKey,
 			TypeName: "aws_api_gateway_api_key",
-			Name:     "API Key",
+			Name:API Key",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -89,7 +85,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceClientCertificate,
 			TypeName: "aws_api_gateway_client_certificate",
-			Name:     "Client Certificate",
+			Name:Client Certificate",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -109,7 +105,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDomainName,
 			TypeName: "aws_api_gateway_domain_name",
-			Name:     "Domain Name",
+			Name:Domain Name",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -153,7 +149,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceRestAPI,
 			TypeName: "aws_api_gateway_rest_api",
-			Name:     "REST API",
+			Name:REST API",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -165,7 +161,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceStage,
 			TypeName: "aws_api_gateway_stage",
-			Name:     "Stage",
+			Name:Stage",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -173,7 +169,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceUsagePlan,
 			TypeName: "aws_api_gateway_usage_plan",
-			Name:     "Usage Plan",
+			Name:Usage Plan",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -185,7 +181,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceVPCLink,
 			TypeName: "aws_api_gateway_vpc_link",
-			Name:     "VPC Link",
+			Name:VPC Link",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -197,13 +193,12 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.APIGateway
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*apigateway_sdkv1.APIGateway, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return apigateway_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

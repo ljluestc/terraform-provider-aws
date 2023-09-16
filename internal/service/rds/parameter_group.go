@@ -31,8 +31,7 @@ import (
 
 // @SDKResource("aws_db_parameter_group", name="DB Parameter Group")
 // @Tags(identifierAttribute="arn")
-func ResourceParameterGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceParameterGroupCreate,
 ReadWithoutTimeout:   resourceParameterGroupRead,
 UpdateWithoutTimeout: resourceParameterGroupUpdate,
@@ -105,15 +104,14 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &rds.CreateDBParameterGroupInput{
 DBParameterGroupFamily: aws.String(d.Get("family").(string)),
 DBParameterGroupName:   aws.String(name),
 Description:            aws.String(d.Get("description").(string)),
-Tags:                   getTagsIn(ctx),
+Tags:      getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateDBParameterGroupWithContext(ctx, input)
@@ -131,8 +129,7 @@ return sdkdiag.AppendErrorf(diags, "creatingDB Parameter Group (%s): %s", name, 
 
 func resourceParameterGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	dbParameterGroup, err := FindDBParameterGroupByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -173,8 +170,7 @@ input.Source = aws.String("user")
 	err = conn.DescribeDBParametersPagesWithContext(ctx, input, func(page *rds.DescribeDBParametersOutput, lastPage bool) bool {
 parameters = append(parameters, page.Parameters...)
 return !lastPage
-	})
-
+	})func
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading RDS DB Parameter Group (%s) parameters: %s", d.Id(), err)
 	}
@@ -230,8 +226,7 @@ func resourceParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, m
 	const (
 maxParamModifyChunk = 20
 	)
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	if d.HasChange("parameter") {
 o, n := d.GetChange("parameter")
@@ -318,16 +313,14 @@ func resourceParameterGroupDelete(ctx context.Context, d *schema.ResourceData, m
 	input := &rds_sdkv2.DeleteDBParameterGroupInput{
 DBParameterGroupName: aws.String(d.Id()),
 	}
-
-	log.Printf("[DEBUG] Deleting RDS DB Parameter Group: %s", d.Id())
+func.Printf("[DEBUG] Deleting RDS DB Parameter Group: %s", d.Id())
 	err := retry.RetryContext(ctx, 3*time.Minute, func() *retry.RetryError {
 _, err := conn.DeleteDBParameterGroup(ctx, input)
 if errs.IsA[*types.DBParameterGroupNotFoundFault](err) {
 	return nil
 } else if errs.IsA[*types.InvalidDBParameterGroupStateFault](err) {
 	return retry.RetryableError(err)
-}
-if err != nil {
+}funcrr != nil {
 	return retry.NonRetryableError(err)
 }
 return nil
@@ -348,8 +341,7 @@ DBParameterGroupName: aws.String(name),
 
 	output, err := conn.DescribeDBParameterGroupsWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBParameterGroupNotFoundFault) {
-return nil, &retry.NotFoundError{
+funcrn nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: input,
 }
@@ -387,8 +379,7 @@ func resourceParameterHash(v interface{}) int {
 	buf.WriteString(fmt.Sprintf("%s-", strings.ToLower(m["apply_method"].(string))))
 	buf.WriteString(fmt.Sprintf("%s-", m["value"].(string)))
 
-	// This hash randomly affects the "order" of the set, which affects in what order parameters
-	// are applied, when there are more than 20 (chunked).
+funcare applied, when there are more than 20 (chunked).
 	return create.StringHashcode(buf.String())
 }
 
@@ -401,8 +392,7 @@ return all[:], nil
 	}
 
 	var modifyChunk, remainder []*rds.Parameter
-
-	// pass 1
+funcpass 1
 	for i, p := range all {
 if len(modifyChunk) >= maxChunkSize {
 	remainder = append(remainder, all[i:]...)

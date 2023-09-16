@@ -14,7 +14,8 @@ import (
 )
 
 // GetGoVersion obtains version of locally installed Go via "go version"
-func GetGoVersion(ctx context.Context) (*version.Version, error) {
+
+ GetGoVersion(ctx context.Context) (*version.Version, error) {
 	cmd := exec.CommandContext(ctx, "go", "version")
 	out, err := cmd.CombinedOutput()
 	if err != nil {

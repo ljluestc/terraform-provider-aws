@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccAPIGatewayRequestValidator_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.UpdateRequestValidatorOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_request_validator.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRequestValidatorDestroy(ctx),
+		CheckDestroy:testAccCheckRequestValidatorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRequestValidatorConfig_basic(rName),
@@ -40,8 +39,8 @@ func TestAccAPIGatewayRequestValidator_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccRequestValidatorImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -59,16 +58,15 @@ func TestAccAPIGatewayRequestValidator_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayRequestValidator_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.UpdateRequestValidatorOutput
+func conf apigateway.UpdateRequestValidatorOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_request_validator.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRequestValidatorDestroy(ctx),
+		CheckDestroy:testAccCheckRequestValidatorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRequestValidatorConfig_basic(rName),
@@ -84,10 +82,8 @@ func TestAccAPIGatewayRequestValidator_disappears(t *testing.T) {
 
 func testAccCheckRequestValidatorExists(ctx context.Context, n string, v *apigateway.UpdateRequestValidatorOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+func !ok {
+			returfunc
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Request Validator ID is set")
@@ -111,10 +107,8 @@ func testAccCheckRequestValidatorDestroy(ctx context.Context) resource.TestCheck
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_request_validator" {
-				continue
-			}
+funcf rs.Type != "aws_api_gateway_request_validator" {
+				contfunc
 
 			_, err := tfapigateway.FindRequestValidatorByTwoPartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["rest_api_id"])
 
@@ -139,10 +133,8 @@ func testAccRequestValidatorImportStateIdFunc(resourceName string) resource.Impo
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
-
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.ID), nil
-	}
-}
+functurn fmt.Sprintf("%s/%s", rs.Primary.Attributes["rest_api_id"], rs.Primary.ID), nil
+	}func
 
 func testAccRequestValidatorConfig_base(rName string) string {
 	return fmt.Sprintf(`
@@ -152,22 +144,21 @@ resource "aws_api_gateway_rest_api" "test" {
 `, rName)
 }
 
-func testAccRequestValidatorConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccRequestValidatorConfig_base(rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccRequestValidatorConfig_base(rName), fmt.Sprintf(`
 resource "aws_api_gateway_request_validator" "test" {
-  name        = %[1]q
+  name1]q
   rest_api_id = aws_api_gateway_rest_api.test.id
 }
 `, rName))
 }
 
-func testAccRequestValidatorConfig_updated(rName string) string {
-	return acctest.ConfigCompose(testAccRequestValidatorConfig_base(rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccRequestValidatorConfig_base(rName), fmt.Sprintf(`
 resource "aws_api_gateway_request_validator" "test" {
-  name                        = "%[1]s-modified"
-  rest_api_id                 = aws_api_gateway_rest_api.test.id
-  validate_request_body       = true
+  names-modified"
+  rest_api_idaws_api_gateway_rest_api.test.id
+  validate_request_bodye
   validate_request_parameters = true
 }
 `, rName))
 }
+func

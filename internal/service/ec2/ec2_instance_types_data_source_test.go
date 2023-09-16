@@ -14,24 +14,21 @@ import (
 )
 
 
-func TestAccEC2InstanceTypesDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:l,
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceTypesDataSourceConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
-),
-	},
+func
 },
 	})
 }
@@ -40,15 +37,13 @@ func(
 func TestAccEC2InstanceTypesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
-Steps: []resource.TestStep{
-	{
+CheckDestroy:l,
+func
 Config: testAccInstanceTypesDataSourceConfig_filter(),
 Check: resource.ComposeTestCheck
 func(
@@ -56,8 +51,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func testAccPreCheckInstanceTypes(ctx context.Context, t *testing.T) {
@@ -66,8 +60,7 @@ func testAccPreCheckInstanceTypes(ctx context.Context, t *testing.T) {
 	input := &ec2.DescribeInstanceTypesInput{}
 
 	_, err := conn.DescribeInstanceTypesWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+funcacctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
 	}
 
@@ -84,13 +77,11 @@ data "aws_ec2_instance_types" "test" {}
 }
 
 
-func testAccInstanceTypesDataSourceConfig_filter() string {
-	return `
+funcurn `
 data "aws_ec2_instance_types" "test" {
   filter {
-    name   = "current-generation"
-    values = ["true"]
+me= "rent-generation"
+lues = ["true"]
   }
 }
-`
-}
+func

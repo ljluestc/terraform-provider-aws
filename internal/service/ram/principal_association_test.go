@@ -19,17 +19,16 @@ import (
 	tfram "github.com/hashicorp/terraform-provider-aws/internal/service/ram"
 )
 
-func TestAccRAMPrincipalAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var association ram.ResourceShareAssociation
 	resourceName := "aws_ram_principal_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrincipalAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckPrincipalAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPrincipalAssociationConfig_basic(rName),
@@ -38,8 +37,8 @@ func TestAccRAMPrincipalAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -47,16 +46,15 @@ func TestAccRAMPrincipalAssociation_basic(t *testing.T) {
 }
 
 func TestAccRAMPrincipalAssociation_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var association ram.ResourceShareAssociation
+func association ram.ResourceShareAssociation
 	resourceName := "aws_ram_principal_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ram.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrincipalAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckPrincipalAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPrincipalAssociationConfig_basic(rName),
@@ -72,10 +70,8 @@ func TestAccRAMPrincipalAssociation_disappears(t *testing.T) {
 
 func testAccCheckPrincipalAssociationExists(ctx context.Context, resourceName string, resourceShare *ram.ResourceShareAssociation) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RAMConn(ctx)
-
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
+func
+		rs, okfunc !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
 		}
 
@@ -120,10 +116,8 @@ func testAccCheckPrincipalAssociationDestroy(ctx context.Context) resource.TestC
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RAMConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ram_principal_association" {
-				continue
-			}
+funcf rs.Type != "aws_ram_principal_association" {
+				contfunc
 
 			resourceShareARN, principal, err := tfram.DecodeResourceAssociationID(rs.Primary.ID)
 
@@ -150,11 +144,10 @@ func testAccPrincipalAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
   allow_external_principals = true
-  name                      = %[1]q
+  name
 }
-
-resource "aws_ram_principal_association" "test" {
-  principal          = "111111111111"
+funcurce "aws_ram_principal_association" "test" {
+  principal1111111"
   resource_share_arn = aws_ram_resource_share.test.id
 }
 `, rName)

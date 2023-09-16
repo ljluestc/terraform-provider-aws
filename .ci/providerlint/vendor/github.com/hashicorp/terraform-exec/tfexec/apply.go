@@ -45,68 +45,84 @@ type ApplyOption interface {
 	configureApply(*applyConfig)
 }
 
-func (opt *ParallelismOption) configureApply(conf *applyConfig) {
+
+ (opt *ParallelismOption) configureApply(conf *applyConfig) {
 	conf.parallelism = opt.parallelism
 }
 
-func (opt *BackupOption) configureApply(conf *applyConfig) {
+
+ (opt *BackupOption) configureApply(conf *applyConfig) {
 	conf.backup = opt.path
+
+
+
+ (opt *TargetOption) configureApply(conf *applyConfig) {
+f.targets = append(conf.targets, opt.target)
 }
 
-func (opt *TargetOption) configureApply(conf *applyConfig) {
-	conf.targets = append(conf.targets, opt.target)
-}
 
-func (opt *LockTimeoutOption) configureApply(conf *applyConfig) {
+t *LockTimeoutOption) configureApply(conf *applyConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *StateOption) configureApply(conf *applyConfig) {
+
+ (opt *StateOption) configureApply(conf *applyConfig) {
 	conf.state = opt.path
 }
 
-func (opt *StateOutOption) configureApply(conf *applyConfig) {
+
+ (opt *StateOutOption) configureApply(conf *applyConfig) {
 	conf.stateOut = opt.path
+
+
+
+ (opt *VarFileOption) configureApply(conf *applyConfig) {
+f.varFiles = append(conf.varFiles, opt.path)
 }
 
-func (opt *VarFileOption) configureApply(conf *applyConfig) {
-	conf.varFiles = append(conf.varFiles, opt.path)
-}
 
-func (opt *LockOption) configureApply(conf *applyConfig) {
+t *LockOption) configureApply(conf *applyConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *RefreshOption) configureApply(conf *applyConfig) {
+
+ (opt *RefreshOption) configureApply(conf *applyConfig) {
 	conf.refresh = opt.refresh
 }
 
-func (opt *RefreshOnlyOption) configureApply(conf *applyConfig) {
+
+ (opt *RefreshOnlyOption) configureApply(conf *applyConfig) {
 	conf.refreshOnly = opt.refreshOnly
+
+
+
+ (opt *ReplaceOption) configureApply(conf *applyConfig) {
+f.replaceAddrs = append(conf.replaceAddrs, opt.address)
 }
 
-func (opt *ReplaceOption) configureApply(conf *applyConfig) {
-	conf.replaceAddrs = append(conf.replaceAddrs, opt.address)
-}
 
-func (opt *VarOption) configureApply(conf *applyConfig) {
+t *VarOption) configureApply(conf *applyConfig) {
 	conf.vars = append(conf.vars, opt.assignment)
 }
 
-func (opt *DirOrPlanOption) configureApply(conf *applyConfig) {
+
+t *DirOrPlanOption) configureApply(conf *applyConfig) {
 	conf.dirOrPlan = opt.path
 }
 
-func (opt *ReattachOption) configureApply(conf *applyConfig) {
+
+ (opt *ReattachOption) configureApply(conf *applyConfig) {
 	conf.reattachInfo = opt.info
 }
 
-func (opt *DestroyFlagOption) configureApply(conf *applyConfig) {
+
+ (opt *DestroyFlagOption) configureApply(conf *applyConfig) {
 	conf.destroy = opt.destroy
 }
 
 // Apply represents the terraform apply subcommand.
-func (tf *Terraform) Apply(ctx context.Context, opts ...ApplyOption) error {
+
+ (tf *Terraform) Apply(ctx context.Context, opts ...ApplyOption) error {
 	cmd, err := tf.applyCmd(ctx, opts...)
 	if err != nil {
 		return err
@@ -119,7 +135,8 @@ func (tf *Terraform) Apply(ctx context.Context, opts ...ApplyOption) error {
 // [machine-readable](https://developer.hashicorp.com/terraform/internals/machine-readable-ui)
 // JSON being written to the supplied `io.Writer`. ApplyJSON is likely to be
 // removed in a future major version in favour of Apply returning JSON by default.
-func (tf *Terraform) ApplyJSON(ctx context.Context, w io.Writer, opts ...ApplyOption) error {
+
+ (tf *Terraform) ApplyJSON(ctx context.Context, w io.Writer, opts ...ApplyOption) error {
 	err := tf.compatible(ctx, tf0_15_3, nil)
 	if err != nil {
 		return fmt.Errorf("terraform apply -json was added in 0.15.3: %w", err)
@@ -133,9 +150,10 @@ func (tf *Terraform) ApplyJSON(ctx context.Context, w io.Writer, opts ...ApplyOp
 	}
 
 	return tf.runTerraformCmd(ctx, cmd)
-}
 
-func (tf *Terraform) applyCmd(ctx context.Context, opts ...ApplyOption) (*exec.Cmd, error) {
+
+
+ (tf *Terraform) applyCmd(ctx context.Context, opts ...ApplyOption) (*exec.Cmd, error) {
 	c := defaultApplyOptions
 
 	for _, o := range opts {
@@ -150,7 +168,8 @@ func (tf *Terraform) applyCmd(ctx context.Context, opts ...ApplyOption) (*exec.C
 	return tf.buildApplyCmd(ctx, c, args)
 }
 
-func (tf *Terraform) applyJSONCmd(ctx context.Context, opts ...ApplyOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) applyJSONCmd(ctx context.Context, opts ...ApplyOption) (*exec.Cmd, error) {
 	c := defaultApplyOptions
 
 	for _, o := range opts {
@@ -167,7 +186,8 @@ func (tf *Terraform) applyJSONCmd(ctx context.Context, opts ...ApplyOption) (*ex
 	return tf.buildApplyCmd(ctx, c, args)
 }
 
-func (tf *Terraform) buildApplyArgs(ctx context.Context, c applyConfig) ([]string, error) {
+
+ (tf *Terraform) buildApplyArgs(ctx context.Context, c applyConfig) ([]string, error) {
 	args := []string{"apply", "-no-color", "-auto-approve", "-input=false"}
 
 	// string opts: only pass if set
@@ -215,7 +235,7 @@ func (tf *Terraform) buildApplyArgs(ctx context.Context, c applyConfig) ([]strin
 	}
 	if c.destroy {
 		err := tf.compatible(ctx, tf0_15_2, nil)
-		if err != nil {
+ err != nil {
 			return nil, fmt.Errorf("-destroy option was introduced in Terraform 0.15.2: %w", err)
 		}
 		args = append(args, "-destroy")
@@ -235,7 +255,8 @@ func (tf *Terraform) buildApplyArgs(ctx context.Context, c applyConfig) ([]strin
 	return args, nil
 }
 
-func (tf *Terraform) buildApplyCmd(ctx context.Context, c applyConfig, args []string) (*exec.Cmd, error) {
+
+ (tf *Terraform) buildApplyCmd(ctx context.Context, c applyConfig, args []string) (*exec.Cmd, error) {
 	// string argument: pass if set
 	if c.dirOrPlan != "" {
 		args = append(args, c.dirOrPlan)

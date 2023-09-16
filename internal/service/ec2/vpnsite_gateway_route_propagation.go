@@ -18,10 +18,9 @@ import (
 
 // @SDKResource("aws_vpn_gateway_route_propagation")
 
-func ResourceVPNGatewayRoutePropagation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPNGatewayRoutePropagationEnable,
-		ReadWithoutTimeout:   resourceVPNGatewayRoutePropagationRead,
+		ReadWithoutTimeout:ourceVPNGatewayRoutePropagationRead,
 		DeleteWithoutTimeout: resourceVPNGatewayRoutePropagationDisable,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,12 +30,12 @@ func ResourceVPNGatewayRoutePropagation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpn_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -45,8 +44,7 @@ func ResourceVPNGatewayRoutePropagation() *schema.Resource {
 }
 
 func resourceVPNGatewayRoutePropagationEnable(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	gatewayID := d.Get("vpn_gateway_id").(string)
 	routeTableID := d.Get("route_table_id").(string)
@@ -63,8 +61,7 @@ func resourceVPNGatewayRoutePropagationEnable(ctx context.Context, d *schema.Res
 
 func resourceVPNGatewayRoutePropagationDisable(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	routeTableID, gatewayID, err := VPNGatewayRoutePropagationParseID(d.Id())
 
 	if err != nil {
@@ -83,8 +80,7 @@ func resourceVPNGatewayRoutePropagationDisable(ctx context.Context, d *schema.Re
 func resourceVPNGatewayRoutePropagationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	routeTableID, gatewayID, err := VPNGatewayRoutePropagationParseID(d.Id())
+functeTableID, gatewayID, err := VPNGatewayRoutePropagationParseID(d.Id())
 
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)

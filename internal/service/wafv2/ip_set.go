@@ -133,9 +133,9 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	input := &wafv2.CreateIPSetInput{
 		Addresses:        aws.StringSlice([]string{}),
 		IPAddressVersion: aws.String(d.Get("ip_address_version").(string)),
-		Name:             aws.String(name),
+		Name:aws.String(name),
 		Scope:            aws.String(d.Get("scope").(string)),
-		Tags:             getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("addresses"); ok && v.(*schema.Set).Len() > 0 {

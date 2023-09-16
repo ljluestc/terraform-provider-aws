@@ -19,7 +19,7 @@ const (
 	connectionDeletedTimeout       = 10 * time.Minute
 	connectionDisassociatedTimeout = 1 * time.Minute
 	hostedConnectionDeletedTimeout = 10 * time.Minute
-	lagDeletedTimeout              = 10 * time.Minute
+	lagDeletedTimeout = 10 * time.Minute
 )
 
 func waitConnectionConfirmed(ctx context.Context, conn *directconnect.DirectConnect, id string) (*directconnect.Connection, error) { //nolint:unparam

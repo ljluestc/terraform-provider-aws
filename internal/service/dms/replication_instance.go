@@ -159,10 +159,10 @@ func resourceReplicationInstanceCreate(ctx context.Context, d *schema.ResourceDa
 	input := &dms.CreateReplicationInstanceInput{
 		AutoMinorVersionUpgrade:       aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		PubliclyAccessible:            aws.Bool(d.Get("publicly_accessible").(bool)),
-		MultiAZ:                       aws.Bool(d.Get("multi_az").(bool)),
+		MultiAZ:          aws.Bool(d.Get("multi_az").(bool)),
 		ReplicationInstanceClass:      aws.String(d.Get("replication_instance_class").(string)),
 		ReplicationInstanceIdentifier: aws.String(replicationInstanceID),
-		Tags:                          getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	// WARNING: GetOk returns the zero value for the type if the key is omitted in config. This means for optional

@@ -19,8 +19,7 @@ import (
 // listTags lists appstream service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn appstreamiface.AppStreamAPI, identifier string) (tftags.KeyValueTags, error) {
-	input := &appstream.ListTagsForResourceInput{
+funcut := &appstream.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn appstreamiface.AppStreamAPI, identifier 
 // ListTags lists appstream service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).AppStreamConn(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,21 +52,18 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns appstream service tags.
 func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
-}
-
+func
 // KeyValueTags creates tftags.KeyValueTags from appstream service tags.
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
 }
-
-// getTagsIn returns appstream service tags from Context.
+funcetTagsIn returns appstream service tags from Context.
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -79,8 +74,7 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// updateTags updates appstream service tags.
+funcpdateTags updates appstream service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
 func updateTags(ctx context.Context, conn appstreamiface.AppStreamAPI, identifier string, oldTagsMap, newTagsMap any) error {
@@ -89,8 +83,7 @@ func updateTags(ctx context.Context, conn appstreamiface.AppStreamAPI, identifie
 
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
-	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.AppStream)
+funcovedTags = removedTags.IgnoreSystem(names.AppStream)
 	if len(removedTags) > 0 {
 		input := &appstream.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
@@ -127,3 +120,4 @@ func updateTags(ctx context.Context, conn appstreamiface.AppStreamAPI, identifie
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).AppStreamConn(ctx), identifier, oldTags, newTags)
 }
+func

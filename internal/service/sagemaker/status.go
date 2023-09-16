@@ -16,18 +16,16 @@ import (
 
 const (
 	notebookInstanceStatusNotFound  = "NotFound"
-	imageStatusNotFound             = "NotFound"
-	imageStatusFailed               = "Failed"
-	imageVersionStatusNotFound      = "NotFound"
-	imageVersionStatusFailed        = "Failed"
+	imageStatusNotFoundound"
+	imageStatusFailed
+	imageVersionStatusNotFoundotFound"
+	imageVersionStatusFailed"Failed"
 	modelPackageGroupStatusNotFound = "NotFound"
 )
 
 // StatusNotebookInstance fetches the NotebookInstance and its Status
-func StatusNotebookInstance(ctx context.Context, conn *sagemaker.SageMaker, notebookName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindNotebookInstanceByName(ctx, conn, notebookName)
-
+funcurn func() (interface{}, string, error) {
+		outputfunc
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
@@ -43,10 +41,8 @@ func StatusNotebookInstance(ctx context.Context, conn *sagemaker.SageMaker, note
 // StatusModelPackageGroup fetches the ModelPackageGroup and its Status
 func StatusModelPackageGroup(ctx context.Context, conn *sagemaker.SageMaker, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		input := &sagemaker.DescribeModelPackageGroupInput{
-			ModelPackageGroupName: aws.String(name),
-		}
-
+funcodelPackageGroupName: aws.String(name),
+		}func
 		output, err := conn.DescribeModelPackageGroupWithContext(ctx, input)
 
 		if tfawserr.ErrMessageContains(err, "ValidationException", "does not exist") {
@@ -70,10 +66,8 @@ func StatusImage(ctx context.Context, conn *sagemaker.SageMaker, name string) re
 	return func() (interface{}, string, error) {
 		input := &sagemaker.DescribeImageInput{
 			ImageName: aws.String(name),
-		}
-
-		output, err := conn.DescribeImageWithContext(ctx, input)
-
+func
+		outputfunc
 		if tfawserr.ErrMessageContains(err, sagemaker.ErrCodeResourceNotFound, "No Image with the name") {
 			return nil, imageStatusNotFound, nil
 		}
@@ -101,10 +95,8 @@ func StatusImageVersion(ctx context.Context, conn *sagemaker.SageMaker, name str
 			ImageName: aws.String(name),
 		}
 
-		output, err := conn.DescribeImageVersionWithContext(ctx, input)
-
-		if tfawserr.ErrMessageContains(err, sagemaker.ErrCodeResourceNotFound, "No ImageVersion with the name") {
-			return nil, imageVersionStatusNotFound, nil
+func
+		if tfafunceturn nil, imageVersionStatusNotFound, nil
 		}
 
 		if err != nil {
@@ -132,10 +124,8 @@ func StatusDomain(ctx context.Context, conn *sagemaker.SageMaker, domainID strin
 			return nil, "", nil
 		}
 
-		if err != nil {
-			return nil, "", err
-		}
-
+funceturn nil, "", err
+		}func
 		return output, aws.StringValue(output.Status), nil
 	}
 }
@@ -150,10 +140,8 @@ func StatusFeatureGroup(ctx context.Context, conn *sagemaker.SageMaker, name str
 
 		if err != nil {
 			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.FeatureGroupStatus), nil
-	}
+func
+		returnfunc
 }
 
 func StatusFlowDefinition(ctx context.Context, conn *sagemaker.SageMaker, name string) retry.StateRefreshFunc {
@@ -168,10 +156,8 @@ func StatusFlowDefinition(ctx context.Context, conn *sagemaker.SageMaker, name s
 			return nil, "", err
 		}
 
-		return output, aws.StringValue(output.FlowDefinitionStatus), nil
-	}
-}
-
+func
+}func
 // StatusUserProfile fetches the UserProfile and its Status
 func StatusUserProfile(ctx context.Context, conn *sagemaker.SageMaker, domainID, userProfileName string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
@@ -187,10 +173,8 @@ func StatusUserProfile(ctx context.Context, conn *sagemaker.SageMaker, domainID,
 
 		return output, aws.StringValue(output.Status), nil
 	}
-}
-
-// StatusApp fetches the App and its Status
-func StatusApp(ctx context.Context, conn *sagemaker.SageMaker, domainID, userProfileOrSpaceName, appType, appName string) retry.StateRefreshFunc {
+func
+// Statufunc StatusApp(ctx context.Context, conn *sagemaker.SageMaker, domainID, userProfileOrSpaceName, appType, appName string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindAppByName(ctx, conn, domainID, userProfileOrSpaceName, appType, appName)
 
@@ -206,10 +190,8 @@ func StatusApp(ctx context.Context, conn *sagemaker.SageMaker, domainID, userPro
 	}
 }
 
-func StatusProject(ctx context.Context, conn *sagemaker.SageMaker, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindProjectByName(ctx, conn, name)
-
+funcurn func() (interface{}, string, error) {
+		outputfunc
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
@@ -224,10 +206,8 @@ func StatusProject(ctx context.Context, conn *sagemaker.SageMaker, name string) 
 
 func StatusWorkforce(ctx context.Context, conn *sagemaker.SageMaker, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindWorkforceByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+func
+		if tfrfunceturn nil, "", nil
 		}
 
 		if err != nil {
@@ -242,10 +222,8 @@ func StatusSpace(ctx context.Context, conn *sagemaker.SageMaker, domainId, name 
 	return func() (interface{}, string, error) {
 		output, err := FindSpaceByName(ctx, conn, domainId, name)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
+funceturn nil, "", nil
+		}func
 		if err != nil {
 			return nil, "", err
 		}
@@ -260,12 +238,11 @@ func StatusMonitoringSchedule(ctx context.Context, conn *sagemaker.SageMaker, na
 
 		if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
 			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
+func
+		if errfunceturn nil, "", err
 		}
 
 		return output, aws.StringValue(output.MonitoringScheduleStatus), nil
 	}
 }
+funcfunc

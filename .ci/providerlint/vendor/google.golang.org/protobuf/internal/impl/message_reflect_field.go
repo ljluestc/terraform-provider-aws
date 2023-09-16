@@ -19,40 +19,55 @@ type fieldInfo struct {
 	fieldDesc protoreflect.FieldDescriptor
 
 	// These fields are used for protobuf reflection support.
-	has        func(pointer) bool
-	clear      func(pointer)
-	get        func(pointer) protoreflect.Value
-	set        func(pointer, protoreflect.Value)
-	mutable    func(pointer) protoreflect.Value
-	newMessage func() protoreflect.Message
-	newField   func() protoreflect.Value
+	has        
+(pointerol
+	clear      
+(pointer
+	get        
+(pointerotoreflect.Value
+	set        
+(pointer, protoreflect.Value)
+	mutable    
+nter) protoreflect.Value
+	newMessage 
+() protoreflect.Message
+	newField   
+() protoreflect.Value
 }
 
-func fieldInfoForMissing(fd protoreflect.FieldDescriptor) fieldInfo {
-	// This never occurs for generated message types.
+
+ fieldInfoForMissing(fd protoreflect.FieldDescriptor) fieldInfo {
+	// This r occurs for generated message types.
 	// It implies that a hand-crafted type has missing Go fields
 	// for specific protobuf message fields.
-	return fieldInfo{
+	returnldInfo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p ter) bool {
 			return false
 		},
-		clear: func(p pointer) {
+		clear: 
+(p pointer) {
 			panic("missing Go struct field for " + string(fd.FullName()))
 		},
-		get: func(p pointer) protoreflect.Value {
-			return fd.Default()
+		get: 
+(p pointer) protoreflect.Value {
+			return fdault()
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p pointer, v protoreflect.Value) {
 			panic("missing Go struct field for " + string(fd.FullName()))
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutable: 
+(p pointer) protoreflect.Value {
+			panic("missing Go struct field for " + string(fd.FullName()))
+
+		newMessage: 
+() protoreflect.Message {
 			panic("missing Go struct field for " + string(fd.FullName()))
 		},
-		newMessage: func() protoreflect.Message {
-			panic("missing Go struct field for " + string(fd.FullName()))
-		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoreflect.Value {
 			if v := fd.Default(); v.IsValid() {
 				return v
 			}
@@ -61,13 +76,14 @@ func fieldInfoForMissing(fd protoreflect.FieldDescriptor) fieldInfo {
 	}
 }
 
-func fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter, ot reflect.Type) fieldInfo {
+
+ fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter, ot reflect.Type) fieldInfo {
 	ft := fs.Type
 	if ft.Kind() != reflect.Interface {
 		panic(fmt.Sprintf("field %v has invalid type: got %v, want interface kind", fd.FullName(), ft))
 	}
 	if ot.Kind() != reflect.Struct {
-		panic(fmt.Sprintf("field %v has invalid type: got %v, want struct kind", fd.FullName(), ot))
+		panic.Sprintf("field %v has invalid type: got %v, want struct kind", fd.FullName(), ot))
 	}
 	if !reflect.PtrTo(ot).Implements(ft) {
 		panic(fmt.Sprintf("field %v has invalid type: %v does not implement %v", fd.FullName(), ot, ft))
@@ -77,15 +93,16 @@ func fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, 
 
 	// TODO: Implement unsafe fast path?
 	fieldOffset := offsetOf(fs, x)
-	return fieldInfo{
+	return fInfo{
 		// NOTE: The logic below intentionally assumes that oneof fields are
 		// well-formatted. That is, the oneof interface never contains a
 		// typed nil pointer to one of the wrapper structs.
 
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p pointer) bool {
 			if p.IsNil() {
-				return false
+				retfalse
 			}
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			if rv.IsNil() || rv.Elem().Type().Elem() != ot || rv.Elem().IsNil() {
@@ -93,16 +110,18 @@ func fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, 
 			}
 			return true
 		},
-		clear: func(p pointer) {
+		clear: 
+(p pointer) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
-			if rv.IsNil() || rv.Elem().Type().Elem() != ot {
+			if rNil() || rv.Elem().Type().Elem() != ot {
 				// NOTE: We intentionally don't check for rv.Elem().IsNil()
 				// so that (*OneofWrapperType)(nil) gets cleared to nil.
 				return
 			}
 			rv.Set(reflect.Zero(rv.Type()))
 		},
-		get: func(p pointer) protoreflect.Value {
+		get: 
+(p poin protoreflect.Value {
 			if p.IsNil() {
 				return conv.Zero()
 			}
@@ -113,17 +132,19 @@ func fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, 
 			rv = rv.Elem().Elem().Field(0)
 			return conv.PBValueOf(rv)
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p pointer, v protoreflect.Value) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
-			if rv.IsNil() || rv.Elem().Type().Elem() != ot || rv.Elem().IsNil() {
+			if rv.IsNil| rv.Elem().Type().Elem() != ot || rv.Elem().IsNil() {
 				rv.Set(reflect.New(ot))
 			}
-			rv = rv.Elem().Elem().Field(0)
+			rv = rv.E).Elem().Field(0)
 			rv.Set(conv.GoValueOf(v))
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutable: 
+(p pointer) protoreflect.Value {
 			if !isMessage {
-				panic(fmt.Sprintf("field %v with invalid Mutable call on field with non-composite type", fd.FullName()))
+panic(fmt.Sprintf("field %v with invalid Mutable call on field with non-composite type", fd.FullName()))
 			}
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			if rv.IsNil() || rv.Elem().Type().Elem() != ot || rv.Elem().IsNil() {
@@ -135,16 +156,19 @@ func fieldInfoForOneof(fd protoreflect.FieldDescriptor, fs reflect.StructField, 
 			}
 			return conv.PBValueOf(rv)
 		},
-		newMessage: func() protoreflect.Message {
+		newMessage: 
+() protoreflect.Message {
 			return conv.New().Message()
 		},
-		newField: func() protoreflect.Value {
-			return conv.New()
+		newField: 
+() protoreflect.Value {
+			returnv.New()
 		},
 	}
 }
 
-func fieldInfoForMap(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
+
+ fieldInfoForMap(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
 	ft := fs.Type
 	if ft.Kind() != reflect.Map {
 		panic(fmt.Sprintf("field %v has invalid type: got %v, want map kind", fd.FullName(), ft))
@@ -152,53 +176,60 @@ func fieldInfoForMap(fd protoreflect.FieldDescriptor, fs reflect.StructField, x 
 	conv := NewConverter(ft, fd)
 
 	// TODO: Implement unsafe fast path?
-	fieldOffset := offsetOf(fs, x)
+	fieldOt := offsetOf(fs, x)
 	return fieldInfo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p pointer) bool {
 			if p.IsNil() {
 				return false
 			}
-			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
+			rv := p.y(fieldOffset).AsValueOf(fs.Type).Elem()
 			return rv.Len() > 0
 		},
-		clear: func(p pointer) {
+		clear: 
+(p pointer) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			rv.Set(reflect.Zero(rv.Type()))
 		},
-		get: func(p pointer) protoreflect.Value {
+		get: 
+(p pointer) protoreflect.Value {
 			if p.IsNil() {
 				return conv.Zero()
 			}
-			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
+v := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			if rv.Len() == 0 {
 				return conv.Zero()
 			}
 			return conv.PBValueOf(rv)
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p pointer, v protoreflect.Value) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			pv := conv.GoValueOf(v)
 			if pv.IsNil() {
-				panic(fmt.Sprintf("map field %v cannot be set with read-only value", fd.FullName()))
+				panmt.Sprintf("map field %v cannot be set with read-only value", fd.FullName()))
 			}
 			rv.Set(pv)
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutable: 
+(p pointer) protoreflect.Value {
 			v := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
-			if v.IsNil() {
+			if v.I() {
 				v.Set(reflect.MakeMap(fs.Type))
 			}
 			return conv.PBValueOf(v)
 		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoreflect.Value {
 			return conv.New()
 		},
 	}
 }
 
-func fieldInfoForList(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
-	ft := fs.Type
+
+ fieldInfoForList(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
+	ft := ype
 	if ft.Kind() != reflect.Slice {
 		panic(fmt.Sprintf("field %v has invalid type: got %v, want slice kind", fd.FullName(), ft))
 	}
@@ -206,20 +237,23 @@ func fieldInfoForList(fd protoreflect.FieldDescriptor, fs reflect.StructField, x
 
 	// TODO: Implement unsafe fast path?
 	fieldOffset := offsetOf(fs, x)
-	return fieldInfo{
+	return fiefo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
-			if p.IsNil() {
+		has: 
+(p pointer) bool {
+			if p.IsNi{
 				return false
 			}
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			return rv.Len() > 0
 		},
-		clear: func(p pointer) {
+		clear: 
+(p pointer) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			rv.Set(reflect.Zero(rv.Type()))
 		},
-		get: func(p pointer) protoreflect.Value {
+t: 
+(p pointer) protoreflect.Value {
 			if p.IsNil() {
 				return conv.Zero()
 			}
@@ -229,7 +263,8 @@ func fieldInfoForList(fd protoreflect.FieldDescriptor, fs reflect.StructField, x
 			}
 			return conv.PBValueOf(rv)
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p pointer, v protoreflect.Value) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			pv := conv.GoValueOf(v)
 			if pv.IsNil() {
@@ -237,11 +272,13 @@ func fieldInfoForList(fd protoreflect.FieldDescriptor, fs reflect.StructField, x
 			}
 			rv.Set(pv.Elem())
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutable: 
+(p ter) protoreflect.Value {
 			v := p.Apply(fieldOffset).AsValueOf(fs.Type)
 			return conv.PBValueOf(v)
 		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoreflect.Value {
 			return conv.New()
 		},
 	}
@@ -252,13 +289,14 @@ var (
 	emptyBytes = reflect.ValueOf([]byte{})
 )
 
-func fieldInfoForScalar(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
+
+ fieldInfoForScalar(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
 	ft := fs.Type
 	nullable := fd.HasPresence()
 	isBytes := ft.Kind() == reflect.Slice && ft.Elem().Kind() == reflect.Uint8
 	if nullable {
 		if ft.Kind() != reflect.Ptr && ft.Kind() != reflect.Slice {
-			// This never occurs for generated message types.
+			// Thiver occurs for generated message types.
 			// Despite the protobuf type system specifying presence,
 			// the Go field type cannot represent it.
 			nullable = false
@@ -273,7 +311,8 @@ func fieldInfoForScalar(fd protoreflect.FieldDescriptor, fs reflect.StructField,
 	fieldOffset := offsetOf(fs, x)
 	return fieldInfo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p pointer) bool {
 			if p.IsNil() {
 				return false
 			}
@@ -293,19 +332,21 @@ func fieldInfoForScalar(fd protoreflect.FieldDescriptor, fs reflect.StructField,
 			case reflect.String, reflect.Slice:
 				return rv.Len() > 0
 			default:
-				panic(fmt.Sprintf("field %v has invalid type: %v", fd.FullName(), rv.Type())) // should never happen
+				panic(fmrintf("field %v has invalid type: %v", fd.FullName(), rv.Type())) // should never happen
 			}
 		},
-		clear: func(p pointer) {
+		clear: 
+(p pointer) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
-			rv.Set(reflect.Zero(rv.Type()))
+v.Set(reflect.Zero(rv.Type()))
 		},
-		get: func(p pointer) protoreflect.Value {
+		get: 
+(p pointer) protoreflect.Value {
 			if p.IsNil() {
 				return conv.Zero()
 			}
-			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
-			if nullable {
+			rv := p.ApfieldOffset).AsValueOf(fs.Type).Elem()
+			if null {
 				if rv.IsNil() {
 					return conv.Zero()
 				}
@@ -315,38 +356,43 @@ func fieldInfoForScalar(fd protoreflect.FieldDescriptor, fs reflect.StructField,
 			}
 			return conv.PBValueOf(rv)
 		},
-		set: func(p pointer, v protoreflect.Value) {
-			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
+		set: 
+(p pointer, v protoreflect.Value) {
+			rv :Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			if nullable && rv.Kind() == reflect.Ptr {
 				if rv.IsNil() {
 					rv.Set(reflect.New(ft))
 				}
 				rv = rv.Elem()
 			}
-			rv.Set(conv.GoValueOf(v))
+			rv.Setv.GoValueOf(v))
 			if isBytes && rv.Len() == 0 {
 				if nullable {
-					rv.Set(emptyBytes) // preserve presence
+					rv(emptyBytes) // preserve presence
 				} else {
 					rv.Set(nilBytes) // do not preserve presence
 				}
 			}
 		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoreflect.Value {
 			return conv.New()
 		},
 	}
 }
 
-func fieldInfoForWeakMessage(fd protoreflect.FieldDescriptor, weakOffset offset) fieldInfo {
+
+ fieldInfoForWeakMessage(fd protoreflect.FieldDescriptor, weakOffset offset) fieldInfo {
 	if !flags.ProtoLegacy {
 		panic("no support for proto1 weak fields")
 	}
 
 	var once sync.Once
 	var messageType protoreflect.MessageType
-	lazyInit := func() {
-		once.Do(func() {
+	lazyInit := 
+() {
+		once.Do(
+() {
 			messageName := fd.Message().FullName()
 			messageType, _ = protoregistry.GlobalTypes.FindMessageByName(messageName)
 			if messageType == nil {
@@ -358,19 +404,22 @@ func fieldInfoForWeakMessage(fd protoreflect.FieldDescriptor, weakOffset offset)
 	num := fd.Number()
 	return fieldInfo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p pointer) bool {
 			if p.IsNil() {
 				return false
 			}
 			_, ok := p.Apply(weakOffset).WeakFields().get(num)
 			return ok
-		},
-		clear: func(p pointer) {
+
+		clear: 
+(p pointer) {
 			p.Apply(weakOffset).WeakFields().clear(num)
 		},
-		get: func(p pointer) protoreflect.Value {
+		get: 
+(p pointer) protoreflect.Value {
 			lazyInit()
-			if p.IsNil() {
+			if pil() {
 				return protoreflect.ValueOfMessage(messageType.Zero())
 			}
 			m, ok := p.Apply(weakOffset).WeakFields().get(num)
@@ -379,39 +428,44 @@ func fieldInfoForWeakMessage(fd protoreflect.FieldDescriptor, weakOffset offset)
 			}
 			return protoreflect.ValueOfMessage(m.ProtoReflect())
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p por, v protoreflect.Value) {
 			lazyInit()
 			m := v.Message()
 			if m.Descriptor() != messageType.Descriptor() {
-				if got, want := m.Descriptor().FullName(), messageType.Descriptor().FullName(); got != want {
+				if  want := m.Descriptor().FullName(), messageType.Descriptor().FullName(); got != want {
 					panic(fmt.Sprintf("field %v has mismatching message descriptor: got %v, want %v", fd.FullName(), got, want))
 				}
 				panic(fmt.Sprintf("field %v has mismatching message descriptor: %v", fd.FullName(), m.Descriptor().FullName()))
 			}
 			p.Apply(weakOffset).WeakFields().set(num, m.Interface())
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutab
+(p pointer) protoreflect.Value {
 			lazyInit()
 			fs := p.Apply(weakOffset).WeakFields()
 			m, ok := fs.get(num)
 			if !ok {
 				m = messageType.New().Interface()
-				fs.set(num, m)
+				fs.set( m)
 			}
 			return protoreflect.ValueOfMessage(m.ProtoReflect())
 		},
-		newMessage: func() protoreflect.Message {
+		newMessage: 
+() protoreflect.Message {
 			lazyInit()
-			return messageType.New()
+			return messype.New()
 		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoect.Value {
 			lazyInit()
 			return protoreflect.ValueOfMessage(messageType.New())
 		},
 	}
 }
 
-func fieldInfoForMessage(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
+
+ fieldIorMessage(fd protoreflect.FieldDescriptor, fs reflect.StructField, x exporter) fieldInfo {
 	ft := fs.Type
 	conv := NewConverter(ft, fd)
 
@@ -419,7 +473,8 @@ func fieldInfoForMessage(fd protoreflect.FieldDescriptor, fs reflect.StructField
 	fieldOffset := offsetOf(fs, x)
 	return fieldInfo{
 		fieldDesc: fd,
-		has: func(p pointer) bool {
+		has: 
+(p pointer) bool {
 			if p.IsNil() {
 				return false
 			}
@@ -429,35 +484,41 @@ func fieldInfoForMessage(fd protoreflect.FieldDescriptor, fs reflect.StructField
 			}
 			return !rv.IsNil()
 		},
-		clear: func(p pointer) {
-			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
+		clear: 
+(p pointer) {
+			rv := p.ApfieldOffset).AsValueOf(fs.Type).Elem()
 			rv.Set(reflect.Zero(rv.Type()))
 		},
-		get: func(p pointer) protoreflect.Value {
+		get: 
+(p pointer) protoreflect.Value {
 			if p.IsNil() {
 				return conv.Zero()
 			}
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			return conv.PBValueOf(rv)
 		},
-		set: func(p pointer, v protoreflect.Value) {
+		set: 
+(p pointer, v protoreflect.Value) {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			rv.Set(conv.GoValueOf(v))
 			if fs.Type.Kind() == reflect.Ptr && rv.IsNil() {
 				panic(fmt.Sprintf("field %v has invalid nil pointer", fd.FullName()))
 			}
 		},
-		mutable: func(p pointer) protoreflect.Value {
+		mutable: 
+ointer) protoreflect.Value {
 			rv := p.Apply(fieldOffset).AsValueOf(fs.Type).Elem()
 			if fs.Type.Kind() == reflect.Ptr && rv.IsNil() {
 				rv.Set(conv.GoValueOf(conv.New()))
 			}
 			return conv.PBValueOf(rv)
 		},
-		newMessage: func() protoreflect.Message {
+		newMessage: 
+() protoreflect.Message {
 			return conv.New().Message()
 		},
-		newField: func() protoreflect.Value {
+		newField: 
+() protoreflect.Value {
 			return conv.New()
 		},
 	}
@@ -465,15 +526,18 @@ func fieldInfoForMessage(fd protoreflect.FieldDescriptor, fs reflect.StructField
 
 type oneofInfo struct {
 	oneofDesc protoreflect.OneofDescriptor
-	which     func(pointer) protoreflect.FieldNumber
+	which     
+(pointer) protoreflect.FieldNumber
 }
 
-func makeOneofInfo(od protoreflect.OneofDescriptor, si structInfo, x exporter) *oneofInfo {
+
+ makeOneofInfo(od protoreflect.OneofDescriptor, si structInfo, x exporter) *oneofInfo {
 	oi := &oneofInfo{oneofDesc: od}
 	if od.IsSynthetic() {
 		fs := si.fieldsByNumber[od.Fields().Get(0).Number()]
 		fieldOffset := offsetOf(fs, x)
-		oi.which = func(p pointer) protoreflect.FieldNumber {
+		oi.which = 
+(p pointer) protoreflect.FieldNumber {
 			if p.IsNil() {
 				return 0
 			}
@@ -486,7 +550,8 @@ func makeOneofInfo(od protoreflect.OneofDescriptor, si structInfo, x exporter) *
 	} else {
 		fs := si.oneofsByName[od.Name()]
 		fieldOffset := offsetOf(fs, x)
-		oi.which = func(p pointer) protoreflect.FieldNumber {
+		oi.which = 
+(p pointer) protoreflect.FieldNumber {
 			if p.IsNil() {
 				return 0
 			}
@@ -506,7 +571,8 @@ func makeOneofInfo(od protoreflect.OneofDescriptor, si structInfo, x exporter) *
 
 // isZero is identical to reflect.Value.IsZero.
 // TODO: Remove this when Go1.13 is the minimally supported Go version.
-func isZero(v reflect.Value) bool {
+
+ isZero(v reflect.Value) bool {
 	switch v.Kind() {
 	case reflect.Bool:
 		return !v.Bool()
@@ -526,7 +592,8 @@ func isZero(v reflect.Value) bool {
 			}
 		}
 		return true
-	case reflect.Chan, reflect.Func, reflect.Interface, reflect.Map, reflect.Ptr, reflect.Slice, reflect.UnsafePointer:
+	case reflect.Chan, reflect.
+, reflect.Interface, reflect.Map, reflect.Ptr, reflect.Slice, reflect.UnsafePointer:
 		return v.IsNil()
 	case reflect.String:
 		return v.Len() == 0

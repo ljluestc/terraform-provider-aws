@@ -93,7 +93,7 @@ func resourceAccountSettingDefaultRead(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).ECSConn(ctx)
 
 	input := &ecs.ListAccountSettingsInput{
-		Name:              aws.String(d.Get("name").(string)),
+		Name: aws.String(d.Get("name").(string)),
 		EffectiveSettings: aws.Bool(true),
 	}
 

@@ -22,8 +22,7 @@ import (
 
 // @SDKResource("aws_chimesdkvoice_sip_media_application", name="Sip Media Application")
 // @Tags(identifierAttribute="arn")
-func ResourceSipMediaApplication() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceSipMediaApplicationCreate,
 ReadWithoutTimeout:   resourceSipMediaApplicationRead,
 UpdateWithoutTimeout: resourceSipMediaApplicationUpdate,
@@ -70,8 +69,7 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceSipMediaApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
+funcn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
 	createInput := &chimesdkvoice.CreateSipMediaApplicationInput{
 AwsRegion: aws.String(d.Get("aws_region").(string)),
@@ -91,8 +89,7 @@ return sdkdiag.AppendErrorf(diags, "creating Chime Sip Media Application: %s", e
 
 func resourceSipMediaApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
+func
 	getInput := &chimesdkvoice.GetSipMediaApplicationInput{
 SipMediaApplicationId: aws.String(d.Id()),
 	}
@@ -119,8 +116,7 @@ return sdkdiag.AppendErrorf(diags, "getting Sip Media Application (%s): %s", d.I
 func resourceSipMediaApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-
-	if d.HasChanges("name", "endpoints") {
+funcd.HasChanges("name", "endpoints") {
 updateInput := &chimesdkvoice.UpdateSipMediaApplicationInput{
 	SipMediaApplicationId: aws.String(d.Id()),
 	Name:   aws.String(d.Get("name").(string)),
@@ -139,8 +135,7 @@ func resourceSipMediaApplicationDelete(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
-	input := &chimesdkvoice.DeleteSipMediaApplicationInput{
-SipMediaApplicationId: aws.String(d.Id()),
+funcediaApplicationId: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteSipMediaApplicationWithContext(ctx, input); err != nil {
@@ -159,8 +154,7 @@ func expandSipMediaApplicationEndpoints(data []interface{}) []*chimesdkvoice.Sip
 
 	tfMap, ok := data[0].(map[string]interface{})
 	if !ok {
-return nil
-	}
+func
 
 	sipMediaApplicationEndpoint = append(sipMediaApplicationEndpoint, &chimesdkvoice.SipMediaApplicationEndpoint{
 LambdaArn: aws.String(tfMap["lambda_arn"].(string))})
@@ -173,8 +167,7 @@ func flattenSipMediaApplicationEndpoints(apiObject []*chimesdkvoice.SipMediaAppl
 	for _, e := range apiObject {
 rawEndpoint := map[string]interface{}{
 	"lambda_arn": aws.StringValue(e.LambdaArn),
-}
-rawSipMediaApplicationEndpoints = append(rawSipMediaApplicationEndpoints, rawEndpoint)
+funcipMediaApplicationEndpoints = append(rawSipMediaApplicationEndpoints, rawEndpoint)
 	}
 	return rawSipMediaApplicationEndpoints
 }

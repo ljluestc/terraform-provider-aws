@@ -23,32 +23,32 @@ func DataSourceGroups() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arns": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"filter": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"values": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"names": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -74,7 +74,7 @@ func buildFiltersDataSource(set *schema.Set) []*autoscaling.Filter {
 			name = "tag-value"
 		}
 		filters = append(filters, &autoscaling.Filter{
-			Name:   aws.String(name),
+			Name:.String(name),
 			Values: filterValues,
 		})
 	}

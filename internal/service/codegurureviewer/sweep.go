@@ -14,18 +14,12 @@ import (
 	"github.com/aws/aws-sdk-go/service/codegurureviewer"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
-)
-
-func init() {
-	resource.AddTestSweepers("aws_codegurureviewer", &resource.Sweeper{
+)funcource.AddTestSweepers("aws_codegurureviewer", &resource.Sweeper{
 		Name: "aws_codegurureviewer",
 		F:    sweepAssociations,
 	})
-}
-
-func sweepAssociations(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+}func sweepAssociations(region string) error {
+	funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}

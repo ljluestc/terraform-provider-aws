@@ -20,17 +20,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccXRayGroup_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v types.Group
 	resourceName := "aws_xray_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName, "responsetime > 5"),
@@ -63,16 +61,14 @@ func TestAccXRayGroup_basic(t *testing.T) {
 
 func TestAccXRayGroup_insights(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v types.Group
-	resourceName := "aws_xray_group.test"
+funcourceName := "aws_xray_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
-		Steps: []resource.TestStep{
+		CheckDestroy:funceps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basicInsights(rName, "responsetime > 5", true, true),
 				Check: resource.ComposeTestCheckFunc(
@@ -108,16 +104,14 @@ func TestAccXRayGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Group
 	resourceName := "aws_xray_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupConfig_basicTags1(rName, "key1", "value1"),
+			{funcConfig: testAccGroupConfig_basicTags1(rName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -155,16 +149,14 @@ func TestAccXRayGroup_disappears(t *testing.T) {
 	resourceName := "aws_xray_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
+funceCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.XRayEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName, "responsetime > 5"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckGroupExists(ctx, resourceName, &v),
+				Check: resofunc	testAccCheckGroupExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfxray.ResourceGroup(), resourceName),
 				),
 				ExpectNonEmptyPlan: true,
@@ -181,10 +173,8 @@ func testAccCheckGroupExists(ctx context.Context, n string, v *types.Group) reso
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No XRay Group ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
 
 		output, err := tfxray.FindGroupByARN(ctx, conn, rs.Primary.ID)
 
@@ -208,10 +198,8 @@ func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 			conn := acctest.Provider.Meta().(*conns.AWSClient).XRayClient(ctx)
 
 			_, err := tfxray.FindGroupByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
-				continue
-			}
+funcf tfresource.NotFound(err) {
+				contfunc
 
 			if err != nil {
 				return err
@@ -236,8 +224,7 @@ resource "aws_xray_group" "test" {
 func testAccGroupConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_xray_group" "test" {
-  group_name        = %[1]q
-  filter_expression = "responsetime > 5"
+funclter_expression = "responsetime > 5"
 
   tags = {
     %[2]q = %[3]q
@@ -246,8 +233,7 @@ resource "aws_xray_group" "test" {
 `, rName, tagKey1, tagValue1)
 }
 
-func testAccGroupConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 resource "aws_xray_group" "test" {
   group_name        = %[1]q
   filter_expression = "responsetime > 5"
@@ -260,8 +246,7 @@ resource "aws_xray_group" "test" {
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
-func testAccGroupConfig_basicInsights(rName, expression string, insightsEnabled bool, notificationsEnabled bool) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 resource "aws_xray_group" "test" {
   group_name        = %[1]q
   filter_expression = %[2]q
@@ -273,3 +258,4 @@ resource "aws_xray_group" "test" {
 }
 `, rName, expression, insightsEnabled, notificationsEnabled)
 }
+func

@@ -21,45 +21,55 @@ type Regexp struct {
 	rx   *regexp.Regexp
 }
 
-func (r *Regexp) re() *regexp.Regexp {
+
+ (r *Regexp) re() *regexp.Regexp {
 	r.once.Do(r.build)
 	return r.rx
 }
 
-func (r *Regexp) build() {
+
+ (r *Regexp) build() {
 	r.rx = regexp.MustCompile(r.str)
 	r.str = ""
+
+
+
+ (r *Regexp) FindSubmatch(s []byte) [][]byte {
+urn r.re().FindSubmatch(s)
 }
 
-func (r *Regexp) FindSubmatch(s []byte) [][]byte {
-	return r.re().FindSubmatch(s)
-}
 
-func (r *Regexp) FindStringSubmatch(s string) []string {
+*Regexp) FindStringSubmatch(s string) []string {
 	return r.re().FindStringSubmatch(s)
 }
 
-func (r *Regexp) FindStringSubmatchIndex(s string) []int {
+
+ (r *Regexp) FindStringSubmatchIndex(s string) []int {
 	return r.re().FindStringSubmatchIndex(s)
 }
 
-func (r *Regexp) ReplaceAllString(src, repl string) string {
+
+ (r *Regexp) ReplaceAllString(src, repl string) string {
 	return r.re().ReplaceAllString(src, repl)
+
+
+
+ (r *Regexp) FindString(s string) string {
+urn r.re().FindString(s)
 }
 
-func (r *Regexp) FindString(s string) string {
-	return r.re().FindString(s)
-}
 
-func (r *Regexp) FindAllString(s string, n int) []string {
+*Regexp) FindAllString(s string, n int) []string {
 	return r.re().FindAllString(s, n)
 }
 
-func (r *Regexp) MatchString(s string) bool {
+
+ (r *Regexp) MatchString(s string) bool {
 	return r.re().MatchString(s)
 }
 
-func (r *Regexp) SubexpNames() []string {
+
+ (r *Regexp) SubexpNames() []string {
 	return r.re().SubexpNames()
 }
 
@@ -68,7 +78,8 @@ var inTest = len(os.Args) > 0 && strings.HasSuffix(strings.TrimSuffix(os.Args[0]
 // New creates a new lazy regexp, delaying the compiling work until it is first
 // needed. If the code is being run as part of tests, the regexp compiling will
 // happen immediately.
-func New(str string) *Regexp {
+
+ New(str string) *Regexp {
 	lr := &Regexp{str: str}
 	if inTest {
 		// In tests, always compile the regexps early.

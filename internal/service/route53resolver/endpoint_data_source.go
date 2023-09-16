@@ -21,50 +21,50 @@ func DataSourceEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"direction": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 						"values": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:hema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"ip_addresses": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:eSet,
+				Elem:hema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resolver_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},

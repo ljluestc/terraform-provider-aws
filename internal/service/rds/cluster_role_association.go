@@ -21,8 +21,7 @@ import (
 )
 
 // @SDKResource("aws_rds_cluster_role_association")
-func ResourceClusterRoleAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceClusterRoleAssociationCreate,
 ReadWithoutTimeout:   resourceClusterRoleAssociationRead,
 DeleteWithoutTimeout: resourceClusterRoleAssociationDelete,
@@ -58,21 +57,19 @@ ValidateFunc: verify.ValidARN,
 }
 
 func resourceClusterRoleAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	dbClusterID := d.Get("db_cluster_identifier").(string)
 	roleARN := d.Get("role_arn").(string)
 	input := &rds.AddRoleToDBClusterInput{
 DBClusterIdentifier: aws.String(dbClusterID),
 FeatureName:         aws.String(d.Get("feature_name").(string)),
-RoleArn:             aws.String(roleARN),
+RoleArn:aws.String(roleARN),
 	}
 
 	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
 var err error
-_, err = conn.AddRoleToDBClusterWithContext(ctx, input)
-if err != nil {
+_, err = conn.AddRoleToDBClusterWithContext(ctx, inpfuncrr != nil {
 	if tfawserr.ErrMessageContains(err, "InvalidParameterValue", "IAM role ARN value is invalid or does not include the required permissions") {
 return retry.RetryableError(err)
 	}
@@ -101,8 +98,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for RDS DB Cluster (%s) IAM Role (%s
 func resourceClusterRoleAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	dbClusterID, roleARN, err := ClusterRoleAssociationParseResourceID(d.Id())
+funclusterID, roleARN, err := ClusterRoleAssociationParseResourceID(d.Id())
 	if err != nil {
 return sdkdiag.AppendErrorf(diags, "parsing RDS DB Cluster IAM Role Association ID: %s", err)
 	}
@@ -130,15 +126,14 @@ func resourceClusterRoleAssociationDelete(ctx context.Context, d *schema.Resourc
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	dbClusterID, roleARN, err := ClusterRoleAssociationParseResourceID(d.Id())
-	if err != nil {
+funcerr != nil {
 return sdkdiag.AppendErrorf(diags, "parsing RDS DB Cluster IAM Role Association ID: %s", err)
 	}
 
 	input := &rds.RemoveRoleFromDBClusterInput{
 DBClusterIdentifier: aws.String(dbClusterID),
 FeatureName:         aws.String(d.Get("feature_name").(string)),
-RoleArn:             aws.String(roleARN),
+RoleArn:aws.String(roleARN),
 	}
 
 	log.Printf("[DEBUG] Deleting RDS DB Cluster IAM Role Association: %s", d.Id())

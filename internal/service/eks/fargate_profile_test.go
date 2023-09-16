@@ -29,10 +29,10 @@ func TestAccEKSFargateProfile_basic(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFargateProfileDestroy(ctx),
+		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFargateProfileConfig_name(rName),
@@ -64,10 +64,10 @@ func TestAccEKSFargateProfile_disappears(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFargateProfileDestroy(ctx),
+		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFargateProfileConfig_name(rName),
@@ -89,10 +89,10 @@ func TestAccEKSFargateProfile_Multi_profile(t *testing.T) {
 	resourceName2 := "aws_eks_fargate_profile.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFargateProfileDestroy(ctx),
+		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFargateProfileConfig_multiple(rName),
@@ -112,10 +112,10 @@ func TestAccEKSFargateProfile_Selector_labels(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFargateProfileDestroy(ctx),
+		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFargateProfileConfig_selectorLabels1(rName, "key1", "value1"),
@@ -139,10 +139,10 @@ func TestAccEKSFargateProfile_tags(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFargateProfileDestroy(ctx),
+		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFargateProfileConfig_tags1(rName, "key1", "value1"),
@@ -333,7 +333,7 @@ resource "aws_vpc" "test" {
   enable_dns_support   = true
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -372,7 +372,7 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.test.id
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -429,7 +429,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.test.id
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -456,7 +456,7 @@ resource "aws_eks_fargate_profile" "test" {
   cluster_name           = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
-  subnet_ids             = aws_subnet.private[*].id
+  subnet_ids= aws_subnet.private[*].id
 
   selector {
     namespace = "test"
@@ -478,7 +478,7 @@ resource "aws_eks_fargate_profile" "test" {
   cluster_name           = aws_eks_cluster.test.name
   fargate_profile_name   = "%[1]s-${count.index}"
   pod_execution_role_arn = aws_iam_role.pod.arn
-  subnet_ids             = aws_subnet.private[*].id
+  subnet_ids= aws_subnet.private[*].id
 
   selector {
     namespace = "test"
@@ -498,7 +498,7 @@ resource "aws_eks_fargate_profile" "test" {
   cluster_name           = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
-  subnet_ids             = aws_subnet.private[*].id
+  subnet_ids= aws_subnet.private[*].id
 
   selector {
     labels = {
@@ -521,7 +521,7 @@ resource "aws_eks_fargate_profile" "test" {
   cluster_name           = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
-  subnet_ids             = aws_subnet.private[*].id
+  subnet_ids= aws_subnet.private[*].id
 
   selector {
     namespace = "test"
@@ -545,7 +545,7 @@ resource "aws_eks_fargate_profile" "test" {
   cluster_name           = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
-  subnet_ids             = aws_subnet.private[*].id
+  subnet_ids= aws_subnet.private[*].id
 
   selector {
     namespace = "test"

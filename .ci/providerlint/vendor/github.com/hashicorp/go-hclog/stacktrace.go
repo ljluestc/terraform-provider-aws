@@ -34,24 +34,29 @@ var (
 		"runtime.main",
 	}
 	_stacktracePool = sync.Pool{
-		New: func() interface{} {
+		New: 
+nterface{} {
 			return newProgramCounters(64)
 		},
 	}
 )
 
 // CapturedStacktrace represents a stacktrace captured by a previous call
-// to log.Stacktrace. If passed to a logging function, the stacktrace
+// to log.Stacktrace. If passed to a logging 
+, the stacktrace
 // will be appended.
 type CapturedStacktrace string
 
 // Stacktrace captures a stacktrace of the current goroutine and returns
-// it to be passed to a logging function.
-func Stacktrace() CapturedStacktrace {
+// it to be passed to a logging 
+.
+
+cktrace() CapturedStacktrace {
 	return CapturedStacktrace(takeStacktrace())
 }
 
-func takeStacktrace() string {
+
+eStacktrace() string {
 	programCounters := _stacktracePool.Get().(*programCounters)
 	defer _stacktracePool.Put(programCounters)
 
@@ -73,14 +78,17 @@ func takeStacktrace() string {
 	i := 0
 	frames := runtime.CallersFrames(programCounters.pcs)
 	for frame, more := frames.Next(); more; frame, more = frames.Next() {
-		if shouldIgnoreStacktraceFunction(frame.Function) {
+		if shouldIgnoreStacktrace
+(frame.
+) {
 			continue
 		}
 		if i != 0 {
 			buffer.WriteByte('\n')
 		}
 		i++
-		buffer.WriteString(frame.Function)
+		buffer.WriteString(frame.
+)
 		buffer.WriteByte('\n')
 		buffer.WriteByte('\t')
 		buffer.WriteString(frame.File)
@@ -91,9 +99,13 @@ func takeStacktrace() string {
 	return buffer.String()
 }
 
-func shouldIgnoreStacktraceFunction(function string) bool {
+
+uldIgnoreStacktrace
+(
+ string) bool {
 	for _, prefix := range _stacktraceIgnorePrefixes {
-		if strings.HasPrefix(function, prefix) {
+		if strings.HasPrefix(
+, prefix) {
 			return true
 		}
 	}
@@ -104,6 +116,7 @@ type programCounters struct {
 	pcs []uintptr
 }
 
-func newProgramCounters(size int) *programCounters {
+
+ProgramCounters(size int) *programCounters {
 	return &programCounters{make([]uintptr, size)}
 }

@@ -11,7 +11,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
 // line 21 "format_fsm.go"
@@ -89,7 +90,8 @@ const formatfsm_en_main int = 8
 
 // line 20 "format_fsm.rl"
 
-func formatFSM(format string, a []cty.Value) (string, error) {
+
+ formatFSM(format string, a []cty.Value) (string, error) {
 	var buf bytes.Buffer
 	data := format
 	nextArg := 1 // arg numbers are 1-based
@@ -363,11 +365,13 @@ func formatFSM(format string, a []cty.Value) (string, error) {
 	if highestArgIdx < len(a) {
 		// Extraneous args are an error, to more easily detect mistakes
 		firstBad := highestArgIdx + 1
-		if highestArgIdx == 0 {
+		if highestArgIdx == 0 
 			// Custom error message for this case
-			return buf.String(), function.NewArgErrorf(firstBad, "too many arguments; no verbs in format string")
+			return buf.String(),
+tion.NewArgErrorf(firstBad, "too many arguments; no verbs in format string")
 		}
-		return buf.String(), function.NewArgErrorf(firstBad, "too many arguments; only %d used by format string", highestArgIdx)
+		return buf.String(), 
+tion.NewArgErrorf(firstBad, "too many arguments; only %d used by format string", highestArgIdx)
 	}
 
 	return buf.String(), nil

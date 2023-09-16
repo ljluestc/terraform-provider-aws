@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccVPCEndpointServiceAllowedPrincipal_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tfacctest")
 
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
@@ -29,17 +28,15 @@ func TestAccVPCEndpointServiceAllowedPrincipal_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
-	resource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^vpce-svc-perm-\w{17}$`)),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_endpoint_service_id", "aws_vpc_endpoint_service.test", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "vpc_endpoint_service_id", "aws_vpc_endpoint_service.test", "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "principal_arn", "data.aws_iam_session_context.current", "issuer_arn"),
 ),
 	},
@@ -51,8 +48,7 @@ func(
 func TestAccVPCEndpointServiceAllowedPrincipal_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tfacctest")
-
-	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
+funcourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 	serviceResourceName := "aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -60,9 +56,8 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
+func
 Config: testAccVPCEndpointServiceAllowedPrincipalConfig_Multiple(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -70,8 +65,7 @@ func(
 	resource.TestMatchResourceAttr(resourceName, "id", regexache.MustCompile(`^vpce-svc-perm-\w{17}$`)),
 	resource.TestCheckResourceAttrPair(resourceName, "vpc_endpoint_service_id", "aws_vpc_endpoint_service.test", "id"),
 	resource.TestCheckResourceAttr(serviceResourceName, "allowed_principals.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "principal_arn", "data.aws_iam_session_context.current", "issuer_arn"),
-),
+func
 	},
 },
 	})
@@ -84,17 +78,15 @@ func TestAccVPCEndpointServiceAllowedPrincipal_tags(t *testing.T) {
 
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 	tagResourceName := "aws_ec2_tag.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
+CheckDestroy:stAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName),
-Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
 	resource.TestCheckResourceAttrPair(tagResourceName, "resource_id", resourceName, "id"),
@@ -103,8 +95,7 @@ func(
 ),
 	},
 },
-	})
-}
+func
 
 
 func TestAccVPCEndpointServiceAllowedPrincipal_migrateID(t *testing.T) {
@@ -114,19 +105,17 @@ func TestAccVPCEndpointServiceAllowedPrincipal_migrateID(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:     
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:   acctest.ErrorCheck(t, ec2.EndpointsID),
-CheckDestroy: testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
+funckDestroy: testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 ExternalProviders: map[string]resource.ExternalProvider{
 	"aws": {
-Source:   "hashicorp/aws",
+Source:shicorp/aws",
 VersionConstraint: "4.63.0",
 	},
-},
-Config: testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
+funcig: testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
@@ -134,13 +123,12 @@ func(
 	},
 	{
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Config:    testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
+Config:stAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
 PlanOnly:  true,
 	},
 },
 	})
-}
-
+func
 // Verify that the resource returns an ID usable for creating an `aws_ec2_tag`
 
 func TestAccVPCEndpointServiceAllowedPrincipal_migrateAndTag(t *testing.T) {
@@ -151,27 +139,25 @@ func TestAccVPCEndpointServiceAllowedPrincipal_migrateAndTag(t *testing.T) {
 	tagResourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:     
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:   acctest.ErrorCheck(t, ec2.EndpointsID),
+ErrorCheck:test.ErrorCheck(t, ec2.EndpointsID),
 CheckDestroy: testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+func
 ExternalProviders: map[string]resource.ExternalProvider{
 	"aws": {
-Source:   "hashicorp/aws",
+Source:shicorp/aws",
 VersionConstraint: "4.63.0",
 	},
 },
 Config: testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
+functAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
 ),
 	},
 	{
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Config:    testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName),
+Config:stAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),
@@ -179,8 +165,7 @@ func(
 	resource.TestCheckResourceAttrPair(tagResourceName, "resource_id", resourceName, "id"),
 	resource.TestCheckResourceAttr(tagResourceName, "key", "Name"),
 	resource.TestCheckResourceAttr(tagResourceName, "value", rName),
-),
-	},
+func
 },
 	})
 }
@@ -188,7 +173,6 @@ func(
 
 func testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -202,13 +186,10 @@ continue
 	if tfresource.NotFound(err) {
 continue
 	}
+funcerr != nil {
+func
 
-	if err != nil {
-return err
-	}
-
-	return fmt.Errorf("EC2 VPC Endpoint Service Allowed Principal %s still exists", rs.Primary.ID)
-}
+func
 
 return nil
 	}
@@ -234,23 +215,20 @@ _, err := tfec2.FindVPCEndpointServicePermission(ctx, conn, rs.Primary.Attribute
 
 return err
 	}
-}
-
-
+func
 func testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
+func
 data "aws_iam_session_context" "current" {
   arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required        = false
+  acceptance_required
   network_load_balancer_arns = aws_lb.test[*].arn
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -259,8 +237,7 @@ resource "aws_vpc_endpoint_service_allowed_principal" "test" {
 
   principal_arn = data.aws_iam_session_context.current.issuer_arn
 }
-`, rName))
-}
+func
 
 
 func testAccVPCEndpointServiceAllowedPrincipalConfig_Multiple(rName string) string {
@@ -273,21 +250,20 @@ data "aws_iam_session_context" "current" {
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required        = false
+  acceptance_required
   network_load_balancer_arns = aws_lb.test[*].arn
   allowed_principals= ["arn:${data.aws_partition.current.partition}:iam::123456789012:root"]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 
   lifecycle {
-    ignore_changes = [
-      allowed_principals
-    ]
-  }
-}
+nore_changes = [
+rincipals
 
+  }
+func
 resource "aws_vpc_endpoint_service_allowed_principal" "test" {
   vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
 
@@ -302,8 +278,9 @@ func testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName string) string {
 resource "aws_ec2_tag" "test" {
   resource_id = aws_vpc_endpoint_service_allowed_principal.test.id
 
-  key   = "Name"
+  keyName"
   value = %[1]q
 }
 `, rName))
 }
+func

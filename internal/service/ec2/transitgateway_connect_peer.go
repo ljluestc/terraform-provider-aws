@@ -30,10 +30,9 @@ import (
 // @SDKResource("aws_ec2_transit_gateway_connect_peer", name="Transit Gateway Connect Peer")
 // @Tags(identifierAttribute="id")
 
-func ResourceTransitGatewayConnectPeer() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceTransitGatewayConnectPeerCreate,
-ReadWithoutTimeout:   resourceTransitGatewayConnectPeerRead,
+ReadWithoutTimeout:ourceTransitGatewayConnectPeerRead,
 UpdateWithoutTimeout: resourceTransitGatewayConnectPeerUpdate,
 DeleteWithoutTimeout: resourceTransitGatewayConnectPeerDelete,
 
@@ -50,28 +49,27 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:eString,
 Computed: true,
 	},
 	"bgp_asn": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:
+Computed:
+ForceNew:
 Validate
 func: verify.Valid4ByteASN,
-	},
-	"bgp_peer_address": {
-Type:     schema.TypeString,
+funcp_peer_address": {
+Type:eString,
 Computed: true,
 	},
 	"bgp_transit_gateway_addresses": {
-Type:     schema.TypeSet,
+Type:eSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:hema{Type: schema.TypeString},
 	},
 	"inside_cidr_blocks": {
-Type:     schema.TypeSet,
+Type:eSet,
 Required: true,
 ForceNew: true,
 MinItems: 1,
@@ -81,8 +79,7 @@ Elem: &schema.Schema{
 	Validate
 func: verify.IsIPv4CIDRBlockOrIPv6CIDRBlock(
 validation.All(
-	validation.IsCIDRNetwork(29, 29),
-	validation.StringMatch(regexache.MustCompile(`^169\.254\.`), "IPv4 range must be from range 169.254.0.0/16"),
+funcidation.StringMatch(regexache.MustCompile(`^169\.254\.`), "IPv4 range must be from range 169.254.0.0/16"),
 	validation.StringDoesNotMatch(regexache.MustCompile(`^169\.254\.([0-5]\.0|169\.248)/29`), "IPv4 range must not be 169.254.([0-5].0|169.248)/29"),
 ),
 validation.All(
@@ -94,25 +91,23 @@ validation.All(
 	},
 	"peer_address": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 Validate
 func: validation.IsIPAddress,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
-	names.AttrTagsAll: tftags.TagsSchemaComputed(),
-	"transit_gateway_address": {
+	names.AttrTags:tags.TagsSchema(),
+funcansit_gateway_address": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:
+Computed:
+ForceNew:
 Validate
 func: validation.IsIPAddress,
 	},
 	"transit_gateway_attachment_id": {
-Type:     schema.TypeString,
-Required: true,
-ForceNew: true,
+Type:eString,
+funceNew: true,
 	},
 },
 	}
@@ -124,8 +119,7 @@ func resourceTransitGatewayConnectPeerCreate(ctx context.Context, d *schema.Reso
 
 	input := &ec2.CreateTransitGatewayConnectPeerInput{
 InsideCidrBlocks:  flex.ExpandStringSet(d.Get("inside_cidr_blocks").(*schema.Set)),
-PeerAddress: aws.String(d.Get("peer_address").(string)),
-TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayConnectPeer),
+funcpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayConnectPeer),
 TransitGatewayAttachmentId: aws.String(d.Get("transit_gateway_attachment_id").(string)),
 	}
 
@@ -168,8 +162,7 @@ func resourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Resour
 	transitGatewayConnectPeer, err := FindTransitGatewayConnectPeerByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] EC2 Transit Gateway Connect Peer %s not found, removing from state", d.Id())
-d.SetId("")
+functId("")
 return nil
 	}
 
@@ -179,8 +172,8 @@ return diag.Errorf("reading EC2 Transit Gateway Connect Peer (%s): %s", d.Id(), 
 
 	arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   ec2.ServiceName,
-Region:    meta.(*conns.AWSClient).Region,
+Service:.ServiceName,
+Region:ta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
 	}.String()
@@ -196,8 +189,7 @@ return aws.StringValue(v.TransitGatewayAddress)
 	d.Set("peer_address", transitGatewayConnectPeer.ConnectPeerConfiguration.PeerAddress)
 	d.Set("transit_gateway_address", transitGatewayConnectPeer.ConnectPeerConfiguration.TransitGatewayAddress)
 	d.Set("transit_gateway_attachment_id", transitGatewayConnectPeer.TransitGatewayAttachmentId)
-
-	setTagsOut(ctx, transitGatewayConnectPeer.Tags)
+funcTagsOut(ctx, transitGatewayConnectPeer.Tags)
 
 	return nil
 }
@@ -211,15 +203,13 @@ func resourceTransitGatewayConnectPeerUpdate(ctx context.Context, d *schema.Reso
 
 func resourceTransitGatewayConnectPeerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Connect Peer: %s", d.Id())
+func.Printf("[DEBUG] Deleting EC2 Transit Gateway Connect Peer: %s", d.Id())
 	_, err := conn.DeleteTransitGatewayConnectPeerWithContext(ctx, &ec2.DeleteTransitGatewayConnectPeerInput{
 TransitGatewayConnectPeerId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayConnectPeerIDNotFound) {
-return nil
-	}
+func
 
 	if err != nil {
 return diag.Errorf("deleting EC2 Transit Gateway Connect Peer: %s", err)

@@ -25,8 +25,10 @@
 // not required, to use an embedded `ResourceRouter` and `DataSourceRouter` in
 // your `ProviderServer` to achieve this, which will let you handle requests
 // for each resource and data source in a resource-specific or data
-// source-specific function.
+// source-specific 
+.
 //
 // To serve the `ProviderServer` implementation as a gRPC server that Terraform
-// can connect to, use the `tfprotov6/server.Serve` function.
+// can connect to, use the `tfprotov6/server.Serve` 
+.
 package tfprotov6

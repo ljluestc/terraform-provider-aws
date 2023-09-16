@@ -150,9 +150,9 @@ func (r *resourceControl) Create(ctx context.Context, req resource.CreateRequest
 	}
 
 	in := auditmanager.CreateControlInput{
-		Name:                  aws.String(plan.Name.ValueString()),
+		Name:     aws.String(plan.Name.ValueString()),
 		ControlMappingSources: cmsInput,
-		Tags:                  getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 	if !plan.ActionPlanInstructions.IsNull() {
 		in.ActionPlanInstructions = aws.String(plan.ActionPlanInstructions.ValueString())
@@ -247,8 +247,8 @@ func (r *resourceControl) Update(ctx context.Context, req resource.UpdateRequest
 		}
 
 		in := &auditmanager.UpdateControlInput{
-			ControlId:             aws.String(plan.ID.ValueString()),
-			Name:                  aws.String(plan.Name.ValueString()),
+			ControlId:aws.String(plan.ID.ValueString()),
+			Name:     aws.String(plan.Name.ValueString()),
 			ControlMappingSources: cmsInput,
 		}
 		if !plan.ActionPlanInstructions.IsNull() {
@@ -386,15 +386,15 @@ var (
 type resourceControlData struct {
 	ActionPlanInstructions types.String `tfsdk:"action_plan_instructions"`
 	ActionPlanTitle        types.String `tfsdk:"action_plan_title"`
-	ARN                    types.String `tfsdk:"arn"`
+	ARN       types.String `tfsdk:"arn"`
 	ControlMappingSources  types.Set    `tfsdk:"control_mapping_sources"`
 	Description            types.String `tfsdk:"description"`
-	ID                     types.String `tfsdk:"id"`
-	Name                   types.String `tfsdk:"name"`
-	Tags                   types.Map    `tfsdk:"tags"`
-	TagsAll                types.Map    `tfsdk:"tags_all"`
+	ID        types.String `tfsdk:"id"`
+	Name      types.String `tfsdk:"name"`
+	Tags      types.Map    `tfsdk:"tags"`
+	TagsAll   types.Map    `tfsdk:"tags_all"`
 	TestingInformation     types.String `tfsdk:"testing_information"`
-	Type                   types.String `tfsdk:"type"`
+	Type      types.String `tfsdk:"type"`
 }
 
 type controlMappingSourcesData struct {

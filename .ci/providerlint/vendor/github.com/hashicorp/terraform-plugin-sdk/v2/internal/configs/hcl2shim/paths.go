@@ -19,7 +19,8 @@ import (
 // This will filter out redundant paths, paths that refer to flatmapped indexes
 // (e.g. "#", "%"), and will return any changes within a set as the path to the
 // set itself.
-func RequiresReplace(attrs []string, ty cty.Type) ([]cty.Path, error) {
+
+ RequiresReplace(attrs []string, ty cty.Type) ([]cty.Path, error) {
 	var paths []cty.Path
 
 	for _, attr := range attrs {
@@ -52,8 +53,9 @@ func RequiresReplace(attrs []string, ty cty.Type) ([]cty.Path, error) {
 }
 
 // trimPaths removes any trailing steps that aren't of type GetAttrSet, since
-// only an attribute itself can require replacement
-func trimPaths(paths []cty.Path) []cty.Path {
+nly an attribute itself can require replacement
+
+ trimPaths(paths []cty.Path) []cty.Path {
 	var trimmed []cty.Path
 	for _, path := range paths {
 		path = trimPath(path)
@@ -62,9 +64,10 @@ func trimPaths(paths []cty.Path) []cty.Path {
 		}
 	}
 	return trimmed
-}
 
-func trimPath(path cty.Path) cty.Path {
+
+
+ trimPath(path cty.Path) cty.Path {
 	for len(path) > 0 {
 		_, isGetAttr := path[len(path)-1].(cty.GetAttrStep)
 		if isGetAttr {
@@ -77,10 +80,11 @@ func trimPath(path cty.Path) cty.Path {
 
 // requiresReplacePath takes a key from a flatmap along with the cty.Type
 // describing the structure, and returns the cty.Path that would be used to
-// reference the nested value in the data structure.
+eference the nested value in the data structure.
 // This is used specifically to record the RequiresReplace attributes from a
 // ResourceInstanceDiff.
-func requiresReplacePath(k string, ty cty.Type) (cty.Path, error) {
+
+ requiresReplacePath(k string, ty cty.Type) (cty.Path, error) {
 	if k == "" {
 		return nil, nil
 	}
@@ -91,21 +95,23 @@ func requiresReplacePath(k string, ty cty.Type) (cty.Path, error) {
 	path, err := pathFromFlatmapKeyObject(k, ty.AttributeTypes())
 	if err != nil {
 		return path, fmt.Errorf("[%s] %s", k, err)
-	}
+
 	return path, nil
 }
 
-func pathSplit(p string) (string, string) {
+
+ pathSplit(p string) (string, string) {
 	parts := strings.SplitN(p, ".", 2)
 	head := parts[0]
 	rest := ""
 	if len(parts) > 1 {
-		rest = parts[1]
+st = parts[1]
 	}
 	return head, rest
 }
 
-func pathFromFlatmapKeyObject(key string, atys map[string]cty.Type) (cty.Path, error) {
+
+ pathFromFlatmapKeyObject(key string, atys map[string]cty.Type) (cty.Path, error) {
 	k, rest := pathSplit(key)
 
 	path := cty.Path{cty.GetAttrStep{Name: k}}
@@ -121,13 +127,14 @@ func pathFromFlatmapKeyObject(key string, atys map[string]cty.Type) (cty.Path, e
 
 	p, err := pathFromFlatmapKeyValue(rest, ty)
 	if err != nil {
-		return path, err
+turn path, err
 	}
 
 	return append(path, p...), nil
 }
 
-func pathFromFlatmapKeyValue(key string, ty cty.Type) (cty.Path, error) {
+
+ pathFromFlatmapKeyValue(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
 	var err error
 
@@ -148,14 +155,15 @@ func pathFromFlatmapKeyValue(key string, ty cty.Type) (cty.Path, error) {
 		err = fmt.Errorf("unrecognized type: %s", ty.FriendlyName())
 	}
 
-	if err != nil {
+err != nil {
 		return path, err
 	}
 
 	return path, nil
 }
 
-func pathFromFlatmapKeyTuple(key string, etys []cty.Type) (cty.Path, error) {
+
+ pathFromFlatmapKeyTuple(key string, etys []cty.Type) (cty.Path, error) {
 	var path cty.Path
 	var err error
 
@@ -183,7 +191,7 @@ func pathFromFlatmapKeyTuple(key string, etys []cty.Type) (cty.Path, error) {
 
 	ty := etys[idx]
 
-	p, err := pathFromFlatmapKeyValue(rest, ty.ElementType())
+err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 	if err != nil {
 		return path, err
 	}
@@ -191,7 +199,8 @@ func pathFromFlatmapKeyTuple(key string, etys []cty.Type) (cty.Path, error) {
 	return append(path, p...), nil
 }
 
-func pathFromFlatmapKeyMap(key string, ty cty.Type) (cty.Path, error) {
+
+ pathFromFlatmapKeyMap(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
 	var err error
 
@@ -219,7 +228,8 @@ func pathFromFlatmapKeyMap(key string, ty cty.Type) (cty.Path, error) {
 	return append(path, p...), nil
 }
 
-func pathFromFlatmapKeyList(key string, ty cty.Type) (cty.Path, error) {
+
+ pathFromFlatmapKeyList(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
 	var err error
 
@@ -239,7 +249,7 @@ func pathFromFlatmapKeyList(key string, ty cty.Type) (cty.Path, error) {
 
 	if rest == "" {
 		return path, nil
-	}
+
 
 	p, err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 	if err != nil {
@@ -247,9 +257,10 @@ func pathFromFlatmapKeyList(key string, ty cty.Type) (cty.Path, error) {
 	}
 
 	return append(path, p...), nil
-}
 
-func pathFromFlatmapKeySet(key string, ty cty.Type) (cty.Path, error) {
+
+
+ pathFromFlatmapKeySet(key string, ty cty.Type) (cty.Path, error) {
 	// once we hit a set, we can't return consistent paths, so just mark the
 	// set as a whole changed.
 	return nil, nil
@@ -257,7 +268,8 @@ func pathFromFlatmapKeySet(key string, ty cty.Type) (cty.Path, error) {
 
 // FlatmapKeyFromPath returns the flatmap equivalent of the given cty.Path for
 // use in generating legacy style diffs.
-func FlatmapKeyFromPath(path cty.Path) string {
+
+ FlatmapKeyFromPath(path cty.Path) string {
 	var parts []string
 
 	for _, step := range path {

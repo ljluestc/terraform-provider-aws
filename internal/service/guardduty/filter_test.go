@@ -30,10 +30,10 @@ func testAccFilter_basic(t *testing.T) {
 	endDate := "2020-02-01T00:00:00Z"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFilterDestroy(ctx),
+		CheckDestroy:CheckFilterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFilterConfig_full(startDate, endDate),
@@ -54,21 +54,21 @@ func testAccFilter_basic(t *testing.T) {
 						"equals.0": acctest.Region(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.criterion.*", map[string]string{
-						"field":        "service.additionalInfo.threatListName",
+						"field":ervice.additionalInfo.threatListName",
 						"not_equals.#": "2",
 						"not_equals.0": "some-threat",
 						"not_equals.1": "another-threat",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.criterion.*", map[string]string{
-						"field":                 "updatedAt",
+						"field":
 						"greater_than_or_equal": startDate,
-						"less_than":             endDate,
+						"less_than":,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -97,10 +97,10 @@ func testAccFilter_update(t *testing.T) {
 	endDate := "2020-02-01T00:00:00Z"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFilterDestroy(ctx),
+		CheckDestroy:CheckFilterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFilterConfig_full(startDate, endDate),
@@ -122,7 +122,7 @@ func testAccFilter_update(t *testing.T) {
 						"equals.0": acctest.Region(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.criterion.*", map[string]string{
-						"field":        "service.additionalInfo.threatListName",
+						"field":ervice.additionalInfo.threatListName",
 						"not_equals.#": "2",
 						"not_equals.0": "some-threat",
 						"not_equals.1": "yet-another-threat",
@@ -142,10 +142,10 @@ func testAccFilter_tags(t *testing.T) {
 	endDate := "2020-02-01T00:00:00Z"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFilterDestroy(ctx),
+		CheckDestroy:CheckFilterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFilterConfig_multipleTags(),
@@ -184,10 +184,10 @@ func testAccFilter_disappears(t *testing.T) {
 	endDate := "2020-02-01T00:00:00Z"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckACMPCACertificateAuthorityDestroy(ctx),
+		CheckDestroy:CheckACMPCACertificateAuthorityDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFilterConfig_full(startDate, endDate),
@@ -268,25 +268,25 @@ data "aws_region" "current" {}
 
 resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
-  name        = "test-filter"
-  action      = "ARCHIVE"
-  rank        = 1
+  name"test-filter"
+  actionRCHIVE"
+  rank1
 
   finding_criteria {
     criterion {
-      field  = "region"
-      equals = [data.aws_region.current.name]
+d  = "region"
+ls = [data.aws_region.current.name]
     }
 
     criterion {
-      field      = "service.additionalInfo.threatListName"
-      not_equals = ["some-threat", "another-threat"]
+d = "se.additionalInfo.threatListName"
+equals = ["some-threat", "another-threat"]
     }
 
     criterion {
-      field  = "updatedAt"
-      greater_than_or_equal = %[1]q
-      less_than             = %[2]q
+d  = "updatedAt"
+ter_than_or_equal = %[1]q
+_than   = 
     }
   }
 }
@@ -303,26 +303,26 @@ data "aws_region" "current" {}
 
 resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
-  name        = "test-filter"
-  action      = "NOOP"
+  name"test-filter"
+  actionOOP"
   description = "This is a NOOP"
-  rank        = 1
+  rank1
 
   finding_criteria {
     criterion {
-      field  = "region"
-      equals = [data.aws_region.current.name]
+d  = "region"
+ls = [data.aws_region.current.name]
     }
 
     criterion {
-      field      = "service.additionalInfo.threatListName"
-      not_equals = ["some-threat", "another-threat"]
+d = "se.additionalInfo.threatListName"
+equals = ["some-threat", "another-threat"]
     }
 
     criterion {
-      field  = "updatedAt"
-      greater_than_or_equal = %[1]q
-      less_than             = %[2]q
+d  = "updatedAt"
+ter_than_or_equal = %[1]q
+_than   = 
     }
   }
 }
@@ -339,14 +339,14 @@ data "aws_region" "current" {}
 
 resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
-  name        = "test-filter"
-  action      = "ARCHIVE"
-  rank        = 1
+  name"test-filter"
+  actionRCHIVE"
+  rank1
 
   finding_criteria {
     criterion {
-      field  = "region"
-      equals = [data.aws_region.current.name]
+d  = "region"
+ls = [data.aws_region.current.name]
     }
   }
 
@@ -368,19 +368,19 @@ data "aws_region" "current" {}
 
 resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
-  name        = "test-filter"
-  action      = "ARCHIVE"
-  rank        = 1
+  name"test-filter"
+  actionRCHIVE"
+  rank1
 
   finding_criteria {
     criterion {
-      field  = "region"
-      equals = [data.aws_region.current.name]
+d  = "region"
+ls = [data.aws_region.current.name]
     }
 
     criterion {
-      field      = "service.additionalInfo.threatListName"
-      not_equals = ["some-threat", "yet-another-threat"]
+d = "se.additionalInfo.threatListName"
+equals = ["some-threat", "yet-another-threat"]
     }
   }
 }
@@ -397,14 +397,14 @@ data "aws_region" "current" {}
 
 resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
-  name        = "test-filter"
-  action      = "ARCHIVE"
-  rank        = 1
+  name"test-filter"
+  actionRCHIVE"
+  rank1
 
   finding_criteria {
     criterion {
-      field  = "region"
-      equals = [data.aws_region.current.name]
+d  = "region"
+ls = [data.aws_region.current.name]
     }
   }
 

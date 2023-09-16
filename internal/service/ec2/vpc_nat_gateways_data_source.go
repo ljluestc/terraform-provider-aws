@@ -17,8 +17,7 @@ import (
 
 // @SDKDataSource("aws_nat_gateways")
 
-func DataSourceNATGateways() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceNATGatewaysRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,13 +27,13 @@ func DataSourceNATGateways() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 		},
@@ -42,8 +41,7 @@ func DataSourceNATGateways() *schema.Resource {
 }
 
 func dataSourceNATGatewaysRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeNatGatewaysInput{}
 
 	if v, ok := d.GetOk("vpc_id"); ok {

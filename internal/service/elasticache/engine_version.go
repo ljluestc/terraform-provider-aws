@@ -23,6 +23,8 @@ const (
 
 var versionStringRegexp = regexache.MustCompile(versionStringRegexpPattern)
 
+
+
 func validMemcachedVersionString(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 
@@ -45,6 +47,8 @@ var (
 	redisVersionPostV6Regexp = regexache.MustCompile(redisVersionPostV6RegexpPattern)
 )
 
+
+
 func validRedisVersionString(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 
@@ -56,6 +60,8 @@ func validRedisVersionString(v interface{}, k string) (ws []string, errors []err
 }
 
 // CustomizeDiffValidateClusterEngineVersion validates the correct format for `engine_version`, based on `engine`
+
+
 func CustomizeDiffValidateClusterEngineVersion(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 	engineVersion, ok := diff.GetOk("engine_version")
 	if !ok {
@@ -66,6 +72,8 @@ func CustomizeDiffValidateClusterEngineVersion(_ context.Context, diff *schema.R
 }
 
 // validateClusterEngineVersion validates the correct format for `engine_version`, based on `engine`
+
+
 func validateClusterEngineVersion(engine, engineVersion string) error {
 	// Memcached: Versions in format <major>.<minor>.<patch>
 	// Redis: Starting with version 6, must match <major>.<minor>, prior to version 6, <major>.<minor>.<patch>
@@ -84,6 +92,8 @@ func validateClusterEngineVersion(engine, engineVersion string) error {
 }
 
 // customizeDiffEngineVersionForceNewOnDowngrade causes re-creation of the resource if the version is being downgraded
+
+
 func customizeDiffEngineVersionForceNewOnDowngrade(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 	return engineVersionForceNewOnDowngrade(diff)
 }
@@ -91,6 +101,8 @@ func customizeDiffEngineVersionForceNewOnDowngrade(_ context.Context, diff *sche
 type getChangeDiffer interface {
 	GetChange(key string) (interface{}, interface{})
 }
+
+
 
 func engineVersionIsDowngrade(diff getChangeDiffer) (bool, error) {
 	o, n := diff.GetChange("engine_version")
@@ -113,6 +125,8 @@ type forceNewDiffer interface {
 	ForceNew(key string) error
 }
 
+
+
 func engineVersionForceNewOnDowngrade(diff forceNewDiffer) error {
 	if diff.Id() == "" || !diff.HasChange("engine_version") {
 		return nil
@@ -131,6 +145,8 @@ func engineVersionForceNewOnDowngrade(diff forceNewDiffer) error {
 // - a regular 1.2.3 version number
 // - either the 6.x or 6.0 version number used for ElastiCache Redis version 6. 6.x will sort to 6.<maxint>
 // - a 7.0 version number used from version 7
+
+
 func normalizeEngineVersion(version string) (*gversion.Version, error) {
 	if matches := redisVersionPostV6Regexp.FindStringSubmatch(version); matches != nil {
 		if matches[1] != "" {
@@ -140,10 +156,14 @@ func normalizeEngineVersion(version string) (*gversion.Version, error) {
 	return gversion.NewVersion(version)
 }
 
+
+
 func setEngineVersionMemcached(d *schema.ResourceData, version *string) {
 	d.Set("engine_version", version)
 	d.Set("engine_version_actual", version)
 }
+
+
 
 func setEngineVersionRedis(d *schema.ResourceData, version *string) error {
 	engineVersion, err := gversion.NewVersion(aws.StringValue(version))
@@ -170,6 +190,8 @@ type versionDiff [3]int
 
 // diffVersion returns a diff of the versions, component by component.
 // Only reports the first diff, since subsequent segments are unimportant for us.
+
+
 func diffVersion(n, o *gversion.Version) (result versionDiff) {
 	if n.String() == o.String() {
 		return

@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_instance_profile")
-func DataSourceInstanceProfile() *schema.Resource {
+// @SDKDataSource("aws_iam_instance_profile")func DataSourceInstanceProfile() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceProfileRead,
 
@@ -50,10 +49,7 @@ func DataSourceInstanceProfile() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceInstanceProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := d.Get("name").(string)

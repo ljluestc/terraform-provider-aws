@@ -32,7 +32,8 @@ type grpcStdioServer struct {
 // copying for the given out and err readers.
 //
 // This must only be called ONCE per srcOut, srcErr.
-func newGRPCStdioServer(log hclog.Logger, srcOut, srcErr io.Reader) *grpcStdioServer {
+
+ newGRPCStdioServer(log hclog.Logger, srcOut, srcErr io.Reader) *grpcStdioServer {
 	stdoutCh := make(chan []byte)
 	stderrCh := make(chan []byte)
 
@@ -47,8 +48,9 @@ func newGRPCStdioServer(log hclog.Logger, srcOut, srcErr io.Reader) *grpcStdioSe
 	}
 }
 
-// StreamStdio streams our stdout/err as the response.
-func (s *grpcStdioServer) StreamStdio(
+treamStdio streams our stdout/err as the response.
+
+ (s *grpcStdioServer) StreamStdio(
 	_ *empty.Empty,
 	srv plugin.GRPCStdio_StreamStdioServer,
 ) error {
@@ -91,9 +93,10 @@ type grpcStdioClient struct {
 
 // newGRPCStdioClient creates a grpcStdioClient. This will perform the
 // initial connection to the stdio service. If the stdio service is unavailable
-// then this will be a no-op. This allows this to work without error for
+hen this will be a no-op. This allows this to work without error for
 // plugins that don't support this.
-func newGRPCStdioClient(
+
+ newGRPCStdioClient(
 	ctx context.Context,
 	log hclog.Logger,
 	conn *grpc.ClientConn,
@@ -123,7 +126,8 @@ func newGRPCStdioClient(
 
 // Run starts the loop that receives stdio data and writes it to the given
 // writers. This blocks and should be run in a goroutine.
-func (c *grpcStdioClient) Run(stdout, stderr io.Writer) {
+
+ (c *grpcStdioClient) Run(stdout, stderr io.Writer) {
 	// This will be nil if stdio is not supported by the plugin
 	if c.stdioClient == nil {
 		c.log.Warn("stdio service unavailable, run will do nothing")
@@ -168,11 +172,12 @@ func (c *grpcStdioClient) Run(stdout, stderr io.Writer) {
 		if _, err := io.Copy(w, bytes.NewReader(data.Data)); err != nil {
 			c.log.Error("failed to copy all bytes", "err", err)
 		}
-	}
+
 }
 
 // copyChan copies an io.Reader into a channel.
-func copyChan(log hclog.Logger, dst chan<- []byte, src io.Reader) {
+
+ copyChan(log hclog.Logger, dst chan<- []byte, src io.Reader) {
 	bufsrc := bufio.NewReader(src)
 
 	for {

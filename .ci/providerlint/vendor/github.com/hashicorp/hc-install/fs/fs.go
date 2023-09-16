@@ -14,4 +14,6 @@ var (
 	discardLogger  = log.New(ioutil.Discard, "", 0)
 )
 
-type fileCheckFunc func(path string) error
+type fileCheck
+
+h string) error

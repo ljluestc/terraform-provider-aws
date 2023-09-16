@@ -28,7 +28,8 @@ type Product struct {
 
 type ProductBuilds []*ProductBuild
 
-func (pbs ProductBuilds) FilterBuild(os string, arch string, suffix string) (*ProductBuild, bool) {
+
+ (pbs ProductBuilds) FilterBuild(os string, arch string, suffix string) (*ProductBuild, bool) {
 	for _, pb := range pbs {
 		if pb.OS == os && pb.Arch == arch && strings.HasSuffix(pb.Filename, suffix) {
 			return pb, true
@@ -53,18 +54,21 @@ type Releases struct {
 	BaseURL string
 }
 
-func NewReleases() *Releases {
+
+ NewReleases() *Releases {
 	return &Releases{
 		logger:  log.New(ioutil.Discard, "", 0),
 		BaseURL: defaultBaseURL,
 	}
+
+
+
+ (r *Releases) SetLogger(logger *log.Logger) {
+ogger = logger
 }
 
-func (r *Releases) SetLogger(logger *log.Logger) {
-	r.logger = logger
-}
 
-func (r *Releases) ListProductVersions(ctx context.Context, productName string) (ProductVersionsMap, error) {
+ (r *Releases) ListProductVersions(ctx context.Context, productName string) (ProductVersionsMap, error) {
 	client := httpclient.NewHTTPClient()
 
 	productIndexURL := fmt.Sprintf("%s/%s/index.json",
@@ -121,7 +125,8 @@ func (r *Releases) ListProductVersions(ctx context.Context, productName string) 
 	return p.Versions, nil
 }
 
-func (r *Releases) GetProductVersion(ctx context.Context, product string, version *version.Version) (*ProductVersion, error) {
+
+ (r *Releases) GetProductVersion(ctx context.Context, product string, version *version.Version) (*ProductVersion, error) {
 	client := httpclient.NewHTTPClient()
 
 	indexURL := fmt.Sprintf("%s/%s/%s/index.json",

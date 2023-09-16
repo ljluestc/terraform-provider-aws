@@ -14,8 +14,7 @@ import (
 )
 
 // @SDKDataSource("aws_db_proxy")
-func DataSourceProxy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceProxyRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
@@ -101,8 +100,7 @@ func DataSourceProxy() *schema.Resource {
 }
 
 func dataSourceProxyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	name := d.Get("name").(string)
 	dbProxy, err := FindDBProxyByName(ctx, conn, name)

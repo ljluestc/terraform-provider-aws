@@ -21,13 +21,15 @@ import (
 // In particular, ImpliedType will never use capsule types in its returned
 // type, because it cannot know the capsule types supported by the calling
 // program.
-func ImpliedType(gv interface{}) (cty.Type, error) {
+
+liedType(gv interface{}) (cty.Type, error) {
 	rt := reflect.TypeOf(gv)
 	var path cty.Path
 	return impliedType(rt, path)
 }
 
-func impliedType(rt reflect.Type, path cty.Path) (cty.Type, error) {
+
+liedType(rt reflect.Type, path cty.Path) (cty.Type, error) {
 	switch rt.Kind() {
 
 	case reflect.Ptr:
@@ -73,7 +75,8 @@ func impliedType(rt reflect.Type, path cty.Path) (cty.Type, error) {
 	}
 }
 
-func impliedStructType(rt reflect.Type, path cty.Path) (cty.Type, error) {
+
+liedStructType(rt reflect.Type, path cty.Path) (cty.Type, error) {
 	if valueType.AssignableTo(rt) {
 		// Special case: cty.Value represents cty.DynamicPseudoType, for
 		// type conformance checking.

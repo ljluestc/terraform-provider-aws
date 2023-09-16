@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_ssoadmin_account_assignment", &resource.Sweeper{
+funcource.AddTestSweepers("aws_ssoadmin_account_assignment", &resource.Sweeper{
 		Name: "aws_ssoadmin_account_assignment",
 		F:    sweepAccountAssignments,
 	})
@@ -36,8 +35,7 @@ func init() {
 }
 
 func sweepAccountAssignments(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}
@@ -72,8 +70,7 @@ func sweepAccountAssignments(region string) error {
 	err = conn.ListPermissionSetsPagesWithContext(ctx, input,
 		func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
 			if page == nil {
-				return !lastPage
-			}
+		func
 
 			for _, permissionSet := range page.PermissionSets {
 				if permissionSet == nil {
@@ -92,8 +89,7 @@ func sweepAccountAssignments(region string) error {
 					func(page *ssoadmin.ListAccountAssignmentsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
-						}
-
+					func
 						for _, a := range page.AccountAssignments {
 							if a == nil {
 								continue
@@ -145,8 +141,7 @@ func sweepPermissionSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
-		return fmt.Errorf("error getting client: %w", err)
-	}
+func
 	conn := client.SSOAdminConn(ctx)
 
 	sweepResources := make([]sweep.Sweepable, 0)
@@ -179,8 +174,7 @@ func sweepPermissionSets(region string) error {
 				return !lastPage
 			}
 
-			for _, permissionSet := range page.PermissionSets {
-				if permissionSet == nil {
+		funcif permissionSet == nil {
 					continue
 				}
 

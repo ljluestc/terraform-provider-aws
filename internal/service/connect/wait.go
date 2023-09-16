@@ -27,6 +27,8 @@ const (
 	vocabularyDeletedTimeout = 100 * time.Minute
 )
 
+
+
 func waitPhoneNumberCreated(ctx context.Context, conn *connect.Connect, timeout time.Duration, phoneNumberId string) (*connect.DescribePhoneNumberOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{connect.PhoneNumberWorkflowStatusInProgress},
@@ -46,6 +48,8 @@ func waitPhoneNumberCreated(ctx context.Context, conn *connect.Connect, timeout 
 
 	return nil, err
 }
+
+
 
 func waitPhoneNumberUpdated(ctx context.Context, conn *connect.Connect, timeout time.Duration, phoneNumberId string) (*connect.DescribePhoneNumberOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -67,6 +71,8 @@ func waitPhoneNumberUpdated(ctx context.Context, conn *connect.Connect, timeout 
 	return nil, err
 }
 
+
+
 func waitPhoneNumberDeleted(ctx context.Context, conn *connect.Connect, timeout time.Duration, phoneNumberId string) (*connect.DescribePhoneNumberOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{connect.PhoneNumberWorkflowStatusInProgress},
@@ -84,6 +90,8 @@ func waitPhoneNumberDeleted(ctx context.Context, conn *connect.Connect, timeout 
 	return nil, err
 }
 
+
+
 func waitVocabularyCreated(ctx context.Context, conn *connect.Connect, timeout time.Duration, instanceId, vocabularyId string) (*connect.DescribeVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{connect.VocabularyStateCreationInProgress},
@@ -100,6 +108,8 @@ func waitVocabularyCreated(ctx context.Context, conn *connect.Connect, timeout t
 
 	return nil, err
 }
+
+
 
 func waitVocabularyDeleted(ctx context.Context, conn *connect.Connect, timeout time.Duration, instanceId, vocabularyId string) (*connect.DescribeVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{

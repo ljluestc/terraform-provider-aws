@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_vpc_ipam_pool_cidr")
 
-func ResourceIPAMPoolCIDR() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPoolCIDRCreate,
-		ReadWithoutTimeout:   resourceIPAMPoolCIDRRead,
+		ReadWithoutTimeout:ourceIPAMPoolCIDRRead,
 		DeleteWithoutTimeout: resourceIPAMPoolCIDRDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -47,30 +46,29 @@ func ResourceIPAMPoolCIDR() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cidr": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
 				Validate
 func: validation.Any(
-					verify.ValidIPv4CIDRNetworkAddress,
-					verify.ValidIPv6CIDRNetworkAddress,
+func	verify.ValidIPv6CIDRNetworkAddress,
 				),
 			},
 			"cidr_authorization_context": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"message": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"signature": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							ForceNew: true,
 						},
@@ -80,30 +78,27 @@ func: validation.Any(
 			// This resource's ID is a concatenated id of `<cidr>_<poolid>`
 			// ipam_pool_cidr_id was not part of the initial feature release
 			"ipam_pool_cidr_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"ipam_pool_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"netmask_length": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				ForceNew:      true,
+				Optional:
+				ForceNew:
 				Validate
 func:  validation.IntBetween(0, 128),
 				ConflictsWith: []string{"cidr"},
-				// NetmaskLength is not outputted by GetIpamPoolCidrsOutput
-				DiffSuppress
+funcDiffSuppress
 func: 
 func(k, o, n string, d *schema.ResourceData) bool {
 					if o != "0" && n == "0" {
-						return true
-					}
-					return false
-				},
+func	}
+func},
 			},
 		},
 	}
@@ -115,8 +110,7 @@ func resourceIPAMPoolCIDRCreate(ctx context.Context, d *schema.ResourceData, met
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	poolID := d.Get("ipam_pool_id").(string)
-	input := &ec2.ProvisionIpamPoolCidrInput{
-		IpamPoolId: aws.String(poolID),
+funcamPoolId: aws.String(poolID),
 	}
 
 	if v, ok := d.GetOk("cidr"); ok {
@@ -161,8 +155,7 @@ func resourceIPAMPoolCIDRRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	cidrBlock, poolID, err := IPAMPoolCIDRParseResourceID(d.Id())
 
-	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
+functurn sdkdiag.AppendFromErr(diags, err)
 	}
 
 	output, err := FindIPAMPoolCIDRByTwoPartKey(ctx, conn, cidrBlock, poolID)
@@ -192,12 +185,11 @@ func resourceIPAMPoolCIDRDelete(ctx context.Context, d *schema.ResourceData, met
 	cidrBlock, poolID, err := IPAMPoolCIDRParseResourceID(d.Id())
 
 	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
-	}
+func
 
 	log.Printf("[DEBUG] Deleting IPAM Pool CIDR: %s", d.Id())
 	_, err = conn.DeprovisionIpamPoolCidrWithContext(ctx, &ec2.DeprovisionIpamPoolCidrInput{
-		Cidr:       aws.String(cidrBlock),
+		Cidr:ng(cidrBlock),
 		IpamPoolId: aws.String(poolID),
 	})
 
@@ -228,8 +220,7 @@ func IPAMPoolCIDRCreateResourceID(cidrBlock, poolID string) string {
 }
 
 
-func IPAMPoolCIDRParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, ipamPoolCIDRIDSeparator)
+functs := strings.Split(id, ipamPoolCIDRIDSeparator)
 
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected cidr%[2]spool-id", id, ipamPoolCIDRIDSeparator)
@@ -237,8 +228,7 @@ func IPAMPoolCIDRParseResourceID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
-
-
+func
 func expandIPAMCIDRAuthorizationContext(tfMap map[string]interface{}) *ec2.IpamCidrAuthorizationContext {
 	if tfMap == nil {
 		return nil
@@ -249,8 +239,7 @@ func expandIPAMCIDRAuthorizationContext(tfMap map[string]interface{}) *ec2.IpamC
 	if v, ok := tfMap["message"].(string); ok && v != "" {
 		apiObject.Message = aws.String(v)
 	}
-
-	if v, ok := tfMap["signature"].(string); ok && v != "" {
+funcv, ok := tfMap["signature"].(string); ok && v != "" {
 		apiObject.Signature = aws.String(v)
 	}
 
@@ -269,4 +258,4 @@ func resourceIPAMPoolCIDRCustomizeDiff(_ context.Context, diff *schema.ResourceD
 	}
 
 	return nil
-}
+func

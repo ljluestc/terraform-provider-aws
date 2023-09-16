@@ -20,59 +20,58 @@ import (
 
 // @SDKDataSource("aws_ram_resource_share")
 // @Tags
-func dataSourceResourceShare() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceResourceShareRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"filter": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"values": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"owning_account_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"resource_arns": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"resource_owner": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:peString,
+				Required:rue,
 				ValidateFunc: validation.StringInSlice(ram.ResourceOwner_Values(), false),
 			},
 			"resource_share_status": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: validation.StringInSlice(ram.ResourceShareStatus_Values(), false),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -81,13 +80,12 @@ func dataSourceResourceShare() *schema.Resource {
 }
 
 func dataSourceResourceShareRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RAMConn(ctx)
+funcn := meta.(*conns.AWSClient).RAMConn(ctx)
 
 	name := d.Get("name").(string)
 	resourceOwner := d.Get("resource_owner").(string)
 	inputG := &ram.GetResourceSharesInput{
-		Name:          aws.String(name),
+		Name:ng(name),
 		ResourceOwner: aws.String(resourceOwner),
 	}
 
@@ -115,7 +113,7 @@ func dataSourceResourceShareRead(ctx context.Context, d *schema.ResourceData, me
 	setTagsOut(ctx, share.Tags)
 
 	inputL := &ram.ListResourcesInput{
-		ResourceOwner:     aws.String(resourceOwner),
+		ResourceOwner:ws.String(resourceOwner),
 		ResourceShareArns: aws.StringSlice([]string{arn}),
 	}
 	resources, err := findResources(ctx, conn, inputL)
@@ -126,8 +124,7 @@ func dataSourceResourceShareRead(ctx context.Context, d *schema.ResourceData, me
 
 	resourceARNs := tfslices.ApplyToAll(resources, func(r *ram.Resource) string {
 		return aws.StringValue(r.Arn)
-	})
-	d.Set("resource_arns", resourceARNs)
+	})funcet("resource_arns", resourceARNs)
 
 	return diags
 }
@@ -135,8 +132,7 @@ func dataSourceResourceShareRead(ctx context.Context, d *schema.ResourceData, me
 func expandTagFilter(tfMap map[string]interface{}) *ram.TagFilter {
 	if tfMap == nil {
 		return nil
-	}
-
+func
 	apiObject := &ram.TagFilter{}
 
 	if v, ok := tfMap["name"].(string); ok && v != "" {
@@ -154,8 +150,7 @@ func expandTagFilters(tfList []interface{}) []*ram.TagFilter {
 	if len(tfList) == 0 {
 		return nil
 	}
-
-	var apiObjects []*ram.TagFilter
+func apiObjects []*ram.TagFilter
 
 	for _, tfMapRaw := range tfList {
 		tfMap, ok := tfMapRaw.(map[string]interface{})

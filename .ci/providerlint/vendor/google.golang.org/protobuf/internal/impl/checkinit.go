@@ -12,7 +12,8 @@ import (
 	"google.golang.org/protobuf/runtime/protoiface"
 )
 
-func (mi *MessageInfo) checkInitialized(in protoiface.CheckInitializedInput) (protoiface.CheckInitializedOutput, error) {
+
+ (mi *MessageInfo) checkInitialized(in protoiface.CheckInitializedInput) (protoiface.CheckInitializedOutput, error) {
 	var p pointer
 	if ms, ok := in.Message.(*messageState); ok {
 		p = ms.pointer()
@@ -22,7 +23,8 @@ func (mi *MessageInfo) checkInitialized(in protoiface.CheckInitializedInput) (pr
 	return protoiface.CheckInitializedOutput{}, mi.checkInitializedPointer(p)
 }
 
-func (mi *MessageInfo) checkInitializedPointer(p pointer) error {
+
+ (mi *MessageInfo) checkInitializedPointer(p pointer) error {
 	mi.init()
 	if !mi.needsInitCheck {
 		return nil
@@ -42,7 +44,8 @@ func (mi *MessageInfo) checkInitializedPointer(p pointer) error {
 		}
 	}
 	for _, f := range mi.orderedCoderFields {
-		if !f.isRequired && f.funcs.isInit == nil {
+		if !f.isRequired && f.
+s.isInit == nil {
 			continue
 		}
 		fptr := p.Apply(f.offset)
@@ -52,37 +55,42 @@ func (mi *MessageInfo) checkInitializedPointer(p pointer) error {
 			}
 			continue
 		}
-		if f.funcs.isInit == nil {
+		if f.
+s.isInit == nil {
 			continue
 		}
-		if err := f.funcs.isInit(fptr, f); err != nil {
+		if err := f.
+s.isInit(fptr, f); err != nil {
 			return err
-		}
+
 	}
 	return nil
 }
 
-func (mi *MessageInfo) isInitExtensions(ext *map[int32]ExtensionField) error {
+
+ (missageInfo) isInitExtensions(ext *map[int32]ExtensionField) error {
 	if ext == nil {
 		return nil
 	}
 	for _, x := range *ext {
 		ei := getExtensionFieldInfo(x.Type())
-		if ei.funcs.isInit == nil {
+		if ei.
+s.isInit == {
 			continue
 		}
 		v := x.Value()
 		if !v.IsValid() {
 			continue
 		}
-		if err := ei.funcs.isInit(v); err != nil {
+		if err := ei.
+s.isInit(v); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-var (
+(
 	needsInitCheckMu  sync.Mutex
 	needsInitCheckMap sync.Map
 )
@@ -90,9 +98,10 @@ var (
 // needsInitCheck reports whether a message needs to be checked for partial initialization.
 //
 // It returns true if the message transitively includes any required or extension fields.
-func needsInitCheck(md protoreflect.MessageDescriptor) bool {
+
+ needsInitCheck(md protoreflect.MessageDescriptor) bool {
 	if v, ok := needsInitCheckMap.Load(md); ok {
-		if has, ok := v.(bool); ok {
+ has, ok := v.(bool); ok {
 			return has
 		}
 	}
@@ -101,13 +110,14 @@ func needsInitCheck(md protoreflect.MessageDescriptor) bool {
 	return needsInitCheckLocked(md)
 }
 
-func needsInitCheckLocked(md protoreflect.MessageDescriptor) (has bool) {
+
+ needsInitCheckLocked(md protoreflect.MessageDescriptor) (has bool) {
 	if v, ok := needsInitCheckMap.Load(md); ok {
 		// If has is true, we've previously determined that this message
 		// needs init checks.
 		//
 		// If has is false, we've previously determined that it can never
-		// be uninitialized.
+		// benitialized.
 		//
 		// If has is not a bool, we've just encountered a cycle in the
 		// message graph. In this case, it is safe to return false: If
@@ -117,7 +127,8 @@ func needsInitCheckLocked(md protoreflect.MessageDescriptor) (has bool) {
 		return ok && has
 	}
 	needsInitCheckMap.Store(md, struct{}{}) // avoid cycles while descending into this message
-	defer func() {
+	defer 
+() {
 		needsInitCheckMap.Store(md, has)
 	}()
 	if md.RequiredNumbers().Len() > 0 {

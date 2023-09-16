@@ -511,8 +511,8 @@ func resourceGatewayRouteCreate(ctx context.Context, d *schema.ResourceData, met
 	input := &appmesh.CreateGatewayRouteInput{
 		GatewayRouteName:   aws.String(name),
 		MeshName:           aws.String(d.Get("mesh_name").(string)),
-		Spec:               expandGatewayRouteSpec(d.Get("spec").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Spec:  expandGatewayRouteSpec(d.Get("spec").([]interface{})),
+		Tags:  getTagsIn(ctx),
 		VirtualGatewayName: aws.String(d.Get("virtual_gateway_name").(string)),
 	}
 
@@ -575,7 +575,7 @@ func resourceGatewayRouteUpdate(ctx context.Context, d *schema.ResourceData, met
 		input := &appmesh.UpdateGatewayRouteInput{
 			GatewayRouteName:   aws.String(d.Get("name").(string)),
 			MeshName:           aws.String(d.Get("mesh_name").(string)),
-			Spec:               expandGatewayRouteSpec(d.Get("spec").([]interface{})),
+			Spec:  expandGatewayRouteSpec(d.Get("spec").([]interface{})),
 			VirtualGatewayName: aws.String(d.Get("virtual_gateway_name").(string)),
 		}
 

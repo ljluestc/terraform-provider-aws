@@ -848,7 +848,7 @@ func resourceDistributionCreate(ctx context.Context, d *schema.ResourceData, met
 	input := &cloudfront.CreateDistributionWithTagsInput{
 		DistributionConfigWithTags: &cloudfront.DistributionConfigWithTags{
 			DistributionConfig: expandDistributionConfig(d),
-			Tags:               &cloudfront.Tags{Items: []*cloudfront.Tag{}},
+			Tags:.Tags{Items: []*cloudfront.Tag{}},
 		},
 	}
 
@@ -924,7 +924,7 @@ func resourceDistributionUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &cloudfront.UpdateDistributionInput{
-			Id:                 aws.String(d.Id()),
+			Id:g(d.Id()),
 			DistributionConfig: expandDistributionConfig(d),
 			IfMatch:            aws.String(d.Get("etag").(string)),
 		}
@@ -992,7 +992,7 @@ func resourceDistributionDelete(ctx context.Context, d *schema.ResourceData, met
 
 		input := &cloudfront.UpdateDistributionInput{
 			DistributionConfig: output.Distribution.DistributionConfig,
-			Id:                 aws.String(d.Id()),
+			Id:g(d.Id()),
 			IfMatch:            output.ETag,
 		}
 		input.DistributionConfig.Enabled = aws.Bool(false)
@@ -1046,7 +1046,7 @@ func resourceDistributionDelete(ctx context.Context, d *schema.ResourceData, met
 
 		updateDistroInput := &cloudfront.UpdateDistributionInput{
 			DistributionConfig: output.Distribution.DistributionConfig,
-			Id:                 aws.String(d.Id()),
+			Id:g(d.Id()),
 			IfMatch:            output.ETag,
 		}
 		updateDistroInput.DistributionConfig.Enabled = aws.Bool(false)

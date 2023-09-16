@@ -31,38 +31,38 @@ import (
 var (
 	subscriptionSchema = map[string]*schema.Schema{
 		"arn": {
-			Type:     schema.TypeString,
+			Type:chema.TypeString,
 			Computed: true,
 		},
 		"confirmation_timeout_in_minutes": {
-			Type:     schema.TypeInt,
+			Type:chema.TypeInt,
 			Optional: true,
 			Default:  1,
 		},
 		"confirmation_was_authenticated": {
-			Type:     schema.TypeBool,
+			Type:chema.TypeBool,
 			Computed: true,
 		},
 		"delivery_policy": {
-			Type:             schema.TypeString,
-			Optional:         true,
-			ValidateFunc:     validation.StringIsJSON,
+			Type:String,
+			Optional:
+			ValidateFunc:alidation.StringIsJSON,
 			DiffSuppressFunc: SuppressEquivalentTopicSubscriptionDeliveryPolicy,
 		},
 		"endpoint": {
-			Type:     schema.TypeString,
+			Type:chema.TypeString,
 			Required: true,
 			ForceNew: true,
 		},
 		"endpoint_auto_confirms": {
-			Type:     schema.TypeBool,
+			Type:chema.TypeBool,
 			Optional: true,
 			Default:  false,
 		},
 		"filter_policy": {
-			Type:             schema.TypeString,
-			Optional:         true,
-			ValidateFunc:     validation.StringIsJSON,
+			Type:String,
+			Optional:
+			ValidateFunc:alidation.StringIsJSON,
 			DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 			StateFunc: func(v interface{}) string {
 				json, _ := structure.NormalizeJsonString(v)
@@ -70,63 +70,63 @@ var (
 			},
 		},
 		"filter_policy_scope": {
-			Type:         schema.TypeString,
-			Optional:     true,
-			Computed:     true, // When filter_policy is set, this defaults to MessageAttributes.
+			Type:peString,
+			Optional:rue,
+			Computed:rue, // When filter_policy is set, this defaults to MessageAttributes.
 			ValidateFunc: validation.StringInSlice(SubscriptionFilterPolicyScope_Values(), false),
 		},
 		"owner_id": {
-			Type:     schema.TypeString,
+			Type:chema.TypeString,
 			Computed: true,
 		},
 		"pending_confirmation": {
-			Type:     schema.TypeBool,
+			Type:chema.TypeBool,
 			Computed: true,
 		},
 		"protocol": {
-			Type:         schema.TypeString,
-			Required:     true,
-			ForceNew:     true,
+			Type:peString,
+			Required:rue,
+			ForceNew:rue,
 			ValidateFunc: validation.StringInSlice(SubscriptionProtocol_Values(), false),
 		},
 		"raw_message_delivery": {
-			Type:     schema.TypeBool,
+			Type:chema.TypeBool,
 			Optional: true,
 			Default:  false,
 		},
 		"redrive_policy": {
-			Type:             schema.TypeString,
-			Optional:         true,
-			ValidateFunc:     validation.StringIsJSON,
+			Type:String,
+			Optional:
+			ValidateFunc:alidation.StringIsJSON,
 			DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 		},
 		"subscription_role_arn": {
-			Type:         schema.TypeString,
-			Optional:     true,
+			Type:peString,
+			Optional:rue,
 			ValidateFunc: verify.ValidARN,
 		},
 		"topic_arn": {
-			Type:         schema.TypeString,
-			Required:     true,
-			ForceNew:     true,
+			Type:peString,
+			Required:rue,
+			ForceNew:rue,
 			ValidateFunc: verify.ValidARN,
 		},
 	}
 
 	subscriptionAttributeMap = attrmap.New(map[string]string{
-		"arn":                            SubscriptionAttributeNameSubscriptionARN,
+		"arn":ubscriptionARN,
 		"confirmation_was_authenticated": SubscriptionAttributeNameConfirmationWasAuthenticated,
-		"delivery_policy":                SubscriptionAttributeNameDeliveryPolicy,
-		"endpoint":                       SubscriptionAttributeNameEndpoint,
-		"filter_policy":                  SubscriptionAttributeNameFilterPolicy,
-		"filter_policy_scope":            SubscriptionAttributeNameFilterPolicyScope,
-		"owner_id":                       SubscriptionAttributeNameOwner,
-		"pending_confirmation":           SubscriptionAttributeNamePendingConfirmation,
-		"protocol":                       SubscriptionAttributeNameProtocol,
-		"raw_message_delivery":           SubscriptionAttributeNameRawMessageDelivery,
-		"redrive_policy":                 SubscriptionAttributeNameRedrivePolicy,
-		"subscription_role_arn":          SubscriptionAttributeNameSubscriptionRoleARN,
-		"topic_arn":                      SubscriptionAttributeNameTopicARN,
+		"delivery_policy":tributeNameDeliveryPolicy,
+		"endpoint":teNameEndpoint,
+		"filter_policy":uteNameFilterPolicy,
+		"filter_policy_scope":AttributeNameFilterPolicyScope,
+		"owner_id":teNameOwner,
+		"pending_confirmation":ptionAttributeNamePendingConfirmation,
+		"protocol":teNameProtocol,
+		"raw_message_delivery":ptionAttributeNameRawMessageDelivery,
+		"redrive_policy":ttributeNameRedrivePolicy,
+		"subscription_role_arn":tionAttributeNameSubscriptionRoleARN,
+		"topic_arn":eNameTopicARN,
 	}, subscriptionSchema).WithMissingSetToNil("*")
 )
 
@@ -134,7 +134,7 @@ var (
 func ResourceTopicSubscription() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTopicSubscriptionCreate,
-		ReadWithoutTimeout:   resourceTopicSubscriptionRead,
+		ReadWithoutTimeout:ourceTopicSubscriptionRead,
 		UpdateWithoutTimeout: resourceTopicSubscriptionUpdate,
 		DeleteWithoutTimeout: resourceTopicSubscriptionDelete,
 
@@ -164,11 +164,11 @@ func resourceTopicSubscriptionCreate(ctx context.Context, d *schema.ResourceData
 
 	protocol := d.Get("protocol").(string)
 	input := &sns.SubscribeInput{
-		Attributes:            aws.StringMap(attributes),
-		Endpoint:              aws.String(d.Get("endpoint").(string)),
-		Protocol:              aws.String(protocol),
+		Attributes:p(attributes),
+		Endpoint:(d.Get("endpoint").(string)),
+		Protocol:(protocol),
 		ReturnSubscriptionArn: aws.Bool(true), // even if not confirmed, will get ARN
-		TopicArn:              aws.String(d.Get("topic_arn").(string)),
+		TopicArn:(d.Get("topic_arn").(string)),
 	}
 
 	output, err := conn.SubscribeWithContext(ctx, input)
@@ -310,7 +310,7 @@ func putSubscriptionAttribute(ctx context.Context, conn *sns.SNS, arn string, na
 	}
 
 	input := &sns.SetSubscriptionAttributesInput{
-		AttributeName:   aws.String(name),
+		AttributeName:.String(name),
 		AttributeValue:  aws.String(value),
 		SubscriptionArn: aws.String(arn),
 	}
@@ -339,7 +339,7 @@ func FindSubscriptionAttributesByARN(ctx context.Context, conn *sns.SNS, arn str
 
 	if tfawserr.ErrCodeEquals(err, sns.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -372,9 +372,9 @@ func statusSubscriptionPendingConfirmation(ctx context.Context, conn *sns.SNS, a
 }
 
 const (
-	subscriptionCreateTimeout              = 2 * time.Minute
+	subscriptionCreateTimeout.Minute
 	subscriptionPendingConfirmationTimeout = 2 * time.Minute
-	subscriptionDeleteTimeout              = 2 * time.Minute
+	subscriptionDeleteTimeout.Minute
 )
 
 func waitSubscriptionConfirmed(ctx context.Context, conn *sns.SNS, arn string, timeout time.Duration) (map[string]string, error) {
@@ -412,10 +412,10 @@ func waitSubscriptionDeleted(ctx context.Context, conn *sns.SNS, arn string, tim
 }
 
 type TopicSubscriptionDeliveryPolicy struct {
-	Guaranteed         bool                                                 `json:"guaranteed,omitempty"`
-	HealthyRetryPolicy *TopicSubscriptionDeliveryPolicyHealthyRetryPolicy   `json:"healthyRetryPolicy,omitempty"`
+	Guaranteedn:"g
+	HealthyRetryPolicy *TopicSubscriptionDeliveryPolicyHealthyRetryPolicyon:"healthyRetryPolicy,omitempty"`
 	SicklyRetryPolicy  *snsTopicSubscriptionDeliveryPolicySicklyRetryPolicy `json:"sicklyRetryPolicy,omitempty"`
-	ThrottlePolicy     *snsTopicSubscriptionDeliveryPolicyThrottlePolicy    `json:"throttlePolicy,omitempty"`
+	ThrottlePolicysnsTopicSubscriptionDeliveryPolicyThrottlePolicy `j:"throttlePolicy,omitempty"`
 }
 
 func (s TopicSubscriptionDeliveryPolicy) String() string {
@@ -427,13 +427,13 @@ func (s TopicSubscriptionDeliveryPolicy) GoString() string {
 }
 
 type TopicSubscriptionDeliveryPolicyHealthyRetryPolicy struct {
-	BackoffFunction    string `json:"backoffFunction,omitempty"`
-	MaxDelayTarget     int    `json:"maxDelayTarget,omitempty"`
-	MinDelayTarget     int    `json:"minDelayTarget,omitempty"`
-	NumMaxDelayRetries int    `json:"numMaxDelayRetries,omitempty"`
-	NumMinDelayRetries int    `json:"numMinDelayRetries,omitempty"`
-	NumNoDelayRetries  int    `json:"numNoDelayRetries,omitempty"`
-	NumRetries         int    `json:"numRetries,omitempty"`
+	BackoffFunctionring `json:"backoffFunction,omitempty"`
+	MaxDelayTargetnt `j:"maxDelayTarget,omitempty"`
+	MinDelayTargetnt `j:"minDelayTarget,omitempty"`
+	NumMaxDelayRetries intson:"numMaxDelayRetries,omitempty"`
+	NumMinDelayRetries intson:"numMinDelayRetries,omitempty"`
+	NumNoDelayRetries  intson:"numNoDelayRetries,omitempty"`
+	NumRetries:"netries,omitempty"`
 }
 
 func (s TopicSubscriptionDeliveryPolicyHealthyRetryPolicy) String() string {
@@ -445,13 +445,13 @@ func (s TopicSubscriptionDeliveryPolicyHealthyRetryPolicy) GoString() string {
 }
 
 type snsTopicSubscriptionDeliveryPolicySicklyRetryPolicy struct {
-	BackoffFunction    string `json:"backoffFunction,omitempty"`
-	MaxDelayTarget     int    `json:"maxDelayTarget,omitempty"`
-	MinDelayTarget     int    `json:"minDelayTarget,omitempty"`
-	NumMaxDelayRetries int    `json:"numMaxDelayRetries,omitempty"`
-	NumMinDelayRetries int    `json:"numMinDelayRetries,omitempty"`
-	NumNoDelayRetries  int    `json:"numNoDelayRetries,omitempty"`
-	NumRetries         int    `json:"numRetries,omitempty"`
+	BackoffFunctionring `json:"backoffFunction,omitempty"`
+	MaxDelayTargetnt `j:"maxDelayTarget,omitempty"`
+	MinDelayTargetnt `j:"minDelayTarget,omitempty"`
+	NumMaxDelayRetries intson:"numMaxDelayRetries,omitempty"`
+	NumMinDelayRetries intson:"numMinDelayRetries,omitempty"`
+	NumNoDelayRetries  intson:"numNoDelayRetries,omitempty"`
+	NumRetries:"netries,omitempty"`
 }
 
 func (s snsTopicSubscriptionDeliveryPolicySicklyRetryPolicy) String() string {

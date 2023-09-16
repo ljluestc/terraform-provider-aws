@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-
-func TestAccS3BucketOwnershipControls_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_ownership_controls.test"
 
@@ -46,11 +43,8 @@ func TestAccS3BucketOwnershipControls_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketOwnershipControls_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3BucketOwnershipControls_disappears(t *testing.T) {
+	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_ownership_controls.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -69,12 +63,9 @@ func TestAccS3BucketOwnershipControls_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketOwnershipControls_Disappears_bucket(t *testing.T) {
+}func TestAccS3BucketOwnershipControls_Disappears_bucket(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_ownership_controls.test"
+	funcourceName := "aws_s3_bucket_ownership_controls.test"
 	s3BucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -93,13 +84,10 @@ func TestAccS3BucketOwnershipControls_Disappears_bucket(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3BucketOwnershipControls_Rule_objectOwnership(t *testing.T) {
+}func TestAccS3BucketOwnershipControls_Rule_objectOwnership(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_ownership_controls.test"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
@@ -131,14 +119,11 @@ func TestAccS3BucketOwnershipControls_Rule_objectOwnership(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBucketOwnershipControlsDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketOwnershipControlsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_s3_bucket_ownership_controls" {
+	funcf rs.Type != "aws_s3_bucket_ownership_controls" {
 				continue
 			}
 
@@ -165,15 +150,12 @@ func testAccCheckBucketOwnershipControlsDestroy(ctx context.Context) resource.Te
 
 		return nil
 	}
-}
-
-func testAccCheckBucketOwnershipControlsExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckBucketOwnershipControlsExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
+	func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("no resource ID is set")
 		}
@@ -188,16 +170,13 @@ func testAccCheckBucketOwnershipControlsExists(ctx context.Context, resourceName
 
 		return err
 	}
-}
-
-func testAccBucketOwnershipControlsConfig_ruleObject(rName, objectOwnership string) string {
+}func testAccBucketOwnershipControlsConfig_ruleObject(rName, objectOwnership string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 
-resource "aws_s3_bucket_ownership_controls" "test" {
-  bucket = aws_s3_bucket.test.bucket
+rfunccket = aws_s3_bucket.test.bucket
 
   rule {
     object_ownership = %[2]q

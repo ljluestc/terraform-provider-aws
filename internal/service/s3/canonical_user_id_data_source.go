@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_canonical_user_id")
-func dataSourceCanonicalUserID() *schema.Resource {
+// @SDKDataSource("aws_canonical_user_id")func dataSourceCanonicalUserID() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceCanonicalUserIDRead,
 
@@ -26,10 +25,7 @@ func dataSourceCanonicalUserID() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceCanonicalUserIDRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Client(ctx)
 
 	output, err := conn.ListBuckets(ctx, &s3.ListBucketsInput{})

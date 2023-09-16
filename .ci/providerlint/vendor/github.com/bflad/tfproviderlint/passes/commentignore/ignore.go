@@ -27,7 +27,8 @@ type Ignorer struct {
 	ignores map[string][]ignore
 }
 
-func (ignorer *Ignorer) ShouldIgnore(key string, n ast.Node) bool {
+
+ (ignorer *Ignorer) ShouldIgnore(key string, n ast.Node) bool {
 	for _, ig := range ignorer.ignores[key] {
 		if ig.Pos <= n.Pos() && ig.End >= n.End() {
 			return true
@@ -37,7 +38,8 @@ func (ignorer *Ignorer) ShouldIgnore(key string, n ast.Node) bool {
 	return false
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignores := map[string][]ignore{}
 	for _, f := range pass.Files {
 		for n, commentGroups := range ast.NewCommentMap(pass.Fset, f, f.Comments) {

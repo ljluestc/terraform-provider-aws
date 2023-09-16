@@ -32,9 +32,9 @@ func TestAccAuditManagerAssessmentDelegation_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDelegationDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDelegationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentDelegationConfig_basic(rName),
@@ -48,7 +48,7 @@ func TestAccAuditManagerAssessmentDelegation_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"control_set_id", "role_type"},
 			},
@@ -67,9 +67,9 @@ func TestAccAuditManagerAssessmentDelegation_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDelegationDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDelegationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentDelegationConfig_basic(rName),
@@ -94,9 +94,9 @@ func TestAccAuditManagerAssessmentDelegation_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDelegationDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDelegationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentDelegationConfig_optional(rName, "text"),
@@ -111,7 +111,7 @@ func TestAccAuditManagerAssessmentDelegation_optional(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"control_set_id", "role_type", "comment"},
 			},
@@ -153,9 +153,9 @@ func TestAccAuditManagerAssessmentDelegation_multiple(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAssessmentDelegationDestroy(ctx),
+		CheckDestroy:testAccCheckAssessmentDelegationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAssessmentDelegationConfig_multiple(rName),
@@ -174,13 +174,13 @@ func TestAccAuditManagerAssessmentDelegation_multiple(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"control_set_id", "role_type"},
 			},
 			{
 				ResourceName:            resourceName2,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"control_set_id", "role_type"},
 			},
@@ -256,7 +256,7 @@ data "aws_iam_policy_document" "test" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -313,7 +313,7 @@ func testAccAssessmentDelegationConfig_basic(rName string) string {
 		testAccAssessmentDelegationConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_iam_role" "test_delegation" {
-  name               = "%[1]s-delegation"
+  name  = "%[1]s-delegation"
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -331,7 +331,7 @@ func testAccAssessmentDelegationConfig_optional(rName, comment string) string {
 		testAccAssessmentDelegationConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_iam_role" "test_delegation" {
-  name               = "%[1]s-delegation"
+  name  = "%[1]s-delegation"
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -351,7 +351,7 @@ func testAccAssessmentDelegationConfig_multiple(rName string) string {
 		testAccAssessmentDelegationConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_iam_role" "test_delegation" {
-  name               = "%[1]s-delegation"
+  name  = "%[1]s-delegation"
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -363,7 +363,7 @@ resource "aws_auditmanager_assessment_delegation" "test" {
 }
 
 resource "aws_iam_role" "test_delegation2" {
-  name               = "%[1]s-delegation2"
+  name  = "%[1]s-delegation2"
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 

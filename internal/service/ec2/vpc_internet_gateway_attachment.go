@@ -20,10 +20,9 @@ import (
 
 // @SDKResource("aws_internet_gateway_attachment")
 
-func ResourceInternetGatewayAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceInternetGatewayAttachmentCreate,
-		ReadWithoutTimeout:   resourceInternetGatewayAttachmentRead,
+		ReadWithoutTimeout:ourceInternetGatewayAttachmentRead,
 		DeleteWithoutTimeout: resourceInternetGatewayAttachmentDelete,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -37,12 +36,12 @@ func ResourceInternetGatewayAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"internet_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -51,8 +50,7 @@ func ResourceInternetGatewayAttachment() *schema.Resource {
 }
 
 func resourceInternetGatewayAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	igwID := d.Get("internet_gateway_id").(string)
 	vpcID := d.Get("vpc_id").(string)
@@ -68,8 +66,7 @@ func resourceInternetGatewayAttachmentCreate(ctx context.Context, d *schema.Reso
 
 func resourceInternetGatewayAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	igwID, vpcID, err := InternetGatewayAttachmentParseResourceID(d.Id())
 
 	if err != nil {
@@ -80,8 +77,7 @@ func resourceInternetGatewayAttachmentRead(ctx context.Context, d *schema.Resour
 		func() (interface{}, error) {
 			return FindInternetGatewayAttachment(ctx, conn, igwID, vpcID)
 		}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Internet Gateway Attachment %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
@@ -103,8 +99,7 @@ func resourceInternetGatewayAttachmentDelete(ctx context.Context, d *schema.Reso
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	igwID, vpcID, err := InternetGatewayAttachmentParseResourceID(d.Id())
-	if err != nil {
+funcerr != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 Internet Gateway Attachment (%s): %s", d.Id(), err)
 	}
 
@@ -122,14 +117,12 @@ func InternetGatewayAttachmentCreateResourceID(igwID, vpcID string) string {
 	id := strings.Join(parts, internetGatewayAttachmentIDSeparator)
 
 	return id
-}
-
+func
 func InternetGatewayAttachmentParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, internetGatewayAttachmentIDSeparator)
 
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
 	}
-
-	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected INTERNET-GATEWAY-ID%[2]sVPC-ID", id, internetGatewayAttachmentIDSeparator)
+funcurn "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected INTERNET-GATEWAY-ID%[2]sVPC-ID", id, internetGatewayAttachmentIDSeparator)
 }

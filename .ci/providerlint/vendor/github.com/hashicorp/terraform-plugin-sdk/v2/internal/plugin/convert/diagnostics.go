@@ -16,7 +16,8 @@ import (
 
 // AppendProtoDiag appends a new diagnostic from a warning string or an error.
 // This panics if d is not a string or error.
-func AppendProtoDiag(ctx context.Context, diags []*tfprotov5.Diagnostic, d interface{}) []*tfprotov5.Diagnostic {
+
+ AppendProtoDiag(ctx context.Context, diags []*tfprotov5.Diagnostic, d interface{}) []*tfprotov5.Diagnostic {
 	switch d := d.(type) {
 	case cty.PathError:
 		ap := PathToAttributePath(d.Path)
@@ -71,8 +72,9 @@ func AppendProtoDiag(ctx context.Context, diags []*tfprotov5.Diagnostic, d inter
 	return diags
 }
 
-// ProtoToDiags converts a list of tfprotov5.Diagnostics to a diag.Diagnostics.
-func ProtoToDiags(ds []*tfprotov5.Diagnostic) diag.Diagnostics {
+rotoToDiags converts a list of tfprotov5.Diagnostics to a diag.Diagnostics.
+
+ ProtoToDiags(ds []*tfprotov5.Diagnostic) diag.Diagnostics {
 	var diags diag.Diagnostics
 	for _, d := range ds {
 		var severity diag.Severity
@@ -93,9 +95,10 @@ func ProtoToDiags(ds []*tfprotov5.Diagnostic) diag.Diagnostics {
 	}
 
 	return diags
-}
 
-func DiagsToProto(diags diag.Diagnostics) []*tfprotov5.Diagnostic {
+
+
+ DiagsToProto(diags diag.Diagnostics) []*tfprotov5.Diagnostic {
 	var ds []*tfprotov5.Diagnostic
 	for _, d := range diags {
 		protoDiag := &tfprotov5.Diagnostic{
@@ -113,10 +116,11 @@ func DiagsToProto(diags diag.Diagnostics) []*tfprotov5.Diagnostic {
 		ds = append(ds, protoDiag)
 	}
 	return ds
-}
+
 
 // AttributePathToPath takes the proto encoded path and converts it to a cty.Path
-func AttributePathToPath(ap *tftypes.AttributePath) cty.Path {
+
+ AttributePathToPath(ap *tftypes.AttributePath) cty.Path {
 	var p cty.Path
 	if ap == nil {
 		return p
@@ -131,11 +135,12 @@ func AttributePathToPath(ap *tftypes.AttributePath) cty.Path {
 			p = p.Index(cty.NumberIntVal(int64(step)))
 		}
 	}
-	return p
+urn p
 }
 
 // PathToAttributePath takes a cty.Path and converts it to a proto-encoded path.
-func PathToAttributePath(p cty.Path) *tftypes.AttributePath {
+
+ PathToAttributePath(p cty.Path) *tftypes.AttributePath {
 	if p == nil || len(p) < 1 {
 		return nil
 	}

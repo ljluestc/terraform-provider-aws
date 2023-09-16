@@ -26,10 +26,9 @@ import (
 
 // @SDKResource("aws_sagemaker_monitoring_schedule")
 // @Tags(identifierAttribute="arn")
-func ResourceMonitoringSchedule() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceMonitoringScheduleCreate,
-		ReadWithoutTimeout:   resourceMonitoringScheduleRead,
+		ReadWithoutTimeout:ourceMonitoringScheduleRead,
 		UpdateWithoutTimeout: resourceMonitoringScheduleUpdate,
 		DeleteWithoutTimeout: resourceMonitoringScheduleDelete,
 
@@ -39,41 +38,41 @@ func ResourceMonitoringSchedule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ValidateFunc: validName,
 			},
 			"monitoring_schedule_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"monitoring_job_definition_name": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validName,
 						},
 						"monitoring_type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringInSlice(sagemaker.MonitoringType_Values(), false),
 						},
 						"schedule_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							MaxItems: 1,
 							Computed: true,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"schedule_expression": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ValidateFunc: validation.All(
 											validation.StringMatch(regexache.MustCompile(`^cron`), ""),
@@ -86,7 +85,7 @@ func ResourceMonitoringSchedule() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -94,8 +93,7 @@ func ResourceMonitoringSchedule() *schema.Resource {
 }
 
 func resourceMonitoringScheduleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	var name string
 	if v, ok := d.GetOk("name"); ok {
@@ -106,8 +104,8 @@ func resourceMonitoringScheduleCreate(ctx context.Context, d *schema.ResourceDat
 
 	createOpts := &sagemaker.CreateMonitoringScheduleInput{
 		MonitoringScheduleConfig: expandMonitoringScheduleConfig(d.Get("monitoring_schedule_config").([]interface{})),
-		MonitoringScheduleName:   aws.String(name),
-		Tags:                     getTagsIn(ctx),
+		MonitoringScheduleName:.String(name),
+		Tags:
 	}
 
 	_, err := conn.CreateMonitoringScheduleWithContext(ctx, createOpts)
@@ -125,8 +123,7 @@ func resourceMonitoringScheduleCreate(ctx context.Context, d *schema.ResourceDat
 
 func resourceMonitoringScheduleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	monitoringSchedule, err := FindMonitoringScheduleByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
@@ -152,8 +149,7 @@ func resourceMonitoringScheduleRead(ctx context.Context, d *schema.ResourceData,
 func resourceMonitoringScheduleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChanges("monitoring_schedule_config") {
+funcd.HasChanges("monitoring_schedule_config") {
 		modifyOpts := &sagemaker.UpdateMonitoringScheduleInput{
 			MonitoringScheduleName: aws.String(d.Id()),
 		}
@@ -178,8 +174,7 @@ func resourceMonitoringScheduleDelete(ctx context.Context, d *schema.ResourceDat
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	deleteOpts := &sagemaker.DeleteMonitoringScheduleInput{
-		MonitoringScheduleName: aws.String(d.Id()),
+funcnitoringScheduleName: aws.String(d.Id()),
 	}
 	log.Printf("[INFO] Deleting SageMaker Monitoring Schedule : %s", d.Id())
 
@@ -206,11 +201,10 @@ func FindMonitoringScheduleByName(ctx context.Context, conn *sagemaker.SageMaker
 		MonitoringScheduleName: aws.String(name),
 	}
 
-	output, err := conn.DescribeMonitoringScheduleWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -232,8 +226,7 @@ func expandMonitoringScheduleConfig(configured []interface{}) *sagemaker.Monitor
 	}
 
 	m := configured[0].(map[string]interface{})
-
-	c := &sagemaker.MonitoringScheduleConfig{}
+func= &sagemaker.MonitoringScheduleConfig{}
 
 	if v, ok := m["monitoring_job_definition_name"].(string); ok && v != "" {
 		c.MonitoringJobDefinitionName = aws.String(v)
@@ -257,8 +250,7 @@ func expandScheduleConfig(configured []interface{}) *sagemaker.ScheduleConfig {
 
 	m := configured[0].(map[string]interface{})
 
-	c := &sagemaker.ScheduleConfig{}
-
+func
 	if v, ok := m["schedule_expression"].(string); ok && v != "" {
 		c.ScheduleExpression = aws.String(v)
 	}
@@ -274,8 +266,7 @@ func flattenMonitoringScheduleConfig(config *sagemaker.MonitoringScheduleConfig)
 	m := map[string]interface{}{}
 
 	if config.MonitoringJobDefinitionName != nil {
-		m["monitoring_job_definition_name"] = aws.StringValue(config.MonitoringJobDefinitionName)
-	}
+func
 
 	if config.MonitoringType != nil {
 		m["monitoring_type"] = aws.StringValue(config.MonitoringType)
@@ -297,7 +288,6 @@ func flattenScheduleConfig(config *sagemaker.ScheduleConfig) []map[string]interf
 
 	if config.ScheduleExpression != nil {
 		m["schedule_expression"] = aws.StringValue(config.ScheduleExpression)
-	}
-
+func
 	return []map[string]interface{}{m}
 }

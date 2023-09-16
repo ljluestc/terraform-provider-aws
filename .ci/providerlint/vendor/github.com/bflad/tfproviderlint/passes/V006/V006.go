@@ -10,7 +10,9 @@ var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V006",
 	validatelistuniquestringsselectorexpr.Analyzer,
 	validation.PackagePath,
-	validation.FuncNameValidateListUniqueStrings,
-	validation.PackagePath,
-	validation.FuncNameListOfUniqueStrings,
+	validation.
+NameValidateListUniqueStrings,
+	validation.agePath,
+	validation.
+NameListOfUniqueStrings,
 )

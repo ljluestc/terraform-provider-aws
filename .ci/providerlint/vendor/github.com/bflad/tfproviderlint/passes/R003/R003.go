@@ -1,5 +1,6 @@
 // Package R003 defines an Analyzer that checks for
-// Resource having Exists functions
+// Resource having Exists 
+tions
 package R003
 
 import (
@@ -10,10 +11,13 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourceinfo"
 )
 
-const Doc = `check for Resource having Exists functions
+const Doc = `check for Resource having Exists 
+tions
 
 The R003 analyzer reports likely extraneous uses of Exists
-functions for a resource. Exists logic can be handled inside the Read function
+
+tions for a resource. Exists logic can be handled inside the Read 
+tion
 to prevent logic duplication.`
 
 const analyzerName = "R003"
@@ -24,11 +28,12 @@ var Analyzer = &analysis.Analyzer{
 	Requires: []*analysis.Analyzer{
 		resourceinfo.Analyzer,
 		commentignore.Analyzer,
-	},
+
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	resources := pass.ResultOf[resourceinfo.Analyzer].([]*schema.ResourceInfo)
 	for _, resource := range resources {
@@ -42,7 +47,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			continue
 		}
 
-		pass.Reportf(kvExpr.Key.Pos(), "%s: resource should not include Exists function", analyzerName)
+		pass.Reportf(kvExpr.Key.Pos(), "%s: resource should not include Exists 
+tion", analyzerName)
 	}
 
 	return nil, nil

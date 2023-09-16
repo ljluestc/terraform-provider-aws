@@ -19,6 +19,8 @@ import (
 // listTags lists elasticache service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
+
 func listTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &elasticache.ListTagsForResourceInput{
 		ResourceName: aws.String(identifier),
@@ -35,6 +37,8 @@ func listTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, identif
 
 // ListTags lists elasticache service tags and set them in Context.
 // It is called from outside this package.
+
+
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).ElastiCacheConn(ctx), identifier)
 
@@ -52,6 +56,8 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // []*SERVICE.Tag handling
 
 // Tags returns elasticache service tags.
+
+
 func Tags(tags tftags.KeyValueTags) []*elasticache.Tag {
 	result := make([]*elasticache.Tag, 0, len(tags))
 
@@ -68,6 +74,8 @@ func Tags(tags tftags.KeyValueTags) []*elasticache.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from elasticache service tags.
+
+
 func KeyValueTags(ctx context.Context, tags []*elasticache.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -80,6 +88,8 @@ func KeyValueTags(ctx context.Context, tags []*elasticache.Tag) tftags.KeyValueT
 
 // getTagsIn returns elasticache service tags from Context.
 // nil is returned if there are no input tags.
+
+
 func getTagsIn(ctx context.Context) []*elasticache.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -91,6 +101,8 @@ func getTagsIn(ctx context.Context) []*elasticache.Tag {
 }
 
 // setTagsOut sets elasticache service tags in Context.
+
+
 func setTagsOut(ctx context.Context, tags []*elasticache.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -98,6 +110,8 @@ func setTagsOut(ctx context.Context, tags []*elasticache.Tag) {
 }
 
 // createTags creates elasticache service tags for new resources.
+
+
 func createTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, identifier string, tags []*elasticache.Tag) error {
 	if len(tags) == 0 {
 		return nil
@@ -109,6 +123,8 @@ func createTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, ident
 // updateTags updates elasticache service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
+
 func updateTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -150,6 +166,8 @@ func updateTags(ctx context.Context, conn elasticacheiface.ElastiCacheAPI, ident
 
 // UpdateTags updates elasticache service tags.
 // It is called from outside this package.
+
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).ElastiCacheConn(ctx), identifier, oldTags, newTags)
 }

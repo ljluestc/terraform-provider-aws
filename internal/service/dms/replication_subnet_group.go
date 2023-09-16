@@ -79,8 +79,8 @@ func resourceReplicationSubnetGroupCreate(ctx context.Context, d *schema.Resourc
 	input := &dms.CreateReplicationSubnetGroupInput{
 		ReplicationSubnetGroupDescription: aws.String(d.Get("replication_subnet_group_description").(string)),
 		ReplicationSubnetGroupIdentifier:  aws.String(replicationSubnetGroupID),
-		SubnetIds:                         flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:                              getTagsIn(ctx),
+		SubnetIds:            flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:    getTagsIn(ctx),
 	}
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, propagationTimeout, func() (interface{}, error) {
@@ -142,7 +142,7 @@ func resourceReplicationSubnetGroupUpdate(ctx context.Context, d *schema.Resourc
 		// changes to SubnetIds.
 		input := &dms.ModifyReplicationSubnetGroupInput{
 			ReplicationSubnetGroupIdentifier: aws.String(d.Get("replication_subnet_group_id").(string)),
-			SubnetIds:                        flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+			SubnetIds:           flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		}
 
 		if d.HasChange("replication_subnet_group_description") {

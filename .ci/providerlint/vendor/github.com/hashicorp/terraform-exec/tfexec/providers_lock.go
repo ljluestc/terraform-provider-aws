@@ -22,24 +22,29 @@ type ProvidersLockOption interface {
 	configureProvidersLock(*providersLockConfig)
 }
 
-func (opt *FSMirrorOption) configureProvidersLock(conf *providersLockConfig) {
+
+ (opt *FSMirrorOption) configureProvidersLock(conf *providersLockConfig) {
 	conf.fsMirror = opt.fsMirror
 }
 
-func (opt *NetMirrorOption) configureProvidersLock(conf *providersLockConfig) {
+
+ (opt *NetMirrorOption) configureProvidersLock(conf *providersLockConfig) {
 	conf.netMirror = opt.netMirror
+
+
+
+ (opt *PlatformOption) configureProvidersLock(conf *providersLockConfig) {
+f.platforms = append(conf.platforms, opt.platform)
 }
 
-func (opt *PlatformOption) configureProvidersLock(conf *providersLockConfig) {
-	conf.platforms = append(conf.platforms, opt.platform)
-}
 
-func (opt *ProviderOption) configureProvidersLock(conf *providersLockConfig) {
-	conf.providers = append(conf.providers, opt.provider)
+ (opt *ProviderOption) configureProvidersLock(conf *providersLockConfig) {
+f.providers = append(conf.providers, opt.provider)
 }
 
 // ProvidersLock represents the `terraform providers lock` command
-func (tf *Terraform) ProvidersLock(ctx context.Context, opts ...ProvidersLockOption) error {
+
+ (tf *Terraform) ProvidersLock(ctx context.Context, opts ...ProvidersLockOption) error {
 	err := tf.compatible(ctx, tf0_14_0, nil)
 	if err != nil {
 		return fmt.Errorf("terraform providers lock was added in 0.14.0: %w", err)
@@ -50,12 +55,13 @@ func (tf *Terraform) ProvidersLock(ctx context.Context, opts ...ProvidersLockOpt
 	err = tf.runTerraformCmd(ctx, lockCmd)
 	if err != nil {
 		return err
-	}
+
 
 	return err
 }
 
-func (tf *Terraform) providersLockCmd(ctx context.Context, opts ...ProvidersLockOption) *exec.Cmd {
+
+ (tf *Terraform) providersLockCmd(ctx context.Context, opts ...ProvidersLockOption) *exec.Cmd {
 	c := defaultProvidersLockOptions
 
 	for _, o := range opts {

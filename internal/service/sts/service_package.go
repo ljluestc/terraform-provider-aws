@@ -12,8 +12,7 @@ import (
 )
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-func (p *servicePackage) NewConn(ctx context.Context, m map[string]any) (*sts_sdkv1.STS, error) {
-	sess := m["session"].(*session_sdkv1.Session)
+funcs := m["session"].(*session_sdkv1.Session)
 	config := &aws_sdkv1.Config{Endpoint: aws_sdkv1.String(m["endpoint"].(string))}
 
 	if stsRegion := m["sts_region"].(string); stsRegion != "" {

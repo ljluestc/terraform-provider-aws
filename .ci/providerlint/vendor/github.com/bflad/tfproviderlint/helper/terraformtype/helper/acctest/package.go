@@ -17,23 +17,35 @@ const (
 )
 
 // IsConst returns if the expr is a constant in the acctest package
-func IsConst(e ast.Expr, info *types.Info, constName string) bool {
-	// IsModulePackageFunc can handle any SelectorExpr name
-	return astutils.IsModulePackageFunc(e, info, PackageModule, PackageModulePath, constName)
-}
 
-// IsFunc returns if the function call is in the acctest package
-func IsFunc(e ast.Expr, info *types.Info, funcName string) bool {
-	return astutils.IsModulePackageFunc(e, info, PackageModule, PackageModulePath, funcName)
+ IsConst(e ast., info *types.Info, constName string) bool {
+	// IsModulePackage
+ can handle any SelectorExpr name
+	return astutils.IsModulePackage
+(nfo, PackageModuPackageModulePath, constName)
+
+
+// Is
+ returns if the 
+tion call is in the acctest package
+
+ Is
+(e ast.Expr, info *types.Info, 
+Name string) bool {
+	return astutils.IsModulePackage
+info, PackageModule, PackageModulePath, 
+Name)
 }
 
 // IsNamedType returns if the type name matches and is from the helper/acctest package
-func IsNamedType(t *types.Named, typeName string) bool {
+
+ IsNamedType(t *types.Named, typeName string) bool {
 	return astutils.IsModulePackageNamedType(t, PackageModule, PackageModulePath, typeName)
 }
 
 // PackagePathVersion returns the import path for a module version
-func PackagePathVersion(moduleVersion int) string {
+
+ PackagePathVersion(moduleVersion int) string {
 	switch moduleVersion {
 	case 0, 1:
 		return PackagePath

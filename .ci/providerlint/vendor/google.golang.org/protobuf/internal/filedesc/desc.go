@@ -53,45 +53,67 @@ type (
 		Services   Services
 	}
 	FileL2 struct {
-		Options   func() protoreflect.ProtoMessage
+		Options   
+() protoreflect.ProtoMessage
 		Imports   FileImports
 		Locations SourceLocations
 	}
 )
 
-func (fd *File) ParentFile() protoreflect.FileDescriptor { return fd }
-func (fd *File) Parent() protoreflect.Descriptor         { return nil }
-func (fd *File) Index() int                              { return 0 }
-func (fd *File) Syntax() protoreflect.Syntax             { return fd.L1.Syntax }
-func (fd *File) Name() protoreflect.Name                 { return fd.L1.Package.Name() }
-func (fd *File) FullName() protoreflect.FullName         { return fd.L1.Package }
-func (fd *File) IsPlaceholder() bool                     { return false }
-func (fd *File) Options() protoreflect.ProtoMessage {
-	if f := fd.lazyInit().Options; f != nil {
-		return f()
-	}
-	return descopts.File
-}
-func (fd *File) Path() string                                  { return fd.L1.Path }
-func (fd *File) Package() protoreflect.FullName                { return fd.L1.Package }
-func (fd *File) Imports() protoreflect.FileImports             { return &fd.lazyInit().Imports }
-func (fd *File) Enums() protoreflect.EnumDescriptors           { return &fd.L1.Enums }
-func (fd *File) Messages() protoreflect.MessageDescriptors     { return &fd.L1.Messages }
-func (fd *File) Extensions() protoreflect.ExtensionDescriptors { return &fd.L1.Extensions }
-func (fd *File) Services() protoreflect.ServiceDescriptors     { return &fd.L1.Services }
-func (fd *File) SourceLocations() protoreflect.SourceLocations { return &fd.lazyInit().Locations }
-func (fd *File) Format(s fmt.State, r rune)                    { descfmt.FormatDesc(s, r, fd) }
-func (fd *File) ProtoType(protoreflect.FileDescriptor)         {}
-func (fd *File) ProtoInternal(pragma.DoNotImplement)           {}
 
-func (fd *File) lazyInit() *FileL2 {
+ *File) ParentFile() protoreflect.FileDescriptor { return fd }
+
+ *File) Parent() protoreflect.Descriptor         { return nil }
+
+ *File) Index() int                              { return 0 }
+
+ (fd *File) Syntax() protoreflect.Syntax             { return fd.L1.Syntax }
+
+ (fd *File) Name() protoreflect.Name                 { return fd.L1.Package.Name() }
+
+ (fd *File) FullName() protoreflect.FullName         { return fd.L1.Package }
+
+ *File) IsPlaceholder() bool                     { return false }
+
+ *File) Options() protoreflect.ProtoMessage {
+f := fd.lazyInit().Options; f != nil {
+turn f()
+
+urn descopts.File
+
+
+ *File) Path() string                                  { return fd.L1.Path }
+
+ *File) Package() protoreflect.FullName                { return fd.L1.Package }
+
+ (fd *File) Imports() protoreflect.FileImports             { return &fd.lazyInit().Imports }
+
+ (fd *File) Enums() protoreflect.EnumDescriptors           { return &fd.L1.Enums }
+
+ (fd *File) Messages() protoreflect.MessageDescriptors     { return &fd.L1.Messages }
+
+ (fd *File) Extensions() protoreflect.ExtensionDescriptors { return &fd.L1.Extensions }
+
+ (fd *File) Services() protoreflect.ServiceDescriptors     { return &fd.L1.Services }
+
+ (fd *File) SourceLocations() protoreflect.SourceLocations { return &fd.lazyInit().Locations }
+
+ (fd *File) Format(s fmt.State, r rune)                    { descfmt.FormatDesc(s, r, fd) }
+
+ (fd *File) ProtoType(protoreflect.FileDescriptor)         {}
+
+ (fd *File) ProtoInternal(pragma.DoNotImplement)           {}
+
+
+ *File) lazyInit() *FileL2 {
 	if atomic.LoadUint32(&fd.once) == 0 {
 		fd.lazyInitOnce()
 	}
 	return fd.L2
 }
 
-func (fd *File) lazyInitOnce() {
+
+ (fd *File) lazyInitOnce() {
 	fd.mu.Lock()
 	if fd.L2 == nil {
 		fd.lazyRawInit() // recursively initializes all L2 structures
@@ -105,66 +127,80 @@ func (fd *File) lazyInitOnce() {
 //
 // WARNING: This method is exempt from the compatibility promise and may be
 // removed in the future without warning.
-func (fd *File) GoPackagePath() string {
+
+ (fd *File) GoPackagePath() string {
 	return fd.builder.GoPackagePath
 }
 
 type (
 	Enum struct {
 		Base
-		L1 EnumL1
+ EnumL1
 		L2 *EnumL2 // protected by fileDesc.once
 	}
 	EnumL1 struct {
 		eagerValues bool // controls whether EnumL2.Values is already populated
 	}
-	EnumL2 struct {
-		Options        func() protoreflect.ProtoMessage
+mL2 struct {
+		Options        
+() protoreflect.ProtoMessage
 		Values         EnumValues
 		ReservedNames  Names
 		ReservedRanges EnumRanges
-	}
 
-	EnumValue struct {
-		Base
-		L1 EnumValueL1
+
+mValue struct {
+se
+ EnumValueL1
 	}
 	EnumValueL1 struct {
-		Options func() protoreflect.ProtoMessage
-		Number  protoreflect.EnumNumber
+		Options 
+() protoreflect.ProtoMessage
+mber  protoreflect.EnumNumber
 	}
 )
 
-func (ed *Enum) Options() protoreflect.ProtoMessage {
-	if f := ed.lazyInit().Options; f != nil {
-		return f()
-	}
+
+ (ed *Enum) Options() protoreflect.ProtoMessage {
+f := ed.lazyInit().Options; f != nil {
+turn f()
+
 	return descopts.Enum
 }
-func (ed *Enum) Values() protoreflect.EnumValueDescriptors {
+
+ (ed *Enum) Values() protoreflect.EnumValueDescriptors {
 	if ed.L1.eagerValues {
 		return &ed.L2.Values
 	}
 	return &ed.lazyInit().Values
 }
-func (ed *Enum) ReservedNames() protoreflect.Names       { return &ed.lazyInit().ReservedNames }
-func (ed *Enum) ReservedRanges() protoreflect.EnumRanges { return &ed.lazyInit().ReservedRanges }
-func (ed *Enum) Format(s fmt.State, r rune)              { descfmt.FormatDesc(s, r, ed) }
-func (ed *Enum) ProtoType(protoreflect.EnumDescriptor)   {}
-func (ed *Enum) lazyInit() *EnumL2 {
+
+ (ed *Enum) ReservedNames() protoreflect.Names       { return &ed.lazyInit().ReservedNames }
+
+ (ed *Enum) ReservedRanges() protoreflect.EnumRanges { return &ed.lazyInit().ReservedRanges }
+
+ (ed *Enum) Format(s fmt.State, r rune)              { descfmt.FormatDesc(s, r, ed) }
+
+ (ed *Enum) ProtoType(protoreflect.EnumDescriptor)   {}
+
+ (ed *Enum) lazyInit() *EnumL2 {
 	ed.L0.ParentFile.lazyInit() // implicitly initializes L2
 	return ed.L2
 }
 
-func (ed *EnumValue) Options() protoreflect.ProtoMessage {
+
+ (ed *EnumValue) Options() protoreflect.ProtoMessage {
 	if f := ed.L1.Options; f != nil {
 		return f()
 	}
 	return descopts.EnumValue
 }
-func (ed *EnumValue) Number() protoreflect.EnumNumber            { return ed.L1.Number }
-func (ed *EnumValue) Format(s fmt.State, r rune)                 { descfmt.FormatDesc(s, r, ed) }
-func (ed *EnumValue) ProtoType(protoreflect.EnumValueDescriptor) {}
+
+ (ed *EnumValue) Number() protoreflect.EnumNumber            { return ed.L1.Number }
+
+ (ed *EnumValue) Format(s fmt.State, r rune)                 { descfmt.FormatDesc(s, r, ed) }
+
+ (ed *EnumValue) ProtoType(protoreflect.EnumValueDescriptor) {}
 
 type (
 	Message struct {
@@ -180,34 +216,37 @@ type (
 		IsMessageSet bool // promoted from google.protobuf.MessageOptions
 	}
 	MessageL2 struct {
-		Options               func() protoreflect.ProtoMessage
+		Options               
+() proflect.ProtoMessage
 		Fields                Fields
 		Oneofs                Oneofs
 		ReservedNames         Names
 		ReservedRanges        FieldRanges
-		RequiredNumbers       FieldNumbers // must be consistent with Fields.Cardinality
+quiredNumbers       FieldNumbers // must be consistent with Fields.Cardinality
 		ExtensionRanges       FieldRanges
-		ExtensionRangeOptions []func() protoreflect.ProtoMessage // must be same length as ExtensionRanges
+		ExtensionRangeOptions []
+() protoreflect.ProtoMessage // must be same length as ExtensionRanges
 	}
 
-	Field struct {
-		Base
-		L1 FieldL1
-	}
-	FieldL1 struct {
-		Options          func() protoreflect.ProtoMessage
-		Number           protoreflect.FieldNumber
+ld struct {
+se
+ FieldL1
+
+ldL1 struct {
+tions          
+rotoreflect.ProtoMessage
+mber           protoreflect.FieldNumber
 		Cardinality      protoreflect.Cardinality // must be consistent with Message.RequiredNumbers
 		Kind             protoreflect.Kind
 		StringName       stringName
 		IsProto3Optional bool // promoted from google.protobuf.FieldDescriptorProto
 		IsWeak           bool // promoted from google.protobuf.FieldOptions
-		HasPacked        bool // promoted from google.protobuf.FieldOptions
-		IsPacked         bool // promoted from google.protobuf.FieldOptions
-		HasEnforceUTF8   bool // promoted from google.protobuf.FieldOptions
-		EnforceUTF8      bool // promoted from google.protobuf.FieldOptions
-		Default          defaultValue
-		ContainingOneof  protoreflect.OneofDescriptor // must be consistent with Message.Oneofs.Fields
+sPacked        bool // promoted from google.protobuf.FieldOptions
+Packed         bool // promoted from google.protobuf.FieldOptions
+sEnforceUTF8   bool // promoted from google.protobuf.FieldOptions
+forceUTF8      bool // promoted from google.protobuf.FieldOptions
+fault          defaultValue
+ntainingOneof  protoreflect.OneofDescriptor // must be consistent with Message.Oneofs.Fields
 		Enum             protoreflect.EnumDescriptor
 		Message          protoreflect.MessageDescriptor
 	}
@@ -217,200 +256,276 @@ type (
 		L1 OneofL1
 	}
 	OneofL1 struct {
-		Options func() protoreflect.ProtoMessage
+tions 
+() protoreflect.ProtoMessage
 		Fields  OneofFields // must be consistent with Message.Fields.ContainingOneof
 	}
-)
 
-func (md *Message) Options() protoreflect.ProtoMessage {
+
+
+ (md *Message) Options() protoreflect.ProtoMessage {
 	if f := md.lazyInit().Options; f != nil {
 		return f()
-	}
-	return descopts.Message
-}
-func (md *Message) IsMapEntry() bool                           { return md.L1.IsMapEntry }
-func (md *Message) Fields() protoreflect.FieldDescriptors      { return &md.lazyInit().Fields }
-func (md *Message) Oneofs() protoreflect.OneofDescriptors      { return &md.lazyInit().Oneofs }
-func (md *Message) ReservedNames() protoreflect.Names          { return &md.lazyInit().ReservedNames }
-func (md *Message) ReservedRanges() protoreflect.FieldRanges   { return &md.lazyInit().ReservedRanges }
-func (md *Message) RequiredNumbers() protoreflect.FieldNumbers { return &md.lazyInit().RequiredNumbers }
-func (md *Message) ExtensionRanges() protoreflect.FieldRanges  { return &md.lazyInit().ExtensionRanges }
-func (md *Message) ExtensionRangeOptions(i int) protoreflect.ProtoMessage {
+
+urn descopts.Message
+
+
+ *Message) IsMapEntry() bool                           { return md.L1.IsMapEntry }
+
+ *Message) Fields() protoreflect.FieldDescriptors      { return &md.lazyInit().Fields }
+
+ (md *Message) Oneofs() protoreflect.OneofDescriptors      { return &md.lazyInit().Oneofs }
+
+ (md *Message) ReservedNames() protoreflect.Names          { return &md.lazyInit().ReservedNames }
+
+ *Message) ReservedRanges() protoreflect.FieldRanges   { return &md.lazyInit().ReservedRanges }
+
+ (md *Message) RequiredNumbers() protoreflect.FieldNumbers { return &md.lazyInit().RequiredNumbers }
+
+ (md *Message) ExtensionRanges() protoreflect.FieldRanges  { return &md.lazyInit().ExtensionRanges }
+
+ (md *Message) ExtensionRangeOptions(i int) protoreflect.ProtoMessage {
 	if f := md.lazyInit().ExtensionRangeOptions[i]; f != nil {
 		return f()
 	}
-	return descopts.ExtensionRange
-}
-func (md *Message) Enums() protoreflect.EnumDescriptors           { return &md.L1.Enums }
-func (md *Message) Messages() protoreflect.MessageDescriptors     { return &md.L1.Messages }
-func (md *Message) Extensions() protoreflect.ExtensionDescriptors { return &md.L1.Extensions }
-func (md *Message) ProtoType(protoreflect.MessageDescriptor)      {}
-func (md *Message) Format(s fmt.State, r rune)                    { descfmt.FormatDesc(s, r, md) }
-func (md *Message) lazyInit() *MessageL2 {
+urn descopts.ExtensionRange
+
+
+ *Message) Enums() protoreflect.EnumDescriptors           { return &md.L1.Enums }
+
+ (md *Message) Messages() protoreflect.MessageDescriptors     { return &md.L1.Messages }
+
+ (md *Message) Extensions() protoreflect.ExtensionDescriptors { return &md.L1.Extensions }
+
+ (md *Message) ProtoType(protoreflect.MessageDescriptor)      {}
+
+ (md *Message) Format(s fmt.State, r rune)                    { descfmt.FormatDesc(s, r, md) }
+
+ (md *Message) lazyInit() *MessageL2 {
 	md.L0.ParentFile.lazyInit() // implicitly initializes L2
 	return md.L2
-}
 
-// IsMessageSet is a pseudo-internal API for checking whether a message
-// should serialize in the proto1 message format.
-//
+
+sMessageSet is a pseudo-internal API for checking whether a message
+hould serialize in the proto1 message format.
+
 // WARNING: This method is exempt from the compatibility promise and may be
 // removed in the future without warning.
-func (md *Message) IsMessageSet() bool {
-	return md.L1.IsMessageSet
-}
 
-func (fd *Field) Options() protoreflect.ProtoMessage {
+ (md *Message) IsMessageSet() bool {
+	return md.L1.IsMessageSet
+
+
+
+ (fd *Field) Options() protoreflect.ProtoMessage {
 	if f := fd.L1.Options; f != nil {
 		return f()
 	}
 	return descopts.Field
-}
-func (fd *Field) Number() protoreflect.FieldNumber      { return fd.L1.Number }
-func (fd *Field) Cardinality() protoreflect.Cardinality { return fd.L1.Cardinality }
-func (fd *Field) Kind() protoreflect.Kind               { return fd.L1.Kind }
-func (fd *Field) HasJSONName() bool                     { return fd.L1.StringName.hasJSON }
-func (fd *Field) JSONName() string                      { return fd.L1.StringName.getJSON(fd) }
-func (fd *Field) TextName() string                      { return fd.L1.StringName.getText(fd) }
-func (fd *Field) HasPresence() bool {
+
+
+ (fd *Field) Number() protoreflect.FieldNumber      { return fd.L1.Number }
+
+ (fd *Field) Cardinality() protoreflect.Cardinality { return fd.L1.Cardinality }
+
+ (fd *Field) Kind() protoreflect.Kind               { return fd.L1.Kind }
+
+ (fd *Field) HasJSONName() bool                     { return fd.L1.StringName.hasJSON }
+
+ *Field) JSONName() string                      { return fd.L1.StringName.getJSON(fd) }
+
+ (fd *Field) TextName() string                      { return fd.L1.StringName.getText(fd) }
+
+ (fd *Field) HasPresence() bool {
 	return fd.L1.Cardinality != protoreflect.Repeated && (fd.L0.ParentFile.L1.Syntax == protoreflect.Proto2 || fd.L1.Message != nil || fd.L1.ContainingOneof != nil)
 }
-func (fd *Field) HasOptionalKeyword() bool {
+
+ (fd *Field) HasOptionalKeyword() bool {
 	return (fd.L0.ParentFile.L1.Syntax == protoreflect.Proto2 && fd.L1.Cardinality == protoreflect.Optional && fd.L1.ContainingOneof == nil) || fd.L1.IsProto3Optional
-}
-func (fd *Field) IsPacked() bool {
+
+
+ (fd *Field) IsPacked() bool {
 	if !fd.L1.HasPacked && fd.L0.ParentFile.L1.Syntax != protoreflect.Proto2 && fd.L1.Cardinality == protoreflect.Repeated {
 		switch fd.L1.Kind {
 		case protoreflect.StringKind, protoreflect.BytesKind, protoreflect.MessageKind, protoreflect.GroupKind:
-		default:
-			return true
-		}
+fault:
+eturn true
+
 	}
 	return fd.L1.IsPacked
 }
-func (fd *Field) IsExtension() bool { return false }
-func (fd *Field) IsWeak() bool      { return fd.L1.IsWeak }
-func (fd *Field) IsList() bool      { return fd.Cardinality() == protoreflect.Repeated && !fd.IsMap() }
-func (fd *Field) IsMap() bool       { return fd.Message() != nil && fd.Message().IsMapEntry() }
-func (fd *Field) MapKey() protoreflect.FieldDescriptor {
+
+ (fd *Field) IsExtension() bool { return false }
+
+ (fd *Field) IsWeak() bool      { return fd.L1.IsWeak }
+
+ (fd *Field) IsList() bool      { return fd.Cardinality() == protoreflect.Repeated && !fd.IsMap() }
+
+ (fd *Field) IsMap() bool       { return fd.Message() != nil && fd.Message().IsMapEntry() }
+
+ (fd *Field) MapKey() protoreflect.FieldDescriptor {
 	if !fd.IsMap() {
 		return nil
 	}
 	return fd.Message().Fields().ByNumber(genid.MapEntry_Key_field_number)
 }
-func (fd *Field) MapValue() protoreflect.FieldDescriptor {
+
+ (fd *Field) MapValue() protoreflect.FieldDescriptor {
 	if !fd.IsMap() {
 		return nil
 	}
 	return fd.Message().Fields().ByNumber(genid.MapEntry_Value_field_number)
-}
-func (fd *Field) HasDefault() bool                                   { return fd.L1.Default.has }
-func (fd *Field) Default() protoreflect.Value                        { return fd.L1.Default.get(fd) }
-func (fd *Field) DefaultEnumValue() protoreflect.EnumValueDescriptor { return fd.L1.Default.enum }
-func (fd *Field) ContainingOneof() protoreflect.OneofDescriptor      { return fd.L1.ContainingOneof }
-func (fd *Field) ContainingMessage() protoreflect.MessageDescriptor {
-	return fd.L0.Parent.(protoreflect.MessageDescriptor)
-}
-func (fd *Field) Enum() protoreflect.EnumDescriptor {
-	return fd.L1.Enum
-}
-func (fd *Field) Message() protoreflect.MessageDescriptor {
-	if fd.L1.IsWeak {
-		if d, _ := protoregistry.GlobalFiles.FindDescriptorByName(fd.L1.Message.FullName()); d != nil {
-			return d.(protoreflect.MessageDescriptor)
-		}
-	}
-	return fd.L1.Message
-}
-func (fd *Field) Format(s fmt.State, r rune)             { descfmt.FormatDesc(s, r, fd) }
-func (fd *Field) ProtoType(protoreflect.FieldDescriptor) {}
 
-// EnforceUTF8 is a pseudo-internal API to determine whether to enforce UTF-8
-// validation for the string field. This exists for Google-internal use only
-// since proto3 did not enforce UTF-8 validity prior to the open-source release.
-// If this method does not exist, the default is to enforce valid UTF-8.
-//
+
+ (fd *Field) HasDefault() bool                                   { return fd.L1.Default.has }
+
+ (fd *Field) Default() protoreflect.Value                        { return fd.L1.Default.get(fd) }
+
+ *Field) DefaultEnumValue() protoreflect.EnumValueDescriptor { return fd.L1.Default.enum }
+
+ *Field) ContainingOneof() protoreflect.OneofDescriptor      { return fd.L1.ContainingOneof }
+
+ *Field) ContainingMessage() protoreflect.MessageDescriptor {
+urn fd.L0.Parent.(protoreflect.MessageDescriptor)
+
+
+ (fd *Field) Enum() protoreflect.EnumDescriptor {
+	return fd.L1.Enum
+
+
+ *Field) Message() protoreflect.MessageDescriptor {
+fd.L1.IsWeak {
+ d, _ := protoregistry.GlobalFiles.FindDescriptorByName(fd.L1.Message.FullName()); d != nil {
+eturn d.(protoreflect.MessageDescriptor)
+
+
+urn fd.L1.Message
+
+
+ (fd *Field) Format(s fmt.State, r rune)             { descfmt.FormatDesc(s, r, fd) }
+
+ *Field) ProtoType(protoreflect.FieldDescriptor) {}
+
+nforceUTF8 is a pseudo-internal API to determine whether to enforce UTF-8
+alidation for the string field. This exists for Google-internal use only
+ince proto3 did not enforce UTF-8 validity prior to the open-source release.
+f this method does not exist, the default is to enforce valid UTF-8.
+
 // WARNING: This method is exempt from the compatibility promise and may be
 // removed in the future without warning.
-func (fd *Field) EnforceUTF8() bool {
+
+ (fd *Field) EnforceUTF8() bool {
 	if fd.L1.HasEnforceUTF8 {
 		return fd.L1.EnforceUTF8
 	}
 	return fd.L0.ParentFile.L1.Syntax == protoreflect.Proto3
 }
 
-func (od *Oneof) IsSynthetic() bool {
-	return od.L0.ParentFile.L1.Syntax == protoreflect.Proto3 && len(od.L1.Fields.List) == 1 && od.L1.Fields.List[0].HasOptionalKeyword()
+
+ (od *Oneof) IsSynthetic() bool {
+	return odParentFile.L1.Syntax == protoreflect.Proto3 && len(od.L1.Fields.List) == 1 && od.L1.Fields.List[0].HasOptionalKeyword()
 }
-func (od *Oneof) Options() protoreflect.ProtoMessage {
+
+ (od *Oneof) Options() protoreflect.ProtoMessage {
 	if f := od.L1.Options; f != nil {
 		return f()
 	}
 	return descopts.Oneof
 }
-func (od *Oneof) Fields() protoreflect.FieldDescriptors  { return &od.L1.Fields }
-func (od *Oneof) Format(s fmt.State, r rune)             { descfmt.FormatDesc(s, r, od) }
-func (od *Oneof) ProtoType(protoreflect.OneofDescriptor) {}
+
+ (od *Oneof) Fields() protoreflect.FieldDescriptors  { return &od.L1.Fields }
+
+ (od *Oneof) Format(s fmt.State, r rune)             { descfmt.FormatDesc(s, r, od) }
+
+ (od *Oneof) ProtoType(protoreflect.OneofDescriptor) {}
 
 type (
-	Extension struct {
+ension struct {
 		Base
 		L1 ExtensionL1
 		L2 *ExtensionL2 // protected by fileDesc.once
 	}
 	ExtensionL1 struct {
-		Number      protoreflect.FieldNumber
-		Extendee    protoreflect.MessageDescriptor
-		Cardinality protoreflect.Cardinality
-		Kind        protoreflect.Kind
-	}
+mber      protoreflect.FieldNumber
+tendee    protoreflect.MessageDescriptor
+rdinality protoreflect.Cardinality
+nd        protoreflect.Kind
+
 	ExtensionL2 struct {
-		Options          func() protoreflect.ProtoMessage
+		Options          
+() protoreflect.ProtoMessage
 		StringName       stringName
-		IsProto3Optional bool // promoted from google.protobuf.FieldDescriptorProto
+Proto3Optional bool // promoted from google.protobuf.FieldDescriptorProto
 		IsPacked         bool // promoted from google.protobuf.FieldOptions
 		Default          defaultValue
 		Enum             protoreflect.EnumDescriptor
 		Message          protoreflect.MessageDescriptor
 	}
-)
 
-func (xd *Extension) Options() protoreflect.ProtoMessage {
-	if f := xd.lazyInit().Options; f != nil {
-		return f()
-	}
+
+
+ *Extension) Options() protoreflect.ProtoMessage {
+f := xd.lazyInit().Options; f != nil {
+turn f()
+
 	return descopts.Field
 }
-func (xd *Extension) Number() protoreflect.FieldNumber      { return xd.L1.Number }
-func (xd *Extension) Cardinality() protoreflect.Cardinality { return xd.L1.Cardinality }
-func (xd *Extension) Kind() protoreflect.Kind               { return xd.L1.Kind }
-func (xd *Extension) HasJSONName() bool                     { return xd.lazyInit().StringName.hasJSON }
-func (xd *Extension) JSONName() string                      { return xd.lazyInit().StringName.getJSON(xd) }
-func (xd *Extension) TextName() string                      { return xd.lazyInit().StringName.getText(xd) }
-func (xd *Extension) HasPresence() bool                     { return xd.L1.Cardinality != protoreflect.Repeated }
-func (xd *Extension) HasOptionalKeyword() bool {
+
+ (xd *Extension) Number() protoreflect.FieldNumber      { return xd.L1.Number }
+
+ (xd *Extension) Cardinality() protoreflect.Cardinality { return xd.L1.Cardinality }
+
+ (xd *Extension) Kind() protoreflect.Kind               { return xd.L1.Kind }
+
+ (xd *Extension) HasJSONName() bool                     { return xd.lazyInit().StringName.hasJSON }
+
+ (xd *Extension) JSONName() string                      { return xd.lazyInit().StringName.getJSON(xd) }
+
+ (xd *Extension) TextName() string                      { return xd.lazyInit().StringName.getText(xd) }
+
+ (xd *Extension) HasPresence() bool                     { return xd.L1.Cardinality != protoreflect.Repeated }
+
+ (xd *Extension) HasOptionalKeyword() bool {
 	return (xd.L0.ParentFile.L1.Syntax == protoreflect.Proto2 && xd.L1.Cardinality == protoreflect.Optional) || xd.lazyInit().IsProto3Optional
 }
-func (xd *Extension) IsPacked() bool                         { return xd.lazyInit().IsPacked }
-func (xd *Extension) IsExtension() bool                      { return true }
-func (xd *Extension) IsWeak() bool                           { return false }
-func (xd *Extension) IsList() bool                           { return xd.Cardinality() == protoreflect.Repeated }
-func (xd *Extension) IsMap() bool                            { return false }
-func (xd *Extension) MapKey() protoreflect.FieldDescriptor   { return nil }
-func (xd *Extension) MapValue() protoreflect.FieldDescriptor { return nil }
-func (xd *Extension) HasDefault() bool                       { return xd.lazyInit().Default.has }
-func (xd *Extension) Default() protoreflect.Value            { return xd.lazyInit().Default.get(xd) }
-func (xd *Extension) DefaultEnumValue() protoreflect.EnumValueDescriptor {
+
+ *Extension) IsPacked() bool                         { return xd.lazyInit().IsPacked }
+
+ (xd *Extension) IsExtension() bool                      { return true }
+
+ (xd *Extension) IsWeak() bool                           { return false }
+
+ (xd *Extension) IsList() bool                           { return xd.Cardinality() == protoreflect.Repeated }
+
+ *Extension) IsMap() bool                            { return false }
+
+ *Extension) MapKey() protoreflect.FieldDescriptor   { return nil }
+
+ (xd *Extension) MapValue() protoreflect.FieldDescriptor { return nil }
+
+ (xd *Extension) HasDefault() bool                       { return xd.lazyInit().Default.has }
+
+ (xd *Extension) Default() protoreflect.Value            { return xd.lazyInit().Default.get(xd) }
+
+ (xd *Extension) DefaultEnumValue() protoreflect.EnumValueDescriptor {
 	return xd.lazyInit().Default.enum
 }
-func (xd *Extension) ContainingOneof() protoreflect.OneofDescriptor     { return nil }
-func (xd *Extension) ContainingMessage() protoreflect.MessageDescriptor { return xd.L1.Extendee }
-func (xd *Extension) Enum() protoreflect.EnumDescriptor                 { return xd.lazyInit().Enum }
-func (xd *Extension) Message() protoreflect.MessageDescriptor           { return xd.lazyInit().Message }
-func (xd *Extension) Format(s fmt.State, r rune)                        { descfmt.FormatDesc(s, r, xd) }
-func (xd *Extension) ProtoType(protoreflect.FieldDescriptor)            {}
-func (xd *Extension) ProtoInternal(pragma.DoNotImplement)               {}
-func (xd *Extension) lazyInit() *ExtensionL2 {
+
+ (xd *Extension) ContainingOneof() protoreflect.OneofDescriptor     { return nil }
+
+ (xd *Extension) ContainingMessage() protoreflect.MessageDescriptor { return xd.L1.Extendee }
+
+ *Extension) Enum() protoreflect.EnumDescriptor                 { return xd.lazyInit().Enum }
+
+ (xd *Extension) Message() protoreflect.MessageDescriptor           { return xd.lazyInit().Message }
+
+ (xd *Extension) Format(s fmt.State, r rune)                        { descfmt.FormatDesc(s, r, xd) }
+
+ (xd *Extension) ProtoType(protoreflect.FieldDescriptor)            {}
+
+ (xd *Extension) ProtoInternal(pragma.DoNotImplement)               {}
+
+ (xd *Extension) lazyInit() *ExtensionL2 {
 	xd.L0.ParentFile.lazyInit() // implicitly initializes L2
 	return xd.L2
 }
@@ -423,16 +538,18 @@ type (
 	}
 	ServiceL1 struct{}
 	ServiceL2 struct {
-		Options func() protoreflect.ProtoMessage
+		Options 
+() protoreflect.ProtoMessage
 		Methods Methods
 	}
 
-	Method struct {
-		Base
+hod struct {
+se
 		L1 MethodL1
-	}
+
 	MethodL1 struct {
-		Options           func() protoreflect.ProtoMessage
+		Options           
+() protoreflect.ProtoMessage
 		Input             protoreflect.MessageDescriptor
 		Output            protoreflect.MessageDescriptor
 		IsStreamingClient bool
@@ -440,34 +557,48 @@ type (
 	}
 )
 
-func (sd *Service) Options() protoreflect.ProtoMessage {
+
+ (sd *Service) Options() protoreflect.ProtoMessage {
 	if f := sd.lazyInit().Options; f != nil {
 		return f()
 	}
 	return descopts.Service
 }
-func (sd *Service) Methods() protoreflect.MethodDescriptors  { return &sd.lazyInit().Methods }
-func (sd *Service) Format(s fmt.State, r rune)               { descfmt.FormatDesc(s, r, sd) }
-func (sd *Service) ProtoType(protoreflect.ServiceDescriptor) {}
-func (sd *Service) ProtoInternal(pragma.DoNotImplement)      {}
-func (sd *Service) lazyInit() *ServiceL2 {
+
+ (sd *Service) Methods() protoreflect.MethodDescriptors  { return &sd.lazyInit().Methods }
+
+ (sd *Service) Format(s fmt.State, r rune)               { descfmt.FormatDesc(s, r, sd) }
+
+ (sd *Service) ProtoType(protoreflect.ServiceDescriptor) {}
+
+ (sd *Service) ProtoInternal(pragma.DoNotImplement)      {}
+
+ (sd *Service) lazyInit() *ServiceL2 {
 	sd.L0.ParentFile.lazyInit() // implicitly initializes L2
 	return sd.L2
 }
 
-func (md *Method) Options() protoreflect.ProtoMessage {
+
+ (md *Method) Options() protoreflect.ProtoMessage {
 	if f := md.L1.Options; f != nil {
 		return f()
 	}
 	return descopts.Method
 }
-func (md *Method) Input() protoreflect.MessageDescriptor   { return md.L1.Input }
-func (md *Method) Output() protoreflect.MessageDescriptor  { return md.L1.Output }
-func (md *Method) IsStreamingClient() bool                 { return md.L1.IsStreamingClient }
-func (md *Method) IsStreamingServer() bool                 { return md.L1.IsStreamingServer }
-func (md *Method) Format(s fmt.State, r rune)              { descfmt.FormatDesc(s, r, md) }
-func (md *Method) ProtoType(protoreflect.MethodDescriptor) {}
-func (md *Method) ProtoInternal(pragma.DoNotImplement)     {}
+
+ (md *Method) Input() protoreflect.MessageDescriptor   { return md.L1.Input }
+
+ (md *Method) Output() protoreflect.MessageDescriptor  { return md.L1.Output }
+
+ *Method) IsStreamingClient() bool                 { return md.L1.IsStreamingClient }
+
+ (md *Method) IsStreamingServer() bool                 { return md.L1.IsStreamingServer }
+
+ (md *Method) Format(s fmt.State, r rune)              { descfmt.FormatDesc(s, r, md) }
+
+ (md *Method) ProtoType(protoreflect.MethodDescriptor) {}
+
+ (md *Method) ProtoInternal(pragma.DoNotImplement)     {}
 
 // Surrogate files are can be used to create standalone descriptors
 // where the syntax is only information derived from the parent file.
@@ -488,19 +619,27 @@ type (
 	}
 )
 
-func (d *Base) Name() protoreflect.Name         { return d.L0.FullName.Name() }
-func (d *Base) FullName() protoreflect.FullName { return d.L0.FullName }
-func (d *Base) ParentFile() protoreflect.FileDescriptor {
+
+ (d *Base) Name() protoreflect.Name         { return d.L0.FullName.Name() }
+
+ (d *Base) FullName() protoreflect.FullName { return d.L0.FullName }
+
+ (d *Base) ParentFile() protoreflect.FileDescriptor {
 	if d.L0.ParentFile == SurrogateProto2 || d.L0.ParentFile == SurrogateProto3 {
 		return nil // surrogate files are not real parents
 	}
 	return d.L0.ParentFile
 }
-func (d *Base) Parent() protoreflect.Descriptor     { return d.L0.Parent }
-func (d *Base) Index() int                          { return d.L0.Index }
-func (d *Base) Syntax() protoreflect.Syntax         { return d.L0.ParentFile.Syntax() }
-func (d *Base) IsPlaceholder() bool                 { return false }
-func (d *Base) ProtoInternal(pragma.DoNotImplement) {}
+
+ (d *Base) Parent() protoreflect.Descriptor     { return d.L0.Parent }
+
+ (d *Base) Index() int                          { return d.L0.Index }
+
+ (d *Base) Syntax() protoreflect.Syntax         { return d.L0.ParentFile.Syntax() }
+
+ (d *Base) IsPlaceholder() bool                 { return false }
+
+ (d *Base) ProtoInternal(pragma.DoNotImplement) {}
 
 type stringName struct {
 	hasJSON  bool
@@ -510,13 +649,16 @@ type stringName struct {
 }
 
 // InitJSON initializes the name. It is exported for use by other internal packages.
-func (s *stringName) InitJSON(name string) {
+
+ (s *stringName) InitJSON(name string) {
 	s.hasJSON = true
 	s.nameJSON = name
 }
 
-func (s *stringName) lazyInit(fd protoreflect.FieldDescriptor) *stringName {
-	s.once.Do(func() {
+
+ (s *stringName) lazyInit(fd protoreflect.FieldDescriptor) *stringName {
+	s.once.Do(
+() {
 		if fd.IsExtension() {
 			// For extensions, JSON and text are formatted the same way.
 			var name string
@@ -543,10 +685,13 @@ func (s *stringName) lazyInit(fd protoreflect.FieldDescriptor) *stringName {
 	return s
 }
 
-func (s *stringName) getJSON(fd protoreflect.FieldDescriptor) string { return s.lazyInit(fd).nameJSON }
-func (s *stringName) getText(fd protoreflect.FieldDescriptor) string { return s.lazyInit(fd).nameText }
 
-func DefaultValue(v protoreflect.Value, ev protoreflect.EnumValueDescriptor) defaultValue {
+ (s *stringName) getJSON(fd protoreflect.FieldDescriptor) string { return s.lazyInit(fd).nameJSON }
+
+ (s *stringName) getText(fd protoreflect.FieldDescriptor) string { return s.lazyInit(fd).nameText }
+
+
+ DefaultValue(v protoreflect.Value, ev protoreflect.EnumValueDescriptor) defaultValue {
 	dv := defaultValue{has: v.IsValid(), val: v, enum: ev}
 	if b, ok := v.Interface().([]byte); ok {
 		// Store a copy of the default bytes, so that we can detect
@@ -556,7 +701,8 @@ func DefaultValue(v protoreflect.Value, ev protoreflect.EnumValueDescriptor) def
 	return dv
 }
 
-func unmarshalDefault(b []byte, k protoreflect.Kind, pf *File, ed protoreflect.EnumDescriptor) defaultValue {
+
+ unmarshalDefault(b []byte, k protoreflect.Kind, pf *File, ed protoreflect.EnumDescriptor) defaultValue {
 	var evs protoreflect.EnumValueDescriptors
 	if k == protoreflect.EnumKind {
 		// If the enum is declared within the same file, be careful not to
@@ -590,7 +736,8 @@ type defaultValue struct {
 	bytes []byte
 }
 
-func (dv *defaultValue) get(fd protoreflect.FieldDescriptor) protoreflect.Value {
+
+ (dv *defaultValue) get(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	// Return the zero value as the default if unpopulated.
 	if !dv.has {
 		if fd.Cardinality() == protoreflect.Repeated {

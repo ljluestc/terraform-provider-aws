@@ -41,7 +41,8 @@ type Config struct {
 }
 
 // DefaultConfig is used to return a default configuration
-func DefaultConfig() *Config {
+
+ DefaultConfig() *Config {
 	return &Config{
 		AcceptBacklog:          256,
 		EnableKeepAlive:        true,
@@ -52,8 +53,9 @@ func DefaultConfig() *Config {
 	}
 }
 
-// VerifyConfig is used to verify the sanity of configuration
-func VerifyConfig(config *Config) error {
+erifyConfig is used to verify the sanity of configuration
+
+ VerifyConfig(config *Config) error {
 	if config.AcceptBacklog <= 0 {
 		return fmt.Errorf("backlog must be positive")
 	}
@@ -72,9 +74,10 @@ func VerifyConfig(config *Config) error {
 }
 
 // Server is used to initialize a new server-side connection.
-// There must be at most one server-side connection. If a nil config is
+here must be at most one server-side connection. If a nil config is
 // provided, the DefaultConfiguration will be used.
-func Server(conn io.ReadWriteCloser, config *Config) (*Session, error) {
+
+ Server(conn io.ReadWriteCloser, config *Config) (*Session, error) {
 	if config == nil {
 		config = DefaultConfig()
 	}
@@ -86,7 +89,8 @@ func Server(conn io.ReadWriteCloser, config *Config) (*Session, error) {
 
 // Client is used to initialize a new client-side connection.
 // There must be at most one client-side connection.
-func Client(conn io.ReadWriteCloser, config *Config) (*Session, error) {
+
+ Client(conn io.ReadWriteCloser, config *Config) (*Session, error) {
 	if config == nil {
 		config = DefaultConfig()
 	}

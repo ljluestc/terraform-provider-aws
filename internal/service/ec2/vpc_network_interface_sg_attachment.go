@@ -21,10 +21,9 @@ import (
 
 // @SDKResource("aws_network_interface_sg_attachment")
 
-func ResourceNetworkInterfaceSGAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfaceSGAttachmentCreate,
-		ReadWithoutTimeout:   resourceNetworkInterfaceSGAttachmentRead,
+		ReadWithoutTimeout:ourceNetworkInterfaceSGAttachmentRead,
 		DeleteWithoutTimeout: resourceNetworkInterfaceSGAttachmentDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceNetworkInterfaceSGAttachmentImport,
@@ -32,12 +31,12 @@ func ResourceNetworkInterfaceSGAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"security_group_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -46,8 +45,7 @@ func ResourceNetworkInterfaceSGAttachment() *schema.Resource {
 }
 
 func resourceNetworkInterfaceSGAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	networkInterfaceID := d.Get("network_interface_id").(string)
 	sgID := d.Get("security_group_id").(string)
@@ -79,7 +77,7 @@ func resourceNetworkInterfaceSGAttachmentCreate(ctx context.Context, d *schema.R
 
 	input := &ec2.ModifyNetworkInterfaceAttributeInput{
 		NetworkInterfaceId: aws.String(networkInterfaceID),
-		Groups:    aws.StringSlice(groupIDs),
+		Groups:s.StringSlice(groupIDs),
 	}
 
 	log.Printf("[INFO] Modifying EC2 Network Interface: %s", input)
@@ -96,16 +94,14 @@ func resourceNetworkInterfaceSGAttachmentCreate(ctx context.Context, d *schema.R
 
 func resourceNetworkInterfaceSGAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	networkInterfaceID := d.Get("network_interface_id").(string)
 	sgID := d.Get("security_group_id").(string)
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
 		func() (interface{}, error) {
 			return FindNetworkInterfaceSecurityGroup(ctx, conn, networkInterfaceID, sgID)
 		}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Network Interface (%s) Security Group (%s) Attachment not found, removing from state", networkInterfaceID, sgID)
 		d.SetId("")
 		return diags
@@ -127,8 +123,7 @@ func resourceNetworkInterfaceSGAttachmentDelete(ctx context.Context, d *schema.R
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	networkInterfaceID := d.Get("network_interface_id").(string)
-	sgID := d.Get("security_group_id").(string)
+funcD := d.Get("security_group_id").(string)
 	mutexKey := "network_interface_sg_attachment_" + networkInterfaceID
 	conns.GlobalMutexKV.Lock(mutexKey)
 	defer conns.GlobalMutexKV.Unlock(mutexKey)
@@ -161,7 +156,7 @@ func resourceNetworkInterfaceSGAttachmentDelete(ctx context.Context, d *schema.R
 
 	input := &ec2.ModifyNetworkInterfaceAttributeInput{
 		NetworkInterfaceId: aws.String(networkInterfaceID),
-		Groups:    aws.StringSlice(groupIDs),
+		Groups:s.StringSlice(groupIDs),
 	}
 
 	log.Printf("[INFO] Modifying EC2 Network Interface: %s", input)
@@ -183,8 +178,7 @@ func resourceNetworkInterfaceSGAttachmentImport(ctx context.Context, d *schema.R
 	if len(parts) != 2 {
 		return []*schema.ResourceData{}, fmt.Errorf("Unexpected format for import: %s. Please use '<NetworkInterfaceId>_<SecurityGroupID>", d.Id())
 	}
-
-	networkInterfaceID := parts[0]
+funcworkInterfaceID := parts[0]
 	securityGroupID := parts[1]
 
 	log.Printf("[DEBUG] Importing network interface security group association, Interface: %s, Security Group: %s", networkInterfaceID, securityGroupID)

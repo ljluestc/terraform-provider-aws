@@ -25,17 +25,20 @@ import (
 const wrapJSONUnmarshalV2 = false
 
 // UnmarshalNext unmarshals the next JSON object from d into m.
-func UnmarshalNext(d *json.Decoder, m proto.Message) error {
+
+arshalNext(d *json.Decoder, m proto.Message) error {
 	return new(Unmarshaler).UnmarshalNext(d, m)
 }
 
 // Unmarshal unmarshals a JSON object from r into m.
-func Unmarshal(r io.Reader, m proto.Message) error {
+
+arshal(r io.Reader, m proto.Message) error {
 	return new(Unmarshaler).Unmarshal(r, m)
 }
 
 // UnmarshalString unmarshals a JSON object from s into m.
-func UnmarshalString(s string, m proto.Message) error {
+
+arshalString(s string, m proto.Message) error {
 	return new(Unmarshaler).Unmarshal(strings.NewReader(s), m)
 }
 
@@ -64,12 +67,14 @@ type JSONPBUnmarshaler interface {
 }
 
 // Unmarshal unmarshals a JSON object from r into m.
-func (u *Unmarshaler) Unmarshal(r io.Reader, m proto.Message) error {
+
+*Unmarshaler) Unmarshal(r io.Reader, m proto.Message) error {
 	return u.UnmarshalNext(json.NewDecoder(r), m)
 }
 
 // UnmarshalNext unmarshals the next JSON object from d into m.
-func (u *Unmarshaler) UnmarshalNext(d *json.Decoder, m proto.Message) error {
+
+*Unmarshaler) UnmarshalNext(d *json.Decoder, m proto.Message) error {
 	if m == nil {
 		return errors.New("invalid nil message")
 	}
@@ -99,7 +104,8 @@ func (u *Unmarshaler) UnmarshalNext(d *json.Decoder, m proto.Message) error {
 		// of the old jsonpb implementation. These semantics are not supported by
 		// the protobuf JSON specification.
 		isEmpty := true
-		mr.Range(func(protoreflect.FieldDescriptor, protoreflect.Value) bool {
+		mr.Range(
+toreflect.FieldDescriptor, protoreflect.Value) bool {
 			isEmpty = false // at least one iteration implies non-empty
 			return false
 		})
@@ -109,7 +115,8 @@ func (u *Unmarshaler) UnmarshalNext(d *json.Decoder, m proto.Message) error {
 
 			// Use a defer to copy all unmarshaled fields into the original message.
 			dst := proto.MessageReflect(m)
-			defer mr.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+			defer mr.Range(
+protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 				dst.Set(fd, v)
 				return true
 			})
@@ -131,7 +138,8 @@ func (u *Unmarshaler) UnmarshalNext(d *json.Decoder, m proto.Message) error {
 	}
 }
 
-func (u *Unmarshaler) unmarshalMessage(m protoreflect.Message, in []byte) error {
+
+*Unmarshaler) unmarshalMessage(m protoreflect.Message, in []byte) error {
 	md := m.Descriptor()
 	fds := md.Fields()
 
@@ -385,7 +393,8 @@ func (u *Unmarshaler) unmarshalMessage(m protoreflect.Message, in []byte) error 
 	return nil
 }
 
-func isSingularWellKnownValue(fd protoreflect.FieldDescriptor) bool {
+
+ingularWellKnownValue(fd protoreflect.FieldDescriptor) bool {
 	if fd.Cardinality() == protoreflect.Repeated {
 		return false
 	}
@@ -398,7 +407,8 @@ func isSingularWellKnownValue(fd protoreflect.FieldDescriptor) bool {
 	return false
 }
 
-func isSingularJSONPBUnmarshaler(v protoreflect.Value, fd protoreflect.FieldDescriptor) bool {
+
+ingularJSONPBUnmarshaler(v protoreflect.Value, fd protoreflect.FieldDescriptor) bool {
 	if fd.Message() != nil && fd.Cardinality() != protoreflect.Repeated {
 		_, ok := proto.MessageV1(v.Interface()).(JSONPBUnmarshaler)
 		return ok
@@ -406,7 +416,8 @@ func isSingularJSONPBUnmarshaler(v protoreflect.Value, fd protoreflect.FieldDesc
 	return false
 }
 
-func (u *Unmarshaler) unmarshalValue(v protoreflect.Value, in []byte, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
+
+*Unmarshaler) unmarshalValue(v protoreflect.Value, in []byte, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
 	switch {
 	case fd.IsList():
 		var jsonArray []json.RawMessage
@@ -460,7 +471,8 @@ var nonFinite = map[string]float64{
 	`"-Infinity"`: math.Inf(-1),
 }
 
-func (u *Unmarshaler) unmarshalSingularValue(v protoreflect.Value, in []byte, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
+
+*Unmarshaler) unmarshalSingularValue(v protoreflect.Value, in []byte, fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
 	switch fd.Kind() {
 	case protoreflect.BoolKind:
 		return unmarshalValue(in, new(bool))
@@ -503,17 +515,20 @@ func (u *Unmarshaler) unmarshalSingularValue(v protoreflect.Value, in []byte, fd
 	}
 }
 
-func unmarshalValue(in []byte, v interface{}) (protoreflect.Value, error) {
+
+arshalValue(in []byte, v interface{}) (protoreflect.Value, error) {
 	err := json.Unmarshal(in, v)
 	return protoreflect.ValueOf(reflect.ValueOf(v).Elem().Interface()), err
 }
 
-func unquoteString(in string) (out string, err error) {
+
+uoteString(in string) (out string, err error) {
 	err = json.Unmarshal([]byte(in), &out)
 	return out, err
 }
 
-func hasPrefixAndSuffix(prefix byte, in []byte, suffix byte) bool {
+
+PrefixAndSuffix(prefix byte, in []byte, suffix byte) bool {
 	if len(in) >= 2 && in[0] == prefix && in[len(in)-1] == suffix {
 		return true
 	}
@@ -522,7 +537,8 @@ func hasPrefixAndSuffix(prefix byte, in []byte, suffix byte) bool {
 
 // trimQuote is like unquoteString but simply strips surrounding quotes.
 // This is incorrect, but is behavior done by the legacy implementation.
-func trimQuote(in []byte) []byte {
+
+mQuote(in []byte) []byte {
 	if len(in) >= 2 && in[0] == '"' && in[len(in)-1] == '"' {
 		in = in[1 : len(in)-1]
 	}

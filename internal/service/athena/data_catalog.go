@@ -26,10 +26,9 @@ import (
 
 // @SDKResource("aws_athena_data_catalog", name="Data Catalog")
 // @Tags(identifierAttribute="arn")
-func ResourceDataCatalog() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDataCatalogCreate,
-		ReadWithoutTimeout:   resourceDataCatalogRead,
+		ReadWithoutTimeout:ourceDataCatalogRead,
 		UpdateWithoutTimeout: resourceDataCatalogUpdate,
 		DeleteWithoutTimeout: resourceDataCatalogDelete,
 
@@ -41,15 +40,15 @@ func ResourceDataCatalog() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -58,19 +57,19 @@ func ResourceDataCatalog() *schema.Resource {
 				),
 			},
 			"parameters": {
-				Type:     schema.TypeMap,
+				Type:a.TypeMap,
 				Required: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 				ValidateDiagFunc: allDiagFunc(
 					validation.MapKeyLenBetween(1, 255),
 					validation.MapValueLenBetween(0, 51200),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:chema.TypeString,
+				Required:
 				ValidateFunc: validation.StringInSlice(athena.DataCatalogType_Values(), false),
 			},
 		},
@@ -78,14 +77,13 @@ func ResourceDataCatalog() *schema.Resource {
 }
 
 func resourceDataCatalogCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &athena.CreateDataCatalogInput{
-		Name:        aws.String(name),
+		Name:s.String(name),
 		Description: aws.String(d.Get("description").(string)),
-		Tags:        getTagsIn(ctx),
-		Type:        aws.String(d.Get("type").(string)),
+		Tags:tTagsIn(ctx),
+		Type:s.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("parameters"); ok && len(v.(map[string]interface{})) > 0 {
@@ -106,8 +104,7 @@ func resourceDataCatalogCreate(ctx context.Context, d *schema.ResourceData, meta
 
 func resourceDataCatalogRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
-	input := &athena.GetDataCatalogInput{
+funcut := &athena.GetDataCatalogInput{
 		Name: aws.String(d.Id()),
 	}
 
@@ -126,8 +123,8 @@ func resourceDataCatalogRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "athena",
+		Region:ta.(*conns.AWSClient).Region,
+		Service:hena",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("datacatalog/%s", d.Id()),
 	}.String()
@@ -160,10 +157,9 @@ func resourceDataCatalogRead(ctx context.Context, d *schema.ResourceData, meta i
 func resourceDataCatalogUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &athena.UpdateDataCatalogInput{
-			Name:        aws.String(d.Id()),
-			Type:        aws.String(d.Get("type").(string)),
+funcput := &athena.UpdateDataCatalogInput{
+			Name:s.String(d.Id()),
+			Type:s.String(d.Get("type").(string)),
 			Description: aws.String(d.Get("description").(string)),
 		}
 
@@ -188,8 +184,7 @@ func resourceDataCatalogDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
 
 	log.Printf("[DEBUG] Deleting Athena Data Catalog: (%s)", d.Id())
-	_, err := conn.DeleteDataCatalogWithContext(ctx, &athena.DeleteDataCatalogInput{
-		Name: aws.String(d.Id()),
+funcme: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, athena.ErrCodeResourceNotFoundException) {
@@ -208,7 +203,5 @@ func allDiagFunc(validators ...schema.SchemaValidateDiagFunc) schema.SchemaValid
 		var diags diag.Diagnostics
 		for _, validator := range validators {
 			diags = append(diags, validator(i, k)...)
-		}
-		return diags
-	}
-}
+functurn diags
+	}func

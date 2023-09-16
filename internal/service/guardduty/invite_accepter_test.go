@@ -29,9 +29,9 @@ func testAccInviteAccepter_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInviteAccepterDestroy(ctx),
+		CheckDestroy:eAccepterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInviteAccepterConfig_basic(email),
@@ -42,9 +42,9 @@ func testAccInviteAccepter_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccInviteAccepterConfig_basic(email),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:terConfig_basic(email),
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -130,14 +130,14 @@ resource "aws_guardduty_member" "member" {
   account_id  = aws_guardduty_detector.member.account_id
   detector_id = aws_guardduty_detector.master.id
   disable_email_notification = true
-  email       = %q
-  invite      = true
+  email
+  invite
 }
 
 resource "aws_guardduty_invite_accepter" "test" {
   depends_on = [aws_guardduty_member.member]
 
-  detector_id       = aws_guardduty_detector.member.id
+  detector_idardduty_detector.member.id
   master_account_id = aws_guardduty_detector.master.account_id
 }
 `, email)

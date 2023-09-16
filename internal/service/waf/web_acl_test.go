@@ -31,7 +31,7 @@ func TestAccWAFWebACL_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_required(rName),
@@ -66,7 +66,7 @@ func TestAccWAFWebACL_changeNameForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_required(rName1),
@@ -111,7 +111,7 @@ func TestAccWAFWebACL_defaultAction(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_defaultAction(rName, "ALLOW"),
@@ -148,7 +148,7 @@ func TestAccWAFWebACL_rules(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	// Test creating with rule
 	{
@@ -198,7 +198,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_logging(rName),
@@ -247,7 +247,7 @@ func TestAccWAFWebACL_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_required(rName),
@@ -271,7 +271,7 @@ func TestAccWAFWebACL_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_tags1(rName, "key1", "value1"),

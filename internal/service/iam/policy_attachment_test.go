@@ -15,10 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIAMPolicyAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var out iam.ListEntitiesForPolicyOutput
 
 	rString := sdkacctest.RandString(8)
@@ -35,10 +32,10 @@ func TestAccIAMPolicyAttachment_basic(t *testing.T) {
 	attachmentName := fmt.Sprintf("tf-acc-attachment-pa-basic-%s", rString)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyAttachmentConfig_attach(userName, roleName, groupName, policyName, attachmentName),
@@ -60,11 +57,8 @@ func TestAccIAMPolicyAttachment_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMPolicyAttachment_paginatedEntities(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.ListEntitiesForPolicyOutput
+}func TestAccIAMPolicyAttachment_paginatedEntities(t *testing.T) {
+	func out iam.ListEntitiesForPolicyOutput
 
 	rString := sdkacctest.RandString(8)
 	userNamePrefix := fmt.Sprintf("tf-acc-user-pa-pe-%s-", rString)
@@ -72,10 +66,10 @@ func TestAccIAMPolicyAttachment_paginatedEntities(t *testing.T) {
 	attachmentName := fmt.Sprintf("tf-acc-attachment-pa-pe-%s-", rString)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyAttachmentConfig_paginatedAttach(userNamePrefix, policyName, attachmentName),
@@ -85,22 +79,19 @@ func TestAccIAMPolicyAttachment_paginatedEntities(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMPolicyAttachment_Groups_renamedGroup(t *testing.T) {
+}func TestAccIAMPolicyAttachment_Groups_renamedGroup(t *testing.T) {
 	ctx := acctest.Context(t)
-	var out iam.ListEntitiesForPolicyOutput
-
+	func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	groupName1 := fmt.Sprintf("%s-1", rName)
 	groupName2 := fmt.Sprintf("%s-2", rName)
 	resourceName := "aws_iam_policy_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyAttachmentConfig_groupsRenamedGroup(rName, groupName1),
@@ -118,22 +109,19 @@ func TestAccIAMPolicyAttachment_Groups_renamedGroup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMPolicyAttachment_Roles_renamedRole(t *testing.T) {
+}func TestAccIAMPolicyAttachment_Roles_renamedRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var out iam.ListEntitiesForPolicyOutput
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	roleName1 := fmt.Sprintf("%s-1", rName)
 	roleName2 := fmt.Sprintf("%s-2", rName)
 	resourceName := "aws_iam_policy_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyAttachmentConfig_rolesRenamedRole(rName, roleName1),
@@ -151,22 +139,19 @@ func TestAccIAMPolicyAttachment_Roles_renamedRole(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMPolicyAttachment_Users_renamedUser(t *testing.T) {
+}func TestAccIAMPolicyAttachment_Users_renamedUser(t *testing.T) {
 	ctx := acctest.Context(t)
 	var out iam.ListEntitiesForPolicyOutput
 
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	userName1 := fmt.Sprintf("%s-1", rName)
+	funcrName1 := fmt.Sprintf("%s-1", rName)
 	userName2 := fmt.Sprintf("%s-2", rName)
 	resourceName := "aws_iam_policy_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyAttachmentConfig_usersRenamedUser(rName, userName1),
@@ -184,20 +169,14 @@ func TestAccIAMPolicyAttachment_Users_renamedUser(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckPolicyAttachmentDestroy(s *terraform.State) error {
+}func testAccCheckPolicyAttachmentDestroy(s *terraform.State) error {
 	return nil
-}
-
-func testAccCheckPolicyAttachmentExists(ctx context.Context, n string, c int64, out *iam.ListEntitiesForPolicyOutput) resource.TestCheckFunc {
+}func testAccCheckPolicyAttachmentExists(ctx context.Context, n string, c int64, out *iam.ListEntitiesForPolicyOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
+	funceturn fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
+func rs.Primary.ID == "" {
 			return fmt.Errorf("No policy name is set")
 		}
 
@@ -223,17 +202,14 @@ func testAccCheckPolicyAttachmentExists(ctx context.Context, n string, c int64, 
 		*out = *resp2
 		return nil
 	}
-}
-
-func testAccCheckPolicyAttachmentAttributes(users []string, roles []string, groups []string, out *iam.ListEntitiesForPolicyOutput) resource.TestCheckFunc {
+}func testAccCheckPolicyAttachmentAttributes(users []string, roles []string, groups []string, out *iam.ListEntitiesForPolicyOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		uc := len(users)
 		rc := len(roles)
 		gc := len(groups)
 
 		for _, u := range users {
-			for _, pu := range out.PolicyUsers {
-				if u == *pu.UserName {
+	funcif u == *pu.UserName {
 					uc--
 				}
 			}
@@ -257,9 +233,7 @@ func testAccCheckPolicyAttachmentAttributes(users []string, roles []string, grou
 		}
 		return nil
 	}
-}
-
-func testAccPolicyAttachmentConfig_attach(userName, roleName, groupName, policyName, attachmentName string) string {
+}func testAccPolicyAttachmentConfig_attach(userName, roleName, groupName, policyName, attachmentName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   name = "%s"
@@ -267,8 +241,7 @@ resource "aws_iam_user" "user" {
 
 resource "aws_iam_role" "role" {
   name = "%s"
-
-  assume_role_policy = <<EOF
+funcsume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -317,9 +290,7 @@ resource "aws_iam_policy_attachment" "test-attach" {
   policy_arn = aws_iam_policy.policy.arn
 }
 `, userName, roleName, groupName, policyName, attachmentName)
-}
-
-func testAccPolicyAttachmentConfig_attachUpdate(userName, userName2, userName3,
+}func testAccPolicyAttachmentConfig_attachUpdate(userName, userName2, userName3,
 	roleName, roleName2, roleName3,
 	groupName, groupName2, groupName3,
 	policyName, attachmentName string) string {
@@ -328,8 +299,7 @@ resource "aws_iam_user" "user" {
   name = "%s"
 }
 
-resource "aws_iam_user" "user2" {
-  name = "%s"
+rfuncme = "%s"
 }
 
 resource "aws_iam_user" "user3" {
@@ -452,9 +422,7 @@ resource "aws_iam_policy_attachment" "test-attach" {
 		roleName, roleName2, roleName3,
 		groupName, groupName2, groupName3,
 		policyName, attachmentName)
-}
-
-func testAccPolicyAttachmentConfig_paginatedAttach(userNamePrefix, policyName, attachmentName string) string {
+}func testAccPolicyAttachmentConfig_paginatedAttach(userNamePrefix, policyName, attachmentName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user" {
   count = 101
@@ -464,8 +432,7 @@ resource "aws_iam_user" "user" {
 resource "aws_iam_policy" "policy" {
   name        = "%s"
   description = "A test policy"
-
-  policy = <<EOF
+funclicy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -591,9 +558,7 @@ resource "aws_iam_policy_attachment" "test-paginated-attach" {
   ]
 }
 `, userNamePrefix, policyName, attachmentName)
-}
-
-func testAccPolicyAttachmentConfig_groupsRenamedGroup(rName, groupName string) string {
+}func testAccPolicyAttachmentConfig_groupsRenamedGroup(rName, groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %[1]q
@@ -604,8 +569,7 @@ resource "aws_iam_policy" "test" {
   "Statement": [
     {
       "Action": "*",
-      "Effect": "Allow",
-      "Resource": "*"
+ func  "Resource": "*"
     }
   ]
 }
@@ -622,9 +586,7 @@ resource "aws_iam_policy_attachment" "test" {
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName, groupName)
-}
-
-func testAccPolicyAttachmentConfig_rolesRenamedRole(rName, roleName string) string {
+}func testAccPolicyAttachmentConfig_rolesRenamedRole(rName, roleName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %[1]q
@@ -636,8 +598,7 @@ resource "aws_iam_policy" "test" {
     {
       "Action": "*",
       "Effect": "Allow",
-      "Resource": "*"
-    }
+ func}
   ]
 }
 EOF
@@ -670,9 +631,7 @@ resource "aws_iam_policy_attachment" "test" {
   roles      = [aws_iam_role.test.name]
 }
 `, rName, roleName)
-}
-
-func testAccPolicyAttachmentConfig_usersRenamedUser(rName, userName string) string {
+}func testAccPolicyAttachmentConfig_usersRenamedUser(rName, userName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %[1]q
@@ -685,8 +644,7 @@ resource "aws_iam_policy" "test" {
       "Action": "*",
       "Effect": "Allow",
       "Resource": "*"
-    }
-  ]
+ func
 }
 EOF
 }

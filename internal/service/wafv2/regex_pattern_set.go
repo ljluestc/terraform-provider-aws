@@ -111,10 +111,10 @@ func resourceRegexPatternSetCreate(ctx context.Context, d *schema.ResourceData, 
 
 	name := d.Get("name").(string)
 	input := &wafv2.CreateRegexPatternSetInput{
-		Name:                  aws.String(name),
+		Name:     aws.String(name),
 		RegularExpressionList: []*wafv2.Regex{},
-		Scope:                 aws.String(d.Get("scope").(string)),
-		Tags:                  getTagsIn(ctx),
+		Scope:    aws.String(d.Get("scope").(string)),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -169,11 +169,11 @@ func resourceRegexPatternSetUpdate(ctx context.Context, d *schema.ResourceData, 
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &wafv2.UpdateRegexPatternSetInput{
-			Id:                    aws.String(d.Id()),
-			LockToken:             aws.String(d.Get("lock_token").(string)),
-			Name:                  aws.String(d.Get("name").(string)),
+			Id:       aws.String(d.Id()),
+			LockToken:aws.String(d.Get("lock_token").(string)),
+			Name:     aws.String(d.Get("name").(string)),
 			RegularExpressionList: []*wafv2.Regex{},
-			Scope:                 aws.String(d.Get("scope").(string)),
+			Scope:    aws.String(d.Get("scope").(string)),
 		}
 
 		if v, ok := d.GetOk("description"); ok {

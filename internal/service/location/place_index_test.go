@@ -25,10 +25,10 @@ func TestAccLocationPlaceIndex_basic(t *testing.T) {
 	resourceName := "aws_location_place_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaceIndexDestroy(ctx),
+		CheckDestroy:testAccCheckPlaceIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaceIndexConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccLocationPlaceIndex_disappears(t *testing.T) {
 	resourceName := "aws_location_place_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaceIndexDestroy(ctx),
+		CheckDestroy:testAccCheckPlaceIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaceIndexConfig_basic(rName),
@@ -83,10 +83,10 @@ func TestAccLocationPlaceIndex_dataSourceConfigurationIntendedUse(t *testing.T) 
 	resourceName := "aws_location_place_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaceIndexDestroy(ctx),
+		CheckDestroy:testAccCheckPlaceIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaceIndexConfig_configurationIntendedUse(rName, locationservice.IntendedUseSingleUse),
@@ -119,10 +119,10 @@ func TestAccLocationPlaceIndex_description(t *testing.T) {
 	resourceName := "aws_location_place_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaceIndexDestroy(ctx),
+		CheckDestroy:testAccCheckPlaceIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaceIndexConfig_description(rName, "description1"),
@@ -153,10 +153,10 @@ func TestAccLocationPlaceIndex_tags(t *testing.T) {
 	resourceName := "aws_location_place_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, locationservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaceIndexDestroy(ctx),
+		CheckDestroy:testAccCheckPlaceIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaceIndexConfig_tags1(rName, "key1", "value1"),

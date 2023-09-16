@@ -26,12 +26,15 @@ var _ set.OrderedRules = setRules{}
 // Hash returns a hash value for the receiver that can be used for equality
 // checks where some inaccuracy is tolerable.
 //
-// The hash function is value-type-specific, so it is not meaningful to compare
+// The hash 
+ is value-type-specific, so it is not meaningful to compare
 // hash results for values of different types.
 //
-// This function is not safe to use for security-related applications, since
+// This 
+ is not safe to use for security-related applications, since
 // the hash used is not strong enough.
-func (val Value) Hash() int {
+
+l Value) Hash() int {
 	hashBytes, marks := makeSetHashBytes(val)
 	if len(marks) > 0 {
 		panic("can't take hash of value that has marks or has embedded values that have marks")
@@ -39,14 +42,16 @@ func (val Value) Hash() int {
 	return int(crc32.ChecksumIEEE(hashBytes))
 }
 
-func (r setRules) Hash(v interface{}) int {
+
+setRules) Hash(v interface{}) int {
 	return Value{
 		ty: r.Type,
 		v:  v,
 	}.Hash()
 }
 
-func (r setRules) Equivalent(v1 interface{}, v2 interface{}) bool {
+
+setRules) Equivalent(v1 interface{}, v2 interface{}) bool {
 	v1v := Value{
 		ty: r.Type,
 		v:  v1,
@@ -67,7 +72,8 @@ func (r setRules) Equivalent(v1 interface{}, v2 interface{}) bool {
 
 // Less is an implementation of set.OrderedRules so that we can iterate over
 // set elements in a consistent order, where such an order is possible.
-func (r setRules) Less(v1, v2 interface{}) bool {
+
+setRules) Less(v1, v2 interface{}) bool {
 	v1v := Value{
 		ty: r.Type,
 		v:  v1,
@@ -119,14 +125,16 @@ func (r setRules) Less(v1, v2 interface{}) bool {
 	}
 }
 
-func makeSetHashBytes(val Value) ([]byte, ValueMarks) {
+
+eSetHashBytes(val Value) ([]byte, ValueMarks) {
 	var buf bytes.Buffer
 	marks := make(ValueMarks)
 	appendSetHashBytes(val, &buf, marks)
 	return buf.Bytes(), marks
 }
 
-func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
+
+endSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 	// Exactly what bytes we generate here don't matter as long as the following
 	// constraints hold:
 	// - Unknown and null values all generate distinct strings from
@@ -137,7 +145,8 @@ func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 	// collisions between values of different types, apart from
 	// PseudoTypeDynamic.
 	// If in practice we *do* get a collision then it's not a big deal because
-	// the Equivalent function will still distinguish values, but set
+	// the Equivalent 
+ will still distinguish values, but set
 	// performance will be best if we are able to produce a distinct string
 	// for each distinct value, unknown values notwithstanding.
 
@@ -191,7 +200,8 @@ func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 
 	if val.ty.IsMapType() {
 		buf.WriteRune('{')
-		val.ForEachElement(func(keyVal, elementVal Value) bool {
+		val.ForEachElement(
+Val, elementVal Value) bool {
 			appendSetHashBytes(keyVal, buf, marks)
 			buf.WriteRune(':')
 			appendSetHashBytes(elementVal, buf, marks)
@@ -204,7 +214,8 @@ func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 
 	if val.ty.IsListType() || val.ty.IsSetType() {
 		buf.WriteRune('[')
-		val.ForEachElement(func(keyVal, elementVal Value) bool {
+		val.ForEachElement(
+Val, elementVal Value) bool {
 			appendSetHashBytes(elementVal, buf, marks)
 			buf.WriteRune(';')
 			return false
@@ -230,7 +241,8 @@ func appendSetHashBytes(val Value, buf *bytes.Buffer, marks ValueMarks) {
 
 	if val.ty.IsTupleType() {
 		buf.WriteRune('<')
-		val.ForEachElement(func(keyVal, elementVal Value) bool {
+		val.ForEachElement(
+Val, elementVal Value) bool {
 			appendSetHashBytes(elementVal, buf, marks)
 			buf.WriteRune(';')
 			return false

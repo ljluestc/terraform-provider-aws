@@ -97,9 +97,9 @@ func resourceLagCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	name := d.Get("name").(string)
 	input := &directconnect.CreateLagInput{
 		ConnectionsBandwidth: aws.String(d.Get("connections_bandwidth").(string)),
-		LagName:              aws.String(name),
-		Location:             aws.String(d.Get("location").(string)),
-		Tags:                 getTagsIn(ctx),
+		LagName: aws.String(name),
+		Location:aws.String(d.Get("location").(string)),
+		Tags:    getTagsIn(ctx),
 	}
 
 	var connectionIDSpecified bool

@@ -10,7 +10,8 @@ import (
 	"github.com/apparentlymart/go-textseg/v15/textseg"
 )
 
-// RangeScanner is a helper that will scan over a buffer using a bufio.SplitFunc
+// RangeScanner is a helper that will scan over a buffer using a bufio.Split
+
 // and visit a source range for each token matched.
 //
 // For example, this can be used with bufio.ScanLines to find the source range
@@ -24,7 +25,8 @@ import (
 type RangeScanner struct {
 	filename string
 	b        []byte
-	cb       bufio.SplitFunc
+	cb       bufio.Split
+
 
 	pos Pos    // position of next byte to process in b
 	cur Range  // latest range
@@ -36,12 +38,15 @@ type RangeScanner struct {
 // ranges for the given filename.
 //
 // Since ranges have grapheme-cluster granularity rather than byte granularity,
-// the scanner will produce incorrect results if the given SplitFunc creates
+// the scanner will produce incorrect results if the given Split
+ creates
 // tokens between grapheme cluster boundaries. In particular, it is incorrect
-// to use RangeScanner with bufio.ScanRunes because it will produce tokens
+o use RangeScanner with bufio.ScanRunes because it will pre tokens
 // around individual UTF-8 sequences, which will split any multi-sequence
 // grapheme clusters.
-func NewRangeScanner(b []byte, filename string, cb bufio.SplitFunc) *RangeScanner {
+
+ NewRangeScanner(b []byte, filename string, cb bufio.Split
+) *RangeScanner {
 	return NewRangeScannerFragment(b, filename, InitialPos, cb)
 }
 
@@ -49,28 +54,33 @@ func NewRangeScanner(b []byte, filename string, cb bufio.SplitFunc) *RangeScanne
 // will be offset by the given starting position, which is appropriate for
 // sub-slices of a file, whereas NewRangeScanner assumes it is scanning an
 // entire file.
-func NewRangeScannerFragment(b []byte, filename string, start Pos, cb bufio.SplitFunc) *RangeScanner {
+
+ NewRangeScannerFragment(b []byte, filename string, start Pos, cb bufio.Split
+) *RangeScanner {
 	return &RangeScanner{
-		filename: filename,
+lename: filename,
 		b:        b,
 		cb:       cb,
 		pos:      start,
 	}
 }
 
-func (sc *RangeScanner) Scan() bool {
+
+ (sc *RangeScanner) Scan() bool {
 	if sc.pos.Byte >= len(sc.b) || sc.err != nil {
 		// All done
 		return false
 	}
 
 	// Since we're operating on an in-memory buffer, we always pass the whole
-	// remainder of the buffer to our SplitFunc and set isEOF to let it know
+	// remainder of the buffer to our Split
+ and set isEOF to let it know
 	// that it has the whole thing.
 	advance, token, err := sc.cb(sc.b[sc.pos.Byte:], true)
 
 	// Since we are setting isEOF to true this should never happen, but
-	// if it does we will just abort and assume the SplitFunc is misbehaving.
+	// if it does we will just abort and assume the Split
+ is misbehaving.
 	if advance == 0 && token == nil && err == nil {
 		return false
 	}
@@ -92,9 +102,11 @@ func (sc *RangeScanner) Scan() bool {
 	new := sc.pos
 
 	// adv is similar to token but it also includes any subsequent characters
-	// we're being asked to skip over by the SplitFunc.
+	// we're being asked to skip over by the Split
+.
 	// adv is a slice covering any additional bytes we are skipping over, based
-	// on what the SplitFunc told us to do with advance.
+	// on what the Split
+ told us to do with advance.
 	adv := sc.b[sc.pos.Byte : sc.pos.Byte+advance]
 
 	// We now need to scan over our token to count the grapheme clusters
@@ -132,24 +144,27 @@ func (sc *RangeScanner) Scan() bool {
 		Start:    start,
 		End:      end,
 	}
-	sc.pos = new
+pos = new
 	return true
 }
 
 // Range returns a range that covers the latest token obtained after a call
 // to Scan returns true.
-func (sc *RangeScanner) Range() Range {
+
+ (sc *RangeScanner) Range() Range {
 	return sc.cur
 }
 
 // Bytes returns the slice of the input buffer that is covered by the range
 // that would be returned by Range.
-func (sc *RangeScanner) Bytes() []byte {
+
+ (sc *RangeScanner) Bytes() []byte {
 	return sc.tok
 }
 
 // Err can be called after Scan returns false to determine if the latest read
 // resulted in an error, and obtain that error if so.
-func (sc *RangeScanner) Err() error {
+
+ (sc *RangeScanner) Err() error {
 	return sc.err
 }

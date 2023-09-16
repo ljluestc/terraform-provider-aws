@@ -14,13 +14,11 @@ import (
 )
 
 
-func TestAccVPCDefaultVPCDHCPOptions_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]
 func(t *testing.T){
-"basic":     testAccDefaultVPCDHCPOptions_basic,
-"owner":     testAccDefaultVPCDHCPOptions_owner,
+funcer":aultVPCDHCPOptions_owner,
 "v4.20.0_regression": testAccDefaultVPCDHCPOptions_v420Regression,
 	}
 
@@ -30,16 +28,14 @@ func(t *testing.T){
 
 func testAccDefaultVPCDHCPOptions_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var d ec2.DhcpOptions
-	resourceName := "aws_default_vpc_dhcp_options.test"
+funcourceName := "aws_default_vpc_dhcp_options.test"
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccVPCDefaultVPCDHCPOptionsConfig_basic,
 Check: resource.ComposeTestCheck
@@ -47,8 +43,7 @@ func(
 	testAccCheckDHCPOptionsExists(ctx, resourceName, &d),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`dhcp-options/dopt-.+`)),
 	resource.TestCheckResourceAttr(resourceName, "domain_name", tfec2.RegionalPrivateDNSSuffix(acctest.Region())),
-	resource.TestCheckResourceAttr(resourceName, "domain_name_servers", "AmazonProvidedDNS"),
-	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+functest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Default DHCP Option Set"),
 ),
@@ -63,16 +58,14 @@ func testAccDefaultVPCDHCPOptions_owner(t *testing.T) {
 	var d ec2.DhcpOptions
 	resourceName := "aws_default_vpc_dhcp_options.test"
 
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+CheckDestroy:ctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
-Config: testAccVPCDefaultVPCDHCPOptionsConfig_owner,
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckDHCPOptionsExists(ctx, resourceName, &d),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`dhcp-options/dopt-.+`)),
@@ -80,8 +73,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "domain_name_servers", "AmazonProvidedDNS"),
 	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Default DHCP Option Set"),
-),
+func
 	},
 },
 	})
@@ -96,18 +88,16 @@ func testAccDefaultVPCDHCPOptions_v420Regression(t *testing.T) {
 	resourceName := "aws_default_vpc_dhcp_options.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:     
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:   acctest.ErrorCheck(t, ec2.EndpointsID),
-CheckDestroy: acctest.CheckDestroyNoop,
+funckDestroy: acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 ExternalProviders: map[string]resource.ExternalProvider{
 	"aws": {
-Source:   "hashicorp/aws",
+Source:shicorp/aws",
 VersionConstraint: "4.19.0",
-	},
-},
+func
 Config: testAccVPCDefaultVPCDHCPOptionsConfig_basic,
 Check: resource.ComposeTestCheck
 func(
@@ -116,17 +106,16 @@ func(
 	},
 	{
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Config:    testAccVPCDefaultVPCDHCPOptionsConfig_basic,
+Config:stAccVPCDefaultVPCDHCPOptionsConfig_basic,
 PlanOnly:  true,
 	},
 },
-	})
-}
+func
 
 const testAccVPCDefaultVPCDHCPOptionsConfig_basic = `
 resource "aws_default_vpc_dhcp_options" "test" {
   tags = {
-    Name = "Default DHCP Option Set"
+me = "Default DHCP Option Set"
   }
 }
 `
@@ -138,7 +127,7 @@ resource "aws_default_vpc_dhcp_options" "test" {
   owner_id = data.aws_caller_identity.current.account_id
 
   tags = {
-    Name = "Default DHCP Option Set"
+me = "Default DHCP Option Set"
   }
 }
 `

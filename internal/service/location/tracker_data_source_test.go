@@ -23,7 +23,7 @@ func TestAccLocationTrackerDataSource_indexName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrackerDestroy(ctx),
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTrackerDataSourceConfig_indexName(rName),

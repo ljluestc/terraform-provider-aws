@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_group")
-func DataSourceGroup() *schema.Resource {
+// @SDKDataSource("aws_iam_group")func DataSourceGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceGroupRead,
 
@@ -63,10 +62,7 @@ func DataSourceGroup() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	groupName := d.Get("group_name").(string)
@@ -102,11 +98,8 @@ func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	return diags
-}
-
-func dataSourceGroupUsersRead(iamUsers []*iam.User) []map[string]interface{} {
-	users := make([]map[string]interface{}, 0, len(iamUsers))
-	for _, i := range iamUsers {
+}func dataSourceGroupUsersRead(iamUsers []*iam.User) []map[string]interface{} {
+	func _, i := range iamUsers {
 		u := make(map[string]interface{})
 		u["arn"] = aws.StringValue(i.Arn)
 		u["user_id"] = aws.StringValue(i.UserId)

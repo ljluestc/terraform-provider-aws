@@ -68,7 +68,8 @@ type SourceLocation struct {
 type SourcePath []int32
 
 // Equal reports whether p1 equals p2.
-func (p1 SourcePath) Equal(p2 SourcePath) bool {
+
+ (p1 SourcePath) Equal(p2 SourcePath) bool {
 	if len(p1) != len(p2) {
 		return false
 	}
@@ -88,8 +89,9 @@ func (p1 SourcePath) Equal(p2 SourcePath) bool {
 //
 // Example output:
 //
-//	.message_type[6].nested_type[15].field[3]
-func (p SourcePath) String() string {
+message_type[6].nested_type[15].field[3]
+
+ (p SourcePath) String() string {
 	b := p.appendFileDescriptorProto(nil)
 	for _, i := range p {
 		b = append(b, '.')
@@ -98,22 +100,28 @@ func (p SourcePath) String() string {
 	return string(b)
 }
 
-type appendFunc func(*SourcePath, []byte) []byte
+ append
+ 
+(*SourcePath, []byte) []byte
 
-func (p *SourcePath) appendSingularField(b []byte, name string, f appendFunc) []byte {
+
+ (p *SourcePath) appendSingularField(b []byte, name string, f append
+) []byte {
 	if len(*p) == 0 {
 		return b
 	}
 	b = append(b, '.')
 	b = append(b, name...)
 	*p = (*p)[1:]
-	if f != nil {
+f != nil {
 		b = f(p, b)
 	}
 	return b
 }
 
-func (p *SourcePath) appendRepeatedField(b []byte, name string, f appendFunc) []byte {
+
+ (p *SourcePath) appendRepeatedField(b []byte, name string, f append
+) []byte {
 	b = p.appendSingularField(b, name, nil)
 	if len(*p) == 0 || (*p)[0] < 0 {
 		return b

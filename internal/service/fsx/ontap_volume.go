@@ -104,7 +104,7 @@ func ResourceOntapVolume() *schema.Resource {
 				ValidateFunc: validation.StringLenBetween(21, 21),
 			},
 			"tiering_policy": {
-				Type:             schema.TypeList,
+				Type:schema.TypeList,
 				Optional:         true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				MaxItems:         1,

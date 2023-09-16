@@ -10,7 +10,8 @@ import (
 // preferences, since it assumes that the caller will verify that any suggested
 // conversion is actually possible and it is thus able to to make certain
 // optimistic assumptions.
-func compareTypes(a cty.Type, b cty.Type) int {
+
+ compareTypes(a cty.Type, b cty.Type) int {
 
 	// DynamicPseudoType always has lowest preference, because anything can
 	// convert to it (it acts as a placeholder for "any type") and we want

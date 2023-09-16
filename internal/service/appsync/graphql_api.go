@@ -281,8 +281,8 @@ func resourceGraphQLAPICreate(ctx context.Context, d *schema.ResourceData, meta 
 	name := d.Get("name").(string)
 	input := &appsync.CreateGraphqlApiInput{
 		AuthenticationType: aws.String(d.Get("authentication_type").(string)),
-		Name:               aws.String(name),
-		Tags:               getTagsIn(ctx),
+		Name:  aws.String(name),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("additional_authentication_provider"); ok {
@@ -381,9 +381,9 @@ func resourceGraphQLAPIUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &appsync.UpdateGraphqlApiInput{
-			ApiId:              aws.String(d.Id()),
+			ApiId: aws.String(d.Id()),
 			AuthenticationType: aws.String(d.Get("authentication_type").(string)),
-			Name:               aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 		}
 
 		if v, ok := d.GetOk("additional_authentication_provider"); ok {
@@ -625,7 +625,7 @@ func expandGraphQLAPILambdaAuthorizerConfig(l []interface{}) *appsync.LambdaAuth
 
 	lambdaAuthorizerConfig := &appsync.LambdaAuthorizerConfig{
 		AuthorizerResultTtlInSeconds: aws.Int64(int64(m["authorizer_result_ttl_in_seconds"].(int))),
-		AuthorizerUri:                aws.String(m["authorizer_uri"].(string)),
+		AuthorizerUri:   aws.String(m["authorizer_uri"].(string)),
 	}
 
 	if v, ok := m["identity_validation_expression"].(string); ok && v != "" {

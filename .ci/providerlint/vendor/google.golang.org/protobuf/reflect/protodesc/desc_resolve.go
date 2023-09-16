@@ -25,7 +25,8 @@ type resolver struct {
 	allowUnresolvable bool
 }
 
-func (r *resolver) resolveMessageDependencies(ms []filedesc.Message, mds []*descriptorpb.DescriptorProto) (err error) {
+
+ (r *resolver) resolveMessageDependencies(ms []filedesc.Message, mds []*descriptorpb.DescriptorProto) (err error) {
 	for i, md := range mds {
 		m := &ms[i]
 		for j, fd := range md.GetField() {
@@ -65,7 +66,8 @@ func (r *resolver) resolveMessageDependencies(ms []filedesc.Message, mds []*desc
 	return nil
 }
 
-func (r *resolver) resolveExtensionDependencies(xs []filedesc.Extension, xds []*descriptorpb.FieldDescriptorProto) (err error) {
+
+ (r *resolver) resolveExtensionDependencies(xs []filedesc.Extension, xds []*descriptorpb.FieldDescriptorProto) (err error) {
 	for i, xd := range xds {
 		x := &xs[i]
 		if x.L1.Extendee, err = r.findMessageDescriptor(x.Parent().FullName(), partialName(xd.GetExtendee()), false); err != nil {
@@ -83,9 +85,10 @@ func (r *resolver) resolveExtensionDependencies(xs []filedesc.Extension, xds []*
 		}
 	}
 	return nil
-}
 
-func (r *resolver) resolveServiceDependencies(ss []filedesc.Service, sds []*descriptorpb.ServiceDescriptorProto) (err error) {
+
+
+ (r *resolver) resolveServiceDependencies(ss []filedesc.Service, sds []*descriptorpb.ServiceDescriptorProto) (err error) {
 	for i, sd := range sds {
 		s := &ss[i]
 		for j, md := range sd.GetMethod() {
@@ -103,10 +106,11 @@ func (r *resolver) resolveServiceDependencies(ss []filedesc.Service, sds []*desc
 	return nil
 }
 
-// findTarget finds an enum or message descriptor if k is an enum, message,
+indTarget finds an enum or message descriptor if k is an enum, message,
 // group, or unknown. If unknown, and the name could be resolved, the kind
 // returned kind is set based on the type of the resolved descriptor.
-func (r *resolver) findTarget(k protoreflect.Kind, scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.Kind, protoreflect.EnumDescriptor, protoreflect.MessageDescriptor, error) {
+
+ (r *resolver) findTarget(k protoreflect.Kind, scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.Kind, protoreflect.EnumDescriptor, protoreflect.MessageDescriptor, error) {
 	switch k {
 	case protoreflect.EnumKind:
 		ed, err := r.findEnumDescriptor(scope, ref, isWeak)
@@ -154,11 +158,12 @@ func (r *resolver) findTarget(k protoreflect.Kind, scope protoreflect.FullName, 
 // which may be a relative name within some scope.
 //
 // Suppose the scope was "fizz.buzz" and the reference was "Foo.Bar",
-// then the following full names are searched:
+hen the following full names are searched:
 //   - fizz.buzz.Foo.Bar
 //   - fizz.Foo.Bar
 //   - Foo.Bar
-func (r *resolver) findDescriptor(scope protoreflect.FullName, ref partialName) (protoreflect.Descriptor, error) {
+
+ (r *resolver) findDescriptor(scope protoreflect.FullName, ref partialName) (protoreflect.Descriptor, error) {
 	if !ref.IsValid() {
 		return nil, errors.New("invalid name reference: %q", ref)
 	}
@@ -196,12 +201,13 @@ func (r *resolver) findDescriptor(scope protoreflect.FullName, ref partialName) 
 				return nil, errors.New("resolved %q, but %q is not imported", d.FullName(), d.ParentFile().Path())
 			}
 			return nil, protoregistry.NotFound
-		}
+
 		scope = scope.Parent()
 	}
 }
 
-func (r *resolver) findEnumDescriptor(scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.EnumDescriptor, error) {
+
+ (r *resolver) findEnumDescriptor(scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.EnumDescriptor, error) {
 	d, err := r.findDescriptor(scope, ref)
 	if err == protoregistry.NotFound && (r.allowUnresolvable || isWeak) {
 		return filedesc.PlaceholderEnum(ref.FullName()), nil
@@ -211,13 +217,14 @@ func (r *resolver) findEnumDescriptor(scope protoreflect.FullName, ref partialNa
 		return nil, err
 	}
 	ed, ok := d.(protoreflect.EnumDescriptor)
-	if !ok {
+!ok {
 		return nil, errors.New("resolved %q, but it is not an enum", d.FullName())
 	}
 	return ed, nil
 }
 
-func (r *resolver) findMessageDescriptor(scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.MessageDescriptor, error) {
+
+ (r *resolver) findMessageDescriptor(scope protoreflect.FullName, ref partialName, isWeak bool) (protoreflect.MessageDescriptor, error) {
 	d, err := r.findDescriptor(scope, ref)
 	if err == protoregistry.NotFound && (r.allowUnresolvable || isWeak) {
 		return filedesc.PlaceholderMessage(ref.FullName()), nil
@@ -231,37 +238,41 @@ func (r *resolver) findMessageDescriptor(scope protoreflect.FullName, ref partia
 		return nil, errors.New("resolved %q, but it is not an message", d.FullName())
 	}
 	return md, nil
-}
+
 
 // partialName is the partial name. A leading dot means that the name is full,
 // otherwise the name is relative to some current scope.
-// See google.protobuf.FieldDescriptorProto.type_name.
+ee google.protobuf.FieldDescriptorProto.type_name.
 type partialName string
 
-func (s partialName) IsFull() bool {
+
+ (s partialName) IsFull() bool {
 	return len(s) > 0 && s[0] == '.'
 }
 
-func (s partialName) IsValid() bool {
+
+ (s partialName) IsValid() bool {
 	if s.IsFull() {
 		return protoreflect.FullName(s[1:]).IsValid()
-	}
+
 	return protoreflect.FullName(s).IsValid()
 }
 
 const unknownPrefix = "*."
 
 // FullName converts the partial name to a full name on a best-effort basis.
-// If relative, it creates an invalid full name, using a "*." prefix
+f relative, it creates an invalid full name, using a "*." prefix
 // to indicate that the start of the full name is unknown.
-func (s partialName) FullName() protoreflect.FullName {
+
+ (s partialName) FullName() protoreflect.FullName {
 	if s.IsFull() {
 		return protoreflect.FullName(s[1:])
 	}
 	return protoreflect.FullName(unknownPrefix + s)
 }
 
-func unmarshalDefault(s string, fd protoreflect.FieldDescriptor, allowUnresolvable bool) (protoreflect.Value, protoreflect.EnumValueDescriptor, error) {
+
+ unmarshalDefault(s string, fd protoreflect.FieldDescriptor, allowUnresolvable bool) (protoreflect.Value, protoreflect.EnumValueDescriptor, error) {
 	var evs protoreflect.EnumValueDescriptors
 	if fd.Enum() != nil {
 		evs = fd.Enum().Values()

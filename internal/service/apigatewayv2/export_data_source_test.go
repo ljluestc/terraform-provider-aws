@@ -19,10 +19,10 @@ func TestAccAPIGatewayV2ExportDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExportDataSourceConfig_httpBasic(rName),
@@ -41,10 +41,10 @@ func TestAccAPIGatewayV2ExportDataSource_stage(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExportDataSourceConfig_httpStage(rName),
@@ -61,12 +61,12 @@ func TestAccAPIGatewayV2ExportDataSource_stage(t *testing.T) {
 func testAccExportHTTPDataSourceConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 }
 
 resource "aws_apigatewayv2_integration" "test" {
-  api_id           = aws_apigatewayv2_api.test.id
+  api_idgatewayv2_api.test.id
   integration_type = "HTTP_PROXY"
 
   integration_method = "GET"
@@ -84,7 +84,7 @@ resource "aws_apigatewayv2_route" "test" {
 func testAccExportDataSourceConfig_httpBasic(rName string) string {
 	return acctest.ConfigCompose(testAccExportHTTPDataSourceConfigBase(rName), `
 data "aws_apigatewayv2_export" "test" {
-  api_id        = aws_apigatewayv2_route.test.api_id
+  api_idaws_apigatewayv2_route.test.api_id
   specification = "OAS30"
   output_type   = "JSON"
 }
@@ -94,18 +94,18 @@ data "aws_apigatewayv2_export" "test" {
 func testAccExportDataSourceConfig_httpStage(rName string) string {
 	return acctest.ConfigCompose(testAccExportHTTPDataSourceConfigBase(rName), fmt.Sprintf(`
 resource "aws_apigatewayv2_stage" "test" {
-  api_id        = aws_apigatewayv2_deployment.test.api_id
-  name          = %[1]q
+  api_idaws_apigatewayv2_deployment.test.api_id
+  name
   deployment_id = aws_apigatewayv2_deployment.test.id
 }
 
 resource "aws_apigatewayv2_deployment" "test" {
-  api_id      = aws_apigatewayv2_route.test.api_id
+  api_ids_apigatewayv2_route.test.api_id
   description = %[1]q
 }
 
 data "aws_apigatewayv2_export" "test" {
-  api_id        = aws_apigatewayv2_api.test.id
+  api_idaws_apigatewayv2_api.test.id
   specification = "OAS30"
   output_type   = "JSON"
   stage_name    = aws_apigatewayv2_stage.test.name

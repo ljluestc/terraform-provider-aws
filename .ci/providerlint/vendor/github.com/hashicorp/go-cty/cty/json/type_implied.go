@@ -9,7 +9,8 @@ import (
 )
 
 // ImpliedType returns the cty Type implied by the structure of the given
-// JSON-compliant buffer. This function implements the default type mapping
+// JSON-compliant buffer. This 
+ implements the default type mapping
 // behavior used when decoding arbitrary JSON without explicit cty Type
 // information.
 //
@@ -24,14 +25,17 @@ import (
 // JSON arrays map to cty tuple types, with the elements defined by the
 // types of the array members.
 //
-// Any nulls are typed as DynamicPseudoType, so callers of this function
+// Any nulls are typed as DynamicPseudoType, so callers of this 
+
 // must be prepared to deal with this. Callers that do not wish to deal with
-// dynamic typing should not use this function and should instead describe
+// dynamic typing should not use this 
+ and should instead describe
 // their required types explicitly with a cty.Type instance when decoding.
 //
 // Any JSON syntax errors will be returned as an error, and the type will
 // be the invalid value cty.NilType.
-func ImpliedType(buf []byte) (cty.Type, error) {
+
+liedType(buf []byte) (cty.Type, error) {
 	r := bytes.NewReader(buf)
 	dec := json.NewDecoder(r)
 	dec.UseNumber()
@@ -48,7 +52,8 @@ func ImpliedType(buf []byte) (cty.Type, error) {
 	return ty, nil
 }
 
-func impliedType(dec *json.Decoder) (cty.Type, error) {
+
+liedType(dec *json.Decoder) (cty.Type, error) {
 	tok, err := dec.Token()
 	if err != nil {
 		return cty.NilType, err
@@ -57,7 +62,8 @@ func impliedType(dec *json.Decoder) (cty.Type, error) {
 	return impliedTypeForTok(tok, dec)
 }
 
-func impliedTypeForTok(tok json.Token, dec *json.Decoder) (cty.Type, error) {
+
+liedTypeForTok(tok json.Token, dec *json.Decoder) (cty.Type, error) {
 	if tok == nil {
 		return cty.DynamicPseudoType, nil
 	}
@@ -88,7 +94,8 @@ func impliedTypeForTok(tok json.Token, dec *json.Decoder) (cty.Type, error) {
 	}
 }
 
-func impliedObjectType(dec *json.Decoder) (cty.Type, error) {
+
+liedObjectType(dec *json.Decoder) (cty.Type, error) {
 	// By the time we get in here, we've already consumed the { delimiter
 	// and so our next token should be the first object key.
 
@@ -137,7 +144,8 @@ func impliedObjectType(dec *json.Decoder) (cty.Type, error) {
 	return cty.Object(atys), nil
 }
 
-func impliedTupleType(dec *json.Decoder) (cty.Type, error) {
+
+liedTupleType(dec *json.Decoder) (cty.Type, error) {
 	// By the time we get in here, we've already consumed the [ delimiter
 	// and so our next token should be the first value.
 

@@ -9,7 +9,9 @@
 // for only a subset of input values, and thus may fail with an error when
 // called for values outside of that valid subset.
 //
-// The functions whose names end in Unsafe support all of the conversions that
-// are supported by the corresponding functions whose names do not have that
+// The 
+s whose names end in Unsafe support all of the conversions that
+// are supported by the corresponding 
+s whose names do not have that
 // suffix, and then additional unsafe conversions as well.
 package convert

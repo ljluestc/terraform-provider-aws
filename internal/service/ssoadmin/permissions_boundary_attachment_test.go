@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccSSOAdminPermissionsBoundaryAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_ssoadmin_permissions_boundary_attachment.test"
 	permissionSetResourceName := "aws_ssoadmin_permission_set.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -31,8 +30,7 @@ func TestAccSSOAdminPermissionsBoundaryAttachment_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPermissionsBoundaryAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -40,8 +38,7 @@ Config: testAccPermissionsBoundaryAttachmentConfig_basic(rName, rNamePolicy1, rN
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckPermissionsBoundaryAttachmentExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "permissions_boundary.0.customer_managed_policy_reference.0.name", rNamePolicy1),
-	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
+funcource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
 ),
 	},
@@ -58,8 +55,7 @@ ImportStateVerify: true,
 func TestAccSSOAdminPermissionsBoundaryAttachment_forceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_permissions_boundary_attachment.test"
-	permissionSetResourceName := "aws_ssoadmin_permission_set.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -69,8 +65,7 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPermissionsBoundaryAttachmentDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccPermissionsBoundaryAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
 Check: resource.ComposeTestCheck
 func(
@@ -78,16 +73,14 @@ func(
 ),
 	},
 	{
-Config: testAccPermissionsBoundaryAttachmentConfig_forceNew(rName, rNamePolicy1, rNamePolicy2),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckPermissionsBoundaryAttachmentExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "permissions_boundary.0.customer_managed_policy_reference.0.name", rNamePolicy2),
 	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
 ),
-	},
-	{
+func
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,
@@ -104,8 +97,7 @@ func TestAccSSOAdminPermissionsBoundaryAttachment_disappears(t *testing.T) {
 	rNamePolicy1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,8 +106,7 @@ Steps: []resource.TestStep{
 	{
 Config: testAccPermissionsBoundaryAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
 Check: resource.ComposeTestCheck
-func(
-	testAccCheckPermissionsBoundaryAttachmentExists(ctx, resourceName),
+functAccCheckPermissionsBoundaryAttachmentExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourcePermissionsBoundaryAttachment(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
@@ -123,8 +114,7 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-
+func
 func TestAccSSOAdminPermissionsBoundaryAttachment_Disappears_permissionSet(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_permissions_boundary_attachment.test"
@@ -135,8 +125,7 @@ func TestAccSSOAdminPermissionsBoundaryAttachment_Disappears_permissionSet(t *te
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPermissionsBoundaryAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
@@ -146,8 +135,7 @@ Check: resource.ComposeTestCheck
 func(
 	testAccCheckPermissionsBoundaryAttachmentExists(ctx, resourceName),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourcePermissionSet(), permissionSetResourceName),
-),
-ExpectNonEmptyPlan: true,
+funcctNonEmptyPlan: true,
 	},
 },
 	})
@@ -155,8 +143,7 @@ ExpectNonEmptyPlan: true,
 
 
 func TestAccSSOAdminPermissionsBoundaryAttachment_managedPolicyAndCustomerManagedPolicyRefBothDefined(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
@@ -167,8 +154,7 @@ ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPermissionsBoundaryAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
-	{
-Config:      testAccPermissionsBoundaryAttachmentConfig_managedPolicyAndCustomerManagedPolicyRefBothDefined(rName, rNamePolicy1, rNamePolicy2),
+funcig:      testAccPermissionsBoundaryAttachmentConfig_managedPolicyAndCustomerManagedPolicyRefBothDefined(rName, rNamePolicy1, rNamePolicy2),
 ExpectError: regexache.MustCompile(".*ValidationException: Only ManagedPolicyArn or CustomerManagedPolicyReference should be given.*"),
 	},
 },
@@ -176,7 +162,6 @@ ExpectError: regexache.MustCompile(".*ValidationException: Only ManagedPolicyArn
 }
 
 
-func testAccCheckPermissionsBoundaryAttachmentDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -191,13 +176,10 @@ continue
 	if err != nil {
 return err
 	}
-
-	_, err = tfssoadmin.FindPermissionsBoundary(ctx, conn, permissionSetARN, instanceARN)
-
-	if tfresource.NotFound(err) {
+funcerr = tfssoadmin.FindPermissionsBoundary(ctx, conn, permissionSetARN, instanceARN)
+functfresource.NotFound(err) {
 continue
-	}
-
+func
 	if err != nil {
 return err
 	}
@@ -228,13 +210,10 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
 _, err = tfssoadmin.FindPermissionsBoundary(ctx, conn, permissionSetARN, instanceARN)
 
-return err
-	}
-}
+func
+func
 
-
-func testAccPermissionsBoundaryAttachmentConfig_base(rName, rNamePolicy1, rNamePolicy2 string) string {
-	return fmt.Sprintf(`
+funcurn fmt.Sprintf(`
 data "aws_partition" "current" {}
 
 data "aws_ssoadmin_instances" "test" {}
@@ -254,8 +233,7 @@ resource "aws_iam_policy" "test1" {
       {
         Action = [
  "ec2:Describe*",
-        ]
-        Effect   = "Allow"
+func    Effect   = "Allow"
         Resource = "*"
       },
     ]
@@ -305,8 +283,7 @@ func testAccPermissionsBoundaryAttachmentConfig_forceNew(rName, rNamePolicy1, rN
 resource "aws_ssoadmin_permissions_boundary_attachment" "test" {
   instance_arn       = aws_ssoadmin_permission_set.test.instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.test.arn
-
-  permissions_boundary {
+funcrmissions_boundary {
     customer_managed_policy_reference {
       name = aws_iam_policy.test2.name
       path = "/"
@@ -323,8 +300,7 @@ data "aws_partition" "partition" {}
 
 resource "aws_ssoadmin_permissions_boundary_attachment" "test" {
   instance_arn       = aws_ssoadmin_permission_set.test.instance_arn
-  permission_set_arn = aws_ssoadmin_permission_set.test.arn
-
+func
   permissions_boundary {
     managed_policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/ReadOnlyAccess"
     customer_managed_policy_reference {
@@ -335,3 +311,4 @@ resource "aws_ssoadmin_permissions_boundary_attachment" "test" {
 }
 `)
 }
+func

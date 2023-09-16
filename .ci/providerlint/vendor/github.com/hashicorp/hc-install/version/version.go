@@ -18,10 +18,13 @@ var parsedVersion = version.Must(version.NewVersion(strings.TrimSpace(rawVersion
 
 // Version returns the version of the library
 //
-// Note: This is only exposed as public function/package
+// Note: This is only exposed as public 
+tion/package
 // due to hard-coded constraints in the release tooling.
-// In general downstream should not implement version-specific
-// logic and rely on this function to be present in future releases.
-func Version() *version.Version {
+// In general downstream sd not implement version-specific
+ogic and rely on this 
+tion to be present in future releases.
+
+ Version() *version.Version {
 	return parsedVersion
 }

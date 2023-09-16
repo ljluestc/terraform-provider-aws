@@ -35,10 +35,10 @@ func TestAccCloudFrontFunction_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_basic(rName),
@@ -56,7 +56,7 @@ func TestAccCloudFrontFunction_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -72,10 +72,10 @@ func TestAccCloudFrontFunction_disappears(t *testing.T) {
 	resourceName := "aws_cloudfront_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_basic(rName),
@@ -96,10 +96,10 @@ func TestAccCloudFrontFunction_publish(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_publish(rName, false),
@@ -113,7 +113,7 @@ func TestAccCloudFrontFunction_publish(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -140,10 +140,10 @@ func TestAccCloudFrontFunction_associated(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_associated(rName),
@@ -163,7 +163,7 @@ func TestAccCloudFrontFunction_associated(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -184,10 +184,10 @@ func TestAccCloudFrontFunction_Update_code(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_basic(rName),
@@ -205,7 +205,7 @@ func TestAccCloudFrontFunction_Update_code(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -220,10 +220,10 @@ func TestAccCloudFrontFunction_UpdateCodeAndPublish(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_publish(rName, false),
@@ -245,7 +245,7 @@ func TestAccCloudFrontFunction_UpdateCodeAndPublish(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -260,10 +260,10 @@ func TestAccCloudFrontFunction_Update_comment(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudfront.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID) },
+		ErrorCheck:orCheck(t, cloudfront.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFunctionDestroy(ctx),
+		CheckDestroy:unctionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionConfig_comment(rName, "test 1"),
@@ -281,7 +281,7 @@ func TestAccCloudFrontFunction_Update_comment(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"publish"},
 			},
@@ -394,8 +394,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }
@@ -469,8 +469,8 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = "myCustomOrigin"
 
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port
+      https_port
       origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["SSLv3", "TLSv1"]
     }

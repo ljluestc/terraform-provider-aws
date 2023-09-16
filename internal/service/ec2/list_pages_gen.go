@@ -11,10 +11,8 @@ import (
 )
 
 
-func describeSpotFleetInstancesPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetInstancesInput, fn 
 func(*ec2.DescribeSpotFleetInstancesOutput, bool) bool) error {
-	for {
-		output, err := conn.DescribeSpotFleetInstancesWithContext(ctx, input)
+functput, err := conn.DescribeSpotFleetInstancesWithContext(ctx, input)
 		if err != nil {
 			return err
 		}
@@ -31,10 +29,8 @@ func(*ec2.DescribeSpotFleetInstancesOutput, bool) bool) error {
 
 func describeSpotFleetRequestHistoryPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetRequestHistoryInput, fn 
 func(*ec2.DescribeSpotFleetRequestHistoryOutput, bool) bool) error {
-	for {
-		output, err := conn.DescribeSpotFleetRequestHistoryWithContext(ctx, input)
-		if err != nil {
-			return err
+functput, err := conn.DescribeSpotFleetRequestHistoryWithContext(ctx, input)
+funceturn err
 		}
 
 		lastPage := aws.StringValue(output.NextToken) == ""
@@ -51,10 +47,8 @@ func describeVPCEndpointServicesPages(ctx context.Context, conn ec2iface.EC2API,
 func(*ec2.DescribeVpcEndpointServicesOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeVpcEndpointServicesWithContext(ctx, input)
-		if err != nil {
-			return err
-		}
-
+funceturn err
+func
 		lastPage := aws.StringValue(output.NextToken) == ""
 		if !fn(output, lastPage) || lastPage {
 			break

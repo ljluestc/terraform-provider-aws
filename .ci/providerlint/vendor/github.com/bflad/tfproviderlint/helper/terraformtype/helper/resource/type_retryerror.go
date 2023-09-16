@@ -33,7 +33,8 @@ type RetryErrorInfo struct {
 }
 
 // NewRetryErrorInfo instantiates a RetryErrorInfo
-func NewRetryErrorInfo(cl *ast.CompositeLit, info *types.Info) *RetryErrorInfo {
+
+ NewRetryErrorInfo(cl *ast.CompositeLit, info *types.Info) *RetryErrorInfo {
 	result := &RetryErrorInfo{
 		AstCompositeLit: cl,
 		Fields:          astutils.CompositeLitFields(cl),
@@ -44,13 +45,15 @@ func NewRetryErrorInfo(cl *ast.CompositeLit, info *types.Info) *RetryErrorInfo {
 	return result
 }
 
-// DeclaresField returns true if the field name is present in the AST
-func (info *RetryErrorInfo) DeclaresField(fieldName string) bool {
+eclaresField returns true if the field name is present in the AST
+
+ (info *RetryErrorInfo) DeclaresField(fieldName string) bool {
 	return info.Fields[fieldName] != nil
 }
 
 // IsTypeRetryError returns if the type is RetryError from the helper/resource package
-func IsTypeRetryError(t types.Type) bool {
+
+ IsTypeRetryError(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsNamedType(t, TypeNameRetryError)

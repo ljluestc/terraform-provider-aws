@@ -11,37 +11,38 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
-func TestNullableFloat(t *testing.T) {
+
+tNullableFloat(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-val           string
+val
 expectNull    bool
 expectedValue float64
 expectedErr   error
 	}{
 {
-	val:           "1",
+	val:
 	expectNull:    false,
 	expectedValue: 1,
 },
 {
-	val:           "1.1",
+	val:
 	expectNull:    false,
 	expectedValue: 1.1,
 },
 {
-	val:           "0",
+	val:
 	expectNull:    false,
 	expectedValue: 0,
 },
 {
-	val:           "",
+	val:
 	expectNull:    true,
 	expectedValue: 0,
 },
 {
-	val:           "A",
+	val:
 	expectNull:    false,
 	expectedValue: 0,
 	expectedErr:   strconv.ErrSyntax,
@@ -73,7 +74,8 @@ t.Fatalf("expected test case %d to have error matching \"%s\", got %s", i, tc.ex
 	}
 }
 
-func TestValidationFloat(t *testing.T) {
+
+tValidationFloat(t *testing.T) {
 	t.Parallel()
 
 	runValidationTestCases(t, []testCase{
@@ -90,13 +92,13 @@ func TestValidationFloat(t *testing.T) {
 	f:   ValidateTypeStringNullableFloat,
 },
 {
-	val:         "A",
-	f:           ValidateTypeStringNullableFloat,
+	val:
+	f:ullableFloat,
 	expectedErr: regexache.MustCompile(`^\w+: cannot parse 'A' as float: .+$`),
 },
 {
-	val:         1,
-	f:           ValidateTypeStringNullableFloat,
+	val:
+	f:ullableFloat,
 	expectedErr: regexache.MustCompile(`^expected type of \w+ to be string$`),
 },
 	})

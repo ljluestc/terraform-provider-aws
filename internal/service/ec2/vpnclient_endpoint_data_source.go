@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_ec2_client_vpn_endpoint")
 
-func DataSourceClientVPNEndpoint() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceClientVPNEndpointRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,145 +30,144 @@ func DataSourceClientVPNEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"authentication_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"active_directory_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"root_certificate_chain_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"saml_provider_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"self_service_saml_provider_arn": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"client_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"client_connect_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 						"lambda_
 function_arn": {
-							Type:     schema.TypeString,
-							Computed: true,
+func			Computed: true,
 						},
 					},
 				},
 			},
 			"client_login_banner_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"banner_text": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"client_vpn_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"connection_log_options": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_log_group": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"cloudwatch_log_stream": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type:eBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"dns_servers": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"security_group_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"self_service_portal": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"server_certificate_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"session_timeout_hours": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"split_tunnel": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transport_protocol": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"vpn_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -179,8 +177,7 @@ function_arn": {
 
 func dataSourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeClientVpnEndpointsInput{}
 
@@ -209,8 +206,8 @@ func dataSourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData
 	d.SetId(aws.StringValue(ep.ClientVpnEndpointId))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
 	}.String()

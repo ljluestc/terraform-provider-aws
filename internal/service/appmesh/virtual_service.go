@@ -145,8 +145,8 @@ func resourceVirtualServiceCreate(ctx context.Context, d *schema.ResourceData, m
 	name := d.Get("name").(string)
 	input := &appmesh.CreateVirtualServiceInput{
 		MeshName:           aws.String(d.Get("mesh_name").(string)),
-		Spec:               expandVirtualServiceSpec(d.Get("spec").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Spec:  expandVirtualServiceSpec(d.Get("spec").([]interface{})),
+		Tags:  getTagsIn(ctx),
 		VirtualServiceName: aws.String(name),
 	}
 
@@ -207,7 +207,7 @@ func resourceVirtualServiceUpdate(ctx context.Context, d *schema.ResourceData, m
 	if d.HasChange("spec") {
 		input := &appmesh.UpdateVirtualServiceInput{
 			MeshName:           aws.String(d.Get("mesh_name").(string)),
-			Spec:               expandVirtualServiceSpec(d.Get("spec").([]interface{})),
+			Spec:  expandVirtualServiceSpec(d.Get("spec").([]interface{})),
 			VirtualServiceName: aws.String(d.Get("name").(string)),
 		}
 

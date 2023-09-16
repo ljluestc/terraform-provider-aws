@@ -14,7 +14,8 @@ import (
 type Diagnostics []*tfprotov5.Diagnostic
 
 // ErrorCount returns the number of error severity diagnostics.
-func (d Diagnostics) ErrorCount() int {
+
+ (d Diagnostics) ErrorCount() int {
 	var result int
 
 	for _, diagnostic := range d {
@@ -36,8 +37,9 @@ func (d Diagnostics) ErrorCount() int {
 //
 //   - Error severity at ERROR level
 //   - Warning severity at WARN level
-//   - Invalid/Unknown severity at WARN level
-func (d Diagnostics) Log(ctx context.Context) {
+ - Invalid/Unknown severity at WARN level
+
+ (d Diagnostics) Log(ctx context.Context) {
 	for _, diagnostic := range d {
 		if diagnostic == nil {
 			continue
@@ -65,7 +67,8 @@ func (d Diagnostics) Log(ctx context.Context) {
 }
 
 // WarningCount returns the number of warning severity diagnostics.
-func (d Diagnostics) WarningCount() int {
+
+ (d Diagnostics) WarningCount() int {
 	var result int
 
 	for _, diagnostic := range d {

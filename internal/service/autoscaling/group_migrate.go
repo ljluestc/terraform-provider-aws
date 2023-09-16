@@ -16,142 +16,142 @@ func resourceGroupV0() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"availability_zones": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"capacity_rebalance": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 			},
 			"context": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"default_cooldown": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"default_instance_warmup": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 			},
 			"desired_capacity": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"desired_capacity_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"enabled_metrics": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"force_delete": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"force_delete_warm_pool": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"health_check_grace_period": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 				Default:  300,
 			},
 			"health_check_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"initial_lifecycle_hook": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"default_result": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"heartbeat_timeout": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Optional: true,
 						},
 						"lifecycle_transition": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"notification_metadata": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 						"notification_target_arn": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"instance_refresh": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"preferences": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"auto_rollback": {
-										Type:     schema.TypeBool,
+										Type:chema.TypeBool,
 										Optional: true,
 									},
 									"checkpoint_delay": {
-										Type:     nullable.TypeNullableInt,
+										Type:ullable.TypeNullableInt,
 										Optional: true,
 									},
 									"checkpoint_percentages": {
-										Type:     schema.TypeList,
+										Type:chema.TypeList,
 										Optional: true,
 										Elem: &schema.Schema{
 											Type: schema.TypeInt,
 										},
 									},
 									"instance_warmup": {
-										Type:     nullable.TypeNullableInt,
+										Type:ullable.TypeNullableInt,
 										Optional: true,
 									},
 									"min_healthy_percentage": {
-										Type:     schema.TypeInt,
+										Type:chema.TypeInt,
 										Optional: true,
 										Default:  90,
 									},
 									"skip_matching": {
-										Type:     schema.TypeBool,
+										Type:chema.TypeBool,
 										Optional: true,
 										Default:  false,
 									},
@@ -159,11 +159,11 @@ func resourceGroupV0() *schema.Resource {
 							},
 						},
 						"strategy": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"triggers": {
-							Type:     schema.TypeSet,
+							Type:chema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
@@ -173,67 +173,67 @@ func resourceGroupV0() *schema.Resource {
 				},
 			},
 			"launch_configuration": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"launch_template": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"version": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"load_balancers": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"max_instance_lifetime": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 			},
 			"max_size": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Required: true,
 			},
 			"metrics_granularity": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Default:  DefaultEnabledMetricsGranularity,
 			},
 			"min_elb_capacity": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 			},
 			"min_size": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Required: true,
 			},
 			"mixed_instances_policy": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"instances_distribution": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Computed: true,
@@ -247,63 +247,63 @@ func resourceGroupV0() *schema.Resource {
 									// thus, to prevent non-empty plans, we set these
 									// to Computed and remove Defaults
 									"on_demand_allocation_strategy": {
-										Type:     schema.TypeString,
+										Type:chema.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"on_demand_base_capacity": {
-										Type:     schema.TypeInt,
+										Type:chema.TypeInt,
 										Optional: true,
 										Computed: true,
 									},
 									"on_demand_percentage_above_base_capacity": {
-										Type:     schema.TypeInt,
+										Type:chema.TypeInt,
 										Optional: true,
 										Computed: true,
 									},
 									"spot_allocation_strategy": {
-										Type:     schema.TypeString,
+										Type:chema.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"spot_instance_pools": {
-										Type:     schema.TypeInt,
+										Type:chema.TypeInt,
 										Optional: true,
 										Computed: true,
 									},
 									"spot_max_price": {
-										Type:     schema.TypeString,
+										Type:chema.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"launch_template": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Required: true,
 							MinItems: 1,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"launch_template_specification": {
-										Type:     schema.TypeList,
+										Type:chema.TypeList,
 										Required: true,
 										MinItems: 1,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"launch_template_id": {
-													Type:     schema.TypeString,
+													Type:chema.TypeString,
 													Optional: true,
 													Computed: true,
 												},
 												"launch_template_name": {
-													Type:     schema.TypeString,
+													Type:chema.TypeString,
 													Optional: true,
 													Computed: true,
 												},
 												"version": {
-													Type:     schema.TypeString,
+													Type:chema.TypeString,
 													Optional: true,
 													Default:  "$Default",
 												},
@@ -311,242 +311,242 @@ func resourceGroupV0() *schema.Resource {
 										},
 									},
 									"override": {
-										Type:     schema.TypeList,
+										Type:chema.TypeList,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_requirements": {
-													Type:     schema.TypeList,
+													Type:chema.TypeList,
 													Optional: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"accelerator_count": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"accelerator_manufacturers": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"accelerator_names": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"accelerator_total_memory_mib": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"accelerator_types": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"allowed_instance_types": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																MaxItems: 400,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:schema.Schema{Type: schema.TypeString},
 															},
 															"bare_metal": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 															},
 															"baseline_ebs_bandwidth_mbps": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"burstable_performance": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 															},
 															"cpu_manufacturers": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"excluded_instance_types": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																MaxItems: 400,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:schema.Schema{Type: schema.TypeString},
 															},
 															"instance_generations": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"local_storage": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 															},
 															"local_storage_types": {
-																Type:     schema.TypeSet,
+																Type:chema.TypeSet,
 																Optional: true,
 																Elem: &schema.Schema{
 																	Type: schema.TypeString,
 																},
 															},
 															"memory_gib_per_vcpu": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"memory_mib": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"network_bandwidth_gbps": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"network_interface_count": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"on_demand_max_price_percentage_over_lowest_price": {
-																Type:     schema.TypeInt,
+																Type:chema.TypeInt,
 																Optional: true,
 															},
 															"require_hibernate_support": {
-																Type:     schema.TypeBool,
+																Type:chema.TypeBool,
 																Optional: true,
 															},
 															"spot_max_price_percentage_over_lowest_price": {
-																Type:     schema.TypeInt,
+																Type:chema.TypeInt,
 																Optional: true,
 															},
 															"total_local_storage_gb": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeFloat,
+																			Type:chema.TypeFloat,
 																			Optional: true,
 																		},
 																	},
 																},
 															},
 															"vcpu_count": {
-																Type:     schema.TypeList,
+																Type:chema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"max": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																		"min": {
-																			Type:     schema.TypeInt,
+																			Type:chema.TypeInt,
 																			Optional: true,
 																		},
 																	},
@@ -556,28 +556,28 @@ func resourceGroupV0() *schema.Resource {
 													},
 												},
 												"instance_type": {
-													Type:     schema.TypeString,
+													Type:chema.TypeString,
 													Optional: true,
 												},
 												"launch_template_specification": {
-													Type:     schema.TypeList,
+													Type:chema.TypeList,
 													Optional: true,
 													MinItems: 0,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"launch_template_id": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 																Computed: true,
 															},
 															"launch_template_name": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 																Computed: true,
 															},
 															"version": {
-																Type:     schema.TypeString,
+																Type:chema.TypeString,
 																Optional: true,
 																Default:  "$Default",
 															},
@@ -585,7 +585,7 @@ func resourceGroupV0() *schema.Resource {
 													},
 												},
 												"weighted_capacity": {
-													Type:     schema.TypeString,
+													Type:chema.TypeString,
 													Optional: true,
 												},
 											},
@@ -598,117 +598,117 @@ func resourceGroupV0() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"name_prefix": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"placement_group": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"predicted_capacity": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Computed: true,
 			},
 			"protect_from_scale_in": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"service_linked_role_arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"suspended_processes": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"tag": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"key": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"propagate_at_launch": {
-							Type:     schema.TypeBool,
+							Type:chema.TypeBool,
 							Required: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"target_group_arns": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"termination_policies": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"traffic_source": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"identifier": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Required: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"vpc_zone_identifier": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"wait_for_capacity_timeout": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Default:  "10m",
 			},
 			"wait_for_elb_capacity": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Optional: true,
 			},
 			"warm_pool": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"instance_reuse_policy": {
-							Type:     schema.TypeList,
+							Type:chema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"reuse_on_scale_in": {
-										Type:     schema.TypeBool,
+										Type:chema.TypeBool,
 										Optional: true,
 										Default:  false,
 									},
@@ -716,17 +716,17 @@ func resourceGroupV0() *schema.Resource {
 							},
 						},
 						"max_group_prepared_capacity": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Optional: true,
 							Default:  DefaultWarmPoolMaxGroupPreparedCapacity,
 						},
 						"min_size": {
-							Type:     schema.TypeInt,
+							Type:chema.TypeInt,
 							Optional: true,
 							Default:  0,
 						},
 						"pool_state": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 							Default:  autoscaling.WarmPoolStateStopped,
 						},
@@ -734,7 +734,7 @@ func resourceGroupV0() *schema.Resource {
 				},
 			},
 			"warm_pool_size": {
-				Type:     schema.TypeInt,
+				Type:chema.TypeInt,
 				Computed: true,
 			},
 		},

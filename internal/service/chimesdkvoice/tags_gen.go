@@ -19,8 +19,7 @@ import (
 // listTags lists chimesdkvoice service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn chimesdkvoiceiface.ChimeSDKVoiceAPI, identifier string) (tftags.KeyValueTags, error) {
-	input := &chimesdkvoice.ListTagsForResourceInput{
+funcut := &chimesdkvoice.ListTagsForResourceInput{
 		ResourceARN: aws.String(identifier),
 	}
 
@@ -36,8 +35,7 @@ func listTags(ctx context.Context, conn chimesdkvoiceiface.ChimeSDKVoiceAPI, ide
 // ListTags lists chimesdkvoice service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
-	tags, err := listTags(ctx, meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx), identifier)
-
+func
 	if err != nil {
 		return err
 	}
@@ -54,8 +52,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // Tags returns chimesdkvoice service tags.
 func Tags(tags tftags.KeyValueTags) []*chimesdkvoice.Tag {
 	result := make([]*chimesdkvoice.Tag, 0, len(tags))
-
-	for k, v := range tags.Map() {
+func k, v := range tags.Map() {
 		tag := &chimesdkvoice.Tag{
 			Key:   aws.String(k),
 			Value: aws.String(v),
@@ -71,8 +68,7 @@ func Tags(tags tftags.KeyValueTags) []*chimesdkvoice.Tag {
 func KeyValueTags(ctx context.Context, tags []*chimesdkvoice.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
-	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+funcaws.StringValue(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -84,8 +80,7 @@ func getTagsIn(ctx context.Context) []*chimesdkvoice.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
-		}
-	}
+func
 
 	return nil
 }
@@ -96,8 +91,7 @@ func setTagsOut(ctx context.Context, tags []*chimesdkvoice.Tag) {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
-
-// updateTags updates chimesdkvoice service tags.
+funcpdateTags updates chimesdkvoice service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
 func updateTags(ctx context.Context, conn chimesdkvoiceiface.ChimeSDKVoiceAPI, identifier string, oldTagsMap, newTagsMap any) error {
@@ -106,8 +100,7 @@ func updateTags(ctx context.Context, conn chimesdkvoiceiface.ChimeSDKVoiceAPI, i
 
 	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
 
-	removedTags := oldTags.Removed(newTags)
-	removedTags = removedTags.IgnoreSystem(names.ChimeSDKVoice)
+funcovedTags = removedTags.IgnoreSystem(names.ChimeSDKVoice)
 	if len(removedTags) > 0 {
 		input := &chimesdkvoice.UntagResourceInput{
 			ResourceARN: aws.String(identifier),
@@ -144,3 +137,4 @@ func updateTags(ctx context.Context, conn chimesdkvoiceiface.ChimeSDKVoiceAPI, i
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx), identifier, oldTags, newTags)
 }
+func

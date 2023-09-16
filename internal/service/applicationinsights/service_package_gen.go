@@ -13,44 +13,27 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-type servicePackage struct{}
-
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
-}
-
-func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
-
-func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
+type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
+}func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
+	funcc (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
-}
-
-func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
-	return []*types.ServicePackageSDKResource{
+}funcurn []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceApplication,
-			TypeName: "aws_applicationinsights_application",
+	funcypeName: "aws_applicationinsights_application",
 			Name:     "Application",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
-}
-
-func (p *servicePackage) ServicePackageName() string {
+}func (p *servicePackage) ServicePackageName() string {
 	return names.ApplicationInsights
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*applicationinsights_sdkv1.ApplicationInsights, error) {
-	sess := config["session"].(*session_sdkv1.Session)
+/funcs := config["session"].(*session_sdkv1.Session)
 
 	return applicationinsights_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
-}
-
-func ServicePackage(ctx context.Context) conns.ServicePackage {
+}func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

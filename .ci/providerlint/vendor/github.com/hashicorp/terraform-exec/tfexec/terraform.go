@@ -25,7 +25,8 @@ type printfer interface {
 // but you can override paths used in some commands depending on the available
 // options.
 //
-// All functions that execute CLI commands take a context.Context. It should be noted that
+// All 
+tions that execute CLI commands take a context.Context. It should be noted that
 // exec.Cmd.Run will not return context.DeadlineExceeded or context.Canceled by default, we
 // have augmented our wrapped errors to respond true to errors.Is for context.DeadlineExceeded
 // and context.Canceled if those are present on the context when the error is parsed. See
@@ -74,8 +75,9 @@ type Terraform struct {
 
 // NewTerraform returns a Terraform struct with default values for all fields.
 // If a blank execPath is supplied, NewTerraform will error.
-// Use hc-install or output from os.LookPath to get a desirable execPath.
-func NewTerraform(workingDir string, execPath string) (*Terraform, error) {
+se hc-install or output from os.LookPath to get a desirable execPath.
+
+ NewTerraform(workingDir string, execPath string) (*Terraform, error) {
 	if workingDir == "" {
 		return nil, fmt.Errorf("Terraform cannot be initialised with empty workdir")
 	}
@@ -102,9 +104,10 @@ func NewTerraform(workingDir string, execPath string) (*Terraform, error) {
 
 // SetEnv allows you to override environment variables, this should not be used for any well known
 // Terraform environment variables that are already covered in options. Pass nil to copy the values
-// from os.Environ. Attempting to set environment variables that should be managed manually will
+rom os.Environ. Attempting to set environment variables that should be managed manually will
 // result in ErrManualEnvVar being returned.
-func (tf *Terraform) SetEnv(env map[string]string) error {
+
+ (tf *Terraform) SetEnv(env map[string]string) error {
 	prohibited := ProhibitedEnv(env)
 	if len(prohibited) > 0 {
 		// just error on the first instance
@@ -113,30 +116,35 @@ func (tf *Terraform) SetEnv(env map[string]string) error {
 
 	tf.env = env
 	return nil
-}
+
 
 // SetLogger specifies a logger for tfexec to use.
-func (tf *Terraform) SetLogger(logger printfer) {
+
+ (tf *Terraform) SetLogger(logger printfer) {
 	tf.logger = logger
 }
 
-// SetStdout specifies a writer to stream stdout to for every command.
+etStdout specifies a writer to stream stdout to for every command.
 //
 // This should be used for information or logging purposes only, not control
-// flow. Any parsing necessary should be added as functionality to this package.
-func (tf *Terraform) SetStdout(w io.Writer) {
+// flow. Any parsing necessary should be added as 
+tionality to this package.
+
+ (tf *Terraform) SetStdout(w io.Writer) {
 	tf.stdout = w
-}
+
 
 // SetStderr specifies a writer to stream stderr to for every command.
 //
 // This should be used for information or logging purposes only, not control
-// flow. Any parsing necessary should be added as functionality to this package.
-func (tf *Terraform) SetStderr(w io.Writer) {
+// flow. Any parsing necessary should be added as 
+tionality to this package.
+
+ (tf *Terraform) SetStderr(w io.Writer) {
 	tf.stderr = w
 }
 
-// SetLog sets the TF_LOG environment variable for Terraform CLI execution.
+etLog sets the TF_LOG environment variable for Terraform CLI execution.
 // This must be combined with a call to SetLogPath to take effect.
 //
 // This is only compatible with Terraform CLI 0.15.0 or later as setting the
@@ -144,11 +152,12 @@ func (tf *Terraform) SetStderr(w io.Writer) {
 // SetLogPath is called on versions 0.14.11 and earlier, or if SetLogCore and
 // SetLogProvider have not been called before SetLogPath on versions 0.15.0 and
 // later.
-func (tf *Terraform) SetLog(log string) error {
+
+ (tf *Terraform) SetLog(log string) error {
 	err := tf.compatible(context.Background(), tf0_15_0, nil)
 	if err != nil {
 		return err
-	}
+
 	tf.log = log
 	return nil
 }
@@ -157,8 +166,9 @@ func (tf *Terraform) SetLog(log string) error {
 // execution. This must be combined with a call to SetLogPath to take effect.
 //
 // This is only compatible with Terraform CLI 0.15.0 or later.
-func (tf *Terraform) SetLogCore(logCore string) error {
-	err := tf.compatible(context.Background(), tf0_15_0, nil)
+
+ (tf *Terraform) SetLogCore(logCore string) error {
+ := tf.compatible(context.Background(), tf0_15_0, nil)
 	if err != nil {
 		return err
 	}
@@ -168,10 +178,11 @@ func (tf *Terraform) SetLogCore(logCore string) error {
 
 // SetLogPath sets the TF_LOG_PATH environment variable for Terraform CLI
 // execution.
-func (tf *Terraform) SetLogPath(path string) error {
+
+ (tf *Terraform) SetLogPath(path string) error {
 	tf.logPath = path
 	// Prevent setting the log path without enabling logging
-	if tf.log == "" && tf.logCore == "" && tf.logProvider == "" {
+tf.log == "" && tf.logCore == "" && tf.logProvider == "" {
 		tf.log = "TRACE"
 	}
 	return nil
@@ -182,32 +193,36 @@ func (tf *Terraform) SetLogPath(path string) error {
 // effect.
 //
 // This is only compatible with Terraform CLI 0.15.0 or later.
-func (tf *Terraform) SetLogProvider(logProvider string) error {
+
+ (tf *Terraform) SetLogProvider(logProvider string) error {
 	err := tf.compatible(context.Background(), tf0_15_0, nil)
 	if err != nil {
 		return err
 	}
 	tf.logProvider = logProvider
-	return nil
+urn nil
 }
 
 // SetAppendUserAgent sets the TF_APPEND_USER_AGENT environment variable for
 // Terraform CLI execution.
-func (tf *Terraform) SetAppendUserAgent(ua string) error {
-	tf.appendUserAgent = ua
+
+ (tf *Terraform) SetAppendUserAgent(ua string) error {
+appendUserAgent = ua
 	return nil
 }
 
 // SetDisablePluginTLS sets the TF_DISABLE_PLUGIN_TLS environment variable for
 // Terraform CLI execution.
-func (tf *Terraform) SetDisablePluginTLS(disabled bool) error {
+
+ (tf *Terraform) SetDisablePluginTLS(disabled bool) error {
 	tf.disablePluginTLS = disabled
 	return nil
-}
+
 
 // SetSkipProviderVerify sets the TF_SKIP_PROVIDER_VERIFY environment variable
 // for Terraform CLI execution. This is no longer used in 0.13.0 and greater.
-func (tf *Terraform) SetSkipProviderVerify(skip bool) error {
+
+ *Terraform) SetSkipProviderVerify(skip bool) error {
 	err := tf.compatible(context.Background(), nil, tf0_13_0)
 	if err != nil {
 		return err
@@ -217,11 +232,13 @@ func (tf *Terraform) SetSkipProviderVerify(skip bool) error {
 }
 
 // WorkingDir returns the working directory for Terraform.
-func (tf *Terraform) WorkingDir() string {
+
+ (tf *Terraform) WorkingDir() string {
 	return tf.workingDir
 }
 
 // ExecPath returns the path to the Terraform executable.
-func (tf *Terraform) ExecPath() string {
+
+ (tf *Terraform) ExecPath() string {
 	return tf.execPath
 }

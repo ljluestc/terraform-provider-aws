@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_cors_configuration")
-func ResourceBucketCorsConfiguration() *schema.Resource {
+// @SDKResource("aws_s3_bucket_cors_configuration")func ResourceBucketCorsConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketCorsConfigurationCreate,
 		ReadWithoutTimeout:   resourceBucketCorsConfigurationRead,
@@ -84,10 +83,7 @@ func ResourceBucketCorsConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketCorsConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
@@ -114,11 +110,8 @@ func resourceBucketCorsConfigurationCreate(ctx context.Context, d *schema.Resour
 	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
 
 	return resourceBucketCorsConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketCorsConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+}func resourceBucketCorsConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
@@ -164,12 +157,9 @@ func resourceBucketCorsConfigurationRead(ctx context.Context, d *schema.Resource
 	}
 
 	return nil
-}
-
-func resourceBucketCorsConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketCorsConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -192,13 +182,10 @@ func resourceBucketCorsConfigurationUpdate(ctx context.Context, d *schema.Resour
 	}
 
 	return resourceBucketCorsConfigurationRead(ctx, d, meta)
-}
-
-func resourceBucketCorsConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketCorsConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
-	if err != nil {
+	funcerr != nil {
 		return diag.FromErr(err)
 	}
 
@@ -221,14 +208,11 @@ func resourceBucketCorsConfigurationDelete(ctx context.Context, d *schema.Resour
 	}
 
 	return nil
-}
-
-func expandBucketCorsConfigurationCorsRules(l []interface{}) []*s3.CORSRule {
+}func expandBucketCorsConfigurationCorsRules(l []interface{}) []*s3.CORSRule {
 	if len(l) == 0 {
 		return nil
 	}
-
-	var rules []*s3.CORSRule
+func rules []*s3.CORSRule
 
 	for _, tfMapRaw := range l {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
@@ -266,15 +250,12 @@ func expandBucketCorsConfigurationCorsRules(l []interface{}) []*s3.CORSRule {
 	}
 
 	return rules
-}
-
-func flattenBucketCorsConfigurationCorsRules(rules []*s3.CORSRule) []interface{} {
+}func flattenBucketCorsConfigurationCorsRules(rules []*s3.CORSRule) []interface{} {
 	var results []interface{}
 
 	for _, rule := range rules {
 		if rule == nil {
-			continue
-		}
+	func
 
 		m := make(map[string]interface{})
 

@@ -194,9 +194,9 @@ func TestAccSchedulerSchedule_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_basic(name),
@@ -253,9 +253,9 @@ func TestAccSchedulerSchedule_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_basic(name),
@@ -285,9 +285,9 @@ func TestAccSchedulerSchedule_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_description(name, "test 1"),
@@ -345,9 +345,9 @@ func TestAccSchedulerSchedule_endDate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_endDate(name, "2100-01-01T01:02:03Z"),
@@ -405,9 +405,9 @@ func TestAccSchedulerSchedule_flexibleTimeWindow(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_flexibleTimeWindow(name, 10),
@@ -468,9 +468,9 @@ func TestAccSchedulerSchedule_groupName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_groupName(name),
@@ -504,9 +504,9 @@ func TestAccSchedulerSchedule_kmsKeyARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_kmsKeyARN(name, 0),
@@ -563,9 +563,9 @@ func TestAccSchedulerSchedule_nameGenerated(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_nameGenerated(),
@@ -599,9 +599,9 @@ func TestAccSchedulerSchedule_namePrefix(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_namePrefix("tf-acc-test-prefix-"),
@@ -636,9 +636,9 @@ func TestAccSchedulerSchedule_scheduleExpression(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_scheduleExpression(name, "rate(1 hour)"),
@@ -684,9 +684,9 @@ func TestAccSchedulerSchedule_scheduleExpressionTimezone(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_scheduleExpressionTimezone(name, "Europe/Paris"),
@@ -744,9 +744,9 @@ func TestAccSchedulerSchedule_startDate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_startDate(name, "2100-01-01T01:02:03Z"),
@@ -804,9 +804,9 @@ func TestAccSchedulerSchedule_state(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_state(name, "ENABLED"),
@@ -864,9 +864,9 @@ func TestAccSchedulerSchedule_targetARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetARN(name, 0),
@@ -912,9 +912,9 @@ func TestAccSchedulerSchedule_targetDeadLetterConfig(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetDeadLetterConfig(name, 0),
@@ -972,9 +972,9 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetECSParameters1(name),
@@ -1007,12 +1007,12 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 					testAccCheckScheduleExists(ctx, t, resourceName, &schedule),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
-						"base":              "2",
+						"base":
 						"capacity_provider": "test1",
 						"weight":            "50",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
-						"base":              "0",
+						"base":
 						"capacity_provider": "test2",
 						"weight":            "50",
 					}),
@@ -1054,7 +1054,7 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 					testAccCheckScheduleExists(ctx, t, resourceName, &schedule),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
-						"base":              "3",
+						"base":
 						"capacity_provider": "test3",
 						"weight":            "100",
 					}),
@@ -1148,9 +1148,9 @@ func TestAccSchedulerSchedule_targetEventBridgeParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetEventBridgeParameters(scheduleName, eventBusName, "test-1", "tf.test.1"),
@@ -1211,9 +1211,9 @@ func TestAccSchedulerSchedule_targetInput(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetInput(name, "test1"),
@@ -1276,9 +1276,9 @@ func TestAccSchedulerSchedule_targetKinesisParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetKinesisParameters(scheduleName, streamName, "test-1"),
@@ -1336,9 +1336,9 @@ func TestAccSchedulerSchedule_targetRetryPolicy(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetRetryPolicy(name, 60, 1),
@@ -1399,9 +1399,9 @@ func TestAccSchedulerSchedule_targetRoleARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetRoleARN(name, "test"),
@@ -1447,9 +1447,9 @@ func TestAccSchedulerSchedule_targetSageMakerPipelineParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetSageMakerPipelineParameters1(name, "key1", "value1"),
@@ -1543,9 +1543,9 @@ func TestAccSchedulerSchedule_targetSQSParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx, t),
+		CheckDestroy:cheduleDestroy(ctx, t),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleConfig_targetSQSParameters(name, "test1"),
@@ -1760,7 +1760,7 @@ resource "aws_scheduler_schedule" "test" {
 
   flexible_time_window {
     maximum_window_in_minutes = %[2]d
-    mode                      = "FLEXIBLE"
+    modeLEXIBLE"
   }
 
   schedule_expression = "rate(1 hour)"
@@ -2047,11 +2047,11 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = %[1]q
-  cpu                      = 256
-  memory                   = 512
+  family
+  cpu6
+  memory
   requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
+  network_mode
 
   container_definitions = <<EOF
 [
@@ -2097,11 +2097,11 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = %[1]q
-  cpu                      = 256
-  memory                   = 512
+  family
+  cpu6
+  memory
   requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
+  network_mode
 
   container_definitions = <<EOF
 [
@@ -2131,13 +2131,13 @@ resource "aws_scheduler_schedule" "test" {
 
     ecs_parameters {
       capacity_provider_strategy {
-        base              = 2
+        base
         capacity_provider = "test1"
         weight            = 50
       }
 
       capacity_provider_strategy {
-        base              = 0
+        base
         capacity_provider = "test2"
         weight            = 50
       }
@@ -2200,11 +2200,11 @@ locals {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = "${local.name}-2"
-  cpu                      = 256
-  memory                   = 512
+  familycal.name}-2"
+  cpu6
+  memory
   requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
+  network_mode
 
   container_definitions = <<EOF
 [
@@ -2234,7 +2234,7 @@ resource "aws_scheduler_schedule" "test" {
 
     ecs_parameters {
       capacity_provider_strategy {
-        base              = 3
+        base
         capacity_provider = "test3"
         weight            = 100
       }
@@ -2293,11 +2293,11 @@ locals {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  family                   = "${local.name}-2"
-  cpu                      = 256
-  memory                   = 512
+  familycal.name}-2"
+  cpu6
+  memory
   requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
+  network_mode
 
   container_definitions = <<EOF
 [

@@ -12,52 +12,73 @@ import (
 // NewNullLogger instantiates a Logger for which all calls
 // will succeed without doing anything.
 // Useful for testing purposes.
-func NewNullLogger() Logger {
+
+NullLogger() Logger {
 	return &nullLogger{}
 }
 
 type nullLogger struct{}
 
-func (l *nullLogger) Log(level Level, msg string, args ...interface{}) {}
 
-func (l *nullLogger) Trace(msg string, args ...interface{}) {}
+*nullLogger) Log(level Level, msg string, args ...interface{}) {}
 
-func (l *nullLogger) Debug(msg string, args ...interface{}) {}
 
-func (l *nullLogger) Info(msg string, args ...interface{}) {}
+*nullLogger) Trace(msg string, args ...interface{}) {}
 
-func (l *nullLogger) Warn(msg string, args ...interface{}) {}
 
-func (l *nullLogger) Error(msg string, args ...interface{}) {}
+*nullLogger) Debug(msg string, args ...interface{}) {}
 
-func (l *nullLogger) IsTrace() bool { return false }
 
-func (l *nullLogger) IsDebug() bool { return false }
+*nullLogger) Info(msg string, args ...interface{}) {}
 
-func (l *nullLogger) IsInfo() bool { return false }
 
-func (l *nullLogger) IsWarn() bool { return false }
+*nullLogger) Warn(msg string, args ...interface{}) {}
 
-func (l *nullLogger) IsError() bool { return false }
 
-func (l *nullLogger) ImpliedArgs() []interface{} { return []interface{}{} }
+*nullLogger) Error(msg string, args ...interface{}) {}
 
-func (l *nullLogger) With(args ...interface{}) Logger { return l }
 
-func (l *nullLogger) Name() string { return "" }
+*nullLogger) IsTrace() bool { return false }
 
-func (l *nullLogger) Named(name string) Logger { return l }
 
-func (l *nullLogger) ResetNamed(name string) Logger { return l }
+*nullLogger) IsDebug() bool { return false }
 
-func (l *nullLogger) SetLevel(level Level) {}
 
-func (l *nullLogger) GetLevel() Level { return NoLevel }
+*nullLogger) IsInfo() bool { return false }
 
-func (l *nullLogger) StandardLogger(opts *StandardLoggerOptions) *log.Logger {
+
+*nullLogger) IsWarn() bool { return false }
+
+
+*nullLogger) IsError() bool { return false }
+
+
+*nullLogger) ImpliedArgs() []interface{} { return []interface{}{} }
+
+
+*nullLogger) With(args ...interface{}) Logger { return l }
+
+
+*nullLogger) Name() string { return "" }
+
+
+*nullLogger) Named(name string) Logger { return l }
+
+
+*nullLogger) ResetNamed(name string) Logger { return l }
+
+
+*nullLogger) SetLevel(level Level) {}
+
+
+*nullLogger) GetLevel() Level { return NoLevel }
+
+
+*nullLogger) StandardLogger(opts *StandardLoggerOptions) *log.Logger {
 	return log.New(l.StandardWriter(opts), "", log.LstdFlags)
 }
 
-func (l *nullLogger) StandardWriter(opts *StandardLoggerOptions) io.Writer {
+
+*nullLogger) StandardWriter(opts *StandardLoggerOptions) io.Writer {
 	return ioutil.Discard
 }

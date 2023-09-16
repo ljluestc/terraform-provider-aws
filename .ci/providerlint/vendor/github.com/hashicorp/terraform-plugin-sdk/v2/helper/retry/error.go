@@ -17,7 +17,8 @@ type NotFoundError struct {
 	Retries      int
 }
 
-func (e *NotFoundError) Error() string {
+
+ (e *NotFoundError) Error() string {
 	if e.Message != "" {
 		return e.Message
 	}
@@ -29,7 +30,8 @@ func (e *NotFoundError) Error() string {
 	return "couldn't find resource"
 }
 
-func (e *NotFoundError) Unwrap() error {
+
+ (e *NotFoundError) Unwrap() error {
 	return e.LastError
 }
 
@@ -38,18 +40,20 @@ type UnexpectedStateError struct {
 	LastError     error
 	State         string
 	ExpectedState []string
-}
 
-func (e *UnexpectedStateError) Error() string {
+
+
+ (e *UnexpectedStateError) Error() string {
 	return fmt.Sprintf(
 		"unexpected state '%s', wanted target '%s'. last error: %s",
 		e.State,
 		strings.Join(e.ExpectedState, ", "),
 		e.LastError,
-	)
+
 }
 
-func (e *UnexpectedStateError) Unwrap() error {
+
+ (e *UnexpectedStateError) Unwrap() error {
 	return e.LastError
 }
 
@@ -57,11 +61,12 @@ func (e *UnexpectedStateError) Unwrap() error {
 type TimeoutError struct {
 	LastError     error
 	LastState     string
-	Timeout       time.Duration
+eout       time.Duration
 	ExpectedState []string
 }
 
-func (e *TimeoutError) Error() string {
+
+ (e *TimeoutError) Error() string {
 	expectedState := "resource to be gone"
 	if len(e.ExpectedState) > 0 {
 		expectedState = fmt.Sprintf("state to become '%s'", strings.Join(e.ExpectedState, ", "))
@@ -89,6 +94,7 @@ func (e *TimeoutError) Error() string {
 		expectedState, suffix)
 }
 
-func (e *TimeoutError) Unwrap() error {
+
+ (e *TimeoutError) Unwrap() error {
 	return e.LastError
 }

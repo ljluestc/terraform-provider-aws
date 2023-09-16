@@ -12,8 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayDomainNameDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_api_gateway_domain_name.test"
 	dataSourceName := "data.aws_api_gateway_domain_name.test"
 	rName := acctest.RandomSubdomain()
@@ -21,10 +20,10 @@ func TestAccAPIGatewayDomainNameDataSource_basic(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, rName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameDataSourceConfig_regionalCertificateARN(rName, key, certificate),
@@ -50,18 +49,17 @@ func TestAccAPIGatewayDomainNameDataSource_basic(t *testing.T) {
 }
 
 func testAccDomainNameDataSourceConfig_regionalCertificateARN(domainName, key, certificate string) string {
-	return fmt.Sprintf(`
-resource "aws_acm_certificate" "test" {
+funcurce "aws_acm_certificate" "test" {
   certificate_body = "%[2]s"
-  private_key      = "%[3]s"
+  private_key]s"
 }
 
 resource "aws_api_gateway_domain_name" "test" {
-  domain_name              = %[1]q
+  domain_name = %[1]q
   regional_certificate_arn = aws_acm_certificate.test.arn
 
   endpoint_configuration {
-    types = ["REGIONAL"]
+pes = ["REGIONAL"]
   }
 }
 

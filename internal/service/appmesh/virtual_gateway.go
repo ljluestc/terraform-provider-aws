@@ -658,8 +658,8 @@ func resourceVirtualGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 	name := d.Get("name").(string)
 	input := &appmesh.CreateVirtualGatewayInput{
 		MeshName:           aws.String(d.Get("mesh_name").(string)),
-		Spec:               expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Spec:  expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
+		Tags:  getTagsIn(ctx),
 		VirtualGatewayName: aws.String(name),
 	}
 
@@ -720,7 +720,7 @@ func resourceVirtualGatewayUpdate(ctx context.Context, d *schema.ResourceData, m
 	if d.HasChange("spec") {
 		input := &appmesh.UpdateVirtualGatewayInput{
 			MeshName:           aws.String(d.Get("mesh_name").(string)),
-			Spec:               expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
+			Spec:  expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
 			VirtualGatewayName: aws.String(d.Get("name").(string)),
 		}
 
@@ -1323,8 +1323,8 @@ func flattenVirtualGatewaySpec(spec *appmesh.VirtualGatewaySpec) []interface{} {
 				mHealthCheck := map[string]interface{}{
 					"healthy_threshold":   int(aws.Int64Value(healthCheck.HealthyThreshold)),
 					"interval_millis":     int(aws.Int64Value(healthCheck.IntervalMillis)),
-					"path":                aws.StringValue(healthCheck.Path),
-					"port":                int(aws.Int64Value(healthCheck.Port)),
+					"path":   aws.StringValue(healthCheck.Path),
+					"port":   int(aws.Int64Value(healthCheck.Port)),
 					"protocol":            aws.StringValue(healthCheck.Protocol),
 					"timeout_millis":      int(aws.Int64Value(healthCheck.TimeoutMillis)),
 					"unhealthy_threshold": int(aws.Int64Value(healthCheck.UnhealthyThreshold)),

@@ -37,9 +37,9 @@ func TestAccFSxDataRepositoryAssociation_basic(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_fileSystemPath(rName, rName, fileSystemPath),
@@ -55,7 +55,7 @@ func TestAccFSxDataRepositoryAssociation_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -77,9 +77,9 @@ func TestAccFSxDataRepositoryAssociation_disappears(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_fileSystemPath(rName, rName, fileSystemPath),
@@ -108,9 +108,9 @@ func TestAccFSxDataRepositoryAssociation_disappears_ParentFileSystem(t *testing.
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_fileSystemPath(rName, rName, fileSystemPath),
@@ -139,9 +139,9 @@ func TestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_fileSystemPath(rName, rName, fileSystemPath1),
@@ -152,7 +152,7 @@ func TestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -186,9 +186,9 @@ func TestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t *testing.T)
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_fileSystemPath(rName, bucketName1, fileSystemPath),
@@ -199,7 +199,7 @@ func TestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t *testing.T)
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -230,9 +230,9 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSize(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_importedFileChunkSize(rName, rName, fileSystemPath, 256),
@@ -243,7 +243,7 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSize(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -266,9 +266,9 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSizeUpdated(t *testing
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_importedFileChunkSize(rName, rName, fileSystemPath, 256),
@@ -279,7 +279,7 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSizeUpdated(t *testing
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -309,9 +309,9 @@ func TestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_deleteInFilesystem(rName, rName, fileSystemPath, "true"),
@@ -322,7 +322,7 @@ func TestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -345,9 +345,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_s3AutoExportPolicy(rName, rName, fileSystemPath, events),
@@ -360,7 +360,7 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -384,9 +384,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t *testing.T) 
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_s3AutoExportPolicy(rName, rName, fileSystemPath, events1),
@@ -399,7 +399,7 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -430,9 +430,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_s3AutoImportPolicy(rName, rName, fileSystemPath, events),
@@ -445,7 +445,7 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -469,9 +469,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t *testing.T) 
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_s3AutoImportPolicy(rName, rName, fileSystemPath, events1),
@@ -484,7 +484,7 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t *testing.T) 
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -514,9 +514,9 @@ func TestAccFSxDataRepositoryAssociation_s3FullPolicy(t *testing.T) {
 			// PERSISTENT_2 deployment_type is not supported in GovCloud partition.
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataRepositoryAssociationDestroy(ctx),
+		CheckDestroy:testAccCheckDataRepositoryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataRepositoryAssociationConfig_s3FullPolicy(rName, rName, fileSystemPath),
@@ -532,7 +532,7 @@ func TestAccFSxDataRepositoryAssociation_s3FullPolicy(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
@@ -612,7 +612,7 @@ func testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName string) s
 resource "aws_fsx_lustre_file_system" "test" {
   storage_capacity            = 1200
   subnet_ids   = aws_subnet.test[*].id
-  deployment_type             = "PERSISTENT_2"
+  deployment_type= "PERSISTENT_2"
   per_unit_storage_throughput = 125
 }
 

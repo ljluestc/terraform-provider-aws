@@ -19,7 +19,8 @@ import (
 
 // CanFormatDiffSlice reports whether we support custom formatting for nodes
 // that are slices of primitive kinds or strings.
-func (opts formatOptions) CanFormatDiffSlice(v *valueNode) bool {
+
+ts formatOptions) CanFormatDiffSlice(v *valueNode) bool {
 	switch {
 	case opts.DiffMode != diffUnknown:
 		return false // Must be formatting in diff mode
@@ -87,7 +88,8 @@ func (opts formatOptions) CanFormatDiffSlice(v *valueNode) bool {
 // FormatDiffSlice prints a diff for the slices (or strings) represented by v.
 // This provides custom-tailored logic to make printing of differences in
 // textual strings and slices of primitive kinds more readable.
-func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
+
+ts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 	assert(opts.DiffMode == diffUnknown)
 	t, vx, vy := v.Type, v.ValueX, v.ValueY
 	if t.Kind() == reflect.Interface {
@@ -139,10 +141,12 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 		if isPureLinedText {
 			ssx = strings.Split(sx, "\n")
 			ssy = strings.Split(sy, "\n")
-			esLines := diff.Difference(len(ssx), len(ssy), func(ix, iy int) diff.Result {
+			esLines := diff.Difference(len(ssx), len(ssy), 
+ iy int) diff.Result {
 				return diff.BoolResult(ssx[ix] == ssy[iy])
 			})
-			esBytes := diff.Difference(len(sx), len(sy), func(ix, iy int) diff.Result {
+			esBytes := diff.Difference(len(sx), len(sy), 
+ iy int) diff.Result {
 				return diff.BoolResult(sx[ix] == sy[iy])
 			})
 			efficiencyLines := float64(esLines.Dist()) / float64(len(esLines))
@@ -163,7 +167,8 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 	case isPureLinedText:
 		list = opts.formatDiffSlice(
 			reflect.ValueOf(ssx), reflect.ValueOf(ssy), 1, "line",
-			func(v reflect.Value, d diffMode) textRecord {
+			
+eflect.Value, d diffMode) textRecord {
 				s := formatString(v.Index(0).String())
 				return textRecord{Diff: d, Value: textLine(s)}
 			},
@@ -197,16 +202,19 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 			if !r.Value.Equal(textEllipsis) {
 				line, _ := strconv.Unquote(string(r.Value.(textLine)))
 				line = strings.TrimPrefix(strings.TrimSuffix(line, "\r"), "\r") // trim leading/trailing carriage returns for legacy Windows endline support
-				normLine := strings.Map(func(r rune) rune {
+				normLine := strings.Map(
+une) rune {
 					if unicode.IsSpace(r) {
 						return -1 // drop whitespace to avoid visually indistinguishable output
 					}
 					return r
 				}, line)
-				isPrintable := func(r rune) bool {
+				isPrintable := 
+une) bool {
 					return unicode.IsPrint(r) || r == '\t' // specially treat tab as printable
 				}
-				isTripleQuoted = !strings.HasPrefix(line, `"""`) && !strings.HasPrefix(line, "...") && strings.TrimFunc(line, isPrintable) == ""
+				isTripleQuoted = !strings.HasPrefix(line, `"""`) && !strings.HasPrefix(line, "...") && strings.Trim
+e, isPrintable) == ""
 				switch r.Diff {
 				case diffRemoved:
 					isTripleQuoted = isTripleQuoted && !prevInsertLines[normLine]
@@ -253,7 +261,8 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 	case isMostlyText:
 		list = opts.formatDiffSlice(
 			reflect.ValueOf(sx), reflect.ValueOf(sy), 64, "byte",
-			func(v reflect.Value, d diffMode) textRecord {
+			
+eflect.Value, d diffMode) textRecord {
 				s := formatString(v.String())
 				return textRecord{Diff: d, Value: textLine(s)}
 			},
@@ -265,7 +274,8 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 	case isBinary:
 		list = opts.formatDiffSlice(
 			reflect.ValueOf(sx), reflect.ValueOf(sy), 16, "byte",
-			func(v reflect.Value, d diffMode) textRecord {
+			
+eflect.Value, d diffMode) textRecord {
 				var ss []string
 				for i := 0; i < v.Len(); i++ {
 					ss = append(ss, formatHex(v.Index(i).Uint()))
@@ -297,7 +307,8 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 		}
 		list = opts.formatDiffSlice(
 			vx, vy, chunkSize, t.Elem().Kind().String(),
-			func(v reflect.Value, d diffMode) textRecord {
+			
+eflect.Value, d diffMode) textRecord {
 				var ss []string
 				for i := 0; i < v.Len(); i++ {
 					switch t.Elem().Kind() {
@@ -344,7 +355,8 @@ func (opts formatOptions) FormatDiffSlice(v *valueNode) textNode {
 
 // formatASCII formats s as an ASCII string.
 // This is useful for printing binary strings in a semi-legible way.
-func formatASCII(s string) string {
+
+matASCII(s string) string {
 	b := bytes.Repeat([]byte{'.'}, len(s))
 	for i := 0; i < len(s); i++ {
 		if ' ' <= s[i] && s[i] <= '~' {
@@ -354,18 +366,23 @@ func formatASCII(s string) string {
 	return string(b)
 }
 
-func (opts formatOptions) formatDiffSlice(
+
+ts formatOptions) formatDiffSlice(
 	vx, vy reflect.Value, chunkSize int, name string,
-	makeRec func(reflect.Value, diffMode) textRecord,
+	makeRec 
+lect.Value, diffMode) textRecord,
 ) (list textList) {
-	eq := func(ix, iy int) bool {
+	eq := 
+ iy int) bool {
 		return vx.Index(ix).Interface() == vy.Index(iy).Interface()
 	}
-	es := diff.Difference(vx.Len(), vy.Len(), func(ix, iy int) diff.Result {
+	es := diff.Difference(vx.Len(), vy.Len(), 
+ iy int) diff.Result {
 		return diff.BoolResult(eq(ix, iy))
 	})
 
-	appendChunks := func(v reflect.Value, d diffMode) int {
+	appendChunks := 
+eflect.Value, d diffMode) int {
 		n0 := v.Len()
 		for v.Len() > 0 {
 			n := chunkSize
@@ -450,9 +467,11 @@ func (opts formatOptions) formatDiffSlice(
 //		{NumIdentical: 3},
 //		{NumInserted: 1},
 //	]
-func coalesceAdjacentEdits(name string, es diff.EditScript) (groups []diffStats) {
+
+lesceAdjacentEdits(name string, es diff.EditScript) (groups []diffStats) {
 	var prevMode byte
-	lastStats := func(mode byte) *diffStats {
+	lastStats := 
+e byte) *diffStats {
 		if prevMode != mode {
 			groups = append(groups, diffStats{Name: name})
 			prevMode = mode
@@ -506,7 +525,8 @@ func coalesceAdjacentEdits(name string, es diff.EditScript) (groups []diffStats)
 //		{NumIdentical: 8, NumRemoved: 12, NumInserted: 3},
 //		{NumIdentical: 63},
 //	]
-func coalesceInterveningIdentical(groups []diffStats, windowSize int) []diffStats {
+
+lesceInterveningIdentical(groups []diffStats, windowSize int) []diffStats {
 	groups, groupsOrig := groups[:0], groups
 	for i, ds := range groupsOrig {
 		if len(groups) >= 2 && ds.NumDiff() > 0 {
@@ -550,7 +570,9 @@ func coalesceInterveningIdentical(groups []diffStats, windowSize int) []diffStat
 //		{NumRemoved: 9},
 //		{NumIdentical: 64}, // incremented by 10
 //	]
-func cleanupSurroundingIdentical(groups []diffStats, eq func(i, j int) bool) []diffStats {
+
+anupSurroundingIdentical(groups []diffStats, eq 
+j int) bool) []diffStats {
 	var ix, iy int // indexes into sequence x and y
 	for i, ds := range groups {
 		// Handle equal group.
@@ -579,7 +601,8 @@ func cleanupSurroundingIdentical(groups []diffStats, eq func(i, j int) bool) []d
 				} else {
 					// No preceding group exists, so prepend a new group,
 					// but do so after we finish iterating over all groups.
-					defer func() {
+					defer 
+
 						groups = append([]diffStats{{Name: groups[0].Name, NumIdentical: numLeadingIdentical}}, groups...)
 					}()
 				}
@@ -595,7 +618,8 @@ func cleanupSurroundingIdentical(groups []diffStats, eq func(i, j int) bool) []d
 				} else {
 					// No succeeding group exists, so append a new group,
 					// but do so after we finish iterating over all groups.
-					defer func() {
+					defer 
+
 						groups = append(groups, diffStats{Name: groups[len(groups)-1].Name, NumIdentical: numTrailingIdentical})
 					}()
 				}

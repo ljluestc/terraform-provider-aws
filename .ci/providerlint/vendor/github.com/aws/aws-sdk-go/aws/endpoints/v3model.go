@@ -45,7 +45,9 @@ var regionValidationRegex = regexp.MustCompile(`^[[:alnum:]]([[:alnum:]\-]*[[:al
 
 type partitions []partition
 
-func (ps partitions) EndpointFor(service, region string, opts ...func(*Options)) (ResolvedEndpoint, error) {
+
+ partitions) EndpointFor(service, region string, opts ...
+tions)) (ResolvedEndpoint, error) {
 	var opt Options
 	opt.Set(opts...)
 
@@ -73,7 +75,8 @@ func (ps partitions) EndpointFor(service, region string, opts ...func(*Options))
 // Partitions satisfies the EnumPartitions interface and returns a list
 // of Partitions representing each partition represented in the SDK's
 // endpoints model.
-func (ps partitions) Partitions() []Partition {
+
+ partitions) Partitions() []Partition {
 	parts := make([]Partition, 0, len(ps))
 	for i := 0; i < len(ps); i++ {
 		parts = append(parts, ps[i].Partition())
@@ -94,7 +97,8 @@ type endpointWithTags struct {
 
 type endpointDefaults map[defaultKey]endpoint
 
-func (p *endpointDefaults) UnmarshalJSON(data []byte) error {
+
+*endpointDefaults) UnmarshalJSON(data []byte) error {
 	if *p == nil {
 		*p = make(endpointDefaults)
 	}
@@ -125,7 +129,8 @@ func (p *endpointDefaults) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func parseVariantTags(tags []string) (ev endpointVariant, unknown bool) {
+
+seVariantTags(tags []string) (ev endpointVariant, unknown bool) {
 	if len(tags) == 0 {
 		unknown = true
 		return
@@ -154,7 +159,8 @@ type partition struct {
 	Services    services         `json:"services"`
 }
 
-func (p partition) Partition() Partition {
+
+partition) Partition() Partition {
 	return Partition{
 		dnsSuffix: p.DNSSuffix,
 		id:        p.ID,
@@ -162,7 +168,8 @@ func (p partition) Partition() Partition {
 	}
 }
 
-func (p partition) canResolveEndpoint(service, region string, options Options) bool {
+
+partition) canResolveEndpoint(service, region string, options Options) bool {
 	s, hasService := p.Services[service]
 	_, hasEndpoint := s.Endpoints[endpointKey{
 		Region:  region,
@@ -180,7 +187,8 @@ func (p partition) canResolveEndpoint(service, region string, options Options) b
 	return p.RegionRegex.MatchString(region)
 }
 
-func allowLegacyEmptyRegion(service string) bool {
+
+owLegacyEmptyRegion(service string) bool {
 	legacy := map[string]struct{}{
 		"budgets":       {},
 		"ce":            {},
@@ -200,7 +208,9 @@ func allowLegacyEmptyRegion(service string) bool {
 	return allowed
 }
 
-func (p partition) EndpointFor(service, region string, opts ...func(*Options)) (resolved ResolvedEndpoint, err error) {
+
+partition) EndpointFor(service, region string, opts ...
+tions)) (resolved ResolvedEndpoint, err error) {
 	var opt Options
 	opt.Set(opts...)
 
@@ -265,7 +275,8 @@ func (p partition) EndpointFor(service, region string, opts ...func(*Options)) (
 	return e.resolve(service, p.ID, region, dnsSuffixTemplateKey, dnsSuffix, defs, opt)
 }
 
-func getEC2MetadataEndpoint(partitionID, service string, mode EC2IMDSEndpointModeState) ResolvedEndpoint {
+
+EC2MetadataEndpoint(partitionID, service string, mode EC2IMDSEndpointModeState) ResolvedEndpoint {
 	switch mode {
 	case EC2IMDSEndpointModeStateIPv6:
 		return ResolvedEndpoint{
@@ -290,7 +301,8 @@ func getEC2MetadataEndpoint(partitionID, service string, mode EC2IMDSEndpointMod
 	}
 }
 
-func isLegacyGlobalRegion(service string, region string, opt Options) (string, bool) {
+
+egacyGlobalRegion(service string, region string, opt Options) (string, bool) {
 	if opt.getEndpointVariant(service) != 0 {
 		return "", false
 	}
@@ -315,14 +327,16 @@ func isLegacyGlobalRegion(service string, region string, opt Options) (string, b
 	return region, false
 }
 
-func serviceList(ss services) []string {
+
+viceList(ss services) []string {
 	list := make([]string, 0, len(ss))
 	for k := range ss {
 		list = append(list, k)
 	}
 	return list
 }
-func endpointList(es serviceEndpoints, variant endpointVariant) []string {
+
+pointList(es serviceEndpoints, variant endpointVariant) []string {
 	list := make([]string, 0, len(es))
 	for k := range es {
 		if k.Variant != variant {
@@ -337,7 +351,8 @@ type regionRegex struct {
 	*regexp.Regexp
 }
 
-func (rr *regionRegex) UnmarshalJSON(b []byte) (err error) {
+
+ *regionRegex) UnmarshalJSON(b []byte) (err error) {
 	// Strip leading and trailing quotes
 	regex, err := strconv.Unquote(string(b))
 	if err != nil {
@@ -366,7 +381,8 @@ type service struct {
 	Endpoints         serviceEndpoints `json:"endpoints"`
 }
 
-func (s *service) endpointForRegion(region string, endpoints serviceEndpoints, variant endpointVariant) (endpoint, bool) {
+
+*service) endpointForRegion(region string, endpoints serviceEndpoints, variant endpointVariant) (endpoint, bool) {
 	if e, ok := endpoints[endpointKey{Region: region, Variant: variant}]; ok {
 		return e, true
 	}
@@ -382,7 +398,8 @@ func (s *service) endpointForRegion(region string, endpoints serviceEndpoints, v
 
 type serviceEndpoints map[endpointKey]endpoint
 
-func (s *serviceEndpoints) UnmarshalJSON(data []byte) error {
+
+*serviceEndpoints) UnmarshalJSON(data []byte) error {
 	if *s == nil {
 		*s = make(serviceEndpoints)
 	}
@@ -433,7 +450,8 @@ type endpoint struct {
 }
 
 // isZero returns whether the endpoint structure is an empty (zero) value.
-func (e endpoint) isZero() bool {
+
+endpoint) isZero() bool {
 	switch {
 	case len(e.Hostname) != 0:
 		return false
@@ -459,7 +477,8 @@ var (
 	signerPriority   = []string{"v4", "v2"}
 )
 
-func getByPriority(s []string, p []string, def string) string {
+
+ByPriority(s []string, p []string, def string) string {
 	if len(s) == 0 {
 		return def
 	}
@@ -475,7 +494,8 @@ func getByPriority(s []string, p []string, def string) string {
 	return s[0]
 }
 
-func (e endpoint) resolve(service, partitionID, region, dnsSuffixTemplateVariable, dnsSuffix string, defs []endpoint, opts Options) (ResolvedEndpoint, error) {
+
+endpoint) resolve(service, partitionID, region, dnsSuffixTemplateVariable, dnsSuffix string, defs []endpoint, opts Options) (ResolvedEndpoint, error) {
 	var merged endpoint
 	for _, def := range defs {
 		merged.mergeIn(def)
@@ -526,7 +546,8 @@ func (e endpoint) resolve(service, partitionID, region, dnsSuffixTemplateVariabl
 	}, nil
 }
 
-func getEndpointScheme(protocols []string, disableSSL bool) string {
+
+EndpointScheme(protocols []string, disableSSL bool) string {
 	if disableSSL {
 		return "http"
 	}
@@ -534,7 +555,8 @@ func getEndpointScheme(protocols []string, disableSSL bool) string {
 	return getByPriority(protocols, protocolPriority, defaultProtocol)
 }
 
-func (e *endpoint) mergeIn(other endpoint) {
+
+*endpoint) mergeIn(other endpoint) {
 	if len(other.Hostname) > 0 {
 		e.Hostname = other.Hostname
 	}
@@ -568,7 +590,8 @@ type credentialScope struct {
 
 type boxedBool int
 
-func (b *boxedBool) UnmarshalJSON(buf []byte) error {
+
+*boxedBool) UnmarshalJSON(buf []byte) error {
 	v, err := strconv.ParseBool(string(buf))
 	if err != nil {
 		return err
@@ -589,6 +612,7 @@ const (
 	boxedTrue
 )
 
-func validateInputRegion(region string) bool {
+
+idateInputRegion(region string) bool {
 	return regionValidationRegex.MatchString(region)
 }

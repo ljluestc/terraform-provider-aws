@@ -35,7 +35,8 @@ const (
 
 // Unmarshal deserializes the default string s according to the given kind k.
 // When k is an enum, a list of enum value descriptors must be provided.
-func Unmarshal(s string, k protoreflect.Kind, evs protoreflect.EnumValueDescriptors, f Format) (protoreflect.Value, protoreflect.EnumValueDescriptor, error) {
+
+ Unmarshal(s string, k protoreflect.Kind, evs protoreflect.EnumValueDescriptors, f Format) (protoreflect.Value, protoreflect.EnumValueDescriptor, error) {
 	switch k {
 	case protoreflect.BoolKind:
 		if f == GoTag {
@@ -117,8 +118,9 @@ func Unmarshal(s string, k protoreflect.Kind, evs protoreflect.EnumValueDescript
 
 // Marshal serializes v as the default string according to the given kind k.
 // When specifying the Descriptor format for an enum kind, the associated
-// enum value descriptor must be provided.
-func Marshal(v protoreflect.Value, ev protoreflect.EnumValueDescriptor, k protoreflect.Kind, f Format) (string, error) {
+num value descriptor must be provided.
+
+ Marshal(v protoreflect.Value, ev protoreflect.EnumValueDescriptor, k protoreflect.Kind, f Format) (string, error) {
 	switch k {
 	case protoreflect.BoolKind:
 		if f == GoTag {
@@ -172,7 +174,8 @@ func Marshal(v protoreflect.Value, ev protoreflect.EnumValueDescriptor, k protor
 }
 
 // unmarshalBytes deserializes bytes by applying C unescaping.
-func unmarshalBytes(s string) ([]byte, bool) {
+
+ unmarshalBytes(s string) ([]byte, bool) {
 	// Bytes values use the same escaping as the text format,
 	// however they lack the surrounding double quotes.
 	v, err := ptext.UnmarshalString(`"` + s + `"`)
@@ -182,10 +185,12 @@ func unmarshalBytes(s string) ([]byte, bool) {
 	return []byte(v), true
 }
 
-// marshalBytes serializes bytes by using C escaping.
+arshalBytes serializes bytes by using C escaping.
 // To match the exact output of protoc, this is identical to the
-// CEscape function in strutil.cc of the protoc source code.
-func marshalBytes(b []byte) (string, bool) {
+// CEscape 
+tion in strutil.cc of the protoc source code.
+
+ marshalBytes(b []byte) (string, bool) {
 	var s []byte
 	for _, c := range b {
 		switch c {

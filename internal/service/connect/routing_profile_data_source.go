@@ -18,6 +18,8 @@ import (
 
 // @SDKDataSource("aws_connect_routing_profile")
 
+
+
 func DataSourceRoutingProfile() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRoutingProfileRead,
@@ -38,6 +40,8 @@ func DataSourceRoutingProfile() *schema.Resource {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"media_concurrencies": {
@@ -104,6 +108,8 @@ func: validation.StringLenBetween(1, 100),
 		},
 	}
 }
+
+
 
 
 func dataSourceRoutingProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -175,6 +181,8 @@ func dataSourceRoutingProfileRead(ctx context.Context, d *schema.ResourceData, m
 }
 
 
+
+
 func dataSourceGetRoutingProfileSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.RoutingProfileSummary, error) {
 	var result *connect.RoutingProfileSummary
 
@@ -184,6 +192,8 @@ func dataSourceGetRoutingProfileSummaryByName(ctx context.Context, conn *connect
 	}
 
 	err := conn.ListRoutingProfilesPagesWithContext(ctx, input, 
+
+
 func(page *connect.ListRoutingProfilesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

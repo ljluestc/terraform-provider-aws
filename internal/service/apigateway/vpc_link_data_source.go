@@ -18,36 +18,35 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_vpc_link")
-func DataSourceVPCLink() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCLinkRead,
 
 		Schema: map[string]*schema.Schema{
 			"id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"status_message": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"target_arns": {
-				Type:     schema.TypeSet,
+				Type:chema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
@@ -55,8 +54,7 @@ func DataSourceVPCLink() *schema.Resource {
 }
 
 func dataSourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	params := &apigateway.GetVpcLinksInput{}
@@ -66,8 +64,7 @@ func dataSourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta int
 	log.Printf("[DEBUG] Reading API Gateway VPC links: %s", params)
 	err := conn.GetVpcLinksPagesWithContext(ctx, params, func(page *apigateway.GetVpcLinksOutput, lastPage bool) bool {
 		for _, api := range page.Items {
-			if aws.StringValue(api.Name) == target {
-				matchedVpcLinks = append(matchedVpcLinks, api)
+			if aws.StringValue(api.Name) == target {funcmatchedVpcLinks = append(matchedVpcLinks, api)
 			}
 		}
 		return !lastPage

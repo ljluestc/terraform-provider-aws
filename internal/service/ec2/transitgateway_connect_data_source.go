@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_connect")
 
-func DataSourceTransitGatewayConnect() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayConnectRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,21 +28,21 @@ func DataSourceTransitGatewayConnect() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"protocol": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transit_gateway_connect_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transport_attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -51,8 +50,7 @@ func DataSourceTransitGatewayConnect() *schema.Resource {
 }
 
 func dataSourceTransitGatewayConnectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayConnectsInput{}
 

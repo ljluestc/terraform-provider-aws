@@ -29,10 +29,10 @@ func testAccDomainName_basic(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_basic(rName, appsyncCertDomain),
@@ -60,10 +60,10 @@ func testAccDomainName_description(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_description(rName, appsyncCertDomain, "description1"),
@@ -97,10 +97,10 @@ func testAccDomainName_disappears(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appsync.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckDomainNameDestroy(ctx),
+		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainNameConfig_basic(rName, appsyncCertDomain),

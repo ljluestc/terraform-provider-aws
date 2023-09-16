@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_vpc_peering_connection")
 
-func DataSourceVPCPeeringConnection() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCPeeringConnectionRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,22 +28,22 @@ func DataSourceVPCPeeringConnection() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accepter": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeBool},
+				Elem:hema{Type: schema.TypeBool},
 			},
 			"cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"cidr_block_set": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr_block": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
@@ -52,65 +51,65 @@ func DataSourceVPCPeeringConnection() *schema.Resource {
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"peer_cidr_block": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"peer_cidr_block_set": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr_block": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"peer_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"peer_region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"peer_vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"requester": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeBool},
+				Elem:hema{Type: schema.TypeBool},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -119,8 +118,7 @@ func DataSourceVPCPeeringConnection() *schema.Resource {
 }
 
 func dataSourceVPCPeeringConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeVpcPeeringConnectionsInput{}
@@ -132,11 +130,11 @@ func dataSourceVPCPeeringConnectionRead(ctx context.Context, d *schema.ResourceD
 	input.Filters = BuildAttributeFilterList(
 		map[string]string{
 			"status-code": d.Get("status").(string),
-			"requester-vpc-info.vpc-id":     d.Get("vpc_id").(string),
-			"requester-vpc-info.owner-id":   d.Get("owner_id").(string),
+			"requester-vpc-info.vpc-id":_id").(string),
+			"requester-vpc-info.owner-id":et("owner_id").(string),
 			"requester-vpc-info.cidr-block": d.Get("cidr_block").(string),
-			"accepter-vpc-info.vpc-id":      d.Get("peer_vpc_id").(string),
-			"accepter-vpc-info.owner-id":    d.Get("peer_owner_id").(string),
+			"accepter-vpc-info.vpc-id":er_vpc_id").(string),
+			"accepter-vpc-info.owner-id":Get("peer_owner_id").(string),
 			"accepter-vpc-info.cidr-block":  d.Get("peer_cidr_block").(string),
 		},
 	)

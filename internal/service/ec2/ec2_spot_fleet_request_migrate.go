@@ -10,8 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func SpotFleetRequestMigrateState(
-	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+funcnt, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
 	case 0:
 		log.Println("[INFO] Found AWS Spot Fleet Request State v0; migrating to v1")
@@ -22,8 +21,7 @@ func SpotFleetRequestMigrateState(
 }
 
 func migrateSpotFleetRequestV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
-	if is.Empty() {
-		log.Println("[DEBUG] Empty Spot Fleet Request State; nothing to migrate.")
+funcg.Println("[DEBUG] Empty Spot Fleet Request State; nothing to migrate.")
 		return is, nil
 	}
 

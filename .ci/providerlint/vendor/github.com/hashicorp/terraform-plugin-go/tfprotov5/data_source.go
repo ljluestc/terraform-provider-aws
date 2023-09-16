@@ -43,7 +43,8 @@ type ValidateDataSourceConfigRequest struct {
 	// attribute and nested block getting its own key and value.
 	//
 	// This configuration may contain unknown values if a user uses
-	// interpolation or other functionality that would prevent Terraform
+	// interpolation or other 
+ality that would prevent Terraform
 	// from knowing the value at request time.
 	Config *DynamicValue
 }

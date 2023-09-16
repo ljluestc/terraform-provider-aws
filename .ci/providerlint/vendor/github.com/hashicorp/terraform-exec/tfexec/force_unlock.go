@@ -19,12 +19,14 @@ type ForceUnlockOption interface {
 	configureForceUnlock(*forceUnlockConfig)
 }
 
-func (opt *DirOption) configureForceUnlock(conf *forceUnlockConfig) {
+
+ (opt *DirOption) configureForceUnlock(conf *forceUnlockConfig) {
 	conf.dir = opt.path
 }
 
-// ForceUnlock represents the `terraform force-unlock` command
-func (tf *Terraform) ForceUnlock(ctx context.Context, lockID string, opts ...ForceUnlockOption) error {
+orceUnlock represents the `terraform force-unlock` command
+
+ (tf *Terraform) ForceUnlock(ctx context.Context, lockID string, opts ...ForceUnlockOption) error {
 	unlockCmd, err := tf.forceUnlockCmd(ctx, lockID, opts...)
 	if err != nil {
 		return err
@@ -35,9 +37,10 @@ func (tf *Terraform) ForceUnlock(ctx context.Context, lockID string, opts ...For
 	}
 
 	return nil
-}
 
-func (tf *Terraform) forceUnlockCmd(ctx context.Context, lockID string, opts ...ForceUnlockOption) (*exec.Cmd, error) {
+
+
+ (tf *Terraform) forceUnlockCmd(ctx context.Context, lockID string, opts ...ForceUnlockOption) (*exec.Cmd, error) {
 	c := defaultForceUnlockOptions
 
 	for _, o := range opts {

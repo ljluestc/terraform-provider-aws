@@ -469,8 +469,8 @@ func resourceResponseHeadersPolicyUpdate(ctx context.Context, d *schema.Resource
 	}
 
 	input := &cloudfront.UpdateResponseHeadersPolicyInput{
-		Id:                          aws.String(d.Id()),
-		IfMatch:                     aws.String(d.Get("etag").(string)),
+		Id:
+		IfMatch:tring(d.Get("etag").(string)),
 		ResponseHeadersPolicyConfig: apiObject,
 	}
 

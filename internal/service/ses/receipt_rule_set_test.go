@@ -25,10 +25,10 @@ func TestAccSESReceiptRuleSet_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleSetDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleSetConfig_basic(rName),
@@ -53,10 +53,10 @@ func TestAccSESReceiptRuleSet_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleSetDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleSetConfig_basic(rName),

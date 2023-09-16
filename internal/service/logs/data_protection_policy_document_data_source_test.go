@@ -20,10 +20,10 @@ func TestAccLogsDataProtectionPolicyDocumentDataSource_basic(t *testing.T) {
 	targetName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Logs),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.Logs),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataProtectionPolicyDocumentDataSourceConfig_basic(logGroupName, targetName),
@@ -42,10 +42,10 @@ func TestAccLogsDataProtectionPolicyDocumentDataSource_empty(t *testing.T) {
 	logGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Logs),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.Logs),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataProtectionPolicyDocumentDataSourceConfig_empty(logGroupName),
@@ -62,10 +62,10 @@ func TestAccLogsDataProtectionPolicyDocumentDataSource_empty(t *testing.T) {
 func TestAccLogsDataProtectionPolicyDocumentDataSource_errorOnBadOrderOfStatements(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Logs),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.Logs),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDataProtectionPolicyDocumentDataSourceConfig_errorOnBadOrderOfStatements,
@@ -78,10 +78,10 @@ func TestAccLogsDataProtectionPolicyDocumentDataSource_errorOnBadOrderOfStatemen
 func TestAccLogsDataProtectionPolicyDocumentDataSource_errorOnNoOperation(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Logs),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.Logs),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDataProtectionPolicyDocumentDataSourceConfig_errorOnNoOperation,
@@ -252,13 +252,13 @@ func testAccDataProtectionPolicyDocumentDataSourceConfig_basic_expectedJSON(name
  "Audit": {
      "FindingsDestination": {
          "CloudWatchLogs": {
-             "LogGroup": %[1]q
+"LogGroup": %[1]q
          },
          "Firehose": {
-             "DeliveryStream": %[1]q
+"DeliveryStream": %[1]q
          },
          "S3": {
-             "Bucket": %[1]q
+"Bucket": %[1]q
          }
      }
  }

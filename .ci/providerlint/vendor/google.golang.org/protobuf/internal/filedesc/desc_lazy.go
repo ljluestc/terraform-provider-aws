@@ -16,14 +16,16 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func (fd *File) lazyRawInit() {
+
+ (fd *File) lazyRawInit() {
 	fd.unmarshalFull(fd.builder.RawDescriptor)
 	fd.resolveMessages()
 	fd.resolveExtensions()
 	fd.resolveServices()
 }
 
-func (file *File) resolveMessages() {
+
+ (file *File) resolveMessages() {
 	var depIdx int32
 	for i := range file.allMessages {
 		md := &file.allMessages[i]
@@ -53,9 +55,10 @@ func (file *File) resolveMessages() {
 			}
 		}
 	}
-}
 
-func (file *File) resolveExtensions() {
+
+
+ (file *File) resolveExtensions() {
 	var depIdx int32
 	for i := range file.allExtensions {
 		xd := &file.allExtensions[i]
@@ -74,10 +77,11 @@ func (file *File) resolveExtensions() {
 		if v := xd.L2.Default.val; v.IsValid() {
 			xd.L2.Default = unmarshalDefault(v.Bytes(), xd.L1.Kind, file, xd.L2.Enum)
 		}
-	}
+
 }
 
-func (file *File) resolveServices() {
+
+ (file *File) resolveServices() {
 	var depIdx int32
 	for i := range file.allServices {
 		sd := &file.allServices[i]
@@ -88,11 +92,12 @@ func (file *File) resolveServices() {
 			md.L1.Input = file.resolveMessageDependency(md.L1.Input, listMethInDeps, depIdx)
 			md.L1.Output = file.resolveMessageDependency(md.L1.Output, listMethOutDeps, depIdx)
 			depIdx++
-		}
+
 	}
 }
 
-func (file *File) resolveEnumDependency(ed protoreflect.EnumDescriptor, i, j int32) protoreflect.EnumDescriptor {
+
+ (file *File) resolveEnumDependency(ed protoreflect.EnumDescriptor, i, j int32) protoreflect.EnumDescriptor {
 	r := file.builder.FileRegistry
 	if r, ok := r.(resolverByIndex); ok {
 		if ed2 := r.FindEnumByIndex(i, j, file.allEnums, file.allMessages); ed2 != nil {
@@ -105,12 +110,13 @@ func (file *File) resolveEnumDependency(ed protoreflect.EnumDescriptor, i, j int
 		}
 	}
 	if d, _ := r.FindDescriptorByName(ed.FullName()); d != nil {
-		return d.(protoreflect.EnumDescriptor)
+turn d.(protoreflect.EnumDescriptor)
 	}
 	return ed
 }
 
-func (file *File) resolveMessageDependency(md protoreflect.MessageDescriptor, i, j int32) protoreflect.MessageDescriptor {
+
+ (file *File) resolveMessageDependency(md protoreflect.MessageDescriptor, i, j int32) protoreflect.MessageDescriptor {
 	r := file.builder.FileRegistry
 	if r, ok := r.(resolverByIndex); ok {
 		if md2 := r.FindMessageByIndex(i, j, file.allEnums, file.allMessages); md2 != nil {
@@ -122,13 +128,14 @@ func (file *File) resolveMessageDependency(md protoreflect.MessageDescriptor, i,
 			return md2
 		}
 	}
-	if d, _ := r.FindDescriptorByName(md.FullName()); d != nil {
+d, _ := r.FindDescriptorByName(md.FullName()); d != nil {
 		return d.(protoreflect.MessageDescriptor)
 	}
 	return md
 }
 
-func (fd *File) unmarshalFull(b []byte) {
+
+ (fd *File) unmarshalFull(b []byte) {
 	sb := getBuilder()
 	defer putBuilder(sb)
 
@@ -175,14 +182,15 @@ func (fd *File) unmarshalFull(b []byte) {
 				rawOptions = appendOptions(rawOptions, v)
 			}
 		default:
-			m := protowire.ConsumeFieldValue(num, typ, b)
+ := protowire.ConsumeFieldValue(num, typ, b)
 			b = b[m:]
 		}
 	}
 	fd.L2.Options = fd.builder.optionsUnmarshaler(&descopts.File, rawOptions)
 }
 
-func (ed *Enum) unmarshalFull(b []byte, sb *strs.Builder) {
+
+ (ed *Enum) unmarshalFull(b []byte, sb *strs.Builder) {
 	var rawValues [][]byte
 	var rawOptions []byte
 	if !ed.L1.eagerValues {
@@ -211,7 +219,7 @@ func (ed *Enum) unmarshalFull(b []byte, sb *strs.Builder) {
 		}
 	}
 	if !ed.L1.eagerValues && len(rawValues) > 0 {
-		ed.L2.Values.List = make([]EnumValue, len(rawValues))
+.L2.Values.List = make([]EnumValue, len(rawValues))
 		for i, b := range rawValues {
 			ed.L2.Values.List[i].unmarshalFull(b, sb, ed.L0.ParentFile, ed, i)
 		}
@@ -219,7 +227,8 @@ func (ed *Enum) unmarshalFull(b []byte, sb *strs.Builder) {
 	ed.L2.Options = ed.L0.ParentFile.builder.optionsUnmarshaler(&descopts.Enum, rawOptions)
 }
 
-func unmarshalEnumReservedRange(b []byte) (r [2]protoreflect.EnumNumber) {
+
+ unmarshalEnumReservedRange(b []byte) (r [2]protoreflect.EnumNumber) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -232,7 +241,7 @@ func unmarshalEnumReservedRange(b []byte) (r [2]protoreflect.EnumNumber) {
 				r[0] = protoreflect.EnumNumber(v)
 			case genid.EnumDescriptorProto_EnumReservedRange_End_field_number:
 				r[1] = protoreflect.EnumNumber(v)
-			}
+
 		default:
 			m := protowire.ConsumeFieldValue(num, typ, b)
 			b = b[m:]
@@ -241,7 +250,8 @@ func unmarshalEnumReservedRange(b []byte) (r [2]protoreflect.EnumNumber) {
 	return r
 }
 
-func (vd *EnumValue) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (vd *EnumValue) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	vd.L0.ParentFile = pf
 	vd.L0.Parent = pd
 	vd.L0.Index = i
@@ -266,7 +276,7 @@ func (vd *EnumValue) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd prot
 				// NOTE: Enum values are in the same scope as the enum parent.
 				vd.L0.FullName = appendFullName(sb, pd.Parent().FullName(), v)
 			case genid.EnumValueDescriptorProto_Options_field_number:
-				rawOptions = appendOptions(rawOptions, v)
+rawOptions = appendOptions(rawOptions, v)
 			}
 		default:
 			m := protowire.ConsumeFieldValue(num, typ, b)
@@ -276,7 +286,8 @@ func (vd *EnumValue) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd prot
 	vd.L1.Options = pf.builder.optionsUnmarshaler(&descopts.EnumValue, rawOptions)
 }
 
-func (md *Message) unmarshalFull(b []byte, sb *strs.Builder) {
+
+ (md *Message) unmarshalFull(b []byte, sb *strs.Builder) {
 	var rawFields, rawOneofs [][]byte
 	var enumIdx, messageIdx, extensionIdx int
 	var rawOptions []byte
@@ -327,7 +338,7 @@ func (md *Message) unmarshalFull(b []byte, sb *strs.Builder) {
 			fd := &md.L2.Fields.List[i]
 			fd.unmarshalFull(b, sb, md.L0.ParentFile, md, i)
 			if fd.L1.Cardinality == protoreflect.Required {
-				md.L2.RequiredNumbers.List = append(md.L2.RequiredNumbers.List, fd.L1.Number)
+md.L2.RequiredNumbers.List = append(md.L2.RequiredNumbers.List, fd.L1.Number)
 			}
 		}
 		for i, b := range rawOneofs {
@@ -338,7 +349,8 @@ func (md *Message) unmarshalFull(b []byte, sb *strs.Builder) {
 	md.L2.Options = md.L0.ParentFile.builder.optionsUnmarshaler(&descopts.Message, rawOptions)
 }
 
-func (md *Message) unmarshalOptions(b []byte) {
+
+ (md *Message) unmarshalOptions(b []byte) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -347,7 +359,7 @@ func (md *Message) unmarshalOptions(b []byte) {
 			v, m := protowire.ConsumeVarint(b)
 			b = b[m:]
 			switch num {
-			case genid.MessageOptions_MapEntry_field_number:
+ase genid.MessageOptions_MapEntry_field_number:
 				md.L1.IsMapEntry = protowire.DecodeBool(v)
 			case genid.MessageOptions_MessageSetWireFormat_field_number:
 				md.L1.IsMessageSet = protowire.DecodeBool(v)
@@ -359,7 +371,8 @@ func (md *Message) unmarshalOptions(b []byte) {
 	}
 }
 
-func unmarshalMessageReservedRange(b []byte) (r [2]protoreflect.FieldNumber) {
+
+ unmarshalMessageReservedRange(b []byte) (r [2]protoreflect.FieldNumber) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -368,7 +381,7 @@ func unmarshalMessageReservedRange(b []byte) (r [2]protoreflect.FieldNumber) {
 			v, m := protowire.ConsumeVarint(b)
 			b = b[m:]
 			switch num {
-			case genid.DescriptorProto_ReservedRange_Start_field_number:
+ase genid.DescriptorProto_ReservedRange_Start_field_number:
 				r[0] = protoreflect.FieldNumber(v)
 			case genid.DescriptorProto_ReservedRange_End_field_number:
 				r[1] = protoreflect.FieldNumber(v)
@@ -381,7 +394,8 @@ func unmarshalMessageReservedRange(b []byte) (r [2]protoreflect.FieldNumber) {
 	return r
 }
 
-func unmarshalMessageExtensionRange(b []byte) (r [2]protoreflect.FieldNumber, rawOptions []byte) {
+
+ unmarshalMessageExtensionRange(b []byte) (r [2]protoreflect.FieldNumber, rawOptions []byte) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -396,7 +410,7 @@ func unmarshalMessageExtensionRange(b []byte) (r [2]protoreflect.FieldNumber, ra
 				r[1] = protoreflect.FieldNumber(v)
 			}
 		case protowire.BytesType:
-			v, m := protowire.ConsumeBytes(b)
+, m := protowire.ConsumeBytes(b)
 			b = b[m:]
 			switch num {
 			case genid.DescriptorProto_ExtensionRange_Options_field_number:
@@ -410,7 +424,8 @@ func unmarshalMessageExtensionRange(b []byte) (r [2]protoreflect.FieldNumber, ra
 	return r, rawOptions
 }
 
-func (fd *Field) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (fd *Field) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	fd.L0.ParentFile = pf
 	fd.L0.Parent = pd
 	fd.L0.Index = i
@@ -462,7 +477,7 @@ func (fd *Field) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoref
 			}
 		default:
 			m := protowire.ConsumeFieldValue(num, typ, b)
-			b = b[m:]
+ = b[m:]
 		}
 	}
 	if rawTypeName != nil {
@@ -477,7 +492,8 @@ func (fd *Field) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoref
 	fd.L1.Options = pf.builder.optionsUnmarshaler(&descopts.Field, rawOptions)
 }
 
-func (fd *Field) unmarshalOptions(b []byte) {
+
+ (fd *Field) unmarshalOptions(b []byte) {
 	const FieldOptions_EnforceUTF8 = 13
 
 	for len(b) > 0 {
@@ -488,7 +504,7 @@ func (fd *Field) unmarshalOptions(b []byte) {
 			v, m := protowire.ConsumeVarint(b)
 			b = b[m:]
 			switch num {
-			case genid.FieldOptions_Packed_field_number:
+ase genid.FieldOptions_Packed_field_number:
 				fd.L1.HasPacked = true
 				fd.L1.IsPacked = protowire.DecodeBool(v)
 			case genid.FieldOptions_Weak_field_number:
@@ -504,7 +520,8 @@ func (fd *Field) unmarshalOptions(b []byte) {
 	}
 }
 
-func (od *Oneof) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (od *Oneof) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	od.L0.ParentFile = pf
 	od.L0.Parent = pd
 	od.L0.Index = i
@@ -514,7 +531,7 @@ func (od *Oneof) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoref
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
 		switch typ {
-		case protowire.BytesType:
+se protowire.BytesType:
 			v, m := protowire.ConsumeBytes(b)
 			b = b[m:]
 			switch num {
@@ -531,7 +548,8 @@ func (od *Oneof) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoref
 	od.L1.Options = pf.builder.optionsUnmarshaler(&descopts.Oneof, rawOptions)
 }
 
-func (xd *Extension) unmarshalFull(b []byte, sb *strs.Builder) {
+
+ (xd *Extension) unmarshalFull(b []byte, sb *strs.Builder) {
 	var rawTypeName []byte
 	var rawOptions []byte
 	xd.L2 = new(ExtensionL2)
@@ -559,7 +577,7 @@ func (xd *Extension) unmarshalFull(b []byte, sb *strs.Builder) {
 			case genid.FieldDescriptorProto_Options_field_number:
 				xd.unmarshalOptions(v)
 				rawOptions = appendOptions(rawOptions, v)
-			}
+
 		default:
 			m := protowire.ConsumeFieldValue(num, typ, b)
 			b = b[m:]
@@ -577,7 +595,8 @@ func (xd *Extension) unmarshalFull(b []byte, sb *strs.Builder) {
 	xd.L2.Options = xd.L0.ParentFile.builder.optionsUnmarshaler(&descopts.Field, rawOptions)
 }
 
-func (xd *Extension) unmarshalOptions(b []byte) {
+
+ *Extension) unmarshalOptions(b []byte) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]
@@ -596,7 +615,8 @@ func (xd *Extension) unmarshalOptions(b []byte) {
 	}
 }
 
-func (sd *Service) unmarshalFull(b []byte, sb *strs.Builder) {
+
+ (sd *Service) unmarshalFull(b []byte, sb *strs.Builder) {
 	var rawMethods [][]byte
 	var rawOptions []byte
 	sd.L2 = new(ServiceL2)
@@ -607,7 +627,7 @@ func (sd *Service) unmarshalFull(b []byte, sb *strs.Builder) {
 		case protowire.BytesType:
 			v, m := protowire.ConsumeBytes(b)
 			b = b[m:]
-			switch num {
+witch num {
 			case genid.ServiceDescriptorProto_Method_field_number:
 				rawMethods = append(rawMethods, v)
 			case genid.ServiceDescriptorProto_Options_field_number:
@@ -627,7 +647,8 @@ func (sd *Service) unmarshalFull(b []byte, sb *strs.Builder) {
 	sd.L2.Options = sd.L0.ParentFile.builder.optionsUnmarshaler(&descopts.Service, rawOptions)
 }
 
-func (md *Method) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
+
+ (md *Method) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protoreflect.Descriptor, i int) {
 	md.L0.ParentFile = pf
 	md.L0.Parent = pd
 	md.L0.Index = i
@@ -648,18 +669,18 @@ func (md *Method) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protore
 			}
 		case protowire.BytesType:
 			v, m := protowire.ConsumeBytes(b)
-			b = b[m:]
+ = b[m:]
 			switch num {
 			case genid.MethodDescriptorProto_Name_field_number:
 				md.L0.FullName = appendFullName(sb, pd.FullName(), v)
 			case genid.MethodDescriptorProto_InputType_field_number:
 				md.L1.Input = PlaceholderMessage(makeFullName(sb, v))
 			case genid.MethodDescriptorProto_OutputType_field_number:
-				md.L1.Output = PlaceholderMessage(makeFullName(sb, v))
+				md.L1.Output = PlaceholderMessage(makeFullName v))
 			case genid.MethodDescriptorProto_Options_field_number:
 				rawOptions = appendOptions(rawOptions, v)
 			}
-		default:
+fault:
 			m := protowire.ConsumeFieldValue(num, typ, b)
 			b = b[m:]
 		}
@@ -669,25 +690,32 @@ func (md *Method) unmarshalFull(b []byte, sb *strs.Builder, pf *File, pd protore
 
 // appendOptions appends src to dst, where the returned slice is never nil.
 // This is necessary to distinguish between empty and unpopulated options.
-func appendOptions(dst, src []byte) []byte {
+
+ appendOptions(dst, src []byte) []byte {
 	if dst == nil {
 		dst = []byte{}
 	}
 	return append(dst, src...)
 }
 
-// optionsUnmarshaler constructs a lazy unmarshal function for an options message.
+// optionsUnmarshaler constructs a lazy unmarshal 
+tion for an options message.
 //
 // The type of message to unmarshal to is passed as a pointer since the
-// vars in descopts may not yet be populated at the time this function is called.
-func (db *Builder) optionsUnmarshaler(p *protoreflect.ProtoMessage, b []byte) func() protoreflect.ProtoMessage {
+// vars in descopts may not yet be populated at the time this 
+tion is called.
+
+ (db *Builder) optionsUnmarshaler(p *protoreflect.ProtoMessage, b []byte) 
+() protoreflect.ProtoMessage {
 	if b == nil {
 		return nil
 	}
 	var opts protoreflect.ProtoMessage
 	var once sync.Once
-	return func() protoreflect.ProtoMessage {
-		once.Do(func() {
+	return 
+() protoreflect.ProtoMessage {
+		once.Do(
+() {
 			if *p == nil {
 				panic("Descriptor.Options called without importing the descriptor package")
 			}

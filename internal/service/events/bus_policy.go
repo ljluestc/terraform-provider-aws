@@ -45,8 +45,8 @@ func ResourceBusPolicy() *schema.Resource {
 				Default:      DefaultEventBusName,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:     schema.TypeString,
+				Required: true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,

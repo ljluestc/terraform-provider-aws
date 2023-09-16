@@ -48,8 +48,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -107,8 +107,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -266,7 +266,7 @@ resource "aws_subnet" "test" {
 
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+  cidr_blockubnet(aws_vpc.test.cidr_block, 8, count.index)
 
   tags = {
     Name = %[1]q
@@ -369,7 +369,7 @@ func testAccEndpointConfig_outbound(rName, name string) string {
 	return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "OUTBOUND"
-  name      = %[1]q
+  name
 
   security_group_ids = aws_security_group.test[*].id
 
@@ -379,7 +379,7 @@ resource "aws_route53_resolver_endpoint" "test" {
 
   ip_address {
     subnet_id = aws_subnet.test[1].id
-    ip        = cidrhost(aws_subnet.test[1].cidr_block, 8)
+    ipost(aws_subnet.test[1].cidr_block, 8)
   }
 }
 `, name))
@@ -390,7 +390,7 @@ func testAccEndpointConfig_updatedOutbound(rName, name string) string {
 	return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "OUTBOUND"
-  name      = %[1]q
+  name
 
   security_group_ids = aws_security_group.test[*].id
 

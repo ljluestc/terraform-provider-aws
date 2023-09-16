@@ -24,10 +24,9 @@ import (
 // @SDKResource("aws_egress_only_internet_gateway", name="Egress-only Internet Gateway")
 // @Tags(identifierAttribute="id")
 
-func ResourceEgressOnlyInternetGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEgressOnlyInternetGatewayCreate,
-		ReadWithoutTimeout:   resourceEgressOnlyInternetGatewayRead,
+		ReadWithoutTimeout:ourceEgressOnlyInternetGatewayRead,
 		UpdateWithoutTimeout: resourceEgressOnlyInternetGatewayUpdate,
 		DeleteWithoutTimeout: resourceEgressOnlyInternetGatewayDelete,
 
@@ -38,10 +37,10 @@ func ResourceEgressOnlyInternetGateway() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 
 		Schema: map[string]*schema.Schema{
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -50,13 +49,12 @@ func ResourceEgressOnlyInternetGateway() *schema.Resource {
 }
 
 func resourceEgressOnlyInternetGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateEgressOnlyInternetGatewayInput{
-		ClientToken:       aws.String(id.UniqueId()),
+		ClientToken:ng(id.UniqueId()),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeEgressOnlyInternetGateway),
-		VpcId:    aws.String(d.Get("vpc_id").(string)),
+		VpcId:s.String(d.Get("vpc_id").(string)),
 	}
 
 	output, err := conn.CreateEgressOnlyInternetGatewayWithContext(ctx, input)
@@ -72,14 +70,12 @@ func resourceEgressOnlyInternetGatewayCreate(ctx context.Context, d *schema.Reso
 
 func resourceEgressOnlyInternetGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
 		func() (interface{}, error) {
 			return FindEgressOnlyInternetGatewayByID(ctx, conn, d.Id())
 		}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+func!d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Egress-only Internet Gateway %s not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
@@ -106,8 +102,7 @@ func resourceEgressOnlyInternetGatewayUpdate(ctx context.Context, d *schema.Reso
 	var diags diag.Diagnostics
 
 	// Tags only.
-
-	return append(diags, resourceEgressOnlyInternetGatewayRead(ctx, d, meta)...)
+funcurn append(diags, resourceEgressOnlyInternetGatewayRead(ctx, d, meta)...)
 }
 
 func resourceEgressOnlyInternetGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -115,8 +110,7 @@ func resourceEgressOnlyInternetGatewayDelete(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[INFO] Deleting EC2 Egress-only Internet Gateway: %s", d.Id())
-	_, err := conn.DeleteEgressOnlyInternetGatewayWithContext(ctx, &ec2.DeleteEgressOnlyInternetGatewayInput{
-		EgressOnlyInternetGatewayId: aws.String(d.Id()),
+funcressOnlyInternetGatewayId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidGatewayIDNotFound) {

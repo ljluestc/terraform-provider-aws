@@ -9,4 +9,5 @@ package impl
 
 import "reflect"
 
-func mapRange(v reflect.Value) *reflect.MapIter { return v.MapRange() }
+
+Range(v reflect.Value) *reflect.MapIter { return v.MapRange() }

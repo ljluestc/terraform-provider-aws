@@ -11,6 +11,7 @@ var unknownVal = unknownType{}
 // the most compact possible representation.
 var unknownValBytes = []byte{0xd4, 0, 0}
 
-func (uv unknownType) MarshalMsgpack() ([]byte, error) {
+
+ unknownType) MarshalMsgpack() ([]byte, error) {
 	return unknownValBytes, nil
 }

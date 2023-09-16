@@ -13,6 +13,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
+
 func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -23,7 +25,9 @@ func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
 	datasourceName := "data.aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:  
+
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -66,6 +70,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	})
 }
 
+
+
 func testAccRoutingProfileDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -76,7 +82,9 @@ func testAccRoutingProfileDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:  
+
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -118,6 +126,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
+
+
 
 func testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4 string) string {
 	return fmt.Sprintf(`
@@ -184,6 +194,8 @@ resource "aws_connect_routing_profile" "test" {
 `, rName, rName2, rName3, rName4)
 }
 
+
+
 func testAccRoutingProfileDataSourceConfig_id(rName, rName2, rName3, rName4 string) string {
 	return acctest.ConfigCompose(
 testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4),
@@ -194,6 +206,8 @@ data "aws_connect_routing_profile" "test" {
 }
 `)
 }
+
+
 
 func testAccRoutingProfileDataSourceConfig_name(rName, rName2, rName3, rName4 string) string {
 	return acctest.ConfigCompose(

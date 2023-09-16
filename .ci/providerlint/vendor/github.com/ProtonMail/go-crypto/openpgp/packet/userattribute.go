@@ -24,7 +24,8 @@ type UserAttribute struct {
 
 // NewUserAttributePhoto creates a user attribute packet
 // containing the given images.
-func NewUserAttributePhoto(photos ...image.Image) (uat *UserAttribute, err error) {
+
+UserAttributePhoto(photos ...image.Image) (uat *UserAttribute, err error) {
 	uat = new(UserAttribute)
 	for _, photo := range photos {
 		var buf bytes.Buffer
@@ -57,11 +58,13 @@ func NewUserAttributePhoto(photos ...image.Image) (uat *UserAttribute, err error
 }
 
 // NewUserAttribute creates a new user attribute packet containing the given subpackets.
-func NewUserAttribute(contents ...*OpaqueSubpacket) *UserAttribute {
+
+UserAttribute(contents ...*OpaqueSubpacket) *UserAttribute {
 	return &UserAttribute{Contents: contents}
 }
 
-func (uat *UserAttribute) parse(r io.Reader) (err error) {
+
+t *UserAttribute) parse(r io.Reader) (err error) {
 	// RFC 4880, section 5.13
 	b, err := ioutil.ReadAll(r)
 	if err != nil {
@@ -73,7 +76,8 @@ func (uat *UserAttribute) parse(r io.Reader) (err error) {
 
 // Serialize marshals the user attribute to w in the form of an OpenPGP packet, including
 // header.
-func (uat *UserAttribute) Serialize(w io.Writer) (err error) {
+
+t *UserAttribute) Serialize(w io.Writer) (err error) {
 	var buf bytes.Buffer
 	for _, sp := range uat.Contents {
 		err = sp.Serialize(&buf)
@@ -91,7 +95,8 @@ func (uat *UserAttribute) Serialize(w io.Writer) (err error) {
 // ImageData returns zero or more byte slices, each containing
 // JPEG File Interchange Format (JFIF), for each photo in the
 // user attribute packet.
-func (uat *UserAttribute) ImageData() (imageData [][]byte) {
+
+t *UserAttribute) ImageData() (imageData [][]byte) {
 	for _, sp := range uat.Contents {
 		if sp.SubType == UserAttrImageSubpacket && len(sp.Contents) > 16 {
 			imageData = append(imageData, sp.Contents[16:])

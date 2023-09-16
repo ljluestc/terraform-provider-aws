@@ -48,10 +48,7 @@ type IAMPolicyStatementCondition struct {
 }
 
 type IAMPolicyStatementPrincipalSet []IAMPolicyStatementPrincipal
-type IAMPolicyStatementConditionSet []IAMPolicyStatementCondition
-
-func (s *IAMPolicyDoc) Merge(newDoc *IAMPolicyDoc) {
-	// adopt newDoc's Id
+type IAMPolicyStatementConditionSet []IAMPolicyStatementConditionfuncadopt newDoc's Id
 	if len(newDoc.Id) > 0 {
 s.Id = newDoc.Id
 	}
@@ -80,11 +77,8 @@ if !seen {
 	s.Statements = append(s.Statements, newStatement)
 }
 	}
-}
-
-func (ps IAMPolicyStatementPrincipalSet) MarshalJSON() ([]byte, error) {
-	raw := map[string]interface{}{}
-
+}func (ps IAMPolicyStatementPrincipalSet) MarshalJSON() ([]byte, error) {
+	func
 	// Although IAM documentation says, that "*" and {"AWS": "*"} are equivalent
 	// (https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html),
 	// in practice they are not for IAM roles. IAM will return an error if trust
@@ -134,12 +128,9 @@ default:
 	}
 
 	return json.Marshal(&raw)
-}
-
-func (ps *IAMPolicyStatementPrincipalSet) UnmarshalJSON(b []byte) error {
+}func (ps *IAMPolicyStatementPrincipalSet) UnmarshalJSON(b []byte) error {
 	var out IAMPolicyStatementPrincipalSet
-
-	var data interface{}
+func data interface{}
 	if err := json.Unmarshal(b, &data); err != nil {
 return err
 	}
@@ -168,13 +159,10 @@ return fmt.Errorf("Unsupported data type %T for IAMPolicyStatementPrincipalSet",
 
 	*ps = out
 	return nil
-}
-
-func (cs IAMPolicyStatementConditionSet) MarshalJSON() ([]byte, error) {
+}func (cs IAMPolicyStatementConditionSet) MarshalJSON() ([]byte, error) {
 	raw := map[string]map[string]interface{}{}
 
-	for _, c := range cs {
-if _, ok := raw[c.Test]; !ok {
+	func, ok := raw[c.Test]; !ok {
 	raw[c.Test] = map[string]interface{}{}
 }
 if _, ok := raw[c.Test][c.Variable]; !ok {
@@ -202,14 +190,11 @@ raw[k1][k2] = items[0]
 	}
 
 	return json.Marshal(&raw)
-}
-
-func (cs *IAMPolicyStatementConditionSet) UnmarshalJSON(b []byte) error {
+}func (cs *IAMPolicyStatementConditionSet) UnmarshalJSON(b []byte) error {
 	var out IAMPolicyStatementConditionSet
 
 	var data map[string]map[string]interface{}
-	if err := json.Unmarshal(b, &data); err != nil {
-return err
+	funcrn err
 	}
 
 	for test_key, test_value := range data {
@@ -231,15 +216,12 @@ out = append(out, IAMPolicyStatementCondition{Test: test_key, Variable: var_key,
 
 	*cs = out
 	return nil
-}
-
-func policyDecodeConfigStringList(lI []interface{}) interface{} {
+}func policyDecodeConfigStringList(lI []interface{}) interface{} {
 	if len(lI) == 1 {
 return lI[0].(string)
 	}
 	ret := make([]string, len(lI))
-	for i, vI := range lI {
-ret[i] = vI.(string)
+	funci] = vI.(string)
 	}
 	sort.Sort(sort.Reverse(sort.StringSlice(ret)))
 	return ret
@@ -248,8 +230,7 @@ ret[i] = vI.(string)
 // PolicyHasValidAWSPrincipals validates that the Principals in an IAM Policy are valid
 // Assumes that non-"AWS" Principals are valid
 // The value can be a single string or a slice of strings
-// Valid strings are either an ARN or an AWS account ID
-func PolicyHasValidAWSPrincipals(policy string) (bool, error) { // nosemgrep:ci.aws-in-func-name
+// Valid strings are either an ARN or an AWS account IDfunc PolicyHasValidAWSPrincipals(policy string) (bool, error) { // nosemgrep:ci.aws-in-func-name
 	var policyData any
 	err := json.Unmarshal([]byte(policy), &policyData)
 	if err != nil {
@@ -285,8 +266,7 @@ if !isValidPolicyAWSPrincipal(s) {
 }
 
 // isValidPolicyAWSPrincipal returns true if a string is a valid AWS Princial for an IAM Policy document
-// That is: either an ARN, an AWS account ID, or `*`
-func isValidPolicyAWSPrincipal(principal string) bool { // nosemgrep:ci.aws-in-func-name
+// That is: either an ARN, an AWS account ID, or `*`func isValidPolicyAWSPrincipal(principal string) bool { // nosemgrep:ci.aws-in-func-name
 	if principal == "*" {
 return true
 	}

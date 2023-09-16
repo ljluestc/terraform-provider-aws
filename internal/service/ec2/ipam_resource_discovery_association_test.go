@@ -19,8 +19,7 @@ import (
 )
 
 
-func testAccIPAMResourceDiscoveryAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var rda ec2.IpamResourceDiscoveryAssociation
 	resourceName := "aws_vpc_ipam_resource_discovery_association.test"
 	ipamName := "aws_vpc_ipam.test"
@@ -29,25 +28,23 @@ func testAccIPAMResourceDiscoveryAssociation_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMResourceDiscoveryAssociationConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMResourceDiscoveryAssociationExists(ctx, resourceName, &rda),
-	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "ec2", regexache.MustCompile(`ipam-resource-discovery-association/ipam-res-disco-assoc-[0-9a-f]+$`)),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_id", ipamName, "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipam_id", ipamName, "id"),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_resource_discovery_id", rdName, "id"),
 	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -58,16 +55,14 @@ ImportStateVerify: true,
 func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rda ec2.IpamResourceDiscoveryAssociation
-	resourceName := "aws_vpc_ipam_resource_discovery_association.test"
-
+func
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
+func
 Config: testAccIPAMResourceDiscoveryAssociationConfig_tags("key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
@@ -75,10 +70,9 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+func
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -90,8 +84,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
-	{
-Config: testAccIPAMResourceDiscoveryAssociationConfig_tags("key2", "value2"),
+funcig: testAccIPAMResourceDiscoveryAssociationConfig_tags("key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -100,8 +93,7 @@ func(
 	},
 },
 	})
-}
-
+func
 
 func testAccIPAMResourceDiscoveryAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -111,23 +103,20 @@ func testAccIPAMResourceDiscoveryAssociation_disappears(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMResourceDiscoveryAssociationConfig_basic(),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckIPAMResourceDiscoveryAssociationExists(ctx, resourceName, &rda),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMResourceDiscoveryAssociation(), resourceName),
+functest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMResourceDiscoveryAssociation(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
 	},
 },
 	})
 }
-
 
 func testAccCheckIPAMResourceDiscoveryAssociationExists(ctx context.Context, n string, v *ec2.IpamResourceDiscoveryAssociation) resource.TestCheck
 func {
@@ -140,13 +129,10 @@ if !ok {
 
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No IPAM Resource Discovery Association ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
+func
+func
 output, err := tfec2.FindIPAMResourceDiscoveryAssociationByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+funcrr != nil {
 	return err
 }
 
@@ -171,13 +157,10 @@ continue
 	_, err := tfec2.FindIPAMResourceDiscoveryAssociationByID(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
-continue
-	}
-
-	if err != nil {
+func
+funcerr != nil {
 return err
-	}
-
+func
 	return fmt.Errorf("IPAM Resource Discovery Association still exists: %s", rs.Primary.ID)
 }
 
@@ -191,14 +174,14 @@ data "aws_region" "current" {}
 resource "aws_vpc_ipam" "test" {
   description = "test ipam"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
   description = "test ipam resource discovery"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 `
@@ -207,7 +190,7 @@ resource "aws_vpc_ipam_resource_discovery" "test" {
 func testAccIPAMResourceDiscoveryAssociationConfig_basic() string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, `
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_id     = aws_vpc_ipam.test.id
+  ipam_idipam.test.id
   ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
 }
 `)
@@ -217,12 +200,11 @@ resource "aws_vpc_ipam_resource_discovery_association" "test" {
 func testAccIPAMResourceDiscoveryAssociationConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_id     = aws_vpc_ipam.test.id
+  ipam_idipam.test.id
   ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
 
   tags = {
-    %[1]q = %[2]q
-  }
+func
 }
 `, tagKey1, tagValue1))
 }
@@ -231,13 +213,13 @@ resource "aws_vpc_ipam_resource_discovery_association" "test" {
 func testAccIPAMResourceDiscoveryAssociationConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_id     = aws_vpc_ipam.test.id
-  ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
-
+  ipam_idipam.test.id
+func
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+1]q = %[2]q
+3]q = %[4]q
   }
 }
 	`, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+func

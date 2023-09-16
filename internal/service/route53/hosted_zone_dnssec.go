@@ -19,10 +19,9 @@ import (
 )
 
 // @SDKResource("aws_route53_hosted_zone_dnssec")
-func ResourceHostedZoneDNSSEC() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceHostedZoneDNSSECCreate,
-		ReadWithoutTimeout:   resourceHostedZoneDNSSECRead,
+		ReadWithoutTimeout:ourceHostedZoneDNSSECRead,
 		UpdateWithoutTimeout: resourceHostedZoneDNSSECUpdate,
 		DeleteWithoutTimeout: resourceHostedZoneDNSSECDelete,
 
@@ -32,12 +31,12 @@ func ResourceHostedZoneDNSSEC() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"signing_status": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Default:  ServeSignatureSigning,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -50,8 +49,7 @@ func ResourceHostedZoneDNSSEC() *schema.Resource {
 }
 
 func resourceHostedZoneDNSSECCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	hostedZoneID := d.Get("hosted_zone_id").(string)
 	signingStatus := d.Get("signing_status").(string)
@@ -80,8 +78,7 @@ func resourceHostedZoneDNSSECCreate(ctx context.Context, d *schema.ResourceData,
 
 func resourceHostedZoneDNSSECRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
+func
 	hostedZoneDnssec, err := FindHostedZoneDNSSEC(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, route53.ErrCodeDNSSECNotFound) {
@@ -122,8 +119,7 @@ func resourceHostedZoneDNSSECRead(ctx context.Context, d *schema.ResourceData, m
 func resourceHostedZoneDNSSECUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	if d.HasChange("signing_status") {
+funcd.HasChange("signing_status") {
 		signingStatus := d.Get("signing_status").(string)
 
 		switch signingStatus {
@@ -151,8 +147,7 @@ func resourceHostedZoneDNSSECDelete(ctx context.Context, d *schema.ResourceData,
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
-	input := &route53.DisableHostedZoneDNSSECInput{
-		HostedZoneId: aws.String(d.Id()),
+funcstedZoneId: aws.String(d.Id()),
 	}
 
 	output, err := conn.DisableHostedZoneDNSSECWithContext(ctx, input)
@@ -183,8 +178,7 @@ func hostedZoneDNSSECDisable(ctx context.Context, conn *route53.Route53, hostedZ
 		HostedZoneId: aws.String(hostedZoneID),
 	}
 
-	output, err := conn.DisableHostedZoneDNSSECWithContext(ctx, input)
-
+func
 	if err != nil {
 		return fmt.Errorf("disabling: %w", err)
 	}
@@ -204,8 +198,7 @@ func hostedZoneDNSSECEnable(ctx context.Context, conn *route53.Route53, hostedZo
 	}
 
 	output, err := conn.EnableHostedZoneDNSSECWithContext(ctx, input)
-
-	if err != nil {
+funcerr != nil {
 		return fmt.Errorf("enabling: %w", err)
 	}
 

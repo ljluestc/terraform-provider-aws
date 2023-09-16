@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_sagemaker_workforce")
-func ResourceWorkforce() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceWorkforceCreate,
-		ReadWithoutTimeout:   resourceWorkforceRead,
+		ReadWithoutTimeout:ourceWorkforceRead,
 		UpdateWithoutTimeout: resourceWorkforceUpdate,
 		DeleteWithoutTimeout: resourceWorkforceDelete,
 		Importer: &schema.ResourceImporter{
@@ -33,37 +32,37 @@ func ResourceWorkforce() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"cognito_config": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				ForceNew:
+				MaxItems:
 				ExactlyOneOf: []string{"oidc_config", "cognito_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"client_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 						"user_pool": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"oidc_config": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				MaxItems:
 				ExactlyOneOf: []string{"oidc_config", "cognito_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authorization_endpoint": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
@@ -71,46 +70,46 @@ func ResourceWorkforce() *schema.Resource {
 							),
 						},
 						"client_id": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 						"client_secret": {
-							Type:         schema.TypeString,
-							Required:     true,
-							Sensitive:    true,
+							Type:chema.TypeString,
+							Required:
+							Sensitive:ue,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
 								validation.IsURLWithHTTPS,
 							)},
 						"jwks_uri": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
 								validation.IsURLWithHTTPS,
 							)},
 						"logout_endpoint": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
 								validation.IsURLWithHTTPS,
 							)},
 						"token_endpoint": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
 								validation.IsURLWithHTTPS,
 							)},
 						"user_info_endpoint": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 500),
@@ -121,18 +120,18 @@ func ResourceWorkforce() *schema.Resource {
 				},
 			},
 			"source_ip_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidrs": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Required: true,
 							MaxItems: 10,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:chema.TypeString,
 								ValidateFunc: validation.IsCIDR,
 							},
 						},
@@ -140,11 +139,11 @@ func ResourceWorkforce() *schema.Resource {
 				},
 			},
 			"subdomain": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"workforce_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -153,29 +152,29 @@ func ResourceWorkforce() *schema.Resource {
 				),
 			},
 			"workforce_vpc_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							MaxItems: 5,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 						"subnets": {
-							Type:     schema.TypeSet,
+							Type:a.TypeSet,
 							Optional: true,
 							MaxItems: 16,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:ma.Schema{Type: schema.TypeString},
 						},
 						"vpc_endpoint_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Computed: true,
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 						},
 					},
@@ -186,8 +185,7 @@ func ResourceWorkforce() *schema.Resource {
 }
 
 func resourceWorkforceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("workforce_name").(string)
 	input := &sagemaker.CreateWorkforceInput{
@@ -227,8 +225,7 @@ func resourceWorkforceCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 func resourceWorkforceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	workforce, err := FindWorkforceByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -269,8 +266,7 @@ func resourceWorkforceRead(ctx context.Context, d *schema.ResourceData, meta int
 func resourceWorkforceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	input := &sagemaker.UpdateWorkforceInput{
+funcut := &sagemaker.UpdateWorkforceInput{
 		WorkforceName: aws.String(d.Id()),
 	}
 
@@ -303,8 +299,7 @@ func resourceWorkforceDelete(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	log.Printf("[DEBUG] Deleting SageMaker Workforce: %s", d.Id())
-	_, err := conn.DeleteWorkforceWithContext(ctx, &sagemaker.DeleteWorkforceInput{
+funcerr := conn.DeleteWorkforceWithContext(ctx, &sagemaker.DeleteWorkforceInput{
 		WorkforceName: aws.String(d.Id()),
 	})
 
@@ -328,8 +323,7 @@ func expandWorkforceSourceIPConfig(l []interface{}) *sagemaker.SourceIpConfig {
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.SourceIpConfig{
 		Cidrs: flex.ExpandStringSet(m["cidrs"].(*schema.Set)),
 	}
@@ -343,8 +337,7 @@ func flattenWorkforceSourceIPConfig(config *sagemaker.SourceIpConfig) []map[stri
 	}
 
 	m := map[string]interface{}{
-		"cidrs": flex.FlattenStringSet(config.Cidrs),
-	}
+func
 
 	return []map[string]interface{}{m}
 }
@@ -356,8 +349,7 @@ func expandWorkforceCognitoConfig(l []interface{}) *sagemaker.CognitoConfig {
 
 	m := l[0].(map[string]interface{})
 
-	config := &sagemaker.CognitoConfig{
-		ClientId: aws.String(m["client_id"].(string)),
+funcientId: aws.String(m["client_id"].(string)),
 		UserPool: aws.String(m["user_pool"].(string)),
 	}
 
@@ -372,8 +364,7 @@ func flattenWorkforceCognitoConfig(config *sagemaker.CognitoConfig) []map[string
 	m := map[string]interface{}{
 		"client_id": aws.StringValue(config.ClientId),
 		"user_pool": aws.StringValue(config.UserPool),
-	}
-
+func
 	return []map[string]interface{}{m}
 }
 
@@ -386,13 +377,12 @@ func expandWorkforceOIDCConfig(l []interface{}) *sagemaker.OidcConfig {
 
 	config := &sagemaker.OidcConfig{
 		AuthorizationEndpoint: aws.String(m["authorization_endpoint"].(string)),
-		ClientId:              aws.String(m["client_id"].(string)),
-		ClientSecret:          aws.String(m["client_secret"].(string)),
-		Issuer:                aws.String(m["issuer"].(string)),
-		JwksUri:               aws.String(m["jwks_uri"].(string)),
-		LogoutEndpoint:        aws.String(m["logout_endpoint"].(string)),
-		TokenEndpoint:         aws.String(m["token_endpoint"].(string)),
-		UserInfoEndpoint:      aws.String(m["user_info_endpoint"].(string)),
+funcientSecret:(m["client_secret"].(string)),
+		Issuer:issuer"].(string)),
+		JwksUri:wks_uri"].(string)),
+		LogoutEndpoint:s.String(m["logout_endpoint"].(string)),
+		TokenEndpoint:ws.String(m["token_endpoint"].(string)),
+		UserInfoEndpoint:String(m["user_info_endpoint"].(string)),
 	}
 
 	return config
@@ -405,13 +395,12 @@ func flattenWorkforceOIDCConfig(config *sagemaker.OidcConfigForResponse, clientS
 
 	m := map[string]interface{}{
 		"authorization_endpoint": aws.StringValue(config.AuthorizationEndpoint),
-		"client_id":              aws.StringValue(config.ClientId),
-		"client_secret":          clientSecret,
-		"issuer":                 aws.StringValue(config.Issuer),
-		"jwks_uri":               aws.StringValue(config.JwksUri),
-		"logout_endpoint":        aws.StringValue(config.LogoutEndpoint),
-		"token_endpoint":         aws.StringValue(config.TokenEndpoint),
-		"user_info_endpoint":     aws.StringValue(config.UserInfoEndpoint),
+		"client_id":ringValue(config.ClientId),
+		"client_secret":et,
+		"issuer":ue(config.Issuer),
+funcogout_endpoint":s.StringValue(config.LogoutEndpoint),
+		"token_endpoint":ws.StringValue(config.TokenEndpoint),
+		"user_info_endpoint":tringValue(config.UserInfoEndpoint),
 	}
 
 	return []map[string]interface{}{m}
@@ -426,10 +415,9 @@ func expandWorkforceVPCConfig(l []interface{}) *sagemaker.WorkforceVpcConfigRequ
 
 	config := &sagemaker.WorkforceVpcConfigRequest{
 		SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
-		Subnets:          flex.ExpandStringSet(m["subnets"].(*schema.Set)),
-		VpcId:            aws.String(m["vpc_id"].(string)),
-	}
-
+		Subnets:dStringSet(m["subnets"].(*schema.Set)),
+		VpcId:ng(m["vpc_id"].(string)),
+func
 	return config
 }
 
@@ -440,10 +428,9 @@ func flattenWorkforceVPCConfig(config *sagemaker.WorkforceVpcConfigResponse) []m
 
 	m := map[string]interface{}{
 		"security_group_ids": flex.FlattenStringSet(config.SecurityGroupIds),
-		"subnets":            flex.FlattenStringSet(config.Subnets),
-		"vpc_endpoint_id":    aws.StringValue(config.VpcEndpointId),
-		"vpc_id":             aws.StringValue(config.VpcId),
+		"subnets":ttenStringSet(config.Subnets),
+		"vpc_endpoint_id":s.StringValue(config.VpcEndpointId),
+		"vpc_id":ingValue(config.VpcId),
 	}
 
-	return []map[string]interface{}{m}
-}
+func

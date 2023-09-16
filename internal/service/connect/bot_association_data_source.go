@@ -14,6 +14,8 @@ import (
 )
 
 // @SDKDataSource("aws_connect_bot_association")
+
+
 func DataSourceBotAssociation() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceBotAssociationRead,
@@ -44,6 +46,8 @@ func DataSourceBotAssociation() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceBotAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)

@@ -45,22 +45,22 @@ func ResourceUser() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"country": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"formatted": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"locality": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"postal_code": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
@@ -70,17 +70,17 @@ func ResourceUser() *schema.Resource {
 							Default:  false,
 						},
 						"region": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"street_address": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"type": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
@@ -88,7 +88,7 @@ func ResourceUser() *schema.Resource {
 				},
 			},
 			"display_name": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
@@ -104,12 +104,12 @@ func ResourceUser() *schema.Resource {
 							Default:  false,
 						},
 						"type": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"value": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
@@ -138,7 +138,7 @@ func ResourceUser() *schema.Resource {
 				ForceNew: true,
 			},
 			"locale": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
@@ -149,32 +149,32 @@ func ResourceUser() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"family_name": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Required:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"formatted": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"given_name": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Required:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"honorific_prefix": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"honorific_suffix": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"middle_name": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
@@ -182,7 +182,7 @@ func ResourceUser() *schema.Resource {
 				},
 			},
 			"nickname": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
@@ -198,12 +198,12 @@ func ResourceUser() *schema.Resource {
 							Default:  false,
 						},
 						"type": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"value": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
@@ -211,22 +211,22 @@ func ResourceUser() *schema.Resource {
 				},
 			},
 			"preferred_language": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"profile_url": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"timezone": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"title": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
@@ -235,13 +235,13 @@ func ResourceUser() *schema.Resource {
 				Computed: true,
 			},
 			"user_name": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 			},
 			"user_type": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},

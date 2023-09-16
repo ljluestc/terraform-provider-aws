@@ -10,19 +10,18 @@ import (
 	tfroute53 "github.com/hashicorp/terraform-provider-aws/internal/service/route53"
 )
 
-func TestRecordMigrateState(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
-		Attributes   map[string]string
-		Expected     string
-		Meta         interface{}
+		ID
+		Attributes[string]string
+		Expectedg
+		Metanterface{}
 	}{
 		"v0_0": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:,
 			Attributes: map[string]string{
 				"name": "www",
 			},
@@ -30,7 +29,7 @@ func TestRecordMigrateState(t *testing.T) {
 		},
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:,
 			Attributes: map[string]string{
 				"name": "www.example.com.",
 			},
@@ -38,7 +37,7 @@ func TestRecordMigrateState(t *testing.T) {
 		},
 		"v0_2": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:,
 			Attributes: map[string]string{
 				"name": "www.example.com",
 			},
@@ -48,7 +47,7 @@ func TestRecordMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:c.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfroute53.RecordMigrateState(
@@ -65,25 +64,24 @@ func TestRecordMigrateState(t *testing.T) {
 }
 
 func TestRecordMigrateStateV1toV2(t *testing.T) {
-	t.Parallel()
-
+func
 	cases := map[string]struct {
 		StateVersion int
-		Attributes   map[string]string
-		Expected     map[string]string
-		Meta         interface{}
+		Attributes[string]string
+		Expectedtring]string
+		Metanterface{}
 	}{
 		"v0_1": {
 			StateVersion: 1,
 			Attributes: map[string]string{
-				"weight":   "0",
+				"weight":,
 				"failover": "PRIMARY",
 			},
 			Expected: map[string]string{
-				"weighted_routing_policy.#":        "1",
+				"weighted_routing_policy.#":",
 				"weighted_routing_policy.0.weight": "0",
-				"failover_routing_policy.#":        "1",
-				"failover_routing_policy.0.type":   "PRIMARY",
+				"failover_routing_policy.#":",
+				"failover_routing_policy.0.type":IMARY",
 			},
 		},
 		"v0_2": {
@@ -97,7 +95,7 @@ func TestRecordMigrateStateV1toV2(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         "route53_record",
+			ID:route53_record",
 			Attributes: tc.Attributes,
 		}
 		is, err := tfroute53.ResourceRecord().MigrateState(

@@ -32,9 +32,9 @@ func TestAccLightsailContainerService_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName),
@@ -82,9 +82,9 @@ func TestAccLightsailContainerService_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName),
@@ -110,9 +110,9 @@ func TestAccLightsailContainerService_name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName1),
@@ -143,9 +143,9 @@ func TestAccLightsailContainerService_isDisabled(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName),
@@ -176,9 +176,9 @@ func TestAccLightsailContainerService_power(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName),
@@ -208,9 +208,9 @@ func TestAccLightsailContainerService_publicDomainNames(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccContainerServiceConfig_publicDomainNames(rName),
@@ -231,9 +231,9 @@ func TestAccLightsailContainerService_privateRegistryAccess(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_privateRegistryAccess(rName),
@@ -260,9 +260,9 @@ func TestAccLightsailContainerService_scale(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_basic(rName),
@@ -293,9 +293,9 @@ func TestAccLightsailContainerService_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerServiceDestroy(ctx),
+		CheckDestroy:ontainerServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerServiceConfig_tags1(rName, "key1", "value1"),

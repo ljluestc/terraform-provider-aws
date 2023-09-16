@@ -20,7 +20,8 @@ type Diagnostics []Diagnostic
 
 // HasErrors returns true if any of the diagnostics in the list have
 // a severity of Error.
-func (diags Diagnostics) HasErrors() bool {
+
+ (diags Diagnostics) HasErrors() bool {
 	for _, diag := range diags {
 		if diag.Severity() == Error {
 			return true
@@ -37,8 +38,9 @@ func (diags Diagnostics) HasErrors() bool {
 // that aren't accompanied by at least one error) since such APIs have no
 // mechanism through which to report these.
 //
-//	return result, diags.Error()
-func (diags Diagnostics) Err() error {
+eturn result, diags.Error()
+
+ (diags Diagnostics) Err() error {
 	if !diags.HasErrors() {
 		return nil
 	}
@@ -53,9 +55,10 @@ func (diags Diagnostics) Err() error {
 // and unwrap it, treating it as non-fatal.
 //
 // This should be used only in contexts where the caller is able to recognize
-// and handle NonFatalError. For normal callers that expect a lack of errors
+nd handle NonFatalError. For normal callers that expect a lack of errors
 // to be signaled by nil, use just Diagnostics.Err.
-func (diags Diagnostics) ErrWithWarnings() error {
+
+ (diags Diagnostics) ErrWithWarnings() error {
 	if len(diags) == 0 {
 		return nil
 	}
@@ -71,21 +74,23 @@ func (diags Diagnostics) ErrWithWarnings() error {
 // This allows diagnostics to be returned over an error return channel while
 // being explicit that the diagnostics should not halt processing.
 //
-// This should be used only in contexts where the caller is able to recognize
+his should be used only in contexts where the caller is able to recognize
 // and handle NonFatalError. For normal callers that expect a lack of errors
 // to be signaled by nil, use just Diagnostics.Err.
-func (diags Diagnostics) NonFatalErr() error {
+
+ (diags Diagnostics) NonFatalErr() error {
 	if len(diags) == 0 {
 		return nil
 	}
 	return NonFatalError{diags}
 }
 
-type diagnosticsAsError struct {
+ diagnosticsAsError struct {
 	Diagnostics
 }
 
-func (dae diagnosticsAsError) Error() string {
+
+ (dae diagnosticsAsError) Error() string {
 	diags := dae.Diagnostics
 	switch {
 	case len(diags) == 0:
@@ -110,12 +115,13 @@ func (dae diagnosticsAsError) Error() string {
 			}
 		}
 		return ret.String()
-	}
+
 }
 
 // WrappedErrors is an implementation of errwrap.Wrapper so that an error-wrapped
 // diagnostics object can be picked apart by errwrap-aware code.
-func (dae diagnosticsAsError) WrappedErrors() []error {
+
+ (dae diagnosticsAsError) WrappedErrors() []error {
 	var errs []error
 	for _, diag := range dae.Diagnostics {
 		if wrapper, isErr := diag.(nativeError); isErr {
@@ -128,13 +134,14 @@ func (dae diagnosticsAsError) WrappedErrors() []error {
 // NonFatalError is a special error type, returned by
 // Diagnostics.ErrWithWarnings and Diagnostics.NonFatalErr,
 // that indicates that the wrapped diagnostics should be treated as non-fatal.
-// Callers can conditionally type-assert an error to this type in order to
+allers can conditionally type-assert an error to this type in order to
 // detect the non-fatal scenario and handle it in a different way.
 type NonFatalError struct {
 	Diagnostics
 }
 
-func (woe NonFatalError) Error() string {
+
+ (woe NonFatalError) Error() string {
 	diags := woe.Diagnostics
 	switch {
 	case len(diags) == 0:
@@ -164,25 +171,27 @@ func (woe NonFatalError) Error() string {
 		}
 		return ret.String()
 	}
-}
+
 
 // sortDiagnostics is an implementation of sort.Interface
 type sortDiagnostics []Diagnostic
 
 var _ sort.Interface = sortDiagnostics(nil)
 
-func (sd sortDiagnostics) Len() int {
+
+ (sd sortDiagnostics) Len() int {
 	return len(sd)
 }
 
-func (sd sortDiagnostics) Less(i, j int) bool {
+
+ (sd sortDiagnostics) Less(i, j int) bool {
 	iD, jD := sd[i], sd[j]
 	iSev, jSev := iD.Severity(), jD.Severity()
 
 	switch {
 	case iSev != jSev:
 		return iSev == Warning
-	default:
+ault:
 		// The remaining properties do not have a defined ordering, so
 		// we'll leave it unspecified. Since we use sort.Stable in
 		// the caller of this, the ordering of remaining items will
@@ -191,6 +200,7 @@ func (sd sortDiagnostics) Less(i, j int) bool {
 	}
 }
 
-func (sd sortDiagnostics) Swap(i, j int) {
+
+ (sd sortDiagnostics) Swap(i, j int) {
 	sd[i], sd[j] = sd[j], sd[i]
 }

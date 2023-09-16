@@ -30,8 +30,8 @@ func TestAccAppConfigDeployment_basic(t *testing.T) {
 	confVersionResourceName := "aws_appconfig_hosted_configuration_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// AppConfig Deployments cannot be destroyed, but we want to ensure
 		// the Application and its dependents are removed.
@@ -69,8 +69,8 @@ func TestAccAppConfigDeployment_predefinedStrategy(t *testing.T) {
 	strategy := "AppConfig.Linear50PercentEvery30Seconds"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// AppConfig Deployments cannot be destroyed, but we want to ensure
 		// the Application and its dependents are removed.
@@ -103,10 +103,10 @@ func TestAccAppConfigDeployment_tags(t *testing.T) {
 	resourceName := "aws_appconfig_deployment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentConfig_tags1(rName, "key1", "value1"),
@@ -208,7 +208,7 @@ resource "aws_appconfig_deployment_strategy" "test" {
 resource "aws_appconfig_hosted_configuration_version" "test" {
   application_id           = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
-  content_type             = "application/json"
+  content_type= "application/json"
 
   content = jsonencode({
     foo = "bar"
@@ -227,7 +227,7 @@ resource "aws_appconfig_deployment" "test"{
   application_id           = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
   configuration_version    = aws_appconfig_hosted_configuration_version.test.version_number
-  description              = %[1]q
+  description = %[1]q
   deployment_strategy_id   = aws_appconfig_deployment_strategy.test.id
   environment_id           = aws_appconfig_environment.test.environment_id
 }
@@ -242,7 +242,7 @@ resource "aws_appconfig_deployment" "test"{
   application_id           = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
   configuration_version    = aws_appconfig_hosted_configuration_version.test.version_number
-  description              = %[1]q
+  description = %[1]q
   deployment_strategy_id   = %[2]q
   environment_id           = aws_appconfig_environment.test.environment_id
 }

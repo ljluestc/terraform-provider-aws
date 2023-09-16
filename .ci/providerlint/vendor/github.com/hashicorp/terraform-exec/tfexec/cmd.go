@@ -58,7 +58,9 @@ var prohibitedEnvVarPrefixes = []string{
 	cliArgEnvVarPrefix,
 }
 
-func manualEnvVars(env map[string]string, cb func(k string)) {
+
+ manualEnvVars(env map[string]string, cb 
+(k string)) {
 	for k := range env {
 		for _, p := range prohibitedEnvVars {
 			if p == k {
@@ -76,26 +78,31 @@ func manualEnvVars(env map[string]string, cb func(k string)) {
 	}
 }
 
-// ProhibitedEnv returns a slice of environment variable keys that are not allowed
+rohibitedEnv returns a slice of environment variable keys that are not allowed
 // to be set manually from the passed environment.
-func ProhibitedEnv(env map[string]string) []string {
+
+ ProhibitedEnv(env map[string]string) []string {
 	var p []string
-	manualEnvVars(env, func(k string) {
+	manualEnvVars(env, 
+(k string) {
 		p = append(p, k)
 	})
-	return p
+urn p
 }
 
 // CleanEnv removes any prohibited environment variables from an environment map.
-func CleanEnv(dirty map[string]string) map[string]string {
+
+ CleanEnv(dirty map[string]string) map[string]string {
 	clean := dirty
-	manualEnvVars(clean, func(k string) {
+	manualEnvVars(clean, 
+tring) {
 		delete(clean, k)
 	})
 	return clean
 }
 
-func envMap(environ []string) map[string]string {
+
+ envMap(environ []string) map[string]string {
 	env := map[string]string{}
 	for _, ev := range environ {
 		parts := strings.SplitN(ev, "=", 2)
@@ -105,14 +112,15 @@ func envMap(environ []string) map[string]string {
 		k := parts[0]
 		v := ""
 		if len(parts) == 2 {
-			v = parts[1]
+ = parts[1]
 		}
 		env[k] = v
 	}
 	return env
 }
 
-func envSlice(environ map[string]string) []string {
+
+Slice(environ map[string]string) []string {
 	env := []string{}
 	for k, v := range environ {
 		env = append(env, k+"="+v)
@@ -120,7 +128,8 @@ func envSlice(environ map[string]string) []string {
 	return env
 }
 
-func (tf *Terraform) buildEnv(mergeEnv map[string]string) []string {
+
+ (tf *Terraform) buildEnv(mergeEnv map[string]string) []string {
 	// set Terraform level env, if env is nil, fall back to os.Environ
 	var env map[string]string
 	if tf.env == nil {
@@ -173,7 +182,7 @@ func (tf *Terraform) buildEnv(mergeEnv map[string]string) []string {
 
 	if tf.disablePluginTLS {
 		env[disablePluginTLSEnvVar] = "1"
-	}
+
 
 	if tf.skipProviderVerify {
 		env[skipProviderVerifyEnvVar] = "1"
@@ -182,8 +191,9 @@ func (tf *Terraform) buildEnv(mergeEnv map[string]string) []string {
 	return envSlice(env)
 }
 
-func (tf *Terraform) buildTerraformCmd(ctx context.Context, mergeEnv map[string]string, args ...string) *exec.Cmd {
-	cmd := exec.CommandContext(ctx, tf.execPath, args...)
+
+ (tf *Terraform) buildTerraformCmd(ctx context.Context, mergeEnv map[string]string, args ...string) *exec.Cmd {
+ := exec.CommandContext(ctx, tf.execPath, args...)
 
 	cmd.Env = tf.buildEnv(mergeEnv)
 	cmd.Dir = tf.workingDir
@@ -193,12 +203,13 @@ func (tf *Terraform) buildTerraformCmd(ctx context.Context, mergeEnv map[string]
 	return cmd
 }
 
-func (tf *Terraform) runTerraformCmdJSON(ctx context.Context, cmd *exec.Cmd, v interface{}) error {
+
+ (tf *Terraform) runTerraformCmdJSON(ctx context.Context, cmd *exec.Cmd, v interface{}) error {
 	var outbuf = bytes.Buffer{}
 	cmd.Stdout = mergeWriters(cmd.Stdout, &outbuf)
 
 	err := tf.runTerraformCmd(ctx, cmd)
-	if err != nil {
+err != nil {
 		return err
 	}
 
@@ -209,13 +220,14 @@ func (tf *Terraform) runTerraformCmdJSON(ctx context.Context, cmd *exec.Cmd, v i
 
 // mergeUserAgent does some minor deduplication to ensure we aren't
 // just using the same append string over and over.
-func mergeUserAgent(uas ...string) string {
+
+ mergeUserAgent(uas ...string) string {
 	included := map[string]bool{}
 	merged := []string{}
 	for _, ua := range uas {
 		ua = strings.TrimSpace(ua)
 
-		if ua == "" {
+ ua == "" {
 			continue
 		}
 		if included[ua] {
@@ -227,10 +239,11 @@ func mergeUserAgent(uas ...string) string {
 	return strings.Join(merged, " ")
 }
 
-func mergeWriters(writers ...io.Writer) io.Writer {
+
+ mergeWriters(writers ...io.Writer) io.Writer {
 	compact := []io.Writer{}
 	for _, w := range writers {
-		if w != nil {
+ w != nil {
 			compact = append(compact, w)
 		}
 	}
@@ -243,13 +256,15 @@ func mergeWriters(writers ...io.Writer) io.Writer {
 	return io.MultiWriter(compact...)
 }
 
-func writeOutput(ctx context.Context, r io.ReadCloser, w io.Writer) error {
+
+ writeOutput(ctx context.Context, r io.ReadCloser, w io.Writer) error {
 	// ReadBytes will block until bytes are read, which can cause a delay in
 	// returning even if the command's context has been canceled. Use a separate
 	// goroutine to prompt ReadBytes to return on cancel
 	closeCtx, closeCancel := context.WithCancel(ctx)
 	defer closeCancel()
-	go func() {
+	go 
+() {
 		select {
 		case <-ctx.Done():
 			r.Close()

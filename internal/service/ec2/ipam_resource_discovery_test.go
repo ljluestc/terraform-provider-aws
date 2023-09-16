@@ -19,21 +19,19 @@ import (
 )
 
 
-func TestAccIPAMResourceDiscovery_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]map[string]
 func(t *testing.T){
-"ResourceDiscovery": {
-	"basic":      testAccIPAMResourceDiscovery_basic,
-	"modify":     testAccIPAMResourceDiscovery_modify,
+funcsic":AMResourceDiscovery_basic,
+	"modify":MResourceDiscovery_modify,
 	"disappears": testAccIPAMResourceDiscovery_disappears,
-	"tags":       testAccIPAMResourceDiscovery_tags,
+	"tags":PAMResourceDiscovery_tags,
 },
 "ResourceDiscoveryAssociation": {
-	"basic":      testAccIPAMResourceDiscoveryAssociation_basic,
+	"basic":AMResourceDiscoveryAssociation_basic,
 	"disappears": testAccIPAMResourceDiscoveryAssociation_disappears,
-	"tags":       testAccIPAMResourceDiscoveryAssociation_tags,
+	"tags":PAMResourceDiscoveryAssociation_tags,
 },
 	}
 
@@ -43,8 +41,7 @@ func(t *testing.T){
 
 func testAccIPAMResourceDiscovery_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var rd ec2.IpamResourceDiscovery
-	resourceName := "aws_vpc_ipam_resource_discovery.test"
+funcourceName := "aws_vpc_ipam_resource_discovery.test"
 	dataSourceRegion := "data.aws_region.current"
 
 	resource.Test(t, resource.TestCase{
@@ -52,8 +49,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccIPAMResourceDiscoveryConfig_base,
 Check: resource.ComposeTestCheck
@@ -61,16 +57,15 @@ func(
 	testAccCheckIPAMResourceDiscoveryExists(ctx, resourceName, &rd),
 	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "ec2", regexache.MustCompile(`ipam-resource-discovery/ipam-res-disco-[0-9a-f]+$`)),
 	resource.TestCheckResourceAttr(resourceName, "description", "test"),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_resource_discovery_region", dataSourceRegion, "name"),
-	resource.TestCheckResourceAttr(resourceName, "is_default", "false"),
+funcource.TestCheckResourceAttr(resourceName, "is_default", "false"),
 	resource.TestCheckResourceAttr(resourceName, "operating_regions.#", "1"),
 	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -83,16 +78,14 @@ func testAccIPAMResourceDiscovery_modify(t *testing.T) {
 	var rd ec2.IpamResourceDiscovery
 	resourceName := "aws_vpc_ipam_resource_discovery.test"
 
-	resource.Test(t, resource.TestCase{
-PreCheck: 
+funcheck: 
 func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckMultipleRegion(t, 2)
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccIPAMResourceDiscoveryConfig_base,
 Check: resource.ComposeTestCheck
@@ -102,9 +95,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
+ResourceName:ame,
+funcrtStateVerify: true,
 	},
 	{
 Config: testAccIPAMResourceDiscoveryConfig_operatingRegion(),
@@ -117,24 +109,21 @@ func(
 Config: testAccIPAMResourceDiscoveryConfig_base,
 Check: resource.ComposeTestCheck
 func(
-	resource.TestCheckResourceAttr(resourceName, "description", "test"),
-),
+func
 	},
 	{
 Config: testAccIPAMResourceDiscoveryConfig_baseAlternateDescription,
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(resourceName, "description", "test ipam"),
-),
-	},
+func
 },
 	})
 }
 
 
 func testAccIPAMResourceDiscovery_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var rd ec2.IpamResourceDiscovery
+func rd ec2.IpamResourceDiscovery
 	resourceName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
@@ -142,17 +131,15 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckIPAMResourceDiscoveryDestroy(ctx),
+func
 Config: testAccIPAMResourceDiscoveryConfig_base,
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMResourceDiscoveryExists(ctx, resourceName, &rd),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMResourceDiscovery(), resourceName),
 ),
-ExpectNonEmptyPlan: true,
-	},
+func
 },
 	})
 }
@@ -160,19 +147,17 @@ ExpectNonEmptyPlan: true,
 
 func testAccIPAMResourceDiscovery_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var rd ec2.IpamResourceDiscovery
-	resourceName := "aws_vpc_ipam_resource_discovery.test"
+funcourceName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMResourceDiscoveryDestroy(ctx),
+CheckDestroy:stAccCheckIPAMResourceDiscoveryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMResourceDiscoveryConfig_tags("key1", "value1"),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMResourceDiscoveryExists(ctx, resourceName, &rd),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -180,8 +165,7 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcrtState:
 ImportStateVerify: true,
 	},
 	{
@@ -189,8 +173,7 @@ Config: testAccIPAMResourceDiscoveryConfig_tags2("key1", "value1updated", "key2"
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+funcource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
 	},
 	{
@@ -204,8 +187,7 @@ func(
 },
 	})
 }
-
-
+func
 func testAccCheckIPAMResourceDiscoveryExists(ctx context.Context, n string, v *ec2.IpamResourceDiscovery) resource.TestCheck
 func {
 	return 
@@ -214,8 +196,7 @@ rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
-
-if rs.Primary.ID == "" {
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No IPAM Resource Discovery ID is set")
 }
 
@@ -225,13 +206,10 @@ output, err := tfec2.FindIPAMResourceDiscoveryByID(ctx, conn, rs.Primary.ID)
 
 if err != nil {
 	return err
-}
-
-*v = *output
-
+func
+func
 return nil
-	}
-}
+func
 
 
 func testAccCheckIPAMResourceDiscoveryDestroy(ctx context.Context) resource.TestCheck
@@ -256,19 +234,16 @@ return err
 	}
 
 	return fmt.Errorf("IPAM Resource Discovery still exists: %s", rs.Primary.ID)
+func
+func
 }
-
-return nil
-	}
-}
-
-const testAccIPAMResourceDiscoveryConfig_base = `
+funct testAccIPAMResourceDiscoveryConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
   description = "test"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 `
@@ -279,7 +254,7 @@ data "aws_region" "current" {}
 resource "aws_vpc_ipam_resource_discovery" "test" {
   description = "test ipam"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
 }
 `
@@ -297,10 +272,10 @@ data "aws_region" "alternate" {
 resource "aws_vpc_ipam_resource_discovery" "test" {
   description = "test"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
   operating_regions {
-    region_name = data.aws_region.alternate.name
+gion_name = data.aws_region.alternate.name
   }
 }
 `)
@@ -310,14 +285,13 @@ resource "aws_vpc_ipam_resource_discovery" "test" {
 func testAccIPAMResourceDiscoveryConfig_tags(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_region" "current" {}
-
-resource "aws_vpc_ipam_resource_discovery" "test" {
+funcurce "aws_vpc_ipam_resource_discovery" "test" {
   description = "test"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
   tags = {
-    %[1]q = %[2]q
+1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1)
@@ -331,12 +305,12 @@ data "aws_region" "current" {}
 resource "aws_vpc_ipam_resource_discovery" "test" {
   description = "test"
   operating_regions {
-    region_name = data.aws_region.current.name
+gion_name = data.aws_region.current.name
   }
-  tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+func= %[2]q
+3]q = %[4]q
   }
 }
 	`, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

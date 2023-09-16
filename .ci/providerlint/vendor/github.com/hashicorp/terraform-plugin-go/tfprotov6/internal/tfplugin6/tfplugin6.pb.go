@@ -61,30 +61,36 @@ var (
 	}
 )
 
-func (x StringKind) Enum() *StringKind {
+
+StringKind) Enum() *StringKind {
 	p := new(StringKind)
 	*p = x
 	return p
 }
 
-func (x StringKind) String() string {
+
+StringKind) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (StringKind) Descriptor() protoreflect.EnumDescriptor {
+
+ringKind) Descriptor() protoreflect.EnumDescriptor {
 	return file_tfplugin6_proto_enumTypes[0].Descriptor()
 }
 
-func (StringKind) Type() protoreflect.EnumType {
+
+ringKind) Type() protoreflect.EnumType {
 	return &file_tfplugin6_proto_enumTypes[0]
 }
 
-func (x StringKind) Number() protoreflect.EnumNumber {
+
+StringKind) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
 // Deprecated: Use StringKind.Descriptor instead.
-func (StringKind) EnumDescriptor() ([]byte, []int) {
+
+ringKind) EnumDescriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{0}
 }
 
@@ -110,30 +116,36 @@ var (
 	}
 )
 
-func (x Diagnostic_Severity) Enum() *Diagnostic_Severity {
+
+Diagnostic_Severity) Enum() *Diagnostic_Severity {
 	p := new(Diagnostic_Severity)
 	*p = x
 	return p
 }
 
-func (x Diagnostic_Severity) String() string {
+
+Diagnostic_Severity) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (Diagnostic_Severity) Descriptor() protoreflect.EnumDescriptor {
+
+agnostic_Severity) Descriptor() protoreflect.EnumDescriptor {
 	return file_tfplugin6_proto_enumTypes[1].Descriptor()
 }
 
-func (Diagnostic_Severity) Type() protoreflect.EnumType {
+
+agnostic_Severity) Type() protoreflect.EnumType {
 	return &file_tfplugin6_proto_enumTypes[1]
 }
 
-func (x Diagnostic_Severity) Number() protoreflect.EnumNumber {
+
+Diagnostic_Severity) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
 // Deprecated: Use Diagnostic_Severity.Descriptor instead.
-func (Diagnostic_Severity) EnumDescriptor() ([]byte, []int) {
+
+agnostic_Severity) EnumDescriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{1, 0}
 }
 
@@ -168,30 +180,36 @@ var (
 	}
 )
 
-func (x Schema_NestedBlock_NestingMode) Enum() *Schema_NestedBlock_NestingMode {
+
+Schema_NestedBlock_NestingMode) Enum() *Schema_NestedBlock_NestingMode {
 	p := new(Schema_NestedBlock_NestingMode)
 	*p = x
 	return p
 }
 
-func (x Schema_NestedBlock_NestingMode) String() string {
+
+Schema_NestedBlock_NestingMode) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (Schema_NestedBlock_NestingMode) Descriptor() protoreflect.EnumDescriptor {
+
+hema_NestedBlock_NestingMode) Descriptor() protoreflect.EnumDescriptor {
 	return file_tfplugin6_proto_enumTypes[2].Descriptor()
 }
 
-func (Schema_NestedBlock_NestingMode) Type() protoreflect.EnumType {
+
+hema_NestedBlock_NestingMode) Type() protoreflect.EnumType {
 	return &file_tfplugin6_proto_enumTypes[2]
 }
 
-func (x Schema_NestedBlock_NestingMode) Number() protoreflect.EnumNumber {
+
+Schema_NestedBlock_NestingMode) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
 // Deprecated: Use Schema_NestedBlock_NestingMode.Descriptor instead.
-func (Schema_NestedBlock_NestingMode) EnumDescriptor() ([]byte, []int) {
+
+hema_NestedBlock_NestingMode) EnumDescriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 2, 0}
 }
 
@@ -223,30 +241,36 @@ var (
 	}
 )
 
-func (x Schema_Object_NestingMode) Enum() *Schema_Object_NestingMode {
+
+Schema_Object_NestingMode) Enum() *Schema_Object_NestingMode {
 	p := new(Schema_Object_NestingMode)
 	*p = x
 	return p
 }
 
-func (x Schema_Object_NestingMode) String() string {
+
+Schema_Object_NestingMode) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (Schema_Object_NestingMode) Descriptor() protoreflect.EnumDescriptor {
+
+hema_Object_NestingMode) Descriptor() protoreflect.EnumDescriptor {
 	return file_tfplugin6_proto_enumTypes[3].Descriptor()
 }
 
-func (Schema_Object_NestingMode) Type() protoreflect.EnumType {
+
+hema_Object_NestingMode) Type() protoreflect.EnumType {
 	return &file_tfplugin6_proto_enumTypes[3]
 }
 
-func (x Schema_Object_NestingMode) Number() protoreflect.EnumNumber {
+
+Schema_Object_NestingMode) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
 // Deprecated: Use Schema_Object_NestingMode.Descriptor instead.
-func (Schema_Object_NestingMode) EnumDescriptor() ([]byte, []int) {
+
+hema_Object_NestingMode) EnumDescriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 3, 0}
 }
 
@@ -261,7 +285,8 @@ type DynamicValue struct {
 	Json    []byte `protobuf:"bytes,2,opt,name=json,proto3" json:"json,omitempty"`
 }
 
-func (x *DynamicValue) Reset() {
+
+*DynamicValue) Reset() {
 	*x = DynamicValue{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[0]
@@ -270,13 +295,16 @@ func (x *DynamicValue) Reset() {
 	}
 }
 
-func (x *DynamicValue) String() string {
+
+*DynamicValue) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DynamicValue) ProtoMessage() {}
 
-func (x *DynamicValue) ProtoReflect() protoreflect.Message {
+ynamicValue) ProtoMessage() {}
+
+
+*DynamicValue) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -289,18 +317,21 @@ func (x *DynamicValue) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use DynamicValue.ProtoReflect.Descriptor instead.
-func (*DynamicValue) Descriptor() ([]byte, []int) {
+
+ynamicValue) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *DynamicValue) GetMsgpack() []byte {
+
+*DynamicValue) GetMsgpack() []byte {
 	if x != nil {
 		return x.Msgpack
 	}
 	return nil
 }
 
-func (x *DynamicValue) GetJson() []byte {
+
+*DynamicValue) GetJson() []byte {
 	if x != nil {
 		return x.Json
 	}
@@ -318,7 +349,8 @@ type Diagnostic struct {
 	Attribute *AttributePath      `protobuf:"bytes,4,opt,name=attribute,proto3" json:"attribute,omitempty"`
 }
 
-func (x *Diagnostic) Reset() {
+
+*Diagnostic) Reset() {
 	*x = Diagnostic{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[1]
@@ -327,13 +359,16 @@ func (x *Diagnostic) Reset() {
 	}
 }
 
-func (x *Diagnostic) String() string {
+
+*Diagnostic) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Diagnostic) ProtoMessage() {}
 
-func (x *Diagnostic) ProtoReflect() protoreflect.Message {
+iagnostic) ProtoMessage() {}
+
+
+*Diagnostic) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -346,32 +381,37 @@ func (x *Diagnostic) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Diagnostic.ProtoReflect.Descriptor instead.
-func (*Diagnostic) Descriptor() ([]byte, []int) {
+
+iagnostic) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Diagnostic) GetSeverity() Diagnostic_Severity {
+
+*Diagnostic) GetSeverity() Diagnostic_Severity {
 	if x != nil {
 		return x.Severity
 	}
 	return Diagnostic_INVALID
 }
 
-func (x *Diagnostic) GetSummary() string {
+
+*Diagnostic) GetSummary() string {
 	if x != nil {
 		return x.Summary
 	}
 	return ""
 }
 
-func (x *Diagnostic) GetDetail() string {
+
+*Diagnostic) GetDetail() string {
 	if x != nil {
 		return x.Detail
 	}
 	return ""
 }
 
-func (x *Diagnostic) GetAttribute() *AttributePath {
+
+*Diagnostic) GetAttribute() *AttributePath {
 	if x != nil {
 		return x.Attribute
 	}
@@ -386,7 +426,8 @@ type AttributePath struct {
 	Steps []*AttributePath_Step `protobuf:"bytes,1,rep,name=steps,proto3" json:"steps,omitempty"`
 }
 
-func (x *AttributePath) Reset() {
+
+*AttributePath) Reset() {
 	*x = AttributePath{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[2]
@@ -395,13 +436,16 @@ func (x *AttributePath) Reset() {
 	}
 }
 
-func (x *AttributePath) String() string {
+
+*AttributePath) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AttributePath) ProtoMessage() {}
 
-func (x *AttributePath) ProtoReflect() protoreflect.Message {
+ttributePath) ProtoMessage() {}
+
+
+*AttributePath) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -414,11 +458,13 @@ func (x *AttributePath) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use AttributePath.ProtoReflect.Descriptor instead.
-func (*AttributePath) Descriptor() ([]byte, []int) {
+
+ttributePath) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *AttributePath) GetSteps() []*AttributePath_Step {
+
+*AttributePath) GetSteps() []*AttributePath_Step {
 	if x != nil {
 		return x.Steps
 	}
@@ -431,7 +477,8 @@ type StopProvider struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *StopProvider) Reset() {
+
+*StopProvider) Reset() {
 	*x = StopProvider{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[3]
@@ -440,13 +487,16 @@ func (x *StopProvider) Reset() {
 	}
 }
 
-func (x *StopProvider) String() string {
+
+*StopProvider) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StopProvider) ProtoMessage() {}
 
-func (x *StopProvider) ProtoReflect() protoreflect.Message {
+topProvider) ProtoMessage() {}
+
+
+*StopProvider) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -459,7 +509,8 @@ func (x *StopProvider) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use StopProvider.ProtoReflect.Descriptor instead.
-func (*StopProvider) Descriptor() ([]byte, []int) {
+
+topProvider) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{3}
 }
 
@@ -475,7 +526,8 @@ type RawState struct {
 	Flatmap map[string]string `protobuf:"bytes,2,rep,name=flatmap,proto3" json:"flatmap,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
-func (x *RawState) Reset() {
+
+*RawState) Reset() {
 	*x = RawState{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[4]
@@ -484,13 +536,16 @@ func (x *RawState) Reset() {
 	}
 }
 
-func (x *RawState) String() string {
+
+*RawState) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RawState) ProtoMessage() {}
 
-func (x *RawState) ProtoReflect() protoreflect.Message {
+awState) ProtoMessage() {}
+
+
+*RawState) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -503,18 +558,21 @@ func (x *RawState) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use RawState.ProtoReflect.Descriptor instead.
-func (*RawState) Descriptor() ([]byte, []int) {
+
+awState) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *RawState) GetJson() []byte {
+
+*RawState) GetJson() []byte {
 	if x != nil {
 		return x.Json
 	}
 	return nil
 }
 
-func (x *RawState) GetFlatmap() map[string]string {
+
+*RawState) GetFlatmap() map[string]string {
 	if x != nil {
 		return x.Flatmap
 	}
@@ -535,7 +593,8 @@ type Schema struct {
 	Block *Schema_Block `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
 }
 
-func (x *Schema) Reset() {
+
+*Schema) Reset() {
 	*x = Schema{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[5]
@@ -544,13 +603,16 @@ func (x *Schema) Reset() {
 	}
 }
 
-func (x *Schema) String() string {
+
+*Schema) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Schema) ProtoMessage() {}
 
-func (x *Schema) ProtoReflect() protoreflect.Message {
+chema) ProtoMessage() {}
+
+
+*Schema) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -563,18 +625,21 @@ func (x *Schema) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Schema.ProtoReflect.Descriptor instead.
-func (*Schema) Descriptor() ([]byte, []int) {
+
+chema) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *Schema) GetVersion() int64 {
+
+*Schema) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *Schema) GetBlock() *Schema_Block {
+
+*Schema) GetBlock() *Schema_Block {
 	if x != nil {
 		return x.Block
 	}
@@ -600,7 +665,8 @@ type ServerCapabilities struct {
 	GetProviderSchemaOptional bool `protobuf:"varint,2,opt,name=get_provider_schema_optional,json=getProviderSchemaOptional,proto3" json:"get_provider_schema_optional,omitempty"`
 }
 
-func (x *ServerCapabilities) Reset() {
+
+*ServerCapabilities) Reset() {
 	*x = ServerCapabilities{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[6]
@@ -609,13 +675,16 @@ func (x *ServerCapabilities) Reset() {
 	}
 }
 
-func (x *ServerCapabilities) String() string {
+
+*ServerCapabilities) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ServerCapabilities) ProtoMessage() {}
 
-func (x *ServerCapabilities) ProtoReflect() protoreflect.Message {
+erverCapabilities) ProtoMessage() {}
+
+
+*ServerCapabilities) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -628,18 +697,21 @@ func (x *ServerCapabilities) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ServerCapabilities.ProtoReflect.Descriptor instead.
-func (*ServerCapabilities) Descriptor() ([]byte, []int) {
+
+erverCapabilities) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *ServerCapabilities) GetPlanDestroy() bool {
+
+*ServerCapabilities) GetPlanDestroy() bool {
 	if x != nil {
 		return x.PlanDestroy
 	}
 	return false
 }
 
-func (x *ServerCapabilities) GetGetProviderSchemaOptional() bool {
+
+*ServerCapabilities) GetGetProviderSchemaOptional() bool {
 	if x != nil {
 		return x.GetProviderSchemaOptional
 	}
@@ -652,7 +724,8 @@ type GetMetadata struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *GetMetadata) Reset() {
+
+*GetMetadata) Reset() {
 	*x = GetMetadata{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[7]
@@ -661,13 +734,16 @@ func (x *GetMetadata) Reset() {
 	}
 }
 
-func (x *GetMetadata) String() string {
+
+*GetMetadata) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMetadata) ProtoMessage() {}
 
-func (x *GetMetadata) ProtoReflect() protoreflect.Message {
+etMetadata) ProtoMessage() {}
+
+
+*GetMetadata) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -680,7 +756,8 @@ func (x *GetMetadata) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetMetadata.ProtoReflect.Descriptor instead.
-func (*GetMetadata) Descriptor() ([]byte, []int) {
+
+etMetadata) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{7}
 }
 
@@ -690,7 +767,8 @@ type GetProviderSchema struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *GetProviderSchema) Reset() {
+
+*GetProviderSchema) Reset() {
 	*x = GetProviderSchema{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[8]
@@ -699,13 +777,16 @@ func (x *GetProviderSchema) Reset() {
 	}
 }
 
-func (x *GetProviderSchema) String() string {
+
+*GetProviderSchema) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProviderSchema) ProtoMessage() {}
 
-func (x *GetProviderSchema) ProtoReflect() protoreflect.Message {
+etProviderSchema) ProtoMessage() {}
+
+
+*GetProviderSchema) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -718,7 +799,8 @@ func (x *GetProviderSchema) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetProviderSchema.ProtoReflect.Descriptor instead.
-func (*GetProviderSchema) Descriptor() ([]byte, []int) {
+
+etProviderSchema) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{8}
 }
 
@@ -728,7 +810,8 @@ type ValidateProviderConfig struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ValidateProviderConfig) Reset() {
+
+*ValidateProviderConfig) Reset() {
 	*x = ValidateProviderConfig{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[9]
@@ -737,13 +820,16 @@ func (x *ValidateProviderConfig) Reset() {
 	}
 }
 
-func (x *ValidateProviderConfig) String() string {
+
+*ValidateProviderConfig) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateProviderConfig) ProtoMessage() {}
 
-func (x *ValidateProviderConfig) ProtoReflect() protoreflect.Message {
+alidateProviderConfig) ProtoMessage() {}
+
+
+*ValidateProviderConfig) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -756,7 +842,8 @@ func (x *ValidateProviderConfig) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateProviderConfig.ProtoReflect.Descriptor instead.
-func (*ValidateProviderConfig) Descriptor() ([]byte, []int) {
+
+alidateProviderConfig) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{9}
 }
 
@@ -766,7 +853,8 @@ type UpgradeResourceState struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *UpgradeResourceState) Reset() {
+
+*UpgradeResourceState) Reset() {
 	*x = UpgradeResourceState{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[10]
@@ -775,13 +863,16 @@ func (x *UpgradeResourceState) Reset() {
 	}
 }
 
-func (x *UpgradeResourceState) String() string {
+
+*UpgradeResourceState) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpgradeResourceState) ProtoMessage() {}
 
-func (x *UpgradeResourceState) ProtoReflect() protoreflect.Message {
+pgradeResourceState) ProtoMessage() {}
+
+
+*UpgradeResourceState) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -794,7 +885,8 @@ func (x *UpgradeResourceState) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use UpgradeResourceState.ProtoReflect.Descriptor instead.
-func (*UpgradeResourceState) Descriptor() ([]byte, []int) {
+
+pgradeResourceState) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{10}
 }
 
@@ -804,7 +896,8 @@ type ValidateResourceConfig struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ValidateResourceConfig) Reset() {
+
+*ValidateResourceConfig) Reset() {
 	*x = ValidateResourceConfig{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[11]
@@ -813,13 +906,16 @@ func (x *ValidateResourceConfig) Reset() {
 	}
 }
 
-func (x *ValidateResourceConfig) String() string {
+
+*ValidateResourceConfig) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateResourceConfig) ProtoMessage() {}
 
-func (x *ValidateResourceConfig) ProtoReflect() protoreflect.Message {
+alidateResourceConfig) ProtoMessage() {}
+
+
+*ValidateResourceConfig) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -832,7 +928,8 @@ func (x *ValidateResourceConfig) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateResourceConfig.ProtoReflect.Descriptor instead.
-func (*ValidateResourceConfig) Descriptor() ([]byte, []int) {
+
+alidateResourceConfig) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{11}
 }
 
@@ -842,7 +939,8 @@ type ValidateDataResourceConfig struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ValidateDataResourceConfig) Reset() {
+
+*ValidateDataResourceConfig) Reset() {
 	*x = ValidateDataResourceConfig{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[12]
@@ -851,13 +949,16 @@ func (x *ValidateDataResourceConfig) Reset() {
 	}
 }
 
-func (x *ValidateDataResourceConfig) String() string {
+
+*ValidateDataResourceConfig) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateDataResourceConfig) ProtoMessage() {}
 
-func (x *ValidateDataResourceConfig) ProtoReflect() protoreflect.Message {
+alidateDataResourceConfig) ProtoMessage() {}
+
+
+*ValidateDataResourceConfig) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -870,7 +971,8 @@ func (x *ValidateDataResourceConfig) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateDataResourceConfig.ProtoReflect.Descriptor instead.
-func (*ValidateDataResourceConfig) Descriptor() ([]byte, []int) {
+
+alidateDataResourceConfig) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{12}
 }
 
@@ -880,7 +982,8 @@ type ConfigureProvider struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ConfigureProvider) Reset() {
+
+*ConfigureProvider) Reset() {
 	*x = ConfigureProvider{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[13]
@@ -889,13 +992,16 @@ func (x *ConfigureProvider) Reset() {
 	}
 }
 
-func (x *ConfigureProvider) String() string {
+
+*ConfigureProvider) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ConfigureProvider) ProtoMessage() {}
 
-func (x *ConfigureProvider) ProtoReflect() protoreflect.Message {
+onfigureProvider) ProtoMessage() {}
+
+
+*ConfigureProvider) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -908,7 +1014,8 @@ func (x *ConfigureProvider) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ConfigureProvider.ProtoReflect.Descriptor instead.
-func (*ConfigureProvider) Descriptor() ([]byte, []int) {
+
+onfigureProvider) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{13}
 }
 
@@ -918,7 +1025,8 @@ type ReadResource struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ReadResource) Reset() {
+
+*ReadResource) Reset() {
 	*x = ReadResource{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[14]
@@ -927,13 +1035,16 @@ func (x *ReadResource) Reset() {
 	}
 }
 
-func (x *ReadResource) String() string {
+
+*ReadResource) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadResource) ProtoMessage() {}
 
-func (x *ReadResource) ProtoReflect() protoreflect.Message {
+eadResource) ProtoMessage() {}
+
+
+*ReadResource) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -946,7 +1057,8 @@ func (x *ReadResource) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadResource.ProtoReflect.Descriptor instead.
-func (*ReadResource) Descriptor() ([]byte, []int) {
+
+eadResource) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{14}
 }
 
@@ -956,7 +1068,8 @@ type PlanResourceChange struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *PlanResourceChange) Reset() {
+
+*PlanResourceChange) Reset() {
 	*x = PlanResourceChange{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[15]
@@ -965,13 +1078,16 @@ func (x *PlanResourceChange) Reset() {
 	}
 }
 
-func (x *PlanResourceChange) String() string {
+
+*PlanResourceChange) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PlanResourceChange) ProtoMessage() {}
 
-func (x *PlanResourceChange) ProtoReflect() protoreflect.Message {
+lanResourceChange) ProtoMessage() {}
+
+
+*PlanResourceChange) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -984,7 +1100,8 @@ func (x *PlanResourceChange) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use PlanResourceChange.ProtoReflect.Descriptor instead.
-func (*PlanResourceChange) Descriptor() ([]byte, []int) {
+
+lanResourceChange) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{15}
 }
 
@@ -994,7 +1111,8 @@ type ApplyResourceChange struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ApplyResourceChange) Reset() {
+
+*ApplyResourceChange) Reset() {
 	*x = ApplyResourceChange{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[16]
@@ -1003,13 +1121,16 @@ func (x *ApplyResourceChange) Reset() {
 	}
 }
 
-func (x *ApplyResourceChange) String() string {
+
+*ApplyResourceChange) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ApplyResourceChange) ProtoMessage() {}
 
-func (x *ApplyResourceChange) ProtoReflect() protoreflect.Message {
+pplyResourceChange) ProtoMessage() {}
+
+
+*ApplyResourceChange) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1022,7 +1143,8 @@ func (x *ApplyResourceChange) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ApplyResourceChange.ProtoReflect.Descriptor instead.
-func (*ApplyResourceChange) Descriptor() ([]byte, []int) {
+
+pplyResourceChange) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{16}
 }
 
@@ -1032,7 +1154,8 @@ type ImportResourceState struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ImportResourceState) Reset() {
+
+*ImportResourceState) Reset() {
 	*x = ImportResourceState{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[17]
@@ -1041,13 +1164,16 @@ func (x *ImportResourceState) Reset() {
 	}
 }
 
-func (x *ImportResourceState) String() string {
+
+*ImportResourceState) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ImportResourceState) ProtoMessage() {}
 
-func (x *ImportResourceState) ProtoReflect() protoreflect.Message {
+mportResourceState) ProtoMessage() {}
+
+
+*ImportResourceState) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1060,7 +1186,8 @@ func (x *ImportResourceState) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ImportResourceState.ProtoReflect.Descriptor instead.
-func (*ImportResourceState) Descriptor() ([]byte, []int) {
+
+mportResourceState) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{17}
 }
 
@@ -1070,7 +1197,8 @@ type ReadDataSource struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ReadDataSource) Reset() {
+
+*ReadDataSource) Reset() {
 	*x = ReadDataSource{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[18]
@@ -1079,13 +1207,16 @@ func (x *ReadDataSource) Reset() {
 	}
 }
 
-func (x *ReadDataSource) String() string {
+
+*ReadDataSource) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadDataSource) ProtoMessage() {}
 
-func (x *ReadDataSource) ProtoReflect() protoreflect.Message {
+eadDataSource) ProtoMessage() {}
+
+
+*ReadDataSource) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1098,7 +1229,8 @@ func (x *ReadDataSource) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadDataSource.ProtoReflect.Descriptor instead.
-func (*ReadDataSource) Descriptor() ([]byte, []int) {
+
+eadDataSource) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{18}
 }
 
@@ -1115,7 +1247,8 @@ type AttributePath_Step struct {
 	Selector isAttributePath_Step_Selector `protobuf_oneof:"selector"`
 }
 
-func (x *AttributePath_Step) Reset() {
+
+*AttributePath_Step) Reset() {
 	*x = AttributePath_Step{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[19]
@@ -1124,13 +1257,16 @@ func (x *AttributePath_Step) Reset() {
 	}
 }
 
-func (x *AttributePath_Step) String() string {
+
+*AttributePath_Step) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AttributePath_Step) ProtoMessage() {}
 
-func (x *AttributePath_Step) ProtoReflect() protoreflect.Message {
+ttributePath_Step) ProtoMessage() {}
+
+
+*AttributePath_Step) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1143,32 +1279,37 @@ func (x *AttributePath_Step) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use AttributePath_Step.ProtoReflect.Descriptor instead.
-func (*AttributePath_Step) Descriptor() ([]byte, []int) {
+
+ttributePath_Step) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{2, 0}
 }
 
-func (m *AttributePath_Step) GetSelector() isAttributePath_Step_Selector {
+
+*AttributePath_Step) GetSelector() isAttributePath_Step_Selector {
 	if m != nil {
 		return m.Selector
 	}
 	return nil
 }
 
-func (x *AttributePath_Step) GetAttributeName() string {
+
+*AttributePath_Step) GetAttributeName() string {
 	if x, ok := x.GetSelector().(*AttributePath_Step_AttributeName); ok {
 		return x.AttributeName
 	}
 	return ""
 }
 
-func (x *AttributePath_Step) GetElementKeyString() string {
+
+*AttributePath_Step) GetElementKeyString() string {
 	if x, ok := x.GetSelector().(*AttributePath_Step_ElementKeyString); ok {
 		return x.ElementKeyString
 	}
 	return ""
 }
 
-func (x *AttributePath_Step) GetElementKeyInt() int64 {
+
+*AttributePath_Step) GetElementKeyInt() int64 {
 	if x, ok := x.GetSelector().(*AttributePath_Step_ElementKeyInt); ok {
 		return x.ElementKeyInt
 	}
@@ -1195,11 +1336,14 @@ type AttributePath_Step_ElementKeyInt struct {
 	ElementKeyInt int64 `protobuf:"varint,3,opt,name=element_key_int,json=elementKeyInt,proto3,oneof"`
 }
 
-func (*AttributePath_Step_AttributeName) isAttributePath_Step_Selector() {}
 
-func (*AttributePath_Step_ElementKeyString) isAttributePath_Step_Selector() {}
+ttributePath_Step_AttributeName) isAttributePath_Step_Selector() {}
 
-func (*AttributePath_Step_ElementKeyInt) isAttributePath_Step_Selector() {}
+
+ttributePath_Step_ElementKeyString) isAttributePath_Step_Selector() {}
+
+
+ttributePath_Step_ElementKeyInt) isAttributePath_Step_Selector() {}
 
 type StopProvider_Request struct {
 	state         protoimpl.MessageState
@@ -1207,7 +1351,8 @@ type StopProvider_Request struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *StopProvider_Request) Reset() {
+
+*StopProvider_Request) Reset() {
 	*x = StopProvider_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[20]
@@ -1216,13 +1361,16 @@ func (x *StopProvider_Request) Reset() {
 	}
 }
 
-func (x *StopProvider_Request) String() string {
+
+*StopProvider_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StopProvider_Request) ProtoMessage() {}
 
-func (x *StopProvider_Request) ProtoReflect() protoreflect.Message {
+topProvider_Request) ProtoMessage() {}
+
+
+*StopProvider_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1235,7 +1383,8 @@ func (x *StopProvider_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use StopProvider_Request.ProtoReflect.Descriptor instead.
-func (*StopProvider_Request) Descriptor() ([]byte, []int) {
+
+topProvider_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{3, 0}
 }
 
@@ -1247,7 +1396,8 @@ type StopProvider_Response struct {
 	Error string `protobuf:"bytes,1,opt,name=Error,proto3" json:"Error,omitempty"`
 }
 
-func (x *StopProvider_Response) Reset() {
+
+*StopProvider_Response) Reset() {
 	*x = StopProvider_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[21]
@@ -1256,13 +1406,16 @@ func (x *StopProvider_Response) Reset() {
 	}
 }
 
-func (x *StopProvider_Response) String() string {
+
+*StopProvider_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StopProvider_Response) ProtoMessage() {}
 
-func (x *StopProvider_Response) ProtoReflect() protoreflect.Message {
+topProvider_Response) ProtoMessage() {}
+
+
+*StopProvider_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1275,11 +1428,13 @@ func (x *StopProvider_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use StopProvider_Response.ProtoReflect.Descriptor instead.
-func (*StopProvider_Response) Descriptor() ([]byte, []int) {
+
+topProvider_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{3, 1}
 }
 
-func (x *StopProvider_Response) GetError() string {
+
+*StopProvider_Response) GetError() string {
 	if x != nil {
 		return x.Error
 	}
@@ -1299,7 +1454,8 @@ type Schema_Block struct {
 	Deprecated      bool                  `protobuf:"varint,6,opt,name=deprecated,proto3" json:"deprecated,omitempty"`
 }
 
-func (x *Schema_Block) Reset() {
+
+*Schema_Block) Reset() {
 	*x = Schema_Block{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[23]
@@ -1308,13 +1464,16 @@ func (x *Schema_Block) Reset() {
 	}
 }
 
-func (x *Schema_Block) String() string {
+
+*Schema_Block) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Schema_Block) ProtoMessage() {}
 
-func (x *Schema_Block) ProtoReflect() protoreflect.Message {
+chema_Block) ProtoMessage() {}
+
+
+*Schema_Block) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1327,46 +1486,53 @@ func (x *Schema_Block) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Schema_Block.ProtoReflect.Descriptor instead.
-func (*Schema_Block) Descriptor() ([]byte, []int) {
+
+chema_Block) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 0}
 }
 
-func (x *Schema_Block) GetVersion() int64 {
+
+*Schema_Block) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *Schema_Block) GetAttributes() []*Schema_Attribute {
+
+*Schema_Block) GetAttributes() []*Schema_Attribute {
 	if x != nil {
 		return x.Attributes
 	}
 	return nil
 }
 
-func (x *Schema_Block) GetBlockTypes() []*Schema_NestedBlock {
+
+*Schema_Block) GetBlockTypes() []*Schema_NestedBlock {
 	if x != nil {
 		return x.BlockTypes
 	}
 	return nil
 }
 
-func (x *Schema_Block) GetDescription() string {
+
+*Schema_Block) GetDescription() string {
 	if x != nil {
 		return x.Description
 	}
 	return ""
 }
 
-func (x *Schema_Block) GetDescriptionKind() StringKind {
+
+*Schema_Block) GetDescriptionKind() StringKind {
 	if x != nil {
 		return x.DescriptionKind
 	}
 	return StringKind_PLAIN
 }
 
-func (x *Schema_Block) GetDeprecated() bool {
+
+*Schema_Block) GetDeprecated() bool {
 	if x != nil {
 		return x.Deprecated
 	}
@@ -1390,7 +1556,8 @@ type Schema_Attribute struct {
 	Deprecated      bool           `protobuf:"varint,9,opt,name=deprecated,proto3" json:"deprecated,omitempty"`
 }
 
-func (x *Schema_Attribute) Reset() {
+
+*Schema_Attribute) Reset() {
 	*x = Schema_Attribute{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[24]
@@ -1399,13 +1566,16 @@ func (x *Schema_Attribute) Reset() {
 	}
 }
 
-func (x *Schema_Attribute) String() string {
+
+*Schema_Attribute) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Schema_Attribute) ProtoMessage() {}
 
-func (x *Schema_Attribute) ProtoReflect() protoreflect.Message {
+chema_Attribute) ProtoMessage() {}
+
+
+*Schema_Attribute) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1418,74 +1588,85 @@ func (x *Schema_Attribute) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Schema_Attribute.ProtoReflect.Descriptor instead.
-func (*Schema_Attribute) Descriptor() ([]byte, []int) {
+
+chema_Attribute) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 1}
 }
 
-func (x *Schema_Attribute) GetName() string {
+
+*Schema_Attribute) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *Schema_Attribute) GetType() []byte {
+
+*Schema_Attribute) GetType() []byte {
 	if x != nil {
 		return x.Type
 	}
 	return nil
 }
 
-func (x *Schema_Attribute) GetNestedType() *Schema_Object {
+
+*Schema_Attribute) GetNestedType() *Schema_Object {
 	if x != nil {
 		return x.NestedType
 	}
 	return nil
 }
 
-func (x *Schema_Attribute) GetDescription() string {
+
+*Schema_Attribute) GetDescription() string {
 	if x != nil {
 		return x.Description
 	}
 	return ""
 }
 
-func (x *Schema_Attribute) GetRequired() bool {
+
+*Schema_Attribute) GetRequired() bool {
 	if x != nil {
 		return x.Required
 	}
 	return false
 }
 
-func (x *Schema_Attribute) GetOptional() bool {
+
+*Schema_Attribute) GetOptional() bool {
 	if x != nil {
 		return x.Optional
 	}
 	return false
 }
 
-func (x *Schema_Attribute) GetComputed() bool {
+
+*Schema_Attribute) GetComputed() bool {
 	if x != nil {
 		return x.Computed
 	}
 	return false
 }
 
-func (x *Schema_Attribute) GetSensitive() bool {
+
+*Schema_Attribute) GetSensitive() bool {
 	if x != nil {
 		return x.Sensitive
 	}
 	return false
 }
 
-func (x *Schema_Attribute) GetDescriptionKind() StringKind {
+
+*Schema_Attribute) GetDescriptionKind() StringKind {
 	if x != nil {
 		return x.DescriptionKind
 	}
 	return StringKind_PLAIN
 }
 
-func (x *Schema_Attribute) GetDeprecated() bool {
+
+*Schema_Attribute) GetDeprecated() bool {
 	if x != nil {
 		return x.Deprecated
 	}
@@ -1504,7 +1685,8 @@ type Schema_NestedBlock struct {
 	MaxItems int64                          `protobuf:"varint,5,opt,name=max_items,json=maxItems,proto3" json:"max_items,omitempty"`
 }
 
-func (x *Schema_NestedBlock) Reset() {
+
+*Schema_NestedBlock) Reset() {
 	*x = Schema_NestedBlock{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[25]
@@ -1513,13 +1695,16 @@ func (x *Schema_NestedBlock) Reset() {
 	}
 }
 
-func (x *Schema_NestedBlock) String() string {
+
+*Schema_NestedBlock) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Schema_NestedBlock) ProtoMessage() {}
 
-func (x *Schema_NestedBlock) ProtoReflect() protoreflect.Message {
+chema_NestedBlock) ProtoMessage() {}
+
+
+*Schema_NestedBlock) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1532,39 +1717,45 @@ func (x *Schema_NestedBlock) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Schema_NestedBlock.ProtoReflect.Descriptor instead.
-func (*Schema_NestedBlock) Descriptor() ([]byte, []int) {
+
+chema_NestedBlock) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 2}
 }
 
-func (x *Schema_NestedBlock) GetTypeName() string {
+
+*Schema_NestedBlock) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *Schema_NestedBlock) GetBlock() *Schema_Block {
+
+*Schema_NestedBlock) GetBlock() *Schema_Block {
 	if x != nil {
 		return x.Block
 	}
 	return nil
 }
 
-func (x *Schema_NestedBlock) GetNesting() Schema_NestedBlock_NestingMode {
+
+*Schema_NestedBlock) GetNesting() Schema_NestedBlock_NestingMode {
 	if x != nil {
 		return x.Nesting
 	}
 	return Schema_NestedBlock_INVALID
 }
 
-func (x *Schema_NestedBlock) GetMinItems() int64 {
+
+*Schema_NestedBlock) GetMinItems() int64 {
 	if x != nil {
 		return x.MinItems
 	}
 	return 0
 }
 
-func (x *Schema_NestedBlock) GetMaxItems() int64 {
+
+*Schema_NestedBlock) GetMaxItems() int64 {
 	if x != nil {
 		return x.MaxItems
 	}
@@ -1587,7 +1778,8 @@ type Schema_Object struct {
 	MaxItems int64 `protobuf:"varint,5,opt,name=max_items,json=maxItems,proto3" json:"max_items,omitempty"`
 }
 
-func (x *Schema_Object) Reset() {
+
+*Schema_Object) Reset() {
 	*x = Schema_Object{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[26]
@@ -1596,13 +1788,16 @@ func (x *Schema_Object) Reset() {
 	}
 }
 
-func (x *Schema_Object) String() string {
+
+*Schema_Object) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Schema_Object) ProtoMessage() {}
 
-func (x *Schema_Object) ProtoReflect() protoreflect.Message {
+chema_Object) ProtoMessage() {}
+
+
+*Schema_Object) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1615,18 +1810,21 @@ func (x *Schema_Object) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use Schema_Object.ProtoReflect.Descriptor instead.
-func (*Schema_Object) Descriptor() ([]byte, []int) {
+
+chema_Object) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{5, 3}
 }
 
-func (x *Schema_Object) GetAttributes() []*Schema_Attribute {
+
+*Schema_Object) GetAttributes() []*Schema_Attribute {
 	if x != nil {
 		return x.Attributes
 	}
 	return nil
 }
 
-func (x *Schema_Object) GetNesting() Schema_Object_NestingMode {
+
+*Schema_Object) GetNesting() Schema_Object_NestingMode {
 	if x != nil {
 		return x.Nesting
 	}
@@ -1634,7 +1832,8 @@ func (x *Schema_Object) GetNesting() Schema_Object_NestingMode {
 }
 
 // Deprecated: Marked as deprecated in tfplugin6.proto.
-func (x *Schema_Object) GetMinItems() int64 {
+
+*Schema_Object) GetMinItems() int64 {
 	if x != nil {
 		return x.MinItems
 	}
@@ -1642,7 +1841,8 @@ func (x *Schema_Object) GetMinItems() int64 {
 }
 
 // Deprecated: Marked as deprecated in tfplugin6.proto.
-func (x *Schema_Object) GetMaxItems() int64 {
+
+*Schema_Object) GetMaxItems() int64 {
 	if x != nil {
 		return x.MaxItems
 	}
@@ -1655,7 +1855,8 @@ type GetMetadata_Request struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *GetMetadata_Request) Reset() {
+
+*GetMetadata_Request) Reset() {
 	*x = GetMetadata_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[27]
@@ -1664,13 +1865,16 @@ func (x *GetMetadata_Request) Reset() {
 	}
 }
 
-func (x *GetMetadata_Request) String() string {
+
+*GetMetadata_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMetadata_Request) ProtoMessage() {}
 
-func (x *GetMetadata_Request) ProtoReflect() protoreflect.Message {
+etMetadata_Request) ProtoMessage() {}
+
+
+*GetMetadata_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1683,7 +1887,8 @@ func (x *GetMetadata_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetMetadata_Request.ProtoReflect.Descriptor instead.
-func (*GetMetadata_Request) Descriptor() ([]byte, []int) {
+
+etMetadata_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{7, 0}
 }
 
@@ -1698,7 +1903,8 @@ type GetMetadata_Response struct {
 	Resources          []*GetMetadata_ResourceMetadata   `protobuf:"bytes,4,rep,name=resources,proto3" json:"resources,omitempty"`
 }
 
-func (x *GetMetadata_Response) Reset() {
+
+*GetMetadata_Response) Reset() {
 	*x = GetMetadata_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[28]
@@ -1707,13 +1913,16 @@ func (x *GetMetadata_Response) Reset() {
 	}
 }
 
-func (x *GetMetadata_Response) String() string {
+
+*GetMetadata_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMetadata_Response) ProtoMessage() {}
 
-func (x *GetMetadata_Response) ProtoReflect() protoreflect.Message {
+etMetadata_Response) ProtoMessage() {}
+
+
+*GetMetadata_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1726,32 +1935,37 @@ func (x *GetMetadata_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetMetadata_Response.ProtoReflect.Descriptor instead.
-func (*GetMetadata_Response) Descriptor() ([]byte, []int) {
+
+etMetadata_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{7, 1}
 }
 
-func (x *GetMetadata_Response) GetServerCapabilities() *ServerCapabilities {
+
+*GetMetadata_Response) GetServerCapabilities() *ServerCapabilities {
 	if x != nil {
 		return x.ServerCapabilities
 	}
 	return nil
 }
 
-func (x *GetMetadata_Response) GetDiagnostics() []*Diagnostic {
+
+*GetMetadata_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
 	return nil
 }
 
-func (x *GetMetadata_Response) GetDataSources() []*GetMetadata_DataSourceMetadata {
+
+*GetMetadata_Response) GetDataSources() []*GetMetadata_DataSourceMetadata {
 	if x != nil {
 		return x.DataSources
 	}
 	return nil
 }
 
-func (x *GetMetadata_Response) GetResources() []*GetMetadata_ResourceMetadata {
+
+*GetMetadata_Response) GetResources() []*GetMetadata_ResourceMetadata {
 	if x != nil {
 		return x.Resources
 	}
@@ -1766,7 +1980,8 @@ type GetMetadata_DataSourceMetadata struct {
 	TypeName string `protobuf:"bytes,1,opt,name=type_name,json=typeName,proto3" json:"type_name,omitempty"`
 }
 
-func (x *GetMetadata_DataSourceMetadata) Reset() {
+
+*GetMetadata_DataSourceMetadata) Reset() {
 	*x = GetMetadata_DataSourceMetadata{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[29]
@@ -1775,13 +1990,16 @@ func (x *GetMetadata_DataSourceMetadata) Reset() {
 	}
 }
 
-func (x *GetMetadata_DataSourceMetadata) String() string {
+
+*GetMetadata_DataSourceMetadata) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMetadata_DataSourceMetadata) ProtoMessage() {}
 
-func (x *GetMetadata_DataSourceMetadata) ProtoReflect() protoreflect.Message {
+etMetadata_DataSourceMetadata) ProtoMessage() {}
+
+
+*GetMetadata_DataSourceMetadata) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1794,11 +2012,13 @@ func (x *GetMetadata_DataSourceMetadata) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetMetadata_DataSourceMetadata.ProtoReflect.Descriptor instead.
-func (*GetMetadata_DataSourceMetadata) Descriptor() ([]byte, []int) {
+
+etMetadata_DataSourceMetadata) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{7, 2}
 }
 
-func (x *GetMetadata_DataSourceMetadata) GetTypeName() string {
+
+*GetMetadata_DataSourceMetadata) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
@@ -1813,7 +2033,8 @@ type GetMetadata_ResourceMetadata struct {
 	TypeName string `protobuf:"bytes,1,opt,name=type_name,json=typeName,proto3" json:"type_name,omitempty"`
 }
 
-func (x *GetMetadata_ResourceMetadata) Reset() {
+
+*GetMetadata_ResourceMetadata) Reset() {
 	*x = GetMetadata_ResourceMetadata{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[30]
@@ -1822,13 +2043,16 @@ func (x *GetMetadata_ResourceMetadata) Reset() {
 	}
 }
 
-func (x *GetMetadata_ResourceMetadata) String() string {
+
+*GetMetadata_ResourceMetadata) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMetadata_ResourceMetadata) ProtoMessage() {}
 
-func (x *GetMetadata_ResourceMetadata) ProtoReflect() protoreflect.Message {
+etMetadata_ResourceMetadata) ProtoMessage() {}
+
+
+*GetMetadata_ResourceMetadata) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1841,11 +2065,13 @@ func (x *GetMetadata_ResourceMetadata) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetMetadata_ResourceMetadata.ProtoReflect.Descriptor instead.
-func (*GetMetadata_ResourceMetadata) Descriptor() ([]byte, []int) {
+
+etMetadata_ResourceMetadata) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{7, 3}
 }
 
-func (x *GetMetadata_ResourceMetadata) GetTypeName() string {
+
+*GetMetadata_ResourceMetadata) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
@@ -1858,7 +2084,8 @@ type GetProviderSchema_Request struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *GetProviderSchema_Request) Reset() {
+
+*GetProviderSchema_Request) Reset() {
 	*x = GetProviderSchema_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[31]
@@ -1867,13 +2094,16 @@ func (x *GetProviderSchema_Request) Reset() {
 	}
 }
 
-func (x *GetProviderSchema_Request) String() string {
+
+*GetProviderSchema_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProviderSchema_Request) ProtoMessage() {}
 
-func (x *GetProviderSchema_Request) ProtoReflect() protoreflect.Message {
+etProviderSchema_Request) ProtoMessage() {}
+
+
+*GetProviderSchema_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1886,7 +2116,8 @@ func (x *GetProviderSchema_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetProviderSchema_Request.ProtoReflect.Descriptor instead.
-func (*GetProviderSchema_Request) Descriptor() ([]byte, []int) {
+
+etProviderSchema_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{8, 0}
 }
 
@@ -1903,7 +2134,8 @@ type GetProviderSchema_Response struct {
 	ServerCapabilities *ServerCapabilities `protobuf:"bytes,6,opt,name=server_capabilities,json=serverCapabilities,proto3" json:"server_capabilities,omitempty"`
 }
 
-func (x *GetProviderSchema_Response) Reset() {
+
+*GetProviderSchema_Response) Reset() {
 	*x = GetProviderSchema_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[32]
@@ -1912,13 +2144,16 @@ func (x *GetProviderSchema_Response) Reset() {
 	}
 }
 
-func (x *GetProviderSchema_Response) String() string {
+
+*GetProviderSchema_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProviderSchema_Response) ProtoMessage() {}
 
-func (x *GetProviderSchema_Response) ProtoReflect() protoreflect.Message {
+etProviderSchema_Response) ProtoMessage() {}
+
+
+*GetProviderSchema_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1931,46 +2166,53 @@ func (x *GetProviderSchema_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use GetProviderSchema_Response.ProtoReflect.Descriptor instead.
-func (*GetProviderSchema_Response) Descriptor() ([]byte, []int) {
+
+etProviderSchema_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{8, 1}
 }
 
-func (x *GetProviderSchema_Response) GetProvider() *Schema {
+
+*GetProviderSchema_Response) GetProvider() *Schema {
 	if x != nil {
 		return x.Provider
 	}
 	return nil
 }
 
-func (x *GetProviderSchema_Response) GetResourceSchemas() map[string]*Schema {
+
+*GetProviderSchema_Response) GetResourceSchemas() map[string]*Schema {
 	if x != nil {
 		return x.ResourceSchemas
 	}
 	return nil
 }
 
-func (x *GetProviderSchema_Response) GetDataSourceSchemas() map[string]*Schema {
+
+*GetProviderSchema_Response) GetDataSourceSchemas() map[string]*Schema {
 	if x != nil {
 		return x.DataSourceSchemas
 	}
 	return nil
 }
 
-func (x *GetProviderSchema_Response) GetDiagnostics() []*Diagnostic {
+
+*GetProviderSchema_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
 	return nil
 }
 
-func (x *GetProviderSchema_Response) GetProviderMeta() *Schema {
+
+*GetProviderSchema_Response) GetProviderMeta() *Schema {
 	if x != nil {
 		return x.ProviderMeta
 	}
 	return nil
 }
 
-func (x *GetProviderSchema_Response) GetServerCapabilities() *ServerCapabilities {
+
+*GetProviderSchema_Response) GetServerCapabilities() *ServerCapabilities {
 	if x != nil {
 		return x.ServerCapabilities
 	}
@@ -1985,7 +2227,8 @@ type ValidateProviderConfig_Request struct {
 	Config *DynamicValue `protobuf:"bytes,1,opt,name=config,proto3" json:"config,omitempty"`
 }
 
-func (x *ValidateProviderConfig_Request) Reset() {
+
+*ValidateProviderConfig_Request) Reset() {
 	*x = ValidateProviderConfig_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[35]
@@ -1994,13 +2237,16 @@ func (x *ValidateProviderConfig_Request) Reset() {
 	}
 }
 
-func (x *ValidateProviderConfig_Request) String() string {
+
+*ValidateProviderConfig_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateProviderConfig_Request) ProtoMessage() {}
 
-func (x *ValidateProviderConfig_Request) ProtoReflect() protoreflect.Message {
+alidateProviderConfig_Request) ProtoMessage() {}
+
+
+*ValidateProviderConfig_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2013,11 +2259,13 @@ func (x *ValidateProviderConfig_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateProviderConfig_Request.ProtoReflect.Descriptor instead.
-func (*ValidateProviderConfig_Request) Descriptor() ([]byte, []int) {
+
+alidateProviderConfig_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{9, 0}
 }
 
-func (x *ValidateProviderConfig_Request) GetConfig() *DynamicValue {
+
+*ValidateProviderConfig_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
@@ -2032,7 +2280,8 @@ type ValidateProviderConfig_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,2,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ValidateProviderConfig_Response) Reset() {
+
+*ValidateProviderConfig_Response) Reset() {
 	*x = ValidateProviderConfig_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[36]
@@ -2041,13 +2290,16 @@ func (x *ValidateProviderConfig_Response) Reset() {
 	}
 }
 
-func (x *ValidateProviderConfig_Response) String() string {
+
+*ValidateProviderConfig_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateProviderConfig_Response) ProtoMessage() {}
 
-func (x *ValidateProviderConfig_Response) ProtoReflect() protoreflect.Message {
+alidateProviderConfig_Response) ProtoMessage() {}
+
+
+*ValidateProviderConfig_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2060,11 +2312,13 @@ func (x *ValidateProviderConfig_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateProviderConfig_Response.ProtoReflect.Descriptor instead.
-func (*ValidateProviderConfig_Response) Descriptor() ([]byte, []int) {
+
+alidateProviderConfig_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{9, 1}
 }
 
-func (x *ValidateProviderConfig_Response) GetDiagnostics() []*Diagnostic {
+
+*ValidateProviderConfig_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -2096,7 +2350,8 @@ type UpgradeResourceState_Request struct {
 	RawState *RawState `protobuf:"bytes,3,opt,name=raw_state,json=rawState,proto3" json:"raw_state,omitempty"`
 }
 
-func (x *UpgradeResourceState_Request) Reset() {
+
+*UpgradeResourceState_Request) Reset() {
 	*x = UpgradeResourceState_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[37]
@@ -2105,13 +2360,16 @@ func (x *UpgradeResourceState_Request) Reset() {
 	}
 }
 
-func (x *UpgradeResourceState_Request) String() string {
+
+*UpgradeResourceState_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpgradeResourceState_Request) ProtoMessage() {}
 
-func (x *UpgradeResourceState_Request) ProtoReflect() protoreflect.Message {
+pgradeResourceState_Request) ProtoMessage() {}
+
+
+*UpgradeResourceState_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2124,25 +2382,29 @@ func (x *UpgradeResourceState_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use UpgradeResourceState_Request.ProtoReflect.Descriptor instead.
-func (*UpgradeResourceState_Request) Descriptor() ([]byte, []int) {
+
+pgradeResourceState_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{10, 0}
 }
 
-func (x *UpgradeResourceState_Request) GetTypeName() string {
+
+*UpgradeResourceState_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *UpgradeResourceState_Request) GetVersion() int64 {
+
+*UpgradeResourceState_Request) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *UpgradeResourceState_Request) GetRawState() *RawState {
+
+*UpgradeResourceState_Request) GetRawState() *RawState {
 	if x != nil {
 		return x.RawState
 	}
@@ -2155,7 +2417,8 @@ type UpgradeResourceState_Response struct {
 	unknownFields protoimpl.UnknownFields
 
 	// new_state is a msgpack-encoded data structure that, when interpreted with
-	// the _current_ schema for this resource type, is functionally equivalent to
+	// the _current_ schema for this resource type, is 
+ally equivalent to
 	// that which was given in prior_state_raw.
 	UpgradedState *DynamicValue `protobuf:"bytes,1,opt,name=upgraded_state,json=upgradedState,proto3" json:"upgraded_state,omitempty"`
 	// diagnostics describes any errors encountered during migration that could not
@@ -2164,7 +2427,8 @@ type UpgradeResourceState_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,2,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *UpgradeResourceState_Response) Reset() {
+
+*UpgradeResourceState_Response) Reset() {
 	*x = UpgradeResourceState_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[38]
@@ -2173,13 +2437,16 @@ func (x *UpgradeResourceState_Response) Reset() {
 	}
 }
 
-func (x *UpgradeResourceState_Response) String() string {
+
+*UpgradeResourceState_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpgradeResourceState_Response) ProtoMessage() {}
 
-func (x *UpgradeResourceState_Response) ProtoReflect() protoreflect.Message {
+pgradeResourceState_Response) ProtoMessage() {}
+
+
+*UpgradeResourceState_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2192,18 +2459,21 @@ func (x *UpgradeResourceState_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use UpgradeResourceState_Response.ProtoReflect.Descriptor instead.
-func (*UpgradeResourceState_Response) Descriptor() ([]byte, []int) {
+
+pgradeResourceState_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{10, 1}
 }
 
-func (x *UpgradeResourceState_Response) GetUpgradedState() *DynamicValue {
+
+*UpgradeResourceState_Response) GetUpgradedState() *DynamicValue {
 	if x != nil {
 		return x.UpgradedState
 	}
 	return nil
 }
 
-func (x *UpgradeResourceState_Response) GetDiagnostics() []*Diagnostic {
+
+*UpgradeResourceState_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -2219,7 +2489,8 @@ type ValidateResourceConfig_Request struct {
 	Config   *DynamicValue `protobuf:"bytes,2,opt,name=config,proto3" json:"config,omitempty"`
 }
 
-func (x *ValidateResourceConfig_Request) Reset() {
+
+*ValidateResourceConfig_Request) Reset() {
 	*x = ValidateResourceConfig_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[39]
@@ -2228,13 +2499,16 @@ func (x *ValidateResourceConfig_Request) Reset() {
 	}
 }
 
-func (x *ValidateResourceConfig_Request) String() string {
+
+*ValidateResourceConfig_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateResourceConfig_Request) ProtoMessage() {}
 
-func (x *ValidateResourceConfig_Request) ProtoReflect() protoreflect.Message {
+alidateResourceConfig_Request) ProtoMessage() {}
+
+
+*ValidateResourceConfig_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2247,18 +2521,21 @@ func (x *ValidateResourceConfig_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateResourceConfig_Request.ProtoReflect.Descriptor instead.
-func (*ValidateResourceConfig_Request) Descriptor() ([]byte, []int) {
+
+alidateResourceConfig_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{11, 0}
 }
 
-func (x *ValidateResourceConfig_Request) GetTypeName() string {
+
+*ValidateResourceConfig_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ValidateResourceConfig_Request) GetConfig() *DynamicValue {
+
+*ValidateResourceConfig_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
@@ -2273,7 +2550,8 @@ type ValidateResourceConfig_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,1,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ValidateResourceConfig_Response) Reset() {
+
+*ValidateResourceConfig_Response) Reset() {
 	*x = ValidateResourceConfig_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[40]
@@ -2282,13 +2560,16 @@ func (x *ValidateResourceConfig_Response) Reset() {
 	}
 }
 
-func (x *ValidateResourceConfig_Response) String() string {
+
+*ValidateResourceConfig_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateResourceConfig_Response) ProtoMessage() {}
 
-func (x *ValidateResourceConfig_Response) ProtoReflect() protoreflect.Message {
+alidateResourceConfig_Response) ProtoMessage() {}
+
+
+*ValidateResourceConfig_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2301,11 +2582,13 @@ func (x *ValidateResourceConfig_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ValidateResourceConfig_Response.ProtoReflect.Descriptor instead.
-func (*ValidateResourceConfig_Response) Descriptor() ([]byte, []int) {
+
+alidateResourceConfig_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{11, 1}
 }
 
-func (x *ValidateResourceConfig_Response) GetDiagnostics() []*Diagnostic {
+
+*ValidateResourceConfig_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -2321,7 +2604,8 @@ type ValidateDataResourceConfig_Request struct {
 	Config   *DynamicValue `protobuf:"bytes,2,opt,name=config,proto3" json:"config,omitempty"`
 }
 
-func (x *ValidateDataResourceConfig_Request) Reset() {
+
+*ValidateDataResourceConfig_Request) Reset() {
 	*x = ValidateDataResourceConfig_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[41]
@@ -2330,13 +2614,16 @@ func (x *ValidateDataResourceConfig_Request) Reset() {
 	}
 }
 
-func (x *ValidateDataResourceConfig_Request) String() string {
+
+*ValidateDataResourceConfig_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateDataResourceConfig_Request) ProtoMessage() {}
 
-func (x *ValidateDataResourceConfig_Request) ProtoReflect() protoreflect.Message {
+alidateDataResourceConfig_Request) ProtoMessage() {}
+
+
+*ValidateDataResourceConfig_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2349,18 +2636,21 @@ func (x *ValidateDataResourceConfig_Request) ProtoReflect() protoreflect.Message
 }
 
 // Deprecated: Use ValidateDataResourceConfig_Request.ProtoReflect.Descriptor instead.
-func (*ValidateDataResourceConfig_Request) Descriptor() ([]byte, []int) {
+
+alidateDataResourceConfig_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{12, 0}
 }
 
-func (x *ValidateDataResourceConfig_Request) GetTypeName() string {
+
+*ValidateDataResourceConfig_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ValidateDataResourceConfig_Request) GetConfig() *DynamicValue {
+
+*ValidateDataResourceConfig_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
@@ -2375,7 +2665,8 @@ type ValidateDataResourceConfig_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,1,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ValidateDataResourceConfig_Response) Reset() {
+
+*ValidateDataResourceConfig_Response) Reset() {
 	*x = ValidateDataResourceConfig_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[42]
@@ -2384,13 +2675,16 @@ func (x *ValidateDataResourceConfig_Response) Reset() {
 	}
 }
 
-func (x *ValidateDataResourceConfig_Response) String() string {
+
+*ValidateDataResourceConfig_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ValidateDataResourceConfig_Response) ProtoMessage() {}
 
-func (x *ValidateDataResourceConfig_Response) ProtoReflect() protoreflect.Message {
+alidateDataResourceConfig_Response) ProtoMessage() {}
+
+
+*ValidateDataResourceConfig_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2403,11 +2697,13 @@ func (x *ValidateDataResourceConfig_Response) ProtoReflect() protoreflect.Messag
 }
 
 // Deprecated: Use ValidateDataResourceConfig_Response.ProtoReflect.Descriptor instead.
-func (*ValidateDataResourceConfig_Response) Descriptor() ([]byte, []int) {
+
+alidateDataResourceConfig_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{12, 1}
 }
 
-func (x *ValidateDataResourceConfig_Response) GetDiagnostics() []*Diagnostic {
+
+*ValidateDataResourceConfig_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -2423,7 +2719,8 @@ type ConfigureProvider_Request struct {
 	Config           *DynamicValue `protobuf:"bytes,2,opt,name=config,proto3" json:"config,omitempty"`
 }
 
-func (x *ConfigureProvider_Request) Reset() {
+
+*ConfigureProvider_Request) Reset() {
 	*x = ConfigureProvider_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[43]
@@ -2432,13 +2729,16 @@ func (x *ConfigureProvider_Request) Reset() {
 	}
 }
 
-func (x *ConfigureProvider_Request) String() string {
+
+*ConfigureProvider_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ConfigureProvider_Request) ProtoMessage() {}
 
-func (x *ConfigureProvider_Request) ProtoReflect() protoreflect.Message {
+onfigureProvider_Request) ProtoMessage() {}
+
+
+*ConfigureProvider_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2451,18 +2751,21 @@ func (x *ConfigureProvider_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ConfigureProvider_Request.ProtoReflect.Descriptor instead.
-func (*ConfigureProvider_Request) Descriptor() ([]byte, []int) {
+
+onfigureProvider_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{13, 0}
 }
 
-func (x *ConfigureProvider_Request) GetTerraformVersion() string {
+
+*ConfigureProvider_Request) GetTerraformVersion() string {
 	if x != nil {
 		return x.TerraformVersion
 	}
 	return ""
 }
 
-func (x *ConfigureProvider_Request) GetConfig() *DynamicValue {
+
+*ConfigureProvider_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
@@ -2477,7 +2780,8 @@ type ConfigureProvider_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,1,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ConfigureProvider_Response) Reset() {
+
+*ConfigureProvider_Response) Reset() {
 	*x = ConfigureProvider_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[44]
@@ -2486,13 +2790,16 @@ func (x *ConfigureProvider_Response) Reset() {
 	}
 }
 
-func (x *ConfigureProvider_Response) String() string {
+
+*ConfigureProvider_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ConfigureProvider_Response) ProtoMessage() {}
 
-func (x *ConfigureProvider_Response) ProtoReflect() protoreflect.Message {
+onfigureProvider_Response) ProtoMessage() {}
+
+
+*ConfigureProvider_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2505,11 +2812,13 @@ func (x *ConfigureProvider_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ConfigureProvider_Response.ProtoReflect.Descriptor instead.
-func (*ConfigureProvider_Response) Descriptor() ([]byte, []int) {
+
+onfigureProvider_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{13, 1}
 }
 
-func (x *ConfigureProvider_Response) GetDiagnostics() []*Diagnostic {
+
+*ConfigureProvider_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -2535,7 +2844,8 @@ type ReadResource_Request struct {
 	ProviderMeta *DynamicValue `protobuf:"bytes,4,opt,name=provider_meta,json=providerMeta,proto3" json:"provider_meta,omitempty"`
 }
 
-func (x *ReadResource_Request) Reset() {
+
+*ReadResource_Request) Reset() {
 	*x = ReadResource_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[45]
@@ -2544,13 +2854,16 @@ func (x *ReadResource_Request) Reset() {
 	}
 }
 
-func (x *ReadResource_Request) String() string {
+
+*ReadResource_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadResource_Request) ProtoMessage() {}
 
-func (x *ReadResource_Request) ProtoReflect() protoreflect.Message {
+eadResource_Request) ProtoMessage() {}
+
+
+*ReadResource_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2563,32 +2876,37 @@ func (x *ReadResource_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadResource_Request.ProtoReflect.Descriptor instead.
-func (*ReadResource_Request) Descriptor() ([]byte, []int) {
+
+eadResource_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{14, 0}
 }
 
-func (x *ReadResource_Request) GetTypeName() string {
+
+*ReadResource_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ReadResource_Request) GetCurrentState() *DynamicValue {
+
+*ReadResource_Request) GetCurrentState() *DynamicValue {
 	if x != nil {
 		return x.CurrentState
 	}
 	return nil
 }
 
-func (x *ReadResource_Request) GetPrivate() []byte {
+
+*ReadResource_Request) GetPrivate() []byte {
 	if x != nil {
 		return x.Private
 	}
 	return nil
 }
 
-func (x *ReadResource_Request) GetProviderMeta() *DynamicValue {
+
+*ReadResource_Request) GetProviderMeta() *DynamicValue {
 	if x != nil {
 		return x.ProviderMeta
 	}
@@ -2605,7 +2923,8 @@ type ReadResource_Response struct {
 	Private     []byte        `protobuf:"bytes,3,opt,name=private,proto3" json:"private,omitempty"`
 }
 
-func (x *ReadResource_Response) Reset() {
+
+*ReadResource_Response) Reset() {
 	*x = ReadResource_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[46]
@@ -2614,13 +2933,16 @@ func (x *ReadResource_Response) Reset() {
 	}
 }
 
-func (x *ReadResource_Response) String() string {
+
+*ReadResource_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadResource_Response) ProtoMessage() {}
 
-func (x *ReadResource_Response) ProtoReflect() protoreflect.Message {
+eadResource_Response) ProtoMessage() {}
+
+
+*ReadResource_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2633,25 +2955,29 @@ func (x *ReadResource_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadResource_Response.ProtoReflect.Descriptor instead.
-func (*ReadResource_Response) Descriptor() ([]byte, []int) {
+
+eadResource_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{14, 1}
 }
 
-func (x *ReadResource_Response) GetNewState() *DynamicValue {
+
+*ReadResource_Response) GetNewState() *DynamicValue {
 	if x != nil {
 		return x.NewState
 	}
 	return nil
 }
 
-func (x *ReadResource_Response) GetDiagnostics() []*Diagnostic {
+
+*ReadResource_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
 	return nil
 }
 
-func (x *ReadResource_Response) GetPrivate() []byte {
+
+*ReadResource_Response) GetPrivate() []byte {
 	if x != nil {
 		return x.Private
 	}
@@ -2671,7 +2997,8 @@ type PlanResourceChange_Request struct {
 	ProviderMeta     *DynamicValue `protobuf:"bytes,6,opt,name=provider_meta,json=providerMeta,proto3" json:"provider_meta,omitempty"`
 }
 
-func (x *PlanResourceChange_Request) Reset() {
+
+*PlanResourceChange_Request) Reset() {
 	*x = PlanResourceChange_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[47]
@@ -2680,13 +3007,16 @@ func (x *PlanResourceChange_Request) Reset() {
 	}
 }
 
-func (x *PlanResourceChange_Request) String() string {
+
+*PlanResourceChange_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PlanResourceChange_Request) ProtoMessage() {}
 
-func (x *PlanResourceChange_Request) ProtoReflect() protoreflect.Message {
+lanResourceChange_Request) ProtoMessage() {}
+
+
+*PlanResourceChange_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[47]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2699,46 +3029,53 @@ func (x *PlanResourceChange_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use PlanResourceChange_Request.ProtoReflect.Descriptor instead.
-func (*PlanResourceChange_Request) Descriptor() ([]byte, []int) {
+
+lanResourceChange_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{15, 0}
 }
 
-func (x *PlanResourceChange_Request) GetTypeName() string {
+
+*PlanResourceChange_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *PlanResourceChange_Request) GetPriorState() *DynamicValue {
+
+*PlanResourceChange_Request) GetPriorState() *DynamicValue {
 	if x != nil {
 		return x.PriorState
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Request) GetProposedNewState() *DynamicValue {
+
+*PlanResourceChange_Request) GetProposedNewState() *DynamicValue {
 	if x != nil {
 		return x.ProposedNewState
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Request) GetConfig() *DynamicValue {
+
+*PlanResourceChange_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Request) GetPriorPrivate() []byte {
+
+*PlanResourceChange_Request) GetPriorPrivate() []byte {
 	if x != nil {
 		return x.PriorPrivate
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Request) GetProviderMeta() *DynamicValue {
+
+*PlanResourceChange_Request) GetProviderMeta() *DynamicValue {
 	if x != nil {
 		return x.ProviderMeta
 	}
@@ -2768,7 +3105,8 @@ type PlanResourceChange_Response struct {
 	LegacyTypeSystem bool `protobuf:"varint,5,opt,name=legacy_type_system,json=legacyTypeSystem,proto3" json:"legacy_type_system,omitempty"`
 }
 
-func (x *PlanResourceChange_Response) Reset() {
+
+*PlanResourceChange_Response) Reset() {
 	*x = PlanResourceChange_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[48]
@@ -2777,13 +3115,16 @@ func (x *PlanResourceChange_Response) Reset() {
 	}
 }
 
-func (x *PlanResourceChange_Response) String() string {
+
+*PlanResourceChange_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PlanResourceChange_Response) ProtoMessage() {}
 
-func (x *PlanResourceChange_Response) ProtoReflect() protoreflect.Message {
+lanResourceChange_Response) ProtoMessage() {}
+
+
+*PlanResourceChange_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[48]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2796,39 +3137,45 @@ func (x *PlanResourceChange_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use PlanResourceChange_Response.ProtoReflect.Descriptor instead.
-func (*PlanResourceChange_Response) Descriptor() ([]byte, []int) {
+
+lanResourceChange_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{15, 1}
 }
 
-func (x *PlanResourceChange_Response) GetPlannedState() *DynamicValue {
+
+*PlanResourceChange_Response) GetPlannedState() *DynamicValue {
 	if x != nil {
 		return x.PlannedState
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Response) GetRequiresReplace() []*AttributePath {
+
+*PlanResourceChange_Response) GetRequiresReplace() []*AttributePath {
 	if x != nil {
 		return x.RequiresReplace
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Response) GetPlannedPrivate() []byte {
+
+*PlanResourceChange_Response) GetPlannedPrivate() []byte {
 	if x != nil {
 		return x.PlannedPrivate
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Response) GetDiagnostics() []*Diagnostic {
+
+*PlanResourceChange_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
 	return nil
 }
 
-func (x *PlanResourceChange_Response) GetLegacyTypeSystem() bool {
+
+*PlanResourceChange_Response) GetLegacyTypeSystem() bool {
 	if x != nil {
 		return x.LegacyTypeSystem
 	}
@@ -2848,7 +3195,8 @@ type ApplyResourceChange_Request struct {
 	ProviderMeta   *DynamicValue `protobuf:"bytes,6,opt,name=provider_meta,json=providerMeta,proto3" json:"provider_meta,omitempty"`
 }
 
-func (x *ApplyResourceChange_Request) Reset() {
+
+*ApplyResourceChange_Request) Reset() {
 	*x = ApplyResourceChange_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[49]
@@ -2857,13 +3205,16 @@ func (x *ApplyResourceChange_Request) Reset() {
 	}
 }
 
-func (x *ApplyResourceChange_Request) String() string {
+
+*ApplyResourceChange_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ApplyResourceChange_Request) ProtoMessage() {}
 
-func (x *ApplyResourceChange_Request) ProtoReflect() protoreflect.Message {
+pplyResourceChange_Request) ProtoMessage() {}
+
+
+*ApplyResourceChange_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[49]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2876,46 +3227,53 @@ func (x *ApplyResourceChange_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ApplyResourceChange_Request.ProtoReflect.Descriptor instead.
-func (*ApplyResourceChange_Request) Descriptor() ([]byte, []int) {
+
+pplyResourceChange_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{16, 0}
 }
 
-func (x *ApplyResourceChange_Request) GetTypeName() string {
+
+*ApplyResourceChange_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ApplyResourceChange_Request) GetPriorState() *DynamicValue {
+
+*ApplyResourceChange_Request) GetPriorState() *DynamicValue {
 	if x != nil {
 		return x.PriorState
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Request) GetPlannedState() *DynamicValue {
+
+*ApplyResourceChange_Request) GetPlannedState() *DynamicValue {
 	if x != nil {
 		return x.PlannedState
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Request) GetConfig() *DynamicValue {
+
+*ApplyResourceChange_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Request) GetPlannedPrivate() []byte {
+
+*ApplyResourceChange_Request) GetPlannedPrivate() []byte {
 	if x != nil {
 		return x.PlannedPrivate
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Request) GetProviderMeta() *DynamicValue {
+
+*ApplyResourceChange_Request) GetProviderMeta() *DynamicValue {
 	if x != nil {
 		return x.ProviderMeta
 	}
@@ -2944,7 +3302,8 @@ type ApplyResourceChange_Response struct {
 	LegacyTypeSystem bool `protobuf:"varint,4,opt,name=legacy_type_system,json=legacyTypeSystem,proto3" json:"legacy_type_system,omitempty"`
 }
 
-func (x *ApplyResourceChange_Response) Reset() {
+
+*ApplyResourceChange_Response) Reset() {
 	*x = ApplyResourceChange_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[50]
@@ -2953,13 +3312,16 @@ func (x *ApplyResourceChange_Response) Reset() {
 	}
 }
 
-func (x *ApplyResourceChange_Response) String() string {
+
+*ApplyResourceChange_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ApplyResourceChange_Response) ProtoMessage() {}
 
-func (x *ApplyResourceChange_Response) ProtoReflect() protoreflect.Message {
+pplyResourceChange_Response) ProtoMessage() {}
+
+
+*ApplyResourceChange_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2972,32 +3334,37 @@ func (x *ApplyResourceChange_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ApplyResourceChange_Response.ProtoReflect.Descriptor instead.
-func (*ApplyResourceChange_Response) Descriptor() ([]byte, []int) {
+
+pplyResourceChange_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{16, 1}
 }
 
-func (x *ApplyResourceChange_Response) GetNewState() *DynamicValue {
+
+*ApplyResourceChange_Response) GetNewState() *DynamicValue {
 	if x != nil {
 		return x.NewState
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Response) GetPrivate() []byte {
+
+*ApplyResourceChange_Response) GetPrivate() []byte {
 	if x != nil {
 		return x.Private
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Response) GetDiagnostics() []*Diagnostic {
+
+*ApplyResourceChange_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
 	return nil
 }
 
-func (x *ApplyResourceChange_Response) GetLegacyTypeSystem() bool {
+
+*ApplyResourceChange_Response) GetLegacyTypeSystem() bool {
 	if x != nil {
 		return x.LegacyTypeSystem
 	}
@@ -3013,7 +3380,8 @@ type ImportResourceState_Request struct {
 	Id       string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *ImportResourceState_Request) Reset() {
+
+*ImportResourceState_Request) Reset() {
 	*x = ImportResourceState_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[51]
@@ -3022,13 +3390,16 @@ func (x *ImportResourceState_Request) Reset() {
 	}
 }
 
-func (x *ImportResourceState_Request) String() string {
+
+*ImportResourceState_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ImportResourceState_Request) ProtoMessage() {}
 
-func (x *ImportResourceState_Request) ProtoReflect() protoreflect.Message {
+mportResourceState_Request) ProtoMessage() {}
+
+
+*ImportResourceState_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[51]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3041,18 +3412,21 @@ func (x *ImportResourceState_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ImportResourceState_Request.ProtoReflect.Descriptor instead.
-func (*ImportResourceState_Request) Descriptor() ([]byte, []int) {
+
+mportResourceState_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{17, 0}
 }
 
-func (x *ImportResourceState_Request) GetTypeName() string {
+
+*ImportResourceState_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ImportResourceState_Request) GetId() string {
+
+*ImportResourceState_Request) GetId() string {
 	if x != nil {
 		return x.Id
 	}
@@ -3069,7 +3443,8 @@ type ImportResourceState_ImportedResource struct {
 	Private  []byte        `protobuf:"bytes,3,opt,name=private,proto3" json:"private,omitempty"`
 }
 
-func (x *ImportResourceState_ImportedResource) Reset() {
+
+*ImportResourceState_ImportedResource) Reset() {
 	*x = ImportResourceState_ImportedResource{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[52]
@@ -3078,13 +3453,16 @@ func (x *ImportResourceState_ImportedResource) Reset() {
 	}
 }
 
-func (x *ImportResourceState_ImportedResource) String() string {
+
+*ImportResourceState_ImportedResource) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ImportResourceState_ImportedResource) ProtoMessage() {}
 
-func (x *ImportResourceState_ImportedResource) ProtoReflect() protoreflect.Message {
+mportResourceState_ImportedResource) ProtoMessage() {}
+
+
+*ImportResourceState_ImportedResource) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[52]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3097,25 +3475,29 @@ func (x *ImportResourceState_ImportedResource) ProtoReflect() protoreflect.Messa
 }
 
 // Deprecated: Use ImportResourceState_ImportedResource.ProtoReflect.Descriptor instead.
-func (*ImportResourceState_ImportedResource) Descriptor() ([]byte, []int) {
+
+mportResourceState_ImportedResource) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{17, 1}
 }
 
-func (x *ImportResourceState_ImportedResource) GetTypeName() string {
+
+*ImportResourceState_ImportedResource) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ImportResourceState_ImportedResource) GetState() *DynamicValue {
+
+*ImportResourceState_ImportedResource) GetState() *DynamicValue {
 	if x != nil {
 		return x.State
 	}
 	return nil
 }
 
-func (x *ImportResourceState_ImportedResource) GetPrivate() []byte {
+
+*ImportResourceState_ImportedResource) GetPrivate() []byte {
 	if x != nil {
 		return x.Private
 	}
@@ -3131,7 +3513,8 @@ type ImportResourceState_Response struct {
 	Diagnostics       []*Diagnostic                           `protobuf:"bytes,2,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ImportResourceState_Response) Reset() {
+
+*ImportResourceState_Response) Reset() {
 	*x = ImportResourceState_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[53]
@@ -3140,13 +3523,16 @@ func (x *ImportResourceState_Response) Reset() {
 	}
 }
 
-func (x *ImportResourceState_Response) String() string {
+
+*ImportResourceState_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ImportResourceState_Response) ProtoMessage() {}
 
-func (x *ImportResourceState_Response) ProtoReflect() protoreflect.Message {
+mportResourceState_Response) ProtoMessage() {}
+
+
+*ImportResourceState_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[53]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3159,18 +3545,21 @@ func (x *ImportResourceState_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ImportResourceState_Response.ProtoReflect.Descriptor instead.
-func (*ImportResourceState_Response) Descriptor() ([]byte, []int) {
+
+mportResourceState_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{17, 2}
 }
 
-func (x *ImportResourceState_Response) GetImportedResources() []*ImportResourceState_ImportedResource {
+
+*ImportResourceState_Response) GetImportedResources() []*ImportResourceState_ImportedResource {
 	if x != nil {
 		return x.ImportedResources
 	}
 	return nil
 }
 
-func (x *ImportResourceState_Response) GetDiagnostics() []*Diagnostic {
+
+*ImportResourceState_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -3187,7 +3576,8 @@ type ReadDataSource_Request struct {
 	ProviderMeta *DynamicValue `protobuf:"bytes,3,opt,name=provider_meta,json=providerMeta,proto3" json:"provider_meta,omitempty"`
 }
 
-func (x *ReadDataSource_Request) Reset() {
+
+*ReadDataSource_Request) Reset() {
 	*x = ReadDataSource_Request{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[54]
@@ -3196,13 +3586,16 @@ func (x *ReadDataSource_Request) Reset() {
 	}
 }
 
-func (x *ReadDataSource_Request) String() string {
+
+*ReadDataSource_Request) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadDataSource_Request) ProtoMessage() {}
 
-func (x *ReadDataSource_Request) ProtoReflect() protoreflect.Message {
+eadDataSource_Request) ProtoMessage() {}
+
+
+*ReadDataSource_Request) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[54]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3215,25 +3608,29 @@ func (x *ReadDataSource_Request) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadDataSource_Request.ProtoReflect.Descriptor instead.
-func (*ReadDataSource_Request) Descriptor() ([]byte, []int) {
+
+eadDataSource_Request) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{18, 0}
 }
 
-func (x *ReadDataSource_Request) GetTypeName() string {
+
+*ReadDataSource_Request) GetTypeName() string {
 	if x != nil {
 		return x.TypeName
 	}
 	return ""
 }
 
-func (x *ReadDataSource_Request) GetConfig() *DynamicValue {
+
+*ReadDataSource_Request) GetConfig() *DynamicValue {
 	if x != nil {
 		return x.Config
 	}
 	return nil
 }
 
-func (x *ReadDataSource_Request) GetProviderMeta() *DynamicValue {
+
+*ReadDataSource_Request) GetProviderMeta() *DynamicValue {
 	if x != nil {
 		return x.ProviderMeta
 	}
@@ -3249,7 +3646,8 @@ type ReadDataSource_Response struct {
 	Diagnostics []*Diagnostic `protobuf:"bytes,2,rep,name=diagnostics,proto3" json:"diagnostics,omitempty"`
 }
 
-func (x *ReadDataSource_Response) Reset() {
+
+*ReadDataSource_Response) Reset() {
 	*x = ReadDataSource_Response{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_tfplugin6_proto_msgTypes[55]
@@ -3258,13 +3656,16 @@ func (x *ReadDataSource_Response) Reset() {
 	}
 }
 
-func (x *ReadDataSource_Response) String() string {
+
+*ReadDataSource_Response) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadDataSource_Response) ProtoMessage() {}
 
-func (x *ReadDataSource_Response) ProtoReflect() protoreflect.Message {
+eadDataSource_Response) ProtoMessage() {}
+
+
+*ReadDataSource_Response) ProtoReflect() protoreflect.Message {
 	mi := &file_tfplugin6_proto_msgTypes[55]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3277,18 +3678,21 @@ func (x *ReadDataSource_Response) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use ReadDataSource_Response.ProtoReflect.Descriptor instead.
-func (*ReadDataSource_Response) Descriptor() ([]byte, []int) {
+
+eadDataSource_Response) Descriptor() ([]byte, []int) {
 	return file_tfplugin6_proto_rawDescGZIP(), []int{18, 1}
 }
 
-func (x *ReadDataSource_Response) GetState() *DynamicValue {
+
+*ReadDataSource_Response) GetState() *DynamicValue {
 	if x != nil {
 		return x.State
 	}
 	return nil
 }
 
-func (x *ReadDataSource_Response) GetDiagnostics() []*Diagnostic {
+
+*ReadDataSource_Response) GetDiagnostics() []*Diagnostic {
 	if x != nil {
 		return x.Diagnostics
 	}
@@ -3799,8 +4203,10 @@ var (
 	file_tfplugin6_proto_rawDescData = file_tfplugin6_proto_rawDesc
 )
 
-func file_tfplugin6_proto_rawDescGZIP() []byte {
-	file_tfplugin6_proto_rawDescOnce.Do(func() {
+
+e_tfplugin6_proto_rawDescGZIP() []byte {
+	file_tfplugin6_proto_rawDescOnce.Do(
+
 		file_tfplugin6_proto_rawDescData = protoimpl.X.CompressGZIP(file_tfplugin6_proto_rawDescData)
 	})
 	return file_tfplugin6_proto_rawDescData
@@ -3965,13 +4371,16 @@ var file_tfplugin6_proto_depIdxs = []int32{
 	0,  // [0:61] is the sub-list for field type_name
 }
 
-func init() { file_tfplugin6_proto_init() }
-func file_tfplugin6_proto_init() {
+
+t() { file_tfplugin6_proto_init() }
+
+e_tfplugin6_proto_init() {
 	if File_tfplugin6_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_tfplugin6_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[0].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*DynamicValue); i {
 			case 0:
 				return &v.state
@@ -3983,7 +4392,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[1].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Diagnostic); i {
 			case 0:
 				return &v.state
@@ -3995,7 +4405,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[2].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*AttributePath); i {
 			case 0:
 				return &v.state
@@ -4007,7 +4418,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[3].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*StopProvider); i {
 			case 0:
 				return &v.state
@@ -4019,7 +4431,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[4].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*RawState); i {
 			case 0:
 				return &v.state
@@ -4031,7 +4444,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[5].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Schema); i {
 			case 0:
 				return &v.state
@@ -4043,7 +4457,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[6].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ServerCapabilities); i {
 			case 0:
 				return &v.state
@@ -4055,7 +4470,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[7].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetMetadata); i {
 			case 0:
 				return &v.state
@@ -4067,7 +4483,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[8].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetProviderSchema); i {
 			case 0:
 				return &v.state
@@ -4079,7 +4496,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[9].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateProviderConfig); i {
 			case 0:
 				return &v.state
@@ -4091,7 +4509,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[10].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*UpgradeResourceState); i {
 			case 0:
 				return &v.state
@@ -4103,7 +4522,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[11].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateResourceConfig); i {
 			case 0:
 				return &v.state
@@ -4115,7 +4535,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[12].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateDataResourceConfig); i {
 			case 0:
 				return &v.state
@@ -4127,7 +4548,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[13].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ConfigureProvider); i {
 			case 0:
 				return &v.state
@@ -4139,7 +4561,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[14].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadResource); i {
 			case 0:
 				return &v.state
@@ -4151,7 +4574,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[15].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*PlanResourceChange); i {
 			case 0:
 				return &v.state
@@ -4163,7 +4587,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[16].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ApplyResourceChange); i {
 			case 0:
 				return &v.state
@@ -4175,7 +4600,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[17].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ImportResourceState); i {
 			case 0:
 				return &v.state
@@ -4187,7 +4613,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[18].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadDataSource); i {
 			case 0:
 				return &v.state
@@ -4199,7 +4626,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[19].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*AttributePath_Step); i {
 			case 0:
 				return &v.state
@@ -4211,7 +4639,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[20].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*StopProvider_Request); i {
 			case 0:
 				return &v.state
@@ -4223,7 +4652,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[21].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*StopProvider_Response); i {
 			case 0:
 				return &v.state
@@ -4235,7 +4665,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[23].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Schema_Block); i {
 			case 0:
 				return &v.state
@@ -4247,7 +4678,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[24].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Schema_Attribute); i {
 			case 0:
 				return &v.state
@@ -4259,7 +4691,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[25].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Schema_NestedBlock); i {
 			case 0:
 				return &v.state
@@ -4271,7 +4704,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[26].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*Schema_Object); i {
 			case 0:
 				return &v.state
@@ -4283,7 +4717,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[27].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetMetadata_Request); i {
 			case 0:
 				return &v.state
@@ -4295,7 +4730,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[28].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetMetadata_Response); i {
 			case 0:
 				return &v.state
@@ -4307,7 +4743,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[29].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetMetadata_DataSourceMetadata); i {
 			case 0:
 				return &v.state
@@ -4319,7 +4756,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[30].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetMetadata_ResourceMetadata); i {
 			case 0:
 				return &v.state
@@ -4331,7 +4769,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[31].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetProviderSchema_Request); i {
 			case 0:
 				return &v.state
@@ -4343,7 +4782,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[32].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*GetProviderSchema_Response); i {
 			case 0:
 				return &v.state
@@ -4355,7 +4795,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[35].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateProviderConfig_Request); i {
 			case 0:
 				return &v.state
@@ -4367,7 +4808,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[36].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateProviderConfig_Response); i {
 			case 0:
 				return &v.state
@@ -4379,7 +4821,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[37].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*UpgradeResourceState_Request); i {
 			case 0:
 				return &v.state
@@ -4391,7 +4834,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[38].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*UpgradeResourceState_Response); i {
 			case 0:
 				return &v.state
@@ -4403,7 +4847,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[39].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateResourceConfig_Request); i {
 			case 0:
 				return &v.state
@@ -4415,7 +4860,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[40].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateResourceConfig_Response); i {
 			case 0:
 				return &v.state
@@ -4427,7 +4873,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[41].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateDataResourceConfig_Request); i {
 			case 0:
 				return &v.state
@@ -4439,7 +4886,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[42].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ValidateDataResourceConfig_Response); i {
 			case 0:
 				return &v.state
@@ -4451,7 +4899,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[43].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ConfigureProvider_Request); i {
 			case 0:
 				return &v.state
@@ -4463,7 +4912,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[44].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ConfigureProvider_Response); i {
 			case 0:
 				return &v.state
@@ -4475,7 +4925,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[45].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadResource_Request); i {
 			case 0:
 				return &v.state
@@ -4487,7 +4938,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[46].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadResource_Response); i {
 			case 0:
 				return &v.state
@@ -4499,7 +4951,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[47].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*PlanResourceChange_Request); i {
 			case 0:
 				return &v.state
@@ -4511,7 +4964,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[48].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*PlanResourceChange_Response); i {
 			case 0:
 				return &v.state
@@ -4523,7 +4977,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[49].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ApplyResourceChange_Request); i {
 			case 0:
 				return &v.state
@@ -4535,7 +4990,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[50].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ApplyResourceChange_Response); i {
 			case 0:
 				return &v.state
@@ -4547,7 +5003,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[51].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ImportResourceState_Request); i {
 			case 0:
 				return &v.state
@@ -4559,7 +5016,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[52].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ImportResourceState_ImportedResource); i {
 			case 0:
 				return &v.state
@@ -4571,7 +5029,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[53].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[53].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ImportResourceState_Response); i {
 			case 0:
 				return &v.state
@@ -4583,7 +5042,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[54].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[54].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadDataSource_Request); i {
 			case 0:
 				return &v.state
@@ -4595,7 +5055,8 @@ func file_tfplugin6_proto_init() {
 				return nil
 			}
 		}
-		file_tfplugin6_proto_msgTypes[55].Exporter = func(v interface{}, i int) interface{} {
+		file_tfplugin6_proto_msgTypes[55].Exporter = 
+nterface{}, i int) interface{} {
 			switch v := v.(*ReadDataSource_Response); i {
 			case 0:
 				return &v.state

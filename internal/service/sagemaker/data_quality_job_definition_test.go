@@ -19,16 +19,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerDataQualityJobDefinition_endpoint(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_endpointBasic(rName),
@@ -62,8 +61,8 @@ func TestAccSageMakerDataQualityJobDefinition_endpoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -71,15 +70,14 @@ func TestAccSageMakerDataQualityJobDefinition_endpoint(t *testing.T) {
 }
 
 func TestAccSageMakerDataQualityJobDefinition_appSpecificationOptional(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_appSpecificationOptional(rName),
@@ -94,8 +92,8 @@ func TestAccSageMakerDataQualityJobDefinition_appSpecificationOptional(t *testin
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -104,14 +102,13 @@ func TestAccSageMakerDataQualityJobDefinition_appSpecificationOptional(t *testin
 
 func TestAccSageMakerDataQualityJobDefinition_baselineConfig(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_data_quality_job_definition.test"
+funcourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_baselineConfig(rName),
@@ -126,8 +123,8 @@ func TestAccSageMakerDataQualityJobDefinition_baselineConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -137,13 +134,12 @@ func TestAccSageMakerDataQualityJobDefinition_baselineConfig(t *testing.T) {
 func TestAccSageMakerDataQualityJobDefinition_batchTransform(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_data_quality_job_definition.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformBasic(rName),
@@ -157,8 +153,8 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransform(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -169,12 +165,11 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformCSVHeader(t *testing
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformCSVHeader(rName),
@@ -187,8 +182,8 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformCSVHeader(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -200,11 +195,10 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformJSON(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+funceCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformJSON(rName),
@@ -216,8 +210,8 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformJSON(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -230,10 +224,9 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformJSONLine(t *testing.
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+funcrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformJSONLine(rName),
@@ -248,8 +241,8 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformJSONLine(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -262,10 +255,9 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformOptional(t *testing.
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		PreCheck:est.PreCheck(ctx, t) },
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformOptional(rName),
@@ -279,8 +271,8 @@ func TestAccSageMakerDataQualityJobDefinition_batchTransformOptional(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -293,10 +285,9 @@ func TestAccSageMakerDataQualityJobDefinition_endpointOptional(t *testing.T) {
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
+funceckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_endpointOptional(rName),
@@ -310,8 +301,8 @@ func TestAccSageMakerDataQualityJobDefinition_endpointOptional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -324,11 +315,10 @@ func TestAccSageMakerDataQualityJobDefinition_outputConfigKMSKeyID(t *testing.T)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
-		Steps: []resource.TestStep{
+funceps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_outputConfigKMSKeyID(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -338,8 +328,8 @@ func TestAccSageMakerDataQualityJobDefinition_outputConfigKMSKeyID(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -352,12 +342,11 @@ func TestAccSageMakerDataQualityJobDefinition_outputConfigOptional(t *testing.T)
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
+func
 				Config: testAccDataQualityJobDefinitionConfig_outputConfigOptional(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
@@ -369,8 +358,8 @@ func TestAccSageMakerDataQualityJobDefinition_outputConfigOptional(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -383,13 +372,12 @@ func TestAccSageMakerDataQualityJobDefinition_jobResourcesVolumeKMSKeyID(t *test
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
-			{
-				Config: testAccDataQualityJobDefinitionConfig_jobResourcesVolumeKMSKeyID(rName),
+funcConfig: testAccDataQualityJobDefinitionConfig_jobResourcesVolumeKMSKeyID(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "job_resources.#", "1"),
@@ -398,8 +386,8 @@ func TestAccSageMakerDataQualityJobDefinition_jobResourcesVolumeKMSKeyID(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -412,22 +400,21 @@ func TestAccSageMakerDataQualityJobDefinition_stoppingCondition(t *testing.T) {
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccDataQualityJobDefinitionConfig_stoppingCondition(rName),
-				Check: resource.ComposeTestCheckFunc(
+funcCheck: resource.ComposeTestCheckFunc(
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "stopping_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stopping_condition.0.max_runtime_in_seconds", "600"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -440,15 +427,14 @@ func TestAccSageMakerDataQualityJobDefinition_networkConfig(t *testing.T) {
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_networkConfig(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
+func	testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "network_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "network_config.0.vpc_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "network_config.0.vpc_config.0.security_group_ids.#", "1"),
@@ -456,8 +442,8 @@ func TestAccSageMakerDataQualityJobDefinition_networkConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -470,22 +456,21 @@ func TestAccSageMakerDataQualityJobDefinition_networkConfigTrafficEncryption(t *
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_networkConfigTrafficEncryption(rName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "network_config.#", "1"),
+func	resource.TestCheckResourceAttr(resourceName, "network_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "network_config.0.enable_inter_container_traffic_encryption", "true"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -498,22 +483,21 @@ func TestAccSageMakerDataQualityJobDefinition_networkConfigEnableNetworkIsolatio
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_networkConfigEnableNetworkIsolation(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "network_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "network_config.0.enable_network_isolation", "true"),
+func	resource.TestCheckResourceAttr(resourceName, "network_config.0.enable_network_isolation", "true"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -526,22 +510,21 @@ func TestAccSageMakerDataQualityJobDefinition_tags(t *testing.T) {
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_tags1(rName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
+func),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -571,10 +554,10 @@ func TestAccSageMakerDataQualityJobDefinition_disappears(t *testing.T) {
 	resourceName := "aws_sagemaker_data_quality_job_definition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityJobDefinitionDestroy(ctx),
+		CheckDestroy:CheckDataQualityJobDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityJobDefinitionConfig_batchTransformBasic(rName),
@@ -582,8 +565,7 @@ func TestAccSageMakerDataQualityJobDefinition_disappears(t *testing.T) {
 					testAccCheckDataQualityJobDefinitionExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsagemaker.ResourceDataQualityJobDefinition(), resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsagemaker.ResourceDataQualityJobDefinition(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
+funcExpectNonEmptyPlan: true,
 			},
 		},
 	})
@@ -607,10 +589,8 @@ func testAccCheckDataQualityJobDefinitionDestroy(ctx context.Context) resource.T
 			if err != nil {
 				return err
 			}
-
-			return fmt.Errorf("SageMaker Data Quality Job Definition (%s) still exists", rs.Primary.ID)
-		}
-		return nil
+funceturn fmt.Errorf("SageMaker Data Quality Job Definition (%s) still exists", rs.Primary.ID)
+		}functurn nil
 	}
 }
 
@@ -634,48 +614,45 @@ func testAccCheckDataQualityJobDefinitionExists(ctx context.Context, n string) r
 
 func testAccDataQualityJobDefinitionConfig_batchTransformBase(rName string) string {
 	return fmt.Sprintf(`
-data "aws_iam_policy_document" "access" {
-  statement {
-    effect = "Allow"
+funcatement {
+fect = "func
+tions = [
+udwatch:PutMetricData",
+s:CreateLogStream",
+s:PutLogEvents",
+s:CreateLogGroup",
+s:DescribeLogStreams",
+:GetAuthorizationToken",
+:BatchCheckLayerAvailability",
+:GetDownloadUrlForLayer",
+:BatchGetImage",
+GetObject",
 
-    actions = [
-      "cloudwatch:PutMetricData",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:CreateLogGroup",
-      "logs:DescribeLogStreams",
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "s3:GetObject",
-    ]
 
-    resources = ["*"]
+sources = ["*"]
   }
 }
-
-data "aws_partition" "current" {}
+func "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
+
   }
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.name
+  rolews_iam_role.test.name
   policy = data.aws_iam_policy_document.access.json
 }
 
@@ -685,7 +662,7 @@ resource "aws_s3_bucket" "test" {
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
   repository_name = "sagemaker-model-monitor-analyzer"
-  image_tag       = "latest"
+  image_taglatest"
 }
 `, rName)
 }
@@ -694,46 +671,45 @@ func testAccDataQualityJobDefinitionConfig_endpointBase(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
   statement {
-    effect = "Allow"
+fect = "Allow"
 
-    actions = [
-      "cloudwatch:PutMetricData",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:CreateLogGroup",
-      "logs:DescribeLogStreams",
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchGetImage",
-      "s3:GetObject",
-    ]
+tions = [
+udwatch:PutMetricData",
+s:CreateLogStream",
+s:PutLogEvents",
+s:CreateLogGroup",
+s:DescribeLogStreams",
+:GetAuthorizationToken",
+:BatchCheckLayerAvailability",
+:GetDownloadUrlForLayer",
+:BatchGetImage",
+GetObject",
 
-    resources = ["*"]
+
+sources = ["*"]
   }
 }
 
-data "aws_partition" "current" {}
-
+func
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
+
   }
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.name
+  rolews_iam_role.test.name
   policy = data.aws_iam_policy_document.access.json
 }
 
@@ -743,22 +719,22 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
-  key    = "model.tar.gz"
+  key"model.tar.gz"
   source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
   repository_name = "sagemaker-tensorflow-serving"
-  image_tag       = "1.12-cpu"
+  image_tag1.12-cpu"
 }
 
 resource "aws_sagemaker_model" "test" {
-  name               = %[1]q
+  name
   execution_role_arn = aws_iam_role.test.arn
 
   primary_container {
-    image          = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-    model_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+age_sagemaker_prebuilt_ecr_image.test.registry_path
+del_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
   }
 
   depends_on = [aws_iam_role_policy.test]
@@ -768,35 +744,35 @@ resource "aws_sagemaker_endpoint_configuration" "test" {
   name = %[1]q
 
   production_variants {
-    initial_instance_count = 1
-    initial_variant_weight = 1
-    instance_type          = "ml.t2.medium"
-    model_name             = aws_sagemaker_model.test.name
-    variant_name           = "variant-1"
+itial_instance_count = 1
+itial_variant_weight = 1
+stance_typeedium"
+del_nameagemaker_model.test.name
+riant_namet-1"
   }
 
   data_capture_config {
-    initial_sampling_percentage = 100
+itial_sampling_percentage = 100
 
-    destination_s3_uri = "s3://${aws_s3_bucket.test.bucket_regional_domain_name}/capture"
+stination_s3_uri = "s3://${aws_s3_bucket.test.bucket_regional_domain_name}/capture"
 
-    capture_options {
-      capture_mode = "Input"
-    }
-    capture_options {
-      capture_mode = "Output"
-    }
+pture_options {
+ure_mode = "Input"
+
+pture_options {
+ure_mode = "Output"
+
   }
 }
 
 resource "aws_sagemaker_endpoint" "test" {
   endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name                 = %[1]q
+  name
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
   repository_name = "sagemaker-model-monitor-analyzer"
-  image_tag       = "latest"
+  image_taglatest"
 }
 `, rName)
 }
@@ -806,27 +782,26 @@ func testAccDataQualityJobDefinitionConfig_endpointBasic(rName string) string {
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    endpoint_input {
-      endpoint_name = aws_sagemaker_endpoint.test.name
-    }
+dpoint_input {
+oint_name = aws_sagemaker_endpoint.test.name
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+func
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
@@ -837,34 +812,33 @@ func testAccDataQualityJobDefinitionConfig_appSpecificationOptional(rName string
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-    environment = {
-      foo = "bar"
-    }
-    record_preprocessor_source_uri      = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/pre.sh"
-    post_analytics_processor_source_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/post.sh"
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+vironment = {
+= "bar"
+
+cord_preprocessor_source_urittps://${aws_s3_bucket.test.bucket_regional_domain_name}/pre.sh"
+st_analytics_processor_source_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/post.sh"
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
-  }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+func
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 }
@@ -876,37 +850,36 @@ func testAccDataQualityJobDefinitionConfig_baselineConfig(rName string) string {
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_baseline_config {
-    constraints_resource {
-      s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/constraints"
-    }
-    statistics_resource {
-      s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/statistics"
-    }
+nstraints_resource {
+ri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/constraints"
+
+atistics_resource {
+ri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/statistics"
+
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+func
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 }
@@ -918,30 +891,29 @@ func testAccDataQualityJobDefinitionConfig_batchTransformBasic(rName string) str
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+func
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
@@ -952,31 +924,30 @@ func testAccDataQualityJobDefinitionConfig_batchTransformCSVHeader(rName string)
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {
-          header = true
-        }
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {
+rue
+
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+func
   }
   role_arn = aws_iam_role.test.arn
 }
@@ -988,32 +959,31 @@ func testAccDataQualityJobDefinitionConfig_batchTransformJSON(rName string) stri
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        json {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+on {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
-  role_arn = aws_iam_role.test.arn
-}
+func
 `, rName))
 }
 
@@ -1022,33 +992,32 @@ func testAccDataQualityJobDefinitionConfig_batchTransformJSONLine(rName string) 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        json {
-          line = true
-        }
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+on {
+e
+
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
-  role_arn = aws_iam_role.test.arn
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
+funcle_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -1058,34 +1027,33 @@ func testAccDataQualityJobDefinitionConfig_batchTransformOptional(rName string) 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-      local_path                = "/opt/ml/processing/local_path"
-      s3_data_distribution_type = "ShardedByS3Key"
-      s3_input_mode             = "Pipe"
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+l_path = "/ng/local_path"
+ata_distribution_type = "ShardedByS3Key"
+nput_mode
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
-  role_arn = aws_iam_role.test.arn
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
+funcle_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -1095,70 +1063,68 @@ func testAccDataQualityJobDefinitionConfig_endpointOptional(rName string) string
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    endpoint_input {
-      endpoint_name             = aws_sagemaker_endpoint.test.name
-      local_path                = "/opt/ml/processing/local_path"
-      s3_data_distribution_type = "ShardedByS3Key"
-      s3_input_mode             = "Pipe"
-    }
+dpoint_input {
+oint_nameer_endpoint.test.name
+l_path = "/ng/local_path"
+ata_distribution_type = "ShardedByS3Key"
+nput_mode
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
-}
-
+func
 func testAccDataQualityJobDefinitionConfig_outputConfigKMSKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description
   deletion_window_in_days = 10
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    kms_key_id = aws_kms_key.test.arn
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+s_key_id = aws_kms_key.test.arn
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+func
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
@@ -1169,74 +1135,72 @@ func testAccDataQualityJobDefinitionConfig_outputConfigOptional(rName string) st
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri         = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-        s3_upload_mode = "Continuous"
-        local_path     = "/opt/ml/processing/local_path"
-      }
-    }
+nitoring_outputs {
+utput {
+_uris://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+_upload_mode = "Continuous"
+cal_path= "/o/processing/local_path"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
-}
-
+func
 func testAccDataQualityJobDefinitionConfig_jobResourcesVolumeKMSKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description
   deletion_window_in_days = 10
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-      volume_kms_key_id = aws_kms_key.test.arn
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+me_kms_key_id = aws_kms_key.test.arn
+
   }
-  role_arn = aws_iam_role.test.arn
-}
+func
 `, rName))
 }
 
@@ -1245,115 +1209,112 @@ func testAccDataQualityJobDefinitionConfig_stoppingCondition(rName string) strin
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   stopping_condition {
-    max_runtime_in_seconds = 600
+x_runtime_in_seconds = 600
   }
   role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
-
 func testAccDataQualityJobDefinitionConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccDataQualityJobDefinitionConfig_tags2(rName string, tagKey1, tagValue1 string, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
   }
   role_arn = aws_iam_role.test.arn
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccDataQualityJobDefinitionConfig_networkConfig(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 1),
@@ -1365,42 +1326,41 @@ resource "aws_security_group" "test" {
   name = "%[1]s-${count.index}"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+func
   }
   network_config {
-    vpc_config {
-      subnets            = aws_subnet.test[*].id
-      security_group_ids = aws_security_group.test[*].id
-    }
+c_config {
+ets  = atest[*].id
+rity_group_ids = aws_security_group.test[*].id
+
   }
   role_arn = aws_iam_role.test.arn
 }
@@ -1418,43 +1378,42 @@ resource "aws_security_group" "test" {
   name = "%[1]s-${count.index}"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+func
   network_config {
-    enable_inter_container_traffic_encryption = true
-    vpc_config {
-      subnets            = aws_subnet.test[*].id
-      security_group_ids = aws_security_group.test[*].id
-    }
+able_inter_container_traffic_encryption = true
+c_config {
+ets  = atest[*].id
+rity_group_ids = aws_security_group.test[*].id
+
   }
   role_arn = aws_iam_role.test.arn
 }
@@ -1472,43 +1431,42 @@ resource "aws_security_group" "test" {
   name = "%[1]s-${count.index}"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
   name = %[1]q
   data_quality_app_specification {
-    image_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
+age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
   }
   data_quality_job_input {
-    batch_transform_input {
-      data_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
-      dataset_format {
-        csv {}
-      }
-    }
+tch_transform_input {
+_captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
+set_format {
+v {}
+
+
   }
   data_quality_job_output_config {
-    monitoring_outputs {
-      s3_output {
-        s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
-      }
-    }
+nitoring_outputs {
+utput {
+_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
+
+
   }
   job_resources {
-    cluster_config {
-      instance_count    = 1
-      instance_type     = "ml.t3.medium"
-      volume_size_in_gb = 20
-    }
-  }
-  network_config {
-    enable_network_isolation = true
-    vpc_config {
-      subnets            = aws_subnet.test[*].id
-      security_group_ids = aws_security_group.test[*].id
-    }
+uster_config {
+ance_count1
+ance_type= "mledium"
+me_size_in_gb = 20
+
+functwork_config {
+able_network_isolation = true
+c_config {
+ets  = atest[*].id
+rity_group_ids = aws_security_group.test[*].id
+
   }
   role_arn = aws_iam_role.test.arn
 }

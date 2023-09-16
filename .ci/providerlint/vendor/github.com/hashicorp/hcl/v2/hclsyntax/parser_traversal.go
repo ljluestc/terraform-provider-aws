@@ -12,7 +12,8 @@ import (
 // all of the remaining tokens in the peeker. The usual parser recovery
 // behavior is not supported here because traversals are not expected to
 // be parsed as part of a larger program.
-func (p *parser) ParseTraversalAbs() (hcl.Traversal, hcl.Diagnostics) {
+
+ (p *parser) ParseTraversalAbs() (hcl.Traversal, hcl.Diagnostics) {
 	var ret hcl.Traversal
 	var diags hcl.Diagnostics
 

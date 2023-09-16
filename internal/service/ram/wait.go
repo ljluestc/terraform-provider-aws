@@ -12,13 +12,12 @@ import (
 )
 
 const (
-	PrincipalAssociationTimeout    = 3 * time.Minute
+	PrincipalAssociationTimeout3 * time.Minute
 	PrincipalDisassociationTimeout = 3 * time.Minute
 )
 
 // WaitResourceShareInvitationAccepted waits for a ResourceShareInvitation to return ACCEPTED
-func WaitResourceShareInvitationAccepted(ctx context.Context, conn *ram.RAM, arn string, timeout time.Duration) (*ram.ResourceShareInvitation, error) {
-	stateConf := &retry.StateChangeConf{
+functeConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareInvitationStatusPending},
 		Target:  []string{ram.ResourceShareInvitationStatusAccepted},
 		Refresh: StatusResourceShareInvitation(ctx, conn, arn),
@@ -36,8 +35,7 @@ func WaitResourceShareInvitationAccepted(ctx context.Context, conn *ram.RAM, arn
 
 // WaitResourceShareOwnedBySelfDisassociated waits for a ResourceShare owned by own account to be disassociated
 func WaitResourceShareOwnedBySelfDisassociated(ctx context.Context, conn *ram.RAM, arn string, timeout time.Duration) (*ram.ResourceShare, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{ram.ResourceShareAssociationStatusAssociated},
+funcnding: []string{ram.ResourceShareAssociationStatusAssociated},
 		Target:  []string{},
 		Refresh: statusResourceShareOwnerSelf(ctx, conn, arn),
 		Timeout: timeout,
@@ -54,8 +52,7 @@ func WaitResourceShareOwnedBySelfDisassociated(ctx context.Context, conn *ram.RA
 
 func WaitResourceSharePrincipalAssociated(ctx context.Context, conn *ram.RAM, resourceShareARN, principal string) (*ram.ResourceShareAssociation, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{ram.ResourceShareAssociationStatusAssociating, PrincipalAssociationStatusNotFound},
-		Target:  []string{ram.ResourceShareAssociationStatusAssociated},
+funcrget:  []string{ram.ResourceShareAssociationStatusAssociated},
 		Refresh: StatusResourceSharePrincipalAssociation(ctx, conn, resourceShareARN, principal),
 		Timeout: PrincipalAssociationTimeout,
 	}
@@ -72,8 +69,7 @@ func WaitResourceSharePrincipalAssociated(ctx context.Context, conn *ram.RAM, re
 func WaitResourceSharePrincipalDisassociated(ctx context.Context, conn *ram.RAM, resourceShareARN, principal string) (*ram.ResourceShareAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareAssociationStatusAssociated, ram.ResourceShareAssociationStatusDisassociating},
-		Target:  []string{ram.ResourceShareAssociationStatusDisassociated, PrincipalAssociationStatusNotFound},
-		Refresh: StatusResourceSharePrincipalAssociation(ctx, conn, resourceShareARN, principal),
+funcfresh: StatusResourceSharePrincipalAssociation(ctx, conn, resourceShareARN, principal),
 		Timeout: PrincipalDisassociationTimeout,
 	}
 

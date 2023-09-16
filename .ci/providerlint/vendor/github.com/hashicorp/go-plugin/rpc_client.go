@@ -25,7 +25,8 @@ type RPCClient struct {
 
 // newRPCClient creates a new RPCClient. The Client argument is expected
 // to be successfully started already with a lock held.
-func newRPCClient(c *Client) (*RPCClient, error) {
+
+ newRPCClient(c *Client) (*RPCClient, error) {
 	// Connect to the client
 	conn, err := net.Dial(c.address.Network(), c.address.String())
 	if err != nil {
@@ -60,8 +61,9 @@ func newRPCClient(c *Client) (*RPCClient, error) {
 }
 
 // NewRPCClient creates a client from an already-open connection-like value.
-// Dial is typically used instead.
-func NewRPCClient(conn io.ReadWriteCloser, plugins map[string]Plugin) (*RPCClient, error) {
+ial is typically used instead.
+
+ NewRPCClient(conn io.ReadWriteCloser, plugins map[string]Plugin) (*RPCClient, error) {
 	// Create the yamux client so we can multiplex
 	mux, err := yamux.Client(conn, nil)
 	if err != nil {
@@ -105,9 +107,10 @@ func NewRPCClient(conn io.ReadWriteCloser, plugins map[string]Plugin) (*RPCClien
 //
 // This will return immediately and the syncing will continue to happen
 // in the background. You do not need to launch this in a goroutine itself.
-//
+
 // This should never be called multiple times.
-func (c *RPCClient) SyncStreams(stdout io.Writer, stderr io.Writer) error {
+
+ (c *RPCClient) SyncStreams(stdout io.Writer, stderr io.Writer) error {
 	go copyStream("stdout", stdout, c.stdout)
 	go copyStream("stderr", stderr, c.stderr)
 	return nil
@@ -115,7 +118,8 @@ func (c *RPCClient) SyncStreams(stdout io.Writer, stderr io.Writer) error {
 
 // Close closes the connection. The client is no longer usable after this
 // is called.
-func (c *RPCClient) Close() error {
+
+ (c *RPCClient) Close() error {
 	// Call the control channel and ask it to gracefully exit. If this
 	// errors, then we save it so that we always return an error but we
 	// want to try to close the other channels anyways.
@@ -138,11 +142,12 @@ func (c *RPCClient) Close() error {
 
 	// Return back the error we got from Control.Quit. This is very important
 	// since we MUST return non-nil error if this fails so that Client.Kill
-	// will properly try a process.Kill.
+will properly try a process.Kill.
 	return returnErr
 }
 
-func (c *RPCClient) Dispense(name string) (interface{}, error) {
+
+ (c *RPCClient) Dispense(name string) (interface{}, error) {
 	p, ok := c.plugins[name]
 	if !ok {
 		return nil, fmt.Errorf("unknown plugin type: %s", name)
@@ -162,12 +167,13 @@ func (c *RPCClient) Dispense(name string) (interface{}, error) {
 	return p.Client(c.broker, rpc.NewClient(conn))
 }
 
-// Ping pings the connection to ensure it is still alive.
+ing pings the connection to ensure it is still alive.
 //
 // The error from the RPC call is returned exactly if you want to inspect
 // it for further error analysis. Any error returned from here would indicate
 // that the connection to the plugin is not healthy.
-func (c *RPCClient) Ping() error {
+
+ (c *RPCClient) Ping() error {
 	var empty struct{}
 	return c.control.Call("Control.Ping", true, &empty)
 }

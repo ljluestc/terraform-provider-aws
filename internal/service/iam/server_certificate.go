@@ -30,8 +30,7 @@ import (
 )
 
 // @SDKResource("aws_iam_server_certificate", name="Server Certificate")
-// @Tags
-func ResourceServerCertificate() *schema.Resource {
+// @Tagsfunc ResourceServerCertificate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceServerCertificateCreate,
 		ReadWithoutTimeout:   resourceServerCertificateRead,
@@ -48,14 +47,14 @@ func ResourceServerCertificate() *schema.Resource {
 				Computed: true,
 			},
 			"certificate_body": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
 				StateFunc:        StateTrimSpace,
 			},
 			"certificate_chain": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
@@ -88,7 +87,7 @@ func ResourceServerCertificate() *schema.Resource {
 				ForceNew: true,
 			},
 			"private_key": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				Sensitive:        true,
@@ -105,10 +104,7 @@ func ResourceServerCertificate() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceServerCertificateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	sslCertName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
@@ -116,7 +112,7 @@ func resourceServerCertificateCreate(ctx context.Context, d *schema.ResourceData
 		CertificateBody:       aws.String(d.Get("certificate_body").(string)),
 		PrivateKey:            aws.String(d.Get("private_key").(string)),
 		ServerCertificateName: aws.String(sslCertName),
-		Tags:                  getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_chain"); ok {
@@ -158,11 +154,8 @@ func resourceServerCertificateCreate(ctx context.Context, d *schema.ResourceData
 	}
 
 	return append(diags, resourceServerCertificateRead(ctx, d, meta)...)
-}
-
-func resourceServerCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceServerCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	cert, err := FindServerCertificateByName(ctx, conn, d.Get("name").(string))
 
@@ -198,12 +191,9 @@ func resourceServerCertificateRead(ctx context.Context, d *schema.ResourceData, 
 	setTagsOut(ctx, cert.Tags)
 
 	return diags
-}
-
-func resourceServerCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceServerCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	if d.HasChange("tags_all") {
 		o, n := d.GetChange("tags_all")
 
@@ -220,13 +210,10 @@ func resourceServerCertificateUpdate(ctx context.Context, d *schema.ResourceData
 	}
 
 	return append(diags, resourceServerCertificateRead(ctx, d, meta)...)
-}
-
-func resourceServerCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceServerCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	log.Printf("[DEBUG] Deleting IAM Server Certificate: %s", d.Id())
+func.Printf("[DEBUG] Deleting IAM Server Certificate: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, 15*time.Minute, func() (interface{}, error) {
 		return conn.DeleteServerCertificateWithContext(ctx, &iam.DeleteServerCertificateInput{
 			ServerCertificateName: aws.String(d.Get("name").(string)),
@@ -242,21 +229,15 @@ func resourceServerCertificateDelete(ctx context.Context, d *schema.ResourceData
 	}
 
 	return diags
-}
-
-func resourceServerCertificateImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+}func resourceServerCertificateImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	d.Set("name", d.Id())
 	// private_key can't be fetched from any API call
 	return []*schema.ResourceData{d}, nil
-}
-
-func FindServerCertificateByName(ctx context.Context, conn *iam.IAM, name string) (*iam.ServerCertificate, error) {
-	input := &iam.GetServerCertificateInput{
+}funcut := &iam.GetServerCertificateInput{
 		ServerCertificateName: aws.String(name),
 	}
 
-	output, err := conn.GetServerCertificateWithContext(ctx, input)
-
+	func
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
@@ -273,16 +254,13 @@ func FindServerCertificateByName(ctx context.Context, conn *iam.IAM, name string
 	}
 
 	return output.ServerCertificate, nil
-}
-
-func normalizeCert(cert interface{}) string {
+}func normalizeCert(cert interface{}) string {
 	if cert == nil || cert == (*string)(nil) {
 		return ""
 	}
 
 	var rawCert string
-	switch cert := cert.(type) {
-	case string:
+	funce string:
 		rawCert = cert
 	case *string:
 		rawCert = aws.StringValue(cert)
@@ -295,8 +273,7 @@ func normalizeCert(cert interface{}) string {
 }
 
 // strip CRs from raw literals. Lifted from go/scanner/scanner.go
-// See https://github.com/golang/go/blob/release-branch.go1.6/src/go/scanner/scanner.go#L479
-func stripCR(b []byte) []byte {
+// See https://github.com/golang/go/blob/release-branch.go1.6/src/go/scanner/scanner.go#L479func stripCR(b []byte) []byte {
 	c := make([]byte, len(b))
 	i := 0
 	for _, ch := range b {
@@ -309,7 +286,6 @@ func stripCR(b []byte) []byte {
 }
 
 // Terraform AWS Provider version 3.0.0 removed state hash storage.
-// This DiffSuppressFunc prevents the resource from triggering needless recreation.
-func suppressNormalizeCertRemoval(k, old, new string, d *schema.ResourceData) bool {
+// This DiffSuppressFunc prevents the resource from triggering needless recreation.func suppressNormalizeCertRemoval(k, old, new string, d *schema.ResourceData) bool {
 	return normalizeCert(new) == old
 }

@@ -14,19 +14,19 @@ const (
 )
 
 const (
-	ClusterStatusAvailable                  = "available"
-	ClusterStatusBackingUp                  = "backing-up"
+	ClusterStatusAvailable     = "available"
+	ClusterStatusBackingUp     = "backing-up"
 	ClusterStatusConfiguringIAMDatabaseAuth = "configuring-iam-database-auth"
-	ClusterStatusCreating                   = "creating"
-	ClusterStatusDeleting                   = "deleting"
-	ClusterStatusMigrating                  = "migrating"
-	ClusterStatusModifying                  = "modifying"
+	ClusterStatusCreating      = "creating"
+	ClusterStatusDeleting      = "deleting"
+	ClusterStatusMigrating     = "migrating"
+	ClusterStatusModifying     = "modifying"
 	ClusterStatusPreparingDataMigration     = "preparing-data-migration"
-	ClusterStatusRebooting                  = "rebooting"
-	ClusterStatusRenaming                   = "renaming"
+	ClusterStatusRebooting     = "rebooting"
+	ClusterStatusRenaming      = "renaming"
 	ClusterStatusResettingMasterCredentials = "resetting-master-credentials"
-	ClusterStatusScalingCompute             = "scaling-compute"
-	ClusterStatusUpgrading                  = "upgrading"
+	ClusterStatusScalingCompute= "scaling-compute"
+	ClusterStatusUpgrading     = "upgrading"
 )
 
 const (
@@ -42,8 +42,7 @@ const (
 	storageTypeAuroraIOPT1 = "aurora-iopt1"
 )
 
-func StorageType_Values() []string {
-	return []string{
+funcurn []string{
 storageTypeStandard,
 storageTypeGP2,
 storageTypeGP3,
@@ -53,8 +52,8 @@ storageTypeAuroraIOPT1,
 }
 
 const (
-	InstanceEngineMariaDB             = "mariadb"
-	InstanceEngineMySQL               = "mysql"
+	InstanceEngineMariaDB= "mariadb"
+	InstanceEngineMySQL  = "mysql"
 	InstanceEngineOracleEnterprise    = "oracle-ee"
 	InstanceEngineOracleEnterpriseCDB = "oracle-ee-cdb"
 	InstanceEngineOracleStandard2     = "oracle-se2"
@@ -69,37 +68,37 @@ const (
 
 // https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/accessing-monitoring.html#Overview.DBInstance.Status.
 const (
-	InstanceStatusAvailable                                    = "available"
-	InstanceStatusBackingUp                                    = "backing-up"
-	InstanceStatusConfiguringEnhancedMonitoring                = "configuring-enhanced-monitoring"
-	InstanceStatusConfiguringIAMDatabaseAuth                   = "configuring-iam-database-auth"
-	InstanceStatusConfiguringLogExports                        = "configuring-log-exports"
-	InstanceStatusConvertingToVPC                              = "converting-to-vpc"
-	InstanceStatusCreating                                     = "creating"
-	InstanceStatusDeletePreCheck                               = "delete-precheck"
-	InstanceStatusDeleting                                     = "deleting"
-	InstanceStatusFailed                                       = "failed"
+	InstanceStatusAvailable          = "available"
+	InstanceStatusBackingUp          = "backing-up"
+	InstanceStatusConfiguringEnhancedMonitoring   = "configuring-enhanced-monitoring"
+	InstanceStatusConfiguringIAMDatabaseAuth      = "configuring-iam-database-auth"
+	InstanceStatusConfiguringLogExports           = "configuring-log-exports"
+	InstanceStatusConvertingToVPC    = "converting-to-vpc"
+	InstanceStatusCreating           = "creating"
+	InstanceStatusDeletePreCheck     = "delete-precheck"
+	InstanceStatusDeleting           = "deleting"
+	InstanceStatusFailed= "failed"
 	InstanceStatusInaccessibleEncryptionCredentials            = "inaccessible-encryption-credentials"
 	InstanceStatusInaccessibleEncryptionCredentialsRecoverable = "inaccessible-encryption-credentials-recoverable"
-	InstanceStatusIncompatiblCreate                            = "incompatible-create"
-	InstanceStatusIncompatibleNetwork                          = "incompatible-network"
-	InstanceStatusIncompatibleOptionGroup                      = "incompatible-option-group"
-	InstanceStatusIncompatibleParameters                       = "incompatible-parameters"
-	InstanceStatusIncompatibleRestore                          = "incompatible-restore"
-	InstanceStatusInsufficentCapacity                          = "insufficient-capacity"
-	InstanceStatusMaintenance                                  = "maintenance"
-	InstanceStatusModifying                                    = "modifying"
-	InstanceStatusMovingToVPC                                  = "moving-to-vpc"
-	InstanceStatusRebooting                                    = "rebooting"
-	InstanceStatusResettingMasterCredentials                   = "resetting-master-credentials"
-	InstanceStatusRenaming                                     = "renaming"
-	InstanceStatusRestoreError                                 = "restore-error"
-	InstanceStatusStarting                                     = "starting"
-	InstanceStatusStopped                                      = "stopped"
-	InstanceStatusStopping                                     = "stopping"
-	InstanceStatusStorageFull                                  = "storage-full"
-	InstanceStatusStorageOptimization                          = "storage-optimization"
-	InstanceStatusUpgrading                                    = "upgrading"
+	InstanceStatusIncompatiblCreate  = "incompatible-create"
+	InstanceStatusIncompatibleNetwork= "incompatible-network"
+	InstanceStatusIncompatibleOptionGroup         = "incompatible-option-group"
+	InstanceStatusIncompatibleParameters          = "incompatible-parameters"
+	InstanceStatusIncompatibleRestore= "incompatible-restore"
+	InstanceStatusInsufficentCapacity= "insufficient-capacity"
+	InstanceStatusMaintenance        = "maintenance"
+	InstanceStatusModifying          = "modifying"
+	InstanceStatusMovingToVPC        = "moving-to-vpc"
+	InstanceStatusRebooting          = "rebooting"
+	InstanceStatusResettingMasterCredentials      = "resetting-master-credentials"
+	InstanceStatusRenaming           = "renaming"
+	InstanceStatusRestoreError       = "restore-error"
+	InstanceStatusStarting           = "starting"
+	InstanceStatusStopped            = "stopped"
+	InstanceStatusStopping           = "stopping"
+	InstanceStatusStorageFull        = "storage-full"
+	InstanceStatusStorageOptimization= "storage-optimization"
+	InstanceStatusUpgrading          = "upgrading"
 )
 
 const (
@@ -131,8 +130,7 @@ const (
 )
 
 func ClusterEngine_Values() []string {
-	return []string{
-ClusterEngineAuroraMySQL,
+functerEngineAuroraMySQL,
 ClusterEngineAuroraPostgreSQL,
 ClusterEngineMySQL,
 ClusterEnginePostgres,
@@ -147,8 +145,7 @@ const (
 
 func GlobalClusterEngine_Values() []string {
 	return []string{
-GlobalClusterEngineAurora,
-GlobalClusterEngineAuroraMySQL,
+funcalClusterEngineAuroraMySQL,
 GlobalClusterEngineAuroraPostgreSQL,
 	}
 }
@@ -164,8 +161,7 @@ const (
 func EngineMode_Values() []string {
 	return []string{
 EngineModeGlobal,
-EngineModeMultiMaster,
-EngineModeParallelQuery,
+funcneModeParallelQuery,
 EngineModeProvisioned,
 EngineModeServerless,
 	}
@@ -189,8 +185,7 @@ func ClusterExportableLogType_Values() []string {
 	return []string{
 ExportableLogTypeAudit,
 ExportableLogTypeError,
-ExportableLogTypeGeneral,
-ExportableLogTypePostgreSQL,
+funcrtableLogTypePostgreSQL,
 ExportableLogTypeSlowQuery,
 ExportableLogTypeUpgrade,
 	}
@@ -201,8 +196,7 @@ func InstanceExportableLogType_Values() []string {
 ExportableLogTypeAgent,
 ExportableLogTypeAlert,
 ExportableLogTypeAudit,
-ExportableLogTypeError,
-ExportableLogTypeGeneral,
+funcrtableLogTypeGeneral,
 ExportableLogTypeListener,
 ExportableLogTypeOEMAgent,
 ExportableLogTypePostgreSQL,
@@ -223,8 +217,7 @@ NetworkTypeDual,
 NetworkTypeIPv4,
 	}
 }
-
-const (
+funct (
 	RestoreTypeCopyOnWrite = "copy-on-write"
 	RestoreTypeFullCopy    = "full-copy"
 )
@@ -236,8 +229,7 @@ RestoreTypeFullCopy,
 	}
 }
 
-const (
-	TimeoutActionForceApplyCapacityChange = "ForceApplyCapacityChange"
+funceoutActionForceApplyCapacityChange = "ForceApplyCapacityChange"
 	TimeoutActionRollbackCapacityChange   = "RollbackCapacityChange"
 )
 
@@ -249,8 +241,7 @@ TimeoutActionRollbackCapacityChange,
 }
 
 const (
-	backupTargetOutposts = "outposts"
-	backupTargetRegion   = "region"
+funckupTargetRegion   = "region"
 )
 
 func backupTarget_Values() []string {
@@ -262,8 +253,7 @@ backupTargetRegion,
 
 const (
 	propagationTimeout = 2 * time.Minute
-)
-
+func
 const (
 	ResNameTags = "Tags"
 )

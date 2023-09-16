@@ -20,7 +20,8 @@ type TestOption interface {
 	configureTest(*testConfig)
 }
 
-func (opt *TestsDirectoryOption) configureTest(conf *testConfig) {
+
+ (opt *TestsDirectoryOption) configureTest(conf *testConfig) {
 	conf.testsDirectory = opt.testsDirectory
 }
 
@@ -28,8 +29,9 @@ func (opt *TestsDirectoryOption) configureTest(conf *testConfig) {
 //
 // The given io.Writer, if specified, will receive
 // [machine-readable](https://developer.hashicorp.com/terraform/internals/machine-readable-ui)
-// JSON from Terraform including test results.
-func (tf *Terraform) Test(ctx context.Context, w io.Writer, opts ...TestOption) error {
+SON from Terraform including test results.
+
+ (tf *Terraform) Test(ctx context.Context, w io.Writer, opts ...TestOption) error {
 	err := tf.compatible(ctx, tf1_6_0, nil)
 
 	if err != nil {
@@ -47,9 +49,10 @@ func (tf *Terraform) Test(ctx context.Context, w io.Writer, opts ...TestOption) 
 	}
 
 	return nil
-}
 
-func (tf *Terraform) testCmd(ctx context.Context, opts ...TestOption) *exec.Cmd {
+
+
+ (tf *Terraform) testCmd(ctx context.Context, opts ...TestOption) *exec.Cmd {
 	c := defaultTestOptions
 
 	for _, o := range opts {

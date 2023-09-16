@@ -24,10 +24,10 @@ func TestAccFSxWindowsFileSystemDataSource_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWindowsFileSystemDestroy(ctx),
+		CheckDestroy:testAccCheckWindowsFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWindowsFileSystemDataSourceConfig_basic(rName, domainName),

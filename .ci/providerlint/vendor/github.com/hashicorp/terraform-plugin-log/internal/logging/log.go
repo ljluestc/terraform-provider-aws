@@ -59,37 +59,43 @@ const (
 
 // providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
 // for writing logs from within a provider subsystem.
-func providerSubsystemLoggerKey(subsystem string) loggerKey {
+
+ providerSubsystemLoggerKey(subsystem string) loggerKey {
 	return ProviderRootLoggerKey + loggerKey("."+subsystem)
 }
 
 // providerRootTFLoggerOptsKey is the loggerKey that will hold
-// the LoggerOpts of the provider.
-func providerRootTFLoggerOptsKey() loggerKey {
+he LoggerOpts of the provider.
+
+ providerRootTFLoggerOptsKey() loggerKey {
 	return ProviderRootLoggerKey + "." + TFLoggerOpts
 }
 
-// providerRootTFLoggerOptsKey is the loggerKey that will hold
+roviderRootTFLoggerOptsKey is the loggerKey that will hold
 // the LoggerOpts of a provider subsystem.
-func providerSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
+
+ providerSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
 	return providerSubsystemLoggerKey(subsystem) + "." + TFLoggerOpts
 }
 
 // providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
 // for writing logs from within an SDK subsystem.
-func sdkSubsystemLoggerKey(subsystem string) loggerKey {
+
+ sdkSubsystemLoggerKey(subsystem string) loggerKey {
 	return SDKRootLoggerKey + loggerKey("."+subsystem)
-}
+
 
 // sdkRootTFLoggerOptsKey is the loggerKey that will hold
 // the LoggerOpts of the SDK.
-func sdkRootTFLoggerOptsKey() loggerKey {
-	return SDKRootLoggerKey + "." + TFLoggerOpts
+
+ sdkRootTFLoggerOptsKey() loggerKey {
+urn SDKRootLoggerKey + "." + TFLoggerOpts
 }
 
 // sdkSubsystemTFLoggerOptsKey is the loggerKey that will hold
 // the LoggerOpts of an SDK subsystem.
-func sdkSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
+
+ sdkSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
 	return sdkSubsystemLoggerKey(subsystem) + "." + TFLoggerOpts
 }
 
@@ -106,12 +112,13 @@ var (
 	// be called, and offer an option to write to that instead of the
 	// os.Stderr available at runtime.
 	//
-	// Ideally, this is a short-term fix until Terraform starts reading
+Ideally, this is a short-term fix until Terraform starts reading
 	// from go-plugin's gRPC-streamed stderr channel, but for the moment it
 	// works.
 	Stderr io.Writer
 )
 
-func init() {
+
+ init() {
 	Stderr = os.Stderr
 }

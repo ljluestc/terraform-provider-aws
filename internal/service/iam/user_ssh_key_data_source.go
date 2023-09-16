@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_iam_user_ssh_key")
-func DataSourceUserSSHKey() *schema.Resource {
+// @SDKDataSource("aws_iam_user_ssh_key")func DataSourceUserSSHKey() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserSSHKeyRead,
 		Schema: map[string]*schema.Schema{
@@ -50,10 +49,7 @@ func DataSourceUserSSHKey() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceUserSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	encoding := d.Get("encoding").(string)

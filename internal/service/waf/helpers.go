@@ -82,7 +82,7 @@ func DiffSizeConstraints(oldS, newS []interface{}) []*waf.SizeConstraintSetUpdat
 			SizeConstraint: &waf.SizeConstraint{
 				FieldToMatch:       ExpandFieldToMatch(constraint["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				ComparisonOperator: aws.String(constraint["comparison_operator"].(string)),
-				Size:               aws.Int64(int64(constraint["size"].(int))),
+				Size:  aws.Int64(int64(constraint["size"].(int))),
 				TextTransformation: aws.String(constraint["text_transformation"].(string)),
 			},
 		})
@@ -96,7 +96,7 @@ func DiffSizeConstraints(oldS, newS []interface{}) []*waf.SizeConstraintSetUpdat
 			SizeConstraint: &waf.SizeConstraint{
 				FieldToMatch:       ExpandFieldToMatch(constraint["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				ComparisonOperator: aws.String(constraint["comparison_operator"].(string)),
-				Size:               aws.Int64(int64(constraint["size"].(int))),
+				Size:  aws.Int64(int64(constraint["size"].(int))),
 				TextTransformation: aws.String(constraint["text_transformation"].(string)),
 			},
 		})
@@ -174,14 +174,14 @@ func DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns []interface{}) [
 		}
 
 		updates = append(updates, &waf.RegexPatternSetUpdate{
-			Action:             aws.String(waf.ChangeActionDelete),
+			Action:aws.String(waf.ChangeActionDelete),
 			RegexPatternString: aws.String(op.(string)),
 		})
 	}
 
 	for _, np := range newPatterns {
 		updates = append(updates, &waf.RegexPatternSetUpdate{
-			Action:             aws.String(waf.ChangeActionInsert),
+			Action:aws.String(waf.ChangeActionInsert),
 			RegexPatternString: aws.String(np.(string)),
 		})
 	}

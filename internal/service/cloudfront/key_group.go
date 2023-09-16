@@ -110,7 +110,7 @@ func resourceKeyGroupUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).CloudFrontConn(ctx)
 
 	input := &cloudfront.UpdateKeyGroupInput{
-		Id:             aws.String(d.Id()),
+		Id:Id()),
 		KeyGroupConfig: expandKeyGroupConfig(d),
 		IfMatch:        aws.String(d.Get("etag").(string)),
 	}

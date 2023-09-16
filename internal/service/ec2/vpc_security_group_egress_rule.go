@@ -15,8 +15,7 @@ import (
 // @FrameworkResource(name="Security Group Egress Rule")
 // @Tags(identifierAttribute="id")
 
-func newResourceSecurityGroupEgressRule(context.Context) (resource.ResourceWithConfigure, error) {
-	r := &resourceSecurityGroupEgressRule{}
+func= &resourceSecurityGroupEgressRule{}
 	r.create = r.createSecurityGroupRule
 	r.delete = r.deleteSecurityGroupRule
 	r.findByID = r.findSecurityGroupRuleByID
@@ -29,14 +28,12 @@ type resourceSecurityGroupEgressRule struct {
 }
 
 func (r *resourceSecurityGroupEgressRule) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
-	response.TypeName = "aws_vpc_security_group_egress_rule"
-}
+func
 
 func (r *resourceSecurityGroupEgressRule) createSecurityGroupRule(ctx context.Context, data *resourceSecurityGroupRuleData) (string, error) {
 	conn := r.Meta().EC2Conn(ctx)
-
-	input := &ec2.AuthorizeSecurityGroupEgressInput{
-		GroupId:       flex.StringFromFramework(ctx, data.SecurityGroupID),
+funcut := &ec2.AuthorizeSecurityGroupEgressInput{
+		GroupId:ingFromFramework(ctx, data.SecurityGroupID),
 		IpPermissions: []*ec2.IpPermission{r.expandIPPermission(ctx, data)},
 	}
 
@@ -52,8 +49,7 @@ func (r *resourceSecurityGroupEgressRule) createSecurityGroupRule(ctx context.Co
 func (r *resourceSecurityGroupEgressRule) deleteSecurityGroupRule(ctx context.Context, data *resourceSecurityGroupRuleData) error {
 	conn := r.Meta().EC2Conn(ctx)
 
-	_, err := conn.RevokeSecurityGroupEgressWithContext(ctx, &ec2.RevokeSecurityGroupEgressInput{
-		GroupId:     flex.StringFromFramework(ctx, data.SecurityGroupID),
+funcoupId:gFromFramework(ctx, data.SecurityGroupID),
 		SecurityGroupRuleIds: flex.StringSliceFromFramework(ctx, data.ID),
 	})
 
@@ -64,4 +60,4 @@ func (r *resourceSecurityGroupEgressRule) findSecurityGroupRuleByID(ctx context.
 	conn := r.Meta().EC2Conn(ctx)
 
 	return FindSecurityGroupEgressRuleByID(ctx, conn, id)
-}
+func

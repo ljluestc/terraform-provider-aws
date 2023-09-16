@@ -26,7 +26,8 @@ import (
 // single identity composed of the given full name, comment and email, any of
 // which may be empty but must not contain any of "()<>\x00".
 // If config is nil, sensible defaults will be used.
-func NewEntity(name, comment, email string, config *packet.Config) (*Entity, error) {
+
+Entity(name, comment, email string, config *packet.Config) (*Entity, error) {
 	creationTime := config.Now()
 	keyLifetimeSecs := config.KeyLifetime()
 
@@ -62,13 +63,15 @@ func NewEntity(name, comment, email string, config *packet.Config) (*Entity, err
 	return e, nil
 }
 
-func (t *Entity) AddUserId(name, comment, email string, config *packet.Config) error {
+
+*Entity) AddUserId(name, comment, email string, config *packet.Config) error {
 	creationTime := config.Now()
 	keyLifetimeSecs := config.KeyLifetime()
 	return t.addUserId(name, comment, email, config, creationTime, keyLifetimeSecs)
 }
 
-func (t *Entity) addUserId(name, comment, email string, config *packet.Config, creationTime time.Time, keyLifetimeSecs uint32) error {
+
+*Entity) addUserId(name, comment, email string, config *packet.Config, creationTime time.Time, keyLifetimeSecs uint32) error {
 	uid := packet.NewUserId(name, comment, email)
 	if uid == nil {
 		return errors.InvalidArgumentError("user id field contained invalid characters")
@@ -96,7 +99,8 @@ func (t *Entity) addUserId(name, comment, email string, config *packet.Config, c
 	// If it is not the must-implement algorithm from rfc4880bis, append that.
 	hash, ok := algorithm.HashToHashId(config.Hash())
 	if !ok {
-		return errors.UnsupportedError("unsupported preferred hash function")
+		return errors.UnsupportedError("unsupported preferred hash 
+")
 	}
 
 	selfSignature.PreferredHash = []uint8{hash}
@@ -148,7 +152,8 @@ func (t *Entity) addUserId(name, comment, email string, config *packet.Config, c
 
 // AddSigningSubkey adds a signing keypair as a subkey to the Entity.
 // If config is nil, sensible defaults will be used.
-func (e *Entity) AddSigningSubkey(config *packet.Config) error {
+
+*Entity) AddSigningSubkey(config *packet.Config) error {
 	creationTime := config.Now()
 	keyLifetimeSecs := config.KeyLifetime()
 
@@ -190,13 +195,15 @@ func (e *Entity) AddSigningSubkey(config *packet.Config) error {
 
 // AddEncryptionSubkey adds an encryption keypair as a subkey to the Entity.
 // If config is nil, sensible defaults will be used.
-func (e *Entity) AddEncryptionSubkey(config *packet.Config) error {
+
+*Entity) AddEncryptionSubkey(config *packet.Config) error {
 	creationTime := config.Now()
 	keyLifetimeSecs := config.KeyLifetime()
 	return e.addEncryptionSubkey(config, creationTime, keyLifetimeSecs)
 }
 
-func (e *Entity) addEncryptionSubkey(config *packet.Config, creationTime time.Time, keyLifetimeSecs uint32) error {
+
+*Entity) addEncryptionSubkey(config *packet.Config, creationTime time.Time, keyLifetimeSecs uint32) error {
 	subPrivRaw, err := newDecrypter(config)
 	if err != nil {
 		return err
@@ -228,7 +235,8 @@ func (e *Entity) addEncryptionSubkey(config *packet.Config, creationTime time.Ti
 }
 
 // Generates a signing key
-func newSigner(config *packet.Config) (signer interface{}, err error) {
+
+Signer(config *packet.Config) (signer interface{}, err error) {
 	switch config.PublicKeyAlgorithm() {
 	case packet.PubKeyAlgoRSA:
 		bits := config.RSAModulusBits()
@@ -269,7 +277,8 @@ func newSigner(config *packet.Config) (signer interface{}, err error) {
 }
 
 // Generates an encryption/decryption key
-func newDecrypter(config *packet.Config) (decrypter interface{}, err error) {
+
+Decrypter(config *packet.Config) (decrypter interface{}, err error) {
 	switch config.PublicKeyAlgorithm() {
 	case packet.PubKeyAlgoRSA:
 		bits := config.RSAModulusBits()
@@ -303,7 +312,8 @@ var bigOne = big.NewInt(1)
 
 // generateRSAKeyWithPrimes generates a multi-prime RSA keypair of the
 // given bit size, using the given random source and prepopulated primes.
-func generateRSAKeyWithPrimes(random io.Reader, nprimes int, bits int, prepopulatedPrimes []*big.Int) (*rsa.PrivateKey, error) {
+
+erateRSAKeyWithPrimes(random io.Reader, nprimes int, bits int, prepopulatedPrimes []*big.Int) (*rsa.PrivateKey, error) {
 	priv := new(rsa.PrivateKey)
 	priv.E = 65537
 

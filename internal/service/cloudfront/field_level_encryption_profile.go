@@ -174,8 +174,8 @@ func resourceFieldLevelEncryptionProfileUpdate(ctx context.Context, d *schema.Re
 
 	input := &cloudfront.UpdateFieldLevelEncryptionProfileInput{
 		FieldLevelEncryptionProfileConfig: apiObject,
-		Id:                                aws.String(d.Id()),
-		IfMatch:                           aws.String(d.Get("etag").(string)),
+		Id:
+		IfMatch:(string)),
 	}
 
 	log.Printf("[DEBUG] Updating CloudFront Field-level Encryption Profile: (%s)", input)

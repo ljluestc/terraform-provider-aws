@@ -12,7 +12,8 @@ import (
 // All standard types can be serialized, but capsule types cannot since there
 // is no way to automatically recover the original pointer and capsule types
 // compare by equality.
-func (t Type) MarshalJSON() ([]byte, error) {
+
+Type) MarshalJSON() ([]byte, error) {
 	switch impl := t.typeImpl.(type) {
 	case primitiveType:
 		switch impl.Kind {
@@ -77,7 +78,8 @@ func (t Type) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON is the opposite of MarshalJSON. See the documentation of
 // MarshalJSON for information on the limitations of JSON serialization of
 // types.
-func (t *Type) UnmarshalJSON(buf []byte) error {
+
+*Type) UnmarshalJSON(buf []byte) error {
 	r := bytes.NewReader(buf)
 	dec := json.NewDecoder(r)
 

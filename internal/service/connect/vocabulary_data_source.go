@@ -19,6 +19,7 @@ import (
 
 // @SDKDataSource("aws_connect_vocabulary")
 
+
 func DataSourceVocabulary() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVocabularyRead,
@@ -40,6 +41,7 @@ func DataSourceVocabulary() *schema.Resource {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"language_code": {
@@ -70,6 +72,7 @@ func: validation.StringLenBetween(1, 100),
 		},
 	}
 }
+
 
 
 func dataSourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -131,6 +134,7 @@ func dataSourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta 
 }
 
 
+
 func dataSourceGetVocabularySummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.VocabularySummary, error) {
 	var result *connect.VocabularySummary
 
@@ -141,6 +145,7 @@ func dataSourceGetVocabularySummaryByName(ctx context.Context, conn *connect.Con
 	}
 
 	err := conn.SearchVocabulariesPagesWithContext(ctx, input, 
+
 func(page *connect.SearchVocabulariesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

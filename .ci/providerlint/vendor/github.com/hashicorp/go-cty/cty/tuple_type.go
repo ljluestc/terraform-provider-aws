@@ -11,9 +11,11 @@ type typeTuple struct {
 
 // Tuple creates a tuple type with the given element types.
 //
-// After a slice is passed to this function the caller must no longer access
+// After a slice is passed to this 
+ the caller must no longer access
 // the underlying array, since ownership is transferred to this library.
-func Tuple(elemTypes []Type) Type {
+
+le(elemTypes []Type) Type {
 	return Type{
 		typeTuple{
 			ElemTypes: elemTypes,
@@ -21,7 +23,8 @@ func Tuple(elemTypes []Type) Type {
 	}
 }
 
-func (t typeTuple) Equals(other Type) bool {
+
+typeTuple) Equals(other Type) bool {
 	if ot, ok := other.typeImpl.(typeTuple); ok {
 		if len(t.ElemTypes) != len(ot.ElemTypes) {
 			// Fast path: if we don't have the same number of elements
@@ -44,7 +47,8 @@ func (t typeTuple) Equals(other Type) bool {
 	return false
 }
 
-func (t typeTuple) FriendlyName(mode friendlyTypeNameMode) string {
+
+typeTuple) FriendlyName(mode friendlyTypeNameMode) string {
 	// There isn't really a friendly way to write a tuple type due to its
 	// complexity, so we'll just do something English-ish. Callers will
 	// probably want to make some extra effort to avoid ever printing out
@@ -55,7 +59,8 @@ func (t typeTuple) FriendlyName(mode friendlyTypeNameMode) string {
 	return "tuple"
 }
 
-func (t typeTuple) GoString() string {
+
+typeTuple) GoString() string {
 	if len(t.ElemTypes) == 0 {
 		return "cty.EmptyTuple"
 	}
@@ -70,7 +75,8 @@ var EmptyTuple Type
 // EmptyTuple.
 var EmptyTupleVal Value
 
-func init() {
+
+t() {
 	EmptyTuple = Tuple([]Type{})
 	EmptyTupleVal = Value{
 		ty: EmptyTuple,
@@ -80,7 +86,8 @@ func init() {
 
 // IsTupleType returns true if the given type is an object type, regardless
 // of its element type.
-func (t Type) IsTupleType() bool {
+
+Type) IsTupleType() bool {
 	_, ok := t.typeImpl.(typeTuple)
 	return ok
 }
@@ -88,7 +95,8 @@ func (t Type) IsTupleType() bool {
 // Length returns the number of elements of the receiving tuple type.
 // Will panic if the reciever isn't a tuple type; use IsTupleType to determine
 // whether this operation will succeed.
-func (t Type) Length() int {
+
+Type) Length() int {
 	if ot, ok := t.typeImpl.(typeTuple); ok {
 		return len(ot.ElemTypes)
 	}
@@ -98,7 +106,8 @@ func (t Type) Length() int {
 // TupleElementType returns the type of the element with the given index. Will
 // panic if the receiver is not a tuple type (use IsTupleType to confirm)
 // or if the index is out of range (use Length to confirm).
-func (t Type) TupleElementType(idx int) Type {
+
+Type) TupleElementType(idx int) Type {
 	if ot, ok := t.typeImpl.(typeTuple); ok {
 		return ot.ElemTypes[idx]
 	}
@@ -113,7 +122,8 @@ func (t Type) TupleElementType(idx int) Type {
 // for read access only. It is forbidden for any caller to modify the
 // underlying array. For many purposes the element-related methods of Value
 // are more appropriate and more convenient to use.
-func (t Type) TupleElementTypes() []Type {
+
+Type) TupleElementTypes() []Type {
 	if ot, ok := t.typeImpl.(typeTuple); ok {
 		return ot.ElemTypes
 	}

@@ -29,8 +29,7 @@ import (
 
 // @SDKResource("aws_db_option_group", name="DB Option Group")
 // @Tags(identifierAttribute="arn")
-func ResourceOptionGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceOptionGroupCreate,
 ReadWithoutTimeout:   resourceOptionGroupRead,
 UpdateWithoutTimeout: resourceOptionGroupUpdate,
@@ -140,8 +139,7 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceOptionGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	var groupName string
 	if v, ok := d.GetOk("name"); ok {
@@ -153,11 +151,11 @@ groupName = id.UniqueId()
 	}
 
 	createOpts := &rds.CreateOptionGroupInput{
-EngineName:             aws.String(d.Get("engine_name").(string)),
+EngineName:aws.String(d.Get("engine_name").(string)),
 MajorEngineVersion:     aws.String(d.Get("major_engine_version").(string)),
 OptionGroupDescription: aws.String(d.Get("option_group_description").(string)),
 OptionGroupName:        aws.String(groupName),
-Tags:                   getTagsIn(ctx),
+Tags:      getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Create DB Option Group: %#v", createOpts)
@@ -177,8 +175,7 @@ return sdkdiag.AppendErrorf(diags, "creating DB Option Group: %s", err)
 
 func resourceOptionGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	params := &rds.DescribeOptionGroupsInput{
 OptionGroupName: aws.String(d.Id()),
 	}
@@ -226,8 +223,7 @@ return sdkdiag.AppendErrorf(diags, "setting option: %s", err)
 func optionInList(optionName string, list []*string) bool {
 	for _, opt := range list {
 if aws.StringValue(opt) == optionName {
-	return true
-}
+func
 	}
 	return false
 }
@@ -236,8 +232,7 @@ func resourceOptionGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 	if d.HasChange("option") {
-o, n := d.GetChange("option")
-if o == nil {
+func == nil {
 	o = new(schema.Set)
 }
 if n == nil {
@@ -281,8 +276,7 @@ _, err := conn.ModifyOptionGroupWithContext(ctx, modifyOpts)
 if err != nil {
 	// InvalidParameterValue: IAM role ARN value is invalid or does not include the required permissions for: SQLSERVER_BACKUP_RESTORE
 	if tfawserr.ErrMessageContains(err, "InvalidParameterValue", "IAM role ARN value is invalid or does not include the required permissions") {
-return retry.RetryableError(err)
-	}
+return retry.RetryableError(err)func
 	return retry.NonRetryableError(err)
 }
 return nil
@@ -305,8 +299,7 @@ func resourceOptionGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	deleteOpts := &rds.DeleteOptionGroupInput{
 OptionGroupName: aws.String(d.Id()),
-	}
-
+func
 	log.Printf("[DEBUG] Deleting RDS Option Group: %s", d.Id())
 	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutDelete), func() *retry.RetryError {
 _, err := conn.DeleteOptionGroupWithContext(ctx, deleteOpts)
@@ -315,8 +308,7 @@ if err != nil {
 log.Printf(`[DEBUG] AWS believes the RDS Option Group is still in use, this could be because of a internal snapshot create by AWS, see github issue #4597 for more info. retrying...`)
 return retry.RetryableError(err)
 	}
-	return retry.NonRetryableError(err)
-}
+	return retry.NonRetryableError(err)func
 return nil
 	})
 	if tfresource.TimedOut(err) {
@@ -336,8 +328,7 @@ optionNames = append(optionNames, aws.String(data["option_name"].(string)))
 	}
 
 	return optionNames
-}
-
+func
 func resourceOptionHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -347,8 +338,7 @@ buf.WriteString(fmt.Sprintf("%d-", m["port"].(int)))
 	}
 
 	for _, oRaw := range m["option_settings"].(*schema.Set).List() {
-o := oRaw.(map[string]interface{})
-buf.WriteString(fmt.Sprintf("%s-", o["name"].(string)))
+funcWriteString(fmt.Sprintf("%s-", o["name"].(string)))
 buf.WriteString(fmt.Sprintf("%s-", o["value"].(string)))
 	}
 

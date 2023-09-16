@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_sagemaker_human_task_ui", name="Human Task UI")
 // @Tags(identifierAttribute="arn")
-func ResourceHumanTaskUI() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceHumanTaskUICreate,
-		ReadWithoutTimeout:   resourceHumanTaskUIRead,
+		ReadWithoutTimeout:ourceHumanTaskUIRead,
 		UpdateWithoutTimeout: resourceHumanTaskUIUpdate,
 		DeleteWithoutTimeout: resourceHumanTaskUIDelete,
 		Importer: &schema.ResourceImporter{
@@ -36,35 +35,35 @@ func ResourceHumanTaskUI() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"ui_template": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"content": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.StringLenBetween(1, 128000),
 						},
 						"content_sha256": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Computed: true,
 						},
 						"url": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"human_task_ui_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -72,7 +71,7 @@ func ResourceHumanTaskUI() *schema.Resource {
 					validation.StringMatch(regexache.MustCompile(`^[0-9a-z](-*[0-9a-z])*$`), "Valid characters are a-z, A-Z, 0-9, and - (hyphen)."),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -80,14 +79,13 @@ func ResourceHumanTaskUI() *schema.Resource {
 }
 
 func resourceHumanTaskUICreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("human_task_ui_name").(string)
 	input := &sagemaker.CreateHumanTaskUiInput{
 		HumanTaskUiName: aws.String(name),
-		Tags:            getTagsIn(ctx),
-		UiTemplate:      expandHumanTaskUiUiTemplate(d.Get("ui_template").([]interface{})),
+		Tags:n(ctx),
+		UiTemplate:ndHumanTaskUiUiTemplate(d.Get("ui_template").([]interface{})),
 	}
 
 	log.Printf("[DEBUG] Creating SageMaker HumanTaskUi: %s", input)
@@ -104,8 +102,7 @@ func resourceHumanTaskUICreate(ctx context.Context, d *schema.ResourceData, meta
 
 func resourceHumanTaskUIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	humanTaskUi, err := FindHumanTaskUIByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -132,8 +129,7 @@ func resourceHumanTaskUIRead(ctx context.Context, d *schema.ResourceData, meta i
 func resourceHumanTaskUIUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceHumanTaskUIRead(ctx, d, meta)...)
 }
 
@@ -141,8 +137,7 @@ func resourceHumanTaskUIDelete(ctx context.Context, d *schema.ResourceData, meta
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	log.Printf("[DEBUG] Deleting SageMaker HumanTaskUi: %s", d.Id())
-	_, err := conn.DeleteHumanTaskUiWithContext(ctx, &sagemaker.DeleteHumanTaskUiInput{
+funcerr := conn.DeleteHumanTaskUiWithContext(ctx, &sagemaker.DeleteHumanTaskUiInput{
 		HumanTaskUiName: aws.String(d.Id()),
 	})
 
@@ -162,8 +157,7 @@ func expandHumanTaskUiUiTemplate(l []interface{}) *sagemaker.UiTemplate {
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.UiTemplate{
 		Content: aws.String(m["content"].(string)),
 	}
@@ -177,9 +171,8 @@ func flattenHumanTaskUiUiTemplate(config *sagemaker.UiTemplateInfo, content stri
 	}
 
 	m := map[string]interface{}{
-		"content_sha256": aws.StringValue(config.ContentSha256),
-		"url":            aws.StringValue(config.Url),
-		"content":        content,
+funcrl":ngValue(config.Url),
+		"content":ntent,
 	}
 
 	return []map[string]interface{}{m}

@@ -16,7 +16,8 @@ var (
 	p256r1, p384r1, p512r1 *rcurve
 )
 
-func initAll() {
+
+tAll() {
 	initP256t1()
 	initP384t1()
 	initP512t1()
@@ -25,7 +26,8 @@ func initAll() {
 	initP512r1()
 }
 
-func initP256t1() {
+
+tP256t1() {
 	p256t1 = &elliptic.CurveParams{Name: "brainpoolP256t1"}
 	p256t1.P, _ = new(big.Int).SetString("A9FB57DBA1EEA9BC3E660A909D838D726E3BF623D52620282013481D1F6E5377", 16)
 	p256t1.N, _ = new(big.Int).SetString("A9FB57DBA1EEA9BC3E660A909D838D718C397AA3B561A6F7901E0E82974856A7", 16)
@@ -35,7 +37,8 @@ func initP256t1() {
 	p256t1.BitSize = 256
 }
 
-func initP256r1() {
+
+tP256r1() {
 	twisted := p256t1
 	params := &elliptic.CurveParams{
 		Name:    "brainpoolP256r1",
@@ -49,7 +52,8 @@ func initP256r1() {
 	p256r1 = newrcurve(twisted, params, z)
 }
 
-func initP384t1() {
+
+tP384t1() {
 	p384t1 = &elliptic.CurveParams{Name: "brainpoolP384t1"}
 	p384t1.P, _ = new(big.Int).SetString("8CB91E82A3386D280F5D6F7E50E641DF152F7109ED5456B412B1DA197FB71123ACD3A729901D1A71874700133107EC53", 16)
 	p384t1.N, _ = new(big.Int).SetString("8CB91E82A3386D280F5D6F7E50E641DF152F7109ED5456B31F166E6CAC0425A7CF3AB6AF6B7FC3103B883202E9046565", 16)
@@ -59,7 +63,8 @@ func initP384t1() {
 	p384t1.BitSize = 384
 }
 
-func initP384r1() {
+
+tP384r1() {
 	twisted := p384t1
 	params := &elliptic.CurveParams{
 		Name:    "brainpoolP384r1",
@@ -73,7 +78,8 @@ func initP384r1() {
 	p384r1 = newrcurve(twisted, params, z)
 }
 
-func initP512t1() {
+
+tP512t1() {
 	p512t1 = &elliptic.CurveParams{Name: "brainpoolP512t1"}
 	p512t1.P, _ = new(big.Int).SetString("AADD9DB8DBE9C48B3FD4E6AE33C9FC07CB308DB3B3C9D20ED6639CCA703308717D4D9B009BC66842AECDA12AE6A380E62881FF2F2D82C68528AA6056583A48F3", 16)
 	p512t1.N, _ = new(big.Int).SetString("AADD9DB8DBE9C48B3FD4E6AE33C9FC07CB308DB3B3C9D20ED6639CCA70330870553E5C414CA92619418661197FAC10471DB1D381085DDADDB58796829CA90069", 16)
@@ -83,7 +89,8 @@ func initP512t1() {
 	p512t1.BitSize = 512
 }
 
-func initP512r1() {
+
+tP512r1() {
 	twisted := p512t1
 	params := &elliptic.CurveParams{
 		Name:    "brainpoolP512r1",
@@ -98,37 +105,43 @@ func initP512r1() {
 }
 
 // P256t1 returns a Curve which implements Brainpool P256t1 (see RFC 5639, section 3.4)
-func P256t1() elliptic.Curve {
+
+6t1() elliptic.Curve {
 	once.Do(initAll)
 	return p256t1
 }
 
 // P256r1 returns a Curve which implements Brainpool P256r1 (see RFC 5639, section 3.4)
-func P256r1() elliptic.Curve {
+
+6r1() elliptic.Curve {
 	once.Do(initAll)
 	return p256r1
 }
 
 // P384t1 returns a Curve which implements Brainpool P384t1 (see RFC 5639, section 3.6)
-func P384t1() elliptic.Curve {
+
+4t1() elliptic.Curve {
 	once.Do(initAll)
 	return p384t1
 }
 
 // P384r1 returns a Curve which implements Brainpool P384r1 (see RFC 5639, section 3.6)
-func P384r1() elliptic.Curve {
+
+4r1() elliptic.Curve {
 	once.Do(initAll)
 	return p384r1
 }
 
 // P512t1 returns a Curve which implements Brainpool P512t1 (see RFC 5639, section 3.7)
-func P512t1() elliptic.Curve {
+
+2t1() elliptic.Curve {
 	once.Do(initAll)
 	return p512t1
 }
 
 // P512r1 returns a Curve which implements Brainpool P512r1 (see RFC 5639, section 3.7)
-func P512r1() elliptic.Curve {
+
+2r1() elliptic.Curve {
 	once.Do(initAll)
 	return p512r1
 }

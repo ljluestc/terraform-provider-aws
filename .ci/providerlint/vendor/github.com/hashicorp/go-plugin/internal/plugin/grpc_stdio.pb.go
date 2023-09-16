@@ -43,10 +43,12 @@ var StdioData_Channel_value = map[string]int32{
 	"STDERR":  2,
 }
 
-func (x StdioData_Channel) String() string {
+
+ (x StdioData_Channel) String() string {
 	return proto.EnumName(StdioData_Channel_name, int32(x))
-}
-func (StdioData_Channel) EnumDescriptor() ([]byte, []int) {
+
+
+ (StdioData_Channel) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_grpc_stdio_db2934322ca63bd5, []int{0, 0}
 }
 
@@ -58,47 +60,59 @@ type StdioData struct {
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
-}
 
-func (m *StdioData) Reset()         { *m = StdioData{} }
-func (m *StdioData) String() string { return proto.CompactTextString(m) }
-func (*StdioData) ProtoMessage()    {}
-func (*StdioData) Descriptor() ([]byte, []int) {
+
+
+*StdioData) Reset()         { *m = StdioData{} }
+
+ (m *StdioData) String() string { return proto.CompactTextString(m) }
+
+ (*StdioData) ProtoMessage()    {}
+
+tdioData) Descriptor() ([]byte, []int) {
 	return fileDescriptor_grpc_stdio_db2934322ca63bd5, []int{0}
 }
-func (m *StdioData) XXX_Unmarshal(b []byte) error {
+
+ (m *StdioData) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StdioData.Unmarshal(m, b)
+
+
+ (m *StdioData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+urn xxx_messageInfo_StdioData.Marshal(b, m, deterministic)
 }
-func (m *StdioData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StdioData.Marshal(b, m, deterministic)
-}
-func (dst *StdioData) XXX_Merge(src proto.Message) {
+
+ (dst *StdioData) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_StdioData.Merge(dst, src)
 }
-func (m *StdioData) XXX_Size() int {
+
+ (m *StdioData) XXX_Size() int {
 	return xxx_messageInfo_StdioData.Size(m)
 }
-func (m *StdioData) XXX_DiscardUnknown() {
+
+ (m *StdioData) XXX_DiscardUnknown() {
 	xxx_messageInfo_StdioData.DiscardUnknown(m)
-}
+
 
 var xxx_messageInfo_StdioData proto.InternalMessageInfo
 
-func (m *StdioData) GetChannel() StdioData_Channel {
+
+ (m *StdioData) GetChannel() StdioData_Channel {
 	if m != nil {
-		return m.Channel
+turn m.Channel
 	}
 	return StdioData_INVALID
 }
 
-func (m *StdioData) GetData() []byte {
+
+ (m *StdioData) GetData() []byte {
 	if m != nil {
 		return m.Data
 	}
 	return nil
 }
 
-func init() {
+
+ init() {
 	proto.RegisterType((*StdioData)(nil), "plugin.StdioData")
 	proto.RegisterEnum("plugin.StdioData_Channel", StdioData_Channel_name, StdioData_Channel_value)
 }
@@ -113,11 +127,11 @@ const _ = grpc.SupportPackageIsVersion4
 
 // GRPCStdioClient is the client API for GRPCStdio service.
 //
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+or semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GRPCStdioClient interface {
 	// StreamStdio returns a stream that contains all the stdout/stderr.
 	// This RPC endpoint must only be called ONCE. Once stdio data is consumed
-	// it is not sent again.
+it is not sent again.
 	//
 	// Callers should connect early to prevent blocking on the plugin process.
 	StreamStdio(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (GRPCStdio_StreamStdioClient, error)
@@ -127,11 +141,13 @@ type gRPCStdioClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewGRPCStdioClient(cc *grpc.ClientConn) GRPCStdioClient {
+
+ NewGRPCStdioClient(cc *grpc.ClientConn) GRPCStdioClient {
 	return &gRPCStdioClient{cc}
 }
 
-func (c *gRPCStdioClient) StreamStdio(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (GRPCStdio_StreamStdioClient, error) {
+
+ (c *gRPCStdioClient) StreamStdio(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (GRPCStdio_StreamStdioClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_GRPCStdio_serviceDesc.Streams[0], "/plugin.GRPCStdio/StreamStdio", opts...)
 	if err != nil {
 		return nil, err
@@ -139,7 +155,7 @@ func (c *gRPCStdioClient) StreamStdio(ctx context.Context, in *empty.Empty, opts
 	x := &gRPCStdioStreamStdioClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
-	}
+
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
@@ -155,12 +171,13 @@ type gRPCStdioStreamStdioClient struct {
 	grpc.ClientStream
 }
 
-func (x *gRPCStdioStreamStdioClient) Recv() (*StdioData, error) {
-	m := new(StdioData)
+
+ (x *gRPCStdioStreamStdioClient) Recv() (*StdioData, error) {
+= new(StdioData)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	return m, nil
+urn m, nil
 }
 
 // GRPCStdioServer is the server API for GRPCStdio service.
@@ -173,11 +190,13 @@ type GRPCStdioServer interface {
 	StreamStdio(*empty.Empty, GRPCStdio_StreamStdioServer) error
 }
 
-func RegisterGRPCStdioServer(s *grpc.Server, srv GRPCStdioServer) {
+
+ RegisterGRPCStdioServer(s *grpc.Server, srv GRPCStdioServer) {
 	s.RegisterService(&_GRPCStdio_serviceDesc, srv)
 }
 
-func _GRPCStdio_StreamStdio_Handler(srv interface{}, stream grpc.ServerStream) error {
+
+ _GRPCStdio_StreamStdio_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(empty.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
@@ -194,7 +213,8 @@ type gRPCStdioStreamStdioServer struct {
 	grpc.ServerStream
 }
 
-func (x *gRPCStdioStreamStdioServer) Send(m *StdioData) error {
+
+ (x *gRPCStdioStreamStdioServer) Send(m *StdioData) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -212,7 +232,8 @@ var _GRPCStdio_serviceDesc = grpc.ServiceDesc{
 	Metadata: "grpc_stdio.proto",
 }
 
-func init() { proto.RegisterFile("grpc_stdio.proto", fileDescriptor_grpc_stdio_db2934322ca63bd5) }
+
+ init() { proto.RegisterFile("grpc_stdio.proto", fileDescriptor_grpc_stdio_db2934322ca63bd5) }
 
 var fileDescriptor_grpc_stdio_db2934322ca63bd5 = []byte{
 	// 221 bytes of a gzipped FileDescriptorProto

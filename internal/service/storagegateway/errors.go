@@ -13,7 +13,7 @@ import (
 // Operation error code constants missing from AWS Go SDK: https://docs.aws.amazon.com/sdk-for-go/api/service/storagegateway/#pkg-constants.
 // See https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#APIOperationErrorCodes for details.
 const (
-	operationErrCodeFileShareNotFound             = "FileShareNotFound"
+	operationErrCodeFileShareNotFound= "FileShareNotFound"
 	operationErrCodeFileSystemAssociationNotFound = "FileSystemAssociationNotFound"
 	operationErrCodeGatewayNotFound= "GatewayNotFound"
 )

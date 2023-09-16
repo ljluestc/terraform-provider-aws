@@ -21,8 +21,7 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_iam_signing_certificate")
-func ResourceSigningCertificate() *schema.Resource {
+// @SDKResource("aws_iam_signing_certificate")func ResourceSigningCertificate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSigningCertificateCreate,
 		ReadWithoutTimeout:   resourceSigningCertificateRead,
@@ -34,7 +33,7 @@ func ResourceSigningCertificate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"certificate_body": {
-				Type:             schema.TypeString,
+				Type:schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
@@ -56,10 +55,7 @@ func ResourceSigningCertificate() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceSigningCertificateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	createOpts := &iam.UploadSigningCertificateInput{
@@ -91,11 +87,8 @@ func resourceSigningCertificateCreate(ctx context.Context, d *schema.ResourceDat
 	}
 
 	return append(diags, resourceSigningCertificateRead(ctx, d, meta)...)
-}
-
-func resourceSigningCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceSigningCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	certId, userName, err := DecodeSigningCertificateId(d.Id())
 	if err != nil {
@@ -124,12 +117,9 @@ func resourceSigningCertificateRead(ctx context.Context, d *schema.ResourceData,
 	d.Set("status", resp.Status)
 
 	return diags
-}
-
-func resourceSigningCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSigningCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	certId, userName, err := DecodeSigningCertificateId(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating IAM Signing Certificate (%s): %s", d.Id(), err)
@@ -147,13 +137,10 @@ func resourceSigningCertificateUpdate(ctx context.Context, d *schema.ResourceDat
 	}
 
 	return append(diags, resourceSigningCertificateRead(ctx, d, meta)...)
-}
-
-func resourceSigningCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSigningCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-	log.Printf("[INFO] Deleting IAM Signing Certificate: %s", d.Id())
-
+	func
 	certId, userName, err := DecodeSigningCertificateId(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting IAM Signing Certificate (%s): %s", d.Id(), err)
@@ -172,14 +159,11 @@ func resourceSigningCertificateDelete(ctx context.Context, d *schema.ResourceDat
 	}
 
 	return diags
-}
-
-func DecodeSigningCertificateId(id string) (string, string, error) {
+}func DecodeSigningCertificateId(id string) (string, string, error) {
 	creds := strings.Split(id, ":")
 	if len(creds) != 2 {
 		return "", "", fmt.Errorf("unknown IAM Signing Certificate ID format")
-	}
-
+	func
 	certId := creds[0]
 	userName := creds[1]
 

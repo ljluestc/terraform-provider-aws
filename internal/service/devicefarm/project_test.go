@@ -20,8 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccDeviceFarmProject_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var proj devicefarm.Project
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
@@ -29,15 +28,14 @@ func TestAccDeviceFarmProject_basic(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+			acctest.Pfunccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),
@@ -67,21 +65,19 @@ func TestAccDeviceFarmProject_basic(t *testing.T) {
 
 func TestAccDeviceFarmProject_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
-	var proj devicefarm.Project
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currently, DeviceFarm is only supported in us-west-2
-			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+			// Currenfunc/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_defaultJobTimeout(rName, 10),
@@ -112,19 +108,17 @@ func TestAccDeviceFarmProject_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.Project
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_project.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
+			acctest.Pfunc
+		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_tags1(rName, "key1", "value1"),
@@ -166,17 +160,15 @@ func TestAccDeviceFarmProject_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+funceCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, devicefarm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),
@@ -199,10 +191,8 @@ func testAccCheckProjectExists(ctx context.Context, n string, v *devicefarm.Proj
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		resp, err := tfdevicefarm.FindProjectByARN(ctx, conn, rs.Primary.ID)
 		if err != nil {
 			return err
@@ -227,10 +217,8 @@ func testAccCheckProjectDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 
 			// Try to find the resource
-			_, err := tfdevicefarm.FindProjectByARN(ctx, conn, rs.Primary.ID)
-			if tfresource.NotFound(err) {
-				continue
-			}
+funcf tfresource.NotFound(err) {
+				contfunc
 
 			if err != nil {
 				return err
@@ -255,8 +243,7 @@ func testAccProjectConfig_defaultJobTimeout(rName string, timeout int) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_project" "test" {
   name         = %[1]q
-  default_job_timeout_minutes = %[2]d
-}
+func
 `, rName, timeout)
 }
 
@@ -264,8 +251,7 @@ func testAccProjectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_project" "test" {
   name = %[1]q
-
-  tags = {
+funcgs = {
     %[2]q = %[3]q
   }
 }
@@ -274,8 +260,7 @@ resource "aws_devicefarm_project" "test" {
 
 func testAccProjectConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-resource "aws_devicefarm_project" "test" {
-  name = %[1]q
+funcme = %[1]q
 
   tags = {
     %[2]q = %[3]q
@@ -284,3 +269,4 @@ resource "aws_devicefarm_project" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+func

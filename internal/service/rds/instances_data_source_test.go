@@ -13,18 +13,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSInstancesDataSource_filter(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var dbInstance rds.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_db_instances.test"
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstancesDataSourceConfig_filter(rName),
@@ -42,17 +40,15 @@ Check: resource.ComposeTestCheckFunc(
 
 func TestAccRDSInstancesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var dbInstance rds.DBInstance
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_db_instances.test"
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck:    func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-Steps: []resource.TestStep{
+CheckDestroy:funcs: []resource.TestStep{
 	{
 Config: testAccInstancesDataSourceConfig_tags(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -71,17 +67,16 @@ func testAccInstancesDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
   engine = "postgres"
-}
-
+func
 resource "aws_db_instance" "test" {
   identifier           = %[1]q
   allocated_storage    = 10
-  engine               = data.aws_rds_engine_version.default.engine
+  engine  = data.aws_rds_engine_version.default.engine
   engine_version       = data.aws_rds_engine_version.default.version
   instance_class       = "db.t4g.micro"
-  db_name              = "test"
-  password             = "avoid-plaintext-passwords"
-  username             = "tfacctest"
+  db_name = "test"
+  password= "avoid-plaintext-passwords"
+  username= "tfacctest"
   parameter_group_name = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
   skip_final_snapshot  = true
 
@@ -91,12 +86,12 @@ resource "aws_db_instance" "test" {
 resource "aws_db_instance" "wrong" {
   identifier           = "%[1]s-wrong"
   allocated_storage    = 10
-  engine               = data.aws_rds_engine_version.default.engine
+  engine  = data.aws_rds_engine_version.default.engine
   engine_version       = data.aws_rds_engine_version.default.version
   instance_class       = "db.t4g.micro"
-  db_name              = "test"
-  password             = "avoid-plaintext-passwords"
-  username             = "tfacctest"
+  db_name = "test"
+  password= "avoid-plaintext-passwords"
+  username= "tfacctest"
   parameter_group_name = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
   skip_final_snapshot  = true
 
@@ -120,16 +115,15 @@ func testAccInstancesDataSourceConfig_tags(rName string) string {
 data "aws_rds_engine_version" "default" {
   engine = "postgres"
 }
-
-resource "aws_db_instance" "test" {
+funcurce "aws_db_instance" "test" {
   identifier           = %[1]q
   allocated_storage    = 10
-  engine               = data.aws_rds_engine_version.default.engine
+  engine  = data.aws_rds_engine_version.default.engine
   engine_version       = data.aws_rds_engine_version.default.version
   instance_class       = "db.t4g.micro"
-  db_name              = "test"
-  password             = "avoid-plaintext-passwords"
-  username             = "tfacctest"
+  db_name = "test"
+  password= "avoid-plaintext-passwords"
+  username= "tfacctest"
   parameter_group_name = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
   skip_final_snapshot  = true
 
@@ -144,12 +138,12 @@ resource "aws_db_instance" "test" {
 resource "aws_db_instance" "wrong" {
   identifier           = "%[1]s-wrong"
   allocated_storage    = 10
-  engine               = data.aws_rds_engine_version.default.engine
+  engine  = data.aws_rds_engine_version.default.engine
   engine_version       = data.aws_rds_engine_version.default.version
   instance_class       = "db.t4g.micro"
-  db_name              = "test"
-  password             = "avoid-plaintext-passwords"
-  username             = "tfacctest"
+  db_name = "test"
+  password= "avoid-plaintext-passwords"
+  username= "tfacctest"
   parameter_group_name = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
   skip_final_snapshot  = true
 

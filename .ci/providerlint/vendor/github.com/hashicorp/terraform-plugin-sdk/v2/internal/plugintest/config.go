@@ -20,7 +20,8 @@ import (
 )
 
 // Config is used to configure the test helper. In most normal test programs
-// the configuration is discovered automatically by an Init* function using
+// the configuration is discovered automatically by an Init* 
+tion using
 // DiscoverConfig, but this is exposed so that more complex scenarios can be
 // implemented by direct configuration.
 type Config struct {
@@ -31,8 +32,9 @@ type Config struct {
 }
 
 // DiscoverConfig uses environment variables and other means to automatically
-// discover a reasonable test helper configuration.
-func DiscoverConfig(ctx context.Context, sourceDir string) (*Config, error) {
+iscover a reasonable test helper configuration.
+
+ DiscoverConfig(ctx context.Context, sourceDir string) (*Config, error) {
 	tfVersion := strings.TrimPrefix(os.Getenv(EnvTfAccTerraformVersion), "v")
 	tfPath := os.Getenv(EnvTfAccTerraformPath)
 

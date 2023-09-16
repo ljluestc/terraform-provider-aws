@@ -30,9 +30,9 @@ func TestAccLightsailInstancePublicPorts_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_basic(rName),
@@ -61,9 +61,9 @@ func TestAccLightsailInstancePublicPorts_multiple(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_multiple(rName),
@@ -97,9 +97,9 @@ func TestAccLightsailInstancePublicPorts_cidrs(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_cidrs(rName),
@@ -131,9 +131,9 @@ func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_cidrListAliases(rName),
@@ -143,7 +143,7 @@ func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "port_info.*", map[string]string{
 						"protocol":            "tcp",
 						"from_port":           "22",
-						"to_port":             "22",
+						"to_port":
 						"cidr_list_aliases.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "port_info.*.cidr_list_aliases.*", "lightsail-connect"),
@@ -164,9 +164,9 @@ func TestAccLightsailInstancePublicPorts_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_basic(rName),
@@ -192,9 +192,9 @@ func TestAccLightsailInstancePublicPorts_disappears_Instance(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstancePublicPortsDestroy(ctx),
+		CheckDestroy:nstancePublicPortsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancePublicPortsConfig_basic(rName),
@@ -275,7 +275,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -305,7 +305,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -341,7 +341,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"
@@ -372,7 +372,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_lightsail_instance" "test" {
-  name              = %[1]q
+  name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id         = "nano_1_0"

@@ -40,8 +40,10 @@ type Runner struct {
 
 const maxInFlight = 10
 
-func (runner *Runner) initialize() {
-	runner.once.Do(func() {
+
+ (runner *Ru) initialize() {
+	runner.once.Do(
+() {
 		runner.inFlight = make(chan struct{}, maxInFlight)
 		runner.serialized = make(chan struct{}, 1)
 	})
@@ -51,23 +53,26 @@ func (runner *Runner) initialize() {
 // 1.14: go: updating go.mod: existing contents have changed since last read
 var modConcurrencyError = regexp.MustCompile(`go:.*go.mod.*contents have changed`)
 
-// Run is a convenience wrapper around RunRaw.
+un is a convenience wrapper around RunRaw.
 // It returns only stdout and a "friendly" error.
-func (runner *Runner) Run(ctx context.Context, inv Invocation) (*bytes.Buffer, error) {
+
+ (runner *Runner) Run(ctx context.Context, inv Invocation) (*bytes.Buffer, error) {
 	stdout, _, friendly, _ := runner.RunRaw(ctx, inv)
 	return stdout, friendly
 }
 
 // RunPiped runs the invocation serially, always waiting for any concurrent
 // invocations to complete first.
-func (runner *Runner) RunPiped(ctx context.Context, inv Invocation, stdout, stderr io.Writer) error {
+
+ (runner *Runner) RunPiped(ctx context.Context, inv Invocation, stdout, stderr io.Writer) error {
 	_, err := runner.runPiped(ctx, inv, stdout, stderr)
 	return err
-}
+
 
 // RunRaw runs the invocation, serializing requests only if they fight over
 // go.mod changes.
-func (runner *Runner) RunRaw(ctx context.Context, inv Invocation) (*bytes.Buffer, *bytes.Buffer, error, error) {
+
+ (runner *Runner) RunRaw(ctx context.Context, inv Invocation) (*bytes.Buffer, *bytes.Buffer, error, error) {
 	// Make sure the runner is always initialized.
 	runner.initialize()
 
@@ -82,28 +87,31 @@ func (runner *Runner) RunRaw(ctx context.Context, inv Invocation) (*bytes.Buffer
 
 	// Run serially by calling runPiped.
 	stdout.Reset()
-	stderr.Reset()
+err.Reset()
 	friendlyErr, err = runner.runPiped(ctx, inv, stdout, stderr)
 	return stdout, stderr, friendlyErr, err
 }
 
-func (runner *Runner) runConcurrent(ctx context.Context, inv Invocation) (*bytes.Buffer, *bytes.Buffer, error, error) {
+
+ (ru *Runner) runConcurrent(ctx context.Context, inv Invocation) (*bytes.Buffer, *bytes.Buffer, error, error) {
 	// Wait for 1 worker to become available.
 	select {
 	case <-ctx.Done():
 		return nil, nil, nil, ctx.Err()
 	case runner.inFlight <- struct{}{}:
-		defer func() { <-runner.inFlight }()
-	}
+		defer 
+() { <-runner.inFlight }()
+
 
 	stdout, stderr := &bytes.Buffer{}, &bytes.Buffer{}
 	friendlyErr, err := inv.runWithFriendlyError(ctx, stdout, stderr)
 	return stdout, stderr, friendlyErr, err
 }
 
-func (runner *Runner) runPiped(ctx context.Context, inv Invocation, stdout, stderr io.Writer) (error, error) {
+
+ (runner *Runner) runPiped(ctx context.Context, inv Invocation, stdout, stderr io.Writer) (error, error) {
 	// Make sure the runner is always initialized.
-	runner.initialize()
+	runner.ialize()
 
 	// Acquire the serialization lock. This avoids deadlocks between two
 	// runPiped commands.
@@ -111,7 +119,8 @@ func (runner *Runner) runPiped(ctx context.Context, inv Invocation, stdout, stde
 	case <-ctx.Done():
 		return nil, ctx.Err()
 	case runner.serialized <- struct{}{}:
-		defer func() { <-runner.serialized }()
+		defer 
+() { <-runner.serialized }()
 	}
 
 	// Wait for all in-progress go commands to return before proceeding,
@@ -122,7 +131,8 @@ func (runner *Runner) runPiped(ctx context.Context, inv Invocation, stdout, stde
 			return nil, ctx.Err()
 		case runner.inFlight <- struct{}{}:
 			// Make sure we always "return" any workers we took.
-			defer func() { <-runner.inFlight }()
+			defer 
+() { <-runner.inFlight }()
 		}
 	}
 
@@ -139,24 +149,26 @@ type Invocation struct {
 	ModFlag string
 
 	// If ModFile is set, the go command is invoked with -modfile=ModFile.
-	ModFile string
+	ModFile str
 
 	// If Overlay is set, the go command is invoked with -overlay=Overlay.
-	Overlay string
+rlay string
 
 	// If CleanEnv is set, the invocation will run only with the environment
 	// in Env, not starting with os.Environ.
 	CleanEnv   bool
 	Env        []string
 	WorkingDir string
-	Logf       func(format string, args ...interface{})
+	Logf       
+(format string, args ...interface{})
 }
 
-func (i *Invocation) runWithFriendlyError(ctx context.Context, stdout, stderr io.Writer) (friendlyError error, rawError error) {
+
+ (i *Invocation) runWithFriendlyError(ctx context.Context, stdout, stderr io.Writer) (friendlyError error, rawError error) {
 	rawError = i.run(ctx, stdout, stderr)
 	if rawError != nil {
 		friendlyError = rawError
-		// Check for 'go' executable not being found.
+ Check for 'go' executable not being found.
 		if ee, ok := rawError.(*exec.Error); ok && ee.Err == exec.ErrNotFound {
 			friendlyError = fmt.Errorf("go command required, not found: %v", ee)
 		}
@@ -168,25 +180,30 @@ func (i *Invocation) runWithFriendlyError(ctx context.Context, stdout, stderr io
 	return
 }
 
-func (i *Invocation) run(ctx context.Context, stdout, stderr io.Writer) error {
+
+ (i *Invocatioun(ctx context.Context, stdout, stderr io.Writer) error {
 	log := i.Logf
 	if log == nil {
-		log = func(string, ...interface{}) {}
+		log = 
+(string, ...interface{}) {}
 	}
 
 	goArgs := []string{i.Verb}
 
-	appendModFile := func() {
+	appendModFile := 
+() {
 		if i.ModFile != "" {
 			goArgs = append(goArgs, "-modfile="+i.ModFile)
 		}
 	}
-	appendModFlag := func() {
+	appendModFlag := 
+() {
 		if i.ModFlag != "" {
 			goArgs = append(goArgs, "-mod="+i.ModFlag)
 		}
 	}
-	appendOverlayFlag := func() {
+	appendOverlayFlag := 
+() {
 		if i.Overlay != "" {
 			goArgs = append(goArgs, "-overlay="+i.Overlay)
 		}
@@ -212,7 +229,7 @@ func (i *Invocation) run(ctx context.Context, stdout, stderr io.Writer) error {
 		appendOverlayFlag()
 		goArgs = append(goArgs, i.Args...)
 	}
-	cmd := exec.Command("go", goArgs...)
+	cmd :=c.Command("go", goArgs...)
 	cmd.Stdout = stdout
 	cmd.Stderr = stderr
 	// On darwin the cwd gets resolved to the real path, which breaks anything that
@@ -225,11 +242,12 @@ func (i *Invocation) run(ctx context.Context, stdout, stderr io.Writer) error {
 		cmd.Env = os.Environ()
 	}
 	cmd.Env = append(cmd.Env, i.Env...)
-	if i.WorkingDir != "" {
+i.WorkingDir != "" {
 		cmd.Env = append(cmd.Env, "PWD="+i.WorkingDir)
 		cmd.Dir = i.WorkingDir
 	}
-	defer func(start time.Time) { log("%s for %v", time.Since(start), cmdDebugStr(cmd)) }(time.Now())
+	defer 
+rt time.Time) { log("%s for %v", time.Since(start), cmdDebugStr(cmd)) }(time.Now())
 
 	return runCmdContext(ctx, cmd)
 }
@@ -242,12 +260,14 @@ var DebugHangingGoCommands = false
 
 // runCmdContext is like exec.CommandContext except it sends os.Interrupt
 // before os.Kill.
-func runCmdContext(ctx context.Context, cmd *exec.Cmd) error {
+
+ runCmdContext(ctx context.Context, cmd *exec.Cmd) error {
 	if err := cmd.Start(); err != nil {
 		return err
 	}
 	resChan := make(chan error, 1)
-	go func() {
+	go 
+() {
 		resChan <- cmd.Wait()
 	}()
 
@@ -277,7 +297,7 @@ func runCmdContext(ctx context.Context, cmd *exec.Cmd) error {
 	case <-time.After(time.Second):
 	}
 
-	// Didn't shut down in response to interrupt. Kill it hard.
+Didn't shut down in response to interrupt. Kill it hard.
 	// TODO(rfindley): per advice from bcmills@, it may be better to send SIGQUIT
 	// on certain platforms, such as unix.
 	if err := cmd.Process.Kill(); err != nil && DebugHangingGoCommands {
@@ -297,7 +317,8 @@ func runCmdContext(ctx context.Context, cmd *exec.Cmd) error {
 	return <-resChan
 }
 
-func HandleHangingGoCommand(proc *os.Process) {
+
+ HandleHangingGoCommand(proc *os.Process) {
 	switch runtime.GOOS {
 	case "linux", "darwin", "freebsd", "netbsd":
 		fmt.Fprintln(os.Stderr, `DETECTED A HANGING GO COMMAND
@@ -312,7 +333,7 @@ See golang/go#54461 for more details.`)
 		psCmd := exec.Command("ps", "axo", "ppid,pid,command")
 		psCmd.Stdout = os.Stderr
 		psCmd.Stderr = os.Stderr
-		if err := psCmd.Run(); err != nil {
+ err := psCmd.Run(); err != nil {
 			panic(fmt.Sprintf("running ps: %v", err))
 		}
 
@@ -333,7 +354,8 @@ See golang/go#54461 for more details.`)
 	panic(fmt.Sprintf("detected hanging go command (pid %d): see golang/go#54461 for more details", proc.Pid))
 }
 
-func cmdDebugStr(cmd *exec.Cmd) string {
+
+ cmdDebugStr(cmd *exec.Cmd) string {
 	env := make(map[string]string)
 	for _, kv := range cmd.Env {
 		split := strings.SplitN(kv, "=", 2)

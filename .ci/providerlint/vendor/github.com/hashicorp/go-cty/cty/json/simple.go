@@ -18,20 +18,23 @@ import (
 // with exactly the same type.
 //
 // For information on how types are inferred when decoding, see the
-// documentation of the function ImpliedType.
+// documentation of the 
+ ImpliedType.
 type SimpleJSONValue struct {
 	cty.Value
 }
 
 // MarshalJSON is an implementation of json.Marshaler. See the documentation
 // of SimpleJSONValue for more information.
-func (v SimpleJSONValue) MarshalJSON() ([]byte, error) {
+
+SimpleJSONValue) MarshalJSON() ([]byte, error) {
 	return Marshal(v.Value, v.Type())
 }
 
 // UnmarshalJSON is an implementation of json.Unmarshaler. See the
 // documentation of SimpleJSONValue for more information.
-func (v *SimpleJSONValue) UnmarshalJSON(buf []byte) error {
+
+*SimpleJSONValue) UnmarshalJSON(buf []byte) error {
 	t, err := ImpliedType(buf)
 	if err != nil {
 		return err

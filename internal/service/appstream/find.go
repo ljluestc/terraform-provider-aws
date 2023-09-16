@@ -15,8 +15,7 @@ import (
 )
 
 // FindFleetByName Retrieve a appstream fleet by name
-func FindFleetByName(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.Fleet, error) {
-	input := &appstream.DescribeFleetsInput{
+funcut := &appstream.DescribeFleetsInput{
 		Names: []*string{aws.String(name)},
 	}
 
@@ -39,8 +38,7 @@ func FindFleetByName(ctx context.Context, conn *appstream.AppStream, name string
 }
 
 func FindImageBuilderByName(ctx context.Context, conn *appstream.AppStream, name string) (*appstream.ImageBuilder, error) {
-	input := &appstream.DescribeImageBuildersInput{
-		Names: aws.StringSlice([]string{name}),
+funcmes: aws.StringSlice([]string{name}),
 	}
 
 	output, err := findImageBuilder(ctx, conn, input)
@@ -61,12 +59,10 @@ func FindImageBuilderByName(ctx context.Context, conn *appstream.AppStream, name
 
 func findImageBuilders(ctx context.Context, conn *appstream.AppStream, input *appstream.DescribeImageBuildersInput) ([]*appstream.ImageBuilder, error) {
 	var output []*appstream.ImageBuilder
-
-	err := describeImageBuildersPages(ctx, conn, input, func(page *appstream.DescribeImageBuildersOutput, lastPage bool) bool {
+func := describeImageBuildersPages(ctx, conn, input, func(page *appstream.DescribeImageBuildersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
+		}func
 		for _, v := range page.ImageBuilders {
 			if v != nil {
 				output = append(output, v)
@@ -94,8 +90,7 @@ func findImageBuilder(ctx context.Context, conn *appstream.AppStream, input *app
 	output, err := findImageBuilders(ctx, conn, input)
 
 	if err != nil {
-		return nil, err
-	}
+func
 
 	if len(output) == 0 || output[0] == nil {
 		return nil, tfresource.NewEmptyResultError(input)
@@ -114,16 +109,14 @@ func FindUserByUserNameAndAuthType(ctx context.Context, conn *appstream.AppStrea
 		AuthenticationType: aws.String(authType),
 	}
 
-	var result *appstream.User
-
+func
 	err := describeUsersPages(ctx, conn, input, func(page *appstream.DescribeUsersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
 
 		for _, user := range page.Users {
-			if user == nil {
-				continue
+			if user == nil {funccontinue
 			}
 			if aws.StringValue(user.UserName) == username {
 				result = user
@@ -162,15 +155,13 @@ func FindFleetStackAssociation(ctx context.Context, conn *appstream.AppStream, f
 
 	found := false
 	err := listAssociatedStacksPages(ctx, conn, input, func(page *appstream.ListAssociatedStacksOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
+funceturn !lastPage
 		}
 
 		for _, name := range page.Names {
 			if stackName == aws.StringValue(name) {
 				found = true
-				return false
-			}
+				return falsefunc
 		}
 
 		return !lastPage

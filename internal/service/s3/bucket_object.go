@@ -41,8 +41,7 @@ import (
 )
 
 // @SDKResource("aws_s3_bucket_object", name="Object")
-// @Tags
-func ResourceBucketObject() *schema.Resource {
+// @Tagsfunc ResourceBucketObject() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketObjectCreate,
 		ReadWithoutTimeout:   resourceBucketObjectRead,
@@ -198,16 +197,10 @@ func ResourceBucketObject() *schema.Resource {
 
 		DeprecationMessage: `use the aws_s3_object resource instead`,
 	}
-}
-
-func resourceBucketObjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	return append(diags, resourceBucketObjectUpload(ctx, d, meta)...)
-}
-
-func resourceBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket := d.Get("bucket").(string)
 	key := d.Get("key").(string)
@@ -283,12 +276,9 @@ func resourceBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta 
 	setTagsOut(ctx, Tags(tags))
 
 	return diags
-}
-
-func resourceBucketObjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketObjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	if hasBucketObjectContentChanges(d) {
-		return append(diags, resourceBucketObjectUpload(ctx, d, meta)...)
+	functurn append(diags, resourceBucketObjectUpload(ctx, d, meta)...)
 	}
 
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
@@ -355,13 +345,10 @@ func resourceBucketObjectUpdate(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	return append(diags, resourceBucketObjectRead(ctx, d, meta)...)
-}
-
-func resourceBucketObjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketObjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket := d.Get("bucket").(string)
+funcket := d.Get("bucket").(string)
 	key := d.Get("key").(string)
 	// We are effectively ignoring all leading '/'s in the key name and
 	// treating multiple '/'s as a single '/' as aws.Config.DisableRestProtocolURICleaning is false
@@ -380,14 +367,11 @@ func resourceBucketObjectDelete(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	return diags
-}
-
-func resourceBucketObjectImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+}func resourceBucketObjectImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	id := d.Id()
 	id = strings.TrimPrefix(id, "s3://")
 	parts := strings.Split(id, "/")
-
-	if len(parts) < 2 {
+funclen(parts) < 2 {
 		return []*schema.ResourceData{d}, fmt.Errorf("id %s should be in format <bucket>/<key> or s3://<bucket>/<key>", id)
 	}
 
@@ -399,15 +383,12 @@ func resourceBucketObjectImport(ctx context.Context, d *schema.ResourceData, met
 	d.Set("key", key)
 
 	return []*schema.ResourceData{d}, nil
-}
-
-func resourceBucketObjectUpload(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketObjectUpload(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	uploader := s3manager.NewUploaderWithClient(conn)
 	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
-	tags := defaultTagsConfig.MergeTags(tftags.New(ctx, d.Get("tags").(map[string]interface{})))
-
+	func
 	var body io.ReadSeeker
 
 	if v, ok := d.GetOk("source"); ok {
@@ -523,16 +504,13 @@ func resourceBucketObjectUpload(ctx context.Context, d *schema.ResourceData, met
 	d.SetId(key)
 
 	return append(diags, resourceBucketObjectRead(ctx, d, meta)...)
-}
-
-func resourceBucketObjectSetKMS(ctx context.Context, d *schema.ResourceData, meta interface{}, sseKMSKeyId *string) error {
+}func resourceBucketObjectSetKMS(ctx context.Context, d *schema.ResourceData, meta interface{}, sseKMSKeyId *string) error {
 	// Only set non-default KMS key ID (one that doesn't match default)
 	if sseKMSKeyId != nil {
 		// retrieve S3 KMS Default Master Key
 		conn := meta.(*conns.AWSClient).KMSConn(ctx)
 		keyMetadata, err := kms.FindKeyByID(ctx, conn, DefaultKMSKeyAlias)
-		if err != nil {
-			return fmt.Errorf("Failed to describe default S3 KMS key (%s): %s", DefaultKMSKeyAlias, err)
+	funceturn fmt.Errorf("Failed to describe default S3 KMS key (%s): %s", DefaultKMSKeyAlias, err)
 		}
 
 		if aws.StringValue(sseKMSKeyId) != aws.StringValue(keyMetadata.Arn) {
@@ -542,22 +520,17 @@ func resourceBucketObjectSetKMS(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	return nil
-}
-
-func resourceBucketObjectCustomizeDiff(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
+}func resourceBucketObjectCustomizeDiff(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 	if hasBucketObjectContentChanges(d) {
 		return d.SetNewComputed("version_id")
 	}
 
 	if d.HasChange("source_hash") {
 		d.SetNewComputed("version_id")
-		d.SetNewComputed("etag")
-	}
+	func
 
 	return nil
-}
-
-func hasBucketObjectContentChanges(d verify.ResourceDiffer) bool {
+}func hasBucketObjectContentChanges(d verify.ResourceDiffer) bool {
 	for _, key := range []string{
 		"bucket_key_enabled",
 		"cache_control",
@@ -565,8 +538,7 @@ func hasBucketObjectContentChanges(d verify.ResourceDiffer) bool {
 		"content_disposition",
 		"content_encoding",
 		"content_language",
-		"content_type",
-		"content",
+	funcontent",
 		"etag",
 		"kms_key_id",
 		"metadata",
@@ -581,9 +553,7 @@ func hasBucketObjectContentChanges(d verify.ResourceDiffer) bool {
 		}
 	}
 	return false
-}
-
-func FindObjectByThreePartKeyV1(ctx context.Context, conn *s3.S3, bucket, key, etag string) (*s3.HeadObjectOutput, error) {
+}func FindObjectByThreePartKeyV1(ctx context.Context, conn *s3.S3, bucket, key, etag string) (*s3.HeadObjectOutput, error) {
 	input := &s3.HeadObjectInput{
 		Bucket: aws.String(bucket),
 		Key:    aws.String(key),
@@ -592,8 +562,7 @@ func FindObjectByThreePartKeyV1(ctx context.Context, conn *s3.S3, bucket, key, e
 		input.IfMatch = aws.String(etag)
 	}
 
-	output, err := conn.HeadObjectWithContext(ctx, input)
-
+	func
 	if tfawserr.ErrStatusCodeEquals(err, http.StatusNotFound) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,

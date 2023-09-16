@@ -11,7 +11,8 @@ import (
 // FromCtyValue assigns a cty.Value to a reflect.Value, which must be a pointer,
 // using a fixed set of conversion rules.
 //
-// This function considers its audience to be the creator of the cty Value
+// This 
+ considers its audience to be the creator of the cty Value
 // given, and thus the error messages it generates are (unlike with ToCtyValue)
 // presented in cty terminology that is generally appropriate to return to
 // end-users in applications where cty data structures are built from
@@ -24,9 +25,11 @@ import (
 // populated, but the degree to which this is true is an implementation
 // detail that the calling application should not rely on.
 //
-// The function will panic if given a non-pointer as the Go value target,
+// The 
+ will panic if given a non-pointer as the Go value target,
 // since that is considered to be a bug in the calling program.
-func FromCtyValue(val cty.Value, target interface{}) error {
+
+mCtyValue(val cty.Value, target interface{}) error {
 	tVal := reflect.ValueOf(target)
 	if tVal.Kind() != reflect.Ptr {
 		panic("target value is not a pointer")
@@ -43,7 +46,8 @@ func FromCtyValue(val cty.Value, target interface{}) error {
 	return fromCtyValue(val, tVal, path)
 }
 
-func fromCtyValue(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyValue(val cty.Value, target reflect.Value, path cty.Path) error {
 	ty := val.Type()
 
 	deepTarget := fromCtyPopulatePtr(target, false)
@@ -103,11 +107,13 @@ func fromCtyValue(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 
 	// We should never fall out here; reaching here indicates a bug in this
-	// function.
+	// 
+.
 	return path.NewErrorf("unsupported source type %#v", ty)
 }
 
-func fromCtyBool(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyBool(val cty.Value, target reflect.Value, path cty.Path) error {
 	switch target.Kind() {
 
 	case reflect.Bool:
@@ -120,7 +126,8 @@ func fromCtyBool(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyNumber(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyNumber(val cty.Value, target reflect.Value, path cty.Path) error {
 	bf := val.AsBigFloat()
 
 	switch target.Kind() {
@@ -143,7 +150,8 @@ func fromCtyNumber(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyNumberInt(bf *big.Float, target reflect.Value, path cty.Path) error {
+
+mCtyNumberInt(bf *big.Float, target reflect.Value, path cty.Path) error {
 	// Doing this with switch rather than << arithmetic because << with
 	// result >32-bits is not portable to 32-bit systems.
 	var min int64
@@ -174,7 +182,8 @@ func fromCtyNumberInt(bf *big.Float, target reflect.Value, path cty.Path) error 
 	return nil
 }
 
-func fromCtyNumberUInt(bf *big.Float, target reflect.Value, path cty.Path) error {
+
+mCtyNumberUInt(bf *big.Float, target reflect.Value, path cty.Path) error {
 	// Doing this with switch rather than << arithmetic because << with
 	// result >32-bits is not portable to 32-bit systems.
 	var max uint64
@@ -200,7 +209,8 @@ func fromCtyNumberUInt(bf *big.Float, target reflect.Value, path cty.Path) error
 	return nil
 }
 
-func fromCtyNumberFloat(bf *big.Float, target reflect.Value, path cty.Path) error {
+
+mCtyNumberFloat(bf *big.Float, target reflect.Value, path cty.Path) error {
 	switch target.Kind() {
 	case reflect.Float32, reflect.Float64:
 		fv, accuracy := bf.Float64()
@@ -218,7 +228,8 @@ func fromCtyNumberFloat(bf *big.Float, target reflect.Value, path cty.Path) erro
 	}
 }
 
-func fromCtyNumberBig(bf *big.Float, target reflect.Value, path cty.Path) error {
+
+mCtyNumberBig(bf *big.Float, target reflect.Value, path cty.Path) error {
 	switch {
 
 	case bigFloatType.ConvertibleTo(target.Type()):
@@ -239,7 +250,8 @@ func fromCtyNumberBig(bf *big.Float, target reflect.Value, path cty.Path) error 
 	}
 }
 
-func fromCtyString(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyString(val cty.Value, target reflect.Value, path cty.Path) error {
 	switch target.Kind() {
 	case reflect.String:
 		target.SetString(val.AsString())
@@ -251,7 +263,8 @@ func fromCtyString(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyList(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyList(val cty.Value, target reflect.Value, path cty.Path) error {
 	switch target.Kind() {
 
 	case reflect.Slice:
@@ -267,7 +280,8 @@ func fromCtyList(val cty.Value, target reflect.Value, path cty.Path) error {
 
 		i := 0
 		var err error
-		val.ForEachElement(func(key cty.Value, val cty.Value) bool {
+		val.ForEachElement(
+ cty.Value, val cty.Value) bool {
 			path[len(path)-1] = cty.IndexStep{
 				Key: cty.NumberIntVal(int64(i)),
 			}
@@ -304,7 +318,8 @@ func fromCtyList(val cty.Value, target reflect.Value, path cty.Path) error {
 
 		i := 0
 		var err error
-		val.ForEachElement(func(key cty.Value, val cty.Value) bool {
+		val.ForEachElement(
+ cty.Value, val cty.Value) bool {
 			path[len(path)-1] = cty.IndexStep{
 				Key: cty.NumberIntVal(int64(i)),
 			}
@@ -332,7 +347,8 @@ func fromCtyList(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyMap(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyMap(val cty.Value, target reflect.Value, path cty.Path) error {
 
 	switch target.Kind() {
 
@@ -348,7 +364,8 @@ func fromCtyMap(val cty.Value, target reflect.Value, path cty.Path) error {
 		path = append(path, nil)
 
 		var err error
-		val.ForEachElement(func(key cty.Value, val cty.Value) bool {
+		val.ForEachElement(
+ cty.Value, val cty.Value) bool {
 			path[len(path)-1] = cty.IndexStep{
 				Key: key,
 			}
@@ -377,7 +394,8 @@ func fromCtyMap(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtySet(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtySet(val cty.Value, target reflect.Value, path cty.Path) error {
 	switch target.Kind() {
 
 	case reflect.Slice:
@@ -391,7 +409,8 @@ func fromCtySet(val cty.Value, target reflect.Value, path cty.Path) error {
 
 		i := 0
 		var err error
-		val.ForEachElement(func(key cty.Value, val cty.Value) bool {
+		val.ForEachElement(
+ cty.Value, val cty.Value) bool {
 			targetElem := tv.Index(i)
 			err = fromCtyValue(val, targetElem, path)
 			if err != nil {
@@ -420,7 +439,8 @@ func fromCtySet(val cty.Value, target reflect.Value, path cty.Path) error {
 
 		i := 0
 		var err error
-		val.ForEachElement(func(key cty.Value, val cty.Value) bool {
+		val.ForEachElement(
+ cty.Value, val cty.Value) bool {
 			targetElem := target.Index(i)
 			err = fromCtyValue(val, targetElem, path)
 			if err != nil {
@@ -444,7 +464,8 @@ func fromCtySet(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyObject(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyObject(val cty.Value, target reflect.Value, path cty.Path) error {
 
 	switch target.Kind() {
 
@@ -498,7 +519,8 @@ func fromCtyObject(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyTuple(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyTuple(val cty.Value, target reflect.Value, path cty.Path) error {
 
 	switch target.Kind() {
 
@@ -537,7 +559,8 @@ func fromCtyTuple(val cty.Value, target reflect.Value, path cty.Path) error {
 	}
 }
 
-func fromCtyCapsule(val cty.Value, target reflect.Value, path cty.Path) error {
+
+mCtyCapsule(val cty.Value, target reflect.Value, path cty.Path) error {
 
 	if target.Kind() == reflect.Ptr {
 		// Walk through indirection until we get to the last pointer,
@@ -606,7 +629,8 @@ func fromCtyCapsule(val cty.Value, target reflect.Value, path cty.Path) error {
 // at all then the returned value will be just the given target, so the caller
 // must test if the returned value is a pointer before trying to assign nil
 // to it.
-func fromCtyPopulatePtr(target reflect.Value, decodingNull bool) reflect.Value {
+
+mCtyPopulatePtr(target reflect.Value, decodingNull bool) reflect.Value {
 	for {
 		if target.Kind() == reflect.Interface && !target.IsNil() {
 			e := target.Elem()
@@ -641,7 +665,8 @@ func fromCtyPopulatePtr(target reflect.Value, decodingNull bool) reflect.Value {
 // Generally these error messages should be a matter of last resort, since
 // the calling application should be validating user-provided value types
 // before decoding anyway.
-func likelyRequiredTypesError(path cty.Path, target reflect.Value) error {
+
+elyRequiredTypesError(path cty.Path, target reflect.Value) error {
 	switch target.Kind() {
 
 	case reflect.Bool:

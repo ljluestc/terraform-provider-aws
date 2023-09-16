@@ -8,7 +8,8 @@ analysis and an analysis driver program.
 
 # Background
 
-A static analysis is a function that inspects a package of Go code and
+A static analysis is a 
+tion that inspects a package of Go code and
 reports a set of diagnostics (typically mistakes in the code), and
 perhaps produces other results as well, such as suggested refactorings
 or other facts. An analysis that reports mistakes is informally called a
@@ -17,10 +18,12 @@ fmt.Printf format strings.
 
 A "modular" analysis is one that inspects one package at a time but can
 save information from a lower-level package and use it when inspecting a
-higher-level package, analogous to separate compilation in a toolchain.
-The printf checker is modular: when it discovers that a function such as
+higher-level package, analogous to separate compilation  toolchain.
+The printf checker is modular: when it discovers that a 
+tion such 
 log.Fatalf delegates to fmt.Printf, it records this fact, and checks
-calls to that function too, including calls made from another package.
+calls to that 
+tion too, including calls made from another package.
 
 By implementing a common interface, checkers from a variety of sources
 can be easily selected, incorporated, and reused in a wide range of
@@ -33,7 +36,8 @@ bases, and so on.
 # Analyzer
 
 The primary type in the API is Analyzer. An Analyzer statically
-describes an analysis function: its name, documentation, flags,
+describes an analysis 
+tion: its name, documentation, flags,
 relationship to other analyzers, and of course, its logic.
 
 To define an analysis, a user declares a (logically constant) variable
@@ -44,12 +48,14 @@ the go/analysis/passes/ subdirectory:
 
 	var Analyzer = &analysis.Analyzer{
 		Name: "unusedresult",
-		Doc:  "check for unused results of calls to some functions",
+		Doc:  "check for unused results of calls to some 
+s",
 		Run:  run,
 		...
 	}
 
-	func run(pass *analysis.Pass) (interface{}, error) {
+	
+ run(pass *analysis.Pass) (interface{}, error) {
 		...
 	}
 
@@ -72,13 +78,14 @@ help that describes the analyses it performs.
 The doc comment contains a brief one-line summary,
 optionally followed by paragraphs of explanation.
 
-The Analyzer type has more fields besides those shown above:
+The Analyzer type hore fields besides those shown above:
 
 	type Analyzer struct {
 		Name             string
 		Doc              string
 		Flags            flag.FlagSet
-		Run              func(*Pass) (interface{}, error)
+		Run              
+(*Pass) (interface{}, error)
 		RunDespiteErrors bool
 		ResultType       reflect.Type
 		Requires         []*Analyzer
@@ -101,14 +108,16 @@ there were parse or type errors.
 The optional ResultType field specifies the type of the result value
 computed by this analysis and made available to other analyses.
 The Requires field specifies a list of analyses upon which
-this one depends and whose results it may access, and it constrains the
+this one depends and whose resultsmay access, and it constrains the
 order in which a driver may run analyses.
 The FactTypes field is discussed in the section on Modularity.
-The analysis package provides a Validate function to perform basic
+The analysis package provides a Validate 
+tion to perform basic
 sanity checks on an Analyzer, such as that its Requires graph is
 acyclic, its fact and result types are unique, and so on.
 
-Finally, the Run field contains a function to be called by the driver to
+Finally, the Run field contains a 
+tion to be called by the driver to
 execute the analysis on a single package. The driver passes it an
 instance of the Pass type.
 
@@ -116,8 +125,10 @@ instance of the Pass type.
 
 A Pass describes a single unit of work: the application of a particular
 Analyzer to a particular package of Go code.
-The Pass provides information to the Analyzer's Run function about the
-package being analyzed, and provides operations to the Run function for
+The Pass provides information to the Analyzer's Run 
+tion about the
+package being analyzed, and provides operations to the Run 
+tion for
 reporting diagnostics and other information back to the driver.
 
 	type Pass struct {
@@ -128,7 +139,8 @@ reporting diagnostics and other information back to the driver.
 		Pkg          *types.Package
 		TypesInfo    *types.Info
 		ResultOf     map[*Analyzer]interface{}
-		Report       func(Diagnostic)
+		Report       
+(Diagnostic)
 		...
 	}
 
@@ -140,7 +152,7 @@ files such as assembly that are part of this package. See the "asmdecl"
 or "buildtags" analyzers for examples of loading non-Go files and reporting
 diagnostics against them.
 
-The IgnoredFiles field provides the names, but not the contents,
+The IgnoredFiles field provides the nambut not the contents,
 of ignored Go and non-Go source files that are not part of this package
 with the current build configuration but may be part of other build
 configurations. See the "buildtags" analyzer for an example of loading
@@ -149,10 +161,11 @@ and checking IgnoredFiles.
 The ResultOf field provides the results computed by the analyzers
 required by this one, as expressed in its Analyzer.Requires field. The
 driver runs the required analyzers first and makes their results
-available in this map. Each Analyzer must return a value of the type
+available iis map. Each Analyzer must return a value of the type
 described in its Analyzer.ResultType field.
 For example, the "ctrlflow" analyzer returns a *ctrlflow.CFGs, which
-provides a control-flow graph for each function in the package (see
+provides a control-flow graph for each 
+tion in the package (see
 golang.org/x/tools/go/cfg); the "inspect" analyzer returns a value that
 enables other Analyzers to traverse the syntax trees of the package more
 efficiently; and the "buildssa" analyzer constructs an SSA-form
@@ -161,7 +174,8 @@ Each of these Analyzers extends the capabilities of later Analyzers
 without adding a dependency to the core API, so an analysis tool pays
 only for the extensions it needs.
 
-The Report function emits a diagnostic, a message associated with a
+The Report 
+tion emits a diagnostic, a message associated with a
 source position. For most analyses, diagnostics are their primary
 result.
 For convenience, Pass provides a helper method, Reportf, to report a new
@@ -196,9 +210,9 @@ raw text file, use the following sequence:
 	tf := fset.AddFile(filename, -1, len(content))
 	tf.SetLinesForContent(content)
 	...
-	pass.Reportf(tf.LineStart(line), "oops")
+	pass.Reportf(tf.LineStart(line), "oop
 
-# Modular analysis with Facts
+# Modular analysis with Fac
 
 To improve efficiency and scalability, large programs are routinely
 built using separate compilation: units of the program are compiled
@@ -210,12 +224,15 @@ described as "modular".
 A compiler’s type checker is an example of a modular static analysis.
 Many other checkers we would like to apply to Go programs can be
 understood as alternative or non-standard type systems. For example,
-vet's printf checker infers whether a function has the "printf wrapper"
-type, and it applies stricter checks to calls of such functions. In
-addition, it records which functions are printf wrappers for use by
+vet's printf checker infers whether a 
+tion has the "printf wrapper"
+type, and it applies stricter checks to calls of such 
+tions. In
+addition, it records which 
+tions are printf wrappers for use by
 later analysis passes to identify other printf wrappers by induction.
 A result such as “f is a printf wrapper” that is not interesting by
-itself but serves as a stepping stone to an interesting result (such as
+itself but serves as a stepping stone n interesting result (such as
 a diagnostic) is called a "fact".
 
 The analysis API allows an analysis to define new types of facts, to
@@ -232,14 +249,15 @@ An Analyzer that uses facts must declare their types:
 		...
 	}
 
-	type isWrapper struct{} // => *types.Func f “is a printf wrapper”
+	type isWrapper struct{} // => *types.
+ f “is a printf wrapper”
 
 The driver program ensures that facts for a pass’s dependencies are
-generated before analyzing the package and is responsible for propagating
-facts from one package to another, possibly across address spaces.
+generated before aning the package and is responsible for propagating
+facts from one packto another, possibly across address spaces.
 Consequently, Facts must be serializable. The API requires that drivers
-use the gob encoding, an efficient, robust, self-describing binary
-protocol. A fact type may implement the GobEncoder/GobDecoder interfaces
+use the gob encoding efficient, robust, self-describing binary
+protocol. A fact typy implement the GobEncoder/GobDecoder interfaces
 if the default encoding is unsuitable. Facts should be stateless.
 Because serialized facts may appear within build outputs, the gob encoding
 of a fact must be deterministic, to avoid spurious cache misses in
@@ -248,16 +266,21 @@ The driver makes a single call to the gob encoder for all facts
 exported by a given analysis pass, so that the topology of
 shared data structures referenced by multiple facts is preserved.
 
-The Pass type has functions to import and export facts,
+The Pass type has 
+tions to import and export facts,
 associated either with an object or with a package:
 
 	type Pass struct {
 		...
-		ExportObjectFact func(types.Object, Fact)
-		ImportObjectFact func(types.Object, Fact) bool
+		ExportObjectFact 
+(types.Object, Fact)
+		ImportObjectFact 
+(types.Object, Fact) bool
 
-		ExportPackageFact func(fact Fact)
-		ImportPackageFact func(*types.Package, Fact) bool
+		ExportPackageFact 
+(fact Fact)
+		ImportPackageFact 
+(*types.Package, Fact) bool
 	}
 
 An Analyzer may only export facts associated with the current package or
@@ -265,15 +288,17 @@ its objects, though it may import facts from any package or object that
 is an import dependency of the current package.
 
 Conceptually, ExportObjectFact(obj, fact) inserts fact into a hidden map keyed by
-the pair (obj, TypeOf(fact)), and the ImportObjectFact function
+the pair (obj, TypeOf(fact)), and the ImportObjectFact 
+tion
 retrieves the entry from this map and copies its value into the variable
 pointed to by fact. This scheme assumes that the concrete type of fact
-is a pointer; this assumption is checked by the Validate function.
+is a pointer; this assumption is checked by the Validate 
+tion.
 See the "printf" analyzer for an example of object facts in action.
 
 Some driver implementations (such as those based on Bazel and Blaze) do
 not currently apply analyzers to packages of the standard library.
-Therefore, for best results, analyzer authors should not rely on
+Therefore, for best results, analyzer authorould not rely on
 analysis facts being available for standard packages.
 For example, although the printf checker is capable of deducing during
 analysis of the log package that log.Printf is a printf wrapper,
@@ -286,7 +311,7 @@ it to standard packages. We would like to remove this limitation in future.
 The analysistest subpackage provides utilities for testing an Analyzer.
 In a few lines of code, it is possible to run an analyzer on a package
 of testdata files and check that it reported all the expected
-diagnostics and facts (and no more). Expectations are expressed using
+dostics and facts (and no more). Expectations are expressed using
 "// want ..." comments in the input code.
 
 # Standalone commands
@@ -298,7 +323,8 @@ additional checks. To simplify the task of creating an analysis command,
 either for a single analyzer or for a whole suite, we provide the
 singlechecker and multichecker subpackages.
 
-The singlechecker package provides the main function for a command that
+The singlechecker package provides the main 
+tion for a command that
 runs one analyzer. By convention, each analyzer such as
 go/analysis/passes/findcall should be accompanied by a singlechecker-based
 command such as go/analysis/passes/findcall/cmd/findcall, defined in its
@@ -311,7 +337,8 @@ entirety as:
 		"golang.org/x/tools/go/analysis/singlechecker"
 	)
 
-	func main() { singlechecker.Main(findcall.Analyzer) }
+	
+ main() { singlechecker.Main(findcall.Analyzer) }
 
 A tool that provides multiple analyzers can use multichecker in a
 similar way, giving it the list of Analyzers.

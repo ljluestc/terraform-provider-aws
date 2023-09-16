@@ -27,10 +27,10 @@ func TestAccImageBuilderImageRecipe_basic(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_name(rName),
@@ -64,10 +64,10 @@ func TestAccImageBuilderImageRecipe_disappears(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_name(rName),
@@ -87,10 +87,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMapping_deviceName(t *testing.T) 
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingDeviceName(rName, "/dev/xvdb"),
@@ -117,10 +117,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_deleteOnTermination(t 
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSDeleteOnTermination(rName, true),
@@ -147,10 +147,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_encrypted(t *testing.T
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSEncrypted(rName, true),
@@ -177,10 +177,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_iops(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSIOPS(rName, 100),
@@ -208,10 +208,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_kmsKeyID(t *testing.T)
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSKMSKeyID(rName),
@@ -237,10 +237,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_snapshotID(t *testing.
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSSnapshotID(rName),
@@ -265,10 +265,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_throughput(t *testing.
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSThroughput(rName, 200),
@@ -295,10 +295,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_volumeSize(t *testing.
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSVolumeSize(rName, 20),
@@ -325,10 +325,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_volumeTypeGP2(t *testi
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSVolumeType(rName, imagebuilder.EbsVolumeTypeGp2),
@@ -355,10 +355,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMappingEBS_volumeTypeGP3(t *testi
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingEBSVolumeType(rName, tfimagebuilder.EBSVolumeTypeGP3),
@@ -385,10 +385,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMapping_noDevice(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingNoDevice(rName, true),
@@ -415,10 +415,10 @@ func TestAccImageBuilderImageRecipe_BlockDeviceMapping_virtualName(t *testing.T)
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_blockDeviceMappingVirtualName(rName, "ephemeral0"),
@@ -445,10 +445,10 @@ func TestAccImageBuilderImageRecipe_component(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_component(rName),
@@ -475,10 +475,10 @@ func TestAccImageBuilderImageRecipe_componentParameter(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_componentParameter(rName),
@@ -502,10 +502,10 @@ func TestAccImageBuilderImageRecipe_description(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_description(rName, "description1"),
@@ -529,10 +529,10 @@ func TestAccImageBuilderImageRecipe_tags(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_tags1(rName, "key1", "value1"),
@@ -574,10 +574,10 @@ func TestAccImageBuilderImageRecipe_workingDirectory(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_workingDirectory(rName, "/tmp"),
@@ -601,10 +601,10 @@ func TestAccImageBuilderImageRecipe_pipelineUpdateDependency(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_pipelineDependency(rName),
@@ -628,10 +628,10 @@ func TestAccImageBuilderImageRecipe_systemsManagerAgent(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_systemsManagerAgent(rName),
@@ -656,10 +656,10 @@ func TestAccImageBuilderImageRecipe_updateDependency(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_componentUpdate(rName, "hello world"),
@@ -692,10 +692,10 @@ func TestAccImageBuilderImageRecipe_userDataBase64(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_userDataBase64(rName),
@@ -719,10 +719,10 @@ func TestAccImageBuilderImageRecipe_windowsBaseImage(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+		CheckDestroy:mageRecipeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccImageRecipeConfig_windows(rName),
@@ -941,7 +941,7 @@ func testAccImageRecipeConfig_blockDeviceMappingEBSSnapshotID(rName string) stri
 		fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size
 }
 
 resource "aws_ebs_snapshot" "test" {
@@ -1279,7 +1279,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name              = %[1]q
+  name
   parent_image      = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version           = "1.0.0"
   working_directory = %[2]q
@@ -1362,7 +1362,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   description       = "Världens finaste beskrivning."
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name              = %[1]q
+  name
 }
 `, rName)
 }
@@ -1432,7 +1432,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name             = %[1]q
+  name
   parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version          = "1.0.0"
   user_data_base64 = base64encode("hello world")

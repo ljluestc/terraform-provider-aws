@@ -77,11 +77,11 @@ func resourceOriginAccessControlCreate(ctx context.Context, d *schema.ResourceDa
 
 	in := &cloudfront.CreateOriginAccessControlInput{
 		OriginAccessControlConfig: &cloudfront.OriginAccessControlConfig{
-			Description:                   aws.String(d.Get("description").(string)),
-			Name:                          aws.String(d.Get("name").(string)),
+			Description:ing(d.Get("description").(string)),
+			Name:string)),
 			OriginAccessControlOriginType: aws.String(d.Get("origin_access_control_origin_type").(string)),
-			SigningBehavior:               aws.String(d.Get("signing_behavior").(string)),
-			SigningProtocol:               aws.String(d.Get("signing_protocol").(string)),
+			SigningBehavior:d.Get("signing_behavior").(string)),
+			SigningProtocol:d.Get("signing_protocol").(string)),
 		},
 	}
 
@@ -137,11 +137,11 @@ func resourceOriginAccessControlUpdate(ctx context.Context, d *schema.ResourceDa
 		Id:      aws.String(d.Id()),
 		IfMatch: aws.String(d.Get("etag").(string)),
 		OriginAccessControlConfig: &cloudfront.OriginAccessControlConfig{
-			Description:                   aws.String(d.Get("description").(string)),
-			Name:                          aws.String(d.Get("name").(string)),
+			Description:ing(d.Get("description").(string)),
+			Name:string)),
 			OriginAccessControlOriginType: aws.String(d.Get("origin_access_control_origin_type").(string)),
-			SigningBehavior:               aws.String(d.Get("signing_behavior").(string)),
-			SigningProtocol:               aws.String(d.Get("signing_protocol").(string)),
+			SigningBehavior:d.Get("signing_behavior").(string)),
+			SigningProtocol:d.Get("signing_protocol").(string)),
 		},
 	}
 

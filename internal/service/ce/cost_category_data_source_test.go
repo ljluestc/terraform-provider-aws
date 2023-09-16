@@ -11,9 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-func TestAccCECostCategoryDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	dataSourceName := "data.aws_ce_cost_category.test"
@@ -39,10 +37,8 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCostCategoryDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccCostCategoryConfig_basic(rName), `
-data "aws_ce_cost_category" "test" {
+func "aws_ce_cost_category" "test" {
   cost_category_arn = aws_ce_cost_category.test.arn
 }
 `)

@@ -19,16 +19,14 @@ import (
 )
 
 
-func TestAccCodeCommitTrigger_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codecommit_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckTriggerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -36,8 +34,7 @@ Config: testAccTriggerConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckTriggerExists(ctx, resourceName),
-	resource.TestCheckResourceAttr(resourceName, "trigger.#", "1"),
-),
+func
 	},
 },
 	})
@@ -47,13 +44,10 @@ func(
 func testAccCheckTriggerDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+func := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
+func_, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_codecommit_trigger" {
-continue
-	}
+func
 
 	_, err := conn.GetRepositoryTriggersWithContext(ctx, &codecommit.GetRepositoryTriggersInput{
 RepositoryName: aws.String(rs.Primary.ID),
@@ -80,13 +74,10 @@ func {
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
-	return fmt.Errorf("Not found: %s", name)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("No ID is set")
-}
-
+func
 conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
 out, err := conn.GetRepositoryTriggersWithContext(ctx, &codecommit.GetRepositoryTriggersInput{
 	RepositoryName: aws.String(rs.Primary.ID),
@@ -114,8 +105,7 @@ resource "aws_sns_topic" "test" {
 resource "aws_codecommit_repository" "test" {
   repository_name = %[1]q
 }
-
-resource "aws_codecommit_trigger" "test" {
+funcurce "aws_codecommit_trigger" "test" {
   repository_name = aws_codecommit_repository.test.id
 
   trigger {

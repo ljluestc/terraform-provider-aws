@@ -18,7 +18,7 @@ const (
 // Maximum amount of time to wait for StatusKeyState to return PendingDeletion
 KeyStatePendingDeletionTimeout = 20 * time.Minute
 
-KeyDeletedTimeout                = 20 * time.Minute
+KeyDeletedTimeout   = 20 * time.Minute
 KeyDescriptionPropagationTimeout = 10 * time.Minute
 KeyMaterialImportedTimeout       = 10 * time.Minute
 KeyPolicyPropagationTimeout      = 10 * time.Minute
@@ -82,7 +82,7 @@ return aws.StringValue(output.Description) == description, nil
 }
 opts := tfresource.WaitOpts{
 ContinuousTargetOccurence: 5,
-MinTimeout:                2 * time.Second,
+MinTimeout:   2 * time.Second,
 }
 
 return tfresource.WaitUntil(ctx, KeyDescriptionPropagationTimeout, checkFunc, opts)
@@ -127,7 +127,7 @@ return equivalent, nil
 }
 opts := tfresource.WaitOpts{
 ContinuousTargetOccurence: 5,
-MinTimeout:                1 * time.Second,
+MinTimeout:   1 * time.Second,
 }
 
 return tfresource.WaitUntil(ctx, KeyPolicyPropagationTimeout, checkFunc, opts)
@@ -149,7 +149,7 @@ return aws.BoolValue(output) == enabled, nil
 }
 opts := tfresource.WaitOpts{
 ContinuousTargetOccurence: 5,
-MinTimeout:                1 * time.Second,
+MinTimeout:   1 * time.Second,
 }
 
 return tfresource.WaitUntil(ctx, KeyRotationUpdatedTimeout, checkFunc, opts)
@@ -171,7 +171,7 @@ return aws.BoolValue(output.Enabled) == enabled, nil
 }
 opts := tfresource.WaitOpts{
 ContinuousTargetOccurence: 15,
-MinTimeout:                2 * time.Second,
+MinTimeout:   2 * time.Second,
 }
 
 return tfresource.WaitUntil(ctx, KeyStatePropagationTimeout, checkFunc, opts)
@@ -197,7 +197,7 @@ return validTo == "", nil
 }
 opts := tfresource.WaitOpts{
 ContinuousTargetOccurence: 5,
-MinTimeout:                2 * time.Second,
+MinTimeout:   2 * time.Second,
 }
 
 return tfresource.WaitUntil(ctx, KeyValidToPropagationTimeout, checkFunc, opts)

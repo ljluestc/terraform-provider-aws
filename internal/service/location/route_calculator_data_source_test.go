@@ -23,7 +23,7 @@ func TestAccLocationRouteCalculatorDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRouteCalculatorDestroy(ctx),
+CheckDestroy:testAccCheckRouteCalculatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRouteCalculatorDataSourceConfig_basic(rName),

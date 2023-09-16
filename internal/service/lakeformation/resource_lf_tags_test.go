@@ -27,10 +27,10 @@ func testAccResourceLFTags_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccResourceLFTagsConfig_basic(rName, []string{"copse"}, "copse"),
@@ -54,10 +54,10 @@ func testAccResourceLFTags_disappears(t *testing.T) {
 	resourceName := "aws_lakeformation_resource_lf_tags.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
+		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceLFTagsConfig_basic(rName, []string{"copse"}, "copse"),
@@ -77,10 +77,10 @@ func testAccResourceLFTags_database(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccResourceLFTagsConfig_database(rName, []string{"copse"}, "copse"),
@@ -113,10 +113,10 @@ func testAccResourceLFTags_databaseMultipleTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccResourceLFTagsConfig_databaseMultipleTags(rName, []string{"abbey", "village", "luffield", "woodcote", "copse", "chapel", "stowe", "club"}, []string{"farm", "theloop", "aintree", "brooklands", "maggotts", "becketts", "vale"}, "woodcote", "theloop"),
@@ -159,10 +159,10 @@ func testAccResourceLFTags_hierarchy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceLFTagsConfig_hierarchy(rName,
@@ -234,10 +234,10 @@ func testAccResourceLFTags_table(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccResourceLFTagsConfig_table(rName, []string{"copse", "abbey", "farm"}, "abbey"),
@@ -270,10 +270,10 @@ func testAccResourceLFTags_tableWithColumns(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseLFTagsDestroy(ctx),
+		CheckDestroy:testAccCheckDatabaseLFTagsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccResourceLFTagsConfig_tableWithColumnsMultipleTags(rName, []string{"abbey", "village", "luffield", "woodcote", "copse", "chapel", "stowe", "club"}, []string{"farm", "theloop", "aintree", "brooklands", "maggotts", "becketts", "vale"}, "luffield", "vale"),

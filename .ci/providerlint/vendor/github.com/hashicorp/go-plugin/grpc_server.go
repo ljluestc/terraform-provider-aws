@@ -26,7 +26,8 @@ const GRPCServiceName = "plugin"
 
 // DefaultGRPCServer can be used with the "GRPCServer" field for Server
 // as a default factory method to create a gRPC server with no extra options.
-func DefaultGRPCServer(opts []grpc.ServerOption) *grpc.Server {
+
+ DefaultGRPCServer(opts []grpc.ServerOption) *grpc.Server {
 	return grpc.NewServer(opts...)
 }
 
@@ -40,8 +41,9 @@ type GRPCServer struct {
 	Plugins map[string]Plugin
 
 	// Server is the actual server that will accept connections. This
-	// will be used for plugin registration as well.
-	Server func([]grpc.ServerOption) *grpc.Server
+	// willused for plugin registration as well.
+	Server 
+([]grpc.ServerOption) *grpc.Server
 
 	// TLS should be the TLS configuration if available. If this is nil,
 	// the connection will not have transport security.
@@ -64,7 +66,8 @@ type GRPCServer struct {
 }
 
 // ServerProtocol impl.
-func (s *GRPCServer) Init() error {
+
+ (s *GRPCServer) Init() error {
 	// Create our server
 	var opts []grpc.ServerOption
 	if s.TLS != nil {
@@ -112,28 +115,31 @@ func (s *GRPCServer) Init() error {
 
 // Stop calls Stop on the underlying grpc.Server and Close on the underlying
 // grpc.Broker if present.
-func (s *GRPCServer) Stop() {
+
+ (s *GRPCServer) Stop() {
 	s.server.Stop()
 
 	if s.broker != nil {
 		s.broker.Close()
 		s.broker = nil
 	}
-}
+
 
 // GracefulStop calls GracefulStop on the underlying grpc.Server and Close on
 // the underlying grpc.Broker if present.
-func (s *GRPCServer) GracefulStop() {
+
+ (s *GRPCServer) GracefulStop() {
 	s.server.GracefulStop()
 
 	if s.broker != nil {
 		s.broker.Close()
-		s.broker = nil
+broker = nil
 	}
 }
 
 // Config is the GRPCServerConfig encoded as JSON then base64.
-func (s *GRPCServer) Config() string {
+
+ (s *GRPCServer) Config() string {
 	// Create a buffer that will contain our final contents
 	var buf bytes.Buffer
 
@@ -142,13 +148,14 @@ func (s *GRPCServer) Config() string {
 		// We panic since ths shouldn't happen under any scenario. We
 		// carefully control the structure being encoded here and it should
 		// always be successful.
-		panic(err)
+nic(err)
 	}
 
 	return buf.String()
 }
 
-func (s *GRPCServer) Serve(lis net.Listener) {
+
+ (s *GRPCServer) Serve(lis net.Listener) {
 	defer close(s.DoneCh)
 	err := s.server.Serve(lis)
 	if err != nil {

@@ -23,7 +23,7 @@ func TestAccImageBuilderContainerRecipesDataSource_filter(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContainerRecipeDestroy(ctx),
+CheckDestroy:ontainerRecipeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContainerRecipesDataSourceConfig_filter(rName),

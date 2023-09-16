@@ -136,8 +136,8 @@ func resourceVirtualRouterCreate(ctx context.Context, d *schema.ResourceData, me
 	name := d.Get("name").(string)
 	input := &appmesh.CreateVirtualRouterInput{
 		MeshName:          aws.String(d.Get("mesh_name").(string)),
-		Spec:              expandVirtualRouterSpec(d.Get("spec").([]interface{})),
-		Tags:              getTagsIn(ctx),
+		Spec: expandVirtualRouterSpec(d.Get("spec").([]interface{})),
+		Tags: getTagsIn(ctx),
 		VirtualRouterName: aws.String(name),
 	}
 
@@ -198,7 +198,7 @@ func resourceVirtualRouterUpdate(ctx context.Context, d *schema.ResourceData, me
 	if d.HasChange("spec") {
 		input := &appmesh.UpdateVirtualRouterInput{
 			MeshName:          aws.String(d.Get("mesh_name").(string)),
-			Spec:              expandVirtualRouterSpec(d.Get("spec").([]interface{})),
+			Spec: expandVirtualRouterSpec(d.Get("spec").([]interface{})),
 			VirtualRouterName: aws.String(d.Get("name").(string)),
 		}
 

@@ -12,8 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccElasticsearchDomainDataSource_basic(t *testing.T) {
-	if testing.Short() {
+functesting.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
 
@@ -24,9 +23,8 @@ func TestAccElasticsearchDomainDataSource_basic(t *testing.T) {
 	resourceName := "aws_elasticsearch_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticsearchservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDomainDataSourceConfig_basic(rName, autoTuneStartAtTime),
@@ -58,8 +56,7 @@ func TestAccElasticsearchDomainDataSource_basic(t *testing.T) {
 
 func TestAccElasticsearchDomainDataSource_advanced(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
-	}
+func
 
 	ctx := acctest.Context(t)
 	rName := testAccRandomDomainName()
@@ -68,11 +65,10 @@ func TestAccElasticsearchDomainDataSource_advanced(t *testing.T) {
 	resourceName := "aws_elasticsearch_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticsearchservice.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticsearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
+		Steps: []resofunc
 				Config: testAccDomainDataSourceConfig_advanced(rName, autoTuneStartAtTime),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttrPair(datasourceName, "elasticsearch_version", resourceName, "elasticsearch_version"),
@@ -105,8 +101,7 @@ func testAccDomainDataSourceConfig_basic(rName, autoTuneStartAtTime string) stri
 	return fmt.Sprintf(`
 locals {
   random_name = %[1]q
-}
-
+func
 data "aws_partition" "current" {}
 
 data "aws_region" "current" {}
@@ -189,8 +184,7 @@ func testAccDomainDataSourceConfig_advanced(rName, autoTuneStartAtTime string) s
 data "aws_partition" "current" {}
 
 data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
+func "aws_caller_identity" "current" {}
 
 locals {
   random_name = %[1]q
@@ -300,7 +294,7 @@ POLICY
 
   log_publishing_options {
     cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
-    log_type                 = "INDEX_SLOW_LOGS"
+    log_type    = "INDEX_SLOW_LOGS"
   }
 
   vpc_options {
@@ -312,7 +306,7 @@ POLICY
   }
 
   advanced_security_options {
-    enabled                        = false
+    enabled           = false
     internal_user_database_enabled = false
   }
 

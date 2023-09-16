@@ -19,20 +19,18 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccRDSClusterActivityStream_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var dbCluster rds.DBCluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_cluster_activity_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
+	acctest.Pfunctest.PreCheckPartition(t, endpoints.AwsPartitionID)
 },
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
+CheckDestroy:testAccCheckClusterActivityStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterActivityStreamConfig_basic(rName),
@@ -44,7 +42,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"engine_native_audit_fields_included"},
 	},
@@ -54,18 +52,16 @@ ImportStateVerifyIgnore: []string{"engine_native_audit_fields_included"},
 
 func TestAccRDSClusterActivityStream_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var dbCluster rds.DBCluster
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_cluster_activity_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
-},
-ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+},funcrCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
+CheckDestroy:testAccCheckClusterActivityStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterActivityStreamConfig_basic(rName),
@@ -83,10 +79,8 @@ func testAccCheckClusterActivityStreamExists(ctx context.Context, n string, v *r
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+func
+funcs.Primary.ID == "" {
 	return fmt.Errorf("RDS Cluster Activity Stream ID is not set")
 }
 
@@ -109,10 +103,8 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_rds_cluster_activity_stream" {
-continue
-	}
-
-	_, err := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
+func
+funcerr := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
 
 	if tfresource.NotFound(err) {
 continue
@@ -132,25 +124,24 @@ return nil
 func testAccClusterActivityStreamConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_rds_cluster" "test" {
-  cluster_identifier  = %[1]q
-  availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
+funcailability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
   master_username     = "tfacctest"
   master_password     = "avoid-plaintext-passwords"
   skip_final_snapshot = true
   deletion_protection = false
-  engine              = "aurora-postgresql"
+  engine = "aurora-postgresql"
   engine_version      = "11.9"
 }
 
 resource "aws_rds_cluster_instance" "test" {
   identifier         = %[1]q
   cluster_identifier = aws_rds_cluster.test.id
-  engine             = aws_rds_cluster.test.engine
+  engine= aws_rds_cluster.test.engine
   instance_class     = "db.r6g.large"
 }
 `, rName))
@@ -165,5 +156,4 @@ resource "aws_rds_cluster_activity_stream" "test" {
 
   depends_on = [aws_rds_cluster_instance.test]
 }
-`)
-}
+func

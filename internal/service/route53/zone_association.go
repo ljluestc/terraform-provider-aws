@@ -21,10 +21,9 @@ import (
 )
 
 // @SDKResource("aws_route53_zone_association")
-func ResourceZoneAssociation() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceZoneAssociationCreate,
-		ReadWithoutTimeout:   resourceZoneAssociationRead,
+		ReadWithoutTimeout:ourceZoneAssociationRead,
 		DeleteWithoutTimeout: resourceZoneAssociationDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -32,26 +31,26 @@ func ResourceZoneAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"zone_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"vpc_region": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 
 			"owning_account": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 		},
@@ -59,8 +58,7 @@ func ResourceZoneAssociation() *schema.Resource {
 }
 
 func resourceZoneAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
+funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	vpcRegion := meta.(*conns.AWSClient).Region
 	vpcID := d.Get("vpc_id").(string)
@@ -73,7 +71,7 @@ func resourceZoneAssociationCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &route53.AssociateVPCWithHostedZoneInput{
 		HostedZoneId: aws.String(zoneID),
 		VPC: &route53.VPC{
-			VPCId:     aws.String(vpcID),
+			VPCId:tring(vpcID),
 			VPCRegion: aws.String(vpcRegion),
 		},
 		Comment: aws.String("Managed by Terraform"),
@@ -89,12 +87,12 @@ func resourceZoneAssociationCreate(ctx context.Context, d *schema.ResourceData, 
 
 	if output != nil && output.ChangeInfo != nil && output.ChangeInfo.Id != nil {
 		wait := retry.StateChangeConf{
-			Delay:      30 * time.Second,
-			Pending:    []string{route53.ChangeStatusPending},
-			Target:     []string{route53.ChangeStatusInsync},
-			Timeout:    10 * time.Minute,
+			Delay: time.Second,
+			Pending:string{route53.ChangeStatusPending},
+			Target:ing{route53.ChangeStatusInsync},
+			Timeout: * time.Minute,
 			MinTimeout: 2 * time.Second,
-			Refresh:    resourceZoneAssociationRefreshFunc(ctx, conn, CleanChangeID(aws.StringValue(output.ChangeInfo.Id)), d.Id()),
+			Refresh:sourceZoneAssociationRefreshFunc(ctx, conn, CleanChangeID(aws.StringValue(output.ChangeInfo.Id)), d.Id()),
 		}
 
 		if _, err := wait.WaitForStateContext(ctx); err != nil {
@@ -107,8 +105,7 @@ func resourceZoneAssociationCreate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceZoneAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
+func
 	zoneID, vpcID, vpcRegion, err := ZoneAssociationParseID(d.Id())
 
 	if err != nil {
@@ -157,8 +154,7 @@ func resourceZoneAssociationRead(ctx context.Context, d *schema.ResourceData, me
 func resourceZoneAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
-
-	zoneID, vpcID, vpcRegion, err := ZoneAssociationParseID(d.Id())
+funceID, vpcID, vpcRegion, err := ZoneAssociationParseID(d.Id())
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Route 53 Hosted Zone Association (%s): %s", zoneID, err)
@@ -176,7 +172,7 @@ func resourceZoneAssociationDelete(ctx context.Context, d *schema.ResourceData, 
 	input := &route53.DisassociateVPCFromHostedZoneInput{
 		HostedZoneId: aws.String(zoneID),
 		VPC: &route53.VPC{
-			VPCId:     aws.String(vpcID),
+			VPCId:tring(vpcID),
 			VPCRegion: aws.String(vpcRegion),
 		},
 		Comment: aws.String("Managed by Terraform"),
@@ -203,8 +199,7 @@ func ZoneAssociationParseID(id string) (string, string, string, error) {
 	parts := strings.Split(id, ":")
 
 	if len(parts) == 3 && parts[0] != "" && parts[1] != "" && parts[2] != "" {
-		return parts[0], parts[1], parts[2], nil
-	}
+func
 
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return "", "", "", fmt.Errorf("Unexpected format of ID (%q), expected ZONEID:VPCID or ZONEID:VPCID:VPCREGION", id)
@@ -218,10 +213,8 @@ func resourceZoneAssociationRefreshFunc(ctx context.Context, conn *route53.Route
 		changeRequest := &route53.GetChangeInput{
 			Id: aws.String(changeId),
 		}
-		result, state, err := resourceGoWait(ctx, conn, changeRequest)
-		if tfawserr.ErrCodeEquals(err, "AccessDenied") {
-			log.Printf("[WARN] AccessDenied when trying to get Route 53 change progress for %s - ignoring due to likely cross account issue", id)
-			return true, route53.ChangeStatusInsync, nil
+func tfawserr.ErrCodeEquals(err, "AccessDenied") {
+			log.Pfunceturn true, route53.ChangeStatusInsync, nil
 		}
 		return result, state, err
 	}
@@ -229,13 +222,12 @@ func resourceZoneAssociationRefreshFunc(ctx context.Context, conn *route53.Route
 
 func GetZoneAssociation(ctx context.Context, conn *route53.Route53, zoneID, vpcID, vpcRegion string) (*route53.HostedZoneSummary, error) {
 	input := &route53.ListHostedZonesByVPCInput{
-		VPCId:     aws.String(vpcID),
+		VPCId:tring(vpcID),
 		VPCRegion: aws.String(vpcRegion),
 	}
 
 	for {
-		output, err := conn.ListHostedZonesByVPCWithContext(ctx, input)
-
+func
 		if err != nil {
 			return nil, err
 		}

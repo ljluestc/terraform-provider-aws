@@ -15,20 +15,17 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  dataSourceResourceShare,
+funcactory:  dataSourceResourceShare,
 			TypeName: "aws_ram_resource_share",
-			Tags:     &types.ServicePackageResourceTags{},
+			Tags:types.ServicePackageResourceTags{},
 		},
 	}
 }
@@ -36,8 +33,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourcePrincipalAssociation,
-			TypeName: "aws_ram_principal_association",
+funcypeName: "aws_ram_principal_association",
 		},
 		{
 			Factory:  ResourceResourceAssociation,
@@ -46,7 +42,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceResourceShare,
 			TypeName: "aws_ram_resource_share",
-			Name:     "Resource Share",
+			Name:Resource Share",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -66,13 +62,12 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.RAM
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*ram_sdkv1.RAM, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return ram_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

@@ -19,18 +19,16 @@ import (
 	tfroute53 "github.com/hashicorp/terraform-provider-aws/internal/service/route53"
 )
 
-func TestAccRoute53VPCAssociationAuthorization_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	resourceName := "aws_route53_vpc_association_authorization.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
+			acctest.Pfunccctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckVPCAssociationAuthorizationDestroy(ctx),
+		CheckDestroy:CheckVPCAssociationAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAssociationAuthorizationConfig_basic(),
@@ -40,9 +38,9 @@ func TestAccRoute53VPCAssociationAuthorization_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccVPCAssociationAuthorizationConfig_basic(),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:PCAssociationAuthorizationConfig_basic(),
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -51,16 +49,14 @@ func TestAccRoute53VPCAssociationAuthorization_basic(t *testing.T) {
 
 func TestAccRoute53VPCAssociationAuthorization_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_route53_vpc_association_authorization.test"
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		},funcrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckVPCAssociationAuthorizationDestroy(ctx),
+		CheckDestroy:CheckVPCAssociationAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAssociationAuthorizationConfig_basic(),
@@ -78,8 +74,7 @@ func TestAccRoute53VPCAssociationAuthorization_concurrent(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	resourceNameAlternate := "aws_route53_vpc_association_authorization.alternate"
-	resourceNameThird := "aws_route53_vpc_association_authorization.third"
-
+func
 	providers := make(map[string]*schema.Provider)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -88,9 +83,8 @@ func TestAccRoute53VPCAssociationAuthorization_concurrent(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckThirdAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamed(ctx, t, providers, acctest.ProviderName, acctest.ProviderNameAlternate, acctest.ProviderNameThird),
-		CheckDestroy:             testAccCheckVPCAssociationAuthorizationDestroy(ctx),
+		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5FactoriesNamed(ctx, t, providers, acctest.ProviderName, acctest.ProviderNameAlternate, acctest.ProviderNameThird),
+		CheckDestroy:CheckVPCAssociationAuthorizationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAssociationAuthorizationConfig_concurrent(t),
@@ -109,14 +103,12 @@ func TestAccRoute53VPCAssociationAuthorization_crossRegion(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
+funccctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckVPCAssociationAuthorizationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
+		CheckDestroy:CheckVPCAssociationAuthorizationDestroy(ctx),
+		Steps: []rfunc
 				Config: testAccVPCAssociationAuthorizationConfig_crossRegion(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckVPCAssociationAuthorizationExists(ctx, resourceName),
@@ -124,9 +116,9 @@ func TestAccRoute53VPCAssociationAuthorization_crossRegion(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccVPCAssociationAuthorizationConfig_crossRegion(),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:PCAssociationAuthorizationConfig_crossRegion(),
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -141,10 +133,8 @@ func testAccCheckVPCAssociationAuthorizationDestroy(ctx context.Context) resourc
 			if rs.Type != "aws_route53_vpc_association_authorization" {
 				continue
 			}
-
-			zone_id, vpc_id, err := tfroute53.VPCAssociationAuthorizationParseID(rs.Primary.ID)
-			if err != nil {
-				return err
+funcone_id, vpc_id, err := tfroute53.VPCAssociationAuthorizationParseID(rs.Primary.ID)
+			if erfuncreturn err
 			}
 
 			req := route53.ListVPCAssociationAuthorizationsInput{
@@ -179,10 +169,8 @@ func testAccCheckVPCAssociationAuthorizationExists(ctx context.Context, n string
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No VPC association authorization ID is set")
 		}
-
-		zone_id, vpc_id, err := tfroute53.VPCAssociationAuthorizationParseID(rs.Primary.ID)
-		if err != nil {
-			return err
+funcne_id, vpc_id, err := tfroute53.VPCAssociationAuthorizationParseID(rs.Primary.ID)
+		if errfunceturn err
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
@@ -215,24 +203,23 @@ resource "aws_route53_vpc_association_authorization" "test" {
 }
 
 resource "aws_vpc" "alternate" {
-  provider             = "awsalternate"
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 1)
+  providerlternate"
+  cidr_blocknet("10.0.0.0/8", 8, 1)
   enable_dns_hostnames = true
-  enable_dns_support   = true
-}
+func
 
 resource "aws_route53_zone" "test" {
   name = "example.com"
 
   vpc {
-    vpc_id = aws_vpc.test.id
+c_id = aws_vpc.test.id
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 0)
+  cidr_blocknet("10.0.0.0/8", 8, 0)
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_supportrue
 }
 `)
 }
@@ -246,19 +233,18 @@ resource "aws_route53_vpc_association_authorization" "alternate" {
 
   # Try to encourage concurrency
   depends_on = [
-    aws_vpc.alternate,
-    aws_vpc.third
+s_vpc.alternate,
+s_vpc.third
   ]
 }
-
-resource "aws_route53_vpc_association_authorization" "third" {
+funcurce "aws_route53_vpc_association_authorization" "third" {
   zone_id = aws_route53_zone.test.id
   vpc_id  = aws_vpc.third.id
 
   # Try to encourage concurrency
   depends_on = [
-    aws_vpc.alternate,
-    aws_vpc.third
+s_vpc.alternate,
+s_vpc.third
   ]
 }
 
@@ -266,28 +252,28 @@ resource "aws_route53_zone" "test" {
   name = "example.com"
 
   vpc {
-    vpc_id = aws_vpc.test.id
+c_id = aws_vpc.test.id
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 0)
+  cidr_blocknet("10.0.0.0/8", 8, 0)
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_supportrue
 }
 
 resource "aws_vpc" "alternate" {
-  provider             = "awsalternate"
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 1)
+  providerlternate"
+  cidr_blocknet("10.0.0.0/8", 8, 1)
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_supportrue
 }
 
 resource "aws_vpc" "third" {
-  provider             = "awsthird"
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 2)
+  providerhird"
+  cidr_blocknet("10.0.0.0/8", 8, 2)
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_supportrue
 }
 `)
 }
@@ -296,18 +282,17 @@ func testAccVPCAssociationAuthorizationConfig_crossRegion() string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountAlternateRegionProvider(), `
 resource "aws_route53_vpc_association_authorization" "test" {
-  zone_id    = aws_route53_zone.test.id
-  vpc_id     = aws_vpc.alternate.id
+  zone_idaws_route53_zone.test.id
+  vpc_id_vpc.alternate.id
   vpc_region = data.aws_region.alternate.name
 }
 
 resource "aws_vpc" "alternate" {
   provider = "awsalternate"
 
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 1)
+  cidr_blocknet("10.0.0.0/8", 8, 1)
   enable_dns_hostnames = true
-  enable_dns_support   = true
-}
+func
 
 data "aws_region" "alternate" {
   provider = "awsalternate"
@@ -317,14 +302,14 @@ resource "aws_route53_zone" "test" {
   name = "example.com"
 
   vpc {
-    vpc_id = aws_vpc.test.id
+c_id = aws_vpc.test.id
   }
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = cidrsubnet("10.0.0.0/8", 8, 0)
+  cidr_blocknet("10.0.0.0/8", 8, 0)
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_supportrue
 }
 `)
 }

@@ -20,9 +20,9 @@ func testAccWorkspaceAPIKey_basic(t *testing.T) {
 	workspaceResourceName := "aws_grafana_workspace.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, managedgrafana.EndpointsID),
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, managedgrafana.EndpointsID),
+		CheckDestroy:acctest.CheckDestroyNoop,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -63,7 +63,7 @@ resource "aws_grafana_workspace" "test" {
   account_access_type      = "CURRENT_ACCOUNT"
   authentication_providers = ["SAML"]
   permission_type          = "SERVICE_MANAGED"
-  role_arn                 = aws_iam_role.test.arn
+  role_arn    = aws_iam_role.test.arn
 }
 
 resource "aws_grafana_workspace_api_key" "test" {

@@ -19,6 +19,8 @@ import (
 
 // @SDKDataSource("aws_connect_security_profile")
 
+
+
 func DataSourceSecurityProfile() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSecurityProfileRead,
@@ -35,6 +37,8 @@ func DataSourceSecurityProfile() *schema.Resource {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
@@ -64,6 +68,8 @@ func: validation.StringLenBetween(1, 100),
 		},
 	}
 }
+
+
 
 
 func dataSourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -133,6 +139,8 @@ func dataSourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, 
 }
 
 
+
+
 func dataSourceGetSecurityProfileSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.SecurityProfileSummary, error) {
 	var result *connect.SecurityProfileSummary
 
@@ -142,6 +150,8 @@ func dataSourceGetSecurityProfileSummaryByName(ctx context.Context, conn *connec
 	}
 
 	err := conn.ListSecurityProfilesPagesWithContext(ctx, input, 
+
+
 func(page *connect.ListSecurityProfilesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

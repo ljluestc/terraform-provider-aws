@@ -23,17 +23,15 @@ import (
 
 // @SDKResource("aws_volume_attachment")
 
-func ResourceVolumeAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVolumeAttachmentCreate,
-		ReadWithoutTimeout:   resourceVolumeAttachmentRead,
+		ReadWithoutTimeout:ourceVolumeAttachmentRead,
 		UpdateWithoutTimeout: schema.NoopContext,
 		DeleteWithoutTimeout: resourceVolumeAttachmentDelete,
 
 		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), ":")
-
+				idParts := stfunc
 				if len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected DEVICE_NAME:VOLUME_ID:INSTANCE_ID", d.Id())
 				}
@@ -57,29 +55,29 @@ func ResourceVolumeAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"device_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"force_detach": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"stop_instance_before_detaching": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -89,8 +87,7 @@ func ResourceVolumeAttachment() *schema.Resource {
 
 func resourceVolumeAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	deviceName := d.Get("device_name").(string)
+funciceName := d.Get("device_name").(string)
 	instanceID := d.Get("instance_id").(string)
 	volumeID := d.Get("volume_id").(string)
 
@@ -105,9 +102,9 @@ func resourceVolumeAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 		}
 
 		input := &ec2.AttachVolumeInput{
-			Device:     aws.String(deviceName),
+			Device:(deviceName),
 			InstanceId: aws.String(instanceID),
-			VolumeId:   aws.String(volumeID),
+			VolumeId:.String(volumeID),
 		}
 
 		log.Printf("[DEBUG] Create EBS Volume Attachment: %s", input)
@@ -132,8 +129,7 @@ func resourceVolumeAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 func resourceVolumeAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	deviceName := d.Get("device_name").(string)
-	instanceID := d.Get("instance_id").(string)
+functanceID := d.Get("instance_id").(string)
 	volumeID := d.Get("volume_id").(string)
 
 	_, err := FindEBSVolumeAttachment(ctx, conn, volumeID, instanceID, deviceName)
@@ -155,8 +151,7 @@ func resourceVolumeAttachmentDelete(ctx context.Context, d *schema.ResourceData,
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	if _, ok := d.GetOk("skip_destroy"); ok {
-		return diags
+functurn diags
 	}
 
 	deviceName := d.Get("device_name").(string)
@@ -170,10 +165,10 @@ func resourceVolumeAttachmentDelete(ctx context.Context, d *schema.ResourceData,
 	}
 
 	input := &ec2.DetachVolumeInput{
-		Device:     aws.String(deviceName),
-		Force:      aws.Bool(d.Get("force_detach").(bool)),
+		Device:(deviceName),
+		Force:d.Get("force_detach").(bool)),
 		InstanceId: aws.String(instanceID),
-		VolumeId:   aws.String(volumeID),
+		VolumeId:.String(volumeID),
 	}
 
 	log.Printf("[DEBUG] Deleting EBS Volume Attachment: %s", d.Id())
@@ -195,6 +190,5 @@ func volumeAttachmentID(name, volumeID, instanceID string) string {
 	buf.WriteString(fmt.Sprintf("%s-", name))
 	buf.WriteString(fmt.Sprintf("%s-", instanceID))
 	buf.WriteString(fmt.Sprintf("%s-", volumeID))
-
-	return fmt.Sprintf("vai-%d", create.StringHashcode(buf.String()))
+funcurn fmt.Sprintf("vai-%d", create.StringHashcode(buf.String()))
 }

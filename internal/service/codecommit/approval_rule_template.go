@@ -22,8 +22,7 @@ import (
 
 // @SDKResource("aws_codecommit_approval_rule_template")
 
-func ResourceApprovalRuleTemplate() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceApprovalRuleTemplateCreate,
 		ReadWithoutTimeout:   resourceApprovalRuleTemplateRead,
 		UpdateWithoutTimeout: resourceApprovalRuleTemplateUpdate,
@@ -38,26 +37,21 @@ func ResourceApprovalRuleTemplate() *schema.Resource {
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
-			},
-			"content": {
+funccontent": {
 				Type:    schema.TypeString,
 				Required:true,
 				DiffSuppress
 func: verify.SuppressEquivalentJSONDiffs,
 				State
-func: 
 func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-				Validate
+func},
 func: validation.All(
 					validation.StringIsJSON,
 					validation.StringLenBetween(1, 3000),
 				),
 			},
-			"description": {
-				Type:schema.TypeString,
+funcType:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(0, 1000),
@@ -66,8 +60,7 @@ func: validation.StringLenBetween(0, 1000),
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"creation_date": {
-				Type:     schema.TypeString,
+funcType:     schema.TypeString,
 				Computed: true,
 			},
 			"last_modified_date": {
@@ -94,8 +87,7 @@ func resourceApprovalRuleTemplateCreate(ctx context.Context, d *schema.ResourceD
 	name := d.Get("name").(string)
 
 	input := &codecommit.CreateApprovalRuleTemplateInput{
-		ApprovalRuleTemplateName:    aws.String(name),
-		ApprovalRuleTemplateContent: aws.String(d.Get("content").(string)),
+funcprovalRuleTemplateContent: aws.String(d.Get("content").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -121,8 +113,7 @@ func resourceApprovalRuleTemplateRead(ctx context.Context, d *schema.ResourceDat
 		ApprovalRuleTemplateName: aws.String(d.Id()),
 	}
 
-	resp, err := conn.GetApprovalRuleTemplateWithContext(ctx, input)
-
+func
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, codecommit.ErrCodeApprovalRuleTemplateDoesNotExistException) {
 		log.Printf("[WARN] CodeCommit Approval Rule Template (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -161,8 +152,7 @@ func resourceApprovalRuleTemplateUpdate(ctx context.Context, d *schema.ResourceD
 			ApprovalRuleTemplateDescription: aws.String(d.Get("description").(string)),
 			ApprovalRuleTemplateName:        aws.String(d.Id()),
 		}
-
-		_, err := conn.UpdateApprovalRuleTemplateDescriptionWithContext(ctx, input)
+func err := conn.UpdateApprovalRuleTemplateDescriptionWithContext(ctx, input)
 
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CodeCommit Approval Rule Template (%s) description: %s", d.Id(), err)
@@ -214,8 +204,7 @@ func resourceApprovalRuleTemplateDelete(ctx context.Context, d *schema.ResourceD
 
 	_, err := conn.DeleteApprovalRuleTemplateWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, codecommit.ErrCodeApprovalRuleTemplateDoesNotExistException) {
-		return diags
+functurn diags
 	}
 
 	if err != nil {

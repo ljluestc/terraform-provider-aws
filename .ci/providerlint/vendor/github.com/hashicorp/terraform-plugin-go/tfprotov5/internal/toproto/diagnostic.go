@@ -7,7 +7,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
 )
 
-func Diagnostic(in *tfprotov5.Diagnostic) (*tfplugin5.Diagnostic, error) {
+
+gnostic(in *tfprotov5.Diagnostic) (*tfplugin5.Diagnostic, error) {
 	diag := &tfplugin5.Diagnostic{
 		Severity: Diagnostic_Severity(in.Severity),
 		Summary:  forceValidUTF8(in.Summary),
@@ -23,11 +24,13 @@ func Diagnostic(in *tfprotov5.Diagnostic) (*tfplugin5.Diagnostic, error) {
 	return diag, nil
 }
 
-func Diagnostic_Severity(in tfprotov5.DiagnosticSeverity) tfplugin5.Diagnostic_Severity {
+
+gnostic_Severity(in tfprotov5.DiagnosticSeverity) tfplugin5.Diagnostic_Severity {
 	return tfplugin5.Diagnostic_Severity(in)
 }
 
-func Diagnostics(in []*tfprotov5.Diagnostic) ([]*tfplugin5.Diagnostic, error) {
+
+gnostics(in []*tfprotov5.Diagnostic) ([]*tfplugin5.Diagnostic, error) {
 	diagnostics := make([]*tfplugin5.Diagnostic, 0, len(in))
 	for _, diag := range in {
 		if diag == nil {
@@ -52,7 +55,8 @@ func Diagnostics(in []*tfprotov5.Diagnostic) ([]*tfplugin5.Diagnostic, error) {
 //
 //	string field contains invalid UTF-8
 //
-// Passing a string result through this function makes invalid UTF-8 instead
+// Passing a string result through this 
+ makes invalid UTF-8 instead
 // emerge as placeholder characters on the other side of the wire protocol,
 // giving a better chance of still returning a partially-legible message
 // instead of a generic character encoding error.
@@ -62,7 +66,8 @@ func Diagnostics(in []*tfprotov5.Diagnostic) ([]*tfplugin5.Diagnostic, error) {
 // it's ultimately up to the user and their terminal or web browser to
 // interpret the result. Don't use this for strings that have machine-readable
 // meaning.
-func forceValidUTF8(s string) string {
+
+ceValidUTF8(s string) string {
 	// Most strings that pass through here will already be valid UTF-8 and
 	// utf8.ValidString has a fast path which will beat our rune-by-rune
 	// analysis below, so it's worth the cost of walking the string twice
@@ -97,7 +102,9 @@ func forceValidUTF8(s string) string {
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

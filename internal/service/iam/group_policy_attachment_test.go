@@ -17,10 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIAMGroupPolicyAttachment_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var out iam.ListAttachedGroupPoliciesOutput
 
 	rString := sdkacctest.RandString(8)
@@ -30,10 +27,10 @@ func TestAccIAMGroupPolicyAttachment_basic(t *testing.T) {
 	policyName3 := fmt.Sprintf("tf-acc-policy-gpa-basic-3-%s", rString)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupPolicyAttachmentDestroy,
+		CheckDestroy:testAccCheckGroupPolicyAttachmentDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupPolicyAttachmentConfig_attach(groupName, policyName),
@@ -69,16 +66,10 @@ func TestAccIAMGroupPolicyAttachment_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckGroupPolicyAttachmentDestroy(s *terraform.State) error {
-	return nil
-}
-
-func testAccCheckGroupPolicyAttachmentExists(ctx context.Context, n string, c int, out *iam.ListAttachedGroupPoliciesOutput) resource.TestCheckFunc {
+}func testAccCheckGroupPolicyAttachmentDestroy(s *terraform.State) error {
+	funcc testAccCheckGroupPolicyAttachmentExists(ctx context.Context, n string, c int, out *iam.ListAttachedGroupPoliciesOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
+	func !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
 
@@ -102,13 +93,10 @@ func testAccCheckGroupPolicyAttachmentExists(ctx context.Context, n string, c in
 		*out = *attachedPolicies
 		return nil
 	}
-}
-
-func testAccCheckGroupPolicyAttachmentAttributes(policies []string, out *iam.ListAttachedGroupPoliciesOutput) resource.TestCheckFunc {
+}func testAccCheckGroupPolicyAttachmentAttributes(policies []string, out *iam.ListAttachedGroupPoliciesOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		matched := 0
-
-		for _, p := range policies {
+funcr _, p := range policies {
 			for _, ap := range out.AttachedPolicies {
 				// *ap.PolicyArn like arn:aws:iam::111111111111:policy/test-policy
 				parts := strings.Split(*ap.PolicyArn, "/")
@@ -122,14 +110,11 @@ func testAccCheckGroupPolicyAttachmentAttributes(policies []string, out *iam.Lis
 		}
 		return nil
 	}
-}
-
-func testAccGroupPolicyAttachmentConfig_attach(groupName, policyName string) string {
+}func testAccGroupPolicyAttachmentConfig_attach(groupName, policyName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
   name = "%s"
-}
-
+}func
 resource "aws_iam_policy" "policy" {
   name        = "%s"
   description = "A test policy"
@@ -155,15 +140,12 @@ resource "aws_iam_group_policy_attachment" "test-attach" {
   policy_arn = aws_iam_policy.policy.arn
 }
 `, groupName, policyName)
-}
-
-func testAccGroupPolicyAttachmentConfig_attachUpdate(groupName, policyName, policyName2, policyName3 string) string {
+}func testAccGroupPolicyAttachmentConfig_attachUpdate(groupName, policyName, policyName2, policyName3 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
   name = "%s"
 }
-
-resource "aws_iam_policy" "policy" {
+funcurce "aws_iam_policy" "policy" {
   name        = "%s"
   description = "A test policy"
 
@@ -233,14 +215,11 @@ resource "aws_iam_group_policy_attachment" "test-attach2" {
   policy_arn = aws_iam_policy.policy3.arn
 }
 `, groupName, policyName, policyName2, policyName3)
-}
-
-func testAccGroupPolicyAttachmentImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
+}func testAccGroupPolicyAttachmentImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
 		}
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["group"], rs.Primary.Attributes["policy_arn"]), nil
-	}
+	func
 }

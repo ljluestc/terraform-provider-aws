@@ -32,10 +32,10 @@ func TestAccAppFlowConnectorProfile_basic(t *testing.T) {
 	resourceName := "aws_appflow_connector_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorProfileConfig_basic(rName),
@@ -52,7 +52,7 @@ func TestAccAppFlowConnectorProfile_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"connector_profile_config.0.connector_profile_credentials"},
 			},
@@ -72,10 +72,10 @@ func TestAccAppFlowConnectorProfile_update(t *testing.T) {
 	testPrefix := "test-prefix"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorProfileConfig_basic(rName),
@@ -106,10 +106,10 @@ func TestAccAppFlowConnectorProfile_disappears(t *testing.T) {
 	resourceName := "aws_appflow_connector_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorProfileDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorProfileConfig_basic(rName),

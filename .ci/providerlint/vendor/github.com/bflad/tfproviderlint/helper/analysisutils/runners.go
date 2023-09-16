@@ -16,8 +16,11 @@ import (
 )
 
 // AvoidSelectorExprRunner returns an Analyzer runner for *ast.SelectorExpr to avoid
-func AvoidSelectorExprRunner(analyzerName string, callExprAnalyzer, selectorExprAnalyzer *analysis.Analyzer, packagePath, typeName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ AvolectorExprRunner(analyzerName string, callExprAnalyzer, selectorExprAnalyzer *analysis.Analyzer, packagePath, typeName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		callExprs := pass.ResultOf[callExprAnalyzer].([]*ast.CallExpr)
 		selectorExprs := pass.ResultOf[selectorExprAnalyzer].([]*ast.SelectorExpr)
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
@@ -81,11 +84,14 @@ func AvoidSelectorExprRunner(analyzerName string, callExprAnalyzer, selectorExpr
 
 		return nil, nil
 	}
-}
+
 
 // DeprecatedReceiverMethodSelectorExprRunner returns an Analyzer runner for deprecated *ast.SelectorExpr
-func DeprecatedReceiverMethodSelectorExprRunner(analyzerName string, callExprAnalyzer, selectorExprAnalyzer *analysis.Analyzer, packagePath, typeName, methodName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ DeprecatedReceiverMethodSelectorExprRunner(analyzerName string, callExprAnalyzer, selectorExprAnalyzer *analysis.Analyzer, packagePath, typeName, methodName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		callExprs := pass.ResultOf[callExprAnalyzer].([]*ast.CallExpr)
 		selectorExprs := pass.ResultOf[selectorExprAnalyzer].([]*ast.SelectorExpr)
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
@@ -159,13 +165,16 @@ func DeprecatedReceiverMethodSelectorExprRunner(analyzerName string, callExprAna
 			})
 		}
 
-		return nil, nil
+		return, nil
 	}
 }
 
 // DeprecatedEmptyCallExprWithReplacementSelectorExprRunner returns an Analyzer runner for deprecated *ast.SelectorExpr with replacement
-func DeprecatedEmptyCallExprWithReplacementSelectorExprRunner(analyzerName string, callExprAnalyzer *analysis.Analyzer, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ DeprecatedEmptyCallExprWithReplacementSelectorExprRunner(analyzerName string, callExprAnalyzer *analysis.Analyzer, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		callExprs := pass.ResultOf[callExprAnalyzer].([]*ast.CallExpr)
 		selectorExprs := pass.ResultOf[selectorExprAnalyzer].([]*ast.SelectorExpr)
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
@@ -287,7 +296,7 @@ func DeprecatedEmptyCallExprWithReplacementSelectorExprRunner(analyzerName strin
 							},
 						},
 					},
-				},
+},
 			})
 		}
 
@@ -296,8 +305,11 @@ func DeprecatedEmptyCallExprWithReplacementSelectorExprRunner(analyzerName strin
 }
 
 // DeprecatedWithReplacementPointerSelectorExprRunner returns an Analyzer runner for deprecated *ast.SelectorExpr with replacement
-func DeprecatedWithReplacementPointerSelectorExprRunner(analyzerName string, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ DeprecatedWithReplacementPointerSelectorExprRunner(analyzerName string, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 		selectorExprs := pass.ResultOf[selectorExprAnalyzer].([]*ast.SelectorExpr)
 
@@ -349,7 +361,7 @@ func DeprecatedWithReplacementPointerSelectorExprRunner(analyzerName string, sel
 								Pos:     selectorExpr.Pos(),
 								End:     selectorExpr.End(),
 								NewText: newStarExprBuf.Bytes(),
-							},
+			},
 						},
 					},
 				},
@@ -361,8 +373,11 @@ func DeprecatedWithReplacementPointerSelectorExprRunner(analyzerName string, sel
 }
 
 // DeprecatedWithReplacementSelectorExprRunner returns an Analyzer runner for deprecated *ast.SelectorExpr with replacement
-func DeprecatedWithReplacementSelectorExprRunner(analyzerName string, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ DeprecatedWithReplacementSelectorExprRunner(analyzerName string, selectorExprAnalyzer *analysis.Analyzer, oldPackagePath, oldSelectorName, newPackagePath, newSelectorName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		selectorExprs := pass.ResultOf[selectorExprAnalyzer].([]*ast.SelectorExpr)
 		ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 
@@ -406,9 +421,9 @@ func DeprecatedWithReplacementSelectorExprRunner(analyzerName string, selectorEx
 					{
 						Message: "Replace",
 						TextEdits: []analysis.TextEdit{
-							{
-								Pos:     selectorExpr.Pos(),
-								End:     selectorExpr.End(),
+			{
+	os:     selectorExpr.Pos()
+								     selectorExpr.End(),
 								NewText: newSelectorExprBuf.Bytes(),
 							},
 						},
@@ -421,19 +436,31 @@ func DeprecatedWithReplacementSelectorExprRunner(analyzerName string, selectorEx
 	}
 }
 
-// FunctionCallExprRunner returns an Analyzer runner for function *ast.CallExpr
-func FunctionCallExprRunner(packageFunc func(ast.Expr, *types.Info, string) bool, functionName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+// 
+tionCallExprRunner returns an Analyzer runner for 
+tion *ast.CallExpr
+
+ 
+tionCallExprRunner(package
+ 
+(ast.Expr, *types.Info, string) bool, 
+tionName string) 
+alysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.CallExpr)(nil),
 		}
 		var result []*ast.CallExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			callExpr := n.(*ast.CallExpr)
 
-			if !packageFunc(callExpr.Fun, pass.TypesInfo, functionName) {
+			if !package
+(callExpr.Fun, pass.TypesInfo, 
+tionName) {
 				return
 			}
 
@@ -445,18 +472,24 @@ func FunctionCallExprRunner(packageFunc func(ast.Expr, *types.Info, string) bool
 }
 
 // ReceiverMethodAssignStmtRunner returns an Analyzer runner for receiver method *ast.AssignStmt
-func ReceiverMethodAssignStmtRunner(packageReceiverMethodFunc func(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
-		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+
+ ReceiverMethodAssignStmtRunner(packageReceiverMethod
+ 
+(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+s *analysis.Pass) (interface{}, error) {
+		inspec pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.AssignStmt)(nil),
 		}
 		var result []*ast.AssignStmt
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			assignStmt := n.(*ast.AssignStmt)
 
-			if len(assignStmt.Rhs) != 1 {
+			if len(assignStmt.Rhs) !=
 				return
 			}
 
@@ -466,8 +499,9 @@ func ReceiverMethodAssignStmtRunner(packageReceiverMethodFunc func(ast.Expr, *ty
 				return
 			}
 
-			if !packageReceiverMethodFunc(callExpr.Fun, pass.TypesInfo, receiverName, methodName) {
-				return
+			if !packageReceiverMethod
+(callExpr.Fun, pass.TypesInfo, receiverName, methodName) {
+return
 			}
 
 			result = append(result, assignStmt)
@@ -478,18 +512,25 @@ func ReceiverMethodAssignStmtRunner(packageReceiverMethodFunc func(ast.Expr, *ty
 }
 
 // ReceiverMethodCallExprRunner returns an Analyzer runner for receiver method *ast.CallExpr
-func ReceiverMethodCallExprRunner(packageReceiverMethodFunc func(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ ReceiverMethodCallExprRunner(packageReceiverMethod
+ 
+(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.CallExpr)(nil),
 		}
 		var result []*ast.CallExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspeceorder(nodeFilter, 
+(n ast.Node) {
 			callExpr := n.(*ast.CallExpr)
 
-			if !packageReceiverMethodFunc(callExpr.Fun, pass.TypesInfo, receiverName, methodName) {
+			if !packageReceiverMethod
+(callExpr.Fun, pass.TypesInfo, receiverName, methodName) {
 				return
 			}
 
@@ -501,18 +542,25 @@ func ReceiverMethodCallExprRunner(packageReceiverMethodFunc func(ast.Expr, *type
 }
 
 // ReceiverMethodSelectorExprRunner returns an Analyzer runner for receiver method *ast.SelectorExpr
-func ReceiverMethodSelectorExprRunner(packageReceiverMethodFunc func(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ ReceiverMethodSelectorExprRunner(packageReceiverMethod
+ 
+(ast.Expr, *types.Info, string, string) bool, receiverName string, methodName string) 
+(*analysis.Pass) (interface{}, error) {
+urn 
+(pasnalysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.SelectorExpr)(nil),
 		}
 		var result []*ast.SelectorExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			selectorExpr := n.(*ast.SelectorExpr)
 
-			if !packageReceiverMethodFunc(selectorExpr, pass.TypesInfo, receiverName, methodName) {
+			if !packageReceiverMethod
+(selectorExpr, pass.TypesInfo, receiverName, methodName) {
 				return
 			}
 
@@ -524,31 +572,41 @@ func ReceiverMethodSelectorExprRunner(packageReceiverMethodFunc func(ast.Expr, *
 }
 
 // SelectorExprRunner returns an Analyzer runner for *ast.SelectorExpr
-func SelectorExprRunner(packageFunc func(ast.Expr, *types.Info, string) bool, selectorName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ SelectorExprRunner(package
+ 
+(ast.Expr, *types.Info, string) bool, selectorName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.SelectorExpr)(nil),
 		}
 		var result []*ast.SelectorExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
-			selectorExpr := n.(*ast.SelectorExpr)
+		inspect.Preorder(nodeFilter, 
+st.Node) {
+			selecxpr := n.(*ast.SelectorExpr)
 
-			if !packageFunc(selectorExpr, pass.TypesInfo, selectorName) {
+			if !package
+(selectorExpr, pass.TypesInfo, selectorName) {
 				return
 			}
 
-			result = append(result, selectorExpr)
+			result = append(result, seleExpr)
 		})
 
-		return result, nil
+		return resulil
 	}
 }
 
 // TypeAssertExprRemovalRunner returns an Analyzer runner for removing *ast.TypeAssertExpr
-func TypeAssertExprRemovalRunner(analyzerName string, typeAssertExprAnalyzer *analysis.Analyzer) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ TypeAssertExprRemovalRunner(analyzerName string, typeAssertExprAnalyzer *analysis.Analyzer) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		typeAssertExprs := pass.ResultOf[typeAssertExprAnalyzer].([]*ast.TypeAssertExpr)
 
 		for _, typeAssertExpr := range typeAssertExprs {
@@ -586,18 +644,25 @@ func TypeAssertExprRemovalRunner(analyzerName string, typeAssertExprAnalyzer *an
 }
 
 // TypeAssertExprRunner returns an Analyzer runner for *ast.TypeAssertExpr
-func TypeAssertExprRunner(packageFunc func(ast.Expr, *types.Info, string) bool, selectorName string) func(*analysis.Pass) (interface{}, error) {
-	return func(pass *analysis.Pass) (interface{}, error) {
+
+ TypeAssertExprRunner(package
+ 
+(ast.Expr, *types.Info, string) bool, selectorName string) 
+(*analysis.Pass) (interface{}, error) {
+	return 
+(pass *analysis.Pass) (interface{}, error) {
 		inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 		nodeFilter := []ast.Node{
 			(*ast.TypeAssertExpr)(nil),
 		}
 		var result []*ast.TypeAssertExpr
 
-		inspect.Preorder(nodeFilter, func(n ast.Node) {
+		inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 			typeAssertExpr := n.(*ast.TypeAssertExpr)
 
-			if !packageFunc(typeAssertExpr.Type, pass.TypesInfo, selectorName) {
+			if !package
+(typeAssertExpr.Type, pass.TypesInfo, selectorName) {
 				return
 			}
 

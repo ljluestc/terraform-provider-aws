@@ -27,8 +27,7 @@ import (
 
 // @SDKResource("aws_transcribe_medical_vocabulary", name="Medical Vocabulary")
 // @Tags(identifierAttribute="arn")
-func ResourceMedicalVocabulary() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceMedicalVocabularyCreate,
 ReadWithoutTimeout:   resourceMedicalVocabularyRead,
 UpdateWithoutTimeout: resourceMedicalVocabularyUpdate,
@@ -79,14 +78,13 @@ CustomizeDiff: verify.SetTagsDiff,
 }
 
 func resourceMedicalVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
-
+func
 	vocabularyName := d.Get("vocabulary_name").(string)
 	in := &transcribe.CreateMedicalVocabularyInput{
 VocabularyName:    aws.String(vocabularyName),
 VocabularyFileUri: aws.String(d.Get("vocabulary_file_uri").(string)),
 LanguageCode:      types.LanguageCode(d.Get("language_code").(string)),
-Tags:              getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateMedicalVocabulary(ctx, in)
@@ -109,8 +107,7 @@ return diag.Errorf("waiting for Amazon Transcribe MedicalVocabulary (%s) create:
 
 func resourceMedicalVocabularyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
-
-	out, err := FindMedicalVocabularyByName(ctx, conn, d.Id())
+func, err := FindMedicalVocabularyByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] Transcribe MedicalVocabulary (%s) not found, removing from state", d.Id())
@@ -141,8 +138,7 @@ Resource:  fmt.Sprintf("medical-vocabulary/%s", d.Id()),
 func resourceMedicalVocabularyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-in := &transcribe.UpdateMedicalVocabularyInput{
+func= &transcribe.UpdateMedicalVocabularyInput{
 	VocabularyName: aws.String(d.Id()),
 	LanguageCode:   types.LanguageCode(d.Get("language_code").(string)),
 }
@@ -169,8 +165,7 @@ func resourceMedicalVocabularyDelete(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	log.Printf("[INFO] Deleting Transcribe MedicalVocabulary %s", d.Id())
-
-	_, err := conn.DeleteMedicalVocabulary(ctx, &transcribe.DeleteMedicalVocabularyInput{
+funcerr := conn.DeleteMedicalVocabulary(ctx, &transcribe.DeleteMedicalVocabularyInput{
 VocabularyName: aws.String(d.Id()),
 	})
 
@@ -195,8 +190,7 @@ func waitMedicalVocabularyCreated(ctx context.Context, conn *transcribe.Client, 
 Pending:    medicalVocabularyStatus(types.VocabularyStatePending),
 Target:     medicalVocabularyStatus(types.VocabularyStateReady),
 Refresh:    statusMedicalVocabulary(ctx, conn, id),
-Timeout:    timeout,
-NotFoundChecks:            20,
+funcoundChecks:            20,
 ContinuousTargetOccurence: 2,
 Delay:      30 * time.Second,
 	}
@@ -215,8 +209,7 @@ Pending:    medicalVocabularyStatus(types.VocabularyStatePending),
 Target:     medicalVocabularyStatus(types.VocabularyStateReady),
 Refresh:    statusMedicalVocabulary(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
-ContinuousTargetOccurence: 2,
+funcinuousTargetOccurence: 2,
 Delay:      30 * time.Second,
 	}
 
@@ -235,8 +228,7 @@ Target:  []string{},
 Refresh: statusMedicalVocabulary(ctx, conn, id),
 Timeout: timeout,
 Delay:   30 * time.Second,
-	}
-
+func
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*transcribe.GetMedicalVocabularyOutput); ok {
 return out, err
@@ -253,10 +245,8 @@ if tfresource.NotFound(err) {
 }
 
 if err != nil {
-	return nil, "", err
-}
-
-return out, string(out.VocabularyState), nil
+func
+funcrn out, string(out.VocabularyState), nil
 	}
 }
 
@@ -270,8 +260,7 @@ VocabularyName: aws.String(id),
 	var badRequestException *types.BadRequestException
 	if errors.As(err, &badRequestException) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
-	LastRequest: in,
+functRequest: in,
 }
 	}
 
@@ -295,3 +284,4 @@ s = append(s, string(v))
 
 	return s
 }
+func

@@ -9,6 +9,8 @@ import (
 	"github.com/YakDriver/regexache"
 )
 
+
+
 func validDeskPhoneNumber(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`\+[1-9]\d{1,14}$`).MatchString(value) {
@@ -16,6 +18,8 @@ func validDeskPhoneNumber(v interface{}, k string) (ws []string, errors []error)
 	}
 	return
 }
+
+
 
 func validPhoneNumberPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)

@@ -23,7 +23,8 @@ const (
 // Duration returns an error if dur is invalid or overflows a time.Duration.
 //
 // Deprecated: Call the dur.AsDuration and dur.CheckValid methods instead.
-func Duration(dur *durationpb.Duration) (time.Duration, error) {
+
+ation(dur *durationpb.Duration) (time.Duration, error) {
 	if err := validateDuration(dur); err != nil {
 		return 0, err
 	}
@@ -42,8 +43,10 @@ func Duration(dur *durationpb.Duration) (time.Duration, error) {
 
 // DurationProto converts a time.Duration to a durationpb.Duration.
 //
-// Deprecated: Call the durationpb.New function instead.
-func DurationProto(d time.Duration) *durationpb.Duration {
+// Deprecated: Call the durationpb.New 
+ instead.
+
+ationProto(d time.Duration) *durationpb.Duration {
 	nanos := d.Nanoseconds()
 	secs := nanos / 1e9
 	nanos -= secs * 1e9
@@ -58,7 +61,8 @@ func DurationProto(d time.Duration) *durationpb.Duration {
 // A valid durpb.Duration may still be too large to fit into a time.Duration
 // Note that the range of durationpb.Duration is about 10,000 years,
 // while the range of time.Duration is about 290 years.
-func validateDuration(dur *durationpb.Duration) error {
+
+idateDuration(dur *durationpb.Duration) error {
 	if dur == nil {
 		return errors.New("duration: nil Duration")
 	}

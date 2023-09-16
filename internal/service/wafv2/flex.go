@@ -35,7 +35,7 @@ func expandRule(m map[string]interface{}) *wafv2.Rule {
 	rule := &wafv2.Rule{
 		Action:           expandRuleAction(m["action"].([]interface{})),
 		CaptchaConfig:    expandCaptchaConfig(m["captcha_config"].([]interface{})),
-		Name:             aws.String(m["name"].(string)),
+		Name:aws.String(m["name"].(string)),
 		Priority:         aws.Int64(int64(m["priority"].(int))),
 		Statement:        expandRuleGroupRootStatement(m["statement"].([]interface{})),
 		VisibilityConfig: expandVisibilityConfig(m["visibility_config"].([]interface{})),
@@ -816,7 +816,7 @@ func expandRegexPatternSetReferenceStatement(l []interface{}) *wafv2.RegexPatter
 	m := l[0].(map[string]interface{})
 
 	return &wafv2.RegexPatternSetReferenceStatement{
-		ARN:                 aws.String(m["arn"].(string)),
+		ARN:    aws.String(m["arn"].(string)),
 		FieldToMatch:        expandFieldToMatch(m["field_to_match"].([]interface{})),
 		TextTransformations: expandTextTransformations(m["text_transformation"].(*schema.Set).List()),
 	}
@@ -832,7 +832,7 @@ func expandSizeConstraintStatement(l []interface{}) *wafv2.SizeConstraintStateme
 	return &wafv2.SizeConstraintStatement{
 		ComparisonOperator:  aws.String(m["comparison_operator"].(string)),
 		FieldToMatch:        expandFieldToMatch(m["field_to_match"].([]interface{})),
-		Size:                aws.Int64(int64(m["size"].(int))),
+		Size:   aws.Int64(int64(m["size"].(int))),
 		TextTransformations: expandTextTransformations(m["text_transformation"].(*schema.Set).List()),
 	}
 }
@@ -925,7 +925,7 @@ func expandWebACLRule(m map[string]interface{}) *wafv2.Rule {
 	rule := &wafv2.Rule{
 		Action:           expandRuleAction(m["action"].([]interface{})),
 		CaptchaConfig:    expandCaptchaConfig(m["captcha_config"].([]interface{})),
-		Name:             aws.String(m["name"].(string)),
+		Name:aws.String(m["name"].(string)),
 		OverrideAction:   expandOverrideAction(m["override_action"].([]interface{})),
 		Priority:         aws.Int64(int64(m["priority"].(int))),
 		Statement:        expandWebACLRootStatement(m["statement"].([]interface{})),
@@ -1064,7 +1064,7 @@ func expandManagedRuleGroupStatement(l []interface{}) *wafv2.ManagedRuleGroupSta
 
 	m := l[0].(map[string]interface{})
 	r := &wafv2.ManagedRuleGroupStatement{
-		Name:                aws.String(m["name"].(string)),
+		Name:   aws.String(m["name"].(string)),
 		RuleActionOverrides: expandRuleActionOverrides(m["rule_action_override"].([]interface{})),
 		VendorName:          aws.String(m["vendor_name"].(string)),
 	}
@@ -1310,7 +1310,7 @@ func expandRuleGroupReferenceStatement(l []interface{}) *wafv2.RuleGroupReferenc
 	m := l[0].(map[string]interface{})
 
 	return &wafv2.RuleGroupReferenceStatement{
-		ARN:                 aws.String(m["arn"].(string)),
+		ARN:    aws.String(m["arn"].(string)),
 		RuleActionOverrides: expandRuleActionOverrides(m["rule_action_override"].([]interface{})),
 	}
 }
@@ -1830,8 +1830,8 @@ func flattenJSONBody(b *wafv2.JsonBody) interface{} {
 
 	m := map[string]interface{}{
 		"invalid_fallback_behavior": aws.StringValue(b.InvalidFallbackBehavior),
-		"match_pattern":             flattenJSONMatchPattern(b.MatchPattern),
-		"match_scope":               aws.StringValue(b.MatchScope),
+		"match_pattern":flattenJSONMatchPattern(b.MatchPattern),
+		"match_scope":  aws.StringValue(b.MatchScope),
 		"oversize_handling":         aws.StringValue(b.OversizeHandling),
 	}
 
@@ -1907,7 +1907,7 @@ func flattenIPSetReferenceStatement(i *wafv2.IPSetReferenceStatement) interface{
 	}
 
 	m := map[string]interface{}{
-		"arn":                        aws.StringValue(i.ARN),
+		"arn":           aws.StringValue(i.ARN),
 		"ip_set_forwarded_ip_config": flattenIPSetForwardedIPConfig(i.IPSetForwardedIPConfig),
 	}
 
@@ -1984,7 +1984,7 @@ func flattenRegexPatternSetReferenceStatement(r *wafv2.RegexPatternSetReferenceS
 	}
 
 	m := map[string]interface{}{
-		"arn":                 aws.StringValue(r.ARN),
+		"arn":    aws.StringValue(r.ARN),
 		"field_to_match":      flattenFieldToMatch(r.FieldToMatch),
 		"text_transformation": flattenTextTransformations(r.TextTransformations),
 	}
@@ -2000,7 +2000,7 @@ func flattenSizeConstraintStatement(s *wafv2.SizeConstraintStatement) interface{
 	m := map[string]interface{}{
 		"comparison_operator": aws.StringValue(s.ComparisonOperator),
 		"field_to_match":      flattenFieldToMatch(s.FieldToMatch),
-		"size":                int(aws.Int64Value(s.Size)),
+		"size":   int(aws.Int64Value(s.Size)),
 		"text_transformation": flattenTextTransformations(s.TextTransformations),
 	}
 
@@ -2040,7 +2040,7 @@ func flattenVisibilityConfig(config *wafv2.VisibilityConfig) interface{} {
 
 	m := map[string]interface{}{
 		"cloudwatch_metrics_enabled": aws.BoolValue(config.CloudWatchMetricsEnabled),
-		"metric_name":                aws.StringValue(config.MetricName),
+		"metric_name":   aws.StringValue(config.MetricName),
 		"sampled_requests_enabled":   aws.BoolValue(config.SampledRequestsEnabled),
 	}
 

@@ -9,104 +9,172 @@ import (
 )
 
 const (
-	TypeNameCustomizeDiffFunc = `CustomizeDiffFunc`
+	TypeNameCustomizeDiff
+ = `CustomizeDiff
+`
 )
 
-// IsFuncTypeCustomizeDiffFunc returns true if the FuncType matches expected parameters and results types
-func IsFuncTypeCustomizeDiffFunc(node ast.Node, info *types.Info) bool {
-	funcType := astutils.FuncTypeFromNode(node)
+/
+TypeCustomizeDiff
+urns true if the 
+Type matches expected parameters and results types
 
-	if funcType == nil {
+ Is
+TypeCuizeDiff
+(node ast.Node, info *types.Info) bool {
+	
+Type := astutils.
+FromNode(node)
+
+	if 
+Type == nil {
 		return false
 	}
 
-	return isFuncTypeCustomizeDiffFuncV1(funcType, info) || isFuncTypeCustomizeDiffFuncV2(funcType, info)
+	return is
+TypeCustomizeDiff
+V1(
+Type, info) || is
+TustomizeDiff
+
+Type, info)
 }
 
-// IsTypeCustomizeDiffFunc returns if the type is CustomizeDiffFunc from the customdiff package
-func IsTypeCustomizeDiffFunc(t types.Type) bool {
+// IsTypeCustomizeDiff
+ returns if the type is CustomizeDiff
+ from the customdiff package
+
+ IsTypeCustomizeDiff
+(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Named:
-		return IsNamedType(t, TypeNameCustomizeDiffFunc)
+		return IsNamedType(t, TypeNameCustomizeDiff
+)
 	case *types.Pointer:
-		return IsTypeCustomizeDiffFunc(t.Elem())
+		return IsTypeCustomizeDiff
+(t.Elem())
 	default:
 		return false
 	}
 }
 
-// isFuncTypeCustomizeDiffFuncV1 returns true if the FuncType matches expected parameters and results types of V1
-func isFuncTypeCustomizeDiffFuncV1(funcType *ast.FuncType, info *types.Info) bool {
-	if !astutils.HasFieldListLength(funcType.Params, 2) {
+// is
+TypeCustomizeDiff
+V1 returns true if the 
+Type matches expected parameters and results types of V1
+
+ is
+TypeCustomizeDiff
+V1(
+Type *ast.
+Type, info *types.Info) bool {
+	if !astutils.HasFieldListLength(
+Type.Params, 2) {
 		return false
 	}
 
-	if !astutils.IsFieldListTypePackageType(funcType.Params, 0, info, PackagePathVersion(1), TypeNameResourceDiff) {
+	if !astutils.IsFieldListTypePackageType(
+Type.Params, 0, info, PackageVersion(1), TypeNameResourceDiff) {
 		return false
 	}
 
-	if !astutils.IsFieldListType(funcType.Params, 1, astutils.IsExprTypeInterface) {
+	if !astutils.IsFieldListType(
+Type.Params, 1, astutils.IsExprTypeInterface) {
 		return false
 	}
 
-	if !astutils.HasFieldListLength(funcType.Results, 1) {
+	if utils.HasFListLength(
+.Results, 
 		return false
 	}
 
-	return astutils.IsFieldListType(funcType.Results, 0, astutils.IsExprTypeError)
+	return astutils.IldListType(
+Type.Results, 0, astutils.IsExprTypeError)
 }
 
-// isFuncTypeCustomizeDiffFuncV2 returns true if the FuncType matches expected parameters and results types of V2
-func isFuncTypeCustomizeDiffFuncV2(funcType *ast.FuncType, info *types.Info) bool {
-	if !astutils.HasFieldListLength(funcType.Params, 3) {
+// is
+CustomizeDiff
+V2 returns true if th
+Type matches expected parameters and results types of V2
+
+ is
+TypeCustomizeDiff
+V2(
+Type *as
+Type, info *types.Info) bool {
+	if !astutils.HasFieldListLength(
+Type.Params, 3) {
 		return false
 	}
 
-	if !astutils.IsFieldListTypePackageType(funcType.Params, 0, info, "context", "Context") {
+	if !astutils.IsFieldListTypePackageType(
+Type.Params, 0, info, "context", "Context") {
 		return false
 	}
 
-	if !astutils.IsFieldListTypePackageType(funcType.Params, 1, info, PackagePathVersion(2), TypeNameResourceDiff) {
+	if !astutils.IsFieldListTypePackageType(
+Type.Params, 1, info, PackagePathVersion(2), TypeNameResourceDiff) {
 		return false
 	}
 
-	if !astutils.IsFieldListType(funcType.Params, 2, astutils.IsExprTypeInterface) {
+	if !astutils.IsFieldListType(
+Type.Params, 2, astutils.IsExprTypeInterface) {
 		return false
 	}
 
-	if !astutils.HasFieldListLength(funcType.Results, 1) {
+	if !astutils.HasFieldListLength(
+Type.Results, 1) {
 		return false
 	}
 
-	return astutils.IsFieldListType(funcType.Results, 0, astutils.IsExprTypeError)
+	return astutils.IsFieldListType(
+Type.Results, 0, astutils.IsExprTypeError)
 }
 
-// CustomizeDiffFuncInfo represents all gathered CustomizeDiffFunc data for easier access
-type CustomizeDiffFuncInfo struct {
-	AstFuncDecl *ast.FuncDecl
-	AstFuncLit  *ast.FuncLit
+// CustomizeDiff
+Info represents all gathered CustomizeDiff
+ data for easier access
+type CustomizeDiff
+Info struct {
+	Ast
+Decl *ast.
+Decl
+	Ast
+Lit  *ast.
+Lit
 	Body        *ast.BlockStmt
 	Node        ast.Node
 	Pos         token.Pos
-	Type        *ast.FuncType
+	Type        *ast.
+Type
 	TypesInfo   *types.Info
 }
 
-// NewCustomizeDiffFuncInfo instantiates a CustomizeDiffFuncInfo
-func NewCustomizeDiffFuncInfo(node ast.Node, info *types.Info) *CustomizeDiffFuncInfo {
-	result := &CustomizeDiffFuncInfo{
+// NewCustomizeDiff
+Info instantiates a CustomizeDiff
+Info
+
+ NewCustomizeDiff
+Info(node ast.Node, info *types.Info) *CustomizeDiff
+Info {
+	result := &CustomizeDiff
+Info{
 		TypesInfo: info,
 	}
 
 	switch node := node.(type) {
-	case *ast.FuncDecl:
-		result.AstFuncDecl = node
+	case *ast.
+Decl:
+		result.Ast
+Decl = node
 		result.Body = node.Body
 		result.Node = node
 		result.Pos = node.Pos()
 		result.Type = node.Type
-	case *ast.FuncLit:
-		result.AstFuncLit = node
+	case *ast.
+Lit:
+		result.Ast
+Lit = node
 		result.Body = node.Body
 		result.Node = node
 		result.Pos = node.Pos()

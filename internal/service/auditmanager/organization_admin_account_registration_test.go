@@ -46,9 +46,9 @@ func testAccOrganizationAdminAccountRegistration_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationAdminAccountRegistrationDestroy(ctx),
+		CheckDestroy:testAccCheckOrganizationAdminAccountRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationAdminAccountRegistrationConfig_basic(adminAccountID),
@@ -79,9 +79,9 @@ func testAccOrganizationAdminAccountRegistration_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationAdminAccountRegistrationDestroy(ctx),
+		CheckDestroy:testAccCheckOrganizationAdminAccountRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationAdminAccountRegistrationConfig_basic(adminAccountID),

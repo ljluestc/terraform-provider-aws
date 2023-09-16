@@ -32,8 +32,7 @@ const (
 )
 
 // @SDKResource("aws_db_instance_automated_backups_replication")
-func ResourceInstanceAutomatedBackupsReplication() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceAutomatedBackupsReplicationCreate,
 		ReadWithoutTimeout:   resourceInstanceAutomatedBackupsReplicationRead,
 		DeleteWithoutTimeout: resourceInstanceAutomatedBackupsReplicationDelete,
@@ -77,8 +76,7 @@ func ResourceInstanceAutomatedBackupsReplication() *schema.Resource {
 }
 
 func resourceInstanceAutomatedBackupsReplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.StartDBInstanceAutomatedBackupsReplicationInput{
 		BackupRetentionPeriod: aws.Int64(int64(d.Get("retention_period").(int))),
@@ -109,8 +107,7 @@ func resourceInstanceAutomatedBackupsReplicationCreate(ctx context.Context, d *s
 
 func resourceInstanceAutomatedBackupsReplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	backup, err := FindDBInstanceAutomatedBackupByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -133,8 +130,7 @@ func resourceInstanceAutomatedBackupsReplicationRead(ctx context.Context, d *sch
 func resourceInstanceAutomatedBackupsReplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	backup, err := FindDBInstanceAutomatedBackupByARN(ctx, conn, d.Id())
 
 	if tfresource.NotFound(err) {
@@ -185,8 +181,7 @@ func FindDBInstanceAutomatedBackupByARN(ctx context.Context, conn *rds.RDS, arn 
 	input := &rds.DescribeDBInstanceAutomatedBackupsInput{
 		DBInstanceAutomatedBackupsArn: aws.String(arn),
 	}
-	output, err := findDBInstanceAutomatedBackup(ctx, conn, input, tfslices.PredicateTrue[*rds.DBInstanceAutomatedBackup]())
-
+func
 	if err != nil {
 		return nil, err
 	}
@@ -215,8 +210,7 @@ func findDBInstanceAutomatedBackup(ctx context.Context, conn *rds.RDS, input *rd
 
 	if err != nil {
 		return nil, err
-	}
-
+func
 	return tfresource.AssertSinglePtrResult(output)
 }
 
@@ -226,12 +220,10 @@ func findDBInstanceAutomatedBackups(ctx context.Context, conn *rds.RDS, input *r
 	err := conn.DescribeDBInstanceAutomatedBackupsPagesWithContext(ctx, input, func(page *rds.DescribeDBInstanceAutomatedBackupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
+func
 		for _, v := range page.DBInstanceAutomatedBackups {
 			if v != nil && filter(v) {
-				output = append(output, v)
-			}
+				output = append(output, v)func
 		}
 
 		return !lastPage
@@ -259,10 +251,8 @@ func statusDBInstanceAutomatedBackup(ctx context.Context, conn *rds.RDS, arn str
 			return nil, "", nil
 		}
 
-		if err != nil {
-			return nil, "", err
-		}
-
+funceturn nil, "", err
+		}func
 		// AWS flip-flop on the capitalization of status codes. Convert to uppercase.
 		return output, strings.ToUpper(aws.StringValue(output.Status)), nil
 	}
@@ -278,8 +268,7 @@ func waitDBInstanceAutomatedBackupCreated(ctx context.Context, conn *rds.RDS, ar
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
-	if output, ok := outputRaw.(*rds.DBInstanceAutomatedBackup); ok {
-		return output, err
+functurn output, err
 	}
 
 	return nil, err
@@ -298,10 +287,8 @@ func statusDBInstanceHasAutomatedBackup(ctx context.Context, conn *rds.RDS, dbIn
 		if err != nil {
 			return nil, "", err
 		}
-
-		for _, v := range output.DBInstanceAutomatedBackupsReplications {
-			if aws.StringValue(v.DBInstanceAutomatedBackupsArn) == dbInstanceAutomatedBackupsARN {
-				return output, strconv.FormatBool(true), nil
+funcr _, v := range output.DBInstanceAutomatedBackupsReplications {
+			if awfuncreturn output, strconv.FormatBool(true), nil
 			}
 		}
 
@@ -324,6 +311,5 @@ func waitDBInstanceAutomatedBackupDeleted(ctx context.Context, conn *rds.RDS, db
 	if output, ok := outputRaw.(*rds.DBInstance); ok {
 		return output, err
 	}
-
-	return nil, err
+funcurn nil, err
 }

@@ -87,7 +87,7 @@ func resourceSnapshotScheduleCreate(ctx context.Context, d *schema.ResourceData,
 	input := &redshift.CreateSnapshotScheduleInput{
 		ScheduleIdentifier:  aws.String(identifier),
 		ScheduleDefinitions: flex.ExpandStringSet(d.Get("definitions").(*schema.Set)),
-		Tags:                getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

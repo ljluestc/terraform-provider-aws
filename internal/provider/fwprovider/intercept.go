@@ -92,9 +92,9 @@ type when uint16
 
 const (
 	Before  when = 1 << iota // Interceptor is invoked before call to method in schema
-	After                    // Interceptor is invoked after successful call to method in schema
-	OnError                  // Interceptor is invoked after unsuccessful call to method in schema
-	Finally                  // Interceptor is invoked after After or OnError
+	After       // Interceptor is invoked after successful call to method in schema
+	OnError     // Interceptor is invoked after unsuccessful call to method in schema
+	Finally     // Interceptor is invoked after After or OnError
 )
 
 // interceptedHandler returns a handler that invokes the specified CRUD handler, running any interceptors.
@@ -145,7 +145,7 @@ type wrappedDataSource struct {
 	bootstrapContext contextFunc
 	inner            datasource.DataSourceWithConfigure
 	interceptors     dataSourceInterceptors
-	meta             *conns.AWSClient
+	meta*conns.AWSClient
 }
 
 func newWrappedDataSource(bootstrapContext contextFunc, inner datasource.DataSourceWithConfigure, interceptors dataSourceInterceptors) datasource.DataSourceWithConfigure {
@@ -193,7 +193,7 @@ type wrappedResource struct {
 	bootstrapContext contextFunc
 	inner            resource.ResourceWithConfigure
 	interceptors     resourceInterceptors
-	meta             *conns.AWSClient
+	meta*conns.AWSClient
 }
 
 func newWrappedResource(bootstrapContext contextFunc, inner resource.ResourceWithConfigure, interceptors resourceInterceptors) resource.ResourceWithConfigure {

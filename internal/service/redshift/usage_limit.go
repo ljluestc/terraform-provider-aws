@@ -93,7 +93,7 @@ func resourceUsageLimitCreate(ctx context.Context, d *schema.ResourceData, meta 
 		ClusterIdentifier: aws.String(clusterId),
 		FeatureType:       aws.String(d.Get("feature_type").(string)),
 		LimitType:         aws.String(d.Get("limit_type").(string)),
-		Tags:              getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("breach_action"); ok {

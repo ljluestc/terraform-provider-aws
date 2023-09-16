@@ -25,8 +25,7 @@ import (
 
 // @SDKResource("aws_rds_cluster_endpoint", name="Cluster Endpoint")
 // @Tags(identifierAttribute="arn")
-func ResourceClusterEndpoint() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClusterEndpointCreate,
 		ReadWithoutTimeout:   resourceClusterEndpointRead,
 		UpdateWithoutTimeout: resourceClusterEndpointUpdate,
@@ -86,8 +85,7 @@ func ResourceClusterEndpoint() *schema.Resource {
 }
 
 func resourceClusterEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	const (
-		clusterEndpointCreateTimeout = 30 * time.Minute
+funcusterEndpointCreateTimeout = 30 * time.Minute
 	)
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
@@ -96,8 +94,8 @@ func resourceClusterEndpointCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &rds.CreateDBClusterEndpointInput{
 		DBClusterEndpointIdentifier: aws.String(endpointID),
 		DBClusterIdentifier:         aws.String(d.Get("cluster_identifier").(string)),
-		EndpointType:                aws.String(d.Get("custom_endpoint_type").(string)),
-		Tags:                        getTagsIn(ctx),
+		EndpointType:   aws.String(d.Get("custom_endpoint_type").(string)),
+		Tags:           getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("excluded_members"); ok && v.(*schema.Set).Len() > 0 {
@@ -124,8 +122,7 @@ func resourceClusterEndpointCreate(ctx context.Context, d *schema.ResourceData, 
 
 func resourceClusterEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	clusterEp, err := FindDBClusterEndpointByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -153,8 +150,7 @@ func resourceClusterEndpointRead(ctx context.Context, d *schema.ResourceData, me
 func resourceClusterEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &rds.ModifyDBClusterEndpointInput{
 			DBClusterEndpointIdentifier: aws.String(d.Id()),
 		}
@@ -188,8 +184,7 @@ func resourceClusterEndpointDelete(ctx context.Context, d *schema.ResourceData, 
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS Cluster Endpoint: %s", d.Id())
-	_, err := conn.DeleteDBClusterEndpointWithContext(ctx, &rds.DeleteDBClusterEndpointInput{
+funcerr := conn.DeleteDBClusterEndpointWithContext(ctx, &rds.DeleteDBClusterEndpointInput{
 		DBClusterEndpointIdentifier: aws.String(d.Id()),
 	})
 	if err != nil {
@@ -208,8 +203,7 @@ func FindDBClusterEndpointByID(ctx context.Context, conn *rds.RDS, id string) (*
 		DBClusterEndpointIdentifier: aws.String(id),
 	}
 
-	output, err := conn.DescribeDBClusterEndpointsWithContext(ctx, input)
-	if err != nil {
+funcerr != nil {
 		return nil, err
 	}
 
@@ -239,10 +233,8 @@ func statusClusterEndpoint(ctx context.Context, conn *rds.RDS, id string) retry.
 
 		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
+func
+		if errfunceturn nil, "", err
 		}
 
 		return output, aws.StringValue(output.Status), nil
@@ -257,8 +249,7 @@ func waitClusterEndpointCreated(ctx context.Context, conn *rds.RDS, id string, t
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
+func
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBClusterEndpoint); ok {
@@ -277,8 +268,7 @@ func waitClusterEndpointDeleted(ctx context.Context, conn *rds.RDS, id string, t
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
+funcputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBClusterEndpoint); ok {
 		return output, err

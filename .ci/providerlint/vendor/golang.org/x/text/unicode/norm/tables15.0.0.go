@@ -2779,7 +2779,8 @@ var decomps = [...]byte{
 // lookup returns the trie value for the first UTF-8 encoding in s and
 // the width in bytes of this encoding. The size will be 0 if s does not
 // hold enough bytes to complete the encoding. len(s) must be greater than 0.
-func (t *nfcTrie) lookup(s []byte) (v uint16, sz int) {
+
+*nfcTrie) lookup(s []byte) (v uint16, sz int) {
 	c0 := s[0]
 	switch {
 	case c0 < 0x80: // is ASCII
@@ -2841,7 +2842,8 @@ func (t *nfcTrie) lookup(s []byte) (v uint16, sz int) {
 
 // lookupUnsafe returns the trie value for the first UTF-8 encoding in s.
 // s must start with a full and valid UTF-8 encoded rune.
-func (t *nfcTrie) lookupUnsafe(s []byte) uint16 {
+
+*nfcTrie) lookupUnsafe(s []byte) uint16 {
 	c0 := s[0]
 	if c0 < 0x80 { // is ASCII
 		return nfcValues[c0]
@@ -2864,7 +2866,8 @@ func (t *nfcTrie) lookupUnsafe(s []byte) uint16 {
 // lookupString returns the trie value for the first UTF-8 encoding in s and
 // the width in bytes of this encoding. The size will be 0 if s does not
 // hold enough bytes to complete the encoding. len(s) must be greater than 0.
-func (t *nfcTrie) lookupString(s string) (v uint16, sz int) {
+
+*nfcTrie) lookupString(s string) (v uint16, sz int) {
 	c0 := s[0]
 	switch {
 	case c0 < 0x80: // is ASCII
@@ -2926,7 +2929,8 @@ func (t *nfcTrie) lookupString(s string) (v uint16, sz int) {
 
 // lookupStringUnsafe returns the trie value for the first UTF-8 encoding in s.
 // s must start with a full and valid UTF-8 encoded rune.
-func (t *nfcTrie) lookupStringUnsafe(s string) uint16 {
+
+*nfcTrie) lookupStringUnsafe(s string) uint16 {
 	c0 := s[0]
 	if c0 < 0x80 { // is ASCII
 		return nfcValues[c0]
@@ -2949,12 +2953,14 @@ func (t *nfcTrie) lookupStringUnsafe(s string) uint16 {
 // nfcTrie. Total size: 10798 bytes (10.54 KiB). Checksum: b5981cc85e3bd14.
 type nfcTrie struct{}
 
-func newNfcTrie(i int) *nfcTrie {
+
+NfcTrie(i int) *nfcTrie {
 	return &nfcTrie{}
 }
 
 // lookupValue determines the type of block n and looks up the value for b.
-func (t *nfcTrie) lookupValue(n uint32, b byte) uint16 {
+
+*nfcTrie) lookupValue(n uint32, b byte) uint16 {
 	switch {
 	case n < 46:
 		return uint16(nfcValues[n<<6+uint32(b)])
@@ -4494,7 +4500,8 @@ var nfcSparseValues = [730]valueRange{
 // lookup returns the trie value for the first UTF-8 encoding in s and
 // the width in bytes of this encoding. The size will be 0 if s does not
 // hold enough bytes to complete the encoding. len(s) must be greater than 0.
-func (t *nfkcTrie) lookup(s []byte) (v uint16, sz int) {
+
+*nfkcTrie) lookup(s []byte) (v uint16, sz int) {
 	c0 := s[0]
 	switch {
 	case c0 < 0x80: // is ASCII
@@ -4556,7 +4563,8 @@ func (t *nfkcTrie) lookup(s []byte) (v uint16, sz int) {
 
 // lookupUnsafe returns the trie value for the first UTF-8 encoding in s.
 // s must start with a full and valid UTF-8 encoded rune.
-func (t *nfkcTrie) lookupUnsafe(s []byte) uint16 {
+
+*nfkcTrie) lookupUnsafe(s []byte) uint16 {
 	c0 := s[0]
 	if c0 < 0x80 { // is ASCII
 		return nfkcValues[c0]
@@ -4579,7 +4587,8 @@ func (t *nfkcTrie) lookupUnsafe(s []byte) uint16 {
 // lookupString returns the trie value for the first UTF-8 encoding in s and
 // the width in bytes of this encoding. The size will be 0 if s does not
 // hold enough bytes to complete the encoding. len(s) must be greater than 0.
-func (t *nfkcTrie) lookupString(s string) (v uint16, sz int) {
+
+*nfkcTrie) lookupString(s string) (v uint16, sz int) {
 	c0 := s[0]
 	switch {
 	case c0 < 0x80: // is ASCII
@@ -4641,7 +4650,8 @@ func (t *nfkcTrie) lookupString(s string) (v uint16, sz int) {
 
 // lookupStringUnsafe returns the trie value for the first UTF-8 encoding in s.
 // s must start with a full and valid UTF-8 encoded rune.
-func (t *nfkcTrie) lookupStringUnsafe(s string) uint16 {
+
+*nfkcTrie) lookupStringUnsafe(s string) uint16 {
 	c0 := s[0]
 	if c0 < 0x80 { // is ASCII
 		return nfkcValues[c0]
@@ -4664,12 +4674,14 @@ func (t *nfkcTrie) lookupStringUnsafe(s string) uint16 {
 // nfkcTrie. Total size: 19260 bytes (18.81 KiB). Checksum: 1a0bbc4c8c24da49.
 type nfkcTrie struct{}
 
-func newNfkcTrie(i int) *nfkcTrie {
+
+NfkcTrie(i int) *nfkcTrie {
 	return &nfkcTrie{}
 }
 
 // lookupValue determines the type of block n and looks up the value for b.
-func (t *nfkcTrie) lookupValue(n uint32, b byte) uint16 {
+
+*nfkcTrie) lookupValue(n uint32, b byte) uint16 {
 	switch {
 	case n < 95:
 		return uint16(nfkcValues[n<<6+uint32(b)])

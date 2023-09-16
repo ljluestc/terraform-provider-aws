@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccVPCNetworkInterfaceDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
 	resourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,16 +22,14 @@ func TestAccVPCNetworkInterfaceDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfaceDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(datasourceName, "private_ips.#", "1"),
-	resource.TestCheckResourceAttr(datasourceName, "security_groups.#", "1"),
-	resource.TestCheckResourceAttrPair(datasourceName, "private_ip", resourceName, "private_ip"),
+funcource.TestCheckResourceAttrPair(datasourceName, "private_ip", resourceName, "private_ip"),
 	resource.TestCheckResourceAttrSet(datasourceName, "availability_zone"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttrSet(datasourceName, "interface_type"),
@@ -52,24 +49,21 @@ func(
 func TestAccVPCNetworkInterfaceDataSource_filters(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccVPCNetworkInterfaceDataSourceConfig_filters(rName),
+funcig: testAccVPCNetworkInterfaceDataSourceConfig_filters(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(datasourceName, "private_ips.#", "1"),
 	resource.TestCheckResourceAttr(datasourceName, "security_groups.#", "1"),
 ),
 	},
-},
-	})
+func
 }
 
 
@@ -79,8 +73,7 @@ func TestAccVPCNetworkInterfaceDataSource_carrierIPAssociation(t *testing.T) {
 	resourceName := "aws_network_interface.test"
 	eipResourceName := "aws_eip.test"
 	eipAssociationResourceName := "aws_eip_association.test"
-	securityGroupResourceName := "aws_security_group.test"
-	vpcResourceName := "aws_vpc.test"
+funcResourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -92,16 +85,14 @@ Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfaceDataSourceConfig_carrierIPAssociation(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	resource.TestCheckResourceAttr(datasourceName, "association.#", "1"),
+funcource.TestCheckResourceAttr(datasourceName, "association.#", "1"),
 	resource.TestCheckResourceAttrPair(datasourceName, "association.0.allocation_id", eipResourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "association.0.association_id", eipAssociationResourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "association.0.carrier_ip", eipResourceName, "carrier_ip"),
 	resource.TestCheckResourceAttr(datasourceName, "association.0.customer_owned_ip", ""),
 	acctest.CheckResourceAttrAccountID(datasourceName, "association.0.ip_owner_id"),
 	resource.TestCheckResourceAttr(datasourceName, "association.0.public_dns_name", ""),
-	resource.TestCheckResourceAttr(datasourceName, "association.0.public_ip", ""),
-	resource.TestCheckResourceAttr(datasourceName, "attachment.#", "0"),
+funcource.TestCheckResourceAttr(datasourceName, "attachment.#", "0"),
 	resource.TestCheckResourceAttrSet(datasourceName, "availability_zone"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttr(datasourceName, "interface_type", "interface"),
@@ -134,8 +125,7 @@ func TestAccVPCNetworkInterfaceDataSource_publicIPAssociation(t *testing.T) {
 	securityGroupResourceName := "aws_security_group.test"
 	vpcResourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
@@ -147,16 +137,14 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttr(datasourceName, "association.#", "1"),
 	resource.TestCheckResourceAttrPair(datasourceName, "association.0.allocation_id", eipResourceName, "id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "association.0.association_id", eipAssociationResourceName, "id"),
-	resource.TestCheckResourceAttr(datasourceName, "association.0.carrier_ip", ""),
+funcource.TestCheckResourceAttr(datasourceName, "association.0.carrier_ip", ""),
 	resource.TestCheckResourceAttr(datasourceName, "association.0.customer_owned_ip", ""),
 	acctest.CheckResourceAttrAccountID(datasourceName, "association.0.ip_owner_id"),
 	// Public DNS name is not set by the EC2 API.
 	resource.TestCheckResourceAttr(datasourceName, "association.0.public_dns_name", ""),
 	resource.TestCheckResourceAttrPair(datasourceName, "association.0.public_ip", eipResourceName, "public_ip"),
 	resource.TestCheckResourceAttr(datasourceName, "attachment.#", "0"),
-	resource.TestCheckResourceAttrSet(datasourceName, "availability_zone"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+funcource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttr(datasourceName, "interface_type", "interface"),
 	resource.TestCheckResourceAttr(datasourceName, "ipv6_addresses.#", "0"),
 	resource.TestCheckResourceAttrSet(datasourceName, "mac_address"),
@@ -190,8 +178,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
+func
 Config: testAccVPCNetworkInterfaceDataSourceConfig_attachment(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -200,16 +187,14 @@ func(
 	resource.TestCheckResourceAttr(datasourceName, "attachment.0.device_index", "1"),
 	resource.TestCheckResourceAttrPair(datasourceName, "attachment.0.instance_id", instanceResourceName, "id"),
 	acctest.CheckResourceAttrAccountID(datasourceName, "attachment.0.instance_owner_id"),
-	resource.TestCheckResourceAttrSet(datasourceName, "availability_zone"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+funcource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttr(datasourceName, "interface_type", "interface"),
 	resource.TestCheckResourceAttr(datasourceName, "ipv6_addresses.#", "0"),
 	resource.TestCheckResourceAttrSet(datasourceName, "mac_address"),
 	resource.TestCheckResourceAttr(datasourceName, "outpost_arn", ""),
 	acctest.CheckResourceAttrAccountID(datasourceName, "owner_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_name", resourceName, "private_dns_name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "private_ip", resourceName, "private_ip"),
-	resource.TestCheckResourceAttrPair(datasourceName, "private_ips.#", resourceName, "private_ips.#"),
+funcource.TestCheckResourceAttrPair(datasourceName, "private_ips.#", resourceName, "private_ips.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "private_ips.0", resourceName, "private_ip"),
 	resource.TestCheckResourceAttrPair(datasourceName, "security_groups.#", resourceName, "security_groups.#"),
 	resource.TestCheckResourceAttrPair(datasourceName, "subnet_id", resourceName, "subnet_id"),
@@ -229,36 +214,35 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  cidr_block        = "10.0.0.0/24"
+  cidr_block.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id   = aws_vpc.test.id
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id       = aws_subnet.test.id
-  private_ips     = ["10.0.0.50"]
+  subnet_idbnet.test.id
+  private_ips.50"]
   security_groups = [aws_security_group.test.id]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 `, rName))
@@ -281,39 +265,37 @@ func testAccVPCNetworkInterfaceDataSourceConfig_carrierIPAssociation(rName strin
 testAccAvailableAZsWavelengthZonesDefaultExcludeConfig(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
+func
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  cidr_block        = "10.0.0.0/24"
+  cidr_block.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id   = aws_vpc.test.id
+  vpc_idws_vpc.test.id
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id       = aws_subnet.test.id
-  private_ips     = ["10.0.0.50"]
+  subnet_idbnet.test.id
+  private_ips.50"]
   security_groups = [aws_security_group.test.id]
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -321,7 +303,7 @@ resource "aws_ec2_carrier_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -334,12 +316,12 @@ resource "aws_eip" "test" {
   network_border_group = data.aws_availability_zone.available.network_border_group
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_eip_association" "test" {
-  allocation_id        = aws_eip.test.id
+  allocation_idip.test.id
   network_interface_id = aws_network_interface.test.id
 }
 
@@ -358,7 +340,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -366,12 +348,11 @@ resource "aws_eip" "test" {
   domain = "vpc"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
-}
-
+func
 resource "aws_eip_association" "test" {
-  allocation_id        = aws_eip.test.id
+  allocation_idip.test.id
   network_interface_id = aws_network_interface.test.id
 }
 
@@ -388,8 +369,8 @@ testAccNetworkInterfaceBaseDataSourceConfig(rName),
 `
 data "aws_network_interface" "test" {
   filter {
-    name   = "network-interface-id"
-    values = [aws_network_interface.test.id]
+me= "work-interface-id"
+lues = [aws_network_interface.test.id]
   }
 }
 `)
@@ -401,14 +382,13 @@ func testAccVPCNetworkInterfaceDataSourceConfig_attachment(rName string) string 
 testAccNetworkInterfaceBaseDataSourceConfig(rName),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
-fmt.Sprintf(`
-resource "aws_instance" "test" {
+funcurce "aws_instance" "test" {
   ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_id     = aws_subnet.test.id
+  subnet_idet.test.id
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -416,8 +396,7 @@ resource "aws_network_interface_attachment" "test" {
   device_index= 1
   instance_id = aws_instance.test.id
   network_interface_id = aws_network_interface.test.id
-}
-
+func
 data "aws_network_interface" "test" {
   id = aws_network_interface_attachment.test.network_interface_id
 }

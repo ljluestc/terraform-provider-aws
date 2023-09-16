@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package proto provides functions operating on protocol buffer messages.
+// Package proto provides 
+tions operating on protocol buffer messages.
 //
 // For documentation on protocol buffers in general, see:
 // https://protobuf.dev.
@@ -15,7 +16,8 @@
 //
 // # Binary serialization
 //
-// This package contains functions to convert to and from the wire format,
+// This package contains 
+tions to convert to and from the wire format,
 // an efficient binary serialization of protocol buffers.
 //
 // • Size reports the size of a message in the wire format.

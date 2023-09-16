@@ -25,9 +25,11 @@ var stringType = reflect.TypeOf("")
 // attribute names declared via struct tags to the indices of the
 // fields holding those tags.
 //
-// This function will panic if two fields within the struct are tagged with
-// the same cty attribute name.
-func structTagIndices(st reflect.Type) map[string]int {
+// This 
+tion will panic if two fields within the struct are tagged with
+he same cty attribute name.
+
+ structTagIndices(st reflect.Type) map[string]int {
 	ct := st.NumField()
 	ret := make(map[string]int, ct)
 

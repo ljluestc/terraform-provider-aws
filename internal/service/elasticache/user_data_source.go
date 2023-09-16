@@ -15,6 +15,8 @@ import (
 )
 
 // @SDKDataSource("aws_elasticache_user")
+
+
 func DataSourceUser() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserRead,
@@ -66,6 +68,8 @@ func DataSourceUser() *schema.Resource {
 		},
 	}
 }
+
+
 
 func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

@@ -30,7 +30,7 @@ func TestAccFSxOpenzfsVolume_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_basic(rName),
@@ -73,7 +73,7 @@ func TestAccFSxOpenzfsVolume_parentVolume(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_parent(rName, rName2),
@@ -105,7 +105,7 @@ func TestAccFSxOpenzfsVolume_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_tags1(rName, "key1", "value1"),
@@ -153,7 +153,7 @@ func TestAccFSxOpenzfsVolume_copyTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_copyTags(rName, "key1", "value1", "true"),
@@ -193,7 +193,7 @@ func TestAccFSxOpenzfsVolume_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_basic(rName),
@@ -229,7 +229,7 @@ func TestAccFSxOpenzfsVolume_dataCompressionType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_dataCompression(rName, "ZSTD"),
@@ -265,7 +265,7 @@ func TestAccFSxOpenzfsVolume_readOnly(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_readOnly(rName, "false"),
@@ -301,7 +301,7 @@ func TestAccFSxOpenzfsVolume_recordSizeKib(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_recordSizeKib(rName, 8),
@@ -337,7 +337,7 @@ func TestAccFSxOpenzfsVolume_storageCapacity(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_storageCapacity(rName, 30, 20),
@@ -375,7 +375,7 @@ func TestAccFSxOpenzfsVolume_nfsExports(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_nfsExports1(rName),
@@ -427,7 +427,7 @@ func TestAccFSxOpenzfsVolume_userAndGroupQuotas(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOpenzfsVolumeDestroy(ctx),
+CheckDestroy:testAccCheckOpenzfsVolumeDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOpenZFSVolumeConfig_userAndGroupQuotas1(rName, 256),
@@ -591,7 +591,7 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSVolumeConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 `, rName))
@@ -600,12 +600,12 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_parent(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 
 resource "aws_fsx_openzfs_volume" "test2" {
-  name             = %[2]q
+  name= %[2]q
   parent_volume_id = aws_fsx_openzfs_volume.test.id
 }
 `, rName, rName2))
@@ -614,7 +614,7 @@ resource "aws_fsx_openzfs_volume" "test2" {
 func testAccOpenZFSVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 
   tags = {
@@ -627,7 +627,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 
 
@@ -666,7 +666,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_readOnly(rName, readOnly string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   read_only        = %[2]s
 }
@@ -676,7 +676,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_recordSizeKib(rName string, recordSizeKib int) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   record_size_kib  = %[2]d
 }
@@ -686,7 +686,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_storageCapacity(rName string, storageQuota, storageReservation int) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name              = %[1]q
+  name = %[1]q
   parent_volume_id  = aws_fsx_openzfs_file_system.test.root_volume_id
   storage_capacity_quota_gib       = %[2]d
   storage_capacity_reservation_gib = %[3]d
@@ -697,7 +697,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_nfsExports1(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   nfs_exports {
     client_configurations {
@@ -713,7 +713,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_nfsExports2(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   nfs_exports {
     client_configurations {
@@ -732,7 +732,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_userAndGroupQuotas1(rName string, quotaSize int) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   user_and_group_quotas {
     id          = 10
@@ -746,7 +746,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_userAndGroupQuotas2(rName string, userQuota, groupQuota int) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name             = %[1]q
+  name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   user_and_group_quotas {
     id          = 10

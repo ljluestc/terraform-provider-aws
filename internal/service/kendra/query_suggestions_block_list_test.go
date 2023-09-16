@@ -19,6 +19,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -29,7 +31,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -61,6 +65,8 @@ ImportStateVerify: true,
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_Description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -71,7 +77,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -110,6 +118,8 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_Name(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -121,7 +131,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -153,6 +165,8 @@ ImportStateVerify: true,
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_RoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -163,7 +177,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -195,6 +211,8 @@ ImportStateVerify: true,
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_SourceS3Path(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -205,7 +223,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -239,6 +259,8 @@ ImportStateVerify: true,
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -249,7 +271,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -270,6 +294,8 @@ ExpectNonEmptyPlan: true,
 	})
 }
 
+
+
 func TestAccKendraQuerySuggestionsBlockList_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -280,7 +306,9 @@ t.Skip("skipping long-running test in short mode")
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 	testAccPreCheck(ctx, t)
@@ -323,8 +351,12 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 
+
+
 func testAccCheckQuerySuggestionsBlockListDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -354,8 +386,12 @@ return nil
 	}
 }
 
+
+
 func testAccCheckQuerySuggestionsBlockListExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
@@ -381,6 +417,8 @@ if err != nil {
 return nil
 	}
 }
+
+
 
 func testAccQuerySuggestionsBlockListBaseConfig(rName string) string {
 	return fmt.Sprintf(`
@@ -450,6 +488,8 @@ resource "aws_kendra_index" "test" {
 `, rName)
 }
 
+
+
 func testAccQuerySuggestionsBlockListConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 testAccQuerySuggestionsBlockListBaseConfig(rName),
@@ -466,6 +506,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 }
 `, rName))
 }
+
+
 
 func testAccQuerySuggestionsBlockListConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(
@@ -485,6 +527,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 `, description, rName))
 }
 
+
+
 func testAccQuerySuggestionsBlockListConfig_name(rName, name string) string {
 	return acctest.ConfigCompose(
 testAccQuerySuggestionsBlockListBaseConfig(rName),
@@ -501,6 +545,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 }
 `, name))
 }
+
+
 
 func testAccQuerySuggestionsBlockListConfig_roleARN(rName string) string {
 	return acctest.ConfigCompose(
@@ -536,6 +582,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 `, rName))
 }
 
+
+
 func testAccQuerySuggestionsBlockListConfig_sourceS3Path(rName string) string {
 	return acctest.ConfigCompose(
 testAccQuerySuggestionsBlockListBaseConfig(rName),
@@ -559,6 +607,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 `, rName))
 }
 
+
+
 func testAccQuerySuggestionsBlockListConfig_tags1(rName, tag, value string) string {
 	return acctest.ConfigCompose(
 testAccQuerySuggestionsBlockListBaseConfig(rName),
@@ -579,6 +629,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 }
 `, rName, tag, value))
 }
+
+
 
 func testAccQuerySuggestionsBlockListConfig_tags2(rName, tag1, value1, tag2, value2 string) string {
 	return acctest.ConfigCompose(

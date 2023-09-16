@@ -24,10 +24,9 @@ import (
 // @SDKResource("aws_ec2_transit_gateway_connect", name="Transit Gateway Connect")
 // @Tags(identifierAttribute="id")
 
-func ResourceTransitGatewayConnect() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceTransitGatewayConnectCreate,
-ReadWithoutTimeout:   resourceTransitGatewayConnectRead,
+ReadWithoutTimeout:ourceTransitGatewayConnectRead,
 UpdateWithoutTimeout: resourceTransitGatewayConnectUpdate,
 DeleteWithoutTimeout: resourceTransitGatewayConnectDelete,
 
@@ -46,52 +45,48 @@ CustomizeDiff: verify.SetTagsDiff,
 Schema: map[string]*schema.Schema{
 	"protocol": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      ec2.ProtocolValueGre,
+Optional:
+ForceNew:
+Default:colValueGre,
 Validate
 func: validation.StringInSlice(ec2.ProtocolValue_Values(), false),
-	},
-	names.AttrTags:    tftags.TagsSchema(),
+funces.AttrTags:tags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"transit_gateway_default_route_table_association": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  true,
 	},
 	"transit_gateway_default_route_table_propagation": {
-Type:     schema.TypeBool,
+Type:eBool,
 Optional: true,
 Default:  true,
 	},
 	"transit_gateway_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 Validate
 func: validation.NoZeroValues,
 	},
-	"transport_attachment_id": {
-Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+func:schema.TypeString,
+Required:
+ForceNew:
 Validate
 func: validation.NoZeroValues,
 	},
 },
-	}
-}
+func
 
 
 func resourceTransitGatewayConnectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	transportAttachmentID := d.Get("transport_attachment_id").(string)
-	input := &ec2.CreateTransitGatewayConnectInput{
-Options: &ec2.CreateTransitGatewayConnectRequestOptions{
+funcons: &ec2.CreateTransitGatewayConnectRequestOptions{
 	Protocol: aws.String(d.Get("protocol").(string)),
 },
-TagSpecifications:    getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
+TagSpecifications:tTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
 TransportTransitGatewayAttachmentId: aws.String(transportAttachmentID),
 	}
 
@@ -141,8 +136,7 @@ func resourceTransitGatewayConnectRead(ctx context.Context, d *schema.ResourceDa
 
 	transitGatewayConnect, err := FindTransitGatewayConnectByID(ctx, conn, d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] EC2 Transit Gateway Connect %s not found, removing from state", d.Id())
+funcPrintf("[WARN] EC2 Transit Gateway Connect %s not found, removing from state", d.Id())
 d.SetId("")
 return nil
 	}
@@ -212,8 +206,7 @@ func resourceTransitGatewayConnectUpdate(ctx context.Context, d *schema.Resource
 	if d.HasChanges("transit_gateway_default_route_table_association", "transit_gateway_default_route_table_propagation") {
 transitGatewayID := d.Get("transit_gateway_id").(string)
 transitGateway, err := FindTransitGatewayByID(ctx, conn, transitGatewayID)
-
-if err != nil {
+funcrr != nil {
 	return diag.Errorf("reading EC2 Transit Gateway (%s): %s", transitGatewayID, err)
 }
 
@@ -241,8 +234,7 @@ func resourceTransitGatewayConnectDelete(ctx context.Context, d *schema.Resource
 	_, err := conn.DeleteTransitGatewayConnectWithContext(ctx, &ec2.DeleteTransitGatewayConnectInput{
 TransitGatewayAttachmentId: aws.String(d.Id()),
 	})
-
-	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
+functfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayAttachmentIDNotFound) {
 return nil
 	}
 

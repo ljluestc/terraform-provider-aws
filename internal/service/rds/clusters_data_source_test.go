@@ -13,18 +13,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRDSClustersDataSource_filter(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var dbCluster rds.DBCluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_rds_clusters.test"
 	resourceName := "aws_rds_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClustersDataSourceConfig_filter(rName),
@@ -42,8 +40,7 @@ func TestAccRDSClustersDataSource_filter(t *testing.T) {
 
 func testAccClustersDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
-resource "aws_rds_cluster" "test" {
-  cluster_identifier  = %[1]q
+funcuster_identifier  = %[1]q
   database_name       = "test"
   master_username     = "tfacctest"
   master_password     = "avoid-plaintext-passwords"

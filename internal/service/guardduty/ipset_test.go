@@ -30,10 +30,10 @@ func testAccIPSet_basic(t *testing.T) {
 	resourceName := "aws_guardduty_ipset.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+		CheckDestroy:Destroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPSetConfig_basic(bucketName, keyName1, ipsetName1, true),
@@ -47,8 +47,8 @@ func testAccIPSet_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -70,10 +70,10 @@ func testAccIPSet_tags(t *testing.T) {
 	resourceName := "aws_guardduty_ipset.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:x, t) },
+		ErrorCheck:y.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+		CheckDestroy:Destroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPSetConfig_tags1(rName, "key1", "value1"),
@@ -84,8 +84,8 @@ func testAccIPSet_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ame,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -174,21 +174,21 @@ func testAccIPSetConfig_basic(bucketName, keyName, ipsetName string, activate bo
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = "%s"
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = "%s"
+  key
 }
 
 resource "aws_guardduty_ipset" "test" {
-  name        = "%s"
+  name
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
   activate    = %t
 }
@@ -200,23 +200,23 @@ func testAccIPSetConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key
 }
 
 resource "aws_guardduty_ipset" "test" {
   activate    = true
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  name        = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q
@@ -230,23 +230,23 @@ func testAccIPSetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 stri
 resource "aws_guardduty_detector" "test" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  acl     = "public-read"
+  aclread"
   content = "10.0.0.0/8\n"
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key
 }
 
 resource "aws_guardduty_ipset" "test" {
   activate    = true
   detector_id = aws_guardduty_detector.test.id
-  format      = "TXT"
+  format
   location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  name        = %[1]q
+  name
 
   tags = {
     %[2]q = %[3]q

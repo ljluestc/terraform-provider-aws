@@ -2,83 +2,108 @@ package stdlib
 
 import (
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-var NotFunc = function.New(&function.Spec{
+var Not
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Applies the logical NOT operation to the given boolean value.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:             "val",
-			Type:             cty.Bool,
+			Type:         cty.Bool,
 			AllowDynamicType: true,
-			AllowMarked:      true,
+			Alloked:      true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.Bool),
-	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Type:         
+tion.StaticReturnType(cty.Bool),
+	Refinelt:ineNonNull
+	Impl: 
+(args [.Value, retType cty.Type) (cty.Value, error) {
 		return args[0].Not(), nil
 	},
 })
 
-var AndFunc = function.New(&function.Spec{
+var And
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Applies the logical AND operation to the given boolean values.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:             "a",
-			Type:             cty.Bool,
+			Type:         cty.Bool,
 			AllowDynamicType: true,
-			AllowMarked:      true,
+			Alloked:      true,
 		},
 		{
 			Name:             "b",
 			Type:             cty.Bool,
-			AllowDynamicType: true,
+			Allnampe: true,
 			AllowMarked:      true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.Bool),
+	Type:         
+tion.StaticReturnType(cty.Bool),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		return args[0].And(args[1]), nil
 	},
 })
 
-var OrFunc = function.New(&function.Spec{
+var Or
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Applies the logical OR operation to the given boolean values.`,
-	Params: []function.Parameter{
+	Params
+tion.Parameter{
 		{
 			Name:             "a",
 			Type:             cty.Bool,
 			AllowDynamicType: true,
-			AllowMarked:      true,
+llowMarked:      true,
 		},
 		{
 			Name:             "b",
 			Type:             cty.Bool,
-			AllowDynamicType: true,
-			AllowMarked:      true,
+llowDynamicType: true,
+			AllowMar      true,
 		},
 	},
-	Type:         function.StaticReturnType(cty.Bool),
-	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Type:         
+.StaticReturnType(cty.Bool),
+	RefineRes refineNonNull,
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		return args[0].Or(args[1]), nil
 	},
 })
 
 // Not returns the logical complement of the given boolean value.
-func Not(num cty.Value) (cty.Value, error) {
-	return NotFunc.Call([]cty.Value{num})
+
+ Not(num cty.Value) (cty.Value, error) {
+	return Not
+.Call([]cty.Value{num})
 }
 
 // And returns true if and only if both of the given boolean values are true.
-func And(a, b cty.Value) (cty.Value, error) {
-	return AndFunc.Call([]cty.Value{a, b})
+
+ And(a, b cty.Value) (cty.Value, error) {
+	return And
+.Call([]cty.Value{a, b})
 }
 
 // Or returns true if either of the given boolean values are true.
-func Or(a, b cty.Value) (cty.Value, error) {
-	return OrFunc.Call([]cty.Value{a, b})
+
+ Or(a, b cty.Value) (cty.Value, error) {
+	return Or
+.Call([]cty.Value{a, b})
 }

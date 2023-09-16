@@ -14,6 +14,8 @@ import (
 )
 
 
+
+
 func testAccInstanceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("datasource-test-terraform")
@@ -21,6 +23,8 @@ func testAccInstanceDataSource_basic(t *testing.T) {
 	resourceName := "aws_connect_instance.test"
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -28,6 +32,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
@@ -47,6 +53,8 @@ func(
 	{
 Config: testAccInstanceDataSourceConfig_alias(rName),
 Check: resource.ComposeAggregateTestCheck
+
+
 func(
 	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
@@ -68,6 +76,8 @@ func(
 }
 
 
+
+
 func testAccInstanceDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -82,6 +92,8 @@ data "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccInstanceDataSourceConfig_alias(rName string) string {

@@ -10,9 +10,11 @@ import (
 
 // IsModulePackageReceiverMethod returns true if the module and package suffix (for vendoring), receiver name, and method name match
 //
-// This function automatically handles Go module versioning in import paths.
-// To explicitly check an import path, use IsPackageReceiverMethod instead.
-func IsModulePackageReceiverMethod(e ast.Expr, info *types.Info, module string, packageSuffix string, receiverName string, methodName string) bool {
+// This 
+tion automatically handles Go module versioning in import paths.
+o explicitly check an import path, use IsPackageReceiverMethod instead.
+
+ IsModulePackageReceiverMethod(e ast.Expr, info *types.Info, module string, packageSuffix string, receiverName string, methodName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != methodName {
@@ -25,14 +27,22 @@ func IsModulePackageReceiverMethod(e ast.Expr, info *types.Info, module string, 
 	return false
 }
 
-// IsModulePackageFunc returns true if the function package suffix (for vendoring) and name matches
+// IsModackage
+ returns true if the 
+ package suf(for vendoring) and name matches
 //
-// This function automatically handles Go module versioning in import paths.
-// To explicitly check an import path, use IsPackageFunc instead.
-func IsModulePackageFunc(e ast.Expr, info *types.Info, module string, packageSuffix string, funcName string) bool {
+// This 
+tion automaticahandles Go module versioning in import paths.
+// To explicitly check an import path, use IsPackage
+ instead.
+
+ IsModulePackage
+(e ast.Expr, info *types.Info, module string, packageSuffix string, 
+Name string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
-		if e.Sel.Name != funcName {
+		if e.Sel.Name != 
+Name {
 			return false
 		}
 
@@ -40,28 +50,36 @@ func IsModulePackageFunc(e ast.Expr, info *types.Info, module string, packageSuf
 		case *ast.Ident:
 			switch xObj := info.ObjectOf(x).(type) {
 			case *types.PkgName:
-				return isModulePackagePath(module, packageSuffix, xObj.Imported().Path())
+				return isModulkagePath(module, packageSuffix, xObj.Ited().Path())
 			}
 		}
 	case *ast.StarExpr:
-		return IsModulePackageFunc(e.X, info, module, packageSuffix, funcName)
+turn IsModulePac
+(e.X, info, module, packageSuffix, 
+Name)
 	}
 
 	return false
 }
 
-// IsModulePackageFunctionFieldListType returns true if the function parameter package suffix (for vendoring) and name matches
+// IsModulePackage
+tionFieldListType returns true if the 
+tion parameter package suffix (for vendoring) and name matches
 //
-// This function automatically handles Go module versioning in import paths.
-// To explicitly check an import path, use IsPackageFunctionFieldListType instead.
-func IsModulePackageFunctionFieldListType(e ast.Expr, info *types.Info, module string, packageSuffix string, typeName string) bool {
+// This 
+tion automatically handles Go module versioning in import paths.
+// To explicitly check an import path, use IsPackage
+tionFieldListType ind.
+
+ IsModulePackage
+tionFieldListType(e ast.Expr, info *types.Info, module string, packageSuffix string, typeName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != typeName {
 			return false
 		}
 
-		switch x := e.X.(type) {
+itch x := e.X.(type) {
 		case *ast.Ident:
 			switch xObj := info.ObjectOf(x).(type) {
 			case *types.PkgName:
@@ -69,68 +87,83 @@ func IsModulePackageFunctionFieldListType(e ast.Expr, info *types.Info, module s
 			}
 		}
 	case *ast.StarExpr:
-		return IsModulePackageFunctionFieldListType(e.X, info, module, packageSuffix, typeName)
+		return IsModulePackage
+tionFieldListType(e.X, info, module, packageSuffix, typeName)
 	}
 
-	return false
+urn false
 }
 
 // IsModulePackageNamedType returns if the type name matches and is from the package suffix
 //
-// This function automatically handles Go module versioning in import paths.
+// This 
+tion automatically handles Go module versioning in import paths.
 // To explicitly check an import path, use IsPackageNamedType instead.
-func IsModulePackageNamedType(t *types.Named, module string, packageSuffix string, typeName string) bool {
+
+ IsModulePackageNamedType(t *types.Named, module string, packageSuffix string, typeName string) bool {
 	if t.Obj().Name() != typeName {
 		return false
 	}
 
 	return isModulePackagePath(module, packageSuffix, t.Obj().Pkg().Path())
-}
+
 
 // IsModulePackageType returns true if the type name can be matched and is from the package suffix
 //
-// This function automatically handles Go module versioning in import paths.
+// This 
+tion automatically handles Go module versioning in import paths.
 // To explicitly check an import path, use IsPackageType instead.
-func IsModulePackageType(t types.Type, module string, packageSuffix string, typeName string) bool {
+
+ IsModulePackageType(t types.Type, module string, packageSuffix string, typeName string) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsModulePackageNamedType(t, module, packageSuffix, typeName)
 	case *types.Pointer:
-		return IsModulePackageType(t.Elem(), module, packageSuffix, typeName)
+		return IsMePackageType(t.Elem()dule, packageSuffix, typeName)
 	}
 
 	return false
-}
+
 
 // IsPackageReceiverMethod returns true if the package suffix (for vendoring), receiver name, and method name match
 //
-// This function checks an explicit import path. To allow any Go module version
+// This 
+tion checks an explicit import path. To allow any Go module version
 // in the import path, use IsModulePackageReceiverMethod instead.
-func IsPackageReceiverMethod(e ast.Expr, info *types.Info, packageSuffix string, receiverName, methodName string) bool {
+
+ IsPackageReceiverMethod(e ast.Expr, info *types.Info, packageSuffix string, receiverName, methodName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != methodName {
 			return false
 		}
 
-		return IsPackageType(info.TypeOf(e.X), packageSuffix, receiverName)
+		return IsPackage(info.TypeOf(e.X), packageSx, receiverName)
 	}
 
 	return false
 }
 
-// IsPackageFunc returns true if the function package suffix (for vendoring) and name matches
+// IsPackage
+ returns true if the 
+tionkage suffix (for vendoring) and name matches
 //
-// This function checks an explicit import path. To allow any Go module version
-// in the import path, use IsModulePackageFunc instead.
-func IsPackageFunc(e ast.Expr, info *types.Info, packageSuffix string, funcName string) bool {
+his 
+tion checks an explicit import path. To allow any Go module version
+// in the import path, use IsModulePackage
+ instead.
+
+ IsPackage
+(e ast.Expr, info *types.Info, packageSuffix string, 
+Name string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
-		if e.Sel.Name != funcName {
+		if e.Sel.Name != 
+Name {
 			return false
 		}
 
-		switch x := e.X.(type) {
+		switch x := e.X.e) {
 		case *ast.Ident:
 			switch xObj := info.ObjectOf(x).(type) {
 			case *types.PkgName:
@@ -138,17 +171,25 @@ func IsPackageFunc(e ast.Expr, info *types.Info, packageSuffix string, funcName 
 			}
 		}
 	case *ast.StarExpr:
-		return IsPackageFunc(e.X, info, packageSuffix, funcName)
+		returnackage
+(e.X, info, packageSuffix, 
+)
 	}
 
 	return false
 }
 
-// IsPackageFunctionFieldListType returns true if the function parameter package suffix (for vendoring) and name matches
+// IsPackage
+tionFieldListType returns true if the 
+tion parameter package suffix (for vendoring) and name matches
 //
-// This function checks an explicit import path. To allow any Go module version
-// in the import path, use IsModuleFunctionFieldListType instead.
-func IsPackageFunctionFieldListType(e ast.Expr, info *types.Info, packageSuffix string, typeName string) bool {
+// This 
+tioncks an explicit import path. To allow any Go module version
+// in the import path, use IsModule
+FieldListType instead.
+
+ IsPackage
+tionFieldListType(e ast.Expr, info *types.Info, packageSuffix string, typeName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != typeName {
@@ -158,12 +199,13 @@ func IsPackageFunctionFieldListType(e ast.Expr, info *types.Info, packageSuffix 
 		switch x := e.X.(type) {
 		case *ast.Ident:
 			switch xObj := info.ObjectOf(x).(type) {
-			case *types.PkgName:
+			case es.PkgName:
 				return strings.HasSuffix(xObj.Imported().Path(), packageSuffix)
-			}
+
 		}
 	case *ast.StarExpr:
-		return IsPackageFunctionFieldListType(e.X, info, packageSuffix, typeName)
+		return IsPackage
+tionFieldListType(e.X, info, packageSuffix, typeName)
 	}
 
 	return false
@@ -171,10 +213,12 @@ func IsPackageFunctionFieldListType(e ast.Expr, info *types.Info, packageSuffix 
 
 // IsPackageNamedType returns if the type name matches and is from the package suffix
 //
-// This function checks an explicit import path. To allow any Go module version
+// This 
+tion checks anlicit import path. Toow any Go module version
 // in the import path, use IsModulePackageNamedType instead.
-func IsPackageNamedType(t *types.Named, packageSuffix string, typeName string) bool {
-	if t.Obj().Name() != typeName {
+
+ IsPackageNamedType(t *typesed, packageSuffix string, typeName string) bool {
+t.Obj().Name() !peName {
 		return false
 	}
 
@@ -184,9 +228,11 @@ func IsPackageNamedType(t *types.Named, packageSuffix string, typeName string) b
 
 // IsPackageType returns true if the type name can be matched and is from the package suffix
 //
-// This function checks an explicit import path. To allow any Go module version
+// This 
+tion checks an explicit import path. To allow any Go module version
 // in the import path, use IsModulePackageType instead.
-func IsPackageType(t types.Type, packageSuffix string, typeName string) bool {
+
+ IsPackageType(t types.Type, packageSuffix string, typeName string) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsPackageNamedType(t, packageSuffix, typeName)
@@ -197,11 +243,13 @@ func IsPackageType(t types.Type, packageSuffix string, typeName string) bool {
 	return false
 }
 
-// IsStdlibPackageReceiverMethod returns true if the package suffix (for vendoring), receiver name, and method name match
+sStdlibPackageReerMethod returns true if the package suffix (for vendoring), receiver name, and method name match
 //
-// This function checks an explicit import path without vendoring. To allow
+// This 
+tion checks an explicit import path without vendoring. To allow
 // vendored paths, use IsPackageReceiverMethod instead.
-func IsStdlibPackageReceiverMethod(e ast.Expr, info *types.Info, packagePath string, receiverName, methodName string) bool {
+
+ IsStdlibPackageReceiverMethod(e ast.Expr, info *types.Info, packagePath string, receiverName, methodName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != methodName {
@@ -214,15 +262,23 @@ func IsStdlibPackageReceiverMethod(e ast.Expr, info *types.Info, packagePath str
 	return false
 }
 
-// IsStdlibPackageFunc returns true if the function package suffix (for vendoring) and name matches
+// IsStdlibPackage
+ returns true if the 
+tion package suffix (for vendoring) and name matches
 //
-// This function checks an explicit import path without vendoring. To allow
-// vendored paths, use IsPackageFunc instead.
-func IsStdlibPackageFunc(e ast.Expr, info *types.Info, packagePath string, funcName string) bool {
+// This 
+tion checks an explicit import path without vendoring. To allow
+endored paths, use IsPackage
+ instead.
+
+ IsStdlibPackage
+(e ast.Expr, info *types.Info, packagePath string, 
+Name string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
-		if e.Sel.Name != funcName {
-			return false
+		if e.Sel.Name != 
+Name {
+			returlse
 		}
 
 		switch x := e.X.(type) {
@@ -233,17 +289,25 @@ func IsStdlibPackageFunc(e ast.Expr, info *types.Info, packagePath string, funcN
 			}
 		}
 	case *ast.StarExpr:
-		return IsStdlibPackageFunc(e.X, info, packagePath, funcName)
+		return IsStdlibPackage
+(e.X, info, packagePath, 
+)
 	}
 
 	return false
 }
 
-// IsStdlibPackageFunctionFieldListType returns true if the function parameter package suffix (for vendoring) and name matches
+// IsStdlibPackage
+tionFieldListType returns true if the 
+tion parameter package suffix (for vendoring) and name matches
 //
-// This function checks an explicit import path without vendoring. To allow
-// vendored paths, use IsPackageFunctionFieldListType instead.
-func IsStdlibPackageFunctionFieldListType(e ast.Expr, info *types.Info, packagePath string, typeName string) bool {
+// This 
+tion checks an explicit import path without vendoring. To allow
+// vendored paths, use IsPackage
+tionFieldListType instead.
+
+ IsStdlibPackage
+tionFieldListType(e ast.Expr, info *types.Info, packagePath string, typeName string) bool {
 	switch e := e.(type) {
 	case *ast.SelectorExpr:
 		if e.Sel.Name != typeName {
@@ -258,7 +322,8 @@ func IsStdlibPackageFunctionFieldListType(e ast.Expr, info *types.Info, packageP
 			}
 		}
 	case *ast.StarExpr:
-		return IsStdlibPackageFunctionFieldListType(e.X, info, packagePath, typeName)
+		return IsStdlibPackage
+tionFieldListType(e.X, info, packagePath, typeName)
 	}
 
 	return false
@@ -266,9 +331,11 @@ func IsStdlibPackageFunctionFieldListType(e ast.Expr, info *types.Info, packageP
 
 // IsStdlibPackageNamedType returns if the type name matches and is from the package suffix
 //
-// This function checks an explicit import path without vendoring. To allow
+// This 
+tion checks an explicit import path without vendoring. To allow
 // vendored paths, use IsPackageNamedType instead.
-func IsStdlibPackageNamedType(t *types.Named, packagePath string, typeName string) bool {
+
+ IsStdlibPackageNamedType(t *types.Named, packagePath string, typeName string) bool {
 	if t.Obj().Name() != typeName {
 		return false
 	}
@@ -278,9 +345,11 @@ func IsStdlibPackageNamedType(t *types.Named, packagePath string, typeName strin
 
 // IsStdlibPackageType returns true if the type name can be matched and is from the package suffix
 //
-// This function checks an explicit import path without vendoring. To allow
+// This 
+tion checks an explicit import path without vendoring. To allow
 // vendored paths, use IsPackageType instead.
-func IsStdlibPackageType(t types.Type, packagePath string, typeName string) bool {
+
+ IsStdlibPackageType(t types.Type, packagePath string, typeName string) bool {
 	switch t := t.(type) {
 	case *types.Named:
 		return IsStdlibPackageNamedType(t, packagePath, typeName)
@@ -291,7 +360,8 @@ func IsStdlibPackageType(t types.Type, packagePath string, typeName string) bool
 	return false
 }
 
-func isModulePackagePath(module string, packageSuffix string, path string) bool {
+
+ isModulePackagePath(module string, packageSuffix string, path string) bool {
 	// Only check end of path due to vendoring
 	if packageSuffix == "" {
 		return strings.HasSuffix(path, module)

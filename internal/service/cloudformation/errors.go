@@ -15,6 +15,7 @@ const (
 	errCodeValidationError = "ValidationError"
 )
 
+
 func StackSetOperationError(apiObjects []*cloudformation.StackSetOperationResultSummary) error {
 	var errors *multierror.Error
 

@@ -15,16 +15,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-func testAccServicecatalogPortfolioStatus_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var config sagemaker.GetSagemakerServicecatalogPortfolioStatusOutput
 	resourceName := "aws_sagemaker_servicecatalog_portfolio_status.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServicecatalogPortfolioStatusConfigConfig_basic("Enabled"),
@@ -34,8 +33,8 @@ func testAccServicecatalogPortfolioStatus_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -57,10 +56,8 @@ func testAccServicecatalogPortfolioStatus_basic(t *testing.T) {
 }
 
 func testAccCheckServicecatalogPortfolioStatusExistsConfig(ctx context.Context, n string, config *sagemaker.GetSagemakerServicecatalogPortfolioStatusOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
+func, ok := s.RootModule().Resources[n]
+		if !okfunceturn fmt.Errorf("Not found: %s", n)
 		}
 
 		if rs.Primary.ID == "" {
@@ -83,7 +80,6 @@ func testAccCheckServicecatalogPortfolioStatusExistsConfig(ctx context.Context, 
 func testAccServicecatalogPortfolioStatusConfigConfig_basic(status string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_servicecatalog_portfolio_status" "test" {
-  status = %[1]q
-}
+func
 `, status)
 }

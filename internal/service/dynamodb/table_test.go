@@ -40,8 +40,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Old             []interface{}
-		New             []interface{}
+		Old[]interface{}
+		New[]interface{}
 		ExpectedUpdates []*dynamodb.GlobalSecondaryIndexUpdate
 	}{
 		{ // No-op => no changes
@@ -335,10 +335,10 @@ func TestAccDynamoDBTable_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName),
@@ -392,10 +392,10 @@ func TestAccDynamoDBTable_deletion_protection(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_enable_deletion_protection(rName),
@@ -431,10 +431,10 @@ func TestAccDynamoDBTable_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName),
@@ -455,10 +455,10 @@ func TestAccDynamoDBTable_Disappears_payPerRequestWithGSI(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingPayPerRequestGSI(rName),
@@ -494,10 +494,10 @@ func TestAccDynamoDBTable_extended(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_initialState(rName),
@@ -543,7 +543,7 @@ func TestAccDynamoDBTable_extended(t *testing.T) {
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						names.AttrName:         "ReplacementTestTableGSI",
-						"hash_key":             "TestTableHashKey",
+						"hash_key":"TestTableHashKey",
 						"range_key":            "ReplacementGSIRangeKey",
 						"write_capacity":       "5",
 						"read_capacity":        "5",
@@ -569,10 +569,10 @@ func TestAccDynamoDBTable_enablePITR(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_initialState(rName),
@@ -605,10 +605,10 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisioned(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingPayPerRequest(rName),
@@ -644,10 +644,10 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisionedIgnoreChanges(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingPayPerRequest(rName),
@@ -687,10 +687,10 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequest(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingProvisioned(rName),
@@ -730,10 +730,10 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequestIgnoreChanges(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingProvisioned(rName),
@@ -769,10 +769,10 @@ func TestAccDynamoDBTable_BillingModeGSI_payPerRequestToProvisioned(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingPayPerRequestGSI(rName),
@@ -806,10 +806,10 @@ func TestAccDynamoDBTable_BillingModeGSI_provisionedToPayPerRequest(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_billingProvisionedGSI(rName),
@@ -841,10 +841,10 @@ func TestAccDynamoDBTable_streamSpecification(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_streamSpecification(rName, true, "KEYS_ONLY"),
@@ -882,10 +882,10 @@ func TestAccDynamoDBTable_streamSpecificationDiffs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_streamSpecification(rName, true, "KEYS_ONLY"),
@@ -964,10 +964,10 @@ func TestAccDynamoDBTable_streamSpecificationDiffs(t *testing.T) {
 func TestAccDynamoDBTable_streamSpecificationValidation(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccTableConfig_streamSpecification("anything", true, ""),
@@ -984,10 +984,10 @@ func TestAccDynamoDBTable_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_tags(rName),
@@ -1014,10 +1014,10 @@ func TestAccDynamoDBTable_gsiUpdateCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_gsiUpdate(rName),
@@ -1083,10 +1083,10 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_gsiUpdate(rName),
@@ -1094,7 +1094,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att3",
+						"hash_key":"att3",
 						names.AttrName:         "att3-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1103,7 +1103,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 						"write_capacity":       "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att1",
+						"hash_key":"att1",
 						names.AttrName:         "att1-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1112,7 +1112,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 						"write_capacity":       "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att2",
+						"hash_key":"att2",
 						names.AttrName:         "att2-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1133,7 +1133,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att4",
+						"hash_key":"att4",
 						names.AttrName:         "att2-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1142,7 +1142,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 						"write_capacity":       "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att3",
+						"hash_key":"att3",
 						names.AttrName:         "att3-index",
 						"non_key_attributes.#": "1",
 						"projection_type":      "INCLUDE",
@@ -1152,7 +1152,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att1",
+						"hash_key":"att1",
 						names.AttrName:         "att1-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1174,10 +1174,10 @@ func TestAccDynamoDBTable_lsiNonKeyAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_lsiNonKeyAttributes(rName),
@@ -1214,10 +1214,10 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_gsiUpdatedOtherAttributes(rName),
@@ -1225,7 +1225,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att4",
+						"hash_key":"att4",
 						names.AttrName:         "att2-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1234,7 +1234,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 						"write_capacity":       "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att3",
+						"hash_key":"att3",
 						names.AttrName:         "att3-index",
 						"non_key_attributes.#": "1",
 						"projection_type":      "INCLUDE",
@@ -1244,7 +1244,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att1",
+						"hash_key":"att1",
 						names.AttrName:         "att1-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1264,7 +1264,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att4",
+						"hash_key":"att4",
 						names.AttrName:         "att2-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1273,7 +1273,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 						"write_capacity":       "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att3",
+						"hash_key":"att3",
 						names.AttrName:         "att3-index",
 						"non_key_attributes.#": "2",
 						"projection_type":      "INCLUDE",
@@ -1284,7 +1284,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "AnotherAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att1",
+						"hash_key":"att1",
 						names.AttrName:         "att1-index",
 						"non_key_attributes.#": "0",
 						"projection_type":      "ALL",
@@ -1308,17 +1308,17 @@ func TestAccDynamoDBTable_GsiUpdateNonKeyAttributes_emptyPlan(t *testing.T) {
 	reorderedAttributes := fmt.Sprintf("%q, %q", "RandomAttribute", "AnotherAttribute")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_gsiMultipleNonKeyAttributes(rName, attributes),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						"hash_key":             "att1",
+						"hash_key":"att1",
 						names.AttrName:         "att1-index",
 						"non_key_attributes.#": "2",
 						"projection_type":      "INCLUDE",
@@ -1336,7 +1336,7 @@ func TestAccDynamoDBTable_GsiUpdateNonKeyAttributes_emptyPlan(t *testing.T) {
 				ImportStateVerify: true,
 			},
 			{
-				Config:             testAccTableConfig_gsiMultipleNonKeyAttributes(rName, reorderedAttributes),
+				Config:testAccTableConfig_gsiMultipleNonKeyAttributes(rName, reorderedAttributes),
 				PlanOnly:           true,
 				ExpectNonEmptyPlan: false,
 			},
@@ -1353,10 +1353,10 @@ func TestAccDynamoDBTable_TTL_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_timeToLive(rName, true),
@@ -1384,10 +1384,10 @@ func TestAccDynamoDBTable_TTL_disabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_timeToLive(rName, false),
@@ -1425,10 +1425,10 @@ func TestAccDynamoDBTable_attributeUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_oneAttribute(rName, "firstKey", "firstKey", "S"),
@@ -1470,10 +1470,10 @@ func TestAccDynamoDBTable_lsiUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_lsi(rName, "lsi-original"),
@@ -1501,10 +1501,10 @@ func TestAccDynamoDBTable_attributeUpdateValidation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccTableConfig_oneAttribute(rName, "firstKey", "unusedKey", "S"),
@@ -1534,10 +1534,10 @@ func TestAccDynamoDBTable_encryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_initialStateEncryptionBYOK(rName),
@@ -1590,9 +1590,9 @@ func TestAccDynamoDBTable_Replica_multiple(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 3)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replica2(rName),
@@ -1640,9 +1640,9 @@ func TestAccDynamoDBTable_Replica_single(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replica1(rName),
@@ -1698,9 +1698,9 @@ func TestAccDynamoDBTable_Replica_singleStreamSpecification(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaStreamSpecification(rName, true, "KEYS_ONLY"),
@@ -1734,9 +1734,9 @@ func TestAccDynamoDBTable_Replica_singleDefaultKeyEncrypted(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaEncryptedDefault(rName),
@@ -1779,9 +1779,9 @@ func TestAccDynamoDBTable_Replica_singleCMK(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaCMK(rName),
@@ -1815,9 +1815,9 @@ func TestAccDynamoDBTable_Replica_singleAddCMK(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaAmazonManagedKey(rName),
@@ -1874,9 +1874,9 @@ func TestAccDynamoDBTable_Replica_pitr(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaPITR(rName, false, true, false),
@@ -1937,9 +1937,9 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3), // 3 due to shared test configuration
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaPITRKMS(rName, false, false, false),
@@ -2063,9 +2063,9 @@ func TestAccDynamoDBTable_Replica_tagsOneOfTwo(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaTags(rName, "benny", "smiles", true, false),
@@ -2103,9 +2103,9 @@ func TestAccDynamoDBTable_Replica_tagsTwoOfTwo(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaTags(rName, "Structure", "Adobe", true, true),
@@ -2139,10 +2139,10 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaTagsNext1(rName, acctest.AlternateRegion(), true),
@@ -2234,10 +2234,10 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_replicaTagsUpdate1(rName, acctest.AlternateRegion()),
@@ -2325,10 +2325,10 @@ func TestAccDynamoDBTable_tableClassInfrequentAccess(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_class(rName, "STANDARD_INFREQUENT_ACCESS"),
@@ -2365,10 +2365,10 @@ func TestAccDynamoDBTable_tableClassExplicitDefault(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_basic(rName),
@@ -2397,10 +2397,10 @@ func TestAccDynamoDBTable_tableClass_ConcurrentModification(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_classConcurrent(rName, "STANDARD_INFREQUENT_ACCESS", 1),
@@ -2460,8 +2460,8 @@ func TestAccDynamoDBTable_tableClass_migrate(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccTableConfig_basic(rName),
-				PlanOnly:                 true,
+				Config:      testAccTableConfig_basic(rName),
+				PlanOnly:    true,
 			},
 		},
 	})
@@ -2479,10 +2479,10 @@ func TestAccDynamoDBTable_backupEncryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_backupInitialStateEncryption(rName),
@@ -2519,10 +2519,10 @@ func TestAccDynamoDBTable_backup_overrideEncryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTableDestroy(ctx),
+		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableConfig_backupInitialStateOverrideEncryption(rName),

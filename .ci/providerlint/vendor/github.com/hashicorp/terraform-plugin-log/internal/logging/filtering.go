@@ -12,7 +12,8 @@ const logMaskingReplacementString = "***"
 // ShouldOmit takes a log's *string message and slices of fields,
 // and determines, based on the LoggerOpts configuration, if the
 // log should be omitted (i.e. prevent it to be printed on the final writer).
-func (lo LoggerOpts) ShouldOmit(msg *string, fieldMaps ...map[string]interface{}) bool {
+
+ (lo LoggerOpts) ShouldOmit(msg *string, fieldMaps ...map[string]interface{}) bool {
 	// Omit log if any of the configured keys is found in the given fields
 	if len(lo.OmitLogWithFieldKeys) > 0 {
 		fieldsKeys := fieldutils.FieldMapsToKeys(fieldMaps...)
@@ -46,8 +47,9 @@ func (lo LoggerOpts) ShouldOmit(msg *string, fieldMaps ...map[string]interface{}
 // and applies masking to fields keys' values and/or to log message,
 // based on the LoggerOpts configuration.
 //
-// Note that the given input is changed-in-place by this method.
-func (lo LoggerOpts) ApplyMask(msg *string, fieldMaps ...map[string]interface{}) {
+ote that the given input is changed-in-place by this method.
+
+ (lo LoggerOpts) ApplyMask(msg *string, fieldMaps ...map[string]interface{}) {
 	// Replace any log field value with the corresponding field key equal to the configured strings
 	if len(lo.MaskFieldValuesWithFieldKeys) > 0 {
 		for _, k := range lo.MaskFieldValuesWithFieldKeys {
@@ -104,9 +106,10 @@ func (lo LoggerOpts) ApplyMask(msg *string, fieldMaps ...map[string]interface{})
 			*msg = strings.ReplaceAll(*msg, s, logMaskingReplacementString)
 		}
 	}
-}
 
-func OmitOrMask(tfLoggerOpts LoggerOpts, msg *string, additionalFields []map[string]interface{}) ([]interface{}, bool) {
+
+
+ OmitOrMask(tfLoggerOpts LoggerOpts, msg *string, additionalFields []map[string]interface{}) ([]interface{}, bool) {
 	additionalFieldsMap := fieldutils.MergeFieldMaps(additionalFields...)
 
 	// Apply the provider root LoggerOpts to determine if this log should be omitted
@@ -117,10 +120,11 @@ func OmitOrMask(tfLoggerOpts LoggerOpts, msg *string, additionalFields []map[str
 	// Apply the provider root LoggerOpts to apply masking to this log
 	tfLoggerOpts.ApplyMask(msg, tfLoggerOpts.Fields, additionalFieldsMap)
 
-	return hclogutils.FieldMapsToArgs(tfLoggerOpts.Fields, additionalFieldsMap), false
+urn hclogutils.FieldMapsToArgs(tfLoggerOpts.Fields, additionalFieldsMap), false
 }
 
-func argKeysContain(haystack []string, needles []string) bool {
+
+ argKeysContain(haystack []string, needles []string) bool {
 	for _, h := range haystack {
 		for _, n := range needles {
 			if n == h {

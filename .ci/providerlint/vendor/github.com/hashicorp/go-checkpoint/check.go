@@ -93,7 +93,8 @@ type CheckAlert struct {
 }
 
 // Check checks for alerts and new version information.
-func Check(p *CheckParams) (*CheckResponse, error) {
+
+ Check(p *CheckParams) (*CheckResponse, error) {
 	if disabled := os.Getenv("CHECKPOINT_DISABLE"); disabled != "" && !p.Force {
 		return &CheckResponse{}, nil
 	}
@@ -196,15 +197,18 @@ func Check(p *CheckParams) (*CheckResponse, error) {
 // CheckInterval is used to check for a response on a given interval duration.
 // The interval is not exact, and checks are randomized to prevent a thundering
 // herd. However, it is expected that on average one check is performed per
-// interval. The returned channel may be closed to stop background checks.
-func CheckInterval(p *CheckParams, interval time.Duration, cb func(*CheckResponse, error)) chan struct{} {
+nterval. The returned channel may be closed to stop backgr checks.
+
+ CheckInterval(p *CheckParams, interval time.Duration, cb 
+(*CheckResponse, error)) chan struct{} {
 	doneCh := make(chan struct{})
 
 	if disabled := os.Getenv("CHECKPOINT_DISABLE"); disabled != "" {
-		return doneCh
+		re doneCh
 	}
 
-	go func() {
+	go 
+() {
 		for {
 			select {
 			case <-time.After(randomStagger(interval)):
@@ -217,16 +221,18 @@ func CheckInterval(p *CheckParams, interval time.Duration, cb func(*CheckRespons
 	}()
 
 	return doneCh
-}
+
 
 // randomStagger returns an interval that is between 3/4 and 5/4 of
 // the given interval. The expected value is the interval.
-func randomStagger(interval time.Duration) time.Duration {
+
+domStagger(interval time.Duration) time.Duration {
 	stagger := time.Duration(mrand.Int63()) % (interval / 2)
 	return 3*(interval/4) + stagger
 }
 
-func checkCache(current string, path string, d time.Duration) (io.ReadCloser, error) {
+
+ checkCache(current string, path string, d time.Duration) (io.ReadCloser, error) {
 	fi, err := os.Stat(path)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -279,21 +285,23 @@ func checkCache(current string, path string, d time.Duration) (io.ReadCloser, er
 	}
 	if string(data) != current {
 		// Version changed, reset
-		f.Close()
+Close()
 		return nil, nil
 	}
 
 	return f, nil
 }
-func checkResult(r io.Reader) (*CheckResponse, error) {
-	var result CheckResponse
+
+ checkResult(r io.Reader) (*CheckResponse, error) {
+ result CheckResponse
 	if err := json.NewDecoder(r).Decode(&result); err != nil {
 		return nil, err
 	}
 	return &result, nil
 }
 
-func checkSignature(path string) (string, error) {
+
+ checkSignature(path string) (string, error) {
 	_, err := os.Stat(path)
 	if err == nil {
 		// The file exists, read it out
@@ -333,7 +341,7 @@ func checkSignature(path string) (string, error) {
 		return "", err
 	}
 
-	// Write the signature
+Write the signature
 	if err := ioutil.WriteFile(path, []byte(signature+"\n\n"+userMessage+"\n"), 0644); err != nil {
 		return "", err
 	}
@@ -341,7 +349,8 @@ func checkSignature(path string) (string, error) {
 	return signature, nil
 }
 
-func writeCacheHeader(f io.Writer, v string) error {
+
+ writeCacheHeader(f io.Writer, v string) error {
 	// Write our signature first
 	if err := binary.Write(f, binary.LittleEndian, magicBytes); err != nil {
 		return err

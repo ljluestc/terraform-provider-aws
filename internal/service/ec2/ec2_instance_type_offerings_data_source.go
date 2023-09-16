@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_instance_type_offerings")
 
-func DataSourceInstanceTypeOfferings() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceTypeOfferingsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,25 +28,24 @@ func DataSourceInstanceTypeOfferings() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"instance_types": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"locations": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"location_type": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringInSlice(ec2.LocationType_Values(), false),
-			},
-			"location_types": {
-				Type:     schema.TypeList,
+funclocation_types": {
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -56,8 +54,7 @@ func: validation.StringInSlice(ec2.LocationType_Values(), false),
 
 func dataSourceInstanceTypeOfferingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	input := &ec2.DescribeInstanceTypeOfferingsInput{}
 
 	if v, ok := d.GetOk("filter"); ok {

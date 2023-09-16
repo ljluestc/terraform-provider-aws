@@ -19,8 +19,7 @@ import (
 	tfapigateway "github.com/hashicorp/terraform-provider-aws/internal/service/apigateway"
 )
 
-func TestAccAPIGatewayDocumentationVersion_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var conf apigateway.DocumentationVersion
 
 	rString := sdkacctest.RandString(8)
@@ -30,10 +29,10 @@ func TestAccAPIGatewayDocumentationVersion_basic(t *testing.T) {
 	resourceName := "aws_api_gateway_documentation_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentationVersionDestroy(ctx),
+		CheckDestroy:testAccCheckDocumentationVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentationVersionConfig_basic(version, apiName),
@@ -44,8 +43,8 @@ func TestAccAPIGatewayDocumentationVersion_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -53,8 +52,7 @@ func TestAccAPIGatewayDocumentationVersion_basic(t *testing.T) {
 }
 
 func TestAccAPIGatewayDocumentationVersion_allFields(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf apigateway.DocumentationVersion
+func conf apigateway.DocumentationVersion
 
 	rString := sdkacctest.RandString(8)
 	version := fmt.Sprintf("tf-acc-test_version_%s", rString)
@@ -66,10 +64,10 @@ func TestAccAPIGatewayDocumentationVersion_allFields(t *testing.T) {
 	resourceName := "aws_api_gateway_documentation_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentationVersionDestroy(ctx),
+		CheckDestroy:testAccCheckDocumentationVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentationVersionConfig_allFields(version, apiName, stageName, description),
@@ -81,8 +79,8 @@ func TestAccAPIGatewayDocumentationVersion_allFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -100,8 +98,7 @@ func TestAccAPIGatewayDocumentationVersion_allFields(t *testing.T) {
 
 func TestAccAPIGatewayDocumentationVersion_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf apigateway.DocumentationVersion
-
+func
 	rString := sdkacctest.RandString(8)
 	version := fmt.Sprintf("tf-acc-test_version_%s", rString)
 	apiName := fmt.Sprintf("tf-acc-test_api_doc_version_basic_%s", rString)
@@ -109,10 +106,10 @@ func TestAccAPIGatewayDocumentationVersion_disappears(t *testing.T) {
 	resourceName := "aws_api_gateway_documentation_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentationVersionDestroy(ctx),
+		CheckDestroy:testAccCheckDocumentationVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentationVersionConfig_basic(version, apiName),
@@ -129,10 +126,8 @@ func TestAccAPIGatewayDocumentationVersion_disappears(t *testing.T) {
 func testAccCheckDocumentationVersionExists(ctx context.Context, n string, res *apigateway.DocumentationVersion) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-
+funceturn fmt.Errorf("Not found: %s", n)
+		}func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No API Gateway Documentation Version ID is set")
 		}
@@ -146,7 +141,7 @@ func testAccCheckDocumentationVersionExists(ctx context.Context, n string, res *
 
 		req := &apigateway.GetDocumentationVersionInput{
 			DocumentationVersion: aws.String(version),
-			RestApiId:            aws.String(apiId),
+			RestApiId:piId),
 		}
 		docVersion, err := conn.GetDocumentationVersionWithContext(ctx, req)
 		if err != nil {
@@ -164,10 +159,8 @@ func testAccCheckDocumentationVersionDestroy(ctx context.Context) resource.TestC
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_api_gateway_documentation_version" {
-				continue
-			}
-
+funccontinue
+			}func
 			version, apiId, err := tfapigateway.DecodeDocumentationVersionID(rs.Primary.ID)
 			if err != nil {
 				return err
@@ -175,7 +168,7 @@ func testAccCheckDocumentationVersionDestroy(ctx context.Context) resource.TestC
 
 			req := &apigateway.GetDocumentationVersionInput{
 				DocumentationVersion: aws.String(version),
-				RestApiId:            aws.String(apiId),
+				RestApiId:piId),
 			}
 			_, err = conn.GetDocumentationVersionWithContext(ctx, req)
 			if err != nil {
@@ -194,14 +187,13 @@ func testAccCheckDocumentationVersionDestroy(ctx context.Context) resource.TestC
 func testAccDocumentationVersionConfig_basic(version, apiName string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_documentation_version" "test" {
-  version     = "%s"
+  version "%s"
   rest_api_id = aws_api_gateway_rest_api.test.id
   depends_on  = [aws_api_gateway_documentation_part.test]
 }
-
-resource "aws_api_gateway_documentation_part" "test" {
+funcurce "aws_api_gateway_documentation_part" "test" {
   location {
-    type = "API"
+pe = "API"
   }
 
   properties  = "{\"description\":\"Terraform Acceptance Test\"}"
@@ -217,15 +209,14 @@ resource "aws_api_gateway_rest_api" "test" {
 func testAccDocumentationVersionConfig_allFields(version, apiName, stageName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_documentation_version" "test" {
-  version     = "%s"
+  version "%s"
   rest_api_id = aws_api_gateway_rest_api.test.id
   description = "%s"
   depends_on  = [aws_api_gateway_documentation_part.test]
 }
-
-resource "aws_api_gateway_documentation_part" "test" {
+funcurce "aws_api_gateway_documentation_part" "test" {
   location {
-    type = "API"
+pe = "API"
   }
 
   properties  = "{\"description\":\"Terraform Acceptance Test\"}"
@@ -234,14 +225,14 @@ resource "aws_api_gateway_documentation_part" "test" {
 
 resource "aws_api_gateway_resource" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
-  parent_id   = aws_api_gateway_rest_api.test.root_resource_id
-  path_part   = "test"
+  parent_idws_api_gateway_rest_api.test.root_resource_id
+  path_parttest"
 }
 
 resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_resource.test.id
-  http_method   = "GET"
+  rest_api_idws_api_gateway_rest_api.test.id
+  resource_idws_api_gateway_resource.test.id
+  http_methodGET"
   authorization = "NONE"
 }
 
@@ -257,8 +248,8 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
 
-  type                    = "HTTP"
-  uri                     = "https://www.google.co.uk"
+  typeTP"
+  urittps://www.google.co.uk"
   integration_http_method = "GET"
 }
 
@@ -276,9 +267,9 @@ resource "aws_api_gateway_deployment" "test" {
 }
 
 resource "aws_api_gateway_stage" "test" {
-  stage_name            = "%s"
-  rest_api_id           = aws_api_gateway_rest_api.test.id
-  deployment_id         = aws_api_gateway_deployment.test.id
+  stage_name
+  rest_api_idpi_gateway_rest_api.test.id
+  deployment_id_gateway_deployment.test.id
   documentation_version = aws_api_gateway_documentation_version.test.version
 }
 

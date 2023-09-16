@@ -24,8 +24,7 @@ import (
 )
 
 // @SDKResource("aws_applicationinsights_application", name="Application")
-// @Tags(identifierAttribute="arn")
-func ResourceApplication() *schema.Resource {
+// @Tags(identifierAttribute="arn")func ResourceApplication() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceApplicationCreate,
 		ReadWithoutTimeout:   resourceApplicationRead,
@@ -77,10 +76,7 @@ func ResourceApplication() *schema.Resource {
 		},
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ApplicationInsightsConn(ctx)
 
 	input := &applicationinsights.CreateApplicationInput{
@@ -89,7 +85,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 		CWEMonitorEnabled: aws.Bool(d.Get("cwe_monitor_enabled").(bool)),
 		OpsCenterEnabled:  aws.Bool(d.Get("ops_center_enabled").(bool)),
 		ResourceGroupName: aws.String(d.Get("resource_group_name").(string)),
-		Tags:              getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("grouping_type"); ok {
@@ -112,11 +108,8 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
-}
-
-func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ApplicationInsightsConn(ctx)
+}func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).ApplicationInsightsConn(ctx)
 
 	application, err := FindApplicationByName(ctx, conn, d.Id())
 
@@ -146,12 +139,9 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 	d.Set("ops_item_sns_topic_arn", application.OpsItemSNSTopicArn)
 
 	return diags
-}
-
-func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ApplicationInsightsConn(ctx)
-
+	func
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &applicationinsights.UpdateApplicationInput{
 			ResourceGroupName: aws.String(d.Id()),
@@ -186,13 +176,10 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
-}
-
-func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ApplicationInsightsConn(ctx)
-
-	input := &applicationinsights.DeleteApplicationInput{
+funcut := &applicationinsights.DeleteApplicationInput{
 		ResourceGroupName: aws.String(d.Id()),
 	}
 

@@ -30,9 +30,9 @@ func TestAccSESIdentityNotificationTopic_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityNotificationTopicDestroy(ctx),
+		CheckDestroy:testAccCheckIdentityNotificationTopicDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: fmt.Sprintf(testAccIdentityNotificationTopicConfig_basic, domain),
@@ -170,8 +170,8 @@ resource "aws_sns_topic" "test" {
 
 const testAccIdentityNotificationTopicConfig_headers = `
 resource "aws_ses_identity_notification_topic" "test" {
-  topic_arn                = aws_sns_topic.test.arn
-  identity                 = aws_ses_domain_identity.test.arn
+  topic_arn   = aws_sns_topic.test.arn
+  identity    = aws_ses_domain_identity.test.arn
   notification_type        = "Complaint"
   include_original_headers = true
 }

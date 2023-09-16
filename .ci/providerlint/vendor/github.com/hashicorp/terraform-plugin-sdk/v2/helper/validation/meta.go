@@ -12,10 +12,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// NoZeroValues is a SchemaValidateFunc which tests if the provided value is
+// NoZeroValues is a SchemaValidate
+ which tests if the provided value is
 // not a zero value. It's useful in situations where you want to catch
-// explicit zero values on things like required fields during validation.
-func NoZeroValues(i interface{}, k string) (s []string, es []error) {
+xplicit zero values on things like required fields during validation.
+
+ NoZeroValues(i interface{}, k string) (s []string, es []error) {
 	if reflect.ValueOf(i).Interface() == reflect.Zero(reflect.TypeOf(i)).Interface() {
 		switch reflect.TypeOf(i).Kind() {
 		case reflect.String:
@@ -30,25 +32,37 @@ func NoZeroValues(i interface{}, k string) (s []string, es []error) {
 	return
 }
 
-// All returns a SchemaValidateFunc which tests if the provided value
-// passes all provided SchemaValidateFunc
-func All(validators ...schema.SchemaValidateFunc) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) ([]string, []error) {
+ll returns a SchemaValidate
+ whiests if the provided value
+// passes all provided SchemaValidate
+
+
+ All(validators ...schema.SchemaValidate
+) schema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) ([]string, []error) {
 		var allErrors []error
 		var allWarnings []string
 		for _, validator := range validators {
-			validatorWarnings, validatorErrors := validator(i, k)
-			allWarnings = append(allWarnings, validatorWarnings...)
-			allErrors = append(allErrors, validatorErrors...)
+			validatorWarnings, validatorErrors :lidator(i, k)
+			allWarnings = append(allWarnings, valirWarnings...)
+llErrors = append(allErrors, validatorErrors...)
 		}
 		return allWarnings, allErrors
 	}
 }
 
-// AllDiag returns a SchemaValidateDiagFunc which tests if the provided value
-// passes all provided SchemaValidateDiagFunc
-func AllDiag(validators ...schema.SchemaValidateDiagFunc) schema.SchemaValidateDiagFunc {
-	return func(i interface{}, k cty.Path) diag.Diagnostics {
+// AllDiag returns a SchemaValidateDiag
+ which tests if the provided value
+// passes all provided SchemaValidateDiag
+
+
+ AllDiag(validators ...schema.SchemaValiDiag
+hema.SchemaValidateDiag
+ {
+	return 
+(i interface{}, k cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 		for _, validator := range validators {
 			diags = append(diags, validator(i, k)...)
@@ -57,10 +71,16 @@ func AllDiag(validators ...schema.SchemaValidateDiagFunc) schema.SchemaValidateD
 	}
 }
 
-// Any returns a SchemaValidateFunc which tests if the provided value
-// passes any of the provided SchemaValidateFunc
-func Any(validators ...schema.SchemaValidateFunc) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) ([]string, []error) {
+// Any returns a SchemaValidate
+ which tests if the provided value
+// passes any of the provided SchemaValidate
+
+
+ Any(validators ...schema.SchemaValidate
+hema.SchemaValidate
+ {
+	return 
+(i interface{}, k string) ([]string, []error) {
 		var allErrors []error
 		var allWarnings []string
 		for _, validator := range validators {
@@ -71,14 +91,20 @@ func Any(validators ...schema.SchemaValidateFunc) schema.SchemaValidateFunc {
 			allWarnings = append(allWarnings, validatorWarnings...)
 			allErrors = append(allErrors, validatorErrors...)
 		}
-		return allWarnings, allErrors
+		return arnings, allErrors
 	}
-}
 
-// AnyDiag returns a SchemaValidateDiagFunc which tests if the provided value
-// passes any of the provided SchemaValidateDiagFunc
-func AnyDiag(validators ...schema.SchemaValidateDiagFunc) schema.SchemaValidateDiagFunc {
-	return func(i interface{}, k cty.Path) diag.Diagnostics {
+
+// AnyDiag returns a SchemaValidateDiag
+ which tests if the provided value
+// passes any of the provided SchemaValidateDiag
+
+
+ AnyDiag(validators ...schema.SchemaValidateDiag
+) schema.SchemaValidateDiag
+ {
+	return 
+(i interface{}, k cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 		for _, validator := range validators {
 			validatorDiags := validator(i, k)
@@ -91,13 +117,22 @@ func AnyDiag(validators ...schema.SchemaValidateDiagFunc) schema.SchemaValidateD
 	}
 }
 
-// ToDiagFunc is a wrapper for legacy schema.SchemaValidateFunc
-// converting it to schema.SchemaValidateDiagFunc
-func ToDiagFunc(validator schema.SchemaValidateFunc) schema.SchemaValidateDiagFunc {
-	return func(i interface{}, p cty.Path) diag.Diagnostics {
+// ToDiag
+ is a wrapper for legacy schema.SchemaValidate
+
+// converting it to schema.SchemaValidateDiag
+
+
+ ToDiag
+(validator schema.SchemaValidate
+) schema.SchemaValidateDiag
+ {
+	return 
+(i interface{}, p cty.Path) diag.Diagnostics {
 		var diags diag.Diagnostics
 
-		// A practitioner-friendly key for any SchemaValidateFunc output.
+		// A practitioner-friendly key for any SchemaValidate
+ output.
 		// Generally this should be the last attribute name on the path.
 		// If not found for some unexpected reason, an empty string is fine
 		// as the diagnostic will have the full attribute path anyways.

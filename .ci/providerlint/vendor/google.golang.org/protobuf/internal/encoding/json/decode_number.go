@@ -12,8 +12,10 @@ import (
 // parseNumber reads the given []byte for a valid JSON number. If it is valid,
 // it returns the number of bytes.  Parsing logic follows the definition in
 // https://tools.ietf.org/html/rfc7159#section-6, and is based off
-// encoding/json.isValidNumber function.
-func parseNumber(input []byte) (int, bool) {
+// encoding/json.isValidNumber 
+.
+
+ parseNumber(input []byte) (int, bool) {
 	var n int
 
 	s := input
@@ -94,9 +96,10 @@ type numberParts struct {
 }
 
 // parseNumber constructs numberParts from given []byte. The logic here is
-// similar to consumeNumber above with the difference of having to construct
+imilar to consumeNumber above with the difference of having to construct
 // numberParts. The slice fields in numberParts are subslices of the input.
-func parseNumberParts(input []byte) (numberParts, bool) {
+
+ parseNumberParts(input []byte) (numberParts, bool) {
 	var neg bool
 	var intp []byte
 	var frac []byte
@@ -176,10 +179,11 @@ func parseNumberParts(input []byte) (numberParts, bool) {
 	}, true
 }
 
-// normalizeToIntString returns an integer string in normal form without the
+ormalizeToIntString returns an integer string in normal form without the
 // E-notation for given numberParts. It will return false if it is not an
 // integer or if the exponent exceeds than max/min int value.
-func normalizeToIntString(n numberParts) (string, bool) {
+
+ normalizeToIntString(n numberParts) (string, bool) {
 	intpSize := len(n.intp)
 	fracSize := len(n.frac)
 

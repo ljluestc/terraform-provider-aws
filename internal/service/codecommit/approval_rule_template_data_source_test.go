@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codecommit_approval_rule_template.test"
 	datasourceName := "data.aws_codecommit_approval_rule_template.test"
@@ -23,16 +22,14 @@ func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccApprovalRuleTemplateDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
+funcource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
 	resource.TestCheckResourceAttrPair(datasourceName, "creation_date", resourceName, "creation_date"),
 	resource.TestCheckResourceAttrPair(datasourceName, "last_modified_date", resourceName, "last_modified_date"),
 	resource.TestCheckResourceAttrPair(datasourceName, "last_modified_user", resourceName, "last_modified_user"),
@@ -47,8 +44,7 @@ func(
 func testAccApprovalRuleTemplateDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
-
-data "aws_partition" "current" {}
+func "aws_partition" "current" {}
 
 resource "aws_codecommit_approval_rule_template" "test" {
   description = %[1]q

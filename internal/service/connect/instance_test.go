@@ -20,6 +20,8 @@ import (
 )
 
 
+
+
 func testAccInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -28,6 +30,8 @@ func testAccInstance_basic(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -36,6 +40,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConfig_basic(rName),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckInstanceExists(ctx, resourceName, &v),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
@@ -61,6 +67,8 @@ ImportStateVerify: true,
 	{
 Config: testAccInstanceConfig_basicFlipped(rName),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckInstanceExists(ctx, resourceName, &v),
 	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
@@ -81,6 +89,8 @@ func(
 }
 
 
+
+
 func testAccInstance_directory(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -91,6 +101,8 @@ func testAccInstance_directory(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -99,6 +111,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConfig_directory(rName, domainName),
 Check: resource.ComposeTestCheck
+
+
 func(
 	testAccCheckInstanceExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeExistingDirectory),
@@ -116,6 +130,8 @@ ImportStateVerifyIgnore: []string{"directory_id"},
 }
 
 
+
+
 func testAccInstance_saml(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -124,6 +140,8 @@ func testAccInstance_saml(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 PreCheck:  
+
+
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,6 +150,8 @@ Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConfig_saml(rName),
 Check: resource.ComposeTestCheck
+
+
 func(
 	resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeSaml),
 	testAccCheckInstanceExists(ctx, resourceName, &v),
@@ -147,9 +167,15 @@ ImportStateVerify: true,
 }
 
 
+
+
 func testAccCheckInstanceExists(ctx context.Context, n string, v *connect.Instance) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -175,9 +201,15 @@ return nil
 }
 
 
+
+
 func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheck
+
+
 func {
 	return 
+
+
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_instance" {
@@ -204,6 +236,8 @@ return nil
 }
 
 
+
+
 func testAccInstanceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -214,6 +248,8 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccInstanceConfig_basicFlipped(rName string) string {
@@ -231,6 +267,8 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
+
 
 
 func testAccInstanceConfig_directory(rName, domain string) string {
@@ -289,6 +327,8 @@ resource "aws_connect_instance" "test" {
 }
 `, rName, domain)
 }
+
+
 
 
 func testAccInstanceConfig_saml(rName string) string {

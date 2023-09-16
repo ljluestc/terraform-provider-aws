@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_multicast_domain")
 
-func DataSourceTransitGatewayMulticastDomain() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayMulticastDomainRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,89 +27,89 @@ func DataSourceTransitGatewayMulticastDomain() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"associations": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"subnet_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"transit_gateway_attachment_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"auto_accept_shared_associations": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"igmpv2_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"members": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"group_ip_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"sources": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"group_ip_address": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"network_interface_id": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"static_sources_support": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transit_gateway_attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"transit_gateway_multicast_domain_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -119,8 +118,7 @@ func DataSourceTransitGatewayMulticastDomain() *schema.Resource {
 }
 
 func dataSourceTransitGatewayMulticastDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayMulticastDomainsInput{}
 
@@ -205,8 +203,7 @@ func dataSourceTransitGatewayMulticastDomainRead(ctx context.Context, d *schema.
 
 func flattenTransitGatewayMulticastDomainAssociation(apiObject *ec2.TransitGatewayMulticastDomainAssociation) map[string]interface{} {
 	if apiObject == nil {
-		return nil
-	}
+func
 
 	tfMap := map[string]interface{}{}
 
@@ -224,8 +221,7 @@ func flattenTransitGatewayMulticastDomainAssociation(apiObject *ec2.TransitGatew
 func flattenTransitGatewayMulticastDomainAssociations(apiObjects []*ec2.TransitGatewayMulticastDomainAssociation) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
-	}
-
+func
 	var tfList []interface{}
 
 	for _, apiObject := range apiObjects {
@@ -243,8 +239,7 @@ func flattenTransitGatewayMulticastGroup(apiObject *ec2.TransitGatewayMulticastG
 	if apiObject == nil {
 		return nil
 	}
-
-	tfMap := map[string]interface{}{}
+funcap := map[string]interface{}{}
 
 	if v := apiObject.GroupIpAddress; v != nil {
 		tfMap["group_ip_address"] = aws.StringValue(v)
@@ -262,8 +257,7 @@ func flattenTransitGatewayMulticastGroups(apiObjects []*ec2.TransitGatewayMultic
 		return nil
 	}
 
-	var tfList []interface{}
-
+func
 	for _, apiObject := range apiObjects {
 		if apiObject == nil {
 			continue

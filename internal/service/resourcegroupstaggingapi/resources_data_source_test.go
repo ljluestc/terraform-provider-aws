@@ -13,16 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccResourceGroupsTaggingAPIResourcesDataSource_tagFilter(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_resourcegroupstaggingapi_resources.test"
 	resourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcesDataSourceConfig_tagFilter(rName),
@@ -39,15 +37,13 @@ func TestAccResourceGroupsTaggingAPIResourcesDataSource_tagFilter(t *testing.T) 
 
 func TestAccResourceGroupsTaggingAPIResourcesDataSource_includeComplianceDetails(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_resourcegroupstaggingapi_resources.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
+		Steps: []resofunc
 				Config: testAccResourcesDataSourceConfig_includeComplianceDetails(rName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(dataSourceName, "resource_tag_mapping_list.0.compliance_details.#", "1"),
@@ -62,16 +58,14 @@ func TestAccResourceGroupsTaggingAPIResourcesDataSource_resourceTypeFilters(t *t
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_resourcegroupstaggingapi_resources.test"
 	resourceName := "aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
+func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccResourcesDataSourceConfig_resourceTypeFilters(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Config: tesfuncCheck: resource.ComposeTestCheckFunc(
 					resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "resource_tag_mapping_list.*", map[string]string{
 						"tags.Key": rName,
 					}),
@@ -88,16 +82,14 @@ func TestAccResourceGroupsTaggingAPIResourcesDataSource_resourceARNList(t *testi
 	resourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
+funceCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, resourcegroupstaggingapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcesDataSourceConfig_resourceARNList(rName),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "resource_tag_mapping_list.*", map[string]string{
-						"tags.Key": rName,
+					resource.Tfunc		"tags.Key": rName,
 					}),
 					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "resource_tag_mapping_list.*.resource_arn", resourceName, "arn"),
 				),
@@ -114,8 +106,7 @@ resource "aws_vpc" "test" {
   tags = {
     Key = %[1]q
   }
-}
-
+func
 data "aws_resourcegroupstaggingapi_resources" "test" {
   tag_filter {
     key    = "Key"
@@ -134,8 +125,7 @@ resource "aws_vpc" "test" {
     Key = %[1]q
   }
 }
-
-data "aws_resourcegroupstaggingapi_resources" "test" {
+func "aws_resourcegroupstaggingapi_resources" "test" {
   resource_type_filters = ["ec2:vpc"]
 
   depends_on = [aws_vpc.test]
@@ -153,8 +143,7 @@ resource "aws_vpc" "test" {
   }
 }
 
-data "aws_resourcegroupstaggingapi_resources" "test" {
-  resource_arn_list = [aws_vpc.test.arn]
+funcsource_arn_list = [aws_vpc.test.arn]
 }
 `, rName)
 }
@@ -170,8 +159,7 @@ resource "aws_vpc" "test" {
 }
 
 data "aws_resourcegroupstaggingapi_resources" "test" {
-  include_compliance_details  = true
-  exclude_compliant_resources = false
+funcclude_compliant_resources = false
   resource_arn_list           = [aws_vpc.test.arn]
 }
 `, rName)

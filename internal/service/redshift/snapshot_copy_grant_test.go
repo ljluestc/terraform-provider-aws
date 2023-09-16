@@ -24,10 +24,10 @@ func TestAccRedshiftSnapshotCopyGrant_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotCopyGrantDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotCopyGrantDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotCopyGrantConfig_basic(rName),
@@ -53,10 +53,10 @@ func TestAccRedshiftSnapshotCopyGrant_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotCopyGrantDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotCopyGrantDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotCopyGrantConfig_basic(rName),
@@ -76,10 +76,10 @@ func TestAccRedshiftSnapshotCopyGrant_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshift.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotCopyGrantDestroy(ctx),
+		CheckDestroy:testAccCheckSnapshotCopyGrantDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotCopyGrantConfig_tags1(rName, "key1", "value1"),

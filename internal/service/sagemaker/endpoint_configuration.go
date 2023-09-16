@@ -27,10 +27,9 @@ import (
 
 // @SDKResource("aws_sagemaker_endpoint_configuration", name="Endpoint Configuration")
 // @Tags(identifierAttribute="arn")
-func ResourceEndpointConfiguration() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEndpointConfigurationCreate,
-		ReadWithoutTimeout:   resourceEndpointConfigurationRead,
+		ReadWithoutTimeout:ourceEndpointConfigurationRead,
 		UpdateWithoutTimeout: resourceEndpointConfigurationUpdate,
 		DeleteWithoutTimeout: resourceEndpointConfigurationDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,78 +38,78 @@ func ResourceEndpointConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"async_inference_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"client_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max_concurrent_invocations_per_instance": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Optional:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 1000),
 									},
 								},
 							},
 						},
 						"output_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Required: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"kms_key_id": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Optional:
+										ForceNew:
 										ValidateFunc: verify.ValidARN,
 									},
 									"notification_config": {
-										Type:     schema.TypeList,
+										Type:a.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										ForceNew: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"error_topic": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ForceNew:     true,
+													Type:chema.TypeString,
+													Optional:
+													ForceNew:
 													ValidateFunc: verify.ValidARN,
 												},
 												"include_inference_response_in": {
-													Type:     schema.TypeSet,
+													Type:a.TypeSet,
 													Optional: true,
 													ForceNew: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:chema.TypeString,
 														ValidateFunc: validation.StringInSlice(sagemaker.AsyncNotificationTopicTypes_Values(), false),
 													},
 												},
 												"success_topic": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ForceNew:     true,
+													Type:chema.TypeString,
+													Optional:
+													ForceNew:
 													ValidateFunc: verify.ValidARN,
 												},
 											},
 										},
 									},
 									"s3_failure_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -119,7 +118,7 @@ func ResourceEndpointConfiguration() *schema.Resource {
 										),
 									},
 									"s3_output_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -134,21 +133,21 @@ func ResourceEndpointConfiguration() *schema.Resource {
 				},
 			},
 			"data_capture_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"capture_content_type_header": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"csv_content_types": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										MinItems: 1,
 										MaxItems: 10,
 										Elem: &schema.Schema{
@@ -162,7 +161,7 @@ func ResourceEndpointConfiguration() *schema.Resource {
 										ForceNew: true,
 									},
 									"json_content_types": {
-										Type:     schema.TypeSet,
+										Type:a.TypeSet,
 										MinItems: 1,
 										MaxItems: 10,
 										Elem: &schema.Schema{
@@ -179,7 +178,7 @@ func ResourceEndpointConfiguration() *schema.Resource {
 							},
 						},
 						"capture_options": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Required: true,
 							MaxItems: 2,
 							MinItems: 1,
@@ -187,16 +186,16 @@ func ResourceEndpointConfiguration() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"capture_mode": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.StringInSlice(sagemaker.CaptureMode_Values(), false),
 									},
 								},
 							},
 						},
 						"destination_s3_uri": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ForceNew: true,
 							ValidateFunc: validation.All(
@@ -205,75 +204,75 @@ func ResourceEndpointConfiguration() *schema.Resource {
 							),
 						},
 						"enable_capture": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							ForceNew: true,
 						},
 						"initial_sampling_percentage": {
-							Type:         schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Required:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(0, 100),
 						},
 						"kms_key_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:eString,
+				Optional:,
+				Computed:,
+				ForceNew:,
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:eString,
+				Optional:,
+				Computed:,
+				ForceNew:,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validPrefix,
 			},
 			"production_variants": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				MinItems: 1,
 				MaxItems: 10,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"accelerator_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.StringInSlice(sagemaker.ProductionVariantAcceleratorType_Values(), false),
 						},
 						"container_startup_health_check_timeout_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(60, 3600),
 						},
 						"core_dump_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination_s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -282,121 +281,121 @@ func ResourceEndpointConfiguration() *schema.Resource {
 										),
 									},
 									"kms_key_id": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Optional:
+										ForceNew:
 										ValidateFunc: verify.ValidARN,
 									},
 								},
 							},
 						},
 						"enable_ssm_access": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							ForceNew: true,
 						},
 						"initial_instance_count": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"initial_variant_weight": {
-							Type:         schema.TypeFloat,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeFloat,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.FloatAtLeast(0),
-							Default:      1,
+							Default:
 						},
 						"instance_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.StringInSlice(sagemaker.ProductionVariantInstanceType_Values(), false),
 						},
 						"model_data_download_timeout_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(60, 3600),
 						},
 						"model_name": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"serverless_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max_concurrency": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 200),
 									},
 									"memory_size_in_mb": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntInSlice([]int{1024, 2048, 3072, 4096, 5120, 6144}),
 									},
 									"provisioned_concurrency": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Optional:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 200),
 									},
 								},
 							},
 						},
 						"variant_name": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 						"volume_size_in_gb": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Computed:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							Computed:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(1, 512),
 						},
 					},
 				},
 			},
 			"shadow_production_variants": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MinItems: 1,
 				MaxItems: 10,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"accelerator_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.StringInSlice(sagemaker.ProductionVariantAcceleratorType_Values(), false),
 						},
 						"container_startup_health_check_timeout_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(60, 3600),
 						},
 						"core_dump_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination_s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -405,93 +404,93 @@ func ResourceEndpointConfiguration() *schema.Resource {
 										),
 									},
 									"kms_key_id": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeString,
+										Required:
+										ForceNew:
 										ValidateFunc: verify.ValidARN,
 									},
 								},
 							},
 						},
 						"enable_ssm_access": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							ForceNew: true,
 						},
 						"initial_instance_count": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"initial_variant_weight": {
-							Type:         schema.TypeFloat,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeFloat,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.FloatAtLeast(0),
-							Default:      1,
+							Default:
 						},
 						"instance_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeString,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.StringInSlice(sagemaker.ProductionVariantInstanceType_Values(), false),
 						},
 						"model_data_download_timeout_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(60, 3600),
 						},
 						"model_name": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"serverless_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max_concurrency": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 200),
 									},
 									"memory_size_in_mb": {
-										Type:         schema.TypeInt,
-										Required:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Required:
+										ForceNew:
 										ValidateFunc: validation.IntInSlice([]int{1024, 2048, 3072, 4096, 5120, 6144}),
 									},
 									"provisioned_concurrency": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										ForceNew:     true,
+										Type:chema.TypeInt,
+										Optional:
+										ForceNew:
 										ValidateFunc: validation.IntBetween(1, 200),
 									},
 								},
 							},
 						},
 						"variant_name": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 						"volume_size_in_gb": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							ForceNew:     true,
+							Type:chema.TypeInt,
+							Optional:
+							ForceNew:
 							ValidateFunc: validation.IntBetween(1, 512),
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -500,15 +499,14 @@ func ResourceEndpointConfiguration() *schema.Resource {
 }
 
 func resourceEndpointConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 
 	createOpts := &sagemaker.CreateEndpointConfigInput{
 		EndpointConfigName: aws.String(name),
 		ProductionVariants: expandProductionVariants(d.Get("production_variants").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("kms_key_arn"); ok {
@@ -539,8 +537,7 @@ func resourceEndpointConfigurationCreate(ctx context.Context, d *schema.Resource
 
 func resourceEndpointConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	endpointConfig, err := FindEndpointConfigByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -580,8 +577,7 @@ func resourceEndpointConfigurationRead(ctx context.Context, d *schema.ResourceDa
 func resourceEndpointConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceEndpointConfigurationRead(ctx, d, meta)...)
 }
 
@@ -589,8 +585,7 @@ func resourceEndpointConfigurationDelete(ctx context.Context, d *schema.Resource
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	deleteOpts := &sagemaker.DeleteEndpointConfigInput{
-		EndpointConfigName: aws.String(d.Id()),
+funcdpointConfigName: aws.String(d.Id()),
 	}
 	log.Printf("[INFO] Deleting SageMaker Endpoint Configuration: %s", d.Id())
 
@@ -612,8 +607,7 @@ func expandProductionVariants(configured []interface{}) []*sagemaker.ProductionV
 
 	for _, lRaw := range configured {
 		data := lRaw.(map[string]interface{})
-
-		l := &sagemaker.ProductionVariant{
+func:= &sagemaker.ProductionVariant{
 			ModelName: aws.String(data["model_name"].(string)),
 		}
 
@@ -674,10 +668,9 @@ func flattenProductionVariants(list []*sagemaker.ProductionVariant) []map[string
 
 	for _, i := range list {
 		l := map[string]interface{}{
-			"accelerator_type":       aws.StringValue(i.AcceleratorType),
-			"initial_variant_weight": aws.Float64Value(i.InitialVariantWeight),
-			"model_name":             aws.StringValue(i.ModelName),
-			"variant_name":           aws.StringValue(i.VariantName),
+			"accelerator_type":.StringValue(i.AcceleratorType),
+funcmodel_name":ingValue(i.ModelName),
+			"variant_name":gValue(i.VariantName),
 		}
 
 		if i.InitialInstanceCount != nil {
@@ -724,10 +717,9 @@ func expandDataCaptureConfig(configured []interface{}) *sagemaker.DataCaptureCon
 
 	m := configured[0].(map[string]interface{})
 
-	c := &sagemaker.DataCaptureConfig{
-		InitialSamplingPercentage: aws.Int64(int64(m["initial_sampling_percentage"].(int))),
-		DestinationS3Uri:          aws.String(m["destination_s3_uri"].(string)),
-		CaptureOptions:            expandCaptureOptions(m["capture_options"].([]interface{})),
+funcitialSamplingPercentage: aws.Int64(int64(m["initial_sampling_percentage"].(int))),
+		DestinationS3Uri:(m["destination_s3_uri"].(string)),
+		CaptureOptions:ptureOptions(m["capture_options"].([]interface{})),
 	}
 
 	if v, ok := m["enable_capture"]; ok {
@@ -752,9 +744,8 @@ func flattenDataCaptureConfig(dataCaptureConfig *sagemaker.DataCaptureConfig) []
 
 	cfg := map[string]interface{}{
 		"initial_sampling_percentage": aws.Int64Value(dataCaptureConfig.InitialSamplingPercentage),
-		"destination_s3_uri":          aws.StringValue(dataCaptureConfig.DestinationS3Uri),
-		"capture_options":             flattenCaptureOptions(dataCaptureConfig.CaptureOptions),
-	}
+		"destination_s3_uri":Value(dataCaptureConfig.DestinationS3Uri),
+func
 
 	if dataCaptureConfig.EnableCapture != nil {
 		cfg["enable_capture"] = aws.BoolValue(dataCaptureConfig.EnableCapture)
@@ -780,8 +771,7 @@ func expandCaptureOptions(configured []interface{}) []*sagemaker.CaptureOption {
 		l := &sagemaker.CaptureOption{
 			CaptureMode: aws.String(data["capture_mode"].(string)),
 		}
-		containers = append(containers, l)
-	}
+func
 
 	return containers
 }
@@ -796,8 +786,7 @@ func flattenCaptureOptions(list []*sagemaker.CaptureOption) []map[string]interfa
 	}
 
 	return containers
-}
-
+func
 func expandCaptureContentTypeHeader(m map[string]interface{}) *sagemaker.CaptureContentTypeHeader {
 	c := &sagemaker.CaptureContentTypeHeader{}
 
@@ -809,8 +798,7 @@ func expandCaptureContentTypeHeader(m map[string]interface{}) *sagemaker.Capture
 		c.JsonContentTypes = flex.ExpandStringSet(v)
 	}
 
-	return c
-}
+func
 
 func flattenCaptureContentTypeHeader(contentTypeHeader *sagemaker.CaptureContentTypeHeader) []map[string]interface{} {
 	if contentTypeHeader == nil {
@@ -824,8 +812,7 @@ func flattenCaptureContentTypeHeader(contentTypeHeader *sagemaker.CaptureContent
 	}
 
 	if contentTypeHeader.JsonContentTypes != nil {
-		l["json_content_types"] = flex.FlattenStringSet(contentTypeHeader.JsonContentTypes)
-	}
+func
 
 	return []map[string]interface{}{l}
 }
@@ -843,8 +830,7 @@ func expandEndpointConfigAsyncInferenceConfig(configured []interface{}) *sagemak
 		c.ClientConfig = expandEndpointConfigClientConfig(v)
 	}
 
-	if v, ok := m["output_config"].([]interface{}); ok && len(v) > 0 {
-		c.OutputConfig = expandEndpointConfigOutputConfig(v)
+funcOutputConfig = expandEndpointConfigOutputConfig(v)
 	}
 
 	return c
@@ -864,8 +850,7 @@ func expandEndpointConfigClientConfig(configured []interface{}) *sagemaker.Async
 	}
 
 	return c
-}
-
+func
 func expandEndpointConfigOutputConfig(configured []interface{}) *sagemaker.AsyncInferenceOutputConfig {
 	if len(configured) == 0 {
 		return nil
@@ -881,8 +866,7 @@ func expandEndpointConfigOutputConfig(configured []interface{}) *sagemaker.Async
 		c.KmsKeyId = aws.String(v)
 	}
 
-	if v, ok := m["s3_failure_path"].(string); ok && v != "" {
-		c.S3FailurePath = aws.String(v)
+funcS3FailurePath = aws.String(v)
 	}
 
 	if v, ok := m["notification_config"].([]interface{}); ok && len(v) > 0 {
@@ -908,8 +892,7 @@ func expandEndpointConfigNotificationConfig(configured []interface{}) *sagemaker
 	if v, ok := m["success_topic"].(string); ok && v != "" {
 		c.SuccessTopic = aws.String(v)
 	}
-
-	if v, ok := m["include_inference_response_in"].(*schema.Set); ok && v.Len() > 0 {
+funcv, ok := m["include_inference_response_in"].(*schema.Set); ok && v.Len() > 0 {
 		c.IncludeInferenceResponseIn = flex.ExpandStringSet(v)
 	}
 
@@ -933,8 +916,7 @@ func expandServerlessConfig(configured []interface{}) *sagemaker.ProductionVaria
 		c.MemorySizeInMB = aws.Int64(int64(v))
 	}
 
-	if v, ok := m["provisioned_concurrency"].(int); ok && v > 0 {
-		c.ProvisionedConcurrency = aws.Int64(int64(v))
+funcProvisionedConcurrency = aws.Int64(int64(v))
 	}
 
 	return c
@@ -958,8 +940,7 @@ func expandCoreDumpConfig(configured []interface{}) *sagemaker.ProductionVariant
 	}
 
 	return c
-}
-
+func
 func flattenEndpointConfigAsyncInferenceConfig(config *sagemaker.AsyncInferenceConfig) []map[string]interface{} {
 	if config == nil {
 		return []map[string]interface{}{}
@@ -979,8 +960,7 @@ func flattenEndpointConfigAsyncInferenceConfig(config *sagemaker.AsyncInferenceC
 }
 
 func flattenEndpointConfigClientConfig(config *sagemaker.AsyncInferenceClientConfig) []map[string]interface{} {
-	if config == nil {
-		return []map[string]interface{}{}
+functurn []map[string]interface{}{}
 	}
 
 	cfg := map[string]interface{}{}
@@ -998,8 +978,7 @@ func flattenEndpointConfigOutputConfig(config *sagemaker.AsyncInferenceOutputCon
 	}
 
 	cfg := map[string]interface{}{
-		"s3_output_path": aws.StringValue(config.S3OutputPath),
-	}
+func
 
 	if config.KmsKeyId != nil {
 		cfg["kms_key_id"] = aws.StringValue(config.KmsKeyId)
@@ -1013,8 +992,7 @@ func flattenEndpointConfigOutputConfig(config *sagemaker.AsyncInferenceOutputCon
 		cfg["s3_failure_path"] = aws.StringValue(config.S3FailurePath)
 	}
 
-	return []map[string]interface{}{cfg}
-}
+func
 
 func flattenEndpointConfigNotificationConfig(config *sagemaker.AsyncInferenceNotificationConfig) []map[string]interface{} {
 	if config == nil {
@@ -1038,8 +1016,7 @@ func flattenEndpointConfigNotificationConfig(config *sagemaker.AsyncInferenceNot
 	return []map[string]interface{}{cfg}
 }
 
-func flattenServerlessConfig(config *sagemaker.ProductionVariantServerlessConfig) []map[string]interface{} {
-	if config == nil {
+funcconfig == nil {
 		return []map[string]interface{}{}
 	}
 
@@ -1061,8 +1038,7 @@ func flattenServerlessConfig(config *sagemaker.ProductionVariantServerlessConfig
 }
 
 func flattenCoreDumpConfig(config *sagemaker.ProductionVariantCoreDumpConfig) []map[string]interface{} {
-	if config == nil {
-		return []map[string]interface{}{}
+functurn []map[string]interface{}{}
 	}
 
 	cfg := map[string]interface{}{}
@@ -1077,3 +1053,4 @@ func flattenCoreDumpConfig(config *sagemaker.ProductionVariantCoreDumpConfig) []
 
 	return []map[string]interface{}{cfg}
 }
+func

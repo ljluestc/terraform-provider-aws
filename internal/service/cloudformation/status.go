@@ -12,8 +12,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func StatusChangeSet(ctx context.Context, conn *cloudformation.CloudFormation, stackID, changeSetName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindChangeSetByStackIDAndChangeSetName(ctx, conn, stackID, changeSetName)
 
 		if tfresource.NotFound(err) {
@@ -28,8 +30,10 @@ func StatusChangeSet(ctx context.Context, conn *cloudformation.CloudFormation, s
 	}
 }
 
+
 func StatusStackSetOperation(ctx context.Context, conn *cloudformation.CloudFormation, stackSetName, operationID, callAs string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindStackSetOperationByStackSetNameAndOperationID(ctx, conn, stackSetName, operationID, callAs)
 
 		if tfresource.NotFound(err) {
@@ -44,8 +48,10 @@ func StatusStackSetOperation(ctx context.Context, conn *cloudformation.CloudForm
 	}
 }
 
+
 func StatusTypeRegistrationProgress(ctx context.Context, conn *cloudformation.CloudFormation, registrationToken string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindTypeRegistrationByToken(ctx, conn, registrationToken)
 
 		if tfresource.NotFound(err) {

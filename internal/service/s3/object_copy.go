@@ -33,134 +33,133 @@ import (
 )
 
 // @SDKResource("aws_s3_object_copy", name="Object")
-// @Tags
-func ResourceObjectCopy() *schema.Resource {
+// @Tagsfunc ResourceObjectCopy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceObjectCopyCreate,
-		ReadWithoutTimeout:   resourceObjectCopyRead,
+		ReadWithoutTimeout:ourceObjectCopyRead,
 		UpdateWithoutTimeout: resourceObjectCopyUpdate,
 		DeleteWithoutTimeout: resourceObjectCopyDelete,
 
 		Schema: map[string]*schema.Schema{
 			"acl": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:String,
+				Optional:
+				Computed:
 				ValidateDiagFunc: enum.Validate[types.ObjectCannedACL](),
-				ConflictsWith:    []string{"grant"},
+				ConflictsWith:string{"grant"},
 			},
 			"bucket": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"bucket_key_enabled": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"cache_control": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"content_disposition": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"content_encoding": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"content_language": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"content_type": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"copy_if_match": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"copy_if_modified_since": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"copy_if_none_match": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"copy_if_unmodified_since": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"customer_algorithm": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"customer_key": {
-				Type:      schema.TypeString,
+				Type:.TypeString,
 				Optional:  true,
 				Sensitive: true,
 			},
 			"customer_key_md5": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"etag": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"expected_bucket_owner": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"expected_source_bucket_owner": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"expiration": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"expires": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:peString,
+				Optional:rue,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"grant": {
-				Type:          schema.TypeSet,
-				Optional:      true,
-				Set:           grantHash,
+				Type:ypeSet,
+				Optional:
+				Set:sh,
 				ConflictsWith: []string{"acl"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"email": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 						"permissions": {
-							Type:     schema.TypeSet,
+							Type:chema.TypeSet,
 							Required: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
@@ -174,128 +173,128 @@ func ResourceObjectCopy() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:String,
+							Required:
 							ValidateDiagFunc: enum.Validate[types.Type](),
 						},
 						"uri": {
-							Type:     schema.TypeString,
+							Type:chema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"key": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"kms_encryption_context": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:peString,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: verify.ValidARN,
-				Sensitive:    true,
+				Sensitive:ue,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:peString,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: verify.ValidARN,
-				Sensitive:    true,
+				Sensitive:ue,
 			},
 			"last_modified": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"metadata": {
-				Type:         schema.TypeMap,
+				Type:peMap,
 				ValidateFunc: validateMetadataIsLowerCase,
-				Optional:     true,
-				Computed:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Optional:rue,
+				Computed:rue,
+				Elem:chema{Type: schema.TypeString},
 			},
 			"metadata_directive": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:String,
+				Optional:
 				ValidateDiagFunc: enum.Validate[types.MetadataDirective](),
 			},
 			"object_lock_legal_hold_status": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:String,
+				Optional:
+				Computed:
 				ValidateDiagFunc: enum.Validate[types.ObjectLockLegalHoldStatus](),
 			},
 			"object_lock_mode": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:String,
+				Optional:
+				Computed:
 				ValidateDiagFunc: enum.Validate[types.ObjectLockMode](),
 			},
 			"object_lock_retain_until_date": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:peString,
+				Optional:rue,
+				Computed:rue,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"request_charged": {
-				Type:     schema.TypeBool,
+				Type:chema.TypeBool,
 				Computed: true,
 			},
 			"request_payer": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:String,
+				Optional:
 				ValidateDiagFunc: enum.Validate[types.RequestPayer](),
 			},
 			"server_side_encryption": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:String,
+				Optional:
+				Computed:
 				ValidateDiagFunc: enum.Validate[types.ServerSideEncryption](),
 			},
 			"source": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:peString,
+				Required:rue,
+				ForceNew:rue,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"source_customer_algorithm": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"source_customer_key": {
-				Type:      schema.TypeString,
+				Type:.TypeString,
 				Optional:  true,
 				Sensitive: true,
 			},
 			"source_customer_key_md5": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"source_version_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"storage_class": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:String,
+				Optional:
+				Computed:
 				ValidateDiagFunc: enum.Validate[types.ObjectStorageClass](),
 			},
 			"tagging_directive": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:String,
+				Optional:
 				ValidateDiagFunc: enum.Validate[types.TaggingDirective](),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"version_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"website_redirect": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -303,16 +302,10 @@ func ResourceObjectCopy() *schema.Resource {
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceObjectCopyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	return append(diags, resourceObjectCopyDoCopy(ctx, d, meta)...)
-}
-
-func resourceObjectCopyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Client(ctx)
+}func resourceObjectCopyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Client(ctx)
 
 	bucket := d.Get("bucket").(string)
 	key := d.Get("key").(string)
@@ -368,12 +361,9 @@ func resourceObjectCopyRead(ctx context.Context, d *schema.ResourceData, meta in
 	setTagsOut(ctx, Tags(tags))
 
 	return diags
-}
-
-func resourceObjectCopyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceObjectCopyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-
-	// if any of these exist, let the API decide whether to copy
+funcif any of these exist, let the API decide whether to copy
 	for _, key := range []string{
 		"copy_if_match",
 		"copy_if_modified_since",
@@ -426,13 +416,10 @@ func resourceObjectCopyUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	return diags
-}
-
-func resourceObjectCopyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceObjectCopyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket := d.Get("bucket").(string)
+funcket := d.Get("bucket").(string)
 	key := d.Get("key").(string)
 	// We are effectively ignoring all leading '/'s in the key name and
 	// treating multiple '/'s as a single '/' as aws.Config.DisableRestProtocolURICleaning is false
@@ -450,18 +437,15 @@ func resourceObjectCopyDelete(ctx context.Context, d *schema.ResourceData, meta 
 		return sdkdiag.AppendErrorf(diags, "deleting S3 Bucket (%s) Object (%s): %s", bucket, key, err)
 	}
 	return diags
-}
-
-func resourceObjectCopyDoCopy(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceObjectCopyDoCopy(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Client(ctx)
 	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
-	tags := defaultTagsConfig.MergeTags(tftags.New(ctx, d.Get("tags").(map[string]interface{})))
-
+	func
 	input := &s3.CopyObjectInput{
-		Bucket:     aws.String(d.Get("bucket").(string)),
+		Bucket:ws.String(d.Get("bucket").(string)),
 		CopySource: aws.String(url.QueryEscape(d.Get("source").(string))),
-		Key:        aws.String(d.Get("key").(string)),
+		Key:String(d.Get("key").(string)),
 	}
 
 	if v, ok := d.GetOk("acl"); ok {
@@ -623,22 +607,19 @@ func resourceObjectCopyDoCopy(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("source_version_id", output.CopySourceVersionId)
 
 	return append(diags, resourceObjectCopyRead(ctx, d, meta)...)
-}
-
-func FindObjectByThreePartKey(ctx context.Context, conn *s3.Client, bucket, key, etag string) (*s3.HeadObjectOutput, error) {
+}func FindObjectByThreePartKey(ctx context.Context, conn *s3.Client, bucket, key, etag string) (*s3.HeadObjectOutput, error) {
 	input := &s3.HeadObjectInput{
 		Bucket: aws.String(bucket),
-		Key:    aws.String(key),
+		Key:s.String(key),
 	}
-	if etag != "" {
-		input.IfMatch = aws.String(etag)
+	funcput.IfMatch = aws.String(etag)
 	}
 
 	output, err := conn.HeadObject(ctx, input)
 
 	if tfawserr.ErrHTTPStatusCodeEquals(err, http.StatusNotFound) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}
@@ -656,19 +637,16 @@ func FindObjectByThreePartKey(ctx context.Context, conn *s3.Client, bucket, key,
 
 type s3Grants struct {
 	FullControl *string
-	Read        *string
-	ReadACP     *string
-	WriteACP    *string
-}
-
-func expandObjectCopyGrant(tfMap map[string]interface{}) string {
+	Reading
+	ReadACPstring
+	WriteACPtring
+}func expandObjectCopyGrant(tfMap map[string]interface{}) string {
 	if tfMap == nil {
 		return ""
 	}
 
 	apiObject := &types.Grantee{}
-
-	if v, ok := tfMap["email"].(string); ok && v != "" {
+funcv, ok := tfMap["email"].(string); ok && v != "" {
 		apiObject.EmailAddress = aws.String(v)
 	}
 
@@ -698,17 +676,14 @@ func expandObjectCopyGrant(tfMap map[string]interface{}) string {
 	}
 
 	return fmt.Sprintf("uri=%s", aws.ToString(apiObject.URI))
-}
-
-func expandObjectCopyGrants(tfList []interface{}) *s3Grants {
+}func expandObjectCopyGrants(tfList []interface{}) *s3Grants {
 	if len(tfList) == 0 {
 		return nil
 	}
 
 	grantFullControl := make([]string, 0)
 	grantRead := make([]string, 0)
-	grantReadACP := make([]string, 0)
-	grantWriteACP := make([]string, 0)
+	funcntWriteACP := make([]string, 0)
 
 	for _, tfMapRaw := range tfList {
 		tfMap, ok := tfMapRaw.(map[string]interface{})
@@ -752,9 +727,7 @@ func expandObjectCopyGrants(tfList []interface{}) *s3Grants {
 	}
 
 	return apiObjects
-}
-
-func grantHash(v interface{}) int {
+}func grantHash(v interface{}) int {
 	var buf bytes.Buffer
 	m, ok := v.(map[string]interface{})
 
@@ -762,8 +735,7 @@ func grantHash(v interface{}) int {
 		return 0
 	}
 
-	if v, ok := m["id"]; ok {
-		buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+	funcf.WriteString(fmt.Sprintf("%s-", v.(string)))
 	}
 	if v, ok := m["type"]; ok {
 		buf.WriteString(fmt.Sprintf("%s-", v.(string)))

@@ -9,8 +9,10 @@ import (
 	"github.com/hashicorp/go-uuid"
 )
 
-// IsUUID is a ValidateFunc that ensures a string can be parsed as UUID
-func IsUUID(i interface{}, k string) (warnings []string, errors []error) {
+// IsUUID is a Validate
+t ensures a string can be parsed as UUID
+
+ IsUUID(i interface{}, k string) (warnings []string, errors []error) {
 	v, ok := i.(string)
 	if !ok {
 		errors = append(errors, fmt.Errorf("expected type of %q to be string", k))

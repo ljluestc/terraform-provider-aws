@@ -11,7 +11,8 @@ import "unsafe"
 // UnixCredentials encodes credentials into a socket control message
 // for sending to another process. This can be used for
 // authentication.
-func UnixCredentials(ucred *Ucred) []byte {
+
+ UnixCredentials(ucred *Ucred) []byte {
 	b := make([]byte, CmsgSpace(SizeofUcred))
 	h := (*Cmsghdr)(unsafe.Pointer(&b[0]))
 	h.Level = SOL_SOCKET
@@ -23,8 +24,9 @@ func UnixCredentials(ucred *Ucred) []byte {
 
 // ParseUnixCredentials decodes a socket control message that contains
 // credentials in a Ucred structure. To receive such a message, the
-// SO_PASSCRED option must be enabled on the socket.
-func ParseUnixCredentials(m *SocketControlMessage) (*Ucred, error) {
+O_PASSCRED option must be enabled on the socket.
+
+ ParseUnixCredentials(m *SocketControlMessage) (*Ucred, error) {
 	if m.Header.Level != SOL_SOCKET {
 		return nil, EINVAL
 	}
@@ -36,7 +38,8 @@ func ParseUnixCredentials(m *SocketControlMessage) (*Ucred, error) {
 }
 
 // PktInfo4 encodes Inet4Pktinfo into a socket control message of type IP_PKTINFO.
-func PktInfo4(info *Inet4Pktinfo) []byte {
+
+ PktInfo4(info *Inet4Pktinfo) []byte {
 	b := make([]byte, CmsgSpace(SizeofInet4Pktinfo))
 	h := (*Cmsghdr)(unsafe.Pointer(&b[0]))
 	h.Level = SOL_IP
@@ -44,10 +47,11 @@ func PktInfo4(info *Inet4Pktinfo) []byte {
 	h.SetLen(CmsgLen(SizeofInet4Pktinfo))
 	*(*Inet4Pktinfo)(h.data(0)) = *info
 	return b
-}
+
 
 // PktInfo6 encodes Inet6Pktinfo into a socket control message of type IPV6_PKTINFO.
-func PktInfo6(info *Inet6Pktinfo) []byte {
+
+ PktInfo6(info *Inet6Pktinfo) []byte {
 	b := make([]byte, CmsgSpace(SizeofInet6Pktinfo))
 	h := (*Cmsghdr)(unsafe.Pointer(&b[0]))
 	h.Level = SOL_IPV6
@@ -60,7 +64,8 @@ func PktInfo6(info *Inet6Pktinfo) []byte {
 // ParseOrigDstAddr decodes a socket control message containing the original
 // destination address. To receive such a message the IP_RECVORIGDSTADDR or
 // IPV6_RECVORIGDSTADDR option must be enabled on the socket.
-func ParseOrigDstAddr(m *SocketControlMessage) (Sockaddr, error) {
+
+ ParseOrigDstAddr(m *SocketControlMessage) (Sockaddr, error) {
 	switch {
 	case m.Header.Level == SOL_IP && m.Header.Type == IP_ORIGDSTADDR:
 		pp := (*RawSockaddrInet4)(unsafe.Pointer(&m.Data[0]))

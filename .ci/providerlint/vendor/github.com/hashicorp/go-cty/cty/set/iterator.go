@@ -5,11 +5,13 @@ type Iterator struct {
 	idx  int
 }
 
-func (it *Iterator) Value() interface{} {
+
+ *Iterator) Value() interface{} {
 	return it.vals[it.idx]
 }
 
-func (it *Iterator) Next() bool {
+
+ *Iterator) Next() bool {
 	it.idx++
 	return it.idx < len(it.vals)
 }

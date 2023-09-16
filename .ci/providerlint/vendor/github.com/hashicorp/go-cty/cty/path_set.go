@@ -16,7 +16,8 @@ type PathSet struct {
 
 // NewPathSet creates and returns a PathSet, with initial contents optionally
 // set by the given arguments.
-func NewPathSet(paths ...Path) PathSet {
+
+PathSet(paths ...Path) PathSet {
 	ret := PathSet{
 		set: set.NewSet(pathSetRules{}),
 	}
@@ -33,7 +34,8 @@ func NewPathSet(paths ...Path) PathSet {
 // Paths are immutable after construction by convention. It is particularly
 // important not to mutate a path after it has been placed into a PathSet.
 // If a Path is mutated while in a set, behavior is undefined.
-func (s PathSet) Add(path Path) {
+
+PathSet) Add(path Path) {
 	s.set.Add(path)
 }
 
@@ -42,20 +44,23 @@ func (s PathSet) Add(path Path) {
 //
 // For example, if given a path representing "foo.bar", it will add both
 // "foo" and "bar".
-func (s PathSet) AddAllSteps(path Path) {
+
+PathSet) AddAllSteps(path Path) {
 	for i := 1; i <= len(path); i++ {
 		s.Add(path[:i])
 	}
 }
 
 // Has returns true if the given path is in the receiving set.
-func (s PathSet) Has(path Path) bool {
+
+PathSet) Has(path Path) bool {
 	return s.set.Has(path)
 }
 
 // List makes and returns a slice of all of the paths in the receiving set,
 // in an undefined but consistent order.
-func (s PathSet) List() []Path {
+
+PathSet) List() []Path {
 	if s.Empty() {
 		return nil
 	}
@@ -68,18 +73,21 @@ func (s PathSet) List() []Path {
 
 // Remove modifies the receving set to no longer include the given path.
 // If the given path was already absent, this is a no-op.
-func (s PathSet) Remove(path Path) {
+
+PathSet) Remove(path Path) {
 	s.set.Remove(path)
 }
 
 // Empty returns true if the length of the receiving set is zero.
-func (s PathSet) Empty() bool {
+
+PathSet) Empty() bool {
 	return s.set.Length() == 0
 }
 
 // Union returns a new set whose contents are the union of the receiver and
 // the given other set.
-func (s PathSet) Union(other PathSet) PathSet {
+
+PathSet) Union(other PathSet) PathSet {
 	return PathSet{
 		set: s.set.Union(other.set),
 	}
@@ -87,7 +95,8 @@ func (s PathSet) Union(other PathSet) PathSet {
 
 // Intersection returns a new set whose contents are the intersection of the
 // receiver and the given other set.
-func (s PathSet) Intersection(other PathSet) PathSet {
+
+PathSet) Intersection(other PathSet) PathSet {
 	return PathSet{
 		set: s.set.Intersection(other.set),
 	}
@@ -95,7 +104,8 @@ func (s PathSet) Intersection(other PathSet) PathSet {
 
 // Subtract returns a new set whose contents are those from the receiver with
 // any elements of the other given set subtracted.
-func (s PathSet) Subtract(other PathSet) PathSet {
+
+PathSet) Subtract(other PathSet) PathSet {
 	return PathSet{
 		set: s.set.Subtract(other.set),
 	}
@@ -103,7 +113,8 @@ func (s PathSet) Subtract(other PathSet) PathSet {
 
 // SymmetricDifference returns a new set whose contents are the symmetric
 // difference of the receiver and the given other set.
-func (s PathSet) SymmetricDifference(other PathSet) PathSet {
+
+PathSet) SymmetricDifference(other PathSet) PathSet {
 	return PathSet{
 		set: s.set.SymmetricDifference(other.set),
 	}
@@ -111,7 +122,8 @@ func (s PathSet) SymmetricDifference(other PathSet) PathSet {
 
 // Equal returns true if and only if both the receiver and the given other
 // set contain exactly the same paths.
-func (s PathSet) Equal(other PathSet) bool {
+
+PathSet) Equal(other PathSet) bool {
 	if s.set.Length() != other.set.Length() {
 		return false
 	}
@@ -134,7 +146,8 @@ var indexStepPlaceholder = []byte("#")
 type pathSetRules struct {
 }
 
-func (r pathSetRules) Hash(v interface{}) int {
+
+pathSetRules) Hash(v interface{}) int {
 	path := v.(Path)
 	hash := crc64.New(crc64Table)
 
@@ -159,7 +172,8 @@ func (r pathSetRules) Hash(v interface{}) int {
 	return int(hash.Sum64())
 }
 
-func (r pathSetRules) Equivalent(a, b interface{}) bool {
+
+pathSetRules) Equivalent(a, b interface{}) bool {
 	aPath := a.(Path)
 	bPath := b.(Path)
 

@@ -14,7 +14,8 @@ import (
 // If an error is returned, the error is written with a hypothetical
 // end-user that wrote the msgpack file as its audience, using cty type
 // system concepts rather than Go type system concepts.
-func Unmarshal(b []byte, ty cty.Type) (cty.Value, error) {
+
+arshal(b []byte, ty cty.Type) (cty.Value, error) {
 	r := bytes.NewReader(b)
 	dec := msgpack.NewDecoder(r)
 
@@ -22,7 +23,8 @@ func Unmarshal(b []byte, ty cty.Type) (cty.Value, error) {
 	return unmarshal(dec, ty, path)
 }
 
-func unmarshal(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.Value, error) {
+
+arshal(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.Value, error) {
 	peek, err := dec.PeekCode()
 	if err != nil {
 		return cty.DynamicVal, path.NewError(err)
@@ -63,7 +65,8 @@ func unmarshal(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.Value, err
 	}
 }
 
-func unmarshalPrimitive(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalPrimitive(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.Value, error) {
 	switch ty {
 	case cty.Bool:
 		rv, err := dec.DecodeBool()
@@ -130,7 +133,8 @@ func unmarshalPrimitive(dec *msgpack.Decoder, ty cty.Type, path cty.Path) (cty.V
 	}
 }
 
-func unmarshalList(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalList(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeArrayLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewErrorf("a list is required")
@@ -161,7 +165,8 @@ func unmarshalList(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value
 	return cty.ListVal(vals), nil
 }
 
-func unmarshalSet(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalSet(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeArrayLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewErrorf("a set is required")
@@ -192,7 +197,8 @@ func unmarshalSet(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value,
 	return cty.SetVal(vals), nil
 }
 
-func unmarshalMap(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalMap(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeMapLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewErrorf("a map is required")
@@ -228,7 +234,8 @@ func unmarshalMap(dec *msgpack.Decoder, ety cty.Type, path cty.Path) (cty.Value,
 	return cty.MapVal(vals), nil
 }
 
-func unmarshalTuple(dec *msgpack.Decoder, etys []cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalTuple(dec *msgpack.Decoder, etys []cty.Type, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeArrayLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewErrorf("a tuple is required")
@@ -262,7 +269,8 @@ func unmarshalTuple(dec *msgpack.Decoder, etys []cty.Type, path cty.Path) (cty.V
 	return cty.TupleVal(vals), nil
 }
 
-func unmarshalObject(dec *msgpack.Decoder, atys map[string]cty.Type, path cty.Path) (cty.Value, error) {
+
+arshalObject(dec *msgpack.Decoder, atys map[string]cty.Type, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeMapLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewErrorf("an object is required")
@@ -305,7 +313,8 @@ func unmarshalObject(dec *msgpack.Decoder, atys map[string]cty.Type, path cty.Pa
 	return cty.ObjectVal(vals), nil
 }
 
-func unmarshalDynamic(dec *msgpack.Decoder, path cty.Path) (cty.Value, error) {
+
+arshalDynamic(dec *msgpack.Decoder, path cty.Path) (cty.Value, error) {
 	length, err := dec.DecodeArrayLen()
 	if err != nil {
 		return cty.DynamicVal, path.NewError(err)

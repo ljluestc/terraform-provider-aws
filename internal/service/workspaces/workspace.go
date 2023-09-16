@@ -153,12 +153,12 @@ func resourceWorkspaceCreate(ctx context.Context, d *schema.ResourceData, meta i
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
 
 	input := types.WorkspaceRequest{
-		BundleId:                    aws.String(d.Get("bundle_id").(string)),
-		DirectoryId:                 aws.String(d.Get("directory_id").(string)),
-		UserName:                    aws.String(d.Get("user_name").(string)),
+		BundleId:       aws.String(d.Get("bundle_id").(string)),
+		DirectoryId:    aws.String(d.Get("directory_id").(string)),
+		UserName:       aws.String(d.Get("user_name").(string)),
 		RootVolumeEncryptionEnabled: aws.Bool(d.Get("root_volume_encryption_enabled").(bool)),
 		UserVolumeEncryptionEnabled: aws.Bool(d.Get("user_volume_encryption_enabled").(bool)),
-		Tags:                        getTagsIn(ctx),
+		Tags:           getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("volume_encryption_key"); ok {
@@ -378,11 +378,11 @@ func FlattenWorkspaceProperties(properties *types.WorkspaceProperties) []map[str
 
 	return []map[string]interface{}{
 		{
-			"compute_type_name":                         string(properties.ComputeTypeName),
-			"root_volume_size_gib":                      int(aws.ToInt32(properties.RootVolumeSizeGib)),
-			"running_mode":                              string(properties.RunningMode),
+			"compute_type_name":            string(properties.ComputeTypeName),
+			"root_volume_size_gib":         int(aws.ToInt32(properties.RootVolumeSizeGib)),
+			"running_mode":    string(properties.RunningMode),
 			"running_mode_auto_stop_timeout_in_minutes": int(aws.ToInt32(properties.RunningModeAutoStopTimeoutInMinutes)),
-			"user_volume_size_gib":                      int(aws.ToInt32(properties.UserVolumeSizeGib)),
+			"user_volume_size_gib":         int(aws.ToInt32(properties.UserVolumeSizeGib)),
 		},
 	}
 }

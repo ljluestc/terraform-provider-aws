@@ -19,7 +19,8 @@ const (
 
 // TestCheckTypeSetElemNestedAttrs ensures a subset map of values is stored in
 // state for the given name and key combination of attributes nested under a
-// list or set block. Use this TestCheckFunc in preference over non-set
+// list or set block. Use this TestCheck
+ in preference over non-set
 // variants to simplify testing code and ensure compatibility with indicies,
 // which can easily change with schema changes. State value checking is only
 // recommended for testing Computed attributes and attribute defaults.
@@ -56,9 +57,12 @@ const (
 //
 // If the values map is not granular enough, it is possible to match an element
 // you were not intending to in the set. Provide the most complete mapping of
-// attributes possible to be sure the unique element exists.
-func TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string) TestCheckFunc {
-	return func(s *terraform.State) error {
+ttributes possible to be sure the unique element exists.
+
+ TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -91,7 +95,8 @@ func TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string
 // TestMatchTypeSetElemNestedAttrs ensures a subset map of values, compared by
 // regular expressions, is stored in state for the given name and key
 // combination of attributes nested under a list or set block. Use this
-// TestCheckFunc in preference over non-set variants to simplify testing code
+// TestCheck
+ in preference over non-set variants to simplify testing code
 // and ensure compatibility with indicies, which can easily change with schema
 // changes. State value checking is only recommended for testing Computed
 // attributes and attribute defaults.
@@ -124,13 +129,16 @@ func TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string
 //	map[string]*regexp.Regexp{
 //	  "key1": regexp.MustCompile(`^value`),
 //	  "key2": regexp.MustCompile(`^$`),
-//	}
+
 //
 // If the values map is not granular enough, it is possible to match an element
 // you were not intending to in the set. Provide the most complete mapping of
 // attributes possible to be sure the unique element exists.
-func TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regexp.Regexp) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regexp.Regexp) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -160,16 +168,21 @@ func TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regex
 	}
 }
 
-// TestCheckTypeSetElemAttr is a TestCheckFunc that accepts a resource
+// TestCheckTypeSetElemAttr is a TestCheck
+ that accepts a resource
 // name, an attribute path, which should use the sentinel value '*' for indexing
-// into a TypeSet. The function verifies that an element matches the provided
+// into a TypeSet. The 
+tion verifies that an element matches the provided
 // value.
 //
-// Use this function over SDK provided TestCheckFunctions when validating a
+// Use this 
+tion over SDK provided TestCheck
+tions when validating a
 // TypeSet where its elements are a simple value
 
 // TestCheckTypeSetElemAttr ensures a specific value is stored in state for the
-// given name and key combination under a list or set. Use this TestCheckFunc
+// given name and key combination under a list or set. Use this TestCheck
+
 // in preference over non-set variants to simplify testing code and ensure
 // compatibility with indicies, which can easily change with schema changes.
 // State value checking is only recommended for testing Computed attributes and
@@ -187,8 +200,8 @@ func TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regex
 // "data.myprovider_thing.example".
 //
 //	data "myprovider_thing" "example" { ... }
-//
-// The key parameter is an attribute path in Terraform CLI 0.11 and earlier
+
+// The karameter is an attribute path in Terraform CLI 0.11 and earlier
 // "flatmap" syntax. Keys start with the attribute name of a top-level
 // attribute. Use the sentinel value '*' to replace the element indexing into
 // a list or set. The sentinel value can be used for each list or set index, if
@@ -200,8 +213,11 @@ func TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regex
 //   - Boolean: "false" or "true".
 //   - Float/Integer: Stringified number, such as "1.2" or "123".
 //   - String: No conversion necessary.
-func TestCheckTypeSetElemAttr(name, attr, value string) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestCheckTypeSetElemAttr(name, attr, value string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -226,8 +242,8 @@ func TestCheckTypeSetElemAttr(name, attr, value string) TestCheckFunc {
 // configuration would be "myprovider_thing.example".
 //
 //	resource "myprovider_thing" "example" { ... }
-//
-// For data sources, the name parameter is a combination of the keyword "data",
+
+// For dsources, the name parameter is a combination of the keyword "data",
 // a period (.), the data source type, a period (.), and the name label. The
 // name for the below example configuration would be
 // "data.myprovider_thing.example".
@@ -242,9 +258,12 @@ func TestCheckTypeSetElemAttr(name, attr, value string) TestCheckFunc {
 // attribute. Use the sentinel value '*' to replace the element indexing into
 // a list or set. The sentinel value can be used for each list or set index, if
 // there are multiple lists or sets in the attribute path.
-func TestCheckTypeSetElemAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheckFunc {
-	return func(s *terraform.State) error {
-		isFirst, err := primaryInstanceState(s, nameFirst)
+
+ TestCheckTypeSetElemAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
+First, err := primaryInstanceState(s, nameFirst)
 		if err != nil {
 			return err
 		}
@@ -263,11 +282,12 @@ func TestCheckTypeSetElemAttrPair(nameFirst, keyFirst, nameSecond, keySecond str
 	}
 }
 
-func testCheckTypeSetElem(is *terraform.InstanceState, attr, value string) error {
+
+ testCheckTypeSetElem(is *terraform.InstanceState, attr, value string) error {
 	attrParts := strings.Split(attr, ".")
 	if attrParts[len(attrParts)-1] != sentinelIndex {
 		return fmt.Errorf("%q does not end with the special value %q", attr, sentinelIndex)
-	}
+
 	for stateKey, stateValue := range is.Attributes {
 		if stateValue == value {
 			stateKeyParts := strings.Split(stateKey, ".")
@@ -287,12 +307,13 @@ func testCheckTypeSetElem(is *terraform.InstanceState, attr, value string) error
 	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
 }
 
-func testCheckTypeSetElemPair(is *terraform.InstanceState, attr, value string) error {
+
+ testCheckTypeSetElemPair(is *terraform.InstanceSt attr, value string) error {
 	attrParts := strings.Split(attr, ".")
-	for stateKey, stateValue := range is.Attributes {
+	for stateKey, stateValue := range is.Atttes {
 		if stateValue == value {
 			stateKeyParts := strings.Split(stateKey, ".")
-			if len(stateKeyParts) == len(attrParts) {
+f len(stateKeyParts) == len(attrParts) {
 				for i := range attrParts {
 					if attrParts[i] != stateKeyParts[i] && attrParts[i] != sentinelIndex {
 						break
@@ -308,12 +329,15 @@ func testCheckTypeSetElemPair(is *terraform.InstanceState, attr, value string) e
 	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
 }
 
-// testCheckTypeSetElemNestedAttrsInState is a helper function
+// testCheckTypeSetElemNestedAttrsInState is a helper 
+tion
 // to determine if nested attributes and their values are equal to those
-// in the instance state. Currently, the function accepts a "values" param of type
+// in the instance state. Currently, the 
+tion accepts a "values" param of type
 // map[string]string or map[string]*regexp.Regexp.
 // Returns true if all attributes match, else false.
-func testCheckTypeSetElemNestedAttrsInState(is *terraform.InstanceState, attrParts []string, matchCount int, values interface{}) bool {
+
+ testCheckTypeSetElemNestedAttrsInState(is *terraform.InstanceState, attrParts []string, matchCount int, values interface{}) bool {
 	matches := make(map[string]int)
 
 	for stateKey, stateValue := range is.Attributes {

@@ -20,13 +20,11 @@ import (
 )
 
 
-func TestAccEC2SpotDatafeedSubscription_serial(t *testing.T) {
-	t.Parallel()
+funcarallel()
 
 	testCases := map[string]
 func(t *testing.T){
-"basic":      testAccSpotDatafeedSubscription_basic,
-"disappears": testAccSpotDatafeedSubscription_disappears,
+funcappears": testAccSpotDatafeedSubscription_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -35,8 +33,7 @@ func(t *testing.T){
 
 func testAccSpotDatafeedSubscription_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var subscription ec2.SpotDatafeedSubscription
-	resourceName := "aws_spot_datafeed_subscription.test"
+funcourceName := "aws_spot_datafeed_subscription.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
@@ -44,8 +41,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
-Steps: []resource.TestStep{
+funcs: []resource.TestStep{
 	{
 Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
 Check: resource.ComposeTestCheck
@@ -53,9 +49,8 @@ func(
 	testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
 ),
 	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
+funcurceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -68,17 +63,15 @@ func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	var subscription ec2.SpotDatafeedSubscription
 	resourceName := "aws_spot_datafeed_subscription.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+funcource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
+CheckDestroy:stAccCheckSpotDatafeedSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
-Check: resource.ComposeTestCheck
+funck: resource.ComposeTestCheck
 func(
 	testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSpotDataFeedSubscription(), resourceName),
@@ -86,8 +79,7 @@ func(
 ExpectNonEmptyPlan: true,
 	},
 },
-	})
-}
+func
 
 
 func testAccCheckSpotDatafeedSubscriptionExists(ctx context.Context, n string, v *ec2.SpotDatafeedSubscription) resource.TestCheck
@@ -98,13 +90,10 @@ rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
+funcs.Primary.ID == "" {
+func
 
-if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 Spot Datafeed Subscription ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
-
+func
 output, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
 
 if err != nil {
@@ -129,13 +118,10 @@ for _, rs := range s.RootModule().Resources {
 continue
 	}
 
-	_, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
-
-	if tfresource.NotFound(err) {
-continue
+func
+funcinue
 	}
-
-	if err != nil {
+funcerr != nil {
 return err
 	}
 
@@ -161,8 +147,7 @@ return
 	}
 
 	if err != nil {
-t.Fatalf("unexpected PreCheck error: %s", err)
-	}
+func
 }
 
 
@@ -177,25 +162,24 @@ resource "aws_s3_bucket" "test" {
 resource "aws_s3_bucket_acl" "test" {
   bucket = aws_s3_bucket.test.id
   access_control_policy {
-    grant {
-      grantee {
-        id   = data.aws_canonical_user_id.current.id
-        type = "CanonicalUser"
-      }
-      permission = "FULL_CONTROL"
-    }
+ant {
 
-    grant {
-      grantee {
-        id   = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0" # EC2 Account
-        type = "CanonicalUser"
-      }
-      permission = "FULL_CONTROL"
-    }
+data.aws_canonical_user_id.current.id
+"CanonicalUser"
+func"FULL_CONTROL"
 
-    owner {
-      id = data.aws_canonical_user_id.current.id
-    }
+
+ant {
+
+"c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0" # EC2 Account
+"CanonicalUser"
+
+n = "FULL_CONTROL"
+
+
+ner {
+.aws_canonical_user_id.current.id
+
   }
 }
 

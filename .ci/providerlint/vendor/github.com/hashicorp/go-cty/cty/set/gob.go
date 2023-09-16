@@ -22,7 +22,8 @@ import (
 // definition of element equivalence changes between encoding and decoding
 // then two distinct stored elements may be considered equivalent on decoding,
 // causing the recovered set to have fewer elements than when it was stored.
-func (s Set) GobEncode() ([]byte, error) {
+
+Set) GobEncode() ([]byte, error) {
 	gs := gobSet{
 		Version: 0,
 		Rules:   s.rules,
@@ -41,7 +42,8 @@ func (s Set) GobEncode() ([]byte, error) {
 
 // GobDecode is the opposite of GobEncode. See GobEncode for information
 // on the requirements for and caveats of including set values in gobs.
-func (s *Set) GobDecode(buf []byte) error {
+
+*Set) GobDecode(buf []byte) error {
 	r := bytes.NewReader(buf)
 	dec := gob.NewDecoder(r)
 
@@ -71,6 +73,7 @@ type gobSet struct {
 	Values []interface{}
 }
 
-func init() {
+
+t() {
 	gob.Register([]interface{}(nil))
 }

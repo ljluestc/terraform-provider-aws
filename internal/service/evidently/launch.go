@@ -403,9 +403,9 @@ func resourceLaunchUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 		input := &cloudwatchevidently.UpdateLaunchInput{
 			Description:           aws.String(d.Get("description").(string)),
-			Groups:                expandGroups(d.Get("groups").([]interface{})),
-			Launch:                aws.String(name),
-			Project:               aws.String(project),
+			Groups:   expandGroups(d.Get("groups").([]interface{})),
+			Launch:   aws.String(name),
+			Project:  aws.String(project),
 			MetricMonitors:        expandMetricMonitors(d.Get("metric_monitors").([]interface{})),
 			RandomizationSalt:     aws.String(d.Get("randomization_salt").(string)),
 			ScheduledSplitsConfig: expandScheduledSplitsConfig(d.Get("scheduled_splits_config").([]interface{})),

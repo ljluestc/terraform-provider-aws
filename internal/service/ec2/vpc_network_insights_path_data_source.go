@@ -17,51 +17,50 @@ import (
 
 // @SDKDataSource("aws_ec2_network_insights_path")
 
-func DataSourceNetworkInsightsPath() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceNetworkInsightsPathRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"destination_port": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"network_insights_path_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"protocol": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"source": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"source_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"source_ip": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -70,8 +69,7 @@ func DataSourceNetworkInsightsPath() *schema.Resource {
 }
 
 func dataSourceNetworkInsightsPathRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeNetworkInsightsPathsInput{}
 

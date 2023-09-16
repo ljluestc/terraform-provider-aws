@@ -20,14 +20,16 @@ var Analyzer = &analysis.Analyzer{
 	ResultType: reflect.TypeOf([]*schema.ResourceInfo{}),
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
 	var result []*schema.ResourceInfo
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 		x := n.(*ast.CompositeLit)
 
 		if !isSchemaResource(pass, x) {
@@ -38,9 +40,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	})
 
 	return result, nil
-}
 
-func isSchemaResource(pass *analysis.Pass, cl *ast.CompositeLit) bool {
+
+
+ isSchemaResource(pass *analysis.Pass, cl *ast.CompositeLit) bool {
 	switch v := cl.Type.(type) {
 	default:
 		return false

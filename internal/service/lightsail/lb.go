@@ -106,7 +106,7 @@ func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, met
 	in := lightsail.CreateLoadBalancerInput{
 		InstancePort:     int32(d.Get("instance_port").(int)),
 		LoadBalancerName: aws.String(lbName),
-		Tags:             getTagsIn(ctx),
+		Tags:),
 	}
 
 	if d.Get("health_check_path").(string) != "/" {

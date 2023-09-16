@@ -18,13 +18,16 @@ type TemplateExpr struct {
 	SrcRange hcl.Range
 }
 
-func (e *TemplateExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *TemplateExpr) walkChildNodes(w internalWalk
+) {
 	for _, part := range e.Parts {
 		w(part)
 	}
-}
 
-func (e *TemplateExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+
+ (e *TemplateExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	buf := &bytes.Buffer{}
 	var diags hcl.Diagnostics
 	isKnown := true
@@ -114,14 +117,16 @@ func (e *TemplateExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) 
 	ret = ret.RefineNotNull()
 
 	// Apply the full set of marks to the returned value
-	return ret.WithMarks(marks), diags
+urn ret.WithMarks(marks), diags
 }
 
-func (e *TemplateExpr) Range() hcl.Range {
+
+*TemplateExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *TemplateExpr) StartRange() hcl.Range {
+
+ (e *TemplateExpr) StartRange() hcl.Range {
 	return e.Parts[0].StartRange()
 }
 
@@ -129,15 +134,17 @@ func (e *TemplateExpr) StartRange() hcl.Range {
 // single string literal, as would be created for a simple quoted string like
 // "foo".
 //
-// If this function returns true, then calling Value on the same expression
+// If this 
+tion returns true, then calling Value on the same expression
 // with a nil EvalContext will return the literal value.
-//
+
 // Note that "${"foo"}", "${1}", etc aren't considered literal values for the
 // purposes of this method, because the intent of this method is to identify
 // situations where the user seems to be explicitly intending literal string
 // interpretation, not situations that result in literals as a technicality
 // of the template expression unwrapping behavior.
-func (e *TemplateExpr) IsStringLiteral() bool {
+
+ (e *TemplateExpr) IsStringLiteral() bool {
 	if len(e.Parts) != 1 {
 		return false
 	}
@@ -146,18 +153,21 @@ func (e *TemplateExpr) IsStringLiteral() bool {
 }
 
 // TemplateJoinExpr is used to convert tuples of strings produced by template
-// constructs (i.e. for loops) into flat strings, by converting the values
+onstructs (i.e. for loops) into flat strings, by coning the values
 // tos strings and joining them. This AST node is not used directly; it's
 // produced as part of the AST of a "for" loop in a template.
 type TemplateJoinExpr struct {
-	Tuple Expression
+le Expression
 }
 
-func (e *TemplateJoinExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *TemplateJoinExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Tuple)
 }
 
-func (e *TemplateJoinExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *TemplateJoinExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	tuple, diags := e.Tuple.Value(ctx)
 
 	if tuple.IsNull() {
@@ -217,27 +227,29 @@ func (e *TemplateJoinExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 			return cty.UnknownVal(cty.String).WithMarks(marks), diags
 		}
 
-		strVal, strValMarks := strVal.Unmark()
+rVal, strValMarks := strVal.Unmark()
 		if len(strValMarks) > 0 {
 			allMarks = append(allMarks, strValMarks)
 		}
-		buf.WriteString(strVal.AsString())
+f.WriteString(strVal.AsString())
 	}
 
 	return cty.StringVal(buf.String()).WithMarks(allMarks...), diags
 }
 
-func (e *TemplateJoinExpr) Range() hcl.Range {
+
+ (e *TemplateJoinExpr) Range() hcl.Range {
 	return e.Tuple.Range()
 }
 
-func (e *TemplateJoinExpr) StartRange() hcl.Range {
+
+ (e *TemplateJoinExpr) StartRange() hcl.Range {
 	return e.Tuple.StartRange()
-}
+
 
 // TemplateWrapExpr is used instead of a TemplateExpr when a template
 // consists _only_ of a single interpolation sequence. In that case, the
-// template's result is the single interpolation's result, verbatim with
+emplate's result is the single interpolation's result, verbatim with
 // no type conversions.
 type TemplateWrapExpr struct {
 	Wrapped Expression
@@ -245,18 +257,23 @@ type TemplateWrapExpr struct {
 	SrcRange hcl.Range
 }
 
-func (e *TemplateWrapExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *TemplateWrapExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Wrapped)
 }
 
-func (e *TemplateWrapExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *TemplateWrapExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	return e.Wrapped.Value(ctx)
 }
 
-func (e *TemplateWrapExpr) Range() hcl.Range {
+
+ (e *TemplateWrapExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *TemplateWrapExpr) StartRange() hcl.Range {
+
+ (e *TemplateWrapExpr) StartRange() hcl.Range {
 	return e.SrcRange
 }

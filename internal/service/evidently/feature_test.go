@@ -32,9 +32,9 @@ func TestAccEvidentlyFeature_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_basic(rName, rName2),
@@ -54,8 +54,8 @@ func TestAccEvidentlyFeature_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 "Variation1",
-						"value.#":              "1",
+						"name":    "Variation1",
+						"value.#": "1",
 						"value.0.string_value": "test",
 					}),
 				),
@@ -84,9 +84,9 @@ func TestAccEvidentlyFeature_updateDefaultVariation(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_defaultVariation(rName, rName2, variationName1, variationName2, "first"),
@@ -126,9 +126,9 @@ func TestAccEvidentlyFeature_updateDescription(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_description(rName, rName2, originalDescription),
@@ -168,9 +168,9 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_entityOverrides1(rName, rName2, variationName1, variationName2),
@@ -179,13 +179,13 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test1", variationName1),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName1,
-						"value.#":              "1",
+						"name":    variationName1,
+						"value.#": "1",
 						"value.0.string_value": "testval1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName2,
-						"value.#":              "1",
+						"name":    variationName2,
+						"value.#": "1",
 						"value.0.string_value": "testval2",
 					}),
 				),
@@ -203,13 +203,13 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test1", variationName2),
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test2", variationName1),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName1,
-						"value.#":              "1",
+						"name":    variationName1,
+						"value.#": "1",
 						"value.0.string_value": "testval1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName2,
-						"value.#":              "1",
+						"name":    variationName2,
+						"value.#": "1",
 						"value.0.string_value": "testval2",
 					}),
 				),
@@ -233,9 +233,9 @@ func TestAccEvidentlyFeature_updateEvaluationStrategy(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_evaluationStrategy(rName, rName2, originalEvaluationStategy),
@@ -279,9 +279,9 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_variationsBoolValue1(rName, rName2, originalVariationName1, originalVariationBoolVal1),
@@ -291,7 +291,7 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeBoolean),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               originalVariationName1,
+						"name":  originalVariationName1,
 						"value.#":            "1",
 						"value.0.bool_value": strconv.FormatBool(originalVariationBoolVal1),
 					}),
@@ -310,12 +310,12 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeBoolean),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               updatedVariationName1,
+						"name":  updatedVariationName1,
 						"value.#":            "1",
 						"value.0.bool_value": strconv.FormatBool(updatedVariationBoolVal1),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               variationName2,
+						"name":  variationName2,
 						"value.#":            "1",
 						"value.0.bool_value": strconv.FormatBool(variationBoolVal2),
 					}),
@@ -344,9 +344,9 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_variationsDoubleValue1(rName, rName2, originalVariationName1, originalVariationDoubleVal1),
@@ -356,8 +356,8 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeDouble),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 originalVariationName1,
-						"value.#":              "1",
+						"name":    originalVariationName1,
+						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(originalVariationDoubleVal1, 'f', -1, 64),
 					}),
 				),
@@ -375,13 +375,13 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeDouble),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 updatedVariationName1,
-						"value.#":              "1",
+						"name":    updatedVariationName1,
+						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(updatedVariationDoubleVal1, 'f', -1, 64),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName2,
-						"value.#":              "1",
+						"name":    variationName2,
+						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(float64(variationDoubleVal2), 'f', -1, 64),
 					}),
 				),
@@ -409,9 +409,9 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_variationsLongValue1(rName, rName2, originalVariationName1, originalVariationLongVal1),
@@ -421,7 +421,7 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeLong),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               originalVariationName1,
+						"name":  originalVariationName1,
 						"value.#":            "1",
 						"value.0.long_value": strconv.Itoa(originalVariationLongVal1),
 					}),
@@ -440,12 +440,12 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeLong),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               updatedVariationName1,
+						"name":  updatedVariationName1,
 						"value.#":            "1",
 						"value.0.long_value": strconv.Itoa(updatedVariationLongVal1),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":               variationName2,
+						"name":  variationName2,
 						"value.#":            "1",
 						"value.0.long_value": strconv.Itoa(variationLongVal2),
 					}),
@@ -475,9 +475,9 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_variationsStringValue1(rName, rName2, originalVariationName1, originalVariationStringVal1),
@@ -487,8 +487,8 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 originalVariationName1,
-						"value.#":              "1",
+						"name":    originalVariationName1,
+						"value.#": "1",
 						"value.0.string_value": originalVariationStringVal1,
 					}),
 				),
@@ -506,13 +506,13 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 updatedVariationName1,
-						"value.#":              "1",
+						"name":    updatedVariationName1,
+						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal1,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName2,
-						"value.#":              "1",
+						"name":    variationName2,
+						"value.#": "1",
 						"value.0.string_value": variationStringVal2,
 					}),
 				),
@@ -525,13 +525,13 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 updatedVariationName1,
-						"value.#":              "1",
+						"name":    updatedVariationName1,
+						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal1,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":                 variationName2,
-						"value.#":              "1",
+						"name":    variationName2,
+						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal2, // test empty string
 					}),
 				),
@@ -553,9 +553,9 @@ func TestAccEvidentlyFeature_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_tags1(rName, rName2, "key1", "value1"),
@@ -600,10 +600,10 @@ func TestAccEvidentlyFeature_disappears(t *testing.T) {
 	resourceName := "aws_evidently_feature.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFeatureDestroy(ctx),
+		CheckDestroy:testAccCheckFeatureDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFeatureConfig_basic(rName, rName2),
@@ -717,7 +717,7 @@ locals {
 }
 
 resource "aws_evidently_feature" "test" {
-  name              = %[1]q
+  name = %[1]q
   project           = aws_evidently_project.test.name
   default_variation = local.select_default_variation == "first" ? local.variation_name1 : local.variation_name2
 
@@ -821,9 +821,9 @@ func testAccFeatureConfig_evaluationStrategy(rName, rName2, evaluationStrategy s
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name                = %[1]q
+  name   = %[1]q
   evaluation_strategy = %[2]q
-  project             = aws_evidently_project.test.name
+  project= aws_evidently_project.test.name
 
   variations {
     name = "Variation1"
@@ -858,7 +858,7 @@ func testAccFeatureConfig_variationsBoolValue2(rName, rName2, variationName1 str
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name              = %[1]q
+  name = %[1]q
   project           = aws_evidently_project.test.name
   default_variation = %[4]q
 
@@ -902,7 +902,7 @@ func testAccFeatureConfig_variationsDoubleValue2(rName, rName2, variationName1 s
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name              = %[1]q
+  name = %[1]q
   project           = aws_evidently_project.test.name
   default_variation = %[4]q
 
@@ -946,7 +946,7 @@ func testAccFeatureConfig_variationsLongValue2(rName, rName2, variationName1 str
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name              = %[1]q
+  name = %[1]q
   project           = aws_evidently_project.test.name
   default_variation = %[4]q
 
@@ -990,7 +990,7 @@ func testAccFeatureConfig_variationsStringValue2(rName, rName2, variationName1, 
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name              = %[1]q
+  name = %[1]q
   project           = aws_evidently_project.test.name
   default_variation = %[4]q
 

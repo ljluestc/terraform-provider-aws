@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_local_gateway")
 
-func DataSourceLocalGateway() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewayRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,20 +28,20 @@ func DataSourceLocalGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 
 			"filter": CustomFiltersSchema(),
 
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
@@ -50,7 +49,7 @@ func DataSourceLocalGateway() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -58,8 +57,7 @@ func DataSourceLocalGateway() *schema.Resource {
 }
 
 func dataSourceLocalGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	req := &ec2.DescribeLocalGatewaysInput{}

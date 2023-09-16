@@ -114,9 +114,9 @@ func resourceOriginAccessIdentityUpdate(ctx context.Context, d *schema.ResourceD
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudFrontConn(ctx)
 	params := &cloudfront.UpdateCloudFrontOriginAccessIdentityInput{
-		Id:                                   aws.String(d.Id()),
+		Id:),
 		CloudFrontOriginAccessIdentityConfig: expandOriginAccessIdentityConfig(d),
-		IfMatch:                              aws.String(d.Get("etag").(string)),
+		IfMatch:").(string)),
 	}
 	_, err := conn.UpdateCloudFrontOriginAccessIdentityWithContext(ctx, params)
 	if err != nil {

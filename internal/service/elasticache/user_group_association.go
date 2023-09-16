@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_elasticache_user_group_association")
+
 func ResourceUserGroupAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserGroupAssociationCreate,
@@ -47,6 +48,7 @@ func ResourceUserGroupAssociation() *schema.Resource {
 	}
 }
 
+
 func resourceUserGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -59,7 +61,8 @@ func resourceUserGroupAssociationCreate(ctx context.Context, d *schema.ResourceD
 		UserIdsToAdd: aws.StringSlice([]string{userID}),
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, 
+func() (interface{}, error) {
 		return conn.ModifyUserGroupWithContext(ctx, input)
 	}, elasticache.ErrCodeInvalidUserGroupStateFault)
 
@@ -75,6 +78,7 @@ func resourceUserGroupAssociationCreate(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceUserGroupAssociationRead(ctx, d, meta)...)
 }
+
 
 func resourceUserGroupAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -104,6 +108,7 @@ func resourceUserGroupAssociationRead(ctx context.Context, d *schema.ResourceDat
 	return diags
 }
 
+
 func resourceUserGroupAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
@@ -115,7 +120,8 @@ func resourceUserGroupAssociationDelete(ctx context.Context, d *schema.ResourceD
 	}
 
 	log.Printf("[INFO] Deleting ElastiCache User Group Association: %s", d.Id())
-	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, func() (interface{}, error) {
+	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, 
+func() (interface{}, error) {
 		return conn.ModifyUserGroupWithContext(ctx, &elasticache.ModifyUserGroupInput{
 			UserGroupId:     aws.String(userGroupID),
 			UserIdsToRemove: aws.StringSlice([]string{userID}),
@@ -137,6 +143,7 @@ func resourceUserGroupAssociationDelete(ctx context.Context, d *schema.ResourceD
 	return diags
 }
 
+
 func FindUserGroupAssociation(ctx context.Context, conn *elasticache.ElastiCache, userGroupID, userID string) error {
 	userGroup, err := FindUserGroupByID(ctx, conn, userGroupID)
 
@@ -155,11 +162,13 @@ func FindUserGroupAssociation(ctx context.Context, conn *elasticache.ElastiCache
 
 const userGroupAssociationResourceIDSeparator = ","
 
+
 func userGroupAssociationCreateResourceID(userGroupID, userID string) string {
 	parts := []string{userGroupID, userID}
 	id := strings.Join(parts, userGroupAssociationResourceIDSeparator)
 	return id
 }
+
 
 func UserGroupAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, userGroupAssociationResourceIDSeparator)

@@ -33,17 +33,17 @@ func ResourceFirewallConfig() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"firewall_fail_open": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.StringInSlice(route53resolver.FirewallFailOpenStatus_Values(), false),
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -124,7 +124,7 @@ func resourceFirewallConfigDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting Route53 Resolver Firewall Config: %s", d.Id())
 	_, err := conn.UpdateFirewallConfigWithContext(ctx, &route53resolver.UpdateFirewallConfigInput{
-		ResourceId:       aws.String(d.Get("resource_id").(string)),
+		ResourceId:ng(d.Get("resource_id").(string)),
 		FirewallFailOpen: aws.String(route53resolver.FirewallFailOpenStatusDisabled),
 	})
 

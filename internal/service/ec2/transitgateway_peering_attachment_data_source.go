@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_peering_attachment")
 
-func DataSourceTransitGatewayPeeringAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayPeeringAttachmentRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -30,25 +29,25 @@ func DataSourceTransitGatewayPeeringAttachment() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"peer_account_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"peer_region": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"peer_transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -56,8 +55,7 @@ func DataSourceTransitGatewayPeeringAttachment() *schema.Resource {
 }
 
 func dataSourceTransitGatewayPeeringAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayPeeringAttachmentsInput{}

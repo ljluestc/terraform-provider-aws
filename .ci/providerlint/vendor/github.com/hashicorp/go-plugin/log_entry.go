@@ -24,7 +24,8 @@ type logEntryKV struct {
 
 // flattenKVPairs is used to flatten KVPair slice into []interface{}
 // for hclog consumption.
-func flattenKVPairs(kvs []*logEntryKV) []interface{} {
+
+ flattenKVPairs(kvs []*logEntryKV) []interface{} {
 	var result []interface{}
 	for _, kv := range kvs {
 		result = append(result, kv.Key)
@@ -34,8 +35,9 @@ func flattenKVPairs(kvs []*logEntryKV) []interface{} {
 	return result
 }
 
-// parseJSON handles parsing JSON output
-func parseJSON(input []byte) (*logEntry, error) {
+arseJSON handles parsing JSON output
+
+ parseJSON(input []byte) (*logEntry, error) {
 	var raw map[string]interface{}
 	entry := &logEntry{}
 

@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_api_gateway_client_certificate", name="Client Certificate")
 // @Tags(identifierAttribute="arn")
-func ResourceClientCertificate() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceClientCertificateCreate,
-		ReadWithoutTimeout:   resourceClientCertificateRead,
+		ReadWithoutTimeout:ourceClientCertificateRead,
 		UpdateWithoutTimeout: resourceClientCertificateUpdate,
 		DeleteWithoutTimeout: resourceClientCertificateDelete,
 
@@ -38,26 +37,26 @@ func ResourceClientCertificate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"created_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"expiration_date": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"pem_encoded_certificate": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -66,8 +65,7 @@ func ResourceClientCertificate() *schema.Resource {
 }
 
 func resourceClientCertificateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	input := &apigateway.GenerateClientCertificateInput{
 		Tags: getTagsIn(ctx),
@@ -90,8 +88,7 @@ func resourceClientCertificateCreate(ctx context.Context, d *schema.ResourceData
 
 func resourceClientCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	cert, err := FindClientCertificateByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -106,8 +103,8 @@ func resourceClientCertificateRead(ctx context.Context, d *schema.ResourceData, 
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/clientcertificates/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -124,13 +121,12 @@ func resourceClientCertificateRead(ctx context.Context, d *schema.ResourceData, 
 func resourceClientCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 		input := &apigateway.UpdateClientCertificateInput{
 			ClientCertificateId: aws.String(d.Id()),
 			PatchOperations: []*apigateway.PatchOperation{
 				{
-					Op:    aws.String(apigateway.OpReplace),
+					Op:s.String(apigateway.OpReplace),
 					Path:  aws.String("/description"),
 					Value: aws.String(d.Get("description").(string)),
 				},
@@ -151,8 +147,7 @@ func resourceClientCertificateDelete(ctx context.Context, d *schema.ResourceData
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	log.Printf("[DEBUG] Deleting API Gateway Client Certificate: %s", d.Id())
-	_, err := conn.DeleteClientCertificateWithContext(ctx, &apigateway.DeleteClientCertificateInput{
+funcerr := conn.DeleteClientCertificateWithContext(ctx, &apigateway.DeleteClientCertificateInput{
 		ClientCertificateId: aws.String(d.Id()),
 	})
 
@@ -168,11 +163,10 @@ func FindClientCertificateByID(ctx context.Context, conn *apigateway.APIGateway,
 		ClientCertificateId: aws.String(id),
 	}
 
-	output, err := conn.GetClientCertificateWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, apigateway.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:,
 			LastRequest: input,
 		}
 	}

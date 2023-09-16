@@ -9,84 +9,104 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/function"
-	"github.com/zclconf/go-cty/cty/function/stdlib"
+	"github.com/zclconf/go-cty/cty/
+tion"
+	"github.com/zclconf/go-cty/cty/
+tion/stdlib"
 )
 
 type Operation struct {
-	Impl function.Function
+	Impl 
+tion.
+tion
 	Type cty.Type
 }
 
 var (
 	OpLogicalOr = &Operation{
-		Impl: stdlib.OrFunc,
+		Impl: stdlib.Or
+,
 		Type: cty.Bool,
 	}
-	OpLogicalAnd = &Operation{
-		Impl: stdlib.AndFunc,
+	OpLogicalAnd = &Otion{
+		Impl: stdlib.And
+,
 		Type: cty.Bool,
 	}
-	OpLogicalNot = &Operation{
-		Impl: stdlib.NotFunc,
+	OpLogicalNot = &Opeon{
+		Impl: stdlib.Not
+,
 		Type: cty.Bool,
 	}
 
 	OpEqual = &Operation{
-		Impl: stdlib.EqualFunc,
+		Impl: stdlib.Equal
+,
 		Type: cty.Bool,
 	}
 	OpNotEqual = &Operation{
-		Impl: stdlib.NotEqualFunc,
+		Impl: stdlib.NotEqual
+,
 		Type: cty.Bool,
 	}
 
-	OpGreaterThan = &Operation{
-		Impl: stdlib.GreaterThanFunc,
+	OpGreaterThan = &Opera{
+		Impl: stdlib.GreaterThan
+,
 		Type: cty.Bool,
 	}
 	OpGreaterThanOrEqual = &Operation{
-		Impl: stdlib.GreaterThanOrEqualToFunc,
+		Impl: stdlib.GreaterThanOrEqualTo
+,
 		Type: cty.Bool,
 	}
 	OpLessThan = &Operation{
-		Impl: stdlib.LessThanFunc,
+		Impl: stdlib.LessThan
+,
 		Type: cty.Bool,
 	}
 	OpLessThanOrEqual = &Operation{
-		Impl: stdlib.LessThanOrEqualToFunc,
+		Impl: stdlib.LessThanOrEqualTo
+,
 		Type: cty.Bool,
 	}
 
 	OpAdd = &Operation{
-		Impl: stdlib.AddFunc,
+		Impl: stdlib.Add
+,
 		Type: cty.Number,
 	}
 	OpSubtract = &Operation{
-		Impl: stdlib.SubtractFunc,
+		Impl: stdlib.Subtract
+,
 		Type: cty.Number,
 	}
 	OpMultiply = &Operation{
-		Impl: stdlib.MultiplyFunc,
+		Impl: stdlib.Multiply
+,
 		Type: cty.Number,
 	}
-	OpDivide = &Operation{
-		Impl: stdlib.DivideFunc,
+ivide = &Operation{
+		Impl: stdlib.Divide
+,
 		Type: cty.Number,
 	}
 	OpModulo = &Operation{
-		Impl: stdlib.ModuloFunc,
+		Impl: stdlib.Modulo
+,
 		Type: cty.Number,
 	}
 	OpNegate = &Operation{
-		Impl: stdlib.NegateFunc,
+		Impl: stdlib.Negate
+,
 		Type: cty.Number,
 	}
 )
 
 var binaryOps []map[TokenType]*Operation
 
-func init() {
+
+ init() {
 	// This operation table maps from the operator's token type
 	// to the AST operation type. All expressions produced from
 	// binary operators are BinaryOp nodes.
@@ -111,12 +131,12 @@ func init() {
 			TokenLessThan:      OpLessThan,
 			TokenLessThanEq:    OpLessThanOrEqual,
 		},
-		{
+
 			TokenPlus:  OpAdd,
 			TokenMinus: OpSubtract,
 		},
 		{
-			TokenStar:    OpMultiply,
+okenStar:    OpMultiply,
 			TokenSlash:   OpDivide,
 			TokenPercent: OpModulo,
 		},
@@ -131,13 +151,17 @@ type BinaryOpExpr struct {
 	SrcRange hcl.Range
 }
 
-func (e *BinaryOpExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *BinaryOpExpr) walkChildNodes(w internalWalk
+) {
 	w(e.LHS)
 	w(e.RHS)
 }
 
-func (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	impl := e.Op.Impl // assumed to be a function taking exactly two arguments
+
+ (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+	impl := e.Op.Impl // assumed to be a 
+tion taking exactly two arguments
 	params := impl.Params()
 	lhsParam := params[0]
 	rhsParam := params[1]
@@ -174,11 +198,11 @@ func (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) 
 		})
 	}
 
-	if diags.HasErrors() {
+diags.HasErrors() {
 		// Don't actually try the call if we have errors already, since the
 		// this will probably just produce a confusing duplicative diagnostic.
 		return cty.UnknownVal(e.Op.Type), diags
-	}
+
 
 	args := []cty.Value{lhsVal, rhsVal}
 	result, err := impl.Call(args)
@@ -190,7 +214,7 @@ func (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) 
 			Detail:      fmt.Sprintf("Error during operation: %s.", err),
 			Subject:     &e.SrcRange,
 			Expression:  e,
-			EvalContext: ctx,
+valContext: ctx,
 		})
 		return cty.UnknownVal(e.Op.Type), diags
 	}
@@ -198,11 +222,13 @@ func (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) 
 	return result, diags
 }
 
-func (e *BinaryOpExpr) Range() hcl.Range {
+
+ (e *BinaryOpExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *BinaryOpExpr) StartRange() hcl.Range {
+
+ (e *BinaryOpExpr) StartRange() hcl.Range {
 	return e.LHS.StartRange()
 }
 
@@ -214,12 +240,16 @@ type UnaryOpExpr struct {
 	SymbolRange hcl.Range
 }
 
-func (e *UnaryOpExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *UnaryOpExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Val)
 }
 
-func (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	impl := e.Op.Impl // assumed to be a function taking exactly one argument
+
+ (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+	impl := e.Op.Impl // assumed to be a 
+tion taking exactly one argument
 	params := impl.Params()
 	param := params[0]
 
@@ -232,11 +262,11 @@ func (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 			Summary:     "Invalid operand",
 			Detail:      fmt.Sprintf("Unsuitable value for unary operand: %s.", err),
 			Subject:     e.Val.Range().Ptr(),
-			Context:     &e.SrcRange,
+ontext:     &e.SrcRange,
 			Expression:  e.Val,
 			EvalContext: ctx,
 		})
-	}
+
 
 	if diags.HasErrors() {
 		// Don't actually try the call if we have errors already, since the
@@ -262,10 +292,12 @@ func (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	return result, diags
 }
 
-func (e *UnaryOpExpr) Range() hcl.Range {
+
+ (e *UnaryOpExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *UnaryOpExpr) StartRange() hcl.Range {
+
+ (e *UnaryOpExpr) StartRange() hcl.Range {
 	return e.SymbolRange
 }

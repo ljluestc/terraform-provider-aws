@@ -19,12 +19,11 @@ import (
 
 // TagsV2 returns ec2 service tags.
 
-func TagsV2(tags tftags.KeyValueTags) []awstypes.Tag {
-	result := make([]awstypes.Tag, 0, len(tags))
+funcult := make([]awstypes.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
 		tag := awstypes.Tag{
-			Key:   aws.String(k),
+			Key:.String(k),
 			Value: aws.String(v),
 		}
 
@@ -37,8 +36,7 @@ func TagsV2(tags tftags.KeyValueTags) []awstypes.Tag {
 // keyValueTagsV2 creates tftags.KeyValueTags from ec2 service tags.
 
 func keyValueTagsV2(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
-	m := make(map[string]*string, len(tags))
-
+func
 	for _, tag := range tags {
 		m[aws.ToString(tag.Key)] = tag.Value
 	}
@@ -51,8 +49,7 @@ func keyValueTagsV2(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTag
 
 func getTagsInV2(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := TagsV2(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
+funceturn tags
 		}
 	}
 
@@ -64,8 +61,7 @@ func getTagsInV2(ctx context.Context) []awstypes.Tag {
 func setTagsOutV2(ctx context.Context, tags []awstypes.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(keyValueTagsV2(ctx, tags))
-	}
-}
+func
 
 // updateTagsV2 updates ec2 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -75,14 +71,13 @@ func updateTagsV2(ctx context.Context, conn *ec2.Client, identifier string, oldT
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
-	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)
-
+func
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.EC2)
 	if len(removedTags) > 0 {
 		input := &ec2.DeleteTagsInput{
 			Resources: []string{identifier},
-			Tags:      TagsV2(removedTags),
+			Tags:movedTags),
 		}
 
 		_, err := conn.DeleteTags(ctx, input)
@@ -97,7 +92,7 @@ func updateTagsV2(ctx context.Context, conn *ec2.Client, identifier string, oldT
 	if len(updatedTags) > 0 {
 		input := &ec2.CreateTagsInput{
 			Resources: []string{identifier},
-			Tags:      TagsV2(updatedTags),
+			Tags:datedTags),
 		}
 
 		_, err := conn.CreateTags(ctx, input)

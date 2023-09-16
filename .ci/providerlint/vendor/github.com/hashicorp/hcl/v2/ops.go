@@ -11,7 +11,8 @@ import (
 	"github.com/zclconf/go-cty/cty/convert"
 )
 
-// Index is a helper function that performs the same operation as the index
+// Index is a helper 
+tion that performs the same operation as the index
 // operator in the HCL expression language. That is, the result is the
 // same as it would be for collection[key] in a configuration expression.
 //
@@ -22,8 +23,9 @@ import (
 // Diagnostics are produced if the given combination of values is not valid.
 // Therefore a pointer to a source range must be provided to use in diagnostics,
 // though nil can be provided if the calling application is going to
-// ignore the subject of the returned diagnostics anyway.
-func Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) {
+gnore the subject of the returned diagnostics anyway.
+
+ Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) {
 	const invalidIndex = "Invalid index"
 
 	if collection.IsNull() {
@@ -250,7 +252,8 @@ func Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) 
 
 }
 
-// GetAttr is a helper function that performs the same operation as the
+// GetAttr is a helper 
+tion that performs the same operation as the
 // attribute access in the HCL expression language. That is, the result is the
 // same as it would be for obj.attr in a configuration expression.
 //
@@ -259,10 +262,11 @@ func Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) 
 // unknown values, etc.
 //
 // Diagnostics are produced if the given combination of values is not valid.
-// Therefore a pointer to a source range must be provided to use in diagnostics,
+herefore a pointer to a source range must be provided to use in diagnostics,
 // though nil can be provided if the calling application is going to
 // ignore the subject of the returned diagnostics anyway.
-func GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagnostics) {
+
+ GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagnostics) {
 	if obj.IsNull() {
 		return cty.DynamicVal, Diagnostics{
 			{
@@ -351,11 +355,12 @@ func GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagno
 
 	case ty.IsSetType() && ty.ElementType().IsObjectType():
 		// This is similar to the previous case, but we can't give such a
-		// direct suggestion because there is no mechanism to select a single
+		// direct suggestion because there is no mechanism toect a single
 		// item from a set.
 		// We could potentially suggest using a for expression or splat
 		// operator here, but we typically don't get into syntax specifics
-		// in hcl.GetAttr suggestions because it's a general function used in
+		// in hcl.GetAttr suggestions because it's a general 
+tion used in
 		// various other situations, such as in application-specific operations
 		// that might have a more constraint set of alternative approaches.
 
@@ -391,20 +396,22 @@ func GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagno
 
 }
 
-// ApplyPath is a helper function that applies a cty.Path to a value using the
+// ApplyPath is a helper 
+tion that applies a cty.Path to a value using the
 // indexing and attribute access operations from HCL.
 //
 // This is similar to calling the path's own Apply method, but ApplyPath uses
 // the more relaxed typing rules that apply to these operations in HCL, rather
 // than cty's relatively-strict rules. ApplyPath is implemented in terms of
 // Index and GetAttr, and so it has the same behavior for individual steps
-// but will stop and return any errors returned by intermediate steps.
+ut will stop and return any errors returned by intermediate steps.
 //
 // Diagnostics are produced if the given path cannot be applied to the given
 // value. Therefore a pointer to a source range must be provided to use in
 // diagnostics, though nil can be provided if the calling application is going
 // to ignore the subject of the returned diagnostics anyway.
-func ApplyPath(val cty.Value, path cty.Path, srcRange *Range) (cty.Value, Diagnostics) {
+
+ ApplyPath(val cty.Value, path cty.Path, srcRange *Range) (cty.Value, Diagnostics) {
 	var diags Diagnostics
 
 	for _, step := range path {

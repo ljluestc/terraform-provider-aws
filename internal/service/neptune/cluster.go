@@ -324,23 +324,23 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	}
 	serverlessConfiguration := expandServerlessConfiguration(d.Get("serverless_v2_scaling_configuration").([]interface{}))
 	inputC := &neptune.CreateDBClusterInput{
-		DBClusterIdentifier:              aws.String(clusterID),
-		CopyTagsToSnapshot:               aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
-		Engine:                           aws.String(d.Get("engine").(string)),
-		Port:                             aws.Int64(int64(d.Get("port").(int))),
-		StorageEncrypted:                 aws.Bool(d.Get("storage_encrypted").(bool)),
-		DeletionProtection:               aws.Bool(d.Get("deletion_protection").(bool)),
-		Tags:                             getTagsIn(ctx),
+		DBClusterIdentifier: aws.String(clusterID),
+		CopyTagsToSnapshot:  aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
+		Engine: aws.String(d.Get("engine").(string)),
+		Port:   aws.Int64(int64(d.Get("port").(int))),
+		StorageEncrypted:    aws.Bool(d.Get("storage_encrypted").(bool)),
+		DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
+		Tags:   getTagsIn(ctx),
 		ServerlessV2ScalingConfiguration: serverlessConfiguration,
 	}
 	inputR := &neptune.RestoreDBClusterFromSnapshotInput{
-		DBClusterIdentifier:              aws.String(clusterID),
-		CopyTagsToSnapshot:               aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
-		Engine:                           aws.String(d.Get("engine").(string)),
-		Port:                             aws.Int64(int64(d.Get("port").(int))),
-		SnapshotIdentifier:               aws.String(d.Get("snapshot_identifier").(string)),
-		DeletionProtection:               aws.Bool(d.Get("deletion_protection").(bool)),
-		Tags:                             getTagsIn(ctx),
+		DBClusterIdentifier: aws.String(clusterID),
+		CopyTagsToSnapshot:  aws.Bool(d.Get("copy_tags_to_snapshot").(bool)),
+		Engine: aws.String(d.Get("engine").(string)),
+		Port:   aws.Int64(int64(d.Get("port").(int))),
+		SnapshotIdentifier:  aws.String(d.Get("snapshot_identifier").(string)),
+		DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
+		Tags:   getTagsIn(ctx),
 		ServerlessV2ScalingConfiguration: serverlessConfiguration,
 	}
 	inputM := &neptune.ModifyDBClusterInput{
@@ -767,7 +767,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 func addIAMRoleToCluster(ctx context.Context, conn *neptune.Neptune, clusterID, roleARN string) error {
 	_, err := conn.AddRoleToDBClusterWithContext(ctx, &neptune.AddRoleToDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterID),
-		RoleArn:             aws.String(roleARN),
+		RoleArn:aws.String(roleARN),
 	})
 
 	return err
@@ -776,7 +776,7 @@ func addIAMRoleToCluster(ctx context.Context, conn *neptune.Neptune, clusterID, 
 func removeIAMRoleFromCluster(ctx context.Context, conn *neptune.Neptune, clusterID, roleARN string) error {
 	_, err := conn.RemoveRoleFromDBClusterWithContext(ctx, &neptune.RemoveRoleFromDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterID),
-		RoleArn:             aws.String(roleARN),
+		RoleArn:aws.String(roleARN),
 	})
 
 	return err

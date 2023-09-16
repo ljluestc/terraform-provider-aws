@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func testAccApp_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
@@ -30,10 +29,10 @@ func testAccApp_basic(t *testing.T) {
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_basic(rName),
@@ -50,8 +49,8 @@ func testAccApp_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -59,8 +58,7 @@ func testAccApp_basic(t *testing.T) {
 }
 
 func testAccApp_space(t *testing.T) {
-	ctx := acctest.Context(t)
-	if testing.Short() {
+functesting.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
 
@@ -69,10 +67,10 @@ func testAccApp_space(t *testing.T) {
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_space(rName),
@@ -83,8 +81,8 @@ func testAccApp_space(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -93,8 +91,7 @@ func testAccApp_space(t *testing.T) {
 
 func testAccApp_resourceSpec(t *testing.T) {
 	ctx := acctest.Context(t)
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+funcSkip("skipping long-running test in short mode")
 	}
 
 	var app sagemaker.DescribeAppOutput
@@ -102,10 +99,10 @@ func testAccApp_resourceSpec(t *testing.T) {
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_resourceSpec(rName),
@@ -118,8 +115,8 @@ func testAccApp_resourceSpec(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -129,8 +126,7 @@ func testAccApp_resourceSpec(t *testing.T) {
 func testAccApp_resourceSpecLifecycle(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
-	}
+func
 
 	var app sagemaker.DescribeAppOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -138,10 +134,10 @@ func testAccApp_resourceSpecLifecycle(t *testing.T) {
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_resourceSpecLifecycle(rName, uName),
@@ -155,8 +151,8 @@ func testAccApp_resourceSpecLifecycle(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -167,17 +163,16 @@ func testAccApp_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
+func
 	var app sagemaker.DescribeAppOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_tags1(rName, "key1", "value1"),
@@ -188,8 +183,8 @@ func testAccApp_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -218,16 +213,15 @@ func testAccApp_disappears(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
 	}
-
-	var app sagemaker.DescribeAppOutput
+func app sagemaker.DescribeAppOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
+		CheckDestroy:CheckAppDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAppConfig_basic(rName),
@@ -247,10 +241,8 @@ func testAccCheckAppDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_sagemaker_app" {
-				continue
-			}
-
-			domainID := rs.Primary.Attributes["domain_id"]
+func
+funcomainID := rs.Primary.Attributes["domain_id"]
 			appType := rs.Primary.Attributes["app_type"]
 			appName := rs.Primary.Attributes["app_name"]
 
@@ -287,10 +279,8 @@ func testAccCheckAppExists(ctx context.Context, n string, v *sagemaker.DescribeA
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("No sagmaker domain ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
+func
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
 		domainID := rs.Primary.Attributes["domain_id"]
 		appType := rs.Primary.Attributes["app_type"]
@@ -319,43 +309,42 @@ func testAccCheckAppExists(ctx context.Context, n string, v *sagemaker.DescribeA
 func testAccAppConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name
+  path
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
+func
+incipals {
+ce"
+tifiers = ["sagemaker.amazonaws.com"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.amazonaws.com"]
-    }
   }
 }
 
 resource "aws_sagemaker_domain" "test" {
   domain_name = %[1]q
-  auth_mode   = "IAM"
-  vpc_id      = aws_vpc.test.id
+  auth_modeIAM"
+  vpc_ids_vpc.test.id
   subnet_ids  = aws_subnet.test[*].id
 
   default_user_settings {
-    execution_role = aws_iam_role.test.arn
+ecution_role = aws_iam_role.test.arn
   }
 
   default_space_settings {
-    execution_role = aws_iam_role.test.arn
+ecution_role = aws_iam_role.test.arn
   }
 
   retention_policy {
-    home_efs_file_system = "Delete"
+me_efs_file_system = "Delete"
   }
 }
 
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = %[1]q
 }
 `, rName))
@@ -364,16 +353,15 @@ resource "aws_sagemaker_user_profile" "test" {
 func testAccAppConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name          = %[1]q
-  app_type          = "JupyterServer"
+  app_name
+  app_typeServer"
 }
 `, rName))
 }
 
-func testAccAppConfig_space(rName string) string {
-	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
   domain_id  = aws_sagemaker_domain.test.id
   space_name = "%[1]s-space"
@@ -381,94 +369,89 @@ resource "aws_sagemaker_space" "test" {
 
 resource "aws_sagemaker_app" "test" {
   domain_id  = aws_sagemaker_domain.test.id
-  app_name   = %[1]q
-  app_type   = "JupyterServer"
+  app_name[1]q
+  app_typeJupyterServer"
   space_name = aws_sagemaker_space.test.space_name
-}
-`, rName))
+funcName))
 }
 
 func testAccAppConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name          = %[1]q
-  app_type          = "JupyterServer"
+  app_name
+  app_typeServer"
 
   tags = {
-    %[2]q = %[3]q
+2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
+func
 func testAccAppConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name          = %[1]q
-  app_type          = "JupyterServer"
+  app_name
+  app_typeServer"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+2]q = %[3]q
+4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
+func
 func testAccAppConfig_resourceSpec(rName string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name          = %[1]q
-  app_type          = "JupyterServer"
+  app_name
+  app_typeServer"
 
   resource_spec {
-    instance_type = "system"
+stance_type = "system"
   }
 }
 `, rName))
 }
 
-func testAccAppConfig_resourceSpecLifecycle(rName, uName string) string {
-	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
+funcurn acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name     = %[1]q
+  studio_lifecycle_config_name]q
   studio_lifecycle_config_app_type = "JupyterServer"
   studio_lifecycle_config_content  = base64encode("echo Hello")
 }
 
 resource "aws_sagemaker_user_profile" "lifecycletest" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = %[2]q
 
   user_settings {
-    execution_role = aws_iam_role.test.arn
+ecution_role = aws_iam_role.test.arn
 
-    jupyter_server_app_settings {
-      default_resource_spec {
-        instance_type        = "system"
-        lifecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
-      }
+pyter_server_app_settings {
+funcce_typem"
+fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
 
-      lifecycle_config_arns = [aws_sagemaker_studio_lifecycle_config.test.arn]
-    }
+
+cycle_config_arns = [aws_sagemaker_studio_lifecycle_config.test.arn]
+
   }
 }
 
 resource "aws_sagemaker_app" "test" {
-  domain_id         = aws_sagemaker_domain.test.id
+  domain_id aws_sagemaker_domain.test.id
   user_profile_name = aws_sagemaker_user_profile.lifecycletest.user_profile_name
-  app_name          = %[1]q
-  app_type          = "JupyterServer"
+  app_name
+  app_typeServer"
 
   resource_spec {
-    instance_type        = "system"
-    lifecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
+stance_type"system"
+fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
   }
 }
 `, rName, uName))

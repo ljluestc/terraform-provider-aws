@@ -25,6 +25,7 @@ import (
 
 // Function annotations are used for resource registration to the Provider. DO NOT EDIT.
 // @SDKResource("aws_vpclattice_resource_policy", name="Resource Policy")
+
 func ResourceResourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceResourcePolicyPut,
@@ -42,7 +43,8 @@ func ResourceResourcePolicy() *schema.Resource {
 				Required:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -60,6 +62,7 @@ func ResourceResourcePolicy() *schema.Resource {
 const (
 	ResNameResourcePolicy = "Resource Policy"
 )
+
 
 func resourceResourcePolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
@@ -86,6 +89,7 @@ func resourceResourcePolicyPut(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceResourcePolicyRead(ctx, d, meta)
 }
+
 
 func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
@@ -120,6 +124,7 @@ func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
 func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
@@ -139,6 +144,7 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return nil
 }
+
 
 func findResourcePolicyByID(ctx context.Context, conn *vpclattice.Client, id string) (*vpclattice.GetResourcePolicyOutput, error) {
 	in := &vpclattice.GetResourcePolicyInput{

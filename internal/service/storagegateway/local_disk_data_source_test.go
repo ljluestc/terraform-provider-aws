@@ -21,10 +21,10 @@ func TestAccStorageGatewayLocalDiskDataSource_diskNode(t *testing.T) {
 	dataSourceName := "data.aws_storagegateway_local_disk.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccLocalDiskDataSourceConfig_nodeNonExistent(rName),
@@ -49,10 +49,10 @@ func TestAccStorageGatewayLocalDiskDataSource_diskPath(t *testing.T) {
 	dataSourceName := "data.aws_storagegateway_local_disk.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGatewayDestroy(ctx),
+		CheckDestroy:testAccCheckGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccLocalDiskDataSourceConfig_pathNonExistent(rName),
@@ -88,8 +88,8 @@ func testAccLocalDiskBaseDataSourceConfig(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
-  size              = "10"
-  type              = "gp2"
+  size = "10"
+  type = "gp2"
 
   tags = {
     Name = %[1]q

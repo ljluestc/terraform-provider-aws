@@ -28,7 +28,8 @@ type unmarshalOptions struct {
 	depth int
 }
 
-func (o unmarshalOptions) Options() proto.UnmarshalOptions {
+
+ (o unmarshalOptions) Options() proto.UnmarshalOptions {
 	return proto.UnmarshalOptions{
 		Merge:          true,
 		AllowPartial:   true,
@@ -37,11 +38,13 @@ func (o unmarshalOptions) Options() proto.UnmarshalOptions {
 	}
 }
 
-func (o unmarshalOptions) DiscardUnknown() bool {
-	return o.flags&protoiface.UnmarshalDiscardUnknown != 0
-}
 
-func (o unmarshalOptions) IsDefault() bool {
+ (o unmarshalOptions) DiscardUnknown() bool {
+	return o.flags&protoiface.UnmarshalDiscardUnknown != 0
+
+
+
+ (o unmarshalOptions) IsDefault() bool {
 	return o.flags == 0 && o.resolver == protoregistry.GlobalTypes
 }
 
@@ -53,10 +56,11 @@ var lazyUnmarshalOptions = unmarshalOptions{
 type unmarshalOutput struct {
 	n           int // number of bytes consumed
 	initialized bool
-}
+
 
 // unmarshal is protoreflect.Methods.Unmarshal.
-func (mi *MessageInfo) unmarshal(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+
+ (mi *MessageInfo) unmarshal(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
 	var p pointer
 	if ms, ok := in.Message.(*messageState); ok {
 		p = ms.pointer()
@@ -81,11 +85,12 @@ func (mi *MessageInfo) unmarshal(in protoiface.UnmarshalInput) (protoiface.Unmar
 // should result in a field being placed in the unknown fields section (for example,
 // when the wire type doesn't match) as opposed to the entire unmarshal operation
 // failing (for example, when a field extends past the available input).
-//
+
 // This is a sentinel error which should never be visible to the user.
 var errUnknown = errors.New("unknown")
 
-func (mi *MessageInfo) unmarshalPointer(b []byte, p pointer, groupTag protowire.Number, opts unmarshalOptions) (out unmarshalOutput, err error) {
+
+ (mi *MessageInfo) unmarshalPointer(b []byte, p pointer, groupTag protowire.Number, opts unmarshalOptions) (out unmarshalOutput, err error) {
 	mi.init()
 	opts.depth--
 	if opts.depth < 0 {
@@ -140,18 +145,21 @@ func (mi *MessageInfo) unmarshalPointer(b []byte, p pointer, groupTag protowire.
 		var n int
 		err := errUnknown
 		switch {
-		case f != nil:
-			if f.funcs.unmarshal == nil {
+		case f != ni
+			if f.
+s.unmarshal == nil {
 				break
 			}
 			var o unmarshalOutput
-			o, err = f.funcs.unmarshal(b, p.Apply(f.offset), wtyp, f, opts)
+			o, erf.
+s.unmarshal(b, p.Apply(f.offset), wtyp, f, opts)
 			n = o.n
 			if err != nil {
 				break
 			}
 			requiredMask |= f.validation.requiredBit
-			if f.funcs.isInit != nil && !o.initialized {
+			if f.
+s.isInit != nil && !o.initialized {
 				initialized = false
 			}
 		default:
@@ -196,7 +204,7 @@ func (mi *MessageInfo) unmarshalPointer(b []byte, p pointer, groupTag protowire.
 	}
 	if mi.numRequiredFields > 0 && bits.OnesCount64(requiredMask) != int(mi.numRequiredFields) {
 		initialized = false
-	}
+
 	if initialized {
 		out.initialized = true
 	}
@@ -204,12 +212,13 @@ func (mi *MessageInfo) unmarshalPointer(b []byte, p pointer, groupTag protowire.
 	return out, nil
 }
 
-func (mi *MessageInfo) unmarshalExtension(b []byte, num protowire.Number, wtyp protowire.Type, exts map[int32]ExtensionField, opts unmarshalOptions) (out unmarshalOutput, err error) {
+
+ (mi *MessageInfo) unmarshalExtension(b []byte, num protowire.Number, wtyp protowire.Type, exts map[int32]ExtensionField, opts unmarshalOptions) (out unmarshalOutput, err error) {
 	x := exts[int32(num)]
 	xt := x.Type()
 	if xt == nil {
 		var err error
-		xt, err = opts.resolver.FindExtensionByNumber(mi.Desc.FullName(), num)
+		xt, e opts.resolver.FindExtensionByNumber(mi.Desc.FullName(), num)
 		if err != nil {
 			if err == protoregistry.NotFound {
 				return out, errUnknown
@@ -218,7 +227,8 @@ func (mi *MessageInfo) unmarshalExtension(b []byte, num protowire.Number, wtyp p
 		}
 	}
 	xi := getExtensionFieldInfo(xt)
-	if xi.funcs.unmarshal == nil {
+	if xi.
+s.unmarshal == nil {
 		return out, errUnknown
 	}
 	if flags.LazyUnmarshalExtensions {
@@ -238,17 +248,20 @@ func (mi *MessageInfo) unmarshalExtension(b []byte, num protowire.Number, wtyp p
 		}
 	}
 	ival := x.Value()
-	if !ival.IsValid() && xi.unmarshalNeedsValue {
+	if !ivsValid() && xi.unmarshalNeedsValue {
 		// Create a new message, list, or map value to fill in.
-		// For enums, create a prototype value to let the unmarshal func know the
+		// For enums, create a prototype value to let the unmarshal 
+ know the
 		// concrete type.
 		ival = xt.New()
 	}
-	v, out, err := xi.funcs.unmarshal(b, ival, num, wtyp, opts)
+	v, out, err := xi.
+marshal(b, ival, num, wtyp, opts)
 	if err != nil {
 		return out, err
 	}
-	if xi.funcs.isInit == nil {
+	if xi.
+s.isInit == nil {
 		out.initialized = true
 	}
 	x.Set(xt, v)
@@ -256,7 +269,8 @@ func (mi *MessageInfo) unmarshalExtension(b []byte, num protowire.Number, wtyp p
 	return out, nil
 }
 
-func skipExtension(b []byte, xi *extensionFieldInfo, num protowire.Number, wtyp protowire.Type, opts unmarshalOptions) (out unmarshalOutput, _ ValidationStatus) {
+
+ skipExtension(b []byte, xi *extensionFieldInfo, num protowire.Number, wtyp protowire.Type, opts unmarshalOptions) (out unmarshalOutput, _ ValidationStatus) {
 	if xi.validation.mi == nil {
 		return out, ValidationUnknown
 	}

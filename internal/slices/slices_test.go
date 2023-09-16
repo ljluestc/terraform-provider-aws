@@ -10,7 +10,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestReverse(t *testing.T) {
+
+tReverse(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
@@ -39,7 +40,8 @@ func TestReverse(t *testing.T) {
 	for name, test := range tests {
 		name, test := name, test
 		t.Run(name,
-			func(t *testing.T) {
+			
+testing.T) {
 				t.Parallel()
 
 				got := Reverse(test.input)
@@ -51,7 +53,8 @@ func TestReverse(t *testing.T) {
 	}
 }
 
-func TestRemoveAll(t *testing.T) {
+
+tRemoveAll(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
@@ -84,7 +87,8 @@ func TestRemoveAll(t *testing.T) {
 	for name, test := range tests {
 		name, test := name, test
 		t.Run(name,
-			func(t *testing.T) {
+			
+testing.T) {
 				t.Parallel()
 
 				got := RemoveAll(test.input, "one")
@@ -96,7 +100,8 @@ func TestRemoveAll(t *testing.T) {
 	}
 }
 
-func TestApplyToAll(t *testing.T) {
+
+tApplyToAll(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
@@ -121,7 +126,8 @@ func TestApplyToAll(t *testing.T) {
 	for name, test := range tests {
 		name, test := name, test
 		t.Run(name,
-			func(t *testing.T) {
+			
+testing.T) {
 				t.Parallel()
 
 				got := ApplyToAll(test.input, strings.ToUpper)
@@ -133,7 +139,8 @@ func TestApplyToAll(t *testing.T) {
 	}
 }
 
-func TestChunk(t *testing.T) {
+
+tChunk(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
@@ -162,7 +169,8 @@ func TestChunk(t *testing.T) {
 	for name, test := range tests {
 		name, test := name, test
 		t.Run(name,
-			func(t *testing.T) {
+			
+testing.T) {
 				t.Parallel()
 
 				got := Chunks(test.input, 2)
@@ -174,7 +182,8 @@ func TestChunk(t *testing.T) {
 	}
 }
 
-func TestFilter(t *testing.T) {
+
+tFilter(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
@@ -199,11 +208,13 @@ func TestFilter(t *testing.T) {
 	for name, test := range tests {
 		name, test := name, test
 		t.Run(name,
-			func(t *testing.T) {
+			
+testing.T) {
 				t.Parallel()
 
 				got := Filter(test.input,
-					func(v string) bool {
+					
+tring) bool {
 						return strings.HasPrefix(v, "a")
 					})
 

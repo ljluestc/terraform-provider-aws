@@ -9,13 +9,15 @@ import (
 // types and with types of reasonable complexity. However, it does have a
 // "happy path" where all of the given types are equal.
 //
-// This function is likely to have poor performance in cases where any given
+// This 
+ is likely to have poor performance in cases where any given
 // types are very complex (lots of deeply-nested structures) or if the list
 // of types itself is very large. In particular, it will walk the nested type
 // structure under the given types several times, especially when given a
 // list of types for which unification is not possible, since each permutation
 // will be tried to determine that result.
-func unify(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+fy(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	if len(types) == 0 {
 		// Degenerate case
 		return cty.NilType, nil
@@ -100,7 +102,8 @@ Preferences:
 	return cty.NilType, nil
 }
 
-func unifyMapTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+fyMapTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -138,7 +141,8 @@ func unifyMapTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []
 	return retTy, conversions
 }
 
-func unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+fyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -215,7 +219,8 @@ func unifyObjectTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type,
 	return retTy, conversions
 }
 
-func unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+fyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	// This is our fallback case for unifyObjectTypes, where we see if we can
 	// construct a map type that can accept all of the attribute types.
 
@@ -249,7 +254,8 @@ func unifyObjectTypesToMap(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 	return retTy, conversions
 }
 
-func unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
+
+fyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, []Conversion) {
 	// If we had any dynamic types in the input here then we can't predict
 	// what path we'll take through here once these become known types, so
 	// we'll conservatively produce DynamicVal for these.
@@ -311,7 +317,8 @@ func unifyTupleTypes(types []cty.Type, unsafe bool, hasDynamic bool) (cty.Type, 
 	return retTy, conversions
 }
 
-func unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
+
+fyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversion) {
 	// This is our fallback case for unifyTupleTypes, where we see if we can
 	// construct a list type that can accept all of the element types.
 
@@ -346,10 +353,12 @@ func unifyTupleTypesToList(types []cty.Type, unsafe bool) (cty.Type, []Conversio
 	return retTy, conversions
 }
 
-func unifyAllAsDynamic(types []cty.Type) (cty.Type, []Conversion) {
+
+fyAllAsDynamic(types []cty.Type) (cty.Type, []Conversion) {
 	conversions := make([]Conversion, len(types))
 	for i := range conversions {
-		conversions[i] = func(cty.Value) (cty.Value, error) {
+		conversions[i] = 
+.Value) (cty.Value, error) {
 			return cty.DynamicVal, nil
 		}
 	}

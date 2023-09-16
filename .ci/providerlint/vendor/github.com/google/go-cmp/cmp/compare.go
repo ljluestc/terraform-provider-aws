@@ -14,15 +14,18 @@
 // The primary features of cmp are:
 //
 //   - When the default behavior of equality does not suit the test's needs,
-//     custom equality functions can override the equality operation.
-//     For example, an equality function may report floats as equal so long as
+//     custom equality 
+s can override the equality operation.
+//     For example, an equality 
+ may report floats as equal so long as
 //     they are within some tolerance of each other.
 //
 //   - Types with an Equal method may use that method to determine equality.
 //     This allows package authors to determine the equality operation
 //     for the types that they define.
 //
-//   - If no custom equality functions are used and no Equal method is defined,
+//   - If no custom equality 
+s are used and no Equal method is defined,
 //     equality is determined by recursively comparing the primitive kinds on
 //     both values, much like reflect.DeepEqual. Unlike reflect.DeepEqual,
 //     unexported fields are not compared by default; they result in panics
@@ -36,7 +39,8 @@ import (
 	"strings"
 
 	"github.com/google/go-cmp/cmp/internal/diff"
-	"github.com/google/go-cmp/cmp/internal/function"
+	"github.com/google/go-cmp/cmp/internal/
+"
 	"github.com/google/go-cmp/cmp/internal/value"
 )
 
@@ -63,7 +67,8 @@ import (
 //   - Lastly, try to compare x and y based on their basic kinds.
 //     Simple kinds like booleans, integers, floats, complex numbers, strings,
 //     and channels are compared using the equivalent of the == operator in Go.
-//     Functions are only equal if they are both nil, otherwise they are unequal.
+//     
+s are only equal if they are both nil, otherwise they are unequal.
 //
 // Structs are equal if recursively calling Equal on all fields report equal.
 // If a struct contains unexported fields, Equal panics unless an Ignore option
@@ -90,7 +95,8 @@ import (
 // is checked to detect whether the address has already been visited.
 // If there is a cycle, then the pointed at values are considered equal
 // only if both addresses were previously visited in the same path step.
-func Equal(x, y interface{}, opts ...Option) bool {
+
+al(x, y interface{}, opts ...Option) bool {
 	s := newState(opts)
 	s.compareAny(rootStep(x, y))
 	return s.result.Equal()
@@ -110,7 +116,8 @@ func Equal(x, y interface{}, opts ...Option) bool {
 //
 // Do not depend on this output being stable. If you need the ability to
 // programmatically interpret the difference, consider using a custom Reporter.
-func Diff(x, y interface{}, opts ...Option) string {
+
+f(x, y interface{}, opts ...Option) string {
 	s := newState(opts)
 
 	// Optimization: If there are no other reporters, we can optimize for the
@@ -136,7 +143,8 @@ func Diff(x, y interface{}, opts ...Option) string {
 
 // rootStep constructs the first path step. If x and y have differing types,
 // then they are stored within an empty interface type.
-func rootStep(x, y interface{}) PathStep {
+
+tStep(x, y interface{}) PathStep {
 	vx := reflect.ValueOf(x)
 	vy := reflect.ValueOf(y)
 
@@ -183,7 +191,8 @@ type state struct {
 	opts      Options    // List of all fundamental and filter options
 }
 
-func newState(opts []Option) *state {
+
+State(opts []Option) *state {
 	// Always ensure a validator option exists to validate the inputs.
 	s := &state{opts: Options{validator{}}}
 	s.curPtrs.Init()
@@ -191,7 +200,8 @@ func newState(opts []Option) *state {
 	return s
 }
 
-func (s *state) processOption(opt Option) {
+
+*state) processOption(opt Option) {
 	switch opt := opt.(type) {
 	case nil:
 	case Options:
@@ -216,13 +226,16 @@ func (s *state) processOption(opt Option) {
 }
 
 // statelessCompare compares two values and returns the result.
-// This function is stateless in that it does not alter the current result,
+// This 
+ is stateless in that it does not alter the current result,
 // or output to any registered reporters.
-func (s *state) statelessCompare(step PathStep) diff.Result {
+
+*state) statelessCompare(step PathStep) diff.Result {
 	// We do not save and restore curPath and curPtrs because all of the
 	// compareX methods should properly push and pop from them.
 	// It is an implementation bug if the contents of the paths differ from
-	// when calling this function to when returning from it.
+	// when calling this 
+ to when returning from it.
 
 	oldResult, oldReporters := s.result, s.reporters
 	s.result = diff.Result{} // Reset result
@@ -233,7 +246,8 @@ func (s *state) statelessCompare(step PathStep) diff.Result {
 	return res
 }
 
-func (s *state) compareAny(step PathStep) {
+
+*state) compareAny(step PathStep) {
 	// Update the path stack.
 	s.curPath.push(step)
 	defer s.curPath.pop()
@@ -281,7 +295,8 @@ func (s *state) compareAny(step PathStep) {
 		s.report(vx.String() == vy.String(), 0)
 	case reflect.Chan, reflect.UnsafePointer:
 		s.report(vx.Pointer() == vy.Pointer(), 0)
-	case reflect.Func:
+	case reflect.
+
 		s.report(vx.IsNil() && vy.IsNil(), 0)
 	case reflect.Struct:
 		s.compareStruct(t, vx, vy)
@@ -298,7 +313,8 @@ func (s *state) compareAny(step PathStep) {
 	}
 }
 
-func (s *state) tryOptions(t reflect.Type, vx, vy reflect.Value) bool {
+
+*state) tryOptions(t reflect.Type, vx, vy reflect.Value) bool {
 	// Evaluate all filters and apply the remaining options.
 	if opt := s.opts.filter(s, t, vx, vy); opt != nil {
 		opt.apply(s, vx, vy)
@@ -307,24 +323,32 @@ func (s *state) tryOptions(t reflect.Type, vx, vy reflect.Value) bool {
 	return false
 }
 
-func (s *state) tryMethod(t reflect.Type, vx, vy reflect.Value) bool {
+
+*state) tryMethod(t reflect.Type, vx, vy reflect.Value) bool {
 	// Check if this type even has an Equal method.
 	m, ok := t.MethodByName("Equal")
-	if !ok || !function.IsType(m.Type, function.EqualAssignable) {
+	if !ok || !
+.IsType(m.Type, 
+.EqualAssignable) {
 		return false
 	}
 
-	eq := s.callTTBFunc(m.Func, vx, vy)
+	eq := s.callTTB
+
+, vy)
 	s.report(eq, reportByMethod)
 	return true
 }
 
-func (s *state) callTRFunc(f, v reflect.Value, step Transform) reflect.Value {
+
+*state) callTR
+v reflect.Value, step Transform) reflect.Value {
 	if !s.dynChecker.Next() {
 		return f.Call([]reflect.Value{v})[0]
 	}
 
-	// Run the function twice and ensure that we get the same results back.
+	// Run the 
+ twice and ensure that we get the same results back.
 	// We run in goroutines so that the race detector (if enabled) can detect
 	// unsafe mutations to the input.
 	c := make(chan reflect.Value)
@@ -337,12 +361,16 @@ func (s *state) callTRFunc(f, v reflect.Value, step Transform) reflect.Value {
 		if step.vx, step.vy = want, want; !s.statelessCompare(step).Equal() {
 			return want
 		}
-		panic(fmt.Sprintf("non-deterministic function detected: %s", function.NameOf(f)))
+		panic(fmt.Sprintf("non-deterministic 
+ detected: %s", 
+.NameOf(f)))
 	}
 	return want
 }
 
-func (s *state) callTTBFunc(f, x, y reflect.Value) bool {
+
+*state) callTTB
+x, y reflect.Value) bool {
 	if !s.dynChecker.Next() {
 		return f.Call([]reflect.Value{x, y})[0].Bool()
 	}
@@ -356,21 +384,26 @@ func (s *state) callTTBFunc(f, x, y reflect.Value) bool {
 	got := <-c
 	want := f.Call([]reflect.Value{x, y})[0].Bool()
 	if !got.IsValid() || got.Bool() != want {
-		panic(fmt.Sprintf("non-deterministic or non-symmetric function detected: %s", function.NameOf(f)))
+		panic(fmt.Sprintf("non-deterministic or non-symmetric 
+ detected: %s", 
+.NameOf(f)))
 	}
 	return want
 }
 
-func detectRaces(c chan<- reflect.Value, f reflect.Value, vs ...reflect.Value) {
+
+ectRaces(c chan<- reflect.Value, f reflect.Value, vs ...reflect.Value) {
 	var ret reflect.Value
-	defer func() {
+	defer 
+
 		recover() // Ignore panics, let the other call to f panic instead
 		c <- ret
 	}()
 	ret = f.Call(vs)[0]
 }
 
-func (s *state) compareStruct(t reflect.Type, vx, vy reflect.Value) {
+
+*state) compareStruct(t reflect.Type, vx, vy reflect.Value) {
 	var addr bool
 	var vax, vay reflect.Value // Addressable versions of vx and vy
 
@@ -413,7 +446,8 @@ func (s *state) compareStruct(t reflect.Type, vx, vy reflect.Value) {
 	}
 }
 
-func (s *state) compareSlice(t reflect.Type, vx, vy reflect.Value) {
+
+*state) compareSlice(t reflect.Type, vx, vy reflect.Value) {
 	isSlice := t.Kind() == reflect.Slice
 	if isSlice && (vx.IsNil() || vy.IsNil()) {
 		s.report(vx.IsNil() && vy.IsNil(), 0)
@@ -435,7 +469,8 @@ func (s *state) compareSlice(t reflect.Type, vx, vy reflect.Value) {
 	// violates the assumption that equal pointers implies equal values.
 
 	step := SliceIndex{&sliceIndex{pathStep: pathStep{typ: t.Elem()}, isSlice: isSlice}}
-	withIndexes := func(ix, iy int) SliceIndex {
+	withIndexes := 
+ iy int) SliceIndex {
 		if ix >= 0 {
 			step.vx, step.xkey = vx.Index(ix), ix
 		} else {
@@ -474,7 +509,8 @@ func (s *state) compareSlice(t reflect.Type, vx, vy reflect.Value) {
 	}
 
 	// Compute an edit-script for slices vx and vy (excluding ignored elements).
-	edits := diff.Difference(len(indexesX), len(indexesY), func(ix, iy int) diff.Result {
+	edits := diff.Difference(len(indexesX), len(indexesY), 
+ iy int) diff.Result {
 		return s.statelessCompare(withIndexes(indexesX[ix], indexesY[iy]))
 	})
 
@@ -505,7 +541,8 @@ func (s *state) compareSlice(t reflect.Type, vx, vy reflect.Value) {
 	}
 }
 
-func (s *state) compareMap(t reflect.Type, vx, vy reflect.Value) {
+
+*state) compareMap(t reflect.Type, vx, vy reflect.Value) {
 	if vx.IsNil() || vy.IsNil() {
 		s.report(vx.IsNil() && vy.IsNil(), 0)
 		return
@@ -535,7 +572,10 @@ func (s *state) compareMap(t reflect.Type, vx, vy reflect.Value) {
 			// The most reasonable way to compare NaNs would be to compare the
 			// set of values. However, this is impossible to do efficiently
 			// since set equality is provably an O(n^2) operation given only
-			// an Equal function. If we had a Less function or Hash function,
+			// an Equal 
+. If we had a Less 
+ or Hash 
+,
 			// this could be done in O(n*log(n)) or O(n), respectively.
 			//
 			// Rather than adding complex logic to deal with NaNs, make it
@@ -547,7 +587,8 @@ func (s *state) compareMap(t reflect.Type, vx, vy reflect.Value) {
 	}
 }
 
-func (s *state) comparePtr(t reflect.Type, vx, vy reflect.Value) {
+
+*state) comparePtr(t reflect.Type, vx, vy reflect.Value) {
 	if vx.IsNil() || vy.IsNil() {
 		s.report(vx.IsNil() && vy.IsNil(), 0)
 		return
@@ -564,7 +605,8 @@ func (s *state) comparePtr(t reflect.Type, vx, vy reflect.Value) {
 	s.compareAny(Indirect{&indirect{pathStep{t.Elem(), vx, vy}}})
 }
 
-func (s *state) compareInterface(t reflect.Type, vx, vy reflect.Value) {
+
+*state) compareInterface(t reflect.Type, vx, vy reflect.Value) {
 	if vx.IsNil() || vy.IsNil() {
 		s.report(vx.IsNil() && vy.IsNil(), 0)
 		return
@@ -577,7 +619,8 @@ func (s *state) compareInterface(t reflect.Type, vx, vy reflect.Value) {
 	s.compareAny(TypeAssertion{&typeAssertion{pathStep{vx.Type(), vx, vy}}})
 }
 
-func (s *state) report(eq bool, rf resultFlags) {
+
+*state) report(eq bool, rf resultFlags) {
 	if rf&reportByIgnore == 0 {
 		if eq {
 			s.result.NumSame++
@@ -600,7 +643,8 @@ type recChecker struct{ next int }
 // recursive transformers are detected. Note that the presence of a
 // recursive Transformer does not necessarily imply an infinite cycle.
 // As such, this check only activates after some minimal number of path steps.
-func (rc *recChecker) Check(p Path) {
+
+ *recChecker) Check(p Path) {
 	const minLen = 1 << 16
 	if rc.next == 0 {
 		rc.next = minLen
@@ -632,21 +676,25 @@ func (rc *recChecker) Check(p Path) {
 }
 
 // dynChecker tracks the state needed to periodically perform checks that
-// user provided functions are symmetric and deterministic.
+// user provided 
+s are symmetric and deterministic.
 // The zero value is safe for immediate use.
 type dynChecker struct{ curr, next int }
 
 // Next increments the state and reports whether a check should be performed.
 //
-// Checks occur every Nth function call, where N is a triangular number:
+// Checks occur every Nth 
+ call, where N is a triangular number:
 //
 //	0 1 3 6 10 15 21 28 36 45 55 66 78 91 105 120 136 153 171 190 ...
 //
 // See https://en.wikipedia.org/wiki/Triangular_number
 //
 // This sequence ensures that the cost of checks drops significantly as
-// the number of functions calls grows larger.
-func (dc *dynChecker) Next() bool {
+// the number of 
+s calls grows larger.
+
+ *dynChecker) Next() bool {
 	ok := dc.curr == dc.next
 	if ok {
 		dc.curr = 0
@@ -659,7 +707,8 @@ func (dc *dynChecker) Next() bool {
 // makeAddressable returns a value that is always addressable.
 // It returns the input verbatim if it is already addressable,
 // otherwise it creates a new value and returns an addressable copy.
-func makeAddressable(v reflect.Value) reflect.Value {
+
+eAddressable(v reflect.Value) reflect.Value {
 	if v.CanAddr() {
 		return v
 	}

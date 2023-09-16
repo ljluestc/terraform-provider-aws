@@ -21,62 +21,82 @@ type ResourceImporter struct {
 	// insert into the Terraform state.
 	//
 	// Deprecated: State is deprecated in favor of StateContext.
-	// Only one of the two functions can bet set.
-	State StateFunc
+	// Only one of the two 
+tions cat set.
+	State State
 
-	// StateContext is called to convert an ID to one or more InstanceState to
+
+	// StateContext is called to convert an ID ne or more InstanceState to
 	// insert into the Terraform state. If this isn't specified, then
-	// the ID is passed straight through. This function receives a context
+	// the ID is passed straithrough. This 
+tion receives a context
 	// that will cancel if Terraform sends a cancellation signal.
-	StateContext StateContextFunc
+	StateCot StateCxt
+
 }
 
-// StateFunc is the function called to import a resource into the Terraform state.
+// State
+ is the 
+tion called to import a resource into the Terraform state.
 //
-// Deprecated: Please use the context aware equivalent StateContextFunc.
-type StateFunc func(*ResourceData, interface{}) ([]*ResourceData, error)
+// Deprecated: Please use the context aware equivalent StateContext
+.
+type State
+ 
+(*ResourceData, interface{}) ([]*ResourceData, error)
 
-// StateContextFunc is the function called to import a resource into the
+// StateContext
+ is the 
+tion called to import a resource into the
 // Terraform state. It is given a ResourceData with only ID set. This
-// ID is going to be an arbitrary value given by the user and may not map
-// directly to the ID format that the resource expects, so that should
+// ID is going to be an arbitrary value given by the user and not map
+// directly to th at that the resource expects, so that should
 // be validated.
 //
 // This should return a slice of ResourceData that turn into the state
 // that was imported. This might be as simple as returning only the argument
-// that was given to the function. In other cases (such as AWS security groups),
+// that was given to the 
+tion. In other cases (such as AWS security groups),
 // an import may fan out to multiple resources and this will have to return
 // multiple.
-//
+
 // To create the ResourceData structures for other resource types (if
-// you have to), instantiate your resource and call the Data function.
-type StateContextFunc func(context.Context, *ResourceData, interface{}) ([]*ResourceData, error)
+// you have to), instantiate your resource and call the Data 
+tion.
+type StateContext
+ 
+(context.Context, *ResourceData, interface{}) ([]*ResourceData, error)
 
 // InternalValidate should be called to validate the structure of this
 // importer. This should be called in a unit test.
 //
-// Resource.InternalValidate() will automatically call this, so this doesn't
+esource.InternalValidate() will automatically call this, so this doesn't
 // need to be called manually. Further, Resource.InternalValidate() is
 // automatically called by Provider.InternalValidate(), so you only need
 // to internal validate the provider.
-func (r *ResourceImporter) InternalValidate() error {
+
+ (r *ResourceImporter) InternalValidate() error {
 	if r.State != nil && r.StateContext != nil {
-		return errors.New("Both State and StateContext cannot be set.")
+turn errors.New("Both State and StateContext cannot be set.")
 	}
 	return nil
 }
 
-// ImportStatePassthrough is an implementation of StateFunc that can be
+// ImportStatePassthrough is an implementation of State
+ that can be
 // used to simply pass the ID directly through.
 //
 // Deprecated: Please use the context aware ImportStatePassthroughContext instead
-func ImportStatePassthrough(d *ResourceData, m interface{}) ([]*ResourceData, error) {
+
+ ImportStatePassthrough(d *ResourceData, m interface{}) ([]*ResourceData, error) {
 	return []*ResourceData{d}, nil
 }
 
-// ImportStatePassthroughContext is an implementation of StateContextFunc that can be
+// ImportStatePassthroughContext is an implementation of StateContext
+ that can be
 // used to simply pass the ID directly through. This should be used only
 // in the case that an ID-only refresh is possible.
-func ImportStatePassthroughContext(ctx context.Context, d *ResourceData, m interface{}) ([]*ResourceData, error) {
+
+ ImportStatePassthroughContext(ctx context.Context, d *ResourceData, m interface{}) ([]*ResourceData, error) {
 	return []*ResourceData{d}, nil
 }

@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
 )
-
 func TestAccS3BucketAnalyticsConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -52,7 +51,6 @@ func TestAccS3BucketAnalyticsConfiguration_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_removed(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -80,7 +78,6 @@ func TestAccS3BucketAnalyticsConfiguration_removed(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_updateBasic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -136,7 +133,6 @@ func TestAccS3BucketAnalyticsConfiguration_updateBasic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -154,7 +150,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_empty(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -197,7 +192,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefix(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_singleTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -242,7 +236,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_singleTag(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_multipleTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -291,7 +284,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_multipleTags(t *testing.T)
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefixAndTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -342,7 +334,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefixAndTags(t *testing.T
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -379,7 +370,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -397,7 +387,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_empty(t *tes
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -432,7 +421,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *t
 		},
 	})
 }
-
 func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
@@ -470,7 +458,6 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *test
 		},
 	})
 }
-
 func testAccCheckBucketAnalyticsConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
@@ -490,7 +477,6 @@ func testAccCheckBucketAnalyticsConfigurationDestroy(ctx context.Context) resour
 		return nil
 	}
 }
-
 func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n string, ac *s3.AnalyticsConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -517,14 +503,12 @@ func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n strin
 		return nil
 	}
 }
-
 func testAccCheckBucketAnalyticsConfigurationRemoved(ctx context.Context, name, bucket string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 		return tfs3.WaitForDeleteBucketAnalyticsConfiguration(ctx, conn, bucket, name, 1*time.Minute)
 	}
 }
-
 func testAccBucketAnalyticsConfigurationConfig_basic(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -537,7 +521,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_removed(bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -545,7 +528,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_update(name, originalBucket, updatedBucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -562,7 +544,6 @@ resource "aws_s3_bucket" "test_2" {
 }
 `, name, originalBucket, updatedBucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_emptyFilter(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -578,7 +559,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_filterPrefix(name, bucket, prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -595,7 +575,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, prefix, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_filterSingleTag(name, bucket, tag string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -614,7 +593,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, tag, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_filterMultipleTags(name, bucket, tag1, tag2 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -634,7 +612,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, tag1, tag2, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_filterPrefixAndTags(name, bucket, prefix, tag1, tag2 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -656,7 +633,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, prefix, tag1, tag2, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_emptyStorageClassAnalysis(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -672,7 +648,6 @@ resource "aws_s3_bucket" "test" {
 }
 `, name, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_defaultStorageClassAnalysis(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -699,7 +674,6 @@ resource "aws_s3_bucket" "destination" {
 }
 `, name, bucket)
 }
-
 func testAccBucketAnalyticsConfigurationConfig_fullStorageClassAnalysis(name, bucket, prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
@@ -730,7 +704,6 @@ resource "aws_s3_bucket" "destination" {
 }
 `, name, prefix, bucket)
 }
-
 func TestExpandAnalyticsFilter(t *testing.T) {
 	t.Parallel()
 
@@ -875,7 +848,6 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 		}
 	}
 }
-
 func TestExpandStorageClassAnalysis(t *testing.T) {
 	t.Parallel()
 
@@ -1023,7 +995,6 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenAnalyticsFilter(t *testing.T) {
 	t.Parallel()
 
@@ -1146,7 +1117,6 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenStorageClassAnalysis(t *testing.T) {
 	t.Parallel()
 

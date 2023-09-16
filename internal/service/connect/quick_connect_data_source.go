@@ -17,6 +17,8 @@ import (
 )
 
 // @SDKDataSource("aws_connect_quick_connect")
+
+
 func DataSourceQuickConnect() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceQuickConnectRead,
@@ -107,6 +109,8 @@ func DataSourceQuickConnect() *schema.Resource {
 	}
 }
 
+
+
 func dataSourceQuickConnectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
@@ -164,6 +168,8 @@ func dataSourceQuickConnectRead(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
+
 func dataSourceGetQuickConnectSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.QuickConnectSummary, error) {
 	var result *connect.QuickConnectSummary
 
@@ -172,7 +178,9 @@ func dataSourceGetQuickConnectSummaryByName(ctx context.Context, conn *connect.C
 		MaxResults: aws.Int64(ListQuickConnectsMaxResults),
 	}
 
-	err := conn.ListQuickConnectsPagesWithContext(ctx, input, func(page *connect.ListQuickConnectsOutput, lastPage bool) bool {
+	err := conn.ListQuickConnectsPagesWithContext(ctx, input, 
+
+func(page *connect.ListQuickConnectsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

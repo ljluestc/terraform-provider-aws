@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package filedesc provides functionality for constructing descriptors.
+// Package filedesc provides 
+tionality for constructing descriptors.
 //
 // The types in this package implement interfaces in the protoreflect package
 // related to protobuf descripriptors.
@@ -87,8 +88,9 @@ type Out struct {
 // are encountered.
 //
 // If NumEnums+NumMessages+NumExtensions+NumServices is zero,
-// then Build automatically derives them from the raw descriptor.
-func (db Builder) Build() (out Out) {
+hen Build automatically derives them from the raw descriptor.
+
+ (db Builder) Build() (out Out) {
 	// Populate the counts if uninitialized.
 	if db.NumEnums+db.NumMessages+db.NumExtensions+db.NumServices == 0 {
 		db.unmarshalCounts(db.RawDescriptor, true)
@@ -116,9 +118,10 @@ func (db Builder) Build() (out Out) {
 }
 
 // unmarshalCounts counts the number of enum, message, extension, and service
-// declarations in the raw message, which is either a FileDescriptorProto
+eclarations in the raw message, which is either a FileDescriptorProto
 // or a MessageDescriptorProto depending on whether isFile is set.
-func (db *Builder) unmarshalCounts(b []byte, isFile bool) {
+
+ (db *Builder) unmarshalCounts(b []byte, isFile bool) {
 	for len(b) > 0 {
 		num, typ, n := protowire.ConsumeTag(b)
 		b = b[n:]

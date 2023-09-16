@@ -12,7 +12,8 @@ import (
 const Doc = `check for TestCase missing ErrorCheck
 
 The XAT001 analyzer reports uses of TestCase which do not define an ErrorCheck
-function. ErrorCheck can be used to skip tests for known environmental issues.`
+
+tion. ErrorCheck can be used to skip tests for known environmental issues.`
 
 const analyzerName = "XAT001"
 
@@ -26,7 +27,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	testCases := pass.ResultOf[testcaseinfo.Analyzer].([]*resource.TestCaseInfo)
 

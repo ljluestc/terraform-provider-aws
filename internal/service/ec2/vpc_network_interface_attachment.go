@@ -16,10 +16,9 @@ import (
 
 // @SDKResource("aws_network_interface_attachment")
 
-func ResourceNetworkInterfaceAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfaceAttachmentCreate,
-		ReadWithoutTimeout:   resourceNetworkInterfaceAttachmentRead,
+		ReadWithoutTimeout:ourceNetworkInterfaceAttachmentRead,
 		DeleteWithoutTimeout: resourceNetworkInterfaceAttachmentDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -27,26 +26,26 @@ func ResourceNetworkInterfaceAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"attachment_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"device_index": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"network_interface_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -54,8 +53,7 @@ func ResourceNetworkInterfaceAttachment() *schema.Resource {
 }
 
 func resourceNetworkInterfaceAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	attachmentID, err := attachNetworkInterface(ctx, conn,
 		d.Get("network_interface_id").(string),
@@ -77,8 +75,7 @@ func resourceNetworkInterfaceAttachmentCreate(ctx context.Context, d *schema.Res
 
 func resourceNetworkInterfaceAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	network_interface, err := FindNetworkInterfaceByAttachmentID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -103,8 +100,7 @@ func resourceNetworkInterfaceAttachmentRead(ctx context.Context, d *schema.Resou
 func resourceNetworkInterfaceAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	if err := DetachNetworkInterface(ctx, conn, d.Get("network_interface_id").(string), d.Id(), NetworkInterfaceDetachedTimeout); err != nil {
+funcerr := DetachNetworkInterface(ctx, conn, d.Get("network_interface_id").(string), d.Id(), NetworkInterfaceDetachedTimeout); err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
 	}
 	return diags

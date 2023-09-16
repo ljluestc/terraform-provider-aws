@@ -34,38 +34,38 @@ func ResourceIntegration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
 			"connection_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"connection_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      apigatewayv2.ConnectionTypeInternet,
+				Type:.TypeString,
+				Optional:
+				Default:yv2.ConnectionTypeInternet,
 				ValidateFunc: validation.StringInSlice(apigatewayv2.ConnectionType_Values(), false),
 			},
 			"content_handling_strategy": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validation.StringInSlice(apigatewayv2.ContentHandlingStrategy_Values(), false),
 			},
 			"credentials_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: verify.ValidARN,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"integration_method": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:.TypeString,
+				Optional:
 				ValidateFunc: validHTTPMethod(),
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// Default HTTP method for Lambda integration is POST.
@@ -77,29 +77,29 @@ func ResourceIntegration() *schema.Resource {
 				},
 			},
 			"integration_response_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"integration_subtype": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"integration_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(apigatewayv2.IntegrationType_Values(), false),
 			},
 			"integration_uri": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"passthrough_behavior": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      apigatewayv2.PassthroughBehaviorWhenNoMatch,
+				Type:.TypeString,
+				Optional:
+				Default:yv2.PassthroughBehaviorWhenNoMatch,
 				ValidateFunc: validation.StringInSlice(apigatewayv2.PassthroughBehavior_Values(), false),
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// Not set for HTTP APIs.
@@ -110,7 +110,7 @@ func ResourceIntegration() *schema.Resource {
 				},
 			},
 			"payload_format_version": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Default:  "1.0",
 				ValidateFunc: validation.StringInSlice([]string{
@@ -119,54 +119,54 @@ func ResourceIntegration() *schema.Resource {
 				}, false),
 			},
 			"request_parameters": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
 				// Length between [1-512].
 				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"request_templates": {
-				Type:     schema.TypeMap,
+				Type:eMap,
 				Optional: true,
 				// Length between [0-32768].
 				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"response_parameters": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Optional: true,
 				MinItems: 0,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"mappings": {
-							Type:     schema.TypeMap,
+							Type:eMap,
 							Required: true,
 							// Length between [1-512].
 							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"status_code": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"template_selection_expression": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"timeout_milliseconds": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Optional: true,
 				Computed: true,
 			},
 			"tls_config": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				MinItems: 0,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"server_name_to_verify": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 						},
 					},
@@ -181,7 +181,7 @@ func resourceIntegrationCreate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateIntegrationInput{
-		ApiId:           aws.String(d.Get("api_id").(string)),
+		ApiId:pi_id").(string)),
 		IntegrationType: aws.String(d.Get("integration_type").(string)),
 	}
 	if v, ok := d.GetOk("connection_id"); ok {
@@ -249,7 +249,7 @@ func resourceIntegrationRead(ctx context.Context, d *schema.ResourceData, meta i
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetIntegrationWithContext(ctx, &apigatewayv2.GetIntegrationInput{
-		ApiId:         aws.String(d.Get("api_id").(string)),
+		ApiId:ring(d.Get("api_id").(string)),
 		IntegrationId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) && !d.IsNewResource() {
@@ -299,7 +299,7 @@ func resourceIntegrationUpdate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateIntegrationInput{
-		ApiId:         aws.String(d.Get("api_id").(string)),
+		ApiId:ring(d.Get("api_id").(string)),
 		IntegrationId: aws.String(d.Id()),
 		// Always specify the integration type.
 		IntegrationType: aws.String(d.Get("integration_type").(string)),
@@ -407,7 +407,7 @@ func resourceIntegrationDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 integration (%s)", d.Id())
 	_, err := conn.DeleteIntegrationWithContext(ctx, &apigatewayv2.DeleteIntegrationInput{
-		ApiId:         aws.String(d.Get("api_id").(string)),
+		ApiId:ring(d.Get("api_id").(string)),
 		IntegrationId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -432,7 +432,7 @@ func resourceIntegrationImport(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetIntegrationWithContext(ctx, &apigatewayv2.GetIntegrationInput{
-		ApiId:         aws.String(apiId),
+		ApiId:ring(apiId),
 		IntegrationId: aws.String(integrationId),
 	})
 	if err != nil {

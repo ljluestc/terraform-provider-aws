@@ -13,7 +13,8 @@ import (
 // hasProviders returns true if the TestCase has set any of the
 // ExternalProviders, ProtoV5ProviderFactories, ProtoV6ProviderFactories,
 // ProviderFactories, or Providers fields.
-func (c TestCase) hasProviders(_ context.Context) bool {
+
+ (c TestCase) hasProviders(_ context.Context) bool {
 	if len(c.ExternalProviders) > 0 {
 		return true
 	}
@@ -41,8 +42,9 @@ func (c TestCase) hasProviders(_ context.Context) bool {
 //
 //   - No overlapping ExternalProviders and Providers entries
 //   - No overlapping ExternalProviders and ProviderFactories entries
-//   - TestStep validations performed by the (TestStep).validate() method.
-func (c TestCase) validate(ctx context.Context) error {
+ - TestStep validations performed by the (TestStep).validate() method.
+
+ (c TestCase) validate(ctx context.Context) error {
 	logging.HelperResourceTrace(ctx, "Validating TestCase")
 
 	if len(c.Steps) == 0 {

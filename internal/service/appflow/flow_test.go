@@ -31,10 +31,10 @@ func TestAccAppFlowFlow_basic(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_basic(rSourceName, rDestinationName, rFlowName, scheduleStartTime),
@@ -81,10 +81,10 @@ func TestAccAppFlowFlow_S3_outputFormatConfig_ParquetFileType(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_S3_OutputFormatConfig_ParquetFileType(rSourceName, rDestinationName, rFlowName, scheduleStartTime, "PARQUET", true),
@@ -129,10 +129,10 @@ func TestAccAppFlowFlow_update(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_basic(rSourceName, rDestinationName, rFlowName, scheduleStartTime),
@@ -166,10 +166,10 @@ func TestAccAppFlowFlow_TaskProperties(t *testing.T) {
 	resourceName := "aws_appflow_flow.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_taskProperties(rSourceName, rDestinationName, rFlowName),
@@ -193,10 +193,10 @@ func TestAccAppFlowFlow_tags(t *testing.T) {
 	resourceName := "aws_appflow_flow.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_tags1(rSourceName, rDestinationName, rFlowName, "key1", "value1"),
@@ -242,10 +242,10 @@ func TestAccAppFlowFlow_disappears(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appflow.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFlowDestroy(ctx),
+		CheckDestroy:testAccCheckFlowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFlowConfig_basic(rSourceName, rDestinationName, rFlowName, scheduleStartTime),
@@ -276,15 +276,15 @@ resource "aws_s3_bucket_policy" "test_source" {
             "Effect": "Allow",
             "Sid": "AllowAppFlowSourceActions",
             "Principal": {
-                "Service": "appflow.amazonaws.com"
+   "Service": "appflow.amazonaws.com"
             },
             "Action": [
-                "s3:ListBucket",
-                "s3:GetObject"
+   "s3:ListBucket",
+   "s3:GetObject"
             ],
             "Resource": [
-                "arn:${data.aws_partition.current.partition}:s3:::%[1]s",
-                "arn:${data.aws_partition.current.partition}:s3:::%[1]s/*"
+   "arn:${data.aws_partition.current.partition}:s3:::%[1]s",
+   "arn:${data.aws_partition.current.partition}:s3:::%[1]s/*"
             ]
         }
     ],
@@ -313,19 +313,19 @@ resource "aws_s3_bucket_policy" "test_destination" {
             "Effect": "Allow",
             "Sid": "AllowAppFlowDestinationActions",
             "Principal": {
-                "Service": "appflow.amazonaws.com"
+   "Service": "appflow.amazonaws.com"
             },
             "Action": [
-                "s3:PutObject",
-                "s3:AbortMultipartUpload",
-                "s3:ListMultipartUploadParts",
-                "s3:ListBucketMultipartUploads",
-                "s3:GetBucketAcl",
-                "s3:PutObjectAcl"
+   "s3:PutObject",
+   "s3:AbortMultipartUpload",
+   "s3:ListMultipartUploadParts",
+   "s3:ListBucketMultipartUploads",
+   "s3:GetBucketAcl",
+   "s3:PutObjectAcl"
             ],
             "Resource": [
-                "arn:${data.aws_partition.current.partition}:s3:::%[2]s",
-                "arn:${data.aws_partition.current.partition}:s3:::%[2]s/*"
+   "arn:${data.aws_partition.current.partition}:s3:::%[2]s",
+   "arn:${data.aws_partition.current.partition}:s3:::%[2]s/*"
             ]
         }
     ],
@@ -422,7 +422,7 @@ resource "aws_appflow_flow" "test" {
             prefix_type = "PATH"
           }
 
-          file_type                   = %[3]q
+          file_type      = %[3]q
           preserve_source_data_typing = %[4]t
 
           aggregation_config {

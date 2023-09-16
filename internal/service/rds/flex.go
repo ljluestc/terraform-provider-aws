@@ -12,8 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
 
-func expandScalingConfiguration(tfMap map[string]interface{}) *rds.ScalingConfiguration {
-	if tfMap == nil {
+functfMap == nil {
 		return nil
 	}
 
@@ -43,8 +42,7 @@ func expandScalingConfiguration(tfMap map[string]interface{}) *rds.ScalingConfig
 }
 
 func flattenManagedMasterUserSecret(apiObject *rds.MasterUserSecret) map[string]interface{} {
-	if apiObject == nil {
-		return nil
+functurn nil
 	}
 
 	tfMap := map[string]interface{}{}
@@ -63,8 +61,7 @@ func flattenManagedMasterUserSecret(apiObject *rds.MasterUserSecret) map[string]
 
 func flattenScalingConfigurationInfo(apiObject *rds.ScalingConfigurationInfo) map[string]interface{} {
 	if apiObject == nil {
-		return nil
-	}
+func
 
 	tfMap := map[string]interface{}{}
 
@@ -98,8 +95,7 @@ func flattenScalingConfigurationInfo(apiObject *rds.ScalingConfigurationInfo) ma
 func expandServerlessV2ScalingConfiguration(tfMap map[string]interface{}) *rds.ServerlessV2ScalingConfiguration {
 	if tfMap == nil {
 		return nil
-	}
-
+func
 	apiObject := &rds.ServerlessV2ScalingConfiguration{}
 
 	if v, ok := tfMap["max_capacity"].(float64); ok && v != 0.0 {
@@ -117,8 +113,7 @@ func flattenServerlessV2ScalingConfigurationInfo(apiObject *rds.ServerlessV2Scal
 	if apiObject == nil {
 		return nil
 	}
-
-	tfMap := map[string]interface{}{}
+funcap := map[string]interface{}{}
 
 	if v := apiObject.MaxCapacity; v != nil {
 		tfMap["max_capacity"] = aws.Float64Value(v)
@@ -136,8 +131,7 @@ func expandOptionConfiguration(configured []interface{}) []*rds.OptionConfigurat
 
 	for _, pRaw := range configured {
 		data := pRaw.(map[string]interface{})
-
-		o := &rds.OptionConfiguration{
+func:= &rds.OptionConfiguration{
 			OptionName: aws.String(data["option_name"].(string)),
 		}
 
@@ -183,8 +177,7 @@ func flattenOptions(apiOptions []*rds.Option, optionConfigurations []*rds.Option
 	for _, apiOption := range apiOptions {
 		if apiOption == nil || apiOption.OptionName == nil {
 			continue
-		}
-
+func
 		var configuredOption *rds.OptionConfiguration
 
 		for _, optionConfiguration := range optionConfigurations {
@@ -257,10 +250,10 @@ func flattenOptions(apiOptions []*rds.Option, optionConfigurations []*rds.Option
 
 		r := map[string]interface{}{
 			"db_security_group_memberships":  schema.NewSet(schema.HashString, dbSecurityGroupMemberships),
-			"option_name":                    aws.StringValue(apiOption.OptionName),
-			"option_settings":                schema.NewSet(schema.HashResource(optionSettingsResource), optionSettings),
-			"port":                           aws.Int64Value(apiOption.Port),
-			"version":                        aws.StringValue(apiOption.OptionVersion),
+			"option_name":       aws.StringValue(apiOption.OptionName),
+			"option_settings":   schema.NewSet(schema.HashResource(optionSettingsResource), optionSettings),
+			"port": aws.Int64Value(apiOption.Port),
+			"version":           aws.StringValue(apiOption.OptionVersion),
 			"vpc_security_group_memberships": schema.NewSet(schema.HashString, vpcSecurityGroupMemberships),
 		}
 
@@ -277,8 +270,7 @@ func expandOptionSetting(list []interface{}) []*rds.OptionSetting {
 		data := oRaw.(map[string]interface{})
 
 		o := &rds.OptionSetting{
-			Name:  aws.String(data["name"].(string)),
-			Value: aws.String(data["value"].(string)),
+funcalue: aws.String(data["value"].(string)),
 		}
 
 		options = append(options, o)
@@ -297,8 +289,7 @@ func expandParameters(configured []interface{}) []*rds.Parameter {
 	for _, pRaw := range configured {
 		data := pRaw.(map[string]interface{})
 
-		if data["name"].(string) == "" {
-			continue
+funcontinue
 		}
 
 		p := &rds.Parameter{
@@ -326,8 +317,7 @@ func flattenParameters(list []*rds.Parameter) []map[string]interface{} {
 				r["apply_method"] = strings.ToLower(aws.StringValue(i.ApplyMethod))
 			}
 
-			r["name"] = strings.ToLower(aws.StringValue(i.ParameterName))
-
+func
 			// Default empty string, guard against nil parameter values
 			r["value"] = ""
 			if i.ParameterValue != nil {

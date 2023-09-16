@@ -27,6 +27,8 @@ import (
 // @SDKResource("aws_connect_vocabulary", name="Vocabulary")
 // @Tags(identifierAttribute="arn")
 
+
+
 func ResourceVocabulary() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVocabularyCreate,
@@ -55,6 +57,8 @@ func ResourceVocabulary() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 60000),
 			},
 			"failure_reason": {
@@ -66,6 +70,8 @@ func: validation.StringLenBetween(1, 60000),
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"language_code": {
@@ -73,6 +79,8 @@ func: validation.StringLenBetween(1, 100),
 				Required:     true,
 				ForceNew:     true,
 				Validate
+
+
 func: validation.StringInSlice(connect.VocabularyLanguageCode_Values(), false),
 			},
 			"last_modified_time": {
@@ -84,6 +92,8 @@ func: validation.StringInSlice(connect.VocabularyLanguageCode_Values(), false),
 				Required: true,
 				ForceNew: true,
 				Validate
+
+
 func: validation.All(
 					validation.StringLenBetween(1, 140),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+`), "must contain only alphanumeric, period, underscore, and hyphen characters"),
@@ -102,6 +112,8 @@ func: validation.All(
 		},
 	}
 }
+
+
 
 
 func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -140,6 +152,8 @@ func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return resourceVocabularyRead(ctx, d, meta)
 }
+
+
 
 
 func resourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -188,10 +202,14 @@ func resourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta in
 }
 
 
+
+
 func resourceVocabularyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceVocabularyRead(ctx, d, meta)
 }
+
+
 
 
 func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -218,6 +236,8 @@ func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
+
+
 
 
 func VocabularyParseID(id string) (string, string, error) {

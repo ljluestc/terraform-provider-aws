@@ -1,6 +1,8 @@
 package schema
 
 const (
-	FuncNameImportStatePassthrough = `ImportStatePassthrough`
-	FuncNameNoop                   = `Noop`
+	
+ImportStatePassthrough = `ImportStatePassthrough`
+	
+Noop                   = `Noop`
 )

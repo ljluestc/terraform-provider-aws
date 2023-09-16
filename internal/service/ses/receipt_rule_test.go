@@ -32,9 +32,9 @@ func TestAccSESReceiptRule_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_basic(rName, acctest.DefaultEmailAddress),
@@ -78,9 +78,9 @@ func TestAccSESReceiptRule_s3Action(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_s3Action(rName),
@@ -115,9 +115,9 @@ func TestAccSESReceiptRule_snsAction(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_snsAction(rName),
@@ -152,9 +152,9 @@ func TestAccSESReceiptRule_snsActionEncoding(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_snsActionEncoding(rName),
@@ -189,9 +189,9 @@ func TestAccSESReceiptRule_lambdaAction(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_lambdaAction(rName),
@@ -226,9 +226,9 @@ func TestAccSESReceiptRule_stopAction(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_stopAction(rName),
@@ -262,9 +262,9 @@ func TestAccSESReceiptRule_order(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_order(rName),
@@ -295,9 +295,9 @@ func TestAccSESReceiptRule_actions(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_actions(rName),
@@ -337,9 +337,9 @@ func TestAccSESReceiptRule_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			testAccPreCheckReceiptRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ses.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckReceiptRuleDestroy(ctx),
+		CheckDestroy:testAccCheckReceiptRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReceiptRuleConfig_basic(rName, acctest.DefaultEmailAddress),
@@ -597,7 +597,7 @@ resource "aws_lambda_function" "test" {
   filename         = "test-fixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
   function_name    = %[1]q
-  role             = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
   handler          = "exports.example"
   runtime          = "nodejs16.x"
 }

@@ -16,24 +16,23 @@ import (
 )
 
 // @SDKDataSource("aws_api_gateway_resource")
-func DataSourceResource() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceResourceRead,
 		Schema: map[string]*schema.Schema{
 			"rest_api_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"path": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"path_part": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 			"parent_id": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
 		},
@@ -41,8 +40,7 @@ func DataSourceResource() *schema.Resource {
 }
 
 func dataSourceResourceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	restApiId := d.Get("rest_api_id").(string)
 	target := d.Get("path").(string)
@@ -52,8 +50,7 @@ func dataSourceResourceRead(ctx context.Context, d *schema.ResourceData, meta in
 	log.Printf("[DEBUG] Reading API Gateway Resources: %s", params)
 	err := conn.GetResourcesPagesWithContext(ctx, params, func(page *apigateway.GetResourcesOutput, lastPage bool) bool {
 		for _, resource := range page.Items {
-			if aws.StringValue(resource.Path) == target {
-				match = resource
+			if aws.StringValue(resource.Path) == target {funcmatch = resource
 				return false
 			}
 		}

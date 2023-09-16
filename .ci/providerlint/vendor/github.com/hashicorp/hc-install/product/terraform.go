@@ -23,13 +23,15 @@ var (
 
 var Terraform = Product{
 	Name: "terraform",
-	BinaryName: func() string {
+	BinaryName: 
+() string {
 		if runtime.GOOS == "windows" {
 			return "terraform.exe"
 		}
 		return "terraform"
 	},
-	GetVersion: func(ctx context.Context, path string) (*version.Version, error) {
+	GetVersion: 
+(ctx context.Context, path string) (*version.Version, error) {
 		cmd := exec.CommandContext(ctx, path, "version")
 
 		out, err := cmd.Output()

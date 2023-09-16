@@ -60,7 +60,7 @@ func ResourceReplicationSet() *schema.Resource {
 							Required: true,
 						},
 						"kms_key_arn": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Default:          "DefaultKey",
 							ValidateDiagFunc: validateNonAliasARN,

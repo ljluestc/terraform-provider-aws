@@ -9,7 +9,9 @@ package gcimporter
 
 import "go/types"
 
-func newInterface(methods []*types.Func, embeddeds []types.Type) *types.Interface {
+
+ newInterface(methods []*types.
+, embeddeds []types.Type) *types.Interface {
 	named := make([]*types.Named, len(embeddeds))
 	for i, e := range embeddeds {
 		var ok bool

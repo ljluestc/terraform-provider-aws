@@ -22,7 +22,7 @@ import (
 )
 
 const (
-	routeDestinationCIDRBlock     = "destination_cidr_block"
+	routeDestinationCIDRBlocktion_cidr_block"
 	routeDestinationIPv6CIDRBlock = "destination_ipv6_cidr_block"
 	routeDestinationPrefixListID  = "destination_prefix_list_id"
 )
@@ -48,10 +48,9 @@ var routeValidTargets = []string{
 
 // @SDKResource("aws_route")
 
-func ResourceRoute() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceRouteCreate,
-		ReadWithoutTimeout:   resourceRouteRead,
+		ReadWithoutTimeout:ourceRouteRead,
 		UpdateWithoutTimeout: resourceRouteUpdate,
 		DeleteWithoutTimeout: resourceRouteDelete,
 
@@ -67,7 +66,7 @@ func ResourceRoute() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"route_table_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -77,26 +76,23 @@ func ResourceRoute() *schema.Resource {
 			///
 			routeDestinationCIDRBlock: {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:
+				ForceNew:
 				Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
-				ExactlyOneOf: routeValidDestinations,
-			},
+func,
 			routeDestinationIPv6CIDRBlock: {
-				Type:    schema.TypeString,
+				Type:hema.TypeString,
 				Optional:true,
 				ForceNew:true,
 				Validate
-func:     verify.ValidIPv6CIDRNetworkAddress,
+func:idIPv6CIDRNetworkAddress,
 				DiffSuppress
-func: suppressEqualCIDRBlockDiffs,
-				ExactlyOneOf:     routeValidDestinations,
+funcExactlyOneOf:Destinations,
 			},
-			routeDestinationPrefixListID: {
-				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+funcType:schema.TypeString,
+				Optional:
+				ForceNew:
 				ExactlyOneOf: routeValidDestinations,
 			},
 
@@ -105,50 +101,50 @@ func: suppressEqualCIDRBlockDiffs,
 			//
 			"carrier_gateway_id": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional:
 				ExactlyOneOf:  routeValidTargets,
 				ConflictsWith: []string{routeDestinationIPv6CIDRBlock}, // IPv4 destinations only.
 			},
 			"core_network_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"egress_only_gateway_id": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional:
 				ExactlyOneOf:  routeValidTargets,
 				ConflictsWith: []string{routeDestinationCIDRBlock}, // IPv6 destinations only.
 			},
 			"gateway_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"local_gateway_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"nat_gateway_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"network_interface_id": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"transit_gateway_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 			"vpc_endpoint_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 				ConflictsWith: []string{
 					routeDestinationPrefixListID, // "Cannot create or replace a prefix list route targeting a VPC Endpoint."
@@ -156,7 +152,7 @@ func: suppressEqualCIDRBlockDiffs,
 			},
 			"vpc_peering_connection_id": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				ExactlyOneOf: routeValidTargets,
 			},
 
@@ -164,19 +160,19 @@ func: suppressEqualCIDRBlockDiffs,
 			// Computed attributes.
 			//
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"instance_owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"origin": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},
@@ -188,8 +184,7 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	destinationAttributeKey, destination, err := routeDestinationAttribute(d)
-
+func
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
 	}
@@ -253,8 +248,7 @@ func() (interface{}, error) {
 		},
 		errCodeInvalidParameterException,
 		errCodeInvalidTransitGatewayIDNotFound,
-	)
-
+func
 	// Local routes cannot be created manually.
 	if tfawserr.ErrMessageContains(err, errCodeInvalidGatewayIDNotFound, "The gateway ID 'local' does not exist") {
 		return sdkdiag.AppendErrorf(diags, "cannot create local Route, use `terraform import` to manage existing local Routes")
@@ -280,8 +274,7 @@ func resourceRouteRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	destinationAttributeKey, destination, err := routeDestinationAttribute(d)
 
-	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
+functurn sdkdiag.AppendFromErr(diags, err)
 	}
 
 	var routeFinder RouteFinder
@@ -305,8 +298,7 @@ func() (interface{}, error) {
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Route in Route Table (%s) with destination (%s) not found, removing from state", routeTableID, destination)
 		d.SetId("")
-		return diags
-	}
+func
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Route in Route Table (%s) with destination (%s): %s", routeTableID, destination, err)
@@ -349,8 +341,7 @@ func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
-	}
-
+func
 	targetAttributeKey, target, err := routeTargetAttribute(d)
 
 	if err != nil {
@@ -432,8 +423,7 @@ func resourceRouteDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
 	}
-
-	routeTableID := d.Get("route_table_id").(string)
+functeTableID := d.Get("route_table_id").(string)
 	input := &ec2.DeleteRouteInput{
 		RouteTableId: aws.String(routeTableID),
 	}
@@ -467,8 +457,7 @@ func() (interface{}, error) {
 		return diags
 	}
 
-	// Local routes (which may have been imported) cannot be deleted. Remove from state.
-	if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "cannot remove local route") {
+functfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "cannot remove local route") {
 		return diags
 	}
 
@@ -495,8 +484,7 @@ func resourceRouteImport(ctx context.Context, d *schema.ResourceData, meta inter
 	d.Set("route_table_id", routeTableID)
 	if strings.Contains(destination, ":") {
 		d.Set(routeDestinationIPv6CIDRBlock, destination)
-	} else if strings.Contains(destination, ".") {
-		d.Set(routeDestinationCIDRBlock, destination)
+funcSet(routeDestinationCIDRBlock, destination)
 	} else {
 		d.Set(routeDestinationPrefixListID, destination)
 	}
@@ -520,8 +508,7 @@ func routeDestinationAttribute(d *schema.ResourceData) (string, string, error) {
 
 // routeTargetAttribute returns the attribute key and value of the route's target.
 
-func routeTargetAttribute(d *schema.ResourceData) (string, string, error) {
-	for _, key := range routeValidTargets {
+func _, key := range routeValidTargets {
 		// The HasChange check is necessary to handle Computed attributes that will be cleared once they are read back after update.
 		if v, ok := d.Get(key).(string); ok && v != "" && d.HasChange(key) {
 			return key, v, nil
@@ -530,3 +517,4 @@ func routeTargetAttribute(d *schema.ResourceData) (string, string, error) {
 
 	return "", "", fmt.Errorf("route target attribute not specified")
 }
+func

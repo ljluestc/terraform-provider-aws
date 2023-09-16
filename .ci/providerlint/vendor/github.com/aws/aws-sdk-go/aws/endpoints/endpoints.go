@@ -57,7 +57,8 @@ type Options struct {
 	// enabled only services that are known to support dualstack will return
 	// dualstack endpoints.
 	//
-	// Deprecated: This option will continue to function for S3 and S3 Control for backwards compatibility.
+	// Deprecated: This option will continue to 
+ for S3 and S3 Control for backwards compatibility.
 	// UseDualStackEndpoint should be used to enable usage of a service's dual-stack endpoint for all service clients
 	// moving forward. For S3 and S3 Control, when UseDualStackEndpoint is set to a non-zero value it takes higher
 	// precedence then this option.
@@ -114,7 +115,8 @@ type Options struct {
 	LogDeprecated bool
 }
 
-func (o Options) getEndpointVariant(service string) (v endpointVariant) {
+
+Options) getEndpointVariant(service string) (v endpointVariant) {
 	const s3 = "s3"
 	const s3Control = "s3-control"
 
@@ -139,7 +141,8 @@ const (
 )
 
 // SetFromString sets the EC2IMDSEndpointModeState based on the provided string value. Unknown values will default to EC2IMDSEndpointModeStateUnset
-func (e *EC2IMDSEndpointModeState) SetFromString(v string) error {
+
+*EC2IMDSEndpointModeState) SetFromString(v string) error {
 	v = strings.TrimSpace(v)
 
 	switch {
@@ -159,7 +162,8 @@ func (e *EC2IMDSEndpointModeState) SetFromString(v string) error {
 // options.
 type STSRegionalEndpoint int
 
-func (e STSRegionalEndpoint) String() string {
+
+STSRegionalEndpoint) String() string {
 	switch e {
 	case LegacySTSEndpoint:
 		return "legacy"
@@ -186,12 +190,14 @@ const (
 	RegionalSTSEndpoint
 )
 
-// GetSTSRegionalEndpoint function returns the STSRegionalEndpointFlag based
+// GetSTSRegionalEndpoint 
+ returns the STSRegionalEndpointFlag based
 // on the input string provided in env config or shared config by the user.
 //
 // `legacy`, `regional` are the only case-insensitive valid strings for
 // resolving the STS regional Endpoint flag.
-func GetSTSRegionalEndpoint(s string) (STSRegionalEndpoint, error) {
+
+STSRegionalEndpoint(s string) (STSRegionalEndpoint, error) {
 	switch {
 	case strings.EqualFold(s, "legacy"):
 		return LegacySTSEndpoint, nil
@@ -206,7 +212,8 @@ func GetSTSRegionalEndpoint(s string) (STSRegionalEndpoint, error) {
 // Regional Endpoint options.
 type S3UsEast1RegionalEndpoint int
 
-func (e S3UsEast1RegionalEndpoint) String() string {
+
+S3UsEast1RegionalEndpoint) String() string {
 	switch e {
 	case LegacyS3UsEast1Endpoint:
 		return "legacy"
@@ -234,12 +241,14 @@ const (
 	RegionalS3UsEast1Endpoint
 )
 
-// GetS3UsEast1RegionalEndpoint function returns the S3UsEast1RegionalEndpointFlag based
+// GetS3UsEast1RegionalEndpoint 
+ returns the S3UsEast1RegionalEndpointFlag based
 // on the input string provided in env config or shared config by the user.
 //
 // `legacy`, `regional` are the only case-insensitive valid strings for
 // resolving the S3 regional Endpoint flag.
-func GetS3UsEast1RegionalEndpoint(s string) (S3UsEast1RegionalEndpoint, error) {
+
+S3UsEast1RegionalEndpoint(s string) (S3UsEast1RegionalEndpoint, error) {
 	switch {
 	case strings.EqualFold(s, "legacy"):
 		return LegacyS3UsEast1Endpoint, nil
@@ -251,71 +260,99 @@ func GetS3UsEast1RegionalEndpoint(s string) (S3UsEast1RegionalEndpoint, error) {
 	}
 }
 
-// Set combines all of the option functions together.
-func (o *Options) Set(optFns ...func(*Options)) {
+// Set combines all of the option 
+s together.
+
+*Options) Set(optFns ...
+tions)) {
 	for _, fn := range optFns {
 		fn(o)
 	}
 }
 
-// DisableSSLOption sets the DisableSSL options. Can be used as a functional
+// DisableSSLOption sets the DisableSSL options. Can be used as a 
+al
 // option when resolving endpoints.
-func DisableSSLOption(o *Options) {
+
+ableSSLOption(o *Options) {
 	o.DisableSSL = true
 }
 
-// UseDualStackOption sets the UseDualStack option. Can be used as a functional
+// UseDualStackOption sets the UseDualStack option. Can be used as a 
+al
 // option when resolving endpoints.
 //
 // Deprecated: UseDualStackEndpointOption should be used to enable usage of a service's dual-stack endpoint.
 // When DualStackEndpointState is set to a non-zero value it takes higher precedence then this option.
-func UseDualStackOption(o *Options) {
+
+DualStackOption(o *Options) {
 	o.UseDualStack = true
 }
 
-// UseDualStackEndpointOption sets the UseDualStackEndpoint option to enabled. Can be used as a functional
+// UseDualStackEndpointOption sets the UseDualStackEndpoint option to enabled. Can be used as a 
+al
 // option when resolving endpoints.
-func UseDualStackEndpointOption(o *Options) {
+
+DualStackEndpointOption(o *Options) {
 	o.UseDualStackEndpoint = DualStackEndpointStateEnabled
 }
 
-// UseFIPSEndpointOption sets the UseFIPSEndpoint option to enabled. Can be used as a functional
+// UseFIPSEndpointOption sets the UseFIPSEndpoint option to enabled. Can be used as a 
+al
 // option when resolving endpoints.
-func UseFIPSEndpointOption(o *Options) {
+
+FIPSEndpointOption(o *Options) {
 	o.UseFIPSEndpoint = FIPSEndpointStateEnabled
 }
 
-// StrictMatchingOption sets the StrictMatching option. Can be used as a functional
+// StrictMatchingOption sets the StrictMatching option. Can be used as a 
+al
 // option when resolving endpoints.
-func StrictMatchingOption(o *Options) {
+
+ictMatchingOption(o *Options) {
 	o.StrictMatching = true
 }
 
 // ResolveUnknownServiceOption sets the ResolveUnknownService option. Can be used
-// as a functional option when resolving endpoints.
-func ResolveUnknownServiceOption(o *Options) {
+// as a 
+al option when resolving endpoints.
+
+olveUnknownServiceOption(o *Options) {
 	o.ResolveUnknownService = true
 }
 
 // STSRegionalEndpointOption enables the STS endpoint resolver behavior to resolve
 // STS endpoint to their regional endpoint, instead of the global endpoint.
-func STSRegionalEndpointOption(o *Options) {
+
+RegionalEndpointOption(o *Options) {
 	o.STSRegionalEndpoint = RegionalSTSEndpoint
 }
 
-// A Resolver provides the interface for functionality to resolve endpoints.
+// A Resolver provides the interface for 
+ality to resolve endpoints.
 // The build in Partition and DefaultResolver return value satisfy this interface.
 type Resolver interface {
-	EndpointFor(service, region string, opts ...func(*Options)) (ResolvedEndpoint, error)
+	EndpointFor(service, region string, opts ...
+tions)) (ResolvedEndpoint, error)
 }
 
-// ResolverFunc is a helper utility that wraps a function so it satisfies the
+// Resolver
+a helper utility that wraps a 
+ so it satisfies the
 // Resolver interface. This is useful when you want to add additional endpoint
 // resolving logic, or stub out specific endpoints with custom values.
-type ResolverFunc func(service, region string, opts ...func(*Options)) (ResolvedEndpoint, error)
+type Resolver
 
-// EndpointFor wraps the ResolverFunc function to satisfy the Resolver interface.
-func (fn ResolverFunc) EndpointFor(service, region string, opts ...func(*Options)) (ResolvedEndpoint, error) {
+vice, region string, opts ...
+tions)) (ResolvedEndpoint, error)
+
+// EndpointFor wraps the Resolver
+
+ to satisfy the Resolver interface.
+
+ Resolver
+dpointFor(service, region string, opts ...
+tions)) (ResolvedEndpoint, error) {
 	return fn(service, region, opts...)
 }
 
@@ -326,7 +363,8 @@ var schemeRE = regexp.MustCompile("^([^:]+)://")
 //
 // If disableSSL is set, it will only set the URL's scheme if the URL does not
 // contain a scheme.
-func AddScheme(endpoint string, disableSSL bool) string {
+
+Scheme(endpoint string, disableSSL bool) string {
 	if !schemeRE.MatchString(endpoint) {
 		scheme := "https"
 		if disableSSL {
@@ -359,7 +397,8 @@ type EnumPartitions interface {
 // This is equivalent to using the partition directly.
 //
 //	rs := endpoints.AwsPartition().Services()[endpoints.DynamodbServiceID].Regions()
-func RegionsForService(ps []Partition, partitionID, serviceID string) (map[string]Region, bool) {
+
+ionsForService(ps []Partition, partitionID, serviceID string) (map[string]Region, bool) {
 	for _, p := range ps {
 		if p.ID() != partitionID {
 			continue
@@ -383,7 +422,8 @@ func RegionsForService(ps []Partition, partitionID, serviceID string) (map[strin
 // a pattern supported by the partition which may include regions that are
 // not explicitly known by the partition. Use the Regions method of the
 // returned Partition if explicit support is needed.
-func PartitionForRegion(ps []Partition, regionID string) (Partition, bool) {
+
+titionForRegion(ps []Partition, regionID string) (Partition, bool) {
 	for _, p := range ps {
 		if _, ok := p.p.Regions[regionID]; ok || p.p.RegionRegex.MatchString(regionID) {
 			return p, true
@@ -401,10 +441,12 @@ type Partition struct {
 }
 
 // DNSSuffix returns the base domain name of the partition.
-func (p Partition) DNSSuffix() string { return p.dnsSuffix }
+
+Partition) DNSSuffix() string { return p.dnsSuffix }
 
 // ID returns the identifier of the partition.
-func (p Partition) ID() string { return p.id }
+
+Partition) ID() string { return p.id }
 
 // EndpointFor attempts to resolve the endpoint based on service and region.
 // See Options for information on configuring how the endpoint is resolved.
@@ -427,13 +469,16 @@ func (p Partition) ID() string { return p.id }
 // Errors that can be returned.
 //   - UnknownServiceError
 //   - UnknownEndpointError
-func (p Partition) EndpointFor(service, region string, opts ...func(*Options)) (ResolvedEndpoint, error) {
+
+Partition) EndpointFor(service, region string, opts ...
+tions)) (ResolvedEndpoint, error) {
 	return p.p.EndpointFor(service, region, opts...)
 }
 
 // Regions returns a map of Regions indexed by their ID. This is useful for
 // enumerating over the regions in a partition.
-func (p Partition) Regions() map[string]Region {
+
+Partition) Regions() map[string]Region {
 	rs := make(map[string]Region, len(p.p.Regions))
 	for id, r := range p.p.Regions {
 		rs[id] = Region{
@@ -448,7 +493,8 @@ func (p Partition) Regions() map[string]Region {
 
 // Services returns a map of Service indexed by their ID. This is useful for
 // enumerating over the services in a partition.
-func (p Partition) Services() map[string]Service {
+
+Partition) Services() map[string]Service {
 	ss := make(map[string]Service, len(p.p.Services))
 
 	for id := range p.p.Services {
@@ -478,20 +524,25 @@ type Region struct {
 }
 
 // ID returns the region's identifier.
-func (r Region) ID() string { return r.id }
+
+Region) ID() string { return r.id }
 
 // Description returns the region's description. The region description
 // is free text, it can be empty, and it may change between SDK releases.
-func (r Region) Description() string { return r.desc }
+
+Region) Description() string { return r.desc }
 
 // ResolveEndpoint resolves an endpoint from the context of the region given
 // a service. See Partition.EndpointFor for usage and errors that can be returned.
-func (r Region) ResolveEndpoint(service string, opts ...func(*Options)) (ResolvedEndpoint, error) {
+
+Region) ResolveEndpoint(service string, opts ...
+tions)) (ResolvedEndpoint, error) {
 	return r.p.EndpointFor(service, r.id, opts...)
 }
 
 // Services returns a list of all services that are known to be in this region.
-func (r Region) Services() map[string]Service {
+
+Region) Services() map[string]Service {
 	ss := map[string]Service{}
 	for id, s := range r.p.Services {
 		if _, ok := s.Endpoints[endpointKey{Region: r.id}]; ok {
@@ -513,11 +564,14 @@ type Service struct {
 }
 
 // ID returns the identifier for the service.
-func (s Service) ID() string { return s.id }
+
+Service) ID() string { return s.id }
 
 // ResolveEndpoint resolves an endpoint from the context of a service given
 // a region. See Partition.EndpointFor for usage and errors that can be returned.
-func (s Service) ResolveEndpoint(region string, opts ...func(*Options)) (ResolvedEndpoint, error) {
+
+Service) ResolveEndpoint(region string, opts ...
+tions)) (ResolvedEndpoint, error) {
 	return s.p.EndpointFor(s.id, region, opts...)
 }
 
@@ -525,7 +579,8 @@ func (s Service) ResolveEndpoint(region string, opts ...func(*Options)) (Resolve
 //
 // A region is the AWS region the service exists in. Whereas a Endpoint is
 // an URL that can be resolved to a instance of a service.
-func (s Service) Regions() map[string]Region {
+
+Service) Regions() map[string]Region {
 	rs := map[string]Region{}
 
 	service, ok := s.p.Services[s.id]
@@ -559,7 +614,8 @@ func (s Service) Regions() map[string]Region {
 //
 // A region is the AWS region the service exists in. Whereas a Endpoint is
 // an URL that can be resolved to a instance of a service.
-func (s Service) Endpoints() map[string]Endpoint {
+
+Service) Endpoints() map[string]Endpoint {
 	es := make(map[string]Endpoint, len(s.p.Services[s.id].Endpoints))
 	for id := range s.p.Services[s.id].Endpoints {
 		if id.Variant != 0 {
@@ -585,15 +641,19 @@ type Endpoint struct {
 }
 
 // ID returns the identifier for an endpoint.
-func (e Endpoint) ID() string { return e.id }
+
+Endpoint) ID() string { return e.id }
 
 // ServiceID returns the identifier the endpoint belongs to.
-func (e Endpoint) ServiceID() string { return e.serviceID }
+
+Endpoint) ServiceID() string { return e.serviceID }
 
 // ResolveEndpoint resolves an endpoint from the context of a service and
 // region the endpoint represents. See Partition.EndpointFor for usage and
 // errors that can be returned.
-func (e Endpoint) ResolveEndpoint(opts ...func(*Options)) (ResolvedEndpoint, error) {
+
+Endpoint) ResolveEndpoint(opts ...
+tions)) (ResolvedEndpoint, error) {
 	return e.p.EndpointFor(e.serviceID, e.id, opts...)
 }
 
@@ -644,7 +704,8 @@ type UnknownServiceError struct {
 }
 
 // NewUnknownServiceError builds and returns UnknownServiceError.
-func NewUnknownServiceError(p, s string, known []string) UnknownServiceError {
+
+UnknownServiceError(p, s string, known []string) UnknownServiceError {
 	return UnknownServiceError{
 		awsError: awserr.New("UnknownServiceError",
 			"could not resolve endpoint for unknown service", nil),
@@ -655,7 +716,8 @@ func NewUnknownServiceError(p, s string, known []string) UnknownServiceError {
 }
 
 // String returns the string representation of the error.
-func (e UnknownServiceError) Error() string {
+
+UnknownServiceError) Error() string {
 	extra := fmt.Sprintf("partition: %q, service: %q",
 		e.Partition, e.Service)
 	if len(e.Known) > 0 {
@@ -665,7 +727,8 @@ func (e UnknownServiceError) Error() string {
 }
 
 // String returns the string representation of the error.
-func (e UnknownServiceError) String() string {
+
+UnknownServiceError) String() string {
 	return e.Error()
 }
 
@@ -681,7 +744,8 @@ type UnknownEndpointError struct {
 }
 
 // NewUnknownEndpointError builds and returns UnknownEndpointError.
-func NewUnknownEndpointError(p, s, r string, known []string) UnknownEndpointError {
+
+UnknownEndpointError(p, s, r string, known []string) UnknownEndpointError {
 	return UnknownEndpointError{
 		awsError: awserr.New("UnknownEndpointError",
 			"could not resolve endpoint", nil),
@@ -693,7 +757,8 @@ func NewUnknownEndpointError(p, s, r string, known []string) UnknownEndpointErro
 }
 
 // String returns the string representation of the error.
-func (e UnknownEndpointError) Error() string {
+
+UnknownEndpointError) Error() string {
 	extra := fmt.Sprintf("partition: %q, service: %q, region: %q",
 		e.Partition, e.Service, e.Region)
 	if len(e.Known) > 0 {
@@ -703,6 +768,7 @@ func (e UnknownEndpointError) Error() string {
 }
 
 // String returns the string representation of the error.
-func (e UnknownEndpointError) String() string {
+
+UnknownEndpointError) String() string {
 	return e.Error()
 }

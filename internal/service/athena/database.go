@@ -24,10 +24,9 @@ import (
 )
 
 // @SDKResource("aws_athena_database")
-func ResourceDatabase() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDatabaseCreate,
-		ReadWithoutTimeout:   resourceDatabaseRead,
+		ReadWithoutTimeout:ourceDatabaseRead,
 		UpdateWithoutTimeout: schema.NoopContext,
 		DeleteWithoutTimeout: resourceDatabaseDelete,
 		Importer: &schema.ResourceImporter{
@@ -36,45 +35,45 @@ func ResourceDatabase() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"acl_configuration": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3_acl_option": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringInSlice(athena.S3AclOption_Values(), false),
-							ForceNew:     true,
+							ForceNew:
 						},
 					},
 				},
 			},
 			"bucket": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 			},
 			"comment": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"encryption_configuration": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"encryption_option": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:chema.TypeString,
+							Required:
 							ValidateFunc: validation.StringInSlice(athena.EncryptionOption_Values(), false),
-							ForceNew:     true,
+							ForceNew:
 						},
 						"kms_key": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							ForceNew: true,
 						},
@@ -82,34 +81,33 @@ func ResourceDatabase() *schema.Resource {
 				},
 			},
 			"expected_bucket_owner": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type:a.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringMatch(regexache.MustCompile("^[0-9a-z_]+$"), "must be lowercase letters, numbers, or underscore ('_')"),
 			},
 			"properties": {
-				Type:     schema.TypeMap,
+				Type:a.TypeMap,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:ma.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
+funcn := meta.(*conns.AWSClient).AthenaConn(ctx)
 
 	name := d.Get("name").(string)
 	var queryString bytes.Buffer
@@ -136,7 +134,7 @@ func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta in
 	queryString.WriteString(";")
 
 	input := &athena.StartQueryExecutionInput{
-		QueryString:         aws.String(queryString.String()),
+		QueryString:ws.String(queryString.String()),
 		ResultConfiguration: expandResultConfiguration(d),
 	}
 
@@ -157,8 +155,7 @@ func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 func resourceDatabaseRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
+func
 	input := &athena.GetDatabaseInput{
 		DatabaseName: aws.String(d.Id()),
 		CatalogName:  aws.String("AwsDataCatalog"),
@@ -187,15 +184,14 @@ func resourceDatabaseRead(ctx context.Context, d *schema.ResourceData, meta inte
 func resourceDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
-
-	queryString := fmt.Sprintf("drop database `%s`", d.Id())
+funcryString := fmt.Sprintf("drop database `%s`", d.Id())
 	if d.Get("force_destroy").(bool) {
 		queryString += " cascade"
 	}
 	queryString += ";"
 
 	input := &athena.StartQueryExecutionInput{
-		QueryString:         aws.String(queryString),
+		QueryString:ws.String(queryString),
 		ResultConfiguration: expandResultConfiguration(d),
 	}
 
@@ -213,10 +209,9 @@ func resourceDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 func expandResultConfiguration(d *schema.ResourceData) *athena.ResultConfiguration {
 	resultConfig := &athena.ResultConfiguration{
-		OutputLocation:          aws.String("s3://" + d.Get("bucket").(string)),
+		OutputLocation:("s3://" + d.Get("bucket").(string)),
 		EncryptionConfiguration: expandResultConfigurationEncryptionConfig(d.Get("encryption_configuration").([]interface{})),
-	}
-
+func
 	if v, ok := d.GetOk("expected_bucket_owner"); ok {
 		resultConfig.ExpectedBucketOwner = aws.String(v.(string))
 	}
@@ -233,8 +228,7 @@ func expandResultConfigurationEncryptionConfig(config []interface{}) *athena.Enc
 		return nil
 	}
 
-	data := config[0].(map[string]interface{})
-
+func
 	encryptionConfig := &athena.EncryptionConfiguration{
 		EncryptionOption: aws.String(data["encryption_option"].(string)),
 	}
@@ -252,8 +246,7 @@ func expandResultConfigurationACLConfig(config []interface{}) *athena.AclConfigu
 	}
 
 	data := config[0].(map[string]interface{})
-
-	encryptionConfig := &athena.AclConfiguration{
+funcryptionConfig := &athena.AclConfiguration{
 		S3AclOption: aws.String(data["s3_acl_option"].(string)),
 	}
 
@@ -267,20 +260,18 @@ func executeAndExpectNoRows(ctx context.Context, conn *athena.Athena, qeid strin
 	}
 	if len(rs.Rows) != 0 {
 		return fmt.Errorf("unexpected query result: %s", flattenResultSet(rs))
-	}
-	return nil
+funcurn nil
 }
 
 func QueryExecutionResult(ctx context.Context, conn *athena.Athena, qeid string) (*athena.ResultSet, error) {
 	executionStateConf := &retry.StateChangeConf{
-		Pending:    []string{athena.QueryExecutionStateQueued, athena.QueryExecutionStateRunning},
-		Target:     []string{athena.QueryExecutionStateSucceeded},
-		Refresh:    queryExecutionStateRefreshFunc(ctx, conn, qeid),
-		Timeout:    10 * time.Minute,
-		Delay:      3 * time.Second,
+		Pending:string{athena.QueryExecutionStateQueued, athena.QueryExecutionStateRunning},
+		Target:ing{athena.QueryExecutionStateSucceeded},
+		Refresh:eryExecutionStateRefreshFunc(ctx, conn, qeid),
+		Timeout: * time.Minute,
+		Delay:time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-	_, err := executionStateConf.WaitForStateContext(ctx)
+funcerr := executionStateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -304,10 +295,8 @@ func queryExecutionStateRefreshFunc(ctx context.Context, conn *athena.Athena, qe
 		if err != nil {
 			return nil, "failed", err
 		}
-
-		if out == nil || out.QueryExecution == nil || out.QueryExecution.Status == nil {
-			return nil, "", nil
-		}
+func out == nil || out.QueryExecution == nil || out.QueryExecution.Status == nil {
+			returfunc
 
 		status := out.QueryExecution.Status
 
@@ -328,3 +317,4 @@ func flattenResultSet(rs *athena.ResultSet) string {
 	}
 	return strings.Join(ss, "\n")
 }
+func

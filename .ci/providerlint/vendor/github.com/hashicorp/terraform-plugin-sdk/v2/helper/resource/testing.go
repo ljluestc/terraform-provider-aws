@@ -29,14 +29,17 @@ import (
 )
 
 // flagSweep is a flag available when running tests on the command line. It
-// contains a comma seperated list of regions to for the sweeper functions to
-// run in.  This flag bypasses the normal Test path and instead runs functions designed to
+// contains a comma seperated list of regions to for the sweeper 
+tions to
+// run in.  This flag bypasses the normal Test path and instead runs 
+tions designed to
 // clean up any leaked resources a testing environment could have created. It is
 // a best effort attempt, and relies on Provider authors to implement "Sweeper"
 // methods for resources.
 
 // Adding Sweeper methods with AddTestSweepers will
-// construct a list of sweeper funcs to be called here. We iterate through
+// construct a list of sweeper 
+s to be called here. We iterate through
 // regions provided by the sweep flag, and for each region we iterate through the
 // tests, and exit on any errors. At time of writing, sweepers are ran
 // sequentially, however they can list dependencies to be ran first. We track
@@ -48,69 +51,95 @@ import (
 // in any environment that is not strictly a test environment. Resources will be
 // destroyed.
 
-var flagSweep = flag.String("sweep", "", "List of Regions to run available Sweepers")
+var flagSwe flag.String("sweep", "", "List of Regions to run available Sweepers")
 var flagSweepAllowFailures = flag.Bool("sweep-allow-failures", false, "Enable to allow Sweeper Tests to continue after failures")
-var flagSweepRun = flag.String("sweep-run", "", "Comma seperated list of Sweeper Tests to run")
-var sweeperFuncs map[string]*Sweeper
+var flagSwun = flag.String("sween", "", "Comma seperated list of Sweeper Tests to run")
+var sweeper
+p[string]*Sweeper
 
-// SweeperFunc is a signature for a function that acts as a sweeper. It
+// Sweeper
+ is a signature for a 
+tion that acts as a sweeper. It
 // accepts a string for the region that the sweeper is to be ran in. This
-// function must be able to construct a valid client for that region.
-type SweeperFunc func(r string) error
+// 
+tion must be able to construct a valid client for tregion.
+type Sweeper
+ 
+(r string) error
 
-type Sweeper struct {
+type Sweeperuct {
 	// Name for sweeper. Must be unique to be ran by the Sweeper Runner
-	Name string
+	Name stri
 
-	// Dependencies list the const names of other Sweeper functions that must be ran
-	// prior to running this Sweeper. This is an ordered list that will be invoked
+	// Dependencies list the const names of other Sweeper 
+s that must be ran
+	// prio running this Sweeper. This is an ordered list that will be invoked
 	// recursively at the helper/resource level
 	Dependencies []string
 
-	// Sweeper function that when invoked sweeps the Provider of specific
+	// Sweeper 
+tion that when invoked sweeps the Provider of specific
 	// resources
-	F SweeperFunc
+	F Sweeper
+
 }
 
-func init() {
-	sweeperFuncs = make(map[string]*Sweeper)
+
+ init() {
+	sweeper
+s = make(map[string]*Sweeper)
 }
 
-// AddTestSweepers function adds a given name and Sweeper configuration
-// pair to the internal sweeperFuncs map. Invoke this function to register a
-// resource sweeper to be available for running when the -sweep flag is used
+// AddTestSweepers 
+tion adds a giveme and Sweeper configuration
+// pair to the internal sweeper
+s map. Invoke this 
+tion to register a
+// resource sweeper to be available for rug when the -sweep flag is used
 // with `go test`. Sweeper names must be unique to help ensure a given sweeper
 // is only ran once per run.
-func AddTestSweepers(name string, s *Sweeper) {
-	if _, ok := sweeperFuncs[name]; ok {
-		log.Fatalf("[ERR] Error adding (%s) to sweeperFuncs: function already exists in map", name)
+
+ AddTestSweepers(name str s *Sweeper) {
+	if _, ok := sweeper
+s[name]; ok {
+		log.Fatalf("[ERR] Error adding (%s) to sweeper
+s: 
+tion already exists in map", name)
 	}
 
-	sweeperFuncs[name] = s
+	sweeper
+s[name] = s
 }
 
-// TestMain adds sweeper functionality to the "go test" command, otherwise
+// TestMain adds sweeper 
+tionality to the "go test" command, otherwise
 // tests are executed as normal. Most provider acceptance tests are written
-// using the Test() function of this package, which imposes its own
-// requirements and Terraform CLI behavior. Refer to that function's
+// using the Test() 
+tion of this package, which imposes its own
+// requirements and Terraform CLI behavior. Refer to that 
+tion's
 // documentation for additional details.
 //
-// Sweepers enable infrastructure cleanup functions to be included with
+// Sweepers enable infrastructure cleanup 
+tions to be included with
 // resource definitions, typically so developers can remove all resources of
 // that resource type from testing infrastructure in case of failures that
 // prevented the normal resource destruction behavior of acceptance tests.
-// Use the AddTestSweepers() function to configure available sweepers.
+// Use the AddTestSweepers() 
+tion to configure available sweepers.
 //
 // Sweeper flags added to the "go test" command:
 //
-//	-sweep: Comma-separated list of locations/regions to run available sweepers.
+sweep: Comma-separated list of locations/regions to run available sweepers.
 //	-sweep-allow-failues: Enable to allow other sweepers to run after failures.
 //	-sweep-run: Comma-separated list of resource type sweepers to run. Defaults
 //	        to all sweepers.
 //
 // Refer to the Env prefixed constants for environment variables that further
-// control testing functionality.
-func TestMain(m interface {
+// control testing 
+tionality.
+
+ TestMain(m interface {
 	Run() int
 }) {
 	flag.Parse()
@@ -119,7 +148,8 @@ func TestMain(m interface {
 		regions := strings.Split(*flagSweep, ",")
 
 		// get filtered list of sweepers to run based on sweep-run flag
-		sweepers := filterSweepers(*flagSweepRun, sweeperFuncs)
+		sweepers := filterSweepers(*flagSweepRun, sweeper
+s)
 
 		if _, err := runSweepers(regions, sweepers, *flagSweepAllowFailures); err != nil {
 			os.Exit(1)
@@ -130,7 +160,8 @@ func TestMain(m interface {
 	}
 }
 
-func runSweepers(regions []string, sweepers map[string]*Sweeper, allowFailures bool) (map[string]map[string]error, error) {
+
+ runSweepers(regions []string, sweepers map[string]*Sweeper, allowFailures bool) (map[string]map[string]error, error) {
 	var sweeperErrorFound bool
 	sweeperRunList := make(map[string]map[string]error)
 
@@ -156,7 +187,7 @@ func runSweepers(regions []string, sweepers map[string]*Sweeper, allowFailures b
 		log.Printf("Completed Sweepers for region (%s) in %s", region, elapsed)
 
 		log.Printf("Sweeper Tests for region (%s) ran successfully:\n", region)
-		for sweeper, sweeperErr := range regionSweeperRunList {
+r sweeper, sweeperErr := range regionSweeperRunList {
 			if sweeperErr == nil {
 				fmt.Printf("\t- %s\n", sweeper)
 			} else {
@@ -178,7 +209,7 @@ func runSweepers(regions []string, sweepers map[string]*Sweeper, allowFailures b
 	}
 
 	if sweeperErrorFound {
-		return sweeperRunList, errors.New("at least one sweeper failed")
+		return sweeperRunList, errors.New("at least one sweefailed")
 	}
 
 	return sweeperRunList, nil
@@ -187,7 +218,8 @@ func runSweepers(regions []string, sweepers map[string]*Sweeper, allowFailures b
 // filterSweepers takes a comma seperated string listing the names of sweepers
 // to be ran, and returns a filtered set from the list of all of sweepers to
 // run based on the names given.
-func filterSweepers(f string, source map[string]*Sweeper) map[string]*Sweeper {
+
+ filterSweepers(f string, source map[string]*Sweeper) map[string]*Sweeper {
 	filterSlice := strings.Split(strings.ToLower(f), ",")
 	if len(filterSlice) == 1 && filterSlice[0] == "" {
 		// if the filter slice is a single element of "" then no sweeper list was
@@ -203,15 +235,17 @@ func filterSweepers(f string, source map[string]*Sweeper) map[string]*Sweeper {
 					sweepers[foundName] = foundSweeper
 				}
 			}
-		}
+
 	}
 	return sweepers
 }
 
 // filterSweeperWithDependencies recursively returns sweeper and all dependencies.
-// Since filterSweepers performs fuzzy matching, this function is used
+// Since filterSweepers performs fuzzy matching, this 
+tion is used
 // to perform exact sweeper and dependency lookup.
-func filterSweeperWithDependencies(name string, source map[string]*Sweeper) map[string]*Sweeper {
+
+ filterSweeperWithDependencies(name string, source map[string]*Sweeper) map[string]*Sweeper {
 	result := make(map[string]*Sweeper)
 
 	currentSweeper, ok := source[name]
@@ -235,7 +269,8 @@ func filterSweeperWithDependencies(name string, source map[string]*Sweeper) map[
 // itself with that region for every dependency found for that sweeper. If there
 // are no dependencies, invoke the contained sweeper fun with the region, and
 // add the success/fail status to the sweeperRunList.
-func runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweeper, sweeperRunList map[string]error, allowFailures bool) error {
+
+ runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweeper, sweeperRunList map[string]error, allowFailures bool) error {
 	for _, dep := range s.Dependencies {
 		depSweeper, ok := sweepers[dep]
 
@@ -247,7 +282,7 @@ func runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweepe
 		log.Printf("[DEBUG] Sweeper (%s) has dependency (%s), running..", s.Name, dep)
 		err := runSweeperWithRegion(region, depSweeper, sweepers, sweeperRunList, allowFailures)
 
-		if err != nil {
+		if err != {
 			if allowFailures {
 				log.Printf("[ERROR] Error running Sweeper (%s) in region (%s): %s", depSweeper.Name, region, err)
 				continue
@@ -258,7 +293,7 @@ func runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweepe
 	}
 
 	if _, ok := sweeperRunList[s.Name]; ok {
-		log.Printf("[DEBUG] Sweeper (%s) already ran in region (%s)", s.Name, region)
+		log.Printf("[DEBSer (%s) already ran in region (%s)", s.Name, region)
 		return nil
 	}
 
@@ -270,7 +305,7 @@ func runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweepe
 
 	log.Printf("[DEBUG] Completed Sweeper (%s) in region (%s) in %s", s.Name, region, elapsed)
 
-	sweeperRunList[s.Name] = runE
+	sweeperRunList[s.N = runE
 
 	if runE != nil {
 		log.Printf("[ERROR] Error running Sweeper (%s) in region (%s): %s", s.Name, region, runE)
@@ -282,21 +317,36 @@ func runSweeperWithRegion(region string, s *Sweeper, sweepers map[string]*Sweepe
 // Deprecated: Use EnvTfAcc instead.
 const TestEnvVar = EnvTfAcc
 
-// TestCheckFunc is the callback type used with acceptance tests to check
+// TestCheck
+ is thllback type used with acceptance tests to check
 // the state of a resource. The state passed in is the latest state known,
 // or in the case of being after a destroy, it is the last known state when
 // it was created.
-type TestCheckFunc func(*terraform.State) error
+type TestCheck
+ 
+(*terraform.State) error
 
-// ImportStateCheckFunc is the check function for ImportState tests
-type ImportStateCheckFunc func([]*terraform.InstanceState) error
+// ImportStateCheck
+ is the check 
+tion for ImportState tests
+type ImportStateCheck
+ 
+([]*terraform.InstanceState) error
 
-// ImportStateIdFunc is an ID generation function to help with complex ID
+// ImportStateId
+ is an ID generation 
+tion to help with complex ID
 // generation for ImportState tests.
-type ImportStateIdFunc func(*terraform.State) (string, error)
+type ImportStateId
+ 
+(*terraform.State) (string, error)
 
-// ErrorCheckFunc is a function providers can use to handle errors.
-type ErrorCheckFunc func(error) error
+// ErrorCheck
+ is a 
+tion providers can use to le errors.
+type ErrorCheck
+ 
+(error) error
 
 // TestCase is a single acceptance test case used to test the apply/destroy
 // lifecycle of a resource in a specific configuration.
@@ -305,7 +355,8 @@ type ErrorCheckFunc func(error) error
 // is used to plan it.
 //
 // Refer to the Env prefixed constants for environment variables that further
-// control testing functionality.
+// control testing 
+tionality.
 type TestCase struct {
 	// IsUnitTest allows a test to run regardless of the TF_ACC
 	// environment variable. This should be used with care - only for
@@ -314,11 +365,12 @@ type TestCase struct {
 	// operation of Terraform without waiting for a full acctest run.
 	IsUnitTest bool
 
-	// PreCheck, if non-nil, will be called before any test steps are
+	// PreCheck, if non-nil, will be calbefore any test steps are
 	// executed. It will only be executed in the case that the steps
 	// would run, so it can be used for some validation before running
 	// acceptance tests, such as verifying that keys are setup.
-	PreCheck func()
+	PreCheck 
+()
 
 	// ProviderFactories can be specified for the providers that are valid.
 	//
@@ -343,7 +395,8 @@ type TestCase struct {
 	//
 	//    # ...
 	//  }
-	ProviderFactories map[string]func() (*schema.Provider, error)
+	ProviderFactories map[string]
+() (*schema.Provider, error)
 
 	// ProtoV5ProviderFactories serves the same purpose as ProviderFactories,
 	// but for protocol v5 providers defined using the terraform-plugin-go
@@ -353,10 +406,11 @@ type TestCase struct {
 	// differences in providers, however all provider specifications must
 	// be done either at the TestCase level or TestStep level, otherwise the
 	// testing framework will raise an error and fail the test.
-	ProtoV5ProviderFactories map[string]func() (tfprotov5.ProviderServer, error)
+	ProtoV5ProviderFactories map[string]
+() (tfprotov5.ProviderServer, error)
 
 	// ProtoV6ProviderFactories serves the same purpose as ProviderFactories,
-	// but for protocol v6 providers defined using the terraform-plugin-go
+	// but for protocol v6 providers defined using thrraform-plugin-go
 	// ProviderServer interface.
 	// The version of Terraform used in acceptance testing must be greater
 	// than or equal to v0.15.4 to use ProtoV6ProviderFactories.
@@ -365,7 +419,8 @@ type TestCase struct {
 	// differences in providers, however all provider specifications must
 	// be done either at the TestCase level or TestStep level, otherwise the
 	// testing framework will raise an error and fail the test.
-	ProtoV6ProviderFactories map[string]func() (tfprotov6.ProviderServer, error)
+	ProtoV6ProviderFactories map[string]
+() (tfprotov6.ProviderServer, error)
 
 	// Providers is the ResourceProvider that will be under test.
 	//
@@ -378,7 +433,7 @@ type TestCase struct {
 	// This can also be specified at the TestStep level to enable per-step
 	// differences in providers, however all provider specifications must
 	// be done either at the TestCase level or TestStep level, otherwise the
-	// testing framework will raise an error and fail the test.
+	// testing framewoill raise an error and fail the test.
 	//
 	// This is generally unnecessary to set at the TestCase level, however
 	// it has existing in the testing framework prior to the introduction of
@@ -391,13 +446,15 @@ type TestCase struct {
 	// are tested alongside real resources
 	PreventPostDestroyRefresh bool
 
-	// CheckDestroy is called after the resource is finally destroyed
+	// CheckDey is called after the resource is finally destroyed
 	// to allow the tester to test that the resource is truly gone.
-	CheckDestroy TestCheckFunc
+	CheckDestroy TestCheck
+
 
 	// ErrorCheck allows providers the option to handle errors such as skipping
 	// tests based on certain errors.
-	ErrorCheck ErrorCheckFunc
+	ErrorCheck ErrorCheck
+
 
 	// Steps are the apply sequences done within the context of the
 	// same state. Each step can have its own check to verify correctness.
@@ -410,7 +467,8 @@ type TestCase struct {
 	//
 	// While not deprecated, most resource tests should instead prefer using
 	// TestStep.ImportState based testing as it works with multiple attribute
-	// identifiers and also verifies resource import functionality.
+	// identifiers and also verifies resource import 
+tionality.
 	IDRefreshName string
 
 	// IDRefreshIgnore is a list of configuration keys that will be ignored
@@ -433,7 +491,8 @@ type ExternalProvider struct {
 // tests will only need one step.
 //
 // Refer to the Env prefixed constants for environment variables that further
-// control testing functionality.
+// control testing 
+tionality.
 type TestStep struct {
 	// ResourceName should be set to the name of the resource
 	// that is being tested. Example: "aws_instance.foo". Various test
@@ -446,23 +505,24 @@ type TestStep struct {
 	// PreConfig is called before the Config is applied to perform any per-step
 	// setup that needs to happen. This is called regardless of "test mode"
 	// below.
-	PreConfig func()
+	PreConfig 
+()
 
 	// Taint is a list of resource addresses to taint prior to the execution of
 	// the step. Be sure to only include this at a step where the referenced
 	// address will be present in state, as it will fail the test if the resource
 	// is missing.
 	//
-	// This option is ignored on ImportState tests, and currently only works for
+	// Thision is ignored on ImportState tests, and currently only works for
 	// resources in the root module path.
 	Taint []string
 
 	//---------------------------------------------------------------
-	// Test modes. One of the following groups of settings must be
+	// Test modes. One of the following groups of settings  be
 	// set to determine what the test step will do. Ideally we would've
 	// used Go interfaces here but there are now hundreds of tests we don't
-	// want to re-type so instead we just determine which step logic
-	// to run based on what settings below are set.
+	// wantre-type so instead we just determine which step logic
+	// tned on what settings below are set.
 	//---------------------------------------------------------------
 
 	//---------------------------------------------------------------
@@ -485,7 +545,8 @@ type TestStep struct {
 	// destroy plan will still be attempted.
 	//
 	// If this is nil, no check is done on this step.
-	Check TestCheckFunc
+	Check TestCheck
+
 
 	// Destroy will create a destroy plan if set to true.
 	Destroy bool
@@ -513,22 +574,28 @@ type TestStep struct {
 	// are tested alongside real resources
 	PreventPostDestroyRefresh bool
 
-	// SkipFunc enables skipping the TestStep, based on environment criteria.
+	// Skip
+ enables skipping the TestStep, based on environment criteria.
 	// For example, this can prevent running certain steps that may be runtime
 	// platform or API configuration dependent.
 	//
 	// Return true with no error to skip the test step. The error return
-	// should be used to signify issues that prevented the function from
+	// should be used to signify issues that prevented the 
+tion from
 	// completing as expected.
 	//
-	// SkipFunc is called after PreConfig but before applying the Config.
-	SkipFunc func() (bool, error)
+	// Skip
+ is called after PreConfig but before applying the Config.
+	Skip
+ 
+() (bool, error)
 
 	//---------------------------------------------------------------
 	// ImportState testing
 	//---------------------------------------------------------------
 
-	// ImportState, if true, will test the functionality of ImportState
+	// ImportState, if true, will test the 
+tionality of ImportState
 	// by importing the resource with ResourceName (must be set) and the
 	// ID of that resource.
 	ImportState bool
@@ -545,31 +612,38 @@ type TestStep struct {
 	// the unset ImportStateId field.
 	ImportStateIdPrefix string
 
-	// ImportStateIdFunc is a function that can be used to dynamically generate
+	// ImportStateId
+ is a 
+tion that can be used to dynamically generate
 	// the ID for the ImportState tests. It is sent the state, which can be
 	// checked to derive the attributes necessary and generate the string in the
 	// desired format.
-	ImportStateIdFunc ImportStateIdFunc
+	ImportStateId
+ ImportStateId
+
 
 	// ImportStateCheck checks the results of ImportState. It should be
 	// used to verify that the resulting value of ImportState has the
-	// proper resources, IDs, and attributes.
+	// proper resources, IDs, andributes.
 	//
 	// Prefer ImportStateVerify over ImportStateCheck, unless the resource
 	// import explicitly is expected to create multiple resources (not a
 	// recommended resource implementation) or if attributes are imported with
-	// syntactically different but semantically/functionally equivalent values
+	// syntactically different but semantically/
+tionally equivalent values
 	// where special logic is needed.
 	//
 	// Terraform versions 1.3 and later can include data source states during
 	// import, which the testing framework will skip to prevent the need for
-	// Terraform version specific logic in provider testing.
-	ImportStateCheck ImportStateCheckFunc
+	// Terraform version specific logic rovider testing.
+	ImportStateCheck ImportStateCheck
+
 
 	// ImportStateVerify, if true, will also check that the state values
 	// that are finally put into the state after import match for all the
 	// IDs returned by the Import.  Note that this checks for strict equality
-	// and does not respect DiffSuppressFunc or CustomizeDiff.
+	// and does not respect DiffSuppress
+ or CustomizeDiff.
 	//
 	// ImportStateVerifyIgnore is a list of prefixes of fields that should
 	// not be verified to be equal. These can be set to ephemeral fields or
@@ -587,7 +661,8 @@ type TestStep struct {
 	// RefreshState testing
 	//---------------------------------------------------------------
 
-	// RefreshState, if true, will test the functionality of `terraform
+	// RefreshState, if true, will test the 
+tionality of `terraform
 	// refresh` by refreshing the state, running any checks against the
 	// refreshed state, and running a plan to verify against unexpected plan
 	// differences.
@@ -600,8 +675,8 @@ type TestStep struct {
 	RefreshState bool
 
 	// ProviderFactories can be specified for the providers that are valid for
-	// this TestStep. When providers are specified at the TestStep level, all
-	// TestStep within a TestCase must declare providers.
+	// this Ttep. When providers are specified at the TestStep levell
+TestStep within a TestCase must declare providers.
 	//
 	// This can also be specified at the TestCase level for all TestStep,
 	// however all provider specifications must be done either at the TestCase
@@ -622,9 +697,10 @@ type TestStep struct {
 	//  resource "my_resource" "mr" {
 	//    provider = my_factory_key
 	//
-	//    # ...
+	//    #
 	//  }
-	ProviderFactories map[string]func() (*schema.Provider, error)
+	ProviderFactories map[string]
+() (*schema.Provider, error)
 
 	// ProtoV5ProviderFactories serves the same purpose as ProviderFactories,
 	// but for protocol v5 providers defined using the terraform-plugin-go
@@ -635,7 +711,8 @@ type TestStep struct {
 	// however all provider specifications must be done either at the TestCase
 	// level or TestStep level, otherwise the testing framework will raise an
 	// error and fail the test.
-	ProtoV5ProviderFactories map[string]func() (tfprotov5.ProviderServer, error)
+	ProtoV5ProviderFactories map[string]
+() (tfprotov5.ProviderServer, error)
 
 	// ProtoV6ProviderFactories serves the same purpose as ProviderFactories,
 	// but for protocol v6 providers defined using the terraform-plugin-go
@@ -649,7 +726,8 @@ type TestStep struct {
 	// however all provider specifications must be done either at the TestCase
 	// level or TestStep level, otherwise the testing framework will raise an
 	// error and fail the test.
-	ProtoV6ProviderFactories map[string]func() (tfprotov6.ProviderServer, error)
+	ProtoV6ProviderFactories map[string]
+() (tfprotov6.ProviderServer, error)
 
 	// ExternalProviders are providers the TestStep relies on that should
 	// be downloaded from the registry during init. When providers are
@@ -663,7 +741,7 @@ type TestStep struct {
 	//
 	// Outside specifying an earlier version of the provider under test,
 	// typically for state upgrader testing, this is generally only necessary
-	// for performing import testing where the prior TestStep configuration
+	// for performing import testing w the prior TestStep configuration
 	// contained a provider outside the one under test.
 	ExternalProviders map[string]ExternalProvider
 }
@@ -675,8 +753,11 @@ type TestStep struct {
 // Tests will fail if they do not properly handle conditions to allow multiple
 // tests to occur against the same resource or service (e.g. random naming).
 //
-// Test() function requirements and documentation also apply to this function.
-func ParallelTest(t testing.T, c TestCase) {
+// Test() 
+tion requirements and documentation also apply to this 
+tion.
+
+ ParallelTest(t testing.T, c TestCase) {
 	t.Helper()
 	t.Parallel()
 	Test(t, c)
@@ -688,32 +769,37 @@ func ParallelTest(t testing.T, c TestCase) {
 // set to some non-empty value. This is to avoid test cases surprising
 // a user by creating real resources.
 //
-// Tests will fail unless the verbose flag (`go test -v`, or explicitly
+// Testll fail unless the verbose flag (`go test -v`, or explicitly
 // the "-test.v" flag) is set. Because some acceptance tests take quite
 // long, we require the verbose flag so users are able to see progress
 // output.
 //
-// Use the ParallelTest() function to automatically set (*testing.T).Parallel()
-// to enable testing concurrency. Use the UnitTest() function to automatically
+// Use the ParallelTest() 
+tion to automatically set (*testing.T).Parallel()
+// to enable testing concurrency. Use the UnitTest() 
+tion to automatically
 // set the TestCase type IsUnitTest field.
 //
-// This function will automatically find or install Terraform CLI into a
+// This 
+tion will automatically find or install Terraform CLI into a
 // temporary directory, based on the following behavior:
 //
 //   - If the TF_ACC_TERRAFORM_PATH environment variable is set, that
-//     Terraform CLI binary is used if found and executable. If not found or
-//     executable, an error will be returned unless the
+//     Terrm CLI binary is used if found and executable. If not f or
+   executable, an error will be returned unless the
 //     TF_ACC_TERRAFORM_VERSION environment variable is also set.
 //   - If the TF_ACC_TERRAFORM_VERSION environment variable is set, install
 //     and use that Terraform CLI version.
 //   - If both the TF_ACC_TERRAFORM_PATH and TF_ACC_TERRAFORM_VERSION
 //     environment variables are unset, perform a lookup for the Terraform
 //     CLI binary based on the operating system PATH. If not found, the
-//     latest available Terraform CLI binary is installed.
+   latest available Terraform CLI binary is installed.
 //
 // Refer to the Env prefixed constants for additional details about these
-// environment variables, and others, that control testing functionality.
-func Test(t testing.T, c TestCase) {
+// environment variables, and others, that control testing 
+tionality.
+
+ Test(t testing.T, c TestCase) {
 	t.Helper()
 
 	ctx := context.Background()
@@ -726,10 +812,10 @@ func Test(t testing.T, c TestCase) {
 			"Test validation error",
 			map[string]interface{}{logging.KeyError: err},
 		)
-		t.Fatalf("Test validation error: %s", err)
+		t.Fatalf("Test vation error: %s", err)
 	}
 
-	// We only run acceptance tests if an env var is set because they're
+	// We orun acceptance tests if an env var is set because they're
 	// slow and generally require some outside configuration. You can opt out
 	// of this with OverrideEnvVar on individual TestCases.
 	if os.Getenv(EnvTfAcc) == "" && !c.IsUnitTest {
@@ -741,12 +827,14 @@ func Test(t testing.T, c TestCase) {
 
 	// Copy any explicitly passed providers to factories, this is for backwards compatibility.
 	if len(c.Providers) > 0 {
-		c.ProviderFactories = map[string]func() (*schema.Provider, error){}
+		c.ProviderFactoriesap[string]
+() (*schema.Provider, error){}
 
 		for name, p := range c.Providers {
 			prov := p
-			c.ProviderFactories[name] = func() (*schema.Provider, error) { //nolint:unparam // required signature
-				return prov, nil
+			c.ProviderFactories[nam 
+() (*schProvider, error) { //nolint:unparam // required signature
+return prov, nil
 			}
 		}
 	}
@@ -769,7 +857,8 @@ func Test(t testing.T, c TestCase) {
 		t.Fatalf("Error getting working dir: %s", err)
 	}
 	helper := plugintest.AutoInitProviderHelper(ctx, sourceDir)
-	defer func(helper *plugintest.Helper) {
+	defer 
+(helper *plugintest.Helper) {
 		err := helper.Close()
 		if err != nil {
 			logging.HelperResourceError(ctx, "Unable to clean up temporary test files", map[string]interface{}{logging.KeyError: err})
@@ -785,19 +874,23 @@ func Test(t testing.T, c TestCase) {
 // normal unit test suite. This should only be used for resource that don't
 // have any external dependencies.
 //
-// Test() function requirements and documentation also apply to this function.
-func UnitTest(t testing.T, c TestCase) {
+// Test() 
+tion requirements and documentation also apply to this 
+tion.
+
+ UnitTest(t testing.T, c TestCase) {
 	t.Helper()
 
 	c.IsUnitTest = true
 	Test(t, c)
 }
 
-func testResource(c TestStep, state *terraform.State) (*terraform.ResourceState, error) {
+
+ testResource(c TestStep, state *terraform.State) (*terraform.ResourceState, error) {
 	for _, m := range state.Modules {
 		if len(m.Resources) > 0 {
 			if v, ok := m.Resources[c.ResourceName]; ok {
-				return v, nil
+return v, nil
 			}
 		}
 	}
@@ -806,16 +899,27 @@ func testResource(c TestStep, state *terraform.State) (*terraform.ResourceState,
 		"Resource specified by ResourceName couldn't be found: %s", c.ResourceName)
 }
 
-// ComposeTestCheckFunc lets you compose multiple TestCheckFuncs into
-// a single TestCheckFunc.
+// ComposeTestCheck
+ lets you compose multiple TestCheck
+s into
+// a single TestCheck
+
 //
-// As a user testing their provider, this lets you decompose your checks
+// As a user testing their provider, thets you decompose your checks
 // into smaller pieces more easily.
 //
-// ComposeTestCheckFunc returns immediately on the first TestCheckFunc error.
-// To aggregrate all errors, use ComposeAggregateTestCheckFunc instead.
-func ComposeTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
-	return func(s *terraform.State) error {
+// ComposeTestCheck
+ returns immediately on the first TestCheck
+ error.
+// To aggregrate all errors, use ComposeAggregateTestCheck
+ instead.
+
+ ComposeTestCheck
+...TestCheck
+) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		for i, f := range fs {
 			if err := f(s); err != nil {
 				return fmt.Errorf("Check %d/%d error: %s", i+1, len(fs), err)
@@ -826,16 +930,27 @@ func ComposeTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
 	}
 }
 
-// ComposeAggregateTestCheckFunc lets you compose multiple TestCheckFuncs into
-// a single TestCheckFunc.
+// ComposeAggregateTestCheck
+ lets you compose multiple TestCheck
+s into
+// a single TestCheck
+.
 //
 // As a user testing their provider, this lets you decompose your checks
 // into smaller pieces more easily.
 //
-// Unlike ComposeTestCheckFunc, ComposeAggergateTestCheckFunc runs _all_ of the
-// TestCheckFuncs and aggregates failures.
-func ComposeAggregateTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
-	return func(s *terraform.State) error {
+// Unlike ComposeTestCheck
+, ComposeAggergateTestCheck
+ runs _all_ of the
+// TestCheck
+s and aggregates failures.
+
+ ComposeAggregateTestCheck
+(fs ...TestCheck
+) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		var result *multierror.Error
 
 		for i, f := range fs {
@@ -849,11 +964,13 @@ func ComposeAggregateTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
 }
 
 // TestCheckResourceAttrSet ensures any value exists in the state for the
-// given name and key combination. The opposite of this TestCheckFunc is
+// given name and key combination. The opposite of this TestCheck
+ is
 // TestCheckNoResourceAttr. State value checking is only recommended for
 // testing Computed attributes and attribute defaults.
 //
-// Use this as a last resort when a more specific TestCheckFunc cannot be
+// Use this as a last resort when a more specific TestCheck
+ cannot be
 // implemented, such as:
 //
 //   - TestCheckResourceAttr: Equality checking of non-TypeSet state value.
@@ -864,8 +981,8 @@ func ComposeAggregateTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
 //     state value.
 //   - TestMatchTypeSet*: Regular expression checking on TypeSet state values.
 //
-// For managed resources, the name parameter is combination of the resource
-// type, a period (.), and the name label. The name for the below example
+or managed resources, the name parameter is combination oe resource
+// type, a period (.), and the name labThe name for the below example
 // configuration would be "myprovider_thing.example".
 //
 //	resource "myprovider_thing" "example" { ... }
@@ -877,9 +994,9 @@ func ComposeAggregateTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
 //
 //	data "myprovider_thing" "example" { ... }
 //
-// The key parameter is an attribute path in Terraform CLI 0.11 and earlier
+he key parameter is an attribute path in Terraform CLI 0.11 and earlier
 // "flatmap" syntax. Keys start with the attribute name of a top-level
-// attribute. Use the following special key syntax to inspect underlying
+// attribute. Use the following special syntax to inspect underlying
 // values of a list or map attribute:
 //
 //   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element
@@ -889,9 +1006,12 @@ func ComposeAggregateTestCheckFunc(fs ...TestCheckFunc) TestCheckFunc {
 // While it is possible to check nested attributes under list and map
 // attributes using the special key syntax, checking a list, map, or set
 // attribute directly is not supported. Use TestCheckResourceAttr with
-// the special .# or .% key syntax for those situations instead.
-func TestCheckResourceAttrSet(name, key string) TestCheckFunc {
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+he special .# or .% key syntax for those situations instead.
+
+ TestCheckResourceAttrSet(name, key string) TestCheck
+ {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -903,9 +1023,12 @@ func TestCheckResourceAttrSet(name, key string) TestCheckFunc {
 
 // TestCheckModuleResourceAttrSet - as per TestCheckResourceAttrSet but with
 // support for non-root modules
-func TestCheckModuleResourceAttrSet(mp []string, name string, key string) TestCheckFunc {
+
+ TestCheckModuleResourceAttrSet(mp []string, name string, key string) TestCheck
+ {
 	mpt := addrs.Module(mp).UnkeyedInstanceShim()
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := modulePathPrimaryInstanceState(s, mpt, name)
 		if err != nil {
 			return err
@@ -915,7 +1038,8 @@ func TestCheckModuleResourceAttrSet(mp []string, name string, key string) TestCh
 	})
 }
 
-func testCheckResourceAttrSet(is *terraform.InstanceState, name string, key string) error {
+
+ testCheckResourceAttrSet(is *terraform.InstanceState, name string, key string) error {
 	val, ok := is.Attributes[key]
 
 	if ok && val != "" {
@@ -924,7 +1048,8 @@ func testCheckResourceAttrSet(is *terraform.InstanceState, name string, key stri
 
 	if _, ok := is.Attributes[key+".#"]; ok {
 		return fmt.Errorf(
-			"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet functions instead.",
+			"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet 
+tions instead.",
 			name,
 			key,
 			key+".#",
@@ -964,11 +1089,12 @@ func testCheckResourceAttrSet(is *terraform.InstanceState, name string, key stri
 //
 // The key parameter is an attribute path in Terraform CLI 0.11 and earlier
 // "flatmap" syntax. Keys start with the attribute name of a top-level
-// attribute. Use the following special key syntax to inspect list, map, and
+// attribute. Use following special key syntax to insplist, map, and
 // set attributes:
 //
 //   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element.
-//     Use the TestCheckTypeSet* and TestMatchTypeSet* functions instead
+   Use the TestCheckTypeSet* and TestMatchTypeSet* 
+tions instead
 //     for sets.
 //   - .{KEY}: Map value at key, e.g. .example to inspect the example key
 //     value.
@@ -979,10 +1105,13 @@ func testCheckResourceAttrSet(is *terraform.InstanceState, name string, key stri
 // the following attribute type rules to set the value:
 //
 //   - Boolean: "false" or "true".
-//   - Float/Integer: Stringified number, such as "1.2" or "123".
+//   - Float/IntegStringified number, such as "1.2" or "123".
 //   - String: No conversion necessary.
-func TestCheckResourceAttr(name, key, value string) TestCheckFunc {
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+
+ TestCheckResourceAttr(name, key, value string) TestCheck
+ {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -994,9 +1123,12 @@ func TestCheckResourceAttr(name, key, value string) TestCheckFunc {
 
 // TestCheckModuleResourceAttr - as per TestCheckResourceAttr but with
 // support for non-root modules
-func TestCheckModuleResourceAttr(mp []string, name string, key string, value string) TestCheckFunc {
+
+ TestCheckModuleResourceAttr(mp []string, name string, key string, value string) TestCheck
+ {
 	mpt := addrs.Module(mp).UnkeyedInstanceShim()
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := modulePathPrimaryInstanceState(s, mpt, name)
 		if err != nil {
 			return err
@@ -1006,25 +1138,27 @@ func TestCheckModuleResourceAttr(mp []string, name string, key string, value str
 	})
 }
 
-func testCheckResourceAttr(is *terraform.InstanceState, name string, key string, value string) error {
+
+ testCheckResourceAttr(is *terraform.InstanceState, name string, key string, value string) error {
 	v, ok := is.Attributes[key]
 
 	if !ok {
 		// Empty containers may be elided from the state.
 		// If the intent here is to check for an empty container, allow the key to
-		// also be non-existent.
-		if value == "0" && (strings.HasSuffix(key, ".#") || strings.HasSuffix(key, ".%")) {
+ also be non-existent.
+		if value == "0" && (strings.HasSuffix, ".#") || strings.HasSuffix(key, ".%")) {
 			return nil
 		}
 
 		if _, ok := is.Attributes[key+".#"]; ok {
 			return fmt.Errorf(
-				"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet functions instead.",
+				"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet 
+tions instead.",
 				name,
 				key,
 				key+".#",
 				key+".0",
-			)
+
 		}
 
 		if _, ok := is.Attributes[key+".%"]; ok {
@@ -1052,11 +1186,15 @@ func testCheckResourceAttr(is *terraform.InstanceState, name string, key string,
 	return nil
 }
 
-// CheckResourceAttrWithFunc is the callback type used to apply a custom checking logic
+// CheckResourceAttrWith
+ is the callback type used to apply a custom checking logic
 // when using TestCheckResourceAttrWith and a value is found for the given name and key.
 //
-// When this function returns an error, TestCheckResourceAttrWith will fail the check.
-type CheckResourceAttrWithFunc func(value string) error
+// When this 
+tion returns an error, TestCheckResourceAttrWith will fail the check.
+type CheckResourceAttrWith
+ 
+(value string) error
 
 // TestCheckResourceAttrWith ensures a value stored in state for the
 // given name and key combination, is checked against a custom logic.
@@ -1082,20 +1220,29 @@ type CheckResourceAttrWithFunc func(value string) error
 // set attributes:
 //
 //   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element.
-//     Use the TestCheckTypeSet* and TestMatchTypeSet* functions instead
+//     Use the TestCheckTypeSet* and TestMatchTypeSet* 
+tions instead
 //     for sets.
 //   - .{KEY}: Map value at key, e.g. .example to inspect the example key
 //     value.
 //   - .#: Number of elements in list or set.
 //   - .%: Number of elements in map.
 //
-// The checkValueFunc parameter is a CheckResourceAttrWithFunc,
+// The checkValue
+ parameter is a CheckResourceAttrWith
+,
 // and it's provided with the attribute value to apply a custom checking logic,
-// if it was found in the state. The function must return an error for the
+// if it was found in the state. The 
+tion must return an error for the
 // check to fail, or `nil` to succeed.
-func TestCheckResourceAttrWith(name, key string, checkValueFunc CheckResourceAttrWithFunc) TestCheckFunc {
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
-		is, err := primaryInstanceState(s, name)
+
+ TestCheckResourceAttrWith(name, key string, checkValue
+ CheckResourceAttrWith
+) TestCheck
+ {
+	return checkIfIndexesIntoTypeSet(key, 
+terraform.State) error {
+		is, err := primaryInstanceState(s, na
 		if err != nil {
 			return err
 		}
@@ -1105,8 +1252,9 @@ func TestCheckResourceAttrWith(name, key string, checkValueFunc CheckResourceAtt
 			return err
 		}
 
-		err = checkValueFunc(is.Attributes[key])
-		if err != nil {
+		err = checkValue
+(is.Attributes[key])
+ err != nil {
 			return fmt.Errorf("%s: Attribute %q value: %w", name, key, err)
 		}
 
@@ -1115,9 +1263,10 @@ func TestCheckResourceAttrWith(name, key string, checkValueFunc CheckResourceAtt
 }
 
 // TestCheckNoResourceAttr ensures no value exists in the state for the
-// given name and key combination. The opposite of this TestCheckFunc is
+// given name and key combination. The opposite of this TestCheck
+ is
 // TestCheckResourceAttrSet. State value checking is only recommended for
-// testing Computed attributes and attribute defaults.
+esting Computed attributes and attribute defaults.
 //
 // For managed resources, the name parameter is combination of the resource
 // type, a period (.), and the name label. The name for the below example
@@ -1136,17 +1285,20 @@ func TestCheckResourceAttrWith(name, key string, checkValueFunc CheckResourceAtt
 // "flatmap" syntax. Keys start with the attribute name of a top-level
 // attribute. Use the following special key syntax to inspect underlying
 // values of a list or map attribute:
-//
-//   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element.
+
+//   - .BER}: List value at index, e.g. .0 to inspect the first element.
 //   - .{KEY}: Map value at key, e.g. .example to inspect the example key
 //     value.
 //
 // While it is possible to check nested attributes under list and map
 // attributes using the special key syntax, checking a list, map, or set
 // attribute directly is not supported. Use TestCheckResourceAttr with
-// the special .# or .% key syntax for those situations instead.
-func TestCheckNoResourceAttr(name, key string) TestCheckFunc {
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+he special .# or .% key syntax for those situations instead.
+
+ TestCheckNoResourceAttr(name, key string) TestCheck
+ {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -1158,9 +1310,12 @@ func TestCheckNoResourceAttr(name, key string) TestCheckFunc {
 
 // TestCheckModuleNoResourceAttr - as per TestCheckNoResourceAttr but with
 // support for non-root modules
-func TestCheckModuleNoResourceAttr(mp []string, name string, key string) TestCheckFunc {
+
+ TestCheckModuleNoResourceAttr(mp []string, name string, key string) TestCheck
+ {
 	mpt := addrs.Module(mp).UnkeyedInstanceShim()
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := modulePathPrimaryInstanceState(s, mpt, name)
 		if err != nil {
 			return err
@@ -1170,13 +1325,14 @@ func TestCheckModuleNoResourceAttr(mp []string, name string, key string) TestChe
 	})
 }
 
-func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key string) error {
+
+ testCheckNoResourceAttr(is *terraform.InstanceStatame string, key string) error {
 	v, ok := is.Attributes[key]
 
 	// Empty containers may sometimes be included in the state.
 	// If the intent here is to check for an empty container, allow the value to
 	// also be "0".
-	if v == "0" && (strings.HasSuffix(key, ".#") || strings.HasSuffix(key, ".%")) {
+v == "0" && (strings.HasSuffix(key, ".#") || strings.HasSuffix(key, ".%")) {
 		return nil
 	}
 
@@ -1186,7 +1342,8 @@ func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key strin
 
 	if _, ok := is.Attributes[key+".#"]; ok {
 		return fmt.Errorf(
-			"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet functions instead.",
+			"%s: list or set attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s). Set element value checks should use TestCheckTypeSet 
+tions instead.",
 			name,
 			key,
 			key+".#",
@@ -1196,7 +1353,7 @@ func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key strin
 
 	if _, ok := is.Attributes[key+".%"]; ok {
 		return fmt.Errorf(
-			"%s: map attribute '%s' must be checked by element count key (%s) or element value keys (e.g. %s).",
+			"%s: map attribute '%s' must be checked by element count (%s) or element value keys (e.g. %s).",
 			name,
 			key,
 			key+".%",
@@ -1211,7 +1368,7 @@ func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key strin
 // stored in state for the given name and key combination. State value checking
 // is only recommended for testing Computed attributes and attribute defaults.
 //
-// For managed resources, the name parameter is combination of the resource
+or managed resources, the name parameter is combination of the resource
 // type, a period (.), and the name label. The name for the below example
 // configuration would be "myprovider_thing.example".
 //
@@ -1230,7 +1387,8 @@ func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key strin
 // set attributes:
 //
 //   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element.
-//     Use the TestCheckTypeSet* and TestMatchTypeSet* functions instead
+//     Use the TestCheckTypeSet* and TestMatchTypeSet* 
+tions instead
 //     for sets.
 //   - .{KEY}: Map value at key, e.g. .example to inspect the example key
 //     value.
@@ -1238,11 +1396,15 @@ func testCheckNoResourceAttr(is *terraform.InstanceState, name string, key strin
 //   - .%: Number of elements in map.
 //
 // The value parameter is a compiled regular expression. A typical pattern is
-// using the regexp.MustCompile() function, which will automatically ensure the
+// using the regexp.MustCompile() 
+tion, which will automatically ensure the
 // regular expression is supported by the Go regular expression handlers during
 // compilation.
-func TestMatchResourceAttr(name, key string, r *regexp.Regexp) TestCheckFunc {
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+
+ TestMatchResourceAttr(name, key string, r *regexp.Regexp) TestCheck
+ {
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
@@ -1254,9 +1416,12 @@ func TestMatchResourceAttr(name, key string, r *regexp.Regexp) TestCheckFunc {
 
 // TestModuleMatchResourceAttr - as per TestMatchResourceAttr but with
 // support for non-root modules
-func TestModuleMatchResourceAttr(mp []string, name string, key string, r *regexp.Regexp) TestCheckFunc {
-	mpt := addrs.Module(mp).UnkeyedInstanceShim()
-	return checkIfIndexesIntoTypeSet(key, func(s *terraform.State) error {
+
+ TestModuleMatchResourceAttr(mp []string, name string, key string, r *regexp.Regexp) TestCheck
+
+	mpt := s.Module(mp).UnkeyedInstanceShim()
+	return checkIfIndexesIntoTypeSet(key, 
+(s *terraform.State) error {
 		is, err := modulePathPrimaryInstanceState(s, mpt, name)
 		if err != nil {
 			return err
@@ -1266,14 +1431,15 @@ func TestModuleMatchResourceAttr(mp []string, name string, key string, r *regexp
 	})
 }
 
-func testMatchResourceAttr(is *terraform.InstanceState, name string, key string, r *regexp.Regexp) error {
+
+ testMatchResourceAttr(is *terraform.InstanceState, name string, key string, r *regexp.Regexp) error {
 	if !r.MatchString(is.Attributes[key]) {
 		return fmt.Errorf(
 			"%s: Attribute '%s' didn't match %q, got %#v",
 			name,
 			key,
-			r.String(),
-			is.Attributes[key])
+.String(),
+			is.Atutes[key])
 	}
 
 	return nil
@@ -1285,16 +1451,22 @@ func testMatchResourceAttr(is *terraform.InstanceState, name string, key string,
 //
 // Refer to the TestCheckResourceAttr documentation for more information about
 // setting the name, key, and value parameters.
-func TestCheckResourceAttrPtr(name string, key string, value *string) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestCheckResourceAttrPtr(name string, key string, value *string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		return TestCheckResourceAttr(name, key, *value)(s)
 	}
 }
 
-// TestCheckModuleResourceAttrPtr - as per TestCheckResourceAttrPtr but with
+estCheckModuleResourceAttrPtr - as per TestCheckResourceAttrPtr but with
 // support for non-root modules
-func TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value *string) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value *string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		return TestCheckModuleResourceAttr(mp, name, key, *value)(s)
 	}
 }
@@ -1304,7 +1476,7 @@ func TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value 
 // State value checking is only recommended for testing Computed attributes
 // and attribute defaults.
 //
-// For managed resources, the name parameter is combination of the resource
+or managed resources, the name parameter is combination of the resource
 // type, a period (.), and the name label. The name for the below example
 // configuration would be "myprovider_thing.example".
 //
@@ -1315,7 +1487,7 @@ func TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value 
 // name for the below example configuration would be
 // "data.myprovider_thing.example".
 //
-//	data "myprovider_thing" "example" { ... }
+ata "myprovider_thing" "example" { ... }
 //
 // The first and second names may use any combination of managed resources
 // and/or data sources.
@@ -1323,23 +1495,27 @@ func TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value 
 // The key parameter is an attribute path in Terraform CLI 0.11 and earlier
 // "flatmap" syntax. Keys start with the attribute name of a top-level
 // attribute. Use the following special key syntax to inspect list, map, and
-// set attributes:
+et attributes:
 //
 //   - .{NUMBER}: List value at index, e.g. .0 to inspect the first element.
-//     Use the TestCheckTypeSet* and TestMatchTypeSet* functions instead
+//     Use the TestCheckTypeSet* and TestMatchTypeSet* 
+tions instead
 //     for sets.
 //   - .{KEY}: Map value at key, e.g. .example to inspect the example key
 //     value.
 //   - .#: Number of elements in list or set.
-//   - .%: Number of elements in map.
-func TestCheckResourceAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheckFunc {
-	return checkIfIndexesIntoTypeSetPair(keyFirst, keySecond, func(s *terraform.State) error {
+ - .%: Number of elements in map.
+
+ TestCheckResourceAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheck
+ {
+	return checkIfIndexesIntoTypeSetPair(keyFirst, keySecond, 
+(s *terraform.State) error {
 		isFirst, err := primaryInstanceState(s, nameFirst)
 		if err != nil {
 			return err
 		}
 
-		isSecond, err := primaryInstanceState(s, nameSecond)
+		isSecoerr := primaryInstanceState(s, nameSecond)
 		if err != nil {
 			return err
 		}
@@ -1350,10 +1526,13 @@ func TestCheckResourceAttrPair(nameFirst, keyFirst, nameSecond, keySecond string
 
 // TestCheckModuleResourceAttrPair - as per TestCheckResourceAttrPair but with
 // support for non-root modules
-func TestCheckModuleResourceAttrPair(mpFirst []string, nameFirst string, keyFirst string, mpSecond []string, nameSecond string, keySecond string) TestCheckFunc {
+
+ TestCheckModuleResourceAttrPair(mpFirst []string, nameFirst string, keyFirst string, mpSecond []string, nameSecond string, keySecond string) TestCheck
+ {
 	mptFirst := addrs.Module(mpFirst).UnkeyedInstanceShim()
 	mptSecond := addrs.Module(mpSecond).UnkeyedInstanceShim()
-	return checkIfIndexesIntoTypeSetPair(keyFirst, keySecond, func(s *terraform.State) error {
+	return checkIfIndexesIntoTypeSetPair(keyFirst, keySecond, 
+(s *terraform.State) error {
 		isFirst, err := modulePathPrimaryInstanceState(s, mptFirst, nameFirst)
 		if err != nil {
 			return err
@@ -1368,7 +1547,8 @@ func TestCheckModuleResourceAttrPair(mpFirst []string, nameFirst string, keyFirs
 	})
 }
 
-func testCheckResourceAttrPair(isFirst *terraform.InstanceState, nameFirst string, keyFirst string, isSecond *terraform.InstanceState, nameSecond string, keySecond string) error {
+
+ testCheckResourceAttrPair(isFirst *terraform.InstanceState, nameFirst string, keyFirst string, isSecond *terraform.InstanceState, nameSecond string, keySecond string) error {
 	if nameFirst == nameSecond && keyFirst == keySecond {
 		return fmt.Errorf(
 			"comparing self: resource %s attribute %s",
@@ -1418,8 +1598,11 @@ func testCheckResourceAttrPair(isFirst *terraform.InstanceState, nameFirst strin
 }
 
 // TestCheckOutput checks an output in the Terraform configuration
-func TestCheckOutput(name, value string) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestCheckOutput(name, value string) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		ms := s.RootModule()
 		rs, ok := ms.Outputs[name]
 		if !ok {
@@ -1438,8 +1621,11 @@ func TestCheckOutput(name, value string) TestCheckFunc {
 	}
 }
 
-func TestMatchOutput(name string, r *regexp.Regexp) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ TestMatchOutput(name string, r *regexp.Regexp) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		ms := s.RootModule()
 		rs, ok := ms.Outputs[name]
 		if !ok {
@@ -1460,7 +1646,8 @@ func TestMatchOutput(name string, r *regexp.Regexp) TestCheckFunc {
 
 // modulePrimaryInstanceState returns the instance state for the given resource
 // name in a ModuleState
-func modulePrimaryInstanceState(ms *terraform.ModuleState, name string) (*terraform.InstanceState, error) {
+
+ modulePrimaryInstanceState(ms *terraform.ModuleState, name string) (*terraform.InstanceState, error) {
 	rs, ok := ms.Resources[name]
 	if !ok {
 		return nil, fmt.Errorf("Not found: %s in %s", name, ms.Path)
@@ -1476,7 +1663,8 @@ func modulePrimaryInstanceState(ms *terraform.ModuleState, name string) (*terraf
 
 // modulePathPrimaryInstanceState returns the primary instance state for the
 // given resource name in a given module path.
-func modulePathPrimaryInstanceState(s *terraform.State, mp addrs.ModuleInstance, name string) (*terraform.InstanceState, error) {
+
+ modulePathPrimaryInstanceState(s *terraform.State, mp addrs.ModuleInstance, name string) (*terraform.InstanceState, error) {
 	ms := s.ModuleByPath(mp)
 	if ms == nil {
 		return nil, fmt.Errorf("No module found at: %s", mp)
@@ -1487,7 +1675,8 @@ func modulePathPrimaryInstanceState(s *terraform.State, mp addrs.ModuleInstance,
 
 // primaryInstanceState returns the primary instance state for the given
 // resource name in the root module.
-func primaryInstanceState(s *terraform.State, name string) (*terraform.InstanceState, error) {
+
+ primaryInstanceState(s *terraform.State, name string) (*terraform.InstanceState, error) {
 	ms := s.RootModule()
 	return modulePrimaryInstanceState(ms, name)
 }
@@ -1495,7 +1684,8 @@ func primaryInstanceState(s *terraform.State, name string) (*terraform.InstanceS
 // indexesIntoTypeSet is a heuristic to try and identify if a flatmap style
 // string address uses a precalculated TypeSet hash, which are integers and
 // typically are large and obviously not a list index
-func indexesIntoTypeSet(key string) bool {
+
+ indexesIntoTypeSet(key string) bool {
 	for _, part := range strings.Split(key, ".") {
 		if i, err := strconv.Atoi(part); err == nil && i > 100 {
 			return true
@@ -1504,8 +1694,12 @@ func indexesIntoTypeSet(key string) bool {
 	return false
 }
 
-func checkIfIndexesIntoTypeSet(key string, f TestCheckFunc) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ checkIfIndexesIntoTypeSet(key string, f TestCheck
+) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		err := f(s)
 		if err != nil && s.IsBinaryDrivenTest && indexesIntoTypeSet(key) {
 			return fmt.Errorf("Error in test check: %s\nTest check address %q likely indexes into TypeSet\nThis is currently not possible in the SDK", err, key)
@@ -1514,8 +1708,12 @@ func checkIfIndexesIntoTypeSet(key string, f TestCheckFunc) TestCheckFunc {
 	}
 }
 
-func checkIfIndexesIntoTypeSetPair(keyFirst, keySecond string, f TestCheckFunc) TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ checkIfIndexesIntoTypeSetPair(keyFirst, keySecond string, f TestCheck
+) TestCheck
+ {
+	return 
+(s *terraform.State) error {
 		err := f(s)
 		if err != nil && s.IsBinaryDrivenTest && (indexesIntoTypeSet(keyFirst) || indexesIntoTypeSet(keySecond)) {
 			return fmt.Errorf("Error in test check: %s\nTest check address %q or %q likely indexes into TypeSet\nThis is currently not possible in the SDK", err, keyFirst, keySecond)

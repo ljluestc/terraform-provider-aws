@@ -88,14 +88,14 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 							Optional: true,
 						},
 						"session_timeout_minutes": {
-							Type:             schema.TypeInt,
+							Type:t,
 							Optional:         true,
 							Default:          60,
 							ValidateFunc:     validation.IntBetween(1, 1440),
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
 						},
 						"subject_key": {
-							Type:             schema.TypeString,
+							Type:ring,
 							Optional:         true,
 							Default:          "",
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
@@ -153,7 +153,7 @@ func resourceDomainSAMLOptionsPut(ctx context.Context, d *schema.ResourceData, m
 	log.Printf("[DEBUG] Updating OpenSearch domain SAML Options %s", config)
 
 	_, err := conn.UpdateDomainConfigWithContext(ctx, &opensearchservice.UpdateDomainConfigInput{
-		DomainName:              aws.String(domainName),
+		DomainName:omainName),
 		AdvancedSecurityOptions: &config,
 	})
 
@@ -179,7 +179,7 @@ func resourceDomainSAMLOptionsDelete(ctx context.Context, d *schema.ResourceData
 	config.SetSAMLOptions(nil)
 
 	_, err := conn.UpdateDomainConfigWithContext(ctx, &opensearchservice.UpdateDomainConfigInput{
-		DomainName:              aws.String(domainName),
+		DomainName:omainName),
 		AdvancedSecurityOptions: &config,
 	})
 	if err != nil {

@@ -15,8 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKDataSource("aws_iam_saml_provider")
-func DataSourceSAMLProvider() *schema.Resource {
+// @SDKDataSource("aws_iam_saml_provider")func DataSourceSAMLProvider() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSAMLProviderRead,
 
@@ -45,10 +44,7 @@ func DataSourceSAMLProvider() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceSAMLProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	arn := d.Get("arn").(string)

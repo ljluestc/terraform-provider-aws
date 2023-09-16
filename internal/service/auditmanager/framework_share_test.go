@@ -62,9 +62,9 @@ func TestAccAuditManagerFrameworkShare_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkShareDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkShareConfig_basic(rName, acctest.AlternateRegion()),
@@ -77,7 +77,7 @@ func TestAccAuditManagerFrameworkShare_basic(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
@@ -96,9 +96,9 @@ func TestAccAuditManagerFrameworkShare_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkShareDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkShareConfig_basic(rName, acctest.AlternateRegion()),
@@ -126,9 +126,9 @@ func TestAccAuditManagerFrameworkShare_optional(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.AuditManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.AuditManagerEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.AuditManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFrameworkShareDestroy(ctx),
+		CheckDestroy:testAccCheckFrameworkShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkShareConfig_optional(rName, acctest.AlternateRegion(), "text"),
@@ -142,7 +142,7 @@ func TestAccAuditManagerFrameworkShare_optional(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},

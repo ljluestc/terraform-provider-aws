@@ -26,10 +26,10 @@ func TestAccDLMLifecyclePolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_basic(rName),
@@ -69,10 +69,10 @@ func TestAccDLMLifecyclePolicy_event(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_event(rName),
@@ -118,10 +118,10 @@ func TestAccDLMLifecyclePolicy_cron(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_cron(rName),
@@ -146,10 +146,10 @@ func TestAccDLMLifecyclePolicy_retainInterval(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_retainInterval(rName),
@@ -174,10 +174,10 @@ func TestAccDLMLifecyclePolicy_deprecate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_deprecate(rName),
@@ -202,10 +202,10 @@ func TestAccDLMLifecyclePolicy_fastRestore(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_fastRestore(rName),
@@ -231,10 +231,10 @@ func TestAccDLMLifecyclePolicy_shareRule(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_shareRule(rName),
@@ -259,10 +259,10 @@ func TestAccDLMLifecyclePolicy_parameters_instance(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_parametersInstance(rName),
@@ -288,10 +288,10 @@ func TestAccDLMLifecyclePolicy_parameters_volume(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_parametersVolume(rName),
@@ -317,10 +317,10 @@ func TestAccDLMLifecyclePolicy_variableTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_variableTags(rName),
@@ -344,10 +344,10 @@ func TestAccDLMLifecyclePolicy_full(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_full(rName),
@@ -405,9 +405,9 @@ func TestAccDLMLifecyclePolicy_crossRegionCopyRule(t *testing.T) {
 			acctest.PreCheckMultipleRegion(t, 2)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_crossRegionCopyRule(rName),
@@ -460,10 +460,10 @@ func TestAccDLMLifecyclePolicy_tags(t *testing.T) {
 	resourceName := "aws_dlm_lifecycle_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_tags1(rName, "key1", "value1"),
@@ -505,10 +505,10 @@ func TestAccDLMLifecyclePolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dlm.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dlm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+		CheckDestroy:testAccCheckLifecyclePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLifecyclePolicyConfig_basic(rName),
@@ -811,7 +811,7 @@ resource "aws_dlm_lifecycle_policy" "test" {
 
       fast_restore_rule {
         availability_zones = data.aws_availability_zones.available.names
-        count              = 10
+        count = 10
       }
     }
 
@@ -966,7 +966,7 @@ func testAccLifecyclePolicyConfig_full(rName string) string {
 resource "aws_dlm_lifecycle_policy" "test" {
   description        = "tf-acc-full"
   execution_role_arn = aws_iam_role.test.arn
-  state              = "ENABLED"
+  state = "ENABLED"
 
   policy_details {
     resource_types = ["VOLUME"]
@@ -1004,7 +1004,7 @@ func testAccLifecyclePolicyConfig_fullUpdate(rName string) string {
 resource "aws_dlm_lifecycle_policy" "test" {
   description        = "tf-acc-full-updated"
   execution_role_arn = "${aws_iam_role.test.arn}-doesnt-exist"
-  state              = "DISABLED"
+  state = "DISABLED"
 
   policy_details {
     resource_types = ["VOLUME"]

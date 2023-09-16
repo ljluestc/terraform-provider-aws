@@ -130,7 +130,7 @@ func ResourcePipeline() *schema.Resource {
 											validation.MapKeyLenBetween(1, 50),
 											validation.MapKeyLenBetween(1, 1000),
 										),
-										Elem:             &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 										DiffSuppressFunc: pipelineSuppressStageActionConfigurationDiff,
 									},
 									"input_artifacts": {
@@ -165,7 +165,7 @@ func ResourcePipeline() *schema.Resource {
 										ValidateFunc: validation.StringInSlice(codepipeline.ActionOwner_Values(), false),
 									},
 									"provider": {
-										Type:             schema.TypeString,
+										Type:schema.TypeString,
 										Required:         true,
 										ValidateDiagFunc: pipelineValidateActionProvider,
 									},

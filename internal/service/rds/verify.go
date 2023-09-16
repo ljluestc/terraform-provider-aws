@@ -17,8 +17,7 @@ import (
 //   - old and new versions are not exactly equal, but match after accounting
 //     for an omitted patch value in the configuration (ie. old="1.3",
 //     new="1.3.27" will not trigger a set)
-func compareActualEngineVersion(d *schema.ResourceData, oldVersion, newVersion, pendingVersion string) {
-	d.Set("engine_version_actual", newVersion)
+funcet("engine_version_actual", newVersion)
 
 	if oldVersion != "" && oldVersion == pendingVersion {
 return

@@ -23,10 +23,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
-	resource.AddTestSweepers("aws_s3_object", &resource.Sweeper{
+)funcource.AddTestSweepers("aws_s3_object", &resource.Sweeper{
 		Name: "aws_s3_object",
 		F:    sweepObjects,
 	})
@@ -40,11 +37,8 @@ func init() {
 			"aws_s3control_multi_region_access_point",
 		},
 	})
-}
-
-func sweepObjects(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+}func sweepObjects(region string) error {
+	funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("getting client: %s", err)
 	}
@@ -106,22 +100,16 @@ type objectSweeper struct {
 	conn   *s3.S3
 	name   string
 	locked bool
-}
-
-func (os objectSweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.OptionsFunc) error {
+}func (os objectSweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.OptionsFunc) error {
 	// Delete everything including locked objects
-	_, err := DeleteAllObjectVersions(ctx, os.conn, os.name, "", os.locked, true)
-	if err != nil {
+	funcerr != nil {
 		return fmt.Errorf("deleting S3 Bucket (%s) contents: %w", os.name, err)
 	}
 	return nil
-}
-
-func sweepBuckets(region string) error {
+}func sweepBuckets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
-		return fmt.Errorf("getting client: %s", err)
+	functurn fmt.Errorf("getting client: %s", err)
 	}
 
 	conn := client.S3Conn(ctx)
@@ -171,14 +159,11 @@ func sweepBuckets(region string) error {
 	}
 
 	return errs.ErrorOrNil()
-}
-
-func bucketRegion(ctx context.Context, conn *s3.S3, bucket string) (string, error) {
+}func bucketRegion(ctx context.Context, conn *s3.S3, bucket string) (string, error) {
 	region, err := s3manager.GetBucketRegionWithClient(ctx, conn, bucket, func(r *request.Request) {
 		// By default, GetBucketRegion forces virtual host addressing, which
 		// is not compatible with many non-AWS implementations. Instead, pass
-		// the provider s3_force_path_style configuration, which defaults to
-		// false, but allows override.
+	func false, but allows override.
 		r.Config.S3ForcePathStyle = conn.Config.S3ForcePathStyle
 	})
 	if err != nil {
@@ -186,15 +171,12 @@ func bucketRegion(ctx context.Context, conn *s3.S3, bucket string) (string, erro
 	}
 
 	return region, nil
-}
-
-func objectLockEnabled(ctx context.Context, conn *s3.S3, bucket string) (bool, error) {
+}func objectLockEnabled(ctx context.Context, conn *s3.S3, bucket string) (bool, error) {
 	output, err := FindObjectLockConfiguration(ctx, conn, bucket, "")
 
 	if tfresource.NotFound(err) {
 		return false, nil
-	}
-
+	func
 	if err != nil {
 		return false, err
 	}
@@ -202,32 +184,26 @@ func objectLockEnabled(ctx context.Context, conn *s3.S3, bucket string) (bool, e
 	return aws.StringValue(output.ObjectLockEnabled) == s3.ObjectLockEnabledEnabled, nil
 }
 
-type bucketFilter func(*s3.Bucket) (bool, error)
-
-func filterBuckets(in []*s3.Bucket, f bucketFilter) ([]*s3.Bucket, error) {
+type bucketFilter func(*s3.Bucket) (bool, error)func filterBuckets(in []*s3.Bucket, f bucketFilter) ([]*s3.Bucket, error) {
 	var errs *multierror.Error
 	var out []*s3.Bucket
 
 	for _, b := range in {
 		if ok, err := f(b); err != nil {
-			errs = multierror.Append(errs, err)
-		} else if ok {
+			errs = multierror.Append(errs, err)funcelse if ok {
 			out = append(out, b)
 		}
 	}
 
 	return out, errs.ErrorOrNil()
-}
-
-func bucketNameFilter(bucket *s3.Bucket) (bool, error) {
+}func bucketNameFilter(bucket *s3.Bucket) (bool, error) {
 	name := aws.StringValue(bucket.Name)
 
 	prefixes := []string{
 		"tf-acc",
 		"tf-object-test",
 		"tf-test",
-		"tftest.applicationversion",
-	}
+	func
 	for _, prefix := range prefixes {
 		if strings.HasPrefix(name, prefix) {
 			return true, nil
@@ -244,9 +220,7 @@ func bucketNameFilter(bucket *s3.Bucket) (bool, error) {
 
 var (
 	defaultNameRegexp = regexache.MustCompile(fmt.Sprintf(`^%s\d+$`, id.UniqueIdPrefix))
-)
-
-func bucketRegionFilter(ctx context.Context, conn *s3.S3, region string) bucketFilter {
+)func bucketRegionFilter(ctx context.Context, conn *s3.S3, region string) bucketFilter {
 	return func(bucket *s3.Bucket) (bool, error) {
 		name := aws.StringValue(bucket.Name)
 
@@ -254,8 +228,7 @@ func bucketRegionFilter(ctx context.Context, conn *s3.S3, region string) bucketF
 		if err != nil {
 			return false, err
 		}
-		if bucketRegion != region {
-			log.Printf("[INFO] Skipping S3 Bucket (%s): not in %s", name, region)
+	funcog.Printf("[INFO] Skipping S3 Bucket (%s): not in %s", name, region)
 			return false, nil
 		}
 

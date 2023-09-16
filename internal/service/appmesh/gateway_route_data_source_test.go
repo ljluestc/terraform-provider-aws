@@ -23,8 +23,8 @@ func testAccGatewayRouteDataSource_basic(t *testing.T) {
 	gwRouteName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, appmesh.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appmesh.EndpointsID) },
+		ErrorCheck:  acctest.ErrorCheck(t, appmesh.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -78,7 +78,7 @@ resource "aws_appmesh_virtual_service" "test" {
 }
 
 resource "aws_appmesh_gateway_route" "test" {
-  name                 = %[4]q
+  name    = %[4]q
   mesh_name            = aws_appmesh_mesh.test.name
   virtual_gateway_name = aws_appmesh_virtual_gateway.test.name
 
@@ -104,7 +104,7 @@ resource "aws_appmesh_gateway_route" "test" {
 }
 
 data "aws_appmesh_gateway_route" "test" {
-  name                 = aws_appmesh_gateway_route.test.name
+  name    = aws_appmesh_gateway_route.test.name
   mesh_name            = aws_appmesh_gateway_route.test.mesh_name
   virtual_gateway_name = aws_appmesh_gateway_route.test.virtual_gateway_name
 }

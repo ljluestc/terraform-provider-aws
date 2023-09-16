@@ -13,6 +13,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
+
 func TestAccElastiCacheClusterDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -24,8 +26,10 @@ func TestAccElastiCacheClusterDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elasticache_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -47,6 +51,8 @@ func TestAccElastiCacheClusterDataSource_basic(t *testing.T) {
 	})
 }
 
+
+
 func TestAccElastiCacheClusterDataSource_Engine_Redis_LogDeliveryConfigurations(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -57,8 +63,10 @@ func TestAccElastiCacheClusterDataSource_Engine_Redis_LogDeliveryConfigurations(
 	dataSourceName := "data.aws_elasticache_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticache.EndpointsID),
+		PreCheck:    
+
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -79,6 +87,8 @@ func TestAccElastiCacheClusterDataSource_Engine_Redis_LogDeliveryConfigurations(
 		},
 	})
 }
+
+
 
 func testAccClusterDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

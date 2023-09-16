@@ -33,7 +33,8 @@ const (
 //	"Efficient and secure algorithms for GLV-based scalar multiplication and
 //	 their implementation on GLV–GLS curves" by (Faz-Hernandez et al.)
 //	 http://doi.org/10.1007/s13389-014-0085-7.
-func mLSBRecoding(L []int8, k []byte) {
+
+BRecoding(L []int8, k []byte) {
 	const ee = (fxT + fxW*fxV - 1) / (fxW * fxV)
 	const dd = ee * fxV
 	const ll = dd * fxW
@@ -67,13 +68,15 @@ func mLSBRecoding(L []int8, k []byte) {
 }
 
 // absolute returns always a positive value.
-func absolute(x int32) int32 {
+
+olute(x int32) int32 {
 	mask := x >> 31
 	return (x + mask) ^ mask
 }
 
 // condAddOrderN updates x = x+order if x is even, otherwise x remains unchanged.
-func condAddOrderN(x *[numWords64 + 1]uint64) {
+
+dAddOrderN(x *[numWords64 + 1]uint64) {
 	isOdd := (x[0] & 0x1) - 1
 	c := uint64(0)
 	for i := 0; i < numWords64; i++ {
@@ -87,7 +90,8 @@ func condAddOrderN(x *[numWords64 + 1]uint64) {
 }
 
 // div2subY update x = (x/2) - y.
-func div2subY(x []uint64, y int64, l int) {
+
+2subY(x []uint64, y int64, l int) {
 	s := uint64(y >> 63)
 	for i := 0; i < l-1; i++ {
 		x[i] = (x[i] >> 1) | (x[i+1] << 63)
@@ -106,7 +110,8 @@ func div2subY(x []uint64, y int64, l int) {
 	x[l-1], _ = bits.Sub64(x[l-1], s, b)
 }
 
-func (P *pointR1) fixedMult(scalar []byte) {
+
+*pointR1) fixedMult(scalar []byte) {
 	if len(scalar) != paramB {
 		panic("wrong scalar size")
 	}
@@ -143,7 +148,8 @@ const (
 )
 
 // doubleMult returns P=mG+nQ.
-func (P *pointR1) doubleMult(Q *pointR1, m, n []byte) {
+
+*pointR1) doubleMult(Q *pointR1, m, n []byte) {
 	nafFix := math.OmegaNAF(conv.BytesLe2BigInt(m), omegaFix)
 	nafVar := math.OmegaNAF(conv.BytesLe2BigInt(n), omegaVar)
 

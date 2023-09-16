@@ -17,7 +17,8 @@ type transport struct {
 	transport http.RoundTripper
 }
 
-func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
+
+ (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if IsDebugOrHigher() {
 		reqData, err := httputil.DumpRequestOut(req, true)
 		if err == nil {
@@ -52,14 +53,16 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 //
 // Deprecated: This will log the content of every http request/response
 // at `[DEBUG]` level, without any filtering. Any sensitive information
-// will appear as-is in your logs. Please use NewSubsystemLoggingHTTPTransport instead.
-func NewTransport(name string, t http.RoundTripper) *transport {
+ill appear as-is in your logs. Please use NewSubsystemLoggingHTTPTransport instead.
+
+ NewTransport(name string, t http.RoundTripper) *transport {
 	return &transport{name, t}
 }
 
-// prettyPrintJsonLines iterates through a []byte line-by-line,
+rettyPrintJsonLines iterates through a []byte line-by-line,
 // transforming any lines that are complete json into pretty-printed json.
-func prettyPrintJsonLines(b []byte) string {
+
+ prettyPrintJsonLines(b []byte) string {
 	parts := strings.Split(string(b), "\n")
 	for i, p := range parts {
 		if b := []byte(p); json.Valid(b) {

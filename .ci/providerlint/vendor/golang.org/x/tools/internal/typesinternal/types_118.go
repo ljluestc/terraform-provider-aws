@@ -11,8 +11,10 @@ import (
 	"go/types"
 )
 
-func init() {
-	SetGoVersion = func(conf *types.Config, version string) bool {
+
+t() {
+	SetGoVersion = 
+f *types.Config, version string) bool {
 		conf.GoVersion = version
 		return true
 	}

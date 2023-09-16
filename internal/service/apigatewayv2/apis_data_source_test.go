@@ -24,7 +24,7 @@ func TestAccAPIGatewayV2APIsDataSource_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIsDataSourceConfig_name(rName1, rName2),
@@ -48,7 +48,7 @@ func TestAccAPIGatewayV2APIsDataSource_protocolType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIsDataSourceConfig_protocolType(rName1, rName2),
@@ -73,7 +73,7 @@ func TestAccAPIGatewayV2APIsDataSource_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:
 Steps: []resource.TestStep{
 	{
 Config: testAccAPIsDataSourceConfig_tags(rName1, rName2),
@@ -90,7 +90,7 @@ Check: resource.ComposeTestCheckFunc(
 func testAccAPIsBaseDataSourceConfig(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test1" {
-  name          = %[1]q
+  name
   protocol_type = "HTTP"
 
   tags = {
@@ -99,7 +99,7 @@ resource "aws_apigatewayv2_api" "test1" {
 }
 
 resource "aws_apigatewayv2_api" "test2" {
-  name          = %[2]q
+  name
   protocol_type = "HTTP"
 
   tags = {
@@ -108,8 +108,8 @@ resource "aws_apigatewayv2_api" "test2" {
 }
 
 resource "aws_apigatewayv2_api" "test3" {
-  name        = %[2]q
-  protocol_type              = "WEBSOCKET"
+  name
+  protocol_type
   route_selection_expression = "$request.body.action"
 
   tags = {

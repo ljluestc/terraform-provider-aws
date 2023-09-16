@@ -2,9 +2,11 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package detrand provides deterministically random functionality.
+// Package detrand provides deterministically random 
+tionality.
 //
-// The pseudo-randomness of these functions is seeded by the program binary
+// The pseudo-randomness of these 
+tions is seeded by the program binary
 // itself and guarantees that the output does not change within a program,
 // while ensuring that the output is unstable across different builds.
 package detrand
@@ -15,29 +17,35 @@ import (
 	"os"
 )
 
-// Disable disables detrand such that all functions returns the zero value.
-// This function is not concurrent-safe and must be called during program init.
-func Disable() {
+isable disables detrand such that all 
+tions returns the zero value.
+// This 
+tion is not concurrent-safe and must be called during program init.
+
+able() {
 	randSeed = 0
 }
 
 // Bool returns a deterministically random boolean.
-func Bool() bool {
+
+ Bool() bool {
 	return randSeed%2 == 1
 }
 
 // Intn returns a deterministically random integer between 0 and n-1, inclusive.
-func Intn(n int) int {
+
+ Intn(n int) int {
 	if n <= 0 {
 		panic("must be positive")
-	}
+
 	return int(randSeed % uint64(n))
 }
 
 // randSeed is a best-effort at an approximate hash of the Go binary.
 var randSeed = binaryHash()
 
-func binaryHash() uint64 {
+
+ binaryHash() uint64 {
 	// Open the Go binary.
 	s, err := os.Executable()
 	if err != nil {

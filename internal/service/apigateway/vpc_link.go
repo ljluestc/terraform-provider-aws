@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_api_gateway_vpc_link", name="VPC Link")
 // @Tags(identifierAttribute="arn")
-func ResourceVPCLink() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceVPCLinkCreate,
-		ReadWithoutTimeout:   resourceVPCLinkRead,
+		ReadWithoutTimeout:ourceVPCLinkRead,
 		UpdateWithoutTimeout: resourceVPCLinkUpdate,
 		DeleteWithoutTimeout: resourceVPCLinkDelete,
 
@@ -37,25 +36,25 @@ func ResourceVPCLink() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Required: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Optional: true,
 			},
 			"target_arns": {
-				Type:     schema.TypeList,
+				Type:chema.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:schema.Schema{Type: schema.TypeString},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:chema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -64,13 +63,12 @@ func ResourceVPCLink() *schema.Resource {
 }
 
 func resourceVPCLinkCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
+funcn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
 	input := &apigateway.CreateVpcLinkInput{
-		Name:       aws.String(d.Get("name").(string)),
+		Name:tring(d.Get("name").(string)),
 		TargetArns: flex.ExpandStringList(d.Get("target_arns").([]interface{})),
-		Tags:       getTagsIn(ctx),
+		Tags:gsIn(ctx),
 	}
 	if v, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
@@ -92,8 +90,7 @@ func resourceVPCLinkCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 func resourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
+func
 	input := &apigateway.GetVpcLinkInput{
 		VpcLinkId: aws.String(d.Id()),
 	}
@@ -112,8 +109,8 @@ func resourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:igateway",
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/vpclinks/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -130,12 +127,11 @@ func resourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta inter
 func resourceVPCLinkUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
-
-	operations := make([]*apigateway.PatchOperation, 0)
+funcrations := make([]*apigateway.PatchOperation, 0)
 
 	if d.HasChange("name") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String("replace"),
+			Op:s.String("replace"),
 			Path:  aws.String("/name"),
 			Value: aws.String(d.Get("name").(string)),
 		})
@@ -143,14 +139,14 @@ func resourceVPCLinkUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if d.HasChange("description") {
 		operations = append(operations, &apigateway.PatchOperation{
-			Op:    aws.String("replace"),
+			Op:s.String("replace"),
 			Path:  aws.String("/description"),
 			Value: aws.String(d.Get("description").(string)),
 		})
 	}
 
 	input := &apigateway.UpdateVpcLinkInput{
-		VpcLinkId:       aws.String(d.Id()),
+		VpcLinkId:tring(d.Id()),
 		PatchOperations: operations,
 	}
 
@@ -170,8 +166,7 @@ func resourceVPCLinkDelete(ctx context.Context, d *schema.ResourceData, meta int
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).APIGatewayConn(ctx)
 
-	input := &apigateway.DeleteVpcLinkInput{
-		VpcLinkId: aws.String(d.Id()),
+funccLinkId: aws.String(d.Id()),
 	}
 
 	_, err := conn.DeleteVpcLinkWithContext(ctx, input)

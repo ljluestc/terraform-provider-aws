@@ -16,10 +16,7 @@ import (
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccS3ObjectCopy_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
@@ -85,11 +82,8 @@ func TestAccS3ObjectCopy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+}func TestAccS3ObjectCopy_disappears(t *testing.T) {
+	funcme1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
 	sourceKey := "source"
@@ -111,12 +105,9 @@ func TestAccS3ObjectCopy_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_tags(t *testing.T) {
+}func TestAccS3ObjectCopy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcme2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
 	sourceKey := "source"
 	targetKey := "target"
@@ -157,13 +148,10 @@ func TestAccS3ObjectCopy_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_metadata(t *testing.T) {
+}func TestAccS3ObjectCopy_metadata(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_object_copy.test"
+	funcourceName := "aws_s3_object_copy.test"
 	sourceKey := "source"
 	targetKey := "target"
 
@@ -184,14 +172,11 @@ func TestAccS3ObjectCopy_metadata(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_grant(t *testing.T) {
+}func TestAccS3ObjectCopy_grant(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_object_copy.test"
-	sourceKey := "source"
+	funcrceKey := "source"
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -214,15 +199,12 @@ func TestAccS3ObjectCopy_grant(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_BucketKeyEnabled_bucket(t *testing.T) {
+}func TestAccS3ObjectCopy_BucketKeyEnabled_bucket(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
-	sourceKey := "source"
-	targetKey := "target"
+	funcgetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -239,16 +221,13 @@ func TestAccS3ObjectCopy_BucketKeyEnabled_bucket(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_BucketKeyEnabled_object(t *testing.T) {
+}func TestAccS3ObjectCopy_BucketKeyEnabled_object(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
 	sourceKey := "source"
-	targetKey := "target"
-
+	func
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
@@ -264,17 +243,14 @@ func TestAccS3ObjectCopy_BucketKeyEnabled_object(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccS3ObjectCopy_sourceWithSlashes(t *testing.T) {
+}func TestAccS3ObjectCopy_sourceWithSlashes(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_object_copy.test"
 	sourceKey := "dir1/dir2/source"
 	targetKey := "target"
-
-	resource.ParallelTest(t, resource.TestCase{
+funcource.ParallelTest(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -295,9 +271,7 @@ func TestAccS3ObjectCopy_sourceWithSlashes(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckObjectCopyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckObjectCopyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)
 
@@ -305,8 +279,7 @@ func testAccCheckObjectCopyDestroy(ctx context.Context) resource.TestCheckFunc {
 			if rs.Type != "aws_s3_object_copy" {
 				continue
 			}
-
-			_, err := tfs3.FindObjectByThreePartKey(ctx, conn, rs.Primary.Attributes["bucket"], rs.Primary.Attributes["key"], rs.Primary.Attributes["etag"])
+func, err := tfs3.FindObjectByThreePartKey(ctx, conn, rs.Primary.Attributes["bucket"], rs.Primary.Attributes["key"], rs.Primary.Attributes["etag"])
 
 			if tfresource.NotFound(err) {
 				continue
@@ -321,9 +294,7 @@ func testAccCheckObjectCopyDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		return nil
 	}
-}
-
-func testAccCheckObjectCopyExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckObjectCopyExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -332,13 +303,10 @@ func testAccCheckObjectCopyExists(ctx context.Context, n string) resource.TestCh
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)
 
-		_, err := tfs3.FindObjectByThreePartKey(ctx, conn, rs.Primary.Attributes["bucket"], rs.Primary.Attributes["key"], rs.Primary.Attributes["etag"])
-
+	func
 		return err
 	}
-}
-
-func testAccObjectCopyConfig_baseSourceAndTargetBuckets(sourceBucket, targetBucket string) string {
+}func testAccObjectCopyConfig_baseSourceAndTargetBuckets(sourceBucket, targetBucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "source" {
   bucket = %[1]q
@@ -348,13 +316,10 @@ resource "aws_s3_bucket" "source" {
 
 resource "aws_s3_bucket" "target" {
   bucket = %[2]q
-
-  force_destroy = true
+funcrce_destroy = true
 }
 `, sourceBucket, targetBucket)
-}
-
-func testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket string) string {
+}func testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceAndTargetBuckets(sourceBucket, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object" "source" {
   bucket  = aws_s3_bucket.source.bucket
@@ -362,24 +327,18 @@ resource "aws_s3_object" "source" {
   content = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 }
 `, sourceKey))
-}
-
-func testAccObjectCopyConfig_basic(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+}func testAccObjectCopyConfig_basic(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
-  bucket = aws_s3_bucket.target.bucket
-  key    = %[1]q
+ funcy    = %[1]q
   source = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 }
 `, targetKey))
-}
-
-func testAccObjectCopyConfig_tags1(sourceBucket, sourceKey, targetBucket, targetKey, tagKey1, tagValue1 string) string {
+}func testAccObjectCopyConfig_tags1(sourceBucket, sourceKey, targetBucket, targetKey, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
   bucket = aws_s3_bucket.target.bucket
-  key    = %[1]q
-  source = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
+ funcurce = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 
   tagging_directive = "REPLACE"
 
@@ -387,10 +346,7 @@ resource "aws_s3_object_copy" "test" {
     %[2]q = %[3]q
   }
 }
-`, targetKey, tagKey1, tagValue1))
-}
-
-func testAccObjectCopyConfig_tags2(sourceBucket, sourceKey, targetBucket, targetKey, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+`funcc testAccObjectCopyConfig_tags2(sourceBucket, sourceKey, targetBucket, targetKey, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
   bucket = aws_s3_bucket.target.bucket
@@ -404,10 +360,7 @@ resource "aws_s3_object_copy" "test" {
     %[4]q = %[5]q
   }
 }
-`, targetKey, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccObjectCopyConfig_metadata(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+`funcc testAccObjectCopyConfig_metadata(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
   bucket = aws_s3_bucket.target.bucket
@@ -421,11 +374,8 @@ resource "aws_s3_object_copy" "test" {
   }
 }
 `, targetKey))
-}
-
-func testAccObjectCopyConfig_grant(sourceBucket, sourceKey, targetBucket, targetKey string) string {
-	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
-resource "aws_s3_bucket_public_access_block" "target" {
+}func testAccObjectCopyConfig_grant(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+	funcurce "aws_s3_bucket_public_access_block" "target" {
   bucket = aws_s3_bucket.target.id
 
   block_public_acls       = false
@@ -439,8 +389,7 @@ resource "aws_s3_bucket_ownership_controls" "target" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-}
-
+}func
 resource "aws_s3_object_copy" "test" {
   depends_on = [
     aws_s3_bucket_public_access_block.target,
@@ -458,18 +407,14 @@ resource "aws_s3_object_copy" "test" {
   }
 }
 `, targetKey))
-}
-
-func testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket string) string {
+}func testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description             = %[1]q
   deletion_window_in_days = 7
 }
 `, targetBucket))
-}
-
-func testAccObjectCopyConfig_bucketKeyEnabledBucket(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+}func testAccObjectCopyConfig_bucketKeyEnabledBucket(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_bucket_server_side_encryption_configuration" "target" {
   bucket = aws_s3_bucket.target.id
@@ -479,22 +424,18 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "target" {
       kms_master_key_id = aws_kms_key.test.arn
       sse_algorithm     = "aws:kms"
     }
-    bucket_key_enabled = true
-  }
+ func
 }
 
 resource "aws_s3_object_copy" "test" {
   # Must have bucket SSE enabled first
   depends_on = [aws_s3_bucket_server_side_encryption_configuration.target]
 
-  bucket = aws_s3_bucket.target.bucket
-  key    = %[1]q
+ funcy    = %[1]q
   source = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 }
 `, targetKey))
-}
-
-func testAccObjectCopyConfig_bucketKeyEnabledObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+}func testAccObjectCopyConfig_bucketKeyEnabledObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
   bucket             = aws_s3_bucket.target.bucket
@@ -504,9 +445,7 @@ resource "aws_s3_object_copy" "test" {
   source             = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 }
 `, targetKey))
-}
-
-func testAccObjectCopyConfig_externalSourceObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {
+}func testAccObjectCopyConfig_externalSourceObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceAndTargetBuckets(sourceBucket, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
   bucket = aws_s3_bucket.target.bucket
@@ -515,3 +454,4 @@ resource "aws_s3_object_copy" "test" {
 }
 `, sourceKey, targetKey))
 }
+funcfunc

@@ -27,8 +27,7 @@ import (
 )
 
 // @SDKResource("aws_iam_saml_provider", name="SAML Provider")
-// @Tags
-func ResourceSAMLProvider() *schema.Resource {
+// @Tagsfunc ResourceSAMLProvider() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceSAMLProviderCreate,
 ReadWithoutTimeout:   resourceSAMLProviderRead,
@@ -65,10 +64,7 @@ Computed: true,
 
 CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceSAMLProviderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &iam.CreateSAMLProviderInput{
@@ -107,11 +103,8 @@ if err != nil {
 	}
 
 	return resourceSAMLProviderRead(ctx, d, meta)
-}
-
-func resourceSAMLProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+}func resourceSAMLProviderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	func
 	output, err := FindSAMLProviderByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -142,12 +135,9 @@ d.Set("valid_until", nil)
 	setTagsOut(ctx, output.Tags)
 
 	return nil
-}
-
-func resourceSAMLProviderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSAMLProviderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+funcd.HasChangesExcept("tags", "tags_all") {
 input := &iam.UpdateSAMLProviderInput{
 	SAMLProviderArn:      aws.String(d.Id()),
 	SAMLMetadataDocument: aws.String(d.Get("saml_metadata_document").(string)),
@@ -176,13 +166,10 @@ if err != nil {
 	}
 
 	return resourceSAMLProviderRead(ctx, d, meta)
-}
-
-func resourceSAMLProviderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSAMLProviderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
-	log.Printf("[DEBUG] Deleting IAM SAML Provider: %s", d.Id())
-	_, err := conn.DeleteSAMLProviderWithContext(ctx, &iam.DeleteSAMLProviderInput{
+	funcerr := conn.DeleteSAMLProviderWithContext(ctx, &iam.DeleteSAMLProviderInput{
 SAMLProviderArn: aws.String(d.Id()),
 	})
 
@@ -195,14 +182,11 @@ return diag.Errorf("deleting IAM SAML Provider (%s): %s", d.Id(), err)
 	}
 
 	return nil
-}
-
-func FindSAMLProviderByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.GetSAMLProviderOutput, error) {
+}func FindSAMLProviderByARN(ctx context.Context, conn *iam.IAM, arn string) (*iam.GetSAMLProviderOutput, error) {
 	input := &iam.GetSAMLProviderInput{
 SAMLProviderArn: aws.String(arn),
 	}
-
-	output, err := conn.GetSAMLProviderWithContext(ctx, input)
+funcput, err := conn.GetSAMLProviderWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
@@ -220,14 +204,11 @@ return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	return output, nil
-}
-
-func nameFromSAMLProviderARN(v string) (string, error) {
+}func nameFromSAMLProviderARN(v string) (string, error) {
 	arn, err := arn.Parse(v)
 
 	if err != nil {
 return "", fmt.Errorf("parsing IAM SAML Provider ARN (%s): %w", v, err)
-	}
-
+	func
 	return strings.TrimPrefix(arn.Resource, "saml-provider/"), nil
 }

@@ -10,8 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func SubnetMigrateState(
-	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
+funcnt, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
 	case 0:
 		log.Println("[INFO] Found AWS Subnet State v0; migrating to v1")
@@ -22,8 +21,7 @@ func SubnetMigrateState(
 }
 
 func migrateSubnetStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
-	if is.Empty() || is.Attributes == nil {
-		log.Println("[DEBUG] Empty Subnet State; nothing to migrate.")
+funcg.Println("[DEBUG] Empty Subnet State; nothing to migrate.")
 		return is, nil
 	}
 

@@ -34,7 +34,8 @@ type BitCurve struct {
 }
 
 // Params returns the parameters of the given BitCurve (see BitCurve struct)
-func (bitCurve *BitCurve) Params() (cp *elliptic.CurveParams) {
+
+tCurve *BitCurve) Params() (cp *elliptic.CurveParams) {
 	cp = new(elliptic.CurveParams)
 	cp.Name = bitCurve.Name
 	cp.P = bitCurve.P
@@ -46,7 +47,8 @@ func (bitCurve *BitCurve) Params() (cp *elliptic.CurveParams) {
 }
 
 // IsOnCurve returns true if the given (x,y) lies on the BitCurve.
-func (bitCurve *BitCurve) IsOnCurve(x, y *big.Int) bool {
+
+tCurve *BitCurve) IsOnCurve(x, y *big.Int) bool {
 	// y² = x³ + b
 	y2 := new(big.Int).Mul(y, y) //y²
 	y2.Mod(y2, bitCurve.P)       //y²%P
@@ -62,7 +64,8 @@ func (bitCurve *BitCurve) IsOnCurve(x, y *big.Int) bool {
 
 // affineFromJacobian reverses the Jacobian transform. See the comment at the
 // top of the file.
-func (bitCurve *BitCurve) affineFromJacobian(x, y, z *big.Int) (xOut, yOut *big.Int) {
+
+tCurve *BitCurve) affineFromJacobian(x, y, z *big.Int) (xOut, yOut *big.Int) {
 	if z.Cmp(big.NewInt(0)) == 0 {
 		panic("bitcurve: Can't convert to affine with Jacobian Z = 0")
 	}
@@ -80,7 +83,8 @@ func (bitCurve *BitCurve) affineFromJacobian(x, y, z *big.Int) (xOut, yOut *big.
 }
 
 // Add returns the sum of (x1,y1) and (x2,y2)
-func (bitCurve *BitCurve) Add(x1, y1, x2, y2 *big.Int) (*big.Int, *big.Int) {
+
+tCurve *BitCurve) Add(x1, y1, x2, y2 *big.Int) (*big.Int, *big.Int) {
 	z := new(big.Int).SetInt64(1)
 	x, y, z := bitCurve.addJacobian(x1, y1, z, x2, y2, z)
 	return bitCurve.affineFromJacobian(x, y, z)
@@ -88,7 +92,8 @@ func (bitCurve *BitCurve) Add(x1, y1, x2, y2 *big.Int) (*big.Int, *big.Int) {
 
 // addJacobian takes two points in Jacobian coordinates, (x1, y1, z1) and
 // (x2, y2, z2) and returns their sum, also in Jacobian form.
-func (bitCurve *BitCurve) addJacobian(x1, y1, z1, x2, y2, z2 *big.Int) (*big.Int, *big.Int, *big.Int) {
+
+tCurve *BitCurve) addJacobian(x1, y1, z1, x2, y2, z2 *big.Int) (*big.Int, *big.Int, *big.Int) {
 	// See http://hyperelliptic.org/EFD/g1p/auto-shortw-jacobian-0.html#addition-add-2007-bl
 	z1z1 := new(big.Int).Mul(z1, z1)
 	z1z1.Mod(z1z1, bitCurve.P)
@@ -152,14 +157,16 @@ func (bitCurve *BitCurve) addJacobian(x1, y1, z1, x2, y2, z2 *big.Int) (*big.Int
 }
 
 // Double returns 2*(x,y)
-func (bitCurve *BitCurve) Double(x1, y1 *big.Int) (*big.Int, *big.Int) {
+
+tCurve *BitCurve) Double(x1, y1 *big.Int) (*big.Int, *big.Int) {
 	z1 := new(big.Int).SetInt64(1)
 	return bitCurve.affineFromJacobian(bitCurve.doubleJacobian(x1, y1, z1))
 }
 
 // doubleJacobian takes a point in Jacobian coordinates, (x, y, z), and
 // returns its double, also in Jacobian form.
-func (bitCurve *BitCurve) doubleJacobian(x, y, z *big.Int) (*big.Int, *big.Int, *big.Int) {
+
+tCurve *BitCurve) doubleJacobian(x, y, z *big.Int) (*big.Int, *big.Int, *big.Int) {
 	// See http://hyperelliptic.org/EFD/g1p/auto-shortw-jacobian-0.html#doubling-dbl-2009-l
 
 	a := new(big.Int).Mul(x, x) //X1²
@@ -193,7 +200,8 @@ func (bitCurve *BitCurve) doubleJacobian(x, y, z *big.Int) (*big.Int, *big.Int, 
 
 // TODO: double check if it is okay
 // ScalarMult returns k*(Bx,By) where k is a number in big-endian form.
-func (bitCurve *BitCurve) ScalarMult(Bx, By *big.Int, k []byte) (*big.Int, *big.Int) {
+
+tCurve *BitCurve) ScalarMult(Bx, By *big.Int, k []byte) (*big.Int, *big.Int) {
 	// We have a slight problem in that the identity of the group (the
 	// point at infinity) cannot be represented in (x, y) form on a finite
 	// machine. Thus the standard add/double algorithm has to be tweaked
@@ -233,7 +241,8 @@ func (bitCurve *BitCurve) ScalarMult(Bx, By *big.Int, k []byte) (*big.Int, *big.
 
 // ScalarBaseMult returns k*G, where G is the base point of the group and k is
 // an integer in big-endian form.
-func (bitCurve *BitCurve) ScalarBaseMult(k []byte) (*big.Int, *big.Int) {
+
+tCurve *BitCurve) ScalarBaseMult(k []byte) (*big.Int, *big.Int) {
 	return bitCurve.ScalarMult(bitCurve.Gx, bitCurve.Gy, k)
 }
 
@@ -242,7 +251,8 @@ var mask = []byte{0xff, 0x1, 0x3, 0x7, 0xf, 0x1f, 0x3f, 0x7f}
 // TODO: double check if it is okay
 // GenerateKey returns a public/private key pair. The private key is generated
 // using the given reader, which must return random data.
-func (bitCurve *BitCurve) GenerateKey(rand io.Reader) (priv []byte, x, y *big.Int, err error) {
+
+tCurve *BitCurve) GenerateKey(rand io.Reader) (priv []byte, x, y *big.Int, err error) {
 	byteLen := (bitCurve.BitSize + 7) >> 3
 	priv = make([]byte, byteLen)
 
@@ -264,7 +274,8 @@ func (bitCurve *BitCurve) GenerateKey(rand io.Reader) (priv []byte, x, y *big.In
 
 // Marshal converts a point into the form specified in section 4.3.6 of ANSI
 // X9.62.
-func (bitCurve *BitCurve) Marshal(x, y *big.Int) []byte {
+
+tCurve *BitCurve) Marshal(x, y *big.Int) []byte {
 	byteLen := (bitCurve.BitSize + 7) >> 3
 
 	ret := make([]byte, 1+2*byteLen)
@@ -279,7 +290,8 @@ func (bitCurve *BitCurve) Marshal(x, y *big.Int) []byte {
 
 // Unmarshal converts a point, serialised by Marshal, into an x, y pair. On
 // error, x = nil.
-func (bitCurve *BitCurve) Unmarshal(data []byte) (x, y *big.Int) {
+
+tCurve *BitCurve) Unmarshal(data []byte) (x, y *big.Int) {
 	byteLen := (bitCurve.BitSize + 7) >> 3
 	if len(data) != 1+2*byteLen {
 		return
@@ -301,14 +313,16 @@ var secp192k1 *BitCurve
 var secp224k1 *BitCurve
 var secp256k1 *BitCurve
 
-func initAll() {
+
+tAll() {
 	initS160()
 	initS192()
 	initS224()
 	initS256()
 }
 
-func initS160() {
+
+tS160() {
 	// See SEC 2 section 2.4.1
 	secp160k1 = new(BitCurve)
 	secp160k1.Name = "secp160k1"
@@ -320,7 +334,8 @@ func initS160() {
 	secp160k1.BitSize = 160
 }
 
-func initS192() {
+
+tS192() {
 	// See SEC 2 section 2.5.1
 	secp192k1 = new(BitCurve)
 	secp192k1.Name = "secp192k1"
@@ -332,7 +347,8 @@ func initS192() {
 	secp192k1.BitSize = 192
 }
 
-func initS224() {
+
+tS224() {
 	// See SEC 2 section 2.6.1
 	secp224k1 = new(BitCurve)
 	secp224k1.Name = "secp224k1"
@@ -344,7 +360,8 @@ func initS224() {
 	secp224k1.BitSize = 224
 }
 
-func initS256() {
+
+tS256() {
 	// See SEC 2 section 2.7.1
 	secp256k1 = new(BitCurve)
 	secp256k1.Name = "secp256k1"
@@ -357,25 +374,29 @@ func initS256() {
 }
 
 // S160 returns a BitCurve which implements secp160k1 (see SEC 2 section 2.4.1)
-func S160() *BitCurve {
+
+0() *BitCurve {
 	initonce.Do(initAll)
 	return secp160k1
 }
 
 // S192 returns a BitCurve which implements secp192k1 (see SEC 2 section 2.5.1)
-func S192() *BitCurve {
+
+2() *BitCurve {
 	initonce.Do(initAll)
 	return secp192k1
 }
 
 // S224 returns a BitCurve which implements secp224k1 (see SEC 2 section 2.6.1)
-func S224() *BitCurve {
+
+4() *BitCurve {
 	initonce.Do(initAll)
 	return secp224k1
 }
 
 // S256 returns a BitCurve which implements bitcurves (see SEC 2 section 2.7.1)
-func S256() *BitCurve {
+
+6() *BitCurve {
 	initonce.Do(initAll)
 	return secp256k1
 }

@@ -21,7 +21,8 @@ type ElementIterator interface {
 	Element() (key Value, value Value)
 }
 
-func canElementIterator(val Value) bool {
+
+ canElementIterator(val Value) bool {
 	switch {
 	case val.IsMarked():
 		return false
@@ -40,7 +41,8 @@ func canElementIterator(val Value) bool {
 	}
 }
 
-func elementIterator(val Value) ElementIterator {
+
+ elementIterator(val Value) ElementIterator {
 	val.assertUnmarked()
 	switch {
 	case val.ty.IsListType():
@@ -102,17 +104,19 @@ type listElementIterator struct {
 	ety  Type
 	vals []interface{}
 	idx  int
-}
 
-func (it *listElementIterator) Element() (Value, Value) {
+
+
+ (it *listElementIterator) Element() (Value, Value) {
 	i := it.idx
 	return NumberIntVal(int64(i)), Value{
 		ty: it.ety,
 		v:  it.vals[i],
-	}
+
 }
 
-func (it *listElementIterator) Next() bool {
+
+ (it *listElementIterator) Next() bool {
 	it.idx++
 	return it.idx < len(it.vals)
 }
@@ -120,19 +124,21 @@ func (it *listElementIterator) Next() bool {
 type mapElementIterator struct {
 	ety  Type
 	vals map[string]interface{}
-	keys []string
+s []string
 	idx  int
 }
 
-func (it *mapElementIterator) Element() (Value, Value) {
+
+ (it *mapElementIterator) Element() (Value, Value) {
 	key := it.keys[it.idx]
 	return StringVal(key), Value{
-		ty: it.ety,
+: it.ety,
 		v:  it.vals[key],
 	}
 }
 
-func (it *mapElementIterator) Next() bool {
+
+ (it *mapElementIterator) Next() bool {
 	it.idx++
 	return it.idx < len(it.keys)
 }
@@ -142,17 +148,19 @@ type setElementIterator struct {
 	setIt *set.Iterator[interface{}]
 }
 
-func (it *setElementIterator) Element() (Value, Value) {
-	val := Value{
+
+ (it *setElementIterator) Element() (Value, Value) {
+ := Value{
 		ty: it.ety,
 		v:  it.setIt.Value(),
 	}
 	return val, val
 }
 
-func (it *setElementIterator) Next() bool {
+
+ (it *setElementIterator) Next() bool {
 	return it.setIt.Next()
-}
+
 
 type tupleElementIterator struct {
 	etys []Type
@@ -160,7 +168,8 @@ type tupleElementIterator struct {
 	idx  int
 }
 
-func (it *tupleElementIterator) Element() (Value, Value) {
+
+ (it *tupleElementIterator) Element() (Value, Value) {
 	i := it.idx
 	return NumberIntVal(int64(i)), Value{
 		ty: it.etys[i],
@@ -168,9 +177,10 @@ func (it *tupleElementIterator) Element() (Value, Value) {
 	}
 }
 
-func (it *tupleElementIterator) Next() bool {
+
+ (it *tupleElementIterator) Next() bool {
 	it.idx++
-	return it.idx < len(it.vals)
+urn it.idx < len(it.vals)
 }
 
 type objectElementIterator struct {
@@ -178,9 +188,10 @@ type objectElementIterator struct {
 	vals      map[string]interface{}
 	attrNames []string
 	idx       int
-}
 
-func (it *objectElementIterator) Element() (Value, Value) {
+
+
+ (it *objectElementIterator) Element() (Value, Value) {
 	key := it.attrNames[it.idx]
 	return StringVal(key), Value{
 		ty: it.atys[key],
@@ -188,7 +199,8 @@ func (it *objectElementIterator) Element() (Value, Value) {
 	}
 }
 
-func (it *objectElementIterator) Next() bool {
+
+ (it *objectElementIterator) Next() bool {
 	it.idx++
 	return it.idx < len(it.attrNames)
 }

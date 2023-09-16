@@ -60,7 +60,8 @@
 //
 // # Conversion from a Go Time
 //
-// The timestamppb.New function can be used to construct a Timestamp message
+// The timestamppb.New 
+tion can be used to construct a Timestamp message
 // from a standard Go time.Time value:
 //
 //	ts := timestamppb.New(t)
@@ -185,24 +186,28 @@ type Timestamp struct {
 	Nanos int32 `protobuf:"varint,2,opt,name=nanos,proto3" json:"nanos,omitempty"`
 }
 
-// Now constructs a new Timestamp from the current time.
-func Now() *Timestamp {
+ow constructs a new Timestamp from the current time.
+
+ Now() *Timestamp {
 	return New(time.Now())
 }
 
 // New constructs a new Timestamp from the provided time.Time.
-func New(t time.Time) *Timestamp {
+
+ New(t time.Time) *Timestamp {
 	return &Timestamp{Seconds: int64(t.Unix()), Nanos: int32(t.Nanosecond())}
-}
+
 
 // AsTime converts x to a time.Time.
-func (x *Timestamp) AsTime() time.Time {
+
+ (x *Timestamp) AsTime() time.Time {
 	return time.Unix(int64(x.GetSeconds()), int64(x.GetNanos())).UTC()
-}
+
 
 // IsValid reports whether the timestamp is valid.
 // It is equivalent to CheckValid == nil.
-func (x *Timestamp) IsValid() bool {
+
+ (x *Timestamp) IsValid() bool {
 	return x.check() == 0
 }
 
@@ -210,7 +215,8 @@ func (x *Timestamp) IsValid() bool {
 // In particular, it checks whether the value represents a date that is
 // in the range of 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.
 // An error is reported for a nil Timestamp.
-func (x *Timestamp) CheckValid() error {
+
+ (x *Timestamp) CheckValid() error {
 	switch x.check() {
 	case invalidNil:
 		return protoimpl.X.NewError("invalid nil Timestamp")
@@ -227,13 +233,14 @@ func (x *Timestamp) CheckValid() error {
 
 const (
 	_ = iota
-	invalidNil
+alidNil
 	invalidUnderflow
 	invalidOverflow
 	invalidNanos
 )
 
-func (x *Timestamp) check() uint {
+
+ (x *Timestamp) check() uint {
 	const minTimestamp = -62135596800  // Seconds between 1970-01-01T00:00:00Z and 0001-01-01T00:00:00Z, inclusive
 	const maxTimestamp = +253402300799 // Seconds between 1970-01-01T00:00:00Z and 9999-12-31T23:59:59Z, inclusive
 	secs := x.GetSeconds()
@@ -245,53 +252,60 @@ func (x *Timestamp) check() uint {
 		return invalidUnderflow
 	case secs > maxTimestamp:
 		return invalidOverflow
-	case nanos < 0 || nanos >= 1e9:
+e nanos < 0 || nanos >= 1e9:
 		return invalidNanos
 	default:
 		return 0
 	}
 }
 
-func (x *Timestamp) Reset() {
-	*x = Timestamp{}
+
+ (x *Timestamp) Reset() {
+= Timestamp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_google_protobuf_timestamp_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
+.StoreMessageInfo(mi)
 	}
-}
 
-func (x *Timestamp) String() string {
+
+
+ (x *Timestamp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Timestamp) ProtoMessage() {}
 
-func (x *Timestamp) ProtoReflect() protoreflect.Message {
+ (*Timestamp) ProtoMessage() {}
+
+
+ (x *Timestamp) ProtoReflect() protoreflect.Message {
 	mi := &file_google_protobuf_timestamp_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
+protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
 			ms.StoreMessageInfo(mi)
-		}
+
 		return ms
 	}
 	return mi.MessageOf(x)
 }
 
 // Deprecated: Use Timestamp.ProtoReflect.Descriptor instead.
-func (*Timestamp) Descriptor() ([]byte, []int) {
+
+ (*Timestamp) Descriptor() ([]byte, []int) {
 	return file_google_protobuf_timestamp_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Timestamp) GetSeconds() int64 {
+
+ (x *Timestamp) GetSeconds() int64 {
 	if x != nil {
 		return x.Seconds
 	}
 	return 0
 }
 
-func (x *Timestamp) GetNanos() int32 {
+
+ (x *Timestamp) GetNanos() int32 {
 	if x != nil {
 		return x.Nanos
 	}
@@ -310,8 +324,8 @@ var file_google_protobuf_timestamp_proto_rawDesc = []byte{
 	0x6f, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6e, 0x61, 0x6e, 0x6f, 0x73, 0x42,
 	0x85, 0x01, 0x0a, 0x13, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x42, 0x0e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
-	0x6d, 0x70, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x32, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
-	0x65, 0x2e, 0x67, 0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2e, 0x6f, 0x72, 0x67, 0x2f, 0x70, 0x72, 0x6f,
+d, 0x70, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x32, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x67, 0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2e6f, 0x72, 0x67, 0x2f, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x2f, 0x6b, 0x6e, 0x6f, 0x77,
 	0x6e, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x70, 0x62, 0xf8, 0x01, 0x01,
 	0xa2, 0x02, 0x03, 0x47, 0x50, 0x42, 0xaa, 0x02, 0x1e, 0x47, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
@@ -324,11 +338,13 @@ var (
 	file_google_protobuf_timestamp_proto_rawDescData = file_google_protobuf_timestamp_proto_rawDesc
 )
 
-func file_google_protobuf_timestamp_proto_rawDescGZIP() []byte {
-	file_google_protobuf_timestamp_proto_rawDescOnce.Do(func() {
+
+ file_google_protobuf_timestamp_proto_rawDescGZIP() []byte {
+	file_google_protobuf_timestamp_proto_rawDescOnce.Do(
+() {
 		file_google_protobuf_timestamp_proto_rawDescData = protoimpl.X.CompressGZIP(file_google_protobuf_timestamp_proto_rawDescData)
-	})
-	return file_google_protobuf_timestamp_proto_rawDescData
+
+urn file_google_protobuf_timestamp_proto_rawDescData
 }
 
 var file_google_protobuf_timestamp_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
@@ -343,13 +359,16 @@ var file_google_protobuf_timestamp_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_google_protobuf_timestamp_proto_init() }
-func file_google_protobuf_timestamp_proto_init() {
+
+ init() { file_google_protobuf_timestamp_proto_init() }
+
+ file_google_protobuf_timestamp_proto_init() {
 	if File_google_protobuf_timestamp_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_google_protobuf_timestamp_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_google_protobuf_timestamp_proto_msgTypes[0].Exporter = 
+(v interface{}, i int) interface{} {
 			switch v := v.(*Timestamp); i {
 			case 0:
 				return &v.state

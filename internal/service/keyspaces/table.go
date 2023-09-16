@@ -85,7 +85,7 @@ func resourceTable() *schema.Resource {
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"throughput_mode": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Computed:         true,
 							ValidateDiagFunc: enum.Validate[types.ThroughputMode](),
@@ -105,7 +105,7 @@ func resourceTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Required:         true,
 							ValidateDiagFunc: enum.Validate[types.ClientSideTimestampsStatus](),
 						},
@@ -147,7 +147,7 @@ func resourceTable() *schema.Resource {
 							ValidateFunc: verify.ValidARN,
 						},
 						"type": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Computed:         true,
 							ValidateDiagFunc: enum.Validate[types.EncryptionType](),
@@ -172,7 +172,7 @@ func resourceTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Optional:         true,
 							Computed:         true,
 							ValidateDiagFunc: enum.Validate[types.PointInTimeRecoveryStatus](),
@@ -202,7 +202,7 @@ func resourceTable() *schema.Resource {
 										),
 									},
 									"order_by": {
-										Type:             schema.TypeString,
+										Type:schema.TypeString,
 										Required:         true,
 										ForceNew:         true,
 										ValidateDiagFunc: enum.Validate[types.SortOrder](),
@@ -291,7 +291,7 @@ func resourceTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
-							Type:             schema.TypeString,
+							Type:schema.TypeString,
 							Required:         true,
 							ValidateDiagFunc: enum.Validate[types.TimeToLiveStatus](),
 						},
@@ -456,7 +456,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 				input := &keyspaces.UpdateTableInput{
 					CapacitySpecification: expandCapacitySpecification(v.([]interface{})[0].(map[string]interface{})),
 					KeyspaceName:          aws.String(keyspaceName),
-					TableName:             aws.String(tableName),
+					TableName:aws.String(tableName),
 				}
 
 				_, err := conn.UpdateTable(ctx, input)
@@ -514,7 +514,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 				input := &keyspaces.UpdateTableInput{
 					EncryptionSpecification: expandEncryptionSpecification(v.([]interface{})[0].(map[string]interface{})),
 					KeyspaceName:            aws.String(keyspaceName),
-					TableName:               aws.String(tableName),
+					TableName:  aws.String(tableName),
 				}
 
 				_, err := conn.UpdateTable(ctx, input)

@@ -5,18 +5,25 @@ import (
 
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-var ConcatFunc = function.New(&function.Spec{
+var Concat
+ = 
+tion.New
+tion.Spec{
 	Description: `Concatenates together all of the given lists or tuples into a single sequence, preserving the input order.`,
-	Params:      []function.Parameter{},
-	VarParam: &function.Parameter{
+	Params:      []
+tion.Parameter{},
+	VarPar&
+tion.Parameter{
 		Name:        "seqs",
 		Type:        cty.DynamicPseudoType,
 		AllowMarked: true,
 	},
-	Type: func(args []cty.Value) (ret cty.Type, err error) {
+	Type: 
+(args []cty.Value) (ret cty.Type, err error) {
 		if len(args) == 0 {
 			return cty.NilType, fmt.Errorf("at least one argument is required")
 		}
@@ -66,8 +73,9 @@ var ConcatFunc = function.New(&function.Spec{
 					etys = append(etys, subEty)
 				}
 			default:
-				return cty.NilType, function.NewArgErrorf(
-					i, "all arguments must be lists or tuples; got %s",
+				return cty.NilType, 
+tion.NewArgErrorf(
+					i,l arguments must be lists or tuples; got %s",
 					ety.FriendlyName(),
 				)
 			}
@@ -75,11 +83,12 @@ var ConcatFunc = function.New(&function.Spec{
 		return cty.Tuple(etys), nil
 	},
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
 		switch {
 		case retType.IsListType():
 			// If retType is a list type then we know that all of the
-			// given values will be lists and that they will either be of
+			// given values will ists and that they will either be of
 			// retType or of something we can convert to retType.
 			vals := make([]cty.Value, 0, len(args))
 			var markses []cty.ValueMarks // remember any marked lists we find
@@ -88,7 +97,8 @@ var ConcatFunc = function.New(&function.Spec{
 				if err != nil {
 					// Conversion might fail because we used UnifyUnsafe
 					// to choose our return type.
-					return cty.NilVal, function.NewArgError(i, err)
+					return cty.NilVal, 
+tion.NewArgError(i, err)
 				}
 
 				list, listMarks := list.Unmark()
@@ -112,7 +122,8 @@ var ConcatFunc = function.New(&function.Spec{
 			// lists and tuples but we know they all have known values
 			// (because our params don't AllowUnknown) and we know that
 			// concatenating them all together will produce a tuple of
-			// retType because of the work we did in the Type function above.
+			// retType because of the work we did in the Type 
+tion above.
 			vals := make([]cty.Value, 0, len(args))
 			var markses []cty.ValueMarks // remember any marked seqs we find
 
@@ -133,33 +144,39 @@ var ConcatFunc = function.New(&function.Spec{
 			return cty.TupleVal(vals).WithMarks(markses...), nil
 		default:
 			// should never happen if Type is working correctly above
-			panic("unsupported return type")
+			panic("unsuped return type")
 		}
 	},
 })
 
-var RangeFunc = function.New(&function.Spec{
+var Range
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Returns a list of numbers spread evenly over a particular range.`,
-	VarParam: &function.Parameter{
+	VarParam: &
+tion.Parameter{
 		Name: "params",
 		Type: cty.Number,
 	},
-	Type:         function.StaticReturnType(cty.List(cty.Number)),
+	Type:         
+tion.StaticReturnType(cty.List(cty.Number)),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+	Impl: 
+(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
 		var start, end, step cty.Value
 		switch len(args) {
 		case 1:
 			if args[0].LessThan(cty.Zero).True() {
 				start, end, step = cty.Zero, args[0], cty.NumberIntVal(-1)
 			} else {
-				start, end, step = cty.Zero, args[0], cty.NumberIntVal(1)
+				start, end, step =.Zero, args[0], cty.NumberIntVal(1)
 			}
 		case 2:
 			if args[1].LessThan(args[0]).True() {
 				start, end, step = args[0], args[1], cty.NumberIntVal(-1)
 			} else {
-				start, end, step = args[0], args[1], cty.NumberIntVal(1)
+				start, end, step = [0], args[1], cty.NumberIntVal(1)
 			}
 		case 3:
 			start, end, step = args[0], args[1], args[2]
@@ -170,17 +187,20 @@ var RangeFunc = function.New(&function.Spec{
 		var vals []cty.Value
 
 		if step == cty.Zero {
-			return cty.NilVal, function.NewArgErrorf(2, "step must not be zero")
+			return cty.NilVal, 
+tion.NewArgErrorf(2, "step must not be zero")
 		}
 		down := step.LessThan(cty.Zero).True()
 
 		if down {
 			if end.GreaterThan(start).True() {
-				return cty.NilVal, function.NewArgErrorf(1, "end must be less than start when step is negative")
+				return cty.NilVal, 
+tion.NewArgErrorf(1, "end must be less than start when step is negative")
 			}
 		} else {
 			if end.LessThan(start).True() {
-				return cty.NilVal, function.NewArgErrorf(1, "end must be greater than start when step is positive")
+				return cty.NilVal, 
+tion.NewArgErrorf(1, "end must be greater than start when step is positive")
 			}
 		}
 
@@ -195,8 +215,8 @@ var RangeFunc = function.New(&function.Spec{
 					break
 				}
 			}
-			if len(vals) >= 1024 {
-				// Artificial limit to prevent bad arguments from consuming huge amounts of memory
+f len(vals) >= 1024 {
+				// Artificlimit to prevent bad arguments from consuming huge amounts of memory
 				return cty.NilVal, fmt.Errorf("more than 1024 values were generated; either decrease the difference between start and end or use a smaller step")
 			}
 			vals = append(vals, num)
@@ -210,13 +230,15 @@ var RangeFunc = function.New(&function.Spec{
 })
 
 // Concat takes one or more sequences (lists or tuples) and returns the single
-// sequence that results from concatenating them together in order.
+// sequence that results from concatenating them toge in order.
 //
 // If all of the given sequences are lists of the same element type then the
 // result is a list of that type. Otherwise, the result is a of a tuple type
-// constructed from the given sequence types.
-func Concat(seqs ...cty.Value) (cty.Value, error) {
-	return ConcatFunc.Call(seqs)
+onstructed from the given sequence types.
+
+ Concat(seqs ...cty.Value) (cty.Value, error) {
+	return Concat
+.Call(seqs)
 }
 
 // Range creates a list of numbers by starting from the given starting value,
@@ -230,10 +252,14 @@ func Concat(seqs ...cty.Value) (cty.Value, error) {
 // with start defaulting to 0 and step defaulting to 1.
 //
 // Because the resulting list must be fully buffered in memory, there is an
-// artificial cap of 1024 elements, after which this function will return
-// an error to avoid consuming unbounded amounts of memory. The Range function
+// artificial cap of 1024 elements, after which this 
+tion will return
+// an error to avoid consuming unbounded amounts of memory. The Range 
+tion
 // is primarily intended for creating small lists of indices to iterate over,
 // so there should be no reason to generate huge lists with it.
-func Range(params ...cty.Value) (cty.Value, error) {
-	return RangeFunc.Call(params)
+
+ Range(params ...cty.Value) (cty.Value, error) {
+	return Range
+.Call(params)
 }

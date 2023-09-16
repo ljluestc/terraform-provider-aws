@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_codecommit_repository")
 
-func DataSourceRepository() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceRepositoryRead,
 
 		Schema: map[string]*schema.Schema{
@@ -29,8 +28,7 @@ func DataSourceRepository() *schema.Resource {
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(0, 100),
-			},
-
+func
 			"arn": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -57,8 +55,7 @@ func: validation.StringLenBetween(0, 100),
 
 func dataSourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
-
+func
 	repositoryName := d.Get("repository_name").(string)
 	input := &codecommit.GetRepositoryInput{
 		RepositoryName: aws.String(repositoryName),

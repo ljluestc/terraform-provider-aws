@@ -19,8 +19,7 @@ import (
 
 // @SDKDataSource("aws_ebs_snapshot_ids")
 
-func DataSourceEBSSnapshotIDs() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSSnapshotIDsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -30,27 +29,26 @@ func DataSourceEBSSnapshotIDs() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"owners": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"restorable_by_user_ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 		},
 	}
 }
 
 func dataSourceEBSSnapshotIDsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeSnapshotsInput{}
 
@@ -79,8 +77,7 @@ func dataSourceEBSSnapshotIDsRead(ctx context.Context, d *schema.ResourceData, m
 	sort.Slice(snapshots,
 		func(i, j int) bool {
 			return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
-		})
-
+		func
 	var snapshotIDs []string
 
 	for _, v := range snapshots {

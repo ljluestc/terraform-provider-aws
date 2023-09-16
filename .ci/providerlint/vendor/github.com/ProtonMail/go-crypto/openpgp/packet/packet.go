@@ -18,7 +18,8 @@ import (
 
 // readFull is the same as io.ReadFull except that reading zero bytes returns
 // ErrUnexpectedEOF rather than EOF.
-func readFull(r io.Reader, buf []byte) (n int, err error) {
+
+dFull(r io.Reader, buf []byte) (n int, err error) {
 	n, err = io.ReadFull(r, buf)
 	if err == io.EOF {
 		err = io.ErrUnexpectedEOF
@@ -27,7 +28,8 @@ func readFull(r io.Reader, buf []byte) (n int, err error) {
 }
 
 // readLength reads an OpenPGP length from r. See RFC 4880, section 4.2.2.
-func readLength(r io.Reader) (length int64, isPartial bool, err error) {
+
+dLength(r io.Reader) (length int64, isPartial bool, err error) {
 	var buf [4]byte
 	_, err = readFull(r, buf[:1])
 	if err != nil {
@@ -68,7 +70,8 @@ type partialLengthReader struct {
 	isPartial bool
 }
 
-func (r *partialLengthReader) Read(p []byte) (n int, err error) {
+
+*partialLengthReader) Read(p []byte) (n int, err error) {
 	for r.remaining == 0 {
 		if !r.isPartial {
 			return 0, io.EOF
@@ -100,7 +103,8 @@ type partialLengthWriter struct {
 	lengthByte [1]byte
 }
 
-func (w *partialLengthWriter) Write(p []byte) (n int, err error) {
+
+*partialLengthWriter) Write(p []byte) (n int, err error) {
 	bufLen := w.buf.Len()
 	if bufLen > 512 {
 		for power := uint(30); ; power-- {
@@ -126,7 +130,8 @@ func (w *partialLengthWriter) Write(p []byte) (n int, err error) {
 	return w.buf.Write(p)
 }
 
-func (w *partialLengthWriter) Close() (err error) {
+
+*partialLengthWriter) Close() (err error) {
 	len := w.buf.Len()
 	err = serializeLength(w.w, len)
 	if err != nil {
@@ -146,7 +151,8 @@ type spanReader struct {
 	n int64
 }
 
-func (l *spanReader) Read(p []byte) (n int, err error) {
+
+*spanReader) Read(p []byte) (n int, err error) {
 	if l.n <= 0 {
 		return 0, io.EOF
 	}
@@ -163,7 +169,8 @@ func (l *spanReader) Read(p []byte) (n int, err error) {
 
 // readHeader parses a packet header and returns an io.Reader which will return
 // the contents of the packet. See RFC 4880, section 4.2.
-func readHeader(r io.Reader) (tag packetType, length int64, contents io.Reader, err error) {
+
+dHeader(r io.Reader) (tag packetType, length int64, contents io.Reader, err error) {
 	var buf [4]byte
 	_, err = io.ReadFull(r, buf[:1])
 	if err != nil {
@@ -216,7 +223,8 @@ func readHeader(r io.Reader) (tag packetType, length int64, contents io.Reader, 
 
 // serializeHeader writes an OpenPGP packet header to w. See RFC 4880, section
 // 4.2.
-func serializeHeader(w io.Writer, ptype packetType, length int) (err error) {
+
+ializeHeader(w io.Writer, ptype packetType, length int) (err error) {
 	err = serializeType(w, ptype)
 	if err != nil {
 		return
@@ -226,7 +234,8 @@ func serializeHeader(w io.Writer, ptype packetType, length int) (err error) {
 
 // serializeType writes an OpenPGP packet type to w. See RFC 4880, section
 // 4.2.
-func serializeType(w io.Writer, ptype packetType) (err error) {
+
+ializeType(w io.Writer, ptype packetType) (err error) {
 	var buf [1]byte
 	buf[0] = 0x80 | 0x40 | byte(ptype)
 	_, err = w.Write(buf[:])
@@ -235,7 +244,8 @@ func serializeType(w io.Writer, ptype packetType) (err error) {
 
 // serializeLength writes an OpenPGP packet length to w. See RFC 4880, section
 // 4.2.2.
-func serializeLength(w io.Writer, length int) (err error) {
+
+ializeLength(w io.Writer, length int) (err error) {
 	var buf [5]byte
 	var n int
 
@@ -263,7 +273,8 @@ func serializeLength(w io.Writer, length int) (err error) {
 // serializeStreamHeader writes an OpenPGP packet header to w where the
 // length of the packet is unknown. It returns a io.WriteCloser which can be
 // used to write the contents of the packet. See RFC 4880, section 4.2.
-func serializeStreamHeader(w io.WriteCloser, ptype packetType) (out io.WriteCloser, err error) {
+
+ializeStreamHeader(w io.WriteCloser, ptype packetType) (out io.WriteCloser, err error) {
 	err = serializeType(w, ptype)
 	if err != nil {
 		return
@@ -280,7 +291,8 @@ type Packet interface {
 
 // consumeAll reads from the given Reader until error, returning the number of
 // bytes read.
-func consumeAll(r io.Reader) (n int64, err error) {
+
+sumeAll(r io.Reader) (n int64, err error) {
 	var m int
 	var buf [1024]byte
 
@@ -322,12 +334,14 @@ const (
 // EncryptedDataPacket holds encrypted data. It is currently implemented by
 // SymmetricallyEncrypted and AEADEncrypted.
 type EncryptedDataPacket interface {
-	Decrypt(CipherFunction, []byte) (io.ReadCloser, error)
+	Decrypt(Cipher
+, []byte) (io.ReadCloser, error)
 }
 
 // Read reads a single OpenPGP packet from the given io.Reader. If there is an
 // error parsing a packet, the whole packet is consumed from the input.
-func Read(r io.Reader) (p Packet, err error) {
+
+d(r io.Reader) (p Packet, err error) {
 	tag, _, contents, err := readHeader(r)
 	if err != nil {
 		return
@@ -420,7 +434,8 @@ const (
 
 // CanEncrypt returns true if it's possible to encrypt a message to a public
 // key of the given type.
-func (pka PublicKeyAlgorithm) CanEncrypt() bool {
+
+a PublicKeyAlgorithm) CanEncrypt() bool {
 	switch pka {
 	case PubKeyAlgoRSA, PubKeyAlgoRSAEncryptOnly, PubKeyAlgoElGamal, PubKeyAlgoECDH:
 		return true
@@ -430,7 +445,8 @@ func (pka PublicKeyAlgorithm) CanEncrypt() bool {
 
 // CanSign returns true if it's possible for a public key of the given type to
 // sign a message.
-func (pka PublicKeyAlgorithm) CanSign() bool {
+
+a PublicKeyAlgorithm) CanSign() bool {
 	switch pka {
 	case PubKeyAlgoRSA, PubKeyAlgoRSASignOnly, PubKeyAlgoDSA, PubKeyAlgoECDSA, PubKeyAlgoEdDSA:
 		return true
@@ -438,41 +454,62 @@ func (pka PublicKeyAlgorithm) CanSign() bool {
 	return false
 }
 
-// CipherFunction represents the different block ciphers specified for OpenPGP. See
+// Cipher
+ represents the different block ciphers specified for OpenPGP. See
 // http://www.iana.org/assignments/pgp-parameters/pgp-parameters.xhtml#pgp-parameters-13
-type CipherFunction algorithm.CipherFunction
+type Cipher
+ algorithm.Cipher
+
 
 const (
-	Cipher3DES   CipherFunction = 2
-	CipherCAST5  CipherFunction = 3
-	CipherAES128 CipherFunction = 7
-	CipherAES192 CipherFunction = 8
-	CipherAES256 CipherFunction = 9
+	Cipher3DES   Cipher
+ = 2
+	CipherCAST5  Cipher
+ = 3
+	CipherAES128 Cipher
+ = 7
+	CipherAES192 Cipher
+ = 8
+	CipherAES256 Cipher
+ = 9
 )
 
 // KeySize returns the key size, in bytes, of cipher.
-func (cipher CipherFunction) KeySize() int {
-	return algorithm.CipherFunction(cipher).KeySize()
+
+pher Cipher
+) KeySize() int {
+	return algorithm.Cipher
+(cipher).KeySize()
 }
 
 // IsSupported returns true if the cipher is supported from the library
-func (cipher CipherFunction) IsSupported() bool {
-	return algorithm.CipherFunction(cipher).KeySize() > 0
+
+pher Cipher
+) IsSupported() bool {
+	return algorithm.Cipher
+(cipher).KeySize() > 0
 }
 
 // blockSize returns the block size, in bytes, of cipher.
-func (cipher CipherFunction) blockSize() int {
-	return algorithm.CipherFunction(cipher).BlockSize()
+
+pher Cipher
+) blockSize() int {
+	return algorithm.Cipher
+(cipher).BlockSize()
 }
 
 // new returns a fresh instance of the given cipher.
-func (cipher CipherFunction) new(key []byte) (block cipher.Block) {
-	return algorithm.CipherFunction(cipher).New(key)
+
+pher Cipher
+) new(key []byte) (block cipher.Block) {
+	return algorithm.Cipher
+(cipher).New(key)
 }
 
 // padToKeySize left-pads a MPI with zeroes to match the length of the
 // specified RSA public.
-func padToKeySize(pub *rsa.PublicKey, b []byte) []byte {
+
+ToKeySize(pub *rsa.PublicKey, b []byte) []byte {
 	k := (pub.N.BitLen() + 7) / 8
 	if len(b) >= k {
 		return b
@@ -504,16 +541,19 @@ const (
 	AEADModeGCM AEADMode = 3
 )
 
-func (mode AEADMode) IvLength() int {
+
+de AEADMode) IvLength() int {
 	return algorithm.AEADMode(mode).NonceLength()
 }
 
-func (mode AEADMode) TagLength() int {
+
+de AEADMode) TagLength() int {
 	return algorithm.AEADMode(mode).TagLength()
 }
 
 // new returns a fresh instance of the given mode.
-func (mode AEADMode) new(block cipher.Block) cipher.AEAD {
+
+de AEADMode) new(block cipher.Block) cipher.AEAD {
 	return algorithm.AEADMode(mode).New(block)
 }
 

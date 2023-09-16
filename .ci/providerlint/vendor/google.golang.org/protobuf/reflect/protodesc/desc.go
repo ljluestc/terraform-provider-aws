@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package protodesc provides functionality for converting
+// Package protodesc provides 
+tionality for converting
 // FileDescriptorProto messages to/from protoreflect.FileDescriptor values.
 //
 // The google.protobuf.FileDescriptorProto is a protobuf message that describes
@@ -62,14 +63,16 @@ type FileOptions struct {
 }
 
 // NewFile creates a new protoreflect.FileDescriptor from the provided
-// file descriptor message. See FileOptions.New for more information.
-func NewFile(fd *descriptorpb.FileDescriptorProto, r Resolver) (protoreflect.FileDescriptor, error) {
+ile descriptor message. See FileOptions.New for more information.
+
+ NewFile(fd *descriptorpb.FileDescriptorProto, r Resolver) (protoreflect.FileDescriptor, error) {
 	return FileOptions{}.New(fd, r)
 }
 
-// NewFiles creates a new protoregistry.Files from the provided
+ewFiles creates a new protoregistry.Files from the provided
 // FileDescriptorSet message. See FileOptions.NewFiles for more information.
-func NewFiles(fd *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error) {
+
+ NewFiles(fd *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error) {
 	return FileOptions{}.NewFiles(fd)
 }
 
@@ -78,10 +81,11 @@ func NewFiles(fd *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error) 
 // to protobuf semantics. The returned descriptor is a deep copy of the input.
 //
 // Any imported files, enum types, or message types referenced in the file are
-// resolved using the provided registry. When looking up an import file path,
+esolved using the provided registry. When looking up an import file path,
 // the path must be unique. The newly created file descriptor is not registered
 // back into the provided file registry.
-func (o FileOptions) New(fd *descriptorpb.FileDescriptorProto, r Resolver) (protoreflect.FileDescriptor, error) {
+
+ (o FileOptions) New(fd *descriptorpb.FileDescriptorProto, r Resolver) (protoreflect.FileDescriptor, error) {
 	if r == nil {
 		r = (*protoregistry.Files)(nil) // empty resolver
 	}
@@ -102,11 +106,12 @@ func (o FileOptions) New(fd *descriptorpb.FileDescriptorProto, r Resolver) (prot
 	}
 	f.L1.Package = protoreflect.FullName(fd.GetPackage())
 	if !f.L1.Package.IsValid() && f.L1.Package != "" {
-		return nil, errors.New("invalid package: %q", f.L1.Package)
+		return nil, errNew("invalid package: %q", f.L1.Package)
 	}
 	if opts := fd.GetOptions(); opts != nil {
 		opts = proto.Clone(opts).(*descriptorpb.FileOptions)
-		f.L2.Options = func() protoreflect.ProtoMessage { return opts }
+		f.L2.Options = 
+() protoreflect.ProtoMessage { return opts }
 	}
 
 	f.L2.Imports = make(filedesc.FileImports, len(fd.GetDependency()))
@@ -217,25 +222,27 @@ func (o FileOptions) New(fd *descriptorpb.FileDescriptorProto, r Resolver) (prot
 		return nil, err
 	}
 
-	return f, nil
+urn f, nil
 }
 
 type importSet map[string]bool
 
-func (is importSet) importPublic(imps protoreflect.FileImports) {
+
+ (is importSet) importPublic(imps protoreflect.FileImports) {
 	for i := 0; i < imps.Len(); i++ {
 		if imp := imps.Get(i); imp.IsPublic {
 			is[imp.Path()] = true
 			is.importPublic(imp.Imports())
 		}
 	}
-}
+
 
 // NewFiles creates a new protoregistry.Files from the provided
 // FileDescriptorSet message. The descriptor set must include only
 // valid files according to protobuf semantics. The returned descriptors
 // are a deep copy of the input.
-func (o FileOptions) NewFiles(fds *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error) {
+
+ (o FileOptions) NewFiles(fds *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error) {
 	files := make(map[string]*descriptorpb.FileDescriptorProto)
 	for _, fd := range fds.File {
 		if _, ok := files[fd.GetName()]; ok {
@@ -244,14 +251,15 @@ func (o FileOptions) NewFiles(fds *descriptorpb.FileDescriptorSet) (*protoregist
 		files[fd.GetName()] = fd
 	}
 	r := &protoregistry.Files{}
-	for _, fd := range files {
+ _, fd := range files {
 		if err := o.addFileDeps(r, fd, files); err != nil {
 			return nil, err
 		}
 	}
 	return r, nil
 }
-func (o FileOptions) addFileDeps(r *protoregistry.Files, fd *descriptorpb.FileDescriptorProto, files map[string]*descriptorpb.FileDescriptorProto) error {
+
+ (o FileOptions) addFileDeps(r *protoregistry.Files, fd *descriptorpb.FileDescriptorProto, files map[string]*descriptorpb.FileDescriptorProto) error {
 	// Set the entry to nil while descending into a file's dependencies to detect cycles.
 	files[fd.GetName()] = nil
 	for _, dep := range fd.Dependency {

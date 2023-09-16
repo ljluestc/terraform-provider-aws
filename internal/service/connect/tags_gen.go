@@ -20,11 +20,15 @@ import (
 
 // Tags returns connect service tags.
 
+
+
 func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
 }
 
 // KeyValueTags creates tftags.KeyValueTags from connect service tags.
+
+
 
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
@@ -32,6 +36,8 @@ func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueT
 
 // getTagsIn returns connect service tags from Context.
 // nil is returned if there are no input tags.
+
+
 
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
@@ -45,6 +51,8 @@ func getTagsIn(ctx context.Context) map[string]*string {
 
 // setTagsOut sets connect service tags in Context.
 
+
+
 func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -54,6 +62,8 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 // updateTags updates connect service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
+
 
 func updateTags(ctx context.Context, conn connectiface.ConnectAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
@@ -96,6 +106,8 @@ func updateTags(ctx context.Context, conn connectiface.ConnectAPI, identifier st
 
 // UpdateTags updates connect service tags.
 // It is called from outside this package.
+
+
 
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).ConnectConn(ctx), identifier, oldTags, newTags)

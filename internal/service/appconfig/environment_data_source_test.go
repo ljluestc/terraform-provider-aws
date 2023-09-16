@@ -26,9 +26,9 @@ func TestAccAppConfigEnvironmentDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentDataSourceConfig_basic(appName, rName),

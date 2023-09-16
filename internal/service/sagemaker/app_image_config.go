@@ -23,10 +23,9 @@ import (
 
 // @SDKResource("aws_sagemaker_app_image_config", name="App Image Config")
 // @Tags(identifierAttribute="arn")
-func ResourceAppImageConfig() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceAppImageConfigCreate,
-		ReadWithoutTimeout:   resourceAppImageConfigRead,
+		ReadWithoutTimeout:ourceAppImageConfigRead,
 		UpdateWithoutTimeout: resourceAppImageConfigUpdate,
 		DeleteWithoutTimeout: resourceAppImageConfigDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,11 +34,11 @@ func ResourceAppImageConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"app_image_config_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -48,31 +47,31 @@ func ResourceAppImageConfig() *schema.Resource {
 				),
 			},
 			"kernel_gateway_image_config": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"file_system_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"default_gid": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										Default:      100,
+										Type:chema.TypeInt,
+										Optional:
+										Default:
 										ValidateFunc: validation.IntInSlice([]int{0, 100}),
 									},
 									"default_uid": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										Default:      1000,
+										Type:chema.TypeInt,
+										Optional:
+										Default:,
 										ValidateFunc: validation.IntInSlice([]int{0, 1000}),
 									},
 									"mount_path": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Default:  "/home/sagemaker-user",
 										ValidateFunc: validation.All(
@@ -84,19 +83,19 @@ func ResourceAppImageConfig() *schema.Resource {
 							},
 						},
 						"kernel_spec": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"display_name": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:chema.TypeString,
+										Optional:
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 									"name": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:chema.TypeString,
+										Required:
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 								},
@@ -105,7 +104,7 @@ func ResourceAppImageConfig() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -113,13 +112,12 @@ func ResourceAppImageConfig() *schema.Resource {
 }
 
 func resourceAppImageConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("app_image_config_name").(string)
 	input := &sagemaker.CreateAppImageConfigInput{
 		AppImageConfigName: aws.String(name),
-		Tags:               getTagsIn(ctx),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("kernel_gateway_image_config"); ok && len(v.([]interface{})) > 0 {
@@ -138,8 +136,7 @@ func resourceAppImageConfigCreate(ctx context.Context, d *schema.ResourceData, m
 
 func resourceAppImageConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	image, err := FindAppImageConfigByName(ctx, conn, d.Id())
 	if err != nil {
 		if tfawserr.ErrMessageContains(err, sagemaker.ErrCodeResourceNotFound, "does not exist") {
@@ -164,8 +161,7 @@ func resourceAppImageConfigRead(ctx context.Context, d *schema.ResourceData, met
 func resourceAppImageConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	if d.HasChange("kernel_gateway_image_config") {
+funcd.HasChange("kernel_gateway_image_config") {
 		input := &sagemaker.UpdateAppImageConfigInput{
 			AppImageConfigName: aws.String(d.Id()),
 		}
@@ -188,8 +184,7 @@ func resourceAppImageConfigDelete(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteAppImageConfigInput{
-		AppImageConfigName: aws.String(d.Id()),
+funcpImageConfigName: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteAppImageConfigWithContext(ctx, input); err != nil {
@@ -207,8 +202,7 @@ func expandAppImageConfigKernelGatewayImageConfig(l []interface{}) *sagemaker.Ke
 		return nil
 	}
 
-	m := l[0].(map[string]interface{})
-
+func
 	config := &sagemaker.KernelGatewayImageConfig{}
 
 	if v, ok := m["kernel_spec"].([]interface{}); ok && len(v) > 0 {
@@ -228,8 +222,7 @@ func expandAppImageConfigKernelGatewayImageConfigFileSystemConfig(l []interface{
 	}
 
 	m := l[0].(map[string]interface{})
-
-	config := &sagemaker.FileSystemConfig{
+funcfig := &sagemaker.FileSystemConfig{
 		DefaultGid: aws.Int64(int64(m["default_gid"].(int))),
 		DefaultUid: aws.Int64(int64(m["default_uid"].(int))),
 		MountPath:  aws.String(m["mount_path"].(string)),
@@ -245,8 +238,7 @@ func expandAppImageConfigKernelGatewayImageConfigKernelSpecs(tfList []interface{
 
 	var kernelSpecs []*sagemaker.KernelSpec
 
-	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
+funcMap, ok := tfMapRaw.(map[string]interface{})
 
 		if !ok {
 			continue
@@ -274,8 +266,7 @@ func flattenAppImageConfigKernelGatewayImageConfig(config *sagemaker.KernelGatew
 	m := map[string]interface{}{}
 
 	if config.KernelSpecs != nil {
-		m["kernel_spec"] = flattenAppImageConfigKernelGatewayImageConfigKernelSpecs(config.KernelSpecs)
-	}
+func
 
 	if config.FileSystemConfig != nil {
 		m["file_system_config"] = flattenAppImageConfigKernelGatewayImageConfigFileSystemConfig(config.FileSystemConfig)
@@ -293,8 +284,7 @@ func flattenAppImageConfigKernelGatewayImageConfigFileSystemConfig(config *sagem
 		"mount_path":  aws.StringValue(config.MountPath),
 		"default_gid": aws.Int64Value(config.DefaultGid),
 		"default_uid": aws.Int64Value(config.DefaultUid),
-	}
-
+func
 	return []map[string]interface{}{m}
 }
 
@@ -308,8 +298,7 @@ func flattenAppImageConfigKernelGatewayImageConfigKernelSpecs(kernelSpecs []*sag
 
 		if raw.DisplayName != nil {
 			kernelSpec["display_name"] = aws.StringValue(raw.DisplayName)
-		}
-
+func
 		res = append(res, kernelSpec)
 	}
 

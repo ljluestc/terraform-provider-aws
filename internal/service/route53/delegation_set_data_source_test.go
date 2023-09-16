@@ -13,16 +13,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccRoute53DelegationSetDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_route53_delegation_set.dset"
 	resourceName := "aws_route53_delegation_set.dset"
 
 	zoneName := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -38,13 +37,12 @@ func TestAccRoute53DelegationSetDataSource_basic(t *testing.T) {
 }
 
 func testAccDelegationSetDataSourceConfig_basic(zoneName string) string {
-	return fmt.Sprintf(`
-resource "aws_route53_delegation_set" "dset" {
+funcurce "aws_route53_delegation_set" "dset" {
   reference_name = "DynDNS"
 }
 
 resource "aws_route53_zone" "primary" {
-  name              = %[1]q
+  nameq
   delegation_set_id = aws_route53_delegation_set.dset.id
 }
 

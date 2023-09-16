@@ -27,10 +27,10 @@ func TestAccDocDBEventSubscription_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, true),
@@ -63,10 +63,10 @@ func TestAccDocDBEventSubscription_nameGenerated(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_nameGenerated(rName),
@@ -92,10 +92,10 @@ func TestAccDocDBEventSubscription_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, true),
@@ -116,10 +116,10 @@ func TestAccDocDBEventSubscription_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_enabled(rName, false),
@@ -158,10 +158,10 @@ func TestAccDocDBEventSubscription_eventCategories(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_categories2(rName, "creation", "failure"),
@@ -197,10 +197,10 @@ func TestAccDocDBEventSubscription_tags(t *testing.T) {
 	resourceName := "aws_docdb_event_subscription.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventSubscriptionDestroy(ctx),
+		CheckDestroy:testAccCheckEventSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventSubscriptionConfig_tags1(rName, "key1", "value1"),
@@ -298,7 +298,7 @@ resource "aws_docdb_cluster" "test" {
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine                     = "docdb"
+  engine        = "docdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
@@ -313,7 +313,7 @@ func testAccEventSubscriptionConfig_enabled(rName string, enabled bool) string {
 		testAccEventSubscriptionBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_docdb_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = %[2]t
   event_categories = ["creation", "failure"]
   source_type      = "db-cluster"
@@ -342,7 +342,7 @@ func testAccEventSubscriptionConfig_categories2(rName string, eventCategory1 str
 		testAccEventSubscriptionBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_docdb_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = false
   event_categories = [%[2]q, %[3]q]
   source_type      = "db-cluster"
@@ -357,7 +357,7 @@ func testAccEventSubscriptionConfig_tags1(rName, tagKey1, tagValue1 string) stri
 		testAccEventSubscriptionBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_docdb_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = true
   event_categories = ["creation", "failure"]
   source_type      = "db-cluster"
@@ -376,7 +376,7 @@ func testAccEventSubscriptionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, ta
 		testAccEventSubscriptionBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_docdb_event_subscription" "test" {
-  name             = %[1]q
+  name= %[1]q
   enabled          = true
   event_categories = ["creation", "failure"]
   source_type      = "db-cluster"

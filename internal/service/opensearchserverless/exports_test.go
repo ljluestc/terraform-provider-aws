@@ -12,8 +12,8 @@ var (
 	ResourceVPCEndpoint    = newResourceVPCEndpoint
 
 	FindAccessPolicyByNameAndType   = findAccessPolicyByNameAndType
-	FindCollectionByID              = findCollectionByID
+	FindCollectionByID = findCollectionByID
 	FindSecurityConfigByID          = findSecurityConfigByID
 	FindSecurityPolicyByNameAndType = findSecurityPolicyByNameAndType
-	FindVPCEndpointByID             = findVPCEndpointByID
+	FindVPCEndpointByID= findVPCEndpointByID
 )

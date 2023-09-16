@@ -10,13 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/route53"
 )
 
-// Custom Route 53 service lister functions using the same format as generated code.
-
+// Custom Route 53 service lister func
 func listTrafficPolicyInstancesPages(ctx context.Context, conn *route53.Route53, input *route53.ListTrafficPolicyInstancesInput, fn func(*route53.ListTrafficPolicyInstancesOutput, bool) bool) error { //nolint:unused // This function is called from a sweeper.
-	for {
-		output, err := conn.ListTrafficPolicyInstancesWithContext(ctx, input)
-		if err != nil {
-			return err
+functput, err := conn.ListTrafficPolicyInstancesWithContext(ctx, input)func err != nil {funceturn err
 		}
 
 		lastPage := !aws.BoolValue(output.IsTruncated)

@@ -23,17 +23,17 @@ func DataSourceAPIs() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"ids": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Elem:hema{Type: schema.TypeString},
+				Set:shString,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"protocol_type": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 			},
 			"tags": tftags.TagsSchema(),

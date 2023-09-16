@@ -16,7 +16,8 @@ import (
 // executable and so on.
 //
 // TODO: test
-func Discover(glob, dir string) ([]string, error) {
+
+ Discover(glob, dir string) ([]string, error) {
 	var err error
 
 	// Make the directory absolute if it isn't already

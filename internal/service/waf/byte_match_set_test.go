@@ -29,7 +29,7 @@ func TestAccWAFByteMatchSet_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckByteMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckByteMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccByteMatchSetConfig_basic(byteMatchSet),
@@ -75,7 +75,7 @@ func TestAccWAFByteMatchSet_changeNameForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckByteMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckByteMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccByteMatchSetConfig_basic(byteMatchSet),
@@ -112,7 +112,7 @@ func TestAccWAFByteMatchSet_changeTuples(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckByteMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckByteMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccByteMatchSetConfig_basic(byteMatchSetName),
@@ -181,7 +181,7 @@ func TestAccWAFByteMatchSet_noTuples(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckByteMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckByteMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccByteMatchSetConfig_noTuples(byteMatchSetName),
@@ -210,7 +210,7 @@ func TestAccWAFByteMatchSet_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckByteMatchSetDestroy(ctx),
+CheckDestroy:testAccCheckByteMatchSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccByteMatchSetConfig_basic(byteMatchSet),

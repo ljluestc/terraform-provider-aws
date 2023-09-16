@@ -26,28 +26,33 @@ type WorkspaceNewCmdOption interface {
 	configureWorkspaceNew(*workspaceNewConfig)
 }
 
-func (opt *LockOption) configureWorkspaceNew(conf *workspaceNewConfig) {
+
+ (opt *LockOption) configureWorkspaceNew(conf *workspaceNewConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *LockTimeoutOption) configureWorkspaceNew(conf *workspaceNewConfig) {
-	conf.lockTimeout = opt.timeout
-}
 
-func (opt *CopyStateOption) configureWorkspaceNew(conf *workspaceNewConfig) {
+ (opt *LockTimeoutOption) configureWorkspaceNew(conf *workspaceNewConfig) {
+	conf.lockTimeout = opt.timeout
+
+
+
+ (opt *CopyStateOption) configureWorkspaceNew(conf *workspaceNewConfig) {
 	conf.copyState = opt.path
-}
+
 
 // WorkspaceNew represents the workspace new subcommand to the Terraform CLI.
-func (tf *Terraform) WorkspaceNew(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) error {
+
+ (tf *Terraform) WorkspaceNew(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) error {
 	cmd, err := tf.workspaceNewCmd(ctx, workspace, opts...)
 	if err != nil {
 		return err
-	}
+
 	return tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) workspaceNewCmd(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) workspaceNewCmd(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) (*exec.Cmd, error) {
 	// TODO: [DIR] param option
 
 	c := defaultWorkspaceNewOptions

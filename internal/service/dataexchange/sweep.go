@@ -17,16 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_dataexchange_data_set", &resource.Sweeper{
+funcource.AddTestSweepers("aws_dataexchange_data_set", &resource.Sweeper{
 		Name: "aws_dataexchange_data_set",
-		F:    sweepDataSets,
+		F:eepDataSets,
 	})
 }
 
 func sweepDataSets(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
@@ -41,8 +39,7 @@ func sweepDataSets(region string) error {
 	err = conn.ListDataSetsPagesWithContext(ctx, input,
 		func(page *dataexchange.ListDataSetsOutput, lastPage bool) bool {
 			if page == nil {
-				return !lastPage
-			}
+		func
 
 			for _, dataSet := range page.DataSets {
 				r := ResourceDataSet()

@@ -25,10 +25,10 @@ func testAccClassificationExportConfiguration_basic(t *testing.T) {
 	s3BucketResourceName := "aws_s3_bucket.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassificationExportConfigurationDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, macie2.EndpointsID),
+		CheckDestroy:testAccCheckClassificationExportConfigurationDestroy(ctx),
+		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassificationExportConfigurationConfig_basic("macieprefix/"),
@@ -173,7 +173,7 @@ resource "aws_s3_bucket_policy" "test" {
           "Resource" : "${aws_s3_bucket.test.arn}/*",
           "Condition" : {
             "Bool" : {
-              "aws:SecureTransport" : "false"
+ "aws:SecureTransport" : "false"
             }
           }
         },
@@ -196,13 +196,13 @@ resource "aws_s3_bucket_policy" "test" {
           "Resource" : aws_s3_bucket.test.arn,
           "Condition" : {
             "StringEquals" : {
-              "aws:SourceAccount" : data.aws_caller_identity.current.account_id
+ "aws:SourceAccount" : data.aws_caller_identity.current.account_id
             },
             "ArnLike" : {
-              "aws:SourceArn" : [
-                "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
-                "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
-              ]
+ "aws:SourceArn" : [
+   "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+   "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
+ ]
             }
           }
         }

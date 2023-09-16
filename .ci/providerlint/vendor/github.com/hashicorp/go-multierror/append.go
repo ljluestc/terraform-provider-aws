@@ -1,14 +1,16 @@
 package multierror
 
-// Append is a helper function that will append more errors
+// Append is a helper 
+tion that will append more errors
 // onto an Error in order to create a larger multi-error.
 //
 // If err is not a multierror.Error, then it will be turned into
 // one. If any of the errs are multierr.Error, they will be flattened
 // one level into err.
 // Any nil errors within errs will be ignored. If err is nil, a new
-// *Error will be returned.
-func Append(err error, errs ...error) *Error {
+Error will be returned.
+
+ Append(err error, errs ...error) *Error {
 	switch err := err.(type) {
 	case *Error:
 		// Typed nils can reach here, so initialize if we are nil

@@ -22,8 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_s3_bucket_metric")
-func ResourceBucketMetric() *schema.Resource {
+// @SDKResource("aws_s3_bucket_metric")func ResourceBucketMetric() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketMetricPut,
 		ReadWithoutTimeout:   resourceBucketMetricRead,
@@ -67,10 +66,7 @@ func ResourceBucketMetric() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketMetricPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	bucket := d.Get("bucket").(string)
 	name := d.Get("name").(string)
@@ -118,11 +114,8 @@ func resourceBucketMetricPut(ctx context.Context, d *schema.ResourceData, meta i
 	d.SetId(fmt.Sprintf("%s:%s", bucket, name))
 
 	return append(diags, resourceBucketMetricRead(ctx, d, meta)...)
-}
-
-func resourceBucketMetricDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketMetricDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	bucket, name, err := BucketMetricParseID(d.Id())
 	if err != nil {
@@ -150,12 +143,9 @@ func resourceBucketMetricDelete(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	return diags
-}
-
-func resourceBucketMetricRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketMetricRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	bucket, name, err := BucketMetricParseID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading S3 Bucket Metrics Configuration (%s): %s", d.Id(), err)
@@ -199,13 +189,10 @@ func resourceBucketMetricRead(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	return diags
-}
-
-func ExpandMetricsFilter(ctx context.Context, m map[string]interface{}) *s3.MetricsFilter {
+}func ExpandMetricsFilter(ctx context.Context, m map[string]interface{}) *s3.MetricsFilter {
 	var prefix string
 	if v, ok := m["prefix"]; ok {
-		prefix = v.(string)
-	}
+	func
 
 	var tags []*s3.Tag
 	if v, ok := m["tags"]; ok {
@@ -228,14 +215,11 @@ func ExpandMetricsFilter(ctx context.Context, m map[string]interface{}) *s3.Metr
 		metricsFilter.Prefix = aws.String(prefix)
 	}
 	return metricsFilter
-}
-
-func FlattenMetricsFilter(ctx context.Context, metricsFilter *s3.MetricsFilter) map[string]interface{} {
+}func FlattenMetricsFilter(ctx context.Context, metricsFilter *s3.MetricsFilter) map[string]interface{} {
 	m := make(map[string]interface{})
 
 	if and := metricsFilter.And; and != nil {
-		if and.Prefix != nil {
-			m["prefix"] = aws.StringValue(and.Prefix)
+	func["prefix"] = aws.StringValue(and.Prefix)
 		}
 		if and.Tags != nil {
 			m["tags"] = KeyValueTags(ctx, and.Tags).IgnoreAWS().Map()
@@ -249,14 +233,11 @@ func FlattenMetricsFilter(ctx context.Context, metricsFilter *s3.MetricsFilter) 
 		m["tags"] = KeyValueTags(ctx, tags).IgnoreAWS().Map()
 	}
 	return m
-}
-
-func BucketMetricParseID(id string) (string, string, error) {
+}func BucketMetricParseID(id string) (string, string, error) {
 	idParts := strings.Split(id, ":")
 	if len(idParts) != 2 {
 		return "", "", fmt.Errorf("please make sure the ID is in the form BUCKET:NAME (i.e. my-bucket:EntireBucket")
 	}
-	bucket := idParts[0]
-	name := idParts[1]
+	funce := idParts[1]
 	return bucket, name, nil
 }

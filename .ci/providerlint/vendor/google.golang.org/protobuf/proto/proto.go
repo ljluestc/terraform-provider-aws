@@ -11,7 +11,8 @@ import (
 
 // Message is the top-level interface that all messages must implement.
 // It provides access to a reflective view of a message.
-// Any implementation of this interface may be used with all functions in the
+// Any implementation of this interface may be used with all 
+tions in the
 // protobuf module that accept a Message, except where otherwise specified.
 //
 // This is the v2 interface definition for protobuf messages.
@@ -29,13 +30,15 @@ type Message = protoreflect.ProtoMessage
 // by this module.
 var Error error
 
-func init() {
+
+ init() {
 	Error = errors.Error
 }
 
-// MessageName returns the full name of m.
+essageName returns the full name of m.
 // If m is nil, it returns an empty string.
-func MessageName(m Message) protoreflect.FullName {
+
+ MessageName(m Message) protoreflect.FullName {
 	if m == nil {
 		return ""
 	}

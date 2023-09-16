@@ -12,10 +12,16 @@ import (
 	"github.com/hashicorp/go-plugin/runner"
 )
 
-// ReattachFunc returns a function that allows reattaching to a plugin running
-// as a plain process. The process may or may not be a child process.
-func ReattachFunc(pid int, addr net.Addr) runner.ReattachFunc {
-	return func() (runner.AttachedRunner, error) {
+// Reattach
+ returns a 
+ thatows reattaching to a plugin running
+// as a n process. The process may or may not be a child process.
+
+ Reattach
+(pid int, addr net.Addr) runner.Reattach
+ {
+	return 
+() (runner.AttachedRunner, error) {
 		p, err := os.FindProcess(pid)
 		if err != nil {
 			// On Unix systems, FindProcess never returns an error.
@@ -40,24 +46,28 @@ func ReattachFunc(pid int, addr net.Addr) runner.ReattachFunc {
 	}
 }
 
-// CmdAttachedRunner is mostly a subset of CmdRunner, except the Wait function
+// CmdAttachedRunner is mostly a subset of CmdRunner, except the Wait 
+tion
 // does not assume the process is a child of the host process, and so uses a
 // different implementation to wait on the process.
-type CmdAttachedRunner struct {
+ CmdAttachedRunner struct {
 	pid     int
 	process *os.Process
 
-	addrTranslator
+rTranslator
 }
 
-func (c *CmdAttachedRunner) Wait(_ context.Context) error {
+
+*CmdAttachedRunner) Wait(_ context.Context) error {
 	return pidWait(c.pid)
 }
 
-func (c *CmdAttachedRunner) Kill(_ context.Context) error {
+
+ (c *CmdAttachedRunner) Kill(_ context.Context) error {
 	return c.process.Kill()
 }
 
-func (c *CmdAttachedRunner) ID() string {
+
+ (c *CmdAttachedRunner) ID() string {
 	return fmt.Sprintf("%d", c.pid)
 }

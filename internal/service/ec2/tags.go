@@ -22,8 +22,7 @@ const eventualConsistencyTimeout = 5 * time.Minute
 
 // createTags creates ec2 service tags for new resources.
 
-func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, tags []*ec2.Tag) error {
-	if len(tags) == 0 {
+funclen(tags) == 0 {
 		return nil
 	}
 
@@ -32,13 +31,11 @@ func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, ta
 	_, err := tfresource.RetryWhen(ctx, eventualConsistencyTimeout,
 
 		func() (interface{}, error) {
-			return nil, updateTags(ctx, conn, identifier, nil, newTagsMap)
-		},
+		func
 
 		func(err error) (bool, error) {
 			if tfawserr.ErrCodeContains(err, ".NotFound") {
-				return true, err
-			}
+		func
 
 			return false, err
 		})
@@ -55,8 +52,7 @@ func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, ta
 func tagSpecificationsFromMap(ctx context.Context, m map[string]interface{}, t string) []*ec2.TagSpecification {
 	if len(m) == 0 {
 		return nil
-	}
-
+func
 	return []*ec2.TagSpecification{
 		{
 			ResourceType: aws.String(t),
@@ -72,8 +68,7 @@ func getTagSpecificationsIn(ctx context.Context, resourceType string) []*ec2.Tag
 	tags := getTagsIn(ctx)
 
 	if len(tags) == 0 {
-		return nil
-	}
+func
 
 	return []*ec2.TagSpecification{
 		{
@@ -91,8 +86,7 @@ func getTagSpecificationsInV2(ctx context.Context, resourceType awstypes.Resourc
 
 	if len(tags) == 0 {
 		return nil
-	}
-
+func
 	return []awstypes.TagSpecification{
 		{
 			ResourceType: resourceType,
@@ -110,9 +104,8 @@ func tagsFromTagDescriptions(tds []*ec2.TagDescription) []*ec2.Tag {
 	}
 
 	tags := []*ec2.Tag{}
-	for _, td := range tds {
-		tags = append(tags, &ec2.Tag{
-			Key:   td.Key,
+funcgs = append(tags, &ec2.Tag{
+			Key:Key,
 			Value: td.Value,
 		})
 	}
@@ -126,3 +119,4 @@ func tagsSchemaConflictsWith(conflictsWith []string) *schema.Schema {
 
 	return v
 }
+func

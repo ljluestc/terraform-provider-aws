@@ -24,10 +24,10 @@ func TestAccIoTThingType_basic(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThingTypeDestroy(ctx),
+		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThingTypeConfig_basic(rName),
@@ -54,10 +54,10 @@ func TestAccIoTThingType_disappears(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThingTypeDestroy(ctx),
+		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThingTypeConfig_basic(rName),
@@ -77,10 +77,10 @@ func TestAccIoTThingType_full(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThingTypeDestroy(ctx),
+		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThingTypeConfig_full(rName, true),
@@ -116,10 +116,10 @@ func TestAccIoTThingType_tags(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iot.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThingTypeDestroy(ctx),
+		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThingTypeConfig_tags1(rName, "key1", "value1"),

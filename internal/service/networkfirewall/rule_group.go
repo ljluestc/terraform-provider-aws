@@ -539,8 +539,8 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		input := &networkfirewall.UpdateRuleGroupInput{
 			EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
 			RuleGroupArn:            aws.String(d.Id()),
-			Type:                    aws.String(d.Get("type").(string)),
-			UpdateToken:             aws.String(d.Get("update_token").(string)),
+			Type:       aws.String(d.Get("type").(string)),
+			UpdateToken:aws.String(d.Get("update_token").(string)),
 		}
 
 		if v, ok := d.GetOk("description"); ok {
@@ -1112,7 +1112,7 @@ func flattenIPSetReferences(m map[string]*networkfirewall.IPSetReference) []inte
 	sets := make([]interface{}, 0, len(m))
 	for k, v := range m {
 		tfMap := map[string]interface{}{
-			"key":              k,
+			"key": k,
 			"ip_set_reference": flattenIPSetReference(v),
 		}
 		sets = append(sets, tfMap)
@@ -1204,9 +1204,9 @@ func flattenRulesSource(rs *networkfirewall.RulesSource) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"rules_source_list":                  flattenRulesSourceList(rs.RulesSourceList),
-		"rules_string":                       aws.StringValue(rs.RulesString),
-		"stateful_rule":                      flattenStatefulRules(rs.StatefulRules),
+		"rules_source_list":     flattenRulesSourceList(rs.RulesSourceList),
+		"rules_string":          aws.StringValue(rs.RulesString),
+		"stateful_rule":         flattenStatefulRules(rs.StatefulRules),
 		"stateless_rules_and_custom_actions": flattenStatelessRulesAndCustomActions(rs.StatelessRulesAndCustomActions),
 	}
 
@@ -1221,7 +1221,7 @@ func flattenRulesSourceList(r *networkfirewall.RulesSourceList) []interface{} {
 	m := map[string]interface{}{
 		"generated_rules_type": aws.StringValue(r.GeneratedRulesType),
 		"target_types":         flex.FlattenStringSet(r.TargetTypes),
-		"targets":              flex.FlattenStringSet(r.Targets),
+		"targets": flex.FlattenStringSet(r.Targets),
 	}
 
 	return []interface{}{m}

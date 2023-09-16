@@ -14,8 +14,7 @@ import (
 )
 
 
-func testAccContactFlowModuleDataSource_contactFlowModuleID(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_contact_flow_module.test"
 	datasourceName := "data.aws_connect_contact_flow_module.test"
@@ -23,16 +22,14 @@ func testAccContactFlowModuleDataSource_contactFlowModuleID(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccContactFlowModuleDataSourceConfig_id(rName, resourceName),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", resourceName, "contact_flow_module_id"),
+funcource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", resourceName, "contact_flow_module_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
 	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
@@ -50,8 +47,7 @@ func(
 func testAccContactFlowModuleDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_contact_flow_module.test"
+funcourceName := "aws_connect_contact_flow_module.test"
 	datasourceName := "data.aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
@@ -60,16 +56,14 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccContactFlowModuleDataSourceConfig_name(rName, rName2),
+funcig: testAccContactFlowModuleDataSourceConfig_name(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
 func(
 	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", resourceName, "contact_flow_module_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+funcource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 	resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
 	resource.TestCheckResourceAttrSet(datasourceName, "state"),
 	resource.TestCheckResourceAttrSet(datasourceName, "status"),
@@ -87,8 +81,7 @@ resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
   instance_alias  = %[1]q
-  outbound_calls_enabled   = true
-}
+func
 
 resource "aws_connect_contact_flow_module" "test" {
   instance_id = aws_connect_instance.test.id
@@ -113,8 +106,7 @@ testAccContactFlowModuleBaseDataSourceConfig(rName, rName2),
 data "aws_connect_contact_flow_module" "test" {
   instance_id   = aws_connect_instance.test.id
   contact_flow_module_id = aws_connect_contact_flow_module.test.contact_flow_module_id
-}
-`)
+func
 }
 
 
@@ -126,5 +118,4 @@ data "aws_connect_contact_flow_module" "test" {
   instance_id = aws_connect_instance.test.id
   name        = aws_connect_contact_flow_module.test.name
 }
-`)
-}
+func

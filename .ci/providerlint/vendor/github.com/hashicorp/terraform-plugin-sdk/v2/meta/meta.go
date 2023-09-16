@@ -26,12 +26,14 @@ var SDKPrerelease = ""
 // proper semantic version, which should always be the case.
 var SemVer *version.Version
 
-func init() {
+
+ init() {
 	SemVer = version.Must(version.NewVersion(SDKVersion))
 }
 
-// VersionString returns the complete version string, including prerelease
-func SDKVersionString() string {
+ersionString returns the complete version string, including prerelease
+
+ SDKVersionString() string {
 	if SDKPrerelease != "" {
 		return fmt.Sprintf("%s-%s", SDKVersion, SDKPrerelease)
 	}

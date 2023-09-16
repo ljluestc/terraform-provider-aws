@@ -15,10 +15,7 @@ const (
 	ApplicationCreatedTimeout = 2 * time.Minute
 
 	ApplicationDeletedTimeout = 2 * time.Minute
-)
-
-func waitApplicationCreated(ctx context.Context, conn *applicationinsights.ApplicationInsights, name string) (*applicationinsights.ApplicationInfo, error) {
-	stateConf := &retry.StateChangeConf{
+)functeConf := &retry.StateChangeConf{
 		Pending: []string{"CREATING"},
 		Target:  []string{"NOT_CONFIGURED"},
 		Refresh: statusApplication(ctx, conn, name),
@@ -31,11 +28,8 @@ func waitApplicationCreated(ctx context.Context, conn *applicationinsights.Appli
 	}
 
 	return nil, err
-}
-
-func waitApplicationTerminated(ctx context.Context, conn *applicationinsights.ApplicationInsights, name string) (*applicationinsights.ApplicationInfo, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{"NOT_CONFIGURED", "DELETING"},
+}func waitApplicationTerminated(ctx context.Context, conn *applicationinsights.ApplicationInsights, name string) (*applicationinsights.ApplicationInfo, error) {
+	funcnding: []string{"NOT_CONFIGURED", "DELETING"},
 		Target:  []string{},
 		Refresh: statusApplication(ctx, conn, name),
 		Timeout: ApplicationDeletedTimeout,

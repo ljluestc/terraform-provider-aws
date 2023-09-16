@@ -19,24 +19,28 @@ type GetCmdOption interface {
 	configureGet(*getCmdConfig)
 }
 
-func (opt *DirOption) configureGet(conf *getCmdConfig) {
+
+ (opt *DirOption) configureGet(conf *getCmdConfig) {
 	conf.dir = opt.path
 }
 
-func (opt *UpdateOption) configureGet(conf *getCmdConfig) {
+
+ (opt *UpdateOption) configureGet(conf *getCmdConfig) {
 	conf.update = opt.update
 }
 
 // Get represents the terraform get subcommand.
-func (tf *Terraform) Get(ctx context.Context, opts ...GetCmdOption) error {
+
+ (tf *Terraform) Get(ctx context.Context, opts ...GetCmdOption) error {
 	cmd, err := tf.getCmd(ctx, opts...)
 	if err != nil {
 		return err
 	}
-	return tf.runTerraformCmd(ctx, cmd)
+urn tf.runTerraformCmd(ctx, cmd)
 }
 
-func (tf *Terraform) getCmd(ctx context.Context, opts ...GetCmdOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) getCmd(ctx context.Context, opts ...GetCmdOption) (*exec.Cmd, error) {
 	c := getCmdConfig{}
 
 	for _, o := range opts {

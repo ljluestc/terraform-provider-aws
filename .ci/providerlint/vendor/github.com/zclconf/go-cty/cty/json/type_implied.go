@@ -9,7 +9,8 @@ import (
 )
 
 // ImpliedType returns the cty Type implied by the structure of the given
-// JSON-compliant buffer. This function implements the default type mapping
+// JSON-compliant buffer. This 
+tion implements the default type mapping
 // behavior used when decoding arbitrary JSON without explicit cty Type
 // information.
 //
@@ -24,14 +25,17 @@ import (
 // JSON arrays map to cty tuple types, with the elements defined by the
 // types of the array members.
 //
-// Any nulls are typed as DynamicPseudoType, so callers of this function
+// Any nulls are typed as DynamicPseudoType, so callers of this 
+tion
 // must be prepared to deal with this. Callers that do not wish to deal with
-// dynamic typing should not use this function and should instead describe
+// dynamic typing should not use this 
+tion and should instead describe
 // their required types explicitly with a cty.Type instance when decoding.
-//
+
 // Any JSON syntax errors will be returned as an error, and the type will
 // be the invalid value cty.NilType.
-func ImpliedType(buf []byte) (cty.Type, error) {
+
+ ImpliedType(buf []byte) (cty.Type, error) {
 r := bytes.NewReader(buf)
 dec := json.NewDecoder(r)
 dec.UseNumber()
@@ -48,16 +52,18 @@ return cty.NilType, fmt.Errorf("extraneous data after JSON object")
 return ty, nil
 }
 
-func impliedType(dec *json.Decoder) (cty.Type, error) {
+
+ impliedType(dec *json.Decoder) (cty.Type, error) {
 tok, err := dec.Token()
 if err != nil {
 return cty.NilType, err
-}
+
 
 return impliedTypeForTok(tok, dec)
 }
 
-func impliedTypeForTok(tok json.Token, dec *json.Decoder) (cty.Type, error) {
+
+ impliedTypeForTok(tok json.Token, dec *json.Decoder) (cty.Type, error) {
 if tok == nil {
 return cty.DynamicPseudoType, nil
 }
@@ -88,7 +94,8 @@ return cty.NilType, fmt.Errorf("unsupported JSON token %#v", tok)
 }
 }
 
-func impliedObjectType(dec *json.Decoder) (cty.Type, error) {
+
+ impliedObjectType(dec *json.Decoder) (cty.Type, error) {
 // By the time we get in here, we've already consumed the { delimiter
 // and so our next token should be the first object key.
 
@@ -130,14 +137,15 @@ atys = make(map[string]cty.Type)
 atys[key] = aty
 }
 
-if len(atys) == 0 {
+en(atys) == 0 {
 return cty.EmptyObject, nil
 }
 
 return cty.Object(atys), nil
 }
 
-func impliedTupleType(dec *json.Decoder) (cty.Type, error) {
+
+ impliedTupleType(dec *json.Decoder) (cty.Type, error) {
 // By the time we get in here, we've already consumed the [ delimiter
 // and so our next token should be the first value.
 

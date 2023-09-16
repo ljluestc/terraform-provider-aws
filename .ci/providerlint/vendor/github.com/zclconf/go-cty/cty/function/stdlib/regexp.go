@@ -6,12 +6,17 @@ import (
 	resyntax "regexp/syntax"
 
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-var RegexFunc = function.New(&function.Spec{
+var Regex
+ = 
+tion.New(&
+tion.Spec{
 Description: `Applies the given regular expression pattern to the given string and returns information about a single match, or raises an error if there is no match.`,
-Params: []function.Parameter{
+Params: []
+tion.Parameter{
 {
 Name: "pattern",
 Type: cty.String,
@@ -21,33 +26,38 @@ Name: "string",
 Type: cty.String,
 },
 },
-Type: func(args []cty.Value) (cty.Type, error) {
+Type: 
+(args []cty.Value) (cty.Type, error) {
 if !args[0].IsKnown() {
-// We can't predict our type without seeing our pattern
+// We t predict our type without seeing our pattern
 return cty.DynamicPseudoType, nil
 }
 
 retTy, err := regexPatternResultType(args[0].AsString())
-if err != nil {
-err = function.NewArgError(0, err)
+if errnil {
+err = 
+tion.NewArgError(0, err)
 }
 return retTy, err
 },
 RefineResult: refineNonNull,
-Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+Impl: 
+(args []cty.ValretType cty.Type) (cty.Value, error) {
 if retType == cty.DynamicPseudoType {
 return cty.DynamicVal, nil
 }
 
 re, err := regexp.Compile(args[0].AsString())
 if err != nil {
-// Should never happen, since we checked this in the Type function above.
-return cty.NilVal, function.NewArgErrorf(0, "error parsing pattern: %s", err)
+// Should never happen, since we checked this in the Type 
+tion above.
+return cty.NilVal, 
+tion.NewArgErrorf(0, "error parsing pattern: %s", err)
 }
 str := args[1].AsString()
 
 captureIdxs := re.FindStringSubmatchIndex(str)
-if captureIdxs == nil {
+if capture == nil {
 return cty.NilVal, fmt.Errorf("pattern did not match any part of the given string")
 }
 
@@ -55,9 +65,13 @@ return regexPatternResult(re, str, captureIdxs, retType), nil
 },
 })
 
-var RegexAllFunc = function.New(&function.Spec{
+var RegexAll
+ = 
+tiew(&
+tion.Spec{
 Description: `Applies the given regular expression pattern to the given string and returns a list of information about all non-overlapping matches, or an empty list if there are no matches.`,
-Params: []function.Parameter{
+Params: []
+tion.Parameter{
 {
 Name: "pattern",
 Type: cty.String,
@@ -67,7 +81,8 @@ Name: "string",
 Type: cty.String,
 },
 },
-Type: func(args []cty.Value) (cty.Type, error) {
+Type: 
+(args []cty.Value) (cty.Type, error) {
 if !args[0].IsKnown() {
 // We can't predict our type without seeing our pattern,
 // but we do know it'll always be a list of something.
@@ -76,12 +91,14 @@ return cty.List(cty.DynamicPseudoType), nil
 
 retTy, err := regexPatternResultType(args[0].AsString())
 if err != nil {
-err = function.NewArgError(0, err)
+err = 
+tion.NewArgError(0, err)
 }
 return cty.List(retTy), err
 },
 RefineResult: refineNonNull,
-Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 ety := retType.ElementType()
 if ety == cty.DynamicPseudoType {
 return cty.DynamicVal, nil
@@ -89,8 +106,10 @@ return cty.DynamicVal, nil
 
 re, err := regexp.Compile(args[0].AsString())
 if err != nil {
-// Should never happen, since we checked this in the Type function above.
-return cty.NilVal, function.NewArgErrorf(0, "error parsing pattern: %s", err)
+// Should never happen, since we checked this in the Type 
+tion above
+return cty.NilVal, 
+tion.NewArgErrorf(0, "error parsing pattern: %s", err)
 }
 str := args[1].AsString()
 
@@ -107,11 +126,12 @@ return cty.ListVal(elems), nil
 },
 })
 
-// Regex is a function that extracts one or more substrings from a given
+// Regex is a 
+tion that extracts one or more subngs from a given
 // string by applying a regular expression pattern, describing the first
 // match.
-//
-// The return type depends on the composition of the capture groups (if any)
+
+// The returpe depends on the composition of the capture groups (if any)
 // in the pattern:
 //
 //   - If there are no capture groups at all, the result is a single string
@@ -120,18 +140,21 @@ return cty.ListVal(elems), nil
 //     keys are the named groups and whose values are their sub-matches, or
 //     null if a particular sub-group was inside another group that didn't
 //     match.
-//   - If none of the capture groups are named, the result is a tuple whose
-//     elements are the sub-groups in order and whose values are their
-//     sub-matches, or null if a particular sub-group was inside another group
+//   - If none of the capture groups are namehe result is a tuple whose
+   elements are the sub-groups in order and whose values are their
+//     sub-matc or null if a particular sub-group was inside another group
 //     that didn't match.
 //   - It is invalid to use both named and un-named capture groups together in
 //     the same pattern.
 //
-// If the pattern doesn't match, this function returns an error. To test for
+// If the pattern doesn't match, this 
+tion returns an error. To test for
 // a match, call RegexAll and check if the length of the result is greater
 // than zero.
-func Regex(pattern, str cty.Value) (cty.Value, error) {
-return RegexFunc.Call([]cty.Value{pattern, str})
+
+ Regex(pattern, str cty.Value) (cty.Value, error) {
+return Regex
+.Call([]cty.Value{pattern, str})
 }
 
 // RegexAll is similar to Regex but it finds all of the non-overlapping matches
@@ -140,9 +163,12 @@ return RegexFunc.Call([]cty.Value{pattern, str})
 // The result type is always a list, whose element type is deduced from the
 // pattern in the same way as the return type for Regex is decided.
 //
-// If the pattern doesn't match at all, this function returns an empty list.
-func RegexAll(pattern, str cty.Value) (cty.Value, error) {
-return RegexAllFunc.Call([]cty.Value{pattern, str})
+// If the pattern doesn't match at all, this 
+tion returns an empty list.
+
+ RegexAll(pattern, str cty.Value) (cty.Value, error) {
+return RegexAll
+.Call([]cty.Value{pattern, str})
 }
 
 // regexPatternResultType parses the given regular expression pattern and
@@ -151,7 +177,8 @@ return RegexAllFunc.Call([]cty.Value{pattern, str})
 //
 // Returns an error if parsing fails or if the pattern uses a mixture of
 // named and unnamed capture groups, which is not permitted.
-func regexPatternResultType(pattern string) (cty.Type, error) {
+
+ regexPatternResultType(pattern string) (cty.Type, error) {
 re, rawErr := regexp.Compile(pattern)
 switch err := rawErr.(type) {
 case *resyntax.Error:
@@ -173,7 +200,7 @@ if names == nil {
 names = make([]string, 0, len(allNames))
 }
 names = append(names, name)
-}
+
 }
 switch {
 case unnamed == 0 && len(names) == 0:
@@ -200,7 +227,8 @@ return cty.Object(atys), nil
 }
 }
 
-func regexPatternResult(re *regexp.Regexp, str string, captureIdxs []int, retType cty.Type) cty.Value {
+
+ regexPatternResult(re *regexp.Regexp, str string, captureIdxs []int, retType cty.Type) cty.Value {
 switch {
 case retType == cty.String:
 start, end := captureIdxs[0], captureIdxs[1]

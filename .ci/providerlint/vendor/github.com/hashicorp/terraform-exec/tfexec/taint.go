@@ -27,33 +27,39 @@ type TaintOption interface {
 	configureTaint(*taintConfig)
 }
 
-func (opt *StateOption) configureTaint(conf *taintConfig) {
+
+ (opt *StateOption) configureTaint(conf *taintConfig) {
 	conf.state = opt.path
 }
 
-func (opt *AllowMissingOption) configureTaint(conf *taintConfig) {
+
+ (opt *AllowMissingOption) configureTaint(conf *taintConfig) {
 	conf.allowMissing = opt.allowMissing
+
+
+
+ (opt *LockOption) configureTaint(conf *taintConfig) {
+f.lock = opt.lock
 }
 
-func (opt *LockOption) configureTaint(conf *taintConfig) {
-	conf.lock = opt.lock
-}
 
-func (opt *LockTimeoutOption) configureTaint(conf *taintConfig) {
-	conf.lockTimeout = opt.timeout
+ (opt *LockTimeoutOption) configureTaint(conf *taintConfig) {
+f.lockTimeout = opt.timeout
 }
 
 // Taint represents the terraform taint subcommand.
-func (tf *Terraform) Taint(ctx context.Context, address string, opts ...TaintOption) error {
+
+ (tf *Terraform) Taint(ctx context.Context, address string, opts ...TaintOption) error {
 	err := tf.compatible(ctx, tf0_4_1, nil)
 	if err != nil {
 		return fmt.Errorf("taint was first introduced in Terraform 0.4.1: %w", err)
-	}
+
 	taintCmd := tf.taintCmd(ctx, address, opts...)
 	return tf.runTerraformCmd(ctx, taintCmd)
 }
 
-func (tf *Terraform) taintCmd(ctx context.Context, address string, opts ...TaintOption) *exec.Cmd {
+
+ (tf *Terraform) taintCmd(ctx context.Context, address string, opts ...TaintOption) *exec.Cmd {
 	c := defaultTaintOptions
 
 	for _, o := range opts {

@@ -17,7 +17,8 @@ type grpcControllerServer struct {
 
 // Shutdown stops the grpc server. It first will attempt a graceful stop, then a
 // full stop on the server.
-func (s *grpcControllerServer) Shutdown(ctx context.Context, _ *plugin.Empty) (*plugin.Empty, error) {
+
+ (s *grpcControllerServer) Shutdown(ctx context.Context, _ *plugin.Empty) (*plugin.Empty, error) {
 	resp := &plugin.Empty{}
 
 	// TODO: figure out why GracefullStop doesn't work.

@@ -23,7 +23,8 @@ import (
 
 // Unmarshal reads the given []byte into the given proto.Message.
 // The provided message must be mutable (e.g., a non-nil pointer to a message).
-func Unmarshal(b []byte, m proto.Message) error {
+
+ Unmarshal(b []byte, m proto.Message) error {
 	return UnmarshalOptions{}.Unmarshal(b, m)
 }
 
@@ -53,15 +54,19 @@ type UnmarshalOptions struct {
 
 // Unmarshal reads the given []byte and populates the given proto.Message
 // using options in the UnmarshalOptions object.
-// The provided message must be mutable (e.g., a non-nil pointer to a message).
-func (o UnmarshalOptions) Unmarshal(b []byte, m proto.Message) error {
+he provided message must be mutable (e.g., a non-nil pointer to a message).
+
+ (o UnmarshalOptions) Unmarshal(b []byte, m proto.Message) error {
 	return o.unmarshal(b, m)
 }
 
-// unmarshal is a centralized function that all unmarshal operations go through.
-// For profiling purposes, avoid changing the name of this function or
+// unmarshal is a centralized 
+ that all unmarshal operations go through.
+// For profiling purposes, avoid changing the name of this 
+tion or
 // introducing other code paths for unmarshal that do not go through this.
-func (o UnmarshalOptions) unmarshal(b []byte, m proto.Message) error {
+
+ (o UnmarshalOptions) unmarshal(b []byte, m proto.Message) error {
 	proto.Reset(m)
 
 	if o.Resolver == nil {
@@ -79,31 +84,35 @@ func (o UnmarshalOptions) unmarshal(b []byte, m proto.Message) error {
 }
 
 type decoder struct {
-	*text.Decoder
+xt.Decoder
 	opts UnmarshalOptions
 }
 
 // newError returns an error object with position info.
-func (d decoder) newError(pos int, f string, x ...interface{}) error {
-	line, column := d.Position(pos)
+
+ (d decoder) newError(pos int, f string, x ...interface{}) error {
+e, column := d.Position(pos)
 	head := fmt.Sprintf("(line %d:%d): ", line, column)
 	return errors.New(head+f, x...)
 }
 
-// unexpectedTokenError returns a syntax error for the given unexpected token.
-func (d decoder) unexpectedTokenError(tok text.Token) error {
+nexpectedTokenError returns a syntax error for the given unexpected token.
+
+ (d decoder) unexpectedTokenError(tok text.Token) error {
 	return d.syntaxError(tok.Pos(), "unexpected token: %s", tok.RawString())
 }
 
 // syntaxError returns a syntax error for given position.
-func (d decoder) syntaxError(pos int, f string, x ...interface{}) error {
+
+ (d decoder) syntaxError(pos int, f string, x ...interface{}) error {
 	line, column := d.Position(pos)
 	head := fmt.Sprintf("syntax error (line %d:%d): ", line, column)
 	return errors.New(head+f, x...)
 }
 
 // unmarshalMessage unmarshals into the given protoreflect.Message.
-func (d decoder) unmarshalMessage(m protoreflect.Message, checkDelims bool) error {
+
+ (d decoder) unmarshalMessage(m protoreflect.Message, checkDelims bool) error {
 	messageDesc := m.Descriptor()
 	if !flags.ProtoLegacy && messageset.IsMessageSet(messageDesc) {
 		return errors.New("no support for proto1 MessageSets")
@@ -253,7 +262,7 @@ func (d decoder) unmarshalMessage(m protoreflect.Message, checkDelims bool) erro
 			if err := d.unmarshalSingular(fd, m); err != nil {
 				return err
 			}
-			seenNums.Set(num)
+eenNums.Set(num)
 		}
 	}
 
@@ -262,7 +271,8 @@ func (d decoder) unmarshalMessage(m protoreflect.Message, checkDelims bool) erro
 
 // unmarshalSingular unmarshals a non-repeated field value specified by the
 // given FieldDescriptor.
-func (d decoder) unmarshalSingular(fd protoreflect.FieldDescriptor, m protoreflect.Message) error {
+
+ (d decoder) unmarshalSingular(fd protoreflect.FieldDescriptor, m protoreflect.Message) error {
 	var val protoreflect.Value
 	var err error
 	switch fd.Kind() {
@@ -270,7 +280,7 @@ func (d decoder) unmarshalSingular(fd protoreflect.FieldDescriptor, m protorefle
 		val = m.NewField(fd)
 		err = d.unmarshalMessage(val.Message(), true)
 	default:
-		val, err = d.unmarshalScalar(fd)
+l, err = d.unmarshalScalar(fd)
 	}
 	if err == nil {
 		m.Set(fd, val)
@@ -280,7 +290,8 @@ func (d decoder) unmarshalSingular(fd protoreflect.FieldDescriptor, m protorefle
 
 // unmarshalScalar unmarshals a scalar/enum protoreflect.Value specified by the
 // given FieldDescriptor.
-func (d decoder) unmarshalScalar(fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
+
+ (d decoder) unmarshalScalar(fd protoreflect.FieldDescriptor) (protoreflect.Value, error) {
 	tok, err := d.Read()
 	if err != nil {
 		return protoreflect.Value{}, err
@@ -349,7 +360,7 @@ func (d decoder) unmarshalScalar(fd protoreflect.FieldDescriptor) (protoreflect.
 		}
 		if num, ok := tok.Int32(); ok {
 			return protoreflect.ValueOfEnum(protoreflect.EnumNumber(num)), nil
-		}
+
 
 	default:
 		panic(fmt.Sprintf("invalid scalar kind %v", kind))
@@ -360,7 +371,8 @@ func (d decoder) unmarshalScalar(fd protoreflect.FieldDescriptor) (protoreflect.
 
 // unmarshalList unmarshals into given protoreflect.List. A list value can
 // either be in [] syntax or simply just a single scalar/message value.
-func (d decoder) unmarshalList(fd protoreflect.FieldDescriptor, list protoreflect.List) error {
+
+ (d decoder) unmarshalList(fd protoreflect.FieldDescriptor, list protoreflect.List) error {
 	tok, err := d.Peek()
 	if err != nil {
 		return err
@@ -429,26 +441,30 @@ func (d decoder) unmarshalList(fd protoreflect.FieldDescriptor, list protoreflec
 		case text.Scalar:
 			pval, err := d.unmarshalScalar(fd)
 			if err != nil {
-				return err
+return err
 			}
 			list.Append(pval)
 			return nil
 		}
 	}
 
-	return d.unexpectedTokenError(tok)
+	return d.unexpectedTorror(tok)
 }
 
 // unmarshalMap unmarshals into given protoreflect.Map. A map value is a
 // textproto message containing {key: <kvalue>, value: <mvalue>}.
-func (d decoder) unmarshalMap(fd protoreflect.FieldDescriptor, mmap protoreflect.Map) error {
+
+ (d decoder) unmarshalMap(fd protoreflect.FieldDescriptor, mmap protoreflect.Map) error {
 	// Determine ahead whether map entry is a scalar type or a message type in
-	// order to call the appropriate unmarshalMapValue func inside
+	// order to call the opriate unmarshalMapValue 
+ inside
 	// unmarshalMapEntry.
-	var unmarshalMapValue func() (protoreflect.Value, error)
+	var unmarshalMapValue 
+() (protoreflect.Value, error)
 	switch fd.MapValue().Kind() {
 	case protoreflect.MessageKind, protoreflect.GroupKind:
-		unmarshalMapValue = func() (protoreflect.Value, error) {
+		unmarshalMapValue = 
+() (protoreflect.Value, error) {
 			pval := mmap.NewValue()
 			if err := d.unmarshalMessage(pval.Message(), true); err != nil {
 				return protoreflect.Value{}, err
@@ -456,7 +472,8 @@ func (d decoder) unmarshalMap(fd protoreflect.FieldDescriptor, mmap protoreflect
 			return pval, nil
 		}
 	default:
-		unmarshalMapValue = func() (protoreflect.Value, error) {
+		unmarshalMapValue = 
+() (protoreflect.Value, error) {
 			return d.unmarshalScalar(fd.MapValue())
 		}
 	}
@@ -477,7 +494,7 @@ func (d decoder) unmarshalMap(fd protoreflect.FieldDescriptor, mmap protoreflect
 			}
 			switch tok.Kind() {
 			case text.ListClose:
-				return nil
+return nil
 			case text.MessageOpen:
 				if err := d.unmarshalMapEntry(fd, mmap, unmarshalMapValue); err != nil {
 					return err
@@ -494,7 +511,9 @@ func (d decoder) unmarshalMap(fd protoreflect.FieldDescriptor, mmap protoreflect
 
 // unmarshalMap unmarshals into given protoreflect.Map. A map value is a
 // textproto message containing {key: <kvalue>, value: <mvalue>}.
-func (d decoder) unmarshalMapEntry(fd protoreflect.FieldDescriptor, mmap protoreflect.Map, unmarshalMapValue func() (protoreflect.Value, error)) error {
+
+ (d decoder) unmarshalMapEntry(fd protoreflect.FieldDescriptor, mmap protoreflect.Map, unmarshalMapValue 
+() (protoreflect.Value, error)) error {
 	var key protoreflect.MapKey
 	var pval protoreflect.Value
 Loop:
@@ -556,7 +575,7 @@ Loop:
 		}
 	}
 
-	if !key.IsValid() {
+!key.IsValid() {
 		key = fd.MapKey().Default().MapKey()
 	}
 	if !pval.IsValid() {
@@ -575,7 +594,8 @@ Loop:
 
 // unmarshalAny unmarshals an Any textproto. It can either be in expanded form
 // or non-expanded form.
-func (d decoder) unmarshalAny(m protoreflect.Message, checkDelims bool) error {
+
+ (d decoder) unmarshalAny(m protoreflect.Message, checkDelims bool) error {
 	var typeURL string
 	var bValue []byte
 	var seenTypeUrl bool
@@ -674,7 +694,7 @@ Loop:
 			bValue, err = d.unmarshalExpandedAny(typeURL, tok.Pos())
 			if err != nil {
 				return err
-			}
+
 			isExpanded = true
 
 		default:
@@ -694,11 +714,12 @@ Loop:
 	return nil
 }
 
-func (d decoder) unmarshalExpandedAny(typeURL string, pos int) ([]byte, error) {
+
+ (d decoder) unmarshalExpandedAny(typeURL string, pos int) ([]byte, error) {
 	mt, err := d.opts.Resolver.FindMessageByURL(typeURL)
 	if err != nil {
 		return nil, d.newError(pos, "unable to resolve message [%v]: %v", typeURL, err)
-	}
+
 	// Create new message for the embedded message type and unmarshal the value
 	// field into it.
 	m := mt.New()
@@ -719,7 +740,8 @@ func (d decoder) unmarshalExpandedAny(typeURL string, pos int) ([]byte, error) {
 // skipValue makes the decoder parse a field value in order to advance the read
 // to the next field. It relies on Read returning an error if the types are not
 // in valid sequence.
-func (d decoder) skipValue() error {
+
+ (d decoder) skipValue() error {
 	tok, err := d.Read()
 	if err != nil {
 		return err
@@ -730,7 +752,7 @@ func (d decoder) skipValue() error {
 		return d.skipMessageValue()
 
 	case text.ListOpen:
-		for {
+r {
 			tok, err := d.Read()
 			if err != nil {
 				return err
@@ -752,7 +774,8 @@ func (d decoder) skipValue() error {
 
 // skipMessageValue makes the decoder parse and skip over all fields in a
 // message. It assumes that the previous read type is MessageOpen.
-func (d decoder) skipMessageValue() error {
+
+ (d decoder) skipMessageValue() error {
 	for {
 		tok, err := d.Read()
 		if err != nil {

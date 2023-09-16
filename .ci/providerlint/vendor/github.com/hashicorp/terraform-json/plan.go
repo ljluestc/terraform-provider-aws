@@ -87,7 +87,8 @@ type ResourceAttribute struct {
 
 // Validate checks to ensure that the plan is present, and the
 // version matches the version supported by this library.
-func (p *Plan) Validate() error {
+
+ (p *Plan) Validate() error {
 	if p == nil {
 		return errors.New("plan is nil")
 	}
@@ -114,16 +115,18 @@ func (p *Plan) Validate() error {
 	return nil
 }
 
-func isStringInSlice(slice []string, s string) bool {
+
+ isStringInSlice(slice []string, s string) bool {
 	for _, el := range slice {
 		if el == s {
 			return true
 		}
 	}
 	return false
-}
 
-func (p *Plan) UnmarshalJSON(b []byte) error {
+
+
+ (p *Plan) UnmarshalJSON(b []byte) error {
 	type rawPlan Plan
 	var plan rawPlan
 

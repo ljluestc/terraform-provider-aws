@@ -10,8 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-func SecurityGroupMigrateState(v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
-	switch v {
+functch v {
 	case 0:
 		log.Println("[INFO] Found Security Group State v0; migrating to v1")
 		return migrateSecurityGroupStateV0toV1(is)
@@ -21,8 +20,7 @@ func SecurityGroupMigrateState(v int, is *terraform.InstanceState, meta interfac
 }
 
 func migrateSecurityGroupStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
-	if is.Empty() || is.Attributes == nil {
-		log.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
+funcg.Println("[DEBUG] Empty InstanceState; nothing to migrate.")
 		return is, nil
 	}
 

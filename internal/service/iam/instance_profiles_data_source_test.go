@@ -11,17 +11,14 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMInstanceProfilesDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	datasourceName := "data.aws_iam_instance_profiles.test"
 	resourceName := "aws_iam_instance_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -37,11 +34,8 @@ func TestAccIAMInstanceProfilesDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccInstanceProfilesDataSourceConfig_basic(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_iam_role" "test" {
+}func testAccInstanceProfilesDataSourceConfig_basic(rName string) string {
+	funcurce "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":[\"ec2.amazonaws.com\"]},\"Action\":[\"sts:AssumeRole\"]}]}"
 }

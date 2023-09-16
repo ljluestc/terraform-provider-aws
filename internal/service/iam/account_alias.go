@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKResource("aws_iam_account_alias")
-func ResourceAccountAlias() *schema.Resource {
+// @SDKResource("aws_iam_account_alias")func ResourceAccountAlias() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAccountAliasCreate,
 		ReadWithoutTimeout:   resourceAccountAliasRead,
@@ -34,10 +33,7 @@ func ResourceAccountAlias() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceAccountAliasCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	account_alias := d.Get("account_alias").(string)
@@ -55,11 +51,8 @@ func resourceAccountAliasCreate(ctx context.Context, d *schema.ResourceData, met
 	d.SetId(account_alias)
 
 	return diags
-}
-
-func resourceAccountAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
+}func resourceAccountAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	params := &iam.ListAccountAliasesInput{}
 
@@ -80,12 +73,9 @@ func resourceAccountAliasRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("account_alias", account_alias)
 
 	return diags
-}
-
-func resourceAccountAliasDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAccountAliasDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
+	func
 	account_alias := d.Get("account_alias").(string)
 
 	params := &iam.DeleteAccountAliasInput{

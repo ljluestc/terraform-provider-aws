@@ -23,10 +23,10 @@ func TestAccDocDBEngineVersionDataSource_basic(t *testing.T) {
 	version := "3.6.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_basic(engine, version),
@@ -50,10 +50,10 @@ func TestAccDocDBEngineVersionDataSource_preferred(t *testing.T) {
 	dataSourceName := "data.aws_docdb_engine_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_preferred(),
@@ -70,10 +70,10 @@ func TestAccDocDBEngineVersionDataSource_defaultOnly(t *testing.T) {
 	dataSourceName := "data.aws_docdb_engine_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, docdb.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEngineVersionDataSourceConfig_defaultOnly(),

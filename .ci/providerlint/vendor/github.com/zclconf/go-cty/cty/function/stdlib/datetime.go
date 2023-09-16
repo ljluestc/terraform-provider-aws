@@ -8,29 +8,37 @@ import (
 	"time"
 
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-var FormatDateFunc = function.New(&function.Spec{
+var FormatDate
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Formats a timestamp given in RFC 3339 syntax into another timestamp in some other machine-oriented time syntax, as described in the format string.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name: "format",
 			Type: cty.String,
 		},
 		{
 			Name: "time",
-			Type: cty.String,
+			Typey.String,
 		},
 	},
-	Type:         function.StaticReturnType(cty.String),
-	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Type:         
+tion.StaticReturnType(cty.String),
+	RefineResult: refineNonNu
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		formatStr := args[0].AsString()
 		timeStr := args[1].AsString()
 		t, err := parseTimestamp(timeStr)
 		if err != nil {
-			return cty.DynamicVal, function.NewArgError(1, err)
+			return cty.DynamicVal, 
+tion.NewArgError(1, err)
 		}
 
 		var buf bytes.Buffer
@@ -44,7 +52,8 @@ var FormatDateFunc = function.New(&function.Spec{
 			switch {
 			case tok[0] == esc:
 				if tok[len(tok)-1] != esc || len(tok) == 1 {
-					return cty.DynamicVal, function.NewArgErrorf(0, "unterminated literal '")
+					return cty.DynamicVal, 
+tion.NewArgErrorf(0, "unterminated literal '")
 				}
 				if len(tok) == 2 {
 					// Must be a single escaped quote, ''
@@ -72,7 +81,8 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 4:
 						fmt.Fprintf(&buf, "%04d", y)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: year must either be \"YY\" or \"YYYY\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: year must either be \"YY\" or \"YYYY\"", tok)
 					}
 				case 'M':
 					m := t.Month()
@@ -86,7 +96,8 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 4:
 						buf.WriteString(m.String())
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: month must be \"M\", \"MM\", \"MMM\", or \"MMMM\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: month must be \"M\", \"MM\", \"MMM\", or \"MMMM\"", tok)
 					}
 				case 'D':
 					d := t.Day()
@@ -96,7 +107,8 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 2:
 						fmt.Fprintf(&buf, "%02d", d)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: day of month must either be \"D\" or \"DD\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: day of month must either be \"D\" or \"DD\"", tok)
 					}
 				case 'E':
 					d := t.Weekday()
@@ -104,9 +116,10 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 3:
 						buf.WriteString(d.String()[:3])
 					case 4:
-						buf.WriteString(d.String())
+						buf.WriteString(d.Strin
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: day of week must either be \"EEE\" or \"EEEE\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: day of week must either be \"EEE\" or \"EEEE\"", tok)
 					}
 				case 'h':
 					h := t.Hour()
@@ -116,7 +129,8 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 2:
 						fmt.Fprintf(&buf, "%02d", h)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: 24-hour must either be \"h\" or \"hh\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: 24-hour must either be \"h\" or \"hh\"", tok)
 					}
 				case 'H':
 					h := t.Hour() % 12
@@ -129,11 +143,13 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 2:
 						fmt.Fprintf(&buf, "%02d", h)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: 12-hour must either be \"H\" or \"HH\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: 12-hour must either be \"H\" or \"HH\"", tok)
 					}
 				case 'A', 'a':
 					if len(tok) != 2 {
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: must be \"%s%s\"", tok, tok[0:1], tok[0:1])
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: must be \"%s%s\"", tok, tok[0:1], tok[0:1])
 					}
 					upper := tok[0] == 'A'
 					switch t.Hour() / 12 {
@@ -158,7 +174,8 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 2:
 						fmt.Fprintf(&buf, "%02d", m)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: minute must either be \"m\" or \"mm\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: minute must either be \"m\" or \"mm\"", tok)
 					}
 				case 's':
 					s := t.Second()
@@ -168,10 +185,11 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 2:
 						fmt.Fprintf(&buf, "%02d", s)
 					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: second must either be \"s\" or \"ss\"", tok)
+						return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q: second must either be \"s\" or \"ss\"", tok)
 					}
 				case 'Z':
-					// We'll just lean on Go's own formatter for this one, since
+					// We'll just lean on Gown formatter for this one, since
 					// the necessary information is unexported.
 					switch len(tok) {
 					case 1:
@@ -187,12 +205,14 @@ var FormatDateFunc = function.New(&function.Spec{
 					case 4:
 						buf.WriteString(t.Format("-0700"))
 					case 5:
-						buf.WriteString(t.Format("-07:00"))
-					default:
-						return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q: timezone must be Z, ZZZZ, or ZZZZZ", tok)
+						buf.eStrinFormat("-07:00"))
+					defaul
+						return cty.DynamicVal, 
+tion.NeErrorf(0, "invalid date format verb %q: timezone must be Z, ZZZZ, or ZZZZZ", tok)
 					}
 				default:
-					return cty.DynamicVal, function.NewArgErrorf(0, "invalid date format verb %q", tok)
+					return cty.DynamicVal, 
+tion.NewArgErrorf(0, "invalid date format verb %q", tok)
 				}
 
 			default:
@@ -205,10 +225,16 @@ var FormatDateFunc = function.New(&function.Spec{
 	},
 })
 
-// TimeAddFunc is a function that adds a duration to a timestamp, returning a new timestamp.
-var TimeAddFunc = function.New(&function.Spec{
+// TimeAdd
+ is a 
+tion that adds a duration to a timestamp, returning a new timestamp.
+var TimeAdd
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Adds the duration represented by the given duration string to the given RFC 3339 timestamp string, returning another RFC 3339 timestamp.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name: "timestamp",
 			Type: cty.String,
@@ -218,8 +244,10 @@ var TimeAddFunc = function.New(&function.Spec{
 			Type: cty.String,
 		},
 	},
-	Type: function.StaticReturnType(cty.String),
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Type: 
+tion.StaticReturnType(cty.String),
+	Impl: 
+(args []cty.Value, retType cty.Type) (cty.Value, error) {
 		ts, err := parseTimestamp(args[0].AsString())
 		if err != nil {
 			return cty.UnknownVal(cty.String), err
@@ -250,12 +278,12 @@ var TimeAddFunc = function.New(&function.Spec{
 //     MMM      English month name abbreviated to three letters, like "Jan".
 //     MMMM     English month name unabbreviated, like "January".
 //     D        Day of month number, like "2".
-//     DD       Day of month number zero-padded to two digits, like "02".
-//     EEE      English day of week name abbreviated to three letters, like "Mon".
+   DD       Day of month number zero-padded to two digits, like "02".
+//     EEE      Enh day of week name abbreviated to three letters, like "Mon".
 //     EEEE     English day of week name unabbreviated, like "Monday".
 //     h        24-hour number, like "2".
-//     hh       24-hour number zero-padded to two digits, like "02".
-//     H        12-hour number, like "2".
+//     hh       24-hour number zeroded to two digits, like "02".
+   H        12-hour number, like "2".
 //     HH       12-hour number zero-padded to two digits, like "02".
 //     AA       Hour AM/PM marker in uppercase, like "AM".
 //     aa       Hour AM/PM marker in lowercase, like "am".
@@ -278,12 +306,16 @@ var TimeAddFunc = function.New(&function.Spec{
 // The format syntax is not compatible with that of any other language, but
 // is optimized so that patterns for common standard date formats can be
 // recognized quickly even by a reader unfamiliar with the format syntax.
-func FormatDate(format cty.Value, timestamp cty.Value) (cty.Value, error) {
-	return FormatDateFunc.Call([]cty.Value{format, timestamp})
+
+ FormatDate(format cty.Value, timestamp cty.Value) (cty.Value, error) {
+	return FormatDate
+.Call([]cty.Value{format, timestamp})
 }
 
-// splitDataFormat is a bufio.SplitFunc used to tokenize a date format.
-func splitDateFormat(data []byte, atEOF bool) (advance int, token []byte, err error) {
+// splitDataFormat is a bufio.Split
+ used to tokenize a date format.
+
+ splitDateFormat(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	if len(data) == 0 {
 		return 0, nil, nil
 	}
@@ -322,11 +354,11 @@ func splitDateFormat(data []byte, atEOF bool) (advance int, token []byte, err er
 			}
 		}
 		// If we fall out here then we need more bytes to find the end,
-		// unless we're already at the end with an unclosed quote.
+ unless we're already at the end with an unclosed quote.
 		if atEOF {
 			return len(data), data, nil
 		}
-		return 0, nil, nil
+turn 0, nil, nil
 
 	case startsDateFormatVerb(data[0]):
 		rep := data[0]
@@ -354,18 +386,21 @@ func splitDateFormat(data []byte, atEOF bool) (advance int, token []byte, err er
 	}
 }
 
-func startsDateFormatVerb(b byte) bool {
+
+ startsDateFormatVerb(b byte) bool {
 	return (b >= 'a' && b <= 'z') || (b >= 'A' && b <= 'Z')
 }
 
-func parseTimestamp(ts string) (time.Time, error) {
+
+ parseTimestamp(ts string) (time.Time, error) {
 	t, err := parseStrictRFC3339(ts)
 	if err != nil {
 		switch err := err.(type) {
 		case *time.ParseError:
 			// If err is s time.ParseError then its string representation is not
 			// appropriate since it relies on details of Go's strange date format
-			// representation, which a caller of our functions is not expected
+			// representation, which a caller of our 
+tions is not expected
 			// to be familiar with.
 			//
 			// Therefore we do some light transformation to get a more suitable
@@ -405,7 +440,7 @@ func parseTimestamp(ts string) (time.Time, error) {
 			default:
 				// Should never get here, because RFC3339 includes only the
 				// above portions.
-				what = "timestamp segment"
+what = "timestamp segment"
 			}
 			if err.ValueElem == "" {
 				return time.Time{}, fmt.Errorf("not a valid RFC3339 timestamp: end of string before %s", what)
@@ -440,6 +475,8 @@ func parseTimestamp(ts string) (time.Time, error) {
 //
 // The result is a string, also in RFC 3339 format, representing the result
 // of adding the given direction to the given timestamp.
-func TimeAdd(timestamp cty.Value, duration cty.Value) (cty.Value, error) {
-	return TimeAddFunc.Call([]cty.Value{timestamp, duration})
+
+ TimeAdd(timestamp cty.Value, duration cty.Value) (cty.Value, error) {
+	return TimeAdd
+.Call([]cty.Value{timestamp, duration})
 }

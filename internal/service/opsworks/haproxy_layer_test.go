@@ -26,7 +26,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckHAProxyLayerDestroy(ctx),
+CheckDestroy:stAccCheckHAProxyLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHAProxyLayerConfig_basic(rName),
@@ -59,7 +59,7 @@ func(s *terraform.State) error { return testAccCheckLayerDestroy(ctx, "aws_opswo
 func testAccHAProxyLayerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), `
 resource "aws_opsworks_haproxy_layer" "test" {
-  stack_id       = aws_opsworks_stack.test.id
+  stack_id_opsworks_stack.test.id
   stats_password = "avoid-plaintext-passwords"
 
   custom_security_group_ids = aws_security_group.test[*].id

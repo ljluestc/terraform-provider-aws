@@ -19,6 +19,8 @@ import (
 
 // @SDKDataSource("aws_connect_user")
 
+
+
 func DataSourceUser() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserRead,
@@ -60,6 +62,8 @@ func DataSourceUser() *schema.Resource {
 				Type:schema.TypeString,
 				Required:     true,
 				Validate
+
+
 func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
@@ -113,6 +117,8 @@ func: validation.StringLenBetween(1, 100),
 		},
 	}
 }
+
+
 
 
 func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -181,6 +187,8 @@ func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 }
 
 
+
+
 func dataSourceGetUserSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.UserSummary, error) {
 	var result *connect.UserSummary
 
@@ -190,6 +198,8 @@ func dataSourceGetUserSummaryByName(ctx context.Context, conn *connect.Connect, 
 	}
 
 	err := conn.ListUsersPagesWithContext(ctx, input, 
+
+
 func(page *connect.ListUsersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage

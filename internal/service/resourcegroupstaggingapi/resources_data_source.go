@@ -17,8 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_resourcegroupstaggingapi_resources")
-func DataSourceResources() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceResourcesRead,
 
 		Schema: map[string]*schema.Schema{
@@ -102,8 +101,7 @@ func DataSourceResources() *schema.Resource {
 }
 
 func dataSourceResourcesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ResourceGroupsTaggingAPIConn(ctx)
+funcn := meta.(*conns.AWSClient).ResourceGroupsTaggingAPIConn(ctx)
 
 	input := &resourcegroupstaggingapi.GetResourcesInput{}
 
@@ -131,8 +129,7 @@ func dataSourceResourcesRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	err := conn.GetResourcesPagesWithContext(ctx, input, func(page *resourcegroupstaggingapi.GetResourcesOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		taggings = append(taggings, page.ResourceTagMappingList...)
 		return !lastPage
@@ -153,8 +150,7 @@ func dataSourceResourcesRead(ctx context.Context, d *schema.ResourceData, meta i
 func expandTagFilters(filters []interface{}) []*resourcegroupstaggingapi.TagFilter {
 	result := make([]*resourcegroupstaggingapi.TagFilter, len(filters))
 
-	for i, filter := range filters {
-		m := filter.(map[string]interface{})
+func:= filter.(map[string]interface{})
 
 		result[i] = &resourcegroupstaggingapi.TagFilter{
 			Key: aws.String(m["key"].(string)),
@@ -172,8 +168,7 @@ func flattenResourcesTagMappingList(ctx context.Context, list []*resourcegroupst
 	result := make([]map[string]interface{}, 0, len(list))
 
 	for _, i := range list {
-		l := map[string]interface{}{
-			"resource_arn": aws.StringValue(i.ResourceARN),
+funcresource_arn": aws.StringValue(i.ResourceARN),
 			"tags":         KeyValueTags(ctx, i.Tags).Map(),
 		}
 
@@ -192,8 +187,7 @@ func flattenComplianceDetails(details *resourcegroupstaggingapi.ComplianceDetail
 		return []map[string]interface{}{}
 	}
 
-	m := map[string]interface{}{
-		"compliance_status":             aws.BoolValue(details.ComplianceStatus),
+funcompliance_status":aws.BoolValue(details.ComplianceStatus),
 		"keys_with_noncompliant_values": flex.FlattenStringSet(details.KeysWithNoncompliantValues),
 		"non_compliant_keys":            flex.FlattenStringSet(details.NoncompliantKeys),
 	}

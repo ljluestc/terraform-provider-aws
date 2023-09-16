@@ -16,6 +16,7 @@ const (
 	minTimeout = 5 * time.Second
 )
 
+
 func waitClusterCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, clusterArn string) (*r53rcc.DescribeClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{r53rcc.StatusPending},
@@ -33,6 +34,7 @@ func waitClusterCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControl
 
 	return nil, err
 }
+
 
 func waitClusterDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, clusterArn string) (*r53rcc.DescribeClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -53,6 +55,7 @@ func waitClusterDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControl
 	return nil, err
 }
 
+
 func waitRoutingControlCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, routingControlArn string) (*r53rcc.DescribeRoutingControlOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{r53rcc.StatusPending},
@@ -70,6 +73,7 @@ func waitRoutingControlCreated(ctx context.Context, conn *r53rcc.Route53Recovery
 
 	return nil, err
 }
+
 
 func waitRoutingControlDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, routingControlArn string) (*r53rcc.DescribeRoutingControlOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -90,6 +94,7 @@ func waitRoutingControlDeleted(ctx context.Context, conn *r53rcc.Route53Recovery
 	return nil, err
 }
 
+
 func waitControlPanelCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, controlPanelArn string) (*r53rcc.DescribeControlPanelOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{r53rcc.StatusPending},
@@ -107,6 +112,7 @@ func waitControlPanelCreated(ctx context.Context, conn *r53rcc.Route53RecoveryCo
 
 	return nil, err
 }
+
 
 func waitControlPanelDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, controlPanelArn string) (*r53rcc.DescribeControlPanelOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -127,6 +133,7 @@ func waitControlPanelDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryCo
 	return nil, err
 }
 
+
 func waitSafetyRuleCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, safetyRuleArn string) (*r53rcc.DescribeSafetyRuleOutput, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{r53rcc.StatusPending},
@@ -144,6 +151,7 @@ func waitSafetyRuleCreated(ctx context.Context, conn *r53rcc.Route53RecoveryCont
 
 	return nil, err
 }
+
 
 func waitSafetyRuleDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, safetyRuleArn string) (*r53rcc.DescribeSafetyRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{

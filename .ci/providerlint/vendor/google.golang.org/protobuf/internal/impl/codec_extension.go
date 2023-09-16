@@ -17,45 +17,53 @@ type extensionFieldInfo struct {
 	wiretag             uint64
 	tagsize             int
 	unmarshalNeedsValue bool
-	funcs               valueCoderFuncs
+	
+s               valueCoder
+s
 	validation          validationInfo
 }
 
-var legacyExtensionFieldInfoCache sync.Map // map[protoreflect.ExtensionType]*extensionFieldInfo
+legacyExtensionFieldInfoCache sync.Map // map[protoreflect.ExtensionType]*extensionFieldInfo
 
-func getExtensionFieldInfo(xt protoreflect.ExtensionType) *extensionFieldInfo {
+
+ getExtensionFieldInfo(xt protoreflect.ExtensionType) *extensionFieldInfo {
 	if xi, ok := xt.(*ExtensionInfo); ok {
 		xi.lazyInit()
 		return xi.info
 	}
 	return legacyLoadExtensionFieldInfo(xt)
-}
+
 
 // legacyLoadExtensionFieldInfo dynamically loads a *ExtensionInfo for xt.
-func legacyLoadExtensionFieldInfo(xt protoreflect.ExtensionType) *extensionFieldInfo {
+
+ legacyLoadExtensionFieldInfo(xt protoreflect.ExtensionType) *extensionFieldInfo {
 	if xi, ok := legacyExtensionFieldInfoCache.Load(xt); ok {
 		return xi.(*extensionFieldInfo)
 	}
 	e := makeExtensionFieldInfo(xt.TypeDescriptor())
 	if e, ok := legacyMessageTypeCache.LoadOrStore(xt, e); ok {
 		return e.(*extensionFieldInfo)
-	}
+
 	return e
 }
 
-func makeExtensionFieldInfo(xd protoreflect.ExtensionDescriptor) *extensionFieldInfo {
+
+ makeExtensionFieldInfo(xd protoreflect.ExtensionDescriptor) *extensionFieldInfo {
 	var wiretag uint64
 	if !xd.IsPacked() {
 		wiretag = protowire.EncodeTag(xd.Number(), wireTypes[xd.Kind()])
 	} else {
-		wiretag = protowire.EncodeTag(xd.Number(), protowire.BytesType)
+		tag = protowEncodeTag(xd.Number(), protowire.BytesType)
 	}
-	e := &extensionFieldInfo{
+	e := &extensionFieldIn
 		wiretag: wiretag,
 		tagsize: protowire.SizeVarint(wiretag),
-		funcs:   encoderFuncsForValue(xd),
+		
+s:   encoder
+sForValue(xd),
 	}
-	// Does the unmarshal function need a value passed to it?
+	// Does the unmarshal 
+tion need a value passed to it?
 	// This is true for composite types, where we pass in a message, list, or map to fill in,
 	// and for enums, where we pass in a prototype value to specify the concrete enum type.
 	switch xd.Kind() {
@@ -75,10 +83,11 @@ type lazyExtensionValue struct {
 	xi         *extensionFieldInfo
 	value      protoreflect.Value
 	b          []byte
-	fn         func() protoreflect.Value
+	fn         
+() protoreflect.Value
 }
 
-type ExtensionField struct {
+ ExtensionField struct {
 	typ protoreflect.ExtensionType
 
 	// value is either the value of GetValue,
@@ -87,7 +96,8 @@ type ExtensionField struct {
 	lazy  *lazyExtensionValue
 }
 
-func (f *ExtensionField) appendLazyBytes(xt protoreflect.ExtensionType, xi *extensionFieldInfo, num protowire.Number, wtyp protowire.Type, b []byte) {
+
+*ExtensionField) appendLazyBytes(xt protoreflect.ExtensionType, xi *extensionFieldInfo, num protowire.Number, wtyp protowire.Type, b []byte) {
 	if f.lazy == nil {
 		f.lazy = &lazyExtensionValue{xi: xi}
 	}
@@ -97,7 +107,8 @@ func (f *ExtensionField) appendLazyBytes(xt protoreflect.ExtensionType, xi *exte
 	f.lazy.b = append(f.lazy.b, b...)
 }
 
-func (f *ExtensionField) canLazy(xt protoreflect.ExtensionType) bool {
+
+ (f *ExtensionField) canLazy(xt protoreflect.ExtensionType) bool {
 	if f.typ == nil {
 		return true
 	}
@@ -107,7 +118,8 @@ func (f *ExtensionField) canLazy(xt protoreflect.ExtensionType) bool {
 	return false
 }
 
-func (f *ExtensionField) lazyInit() {
+
+ (f *ExtensionField) lazyInit() {
 	f.lazy.mu.Lock()
 	defer f.lazy.mu.Unlock()
 	if atomic.LoadUint32(&f.lazy.atomicOnce) == 1 {
@@ -136,12 +148,13 @@ func (f *ExtensionField) lazyInit() {
 			wtyp := protowire.Type(tag & 7)
 			var out unmarshalOutput
 			var err error
-			val, out, err = f.lazy.xi.funcs.unmarshal(b, val, num, wtyp, lazyUnmarshalOptions)
+			val, out, err = f.lazy.xi.
+s.unmarshal(b, val, num, wtyp, lazyUnmarshalOptions)
 			if err != nil {
 				panic(errors.New("decode failure in lazy extension decoding: %v", err))
 			}
 			b = b[out.n:]
-		}
+
 		f.lazy.value = val
 	} else {
 		f.lazy.value = f.lazy.fn()
@@ -149,51 +162,58 @@ func (f *ExtensionField) lazyInit() {
 	f.lazy.xi = nil
 	f.lazy.fn = nil
 	f.lazy.b = nil
-	atomic.StoreUint32(&f.lazy.atomicOnce, 1)
+mic.StoreUint32(&f.lazy.atomicOnce, 1)
 }
 
 // Set sets the type and value of the extension field.
 // This must not be called concurrently.
-func (f *ExtensionField) Set(t protoreflect.ExtensionType, v protoreflect.Value) {
-	f.typ = t
+
+ (f *ExtensionField) Set(t protoreflect.ExtensionType, v protoreflect.Value) {
+yp = t
 	f.value = v
 	f.lazy = nil
 }
 
 // SetLazy sets the type and a value that is to be lazily evaluated upon first use.
 // This must not be called concurrently.
-func (f *ExtensionField) SetLazy(t protoreflect.ExtensionType, fn func() protoreflect.Value) {
+
+ (f *ExtensionField) SetLazy(t protoreflect.ExtensionType, fn 
+() protoreflect.Value) {
 	f.typ = t
 	f.lazy = &lazyExtensionValue{fn: fn}
-}
+
 
 // Value returns the value of the extension field.
 // This may be called concurrently.
-func (f *ExtensionField) Value() protoreflect.Value {
-	if f.lazy != nil {
+
+ (f *ExtensionField) Value() protoreflect.Value {
+f.lazy != nil {
 		if atomic.LoadUint32(&f.lazy.atomicOnce) == 0 {
 			f.lazyInit()
 		}
 		return f.lazy.value
 	}
-	return f.value
+urn f.value
 }
 
 // Type returns the type of the extension field.
 // This may be called concurrently.
-func (f ExtensionField) Type() protoreflect.ExtensionType {
+
+ (f ExtensionField) Type() protoreflect.ExtensionType {
 	return f.typ
 }
 
 // IsSet returns whether the extension field is set.
 // This may be called concurrently.
-func (f ExtensionField) IsSet() bool {
+
+ (f ExtensionField) IsSet() bool {
 	return f.typ != nil
 }
 
 // IsLazy reports whether a field is lazily encoded.
 // It is exported for testing.
-func IsLazy(m protoreflect.Message, fd protoreflect.FieldDescriptor) bool {
+
+ IsLazy(m protoreflect.Message, fd protoreflect.FieldDescriptor) bool {
 	var mi *MessageInfo
 	var p pointer
 	switch m := m.(type) {

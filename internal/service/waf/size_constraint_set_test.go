@@ -29,7 +29,7 @@ func TestAccWAFSizeConstraintSet_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
+CheckDestroy:testAccCheckSizeConstraintSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSizeConstraintSetConfig_basic(sizeConstraintSet),
@@ -70,7 +70,7 @@ func TestAccWAFSizeConstraintSet_changeNameForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
+CheckDestroy:testAccCheckSizeConstraintSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSizeConstraintSetConfig_basic(sizeConstraintSet),
@@ -107,7 +107,7 @@ func TestAccWAFSizeConstraintSet_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
+CheckDestroy:testAccCheckSizeConstraintSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSizeConstraintSetConfig_basic(sizeConstraintSet),
@@ -131,7 +131,7 @@ func TestAccWAFSizeConstraintSet_changeConstraints(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
+CheckDestroy:testAccCheckSizeConstraintSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSizeConstraintSetConfig_basic(setName),
@@ -188,7 +188,7 @@ func TestAccWAFSizeConstraintSet_noConstraints(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
+CheckDestroy:testAccCheckSizeConstraintSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSizeConstraintSetConfig_nos(setName),

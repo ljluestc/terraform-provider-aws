@@ -34,7 +34,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
@@ -42,7 +43,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		(*ast.ExprStmt)(nil),
 	}
 
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nodeFilter, 
+(n ast.Node) {
 		exprStmt := n.(*ast.ExprStmt)
 
 		callExpr, ok := exprStmt.X.(*ast.CallExpr)
@@ -71,9 +73,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	})
 
 	return nil, nil
-}
 
-func isBasicType(t types.Type) bool {
+
+
+ isBasicType(t types.Type) bool {
 	switch t := t.(type) {
 	case *types.Basic:
 		return isAllowedBasicType(t)
@@ -94,10 +97,11 @@ var allowedBasicKindTypes = []types.BasicKind{
 	types.Int32,
 	types.Int64,
 	types.String,
-	types.UntypedNil,
+es.UntypedNil,
 }
 
-func isAllowedBasicType(b *types.Basic) bool {
+
+ isAllowedBasicType(b *types.Basic) bool {
 	for _, allowedBasicKindType := range allowedBasicKindTypes {
 		if b.Kind() == allowedBasicKindType {
 			return true

@@ -31,15 +31,20 @@ var protocolDataSkippedLog sync.Once
 
 // ProtocolData emits raw protocol data to a file, if given a directory.
 //
-// The directory must exist and be writable, prior to invoking this function.
+// The directory must exist and be writable, prior to invoking this 
+tion.
 //
-// File names are in the format: {TIME}_{RPC}_{MESSAGE}_{FIELD}.{EXT}
-func ProtocolData(ctx context.Context, dataDir string, rpc string, message string, field string, data interface{}) {
+ile names are in the format: {TIME}_{RPC}_{MESSAGE}_{FIELD}.{EXT}
+
+ ProtocolData(ctx context.Context, dataDir string, rpc str message string, field string, data interface{}) {
 	if dataDir == "" {
-		// Write a log, only once, that explains how to enable this functionality.
-		protocolDataSkippedLog.Do(func() {
+		// Write a log, only once, that explains how to enable this 
+tionality.
+		protocolDataSkippedLog.Do(
+() {
 			ProtocolTrace(ctx, "Skipping protocol data file writing because no data directory is set. "+
-				fmt.Sprintf("Use the %s environment variable to enable this functionality.", EnvTfLogSdkProtoDataDir))
+				fmt.Sprintf("Use the %s environment variable to enable this 
+tionality.", EnvTfLogSdkProtoDataDir))
 		})
 
 		return
@@ -63,17 +68,22 @@ func ProtocolData(ctx context.Context, dataDir string, rpc string, message strin
 
 // ProtocolPrivateData emits raw protocol private data to a file, if given a
 // directory. This data is "private" in the sense that it is provider-owned,
-// rather than something managed by Terraform.
+ather than something managed by Terraform.
 //
-// The directory must exist and be writable, prior to invoking this function.
+// The directory must exist and be writable, prior to invokings 
+tion.
 //
-// File names are in the format: {TIME}_{RPC}_{MESSAGE}_{FIELD}(.empty)
-func ProtocolPrivateData(ctx context.Context, dataDir string, rpc string, message string, field string, data []byte) {
+// File names are in the format: {TIME}_{RPC}_{MESSAGE}_{FIELD}(ty)
+
+ ProtocolPrivateData(ctx context.Context, dataDir string, rpc string, message string, field string, data []byte) {
 	if dataDir == "" {
-		// Write a log, only once, that explains how to enable this functionality.
-		protocolDataSkippedLog.Do(func() {
+		// Write a log, only once, that explains how to enable this 
+tionality.
+		protocolDataSkippedLog.Do(
+() {
 			ProtocolTrace(ctx, "Skipping protocol data file writing because no data directory is set. "+
-				fmt.Sprintf("Use the %s environment variable to enable this functionality.", EnvTfLogSdkProtoDataDir))
+				fmt.Sprintf("Use the %s environment variable to enable this 
+tionality.", EnvTfLogSdkProtoDataDir))
 		})
 
 		return
@@ -88,14 +98,15 @@ func ProtocolPrivateData(ctx context.Context, dataDir string, rpc string, messag
 	writeProtocolFile(ctx, dataDir, rpc, message, field, fileExtension, data)
 }
 
-func protocolDataDynamicValue5(_ context.Context, value *tfprotov5.DynamicValue) (string, []byte) {
+
+ protocolDataDynamicValue5(_ context.Context, value *tfprotov5.DynamicValue) (string, []byte) {
 	if value == nil {
 		return fileExtEmpty, nil
 	}
 
 	// (tfprotov5.DynamicValue).Unmarshal() prefers JSON first, so prefer to
 	// output JSON if found.
-	if len(value.JSON) > 0 {
+len(value.JSON) > 0 {
 		return fileExtJson, value.JSON
 	}
 
@@ -106,13 +117,14 @@ func protocolDataDynamicValue5(_ context.Context, value *tfprotov5.DynamicValue)
 	return fileExtEmpty, nil
 }
 
-func protocolDataDynamicValue6(_ context.Context, value *tfprotov6.DynamicValue) (string, []byte) {
+
+ protocolDataDynamicValue6(_ context.Context, value *tfprotov6.DynamicValue) (string, []byte) {
 	if value == nil {
 		return fileExtEmpty, nil
 	}
 
 	// (tfprotov6.DynamicValue).Unmarshal() prefers JSON first, so prefer to
-	// output JSON if found.
+output JSON if found.
 	if len(value.JSON) > 0 {
 		return fileExtJson, value.JSON
 	}
@@ -124,7 +136,8 @@ func protocolDataDynamicValue6(_ context.Context, value *tfprotov6.DynamicValue)
 	return fileExtEmpty, nil
 }
 
-func writeProtocolFile(ctx context.Context, dataDir string, rpc string, message string, field string, fileExtension string, fileContents []byte) {
+
+ writeProtocolFile(ctx context.Context, dataDir string, rpc string, message string, field string, fileExtension string, fileContents []byte) {
 	fileName := fmt.Sprintf("%d_%s_%s_%s", time.Now().UnixMilli(), rpc, message, field)
 
 	if fileExtension != "" {

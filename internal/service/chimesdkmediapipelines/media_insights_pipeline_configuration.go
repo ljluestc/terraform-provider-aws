@@ -75,13 +75,13 @@ func ResourceMediaInsightsPipelineConfiguration() *schema.Resource {
 							ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.MediaInsightsPipelineConfigurationElementType_Values(), false),
 						},
 						"amazon_transcribe_call_analytics_processor_configuration": AmazonTranscribeCallAnalyticsProcessorConfigurationSchema(),
-						"amazon_transcribe_processor_configuration":                AmazonTranscribeProcessorConfigurationSchema(),
-						"kinesis_data_stream_sink_configuration":                   BasicSinkConfigurationSchema(),
-						"lambda_function_sink_configuration":                       BasicSinkConfigurationSchema(),
-						"sns_topic_sink_configuration":                             BasicSinkConfigurationSchema(),
-						"sqs_queue_sink_configuration":                             BasicSinkConfigurationSchema(),
-						"s3_recording_sink_configuration":                          S3RecordingSinkConfigurationSchema(),
-						"voice_analytics_processor_configuration":                  VoiceAnalyticsProcessorConfigurationSchema(),
+						"amazon_transcribe_processor_configuration":   AmazonTranscribeProcessorConfigurationSchema(),
+						"kinesis_data_stream_sink_configuration":      BasicSinkConfigurationSchema(),
+						"lambda_function_sink_configuration":          BasicSinkConfigurationSchema(),
+						"sns_topic_sink_configuration":   BasicSinkConfigurationSchema(),
+						"sqs_queue_sink_configuration":   BasicSinkConfigurationSchema(),
+						"s3_recording_sink_configuration":S3RecordingSinkConfigurationSchema(),
+						"voice_analytics_processor_configuration":     VoiceAnalyticsProcessorConfigurationSchema(),
 					},
 				},
 			},
@@ -99,8 +99,8 @@ func ResourceMediaInsightsPipelineConfiguration() *schema.Resource {
 				ValidateFunc: verify.ValidARN,
 			},
 			"real_time_alert_configuration": RealTimeAlertConfigurationSchema(),
-			names.AttrTags:                  tftags.TagsSchema(),
-			names.AttrTagsAll:               tftags.TagsSchemaComputed(),
+			names.AttrTags:     tftags.TagsSchema(),
+			names.AttrTagsAll:  tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
@@ -479,9 +479,9 @@ func resourceMediaInsightsPipelineConfigurationCreate(ctx context.Context, d *sc
 
 	in := &chimesdkmediapipelines.CreateMediaInsightsPipelineConfigurationInput{
 		MediaInsightsPipelineConfigurationName: aws.String(d.Get("name").(string)),
-		ResourceAccessRoleArn:                  aws.String(d.Get("resource_access_role_arn").(string)),
-		Elements:                               elements,
-		Tags:                                   getTagsIn(ctx),
+		ResourceAccessRoleArn:     aws.String(d.Get("resource_access_role_arn").(string)),
+		Elements:     elements,
+		Tags:         getTagsIn(ctx),
 	}
 
 	if realTimeAlertConfiguration, ok := d.GetOk("real_time_alert_configuration"); ok && len(realTimeAlertConfiguration.([]interface{})) > 0 {
@@ -564,7 +564,7 @@ func resourceMediaInsightsPipelineConfigurationUpdate(ctx context.Context, d *sc
 		in := &chimesdkmediapipelines.UpdateMediaInsightsPipelineConfigurationInput{
 			Identifier:            aws.String(d.Id()),
 			ResourceAccessRoleArn: aws.String(d.Get("resource_access_role_arn").(string)),
-			Elements:              elements,
+			Elements: elements,
 		}
 		if realTimeAlertConfiguration, ok := d.GetOk("real_time_alert_configuration"); ok && len(realTimeAlertConfiguration.([]interface{})) > 0 {
 			rtac, err := expandRealTimeAlertConfiguration(realTimeAlertConfiguration.([]interface{})[0].(map[string]interface{}))

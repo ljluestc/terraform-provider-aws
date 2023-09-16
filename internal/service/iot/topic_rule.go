@@ -1204,7 +1204,7 @@ func resourceTopicRuleCreate(ctx context.Context, d *schema.ResourceData, meta i
 	ruleName := d.Get("name").(string)
 	input := &iot.CreateTopicRuleInput{
 		RuleName:         aws.String(ruleName),
-		Tags:             aws.String(KeyValueTags(ctx, getTagsIn(ctx)).URLQueryString()),
+		Tags:aws.String(KeyValueTags(ctx, getTagsIn(ctx)).URLQueryString()),
 		TopicRulePayload: expandTopicRulePayload(d),
 	}
 
@@ -2360,7 +2360,7 @@ func expandTopicRulePayload(d *schema.ResourceData) *iot.TopicRulePayload {
 		Description:      aws.String(d.Get("description").(string)),
 		ErrorAction:      iotErrorAction,
 		RuleDisabled:     aws.Bool(!d.Get("enabled").(bool)),
-		Sql:              aws.String(d.Get("sql").(string)),
+		Sql: aws.String(d.Get("sql").(string)),
 	}
 }
 

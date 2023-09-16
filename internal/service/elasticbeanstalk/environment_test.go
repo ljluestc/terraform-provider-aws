@@ -35,10 +35,10 @@ func TestAccElasticBeanstalkEnvironment_basic(t *testing.T) {
 	beanstalkEndpointURL := regexache.MustCompile("awseb.+?EBLoa[^,].+?elb.amazonaws.com")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
@@ -72,10 +72,10 @@ func TestAccElasticBeanstalkEnvironment_disappears(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
@@ -97,10 +97,10 @@ func TestAccElasticBeanstalkEnvironment_tier(t *testing.T) {
 	beanstalkQueuesNameRegexp := regexache.MustCompile("https://sqs.+?awseb[^,]+")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_worker(rName),
@@ -131,10 +131,10 @@ func TestAccElasticBeanstalkEnvironment_cnamePrefix(t *testing.T) {
 	beanstalkCnameRegexp := regexache.MustCompile("^" + rName + ".+?elasticbeanstalk.com$")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_cnamePrefix(rName),
@@ -163,10 +163,10 @@ func TestAccElasticBeanstalkEnvironment_beanstalkEnv(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_template(rName, 1),
@@ -210,10 +210,10 @@ func TestAccElasticBeanstalkEnvironment_resource(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_resourceOptionSetting(rName),
@@ -241,10 +241,10 @@ func TestAccElasticBeanstalkEnvironment_tags(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_tags1(rName, "key1", "value1"),
@@ -291,10 +291,10 @@ func TestAccElasticBeanstalkEnvironment_changeStack(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_templateChangeStack(rName),
@@ -325,10 +325,10 @@ func TestAccElasticBeanstalkEnvironment_update(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
@@ -369,10 +369,10 @@ func TestAccElasticBeanstalkEnvironment_label(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_applicationVersion(rName),
@@ -413,10 +413,10 @@ func TestAccElasticBeanstalkEnvironment_settingWithJSONValue(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_settingJSONValue(rName, publicKey, acctest.DefaultEmailAddress),
@@ -444,10 +444,10 @@ func TestAccElasticBeanstalkEnvironment_platformARN(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:acctest.PreCheck(ctx, t) },
+		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+		CheckDestroy:nvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_platformARN(rName),
@@ -636,7 +636,7 @@ resource "aws_internet_gateway" "test" {
 
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.test.id
+  gateway_idt_gateway.test.id
   route_table_id         = aws_vpc.test.main_route_table_id
 }
 

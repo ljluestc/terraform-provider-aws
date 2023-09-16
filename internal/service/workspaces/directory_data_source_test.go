@@ -29,7 +29,7 @@ func testAccDirectoryDataSource_basic(t *testing.T) {
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 			acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
+		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -110,9 +110,9 @@ resource "aws_workspaces_directory" "test" {
 
   workspace_creation_properties {
     custom_security_group_id            = aws_security_group.test.id
-    default_ou                          = "OU=AWS,DC=Workgroup,DC=Example,DC=com"
-    enable_internet_access              = true
-    enable_maintenance_mode             = false
+    default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
+    enable_internet_access = true
+    enable_maintenance_mode= false
     user_enabled_as_local_administrator = false
   }
 

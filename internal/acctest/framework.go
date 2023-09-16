@@ -21,7 +21,9 @@ import (
 
 // Terraform Plugin Framework variants of standard acceptance test helpers.
 
-func deleteFrameworkResource(ctx context.Context, factory func(context.Context) (fwresource.ResourceWithConfigure, error), is *terraform.InstanceState, meta interface{}) error {
+
+eteFrameworkResource(ctx context.Context, factory 
+text.Context) (fwresource.ResourceWithConfigure, error), is *terraform.InstanceState, meta interface{}) error {
 resource, err := factory(ctx)
 
 if err != nil {
@@ -59,8 +61,12 @@ return fwdiag.DiagnosticsError(response.Diagnostics)
 return nil
 }
 
-func CheckFrameworkResourceDisappears(ctx context.Context, provo *schema.Provider, factory func(context.Context) (fwresource.ResourceWithConfigure, error), n string) resource.TestCheckFunc {
-return func(s *terraform.State) error {
+
+ckFrameworkResourceDisappears(ctx context.Context, provo *schema.Provider, factory 
+text.Context) (fwresource.ResourceWithConfigure, error), n string) resource.TestCheck
+
+return 
+terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("resource not found: %s", n)

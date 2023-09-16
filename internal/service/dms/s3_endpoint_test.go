@@ -19,10 +19,10 @@ func TestAccDMSS3Endpoint_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccDMSS3Endpoint_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_basic(rName),
@@ -188,10 +188,10 @@ func TestAccDMSS3Endpoint_simple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_simple(rName),
@@ -252,10 +252,10 @@ func TestAccDMSS3Endpoint_sourceSimple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_sourceSimple(rName),
@@ -300,7 +300,7 @@ func TestAccDMSS3Endpoint_sourceSimple(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"compression_type", "date_partition_enabled", "parquet_timestamp_in_millisecond", "preserve_transactions", "use_csv_no_sup_value"},
 			},
@@ -314,10 +314,10 @@ func TestAccDMSS3Endpoint_source(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_source(rName),
@@ -402,10 +402,10 @@ func TestAccDMSS3Endpoint_detachTargetOnLobLookupFailureParquet(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEndpointDestroy(ctx),
+		CheckDestroy:testAccCheckEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccS3EndpointConfig_simple(rName),
@@ -523,44 +523,44 @@ resource "aws_dms_s3_endpoint" "test" {
     Remove = "to-remove"
   }
 
-  add_column_name                             = true
-  add_trailing_padding_character              = false
-  bucket_folder                               = "folder"
-  bucket_name                                 = "bucket_name"
-  canned_acl_for_objects                      = "private"
-  cdc_inserts_and_updates                     = true
-  cdc_inserts_only                            = false
-  cdc_max_batch_interval                      = 100
-  cdc_min_file_size                           = 16
-  cdc_path                                    = "cdc/path"
-  compression_type                            = "GZIP"
-  csv_delimiter                               = ";"
-  csv_no_sup_value                            = "x"
-  csv_null_value                              = "?"
-  csv_row_delimiter                           = "\\r\\n"
-  data_format                                 = "parquet"
-  data_page_size                              = 1100000
-  date_partition_delimiter                    = "UNDERSCORE"
-  date_partition_enabled                      = true
-  date_partition_sequence                     = "yyyymmddhh"
-  date_partition_timezone                     = "Asia/Seoul"
-  dict_page_size_limit                        = 1000000
-  enable_statistics                           = false
-  encoding_type                               = "plain"
-  encryption_mode                             = "SSE_S3"
-  expected_bucket_owner                       = data.aws_caller_identity.current.account_id
-  ignore_header_rows                          = 1
-  include_op_for_full_load                    = true
-  max_file_size                               = 1000000
+  add_column_name   = true
+  add_trailing_padding_character = false
+  bucket_folder     = "folder"
+  bucket_name       = "bucket_name"
+  canned_acl_for_objects         = "private"
+  cdc_inserts_and_updates        = true
+  cdc_inserts_only  = false
+  cdc_max_batch_interval         = 100
+  cdc_min_file_size = 16
+  cdc_path          = "cdc/path"
+  compression_type  = "GZIP"
+  csv_delimiter     = ";"
+  csv_no_sup_value  = "x"
+  csv_null_value    = "?"
+  csv_row_delimiter = "\\r\\n"
+  data_format       = "parquet"
+  data_page_size    = 1100000
+  date_partition_delimiter       = "UNDERSCORE"
+  date_partition_enabled         = true
+  date_partition_sequence        = "yyyymmddhh"
+  date_partition_timezone        = "Asia/Seoul"
+  dict_page_size_limit           = 1000000
+  enable_statistics = false
+  encoding_type     = "plain"
+  encryption_mode   = "SSE_S3"
+  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  ignore_header_rows= 1
+  include_op_for_full_load       = true
+  max_file_size     = 1000000
   parquet_timestamp_in_millisecond            = true
-  parquet_version                             = "parquet-2-0"
-  preserve_transactions                       = false
-  rfc_4180                                    = false
-  row_group_length                            = 11000
+  parquet_version   = "parquet-2-0"
+  preserve_transactions          = false
+  rfc_4180          = false
+  row_group_length  = 11000
   server_side_encryption_kms_key_id           = aws_kms_key.test.arn
-  service_access_role_arn                     = aws_iam_role.test.arn
-  timestamp_column_name                       = "tx_commit_time"
-  use_csv_no_sup_value                        = false
+  service_access_role_arn        = aws_iam_role.test.arn
+  timestamp_column_name          = "tx_commit_time"
+  use_csv_no_sup_value           = false
   use_task_start_time_for_full_load_timestamp = true
 
   depends_on = [aws_iam_role_policy.test]
@@ -601,44 +601,44 @@ resource "aws_dms_s3_endpoint" "test" {
     Remove = "to-remove"
   }
 
-  add_column_name                             = false
-  add_trailing_padding_character              = true
-  bucket_folder                               = "folder2"
-  bucket_name                                 = "updated_name"
-  canned_acl_for_objects                      = "private"
-  cdc_inserts_and_updates                     = false
-  cdc_inserts_only                            = true
-  cdc_max_batch_interval                      = 105
-  cdc_min_file_size                           = 17
-  cdc_path                                    = "cdc/path"
-  compression_type                            = "NONE"
-  csv_delimiter                               = ","
-  csv_no_sup_value                            = "U"
-  csv_null_value                              = "-"
-  csv_row_delimiter                           = "\\n"
-  data_format                                 = "parquet"
-  data_page_size                              = 1100000
-  date_partition_delimiter                    = "SLASH"
-  date_partition_enabled                      = true
-  date_partition_sequence                     = "yyyymmddhh"
-  date_partition_timezone                     = "Europe/Paris"
-  dict_page_size_limit                        = 1000000
-  enable_statistics                           = true
-  encoding_type                               = "plain"
-  encryption_mode                             = "SSE_S3"
-  expected_bucket_owner                       = data.aws_caller_identity.current.account_id
-  ignore_header_rows                          = 1
-  include_op_for_full_load                    = false
-  max_file_size                               = 900000
+  add_column_name   = false
+  add_trailing_padding_character = true
+  bucket_folder     = "folder2"
+  bucket_name       = "updated_name"
+  canned_acl_for_objects         = "private"
+  cdc_inserts_and_updates        = false
+  cdc_inserts_only  = true
+  cdc_max_batch_interval         = 105
+  cdc_min_file_size = 17
+  cdc_path          = "cdc/path"
+  compression_type  = "NONE"
+  csv_delimiter     = ","
+  csv_no_sup_value  = "U"
+  csv_null_value    = "-"
+  csv_row_delimiter = "\\n"
+  data_format       = "parquet"
+  data_page_size    = 1100000
+  date_partition_delimiter       = "SLASH"
+  date_partition_enabled         = true
+  date_partition_sequence        = "yyyymmddhh"
+  date_partition_timezone        = "Europe/Paris"
+  dict_page_size_limit           = 1000000
+  enable_statistics = true
+  encoding_type     = "plain"
+  encryption_mode   = "SSE_S3"
+  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  ignore_header_rows= 1
+  include_op_for_full_load       = false
+  max_file_size     = 900000
   parquet_timestamp_in_millisecond            = true
-  parquet_version                             = "parquet-2-0"
-  preserve_transactions                       = false
-  rfc_4180                                    = true
-  row_group_length                            = 13000
+  parquet_version   = "parquet-2-0"
+  preserve_transactions          = false
+  rfc_4180          = true
+  row_group_length  = 13000
   server_side_encryption_kms_key_id           = aws_kms_key.test2.arn
-  service_access_role_arn                     = aws_iam_role.test.arn
-  timestamp_column_name                       = "tx_commit_time2"
-  use_csv_no_sup_value                        = true
+  service_access_role_arn        = aws_iam_role.test.arn
+  timestamp_column_name          = "tx_commit_time2"
+  use_csv_no_sup_value           = true
   use_task_start_time_for_full_load_timestamp = false
 
   depends_on = [aws_iam_role_policy.test]
@@ -651,9 +651,9 @@ func testAccS3EndpointConfig_simple(rName string) string {
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  endpoint_id             = %[1]q
+  endpoint_id= %[1]q
   endpoint_type           = "target"
-  bucket_name             = "beckut_name"
+  bucket_name= "beckut_name"
   service_access_role_arn = aws_iam_role.test.arn
 
   depends_on = [aws_iam_role_policy.test]
@@ -666,8 +666,8 @@ func testAccS3EndpointConfig_sourceSimple(rName string) string {
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  bucket_name             = "beckut_name"
-  endpoint_id             = %[1]q
+  bucket_name= "beckut_name"
+  endpoint_id= %[1]q
   endpoint_type           = "source"
   service_access_role_arn = aws_iam_role.test.arn
 
@@ -702,14 +702,14 @@ func testAccS3EndpointConfig_source(rName string) string {
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
   bucket_folder           = "folder"
-  bucket_name             = "bucket_name"
-  cdc_path                = "cdc/path"
+  bucket_name= "bucket_name"
+  cdc_path   = "cdc/path"
   csv_delimiter           = ";"
   csv_row_delimiter       = "\\r\\n"
-  endpoint_id             = %[1]q
+  endpoint_id= %[1]q
   endpoint_type           = "source"
   ignore_header_rows      = 1
-  rfc_4180                = false
+  rfc_4180   = false
   service_access_role_arn = aws_iam_role.test.arn
 
   external_table_definition = jsonencode({
@@ -732,23 +732,23 @@ resource "aws_dms_s3_endpoint" "test" {
     }]
   })
 
-  add_column_name                             = true
-  canned_acl_for_objects                      = "private"
-  cdc_inserts_and_updates                     = true
-  cdc_inserts_only                            = false
-  cdc_max_batch_interval                      = 100
-  cdc_min_file_size                           = 16
-  csv_null_value                              = "?"
-  data_page_size                              = 1100000
-  date_partition_enabled                      = true
-  dict_page_size_limit                        = 1000000
-  enable_statistics                           = false
-  encoding_type                               = "plain"
-  expected_bucket_owner                       = data.aws_caller_identity.current.account_id
-  include_op_for_full_load                    = true
-  max_file_size                               = 1000000
-  row_group_length                            = 11000
-  timestamp_column_name                       = "tx_commit_time"
+  add_column_name   = true
+  canned_acl_for_objects         = "private"
+  cdc_inserts_and_updates        = true
+  cdc_inserts_only  = false
+  cdc_max_batch_interval         = 100
+  cdc_min_file_size = 16
+  csv_null_value    = "?"
+  data_page_size    = 1100000
+  date_partition_enabled         = true
+  dict_page_size_limit           = 1000000
+  enable_statistics = false
+  encoding_type     = "plain"
+  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  include_op_for_full_load       = true
+  max_file_size     = 1000000
+  row_group_length  = 11000
+  timestamp_column_name          = "tx_commit_time"
   use_task_start_time_for_full_load_timestamp = true
 
   depends_on = [aws_iam_role_policy.test]
@@ -762,14 +762,14 @@ func testAccS3EndpointConfig_sourceUpdated(rName string) string {
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
   bucket_folder           = "folder2"
-  bucket_name             = "beckut_name"
-  cdc_path                = "cdc/path2"
+  bucket_name= "beckut_name"
+  cdc_path   = "cdc/path2"
   csv_delimiter           = ","
   csv_row_delimiter       = "\\n"
-  endpoint_id             = %[1]q
+  endpoint_id= %[1]q
   endpoint_type           = "source"
   ignore_header_rows      = 1
-  rfc_4180                = true
+  rfc_4180   = true
   service_access_role_arn = aws_iam_role.test.arn
 
   external_table_definition = jsonencode({
@@ -788,23 +788,23 @@ resource "aws_dms_s3_endpoint" "test" {
     }]
   })
 
-  add_column_name                             = false
-  canned_acl_for_objects                      = "authenticated-read"
-  cdc_inserts_and_updates                     = false
-  cdc_inserts_only                            = true
-  cdc_max_batch_interval                      = 101
-  cdc_min_file_size                           = 17
-  csv_null_value                              = "0"
-  data_page_size                              = 1000000
-  date_partition_enabled                      = false
-  dict_page_size_limit                        = 830000
-  enable_statistics                           = true
-  encoding_type                               = "plain-dictionary"
-  expected_bucket_owner                       = data.aws_caller_identity.current.account_id
-  include_op_for_full_load                    = false
-  max_file_size                               = 100
-  row_group_length                            = 10000
-  timestamp_column_name                       = "tx_commit_time2"
+  add_column_name   = false
+  canned_acl_for_objects         = "authenticated-read"
+  cdc_inserts_and_updates        = false
+  cdc_inserts_only  = true
+  cdc_max_batch_interval         = 101
+  cdc_min_file_size = 17
+  csv_null_value    = "0"
+  data_page_size    = 1000000
+  date_partition_enabled         = false
+  dict_page_size_limit           = 830000
+  enable_statistics = true
+  encoding_type     = "plain-dictionary"
+  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  include_op_for_full_load       = false
+  max_file_size     = 100
+  row_group_length  = 10000
+  timestamp_column_name          = "tx_commit_time2"
   use_task_start_time_for_full_load_timestamp = false
 
   depends_on = [aws_iam_role_policy.test]
@@ -817,12 +817,12 @@ func testAccS3EndpointConfig_detachTargetOnLobLookupFailureParquet(rName string,
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  endpoint_id                                 = %[1]q
-  endpoint_type                               = "target"
-  bucket_name                                 = "beckut_name"
-  cdc_path                                    = %[2]q
+  endpoint_id       = %[1]q
+  endpoint_type     = "target"
+  bucket_name       = "beckut_name"
+  cdc_path          = %[2]q
   detach_target_on_lob_lookup_failure_parquet = %[3]t
-  service_access_role_arn                     = aws_iam_role.test.arn
+  service_access_role_arn        = aws_iam_role.test.arn
 
   depends_on = [aws_iam_role_policy.test]
 }

@@ -23,8 +23,7 @@ import (
 
 // @SDKDataSource("aws_ami_ids")
 
-func DataSourceAMIIDs() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceAMIIDsRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -33,29 +32,28 @@ func DataSourceAMIIDs() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"executable_users": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"include_deprecated": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Default:  false,
 				Optional: true,
 			},
 			"name_regex": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:
 				Validate
 func: validation.StringIsValidRegExp,
-			},
-			"owners": {
-				Type:     schema.TypeList,
+funcowners": {
+				Type:eList,
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
@@ -63,9 +61,8 @@ func: validation.StringIsValidRegExp,
 					Validate
 func: validation.NoZeroValues,
 				},
-			},
-			"sort_ascending": {
-				Type:     schema.TypeBool,
+funcsort_ascending": {
+				Type:eBool,
 				Default:  false,
 				Optional: true,
 			},
@@ -77,10 +74,9 @@ func: validation.NoZeroValues,
 func dataSourceAMIIDsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	input := &ec2.DescribeImagesInput{
+funcut := &ec2.DescribeImagesInput{
 		IncludeDeprecated: aws.Bool(d.Get("include_deprecated").(bool)),
-		Owners:   flex.ExpandStringList(d.Get("owners").([]interface{})),
+		Owners:x.ExpandStringList(d.Get("owners").([]interface{})),
 	}
 
 	if v, ok := d.GetOk("executable_users"); ok {
@@ -125,8 +121,7 @@ func(i, j int) bool {
 		itime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[i].CreationDate))
 		jtime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[j].CreationDate))
 		if d.Get("sort_ascending").(bool) {
-			return itime.Unix() < jtime.Unix()
-		}
+func
 		return itime.Unix() > jtime.Unix()
 	})
 	for _, image := range filteredImages {

@@ -58,13 +58,13 @@ func ResourceRegisteredDomain() *schema.Resource {
 					ValidateFunc: validation.StringLenBetween(0, 255),
 				},
 				"contact_type": {
-					Type:             schema.TypeString,
+					Type:schema.TypeString,
 					Optional:         true,
 					Computed:         true,
 					ValidateDiagFunc: enum.Validate[types.ContactType](),
 				},
 				"country_code": {
-					Type:             schema.TypeString,
+					Type:schema.TypeString,
 					Optional:         true,
 					Computed:         true,
 					ValidateDiagFunc: enum.Validate[types.CountryCode](),

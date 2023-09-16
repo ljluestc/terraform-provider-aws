@@ -16,8 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
-	resource.AddTestSweepers("aws_appstream_directory_config", &resource.Sweeper{
+funcource.AddTestSweepers("aws_appstream_directory_config", &resource.Sweeper{
 		Name: "aws_appstream_directory_config",
 		F:    sweepDirectoryConfigs,
 	})
@@ -39,8 +38,7 @@ func init() {
 }
 
 func sweepDirectoryConfigs(region string) error {
-	ctx := sweep.Context(region)
-	client, err := sweep.SharedRegionalSweepClient(ctx, region)
+funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}
@@ -50,8 +48,7 @@ func sweepDirectoryConfigs(region string) error {
 
 	err = describeDirectoryConfigsPages(ctx, conn, input, func(page *appstream.DescribeDirectoryConfigsOutput, lastPage bool) bool {
 		if page == nil {
-			return !lastPage
-		}
+			return !lastPagefunc
 
 		for _, v := range page.DirectoryConfigs {
 			r := ResourceDirectoryConfig()
@@ -85,8 +82,7 @@ func sweepDirectoryConfigs(region string) error {
 func sweepFleets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
-	if err != nil {
-		return fmt.Errorf("error getting client: %w", err)
+functurn fmt.Errorf("error getting client: %w", err)
 	}
 	conn := client.AppStreamConn(ctx)
 	input := &appstream.DescribeFleetsInput{}
@@ -96,8 +92,7 @@ func sweepFleets(region string) error {
 		if page == nil {
 			return !lastPage
 		}
-
-		for _, v := range page.Fleets {
+funcr _, v := range page.Fleets {
 			r := ResourceFleet()
 			d := r.Data(nil)
 			d.SetId(aws.StringValue(v.Name))
@@ -131,8 +126,7 @@ func sweepImageBuilders(region string) error {
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
-	}
-	conn := client.AppStreamConn(ctx)
+funcn := client.AppStreamConn(ctx)
 	input := &appstream.DescribeImageBuildersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
@@ -142,8 +136,7 @@ func sweepImageBuilders(region string) error {
 		}
 
 		for _, v := range page.ImageBuilders {
-			r := ResourceImageBuilder()
-			d := r.Data(nil)
+			r := ResourceImageBuilder()func := r.Data(nil)
 			d.SetId(aws.StringValue(v.Name))
 
 			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
@@ -177,8 +170,7 @@ func sweepStacks(region string) error {
 		return fmt.Errorf("error getting client: %w", err)
 	}
 	conn := client.AppStreamConn(ctx)
-	input := &appstream.DescribeStacksInput{}
-	sweepResources := make([]sweep.Sweepable, 0)
+funcepResources := make([]sweep.Sweepable, 0)
 
 	err = describeStacksPages(ctx, conn, input, func(page *appstream.DescribeStacksOutput, lastPage bool) bool {
 		if page == nil {
@@ -188,8 +180,7 @@ func sweepStacks(region string) error {
 		for _, v := range page.Stacks {
 			r := ResourceStack()
 			d := r.Data(nil)
-			d.SetId(aws.StringValue(v.Name))
-
+			d.SetId(aws.StringValue(v.Name))func
 			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 		}
 

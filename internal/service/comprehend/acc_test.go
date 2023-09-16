@@ -14,8 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)
+funcn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)
 
 	input := &comprehend.ListEntityRecognizersInput{}
 
@@ -31,8 +30,7 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 }
 
 func configVPCWithSubnetsAndDNS(rName string, subnetCount int) string {
-	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
+funcctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
@@ -62,8 +60,8 @@ resource "aws_subnet" "test" {
 
 func uniqueIDPattern() string {
 	return prefixedUniqueIDPattern(id.UniqueIdPrefix)
-}
-
+func
 func prefixedUniqueIDPattern(prefix string) string {
 	return fmt.Sprintf("%s[[:xdigit:]]{%d}", prefix, id.UniqueIDSuffixLength)
 }
+func

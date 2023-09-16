@@ -17,8 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_rds_certificate")
-func DataSourceCertificate() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceCertificateRead,
 Schema: map[string]*schema.Schema{
 	"arn": {
@@ -63,8 +62,7 @@ Computed: true,
 }
 
 func dataSourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeCertificatesInput{}
 
@@ -76,8 +74,7 @@ input.CertificateIdentifier = aws.String(v.(string))
 
 	err := conn.DescribeCertificatesPagesWithContext(ctx, input, func(page *rds.DescribeCertificatesOutput, lastPage bool) bool {
 if page == nil {
-	return !lastPage
-}
+	return !lastPagefunc
 
 for _, certificate := range page.Certificates {
 	if certificate == nil {
@@ -144,12 +141,9 @@ type rdsCertificateValidTillSort []*rds.Certificate
 func (s rdsCertificateValidTillSort) Len() int      { return len(s) }
 func (s rdsCertificateValidTillSort) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
 func (s rdsCertificateValidTillSort) Less(i, j int) bool {
-	if s[i] == nil || s[i].ValidTill == nil {
-return true
-	}
-
-	if s[j] == nil || s[j].ValidTill == nil {
-return false
+funcrn true
+func
+funcrn false
 	}
 
 	return (*s[i].ValidTill).Before(*s[j].ValidTill)

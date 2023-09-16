@@ -28,10 +28,10 @@ func TestAccEKSAddon_basic(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_basic(rName, addonName),
@@ -63,10 +63,10 @@ func TestAccEKSAddon_disappears(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_basic(rName, addonName),
@@ -89,10 +89,10 @@ func TestAccEKSAddon_Disappears_cluster(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_basic(rName, addonName),
@@ -116,10 +116,10 @@ func TestAccEKSAddon_addonVersion(t *testing.T) {
 	addonVersion2 := "v1.12.6-eksbuild.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_version(rName, addonName, addonVersion1),
@@ -130,7 +130,7 @@ func TestAccEKSAddon_addonVersion(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"resolve_conflicts_on_create", "resolve_conflicts_on_update"},
 			},
@@ -153,10 +153,10 @@ func TestAccEKSAddon_preserve(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_preserve(rName, addonName),
@@ -167,7 +167,7 @@ func TestAccEKSAddon_preserve(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"preserve"},
 			},
@@ -183,10 +183,10 @@ func TestAccEKSAddon_deprecated(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_deprecated(rName, addonName, eks.ResolveConflictsNone),
@@ -197,7 +197,7 @@ func TestAccEKSAddon_deprecated(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"resolve_conflicts"},
 			},
@@ -227,10 +227,10 @@ func TestAccEKSAddon_resolveConflicts(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_resolveConflicts(rName, addonName, eks.ResolveConflictsNone, eks.ResolveConflictsNone),
@@ -242,7 +242,7 @@ func TestAccEKSAddon_resolveConflicts(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"resolve_conflicts_on_create", "resolve_conflicts_on_update"},
 			},
@@ -275,10 +275,10 @@ func TestAccEKSAddon_serviceAccountRoleARN(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_serviceAccountRoleARN(rName, addonName),
@@ -309,10 +309,10 @@ func TestAccEKSAddon_configurationValues(t *testing.T) {
 	addonVersion := "v1.12.6-eksbuild.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_configurationValues(rName, addonName, addonVersion, configurationValues, eks.ResolveConflictsOverwrite),
@@ -323,7 +323,7 @@ func TestAccEKSAddon_configurationValues(t *testing.T) {
 			},
 			{
 				ResourceName:            resourceName,
-				ImportState:             true,
+				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"resolve_conflicts"},
 			},
@@ -357,10 +357,10 @@ func TestAccEKSAddon_tags(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, eks.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAddonDestroy(ctx),
+		CheckDestroy:testAccCheckAddonDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAddonConfig_tags1(rName, addonName, "key1", "value1"),
@@ -507,7 +507,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -520,7 +520,7 @@ resource "aws_subnet" "test" {
   vpc_id            = aws_vpc.test.id
 
   tags = {
-    Name                          = %[1]q
+    Name= %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -550,9 +550,9 @@ resource "aws_eks_addon" "test" {
 func testAccAddonConfig_version(rName, addonName, addonVersion string) string {
 	return acctest.ConfigCompose(testAccAddonConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_addon" "test" {
-  cluster_name                = aws_eks_cluster.test.name
-  addon_name                  = %[2]q
-  addon_version               = %[3]q
+  cluster_name   = aws_eks_cluster.test.name
+  addon_name     = %[2]q
+  addon_version  = %[3]q
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
 }
@@ -582,8 +582,8 @@ resource "aws_eks_addon" "test" {
 func testAccAddonConfig_resolveConflicts(rName, addonName, resolveConflictsOnCreate, resolveConflictsOnUpdate string) string {
 	return acctest.ConfigCompose(testAccAddonConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_addon" "test" {
-  cluster_name                = aws_eks_cluster.test.name
-  addon_name                  = %[2]q
+  cluster_name   = aws_eks_cluster.test.name
+  addon_name     = %[2]q
   resolve_conflicts_on_create = %[3]q
   resolve_conflicts_on_update = %[4]q
 }
@@ -593,7 +593,7 @@ resource "aws_eks_addon" "test" {
 func testAccAddonConfig_serviceAccountRoleARN(rName, addonName string) string {
 	return acctest.ConfigCompose(testAccAddonConfig_base(rName), fmt.Sprintf(`
 resource "aws_iam_role" "test-service-role" {
-  name               = "test-service-role"
+  name  = "test-service-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -612,8 +612,8 @@ EOF
 }
 
 resource "aws_eks_addon" "test" {
-  cluster_name             = aws_eks_cluster.test.name
-  addon_name               = %[2]q
+  cluster_name= aws_eks_cluster.test.name
+  addon_name  = %[2]q
   service_account_role_arn = aws_iam_role.test-service-role.arn
 }
 `, rName, addonName))

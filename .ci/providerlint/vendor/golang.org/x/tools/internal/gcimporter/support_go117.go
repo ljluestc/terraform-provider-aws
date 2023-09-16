@@ -11,6 +11,7 @@ import "go/types"
 
 const iexportVersion = iexportVersionGo1_11
 
-func additionalPredeclared() []types.Type {
+
+itionalPredeclared() []types.Type {
 	return nil
 }

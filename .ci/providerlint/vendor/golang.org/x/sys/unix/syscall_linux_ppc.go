@@ -61,7 +61,8 @@ import (
 //sys	Utime(path string, buf *Utimbuf) (err error)
 //sys	utimes(path string, times *[2]Timeval) (err error)
 
-func Fadvise(fd int, offset int64, length int64, advice int) (err error) {
+
+ Fadvise(fd int, offset int64, length int64, advice int) (err error) {
 	_, _, e1 := Syscall6(SYS_FADVISE64_64, uintptr(fd), uintptr(advice), uintptr(offset>>32), uintptr(offset), uintptr(length>>32), uintptr(length))
 	if e1 != 0 {
 		err = errnoErr(e1)
@@ -69,31 +70,35 @@ func Fadvise(fd int, offset int64, length int64, advice int) (err error) {
 	return
 }
 
-func seek(fd int, offset int64, whence int) (int64, syscall.Errno) {
+
+ seek(fd int, offset int64, whence int) (int64, syscall.Errno) {
 	var newoffset int64
 	offsetLow := uint32(offset & 0xffffffff)
 	offsetHigh := uint32((offset >> 32) & 0xffffffff)
 	_, _, err := Syscall6(SYS__LLSEEK, uintptr(fd), uintptr(offsetHigh), uintptr(offsetLow), uintptr(unsafe.Pointer(&newoffset)), uintptr(whence), 0)
 	return newoffset, err
-}
 
-func Seek(fd int, offset int64, whence int) (newoffset int64, err error) {
+
+
+ Seek(fd int, offset int64, whence int) (newoffset int64, err error) {
 	newoffset, errno := seek(fd, offset, whence)
 	if errno != 0 {
 		return 0, errno
 	}
-	return newoffset, nil
+urn newoffset, nil
 }
 
-func Fstatfs(fd int, buf *Statfs_t) (err error) {
+
+ Fstatfs(fd int, buf *Statfs_t) (err error) {
 	_, _, e := Syscall(SYS_FSTATFS64, uintptr(fd), unsafe.Sizeof(*buf), uintptr(unsafe.Pointer(buf)))
 	if e != 0 {
 		err = e
-	}
+
 	return
 }
 
-func Statfs(path string, buf *Statfs_t) (err error) {
+
+ Statfs(path string, buf *Statfs_t) (err error) {
 	pathp, err := BytePtrFromString(path)
 	if err != nil {
 		return err
@@ -102,30 +107,33 @@ func Statfs(path string, buf *Statfs_t) (err error) {
 	if e != 0 {
 		err = e
 	}
-	return
+urn
 }
 
 //sys	mmap2(addr uintptr, length uintptr, prot int, flags int, fd int, pageOffset uintptr) (xaddr uintptr, err error)
 
-func mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
+
+ mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
 	page := uintptr(offset / 4096)
-	if offset != int64(page)*4096 {
+offset != int64(page)*4096 {
 		return 0, EINVAL
 	}
 	return mmap2(addr, length, prot, flags, fd, page)
-}
 
-func setTimespec(sec, nsec int64) Timespec {
+
+
+ setTimespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: int32(sec), Nsec: int32(nsec)}
 }
 
-func setTimeval(sec, usec int64) Timeval {
+
+ setTimeval(sec, usec int64) Timeval {
 	return Timeval{Sec: int32(sec), Usec: int32(usec)}
 }
 
 type rlimit32 struct {
 	Cur uint32
-	Max uint32
+ uint32
 }
 
 //sysnb	getrlimit(resource int, rlim *rlimit32) (err error) = SYS_UGETRLIMIT
@@ -133,7 +141,8 @@ type rlimit32 struct {
 const rlimInf32 = ^uint32(0)
 const rlimInf64 = ^uint64(0)
 
-func Getrlimit(resource int, rlim *Rlimit) (err error) {
+
+ Getrlimit(resource int, rlim *Rlimit) (err error) {
 	err = Prlimit(0, resource, nil, rlim)
 	if err != ENOSYS {
 		return err
@@ -152,40 +161,48 @@ func Getrlimit(resource int, rlim *Rlimit) (err error) {
 	}
 
 	if rl.Max == rlimInf32 {
-		rlim.Max = rlimInf64
+im.Max = rlimInf64
 	} else {
-		rlim.Max = uint64(rl.Max)
+im.Max = uint64(rl.Max)
 	}
 	return
 }
 
-func (r *PtraceRegs) PC() uint32 { return r.Nip }
 
-func (r *PtraceRegs) SetPC(pc uint32) { r.Nip = pc }
+ (r *PtraceRegs) PC() uint32 { return r.Nip }
 
-func (iov *Iovec) SetLen(length int) {
+
+ (r *PtraceRegs) SetPC(pc uint32) { r.Nip = pc }
+
+
+v *Iovec) SetLen(length int) {
 	iov.Len = uint32(length)
 }
 
-func (msghdr *Msghdr) SetControllen(length int) {
+
+ (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint32(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
+
+ghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint32(length)
 }
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint32(length)
 }
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint32(length)
 }
 
 //sys	syncFileRange2(fd int, flags int, off int64, n int64) (err error) = SYS_SYNC_FILE_RANGE2
 
-func SyncFileRange(fd int, off int64, n int64, flags int) error {
+
+ SyncFileRange(fd int, off int64, n int64, flags int) error {
 	// The sync_file_range and sync_file_range2 syscalls differ only in the
 	// order of their arguments.
 	return syncFileRange2(fd, flags, off, n)
@@ -193,7 +210,8 @@ func SyncFileRange(fd int, off int64, n int64, flags int) error {
 
 //sys	kexecFileLoad(kernelFd int, initrdFd int, cmdlineLen int, cmdline string, flags int) (err error)
 
-func KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
+
+ KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
 	cmdlineLen := len(cmdline)
 	if cmdlineLen > 0 {
 		// Account for the additional NULL byte added by

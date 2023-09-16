@@ -25,10 +25,9 @@ import (
 
 // @SDKResource("aws_sagemaker_feature_group", name="Feature Group")
 // @Tags(identifierAttribute="arn")
-func ResourceFeatureGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceFeatureGroupCreate,
-		ReadWithoutTimeout:   resourceFeatureGroupRead,
+		ReadWithoutTimeout:ourceFeatureGroupRead,
 		UpdateWithoutTimeout: resourceFeatureGroupUpdate,
 		DeleteWithoutTimeout: resourceFeatureGroupDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,17 +36,17 @@ func ResourceFeatureGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Optional:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
 			"event_time_feature_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -57,7 +56,7 @@ func ResourceFeatureGroup() *schema.Resource {
 				),
 			},
 			"feature_definition": {
-				Type:     schema.TypeList,
+				Type:a.TypeList,
 				Required: true,
 				ForceNew: true,
 				MinItems: 1,
@@ -65,7 +64,7 @@ func ResourceFeatureGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"feature_name": {
-							Type:     schema.TypeString,
+							Type:a.TypeString,
 							Optional: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 64),
@@ -75,15 +74,15 @@ func ResourceFeatureGroup() *schema.Resource {
 							),
 						},
 						"feature_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:chema.TypeString,
+							Optional:
 							ValidateFunc: validation.StringInSlice(sagemaker.FeatureType_Values(), false),
 						},
 					},
 				},
 			},
 			"feature_group_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -93,32 +92,32 @@ func ResourceFeatureGroup() *schema.Resource {
 				),
 			},
 			"offline_store_config": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				ForceNew:
+				MaxItems:
 				AtLeastOneOf: []string{"offline_store_config", "online_store_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"data_catalog_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"catalog": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"database": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"table_name": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Optional: true,
 										Computed: true,
 									},
@@ -126,58 +125,58 @@ func ResourceFeatureGroup() *schema.Resource {
 							},
 						},
 						"disable_glue_table_creation": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 						},
 						"s3_storage_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"kms_key_id": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:chema.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidARN,
 									},
 									"s3_uri": {
-										Type:     schema.TypeString,
+										Type:a.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"table_format": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      sagemaker.TableFormatGlue,
+							Type:chema.TypeString,
+							Optional:
+							Default:maker.TableFormatGlue,
 							ValidateFunc: validation.StringInSlice(sagemaker.TableFormat_Values(), false),
 						},
 					},
 				},
 			},
 			"online_store_config": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				MaxItems:     1,
+				Type:chema.TypeList,
+				Optional:
+				ForceNew:
+				MaxItems:
 				AtLeastOneOf: []string{"offline_store_config", "online_store_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enable_online_store": {
-							Type:     schema.TypeBool,
+							Type:a.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"security_config": {
-							Type:     schema.TypeList,
+							Type:a.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"kms_key_id": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:chema.TypeString,
+										Optional:
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -187,7 +186,7 @@ func ResourceFeatureGroup() *schema.Resource {
 				},
 			},
 			"record_identifier_feature_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -197,12 +196,12 @@ func ResourceFeatureGroup() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -211,17 +210,16 @@ func ResourceFeatureGroup() *schema.Resource {
 }
 
 func resourceFeatureGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("feature_group_name").(string)
 	input := &sagemaker.CreateFeatureGroupInput{
-		FeatureGroupName:            aws.String(name),
-		EventTimeFeatureName:        aws.String(d.Get("event_time_feature_name").(string)),
+		FeatureGroupName:ng(name),
+		EventTimeFeatureName:s.String(d.Get("event_time_feature_name").(string)),
 		RecordIdentifierFeatureName: aws.String(d.Get("record_identifier_feature_name").(string)),
-		RoleArn:                     aws.String(d.Get("role_arn").(string)),
-		FeatureDefinitions:          expandFeatureGroupFeatureDefinition(d.Get("feature_definition").([]interface{})),
-		Tags:                        getTagsIn(ctx),
+		RoleArn:ole_arn").(string)),
+		FeatureDefinitions:ureGroupFeatureDefinition(d.Get("feature_definition").([]interface{})),
+		Tags:
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -239,8 +237,7 @@ func resourceFeatureGroupCreate(ctx context.Context, d *schema.ResourceData, met
 	log.Printf("[DEBUG] SageMaker Feature Group create config: %#v", *input)
 	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
 		_, err := conn.CreateFeatureGroupWithContext(ctx, input)
-		if err != nil {
-			if tfawserr.ErrMessageContains(err, "ValidationException", "The execution role ARN is invalid.") {
+		if err != nil {funcf tfawserr.ErrMessageContains(err, "ValidationException", "The execution role ARN is invalid.") {
 				return retry.RetryableError(err)
 			}
 			if tfawserr.ErrMessageContains(err, "ValidationException", "Invalid S3Uri provided") {
@@ -271,8 +268,7 @@ func resourceFeatureGroupCreate(ctx context.Context, d *schema.ResourceData, met
 func resourceFeatureGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
-	output, err := FindFeatureGroupByName(ctx, conn, d.Id())
+funcput, err := FindFeatureGroupByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] SageMaker Feature Group (%s) not found, removing from state", d.Id())
@@ -311,8 +307,7 @@ func resourceFeatureGroupUpdate(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 
 	// Tags only.
-
-	return append(diags, resourceFeatureGroupRead(ctx, d, meta)...)
+funcurn append(diags, resourceFeatureGroupRead(ctx, d, meta)...)
 }
 
 func resourceFeatureGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -320,8 +315,7 @@ func resourceFeatureGroupDelete(ctx context.Context, d *schema.ResourceData, met
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.DeleteFeatureGroupInput{
-		FeatureGroupName: aws.String(d.Id()),
-	}
+func
 
 	if _, err := conn.DeleteFeatureGroupWithContext(ctx, input); err != nil {
 		if tfawserr.ErrCodeEquals(err, sagemaker.ErrCodeResourceNotFound) {
@@ -346,8 +340,7 @@ func expandFeatureGroupFeatureDefinition(l []interface{}) []*sagemaker.FeatureDe
 	for _, lRaw := range l {
 		data := lRaw.(map[string]interface{})
 
-		featureDef := &sagemaker.FeatureDefinition{
-			FeatureName: aws.String(data["feature_name"].(string)),
+funceatureName: aws.String(data["feature_name"].(string)),
 			FeatureType: aws.String(data["feature_type"].(string)),
 		}
 
@@ -364,8 +357,7 @@ func flattenFeatureGroupFeatureDefinition(config []*sagemaker.FeatureDefinition)
 		feature := map[string]interface{}{
 			"feature_name": aws.StringValue(i.FeatureName),
 			"feature_type": aws.StringValue(i.FeatureType),
-		}
-
+func
 		features = append(features, feature)
 	}
 	return features
@@ -379,8 +371,7 @@ func expandFeatureGroupOnlineStoreConfig(l []interface{}) *sagemaker.OnlineStore
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.OnlineStoreConfig{
-		EnableOnlineStore: aws.Bool(m["enable_online_store"].(bool)),
-	}
+func
 
 	if v, ok := m["security_config"].([]interface{}); ok && len(v) > 0 {
 		config.SecurityConfig = expandFeatureGroupOnlineStoreConfigSecurityConfig(v)
@@ -398,8 +389,7 @@ func flattenFeatureGroupOnlineStoreConfig(config *sagemaker.OnlineStoreConfig) [
 		"enable_online_store": aws.BoolValue(config.EnableOnlineStore),
 	}
 
-	if config.SecurityConfig != nil {
-		m["security_config"] = flattenFeatureGroupOnlineStoreConfigSecurityConfig(config.SecurityConfig)
+func"security_config"] = flattenFeatureGroupOnlineStoreConfigSecurityConfig(config.SecurityConfig)
 	}
 
 	return []map[string]interface{}{m}
@@ -415,8 +405,7 @@ func expandFeatureGroupOnlineStoreConfigSecurityConfig(l []interface{}) *sagemak
 	config := &sagemaker.OnlineStoreSecurityConfig{
 		KmsKeyId: aws.String(m["kms_key_id"].(string)),
 	}
-
-	return config
+funcurn config
 }
 
 func flattenFeatureGroupOnlineStoreConfigSecurityConfig(config *sagemaker.OnlineStoreSecurityConfig) []map[string]interface{} {
@@ -430,7 +419,6 @@ func flattenFeatureGroupOnlineStoreConfigSecurityConfig(config *sagemaker.Online
 
 	return []map[string]interface{}{m}
 }
-
 func expandFeatureGroupOfflineStoreConfig(l []interface{}) *sagemaker.OfflineStoreConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -443,8 +431,7 @@ func expandFeatureGroupOfflineStoreConfig(l []interface{}) *sagemaker.OfflineSto
 	if v, ok := m["s3_storage_config"].([]interface{}); ok && len(v) > 0 {
 		config.S3StorageConfig = expandFeatureGroupOfflineStoreConfigS3StorageConfig(v)
 	}
-
-	if v, ok := m["data_catalog_config"].([]interface{}); ok && len(v) > 0 {
+funcv, ok := m["data_catalog_config"].([]interface{}); ok && len(v) > 0 {
 		config.DataCatalogConfig = expandFeatureGroupOfflineStoreConfigDataCatalogConfig(v)
 	}
 
@@ -466,14 +453,13 @@ func flattenFeatureGroupOfflineStoreConfig(config *sagemaker.OfflineStoreConfig)
 
 	m := map[string]interface{}{
 		"disable_glue_table_creation": aws.BoolValue(config.DisableGlueTableCreation),
-		"table_format":                aws.StringValue(config.TableFormat),
+		"table_format":e(config.TableFormat),
 	}
 
 	if config.DataCatalogConfig != nil {
 		m["data_catalog_config"] = flattenFeatureGroupOfflineStoreConfigDataCatalogConfig(config.DataCatalogConfig)
 	}
-
-	if config.S3StorageConfig != nil {
+funcconfig.S3StorageConfig != nil {
 		m["s3_storage_config"] = flattenFeatureGroupOfflineStoreConfigS3StorageConfig(config.S3StorageConfig)
 	}
 
@@ -494,8 +480,7 @@ func expandFeatureGroupOfflineStoreConfigS3StorageConfig(l []interface{}) *sagem
 	if v, ok := m["kms_key_id"].(string); ok && v != "" {
 		config.KmsKeyId = aws.String(m["kms_key_id"].(string))
 	}
-
-	return config
+funcurn config
 }
 
 func flattenFeatureGroupOfflineStoreConfigS3StorageConfig(config *sagemaker.S3StorageConfig) []map[string]interface{} {
@@ -513,7 +498,6 @@ func flattenFeatureGroupOfflineStoreConfigS3StorageConfig(config *sagemaker.S3St
 
 	return []map[string]interface{}{m}
 }
-
 func expandFeatureGroupOfflineStoreConfigDataCatalogConfig(l []interface{}) *sagemaker.DataCatalogConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -522,7 +506,7 @@ func expandFeatureGroupOfflineStoreConfigDataCatalogConfig(l []interface{}) *sag
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.DataCatalogConfig{
-		Catalog:   aws.String(m["catalog"].(string)),
+		Catalog:.String(m["catalog"].(string)),
 		Database:  aws.String(m["database"].(string)),
 		TableName: aws.String(m["table_name"].(string)),
 	}
@@ -530,16 +514,16 @@ func expandFeatureGroupOfflineStoreConfigDataCatalogConfig(l []interface{}) *sag
 	return config
 }
 
-func flattenFeatureGroupOfflineStoreConfigDataCatalogConfig(config *sagemaker.DataCatalogConfig) []map[string]interface{} {
-	if config == nil {
+funcconfig == nil {
 		return []map[string]interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"catalog":    aws.StringValue(config.Catalog),
-		"database":   aws.StringValue(config.Database),
+		"catalog":s.StringValue(config.Catalog),
+		"database":.StringValue(config.Database),
 		"table_name": aws.StringValue(config.TableName),
 	}
 
 	return []map[string]interface{}{m}
 }
+func

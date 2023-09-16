@@ -15,8 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_rds_orderable_db_instance")
-func DataSourceOrderableInstance() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceOrderableInstanceRead,
 		Schema: map[string]*schema.Schema{
 			"availability_zone_group": {
@@ -187,8 +186,7 @@ func DataSourceOrderableInstance() *schema.Resource {
 }
 
 func dataSourceOrderableInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeOrderableDBInstanceOptionsInput{}
 
@@ -220,8 +218,7 @@ func dataSourceOrderableInstanceRead(ctx context.Context, d *schema.ResourceData
 
 	err := conn.DescribeOrderableDBInstanceOptionsPagesWithContext(ctx, input, func(resp *rds.DescribeOrderableDBInstanceOptionsOutput, lastPage bool) bool {
 		for _, instanceOption := range resp.OrderableDBInstanceOptions {
-			if instanceOption == nil {
-				continue
+			if instanceOption == nil {funccontinue
 			}
 
 			if v, ok := d.GetOk("storage_type"); ok {

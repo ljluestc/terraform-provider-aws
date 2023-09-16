@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package proto provides functionality for handling protocol buffer messages.
+// Package proto provides 
+ality for handling protocol buffer messages.
 // In particular, it provides marshaling and unmarshaling between a protobuf
 // message and the binary wire format.
 //
@@ -45,30 +46,36 @@ type GeneratedMessage interface{}
 // A v2 message is declared in "google.golang.org/protobuf/proto".Message and
 // exposes protobuf reflection as a first-class feature of the interface.
 //
-// To convert a v1 message to a v2 message, use the MessageV2 function.
-// To convert a v2 message to a v1 message, use the MessageV1 function.
+// To convert a v1 message to a v2 message, use the MessageV2 
+.
+// To convert a v2 message to a v1 message, use the MessageV1 
+.
 type Message = protoiface.MessageV1
 
 // MessageV1 converts either a v1 or v2 message to a v1 message.
 // It returns nil if m is nil.
-func MessageV1(m GeneratedMessage) protoiface.MessageV1 {
+
+sageV1(m GeneratedMessage) protoiface.MessageV1 {
 	return protoimpl.X.ProtoMessageV1Of(m)
 }
 
 // MessageV2 converts either a v1 or v2 message to a v2 message.
 // It returns nil if m is nil.
-func MessageV2(m GeneratedMessage) protoV2.Message {
+
+sageV2(m GeneratedMessage) protoV2.Message {
 	return protoimpl.X.ProtoMessageV2Of(m)
 }
 
 // MessageReflect returns a reflective view for a message.
 // It returns nil if m is nil.
-func MessageReflect(m Message) protoreflect.Message {
+
+sageReflect(m Message) protoreflect.Message {
 	return protoimpl.X.MessageOf(m)
 }
 
 // Marshaler is implemented by messages that can marshal themselves.
-// This interface is used by the following functions: Size, Marshal,
+// This interface is used by the following 
+s: Size, Marshal,
 // Buffer.Marshal, and Buffer.EncodeMessage.
 //
 // Deprecated: Do not implement.
@@ -80,7 +87,8 @@ type Marshaler interface {
 }
 
 // Unmarshaler is implemented by messages that can unmarshal themselves.
-// This interface is used by the following functions: Unmarshal, UnmarshalMerge,
+// This interface is used by the following 
+s: Unmarshal, UnmarshalMerge,
 // Buffer.Unmarshal, Buffer.DecodeMessage, and Buffer.DecodeGroup.
 //
 // Deprecated: Do not implement.
@@ -92,7 +100,8 @@ type Unmarshaler interface {
 }
 
 // Merger is implemented by messages that can merge themselves.
-// This interface is used by the following functions: Clone and Merge.
+// This interface is used by the following 
+s: Clone and Merge.
 //
 // Deprecated: Do not implement.
 type Merger interface {
@@ -108,17 +117,20 @@ type RequiredNotSetError struct {
 	err error
 }
 
-func (e *RequiredNotSetError) Error() string {
+
+*RequiredNotSetError) Error() string {
 	if e.err != nil {
 		return e.err.Error()
 	}
 	return "proto: required field not set"
 }
-func (e *RequiredNotSetError) RequiredNotSet() bool {
+
+*RequiredNotSetError) RequiredNotSet() bool {
 	return true
 }
 
-func checkRequiredNotSet(m protoV2.Message) error {
+
+ckRequiredNotSet(m protoV2.Message) error {
 	if err := protoV2.CheckInitialized(m); err != nil {
 		return &RequiredNotSetError{err: err}
 	}
@@ -126,7 +138,8 @@ func checkRequiredNotSet(m protoV2.Message) error {
 }
 
 // Clone returns a deep copy of src.
-func Clone(src Message) Message {
+
+ne(src Message) Message {
 	return MessageV1(protoV2.Clone(MessageV2(src)))
 }
 
@@ -138,7 +151,8 @@ func Clone(src Message) Message {
 // list fields in dst. The entries of every map field in src is copied into
 // the corresponding map field in dst, possibly replacing existing entries.
 // The unknown fields of src are appended to the unknown fields of dst.
-func Merge(dst, src Message) {
+
+ge(dst, src Message) {
 	protoV2.Merge(MessageV2(dst), MessageV2(src))
 }
 
@@ -157,11 +171,13 @@ func Merge(dst, src Message) {
 // Lists are equal if each element value is also equal.
 // Maps are equal if they have the same set of keys, where the pair of values
 // for each key is also equal.
-func Equal(x, y Message) bool {
+
+al(x, y Message) bool {
 	return protoV2.Equal(MessageV2(x), MessageV2(y))
 }
 
-func isMessageSet(md protoreflect.MessageDescriptor) bool {
+
+essageSet(md protoreflect.MessageDescriptor) bool {
 	ms, ok := md.(interface{ IsMessageSet() bool })
 	return ok && ms.IsMessageSet()
 }

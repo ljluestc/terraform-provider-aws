@@ -16,10 +16,9 @@ import (
 
 // @SDKResource("aws_ebs_encryption_by_default")
 
-func ResourceEBSEncryptionByDefault() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSEncryptionByDefaultCreate,
-		ReadWithoutTimeout:   resourceEBSEncryptionByDefaultRead,
+		ReadWithoutTimeout:ourceEBSEncryptionByDefaultRead,
 		UpdateWithoutTimeout: resourceEBSEncryptionByDefaultUpdate,
 		DeleteWithoutTimeout: resourceEBSEncryptionByDefaultDelete,
 		Importer: &schema.ResourceImporter{
@@ -27,7 +26,7 @@ func ResourceEBSEncryptionByDefault() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				Default:  true,
 			},
@@ -36,8 +35,7 @@ func ResourceEBSEncryptionByDefault() *schema.Resource {
 }
 
 func resourceEBSEncryptionByDefaultCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	enabled := d.Get("enabled").(bool)
 	if err := setEBSEncryptionByDefault(ctx, conn, enabled); err != nil {
@@ -52,8 +50,7 @@ func resourceEBSEncryptionByDefaultCreate(ctx context.Context, d *schema.Resourc
 
 func resourceEBSEncryptionByDefaultRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
+func
 	resp, err := conn.GetEbsEncryptionByDefaultWithContext(ctx, &ec2.GetEbsEncryptionByDefaultInput{})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EBS encryption by default: %s", err)
@@ -67,8 +64,7 @@ func resourceEBSEncryptionByDefaultRead(ctx context.Context, d *schema.ResourceD
 func resourceEBSEncryptionByDefaultUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	enabled := d.Get("enabled").(bool)
+funcbled := d.Get("enabled").(bool)
 	if err := setEBSEncryptionByDefault(ctx, conn, enabled); err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating EBS encryption by default (%t): %s", enabled, err)
 	}
@@ -80,8 +76,7 @@ func resourceEBSEncryptionByDefaultDelete(ctx context.Context, d *schema.Resourc
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	// Removing the resource disables default encryption.
-	if err := setEBSEncryptionByDefault(ctx, conn, false); err != nil {
+funcerr := setEBSEncryptionByDefault(ctx, conn, false); err != nil {
 		return sdkdiag.AppendErrorf(diags, "disabling EBS encryption by default: %s", err)
 	}
 
@@ -93,8 +88,7 @@ func setEBSEncryptionByDefault(ctx context.Context, conn *ec2.EC2, enabled bool)
 
 	if enabled {
 		_, err = conn.EnableEbsEncryptionByDefaultWithContext(ctx, &ec2.EnableEbsEncryptionByDefaultInput{})
-	} else {
-		_, err = conn.DisableEbsEncryptionByDefaultWithContext(ctx, &ec2.DisableEbsEncryptionByDefaultInput{})
+func err = conn.DisableEbsEncryptionByDefaultWithContext(ctx, &ec2.DisableEbsEncryptionByDefaultInput{})
 	}
 
 	return err

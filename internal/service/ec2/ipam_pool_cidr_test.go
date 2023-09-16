@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccIPAMPoolCIDR_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var cidr ec2.IpamPoolCidr
 	resourceName := "aws_vpc_ipam_pool_cidr.test"
 	cidrBlock := "10.0.0.0/24"
@@ -29,22 +28,20 @@ func TestAccIPAMPoolCIDR_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolCIDRDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRConfig_provisionedIPv4(cidrBlock),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRExists(ctx, resourceName, &cidr),
-	resource.TestCheckResourceAttr(resourceName, "cidr", cidrBlock),
-	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
+funcource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"netmask_length",
@@ -58,17 +55,15 @@ ImportStateVerifyIgnore: []string{
 func TestAccIPAMPoolCIDR_basicNetmaskLength(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cidr ec2.IpamPoolCidr
-	resourceName := "aws_vpc_ipam_pool_cidr.test"
-	netmaskLength := "24"
+funcmaskLength := "24"
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolCIDRDestroy(ctx),
-Steps: []resource.TestStep{
-	{
+CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
+func
 Config: testAccIPAMPoolCIDRConfig_provisionedIPv4NetmaskLength(netmaskLength),
 Check: resource.ComposeTestCheck
 func(
@@ -76,11 +71,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "netmask_length", netmaskLength),
 	testAccCheckIPAMPoolCIDRPrefix(&cidr, netmaskLength),
 	resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.testchild", "id"),
-),
-	},
+func
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"netmask_length",
@@ -97,16 +91,14 @@ func TestAccIPAMPoolCIDR_disappears(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool_cidr.test"
 	cidrBlock := "10.0.0.0/24"
 
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+funcheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolCIDRDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRConfig_provisionedIPv4(cidrBlock),
-Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRExists(ctx, resourceName, &cidr),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMPoolCIDR(), resourceName),
@@ -115,8 +107,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
+func
 
 func TestAccIPAMPoolCIDR_Disappears_ipam(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -127,18 +118,16 @@ func TestAccIPAMPoolCIDR_Disappears_ipam(t *testing.T) {
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPAMPoolCIDRDestroy(ctx),
+CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPAMPoolCIDRConfig_provisionedIPv4(cidrBlock),
 Check: resource.ComposeTestCheck
 func(
 	testAccCheckIPAMPoolCIDRExists(ctx, resourceName, &cidr),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAM(), ipamResourceName),
-),
+func
 ExpectNonEmptyPlan: true,
 	},
 },
@@ -146,7 +135,6 @@ ExpectNonEmptyPlan: true,
 }
 
 
-func testAccCheckIPAMPoolCIDRExists(ctx context.Context, n string, v *ec2.IpamPoolCidr) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -158,13 +146,10 @@ if !ok {
 if rs.Primary.ID == "" {
 	return fmt.Errorf("No IPAM Pool CIDR ID is set")
 }
-
-cidrBlock, poolID, err := tfec2.IPAMPoolCIDRParseResourceID(rs.Primary.ID)
-
-if err != nil {
+funcBlock, poolID, err := tfec2.IPAMPoolCIDRParseResourceID(rs.Primary.ID)
+funcrr != nil {
 	return err
-}
-
+func
 conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 output, err := tfec2.FindIPAMPoolCIDRByTwoPartKey(ctx, conn, cidrBlock, poolID)
@@ -195,13 +180,10 @@ continue
 
 	if err != nil {
 return err
-	}
-
-	_, err = tfec2.FindIPAMPoolCIDRByTwoPartKey(ctx, conn, cidrBlock, poolID)
-
+func
+func
 	if tfresource.NotFound(err) {
-continue
-	}
+func
 
 	if err != nil {
 return err
@@ -233,13 +215,10 @@ data "aws_region" "current" {}
 resource "aws_vpc_ipam" "test" {
   description = "test"
 
-  operating_regions {
-    region_name = data.aws_region.current.name
-  }
-
+func_name = data.aws_region.current.name
+func
   cascade = true
-}
-`
+func
 
 const TestAccIPAMPoolCIDRConfig_privatePool = `
 resource "aws_vpc_ipam_pool" "test" {
@@ -262,9 +241,9 @@ resource "aws_vpc_ipam_pool_cidr" "testparent" {
 }
 
 resource "aws_vpc_ipam_pool" "testchild" {
-  address_family      = "ipv4"
-  ipam_scope_id       = aws_vpc_ipam.test.private_default_scope_id
-  locale     = data.aws_region.current.name
+  address_family
+  ipam_scope_idc_ipam.test.private_default_scope_id
+  locale_region.current.name
   source_ipam_pool_id = aws_vpc_ipam_pool.test.id
 }
 `
@@ -283,9 +262,10 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 func testAccIPAMPoolCIDRConfig_provisionedIPv4NetmaskLength(netmaskLength string) string {
 	return acctest.ConfigCompose(TestAccIPAMPoolCIDRConfig_base, TestAccIPAMPoolCIDRConfig_privatePoolWithCIDR, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id   = aws_vpc_ipam_pool.testchild.id
+  ipam_pool_idws_vpc_ipam_pool.testchild.id
   netmask_length = %[1]q
-  depends_on     = [aws_vpc_ipam_pool_cidr.testparent]
+  depends_on_ipam_pool_cidr.testparent]
 }
 `, netmaskLength))
 }
+funcfunc

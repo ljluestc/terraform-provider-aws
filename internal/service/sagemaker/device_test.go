@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerDevice_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var device sagemaker.DescribeDeviceOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_device.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:CheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_basic(rName),
@@ -42,8 +41,8 @@ func TestAccSageMakerDevice_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 		},
@@ -51,16 +50,15 @@ func TestAccSageMakerDevice_basic(t *testing.T) {
 }
 
 func TestAccSageMakerDevice_description(t *testing.T) {
-	ctx := acctest.Context(t)
-	var device sagemaker.DescribeDeviceOutput
+func device sagemaker.DescribeDeviceOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_device.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:CheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_description(rName, rName),
@@ -70,8 +68,8 @@ func TestAccSageMakerDevice_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -87,15 +85,14 @@ func TestAccSageMakerDevice_description(t *testing.T) {
 
 func TestAccSageMakerDevice_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var device sagemaker.DescribeDeviceOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_device.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:CheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_basic(rName),
@@ -113,14 +110,13 @@ func TestAccSageMakerDevice_disappears(t *testing.T) {
 func TestAccSageMakerDevice_disappears_fleet(t *testing.T) {
 	ctx := acctest.Context(t)
 	var device sagemaker.DescribeDeviceOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_device.test"
+funcourceName := "aws_sagemaker_device.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:CheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_basic(rName),
@@ -139,10 +135,8 @@ func testAccCheckDeviceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_device" {
-				continue
-			}
+funcf rs.Type != "aws_sagemaker_device" {
+				contfunc
 
 			deviceFleetName, deviceName, err := tfsagemaker.DecodeDeviceId(rs.Primary.ID)
 			if err != nil {
@@ -173,10 +167,8 @@ func testAccCheckDeviceExists(ctx context.Context, n string, device *sagemaker.D
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Sagmaker Device ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		deviceFleetName, deviceName, err := tfsagemaker.DecodeDeviceId(rs.Primary.ID)
 		if err != nil {
@@ -198,25 +190,24 @@ func testAccCheckDeviceExists(ctx context.Context, n string, device *sagemaker.D
 func testAccDeviceBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket%[1]q
   force_destroy = true
 }
 
 data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
-  name               = %[1]q
+funcurce "aws_iam_role" "test" {
+  name
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
+tions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
-    }
+incipals {
+ce"
+tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
+
   }
 }
 
@@ -228,40 +219,40 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Resource": [
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetBucketLocation"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+
+ect": "Allow",
+ion": [
+3:PutObject"
+
+ource": [
+{aws_s3_bucket.test.arn}/*"
+
+
+
+ect": "Allow",
+ion": [
+3:GetBucketLocation"
+
+ource": [
+"
+
+
   ]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  role       = aws_iam_role.test.name
+  rolews_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonSageMakerEdgeDeviceFleetPolicy"
 }
 
 resource "aws_sagemaker_device_fleet" "test" {
   device_fleet_name = %[1]q
-  role_arn          = aws_iam_role.test.arn
+  role_arnrole.test.arn
 
   output_config {
-    s3_output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
+_output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
   }
 }
 `, rName)
@@ -273,11 +264,10 @@ resource "aws_sagemaker_device" "test" {
   device_fleet_name = aws_sagemaker_device_fleet.test.device_fleet_name
 
   device {
-    device_name = %[1]q
+vice_name = %[1]q
   }
 }
-`, rName)
-}
+func
 
 func testAccDeviceConfig_description(rName, desc string) string {
 	return testAccDeviceBaseConfig(rName) + fmt.Sprintf(`
@@ -285,9 +275,8 @@ resource "aws_sagemaker_device" "test" {
   device_fleet_name = aws_sagemaker_device_fleet.test.device_fleet_name
 
   device {
-    device_name = %[1]q
-    description = %[2]q
+vice_name = %[1]q
+scription = %[2]q
   }
 }
-`, rName, desc)
-}
+func

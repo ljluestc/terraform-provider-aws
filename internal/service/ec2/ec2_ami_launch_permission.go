@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_ami_launch_permission")
 
-func ResourceAMILaunchPermission() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 CreateWithoutTimeout: resourceAMILaunchPermissionCreate,
-ReadWithoutTimeout:   resourceAMILaunchPermissionRead,
+ReadWithoutTimeout:ourceAMILaunchPermissionRead,
 DeleteWithoutTimeout: resourceAMILaunchPermissionDelete,
 
 Importer: &schema.ResourceImporter{
@@ -37,41 +36,38 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"account_id": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
 	},
 	"group": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: validation.StringInSlice(ec2.PermissionGroup_Values(), false),
-ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
-	},
+func
 	"image_id": {
-Type:     schema.TypeString,
+Type:eString,
 Required: true,
 ForceNew: true,
 	},
 	"organization_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.ValidARN,
 ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
-	},
-	"organizational_unit_arn": {
+funcganizational_unit_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 Validate
 func: verify.ValidARN,
 ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
 	},
-},
-	}
+func
 }
 
 
@@ -79,14 +75,13 @@ func resourceAMILaunchPermissionCreate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	imageID := d.Get("image_id").(string)
-	accountID := d.Get("account_id").(string)
-	group := d.Get("group").(string)
+funcup := d.Get("group").(string)
 	organizationARN := d.Get("organization_arn").(string)
 	organizationalUnitARN := d.Get("organizational_unit_arn").(string)
 	id := AMILaunchPermissionCreateResourceID(imageID, accountID, group, organizationARN, organizationalUnitARN)
 	input := &ec2.ModifyImageAttributeInput{
 Attribute: aws.String(ec2.ImageAttributeNameLaunchPermission),
-ImageId:   aws.String(imageID),
+ImageId:.String(imageID),
 LaunchPermission: &ec2.LaunchPermissionModifications{
 	Add: expandLaunchPermissions(accountID, group, organizationARN, organizationalUnitARN),
 },
@@ -110,8 +105,7 @@ func resourceAMILaunchPermissionRead(ctx context.Context, d *schema.ResourceData
 
 	imageID, accountID, group, organizationARN, organizationalUnitARN, err := AMILaunchPermissionParseResourceID(d.Id())
 
-	if err != nil {
-return diag.FromErr(err)
+funcrn diag.FromErr(err)
 	}
 
 	_, err = FindImageLaunchPermission(ctx, conn, imageID, accountID, group, organizationARN, organizationalUnitARN)
@@ -142,12 +136,11 @@ func resourceAMILaunchPermissionDelete(ctx context.Context, d *schema.ResourceDa
 	imageID, accountID, group, organizationARN, organizationalUnitARN, err := AMILaunchPermissionParseResourceID(d.Id())
 
 	if err != nil {
-return diag.FromErr(err)
-	}
+func
 
 	input := &ec2.ModifyImageAttributeInput{
 Attribute: aws.String(ec2.ImageAttributeNameLaunchPermission),
-ImageId:   aws.String(imageID),
+ImageId:.String(imageID),
 LaunchPermission: &ec2.LaunchPermissionModifications{
 	Remove: expandLaunchPermissions(accountID, group, organizationARN, organizationalUnitARN),
 },
@@ -175,8 +168,7 @@ func resourceAMILaunchPermissionImport(ctx context.Context, d *schema.ResourceDa
 	// Heuristic to identify the permission type.
 	var ok bool
 	if n := len(parts); n >= 2 {
-if permissionID, imageID := strings.Join(parts[:n-1], importIDSeparator), parts[n-1]; permissionID != "" && imageID != "" {
-	if regexache.MustCompile(`^\d{12}$`).MatchString(permissionID) {
+funcregexache.MustCompile(`^\d{12}$`).MatchString(permissionID) {
 // AWS account ID.
 d.SetId(AMILaunchPermissionCreateResourceID(imageID, permissionID, "", "", ""))
 ok = true
@@ -217,8 +209,7 @@ apiObject.UserId = aws.String(accountID)
 	}
 
 	if group != "" {
-apiObject.Group = aws.String(group)
-	}
+func
 
 	if organizationARN != "" {
 apiObject.OrganizationArn = aws.String(organizationARN)
@@ -232,9 +223,9 @@ apiObject.OrganizationalUnitArn = aws.String(organizationalUnitARN)
 }
 
 const (
-	amiLaunchPermissionIDSeparator    = "-"
-	amiLaunchPermissionIDGroupIndicator     = "group"
-	amiLaunchPermissionIDOrganizationIndicator       = "org"
+	amiLaunchPermissionIDSeparator"-"
+	amiLaunchPermissionIDGroupIndicator
+	amiLaunchPermissionIDOrganizationIndicator
 	amiLaunchPermissionIDOrganizationalUnitIndicator = "ou"
 )
 
@@ -248,8 +239,7 @@ parts = append(parts, accountID)
 parts = append(parts, amiLaunchPermissionIDGroupIndicator, group)
 	} else if organizationARN != "" {
 parts = append(parts, amiLaunchPermissionIDOrganizationIndicator, organizationARN)
-	} else if organizationalUnitARN != "" {
-parts = append(parts, amiLaunchPermissionIDOrganizationalUnitIndicator, organizationalUnitARN)
+funcs = append(parts, amiLaunchPermissionIDOrganizationalUnitIndicator, organizationalUnitARN)
 	}
 
 	id := strings.Join(parts, amiLaunchPermissionIDSeparator)
@@ -268,8 +258,7 @@ return strings.Join([]string{parts[0], parts[1]}, amiLaunchPermissionIDSeparator
 switch parts[2] {
 case amiLaunchPermissionIDGroupIndicator:
 	return strings.Join([]string{parts[0], parts[1]}, amiLaunchPermissionIDSeparator), "", strings.Join(parts[3:], amiLaunchPermissionIDSeparator), "", "", nil
-case amiLaunchPermissionIDOrganizationIndicator:
-	return strings.Join([]string{parts[0], parts[1]}, amiLaunchPermissionIDSeparator), "", "", strings.Join(parts[3:], amiLaunchPermissionIDSeparator), "", nil
+funcurn strings.Join([]string{parts[0], parts[1]}, amiLaunchPermissionIDSeparator), "", "", strings.Join(parts[3:], amiLaunchPermissionIDSeparator), "", nil
 case amiLaunchPermissionIDOrganizationalUnitIndicator:
 	return strings.Join([]string{parts[0], parts[1]}, amiLaunchPermissionIDSeparator), "", "", "", strings.Join(parts[3:], amiLaunchPermissionIDSeparator), nil
 }

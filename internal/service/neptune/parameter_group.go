@@ -104,7 +104,7 @@ func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, m
 		DBParameterGroupName:   aws.String(d.Get("name").(string)),
 		DBParameterGroupFamily: aws.String(d.Get("family").(string)),
 		Description:            aws.String(d.Get("description").(string)),
-		Tags:                   getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Create Neptune Parameter Group: %#v", createOpts)
@@ -156,7 +156,7 @@ func resourceParameterGroupRead(ctx context.Context, d *schema.ResourceData, met
 	// Only include user customized parameters as there's hundreds of system/default ones
 	describeParametersOpts := neptune.DescribeDBParametersInput{
 		DBParameterGroupName: aws.String(d.Id()),
-		Source:               aws.String("user"),
+		Source:  aws.String("user"),
 	}
 
 	var parameters []*neptune.Parameter

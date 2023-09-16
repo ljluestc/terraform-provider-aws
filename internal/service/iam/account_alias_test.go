@@ -14,10 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIAMAccountAlias_serial(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"DataSource": {
@@ -29,19 +26,16 @@ func TestAccIAMAccountAlias_serial(t *testing.T) {
 	}
 
 	acctest.RunSerialTests2Levels(t, testCases, 0)
-}
-
-func testAccAccountAlias_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_iam_account_alias.test"
+}func testAccAccountAlias_basic(t *testing.T) {
+	funcourceName := "aws_iam_account_alias.test"
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountAliasDestroy(ctx),
+		CheckDestroy:testAccCheckAccountAliasDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountAliasConfig_basic(rName),
@@ -56,12 +50,9 @@ func testAccAccountAlias_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckAccountAliasDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckAccountAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
+	func
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_account_alias" {
 				continue
@@ -86,13 +77,10 @@ func testAccCheckAccountAliasDestroy(ctx context.Context) resource.TestCheckFunc
 
 		return nil
 	}
-}
-
-func testAccCheckAccountAliasExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckAccountAliasExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
+	funceturn fmt.Errorf("Not found: %s", n)
 		}
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
@@ -114,12 +102,9 @@ func testAccCheckAccountAliasExists(ctx context.Context, n string) resource.Test
 
 		return nil
 	}
-}
-
-func testAccAccountAliasConfig_basic(rName string) string {
+}func testAccAccountAliasConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_account_alias" "test" {
   account_alias = %[1]q
-}
-`, rName)
+}funcName)
 }

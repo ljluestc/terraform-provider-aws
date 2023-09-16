@@ -41,59 +41,73 @@ type PlanOption interface {
 	configurePlan(*planConfig)
 }
 
-func (opt *DirOption) configurePlan(conf *planConfig) {
+
+ (opt *DirOption) configurePlan(conf *planConfig) {
 	conf.dir = opt.path
 }
 
-func (opt *VarFileOption) configurePlan(conf *planConfig) {
+
+ (opt *VarFileOption) configurePlan(conf *planConfig) {
 	conf.varFiles = append(conf.varFiles, opt.path)
+
+
+
+ (opt *VarOption) configurePlan(conf *planConfig) {
+f.vars = append(conf.vars, opt.assignment)
 }
 
-func (opt *VarOption) configurePlan(conf *planConfig) {
-	conf.vars = append(conf.vars, opt.assignment)
-}
 
-func (opt *TargetOption) configurePlan(conf *planConfig) {
+t *TargetOption) configurePlan(conf *planConfig) {
 	conf.targets = append(conf.targets, opt.target)
 }
 
-func (opt *StateOption) configurePlan(conf *planConfig) {
+
+ (opt *StateOption) configurePlan(conf *planConfig) {
 	conf.state = opt.path
 }
 
-func (opt *ReattachOption) configurePlan(conf *planConfig) {
+
+ (opt *ReattachOption) configurePlan(conf *planConfig) {
 	conf.reattachInfo = opt.info
+
+
+
+ (opt *RefreshOption) configurePlan(conf *planConfig) {
+f.refresh = opt.refresh
 }
 
-func (opt *RefreshOption) configurePlan(conf *planConfig) {
-	conf.refresh = opt.refresh
-}
 
-func (opt *RefreshOnlyOption) configurePlan(conf *planConfig) {
+t *RefreshOnlyOption) configurePlan(conf *planConfig) {
 	conf.refreshOnly = opt.refreshOnly
 }
 
-func (opt *ReplaceOption) configurePlan(conf *planConfig) {
+
+ (opt *ReplaceOption) configurePlan(conf *planConfig) {
 	conf.replaceAddrs = append(conf.replaceAddrs, opt.address)
 }
 
-func (opt *ParallelismOption) configurePlan(conf *planConfig) {
+
+ (opt *ParallelismOption) configurePlan(conf *planConfig) {
 	conf.parallelism = opt.parallelism
+
+
+
+ (opt *OutOption) configurePlan(conf *planConfig) {
+f.out = opt.path
 }
 
-func (opt *OutOption) configurePlan(conf *planConfig) {
-	conf.out = opt.path
-}
 
-func (opt *LockTimeoutOption) configurePlan(conf *planConfig) {
+ (opt *LockTimeoutOption) configurePlan(conf *planConfig) {
 	conf.lockTimeout = opt.timeout
 }
 
-func (opt *LockOption) configurePlan(conf *planConfig) {
+
+ (opt *LockOption) configurePlan(conf *planConfig) {
 	conf.lock = opt.lock
 }
 
-func (opt *DestroyFlagOption) configurePlan(conf *planConfig) {
+
+ (opt *DestroyFlagOption) configurePlan(conf *planConfig) {
 	conf.destroy = opt.destroy
 }
 
@@ -105,7 +119,8 @@ func (opt *DestroyFlagOption) configurePlan(conf *planConfig) {
 //
 // The returned error is nil if `terraform plan` has been executed and exits
 // with either 0 or 2.
-func (tf *Terraform) Plan(ctx context.Context, opts ...PlanOption) (bool, error) {
+
+ (tf *Terraform) Plan(ctx context.Context, opts ...PlanOption) (bool, error) {
 	cmd, err := tf.planCmd(ctx, opts...)
 	if err != nil {
 		return false, err
@@ -117,7 +132,7 @@ func (tf *Terraform) Plan(ctx context.Context, opts ...PlanOption) (bool, error)
 	return false, err
 }
 
-// PlanJSON executes `terraform plan` with the specified options as well as the
+lanJSON executes `terraform plan` with the specified options as well as the
 // `-json` flag and waits for it to complete.
 //
 // Using the `-json` flag will result in
@@ -132,7 +147,8 @@ func (tf *Terraform) Plan(ctx context.Context, opts ...PlanOption) (bool, error)
 //
 // PlanJSON is likely to be removed in a future major version in favour of
 // Plan returning JSON by default.
-func (tf *Terraform) PlanJSON(ctx context.Context, w io.Writer, opts ...PlanOption) (bool, error) {
+
+ (tf *Terraform) PlanJSON(ctx context.Context, w io.Writer, opts ...PlanOption) (bool, error) {
 	err := tf.compatible(ctx, tf0_15_3, nil)
 	if err != nil {
 		return false, fmt.Errorf("terraform plan -json was added in 0.15.3: %w", err)
@@ -153,7 +169,8 @@ func (tf *Terraform) PlanJSON(ctx context.Context, w io.Writer, opts ...PlanOpti
 	return false, err
 }
 
-func (tf *Terraform) planCmd(ctx context.Context, opts ...PlanOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) planCmd(ctx context.Context, opts ...PlanOption) (*exec.Cmd, error) {
 	c := defaultPlanOptions
 
 	for _, o := range opts {
@@ -168,7 +185,8 @@ func (tf *Terraform) planCmd(ctx context.Context, opts ...PlanOption) (*exec.Cmd
 	return tf.buildPlanCmd(ctx, c, args)
 }
 
-func (tf *Terraform) planJSONCmd(ctx context.Context, opts ...PlanOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) planJSONCmd(ctx context.Context, opts ...PlanOption) (*exec.Cmd, error) {
 	c := defaultPlanOptions
 
 	for _, o := range opts {
@@ -185,7 +203,8 @@ func (tf *Terraform) planJSONCmd(ctx context.Context, opts ...PlanOption) (*exec
 	return tf.buildPlanCmd(ctx, c, args)
 }
 
-func (tf *Terraform) buildPlanArgs(ctx context.Context, c planConfig) ([]string, error) {
+
+ (tf *Terraform) buildPlanArgs(ctx context.Context, c planConfig) ([]string, error) {
 	args := []string{"plan", "-no-color", "-input=false", "-detailed-exitcode"}
 
 	// string opts: only pass if set
@@ -228,7 +247,7 @@ func (tf *Terraform) buildPlanArgs(ctx context.Context, c planConfig) ([]string,
 			args = append(args, "-replace="+addr)
 		}
 	}
-	if c.destroy {
+c.destroy {
 		args = append(args, "-destroy")
 	}
 
@@ -247,7 +266,8 @@ func (tf *Terraform) buildPlanArgs(ctx context.Context, c planConfig) ([]string,
 	return args, nil
 }
 
-func (tf *Terraform) buildPlanCmd(ctx context.Context, c planConfig, args []string) (*exec.Cmd, error) {
+
+ (tf *Terraform) buildPlanCmd(ctx context.Context, c planConfig, args []string) (*exec.Cmd, error) {
 	// optional positional argument
 	if c.dir != "" {
 		args = append(args, c.dir)

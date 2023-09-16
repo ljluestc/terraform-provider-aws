@@ -27,7 +27,8 @@ var Analyzer = &analysis.Analyzer{
 	Run: run,
 }
 
-func run(pass *analysis.Pass) (interface{}, error) {
+
+ run(pass *analysis.Pass) (interface{}, error) {
 	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	callExprs := pass.ResultOf[randstringfromcharsetcallexpr.Analyzer].([]*ast.CallExpr)
 	for _, callExpr := range callExprs {

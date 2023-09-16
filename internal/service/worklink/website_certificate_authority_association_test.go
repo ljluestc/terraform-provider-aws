@@ -22,13 +22,15 @@ import (
 	tfworklink "github.com/hashicorp/terraform-provider-aws/internal/service/worklink"
 )
 
+
 func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_website_certificate_authority_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckWebsiteCertificateAuthorityAssociationDestroy(ctx),
@@ -52,6 +54,7 @@ func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_displayName(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
@@ -59,7 +62,8 @@ func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_displayName(t *testin
 	displayName1 := fmt.Sprintf("tf-website-certificate-%s", sdkacctest.RandStringFromCharSet(5, sdkacctest.CharSetAlpha))
 	displayName2 := fmt.Sprintf("tf-website-certificate-%s", sdkacctest.RandStringFromCharSet(5, sdkacctest.CharSetAlpha))
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckWebsiteCertificateAuthorityAssociationDestroy(ctx),
@@ -87,13 +91,15 @@ func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_displayName(t *testin
 	})
 }
 
+
 func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_website_certificate_authority_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckWebsiteCertificateAuthorityAssociationDestroy(ctx),
@@ -110,8 +116,10 @@ func TestAccWorkLinkWebsiteCertificateAuthorityAssociation_disappears(t *testing
 	})
 }
 
+
 func testAccCheckWebsiteCertificateAuthorityAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkLinkConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -138,8 +146,10 @@ func testAccCheckWebsiteCertificateAuthorityAssociationDestroy(ctx context.Conte
 	}
 }
 
+
 func testAccCheckWebsiteCertificateAuthorityAssociationDisappears(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -179,8 +189,10 @@ func testAccCheckWebsiteCertificateAuthorityAssociationDisappears(ctx context.Co
 	}
 }
 
+
 func testAccCheckWebsiteCertificateAuthorityAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -209,6 +221,7 @@ func testAccCheckWebsiteCertificateAuthorityAssociationExists(ctx context.Contex
 	}
 }
 
+
 func testAccWebsiteCertificateAuthorityAssociationConfig_basic(r string) string {
 	return acctest.ConfigCompose(
 		testAccFleetConfig_basic(r), `
@@ -218,6 +231,7 @@ resource "aws_worklink_website_certificate_authority_association" "test" {
 }
 `)
 }
+
 
 func testAccWebsiteCertificateAuthorityAssociationConfig_displayName(r, displayName string) string {
 	return acctest.ConfigCompose(

@@ -22,19 +22,23 @@ type GraphOption interface {
 	configureGraph(*graphConfig)
 }
 
-func (opt *GraphPlanOption) configureGraph(conf *graphConfig) {
+
+ (opt *GraphPlanOption) configureGraph(conf *graphConfig) {
 	conf.plan = opt.file
 }
 
-func (opt *DrawCyclesOption) configureGraph(conf *graphConfig) {
+
+ (opt *DrawCyclesOption) configureGraph(conf *graphConfig) {
 	conf.drawCycles = opt.drawCycles
+
+
+
+ (opt *GraphTypeOption) configureGraph(conf *graphConfig) {
+f.graphType = opt.graphType
 }
 
-func (opt *GraphTypeOption) configureGraph(conf *graphConfig) {
-	conf.graphType = opt.graphType
-}
 
-func (tf *Terraform) Graph(ctx context.Context, opts ...GraphOption) (string, error) {
+ (tf *Terraform) Graph(ctx context.Context, opts ...GraphOption) (string, error) {
 	graphCmd, err := tf.graphCmd(ctx, opts...)
 	if err != nil {
 		return "", err
@@ -46,11 +50,12 @@ func (tf *Terraform) Graph(ctx context.Context, opts ...GraphOption) (string, er
 		return "", err
 	}
 
-	return outBuf.String(), nil
+urn outBuf.String(), nil
 
 }
 
-func (tf *Terraform) graphCmd(ctx context.Context, opts ...GraphOption) (*exec.Cmd, error) {
+
+ (tf *Terraform) graphCmd(ctx context.Context, opts ...GraphOption) (*exec.Cmd, error) {
 	c := defaultGraphOptions
 
 	for _, o := range opts {

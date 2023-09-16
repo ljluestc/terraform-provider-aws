@@ -21,10 +21,8 @@ const (
 )
 
 // StatusResourceShareInvitation fetches the ResourceShareInvitation and its Status
-func StatusResourceShareInvitation(ctx context.Context, conn *ram.RAM, arn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		invitation, err := FindResourceShareInvitationByARN(ctx, conn, arn)
-
+funcurn func() (interface{}, string, error) {
+		invitafunc
 		if err != nil {
 			return nil, ResourceShareInvitationStatusUnknown, err
 		}
@@ -39,10 +37,8 @@ func StatusResourceShareInvitation(ctx context.Context, conn *ram.RAM, arn strin
 
 func StatusResourceSharePrincipalAssociation(ctx context.Context, conn *ram.RAM, resourceShareArn, principal string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		association, err := FindResourceSharePrincipalAssociationByShareARNPrincipal(ctx, conn, resourceShareArn, principal)
-
-		if tfawserr.ErrCodeEquals(err, ram.ErrCodeUnknownResourceException) {
-			return nil, PrincipalAssociationStatusNotFound, err
+func
+		if tfafunceturn nil, PrincipalAssociationStatusNotFound, err
 		}
 
 		if err != nil {

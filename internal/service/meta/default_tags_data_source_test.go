@@ -16,10 +16,10 @@ func TestAccMetaDefaultTagsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_default_tags.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: acctest.ConfigCompose(
@@ -40,10 +40,10 @@ func TestAccMetaDefaultTagsDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_default_tags.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultTagsDataSourceConfig_basic(),
@@ -60,10 +60,10 @@ func TestAccMetaDefaultTagsDataSource_multiple(t *testing.T) {
 	dataSourceName := "data.aws_default_tags.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: acctest.ConfigCompose(
@@ -85,10 +85,10 @@ func TestAccMetaDefaultTagsDataSource_ignore(t *testing.T) {
 	dataSourceName := "data.aws_default_tags.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
 				Config: acctest.ConfigCompose(

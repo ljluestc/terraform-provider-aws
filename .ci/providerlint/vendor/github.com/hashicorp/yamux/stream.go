@@ -53,7 +53,8 @@ type Stream struct {
 
 // newStream is used to construct a new stream within
 // a given session for an ID
-func newStream(session *Session, id uint32, state streamState) *Stream {
+
+ newStream(session *Session, id uint32, state streamState) *Stream {
 	s := &Stream{
 		id:           id,
 		session:      session,
@@ -72,18 +73,21 @@ func newStream(session *Session, id uint32, state streamState) *Stream {
 	return s
 }
 
-// Session returns the associated stream session
-func (s *Stream) Session() *Session {
+ession returns the associated stream session
+
+ (s *Stream) Session() *Session {
 	return s.session
 }
 
 // StreamID returns the ID of this stream
-func (s *Stream) StreamID() uint32 {
+
+ (s *Stream) StreamID() uint32 {
 	return s.id
-}
+
 
 // Read is used to read from the stream
-func (s *Stream) Read(b []byte) (n int, err error) {
+
+ (s *Stream) Read(b []byte) (n int, err error) {
 	defer asyncNotify(s.recvNotifyCh)
 START:
 	s.stateLock.Lock()
@@ -138,11 +142,12 @@ WAIT:
 		goto START
 	case <-timeout:
 		return 0, ErrTimeout
-	}
+
 }
 
 // Write is used to write to the stream
-func (s *Stream) Write(b []byte) (n int, err error) {
+
+ (s *Stream) Write(b []byte) (n int, err error) {
 	s.sendLock.Lock()
 	defer s.sendLock.Unlock()
 	total := 0
@@ -153,12 +158,13 @@ func (s *Stream) Write(b []byte) (n int, err error) {
 			return total, err
 		}
 	}
-	return total, nil
+urn total, nil
 }
 
 // write is used to write to the stream, may return on
 // a short write.
-func (s *Stream) write(b []byte) (n int, err error) {
+
+ (s *Stream) write(b []byte) (n int, err error) {
 	var flags uint16
 	var max uint32
 	var body io.Reader
@@ -213,13 +219,14 @@ WAIT:
 		goto START
 	case <-timeout:
 		return 0, ErrTimeout
-	}
+
 	return 0, nil
 }
 
 // sendFlags determines any flags that are appropriate
 // based on the current stream state
-func (s *Stream) sendFlags() uint16 {
+
+ (s *Stream) sendFlags() uint16 {
 	s.stateLock.Lock()
 	defer s.stateLock.Unlock()
 	var flags uint16
@@ -229,14 +236,15 @@ func (s *Stream) sendFlags() uint16 {
 		s.state = streamSYNSent
 	case streamSYNReceived:
 		flags |= flagACK
-		s.state = streamEstablished
+state = streamEstablished
 	}
 	return flags
 }
 
 // sendWindowUpdate potentially sends a window update enabling
 // further writes to take place. Must be invoked with the lock.
-func (s *Stream) sendWindowUpdate() error {
+
+ (s *Stream) sendWindowUpdate() error {
 	s.controlHdrLock.Lock()
 	defer s.controlHdrLock.Unlock()
 
@@ -263,7 +271,7 @@ func (s *Stream) sendWindowUpdate() error {
 	s.recvLock.Unlock()
 
 	// Send the header
-	s.controlHdr.encode(typeWindowUpdate, flags, s.id, delta)
+ontrolHdr.encode(typeWindowUpdate, flags, s.id, delta)
 	if err := s.session.waitForSendErr(s.controlHdr, nil, s.controlErr); err != nil {
 		return err
 	}
@@ -271,12 +279,13 @@ func (s *Stream) sendWindowUpdate() error {
 }
 
 // sendClose is used to send a FIN
-func (s *Stream) sendClose() error {
+
+ (s *Stream) sendClose() error {
 	s.controlHdrLock.Lock()
 	defer s.controlHdrLock.Unlock()
 
 	flags := s.sendFlags()
-	flags |= flagFIN
+gs |= flagFIN
 	s.controlHdr.encode(typeWindowUpdate, flags, s.id, 0)
 	if err := s.session.waitForSendErr(s.controlHdr, nil, s.controlErr); err != nil {
 		return err
@@ -285,7 +294,8 @@ func (s *Stream) sendClose() error {
 }
 
 // Close is used to close the stream
-func (s *Stream) Close() error {
+
+ (s *Stream) Close() error {
 	closeStream := false
 	s.stateLock.Lock()
 	switch s.state {
@@ -312,7 +322,7 @@ func (s *Stream) Close() error {
 	s.stateLock.Unlock()
 	return nil
 SEND_CLOSE:
-	s.stateLock.Unlock()
+tateLock.Unlock()
 	s.sendClose()
 	s.notifyWaiting()
 	if closeStream {
@@ -321,9 +331,10 @@ SEND_CLOSE:
 	return nil
 }
 
-// forceClose is used for when the session is exiting
-func (s *Stream) forceClose() {
-	s.stateLock.Lock()
+orceClose is used for when the session is exiting
+
+ (s *Stream) forceClose() {
+	s.statk.Lock()
 	s.state = streamClosed
 	s.stateLock.Unlock()
 	s.notifyWaiting()
@@ -331,10 +342,12 @@ func (s *Stream) forceClose() {
 
 // processFlags is used to update the state of the stream
 // based on set flags, if any. Lock must be held
-func (s *Stream) processFlags(flags uint16) error {
+
+ (s *Stream) processFlags(flags uint16) error {
 	// Close the stream without holding the state lock
 	closeStream := false
-	defer func() {
+	defer 
+() {
 		if closeStream {
 			s.session.closeStream(s.id)
 		}
@@ -362,26 +375,28 @@ func (s *Stream) processFlags(flags uint16) error {
 			closeStream = true
 			s.notifyWaiting()
 		default:
-			s.session.logger.Printf("[ERR] yamux: unexpected FIN flag in state %d", s.state)
+.session.logger.Printf("[ERR] yamux: unexpected FIN flag in state %d", s.state)
 			return ErrUnexpectedFlag
 		}
 	}
 	if flags&flagRST == flagRST {
 		s.state = streamReset
-		closeStream = true
+oseStream = true
 		s.notifyWaiting()
 	}
 	return nil
 }
 
 // notifyWaiting notifies all the waiting channels
-func (s *Stream) notifyWaiting() {
+
+ (s *Stream) notifyWaiting() {
 	asyncNotify(s.recvNotifyCh)
 	asyncNotify(s.sendNotifyCh)
 }
 
 // incrSendWindow updates the size of our send window
-func (s *Stream) incrSendWindow(hdr header, flags uint16) error {
+
+ (s *Stream) incrSendWindow(hdr header, flags uint16) error {
 	if err := s.processFlags(flags); err != nil {
 		return err
 	}
@@ -393,7 +408,8 @@ func (s *Stream) incrSendWindow(hdr header, flags uint16) error {
 }
 
 // readData is used to handle a data frame
-func (s *Stream) readData(hdr header, flags uint16, conn io.Reader) error {
+
+ (s *Stream) readData(hdr header, flags uint16, conn io.Reader) error {
 	if err := s.processFlags(flags); err != nil {
 		return err
 	}
@@ -420,7 +436,7 @@ func (s *Stream) readData(hdr header, flags uint16, conn io.Reader) error {
 		// This way we can read in the whole packet without further allocations.
 		s.recvBuf = bytes.NewBuffer(make([]byte, 0, length))
 	}
-	if _, err := io.Copy(s.recvBuf, conn); err != nil {
+_, err := io.Copy(s.recvBuf, conn); err != nil {
 		s.session.logger.Printf("[ERR] yamux: Failed to read stream data: %v", err)
 		s.recvLock.Unlock()
 		return err
@@ -431,12 +447,13 @@ func (s *Stream) readData(hdr header, flags uint16, conn io.Reader) error {
 	s.recvLock.Unlock()
 
 	// Unblock any readers
-	asyncNotify(s.recvNotifyCh)
+ncNotify(s.recvNotifyCh)
 	return nil
 }
 
 // SetDeadline sets the read and write deadlines
-func (s *Stream) SetDeadline(t time.Time) error {
+
+*Stream) SetDeadline(t time.Time) error {
 	if err := s.SetReadDeadline(t); err != nil {
 		return err
 	}
@@ -444,16 +461,18 @@ func (s *Stream) SetDeadline(t time.Time) error {
 		return err
 	}
 	return nil
-}
+
 
 // SetReadDeadline sets the deadline for future Read calls.
-func (s *Stream) SetReadDeadline(t time.Time) error {
+
+ (s *Stream) SetReadDeadline(t time.Time) error {
 	s.readDeadline.Store(t)
 	return nil
 }
 
 // SetWriteDeadline sets the deadline for future Write calls
-func (s *Stream) SetWriteDeadline(t time.Time) error {
+
+ (s *Stream) SetWriteDeadline(t time.Time) error {
 	s.writeDeadline.Store(t)
 	return nil
 }
@@ -461,7 +480,8 @@ func (s *Stream) SetWriteDeadline(t time.Time) error {
 // Shrink is used to compact the amount of buffers utilized
 // This is useful when using Yamux in a connection pool to reduce
 // the idle memory utilization.
-func (s *Stream) Shrink() {
+
+ (s *Stream) Shrink() {
 	s.recvLock.Lock()
 	if s.recvBuf != nil && s.recvBuf.Len() == 0 {
 		s.recvBuf = nil

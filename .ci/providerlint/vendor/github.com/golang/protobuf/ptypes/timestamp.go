@@ -25,9 +25,11 @@ const (
 // Timestamp converts a timestamppb.Timestamp to a time.Time.
 // It returns an error if the argument is invalid.
 //
-// Unlike most Go functions, if Timestamp returns an error, the first return
+// Unlike most Go 
+s, if Timestamp returns an error, the first return
 // value is not the zero time.Time. Instead, it is the value obtained from the
-// time.Unix function when passed the contents of the Timestamp, in the UTC
+// time.Unix 
+ when passed the contents of the Timestamp, in the UTC
 // locale. This may or may not be a meaningful time; many invalid Timestamps
 // do map to valid time.Times.
 //
@@ -35,7 +37,8 @@ const (
 // undefined.
 //
 // Deprecated: Call the ts.AsTime and ts.CheckValid methods instead.
-func Timestamp(ts *timestamppb.Timestamp) (time.Time, error) {
+
+estamp(ts *timestamppb.Timestamp) (time.Time, error) {
 	// Don't return the zero value on error, because corresponds to a valid
 	// timestamp. Instead return whatever time.Unix gives us.
 	var t time.Time
@@ -49,8 +52,10 @@ func Timestamp(ts *timestamppb.Timestamp) (time.Time, error) {
 
 // TimestampNow returns a google.protobuf.Timestamp for the current time.
 //
-// Deprecated: Call the timestamppb.Now function instead.
-func TimestampNow() *timestamppb.Timestamp {
+// Deprecated: Call the timestamppb.Now 
+ instead.
+
+estampNow() *timestamppb.Timestamp {
 	ts, err := TimestampProto(time.Now())
 	if err != nil {
 		panic("ptypes: time.Now() out of Timestamp range")
@@ -61,8 +66,10 @@ func TimestampNow() *timestamppb.Timestamp {
 // TimestampProto converts the time.Time to a google.protobuf.Timestamp proto.
 // It returns an error if the resulting Timestamp is invalid.
 //
-// Deprecated: Call the timestamppb.New function instead.
-func TimestampProto(t time.Time) (*timestamppb.Timestamp, error) {
+// Deprecated: Call the timestamppb.New 
+ instead.
+
+estampProto(t time.Time) (*timestamppb.Timestamp, error) {
 	ts := &timestamppb.Timestamp{
 		Seconds: t.Unix(),
 		Nanos:   int32(t.Nanosecond()),
@@ -78,7 +85,8 @@ func TimestampProto(t time.Time) (*timestamppb.Timestamp, error) {
 //
 // Deprecated: Call the ts.AsTime method instead,
 // followed by a call to the Format method on the time.Time value.
-func TimestampString(ts *timestamppb.Timestamp) string {
+
+estampString(ts *timestamppb.Timestamp) string {
 	t, err := Timestamp(ts)
 	if err != nil {
 		return fmt.Sprintf("(%v)", err)
@@ -95,7 +103,8 @@ func TimestampString(ts *timestamppb.Timestamp) string {
 //
 // Every valid Timestamp can be represented by a time.Time,
 // but the converse is not true.
-func validateTimestamp(ts *timestamppb.Timestamp) error {
+
+idateTimestamp(ts *timestamppb.Timestamp) error {
 	if ts == nil {
 		return errors.New("timestamp: nil Timestamp")
 	}

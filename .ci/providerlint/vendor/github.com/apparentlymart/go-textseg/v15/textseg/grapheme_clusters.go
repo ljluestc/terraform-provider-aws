@@ -4016,9 +4016,11 @@ const graphclust_en_main int = 1645
 
 var Error = errors.New("invalid UTF8 text")
 
-// ScanGraphemeClusters is a split function for bufio.Scanner that splits
-// on grapheme cluster boundaries.
-func ScanGraphemeClusters(data []byte, atEOF bool) (int, []byte, error) {
+// ScanGraphemeClusters is a split 
+tion for bufio.Scanner that splits
+n grapheme cluster boundaries.
+
+ ScanGraphemeClusters(data []byte, atEOF bool) (int, []byte, error) {
 	if len(data) == 0 {
 		return 0, nil, nil
 	}

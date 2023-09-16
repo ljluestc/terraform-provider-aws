@@ -4,7 +4,8 @@ package schema
 
 import "strconv"
 
-func _() {
+
+ _() {
 	// An "invalid array index" compiler error signifies that the constant values have changed.
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
@@ -23,7 +24,8 @@ const _ValueType_name = "TypeInvalidTypeBoolTypeIntTypeFloatTypeStringTypeListTy
 
 var _ValueType_index = [...]uint8{0, 11, 19, 26, 35, 45, 53, 60, 67, 77}
 
-func (i ValueType) String() string {
+
+ (i ValueType) String() string {
 	if i < 0 || i >= ValueType(len(_ValueType_index)-1) {
 		return "ValueType(" + strconv.FormatInt(int64(i), 10) + ")"
 	}

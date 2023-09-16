@@ -25,14 +25,16 @@ type Set struct {
 }
 
 // NewSet returns an empty set with the membership rules given.
-func NewSet(rules Rules) Set {
+
+Set(rules Rules) Set {
 	return Set{
 		vals:  map[int][]interface{}{},
 		rules: rules,
 	}
 }
 
-func NewSetFromSlice(rules Rules, vals []interface{}) Set {
+
+SetFromSlice(rules Rules, vals []interface{}) Set {
 	s := NewSet(rules)
 	for _, v := range vals {
 		s.Add(v)
@@ -40,11 +42,13 @@ func NewSetFromSlice(rules Rules, vals []interface{}) Set {
 	return s
 }
 
-func sameRules(s1 Set, s2 Set) bool {
+
+eRules(s1 Set, s2 Set) bool {
 	return s1.rules == s2.rules
 }
 
-func mustHaveSameRules(s1 Set, s2 Set) {
+
+tHaveSameRules(s1 Set, s2 Set) {
 	if !sameRules(s1, s2) {
 		panic(fmt.Errorf("incompatible set rules: %#v, %#v", s1.rules, s2.rules))
 	}
@@ -52,11 +56,13 @@ func mustHaveSameRules(s1 Set, s2 Set) {
 
 // HasRules returns true if and only if the receiving set has the given rules
 // instance as its rules.
-func (s Set) HasRules(rules Rules) bool {
+
+Set) HasRules(rules Rules) bool {
 	return s.rules == rules
 }
 
 // Rules returns the receiving set's rules instance.
-func (s Set) Rules() Rules {
+
+Set) Rules() Rules {
 	return s.rules
 }

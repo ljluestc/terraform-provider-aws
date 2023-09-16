@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package jsonpb provides functionality to marshal and unmarshal between a
+// Package jsonpb provides 
+ality to marshal and unmarshal between a
 // protocol buffer message and JSON. It follows the specification at
 // https://developers.google.com/protocol-buffers/docs/proto3#json.
 //
@@ -28,11 +29,13 @@ type AnyResolver interface {
 
 type anyResolver struct{ AnyResolver }
 
-func (r anyResolver) FindMessageByName(message protoreflect.FullName) (protoreflect.MessageType, error) {
+
+anyResolver) FindMessageByName(message protoreflect.FullName) (protoreflect.MessageType, error) {
 	return r.FindMessageByURL(string(message))
 }
 
-func (r anyResolver) FindMessageByURL(url string) (protoreflect.MessageType, error) {
+
+anyResolver) FindMessageByURL(url string) (protoreflect.MessageType, error) {
 	m, err := r.Resolve(url)
 	if err != nil {
 		return nil, err
@@ -40,15 +43,18 @@ func (r anyResolver) FindMessageByURL(url string) (protoreflect.MessageType, err
 	return protoimpl.X.MessageTypeOf(m), nil
 }
 
-func (r anyResolver) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
+
+anyResolver) FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error) {
 	return protoregistry.GlobalTypes.FindExtensionByName(field)
 }
 
-func (r anyResolver) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
+
+anyResolver) FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error) {
 	return protoregistry.GlobalTypes.FindExtensionByNumber(message, field)
 }
 
-func wellKnownType(s protoreflect.FullName) string {
+
+lKnownType(s protoreflect.FullName) string {
 	if s.Parent() == "google.protobuf" {
 		switch s.Name() {
 		case "Empty", "Any",
@@ -63,7 +69,8 @@ func wellKnownType(s protoreflect.FullName) string {
 	return ""
 }
 
-func isMessageSet(md protoreflect.MessageDescriptor) bool {
+
+essageSet(md protoreflect.MessageDescriptor) bool {
 	ms, ok := md.(interface{ IsMessageSet() bool })
 	return ok && ms.IsMessageSet()
 }

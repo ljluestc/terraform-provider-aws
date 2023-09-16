@@ -27,10 +27,9 @@ import (
 // @SDKResource("aws_ebs_snapshot_import", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
 
-func ResourceEBSSnapshotImport() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotImportCreate,
-		ReadWithoutTimeout:   resourceEBSSnapshotImportRead,
+		ReadWithoutTimeout:ourceEBSSnapshotImportRead,
 		UpdateWithoutTimeout: resourceEBSSnapshotUpdate,
 		DeleteWithoutTimeout: resourceEBSSnapshotDelete,
 
@@ -43,92 +42,89 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"client_data": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"comment": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"upload_end": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional:
+							Computed:
 							Validate
 func: validation.IsRFC3339Time,
-						},
-						"upload_size": {
-							Type:     schema.TypeFloat,
+func		"upload_size": {
+							Type:eFloat,
 							Optional: true,
 							Computed: true,
 						},
 						"upload_start": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional:
+							Computed:
 							Validate
 func: validation.IsRFC3339Time,
 						},
-					},
-				},
+func},
 			},
 			"data_encryption_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 				Optional: true,
 				ForceNew: true,
 			},
 			"disk_container": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"description": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"format": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:
+							ForceNew:
 							Validate
 func: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
 						},
 						"url": {
-							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+func			Optional:
+							ForceNew:
 							ExactlyOneOf: []string{"disk_container.0.user_bucket", "disk_container.0.url"},
 						},
 						"user_bucket": {
-							Type:     schema.TypeList,
+							Type:eList,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"s3_bucket": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Required: true,
 										ForceNew: true,
 									},
 									"s3_key": {
-										Type:     schema.TypeString,
+										Type:eString,
 										Required: true,
 										ForceNew: true,
 									},
@@ -140,56 +136,55 @@ func: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
 				},
 			},
 			"encrypted": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"outpost_arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_alias": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"permanent_restore": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Optional: true,
 			},
 			"role_name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				ForceNew: true,
 				Default:  DefaultSnapshotImportRoleName,
 			},
 			"storage_tier": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:
+				Computed:
 				Validate
 func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"temporary_restore_days": {
-				Type:     schema.TypeInt,
+funcType:eInt,
 				Optional: true,
 			},
 			"volume_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"volume_size": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -202,8 +197,7 @@ func resourceEBSSnapshotImportCreate(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.ImportSnapshotInput{
-		ClientToken:       aws.String(id.UniqueId()),
-		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeImportSnapshotTask),
+funcgSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeImportSnapshotTask),
 	}
 
 	if v, ok := d.GetOk("client_data"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -238,8 +232,7 @@ func() (interface{}, error) {
 		errCodeInvalidParameter, "provided does not exist or does not have sufficient permissions")
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating EBS Snapshot Import: %s", err)
-	}
+func
 
 	taskID := aws.StringValue(outputRaw.(*ec2.ImportSnapshotOutput).ImportTaskId)
 	output, err := WaitEBSSnapshotImportComplete(ctx, conn, taskID, d.Timeout(schema.TimeoutCreate))
@@ -282,8 +275,7 @@ func resourceEBSSnapshotImportRead(ctx context.Context, d *schema.ResourceData, 
 	snapshot, err := FindSnapshotByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EBS Snapshot %s not found, removing from state", d.Id())
-		d.SetId("")
+funcSetId("")
 		return diags
 	}
 
@@ -293,8 +285,8 @@ func resourceEBSSnapshotImportRead(ctx context.Context, d *schema.ResourceData, 
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("snapshot/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
@@ -321,8 +313,7 @@ func expandClientData(tfMap map[string]interface{}) *ec2.ClientData {
 	apiObject := &ec2.ClientData{}
 
 	if v, ok := tfMap["comment"].(string); ok && v != "" {
-		apiObject.Comment = aws.String(v)
-	}
+func
 
 	if v, ok := tfMap["upload_end"].(string); ok && v != "" {
 		v, _ := time.Parse(time.RFC3339, v)
@@ -353,8 +344,7 @@ func expandSnapshotDiskContainer(tfMap map[string]interface{}) *ec2.SnapshotDisk
 
 	if v, ok := tfMap["description"].(string); ok && v != "" {
 		apiObject.Description = aws.String(v)
-	}
-
+func
 	if v, ok := tfMap["format"].(string); ok && v != "" {
 		apiObject.Format = aws.String(v)
 	}
@@ -381,8 +371,7 @@ func expandUserBucket(tfMap map[string]interface{}) *ec2.UserBucket {
 	if v, ok := tfMap["s3_bucket"].(string); ok && v != "" {
 		apiObject.S3Bucket = aws.String(v)
 	}
-
-	if v, ok := tfMap["s3_key"].(string); ok && v != "" {
+funcv, ok := tfMap["s3_key"].(string); ok && v != "" {
 		apiObject.S3Key = aws.String(v)
 	}
 

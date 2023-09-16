@@ -17,9 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_ce_cost_allocation_tag")
-func ResourceCostAllocationTag() *schema.Resource {
-	return &schema.Resource{
+// @SDKResource("aws_ce_cost_allocation_tag")funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceCostAllocationTagUpdate,
 		ReadWithoutTimeout:   resourceCostAllocationTagRead,
 		UpdateWithoutTimeout: resourceCostAllocationTagUpdate,
@@ -45,10 +43,8 @@ func ResourceCostAllocationTag() *schema.Resource {
 		},
 	}
 }
-
 func resourceCostAllocationTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
-
+func
 	costAllocTag, err := FindCostAllocationTagByKey(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -67,27 +63,21 @@ func resourceCostAllocationTagRead(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
-
 func resourceCostAllocationTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	key := d.Get("tag_key").(string)
-
-	updateTagStatus(ctx, d, meta, false)
+funcateTagStatus(ctx, d, meta, false)
 
 	d.SetId(key)
 
 	return resourceCostAllocationTagRead(ctx, d, meta)
 }
-
 func resourceCostAllocationTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return updateTagStatus(ctx, d, meta, true)
 }
-
-func updateTagStatus(ctx context.Context, d *schema.ResourceData, meta interface{}, delete bool) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CEConn(ctx)
+funcn := meta.(*conns.AWSClient).CEConn(ctx)
 
 	key := d.Get("tag_key").(string)
-	tagStatus := &costexplorer.CostAllocationTagStatusEntry{
-		TagKey: aws.String(key),
+funcgKey: aws.String(key),
 		Status: aws.String(d.Get("status").(string)),
 	}
 

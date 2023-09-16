@@ -77,7 +77,7 @@ func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, 
 	input := redshift.CreateClusterSnapshotInput{
 		SnapshotIdentifier: aws.String(d.Get("snapshot_identifier").(string)),
 		ClusterIdentifier:  aws.String(d.Get("cluster_identifier").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("manual_snapshot_retention_period"); ok {

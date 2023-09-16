@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_managed_prefix_list")
 
-func DataSourceManagedPrefixList() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceManagedPrefixListRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -28,24 +27,24 @@ func DataSourceManagedPrefixList() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"entries": {
-				Type:     schema.TypeSet,
+				Type:eSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type:eString,
 							Computed: true,
 						},
 					},
@@ -53,26 +52,26 @@ func DataSourceManagedPrefixList() *schema.Resource {
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 				Optional: true,
 			},
 			"max_entries": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 				Optional: true,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"version": {
-				Type:     schema.TypeInt,
+				Type:eInt,
 				Computed: true,
 			},
 		},
@@ -80,8 +79,7 @@ func DataSourceManagedPrefixList() *schema.Resource {
 }
 
 func dataSourceManagedPrefixListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
+funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeManagedPrefixListsInput{
 		Filters: BuildAttributeFilterList(map[string]string{

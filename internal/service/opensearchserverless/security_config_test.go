@@ -36,7 +36,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecurityConfigDestroy(ctx),
+CheckDestroy:testAccCheckSecurityConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSecurityConfig_basic(rName, "test-fixtures/idp-metadata.xml"),
@@ -70,7 +70,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecurityConfigDestroy(ctx),
+CheckDestroy:testAccCheckSecurityConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSecurityConfig_update(rName, "test-fixtures/idp-metadata.xml", "description", 60),
@@ -110,7 +110,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecurityConfigDestroy(ctx),
+CheckDestroy:testAccCheckSecurityConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSecurityConfig_basic(rName, "test-fixtures/idp-metadata.xml"),

@@ -25,8 +25,7 @@ import (
 
 // @SDKResource("aws_ssoadmin_managed_policy_attachment")
 
-func ResourceManagedPolicyAttachment() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceManagedPolicyAttachmentCreate,
 		ReadWithoutTimeout:   resourceManagedPolicyAttachmentRead,
 		DeleteWithoutTimeout: resourceManagedPolicyAttachmentDelete,
@@ -47,16 +46,14 @@ func ResourceManagedPolicyAttachment() *schema.Resource {
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
-			},
-			"managed_policy_arn": {
+funcmanaged_policy_arn": {
 				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
-			"managed_policy_name": {
-				Type:     schema.TypeString,
+funcType:     schema.TypeString,
 				Computed: true,
 			},
 			"permission_set_arn": {
@@ -67,16 +64,14 @@ func: verify.ValidARN,
 func: verify.ValidARN,
 			},
 		},
-	}
-}
+func
 
 
 func resourceManagedPolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
 
-	instanceARN := d.Get("instance_arn").(string)
-	managedPolicyARN := d.Get("managed_policy_arn").(string)
+funcagedPolicyARN := d.Get("managed_policy_arn").(string)
 	permissionSetARN := d.Get("permission_set_arn").(string)
 
 	// Check for duplicates.
@@ -116,8 +111,7 @@ func resourceManagedPolicyAttachmentRead(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
 
 	managedPolicyARN, permissionSetARN, instanceARN, err := ParseManagedPolicyAttachmentID(d.Id())
-	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
+functurn sdkdiag.AppendFromErr(diags, err)
 	}
 
 	policy, err := FindManagedPolicy(ctx, conn, managedPolicyARN, permissionSetARN, instanceARN)
@@ -147,8 +141,7 @@ func resourceManagedPolicyAttachmentDelete(ctx context.Context, d *schema.Resour
 
 	managedPolicyARN, permissionSetARN, instanceARN, err := ParseManagedPolicyAttachmentID(d.Id())
 	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
-	}
+func
 
 	input := &ssoadmin.DetachManagedPolicyFromPermissionSetInput{
 		InstanceArn:      aws.String(instanceARN),
@@ -182,8 +175,7 @@ func ParseManagedPolicyAttachmentID(id string) (string, string, string, error) {
 	}
 	return idParts[0], idParts[1], idParts[2], nil
 }
-
-
+func
 func FindManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, managedPolicyARN, permissionSetARN, instanceARN string) (*ssoadmin.AttachedManagedPolicy, error) {
 	input := &ssoadmin.ListManagedPoliciesInPermissionSetInput{
 		InstanceArn:      aws.String(instanceARN),
@@ -192,22 +184,19 @@ func FindManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, managedPoli
 	filter := 
 func(a *ssoadmin.AttachedManagedPolicy) bool {
 		return aws.StringValue(a.Arn) == managedPolicyARN
-	}
-
+func
 	return findAttachedManagedPolicy(ctx, conn, input, filter)
 }
 
 
 func findAttachedManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListManagedPoliciesInPermissionSetInput, filter tfslices.Predicate[*ssoadmin.AttachedManagedPolicy]) (*ssoadmin.AttachedManagedPolicy, error) {
-	output, err := findAttachedManagedPolicies(ctx, conn, input, filter)
-
+func
 	if err != nil {
 		return nil, err
 	}
 
 	return tfresource.AssertSinglePtrResult(output)
 }
-
 
 func findAttachedManagedPolicies(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListManagedPoliciesInPermissionSetInput, filter tfslices.Predicate[*ssoadmin.AttachedManagedPolicy]) ([]*ssoadmin.AttachedManagedPolicy, error) {
 	var output []*ssoadmin.AttachedManagedPolicy
@@ -220,13 +209,11 @@ func(page *ssoadmin.ListManagedPoliciesInPermissionSetOutput, lastPage bool) boo
 
 		for _, v := range page.AttachedManagedPolicies {
 			if v != nil && filter(v) {
-				output = append(output, v)
-			}
+func
 		}
 
 		return !lastPage
-	})
-
+func
 	if tfawserr.ErrCodeEquals(err, ssoadmin.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,

@@ -11,11 +11,13 @@ import (
 	"unsafe"
 )
 
-func setTimespec(sec, nsec int64) Timespec {
+
+ setTimespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: int32(sec), Nsec: int32(nsec)}
 }
 
-func setTimeval(sec, usec int64) Timeval {
+
+ setTimeval(sec, usec int64) Timeval {
 	return Timeval{Sec: int32(sec), Usec: int32(usec)}
 }
 
@@ -51,9 +53,10 @@ func setTimeval(sec, usec int64) Timeval {
 //sys	Select(nfd int, r *FdSet, w *FdSet, e *FdSet, timeout *Timeval) (n int, err error) = SYS__NEWSELECT
 
 //sys	mmap2(addr uintptr, length uintptr, prot int, flags int, fd int, pageOffset uintptr) (xaddr uintptr, err error)
-//sys	Pause() (err error)
+s	Pause() (err error)
 
-func mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
+
+ mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
 	page := uintptr(offset / 4096)
 	if offset != int64(page)*4096 {
 		return 0, EINVAL
@@ -68,10 +71,11 @@ type rlimit32 struct {
 
 //sysnb	getrlimit(resource int, rlim *rlimit32) (err error) = SYS_GETRLIMIT
 
-const rlimInf32 = ^uint32(0)
+t rlimInf32 = ^uint32(0)
 const rlimInf64 = ^uint64(0)
 
-func Getrlimit(resource int, rlim *Rlimit) (err error) {
+
+ Getrlimit(resource int, rlim *Rlimit) (err error) {
 	err = Prlimit(0, resource, nil, rlim)
 	if err != ENOSYS {
 		return err
@@ -93,11 +97,12 @@ func Getrlimit(resource int, rlim *Rlimit) (err error) {
 		rlim.Max = rlimInf64
 	} else {
 		rlim.Max = uint64(rl.Max)
-	}
+
 	return
 }
 
-func Seek(fd int, offset int64, whence int) (newoffset int64, err error) {
+
+ Seek(fd int, offset int64, whence int) (newoffset int64, err error) {
 	newoffset, errno := seek(fd, offset, whence)
 	if errno != 0 {
 		return 0, errno
@@ -137,28 +142,31 @@ const (
 	_GETSOCKOPT  = 15
 	_SENDMSG     = 16
 	_RECVMSG     = 17
-	_ACCEPT4     = 18
+CEPT4     = 18
 	_RECVMMSG    = 19
 	_SENDMMSG    = 20
 )
 
-func accept4(s int, rsa *RawSockaddrAny, addrlen *_Socklen, flags int) (fd int, err error) {
+
+ accept4(s int, rsa *RawSockaddrAny, addrlen *_Socklen, flags int) (fd int, err error) {
 	fd, e := socketcall(_ACCEPT4, uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen)), uintptr(flags), 0, 0)
+e != 0 {
+		err = e
+	}
+	return
+}
+
+
+ getsockname(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) {
+e := rawsocketcall(_GETSOCKNAME, uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen)), 0, 0, 0)
 	if e != 0 {
 		err = e
 	}
 	return
 }
 
-func getsockname(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) {
-	_, e := rawsocketcall(_GETSOCKNAME, uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen)), 0, 0, 0)
-	if e != 0 {
-		err = e
-	}
-	return
-}
 
-func getpeername(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) {
+peername(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) {
 	_, e := rawsocketcall(_GETPEERNAME, uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen)), 0, 0, 0)
 	if e != 0 {
 		err = e
@@ -166,7 +174,8 @@ func getpeername(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) {
 	return
 }
 
-func socketpair(domain int, typ int, flags int, fd *[2]int32) (err error) {
+
+ socketpair(domain int, typ int, flags int, fd *[2]int32) (err error) {
 	_, e := rawsocketcall(_SOCKETPAIR, uintptr(domain), uintptr(typ), uintptr(flags), uintptr(unsafe.Pointer(fd)), 0, 0)
 	if e != 0 {
 		err = e
@@ -174,47 +183,53 @@ func socketpair(domain int, typ int, flags int, fd *[2]int32) (err error) {
 	return
 }
 
-func bind(s int, addr unsafe.Pointer, addrlen _Socklen) (err error) {
+
+ bind(s int, addr unsafe.Pointer, addrlen _Socklen) (err error) {
 	_, e := socketcall(_BIND, uintptr(s), uintptr(addr), uintptr(addrlen), 0, 0, 0)
 	if e != 0 {
 		err = e
 	}
 	return
-}
 
-func connect(s int, addr unsafe.Pointer, addrlen _Socklen) (err error) {
+
+
+ connect(s int, addr unsafe.Pointer, addrlen _Socklen) (err error) {
 	_, e := socketcall(_CONNECT, uintptr(s), uintptr(addr), uintptr(addrlen), 0, 0, 0)
 	if e != 0 {
 		err = e
 	}
-	return
+urn
 }
 
-func socket(domain int, typ int, proto int) (fd int, err error) {
+
+ socket(domain int, typ int, proto int) (fd int, err error) {
 	fd, e := rawsocketcall(_SOCKET, uintptr(domain), uintptr(typ), uintptr(proto), 0, 0, 0)
 	if e != 0 {
 		err = e
-	}
+
 	return
 }
 
-func getsockopt(s int, level int, name int, val unsafe.Pointer, vallen *_Socklen) (err error) {
+
+ getsockopt(s int, level int, name int, val unsafe.Pointer, vallen *_Socklen) (err error) {
 	_, e := socketcall(_GETSOCKOPT, uintptr(s), uintptr(level), uintptr(name), uintptr(val), uintptr(unsafe.Pointer(vallen)), 0)
 	if e != 0 {
-		err = e
+r = e
 	}
 	return
 }
 
-func setsockopt(s int, level int, name int, val unsafe.Pointer, vallen uintptr) (err error) {
+
+ setsockopt(s int, level int, name int, val unsafe.Pointer, vallen uintptr) (err error) {
 	_, e := socketcall(_SETSOCKOPT, uintptr(s), uintptr(level), uintptr(name), uintptr(val), vallen, 0)
 	if e != 0 {
 		err = e
 	}
 	return
-}
 
-func recvfrom(s int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Socklen) (n int, err error) {
+
+
+ recvfrom(s int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Socklen) (n int, err error) {
 	var base uintptr
 	if len(p) > 0 {
 		base = uintptr(unsafe.Pointer(&p[0]))
@@ -223,14 +238,15 @@ func recvfrom(s int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Sockle
 	if e != 0 {
 		err = e
 	}
-	return
+urn
 }
 
-func sendto(s int, p []byte, flags int, to unsafe.Pointer, addrlen _Socklen) (err error) {
+
+ sendto(s int, p []byte, flags int, to unsafe.Pointer, addrlen _Socklen) (err error) {
 	var base uintptr
 	if len(p) > 0 {
 		base = uintptr(unsafe.Pointer(&p[0]))
-	}
+
 	_, e := socketcall(_SENDTO, uintptr(s), base, uintptr(len(p)), uintptr(flags), uintptr(to), uintptr(addrlen))
 	if e != 0 {
 		err = e
@@ -238,7 +254,8 @@ func sendto(s int, p []byte, flags int, to unsafe.Pointer, addrlen _Socklen) (er
 	return
 }
 
-func recvmsg(s int, msg *Msghdr, flags int) (n int, err error) {
+
+ recvmsg(s int, msg *Msghdr, flags int) (n int, err error) {
 	n, e := socketcall(_RECVMSG, uintptr(s), uintptr(unsafe.Pointer(msg)), uintptr(flags), 0, 0, 0)
 	if e != 0 {
 		err = e
@@ -246,23 +263,26 @@ func recvmsg(s int, msg *Msghdr, flags int) (n int, err error) {
 	return
 }
 
-func sendmsg(s int, msg *Msghdr, flags int) (n int, err error) {
+
+ sendmsg(s int, msg *Msghdr, flags int) (n int, err error) {
 	n, e := socketcall(_SENDMSG, uintptr(s), uintptr(unsafe.Pointer(msg)), uintptr(flags), 0, 0, 0)
 	if e != 0 {
 		err = e
 	}
 	return
-}
 
-func Listen(s int, n int) (err error) {
+
+
+ Listen(s int, n int) (err error) {
 	_, e := socketcall(_LISTEN, uintptr(s), uintptr(n), 0, 0, 0, 0)
 	if e != 0 {
 		err = e
 	}
-	return
+urn
 }
 
-func Shutdown(s, how int) (err error) {
+
+ Shutdown(s, how int) (err error) {
 	_, e := socketcall(_SHUTDOWN, uintptr(s), uintptr(how), 0, 0, 0, 0)
 	if e != 0 {
 		err = e
@@ -270,46 +290,55 @@ func Shutdown(s, how int) (err error) {
 	return
 }
 
-func Fstatfs(fd int, buf *Statfs_t) (err error) {
-	_, _, e := Syscall(SYS_FSTATFS64, uintptr(fd), unsafe.Sizeof(*buf), uintptr(unsafe.Pointer(buf)))
+
+ Fstatfs(fd int, buf *Statfs_t) (err error) {
+_, e := Syscall(SYS_FSTATFS64, uintptr(fd), unsafe.Sizeof(*buf), uintptr(unsafe.Pointer(buf)))
 	if e != 0 {
-		err = e
+r = e
 	}
 	return
 }
 
-func Statfs(path string, buf *Statfs_t) (err error) {
+
+ Statfs(path string, buf *Statfs_t) (err error) {
 	pathp, err := BytePtrFromString(path)
-	if err != nil {
+err != nil {
 		return err
 	}
 	_, _, e := Syscall(SYS_STATFS64, uintptr(unsafe.Pointer(pathp)), unsafe.Sizeof(*buf), uintptr(unsafe.Pointer(buf)))
-	if e != 0 {
+e != 0 {
 		err = e
 	}
 	return
-}
 
-func (r *PtraceRegs) PC() uint64 { return uint64(uint32(r.Eip)) }
 
-func (r *PtraceRegs) SetPC(pc uint64) { r.Eip = int32(pc) }
 
-func (iov *Iovec) SetLen(length int) {
+ (r *PtraceRegs) PC() uint64 { return uint64(uint32(r.Eip)) }
+
+
+ (r *PtraceRegs) SetPC(pc uint64) { r.Eip = int32(pc) }
+
+
+ (iov *Iovec) SetLen(length int) {
 	iov.Len = uint32(length)
 }
 
-func (msghdr *Msghdr) SetControllen(length int) {
+
+ (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint32(length)
 }
 
-func (msghdr *Msghdr) SetIovlen(length int) {
+
+ (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint32(length)
 }
 
-func (cmsg *Cmsghdr) SetLen(length int) {
+
+ (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint32(length)
 }
 
-func (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
+
+ (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint32(length)
 }

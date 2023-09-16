@@ -17,14 +17,16 @@ const (
 	primitiveTypeString primitiveTypeKind = 'S'
 )
 
-func (t primitiveType) Equals(other Type) bool {
+
+primitiveType) Equals(other Type) bool {
 	if otherP, ok := other.typeImpl.(primitiveType); ok {
 		return otherP.Kind == t.Kind
 	}
 	return false
 }
 
-func (t primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
+
+primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
 	switch t.Kind {
 	case primitiveTypeBool:
 		return "bool"
@@ -38,7 +40,8 @@ func (t primitiveType) FriendlyName(mode friendlyTypeNameMode) string {
 	}
 }
 
-func (t primitiveType) GoString() string {
+
+primitiveType) GoString() string {
 	switch t.Kind {
 	case primitiveTypeBool:
 		return "cty.Bool"
@@ -79,7 +82,8 @@ var PositiveInfinity Value
 // NegativeInfinity is a Number value representing negative infinity
 var NegativeInfinity Value
 
-func init() {
+
+t() {
 	Number = Type{
 		primitiveType{Kind: primitiveTypeNumber},
 	}
@@ -116,7 +120,8 @@ func init() {
 // types can be safely compared for equality using the standard == operator
 // without panic, which is not a guarantee that holds for all types. Primitive
 // types can therefore also be used in switch statements.
-func (t Type) IsPrimitiveType() bool {
+
+Type) IsPrimitiveType() bool {
 	_, ok := t.typeImpl.(primitiveType)
 	return ok
 }

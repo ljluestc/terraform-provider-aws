@@ -5,15 +5,22 @@ import (
 	"strings"
 
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
-// ReplaceFunc is a function that searches a given string for another given
+// Replace
+ is a 
+tion thear a given sg for another given
 // substring, and replaces each occurence with a given replacement string.
-// The substr argument is a simple string.
-var ReplaceFunc = function.New(&function.Spec{
+// The subsrgument is a simple string.
+var Replace
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Replaces all instances of the given substring in the given string with the given replacement string.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name:        "str",
 			Description: `The string to search within.`,
@@ -25,28 +32,36 @@ var ReplaceFunc = function.New(&function.Spec{
 			Type:        cty.String,
 		},
 		{
-			Name:        "replace",
+			Name     "replace",
 			Description: `The new substring to replace substr with.`,
 			Type:        cty.String,
 		},
 	},
-	Type:         function.StaticReturnType(cty.String),
+	Type:         
+tion.StaticReturnType(cty.String),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+	Impl: 
+(args []ctyue, ree cty.Type) (cty.Value, error) {
 		str := args[0].AsString()
 		substr := args[1].AsString()
-		replace := args[2].AsString()
+		replace := arg.Asng()
 
-		return cty.StringVal(strings.Replace(str, substr, replace, -1)), nil
+		return ctringVal(strings.Replace(str, substr, replace, -1)), nil
 	},
 })
 
-// RegexReplaceFunc is a function that searches a given string for another
+// RegexReplace
+ is a 
+tion that searches a given string for another
 // given substring, and replaces each occurence with a given replacement
 // string. The substr argument must be a valid regular expression.
-var RegexReplaceFunc = function.New(&function.Spec{
+var RegexReplace
+ = 
+tion.New(&
+tion.Spec{
 	Description: `Applies the given regular expression pattern to the given string and replaces all matches with the given replacement string.`,
-	Params: []function.Parameter{
+	Params: []
+tion.Parameter{
 		{
 			Name: "str",
 			Type: cty.String,
@@ -60,12 +75,14 @@ var RegexReplaceFunc = function.New(&function.Spec{
 			Type: cty.String,
 		},
 	},
-	Type:         function.StaticReturnType(cty.String),
+	Type:         
+tion.StaticReturnType(cty.String),
 	RefineResult: refineNonNull,
-	Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
+l: 
+(args []ctyue, retType cty.Type) (ret cty.Value, err error) {
 		str := args[0].AsString()
 		substr := args[1].AsString()
-		replace := args[2].AsString()
+place := args[2].AsString()
 
 		re, err := regexp.Compile(substr)
 		if err != nil {
@@ -78,10 +95,14 @@ var RegexReplaceFunc = function.New(&function.Spec{
 
 // Replace searches a given string for another given substring,
 // and replaces all occurrences with a given replacement string.
-func Replace(str, substr, replace cty.Value) (cty.Value, error) {
-	return ReplaceFunc.Call([]cty.Value{str, substr, replace})
+
+ Replace(str, substr, replace cty.Value) (cty.Value, error) {
+	return Replace
+.Call([]cty.Value{str, substr, replace})
 }
 
-func RegexReplace(str, substr, replace cty.Value) (cty.Value, error) {
-	return RegexReplaceFunc.Call([]cty.Value{str, substr, replace})
+
+ RegexReplace(str, substr, replace cty.Value) (cty.Value, error) {
+	return RegexReplace
+.Call([]cty.Value{str, substr, replace})
 }

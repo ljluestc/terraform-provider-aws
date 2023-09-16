@@ -14,23 +14,20 @@ import (
 )
 
 
-func TestAccEC2EIPsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccEIPsDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	acctest.CheckResourceAttrGreaterThanValue("data.aws_eips.all", "allocation_ids.#", 1),
-	resource.TestCheckResourceAttr("data.aws_eips.by_tags", "allocation_ids.#", "1"),
-	resource.TestCheckResourceAttr("data.aws_eips.by_tags", "public_ips.#", "1"),
+funcource.TestCheckResourceAttr("data.aws_eips.by_tags", "public_ips.#", "1"),
 	resource.TestCheckResourceAttr("data.aws_eips.none", "allocation_ids.#", "0"),
 	resource.TestCheckResourceAttr("data.aws_eips.none", "public_ips.#", "0"),
 ),
@@ -43,10 +40,9 @@ func(
 func testAccEIPsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test1" {
-  domain = "vpc"
-
+func
   tags = {
-    Name = "%[1]s-1"
+me = "%[1]s-1"
   }
 }
 
@@ -54,7 +50,7 @@ resource "aws_eip" "test2" {
   domain = "vpc"
 
   tags = {
-    Name = "%[1]s-2"
+me = "%[1]s-2"
   }
 }
 
@@ -64,7 +60,7 @@ data "aws_eips" "all" {
 
 data "aws_eips" "by_tags" {
   tags = {
-    Name = "%[1]s-1"
+me = "%[1]s-1"
   }
 
   depends_on = [aws_eip.test1, aws_eip.test2]
@@ -72,8 +68,8 @@ data "aws_eips" "by_tags" {
 
 data "aws_eips" "none" {
   filter {
-    name   = "tag-key"
-    values = ["%[1]s-3"]
+me= "-key"
+lues = ["%[1]s-3"]
   }
 
   depends_on = [aws_eip.test1, aws_eip.test2]

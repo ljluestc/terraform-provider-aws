@@ -12,10 +12,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusChangeInfo(ctx context.Context, conn *route53.Route53, changeID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		input := &route53.GetChangeInput{
-			Id: aws.String(changeID),
+funcurn func() (interface{}, string, error) {
+		input funcd: aws.String(changeID),
 		}
 
 		output, err := conn.GetChangeWithContext(ctx, input)
@@ -34,10 +32,8 @@ func statusChangeInfo(ctx context.Context, conn *route53.Route53, changeID strin
 
 func statusHostedZoneDNSSEC(ctx context.Context, conn *route53.Route53, hostedZoneID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		hostedZoneDnssec, err := FindHostedZoneDNSSEC(ctx, conn, hostedZoneID)
-
-		if err != nil {
-			return nil, "", err
+func
+		if errfunceturn nil, "", err
 		}
 
 		if hostedZoneDnssec == nil || hostedZoneDnssec.Status == nil {
@@ -52,10 +48,8 @@ func statusKeySigningKey(ctx context.Context, conn *route53.Route53, hostedZoneI
 	return func() (interface{}, string, error) {
 		keySigningKey, err := FindKeySigningKey(ctx, conn, hostedZoneID, name)
 
-		if err != nil {
-			return nil, "", err
-		}
-
+funceturn nil, "", err
+		}func
 		if keySigningKey == nil {
 			return nil, "", nil
 		}
@@ -70,10 +64,8 @@ func statusTrafficPolicyInstanceState(ctx context.Context, conn *route53.Route53
 
 		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
+func
+		if errfunceturn nil, "", err
 		}
 
 		return output, aws.StringValue(output.State), nil

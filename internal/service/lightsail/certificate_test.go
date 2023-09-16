@@ -37,9 +37,9 @@ func TestAccLightsailCertificate_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:ertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateConfig_basic(rName, domainName),
@@ -73,9 +73,9 @@ func TestAccLightsailCertificate_subjectAlternativeNames(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:ertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateConfig_subjectAlternativeNames(rName, domainName, subjectAlternativeName),
@@ -105,9 +105,9 @@ func TestAccLightsailCertificate_DomainValidationOptions(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:ertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateConfig_subjectAlternativeNames(rName, domainName, subjectAlternativeName),
@@ -139,9 +139,9 @@ func TestAccLightsailCertificate_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:ertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateConfig_tags1(rName, domainName, "key1", "value1"),
@@ -206,9 +206,9 @@ func TestAccLightsailCertificate_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(lightsail.ServiceID)),
+		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+		CheckDestroy:ertificateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCertificateConfig_basic(rName, domainName),
@@ -287,8 +287,8 @@ resource "aws_lightsail_certificate" "test" {
 func testAccCertificateConfig_subjectAlternativeNames(rName string, domainName string, san string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_certificate" "test" {
-  name                      = %[1]q
-  domain_name               = %[2]q
+  name1]q
+  domain_name
   subject_alternative_names = [%[3]q]
 }
 `, rName, domainName, san)

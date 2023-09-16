@@ -11,18 +11,15 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIAMUserDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	resourceName := "aws_iam_user.test"
 	dataSourceName := "data.aws_iam_user.test"
 
 	userName := fmt.Sprintf("test-datasource-user-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -38,18 +35,15 @@ func TestAccIAMUserDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMUserDataSource_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_iam_user.test"
+}func TestAccIAMUserDataSource_tags(t *testing.T) {
+	funcourceName := "aws_iam_user.test"
 	dataSourceName := "data.aws_iam_user.test"
 
 	userName := fmt.Sprintf("test-datasource-user-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -60,12 +54,9 @@ func TestAccIAMUserDataSource_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccUserDataSourceConfig_basic(name string) string {
+}func testAccUserDataSourceConfig_basic(name string) string {
 	return fmt.Sprintf(`
-resource "aws_iam_user" "test" {
-  name = "%s"
+rfuncme = "%s"
   path = "/"
 }
 
@@ -73,13 +64,10 @@ data "aws_iam_user" "test" {
   user_name = aws_iam_user.test.name
 }
 `, name)
-}
-
-func testAccUserDataSourceConfig_tags(name string) string {
+}func testAccUserDataSourceConfig_tags(name string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
-  name = "%s"
-  path = "/"
+ functh = "/"
 
   tags = {
     tag1 = "test-value1"

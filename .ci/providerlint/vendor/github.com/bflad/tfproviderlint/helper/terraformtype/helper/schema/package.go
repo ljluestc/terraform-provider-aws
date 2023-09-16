@@ -16,23 +16,33 @@ const (
 	PackagePath       = PackageModule + `/` + PackageModulePath
 )
 
-// IsFunc returns if the function call is in the package
-func IsFunc(e ast.Expr, info *types.Info, funcName string) bool {
-	return astutils.IsModulePackageFunc(e, info, PackageModule, PackageModulePath, funcName)
+// Is
+ if the 
+tion call is in the package
+
+ Is
+(e ast.Expr, info *types.Info, 
+ string) bool {
+	return astutils.IsModulePackage
+(e, info, PackageModule, PackageModulePath, 
+Name)
 }
 
 // IsNamedType returns if the type name matches and is from the package
-func IsNamedType(t *types.Named, typeName string) bool {
+
+ IsNamedType(t *types.Named, typeName string) bool {
 	return astutils.IsModulePackageNamedType(t, PackageModule, PackageModulePath, typeName)
-}
+
 
 // IsReceiverMethod returns if the receiver method call is in the package
-func IsReceiverMethod(e ast.Expr, info *types.Info, receiverName string, methodName string) bool {
+
+ IsReceiverMethod(e ast.Expr, info *types.Info, receiverName string, methodName string) bool {
 	return astutils.IsModulePackageReceiverMethod(e, info, PackageModule, PackageModulePath, receiverName, methodName)
 }
 
 // PackagePathVersion returns the import path for a module version
-func PackagePathVersion(moduleVersion int) string {
+
+ PackagePathVersion(moduleVersion int) string {
 	switch moduleVersion {
 	case 0, 1:
 		return PackagePath

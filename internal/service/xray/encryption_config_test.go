@@ -18,18 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccXRayEncryptionConfig_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var v types.EncryptionConfig
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_xray_encryption_config.test"
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.XRayEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEncryptionConfigConfig_basic(),
@@ -64,10 +62,8 @@ func TestAccXRayEncryptionConfig_basic(t *testing.T) {
 
 func testAccCheckEncryptionConfigExists(ctx context.Context, n string, v *types.EncryptionConfig) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+func !ok {
+			returfunc
 
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No XRay Encryption Config ID is set")
@@ -91,17 +87,15 @@ func testAccEncryptionConfigConfig_basic() string {
 	return `
 resource "aws_xray_encryption_config" "test" {
   type = "NONE"
-}
-`
+func
 }
 
 func testAccEncryptionConfigConfig_key(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-
-  policy = <<POLICY
+funclicy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",

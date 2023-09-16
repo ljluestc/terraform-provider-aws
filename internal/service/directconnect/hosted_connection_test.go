@@ -37,10 +37,10 @@ func TestAccDirectConnectHostedConnection_basic(t *testing.T) {
 	resourceName := "aws_dx_hosted_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHostedConnectionDestroy(ctx, testAccHostedConnectionProvider),
+		CheckDestroy:testAccCheckHostedConnectionDestroy(ctx, testAccHostedConnectionProvider),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostedConnectionConfig_basic(connectionName, env.ConnectionId, env.OwnerAccountId),
@@ -119,11 +119,11 @@ func testAccCheckHostedConnectionExists(ctx context.Context, name string) resour
 func testAccHostedConnectionConfig_basic(name, connectionId, ownerAccountId string) string {
 	return fmt.Sprintf(`
 resource "aws_dx_hosted_connection" "test" {
-  name             = "%s"
+  name= "%s"
   connection_id    = "%s"
   owner_account_id = "%s"
   bandwidth        = "100Mbps"
-  vlan             = 4094
+  vlan= 4094
 }
 `, name, connectionId, ownerAccountId)
 }

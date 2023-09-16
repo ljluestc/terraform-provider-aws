@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccKendraDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -34,7 +35,8 @@ func TestAccKendraDataSource_basic(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -62,6 +64,7 @@ func TestAccKendraDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -75,7 +78,8 @@ func TestAccKendraDataSource_disappears(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -92,6 +96,7 @@ func TestAccKendraDataSource_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -106,7 +111,8 @@ func TestAccKendraDataSource_name(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -134,6 +140,7 @@ func TestAccKendraDataSource_name(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -149,7 +156,8 @@ func TestAccKendraDataSource_description(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -193,6 +201,7 @@ func TestAccKendraDataSource_description(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_languageCode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -208,7 +217,8 @@ func TestAccKendraDataSource_languageCode(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -236,6 +246,7 @@ func TestAccKendraDataSource_languageCode(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_roleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -252,7 +263,8 @@ func TestAccKendraDataSource_roleARN(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -282,6 +294,7 @@ func TestAccKendraDataSource_roleARN(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_schedule(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -299,7 +312,8 @@ func TestAccKendraDataSource_schedule(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -329,6 +343,7 @@ func TestAccKendraDataSource_schedule(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -342,7 +357,8 @@ func TestAccKendraDataSource_tags(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -381,6 +397,7 @@ func TestAccKendraDataSource_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_typeCustomCustomizeDiff(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -394,7 +411,8 @@ func TestAccKendraDataSource_typeCustomCustomizeDiff(t *testing.T) {
 	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -415,6 +433,7 @@ func TestAccKendraDataSource_typeCustomCustomizeDiff(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_S3_Bucket(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -432,7 +451,8 @@ func TestAccKendraDataSource_Configuration_S3_Bucket(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -468,6 +488,7 @@ func TestAccKendraDataSource_Configuration_S3_Bucket(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_S3_AccessControlList(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -483,7 +504,8 @@ func TestAccKendraDataSource_Configuration_S3_AccessControlList(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -523,6 +545,7 @@ func TestAccKendraDataSource_Configuration_S3_AccessControlList(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_S3_DocumentsMetadataConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -540,7 +563,8 @@ func TestAccKendraDataSource_Configuration_S3_DocumentsMetadataConfiguration(t *
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -580,6 +604,7 @@ func TestAccKendraDataSource_Configuration_S3_DocumentsMetadataConfiguration(t *
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_S3_ExclusionInclusionPatternsPrefixes(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -595,7 +620,8 @@ func TestAccKendraDataSource_Configuration_S3_ExclusionInclusionPatternsPrefixes
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -646,6 +672,7 @@ func TestAccKendraDataSource_Configuration_S3_ExclusionInclusionPatternsPrefixes
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_URLsSeedURLs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -660,7 +687,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSeedURLs(t *testing.T)
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -711,6 +739,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSeedURLs(t *testing.T)
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_URLsWebCrawlerMode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -728,7 +757,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsWebCrawlerMode(t *test
 	updatedWebCrawlerMode := string(types.WebCrawlerModeSubdomains)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -768,6 +798,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsWebCrawlerMode(t *test
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfigurationBasicHostPort(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -792,7 +823,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	port2 := 456
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -845,6 +877,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfigurationBasicCredentials(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -861,7 +894,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -901,6 +935,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_CrawlDepth(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -917,7 +952,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_CrawlDepth(t *testing.T) {
 	updatedCrawlDepth := 4
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -951,6 +987,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_CrawlDepth(t *testing.T) {
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_MaxLinksPerPage(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -967,7 +1004,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxLinksPerPage(t *testing
 	updatedMaxLinksPerPage := 110
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1001,6 +1039,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxLinksPerPage(t *testing
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_MaxURLsPerMinuteCrawlRate(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1017,7 +1056,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxURLsPerMinuteCrawlRate(
 	updatedMaxUrlsPerMinuteCrawlRate := 250
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1051,6 +1091,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxURLsPerMinuteCrawlRate(
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationCredentials(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1070,7 +1111,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationCredenti
 	originalPort1 := 123
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1115,6 +1157,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationCredenti
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationHostPort(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1136,7 +1179,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationHostPort
 	updatedPort1 := 234
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1180,6 +1224,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationHostPort
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_URLExclusionInclusionPatterns(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1194,7 +1239,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLExclusionInclusionPatte
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1236,6 +1282,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLExclusionInclusionPatte
 	})
 }
 
+
 func TestAccKendraDataSource_Configuration_WebCrawler_URLsSiteMaps(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1250,7 +1297,8 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSiteMaps(t *testing.T)
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1291,6 +1339,7 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSiteMaps(t *testing.T)
 	})
 }
 
+
 func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigurations(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1306,7 +1355,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1454,6 +1504,7 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 	})
 }
 
+
 func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHookConfiguration_InvocationCondition(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1480,7 +1531,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1496,14 +1548,16 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.operator", originalOperator),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_on_value.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_on_value.0.long_value", "3"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_document_title"),
@@ -1529,14 +1583,16 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.operator", updatedOperator),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_on_value.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_on_value.0.long_value", "3"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.pre_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_document_title"),
@@ -1549,6 +1605,7 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 		},
 	})
 }
+
 
 func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHookConfiguration_RoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1571,7 +1628,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1587,7 +1645,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1613,7 +1672,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook2", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1626,6 +1686,7 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 		},
 	})
 }
+
 
 func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHookConfiguration_S3Bucket(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1648,7 +1709,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1664,7 +1726,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1690,7 +1753,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook2", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1703,6 +1767,7 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 		},
 	})
 }
+
 
 func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHookConfiguration_LambdaARN(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -1725,7 +1790,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
@@ -1741,7 +1807,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1767,7 +1834,8 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.role_arn", "aws_iam_role.test_extraction_hook", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_function.test2", "arn"),
+					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.lambda_arn", "aws_lambda_
+function.test2", "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.s3_bucket", "aws_s3_bucket.test_extraction_hook", "id"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_document_enrichment_configuration.0.post_extraction_hook_configuration.0.invocation_condition.0.condition_document_attribute_key", "_excerpt_page_number"),
@@ -1781,8 +1849,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	})
 }
 
+
 func testAccCheckDataSourceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -1809,8 +1879,10 @@ func testAccCheckDataSourceDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccCheckDataSourceExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 
 		if !ok {
@@ -1837,6 +1909,7 @@ func testAccCheckDataSourceExists(ctx context.Context, name string) resource.Tes
 		return nil
 	}
 }
+
 
 func testAccDataSourceConfigBase(rName, rName2, rName3 string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
@@ -1929,6 +2002,7 @@ resource "aws_kendra_index" "test" {
 `, rName, rName2, rName3)
 }
 
+
 func testAccDataSourceConfigS3Base(rName, rName2 string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
 	return fmt.Sprintf(`
@@ -1972,6 +2046,7 @@ resource "aws_iam_role" "test_data_source" {
 `, rName, rName2)
 }
 
+
 func testAccDataSourceConfigWebCrawlerBase(rName string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
 	return fmt.Sprintf(`
@@ -1999,6 +2074,7 @@ resource "aws_iam_role" "test_data_source" {
 }
 `, rName)
 }
+
 
 func testAccDataSourceConfigWebCrawlerSecretsBase(rName, rName2, rName3 string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
@@ -2058,6 +2134,7 @@ resource "aws_iam_role" "test_data_source" {
 `, rName, rName2, rName3)
 }
 
+
 func testAccDataSourceConfigExtractionHookBase(rName, rName2, rName3, rName4 string) string {
 	// Kendra IAM policies: https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html
 	return fmt.Sprintf(`
@@ -2083,9 +2160,11 @@ resource "aws_iam_role" "test_lambda" {
   assume_role_policy = data.aws_iam_policy_document.test_lambda.json
 }
 
-resource "aws_lambda_function" "test" {
+resource "aws_lambda_
+function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
-  function_name = %[3]q
+  
+function_name = %[3]q
   role = aws_iam_role.test_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
@@ -2117,7 +2196,8 @@ resource "aws_iam_role" "test_extraction_hook" {
         {
  Action   = ["lambda:InvokeFunction"]
  Effect   = "Allow"
- Resource = aws_lambda_function.test.arn
+ Resource = aws_lambda_
+function.test.arn
         },
       ]
     })
@@ -2125,6 +2205,7 @@ resource "aws_iam_role" "test_extraction_hook" {
 }
 `, rName, rName2, rName3, rName4)
 }
+
 
 func testAccDataSourceConfig_basic(rName, rName2, rName3, rName4 string) string {
 	return acctest.ConfigCompose(
@@ -2137,6 +2218,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4))
 }
+
 
 func testAccDataSourceConfig_description(rName, rName2, rName3, rName4, description string) string {
 	return acctest.ConfigCompose(
@@ -2151,6 +2233,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName4, description))
 }
 
+
 func testAccDataSourceConfig_languageCode(rName, rName2, rName3, rName4, languageCode string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2163,6 +2246,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4, languageCode))
 }
+
 
 func testAccDataSourceConfig_roleARN(rName, rName2, rName3, rName4, rName5, rName6, rName7, selectARN string) string {
 	return acctest.ConfigCompose(
@@ -2221,6 +2305,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName6, rName7, selectARN))
 }
 
+
 func testAccDataSourceConfig_schedule(rName, rName2, rName3, rName4, rName5, rName6, schedule string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2242,6 +2327,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName6, schedule))
 }
 
+
 func testAccDataSourceConfig_tags1(rName, rName2, rName3, rName4, tag, value string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2257,6 +2343,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4, tag, value))
 }
+
 
 func testAccDataSourceConfig_tags2(rName, rName2, rName3, rName4, tag1, value1, tag2, value2 string) string {
 	return acctest.ConfigCompose(
@@ -2274,6 +2361,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4, tag1, value1, tag2, value2))
 }
+
 
 func testAccDataSourceConfig_typeCustomConflictRoleARN(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
@@ -2293,6 +2381,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName4, rName5))
 }
 
+
 func testAccDataSourceConfig_typeCustomConflictSchedule(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2305,6 +2394,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4, rName5))
 }
+
 
 func testAccDataSourceConfig_typeCustomConflictConfiguration(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
@@ -2328,6 +2418,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName4, rName5))
 }
+
 
 func testAccDataSourceConfig_configurationS3Bucket(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, selectBucket string) string {
 	return acctest.ConfigCompose(
@@ -2401,6 +2492,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName6, rName7, rName8, selectBucket))
 }
 
+
 func testAccDataSourceConfig_configurationS3AccessControlList(rName, rName2, rName3, rName4, rName5, rName6, selectKeyPath string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2428,6 +2520,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName6, selectKeyPath))
 }
 
+
 func testAccDataSourceConfig_configurationS3DocumentsMetadataConfiguration(rName, rName2, rName3, rName4, rName5, rName6, s3Prefix string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2451,6 +2544,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName6, s3Prefix))
 }
+
 
 func testAccDataSourceConfig_configurationS3ExclusionInclusionPatternsPrefixes1(rName, rName2, rName3, rName4, rName5, rName6 string) string {
 	return acctest.ConfigCompose(
@@ -2476,6 +2570,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName6))
 }
 
+
 func testAccDataSourceConfig_configurationS3ExclusionInclusionPatternsPrefixes2(rName, rName2, rName3, rName4, rName5, rName6 string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2499,6 +2594,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName6))
 }
+
 
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsSeedURLs(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
@@ -2525,6 +2621,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName5))
 }
+
 
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsSeedURLs2(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
@@ -2553,6 +2650,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName5))
 }
 
+
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsWebCrawlerMode(rName, rName2, rName3, rName4, rName5, webCrawlerMode string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2580,6 +2678,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName5, webCrawlerMode))
 }
+
 
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationAuthenticationConfigurationBasicHostPort(rName, rName2, rName3, rName4, rName5, rName6, rName7, host1 string, port1 int) string {
 	return acctest.ConfigCompose(
@@ -2618,6 +2717,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName7, host1, port1))
 }
+
 
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationAuthenticationConfigurationBasicHostPort2(rName, rName2, rName3, rName4, rName5, rName6, rName7, host1 string, port1 int, host2 string, port2 int) string {
 	return acctest.ConfigCompose(
@@ -2663,6 +2763,7 @@ resource "aws_kendra_data_source" "test" {
 `, rName7, host1, port1, host2, port2))
 }
 
+
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationAuthenticationConfigurationBasicCredentials(rName, rName2, rName3, rName4, rName5, rName6, rName7, selectCredentials string) string {
 	return acctest.ConfigCompose(
 		testAccDataSourceConfigBase(rName, rName2, rName3),
@@ -2705,6 +2806,7 @@ resource "aws_kendra_data_source" "test" {
 }
 `, rName7, selectCredentials))
 }
+
 
 func testAccDataSourceConfig_configurationWebCrawlerConfigurationCrawlDepth(rName, rName2, rName3, rName4, rName5 string, crawlDepth int) string {
 	return acctest.ConfigCompose(

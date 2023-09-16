@@ -19,17 +19,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func TestAccSageMakerProject_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	var mpg sagemaker.DescribeProjectOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:CheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),
@@ -44,8 +43,8 @@ func TestAccSageMakerProject_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -56,17 +55,16 @@ func TestAccSageMakerProject_basic(t *testing.T) {
 }
 
 func TestAccSageMakerProject_description(t *testing.T) {
-	ctx := acctest.Context(t)
-	var mpg sagemaker.DescribeProjectOutput
+func mpg sagemaker.DescribeProjectOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:CheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_description(rName, rName),
@@ -77,8 +75,8 @@ func TestAccSageMakerProject_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -98,15 +96,14 @@ func TestAccSageMakerProject_description(t *testing.T) {
 
 func TestAccSageMakerProject_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var mpg sagemaker.DescribeProjectOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_sagemaker_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:CheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_tags1(rName, "key1", "value1"),
@@ -117,8 +114,8 @@ func TestAccSageMakerProject_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:urceName,
+				ImportState:e,
 				ImportStateVerify: true,
 			},
 			{
@@ -148,14 +145,13 @@ func TestAccSageMakerProject_tags(t *testing.T) {
 func TestAccSageMakerProject_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var mpg sagemaker.DescribeProjectOutput
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_sagemaker_project.test"
+funcourceName := "aws_sagemaker_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sagemaker.EndpointsID),
+		PreCheck:est.PreCheck(ctx, t) },
+		ErrorCheck:eck(t, sagemaker.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:CheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),
@@ -174,10 +170,8 @@ func testAccCheckProjectDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_sagemaker_project" {
-				continue
-			}
+funcf rs.Type != "aws_sagemaker_project" {
+				contfunc
 
 			Project, err := tfsagemaker.FindProjectByName(ctx, conn, rs.Primary.ID)
 
@@ -204,10 +198,8 @@ func testAccCheckProjectExists(ctx context.Context, n string, mpg *sagemaker.Des
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
-
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No sagmaker Project ID is set")
-		}
+func rs.Primary.ID == "" {
+			returfunc
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 		resp, err := tfsagemaker.FindProjectByName(ctx, conn, rs.Primary.ID)
@@ -224,44 +216,43 @@ func testAccCheckProjectExists(ctx context.Context, n string, mpg *sagemaker.Des
 func testAccProjectConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket%[1]q
   force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  bucket = aws_s3_bucket.test.id
-  key    = "%[1]s.json"
+funcy"%[1]s.json"
 
   content = jsonencode({
-    AWSTemplateFormatVersion = "2010-09-09"
-    Parameters = {
-      SageMakerProjectName = {
-        Type        = "String"
-        Description = "Name of the project"
-      }
-      SageMakerProjectId = {
-        Type        = "String"
-        Description = "Service generated Id of the project."
-      }
-    }
+STemplateFormatVersion = "2010-09-09"
+rameters = {
+MakerProjectName = {
+peg"
+scription = "Name of the project"
 
-    Resources = {
-      MyVPC = {
-        Type = "AWS::EC2::VPC"
-        Properties = {
-          CidrBlock = "10.1.0.0/16"
-        }
-      }
-    }
+MakerProjectId = {
+peg"
+scription = "Service generated Id of the project."
 
-    Outputs = {
-      VpcID = {
-        Description = "VPC ID"
-        Value = {
-          Ref = "MyVPC"
-        }
-      }
-    }
+
+
+sources = {
+C = {
+pe = "AWS::EC2::VPC"
+operties = {
+= "10.1.0.0/16"
+
+
+
+
+tputs = {
+D = {
+scription = "VPC ID"
+lue = {
+PC"
+
+
+
   })
 }
 
@@ -271,22 +262,22 @@ resource "aws_servicecatalog_product" "test" {
   type  = "CLOUD_FORMATION_TEMPLATE"
 
   provisioning_artifact_parameters {
-    disable_template_validation = true
-    name                        = %[1]q
-    template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+sable_template_validation = true
+me
+mplate_urlws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+peON_TEMPLATE"
   }
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
-  description   = %[1]q
+  name
+  description[1]q
   provider_name = %[1]q
 }
 
 resource "aws_servicecatalog_product_portfolio_association" "test" {
   portfolio_id = aws_servicecatalog_portfolio.test.id
-  product_id   = aws_servicecatalog_product.test.id
+  product_idws_servicecatalog_product.test.id
 }
 
 data "aws_partition" "current" {}
@@ -295,15 +286,15 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "servicecatalog.${data.aws_partition.current.dns_suffix}"
-      }
-      Sid = ""
-    }]
+rsion = "2012-10-17"
+atement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+rvice = "servicecatalog.${data.aws_partition.current.dns_suffix}"
+
+= ""
+
   })
 }
 
@@ -312,36 +303,36 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "cloudformation:CreateStack",
-          "cloudformation:DeleteStack",
-          "cloudformation:DescribeStackEvents",
-          "cloudformation:DescribeStacks",
-          "cloudformation:GetTemplateSummary",
-          "cloudformation:SetStackPolicy",
-          "cloudformation:ValidateTemplate",
-          "cloudformation:UpdateStack",
-          "s3:GetObject",
-          "servicecatalog:*",
-          "ec2:*"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
+rsion = "2012-10-17"
+atement = [
+
+tion = [
+ation:CreateStack",
+ation:DeleteStack",
+ation:DescribeStackEvents",
+ation:DescribeStacks",
+ation:GetTemplateSummary",
+ation:SetStackPolicy",
+ation:ValidateTemplate",
+ation:UpdateStack",
+ect",
+talog:*",
+
+
+fectAllow"
+source = "*"
+
+
   })
 }
 
 resource "aws_servicecatalog_constraint" "test" {
   portfolio_id = aws_servicecatalog_product_portfolio_association.test.portfolio_id
-  product_id   = aws_servicecatalog_product_portfolio_association.test.product_id
-  type         = "LAUNCH"
+  product_idws_servicecatalog_product_portfolio_association.test.product_id
+  type "LAUNCH"
 
   parameters = jsonencode({
-    "RoleArn" : aws_iam_role.test.arn
+oleArn" : aws_iam_role.test.arn
   })
 
   depends_on = [aws_iam_role_policy.test]
@@ -366,24 +357,22 @@ resource "aws_sagemaker_project" "test" {
   project_name = %[1]q
 
   service_catalog_provisioning_details {
-    product_id = aws_servicecatalog_constraint.test.product_id
+oduct_id = aws_servicecatalog_constraint.test.product_id
   }
 }
-`, rName))
-}
+func
 
 func testAccProjectConfig_description(rName, desc string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_project" "test" {
-  project_name        = %[1]q
+  project_name%[1]q
   project_description = %[2]q
 
   service_catalog_provisioning_details {
-    product_id = aws_servicecatalog_constraint.test.product_id
+oduct_id = aws_servicecatalog_constraint.test.product_id
   }
 }
-`, rName, desc))
-}
+func
 
 func testAccProjectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
@@ -391,13 +380,12 @@ resource "aws_sagemaker_project" "test" {
   project_name = %[1]q
 
   service_catalog_provisioning_details {
-    product_id = aws_servicecatalog_constraint.test.product_id
+oduct_id = aws_servicecatalog_constraint.test.product_id
   }
 
   tags = {
-    %[2]q = %[3]q
-  }
-}
+2]q = %[3]q
+func
 `, rName, tagKey1, tagValue1))
 }
 
@@ -407,13 +395,12 @@ resource "aws_sagemaker_project" "test" {
   project_name = %[1]q
 
   service_catalog_provisioning_details {
-    product_id = aws_servicecatalog_constraint.test.product_id
+oduct_id = aws_servicecatalog_constraint.test.product_id
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
-}
+2]q = %[3]q
+4]q = %[5]q
+func
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }

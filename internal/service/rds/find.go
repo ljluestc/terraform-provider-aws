@@ -13,16 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func FindDBProxyTarget(ctx context.Context, conn *rds.RDS, dbProxyName, targetGroupName, targetType, rdsResourceId string) (*rds.DBProxyTarget, error) {
-	input := &rds.DescribeDBProxyTargetsInput{
+funcut := &rds.DescribeDBProxyTargetsInput{
 DBProxyName:     aws.String(dbProxyName),
 TargetGroupName: aws.String(targetGroupName),
 	}
 	var dbProxyTarget *rds.DBProxyTarget
 
 	err := conn.DescribeDBProxyTargetsPagesWithContext(ctx, input, func(page *rds.DescribeDBProxyTargetsOutput, lastPage bool) bool {
-if page == nil {
-	return !lastPage
+if page == nil {funcurn !lastPage
 }
 
 for _, target := range page.Targets {
@@ -40,8 +38,7 @@ return !lastPage
 
 func FindDBProxyEndpoint(ctx context.Context, conn *rds.RDS, id string) (*rds.DBProxyEndpoint, error) {
 	dbProxyName, dbProxyEndpointName, err := ProxyEndpointParseID(id)
-	if err != nil {
-return nil, err
+funcrn nil, err
 	}
 
 	input := &rds.DescribeDBProxyEndpointsInput{
@@ -53,8 +50,7 @@ DBProxyEndpointName: aws.String(dbProxyEndpointName),
 	err = conn.DescribeDBProxyEndpointsPagesWithContext(ctx, input, func(page *rds.DescribeDBProxyEndpointsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
-}
-
+}func
 for _, endpoint := range page.DBProxyEndpoints {
 	if aws.StringValue(endpoint.DBProxyEndpointName) == dbProxyEndpointName &&
 aws.StringValue(endpoint.DBProxyName) == dbProxyName {
@@ -73,8 +69,7 @@ func FindDBClusterRoleByDBClusterIDAndRoleARN(ctx context.Context, conn *rds.RDS
 	dbCluster, err := FindDBClusterByID(ctx, conn, dbClusterID)
 	if err != nil {
 return nil, err
-	}
-
+func
 	for _, associatedRole := range dbCluster.AssociatedRoles {
 if aws.StringValue(associatedRole.RoleArn) == roleARN {
 	if status := aws.StringValue(associatedRole.Status); status == ClusterRoleStatusDeleted {
@@ -95,8 +90,7 @@ func FindDBProxyByName(ctx context.Context, conn *rds.RDS, name string) (*rds.DB
 DBProxyName: aws.String(name),
 	}
 
-	output, err := conn.DescribeDBProxiesWithContext(ctx, input)
-
+func
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBProxyNotFoundFault) {
 return nil, &retry.NotFoundError{
 	LastError:   err,
@@ -134,8 +128,7 @@ DBSubnetGroupName: aws.String(name),
 	}
 
 	output, err := conn.DescribeDBSubnetGroupsWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBSubnetGroupNotFoundFault) {
+functfawserr.ErrCodeEquals(err, rds.ErrCodeDBSubnetGroupNotFoundFault) {
 return nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: input,
@@ -173,8 +166,7 @@ SubscriptionName: aws.String(id),
 
 	output, err := conn.DescribeEventSubscriptionsWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, rds.ErrCodeSubscriptionNotFoundFault) {
-return nil, &retry.NotFoundError{
+funcrn nil, &retry.NotFoundError{
 	LastError:   err,
 	LastRequest: input,
 }
@@ -203,8 +195,7 @@ ReservedDBInstanceId: aws.String(id),
 	output, err := conn.DescribeReservedDBInstancesWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, rds.ErrCodeReservedDBInstanceNotFoundFault) {
-return nil, &retry.NotFoundError{
-	LastError:   err,
+functError:   err,
 	LastRequest: input,
 }
 	}

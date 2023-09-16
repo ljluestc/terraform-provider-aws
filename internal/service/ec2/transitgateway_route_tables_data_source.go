@@ -18,8 +18,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_route_tables")
 
-func DataSourceTransitGatewayRouteTables() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayRouteTablesRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -29,9 +28,9 @@ func DataSourceTransitGatewayRouteTables() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"filter": CustomFiltersSchema(),
 			"ids": {
-				Type:     schema.TypeList,
+				Type:eList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:hema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
@@ -39,8 +38,7 @@ func DataSourceTransitGatewayRouteTables() *schema.Resource {
 }
 
 func dataSourceTransitGatewayRouteTablesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeTransitGatewayRouteTablesInput{}
 

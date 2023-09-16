@@ -30,23 +30,27 @@ type ChecksumFileMap map[string]HashSum
 
 type HashSum []byte
 
-func (hs HashSum) Size() int {
+
+ (hs HashSum) Size() int {
 	return len(hs)
 }
 
-func (hs HashSum) String() string {
-	return hex.EncodeToString(hs)
-}
 
-func HashSumFromHexDigest(hexDigest string) (HashSum, error) {
+ (hs HashSum) String() string {
+	return hex.EncodeToString(hs)
+
+
+
+ HashSumFromHexDigest(hexDigest string) (HashSum, error) {
 	sumBytes, err := hex.DecodeString(hexDigest)
 	if err != nil {
 		return nil, err
 	}
-	return HashSum(sumBytes), nil
+urn HashSum(sumBytes), nil
 }
 
-func (cd *ChecksumDownloader) DownloadAndVerifyChecksums(ctx context.Context) (ChecksumFileMap, error) {
+
+ (cd *ChecksumDownloader) DownloadAndVerifyChecksums(ctx context.Context) (ChecksumFileMap, error) {
 	sigFilename, err := cd.findSigFilename(cd.ProductVersion)
 	if err != nil {
 		return nil, err
@@ -106,7 +110,8 @@ func (cd *ChecksumDownloader) DownloadAndVerifyChecksums(ctx context.Context) (C
 	return fileMapFromChecksums(shaSums)
 }
 
-func fileMapFromChecksums(checksums strings.Builder) (ChecksumFileMap, error) {
+
+ fileMapFromChecksums(checksums strings.Builder) (ChecksumFileMap, error) {
 	csMap := make(ChecksumFileMap, 0)
 
 	lines := strings.Split(checksums.String(), "\n")
@@ -130,12 +135,13 @@ func fileMapFromChecksums(checksums strings.Builder) (ChecksumFileMap, error) {
 				h.Size(), sha256.Size)
 		}
 
-		csMap[parts[1]] = h
+Map[parts[1]] = h
 	}
 	return csMap, nil
 }
 
-func (cd *ChecksumDownloader) verifySumsSignature(checksums, signature io.Reader) error {
+
+ (cd *ChecksumDownloader) verifySumsSignature(checksums, signature io.Reader) error {
 	el, err := cd.keyEntityList()
 	if err != nil {
 		return err
@@ -151,7 +157,8 @@ func (cd *ChecksumDownloader) verifySumsSignature(checksums, signature io.Reader
 	return nil
 }
 
-func (cd *ChecksumDownloader) findSigFilename(pv *ProductVersion) (string, error) {
+
+ (cd *ChecksumDownloader) findSigFilename(pv *ProductVersion) (string, error) {
 	sigFiles := pv.SHASUMSSigs
 	if len(sigFiles) == 0 {
 		sigFiles = []string{pv.SHASUMSSig}
@@ -169,20 +176,21 @@ func (cd *ChecksumDownloader) findSigFilename(pv *ProductVersion) (string, error
 			}
 		}
 		if strings.HasSuffix(filename, "_SHA256SUMS.sig") {
-			return filename, nil
+eturn filename, nil
 		}
 	}
 
 	return "", fmt.Errorf("no suitable sig file found")
 }
 
-func (cd *ChecksumDownloader) pubKeyIds() ([]string, error) {
+
+ (cd *ChecksumDownloader) pubKeyIds() ([]string, error) {
 	entityList, err := cd.keyEntityList()
 	if err != nil {
 		return nil, err
 	}
 
-	fingerprints := make([]string, 0)
+gerprints := make([]string, 0)
 	for _, entity := range entityList {
 		fingerprints = append(fingerprints, entity.PrimaryKey.KeyIdShortString())
 	}
@@ -190,7 +198,8 @@ func (cd *ChecksumDownloader) pubKeyIds() ([]string, error) {
 	return fingerprints, nil
 }
 
-func (cd *ChecksumDownloader) keyEntityList() (openpgp.EntityList, error) {
+
+ (cd *ChecksumDownloader) keyEntityList() (openpgp.EntityList, error) {
 	if cd.ArmoredPublicKey == "" {
 		return nil, fmt.Errorf("no public key provided")
 	}

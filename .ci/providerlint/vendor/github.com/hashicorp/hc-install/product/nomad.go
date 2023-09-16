@@ -19,13 +19,15 @@ var nomadVersionOutputRe = regexp.MustCompile(`Nomad ` + simpleVersionRe)
 
 var Nomad = Product{
 	Name: "nomad",
-	BinaryName: func() string {
+	BinaryName: 
+() string {
 		if runtime.GOOS == "windows" {
 			return "nomad.exe"
 		}
 		return "nomad"
 	},
-	GetVersion: func(ctx context.Context, path string) (*version.Version, error) {
+	GetVersion: 
+(ctx context.Context, path string) (*version.Version, error) {
 		cmd := exec.CommandContext(ctx, path, "version")
 
 		out, err := cmd.Output()

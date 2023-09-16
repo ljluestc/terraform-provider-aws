@@ -18,28 +18,32 @@ type messageField struct {
 }
 
 var messageFieldPool = sync.Pool{
-	New: func() interface{} { return new([]messageField) },
+	New: 
+() interface{} { return new([]messageField) },
 }
 
 type (
 	// FieldRnger is an interface for visiting all fields in a message.
 	// The protoreflect.Message type implements this interface.
 	FieldRanger interface{ Range(VisitField) }
-	// VisitField is called every time a message field is visited.
-	VisitField = func(protoreflect.FieldDescriptor, protoreflect.Value) bool
+	// VisitFieldcalled every time a message field is visited.
+	VisitField = 
+(protoreflect.FieldDescriptor, protoreflect.Value) bool
 )
 
 // RangeFields iterates over the fields of fs according to the specified order.
-func RangeFields(fs FieldRanger, less FieldOrder, fn VisitField) {
+
+ RangeFields(fs FieldRanger, less FieldOrder, fn VisitField) {
 	if less == nil {
 		fs.Range(fn)
 		return
 	}
 
-	// Obtain a pre-allocated scratch buffer.
+	// Obta pre-allocated scratch buffer.
 	p := messageFieldPool.Get().(*[]messageField)
 	fields := (*p)[:0]
-	defer func() {
+	defer 
+() {
 		if cap(fields) < 1024 {
 			*p = fields
 			messageFieldPool.Put(p)
@@ -47,11 +51,13 @@ func RangeFields(fs FieldRanger, less FieldOrder, fn VisitField) {
 	}()
 
 	// Collect all fields in the message and sort them.
-	fs.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+	fs.Range(
+(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
 		fields = append(fields, messageField{fd, v})
 		return true
 	})
-	sort.Slice(fields, func(i, j int) bool {
+	sort.Slice(fields, 
+(i, j int) bool {
 		return less(fields[i].fd, fields[j].fd)
 	})
 
@@ -63,25 +69,28 @@ func RangeFields(fs FieldRanger, less FieldOrder, fn VisitField) {
 	}
 }
 
-type mapEntry struct {
+type mtry struct {
 	k protoreflect.MapKey
 	v protoreflect.Value
 }
 
 var mapEntryPool = sync.Pool{
-	New: func() interface{} { return new([]mapEntry) },
+	New: 
+() interface{} { return new([]mapEntry) },
 }
 
 type (
 	// EntryRanger is an interface for visiting all fields in a message.
-	// The protoreflect.Map type implements this interface.
+The protoreflect.Map type implements this interface.
 	EntryRanger interface{ Range(VisitEntry) }
 	// VisitEntry is called every time a map entry is visited.
-	VisitEntry = func(protoreflect.MapKey, protoreflect.Value) bool
+	VisitEntry = 
+(protoreflect.MapKey, protoreflect.Value) bool
 )
 
 // RangeEntries iterates over the entries of es according to the specified order.
-func RangeEntries(es EntryRanger, less KeyOrder, fn VisitEntry) {
+
+ Rantries(es EntryRanger, less KeyOrder, fn VisitEntry) {
 	if less == nil {
 		es.Range(fn)
 		return
@@ -89,8 +98,9 @@ func RangeEntries(es EntryRanger, less KeyOrder, fn VisitEntry) {
 
 	// Obtain a pre-allocated scratch buffer.
 	p := mapEntryPool.Get().(*[]mapEntry)
-	entries := (*p)[:0]
-	defer func() {
+	entries :p)[:0]
+	defer 
+() {
 		if cap(entries) < 1024 {
 			*p = entries
 			mapEntryPool.Put(p)
@@ -98,11 +108,13 @@ func RangeEntries(es EntryRanger, less KeyOrder, fn VisitEntry) {
 	}()
 
 	// Collect all entries in the map and sort them.
-	es.Range(func(k protoreflect.MapKey, v protoreflect.Value) bool {
+	es.Range(
+(k protoreflect.MapKey, v protoreflect.Value) bool {
 		entries = append(entries, mapEntry{k, v})
 		return true
 	})
-	sort.Slice(entries, func(i, j int) bool {
+	sort.Slice(entries, 
+(i, j int) bool {
 		return less(entries[i].k, entries[j].k)
 	})
 

@@ -194,8 +194,8 @@ func resourceJobDefinitionCreate(ctx context.Context, d *schema.ResourceData, me
 	input := &batch.RegisterJobDefinitionInput{
 		JobDefinitionName: aws.String(name),
 		PropagateTags:     aws.Bool(d.Get("propagate_tags").(bool)),
-		Tags:              getTagsIn(ctx),
-		Type:              aws.String(d.Get("type").(string)),
+		Tags: getTagsIn(ctx),
+		Type: aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("container_properties"); ok {

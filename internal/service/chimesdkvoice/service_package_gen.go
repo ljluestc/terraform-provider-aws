@@ -15,23 +15,19 @@ import (
 
 type servicePackage struct{}
 
-func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
-	return []*types.ServicePackageFrameworkDataSource{}
+funcurn []*types.ServicePackageFrameworkDataSource{}
 }
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
-	return []*types.ServicePackageFrameworkResource{}
-}
+func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
-}
-
+func
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceGlobalSettings,
-			TypeName: "aws_chimesdkvoice_global_settings",
+funcypeName: "aws_chimesdkvoice_global_settings",
 		},
 		{
 			Factory:  ResourceSipMediaApplication,
@@ -61,13 +57,12 @@ func (p *servicePackage) ServicePackageName() string {
 	return names.ChimeSDKVoice
 }
 
-// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*chimesdkvoice_sdkv1.ChimeSDKVoice, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return chimesdkvoice_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }
+func

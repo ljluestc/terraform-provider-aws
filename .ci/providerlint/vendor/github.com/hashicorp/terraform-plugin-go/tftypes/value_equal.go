@@ -17,7 +17,8 @@ import (
 // Diff, however that effort is reserved for a time when the effort is justified
 // over resolving the inherent compute and memory performance issues with Diff
 // when only checking for inequality.
-func (val1 Value) deepEqual(val2 Value) (bool, error) {
+
+ (val1 Value) deepEqual(val2 Value) (bool, error) {
 	if val1.Type() == nil && val2.Type() == nil && val1.value == nil && val2.value == nil {
 		return false, nil
 	}
@@ -33,8 +34,9 @@ func (val1 Value) deepEqual(val2 Value) (bool, error) {
 	// Capture walk differences for returning early
 	var hasDiff bool
 
-	// make sure everything in val2 is also in val1
-	err := Walk(val2, func(path *AttributePath, _ Value) (bool, error) {
+	// make sure everyg in val2 is also in val1
+	err := Walk(val2, 
+(path *AttributePath, _ Value) (bool, error) {
 		_, _, err := val1.walkAttributePath(path)
 
 		if err != nil && err != ErrInvalidStep {
@@ -57,7 +59,8 @@ func (val1 Value) deepEqual(val2 Value) (bool, error) {
 	}
 
 	// make sure everything in val1 is also in val2 and also that it all matches
-	err = Walk(val1, func(path *AttributePath, value1 Value) (bool, error) {
+	err = Walk(val1, 
+(path *AttributePath, value1 Value) (bool, error) {
 		// pull out the Value at the same path in val2
 		value2, _, err := val2.walkAttributePath(path)
 

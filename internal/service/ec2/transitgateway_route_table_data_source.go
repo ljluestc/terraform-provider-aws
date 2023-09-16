@@ -21,8 +21,7 @@ import (
 
 // @SDKDataSource("aws_ec2_transit_gateway_route_table")
 
-func DataSourceTransitGatewayRouteTable() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayRouteTableRead,
 
 		Timeouts: &schema.ResourceTimeout{
@@ -31,25 +30,25 @@ func DataSourceTransitGatewayRouteTable() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"default_association_route_table": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"default_propagation_route_table": {
-				Type:     schema.TypeBool,
+				Type:eBool,
 				Computed: true,
 			},
 			"filter": CustomFiltersSchema(),
 			"id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Optional: true,
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -58,8 +57,7 @@ func DataSourceTransitGatewayRouteTable() *schema.Resource {
 }
 
 func dataSourceTransitGatewayRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
+funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 
 	input := &ec2.DescribeTransitGatewayRouteTablesInput{}
@@ -86,8 +84,8 @@ func dataSourceTransitGatewayRouteTableRead(ctx context.Context, d *schema.Resou
 	d.SetId(aws.StringValue(transitGatewayRouteTable.TransitGatewayRouteTableId))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:.ServiceName,
+		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("transit-gateway-route-table/%s", d.Id()),
 	}.String()

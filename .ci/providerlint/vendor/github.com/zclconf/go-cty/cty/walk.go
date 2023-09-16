@@ -1,25 +1,34 @@
 package cty
 
 // Walk visits all of the values in a possibly-complex structure, calling
-// a given function for each value.
+// a given 
+tion for each value.
 //
 // For example, given a list of strings the callback would first be called
 // with the whole list and then called once for each element of the list.
 //
-// The callback function may prevent recursive visits to child values by
-// returning false. The callback function my halt the walk altogether by
+// The callback 
+tion may prevent recursive visits to child values by
+// returning false. The callback 
+tion my halt the walk altogether by
 // returning a non-nil error. If the returned error is about the element
-// currently being visited, it is recommended to use the provided path
+// currently being visited, it icommended to use the provided pa
 // value to produce a PathError describing that context.
-//
-// The path passed to the given function may not be used after that function
+
+// The path passed to the given 
+tion may not be used after that 
+tion
 // returns, since its backing array is re-used for other calls.
-func Walk(val Value, cb func(Path, Value) (bool, error)) error {
+
+ Walk(val Value, cb 
+(Path, Value) (bool, error)) error {
 	var path Path
 	return walk(path, val, cb)
 }
 
-func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
+
+ walk(path Path, val Value, cb 
+(Path, Value) (bool, error)) error {
 	deeper, err := cb(path, val)
 	if err != nil {
 		return err
@@ -66,7 +75,7 @@ func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
 	return nil
 }
 
-// Transformer is the interface used to optionally transform values in a
+// Transformer is the interface  to optionally transform values 
 // possibly-complex structure. The Enter method is called before traversing
 // through a given path, and the Exit method is called when traversal of a
 // path is complete.
@@ -75,49 +84,64 @@ func walk(path Path, val Value, cb func(Path, Value) (bool, error)) error {
 // (preorder), and Exit when you want to transform a value after traversal
 // (postorder).
 //
-// The path passed to the given function may not be used after that function
+// The path passed to the given 
+tion may not be used after that 
+
 // returns, since its backing array is re-used for other calls.
 type Transformer interface {
 	Enter(Path, Value) (Value, error)
-	Exit(Path, Value) (Value, error)
+t(Path, Value) (Value, error)
 }
 
 type postorderTransformer struct {
-	callback func(Path, Value) (Value, error)
+	callback 
+(Path, Value) (e, error)
 }
 
-func (t *postorderTransformer) Enter(p Path, v Value) (Value, error) {
+
+ (t *postorderTransformer) Enter(p Path, v Value) (Value, error) {
 	return v, nil
 }
 
-func (t *postorderTransformer) Exit(p Path, v Value) (Value, error) {
+
+ (t *postordansformer) Exit(p Path, v Value) (Value, error) {
 	return t.callback(p, v)
 }
 
-// Transform visits all of the values in a possibly-complex structure,
-// calling a given function for each value which has an opportunity to
+// Transform visits all of thlues in a possibly-complex structure,
+// calling a given 
+tion for eaclue which has an opportunity to
 // replace that value.
 //
 // Unlike Walk, Transform visits child nodes first, so for a list of strings
 // it would first visit the strings and then the _new_ list constructed
-// from the transformed values of the list items.
+// from the transformed values oe list items.
 //
-// This is useful for creating the effect of being able to make deep mutations
+his is useful for creatine effect of being able to make deep mutations
 // to a value even though values are immutable. However, it's the responsibility
-// of the given function to preserve expected invariants, such as homogenity of
-// element types in collections; this function can panic if such invariants
+// of the given 
+tion to preserve expected invariants, such as homogenity of
+// element types in collections; this 
+tion can panic if such invariants
 // are violated, just as if new values were constructed directly using the
-// value constructor functions. An easy way to preserve invariants is to
-// ensure that the transform function never changes the value type.
+// value constructor 
+s. An easy way to preserve invariants is to
+// ensure that the transform 
+tion never changes the value type.
 //
-// The callback function may halt the walk altogether by
+// The callback 
+ may halt the walk altogether by
 // returning a non-nil error. If the returned error is about the element
 // currently being visited, it is recommended to use the provided path
 // value to produce a PathError describing that context.
 //
-// The path passed to the given function may not be used after that function
+// The path passed to the given 
+tion may not be used after that 
+tion
 // returns, since its backing array is re-used for other calls.
-func Transform(val Value, cb func(Path, Value) (Value, error)) (Value, error) {
+
+ Transform(val Value, cb 
+(Path, Value) (Value, error)) (Value, error) {
 	var path Path
 	return transform(path, val, &postorderTransformer{cb})
 }
@@ -125,12 +149,14 @@ func Transform(val Value, cb func(Path, Value) (Value, error)) (Value, error) {
 // TransformWithTransformer allows the caller to more closely control the
 // traversal used for transformation. See the documentation for Transformer for
 // more details.
-func TransformWithTransformer(val Value, t Transformer) (Value, error) {
+
+ TransformWithTransformer(val Value, t Transformer) (Value, error) {
 	var path Path
 	return transform(path, val, t)
 }
 
-func transform(path Path, val Value, t Transformer) (Value, error) {
+
+ transform(path Path, val Value, t Transformer) (Value, error) {
 	val, err := t.Enter(path, val)
 	if err != nil {
 		return DynamicVal, err

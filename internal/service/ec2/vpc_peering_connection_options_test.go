@@ -20,8 +20,7 @@ import (
 )
 
 
-func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_vpc_peering_connection_options.test"
 	pcxResourceName := "aws_vpc_peering_connection.test"
@@ -29,17 +28,15 @@ func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVPCPeeringConnectionDestroy(ctx),
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:stAccCheckVPCPeeringConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCPeeringConnectionOptionsConfig_sameRegionSameAccount(rName, true),
 Check: resource.ComposeAggregateTestCheck
 func(
 	// Requester's view:
-	resource.TestCheckResourceAttr(resourceName, "requester.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "false"),
+funcource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "false"),
 	testAccCheckVPCPeeringConnectionOptions(ctx, pcxResourceName,
 "requester",
 &ec2.VpcPeeringConnectionOptionsDescription{
@@ -58,8 +55,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -68,8 +65,7 @@ Check: resource.ComposeAggregateTestCheck
 func(
 	// Requester's view:
 	resource.TestCheckResourceAttr(
-resourceName,
-"requester.#",
+funcuester.#",
 "1",
 	),
 	testAccCheckVPCPeeringConnectionOptions(ctx, pcxResourceName,
@@ -101,9 +97,8 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 	ctx := acctest.Context(t)
 	var providers []*schema.Provider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_vpc_peering_connection_options.test"// Requester
-	resourceNamePeer := "aws_vpc_peering_connection_options.peer"     // Accepter
-	pcxResourceName := "aws_vpc_peering_connection.test"     // Requester
+funcourceNamePeer := "aws_vpc_peering_connection_options.peer"r
+	pcxResourceName := "aws_vpc_peering_connection.test"er
 	pcxResourceNamePeer := "aws_vpc_peering_connection_accepter.peer" // Accepter
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -113,8 +108,7 @@ func() {
 	acctest.PreCheckMultipleRegion(t, 2)
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-CheckDestroy:    testAccCheckVPCPeeringConnectionDestroy(ctx),
+funckDestroy:stAccCheckVPCPeeringConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, true, true),
@@ -125,8 +119,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "true"),
 	testAccCheckVPCPeeringConnectionOptions(ctx, pcxResourceName,
 "requester",
-&ec2.VpcPeeringConnectionOptionsDescription{
-	AllowDnsResolutionFromRemoteVpc: aws.Bool(true),
+funcowDnsResolutionFromRemoteVpc: aws.Bool(true),
 },
 	),
 	// Accepter's view:
@@ -143,10 +136,9 @@ func(acctest.AlternateRegion(), &providers),
 ),
 	},
 	{
-Config:   testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, true, true),
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
+Config:tAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, true, true),
+ResourceName:ame,
+funcrtStateVerify: true,
 	},
 	{
 Config: testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, false, false),
@@ -159,8 +151,7 @@ resourceName,
 "1",
 	),
 	testAccCheckVPCPeeringConnectionOptions(ctx, pcxResourceName,
-"requester",
-&ec2.VpcPeeringConnectionOptionsDescription{
+func.VpcPeeringConnectionOptionsDescription{
 	AllowDnsResolutionFromRemoteVpc: aws.Bool(false),
 },
 	),
@@ -185,28 +176,25 @@ func(acctest.AlternateRegion(), &providers),
 }
 
 
-func TestAccVPCPeeringConnectionOptions_sameRegionDifferentAccount(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_vpc_peering_connection_options.test"     // Requester
+	resourceName := "aws_vpc_peering_connection_options.test"er
 	resourceNamePeer := "aws_vpc_peering_connection_options.peer" // Accepter
 	pcxResourceName := "aws_vpc_peering_connection.test" // Requester
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckAlternateAccount(t)
+functest.PreCheckAlternateAccount(t)
 },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckVPCPeeringConnectionDestroy(ctx),
+CheckDestroy:stAccCheckVPCPeeringConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName),
 Check: resource.ComposeAggregateTestCheck
-func(
-	// Requester's view:
+funcRequester's view:
 	resource.TestCheckResourceAttr(resourceName, "requester.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "true"),
 	testAccCheckVPCPeeringConnectionOptions(ctx, pcxResourceName,
@@ -217,13 +205,12 @@ func(
 	),
 	// Accepter's view:
 	resource.TestCheckResourceAttr(resourceNamePeer, "accepter.#", "1"),
-	resource.TestCheckResourceAttr(resourceNamePeer, "accepter.0.allow_remote_vpc_dns_resolution", "true"),
-),
+func
 	},
 	{
-Config:   testAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName),
-ResourceName:      resourceName,
-ImportState:       true,
+Config:tAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName),
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -244,25 +231,18 @@ func {
 	return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
-if !ok {
-	return fmt.Errorf("Not found: %s", n)
-}
-
+funcurn fmt.Errorf("Not found: %s", n)
+func
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No EC2 VPC Peering Connection ID is set.")
-}
+func
 
 conn := providerF().Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-output, err := tfec2.FindVPCPeeringConnectionByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
-	return err
-}
-
+func
+funcurn err
+func
 o := output.AccepterVpcInfo
-if block == "requester" {
-	o = output.RequesterVpcInfo
+func output.RequesterVpcInfo
 }
 
 if got, want := aws.BoolValue(o.PeeringOptions.AllowDnsResolutionFromRemoteVpc), aws.BoolValue(options.AllowDnsResolutionFromRemoteVpc); got != want {
@@ -280,7 +260,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -289,17 +269,16 @@ resource "aws_vpc" "peer" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id      = aws_vpc.test.id
-  peer_vpc_id = aws_vpc.peer.id
+funcer_vpc_id = aws_vpc.peer.id
   auto_accept = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -307,7 +286,7 @@ resource "aws_vpc_peering_connection_options" "test" {
   vpc_peering_connection_id = aws_vpc_peering_connection.test.id
 
   accepter {
-    allow_remote_vpc_dns_resolution = %[2]t
+low_remote_vpc_dns_resolution = %[2]t
   }
 }
 `, rName, accepterDnsResolution)
@@ -321,7 +300,7 @@ resource "aws_vpc" "test" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -332,19 +311,18 @@ resource "aws_vpc" "peer" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
-
-# Requester's side of the connection.
+funcquester's side of the connection.
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id      = aws_vpc.test.id
+  vpc_id.test.id
   peer_vpc_id = aws_vpc.peer.id
   auto_accept = false
   peer_region = %[2]q
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -356,7 +334,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   auto_accept= true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -367,7 +345,7 @@ resource "aws_vpc_peering_connection_options" "test" {
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
   requester {
-    allow_remote_vpc_dns_resolution = %[3]t
+low_remote_vpc_dns_resolution = %[3]t
   }
 }
 
@@ -378,7 +356,7 @@ resource "aws_vpc_peering_connection_options" "peer" {
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
   accepter {
-    allow_remote_vpc_dns_resolution = %[4]t
+low_remote_vpc_dns_resolution = %[4]t
   }
 }
 `, rName, acctest.AlternateRegion(), dnsResolution, dnsResolutionPeer))
@@ -392,7 +370,7 @@ resource "aws_vpc" "test" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -403,23 +381,22 @@ resource "aws_vpc" "peer" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
-data "aws_caller_identity" "peer" {
-  provider = "awsalternate"
+funcovider = "awsalternate"
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id        = aws_vpc.test.id
-  peer_vpc_id   = aws_vpc.peer.id
+  vpc_idpc.test.id
+  peer_vpc_idws_vpc.peer.id
   peer_owner_id = data.aws_caller_identity.peer.account_id
-  auto_accept   = false
+  auto_acceptalse
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -431,7 +408,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   auto_accept= true
 
   tags = {
-    Name = %[1]q
+me = %[1]q
   }
 }
 
@@ -442,7 +419,7 @@ resource "aws_vpc_peering_connection_options" "test" {
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
   requester {
-    allow_remote_vpc_dns_resolution = true
+low_remote_vpc_dns_resolution = true
   }
 }
 
@@ -453,7 +430,7 @@ resource "aws_vpc_peering_connection_options" "peer" {
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
   accepter {
-    allow_remote_vpc_dns_resolution = true
+low_remote_vpc_dns_resolution = true
   }
 }
 `, rName))

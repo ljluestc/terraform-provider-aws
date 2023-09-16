@@ -31,9 +31,9 @@ func TestAccCodeStarConnectionsConnection_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.CodeStarConnectionsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -66,9 +66,9 @@ func TestAccCodeStarConnectionsConnection_hostARN(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.CodeStarConnectionsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_hostARN(rName),
@@ -102,9 +102,9 @@ func TestAccCodeStarConnectionsConnection_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.CodeStarConnectionsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -129,9 +129,9 @@ func TestAccCodeStarConnectionsConnection_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.CodeStarConnectionsEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
+		ErrorCheck:  acctest.ErrorCheck(t, names.CodeStarConnectionsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_tags1(rName, "key1", "value1"),
@@ -226,7 +226,7 @@ resource "aws_codestarconnections_connection" "test" {
 func testAccConnectionConfig_hostARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codestarconnections_host" "test" {
-  name              = %[1]q
+  name = %[1]q
   provider_endpoint = "https://example.com"
   provider_type     = "GitHubEnterpriseServer"
 }

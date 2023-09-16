@@ -12,7 +12,8 @@ import (
 	"github.com/hashicorp/hcl/v2/ext/customdecode"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/
+tion"
 )
 
 // Expression is the abstract type for nodes that behave as HCL expressions.
@@ -46,11 +47,14 @@ type ParenthesesExpr struct {
 
 var _ hcl.Expression = (*ParenthesesExpr)(nil)
 
-func (e *ParenthesesExpr) Range() hcl.Range {
-	return e.SrcRange
-}
 
-func (e *ParenthesesExpr) walkChildNodes(w internalWalkFunc) {
+ (e *ParenthesesExpr) Range() hcl.Range {
+	return e.SrcRange
+
+
+
+ (e *ParenthesesExpr) walkChildNodes(w internalWalk
+) {
 	// We override the walkChildNodes from the embedded Expression to
 	// ensure that both the parentheses _and_ the content are visible
 	// in a walk.
@@ -59,28 +63,34 @@ func (e *ParenthesesExpr) walkChildNodes(w internalWalkFunc) {
 
 // LiteralValueExpr is an expression that just always returns a given value.
 type LiteralValueExpr struct {
-	Val      cty.Value
+      cty.Value
 	SrcRange hcl.Range
 }
 
-func (e *LiteralValueExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *LiteralValueExpr) walkChildNodes(w internalWalk
+) {
 	// Literal values have no child nodes
+
+
+
+ (e *LiteralValueExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+urn e.Val, nil
 }
 
-func (e *LiteralValueExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	return e.Val, nil
+
+ (e *LiteralValueExpr) Range() hcl.Range {
+urn e.SrcRange
 }
 
-func (e *LiteralValueExpr) Range() hcl.Range {
-	return e.SrcRange
-}
 
-func (e *LiteralValueExpr) StartRange() hcl.Range {
+ (e *LiteralValueExpr) StartRange() hcl.Range {
 	return e.SrcRange
 }
 
 // Implementation for hcl.AbsTraversalForExpr.
-func (e *LiteralValueExpr) AsTraversal() hcl.Traversal {
+
+ (e *LiteralValueExpr) AsTraversal() hcl.Traversal {
 	// This one's a little weird: the contract for AsTraversal is to interpret
 	// an expression as if it were traversal syntax, and traversal syntax
 	// doesn't have the special keywords "null", "true", and "false" so these
@@ -121,36 +131,42 @@ func (e *LiteralValueExpr) AsTraversal() hcl.Traversal {
 	default:
 		// No traversal is possible for any other value.
 		return nil
-	}
+
 }
 
 // ScopeTraversalExpr is an Expression that retrieves a value from the scope
-// using a traversal.
+sing a traversal.
 type ScopeTraversalExpr struct {
 	Traversal hcl.Traversal
 	SrcRange  hcl.Range
 }
 
-func (e *ScopeTraversalExpr) walkChildNodes(w internalWalkFunc) {
-	// Scope traversals have no child nodes
-}
 
-func (e *ScopeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+ (e *ScopeTraversalExpr) walkChildNodes(w internalWalk
+) {
+	// Scope traversals have no child nodes
+
+
+
+ (e *ScopeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	val, diags := e.Traversal.TraverseAbs(ctx)
-	setDiagEvalContext(diags, e, ctx)
+DiagEvalContext(diags, e, ctx)
 	return val, diags
 }
 
-func (e *ScopeTraversalExpr) Range() hcl.Range {
+
+ (e *ScopeTraversalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *ScopeTraversalExpr) StartRange() hcl.Range {
+
+ (e *ScopeTraversalExpr) StartRange() hcl.Range {
 	return e.SrcRange
-}
+
 
 // Implementation for hcl.AbsTraversalForExpr.
-func (e *ScopeTraversalExpr) AsTraversal() hcl.Traversal {
+
+*ScopeTraversalExpr) AsTraversal() hcl.Traversal {
 	return e.Traversal
 }
 
@@ -158,15 +174,18 @@ func (e *ScopeTraversalExpr) AsTraversal() hcl.Traversal {
 // value using a _relative_ traversal.
 type RelativeTraversalExpr struct {
 	Source    Expression
-	Traversal hcl.Traversal
+versal hcl.Traversal
 	SrcRange  hcl.Range
 }
 
-func (e *RelativeTraversalExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *RelativeTraversalExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Source)
 }
 
-func (e *RelativeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *RelativeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	src, diags := e.Source.Value(ctx)
 	ret, travDiags := e.Traversal.TraverseRel(src)
 	setDiagEvalContext(travDiags, e, ctx)
@@ -174,16 +193,19 @@ func (e *RelativeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diag
 	return ret, diags
 }
 
-func (e *RelativeTraversalExpr) Range() hcl.Range {
+
+ (e *RelativeTraversalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *RelativeTraversalExpr) StartRange() hcl.Range {
+
+ (e *RelativeTraversalExpr) StartRange() hcl.Range {
 	return e.SrcRange
 }
 
 // Implementation for hcl.AbsTraversalForExpr.
-func (e *RelativeTraversalExpr) AsTraversal() hcl.Traversal {
+
+ (e *RelativeTraversalExpr) AsTraversal() hcl.Traversal {
 	// We can produce a traversal only if our source can.
 	st, diags := hcl.AbsTraversalForExpr(e.Source)
 	if diags.HasErrors() {
@@ -196,11 +218,14 @@ func (e *RelativeTraversalExpr) AsTraversal() hcl.Traversal {
 	return ret
 }
 
-// FunctionCallExpr is an Expression that calls a function from the EvalContext
+// 
+tionCallExpr is an Expression that calls a 
+tioom thalContext
 // and returns its result.
-type FunctionCallExpr struct {
+type 
+tionCallExpr struct {
 	Name string
-	Args []Expression
+	Args []Expren
 
 	// If true, the final argument should be a tuple, list or set which will
 	// expand to be one argument per element.
@@ -211,26 +236,35 @@ type FunctionCallExpr struct {
 	CloseParenRange hcl.Range
 }
 
-func (e *FunctionCallExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *
+tionCallExpr) walkChildNodes(w internalWalk
+) {
 	for _, arg := range e.Args {
 		w(arg)
 	}
 }
 
-func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *
+tionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 
-	var f function.Function
+	var f 
+tion.
+tion
 	exists := false
 	hasNonNilMap := false
 	thisCtx := ctx
 	for thisCtx != nil {
-		if thisCtx.Functions == nil {
+		if thisCtx.
+tions == nil {
 			thisCtx = thisCtx.Parent()
 			continue
 		}
 		hasNonNilMap = true
-		f, exists = thisCtx.Functions[e.Name]
+		f, exists = thisCtx.
+tions[e.Name]
 		if exists {
 			break
 		}
@@ -239,11 +273,13 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 
 	if !exists {
 		if !hasNonNilMap {
-			return cty.DynamicVal, hcl.Diagnostics{
+			return cty.micVal, hcl.Diagnostics{
 				{
 					Severity:    hcl.DiagError,
-					Summary:     "Function calls not allowed",
-					Detail:      "Functions may not be called here.",
+					Summary:     "
+tion calls not allowed",
+					Detail:      "
+tions may not be called here.",
 					Subject:     e.Range().Ptr(),
 					Expression:  e,
 					EvalContext: ctx,
@@ -251,8 +287,10 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 			}
 		}
 
-		avail := make([]string, 0, len(ctx.Functions))
-		for name := range ctx.Functions {
+		avail := make([]string, 0, len(ctx.
+tions))
+		for name := range ctx.
+tions {
 			avail = append(avail, name)
 		}
 		suggestion := nameSuggestion(e.Name, avail)
@@ -263,8 +301,10 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity:    hcl.DiagError,
-				Summary:     "Call to unknown function",
-				Detail:      fmt.Sprintf("There is no function named %q.%s", e.Name, suggestion),
+				Summary:     "Call to unknown 
+tion",
+				Detail:      fmt.Sprintf("There is no 
+tion named %q.%s", e.Name, suggestion),
 				Subject:     &e.NameRange,
 				Context:     e.Range().Ptr(),
 				Expression:  e,
@@ -273,8 +313,10 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 		}
 	}
 
-	diagExtra := functionCallDiagExtra{
-		calledFunctionName: e.Name,
+	diagExtra := 
+tionCallDiagExtra{
+		called
+tionName: e.Name,
 	}
 
 	params := f.Params()
@@ -284,7 +326,8 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 	if e.ExpandFinal {
 		if len(args) < 1 {
 			// should never happen if the parser is behaving
-			panic("ExpandFinal set on function call with no arguments")
+			panic("ExpandFinal set on 
+tion call with no arguments")
 		}
 		expandExpr := args[len(args)-1]
 		expandVal, expandDiags := expandExpr.Value(ctx)
@@ -323,7 +366,7 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 				})
 				return cty.DynamicVal, diags
 			}
-			if !expandVal.IsKnown() {
+			if !expandVal.IsKnown()
 				return cty.DynamicVal, diags
 			}
 
@@ -343,7 +386,7 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 			}
 			args = newArgs
 		default:
-			diags = append(diags, &hcl.Diagnostic{
+			dia append(diags, &hcl.Diagnostic{
 				Severity:    hcl.DiagError,
 				Summary:     "Invalid expanding argument value",
 				Detail:      "The expanding argument (indicated by ...) must be of a tuple, list, or set type.",
@@ -358,7 +401,7 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 	}
 
 	if len(args) < len(params) {
-		missing := params[len(args)]
+		missing := ms[len(args)]
 		qual := ""
 		if varParam != nil {
 			qual = " at least"
@@ -366,9 +409,11 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity: hcl.DiagError,
-				Summary:  "Not enough function arguments",
+				Summary:  "Not enough 
+tion arguments",
 				Detail: fmt.Sprintf(
-					"Function %q expects%s %d argument(s). Missing value for %q.",
+					"
+tion %q expects%s %d argument(s). Missing value for %q.",
 					e.Name, qual, len(params), missing.Name,
 				),
 				Subject:     &e.CloseParenRange,
@@ -384,9 +429,11 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity: hcl.DiagError,
-				Summary:  "Too many function arguments",
+				Summary:  "Too many 
+tion arguments",
 				Detail: fmt.Sprintf(
-					"Function %q expects only %d argument(s).",
+					"
+tion %q expects only %d argument(s).",
 					e.Name, len(params),
 				),
 				Subject:     args[len(params)].StartRange().Ptr(),
@@ -400,8 +447,9 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 
 	argVals := make([]cty.Value, len(args))
 
-	for i, argExpr := range args {
-		var param *function.Parameter
+	for i, argExpr := range args 
+		var param *
+tion.Parameter
 		if i < len(params) {
 			param = &params[i]
 		} else {
@@ -409,12 +457,12 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 		}
 
 		var val cty.Value
-		if decodeFn := customdecode.CustomExpressionDecoderForType(param.Type); decodeFn != nil {
+		if decodeF customdecode.CustomExpressionDecoderForType(param.Type); decodeFn != nil {
 			var argDiags hcl.Diagnostics
 			val, argDiags = decodeFn(argExpr, ctx)
-			diags = append(diags, argDiags...)
+			diagappend(diags, argDiags...)
 			if val == cty.NilVal {
-				val = cty.UnknownVal(param.Type)
+				val = cty.ownVal(param.Type)
 			}
 		} else {
 			var argDiags hcl.Diagnostics
@@ -427,9 +475,10 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 			var err error
 			val, err = convert.Convert(val, param.Type)
 			if err != nil {
-				diags = append(diags, &hcl.Diagnostic{
+				dia append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
-					Summary:  "Invalid function argument",
+					Summary:  "Invalid 
+tion argument",
 					Detail: fmt.Sprintf(
 						"Invalid value for %q parameter: %s.",
 						param.Name, err,
@@ -447,7 +496,8 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 	}
 
 	if diags.HasErrors() {
-		// Don't try to execute the function if we already have errors with
+		// Don't try to execute the 
+tion if we already have errors with
 		// the arguments, because the result will probably be a confusing
 		// error message.
 		return cty.DynamicVal, diags
@@ -456,13 +506,16 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 	resultVal, err := f.Call(argVals)
 	if err != nil {
 		// For errors in the underlying call itself we also return the raw
-		// call error via an extra method on our "diagnostic extra" value.
-		diagExtra.functionCallError = err
+		// call error via an extethod on our "diagnostic extra" value.
+		diagExtra.
+tionCallErroerr
 
 		switch terr := err.(type) {
-		case function.ArgError:
+		case 
+tion.ArgError:
 			i := terr.Index
-			var param *function.Parameter
+			var param *
+tion.Parameter
 			if i < len(params) {
 				param = &params[i]
 			} else {
@@ -470,25 +523,29 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 			}
 
 			if param == nil || i > len(args)-1 {
-				// Getting here means that the function we called has a bug:
-				// it returned an arg error that refers to an argument index
+				// Getting here means that the 
+tion we called has a bug:
+				// it returned an arror that refers to an argument index
 				// that wasn't present in the call. For that situation
 				// we'll degrade to a less specific error just to give
 				// some sort of answer, but best to still fix the buggy
-				// function so that it only returns argument indices that
+				// 
+tion so that it only returns argument indices that
 				// are in range.
 				switch {
 				case param != nil:
-					// In this case we'll assume that the function was trying
+					// In this case we'll assume that the 
+tion was trying
 					// to talk about a final variadic parameter but the caller
 					// didn't actually provide any arguments for it. That means
 					// we can at least still name the parameter in the
 					// error message, but our source range will be the call
 					// as a whole because we don't have an argument expression
-					// to highlight specifically.
+					// to highlight specally.
 					diags = append(diags, &hcl.Diagnostic{
-						Severity: hcl.DiagError,
-						Summary:  "Invalid function argument",
+						Severityl.DiagError,
+						Summary:  "Invalid 
+tion argument",
 						Detail: fmt.Sprintf(
 							"Invalid value for %q parameter: %s.",
 							param.Name, err,
@@ -501,15 +558,18 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 				default:
 					// This is the most degenerate case of all, where the
 					// index is out of range even for the declared parameters,
-					// and so we can't tell which parameter the function is
-					// trying to report an error for. Just a generic error
+					// and so we can't tell which parameter the 
+tion is
+	// tg to report an error for. Just a generic error
 					// report in that case.
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
-						Summary:  "Error in function call",
+		Sum:  "Error in 
+tion call",
 						Detail: fmt.Sprintf(
-							"Call to function %q failed: %s.",
-							e.Name, err,
+							"Call to 
+tion %q failed: %s.",
+			e., err,
 						),
 						Subject:     e.StartRange().Ptr(),
 						Context:     e.Range().Ptr(),
@@ -523,34 +583,37 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 
 				// TODO: we should also unpick a PathError here and show the
 				// path to the deep value where the error was detected.
-				diags = append(diags, &hcl.Diagnostic{
+			gs = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
-					Summary:  "Invalid function argument",
-					Detail: fmt.Sprintf(
-						"Invalid value for %q parameter: %s.",
+					Summary:  "Invalid 
+tion argument",
+					il: fmt.Sprintf(
+						"Inv value for %q parameter: %s.",
 						param.Name, err,
 					),
-					Subject:     argExpr.StartRange().Ptr(),
+					Sut:     argExpr.StartRange().Ptr(),
 					Context:     e.Range().Ptr(),
-					Expression:  argExpr,
-					EvalContext: ctx,
+				ression:  argExpr,
+					EvalCot: ctx,
 					Extra:       &diagExtra,
 				})
 			}
 
 		default:
-			diags = append(diags, &hcl.Diagnostic{
+	ags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
-				Summary:  "Error in function call",
-				Detail: fmt.Sprintf(
-					"Call to function %q failed: %s.",
+				Summary:  "Error in 
+tcall",
+				Det fmt.Sprintf(
+	"Call to 
+tion %q failed: %s.",
 					e.Name, err,
-				),
-				Subject:     e.StartRange().Ptr(),
+),
+				Subject:    tartRange().Ptr(),
 				Context:     e.Range().Ptr(),
 				Expression:  e,
-				EvalContext: ctx,
-				Extra:       &diagExtra,
+EvalCxt: ctx,
+				Extra:   &diagExtra,
 			})
 		}
 
@@ -560,16 +623,22 @@ func (e *FunctionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnosti
 	return resultVal, diags
 }
 
-func (e *FunctionCallExpr) Range() hcl.Range {
+
+*
+tionCallExpr) Range() hcl.Range {
 	return hcl.RangeBetween(e.NameRange, e.CloseParenRange)
 }
 
-func (e *FunctionCallExpr) StartRange() hcl.Range {
+
+*
+tionCallExpr) StartRange() hcl.Range {
 	return hcl.RangeBetween(e.NameRange, e.OpenParenRange)
 }
 
 // Implementation for hcl.ExprCall.
-func (e *FunctionCallExpr) ExprCall() *hcl.StaticCall {
+
+ (e *
+tionCallExpr) ExprCall() *hcl.StaticCall {
 	ret := &hcl.StaticCall{
 		Name:      e.Name,
 		NameRange: e.NameRange,
@@ -583,37 +652,60 @@ func (e *FunctionCallExpr) ExprCall() *hcl.StaticCall {
 	return ret
 }
 
-// FunctionCallDiagExtra is an interface implemented by the value in the "Extra"
-// field of some diagnostics returned by FunctionCallExpr.Value, giving
+// 
+tionCallDiagExtra is an interface implemented by the value in the "Extra"
+// field of some diagnostics returned by 
+tionCallExpr.Value, giving
 // cooperating callers access to some machine-readable information about the
 // call that a diagnostic relates to.
-type FunctionCallDiagExtra interface {
-	// CalledFunctionName returns the name of the function being called at
+type 
+tionCallDiagExtra interface {
+	// Called
+tionName returns the name of the 
+tion being called at
 	// the time the diagnostic was generated, if any. Returns an empty string
-	// if there is no known called function.
-	CalledFunctionName() string
+	// if there is no known called 
+tion.
+	Called
+tionName() string
 
-	// FunctionCallError returns the error value returned by the implementation
-	// of the function being called, if any. Returns nil if the diagnostic was
+	// 
+tionCallError returns the error value returned by the implementation
+	// of the 
+tion being called, if any. Returns nil if the diagnostic was
 	// not returned in response to a call error.
 	//
-	// Some errors related to calling functions are generated by HCL itself
-	// rather than by the underlying function, in which case this method
+	// Some errors related to calling 
+tions are generated by HCL itself
+	// rather than by the underlying 
+tion, in which case this method
 	// will return nil.
-	FunctionCallError() error
+	
+tionCallError() error
 }
 
-type functionCallDiagExtra struct {
-	calledFunctionName string
-	functionCallError  error
+type 
+tionCallDiagExtra struct {
+	called
+tionName string
+	
+tionCallError  error
 }
 
-func (e *functionCallDiagExtra) CalledFunctionName() string {
-	return e.calledFunctionName
+
+ (e *
+tionCallDiagExtra) Called
+tionName() string {
+	return e.called
+tionName
 }
 
-func (e *functionCallDiagExtra) FunctionCallError() error {
-	return e.functionCallError
+
+ (e *
+tionCallDiagExtra) 
+tionCallError() error {
+	return e.
+tionCallError
 }
 
 type ConditionalExpr struct {
@@ -624,13 +716,16 @@ type ConditionalExpr struct {
 	SrcRange hcl.Range
 }
 
-func (e *ConditionalExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *ConditionalExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Condition)
 	w(e.TrueResult)
 	w(e.FalseResult)
 }
 
-func (e *ConditionalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *ConditionalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	trueResult, trueDiags := e.TrueResult.Value(ctx)
 	falseResult, falseDiags := e.FalseResult.Value(ctx)
 	var diags hcl.Diagnostics
@@ -725,12 +820,12 @@ func (e *ConditionalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostic
 					falseLen := falseResult.Length()
 					if gt := trueLen.GreaterThan(falseLen); gt.IsKnown() {
 						b := cty.UnknownVal(resultType).Refine()
-						trueLen, _ := trueLen.AsBigFloat().Int64()
+						trueLen,= trueLen.AsBigFloat().Int64()
 						falseLen, _ := falseLen.AsBigFloat().Int64()
 						if gt.True() {
 							b = b.
-								CollectionLengthLowerBound(int(falseLen)).
-								CollectionLengthUpperBound(int(trueLen))
+								CollenLengthLowerBound(int(falseLen)).
+				CollectionLengthUpperBound(int(trueLen))
 						} else {
 							b = b.
 								CollectionLengthLowerBound(int(trueLen)).
@@ -820,12 +915,16 @@ func (e *ConditionalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostic
 // expression in a way that would be useful to someone trying to understand
 // why their conditional expression isn't valid.
 //
-// NOTE: This function is only designed to deal with situations
+// NOTE: This 
+tion is only designed to deal with situations
 // where trueTy and falseTy are different. Calling it with two equal
-// types will produce a nonsense result. This function also only really
+// types will produce a nonsense result. This 
+tion also only really
 // deals with situations that type unification can't resolve, so we should
-// call this function only after trying type unification first.
-func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
+// call this 
+tion only after trying type unification first.
+
+ describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 	// The main tricky cases here are when both trueTy and falseTy are
 	// of the same structural type kind, such as both being object types
 	// or both being tuple types. In that case the "FriendlyName" method
@@ -854,11 +953,11 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 				return fmt.Sprintf("The 'true' value includes object attribute %q, which is absent in the 'false' value", name)
 			}
 			trueAty := trueTy.AttributeType(name)
-			falseAty := falseTy.AttributeType(name)
+alseAty := falseTy.AttributeType(name)
 			if !trueAty.Equals(falseAty) {
 				// For deeply-nested differences this will likely get very
 				// clunky quickly by nesting these messages inside one another,
-				// but we'll accept that for now in the interests of producing
+// but we'll accept that for now in the interests of producing
 				// _some_ useful feedback, even if it isn't as concise as
 				// we'd prefer it to be. Deeply-nested structures in
 				// conditionals are thankfully not super common.
@@ -871,12 +970,12 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 		for _, name := range falseAttrs {
 			if !trueTy.HasAttribute(name) {
 				return fmt.Sprintf("The 'false' value includes object attribute %q, which is absent in the 'true' value", name)
-			}
+
 			// NOTE: We don't need to check the attribute types again, because
 			// any attribute that both types have in common would already have
 			// been checked in the previous loop.
 		}
-	case trueTy.IsTupleType() && falseTy.IsTupleType():
+e trueTy.IsTupleType() && falseTy.IsTupleType():
 		trueEtys := trueTy.TupleElementTypes()
 		falseEtys := falseTy.TupleElementTypes()
 
@@ -889,11 +988,11 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 		// instead.
 		for i := range trueEtys {
 			trueEty := trueEtys[i]
-			falseEty := falseEtys[i]
+alseEty := falseEtys[i]
 
 			if !trueEty.Equals(falseEty) {
 				// For deeply-nested differences this will likely get very
-				// clunky quickly by nesting these messages inside one another,
+// clunky quickly by nesting these messages inside one another,
 				// but we'll accept that for now in the interests of producing
 				// _some_ useful feedback, even if it isn't as concise as
 				// we'd prefer it to be. Deeply-nested structures in
@@ -904,13 +1003,13 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 				)
 			}
 		}
-	case trueTy.IsCollectionType() && falseTy.IsCollectionType():
+e trueTy.IsCollectionType() && falseTy.IsCollectipe():
 		// For this case we're specifically interested in the situation where:
 		// - both collections are of the same kind, AND
 		// - the element types of both are either object or tuple types.
 		// This is just to avoid writing a useless statement like
 		// "The 'true' value is list of object, but the 'false' value is list of object".
-		// This still doesn't account for more awkward cases like collections
+ This still doesn't account for more awkward cases like collections
 		// of collections of structural types, but we won't let perfect be
 		// the enemy of the good.
 		trueEty := trueTy.ElementType()
@@ -924,11 +1023,11 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 				case trueTy.IsSetType():
 					noun = "set"
 				case trueTy.IsMapType():
-					noun = "map"
+	noun = "map"
 				}
 				return fmt.Sprintf(
 					"Mismatched %s element types: %s",
-					noun, describeConditionalTypeMismatch(trueEty, falseEty),
+	noun, describeConditionalTypeMismatch(trueEty, falseEty),
 				)
 			}
 		}
@@ -953,12 +1052,14 @@ func describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 
 }
 
-func (e *ConditionalExpr) Range() hcl.Range {
+
+ (e *ConditionalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *ConditionalExpr) StartRange() hcl.Range {
-	return e.Condition.StartRange()
+
+ (e *ConditionalExpr) StartRange() hcl.Range {
+urn e.Condition.StartRange()
 }
 
 type IndexExpr struct {
@@ -970,12 +1071,15 @@ type IndexExpr struct {
 	BracketRange hcl.Range
 }
 
-func (e *IndexExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *IndexExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Collection)
 	w(e.Key)
 }
 
-func (e *IndexExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *IndexExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 	coll, collDiags := e.Collection.Value(ctx)
 	key, keyDiags := e.Key.Value(ctx)
@@ -988,11 +1092,13 @@ func (e *IndexExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	return val, diags
 }
 
-func (e *IndexExpr) Range() hcl.Range {
+
+ (e *IndexExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *IndexExpr) StartRange() hcl.Range {
+
+ (e *IndexExpr) StartRange() hcl.Range {
 	return e.OpenRange
 }
 
@@ -1003,13 +1109,16 @@ type TupleConsExpr struct {
 	OpenRange hcl.Range
 }
 
-func (e *TupleConsExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *TupleConsExpr) walkChildNodes(w internalWalk
+) {
 	for _, expr := range e.Exprs {
 		w(expr)
 	}
 }
 
-func (e *TupleConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *TupleConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var vals []cty.Value
 	var diags hcl.Diagnostics
 
@@ -1023,16 +1132,19 @@ func (e *TupleConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics)
 	return cty.TupleVal(vals), diags
 }
 
-func (e *TupleConsExpr) Range() hcl.Range {
-	return e.SrcRange
-}
 
-func (e *TupleConsExpr) StartRange() hcl.Range {
-	return e.OpenRange
+ (e *TupleConsExpr) Range() hcl.Range {
+	return e.SrcRange
+
+
+
+ (e *TupleConsExpr) StartRange() hcl.Range {
+urn e.OpenRange
 }
 
 // Implementation for hcl.ExprList
-func (e *TupleConsExpr) ExprList() []hcl.Expression {
+
+*TupleConsExpr) ExprList() []hcl.Expression {
 	ret := make([]hcl.Expression, len(e.Exprs))
 	for i, expr := range e.Exprs {
 		ret[i] = expr
@@ -1052,20 +1164,23 @@ type ObjectConsItem struct {
 	ValueExpr Expression
 }
 
-func (e *ObjectConsExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *ObjectConsExpr) walkChildNodes(w internalWalk
+) {
 	for _, item := range e.Items {
 		w(item.KeyExpr)
 		w(item.ValueExpr)
 	}
 }
 
-func (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var vals map[string]cty.Value
 	var diags hcl.Diagnostics
 	var marks []cty.ValueMarks
 
 	// This will get set to true if we fail to produce any of our keys,
-	// either because they are actually unknown or if the evaluation produces
+either because they are actually unknown or if the evaluation produces
 	// errors. In all of these case we must return DynamicPseudoType because
 	// we're unable to know the full set of keys our object has, and thus
 	// we can't produce a complete value of the intended type.
@@ -1094,16 +1209,16 @@ func (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics
 				Detail:      "Can't use a null value as a key.",
 				Subject:     item.ValueExpr.Range().Ptr(),
 				Expression:  item.KeyExpr,
-				EvalContext: ctx,
+EvalContext: ctx,
 			})
 			known = false
 			continue
-		}
+
 
 		key, keyMarks := key.Unmark()
 		marks = append(marks, keyMarks)
 
-		var err error
+r err error
 		key, err = convert.Convert(key, cty.String)
 		if err != nil {
 			diags = append(diags, &hcl.Diagnostic{
@@ -1119,7 +1234,7 @@ func (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics
 		}
 
 		if !key.IsKnown() {
-			known = false
+nown = false
 			continue
 		}
 
@@ -1135,16 +1250,19 @@ func (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics
 	return cty.ObjectVal(vals).WithMarks(marks...), diags
 }
 
-func (e *ObjectConsExpr) Range() hcl.Range {
+
+ (e *ObjectConsExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *ObjectConsExpr) StartRange() hcl.Range {
+
+ (e *ObjectConsExpr) StartRange() hcl.Range {
 	return e.OpenRange
 }
 
-// Implementation for hcl.ExprMap
-func (e *ObjectConsExpr) ExprMap() []hcl.KeyValuePair {
+mplementation for hcl.ExprMap
+
+ (e *ObjectConsExpr) ExprMap() []hcl.KeyValuePair {
 	ret := make([]hcl.KeyValuePair, len(e.Items))
 	for i, item := range e.Items {
 		ret[i] = hcl.KeyValuePair{
@@ -1163,7 +1281,8 @@ type ObjectConsKeyExpr struct {
 	ForceNonLiteral bool
 }
 
-func (e *ObjectConsKeyExpr) literalName() string {
+
+ (e *ObjectConsKeyExpr) literalName() string {
 	// This is our logic for deciding whether to behave like a literal string.
 	// We lean on our AbsTraversalForExpr implementation here, which already
 	// deals with some awkward cases like the expression being the result
@@ -1172,7 +1291,9 @@ func (e *ObjectConsKeyExpr) literalName() string {
 	return hcl.ExprAsKeyword(e.Wrapped)
 }
 
-func (e *ObjectConsKeyExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *ObjectConsKeyExpr) walkChildNodes(w internalWalk
+) {
 	// We only treat our wrapped expression as a real expression if we're
 	// not going to interpret it as a literal.
 	if e.literalName() == "" {
@@ -1180,7 +1301,8 @@ func (e *ObjectConsKeyExpr) walkChildNodes(w internalWalkFunc) {
 	}
 }
 
-func (e *ObjectConsKeyExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *ObjectConsKeyExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	// Because we accept a naked identifier as a literal key rather than a
 	// reference, it's confusing to accept a traversal containing periods
 	// here since we can't tell if the user intends to create a key with
@@ -1209,16 +1331,19 @@ func (e *ObjectConsKeyExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnost
 	return e.Wrapped.Value(ctx)
 }
 
-func (e *ObjectConsKeyExpr) Range() hcl.Range {
+
+ (e *ObjectConsKeyExpr) Range() hcl.Range {
 	return e.Wrapped.Range()
 }
 
-func (e *ObjectConsKeyExpr) StartRange() hcl.Range {
+
+ (e *ObjectConsKeyExpr) StartRange() hcl.Range {
 	return e.Wrapped.StartRange()
 }
 
 // Implementation for hcl.AbsTraversalForExpr.
-func (e *ObjectConsKeyExpr) AsTraversal() hcl.Traversal {
+
+ (e *ObjectConsKeyExpr) AsTraversal() hcl.Traversal {
 	// If we're forcing a non-literal then we can never be interpreted
 	// as a traversal.
 	if e.ForceNonLiteral {
@@ -1234,7 +1359,8 @@ func (e *ObjectConsKeyExpr) AsTraversal() hcl.Traversal {
 	return st
 }
 
-func (e *ObjectConsKeyExpr) UnwrapExpression() Expression {
+
+ (e *ObjectConsKeyExpr) UnwrapExpression() Expression {
 	return e.Wrapped
 }
 
@@ -1260,7 +1386,8 @@ type ForExpr struct {
 	CloseRange hcl.Range
 }
 
-func (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 	var marks []cty.ValueMarks
 
@@ -1457,7 +1584,7 @@ func (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 				}
 				known = false
 				continue
-			}
+
 
 			key, keyMarks := key.Unmark()
 			marks = append(marks, keyMarks)
@@ -1486,11 +1613,11 @@ func (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 				} else {
 					vals[key.AsString()] = val
 				}
-			}
+
 		}
 
 		if !known {
-			return cty.DynamicVal, diags
+eturn cty.DynamicVal, diags
 		}
 
 		if e.Group {
@@ -1503,7 +1630,7 @@ func (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 		return cty.ObjectVal(vals).WithMarks(marks...), diags
 
 	} else {
-		// Producing a tuple
+ Producing a tuple
 		vals := []cty.Value{}
 
 		it := collVal.ElementIterator()
@@ -1584,7 +1711,9 @@ func (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	}
 }
 
-func (e *ForExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *ForExpr) walkChildNodes(w internalWalk
+) {
 	w(e.CollExpr)
 
 	scopeNames := map[string]struct{}{}
@@ -1613,11 +1742,13 @@ func (e *ForExpr) walkChildNodes(w internalWalkFunc) {
 	}
 }
 
-func (e *ForExpr) Range() hcl.Range {
+
+ (e *ForExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *ForExpr) StartRange() hcl.Range {
+
+ (e *ForExpr) StartRange() hcl.Range {
 	return e.OpenRange
 }
 
@@ -1630,7 +1761,8 @@ type SplatExpr struct {
 	MarkerRange hcl.Range
 }
 
-func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	sourceVal, diags := e.Source.Value(ctx)
 	if diags.HasErrors() {
 		// We'll evaluate our "Each" expression here just to see if it
@@ -1662,16 +1794,16 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 			Context:     hcl.RangeBetween(e.Source.Range(), e.MarkerRange).Ptr(),
 			Expression:  e.Source,
 			EvalContext: ctx,
-		})
+
 		return cty.DynamicVal, diags
 	}
 
 	if sourceTy == cty.DynamicPseudoType {
-		// If we don't even know the _type_ of our source value yet then
+ If we don't even know the _type_ of our source value yet then
 		// we'll need to defer all processing, since we can't decide our
 		// result type either.
 		return cty.DynamicVal, diags
-	}
+
 
 	upgradedUnknown := false
 	if autoUpgrade {
@@ -1697,7 +1829,8 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 
 	// We'll compute our result type lazily if we need it. In the normal case
 	// it's inferred automatically from the value we construct.
-	resultTy := func() (cty.Type, hcl.Diagnostics) {
+	resultTy := 
+cty.Type, hcl.Diagnostics) {
 		chiCtx := ctx.NewChild()
 		var diags hcl.Diagnostics
 		switch {
@@ -1714,7 +1847,7 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 			for _, ety := range etys {
 				e.Item.setValue(chiCtx, cty.UnknownVal(ety))
 				val, itemDiags := e.Each.Value(chiCtx)
-				diags = append(diags, itemDiags...)
+diags = append(diags, itemDiags...)
 				e.Item.clearValue(chiCtx) // clean up our temporary value
 				resultTys = append(resultTys, val.Type())
 			}
@@ -1727,7 +1860,7 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 
 	if !sourceVal.IsKnown() {
 		// We can't produce a known result in this case, but we'll still
-		// indicate what the result type would be, allowing any downstream type
+ indicate what the result type would be, allowing any downstream type
 		// checking to proceed.
 		ty, tyDiags := resultTy()
 		diags = append(diags, tyDiags...)
@@ -1740,15 +1873,15 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 			// the source collection's own length.
 			sourceRng := sourceVal.Range()
 			ret = ret.Refine().
-				CollectionLengthLowerBound(sourceRng.LengthLowerBound()).
+CollectionLengthLowerBound(sourceRng.LengthLowerBo)).
 				CollectionLengthUpperBound(sourceRng.LengthUpperBound()).
 				NewValue()
 		}
-		return ret.WithSameMarks(sourceVal), diags
+turn ret.WithSameMarks(sourceVal), diags
 	}
 
 	// Unmark the collection, and save the marks to apply to the returned
-	// collection result
+collection result
 	sourceVal, marks := sourceVal.Unmark()
 	vals := make([]cty.Value, 0, sourceVal.LengthInt())
 	it := sourceVal.ElementIterator()
@@ -1794,16 +1927,20 @@ func (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	}
 }
 
-func (e *SplatExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *SplatExpr) walkChildNodes(w internalWalk
+) {
 	w(e.Source)
 	w(e.Each)
 }
 
-func (e *SplatExpr) Range() hcl.Range {
+
+ (e *SplatExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *SplatExpr) StartRange() hcl.Range {
+
+ (e *SplatExpr) StartRange() hcl.Range {
 	return e.MarkerRange
 }
 
@@ -1830,7 +1967,8 @@ type AnonSymbolExpr struct {
 	valuesLock sync.RWMutex
 }
 
-func (e *AnonSymbolExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+
+ (e *AnonSymbolExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	if ctx == nil {
 		return cty.DynamicVal, nil
 	}
@@ -1847,7 +1985,8 @@ func (e *AnonSymbolExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics
 
 // setValue sets a temporary local value for the expression when evaluated
 // in the given context, which must be non-nil.
-func (e *AnonSymbolExpr) setValue(ctx *hcl.EvalContext, val cty.Value) {
+
+ (e *AnonSymbolExpr) setValue(ctx *hcl.EvalContext, val cty.Value) {
 	e.valuesLock.Lock()
 	defer e.valuesLock.Unlock()
 
@@ -1860,7 +1999,8 @@ func (e *AnonSymbolExpr) setValue(ctx *hcl.EvalContext, val cty.Value) {
 	e.values[ctx] = val
 }
 
-func (e *AnonSymbolExpr) clearValue(ctx *hcl.EvalContext) {
+
+ (e *AnonSymbolExpr) clearValue(ctx *hcl.EvalContext) {
 	e.valuesLock.Lock()
 	defer e.valuesLock.Unlock()
 
@@ -1873,14 +2013,18 @@ func (e *AnonSymbolExpr) clearValue(ctx *hcl.EvalContext) {
 	delete(e.values, ctx)
 }
 
-func (e *AnonSymbolExpr) walkChildNodes(w internalWalkFunc) {
+
+ (e *AnonSymbolExpr) walkChildNodes(w internalWalk
+) {
 	// AnonSymbolExpr is a leaf node in the tree
 }
 
-func (e *AnonSymbolExpr) Range() hcl.Range {
+
+ (e *AnonSymbolExpr) Range() hcl.Range {
 	return e.SrcRange
 }
 
-func (e *AnonSymbolExpr) StartRange() hcl.Range {
+
+ (e *AnonSymbolExpr) StartRange() hcl.Range {
 	return e.SrcRange
 }

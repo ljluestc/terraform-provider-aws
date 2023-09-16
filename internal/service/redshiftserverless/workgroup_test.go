@@ -25,10 +25,10 @@ func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkgroupDestroy(ctx),
+		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkgroupConfig_basic(rName),
@@ -56,10 +56,10 @@ func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkgroupDestroy(ctx),
+		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkgroupConfig_baseCapacityAndPubliclyAccessible(rName, 64, true),
@@ -92,10 +92,10 @@ func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkgroupDestroy(ctx),
+		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkgroupConfig_configParameters(rName, "14400"),
@@ -182,10 +182,10 @@ func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkgroupDestroy(ctx),
+		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkgroupConfig_tags1(rName, "key1", "value1"),
@@ -226,10 +226,10 @@ func TestAccRedshiftServerlessWorkgroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkgroupDestroy(ctx),
+		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkgroupConfig_basic(rName),

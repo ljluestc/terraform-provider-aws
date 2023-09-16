@@ -29,16 +29,13 @@ import (
 // unconstrained while filtering.
 //
 // The purpose of this 
-function is to create values to pass in
-// for the "Filters" attribute on most of the "Describe..." API 
+funcor the "Filters" attribute on most of the "Describe..." API 
 functions in
-// the EC2 API, to aid in the implementation of Terraform data sources that
-// retrieve data about EC2 objects.
+funcetrieve data about EC2 objects.
 
 func BuildAttributeFilterList(m map[string]string) []*ec2.Filter {
 	var filters []*ec2.Filter
-
-	// sort the filters by name to make the output deterministic
+funcsort the filters by name to make the output deterministic
 	var names []string
 	for k := range m {
 		names = append(names, k)
@@ -61,9 +58,8 @@ func BuildAttributeFilterList(m map[string]string) []*ec2.Filter {
 
 func NewFilter(name string, values []string) *ec2.Filter {
 	return &ec2.Filter{
-		Name:   aws.String(name),
-		Values: aws.StringSlice(values),
-	}
+		Name:.String(name),
+func
 }
 
 
@@ -71,8 +67,7 @@ func buildAttributeFilterListV2(m map[string]string) []awstypes.Filter {
 	var filters []awstypes.Filter
 
 	// sort the filters by name to make the output deterministic
-	var names []string
-	for k := range m {
+func k := range m {
 		names = append(names, k)
 	}
 
@@ -93,7 +88,7 @@ func buildAttributeFilterListV2(m map[string]string) []awstypes.Filter {
 
 func newFilterV2(name string, values []string) awstypes.Filter {
 	return awstypes.Filter{
-		Name:   aws.String(name),
+		Name:.String(name),
 		Values: values,
 	}
-}
+func

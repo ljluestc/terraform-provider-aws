@@ -26,10 +26,10 @@ func TestAccNeptuneParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_neptune_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_required(rName),
@@ -60,10 +60,10 @@ func TestAccNeptuneParameterGroup_description(t *testing.T) {
 	resourceName := "aws_neptune_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_description(rName, "description1"),
@@ -89,10 +89,10 @@ func TestAccNeptuneParameterGroup_parameter(t *testing.T) {
 	resourceName := "aws_neptune_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName, "neptune_query_timeout", "25", "pending-reboot"),
@@ -138,10 +138,10 @@ func TestAccNeptuneParameterGroup_tags(t *testing.T) {
 	resourceName := "aws_neptune_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, neptune.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_tagsSingle(rName, "key1", "value1"),

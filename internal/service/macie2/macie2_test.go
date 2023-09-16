@@ -14,11 +14,11 @@ func TestAccMacie2_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Account": {
-			"basic":                        testAccAccount_basic,
+			"basic":           testAccAccount_basic,
 			"finding_publishing_frequency": testAccAccount_FindingPublishingFrequency,
-			"status":                       testAccAccount_WithStatus,
+			"status":          testAccAccount_WithStatus,
 			"finding_and_status":           testAccAccount_WithFindingAndStatus,
-			"disappears":                   testAccAccount_disappears,
+			"disappears":      testAccAccount_disappears,
 		},
 		"ClassificationExportConfiguration": {
 			"basic": testAccClassificationExportConfiguration_basic,
@@ -34,12 +34,12 @@ func TestAccMacie2_serial(t *testing.T) {
 			"bucket_criteria": testAccClassificationJob_BucketCriteria,
 		},
 		"CustomDataIdentifier": {
-			"basic":              testAccCustomDataIdentifier_basic,
+			"basic": testAccCustomDataIdentifier_basic,
 			"name_generated":     testAccCustomDataIdentifier_Name_Generated,
 			"name_prefix":        testAccCustomDataIdentifier_disappears,
 			"disappears":         testAccCustomDataIdentifier_NamePrefix,
 			"classification_job": testAccCustomDataIdentifier_WithClassificationJob,
-			"tags":               testAccCustomDataIdentifier_WithTags,
+			"tags":  testAccCustomDataIdentifier_WithTags,
 		},
 		"FindingsFilter": {
 			"basic":          testAccFindingsFilter_basic,
@@ -56,13 +56,13 @@ func TestAccMacie2_serial(t *testing.T) {
 			"disappears": testAccOrganizationAdminAccount_disappears,
 		},
 		"Member": {
-			"basic":                                 testAccMember_basic,
-			"disappears":                            testAccMember_disappears,
-			"tags":                                  testAccMember_withTags,
+			"basic":       testAccMember_basic,
+			"disappears":  testAccMember_disappears,
+			"tags":        testAccMember_withTags,
 			"invitation_disable_email_notification": testAccMember_invitationDisableEmailNotification,
-			"invite":                                testAccMember_invite,
-			"invite_removed":                        testAccMember_inviteRemoved,
-			"status":                                testAccMember_status,
+			"invite":      testAccMember_invite,
+			"invite_removed":           testAccMember_inviteRemoved,
+			"status":      testAccMember_status,
 		},
 		"InvitationAccepter": {
 			"basic": testAccInvitationAccepter_basic,

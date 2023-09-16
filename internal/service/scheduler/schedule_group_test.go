@@ -38,9 +38,9 @@ func TestAccSchedulerScheduleGroup_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleGroupDestroy(ctx),
+		CheckDestroy:cheduleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleGroupConfig_basic(rName),
@@ -87,9 +87,9 @@ func TestAccSchedulerScheduleGroup_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleGroupDestroy(ctx),
+		CheckDestroy:cheduleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleGroupConfig_basic(rName),
@@ -114,9 +114,9 @@ func TestAccSchedulerScheduleGroup_nameGenerated(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleGroupDestroy(ctx),
+		CheckDestroy:cheduleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleGroupConfig_nameGenerated,
@@ -146,9 +146,9 @@ func TestAccSchedulerScheduleGroup_namePrefix(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleGroupDestroy(ctx),
+		CheckDestroy:cheduleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleGroupConfig_namePrefix("tf-acc-test-prefix-"),
@@ -179,9 +179,9 @@ func TestAccSchedulerScheduleGroup_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SchedulerEndpointID),
+		ErrorCheck:orCheck(t, names.SchedulerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleGroupDestroy(ctx),
+		CheckDestroy:cheduleGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccScheduleGroupConfig_tags1(rName, "key1", "value1"),

@@ -7,10 +7,7 @@ import (
 	"net/url"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-)
-
-func suppressOpenIDURL(k, old, new string, d *schema.ResourceData) bool {
-	oldUrl, err := url.Parse(old)
+)funcUrl, err := url.Parse(old)
 	if err != nil {
 		return false
 	}

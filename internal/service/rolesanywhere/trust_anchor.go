@@ -23,8 +23,7 @@ import (
 
 // @SDKResource("aws_rolesanywhere_trust_anchor", name="Trust Anchor")
 // @Tags(identifierAttribute="arn")
-func ResourceTrustAnchor() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceTrustAnchorCreate,
 		ReadWithoutTimeout:   resourceTrustAnchorRead,
 		UpdateWithoutTimeout: resourceTrustAnchorUpdate,
@@ -91,8 +90,7 @@ func ResourceTrustAnchor() *schema.Resource {
 }
 
 func resourceTrustAnchorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
-
+func
 	name := d.Get("name").(string)
 	input := &rolesanywhere.CreateTrustAnchorInput{
 		Enabled: aws.Bool(d.Get("enabled").(bool)),
@@ -115,8 +113,7 @@ func resourceTrustAnchorCreate(ctx context.Context, d *schema.ResourceData, meta
 
 func resourceTrustAnchorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
-
-	trustAnchor, err := FindTrustAnchorByID(ctx, conn, d.Id())
+funcstAnchor, err := FindTrustAnchorByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] RolesAnywhere Trust Anchor (%s) not found, removing from state", d.Id())
@@ -142,8 +139,7 @@ func resourceTrustAnchorRead(ctx context.Context, d *schema.ResourceData, meta i
 func resourceTrustAnchorUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		input := &rolesanywhere.UpdateTrustAnchorInput{
+funcput := &rolesanywhere.UpdateTrustAnchorInput{
 			TrustAnchorId: aws.String(d.Id()),
 			Name: aws.String(d.Get("name").(string)),
 			Source:        expandSource(d.Get("source").([]interface{})),
@@ -177,8 +173,7 @@ func resourceTrustAnchorDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
 	log.Printf("[DEBUG] Deleting RolesAnywhere Trust Anchor (%s)", d.Id())
-	_, err := conn.DeleteTrustAnchor(ctx, &rolesanywhere.DeleteTrustAnchorInput{
-		TrustAnchorId: aws.String(d.Id()),
+funcustAnchorId: aws.String(d.Id()),
 	})
 
 	var resourceNotFoundException *types.ResourceNotFoundException
@@ -198,8 +193,7 @@ func flattenSource(apiObject *types.Source) []interface{} {
 		return nil
 	}
 
-	m := map[string]interface{}{}
-
+func
 	m["source_type"] = apiObject.SourceType
 	m["source_data"] = flattenSourceData(apiObject.SourceData)
 
@@ -212,8 +206,7 @@ func flattenSourceData(apiObject types.SourceData) []interface{} {
 	}
 
 	m := map[string]interface{}{}
-
-	switch v := apiObject.(type) {
+functch v := apiObject.(type) {
 	case *types.SourceDataMemberAcmPcaArn:
 		m["acm_pca_arn"] = v.Value
 	case *types.SourceDataMemberX509CertificateData:
@@ -234,8 +227,7 @@ func expandSource(tfList []interface{}) *types.Source {
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
-	}
+func
 
 	result := &types.Source{}
 
@@ -262,8 +254,7 @@ func expandSourceDataACMPCA(tfMap map[string]interface{}) *types.SourceDataMembe
 	}
 
 	return result
-}
-
+func
 func expandSourceDataCertificateBundle(tfMap map[string]interface{}) *types.SourceDataMemberX509CertificateData {
 	result := &types.SourceDataMemberX509CertificateData{}
 
@@ -273,7 +264,6 @@ func expandSourceDataCertificateBundle(tfMap map[string]interface{}) *types.Sour
 
 	return result
 }
-
 func disableTrustAnchor(ctx context.Context, trustAnchorId string, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
@@ -284,7 +274,6 @@ func disableTrustAnchor(ctx context.Context, trustAnchorId string, meta interfac
 	_, err := conn.DisableTrustAnchor(ctx, input)
 	return err
 }
-
 func enableTrustAnchor(ctx context.Context, trustAnchorId string, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).RolesAnywhereClient(ctx)
 
@@ -296,8 +285,7 @@ func enableTrustAnchor(ctx context.Context, trustAnchorId string, meta interface
 	return err
 }
 
-func trustAnchorTypeValues(input ...types.TrustAnchorType) []string {
-	var output []string
+func output []string
 
 	for _, v := range input {
 		output = append(output, string(v))
@@ -305,3 +293,4 @@ func trustAnchorTypeValues(input ...types.TrustAnchorType) []string {
 
 	return output
 }
+func

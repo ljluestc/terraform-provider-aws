@@ -15,8 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_db_subnet_group")
-func DataSourceSubnetGroup() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceSubnetGroupRead,
 
 Schema: map[string]*schema.Schema{
@@ -55,8 +54,7 @@ Computed: true,
 }
 
 func dataSourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	v, err := FindDBSubnetGroupByName(ctx, conn, d.Get("name").(string))
 	if err != nil {

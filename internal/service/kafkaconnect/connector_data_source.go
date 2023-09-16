@@ -21,19 +21,19 @@ func DataSourceConnector() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Required: true,
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:eString,
 				Computed: true,
 			},
 		},

@@ -16,19 +16,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIAMGroup_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var conf iam.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName),
@@ -48,19 +45,16 @@ func TestAccIAMGroup_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMGroup_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var conf iam.Group
+}func TestAccIAMGroup_disappears(t *testing.T) {
+	func conf iam.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName),
@@ -72,20 +66,17 @@ func TestAccIAMGroup_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMGroup_nameChange(t *testing.T) {
+}func TestAccIAMGroup_nameChange(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf iam.Group
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcme1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_basic(rName1),
@@ -105,19 +96,16 @@ func TestAccIAMGroup_nameChange(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIAMGroup_path(t *testing.T) {
+}func TestAccIAMGroup_path(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf iam.Group
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_group.test"
+	funcourceName := "aws_iam_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupDestroy(ctx),
+		CheckDestroy:testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupConfig_path(rName, "/path1/"),
@@ -144,14 +132,11 @@ func TestAccIAMGroup_path(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_iam_group" {
+	funcf rs.Type != "aws_iam_group" {
 				continue
 			}
 
@@ -170,15 +155,12 @@ func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		return nil
 	}
-}
-
-func testAccCheckGroupExists(ctx context.Context, n string, v *iam.Group) resource.TestCheckFunc {
+}func testAccCheckGroupExists(ctx context.Context, n string, v *iam.Group) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
+	func
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IAM Group ID is set")
 		}
@@ -195,21 +177,16 @@ func testAccCheckGroupExists(ctx context.Context, n string, v *iam.Group) resour
 
 		return nil
 	}
-}
-
-func testAccGroupConfig_basic(rName string) string {
+}func testAccGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccGroupConfig_path(rName, path string) string {
-	return fmt.Sprintf(`
+}funcurn fmt.Sprintf(`
 resource "aws_iam_group" "test" {
   name = %[1]q
   path = %[2]q
 }
 `, rName, path)
-}
+}func

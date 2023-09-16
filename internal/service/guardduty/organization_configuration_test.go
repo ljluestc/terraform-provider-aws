@@ -37,8 +37,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -78,8 +78,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -91,8 +91,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -104,8 +104,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -117,8 +117,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -130,8 +130,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -143,8 +143,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 },
@@ -163,7 +163,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationConfigurationConfig_s3Logs(true),
@@ -176,8 +176,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -206,7 +206,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationConfigurationConfig_kubernetes(true),
@@ -220,8 +220,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -251,7 +251,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDetectorDestroy(ctx),
+CheckDestroy:torDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationConfigurationConfig_malwareprotection(true),
@@ -266,8 +266,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ame,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -330,7 +330,7 @@ resource "aws_guardduty_organization_configuration" "test" {
   depends_on = [aws_guardduty_organization_admin_account.test]
 
   auto_enable_organization_members = %[1]q
-  detector_id       = aws_guardduty_detector.test.id
+  detector_idardduty_detector.test.id
 }
 `, value))
 }
@@ -347,7 +347,7 @@ resource "aws_guardduty_organization_configuration" "test" {
 
   datasources {
     s3_logs {
-      auto_enable = %[1]t
+le = %[1]t
     }
   }
 }
@@ -366,9 +366,9 @@ resource "aws_guardduty_organization_configuration" "test" {
 
   datasources {
     kubernetes {
-      audit_logs {
-        enable = %[1]t
-      }
+s {
+= %[1]t
+
     }
   }
 }
@@ -387,11 +387,11 @@ resource "aws_guardduty_organization_configuration" "test" {
 
   datasources {
     malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          auto_enable = %[1]t
-        }
-      }
+instance_with_findings {
+umes {
+
+
+
     }
   }
 }

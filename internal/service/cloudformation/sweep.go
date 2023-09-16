@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_cloudformation_stack_set_instance", &resource.Sweeper{
 		Name: "aws_cloudformation_stack_set_instance",
@@ -40,6 +41,7 @@ func init() {
 	})
 }
 
+
 func sweepStackSetInstances(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -53,7 +55,8 @@ func sweepStackSetInstances(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListStackSetsPagesWithContext(ctx, input, func(page *cloudformation.ListStackSetsOutput, lastPage bool) bool {
+	err = conn.ListStackSetsPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStackSetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -63,7 +66,8 @@ func sweepStackSetInstances(region string) error {
 				StackSetName: summary.StackSetName,
 			}
 
-			err = conn.ListStackInstancesPagesWithContext(ctx, input, func(page *cloudformation.ListStackInstancesOutput, lastPage bool) bool {
+			err = conn.ListStackInstancesPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStackInstancesOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -114,6 +118,7 @@ func sweepStackSetInstances(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepStackSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -126,7 +131,8 @@ func sweepStackSets(region string) error {
 	}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListStackSetsPagesWithContext(ctx, input, func(page *cloudformation.ListStackSetsOutput, lastPage bool) bool {
+	err = conn.ListStackSetsPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStackSetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -160,6 +166,7 @@ func sweepStackSets(region string) error {
 	return nil
 }
 
+
 func sweepStacks(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -179,13 +186,14 @@ func sweepStacks(region string) error {
 	}
 	var sweeperErrs *multierror.Error
 
-	err = conn.ListStacksPagesWithContext(ctx, input, func(page *cloudformation.ListStacksOutput, lastPage bool) bool {
+	err = conn.ListStacksPagesWithContext(ctx, input, 
+func(page *cloudformation.ListStacksOutput, lastPage bool) bool {
 		for _, stack := range page.StackSummaries {
 			name := aws.StringValue(stack.StackName)
 
 			updateTerminationProtectionInput := &cloudformation.UpdateTerminationProtectionInput{
 				EnableTerminationProtection: aws.Bool(false),
-				StackName:                   stack.StackName,
+				StackName:      stack.StackName,
 			}
 
 			log.Printf("[INFO] Disabling termination protection for CloudFormation Stack: %s", name)

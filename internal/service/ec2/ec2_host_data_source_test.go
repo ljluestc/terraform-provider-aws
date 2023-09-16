@@ -14,8 +14,7 @@ import (
 )
 
 
-func TestAccEC2HostDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_host.test"
 	resourceName := "aws_ec2_host.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,16 +22,14 @@ func TestAccEC2HostDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccHostDataSourceConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "auto_placement", resourceName, "auto_placement"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "availability_zone", resourceName, "availability_zone"),
+funcource.TestCheckResourceAttrPair(dataSourceName, "availability_zone", resourceName, "availability_zone"),
 	resource.TestCheckResourceAttrSet(dataSourceName, "cores"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "host_id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "host_recovery", resourceName, "host_recovery"),
@@ -53,8 +50,7 @@ func(
 func TestAccEC2HostDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_host.test"
-	resourceName := "aws_ec2_host.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
@@ -62,16 +58,14 @@ func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
-Config: testAccHostDataSourceConfig_filter(rName),
+funcig: testAccHostDataSourceConfig_filter(rName),
 Check: resource.ComposeTestCheck
 func(
 	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "asset_id", resourceName, "asset_id"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "auto_placement", resourceName, "auto_placement"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "availability_zone", resourceName, "availability_zone"),
-	resource.TestCheckResourceAttrSet(dataSourceName, "cores"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "host_id", resourceName, "id"),
+funcource.TestCheckResourceAttrPair(dataSourceName, "host_id", resourceName, "id"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "host_recovery", resourceName, "host_recovery"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "instance_family", resourceName, "instance_family"),
 	resource.TestCheckResourceAttrPair(dataSourceName, "instance_type", resourceName, "instance_type"),
@@ -91,10 +85,9 @@ func testAccHostDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  instance_type     = "c5.large"
+  instance_typee"
 
-  tags = {
-    Name = %[1]q
+func %[1]q
   }
 }
 
@@ -109,27 +102,26 @@ func testAccHostDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  instance_type     = "c5.large"
+  instance_typee"
 
   tags = {
-    %[1]q = "True"
-  }
+func
 }
 
 data "aws_ec2_host" "test" {
   filter {
-    name   = "availability-zone"
-    values = [aws_ec2_host.test.availability_zone]
+me= "ilability-zone"
+lues = [aws_ec2_host.test.availability_zone]
   }
 
   filter {
-    name   = "instance-type"
-    values = [aws_ec2_host.test.instance_type]
+me= "tance-type"
+lues = [aws_ec2_host.test.instance_type]
   }
 
   filter {
-    name   = "tag-key"
-    values = [%[1]q]
+me= "-key"
+lues = [%[1]q]
   }
 }
 `, rName))

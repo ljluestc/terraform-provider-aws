@@ -25,13 +25,16 @@ const encryptedKeyVersion = 3
 type EncryptedKey struct {
 	KeyId      uint64
 	Algo       PublicKeyAlgorithm
-	CipherFunc CipherFunction // only valid after a successful Decrypt for a v3 packet
+	Cipher
+her
+ // only valid after a successful Decrypt for a v3 packet
 	Key        []byte         // only valid after a successful Decrypt
 
 	encryptedMPI1, encryptedMPI2 encoding.Field
 }
 
-func (e *EncryptedKey) parse(r io.Reader) (err error) {
+
+*EncryptedKey) parse(r io.Reader) (err error) {
 	var buf [10]byte
 	_, err = readFull(r, buf[:])
 	if err != nil {
@@ -73,7 +76,8 @@ func (e *EncryptedKey) parse(r io.Reader) (err error) {
 	return
 }
 
-func checksumKeyMaterial(key []byte) uint16 {
+
+cksumKeyMaterial(key []byte) uint16 {
 	var checksum uint16
 	for _, v := range key {
 		checksum += uint16(v)
@@ -84,7 +88,8 @@ func checksumKeyMaterial(key []byte) uint16 {
 // Decrypt decrypts an encrypted session key with the given private key. The
 // private key must have been decrypted first.
 // If config is nil, sensible defaults will be used.
-func (e *EncryptedKey) Decrypt(priv *PrivateKey, config *Config) error {
+
+*EncryptedKey) Decrypt(priv *PrivateKey, config *Config) error {
 	if e.KeyId != 0 && e.KeyId != priv.KeyId {
 		return errors.InvalidArgumentError("cannot decrypt encrypted session key for key id " + strconv.FormatUint(e.KeyId, 16) + " with private key id " + strconv.FormatUint(priv.KeyId, 16))
 	}
@@ -122,9 +127,13 @@ func (e *EncryptedKey) Decrypt(priv *PrivateKey, config *Config) error {
 		return err
 	}
 
-	e.CipherFunc = CipherFunction(b[0])
-	if !e.CipherFunc.IsSupported() {
-		return errors.UnsupportedError("unsupported encryption function")
+	e.Cipher
+ipher
+(b[0])
+	if !e.Cipher
+upported() {
+		return errors.UnsupportedError("unsupported encryption 
+")
 	}
 
 	e.Key = b[1 : len(b)-2]
@@ -138,7 +147,8 @@ func (e *EncryptedKey) Decrypt(priv *PrivateKey, config *Config) error {
 }
 
 // Serialize writes the encrypted key packet, e, to w.
-func (e *EncryptedKey) Serialize(w io.Writer) error {
+
+*EncryptedKey) Serialize(w io.Writer) error {
 	var mpiLen int
 	switch e.Algo {
 	case PubKeyAlgoRSA, PubKeyAlgoRSAEncryptOnly:
@@ -184,14 +194,18 @@ func (e *EncryptedKey) Serialize(w io.Writer) error {
 // SerializeEncryptedKey serializes an encrypted key packet to w that contains
 // key, encrypted to pub.
 // If config is nil, sensible defaults will be used.
-func SerializeEncryptedKey(w io.Writer, pub *PublicKey, cipherFunc CipherFunction, key []byte, config *Config) error {
+
+ializeEncryptedKey(w io.Writer, pub *PublicKey, cipher
+her
+, key []byte, config *Config) error {
 	var buf [10]byte
 	buf[0] = encryptedKeyVersion
 	binary.BigEndian.PutUint64(buf[1:9], pub.KeyId)
 	buf[9] = byte(pub.PubKeyAlgo)
 
 	keyBlock := make([]byte, 1 /* cipher type */ +len(key)+2 /* checksum */)
-	keyBlock[0] = byte(cipherFunc)
+	keyBlock[0] = byte(cipher
+
 	copy(keyBlock[1:], key)
 	checksum := checksumKeyMaterial(key)
 	keyBlock[1+len(key)] = byte(checksum >> 8)
@@ -211,7 +225,8 @@ func SerializeEncryptedKey(w io.Writer, pub *PublicKey, cipherFunc CipherFunctio
 	return errors.UnsupportedError("encrypting a key to public key of type " + strconv.Itoa(int(pub.PubKeyAlgo)))
 }
 
-func serializeEncryptedKeyRSA(w io.Writer, rand io.Reader, header [10]byte, pub *rsa.PublicKey, keyBlock []byte) error {
+
+ializeEncryptedKeyRSA(w io.Writer, rand io.Reader, header [10]byte, pub *rsa.PublicKey, keyBlock []byte) error {
 	cipherText, err := rsa.EncryptPKCS1v15(rand, pub, keyBlock)
 	if err != nil {
 		return errors.InvalidArgumentError("RSA encryption failed: " + err.Error())
@@ -232,7 +247,8 @@ func serializeEncryptedKeyRSA(w io.Writer, rand io.Reader, header [10]byte, pub 
 	return err
 }
 
-func serializeEncryptedKeyElGamal(w io.Writer, rand io.Reader, header [10]byte, pub *elgamal.PublicKey, keyBlock []byte) error {
+
+ializeEncryptedKeyElGamal(w io.Writer, rand io.Reader, header [10]byte, pub *elgamal.PublicKey, keyBlock []byte) error {
 	c1, c2, err := elgamal.Encrypt(rand, pub, keyBlock)
 	if err != nil {
 		return errors.InvalidArgumentError("ElGamal encryption failed: " + err.Error())
@@ -257,7 +273,8 @@ func serializeEncryptedKeyElGamal(w io.Writer, rand io.Reader, header [10]byte, 
 	return err
 }
 
-func serializeEncryptedKeyECDH(w io.Writer, rand io.Reader, header [10]byte, pub *ecdh.PublicKey, keyBlock []byte, oid encoding.Field, fingerprint []byte) error {
+
+ializeEncryptedKeyECDH(w io.Writer, rand io.Reader, header [10]byte, pub *ecdh.PublicKey, keyBlock []byte, oid encoding.Field, fingerprint []byte) error {
 	vsG, c, err := ecdh.Encrypt(rand, pub, keyBlock, oid.EncodedBytes(), fingerprint)
 	if err != nil {
 		return errors.InvalidArgumentError("ECDH encryption failed: " + err.Error())

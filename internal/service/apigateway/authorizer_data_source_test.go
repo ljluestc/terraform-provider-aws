@@ -12,15 +12,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccAPIGatewayAuthorizerDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_api_gateway_authorizer.test"
 	dataSourceName := "data.aws_api_gateway_authorizer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigateway.EndpointsID),
+		PreCheck:nc() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, apigateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -42,9 +41,8 @@ func TestAccAPIGatewayAuthorizerDataSource_basic(t *testing.T) {
 }
 
 func testAccAuthorizerDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccAuthorizerConfig_lambda(rName), `
-data "aws_api_gateway_authorizer" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
+func "aws_api_gateway_authorizer" "test" {
+  rest_api_idws_api_gateway_rest_api.test.id
   authorizer_id = aws_api_gateway_authorizer.test.id
 }
 `)

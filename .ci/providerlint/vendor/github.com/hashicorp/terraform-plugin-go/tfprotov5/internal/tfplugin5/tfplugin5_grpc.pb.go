@@ -73,7 +73,8 @@ type ProviderClient interface {
 	ValidateResourceTypeConfig(ctx context.Context, in *ValidateResourceTypeConfig_Request, opts ...grpc.CallOption) (*ValidateResourceTypeConfig_Response, error)
 	ValidateDataSourceConfig(ctx context.Context, in *ValidateDataSourceConfig_Request, opts ...grpc.CallOption) (*ValidateDataSourceConfig_Response, error)
 	UpgradeResourceState(ctx context.Context, in *UpgradeResourceState_Request, opts ...grpc.CallOption) (*UpgradeResourceState_Response, error)
-	// ////// One-time initialization, called before other functions below
+	// ////// One-time initialization, called before other 
+s below
 	Configure(ctx context.Context, in *Configure_Request, opts ...grpc.CallOption) (*Configure_Response, error)
 	// ////// Managed Resource Lifecycle
 	ReadResource(ctx context.Context, in *ReadResource_Request, opts ...grpc.CallOption) (*ReadResource_Response, error)
@@ -89,11 +90,13 @@ type providerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewProviderClient(cc grpc.ClientConnInterface) ProviderClient {
+
+ProviderClient(cc grpc.ClientConnInterface) ProviderClient {
 	return &providerClient{cc}
 }
 
-func (c *providerClient) GetMetadata(ctx context.Context, in *GetMetadata_Request, opts ...grpc.CallOption) (*GetMetadata_Response, error) {
+
+*providerClient) GetMetadata(ctx context.Context, in *GetMetadata_Request, opts ...grpc.CallOption) (*GetMetadata_Response, error) {
 	out := new(GetMetadata_Response)
 	err := c.cc.Invoke(ctx, Provider_GetMetadata_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -102,7 +105,8 @@ func (c *providerClient) GetMetadata(ctx context.Context, in *GetMetadata_Reques
 	return out, nil
 }
 
-func (c *providerClient) GetSchema(ctx context.Context, in *GetProviderSchema_Request, opts ...grpc.CallOption) (*GetProviderSchema_Response, error) {
+
+*providerClient) GetSchema(ctx context.Context, in *GetProviderSchema_Request, opts ...grpc.CallOption) (*GetProviderSchema_Response, error) {
 	out := new(GetProviderSchema_Response)
 	err := c.cc.Invoke(ctx, Provider_GetSchema_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -111,7 +115,8 @@ func (c *providerClient) GetSchema(ctx context.Context, in *GetProviderSchema_Re
 	return out, nil
 }
 
-func (c *providerClient) PrepareProviderConfig(ctx context.Context, in *PrepareProviderConfig_Request, opts ...grpc.CallOption) (*PrepareProviderConfig_Response, error) {
+
+*providerClient) PrepareProviderConfig(ctx context.Context, in *PrepareProviderConfig_Request, opts ...grpc.CallOption) (*PrepareProviderConfig_Response, error) {
 	out := new(PrepareProviderConfig_Response)
 	err := c.cc.Invoke(ctx, Provider_PrepareProviderConfig_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -120,7 +125,8 @@ func (c *providerClient) PrepareProviderConfig(ctx context.Context, in *PrepareP
 	return out, nil
 }
 
-func (c *providerClient) ValidateResourceTypeConfig(ctx context.Context, in *ValidateResourceTypeConfig_Request, opts ...grpc.CallOption) (*ValidateResourceTypeConfig_Response, error) {
+
+*providerClient) ValidateResourceTypeConfig(ctx context.Context, in *ValidateResourceTypeConfig_Request, opts ...grpc.CallOption) (*ValidateResourceTypeConfig_Response, error) {
 	out := new(ValidateResourceTypeConfig_Response)
 	err := c.cc.Invoke(ctx, Provider_ValidateResourceTypeConfig_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -129,7 +135,8 @@ func (c *providerClient) ValidateResourceTypeConfig(ctx context.Context, in *Val
 	return out, nil
 }
 
-func (c *providerClient) ValidateDataSourceConfig(ctx context.Context, in *ValidateDataSourceConfig_Request, opts ...grpc.CallOption) (*ValidateDataSourceConfig_Response, error) {
+
+*providerClient) ValidateDataSourceConfig(ctx context.Context, in *ValidateDataSourceConfig_Request, opts ...grpc.CallOption) (*ValidateDataSourceConfig_Response, error) {
 	out := new(ValidateDataSourceConfig_Response)
 	err := c.cc.Invoke(ctx, Provider_ValidateDataSourceConfig_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -138,7 +145,8 @@ func (c *providerClient) ValidateDataSourceConfig(ctx context.Context, in *Valid
 	return out, nil
 }
 
-func (c *providerClient) UpgradeResourceState(ctx context.Context, in *UpgradeResourceState_Request, opts ...grpc.CallOption) (*UpgradeResourceState_Response, error) {
+
+*providerClient) UpgradeResourceState(ctx context.Context, in *UpgradeResourceState_Request, opts ...grpc.CallOption) (*UpgradeResourceState_Response, error) {
 	out := new(UpgradeResourceState_Response)
 	err := c.cc.Invoke(ctx, Provider_UpgradeResourceState_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -147,7 +155,8 @@ func (c *providerClient) UpgradeResourceState(ctx context.Context, in *UpgradeRe
 	return out, nil
 }
 
-func (c *providerClient) Configure(ctx context.Context, in *Configure_Request, opts ...grpc.CallOption) (*Configure_Response, error) {
+
+*providerClient) Configure(ctx context.Context, in *Configure_Request, opts ...grpc.CallOption) (*Configure_Response, error) {
 	out := new(Configure_Response)
 	err := c.cc.Invoke(ctx, Provider_Configure_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -156,7 +165,8 @@ func (c *providerClient) Configure(ctx context.Context, in *Configure_Request, o
 	return out, nil
 }
 
-func (c *providerClient) ReadResource(ctx context.Context, in *ReadResource_Request, opts ...grpc.CallOption) (*ReadResource_Response, error) {
+
+*providerClient) ReadResource(ctx context.Context, in *ReadResource_Request, opts ...grpc.CallOption) (*ReadResource_Response, error) {
 	out := new(ReadResource_Response)
 	err := c.cc.Invoke(ctx, Provider_ReadResource_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -165,7 +175,8 @@ func (c *providerClient) ReadResource(ctx context.Context, in *ReadResource_Requ
 	return out, nil
 }
 
-func (c *providerClient) PlanResourceChange(ctx context.Context, in *PlanResourceChange_Request, opts ...grpc.CallOption) (*PlanResourceChange_Response, error) {
+
+*providerClient) PlanResourceChange(ctx context.Context, in *PlanResourceChange_Request, opts ...grpc.CallOption) (*PlanResourceChange_Response, error) {
 	out := new(PlanResourceChange_Response)
 	err := c.cc.Invoke(ctx, Provider_PlanResourceChange_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -174,7 +185,8 @@ func (c *providerClient) PlanResourceChange(ctx context.Context, in *PlanResourc
 	return out, nil
 }
 
-func (c *providerClient) ApplyResourceChange(ctx context.Context, in *ApplyResourceChange_Request, opts ...grpc.CallOption) (*ApplyResourceChange_Response, error) {
+
+*providerClient) ApplyResourceChange(ctx context.Context, in *ApplyResourceChange_Request, opts ...grpc.CallOption) (*ApplyResourceChange_Response, error) {
 	out := new(ApplyResourceChange_Response)
 	err := c.cc.Invoke(ctx, Provider_ApplyResourceChange_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -183,7 +195,8 @@ func (c *providerClient) ApplyResourceChange(ctx context.Context, in *ApplyResou
 	return out, nil
 }
 
-func (c *providerClient) ImportResourceState(ctx context.Context, in *ImportResourceState_Request, opts ...grpc.CallOption) (*ImportResourceState_Response, error) {
+
+*providerClient) ImportResourceState(ctx context.Context, in *ImportResourceState_Request, opts ...grpc.CallOption) (*ImportResourceState_Response, error) {
 	out := new(ImportResourceState_Response)
 	err := c.cc.Invoke(ctx, Provider_ImportResourceState_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -192,7 +205,8 @@ func (c *providerClient) ImportResourceState(ctx context.Context, in *ImportReso
 	return out, nil
 }
 
-func (c *providerClient) ReadDataSource(ctx context.Context, in *ReadDataSource_Request, opts ...grpc.CallOption) (*ReadDataSource_Response, error) {
+
+*providerClient) ReadDataSource(ctx context.Context, in *ReadDataSource_Request, opts ...grpc.CallOption) (*ReadDataSource_Response, error) {
 	out := new(ReadDataSource_Response)
 	err := c.cc.Invoke(ctx, Provider_ReadDataSource_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -201,7 +215,8 @@ func (c *providerClient) ReadDataSource(ctx context.Context, in *ReadDataSource_
 	return out, nil
 }
 
-func (c *providerClient) Stop(ctx context.Context, in *Stop_Request, opts ...grpc.CallOption) (*Stop_Response, error) {
+
+*providerClient) Stop(ctx context.Context, in *Stop_Request, opts ...grpc.CallOption) (*Stop_Response, error) {
 	out := new(Stop_Response)
 	err := c.cc.Invoke(ctx, Provider_Stop_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -227,7 +242,8 @@ type ProviderServer interface {
 	ValidateResourceTypeConfig(context.Context, *ValidateResourceTypeConfig_Request) (*ValidateResourceTypeConfig_Response, error)
 	ValidateDataSourceConfig(context.Context, *ValidateDataSourceConfig_Request) (*ValidateDataSourceConfig_Response, error)
 	UpgradeResourceState(context.Context, *UpgradeResourceState_Request) (*UpgradeResourceState_Response, error)
-	// ////// One-time initialization, called before other functions below
+	// ////// One-time initialization, called before other 
+s below
 	Configure(context.Context, *Configure_Request) (*Configure_Response, error)
 	// ////// Managed Resource Lifecycle
 	ReadResource(context.Context, *ReadResource_Request) (*ReadResource_Response, error)
@@ -244,46 +260,60 @@ type ProviderServer interface {
 type UnimplementedProviderServer struct {
 }
 
-func (UnimplementedProviderServer) GetMetadata(context.Context, *GetMetadata_Request) (*GetMetadata_Response, error) {
+
+implementedProviderServer) GetMetadata(context.Context, *GetMetadata_Request) (*GetMetadata_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMetadata not implemented")
 }
-func (UnimplementedProviderServer) GetSchema(context.Context, *GetProviderSchema_Request) (*GetProviderSchema_Response, error) {
+
+implementedProviderServer) GetSchema(context.Context, *GetProviderSchema_Request) (*GetProviderSchema_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchema not implemented")
 }
-func (UnimplementedProviderServer) PrepareProviderConfig(context.Context, *PrepareProviderConfig_Request) (*PrepareProviderConfig_Response, error) {
+
+implementedProviderServer) PrepareProviderConfig(context.Context, *PrepareProviderConfig_Request) (*PrepareProviderConfig_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PrepareProviderConfig not implemented")
 }
-func (UnimplementedProviderServer) ValidateResourceTypeConfig(context.Context, *ValidateResourceTypeConfig_Request) (*ValidateResourceTypeConfig_Response, error) {
+
+implementedProviderServer) ValidateResourceTypeConfig(context.Context, *ValidateResourceTypeConfig_Request) (*ValidateResourceTypeConfig_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateResourceTypeConfig not implemented")
 }
-func (UnimplementedProviderServer) ValidateDataSourceConfig(context.Context, *ValidateDataSourceConfig_Request) (*ValidateDataSourceConfig_Response, error) {
+
+implementedProviderServer) ValidateDataSourceConfig(context.Context, *ValidateDataSourceConfig_Request) (*ValidateDataSourceConfig_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateDataSourceConfig not implemented")
 }
-func (UnimplementedProviderServer) UpgradeResourceState(context.Context, *UpgradeResourceState_Request) (*UpgradeResourceState_Response, error) {
+
+implementedProviderServer) UpgradeResourceState(context.Context, *UpgradeResourceState_Request) (*UpgradeResourceState_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpgradeResourceState not implemented")
 }
-func (UnimplementedProviderServer) Configure(context.Context, *Configure_Request) (*Configure_Response, error) {
+
+implementedProviderServer) Configure(context.Context, *Configure_Request) (*Configure_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Configure not implemented")
 }
-func (UnimplementedProviderServer) ReadResource(context.Context, *ReadResource_Request) (*ReadResource_Response, error) {
+
+implementedProviderServer) ReadResource(context.Context, *ReadResource_Request) (*ReadResource_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadResource not implemented")
 }
-func (UnimplementedProviderServer) PlanResourceChange(context.Context, *PlanResourceChange_Request) (*PlanResourceChange_Response, error) {
+
+implementedProviderServer) PlanResourceChange(context.Context, *PlanResourceChange_Request) (*PlanResourceChange_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PlanResourceChange not implemented")
 }
-func (UnimplementedProviderServer) ApplyResourceChange(context.Context, *ApplyResourceChange_Request) (*ApplyResourceChange_Response, error) {
+
+implementedProviderServer) ApplyResourceChange(context.Context, *ApplyResourceChange_Request) (*ApplyResourceChange_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyResourceChange not implemented")
 }
-func (UnimplementedProviderServer) ImportResourceState(context.Context, *ImportResourceState_Request) (*ImportResourceState_Response, error) {
+
+implementedProviderServer) ImportResourceState(context.Context, *ImportResourceState_Request) (*ImportResourceState_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ImportResourceState not implemented")
 }
-func (UnimplementedProviderServer) ReadDataSource(context.Context, *ReadDataSource_Request) (*ReadDataSource_Response, error) {
+
+implementedProviderServer) ReadDataSource(context.Context, *ReadDataSource_Request) (*ReadDataSource_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadDataSource not implemented")
 }
-func (UnimplementedProviderServer) Stop(context.Context, *Stop_Request) (*Stop_Response, error) {
+
+implementedProviderServer) Stop(context.Context, *Stop_Request) (*Stop_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
 }
-func (UnimplementedProviderServer) mustEmbedUnimplementedProviderServer() {}
+
+implementedProviderServer) mustEmbedUnimplementedProviderServer() {}
 
 // UnsafeProviderServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ProviderServer will
@@ -292,11 +322,14 @@ type UnsafeProviderServer interface {
 	mustEmbedUnimplementedProviderServer()
 }
 
-func RegisterProviderServer(s grpc.ServiceRegistrar, srv ProviderServer) {
+
+isterProviderServer(s grpc.ServiceRegistrar, srv ProviderServer) {
 	s.RegisterService(&Provider_ServiceDesc, srv)
 }
 
-func _Provider_GetMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_GetMetadata_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMetadata_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -308,13 +341,16 @@ func _Provider_GetMetadata_Handler(srv interface{}, ctx context.Context, dec fun
 		Server:     srv,
 		FullMethod: Provider_GetMetadata_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).GetMetadata(ctx, req.(*GetMetadata_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_GetSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_GetSchema_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetProviderSchema_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -326,13 +362,16 @@ func _Provider_GetSchema_Handler(srv interface{}, ctx context.Context, dec func(
 		Server:     srv,
 		FullMethod: Provider_GetSchema_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).GetSchema(ctx, req.(*GetProviderSchema_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_PrepareProviderConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_PrepareProviderConfig_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PrepareProviderConfig_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -344,13 +383,16 @@ func _Provider_PrepareProviderConfig_Handler(srv interface{}, ctx context.Contex
 		Server:     srv,
 		FullMethod: Provider_PrepareProviderConfig_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).PrepareProviderConfig(ctx, req.(*PrepareProviderConfig_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ValidateResourceTypeConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ValidateResourceTypeConfig_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateResourceTypeConfig_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -362,13 +404,16 @@ func _Provider_ValidateResourceTypeConfig_Handler(srv interface{}, ctx context.C
 		Server:     srv,
 		FullMethod: Provider_ValidateResourceTypeConfig_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ValidateResourceTypeConfig(ctx, req.(*ValidateResourceTypeConfig_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ValidateDataSourceConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ValidateDataSourceConfig_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateDataSourceConfig_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -380,13 +425,16 @@ func _Provider_ValidateDataSourceConfig_Handler(srv interface{}, ctx context.Con
 		Server:     srv,
 		FullMethod: Provider_ValidateDataSourceConfig_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ValidateDataSourceConfig(ctx, req.(*ValidateDataSourceConfig_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_UpgradeResourceState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_UpgradeResourceState_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpgradeResourceState_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -398,13 +446,16 @@ func _Provider_UpgradeResourceState_Handler(srv interface{}, ctx context.Context
 		Server:     srv,
 		FullMethod: Provider_UpgradeResourceState_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).UpgradeResourceState(ctx, req.(*UpgradeResourceState_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_Configure_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_Configure_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Configure_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -416,13 +467,16 @@ func _Provider_Configure_Handler(srv interface{}, ctx context.Context, dec func(
 		Server:     srv,
 		FullMethod: Provider_Configure_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).Configure(ctx, req.(*Configure_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ReadResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ReadResource_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadResource_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -434,13 +488,16 @@ func _Provider_ReadResource_Handler(srv interface{}, ctx context.Context, dec fu
 		Server:     srv,
 		FullMethod: Provider_ReadResource_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ReadResource(ctx, req.(*ReadResource_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_PlanResourceChange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_PlanResourceChange_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PlanResourceChange_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -452,13 +509,16 @@ func _Provider_PlanResourceChange_Handler(srv interface{}, ctx context.Context, 
 		Server:     srv,
 		FullMethod: Provider_PlanResourceChange_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).PlanResourceChange(ctx, req.(*PlanResourceChange_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ApplyResourceChange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ApplyResourceChange_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ApplyResourceChange_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -470,13 +530,16 @@ func _Provider_ApplyResourceChange_Handler(srv interface{}, ctx context.Context,
 		Server:     srv,
 		FullMethod: Provider_ApplyResourceChange_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ApplyResourceChange(ctx, req.(*ApplyResourceChange_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ImportResourceState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ImportResourceState_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ImportResourceState_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -488,13 +551,16 @@ func _Provider_ImportResourceState_Handler(srv interface{}, ctx context.Context,
 		Server:     srv,
 		FullMethod: Provider_ImportResourceState_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ImportResourceState(ctx, req.(*ImportResourceState_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_ReadDataSource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_ReadDataSource_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadDataSource_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -506,13 +572,16 @@ func _Provider_ReadDataSource_Handler(srv interface{}, ctx context.Context, dec 
 		Server:     srv,
 		FullMethod: Provider_ReadDataSource_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).ReadDataSource(ctx, req.(*ReadDataSource_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provider_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovider_Stop_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Stop_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -524,7 +593,8 @@ func _Provider_Stop_Handler(srv interface{}, ctx context.Context, dec func(inter
 		Server:     srv,
 		FullMethod: Provider_Stop_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProviderServer).Stop(ctx, req.(*Stop_Request))
 	}
 	return interceptor(ctx, in, info, handler)
@@ -615,11 +685,13 @@ type provisionerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewProvisionerClient(cc grpc.ClientConnInterface) ProvisionerClient {
+
+ProvisionerClient(cc grpc.ClientConnInterface) ProvisionerClient {
 	return &provisionerClient{cc}
 }
 
-func (c *provisionerClient) GetSchema(ctx context.Context, in *GetProvisionerSchema_Request, opts ...grpc.CallOption) (*GetProvisionerSchema_Response, error) {
+
+*provisionerClient) GetSchema(ctx context.Context, in *GetProvisionerSchema_Request, opts ...grpc.CallOption) (*GetProvisionerSchema_Response, error) {
 	out := new(GetProvisionerSchema_Response)
 	err := c.cc.Invoke(ctx, Provisioner_GetSchema_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -628,7 +700,8 @@ func (c *provisionerClient) GetSchema(ctx context.Context, in *GetProvisionerSch
 	return out, nil
 }
 
-func (c *provisionerClient) ValidateProvisionerConfig(ctx context.Context, in *ValidateProvisionerConfig_Request, opts ...grpc.CallOption) (*ValidateProvisionerConfig_Response, error) {
+
+*provisionerClient) ValidateProvisionerConfig(ctx context.Context, in *ValidateProvisionerConfig_Request, opts ...grpc.CallOption) (*ValidateProvisionerConfig_Response, error) {
 	out := new(ValidateProvisionerConfig_Response)
 	err := c.cc.Invoke(ctx, Provisioner_ValidateProvisionerConfig_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -637,7 +710,8 @@ func (c *provisionerClient) ValidateProvisionerConfig(ctx context.Context, in *V
 	return out, nil
 }
 
-func (c *provisionerClient) ProvisionResource(ctx context.Context, in *ProvisionResource_Request, opts ...grpc.CallOption) (Provisioner_ProvisionResourceClient, error) {
+
+*provisionerClient) ProvisionResource(ctx context.Context, in *ProvisionResource_Request, opts ...grpc.CallOption) (Provisioner_ProvisionResourceClient, error) {
 	stream, err := c.cc.NewStream(ctx, &Provisioner_ServiceDesc.Streams[0], Provisioner_ProvisionResource_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -661,7 +735,8 @@ type provisionerProvisionResourceClient struct {
 	grpc.ClientStream
 }
 
-func (x *provisionerProvisionResourceClient) Recv() (*ProvisionResource_Response, error) {
+
+*provisionerProvisionResourceClient) Recv() (*ProvisionResource_Response, error) {
 	m := new(ProvisionResource_Response)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -669,7 +744,8 @@ func (x *provisionerProvisionResourceClient) Recv() (*ProvisionResource_Response
 	return m, nil
 }
 
-func (c *provisionerClient) Stop(ctx context.Context, in *Stop_Request, opts ...grpc.CallOption) (*Stop_Response, error) {
+
+*provisionerClient) Stop(ctx context.Context, in *Stop_Request, opts ...grpc.CallOption) (*Stop_Response, error) {
 	out := new(Stop_Response)
 	err := c.cc.Invoke(ctx, Provisioner_Stop_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -693,19 +769,24 @@ type ProvisionerServer interface {
 type UnimplementedProvisionerServer struct {
 }
 
-func (UnimplementedProvisionerServer) GetSchema(context.Context, *GetProvisionerSchema_Request) (*GetProvisionerSchema_Response, error) {
+
+implementedProvisionerServer) GetSchema(context.Context, *GetProvisionerSchema_Request) (*GetProvisionerSchema_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchema not implemented")
 }
-func (UnimplementedProvisionerServer) ValidateProvisionerConfig(context.Context, *ValidateProvisionerConfig_Request) (*ValidateProvisionerConfig_Response, error) {
+
+implementedProvisionerServer) ValidateProvisionerConfig(context.Context, *ValidateProvisionerConfig_Request) (*ValidateProvisionerConfig_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateProvisionerConfig not implemented")
 }
-func (UnimplementedProvisionerServer) ProvisionResource(*ProvisionResource_Request, Provisioner_ProvisionResourceServer) error {
+
+implementedProvisionerServer) ProvisionResource(*ProvisionResource_Request, Provisioner_ProvisionResourceServer) error {
 	return status.Errorf(codes.Unimplemented, "method ProvisionResource not implemented")
 }
-func (UnimplementedProvisionerServer) Stop(context.Context, *Stop_Request) (*Stop_Response, error) {
+
+implementedProvisionerServer) Stop(context.Context, *Stop_Request) (*Stop_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
 }
-func (UnimplementedProvisionerServer) mustEmbedUnimplementedProvisionerServer() {}
+
+implementedProvisionerServer) mustEmbedUnimplementedProvisionerServer() {}
 
 // UnsafeProvisionerServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ProvisionerServer will
@@ -714,11 +795,14 @@ type UnsafeProvisionerServer interface {
 	mustEmbedUnimplementedProvisionerServer()
 }
 
-func RegisterProvisionerServer(s grpc.ServiceRegistrar, srv ProvisionerServer) {
+
+isterProvisionerServer(s grpc.ServiceRegistrar, srv ProvisionerServer) {
 	s.RegisterService(&Provisioner_ServiceDesc, srv)
 }
 
-func _Provisioner_GetSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovisioner_GetSchema_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetProvisionerSchema_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -730,13 +814,16 @@ func _Provisioner_GetSchema_Handler(srv interface{}, ctx context.Context, dec fu
 		Server:     srv,
 		FullMethod: Provisioner_GetSchema_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProvisionerServer).GetSchema(ctx, req.(*GetProvisionerSchema_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provisioner_ValidateProvisionerConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovisioner_ValidateProvisionerConfig_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateProvisionerConfig_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -748,13 +835,15 @@ func _Provisioner_ValidateProvisionerConfig_Handler(srv interface{}, ctx context
 		Server:     srv,
 		FullMethod: Provisioner_ValidateProvisionerConfig_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProvisionerServer).ValidateProvisionerConfig(ctx, req.(*ValidateProvisionerConfig_Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Provisioner_ProvisionResource_Handler(srv interface{}, stream grpc.ServerStream) error {
+
+ovisioner_ProvisionResource_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(ProvisionResource_Request)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
@@ -771,11 +860,14 @@ type provisionerProvisionResourceServer struct {
 	grpc.ServerStream
 }
 
-func (x *provisionerProvisionResourceServer) Send(m *ProvisionResource_Response) error {
+
+*provisionerProvisionResourceServer) Send(m *ProvisionResource_Response) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _Provisioner_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+
+ovisioner_Stop_Handler(srv interface{}, ctx context.Context, dec 
+erface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Stop_Request)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -787,7 +879,8 @@ func _Provisioner_Stop_Handler(srv interface{}, ctx context.Context, dec func(in
 		Server:     srv,
 		FullMethod: Provisioner_Stop_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := 
+ context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProvisionerServer).Stop(ctx, req.(*Stop_Request))
 	}
 	return interceptor(ctx, in, info, handler)

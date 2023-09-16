@@ -25,8 +25,7 @@ import (
 
 // @SDKResource("aws_db_snapshot_copy", name="DB Snapshot")
 // @Tags(identifierAttribute="db_snapshot_arn")
-func ResourceSnapshotCopy() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceSnapshotCopyCreate,
 		ReadWithoutTimeout:   resourceSnapshotCopyRead,
 		UpdateWithoutTimeout: resourceSnapshotCopyUpdate,
@@ -147,13 +146,12 @@ func ResourceSnapshotCopy() *schema.Resource {
 }
 
 func resourceSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	targetDBSnapshotID := d.Get("target_db_snapshot_identifier").(string)
 	input := &rds.CopyDBSnapshotInput{
 		SourceDBSnapshotIdentifier: aws.String(d.Get("source_db_snapshot_identifier").(string)),
-		Tags:                       getTagsIn(ctx),
+		Tags:          getTagsIn(ctx),
 		TargetDBSnapshotIdentifier: aws.String(targetDBSnapshotID),
 	}
 
@@ -193,8 +191,7 @@ func resourceSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, met
 
 func resourceSnapshotCopyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	snapshot, err := FindDBSnapshotByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -232,14 +229,12 @@ func resourceSnapshotCopyRead(ctx context.Context, d *schema.ResourceData, meta 
 func resourceSnapshotCopyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceSnapshotCopyRead(ctx, d, meta)
-}
-
+func
 func resourceSnapshotCopyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
-	log.Printf("[DEBUG] Deleting RDS DB Snapshot Copy: %s", d.Id())
-	_, err := conn.DeleteDBSnapshotWithContext(ctx, &rds.DeleteDBSnapshotInput{
+funcerr := conn.DeleteDBSnapshotWithContext(ctx, &rds.DeleteDBSnapshotInput{
 		DBSnapshotIdentifier: aws.String(d.Id()),
 	})
 

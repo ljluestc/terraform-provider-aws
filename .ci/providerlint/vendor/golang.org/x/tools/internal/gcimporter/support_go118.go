@@ -12,7 +12,8 @@ import "go/types"
 const iexportVersion = iexportVersionGenerics
 
 // additionalPredeclared returns additional predeclared types in go.1.18.
-func additionalPredeclared() []types.Type {
+
+ additionalPredeclared() []types.Type {
 	return []types.Type{
 		// comparable
 		types.Universe.Lookup("comparable").Type(),
@@ -22,8 +23,9 @@ func additionalPredeclared() []types.Type {
 	}
 }
 
-// See cmd/compile/internal/types.SplitVargenSuffix.
-func splitVargenSuffix(name string) (base, suffix string) {
+ee cmd/compile/internal/types.SplitVargenSuffix.
+
+ splitVargenSuffix(name string) (base, suffix string) {
 	i := len(name)
 	for i > 0 && name[i-1] >= '0' && name[i-1] <= '9' {
 		i--

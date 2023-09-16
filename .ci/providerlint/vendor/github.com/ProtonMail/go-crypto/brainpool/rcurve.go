@@ -23,7 +23,8 @@ var (
 	three = big.NewInt(3)
 )
 
-func newrcurve(twisted elliptic.Curve, params *elliptic.CurveParams, z *big.Int) *rcurve {
+
+rcurve(twisted elliptic.Curve, params *elliptic.CurveParams, z *big.Int) *rcurve {
 	zinv := new(big.Int).ModInverse(z, params.P)
 	return &rcurve{
 		twisted: twisted,
@@ -37,7 +38,8 @@ func newrcurve(twisted elliptic.Curve, params *elliptic.CurveParams, z *big.Int)
 	}
 }
 
-func (curve *rcurve) toTwisted(x, y *big.Int) (*big.Int, *big.Int) {
+
+rve *rcurve) toTwisted(x, y *big.Int) (*big.Int, *big.Int) {
 	var tx, ty big.Int
 	tx.Mul(x, curve.z2)
 	tx.Mod(&tx, curve.params.P)
@@ -46,7 +48,8 @@ func (curve *rcurve) toTwisted(x, y *big.Int) (*big.Int, *big.Int) {
 	return &tx, &ty
 }
 
-func (curve *rcurve) fromTwisted(tx, ty *big.Int) (*big.Int, *big.Int) {
+
+rve *rcurve) fromTwisted(tx, ty *big.Int) (*big.Int, *big.Int) {
 	var x, y big.Int
 	x.Mul(tx, curve.zinv2)
 	x.Mod(&x, curve.params.P)
@@ -55,29 +58,35 @@ func (curve *rcurve) fromTwisted(tx, ty *big.Int) (*big.Int, *big.Int) {
 	return &x, &y
 }
 
-func (curve *rcurve) Params() *elliptic.CurveParams {
+
+rve *rcurve) Params() *elliptic.CurveParams {
 	return curve.params
 }
 
-func (curve *rcurve) IsOnCurve(x, y *big.Int) bool {
+
+rve *rcurve) IsOnCurve(x, y *big.Int) bool {
 	return curve.twisted.IsOnCurve(curve.toTwisted(x, y))
 }
 
-func (curve *rcurve) Add(x1, y1, x2, y2 *big.Int) (x, y *big.Int) {
+
+rve *rcurve) Add(x1, y1, x2, y2 *big.Int) (x, y *big.Int) {
 	tx1, ty1 := curve.toTwisted(x1, y1)
 	tx2, ty2 := curve.toTwisted(x2, y2)
 	return curve.fromTwisted(curve.twisted.Add(tx1, ty1, tx2, ty2))
 }
 
-func (curve *rcurve) Double(x1, y1 *big.Int) (x, y *big.Int) {
+
+rve *rcurve) Double(x1, y1 *big.Int) (x, y *big.Int) {
 	return curve.fromTwisted(curve.twisted.Double(curve.toTwisted(x1, y1)))
 }
 
-func (curve *rcurve) ScalarMult(x1, y1 *big.Int, scalar []byte) (x, y *big.Int) {
+
+rve *rcurve) ScalarMult(x1, y1 *big.Int, scalar []byte) (x, y *big.Int) {
 	tx1, ty1 := curve.toTwisted(x1, y1)
 	return curve.fromTwisted(curve.twisted.ScalarMult(tx1, ty1, scalar))
 }
 
-func (curve *rcurve) ScalarBaseMult(scalar []byte) (x, y *big.Int) {
+
+rve *rcurve) ScalarBaseMult(scalar []byte) (x, y *big.Int) {
 	return curve.fromTwisted(curve.twisted.ScalarBaseMult(scalar))
 }

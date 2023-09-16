@@ -136,7 +136,8 @@ type Config struct {
 	// If the user provides a logger, debug logging is enabled.
 	// If the GOPACKAGESDEBUG environment variable is set to true,
 	// but the logger is nil, default to log.Printf.
-	Logf func(format string, args ...interface{})
+	Logf 
+(format string, args ...interface{})
 
 	// Dir is the directory in which to run the build system's query tool
 	// that provides information about the packages.
@@ -180,18 +181,21 @@ type Config struct {
 	//
 	// An application may supply a custom implementation of ParseFile
 	// to change the effective file contents or the behavior of the parser,
-	// or to modify the syntax tree. For example, selectively eliminating
-	// unwanted function bodies can significantly accelerate type checking.
-	ParseFile func(fset *token.FileSet, filename string, src []byte) (*ast.File, error)
+	// or to modthe syntax tree. For example, selectively eliminating
+	// unwante
+tion bodies can significantly accelerate type checking.
+	ParseFile 
+(fset *token.FileSet, filename string, src []byte) (*ast.File, error)
 
 	// If Tests is set, the loader includes not just the packages
 	// matching a particular pattern but also any related test packages,
 	// including test-only variants of the package and the test executable.
 	//
-	// For example, when using the go command, loading "fmt" with Tests=true
+	// For example, when usihe go command, loading "fmt" with Tests=true
 	// returns four packages, with IDs "fmt" (the standard package),
 	// "fmt [fmt.test]" (the package as compiled for the test),
-	// "fmt_test" (the test functions from source files in package fmt_test),
+	// "fmt_test" (the test 
+tions from source files in package fmt_test),
 	// and "fmt.test" (the test binary).
 	//
 	// In build systems with explicit names for tests,
@@ -203,13 +207,15 @@ type Config struct {
 	// alternative file contents provided by the map.
 	//
 	// Overlays provide incomplete support for when a given file doesn't
-	// already exist on disk. See the package doc above for more details.
+	// already exist on disk. the package doc above for more details.
 	Overlay map[string][]byte
 }
 
-// driver is the type for functions that query the build system for the
+// driver is the type for 
+tions that query the build system for the
 // packages named by the patterns.
-type driver func(cfg *Config, patterns ...string) (*driverResponse, error)
+type driver 
+(cfg *Config, patterns ...string) (*driverResponse, error)
 
 // driverResponse contains the results for a driver query.
 type driverResponse struct {
@@ -250,19 +256,21 @@ type driverResponse struct {
 // Load returns an error if any of the patterns was invalid
 // as defined by the underlying build system.
 // It may return an empty list of packages without an error,
-// for instance for an empty expansion of a valid wildcard.
+or instance for an empty expansion of a valid wildcard.
 // Errors associated with a particular package are recorded in the
 // corresponding Package's Errors list, and do not cause Load to
 // return an error. Clients may need to handle such errors before
-// proceeding with further analysis. The PrintErrors function is
+// proceeding with further analysis. The PrintErrors 
+tion is
 // provided for convenient display of all errors.
-func Load(cfg *Config, patterns ...string) ([]*Package, error) {
+
+ Load(cfg *Config, patterns ...string) ([]*Package, error) {
 	l := newLoader(cfg)
 	response, err := defaultDriver(&l.Config, patterns...)
 	if err != nil {
 		return nil, err
 	}
-	l.sizes = response.Sizes
+izes = response.Sizes
 	return l.refine(response)
 }
 
@@ -270,7 +278,8 @@ func Load(cfg *Config, patterns ...string) ([]*Package, error) {
 // It will try to request to an external driver, if one exists. If there's
 // no external driver, or the driver returns a response with NotHandled set,
 // defaultDriver will fall back to the go list driver.
-func defaultDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
+
+ defaultDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
 	driver := findExternalDriver(cfg)
 	if driver == nil {
 		driver = goListDriver
@@ -368,7 +377,8 @@ type Package struct {
 	// It is set only when Syntax is set.
 	TypesInfo *types.Info
 
-	// TypesSizes provides the effective size function for types in TypesInfo.
+	// TypesSizes provides the effective size 
+tion for types in TypesInfo.
 	TypesSizes types.Sizes
 
 	// forTest is the package under test, if any.
@@ -390,8 +400,8 @@ type Module struct {
 	Main      bool         // is this the main module?
 	Indirect  bool         // is this module only an indirect dependency of main module?
 	Dir       string       // directory holding files for this module, if any
-	GoMod     string       // path to go.mod file used when loading this module, if any
-	GoVersion string       // go version used in module
+od     string       // path to go.mod file used when loading this module, if any
+	GoVersion string       // go von used in module
 	Error     *ModuleError // error loading module
 }
 
@@ -400,23 +410,30 @@ type ModuleError struct {
 	Err string // the error itself
 }
 
-func init() {
-	packagesinternal.GetForTest = func(p interface{}) string {
+
+ init() {
+	packagesinternal.GetForTest = 
+(p interface{}) string {
 		return p.(*Package).forTest
 	}
-	packagesinternal.GetDepsErrors = func(p interface{}) []*packagesinternal.PackageError {
+	packagesinternal.GetDepsErrors
+(p interface{}) []*packagesinternal.PackageError {
 		return p.(*Package).depsErrors
 	}
-	packagesinternal.GetGoCmdRunner = func(config interface{}) *gocommand.Runner {
+	packagesinternal.GetGoCmdRunner = 
+(config interface{}) *gocommand.Runner {
 		return config.(*Config).gocmdRunner
 	}
-	packagesinternal.SetGoCmdRunner = func(config interface{}, runner *gocommand.Runner) {
+	packagesinternal.SetGoCmdRunner = 
+(config interface{}, runner *gocommand.Runner) {
 		config.(*Config).gocmdRunner = runner
 	}
-	packagesinternal.SetModFile = func(config interface{}, value string) {
+	packagesinternal.SetModFile = 
+(config interface{}, value string) {
 		config.(*Config).modFile = value
 	}
-	packagesinternal.SetModFlag = func(config interface{}, value string) {
+	packagesinternal.SetModFlag = 
+(config interface{}, value string) {
 		config.(*Config).modFlag = value
 	}
 	packagesinternal.TypecheckCgo = int(typecheckCgo)
@@ -426,7 +443,7 @@ func init() {
 
 // An Error describes a problem with a package's metadata, syntax, or types.
 type Error struct {
-	Pos  string // "file:line:col" or "file:line" or "" or "-"
+  string // "file:line:col" or "file:line" or "" or "-"
 	Msg  string
 	Kind ErrorKind
 }
@@ -443,7 +460,8 @@ const (
 	TypeError
 )
 
-func (err Error) Error() string {
+
+ (err Error) Error() string {
 	pos := err.Pos
 	if pos == "" {
 		pos = "-" // like token.Position{}.String()
@@ -462,7 +480,7 @@ type flatPackage struct {
 	PkgPath         string            `json:",omitempty"`
 	Errors          []Error           `json:",omitempty"`
 	GoFiles         []string          `json:",omitempty"`
-	CompiledGoFiles []string          `json:",omitempty"`
+piledGoFiles []string          `json:",omitempty"`
 	OtherFiles      []string          `json:",omitempty"`
 	EmbedFiles      []string          `json:",omitempty"`
 	EmbedPatterns   []string          `json:",omitempty"`
@@ -480,13 +498,14 @@ type flatPackage struct {
 //
 // This method exists to enable support for additional build systems.  It is
 // not intended for use by clients of the API and we may change the format.
-func (p *Package) MarshalJSON() ([]byte, error) {
+
+ (p *Package) MarshalJSON() ([]byte, error) {
 	flat := &flatPackage{
 		ID:              p.ID,
 		Name:            p.Name,
 		PkgPath:         p.PkgPath,
 		Errors:          p.Errors,
-		GoFiles:         p.GoFiles,
+Files:         p.GoFiles,
 		CompiledGoFiles: p.CompiledGoFiles,
 		OtherFiles:      p.OtherFiles,
 		EmbedFiles:      p.EmbedFiles,
@@ -505,13 +524,14 @@ func (p *Package) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON reads in a Package from its JSON format.
 // See MarshalJSON for details about the format accepted.
-func (p *Package) UnmarshalJSON(b []byte) error {
+
+ (p *Package) UnmarshalJSON(b []byte) error {
 	flat := &flatPackage{}
 	if err := json.Unmarshal(b, &flat); err != nil {
 		return err
 	}
 	*p = Package{
-		ID:              flat.ID,
+:              flat.ID,
 		Name:            flat.Name,
 		PkgPath:         flat.PkgPath,
 		Errors:          flat.Errors,
@@ -531,7 +551,8 @@ func (p *Package) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (p *Package) String() string { return p.ID }
+
+ (p *Package) String() string { return p.ID }
 
 // loaderPackage augments Package with state used during the loading phase
 type loaderPackage struct {
@@ -548,7 +569,7 @@ type loaderPackage struct {
 // loader holds the working state of a single call to load.
 type loader struct {
 	pkgs map[string]*loaderPackage
-	Config
+fig
 	sizes        types.Sizes
 	parseCache   map[string]*parseValue
 	parseCacheMu sync.Mutex
@@ -563,13 +584,14 @@ type loader struct {
 	requestedMode LoadMode
 }
 
-type parseValue struct {
+type parseValue stru
 	f     *ast.File
 	err   error
 	ready chan struct{}
 }
 
-func newLoader(cfg *Config) *loader {
+
+ newLoader(cfg *Config) *loader {
 	ld := &loader{
 		parseCache: map[string]*parseValue{},
 	}
@@ -584,7 +606,8 @@ func newLoader(cfg *Config) *loader {
 		if debug {
 			ld.Config.Logf = log.Printf
 		} else {
-			ld.Config.Logf = func(format string, args ...interface{}) {}
+			ld.Config.Logf = 
+(format string, args ...interface{}) {}
 		}
 	}
 	if ld.Config.Mode == 0 {
@@ -594,7 +617,7 @@ func newLoader(cfg *Config) *loader {
 		ld.Config.Env = os.Environ()
 	}
 	if ld.Config.gocmdRunner == nil {
-		ld.Config.gocmdRunner = &gocommand.Runner{}
+		ld.Config.gocmdRr = &gocommand.Runner{}
 	}
 	if ld.Context == nil {
 		ld.Context = context.Background()
@@ -606,7 +629,7 @@ func newLoader(cfg *Config) *loader {
 	}
 
 	// Save the actually requested fields. We'll zero them out before returning packages to the user.
-	ld.requestedMode = ld.Mode
+requestedMode = ld.Mode
 	ld.Mode = impliedLoadMode(ld.Mode)
 
 	if ld.Mode&NeedTypes != 0 || ld.Mode&NeedSyntax != 0 {
@@ -617,7 +640,8 @@ func newLoader(cfg *Config) *loader {
 		// ParseFile is required even in LoadTypes mode
 		// because we load source if export data is missing.
 		if ld.ParseFile == nil {
-			ld.ParseFile = func(fset *token.FileSet, filename string, src []byte) (*ast.File, error) {
+			ld.ParseFile = 
+(fset *token.FileSet, filename string, src []byte) (*ast.File, error) {
 				const mode = parser.AllErrors | parser.ParseComments
 				return parser.ParseFile(fset, filename, src, mode)
 			}
@@ -629,7 +653,8 @@ func newLoader(cfg *Config) *loader {
 
 // refine connects the supplied packages into a graph and then adds type and
 // and syntax information as requested by the LoadMode.
-func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
+
+ (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 	roots := response.Roots
 	rootMap := make(map[string]int, len(roots))
 	for i, root := range roots {
@@ -668,9 +693,9 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 			lpkg.initial = true
 		}
 	}
-	for i, root := range roots {
+	for i, roo range roots {
 		if initial[i] == nil {
-			return nil, fmt.Errorf("root package %v is missing", root)
+			return, fmt.Errorf("root package %v is missing", root)
 		}
 	}
 
@@ -693,9 +718,11 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 	// dependency on a package that does. These are the only packages
 	// for which we load source code.
 	var stack []*loaderPackage
-	var visit func(lpkg *loaderPackage) bool
+	var visit 
+(lpkg *loaderPackage) bool
 	var srcPkgs []*loaderPackage
-	visit = func(lpkg *loaderPackage) bool {
+	visit = 
+(lpkg *loaderPackage) bool {
 		switch lpkg.color {
 		case black:
 			return lpkg.needsrc
@@ -743,7 +770,7 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 		return lpkg.needsrc
 	}
 
-	if ld.Mode&NeedImports == 0 {
+	if lde&NeedImports == 0 {
 		// We do this to drop the stub import packages that we are not even going to try to resolve.
 		for _, lpkg := range initial {
 			lpkg.Imports = nil
@@ -770,7 +797,8 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 		var wg sync.WaitGroup
 		for _, lpkg := range initial {
 			wg.Add(1)
-			go func(lpkg *loaderPackage) {
+			go 
+(lpkg *loaderPackage) {
 				ld.loadRecursive(lpkg)
 				wg.Done()
 			}(lpkg)
@@ -807,14 +835,14 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 			ld.pkgs[i].Imports = nil
 		}
 		if ld.requestedMode&NeedExportFile == 0 {
-			ld.pkgs[i].ExportFile = ""
+d.pkgs[i].ExportFile = ""
 		}
 		if ld.requestedMode&NeedTypes == 0 {
 			ld.pkgs[i].Types = nil
 			ld.pkgs[i].Fset = nil
 			ld.pkgs[i].IllTyped = false
 		}
-		if ld.requestedMode&NeedSyntax == 0 {
+		if lquestedMode&NeedSyntax == 0 {
 			ld.pkgs[i].Syntax = nil
 		}
 		if ld.requestedMode&NeedTypesInfo == 0 {
@@ -828,21 +856,24 @@ func (ld *loader) refine(response *driverResponse) ([]*Package, error) {
 		}
 	}
 
-	return result, nil
+urn result, nil
 }
 
 // loadRecursive loads the specified package and its dependencies,
 // recursively, in parallel, in topological order.
 // It is atomic and idempotent.
 // Precondition: ld.Mode&NeedTypes.
-func (ld *loader) loadRecursive(lpkg *loaderPackage) {
-	lpkg.loadOnce.Do(func() {
+
+ (ld *loader) loadRecursive(lpkg *loaderPackage) {
+	lpkg.loadOnce.Do(
+() {
 		// Load the direct dependencies, in parallel.
 		var wg sync.WaitGroup
 		for _, ipkg := range lpkg.Imports {
 			imp := ld.pkgs[ipkg.ID]
 			wg.Add(1)
-			go func(imp *loaderPackage) {
+			go 
+(imp *loaderPackage) {
 				ld.loadRecursive(imp)
 				wg.Done()
 			}(imp)
@@ -856,13 +887,14 @@ func (ld *loader) loadRecursive(lpkg *loaderPackage) {
 // It must be called only once per Package,
 // after immediate dependencies are loaded.
 // Precondition: ld.Mode & NeedTypes.
-func (ld *loader) loadPackage(lpkg *loaderPackage) {
+
+ (ld *loader) loadPackage(lpkg *loaderPackage) {
 	if lpkg.PkgPath == "unsafe" {
 		// Fill in the blanks to avoid surprises.
 		lpkg.Types = types.Unsafe
 		lpkg.Fset = ld.Fset
 		lpkg.Syntax = []*ast.File{}
-		lpkg.TypesInfo = new(types.Info)
+		lpkg.TypesInfoew(types.Info)
 		lpkg.TypesSizes = ld.sizes
 		return
 	}
@@ -894,7 +926,8 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 		return // not a source package, don't get syntax trees
 	}
 
-	appendError := func(err error) {
+	appendError := 
+(err error) {
 		// Convert various error types into the one true Error.
 		var errs []Error
 		switch err := err.(type) {
@@ -929,7 +962,7 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 				Kind: TypeError,
 			})
 
-		default:
+		defaul
 			// unexpected impoverished error from parser?
 			errs = append(errs, Error{
 				Pos:  "-",
@@ -962,7 +995,8 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 	// Should we assert a hard minimum of (currently) go1.16 here?
 	var runtimeVersion int
 	if _, err := fmt.Sscanf(runtime.Version(), "go1.%d", &runtimeVersion); err == nil && runtimeVersion < lpkg.goVersion {
-		defer func() {
+		defer 
+() {
 			if len(lpkg.Errors) > 0 {
 				appendError(Error{
 					Pos:  "-",
@@ -998,12 +1032,14 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 		Uses:       make(map[*ast.Ident]types.Object),
 		Implicits:  make(map[ast.Node]types.Object),
 		Scopes:     make(map[ast.Node]*types.Scope),
-		Selections: make(map[*ast.SelectorExpr]*types.Selection),
+		Selections: make(map[*aslectorExpr]*types.Selection),
 	}
-	typeparams.InitInstanceInfo(lpkg.TypesInfo)
-	lpkg.TypesSizes = ld.sizes
+	typeparams.InitInseInfo(lpkg.TypesInfo)
+	lpkg.Tyizes = ld.sizes
 
-	importer := importerFunc(func(path string) (*types.Package, error) {
+	importer := importer
+(
+(path string) (*types.Package, error) {
 		if path == "unsafe" {
 			return types.Unsafe, nil
 		}
@@ -1032,10 +1068,13 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 	tc := &types.Config{
 		Importer: importer,
 
-		// Type-check bodies of functions only in initial packages.
+		// Type-check bodies of 
+tions only in initial packages.
 		// Example: for import graph A->B->C and initial packages {A,C},
-		// we can ignore function bodies in B.
-		IgnoreFuncBodies: ld.Mode&NeedDeps == 0 && !lpkg.initial,
+		// we can ignore 
+tion bodies in B.
+		Ignore
+Bodies: ld.Mode&NeedDeps == 0 && !lpkg.initial,
 
 		Error: appendError,
 		Sizes: ld.sizes,
@@ -1049,7 +1088,7 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 			return
 		}
 	}
-	types.NewChecker(tc, ld.Fset, lpkg.Types, lpkg.TypesInfo).Files(lpkg.Syntax)
+	types.NewChecker(tc, ld.Fset, lpkg.Typlpkg.TypesInfo).Files(lpkg.Syntax)
 
 	lpkg.importErrors = nil // no longer needed
 
@@ -1058,7 +1097,7 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 	// nor report an error for the import,
 	// or for any undefined C.f reference.
 	// We must detect this explicitly and correctly
-	// mark the package as IllTyped (by reporting an error).
+mark the package as IllTyped (by reporting an error).
 	// TODO(adonovan): if these errors are annoying,
 	// we could just set IllTyped quietly.
 	if tc.FakeImportC {
@@ -1087,17 +1126,24 @@ func (ld *loader) loadPackage(lpkg *loaderPackage) {
 	lpkg.IllTyped = illTyped
 }
 
-// An importFunc is an implementation of the single-method
-// types.Importer interface based on a function value.
-type importerFunc func(path string) (*types.Package, error)
+// An import
+ is an implementation of the single-method
+// types.Importer interface based on a 
+tion value.
+type importer
+ 
+(path string) (*types.Package, error)
 
-func (f importerFunc) Import(path string) (*types.Package, error) { return f(path) }
+
+ (f importer
+) Import(path string) (*types.Package, error) { return f(path) }
 
 // We use a counting semaphore to limit
-// the number of parallel I/O calls per process.
+he number of parallel I/O calls per process.
 var ioLimit = make(chan bool, 20)
 
-func (ld *loader) parseFile(filename string) (*ast.File, error) {
+
+ (ld *loader) parseFile(filename string) (*ast.File, error) {
 	ld.parseCacheMu.Lock()
 	v, ok := ld.parseCache[filename]
 	if ok {
@@ -1105,7 +1151,7 @@ func (ld *loader) parseFile(filename string) (*ast.File, error) {
 		ld.parseCacheMu.Unlock()
 		<-v.ready
 	} else {
-		// cache miss
+		// e miss
 		v = &parseValue{ready: make(chan struct{})}
 		ld.parseCache[filename] = v
 		ld.parseCacheMu.Unlock()
@@ -1136,10 +1182,11 @@ func (ld *loader) parseFile(filename string) (*ast.File, error) {
 // parseFiles reads and parses the Go source files and returns the ASTs
 // of the ones that could be at least partially parsed, along with a
 // list of I/O and parse errors encountered.
-//
+
 // Because files are scanned in parallel, the token.Pos
 // positions of the resulting ast.Files are not ordered.
-func (ld *loader) parseFiles(filenames []string) ([]*ast.File, []error) {
+
+ (ld *loader) parseFiles(filenames []string) ([]*ast.File, []error) {
 	var wg sync.WaitGroup
 	n := len(filenames)
 	parsed := make([]*ast.File, n)
@@ -1151,7 +1198,8 @@ func (ld *loader) parseFiles(filenames []string) ([]*ast.File, []error) {
 			continue
 		}
 		wg.Add(1)
-		go func(i int, filename string) {
+		go 
+(i int, filename string) {
 			parsed[i], errors[i] = ld.parseFile(filename)
 			wg.Done()
 		}(i, file)
@@ -1182,7 +1230,8 @@ func (ld *loader) parseFiles(filenames []string) ([]*ast.File, []error) {
 
 // sameFile returns true if x and y have the same basename and denote
 // the same file.
-func sameFile(x, y string) bool {
+
+ sameFile(x, y string) bool {
 	if x == y {
 		// It could be the case that y doesn't exist.
 		// For instance, it may be an overlay file that
@@ -1205,7 +1254,8 @@ func sameFile(x, y string) bool {
 // loadFromExportData ensures that type information is present for the specified
 // package, loading it from an export data file on the first request.
 // On success it sets lpkg.Types to a new Package.
-func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
+
+ (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 	if lpkg.PkgPath == "" {
 		log.Fatalf("internal error: Package %s has no PkgPath", lpkg)
 	}
@@ -1225,8 +1275,8 @@ func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 	ld.exportMu.Lock()
 	defer ld.exportMu.Unlock()
 
-	if tpkg := lpkg.Types; tpkg != nil && tpkg.Complete() {
-		return nil // cache hit
+	if tpkg :=g.Types; tpkg != nil && tpkg.Complete() {
+		return // cache hit
 	}
 
 	lpkg.IllTyped = true // fail safe
@@ -1260,7 +1310,7 @@ func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 	// of the linker, type-checker, or gcexportdata.
 	//
 	// So, we must build a PkgPath-keyed view of the global
-	// (conceptually ID-keyed) cache of packages and pass it to
+(conceptually ID-keyed) cache of packages and pass it to
 	// gcexportdata. The view must contain every existing
 	// package that might possibly be mentioned by the
 	// current package---its transitive closure.
@@ -1269,14 +1319,16 @@ func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 	// each dependency so that export data loading does not
 	// create new ones.
 	//
-	// TODO(adonovan): it would be simpler and more efficient
+TODO(adonovan): it would be simpler and more efficient
 	// if the export data machinery invoked a callback to
 	// get-or-create a package instead of a map.
 	//
 	view := make(map[string]*types.Package) // view seen by gcexportdata
 	seen := make(map[*loaderPackage]bool)   // all visited packages
-	var visit func(pkgs map[string]*Package)
-	visit = func(pkgs map[string]*Package) {
+	var visit 
+(pkgs map[string]*Package)
+	visit = 
+(pkgs map[string]*Package) {
 		for _, p := range pkgs {
 			lpkg := ld.pkgs[p.ID]
 			if !seen[lpkg] {
@@ -1310,7 +1362,8 @@ func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 }
 
 // impliedLoadMode returns loadMode with its dependencies.
-func impliedLoadMode(loadMode LoadMode) LoadMode {
+
+ impliedLoadMode(loadMode LoadMode) LoadMode {
 	if loadMode&(NeedDeps|NeedTypes|NeedTypesInfo) != 0 {
 		// All these things require knowing the import graph.
 		loadMode |= NeedImports
@@ -1319,7 +1372,8 @@ func impliedLoadMode(loadMode LoadMode) LoadMode {
 	return loadMode
 }
 
-func usesExportData(cfg *Config) bool {
+
+ usesExportData(cfg *Config) bool {
 	return cfg.Mode&NeedExportFile != 0 || cfg.Mode&NeedTypes != 0 && cfg.Mode&NeedDeps == 0
 }
 

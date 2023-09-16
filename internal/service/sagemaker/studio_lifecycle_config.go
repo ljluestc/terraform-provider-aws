@@ -24,10 +24,9 @@ import (
 
 // @SDKResource("aws_sagemaker_studio_lifecycle_config", name="Studio Lifecycle Config")
 // @Tags(identifierAttribute="arn")
-func ResourceStudioLifecycleConfig() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceStudioLifecycleConfigCreate,
-		ReadWithoutTimeout:   resourceStudioLifecycleConfigRead,
+		ReadWithoutTimeout:ourceStudioLifecycleConfigRead,
 		UpdateWithoutTimeout: resourceStudioLifecycleConfigUpdate,
 		DeleteWithoutTimeout: resourceStudioLifecycleConfigDelete,
 		Importer: &schema.ResourceImporter{
@@ -36,23 +35,23 @@ func ResourceStudioLifecycleConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Computed: true,
 			},
 			"studio_lifecycle_config_app_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringInSlice(sagemaker.StudioLifecycleConfigAppType_Values(), false),
 			},
 			"studio_lifecycle_config_content": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:chema.TypeString,
+				Required:
+				ForceNew:
 				ValidateFunc: validation.StringLenBetween(1, 16384),
 			},
 			"studio_lifecycle_config_name": {
-				Type:     schema.TypeString,
+				Type:a.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -60,7 +59,7 @@ func ResourceStudioLifecycleConfig() *schema.Resource {
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z](-*[0-9A-Za-z])*$`), "Valid characters are a-z, A-Z, 0-9, and - (hyphen)."),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -69,15 +68,14 @@ func ResourceStudioLifecycleConfig() *schema.Resource {
 }
 
 func resourceStudioLifecycleConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
+funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("studio_lifecycle_config_name").(string)
 	input := &sagemaker.CreateStudioLifecycleConfigInput{
-		StudioLifecycleConfigName:    aws.String(name),
+		StudioLifecycleConfigName:s.String(name),
 		StudioLifecycleConfigAppType: aws.String(d.Get("studio_lifecycle_config_app_type").(string)),
 		StudioLifecycleConfigContent: aws.String(d.Get("studio_lifecycle_config_content").(string)),
-		Tags:                         getTagsIn(ctx),
+		Tags:
 	}
 
 	log.Printf("[DEBUG] Creating SageMaker Studio Lifecycle Config : %s", input)
@@ -94,8 +92,7 @@ func resourceStudioLifecycleConfigCreate(ctx context.Context, d *schema.Resource
 
 func resourceStudioLifecycleConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
-
+func
 	image, err := FindStudioLifecycleConfigByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
@@ -120,8 +117,7 @@ func resourceStudioLifecycleConfigRead(ctx context.Context, d *schema.ResourceDa
 func resourceStudioLifecycleConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
-	// Tags only.
-
+func
 	return append(diags, resourceStudioLifecycleConfigRead(ctx, d, meta)...)
 }
 
@@ -129,8 +125,7 @@ func resourceStudioLifecycleConfigDelete(ctx context.Context, d *schema.Resource
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
-	input := &sagemaker.DeleteStudioLifecycleConfigInput{
-		StudioLifecycleConfigName: aws.String(d.Id()),
+funcudioLifecycleConfigName: aws.String(d.Id()),
 	}
 
 	log.Printf("[DEBUG] Deleting SageMaker Studio Lifecycle Config: (%s)", d.Id())

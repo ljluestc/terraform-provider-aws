@@ -7,7 +7,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
 )
 
-func Schema(in *tfprotov6.Schema) (*tfplugin6.Schema, error) {
+
+ema(in *tfprotov6.Schema) (*tfplugin6.Schema, error) {
 	var resp tfplugin6.Schema
 	resp.Version = in.Version
 	if in.Block != nil {
@@ -20,7 +21,8 @@ func Schema(in *tfprotov6.Schema) (*tfplugin6.Schema, error) {
 	return &resp, nil
 }
 
-func Schema_Block(in *tfprotov6.SchemaBlock) (*tfplugin6.Schema_Block, error) {
+
+ema_Block(in *tfprotov6.SchemaBlock) (*tfplugin6.Schema_Block, error) {
 	resp := &tfplugin6.Schema_Block{
 		Version:         in.Version,
 		Description:     in.Description,
@@ -40,7 +42,8 @@ func Schema_Block(in *tfprotov6.SchemaBlock) (*tfplugin6.Schema_Block, error) {
 	return resp, nil
 }
 
-func Schema_Attribute(in *tfprotov6.SchemaAttribute) (*tfplugin6.Schema_Attribute, error) {
+
+ema_Attribute(in *tfprotov6.SchemaAttribute) (*tfplugin6.Schema_Attribute, error) {
 	resp := &tfplugin6.Schema_Attribute{
 		Name:            in.Name,
 		Description:     in.Description,
@@ -68,7 +71,8 @@ func Schema_Attribute(in *tfprotov6.SchemaAttribute) (*tfplugin6.Schema_Attribut
 	return resp, nil
 }
 
-func Schema_Attributes(in []*tfprotov6.SchemaAttribute) ([]*tfplugin6.Schema_Attribute, error) {
+
+ema_Attributes(in []*tfprotov6.SchemaAttribute) ([]*tfplugin6.Schema_Attribute, error) {
 	resp := make([]*tfplugin6.Schema_Attribute, 0, len(in))
 	for _, a := range in {
 		if a == nil {
@@ -84,7 +88,8 @@ func Schema_Attributes(in []*tfprotov6.SchemaAttribute) ([]*tfplugin6.Schema_Att
 	return resp, nil
 }
 
-func Schema_NestedBlock(in *tfprotov6.SchemaNestedBlock) (*tfplugin6.Schema_NestedBlock, error) {
+
+ema_NestedBlock(in *tfprotov6.SchemaNestedBlock) (*tfplugin6.Schema_NestedBlock, error) {
 	resp := &tfplugin6.Schema_NestedBlock{
 		TypeName: in.TypeName,
 		Nesting:  Schema_NestedBlock_NestingMode(in.Nesting),
@@ -101,7 +106,8 @@ func Schema_NestedBlock(in *tfprotov6.SchemaNestedBlock) (*tfplugin6.Schema_Nest
 	return resp, nil
 }
 
-func Schema_NestedBlocks(in []*tfprotov6.SchemaNestedBlock) ([]*tfplugin6.Schema_NestedBlock, error) {
+
+ema_NestedBlocks(in []*tfprotov6.SchemaNestedBlock) ([]*tfplugin6.Schema_NestedBlock, error) {
 	resp := make([]*tfplugin6.Schema_NestedBlock, 0, len(in))
 	for _, b := range in {
 		if b == nil {
@@ -117,15 +123,18 @@ func Schema_NestedBlocks(in []*tfprotov6.SchemaNestedBlock) ([]*tfplugin6.Schema
 	return resp, nil
 }
 
-func Schema_NestedBlock_NestingMode(in tfprotov6.SchemaNestedBlockNestingMode) tfplugin6.Schema_NestedBlock_NestingMode {
+
+ema_NestedBlock_NestingMode(in tfprotov6.SchemaNestedBlockNestingMode) tfplugin6.Schema_NestedBlock_NestingMode {
 	return tfplugin6.Schema_NestedBlock_NestingMode(in)
 }
 
-func Schema_Object_NestingMode(in tfprotov6.SchemaObjectNestingMode) tfplugin6.Schema_Object_NestingMode {
+
+ema_Object_NestingMode(in tfprotov6.SchemaObjectNestingMode) tfplugin6.Schema_Object_NestingMode {
 	return tfplugin6.Schema_Object_NestingMode(in)
 }
 
-func Schema_Object(in *tfprotov6.SchemaObject) (*tfplugin6.Schema_Object, error) {
+
+ema_Object(in *tfprotov6.SchemaObject) (*tfplugin6.Schema_Object, error) {
 	resp := &tfplugin6.Schema_Object{
 		Nesting: Schema_Object_NestingMode(in.Nesting),
 	}
@@ -139,7 +148,9 @@ func Schema_Object(in *tfprotov6.SchemaObject) (*tfplugin6.Schema_Object, error)
 }
 
 // we have to say this next thing to get golint to stop yelling at us about the
-// underscores in the function names. We want the function names to match
+// underscores in the 
+ names. We want the 
+ names to match
 // actually-generated code, so it feels like fair play. It's just a shame we
 // lose golint for the entire file.
 //

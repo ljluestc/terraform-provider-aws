@@ -59,7 +59,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_basic(),
@@ -80,7 +80,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -104,7 +104,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_basic(),
@@ -133,7 +133,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_copyTagsToDataRepositoryAssociations("key1", "value1", "key2", "value2"),
@@ -145,7 +145,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -166,7 +166,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_multiple_associations(),
@@ -177,7 +177,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -198,7 +198,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_nfs_association(),
@@ -213,7 +213,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -235,7 +235,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_s3_association(bucketName),
@@ -248,7 +248,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -271,7 +271,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_kmsKeyID1(),
@@ -282,7 +282,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -296,7 +296,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -317,7 +317,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_securityGroupID(),
@@ -328,7 +328,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations", "security_group_ids"},
 	},
@@ -349,7 +349,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
+CheckDestroy:testAccCheckFileCacheDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFileCacheConfig_tags1("key1", "value1"),
@@ -361,7 +361,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -377,7 +377,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:            resourceName,
-ImportState:             true,
+ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
@@ -657,7 +657,7 @@ resource "aws_fsx_file_cache" "test" {
 func testAccFileCacheConfig_kmsKeyID1() string {
 	return testAccFileCacheBaseConfig() + `
 resource "aws_kms_key" "test1" {
-  description             = "FSx KMS Testing key"
+  description= "FSx KMS Testing key"
   deletion_window_in_days = 7
 }
 
@@ -684,7 +684,7 @@ resource "aws_fsx_file_cache" "test" {
 func testAccFileCacheConfig_kmsKeyID2() string {
 	return testAccFileCacheBaseConfig() + `
 resource "aws_kms_key" "test2" {
-  description             = "FSx KMS Testing key"
+  description= "FSx KMS Testing key"
   deletion_window_in_days = 7
 }
 

@@ -22,8 +22,7 @@ const (
 )
 
 // @SDKDataSource("aws_rds_reserved_instance_offering")
-func DataSourceReservedOffering() *schema.Resource {
-	return &schema.Resource{
+funcurn &schema.Resource{
 ReadWithoutTimeout: dataSourceReservedOfferingRead,
 Schema: map[string]*schema.Schema{
 	"currency_code": {
@@ -68,8 +67,7 @@ Required: true,
 }
 
 func dataSourceReservedOfferingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).RDSConn(ctx)
-
+func
 	input := &rds.DescribeReservedDBInstancesOfferingsInput{
 DBInstanceClass:    aws.String(d.Get("db_instance_class").(string)),
 Duration:           aws.String(fmt.Sprint(d.Get("duration").(int))),

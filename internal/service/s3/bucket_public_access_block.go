@@ -19,8 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_s3_bucket_public_access_block")
-func ResourceBucketPublicAccessBlock() *schema.Resource {
+// @SDKResource("aws_s3_bucket_public_access_block")func ResourceBucketPublicAccessBlock() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketPublicAccessBlockCreate,
 		ReadWithoutTimeout:   resourceBucketPublicAccessBlockRead,
@@ -62,10 +61,7 @@ func ResourceBucketPublicAccessBlock() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceBucketPublicAccessBlockCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+}func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
 	bucket := d.Get("bucket").(string)
 
@@ -102,11 +98,8 @@ func resourceBucketPublicAccessBlockCreate(ctx context.Context, d *schema.Resour
 
 	d.SetId(bucket)
 	return append(diags, resourceBucketPublicAccessBlockRead(ctx, d, meta)...)
-}
-
-func resourceBucketPublicAccessBlockRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+}func resourceBucketPublicAccessBlockRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 
 	input := &s3.GetPublicAccessBlockInput{
 		Bucket: aws.String(d.Id()),
@@ -164,12 +157,9 @@ func resourceBucketPublicAccessBlockRead(ctx context.Context, d *schema.Resource
 	d.Set("restrict_public_buckets", output.PublicAccessBlockConfiguration.RestrictPublicBuckets)
 
 	return diags
-}
-
-func resourceBucketPublicAccessBlockUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketPublicAccessBlockUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
+	func
 	input := &s3.PutPublicAccessBlockInput{
 		Bucket: aws.String(d.Id()),
 		PublicAccessBlockConfiguration: &s3.PublicAccessBlockConfiguration{
@@ -197,13 +187,10 @@ func resourceBucketPublicAccessBlockUpdate(ctx context.Context, d *schema.Resour
 
 	// Skip normal Read after Update due to eventual consistency issues
 	return diags
-}
-
-func resourceBucketPublicAccessBlockDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBucketPublicAccessBlockDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	input := &s3.DeletePublicAccessBlockInput{
+funcut := &s3.DeletePublicAccessBlockInput{
 		Bucket: aws.String(d.Id()),
 	}
 

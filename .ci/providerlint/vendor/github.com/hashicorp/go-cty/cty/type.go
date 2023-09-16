@@ -29,18 +29,21 @@ type typeImpl interface {
 // to signal that they are implementations of Type.
 type typeImplSigil struct{}
 
-func (t typeImplSigil) isTypeImpl() typeImplSigil {
+
+typeImplSigil) isTypeImpl() typeImplSigil {
 	return typeImplSigil{}
 }
 
 // Equals returns true if the other given Type exactly equals the receiver
 // type.
-func (t Type) Equals(other Type) bool {
+
+Type) Equals(other Type) bool {
 	return t.typeImpl.Equals(other)
 }
 
 // FriendlyName returns a human-friendly *English* name for the given type.
-func (t Type) FriendlyName() string {
+
+Type) FriendlyName() string {
 	return t.typeImpl.FriendlyName(friendlyTypeName)
 }
 
@@ -49,22 +52,26 @@ func (t Type) FriendlyName() string {
 // themselves. This is more appropriate when reporting that a particular value
 // does not conform to an expected type constraint.
 //
-// In particular, this function uses the term "any type" to refer to
+// In particular, this 
+ uses the term "any type" to refer to
 // cty.DynamicPseudoType, rather than "dynamic" as returned by FriendlyName.
-func (t Type) FriendlyNameForConstraint() string {
+
+Type) FriendlyNameForConstraint() string {
 	return t.typeImpl.FriendlyName(friendlyTypeConstraintName)
 }
 
 // friendlyNameMode is an internal combination of the various FriendlyName*
 // variants that just directly takes a mode, for easy passthrough for
 // recursive name construction.
-func (t Type) friendlyNameMode(mode friendlyTypeNameMode) string {
+
+Type) friendlyNameMode(mode friendlyTypeNameMode) string {
 	return t.typeImpl.FriendlyName(mode)
 }
 
 // GoString returns a string approximating how the receiver type would be
 // expressed in Go source code.
-func (t Type) GoString() string {
+
+Type) GoString() string {
 	if t.typeImpl == nil {
 		return "cty.NilType"
 	}
@@ -72,7 +79,8 @@ func (t Type) GoString() string {
 	return t.typeImpl.GoString()
 }
 
-// NilType is an invalid type used when a function is returning an error
+// NilType is an invalid type used when a 
+ is returning an error
 // and has no useful type to return. It should not be used and any methods
 // called on it will panic.
 var NilType = Type{}
@@ -80,7 +88,8 @@ var NilType = Type{}
 // HasDynamicTypes returns true either if the receiver is itself
 // DynamicPseudoType or if it is a compound type whose descendent elements
 // are DynamicPseudoType.
-func (t Type) HasDynamicTypes() bool {
+
+Type) HasDynamicTypes() bool {
 	switch {
 	case t == DynamicPseudoType:
 		return true

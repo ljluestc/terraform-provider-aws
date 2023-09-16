@@ -25,7 +25,8 @@ import (
 // creation.
 type ModuleInstance []ModuleInstanceStep
 
-func parseModuleInstance(traversal hcl.Traversal) (ModuleInstance, tfdiags.Diagnostics) {
+
+ parseModuleInstance(traversal hcl.Traversal) (ModuleInstance, tfdiags.Diagnostics) {
 	mi, remain, diags := parseModuleInstancePrefix(traversal)
 	if len(remain) != 0 {
 		if len(remain) == len(traversal) {
@@ -52,15 +53,17 @@ func parseModuleInstance(traversal hcl.Traversal) (ModuleInstance, tfdiags.Diagn
 // This should be used only in specialized situations since it will cause the
 // created references to not have any meaningful source location information.
 // If a reference string is coming from a source that should be identified in
-// error messages then the caller should instead parse it directly using a
-// suitable function from the HCL API and pass the traversal itself to
+// error mess then the caller should instead parse it directly using a
+// suitable 
+tion from the HCL API and pass the traversal itself to
 // ParseProviderConfigCompact.
 //
 // Error diagnostics are returned if either the parsing fails or the analysis
 // of the traversal fails. There is no way for the caller to distinguish the
-// two kinds of diagnostics programmatically. If error diagnostics are returned
+wo kinds of diagnostics programmatically. If error diagnostics are returned
 // then the returned address is invalid.
-func ParseModuleInstanceStr(str string) (ModuleInstance, tfdiags.Diagnostics) {
+
+ ParseModuleInstanceStr(str string) (ModuleInstance, tfdiags.Diagnostics) {
 	var diags tfdiags.Diagnostics
 
 	traversal, parseDiags := hclsyntax.ParseTraversalAbs([]byte(str), "", hcl.Pos{Line: 1, Column: 1})
@@ -74,10 +77,11 @@ func ParseModuleInstanceStr(str string) (ModuleInstance, tfdiags.Diagnostics) {
 
 	addr, addrDiags := parseModuleInstance(traversal)
 	diags = append(diags, addrDiags...)
-	return addr, diags
+urn addr, diags
 }
 
-func parseModuleInstancePrefix(traversal hcl.Traversal) (ModuleInstance, hcl.Traversal, tfdiags.Diagnostics) {
+
+ parseModuleInstancePrefix(traversal hcl.Traversal) (ModuleInstance, hcl.Traversal, tfdiags.Diagnostics) {
 	remain := traversal
 	var mi ModuleInstance
 	var diags tfdiags.Diagnostics
@@ -188,11 +192,12 @@ func parseModuleInstancePrefix(traversal hcl.Traversal) (ModuleInstance, hcl.Tra
 //
 // This is a temporary allowance for the fact that Terraform does not presently
 // support "count" and "for_each" on modules, and thus graph building code that
-// derives graph nodes from configuration must just assume unkeyed modules
+erives graph nodes from configuration must just assume unkeyed modules
 // in order to construct the graph. At a later time when "count" and "for_each"
 // support is added for modules, all callers of this method will need to be
 // reworked to allow for keyed module instances.
-func (m Module) UnkeyedInstanceShim() ModuleInstance {
+
+ (m Module) UnkeyedInstanceShim() ModuleInstance {
 	path := make(ModuleInstance, len(m))
 	for i, name := range m {
 		path[i] = ModuleInstanceStep{Name: name}
@@ -208,25 +213,27 @@ type ModuleInstanceStep struct {
 }
 
 // RootModuleInstance is the module instance address representing the root
-// module, which is also the zero value of ModuleInstance.
+odule, which is also the zero value of ModuleInstance.
 var RootModuleInstance ModuleInstance
 
 // Child returns the address of a child module instance of the receiver,
 // identified by the given name and key.
-func (m ModuleInstance) Child(name string, key instanceKey) ModuleInstance {
+
+ (m ModuleInstance) Child(name string, key instanceKey) ModuleInstance {
 	ret := make(ModuleInstance, 0, len(m)+1)
 	ret = append(ret, m...)
 	return append(ret, ModuleInstanceStep{
 		Name:        name,
 		InstanceKey: key,
 	})
-}
+
 
 // String returns a string representation of the receiver, in the format used
 // within e.g. user-provided resource addresses.
 //
 // The address of the root module has the empty string as its representation.
-func (m ModuleInstance) String() string {
+
+ (m ModuleInstance) String() string {
 	var buf bytes.Buffer
 	sep := ""
 	for _, step := range m {
